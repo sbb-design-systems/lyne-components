@@ -231,12 +231,12 @@ const TemplateSbbTimeInput = ({
   <div id="example-parent">
     <sbb-form-field
       size=${size}
-      label=${label}
       ?optional=${optional}
       ?borderless=${borderless}
       ?negative=${negative}
       width="collapse"
     >
+      ${label ? html`<label>${label}</label>` : nothing}
       ${iconStart ? html`<sbb-icon slot="prefix" name=${iconStart}></sbb-icon>` : nothing}
       <sbb-time-input
         @change=${(event: CustomEvent) => changeEventHandler(event)}

@@ -59,7 +59,8 @@ const basicArgs: Args = {
 };
 
 const DefaultTemplate = ({ negative, ...args }: Args): TemplateResult => html`
-  <sbb-form-field label="Label" ?negative=${negative}>
+  <sbb-form-field ?negative=${negative}>
+    <label>Label</label>
     <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
     <input type="text" placeholder="Input placeholder" value="Input value" ${sbbSpread(args)} />
     <sbb-form-field-clear></sbb-form-field-clear>

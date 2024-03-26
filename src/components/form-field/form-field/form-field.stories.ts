@@ -77,7 +77,6 @@ const TemplateInput = ({
 }: Args): TemplateResult => html`
   <sbb-form-field
     error-space=${errorSpace}
-    label=${label || nothing}
     ?optional=${optional}
     size=${size}
     ?borderless=${borderless}
@@ -86,11 +85,11 @@ const TemplateInput = ({
     ?floating-label=${floatingLabel}
     ?negative=${negative}
   >
-    ${TemplateBasicInput(args)}
+    ${label ? html`<label>${label}</label>` : nothing} ${TemplateBasicInput(args)}
   </sbb-form-field>
 `;
 
-const TemplateInputWithSlottedLabel = ({
+const TemplateInputWithSlottedSpanLabel = ({
   'error-space': errorSpace,
   label,
   optional,
@@ -127,7 +126,6 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
       <div>
         <sbb-form-field
           error-space=${args['error-space']}
-          label=${args.label}
           ?optional=${args.optional}
           size=${args.size}
           ?borderless=${args.borderless}
@@ -136,6 +134,7 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
           ?floating-label=${args['floating-label']}
           ?negative=${args.negative}
         >
+          ${args.label ? html`<label>${args.label}</label>` : nothing}
           <input
             @keyup=${(event: KeyboardEvent) => {
               const input = event.currentTarget as HTMLInputElement;
@@ -162,20 +161,23 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateInputWithIcons = (args: Args): TemplateResult => html`
+const TemplateInputWithIcons = ({ label, ...args }: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
+    ${label ? html`<label>${label}</label>` : nothing}
     <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
     ${TemplateBasicInput(args)} ${PopoverTrigger()}
   </sbb-form-field>
 `;
 
 const TemplateInputWithMiniButton = ({
+  label,
   disabled,
   readonly,
   active,
   ...args
 }: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
+    ${label ? html`<label>${label}</label>` : nothing}
     ${TemplateBasicInput({ disabled, readonly, ...args })}
     <sbb-mini-button
       slot="suffix"
@@ -188,12 +190,14 @@ const TemplateInputWithMiniButton = ({
 `;
 
 const TemplateInputWithClearButton = ({
+  label,
   disabled,
   readonly,
   active,
   ...args
 }: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
+    ${label ? html`<label>${label}</label>` : nothing}
     ${TemplateBasicInput({ disabled, readonly, ...args })}
     <sbb-form-field-clear ?data-active=${active}></sbb-form-field-clear>
   </sbb-form-field>
@@ -202,7 +206,6 @@ const TemplateInputWithClearButton = ({
 const TemplateSelect = (args: Args): TemplateResult => html`
   <sbb-form-field
     error-space=${args['error-space']}
-    label=${args.label}
     ?optional=${args.optional}
     size=${args.size}
     ?borderless=${args.borderless}
@@ -211,7 +214,7 @@ const TemplateSelect = (args: Args): TemplateResult => html`
     ?floating-label=${args['floating-label']}
     ?negative=${args.negative}
   >
-    ${TemplateBasicSelect(args)}
+    ${args.label ? html`<label>${args.label}</label>` : nothing} ${TemplateBasicSelect(args)}
   </sbb-form-field>
 `;
 
@@ -225,7 +228,6 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
       <div>
         <sbb-form-field
           error-space=${args['error-space']}
-          label=${args.label}
           ?optional=${args.optional}
           size=${args.size}
           ?borderless=${args.borderless}
@@ -234,6 +236,7 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
           ?floating-label=${args['floating-label']}
           ?negative=${args.negative}
         >
+          ${args.label ? html`<label>${args.label}</label>` : nothing}
           <select
             @change=${(event: Event) => {
               const select = event.currentTarget as HTMLSelectElement;
@@ -265,8 +268,9 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateSelectWithIcons = (args: Args): TemplateResult => html`
+const TemplateSelectWithIcons = ({ label, ...args }: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
+    ${label ? html`<label>${label}</label>` : nothing}
     <span slot="prefix">
       <sbb-icon name="pie-small"></sbb-icon>
     </span>
@@ -335,7 +339,7 @@ const errorSpace: InputType = {
   },
   options: ['none', 'reserve'],
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -345,7 +349,7 @@ const width: InputType = {
   },
   options: ['default', 'collapse'],
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -354,7 +358,7 @@ const label: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -363,7 +367,7 @@ const hiddenLabel: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -372,7 +376,7 @@ const floatingLabel: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -381,7 +385,7 @@ const optional: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -390,7 +394,7 @@ const borderless: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -400,7 +404,7 @@ const size: InputType = {
   },
   options: ['m', 'l'],
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -409,7 +413,7 @@ const negative: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -489,7 +493,7 @@ export const InputHiddenLabel: StoryObj = {
 };
 
 export const InputWithSlottedLabel: StoryObj = {
-  render: TemplateInputWithSlottedLabel,
+  render: TemplateInputWithSlottedSpanLabel,
   argTypes: basicArgTypes,
   args: { ...basicArgs, value: 'Random value' },
 };
@@ -652,7 +656,7 @@ export const InputNegative: StoryObj = {
 };
 
 export const InputWithSlottedLabelNegative: StoryObj = {
-  render: TemplateInputWithSlottedLabel,
+  render: TemplateInputWithSlottedSpanLabel,
   argTypes: basicArgTypes,
   args: { ...basicArgs, value: 'Random value', negative: true },
 };

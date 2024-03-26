@@ -252,9 +252,9 @@ const Template = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      label="Label"
       data-testid="form-field"
     >
+      <label>Label</label>
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -279,9 +279,9 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      label="Label"
       data-testid="form-field"
     >
+      <label>Label</label>
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -309,9 +309,9 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      label="Label"
       data-testid="form-field"
     >
+      <label>Label</label>
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -352,10 +352,10 @@ const RequiredTemplate = (args: Args): TemplateResult => {
         ?negative=${args.negative}
         ?borderless=${args.borderless}
         ?floating-label=${args.floatingLabel}
-        label="Label"
         data-testid="form-field"
         id="sbb-form-field"
       >
+        <label>Label</label>
         <input
           id="sbb-autocomplete"
           data-testid="autocomplete-input"

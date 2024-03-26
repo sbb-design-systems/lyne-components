@@ -25,18 +25,6 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
       assert.instanceOf(element, SbbFormFieldElement);
     });
 
-    it('should remove the label element if no label is configured', async () => {
-      expect(element.querySelector('label')).to.be.null;
-
-      element.setAttribute('label', 'Label');
-      await waitForLitRender(element);
-      expect(element.querySelector('label')).not.to.be.null;
-
-      element.removeAttribute('label');
-      await waitForLitRender(element);
-      expect(element.querySelector('label')).to.be.null;
-    });
-
     it('should update empty input state', async () => {
       expect(element).to.have.attribute('data-input-empty');
 
@@ -85,11 +73,12 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should assign id to input and reference it in the label', async () => {
-      element.setAttribute('label', 'Example');
-      await waitForLitRender(element);
-      const label = element.querySelector('label');
+      const newLabel = document.createElement('label');
+      newLabel.textContent = 'Example';
+      element.prepend(newLabel);
 
       await waitForLitRender(element);
+      const label = element.querySelector('label');
 
       expect(input.id).to.match(/^sbb-form-field-input-/);
       expect(label).to.have.attribute('for', input.id);
@@ -147,7 +136,8 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`
-          <sbb-form-field label="Example">
+          <sbb-form-field>
+            <label>Example</label>
             <sbb-select><sbb-option>Test</sbb-option></sbb-select>
           </sbb-form-field>
         `,
@@ -198,8 +188,6 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should assign id to label and reference it in the sbb-select', async () => {
-      element.setAttribute('label', 'Example');
-      await waitForLitRender(element);
       const label = element.querySelector('label')!;
 
       expect(label.id).to.match(/^sbb-form-field-label-/);

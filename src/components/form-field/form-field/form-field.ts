@@ -9,7 +9,7 @@ import {
   NamedSlotStateController,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import { getLocalName, isBrowser, isFirefox, isValidAttribute } from '../../core/dom';
+import { isFirefox, isValidAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';
@@ -21,7 +21,7 @@ import style from './form-field.scss?lit&inline';
 let nextId = 0;
 let nextFormFieldErrorId = 0;
 
-const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
+const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-select'];
 
 /**
  * It wraps an input element adding label, errors, icon, etc.
@@ -36,17 +36,17 @@ const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
 export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  private readonly _supportedNativeInputElements = ['INPUT', 'SELECT'];
+  private readonly _supportedNativeInputElements = ['input', 'select'];
   // List of supported element selectors in unnamed slot
   private readonly _supportedInputElements = [
     ...this._supportedNativeInputElements,
-    'SBB-SELECT',
-    'SBB-SLIDER',
+    'sbb-select',
+    'sbb-slider',
   ];
   // List of elements that should not focus input on click
-  private readonly _excludedFocusElements = ['BUTTON', 'SBB-POPOVER'];
+  private readonly _excludedFocusElements = ['button', 'sbb-popover'];
 
-  private readonly _floatingLabelSupportedInputElements = ['INPUT', 'SELECT', 'SBB-SELECT'];
+  private readonly _floatingLabelSupportedInputElements = ['input', 'select', 'sbb-select'];
 
   private readonly _floatingLabelSupportedInputTypes = [
     'email',
@@ -65,9 +65,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
    */
   @property({ attribute: 'error-space', reflect: true })
   public errorSpace?: 'none' | 'reserve' = 'none';
-
-  /** Label text for the input which is internally rendered as `<label>`. */
-  @property({ reflect: true }) public label?: string;
 
   /** Indicates whether the input is optional. */
   @property({ type: Boolean }) public optional?: boolean;
@@ -138,9 +135,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('label')) {
-      this._renderLabel(this.label!);
-    }
     if (changedProperties.has('negative')) {
       this._syncNegative();
     }
@@ -152,39 +146,14 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     this._inputAbortController.abort();
   }
 
-  private _renderLabel(newValue: string): void {
-    if (!isBrowser()) {
-      return;
-    }
-    let labelElement = Array.from(this.children).find((element) => element.tagName === 'LABEL') as
-      | HTMLLabelElement
-      | undefined;
-
-    const localName = this.localName ?? getLocalName(this);
-    if (!newValue && labelElement?.dataset.creator === localName) {
-      labelElement.remove();
-    } else if (
-      labelElement?.dataset.creator === localName &&
-      labelElement.textContent !== newValue
-    ) {
-      labelElement.textContent = newValue;
-    } else if (!labelElement && newValue) {
-      labelElement = this.ownerDocument.createElement('label');
-      labelElement.dataset.creator = localName;
-      labelElement.setAttribute('slot', 'label');
-      labelElement.textContent = newValue;
-      this.insertBefore(labelElement, this.firstChild);
-    }
-  }
-
   private _onPopupOpen({ target }: CustomEvent<void>): void {
-    if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
+    if (supportedPopupTagNames.includes((target as HTMLElement).localName)) {
       this.toggleAttribute('data-has-popup-open', true);
     }
   }
 
   private _onPopupClose({ target }: CustomEvent<void>): void {
-    if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
+    if (supportedPopupTagNames.includes((target as HTMLElement).localName)) {
       this.toggleAttribute('data-has-popup-open', false);
     }
   }
@@ -194,10 +163,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       return;
     }
 
-    if (this._input?.tagName === 'SBB-SELECT') {
+    if (this._input?.localName === 'sbb-select') {
       this._input.click();
       this._input.focus();
-    } else if ((event.target as Element).tagName !== 'LABEL') {
+    } else if ((event.target as Element).localName !== 'label') {
       this._input?.focus();
     }
   }
@@ -208,17 +177,12 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       .some(
         (el) =>
           (el instanceof window.HTMLElement && el.getAttribute('role') === 'button') ||
-          this._excludedFocusElements.includes((el as HTMLElement).tagName),
+          this._excludedFocusElements.includes((el as HTMLElement).localName),
       );
   }
 
   private _onSlotLabelChange(): void {
-    let labels = Array.from(this.querySelectorAll('label'));
-    const createdLabel = labels.find((l) => l.dataset.creator === this.tagName);
-    if (labels.length > 1 && createdLabel) {
-      createdLabel.remove();
-      labels = labels.filter((l) => l !== createdLabel);
-    }
+    const labels = Array.from(this.querySelectorAll('label'));
     if (labels.length > 1) {
       console.warn(
         `Detected more than one label in sbb-form-field#${this.id}. Only one label is supported.`,
@@ -234,7 +198,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   private _onSlotInputChange(event: Event): void {
     this._input = (event.target as HTMLSlotElement)
       .assignedElements()
-      .find((e): e is HTMLElement => this._supportedInputElements.includes(e.tagName));
+      .find((e): e is HTMLElement => this._supportedInputElements.includes(e.localName));
     this._assignSlots();
 
     if (!this._input) {
@@ -251,7 +215,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       attributes: true,
       attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid'],
     });
-    this.dataset.inputType = this._input.tagName.toLowerCase();
+    this.dataset.inputType = this._input.localName;
     this._syncLabelInputReferences();
   }
 
@@ -260,7 +224,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       return;
     }
 
-    if (this._supportedNativeInputElements.includes(this._input.tagName)) {
+    if (this._supportedNativeInputElements.includes(this._input.localName)) {
       // For native input elements we use the `for` attribute on the label to reference the input
       // via id reference.
       if (!this._input.id) {
@@ -306,7 +270,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
     let inputFocusElement = this._input;
 
-    if (this._input.tagName === 'SBB-SELECT') {
+    if (this._input.localName === 'sbb-select') {
       this._input.addEventListener('stateChange', () => this._checkAndUpdateInputEmpty(), {
         signal: this._inputAbortController.signal,
       });
@@ -348,7 +312,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   private _checkAndUpdateInputEmpty(): void {
     this.toggleAttribute(
       'data-input-empty',
-      this._floatingLabelSupportedInputElements.includes(this._input?.tagName as string) &&
+      this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) &&
         this._isInputEmpty(),
     );
   }
@@ -361,7 +325,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       );
     } else if (this._input instanceof HTMLSelectElement) {
       return this._input.selectedOptions?.item(0)?.label?.trim() === '';
-    } else if (this._input?.tagName === 'SBB-SELECT') {
+    } else if (this._input?.localName === 'sbb-select') {
       return (this._input as SbbSelectElement).getDisplayValue()?.trim() === '';
     } else {
       return this._isInputValueEmpty();
@@ -446,7 +410,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
   /** Manually clears the input value. It only works for inputs, selects are not supported. */
   public clear(): void {
-    if ((this._input?.tagName as string) !== 'INPUT') {
+    if ((this._input?.localName as string) !== 'input') {
       return;
     }
     (this._input as { value: string }).value = '';
@@ -488,7 +452,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            ${['SELECT', 'SBB-SELECT'].includes(this._input?.tagName as string)
+            ${['select', 'sbb-select'].includes(this._input?.localName as string)
               ? html`<sbb-icon
                   name="chevron-small-down-small"
                   class="sbb-form-field__select-input-icon"

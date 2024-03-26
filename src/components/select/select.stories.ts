@@ -299,9 +299,9 @@ const FormFieldTemplate = ({
       ?borderless=${borderless}
       ?negative=${negative}
       ?floating-label=${floatingLabel}
-      label="Select"
       data-testid="form-field"
     >
+      <label>Select</label>
       <sbb-select
         ${sbbSpread(args)}
         @change=${(event: Event) => changeEventHandler(event)}
@@ -338,9 +338,9 @@ const SelectEllipsisTemplate = ({
         ?borderless=${borderless}
         ?negative=${negative}
         ?floating-label=${floatingLabel}
-        label="Select"
         data-testid="form-field"
       >
+        <label>Select</label>
         <sbb-select
           ${sbbSpread(args)}
           @change=${(event: Event) => changeEventHandler(event)}
@@ -386,9 +386,9 @@ const FormFieldTemplateWithError = ({
         ?negative=${negative}
         ?floating-label=${floatingLabel}
         id="sbb-form-field"
-        label="Select"
         data-testid="form-field"
       >
+        <label>Select</label>
         <sbb-select
           ${sbbSpread(args)}
           id="sbb-select"
@@ -425,9 +425,9 @@ const KeyboardInteractionTemplate = ({
     ?borderless=${borderless}
     ?negative=${negative}
     ?floating-label=${floatingLabel}
-    label="Select"
     data-testid="form-field"
   >
+    <label>Select</label>
     <sbb-select
       ?multiple=${args.multiple}
       placeholder=${args.placeholder}

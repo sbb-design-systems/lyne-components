@@ -15,7 +15,8 @@ describe(`sbb-form-field-clear`, () => {
 
     beforeEach(async () => {
       root = await fixture(html`
-        <sbb-form-field label="Label">
+        <sbb-form-field>
+          <label>Label</label>
           <input type="text" placeholder="Input placeholder" value="Input value" />
           <sbb-form-field-clear></sbb-form-field-clear>
         </sbb-form-field>
