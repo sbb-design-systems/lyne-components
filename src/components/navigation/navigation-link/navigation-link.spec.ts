@@ -32,9 +32,9 @@ describe(`sbb-navigation-link`, () => {
         >
         </sbb-icon>
         <slot></slot>
-        <sbb-screenreader-only>
+        <sbb-screen-reader-only>
           . Link target opens in a new window.
-        </sbb-screenreader-only>
+        </sbb-screen-reader-only>
       </a>
     `);
   });

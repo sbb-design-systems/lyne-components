@@ -22,9 +22,9 @@ snapshots["sbb-train-formation should render with one train"] =
     </span>
   </div>
   <div class="sbb-train-formation__trains">
-    <sbb-screenreader-only>
+    <sbb-screen-reader-only>
       Trains
-    </sbb-screenreader-only>
+    </sbb-screen-reader-only>
     <span class="sbb-train-formation__train-list">
       <span>
         <slot name="li-0">

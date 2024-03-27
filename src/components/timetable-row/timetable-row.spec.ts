@@ -67,7 +67,7 @@ describe(`sbb-timetable-row`, () => {
                     role="img"
                   >
                   </sbb-icon>
-                  <span class="sbb-screenreaderonly">
+                  <span class="sbb-screen-reader-only">
                     Train
                   </span>
                 </span>
@@ -79,7 +79,7 @@ describe(`sbb-timetable-row`, () => {
                     role="img"
                   >
                   </sbb-icon>
-                  <span class="sbb-screenreaderonly">
+                  <span class="sbb-screen-reader-only">
                   </span>
                 </span>
               </div>
@@ -97,7 +97,7 @@ describe(`sbb-timetable-row`, () => {
               role="gridcell"
             >
               <time>
-                <span class="sbb-screenreaderonly">
+                <span class="sbb-screen-reader-only">
                   Travel time 1 Hour 15 Minutes
                 </span>
                 <span aria-hidden="true">
@@ -133,7 +133,7 @@ describe(`sbb-timetable-row`, () => {
               <div class="sbb-timetable__row-details">
                 <span class="sbb-timetable__row-transport-wrapper">
                   <sbb-icon aria-hidden="true" data-namespace="picto" role="img" class="sbb-timetable__row-transport-icon" name="picto:bus-right"></sbb-icon>
-                  <span class="sbb-screenreaderonly">
+                  <span class="sbb-screen-reader-only">
                     Bus
                   </span>
                 </span>
@@ -148,11 +148,11 @@ describe(`sbb-timetable-row`, () => {
             <sbb-pearl-chain-time data-now="1660662000000" role="gridcell"></sbb-pearl-chain-time>
             <div class="sbb-timetable__row-footer" role="gridcell">
               <span>
-                <span class="sbb-screenreaderonly">
+                <span class="sbb-screen-reader-only">
                   Departure
                 </span>
                 <span class="sbb-timetable__row--quay">
-                  <span class="sbb-screenreaderonly">
+                  <span class="sbb-screen-reader-only">
                     from Stand
                   </span>
                   <span class="sbb-timetable__row--quay-type" aria-hidden="true">
@@ -163,7 +163,7 @@ describe(`sbb-timetable-row`, () => {
               </span>
               <sbb-timetable-occupancy></sbb-timetable-occupancy>
               <time>
-              <span class="sbb-screenreaderonly">
+              <span class="sbb-screen-reader-only">
                 Travel time 41 Minutes
               </span>
               <span aria-hidden="true">

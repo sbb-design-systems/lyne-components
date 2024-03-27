@@ -39,9 +39,9 @@ snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link wit
     <slot>
     </slot>
   </span>
-  <sbb-screenreader-only>
+  <sbb-screen-reader-only>
     . Link target opens in a new window.
-  </sbb-screenreader-only>
+  </sbb-screen-reader-only>
 </a>
 `;
 /* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon ShadowDom */

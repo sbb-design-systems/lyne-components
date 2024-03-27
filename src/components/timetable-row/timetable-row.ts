@@ -55,7 +55,7 @@ export interface Price {
 export const renderIconProduct = (icon: string, name: string): TemplateResult => {
   return html`<span class="sbb-timetable__row-transport">
     <sbb-icon name=${icon}></sbb-icon>
-    <span class="sbb-screenreaderonly">${name}</span>
+    <span class="sbb-screen-reader-only">${name}</span>
   </span>`;
 };
 
@@ -297,7 +297,7 @@ export class SbbTimetableRowElement extends LitElement {
     const quayTypeStrings = this._getQuayTypeStrings();
     return html`
       <span class="sbb-timetable__row--quay">
-        <span class="sbb-screenreaderonly">${quayTypeStrings?.long}&nbsp;</span>
+        <span class="sbb-screen-reader-only">${quayTypeStrings?.long}&nbsp;</span>
         <span class="sbb-timetable__row--quay-type" aria-hidden="true"
           >${quayTypeStrings?.short}</span
         >
@@ -493,7 +493,7 @@ export class SbbTimetableRowElement extends LitElement {
           ? html`<sbb-card-badge color=${this.price.isDiscount ? 'charcoal' : 'white'}>
               ${this.price.isDiscount
                 ? html`<span aria-hidden="true">
-                    %<span class="sbb-screenreaderonly"
+                    %<span class="sbb-screen-reader-only"
                       >${i18nSupersaver[this._language.current]}</span
                     >
                   </span>`
@@ -511,7 +511,7 @@ export class SbbTimetableRowElement extends LitElement {
                   class="sbb-timetable__row-transport-icon"
                   name="picto:${product.corporateIdentityPictogram}"
                 ></sbb-icon>
-                <span class="sbb-screenreaderonly">
+                <span class="sbb-screen-reader-only">
                   ${product &&
                   product.vehicleMode &&
                   i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
@@ -544,7 +544,7 @@ export class SbbTimetableRowElement extends LitElement {
               ? html`<span
                   class=${departure?.quayChanged ? `sbb-timetable__row-quay--changed` : nothing}
                 >
-                  <span class="sbb-screenreaderonly">
+                  <span class="sbb-screen-reader-only">
                     ${`${i18nDeparture[this._language.current]} ${
                       departure?.quayChanged ? i18nNew[this._language.current] : ''
                     }`}
@@ -569,7 +569,7 @@ export class SbbTimetableRowElement extends LitElement {
                             class="sbb-travel-hints__item"
                             name=${'sa-' + notice.name?.toLowerCase()}
                           ></sbb-icon>
-                          <span class="sbb-screenreaderonly">${notice.text?.template}</span>
+                          <span class="sbb-screen-reader-only">${notice.text?.template}</span>
                         </li>`
                       : nothing,
                   )}
@@ -587,7 +587,7 @@ export class SbbTimetableRowElement extends LitElement {
               : nothing}
             ${duration && duration > 0
               ? html`<time>
-                  <span class="sbb-screenreaderonly">
+                  <span class="sbb-screen-reader-only">
                     ${`${i18nTripDuration[this._language.current]} ${durationObj!.long}`}
                   </span>
                   <span aria-hidden="true">${durationObj!.short}</span>
@@ -596,7 +596,7 @@ export class SbbTimetableRowElement extends LitElement {
             ${hasHimCus && (himCus.cus || himCus.him)
               ? html`<span class="sbb-timetable__row-warning">
                   <sbb-icon name=${(himCus.cus || himCus.him)!.name}></sbb-icon>
-                  <span class="sbb-screenreaderonly">${(himCus.cus || himCus.him)!.text}</span>
+                  <span class="sbb-screen-reader-only">${(himCus.cus || himCus.him)!.text}</span>
                 </span>`
               : nothing}
           </div>

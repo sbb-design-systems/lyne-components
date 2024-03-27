@@ -22,7 +22,7 @@ import style from './dialog.scss?lit&inline';
 
 import '../button/secondary-button';
 import '../button/transparent-button';
-import '../screenreader-only';
+import '../screen-reader-only';
 import '../title';
 
 // A global collection of existing dialogs
@@ -455,10 +455,10 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
           </div>
         </div>
       </div>
-      <sbb-screenreader-only
+      <sbb-screen-reader-only
         aria-live="polite"
         ${ref((el?: Element) => (this._ariaLiveRef = el as HTMLElement))}
-      ></sbb-screenreader-only>
+      ></sbb-screen-reader-only>
     `;
   }
 }

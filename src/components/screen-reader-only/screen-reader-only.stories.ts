@@ -6,7 +6,7 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
-import './screenreader-only';
+import './screen-reader-only';
 
 const content: InputType = {
   control: {
@@ -16,7 +16,7 @@ const content: InputType = {
 
 const Template = (args: Args): TemplateResult =>
   html`There is a visually hidden text here:
-    <sbb-screenreader-only>${args.content}</sbb-screenreader-only>`;
+    <sbb-screen-reader-only>${args.content}</sbb-screen-reader-only>`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -34,7 +34,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'internals/sbb-screenreader-only',
+  title: 'internals/sbb-screen-reader-only',
 };
 
 export default meta;

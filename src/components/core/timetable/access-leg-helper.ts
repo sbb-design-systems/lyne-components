@@ -101,7 +101,7 @@ function renderTransferTime(
     <span class="sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${type}">
       <sbb-icon name=${icon}></sbb-icon>
       <time datetime=${duration + 'M'}>
-        <span class="sbb-screenreaderonly">
+        <span class="sbb-screen-reader-only">
           ${!label && type
             ? type === 'departure'
               ? i18nWalkingDistanceDeparture[currentLanguage]
@@ -111,7 +111,7 @@ function renderTransferTime(
         </span>
         ${duration}
         <span class="sbb-pearl-chain__time-walktime-prime-symbol" aria-hidden="true">'</span>
-        <span class="sbb-screenreaderonly">min</span>
+        <span class="sbb-screen-reader-only">min</span>
       </time>
     </span>
   `;
@@ -129,7 +129,7 @@ function renderWalkTime(
     <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${variant}">
       <sbb-icon name="walk-small"></sbb-icon>
       <time datetime=${duration + 'M'}>
-        <span class="sbb-screenreaderonly">${label}</span>
+        <span class="sbb-screen-reader-only">${label}</span>
         ${duration}
         <span class="sbb-pearl-chain__time-walktime-prime-symbol" aria-hidden="true">'</span>
       </time>

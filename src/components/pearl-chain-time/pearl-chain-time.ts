@@ -76,14 +76,14 @@ export class SbbPearlChainTimeElement extends LitElement {
         ${renderDepartureTimeAttribute()}
         ${departure
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime!}>
-              <span class="sbb-screenreaderonly"
+              <span class="sbb-screen-reader-only"
                 >${i18nDeparture[this._language.current]}:&nbsp;</span
               >
               ${format(departure, 'HH:mm')}
             </time>`
           : nothing}
         ${rideLegs?.length > 1
-          ? html`<span class="sbb-screenreaderonly" role="paragraph">
+          ? html`<span class="sbb-screen-reader-only" role="paragraph">
               ${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}
             </span>`
           : nothing}
@@ -95,7 +95,7 @@ export class SbbPearlChainTimeElement extends LitElement {
         ></sbb-pearl-chain>
         ${arrival
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
-              <span class="sbb-screenreaderonly"
+              <span class="sbb-screen-reader-only"
                 >${i18nArrival[this._language.current]}:&nbsp;</span
               >
               ${format(arrival, 'HH:mm')}

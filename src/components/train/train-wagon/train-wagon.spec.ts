@@ -51,7 +51,7 @@ async function extractAriaLabels(
   // Select all accessibility relevant text parts
   return Array.from(
     element.shadowRoot!.querySelectorAll(
-      '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screenreaderonly:not(.sbb-train-wagon__label > span)',
+      '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screen-reader-only:not(.sbb-train-wagon__label > span)',
     ),
   ).map((entry) =>
     entry.hasAttribute('aria-label')

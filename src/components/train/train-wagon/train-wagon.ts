@@ -97,7 +97,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           .label).toString()}>
           ${
             this.label
-              ? html` <span class="sbb-screenreaderonly">
+              ? html` <span class="sbb-screen-reader-only">
                     ${`${i18nWagonLabelNumber[this._language.current]},`}&nbsp;
                   </span>
                   ${this.label}`
@@ -123,11 +123,13 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
               aria-label=${i18nWagonLabel[this._language.current]}
               class="sbb-train-wagon__compartment"
             >
-              ${this.sector ? html`<li class="sbb-screenreaderonly">${sectorString}</li>` : nothing}
+              ${this.sector
+                ? html`<li class="sbb-screen-reader-only">${sectorString}</li>`
+                : nothing}
               ${label('li')}
               ${this.wagonClass
                 ? html`<li class="sbb-train-wagon__class">
-                    <span class="sbb-screenreaderonly">
+                    <span class="sbb-screen-reader-only">
                       ${this.wagonClass === '1'
                         ? i18nClass['first'][this._language.current]
                         : i18nClass['second'][this._language.current]}
@@ -143,7 +145,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
                   ></sbb-timetable-occupancy-icon>`
                 : nothing}
               ${this.blockedPassage && this.blockedPassage !== 'none'
-                ? html`<li class="sbb-screenreaderonly">
+                ? html`<li class="sbb-screen-reader-only">
                     ${i18nBlockedPassage[this.blockedPassage][this._language.current]}
                   </li>`
                 : nothing}
@@ -151,7 +153,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           : nothing}
         ${this.type === 'closed'
           ? html`<span class="sbb-train-wagon__compartment">
-              <span class="sbb-screenreaderonly">
+              <span class="sbb-screen-reader-only">
                 ${i18nClosedCompartmentLabel(this.label ? parseInt(this.label) : undefined)[
                   this._language.current
                 ]}
@@ -162,7 +164,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           : nothing}
         ${this.type === 'locomotive'
           ? html`<span class="sbb-train-wagon__compartment">
-              <span class="sbb-screenreaderonly">
+              <span class="sbb-screen-reader-only">
                 ${i18nLocomotiveLabel[this._language.current]}
                 ${this.sector ? `, ${sectorString}` : nothing}
               </span>
@@ -184,7 +186,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
             </span>`
           : nothing}
         ${this.additionalAccessibilityText
-          ? html`<span class="sbb-screenreaderonly">, ${this.additionalAccessibilityText}</span>`
+          ? html`<span class="sbb-screen-reader-only">, ${this.additionalAccessibilityText}</span>`
           : nothing}
         ${this.type === 'wagon'
           ? html`<span class="sbb-train-wagon__icons" ?hidden=${this.listChildren.length === 0}>

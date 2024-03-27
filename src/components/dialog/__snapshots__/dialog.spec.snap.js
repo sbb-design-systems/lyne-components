@@ -47,8 +47,8 @@ snapshots["sbb-dialog renders"] =
     </div>
   </div>
 </div>
-<sbb-screenreader-only aria-live="polite">
-</sbb-screenreader-only>
+<sbb-screen-reader-only aria-live="polite">
+</sbb-screen-reader-only>
 `;
 /* end snapshot sbb-dialog renders */
 

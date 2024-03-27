@@ -29,7 +29,7 @@ import type { SbbCheckboxGroupElement } from '../checkbox-group';
 import style from './checkbox.scss?lit&inline';
 
 import '../../icon';
-import '../../screenreader-only';
+import '../../screen-reader-only';
 import '../../visual-checkbox';
 
 export type SbbCheckboxStateChange = Extract<
@@ -216,9 +216,9 @@ export class SbbCheckboxElement extends UpdateScheduler(
             </span>
           </span>
           <slot name="subtext"></slot>
-          <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+          <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
             ${this._selectionPanelExpandedLabel}
-          </sbb-screenreader-only>
+          </sbb-screen-reader-only>
         </span>
       </span>
     `;

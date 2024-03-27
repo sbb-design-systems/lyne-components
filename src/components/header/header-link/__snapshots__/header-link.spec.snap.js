@@ -44,9 +44,9 @@ snapshots["sbb-header-link renders the component as a button with icon Shadow DO
       </slot>
     </span>
   </span>
-  <sbb-screenreader-only>
+  <sbb-screen-reader-only>
     . Link target opens in a new window.
-  </sbb-screenreader-only>
+  </sbb-screen-reader-only>
 </a>
 `;
 /* end snapshot sbb-header-link renders the component as a button with icon Shadow DOM */

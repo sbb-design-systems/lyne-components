@@ -34,14 +34,14 @@ describe(`sbb-pearl-chain-time`, () => {
     expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain__time">
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Departure:
           </span>
           12:00
         </time>
         <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Arrival:
           </span>
           15:00
@@ -80,7 +80,7 @@ describe(`sbb-pearl-chain-time`, () => {
             role="img"
           ></sbb-icon>
           <time datetime="10M">
-            <span class="sbb-screenreaderonly">
+            <span class="sbb-screen-reader-only">
               minutes of walking time before departure:
             </span>
             10
@@ -90,14 +90,14 @@ describe(`sbb-pearl-chain-time`, () => {
           </time>
         </span>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Departure:
           </span>
           12:00
         </time>
         <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Arrival:
           </span>
           15:00
@@ -129,14 +129,14 @@ describe(`sbb-pearl-chain-time`, () => {
     expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain__time">
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Departure:
           </span>
           12:00
         </time>
         <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Arrival:
           </span>
           15:00
@@ -149,7 +149,7 @@ describe(`sbb-pearl-chain-time`, () => {
             role="img"
           ></sbb-icon>
           <time datetime="10M">
-            <span class="sbb-screenreaderonly">
+            <span class="sbb-screen-reader-only">
               minutes of walking time after arrival:
             </span>
             10
@@ -193,7 +193,7 @@ describe(`sbb-pearl-chain-time`, () => {
             role="img"
           ></sbb-icon>
           <time datetime="20M">
-            <span class="sbb-screenreaderonly">
+            <span class="sbb-screen-reader-only">
               minutes of walking time before departure:
             </span>
             20
@@ -203,14 +203,14 @@ describe(`sbb-pearl-chain-time`, () => {
           </time>
         </span>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Departure:
           </span>
           12:00
         </time>
         <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Arrival:
           </span>
           15:00
@@ -223,7 +223,7 @@ describe(`sbb-pearl-chain-time`, () => {
             role="img"
           ></sbb-icon>
           <time datetime="10M">
-            <span class="sbb-screenreaderonly">
+            <span class="sbb-screen-reader-only">
               minutes of walking time after arrival:
             </span>
             10

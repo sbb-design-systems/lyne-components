@@ -16,7 +16,7 @@ import { AgnosticMutationObserver } from '../../core/observers';
 import style from './option.scss?lit&inline';
 
 import '../../icon';
-import '../../screenreader-only';
+import '../../screen-reader-only';
 import '../../visual-checkbox';
 
 let nextId = 0;
@@ -292,8 +292,8 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
               ? this._getHighlightedLabel()
               : nothing}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
-              ? html` <sbb-screenreader-only>
-                  (${this.getAttribute('data-group-label')})</sbb-screenreader-only
+              ? html` <sbb-screen-reader-only>
+                  (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
                 >`
               : nothing}
           </span>

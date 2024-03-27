@@ -3,16 +3,16 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
-import type { SbbScreenreaderOnlyElement } from './screenreader-only';
+import type { SbbScreenReaderOnlyElement } from './screen-reader-only';
 
-import './screenreader-only';
+import './screen-reader-only';
 
-describe(`sbb-screenreader-only`, () => {
+describe(`sbb-screen-reader-only`, () => {
   describe('renders', async () => {
-    let root: SbbScreenreaderOnlyElement;
+    let root: SbbScreenReaderOnlyElement;
 
     beforeEach(async () => {
-      root = await fixture(html`<sbb-screenreader-only></sbb-screenreader-only>`);
+      root = await fixture(html`<sbb-screen-reader-only></sbb-screen-reader-only>`);
     });
 
     it('with Light DOM', async () => {

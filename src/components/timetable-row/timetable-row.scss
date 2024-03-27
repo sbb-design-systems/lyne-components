@@ -27,7 +27,7 @@
   --sbb-icon-svg-height: #{sbb.px-to-rem-build(14)};
 }
 
-.sbb-screenreaderonly {
+.sbb-screen-reader-only {
   @include sbb.screen-reader-only;
 }
 
