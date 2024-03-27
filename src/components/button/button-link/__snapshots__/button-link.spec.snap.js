@@ -39,9 +39,9 @@ snapshots["sbb-button-link renders a sbb-button-link without icon ShadowDom"] =
     <slot>
     </slot>
   </span>
-  <sbb-screenreader-only>
+  <sbb-screen-reader-only>
     . Link target opens in a new window.
-  </sbb-screenreader-only>
+  </sbb-screen-reader-only>
 </a>
 `;
 /* end snapshot sbb-button-link renders a sbb-button-link without icon ShadowDom */

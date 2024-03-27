@@ -39,9 +39,9 @@ snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without
     <slot>
     </slot>
   </span>
-  <sbb-screenreader-only>
+  <sbb-screen-reader-only>
     . Link target opens in a new window.
-  </sbb-screenreader-only>
+  </sbb-screen-reader-only>
 </a>
 `;
 /* end snapshot sbb-secondary-button-link renders a sbb-secondary-button-link without icon ShadowDom */
