@@ -1,4 +1,4 @@
-ximport { assert, expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -277,9 +277,7 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
           <div slot="action-group">Action group</div>
         </sbb-dialog>
 
-        <sbb-dialog id="stacked-dialog" disable-animation title-content="Stacked title">
-          Stacked dialog.
-        </sbb-dialog>
+        <sbb-dialog id="stacked-dialog" title-content="Stacked title"> Stacked dialog. </sbb-dialog>
       `,
       { modules: ['./dialog.ts'] },
     );

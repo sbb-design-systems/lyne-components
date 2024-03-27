@@ -460,9 +460,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
           >
           <sbb-button id="popover-trigger">Popover trigger</sbb-button>
           <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
-          <sbb-popover id="popover" trigger="popover-trigger">
-            Popover content.
-          </sbb-popover>
+          <sbb-popover id="popover" trigger="popover-trigger"> Popover content. </sbb-popover>
           <sbb-popover id="another-popover" trigger="another-popover-trigger">
             Another popover content.
           </sbb-popover>
