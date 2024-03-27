@@ -120,7 +120,7 @@
     "tsx": "4.7.1",
     "typescript": "5.4.3",
     "vite": "5.2.6",
-    "vite-plugin-dts": "3.7.3"
+    "vite-plugin-dts": "3.8.0"
   },
   "resolutions": {
     "@types/node": "20.11.30",
