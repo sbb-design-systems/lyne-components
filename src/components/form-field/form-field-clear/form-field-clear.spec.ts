@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import type { SbbFormFieldElement } from '../form-field';
 
@@ -22,7 +21,6 @@ describe(`sbb-form-field-clear`, () => {
         </sbb-form-field>
       `);
       element = root.querySelector('sbb-form-field-clear')!;
-      await waitForLitRender(root);
     });
 
     it('Formfield Dom', async () => {

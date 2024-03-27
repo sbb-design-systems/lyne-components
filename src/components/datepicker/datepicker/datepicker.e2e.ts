@@ -78,7 +78,6 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
       element = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
       input = root.querySelector<HTMLInputElement>('input')!;
       button = root.querySelector<HTMLButtonElement>('button')!;
-      await waitForLitRender(element);
     });
 
     it('renders', async () => {

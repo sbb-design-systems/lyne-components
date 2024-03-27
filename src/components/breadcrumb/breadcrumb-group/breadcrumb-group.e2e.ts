@@ -25,7 +25,6 @@ describe(`sbb-breadcrumb-group with ${fixture.name}`, () => {
         `,
         { modules: ['./breadcrumb-group.ts', '../breadcrumb/index.ts'] },
       );
-      await waitForLitRender(element);
     });
 
     it('renders', async () => {
@@ -69,7 +68,6 @@ describe(`sbb-breadcrumb-group with ${fixture.name}`, () => {
         `,
         { modules: ['./breadcrumb-group.ts', '../breadcrumb/index.ts'] },
       );
-      await waitForLitRender(element);
 
       ellipsisListItemElement = element.shadowRoot!.querySelector<HTMLLIElement>(
         '#sbb-breadcrumb-group-ellipsis',

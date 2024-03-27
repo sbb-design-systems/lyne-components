@@ -31,7 +31,6 @@ describe(`sbb-select with ${fixture.name}`, () => {
       { modules: ['./select.ts', '../option/index.ts'] },
     );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
-    await waitForLitRender(element);
 
     comboBoxElement = root.querySelector('[role="combobox"]')!;
     focusableElement = comboBoxElement;
@@ -132,7 +131,6 @@ describe(`sbb-select with ${fixture.name}`, () => {
       { modules: ['./select.ts', '../option/index.ts'] },
     );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
-    await waitForLitRender(element);
 
     const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
     const firstOption = element.querySelector('#option-1');
@@ -160,7 +158,6 @@ describe(`sbb-select with ${fixture.name}`, () => {
       { modules: ['./select.ts', '../option/index.ts'] },
     );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
-    await waitForLitRender(element);
     comboBoxElement = root.querySelector('[role="combobox"]')!;
     focusableElement = comboBoxElement;
 

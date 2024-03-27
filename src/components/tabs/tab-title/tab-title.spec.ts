@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import './tab-title';
@@ -18,8 +17,6 @@ describe(`sbb-tab-title`, () => {
     const root = await fixture(
       html`<sbb-tab-title level="2" icon-name="pie-small"></sbb-tab-title>`,
     );
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`<sbb-tab-title level="2" icon-name="pie-small"></sbb-tab-title>`);
     await expect(root).shadowDom.to.be.equalSnapshot();

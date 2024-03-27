@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../core/dom';
-import { describeIf, waitForLitRender } from '../core/testing';
+import { describeIf } from '../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 import type { SbbFormFieldElement } from '../form-field';
 
@@ -13,38 +13,39 @@ import './autocomplete';
 
 describe(`sbb-autocomplete`, () => {
   describe('renders standalone', async () => {
-    let elem: SbbAutocompleteElement;
+    let element: SbbAutocompleteElement;
 
     beforeEach(async () => {
-      await fixture(html`
-        <div id="origin"></div>
-        <input id="trigger" />
-        <sbb-autocomplete origin="origin" trigger="trigger">
-          <sbb-option value="1">1</sbb-option>
-          <sbb-option value="2">2</sbb-option>
-        </sbb-autocomplete>
-      `);
-      elem = document.querySelector('sbb-autocomplete')!;
-      await waitForLitRender(elem);
+      const testFixture = await fixture(
+        html`<div>
+          <div id="origin"></div>
+          <input id="trigger" />
+          <sbb-autocomplete origin="origin" trigger="trigger">
+            <sbb-option value="1">1</sbb-option>
+            <sbb-option value="2">2</sbb-option>
+          </sbb-autocomplete>
+        </div> `,
+      );
+      element = testFixture.querySelector('sbb-autocomplete')!;
     });
 
     describeIf(!isSafari(), 'Chrome-Firefox', async () => {
       it('Dom', async () => {
-        await expect(elem).dom.to.be.equalSnapshot();
+        await expect(element).dom.to.be.equalSnapshot();
       });
 
       it('ShadowDom', async () => {
-        await expect(elem).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot();
       });
     });
 
     describeIf(isSafari(), 'Safari', async () => {
       it('Dom', async () => {
-        await expect(elem).dom.to.be.equalSnapshot();
+        await expect(element).dom.to.be.equalSnapshot();
       });
 
       it('ShadowDom', async () => {
-        await expect(elem).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot();
       });
     });
   });
@@ -62,7 +63,6 @@ describe(`sbb-autocomplete`, () => {
           </sbb-autocomplete>
         </sbb-form-field>
       `);
-      await waitForLitRender(root);
     });
 
     describeIf(!isSafari(), 'Chrome-Firefox', async () => {

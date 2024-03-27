@@ -113,28 +113,3 @@ snapshots["sbb-card A11y tree Firefox"] =
 `;
 /* end snapshot sbb-card A11y tree Firefox */
 
-snapshots["sbb-card A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Title",
-      "level": 2
-    },
-    {
-      "role": "text",
-      "name": "Content text"
-    },
-    {
-      "role": "text",
-      "name": "% from CHF 19.99"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-card A11y tree Safari */
-

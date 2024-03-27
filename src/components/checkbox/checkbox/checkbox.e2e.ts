@@ -252,7 +252,6 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
               </form>`,
               { modules: ['./checkbox.ts'] },
             );
-            await waitForLitRender(form);
 
             element = form.querySelector(selector)!;
             fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
@@ -733,7 +732,6 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
               </form>`,
               { modules: ['./checkbox.ts'] },
             );
-            await waitForLitRender(form);
 
             element = form.querySelector(selector)!;
             fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;

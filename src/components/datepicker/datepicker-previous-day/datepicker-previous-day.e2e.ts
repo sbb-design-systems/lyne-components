@@ -61,7 +61,6 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
         `,
         { modules: ['./datepicker-previous-day.ts'] },
       );
-      await waitForLitRender(doc);
 
       const prevButton: SbbDatepickerPreviousDayElement =
         doc.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
@@ -96,7 +95,6 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
         `,
         { modules: ['./datepicker-previous-day.ts'] },
       );
-      await waitForLitRender(root);
 
       const prevButton: SbbDatepickerPreviousDayElement =
         root.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
@@ -144,7 +142,6 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
       );
       element = form.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
       input = form.querySelector<HTMLInputElement>('input')!;
-      await waitForLitRender(element);
     });
 
     it('renders', async () => {
@@ -180,7 +177,6 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
         },
       );
       input = form.querySelector<HTMLInputElement>('input')!;
-      await waitForLitRender(element);
 
       expect(input.value).to.be.equal('Fr, 20.01.2023');
       expect(form.querySelector('sbb-datepicker-previous-day')).to.have.attribute('data-disabled');

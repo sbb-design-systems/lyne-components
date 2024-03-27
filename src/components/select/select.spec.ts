@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../core/dom';
-import { describeIf, waitForLitRender } from '../core/testing';
+import { describeIf } from '../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbSelectElement } from './select';
@@ -21,7 +21,6 @@ describe(`sbb-select`, () => {
           <sbb-option value="3">Option 3</sbb-option>
         </sbb-select>
       `);
-      await waitForLitRender(elem);
     });
 
     describeIf(!isSafari(), 'Chrome-Firefox', async () => {
@@ -58,7 +57,6 @@ describe(`sbb-select`, () => {
           <sbb-option value="3">Option 3</sbb-option>
         </sbb-select>
       `);
-      await waitForLitRender(elem);
     });
 
     describeIf(!isSafari(), 'Chrome-Firefox', async () => {

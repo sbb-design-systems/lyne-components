@@ -49,7 +49,7 @@ snapshots["sbb-checkbox-group renders - ShadowDom"] =
 `;
 /* end snapshot sbb-checkbox-group renders - ShadowDom */
 
-snapshots["sbb-checkbox-group A11y tree Chrome"] =
+snapshots["sbb-checkbox-group A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -99,31 +99,4 @@ snapshots["sbb-checkbox-group A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-checkbox-group A11y tree Firefox */
-
-snapshots["sbb-checkbox-group A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label 1",
-      "checked": false
-    },
-    {
-      "role": "checkbox",
-      "name": "​ Label 2",
-      "checked": false
-    },
-    {
-      "role": "checkbox",
-      "name": "​ Label 3",
-      "checked": false
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox-group A11y tree Safari */
 

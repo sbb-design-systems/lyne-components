@@ -1,6 +1,5 @@
 import { expect } from '@open-wc/testing';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import {
   buttonTestTemplate,
@@ -49,7 +48,6 @@ describe(`sbb-tertiary-button`, () => {
 
   it('should detect icon in sbb-tertiary-button', async () => {
     const root = await fixture(buttonIconTestTemplate('sbb-tertiary-button'));
-    await waitForLitRender(root);
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');

@@ -228,31 +228,3 @@ snapshots["sbb-teaser A11y tree Firefox"] =
 `;
 /* end snapshot sbb-teaser A11y tree Firefox */
 
-snapshots["sbb-teaser A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "SBB teaser",
-      "children": [
-        {
-          "role": "link",
-          "name": "​",
-          "children": [
-            {
-              "role": "text",
-              "name": "​"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser A11y tree Safari */
-

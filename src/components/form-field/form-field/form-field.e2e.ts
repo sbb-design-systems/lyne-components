@@ -154,7 +154,6 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
         { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
       );
       select = element.querySelector<SbbSelectElement>('sbb-select')!;
-      await waitForLitRender(element);
     });
 
     it('renders', async () => {

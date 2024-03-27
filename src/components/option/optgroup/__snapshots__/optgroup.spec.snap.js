@@ -197,23 +197,6 @@ snapshots["sbb-optgroup autocomplete renders Safari ShadowDom"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders Safari ShadowDom */
 
-snapshots["sbb-optgroup autocomplete renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "listbox",
-      "name": "",
-      "orientation": "vertical"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-optgroup autocomplete renders A11y tree Safari */
-
 snapshots["sbb-optgroup autocomplete renders disabled Safari Dom"] = 
 `<sbb-optgroup
   data-variant="autocomplete"
@@ -227,7 +210,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari Dom"] =
     data-group-label="Label"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-7"
+    id="sbb-option-5"
     role="option"
     value="1"
   >
@@ -240,7 +223,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari Dom"] =
     data-group-label="Label"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-8"
+    id="sbb-option-6"
     role="option"
     value="2"
   >

@@ -33,13 +33,3 @@ snapshots["sbb-screenreader-only renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-screenreader-only renders A11y tree Firefox */
 
-snapshots["sbb-screenreader-only renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-screenreader-only renders A11y tree Safari */
-

@@ -55,13 +55,3 @@ snapshots["sbb-popover A11y tree Firefox"] =
 `;
 /* end snapshot sbb-popover A11y tree Firefox */
 
-snapshots["sbb-popover A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-popover A11y tree Safari */
-

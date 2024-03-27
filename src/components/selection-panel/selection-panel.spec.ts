@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbSelectionPanelElement } from './selection-panel';
@@ -30,7 +29,6 @@ describe(`sbb-selection-panel`, () => {
         <div slot="content">Inner content</div>
       </sbb-selection-panel>
     `);
-    await waitForLitRender(element);
   });
 
   it('renders - Dom', async () => {

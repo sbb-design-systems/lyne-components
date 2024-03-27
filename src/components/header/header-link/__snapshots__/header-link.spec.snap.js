@@ -96,39 +96,3 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
 `;
 /* end snapshot sbb-header-link renders the component as a button with icon A11y tree Firefox */
 
-snapshots["sbb-header-link renders the component as a button with icon A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": "Action . Link target opens in a new window.",
-          "children": [
-            {
-              "role": "text",
-              "name": "Action"
-            },
-            {
-              "role": "text",
-              "name": ". "
-            },
-            {
-              "role": "text",
-              "name": "Link target opens in a new window."
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-header-link renders the component as a button with icon A11y tree Safari */
-

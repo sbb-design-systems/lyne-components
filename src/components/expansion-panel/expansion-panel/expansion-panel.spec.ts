@@ -29,8 +29,6 @@ describe(`sbb-expansion-panel`, () => {
     it('ShadowDom', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot();
   });
 
   describe('renders with level set', () => {
@@ -52,5 +50,7 @@ describe(`sbb-expansion-panel`, () => {
     it('ShadowDom', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 });

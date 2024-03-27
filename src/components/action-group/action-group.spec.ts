@@ -2,7 +2,6 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button';
-import { waitForLitRender } from '../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbActionGroupElement } from './action-group';
@@ -26,7 +25,6 @@ describe(`sbb-action-group`, () => {
           </sbb-block-link>
         </sbb-action-group>
       `);
-      await waitForLitRender(element);
     });
 
     it('renders - Dom', async () => {

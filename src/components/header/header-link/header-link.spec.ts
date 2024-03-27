@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbHeaderLinkElement } from './header-link';
@@ -21,7 +20,6 @@ describe(`sbb-header-link`, () => {
           >Action</sbb-header-link
         >`,
       );
-      await waitForLitRender(element);
     });
 
     it('Light DOM', async () => {

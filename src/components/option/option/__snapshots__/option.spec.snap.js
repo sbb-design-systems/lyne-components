@@ -68,20 +68,3 @@ snapshots["sbb-option autocomplete A11y tree Firefox"] =
 `;
 /* end snapshot sbb-option autocomplete A11y tree Firefox */
 
-snapshots["sbb-option autocomplete A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "option",
-      "name": "Option 1",
-      "selected": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-option autocomplete A11y tree Safari */
-

@@ -48,7 +48,7 @@ snapshots["sbb-action-group renders renders - ShadowDom"] =
 `;
 /* end snapshot sbb-action-group renders renders - ShadowDom */
 
-snapshots["sbb-action-group renders A11y tree Chrome"] =
+snapshots["sbb-action-group renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -100,36 +100,4 @@ snapshots["sbb-action-group renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-action-group renders A11y tree Firefox */
-
-snapshots["sbb-action-group renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Button"
-    },
-    {
-      "role": "link",
-      "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link",
-          "children": [
-            {
-              "role": "text",
-              "name": "Link"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-action-group renders A11y tree Safari */
 

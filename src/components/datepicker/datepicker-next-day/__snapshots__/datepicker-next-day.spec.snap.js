@@ -65,20 +65,3 @@ snapshots["sbb-datepicker-next-day A11y tree Firefox"] =
 `;
 /* end snapshot sbb-datepicker-next-day A11y tree Firefox */
 
-snapshots["sbb-datepicker-next-day A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Next day",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-next-day A11y tree Safari */
-

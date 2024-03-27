@@ -118,21 +118,3 @@ snapshots["sbb-slider A11y tree Firefox"] =
 `;
 /* end snapshot sbb-slider A11y tree Firefox */
 
-snapshots["sbb-slider A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "slider",
-      "name": "",
-      "valuemax": 100,
-      "orientation": "horizontal"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-slider A11y tree Safari */
-

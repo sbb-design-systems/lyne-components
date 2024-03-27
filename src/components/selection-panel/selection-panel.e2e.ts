@@ -363,7 +363,6 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
       );
       panel1 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel1')!;
       panel2 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel2')!;
-      await waitForLitRender(nestedElement);
     });
 
     it('should display expanded label correctly', async () => {
@@ -689,7 +688,6 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
         `,
         { modules: ['../checkbox/index.ts', './selection-panel.ts', '../checkbox/index.ts'] },
       );
-      await waitForLitRender(nestedElement);
     });
 
     it('should display expanded label correctly', async () => {

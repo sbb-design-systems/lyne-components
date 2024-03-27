@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbHeaderButtonElement } from './header-button';
@@ -23,7 +22,6 @@ describe(`sbb-header-button`, () => {
           Action
         </sbb-header-button>
       `);
-      await waitForLitRender(element);
     });
 
     it('Light DOM', async () => {

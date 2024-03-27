@@ -134,24 +134,3 @@ snapshots["sbb-selection-panel A11y tree Firefox"] =
 `;
 /* end snapshot sbb-selection-panel A11y tree Firefox */
 
-snapshots["sbb-selection-panel A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "% from CHF 19.99"
-    },
-    {
-      "role": "checkbox",
-      "name": "​ Value one Suffix Subtext , collapsed",
-      "checked": false
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-selection-panel A11y tree Safari */
-

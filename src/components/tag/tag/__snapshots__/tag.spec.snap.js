@@ -81,7 +81,7 @@ snapshots["sbb-tag renders slotted icon and amount"] =
 `;
 /* end snapshot sbb-tag renders slotted icon and amount */
 
-snapshots["sbb-tag A11y tree Chrome"] =
+snapshots["sbb-tag A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -113,20 +113,4 @@ snapshots["sbb-tag A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-tag A11y tree Firefox */
-
-snapshots["sbb-tag A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tag A11y tree Safari */
 

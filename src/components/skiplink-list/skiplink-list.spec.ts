@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbSkiplinkListElement } from './skiplink-list';
@@ -20,7 +19,6 @@ describe(`sbb-skiplink-list`, () => {
           <sbb-block-link href="#">Link 3</sbb-block-link>
         </sbb-skiplink-list>
       `);
-      await waitForLitRender(element);
     });
 
     it('Dom', async () => {
@@ -43,7 +41,6 @@ describe(`sbb-skiplink-list`, () => {
           <sbb-block-link href="https://www.sbb.ch">Link 3</sbb-block-link>
         </sbb-skiplink-list>
       `);
-      await waitForLitRender(element);
     });
 
     it('Dom', async () => {

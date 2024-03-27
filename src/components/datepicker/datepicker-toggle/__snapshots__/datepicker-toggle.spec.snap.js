@@ -143,21 +143,3 @@ snapshots["sbb-datepicker-toggle A11y tree Firefox"] =
 `;
 /* end snapshot sbb-datepicker-toggle A11y tree Firefox */
 
-snapshots["sbb-datepicker-toggle A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Show calendar",
-      "disabled": true,
-      "haspopup": "dialog"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-toggle A11y tree Safari */
-

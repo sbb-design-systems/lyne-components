@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["Dom"] = 
+snapshots["sbb-button-static renders a sbb-button-static without icon Dom"] = 
 `<sbb-button-static
   data-action=""
   data-sbb-button=""
@@ -14,9 +14,9 @@ snapshots["Dom"] =
   Label Text
 </sbb-button-static>
 `;
-/* end snapshot Dom */
+/* end snapshot sbb-button-static renders a sbb-button-static without icon Dom */
 
-snapshots["ShadowDom"] = 
+snapshots["sbb-button-static renders a sbb-button-static without icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-button-static">
   <span class="sbb-button__icon">
     <slot name="icon">
@@ -28,7 +28,7 @@ snapshots["ShadowDom"] =
   </span>
 </span>
 `;
-/* end snapshot ShadowDom */
+/* end snapshot sbb-button-static renders a sbb-button-static without icon ShadowDom */
 
 snapshots["sbb-button-static renders a sbb-button-static with slotted icon Dom"] = 
 `<sbb-button-static
@@ -65,36 +65,6 @@ snapshots["sbb-button-static renders a sbb-button-static with slotted icon Shado
 `;
 /* end snapshot sbb-button-static renders a sbb-button-static with slotted icon ShadowDom */
 
-snapshots["sbb-button-static A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-button-static A11y tree Chrome */
-
-snapshots["sbb-button-static A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-button-static A11y tree Firefox */
-
-snapshots["sbb-button-static A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-button-static A11y tree Safari */
-
 snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y tree Chrome"] = 
 `<p>
   {
@@ -126,49 +96,4 @@ snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y 
 </p>
 `;
 /* end snapshot sbb-button-static renders a sbb-button-static with slotted icon A11y tree Firefox */
-
-snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon A11y tree Safari */
-
-snapshots["sbb-button-static renders a sbb-button-static without icon Dom"] = 
-`<sbb-button-static
-  data-action=""
-  data-sbb-button=""
-  data-slot-names="unnamed"
-  dir="ltr"
-  disabled=""
-  negative=""
-  size="m"
->
-  Label Text
-</sbb-button-static>
-`;
-/* end snapshot sbb-button-static renders a sbb-button-static without icon Dom */
-
-snapshots["sbb-button-static renders a sbb-button-static without icon ShadowDom"] = 
-`<span class="sbb-action-base sbb-button-static">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
-</span>
-`;
-/* end snapshot sbb-button-static renders a sbb-button-static without icon ShadowDom */
 
