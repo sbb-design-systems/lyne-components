@@ -8,6 +8,9 @@ import { sbbSpread } from '../../core/dom';
 import readme from './readme.md?raw';
 import './radio-button';
 
+const longLabel: string =
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.";
+
 const value: InputType = {
   control: {
     type: 'text',
@@ -39,12 +42,19 @@ const ariaLabel: InputType = {
   },
 };
 
+const bold: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   value,
   checked,
   disabled,
   size,
   'aria-label': ariaLabel,
+  bold,
 };
 
 const defaultArgs: Args = {
@@ -53,15 +63,17 @@ const defaultArgs: Args = {
   disabled: false,
   size: size.options[0],
   'aria-label': undefined,
+  bold: false,
 };
 
-const DefaultTemplate = (args: Args): TemplateResult =>
-  html`<sbb-radio-button ${sbbSpread(args)}>Value</sbb-radio-button>`;
+const DefaultTemplate = ({ bold, ...args }: Args): TemplateResult =>
+  html`<sbb-radio-button ${sbbSpread(args)}>
+    ${bold ? html`<span class="sbb-text--bold">Value</span>` : 'Value'}
+  </sbb-radio-button>`;
 
-const MultilineLabelTemplate = (args: Args): TemplateResult => html`
+const MultilineLabelTemplate = ({ bold, ...args }: Args): TemplateResult => html`
   <sbb-radio-button ${sbbSpread(args)}>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-    the industry's standard dummy text ever since the 1500s.
+    ${bold ? html`<span class="sbb-text--bold">${longLabel}</span>` : longLabel}
   </sbb-radio-button>
 `;
 
@@ -99,6 +111,18 @@ export const MultilineLabel: StoryObj = {
   render: MultilineLabelTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, checked: true },
+};
+
+export const DefaultBold: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, bold: true },
+};
+
+export const CheckedBold: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, checked: true, bold: true },
 };
 
 const meta: Meta = {
