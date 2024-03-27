@@ -82,7 +82,7 @@ const ariaLabel: InputType = {
   },
 };
 
-const bold: InputType = {
+const labelBoldClass: InputType = {
   control: {
     type: 'boolean',
   },
@@ -99,7 +99,7 @@ const defaultArgTypes: ArgTypes = {
   'icon-name': icon,
   'icon-placement': iconPlacement,
   'aria-label': ariaLabel,
-  bold,
+  labelBoldClass,
 };
 
 const defaultArgs: Args = {
@@ -113,16 +113,16 @@ const defaultArgs: Args = {
   'icon-name': undefined,
   'icon-placement': undefined,
   'aria-label': undefined,
-  bold: false,
+  labelBoldClass: false,
 };
 
 // We use property and attribute for `checked` to provide consistency to storybook controls.
 // Otherwise, after first user manipulation, the storybook control gets ignored.
 // If only using property, the reset mechanism does not work as expected.
 
-const Template = ({ label, checked, bold, ...args }: Args): TemplateResult => html`
+const Template = ({ label, checked, labelBoldClass, ...args }: Args): TemplateResult => html`
   <sbb-checkbox .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>
-    ${bold ? html`<span class="sbb-text--bold">${label}</span>` : label}
+    ${labelBoldClass ? html`<span class="sbb-text--bold">${label}</span>` : label}
   </sbb-checkbox>
 `;
 
@@ -219,19 +219,19 @@ export const withForm: StoryObj = {
 export const defaultUncheckedBold: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, bold: true },
+  args: { ...defaultArgs, labelBoldClass: true },
 };
 
 export const defaultCheckedBold: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, checked: true, bold: true },
+  args: { ...defaultArgs, checked: true, labelBoldClass: true },
 };
 
 export const defaultIndeterminateBold: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, indeterminate: true, bold: true },
+  args: { ...defaultArgs, indeterminate: true, labelBoldClass: true },
 };
 
 const meta: Meta = {

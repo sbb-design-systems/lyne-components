@@ -38,6 +38,14 @@ The component has two different sizes, which can be changed using the `size` pro
 <sbb-radio-button value="small" size="s">Size</sbb-radio-button>
 ```
 
+The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
+
+```html
+<sbb-radio-button value="bold">
+  <span class="sbb-text--bold">Bold label</span>
+</sbb-radio-button>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

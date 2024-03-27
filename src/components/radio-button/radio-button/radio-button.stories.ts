@@ -42,7 +42,7 @@ const ariaLabel: InputType = {
   },
 };
 
-const bold: InputType = {
+const labelBoldClass: InputType = {
   control: {
     type: 'boolean',
   },
@@ -54,7 +54,7 @@ const defaultArgTypes: ArgTypes = {
   disabled,
   size,
   'aria-label': ariaLabel,
-  bold,
+  labelBoldClass,
 };
 
 const defaultArgs: Args = {
@@ -63,17 +63,17 @@ const defaultArgs: Args = {
   disabled: false,
   size: size.options[0],
   'aria-label': undefined,
-  bold: false,
+  labelBoldClass: false,
 };
 
-const DefaultTemplate = ({ bold, ...args }: Args): TemplateResult =>
+const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>
   html`<sbb-radio-button ${sbbSpread(args)}>
-    ${bold ? html`<span class="sbb-text--bold">Value</span>` : 'Value'}
+    ${labelBoldClass ? html`<span class="sbb-text--bold">Value</span>` : 'Value'}
   </sbb-radio-button>`;
 
-const MultilineLabelTemplate = ({ bold, ...args }: Args): TemplateResult => html`
+const MultilineLabelTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult => html`
   <sbb-radio-button ${sbbSpread(args)}>
-    ${bold ? html`<span class="sbb-text--bold">${longLabel}</span>` : longLabel}
+    ${labelBoldClass ? html`<span class="sbb-text--bold">${longLabel}</span>` : longLabel}
   </sbb-radio-button>
 `;
 
@@ -116,13 +116,13 @@ export const MultilineLabel: StoryObj = {
 export const DefaultBold: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, bold: true },
+  args: { ...defaultArgs, labelBoldClass: true },
 };
 
 export const CheckedBold: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, checked: true, bold: true },
+  args: { ...defaultArgs, checked: true, labelBoldClass: true },
 };
 
 const meta: Meta = {
