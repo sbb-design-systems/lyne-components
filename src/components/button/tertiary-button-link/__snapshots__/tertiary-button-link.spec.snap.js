@@ -31,10 +31,8 @@ snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without i
   tabindex="-1"
   target="_blank"
 >
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>
@@ -101,10 +99,8 @@ snapshots["sbb-tertiary-button-link renders a disabled sbb-tertiary-button-link 
   role="presentation"
   tabindex="-1"
 >
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>

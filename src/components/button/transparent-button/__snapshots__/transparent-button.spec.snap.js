@@ -25,10 +25,8 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button without icon 
 
 snapshots["sbb-transparent-button renders a sbb-transparent-button without icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-transparent-button">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>
@@ -63,10 +61,8 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted 
 
 snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-transparent-button">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>

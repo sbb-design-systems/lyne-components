@@ -25,10 +25,8 @@ snapshots["sbb-tertiary-button renders a sbb-tertiary-button without icon Dom"] 
 
 snapshots["sbb-tertiary-button renders a sbb-tertiary-button without icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-tertiary-button">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>
@@ -63,10 +61,8 @@ snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon D
 
 snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-tertiary-button">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>

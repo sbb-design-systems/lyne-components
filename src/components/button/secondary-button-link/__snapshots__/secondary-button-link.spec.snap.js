@@ -31,10 +31,8 @@ snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without
   tabindex="-1"
   target="_blank"
 >
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>
@@ -101,10 +99,8 @@ snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-lin
   role="presentation"
   tabindex="-1"
 >
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>

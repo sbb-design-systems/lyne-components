@@ -18,10 +18,8 @@ snapshots["sbb-secondary-button-static renders a sbb-secondary-button-static wit
 
 snapshots["sbb-secondary-button-static renders a sbb-secondary-button-static without icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-secondary-button-static">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>
@@ -53,10 +51,8 @@ snapshots["sbb-secondary-button-static renders a sbb-secondary-button-static wit
 
 snapshots["sbb-secondary-button-static renders a sbb-secondary-button-static with slotted icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-secondary-button-static">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>
