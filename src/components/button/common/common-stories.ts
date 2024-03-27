@@ -38,11 +38,12 @@ const IconSlotTemplate = ({
   tag,
   text,
   'icon-name': iconName,
+  hiddenIcon,
   ...args
 }: Args): TemplateResult => html`
   <${unsafeStatic(tag)} ${sbbSpread(args)}>
     ${text}
-    <sbb-icon slot="icon" name=${iconName}></sbb-icon>
+    <sbb-icon slot="icon" name=${iconName} style=${hiddenIcon ? 'display: none;' : ''} ></sbb-icon>
   </${unsafeStatic(tag)}>
 `;
 
@@ -224,6 +225,14 @@ export const primaryFocusVisible: StoryObj = {
 export const loadingIndicator: StoryObj = {
   render: LoadingIndicatorTemplate,
   args: { disabled: true },
+};
+
+export const withHiddenSlottedIcon: StoryObj = {
+  render: IconSlotTemplate,
+  args: {
+    hiddenIcon: true,
+    'icon-name': 'chevron-small-right-small',
+  },
 };
 
 export const commonDecorators = [

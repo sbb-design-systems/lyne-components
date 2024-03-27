@@ -25,10 +25,8 @@ snapshots["sbb-button renders a sbb-button without icon Dom"] =
 
 snapshots["sbb-button renders a sbb-button without icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-button">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>
@@ -63,10 +61,8 @@ snapshots["sbb-button renders a sbb-button with slotted icon Dom"] =
 
 snapshots["sbb-button renders a sbb-button with slotted icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-button">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>

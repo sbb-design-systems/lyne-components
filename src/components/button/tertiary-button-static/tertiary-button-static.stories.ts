@@ -20,6 +20,7 @@ import {
   primaryNegativeDisabled,
   sizeM,
   withSlottedIcon,
+  withHiddenSlottedIcon,
 } from '../common/common-stories';
 
 import readme from './readme.md?raw';
@@ -61,6 +62,7 @@ export const Active: StoryObj = primaryActive;
 export const NegativeActive: StoryObj = primaryNegativeActive;
 export const FocusVisible: StoryObj = primaryFocusVisible;
 export const LoadingIndicator: StoryObj = loadingIndicator;
+export const WithHiddenSlottedIcon: StoryObj = withHiddenSlottedIcon;
 
 const meta: Meta = {
   args: defaultArgs,
