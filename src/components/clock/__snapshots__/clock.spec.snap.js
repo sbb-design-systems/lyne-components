@@ -52,13 +52,3 @@ snapshots["sbb-clock A11y tree Firefox"] =
 `;
 /* end snapshot sbb-clock A11y tree Firefox */
 
-snapshots["sbb-clock A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-clock A11y tree Safari */
-

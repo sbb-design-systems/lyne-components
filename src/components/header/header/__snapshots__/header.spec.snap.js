@@ -104,31 +104,3 @@ snapshots["sbb-header renders actions and logo A11y tree Firefox"] =
 `;
 /* end snapshot sbb-header renders actions and logo A11y tree Firefox */
 
-snapshots["sbb-header renders actions and logo A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": "Menu",
-          "children": [
-            {
-              "role": "text",
-              "name": "Menu"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-header renders actions and logo A11y tree Safari */
-

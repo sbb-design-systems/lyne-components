@@ -82,39 +82,3 @@ snapshots["sbb-link A11y tree Firefox"] =
 `;
 /* end snapshot sbb-link A11y tree Firefox */
 
-snapshots["sbb-link A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": "Travelcards & tickets. . Link target opens in a new window.",
-          "children": [
-            {
-              "role": "text",
-              "name": "Travelcards & tickets."
-            },
-            {
-              "role": "text",
-              "name": ". "
-            },
-            {
-              "role": "text",
-              "name": "Link target opens in a new window."
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link A11y tree Safari */
-

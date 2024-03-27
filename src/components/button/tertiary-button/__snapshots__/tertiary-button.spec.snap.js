@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["Dom"] = 
+snapshots["sbb-tertiary-button renders a sbb-tertiary-button without icon Dom"] = 
 `<sbb-tertiary-button
   aria-disabled="true"
   data-action=""
@@ -21,9 +21,9 @@ snapshots["Dom"] =
   Label Text
 </sbb-tertiary-button>
 `;
-/* end snapshot Dom */
+/* end snapshot sbb-tertiary-button renders a sbb-tertiary-button without icon Dom */
 
-snapshots["ShadowDom"] = 
+snapshots["sbb-tertiary-button renders a sbb-tertiary-button without icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-tertiary-button">
   <span class="sbb-button__icon">
     <slot name="icon">
@@ -35,7 +35,7 @@ snapshots["ShadowDom"] =
   </span>
 </span>
 `;
-/* end snapshot ShadowDom */
+/* end snapshot sbb-tertiary-button renders a sbb-tertiary-button without icon ShadowDom */
 
 snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon Dom"] = 
 `<sbb-tertiary-button
@@ -75,36 +75,6 @@ snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon S
 `;
 /* end snapshot sbb-tertiary-button renders a sbb-tertiary-button with slotted icon ShadowDom */
 
-snapshots["sbb-tertiary-button A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-tertiary-button A11y tree Chrome */
-
-snapshots["sbb-tertiary-button A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-tertiary-button A11y tree Firefox */
-
-snapshots["sbb-tertiary-button A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-tertiary-button A11y tree Safari */
-
 snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon A11y tree Chrome"] = 
 `<p>
   {
@@ -136,56 +106,4 @@ snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon A
 </p>
 `;
 /* end snapshot sbb-tertiary-button renders a sbb-tertiary-button with slotted icon A11y tree Firefox */
-
-snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tertiary-button renders a sbb-tertiary-button with slotted icon A11y tree Safari */
-
-snapshots["sbb-tertiary-button renders a sbb-tertiary-button without icon Dom"] = 
-`<sbb-tertiary-button
-  aria-disabled="true"
-  data-action=""
-  data-button=""
-  data-sbb-button=""
-  data-slot-names="unnamed"
-  dir="ltr"
-  disabled=""
-  form="formid"
-  name="name"
-  negative=""
-  role="button"
-  size="m"
-  type="button"
-  value="value"
->
-  Label Text
-</sbb-tertiary-button>
-`;
-/* end snapshot sbb-tertiary-button renders a sbb-tertiary-button without icon Dom */
-
-snapshots["sbb-tertiary-button renders a sbb-tertiary-button without icon ShadowDom"] = 
-`<span class="sbb-action-base sbb-tertiary-button">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
-</span>
-`;
-/* end snapshot sbb-tertiary-button renders a sbb-tertiary-button without icon ShadowDom */
 

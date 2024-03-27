@@ -353,25 +353,3 @@ snapshots["sbb-autocomplete renders in form field Safari ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete renders in form field Safari ShadowDom */
 
-snapshots["sbb-autocomplete renders in form field A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "autocomplete": "list",
-      "haspopup": "listbox"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete renders in form field A11y tree Safari */
-

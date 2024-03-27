@@ -35,20 +35,3 @@ snapshots["sbb-title A11y tree Firefox"] =
 `;
 /* end snapshot sbb-title A11y tree Firefox */
 
-snapshots["sbb-title A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Sample Title Text",
-      "level": 1
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-title A11y tree Safari */
-

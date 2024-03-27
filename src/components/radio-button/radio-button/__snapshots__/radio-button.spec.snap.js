@@ -64,20 +64,3 @@ snapshots["sbb-radio-button A11y tree Firefox"] =
 `;
 /* end snapshot sbb-radio-button A11y tree Firefox */
 
-snapshots["sbb-radio-button A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "checked": false
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-radio-button A11y tree Safari */
-

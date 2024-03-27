@@ -337,29 +337,12 @@ snapshots["sbb-select renders Safari ShadowDom"] =
 `;
 /* end snapshot sbb-select renders Safari ShadowDom */
 
-snapshots["sbb-select renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "combobox",
-      "name": "",
-      "haspopup": "listbox"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-select renders A11y tree Safari */
-
 snapshots["sbb-select renders multiple Safari Dom"] = 
 `<sbb-select
   data-multiple=""
   data-state="closed"
   dir="ltr"
-  id="sbb-select-4"
+  id="sbb-select-3"
   multiple=""
   role="listbox"
 >
@@ -370,7 +353,7 @@ snapshots["sbb-select renders multiple Safari Dom"] =
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-10"
+    id="sbb-option-7"
     role="option"
     value="1"
   >
@@ -383,7 +366,7 @@ snapshots["sbb-select renders multiple Safari Dom"] =
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-11"
+    id="sbb-option-8"
     role="option"
     value="2"
   >
@@ -396,7 +379,7 @@ snapshots["sbb-select renders multiple Safari Dom"] =
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-12"
+    id="sbb-option-9"
     role="option"
     value="3"
   >
@@ -447,21 +430,4 @@ snapshots["sbb-select renders multiple Safari ShadowDom"] =
 </div>
 `;
 /* end snapshot sbb-select renders multiple Safari ShadowDom */
-
-snapshots["sbb-select renders multiple A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "combobox",
-      "name": "",
-      "haspopup": "listbox"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-select renders multiple A11y tree Safari */
 

@@ -284,27 +284,3 @@ snapshots["sbb-form-field A11y tree Firefox"] =
 `;
 /* end snapshot sbb-form-field A11y tree Firefox */
 
-snapshots["sbb-form-field A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "text",
-      "name": "Fill input"
-    },
-    {
-      "role": "textbox",
-      "name": "Fill input"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-form-field A11y tree Safari */
-

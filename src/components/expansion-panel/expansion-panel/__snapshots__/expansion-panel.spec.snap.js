@@ -65,13 +65,13 @@ snapshots["sbb-expansion-panel renders A11y tree Chrome"] =
 snapshots["sbb-expansion-panel renders with level set Dom"] = 
 `<sbb-expansion-panel title-level="4">
   <sbb-expansion-panel-header
-    aria-controls="sbb-expansion-panel-content-4"
+    aria-controls="sbb-expansion-panel-content-3"
     aria-expanded="false"
     data-action=""
     data-button=""
     data-slot-names="unnamed"
     dir="ltr"
-    id="sbb-expansion-panel-header-4"
+    id="sbb-expansion-panel-header-3"
     role="button"
     slot="header"
     tabindex="0"
@@ -80,8 +80,8 @@ snapshots["sbb-expansion-panel renders with level set Dom"] =
   </sbb-expansion-panel-header>
   <sbb-expansion-panel-content
     aria-hidden="true"
-    aria-labelledby="sbb-expansion-panel-header-4"
-    id="sbb-expansion-panel-content-4"
+    aria-labelledby="sbb-expansion-panel-header-3"
+    id="sbb-expansion-panel-content-3"
     role="region"
     slot="content"
   >
@@ -122,20 +122,4 @@ snapshots["sbb-expansion-panel renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-expansion-panel renders A11y tree Firefox */
-
-snapshots["sbb-expansion-panel renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Header"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-expansion-panel renders A11y tree Safari */
 

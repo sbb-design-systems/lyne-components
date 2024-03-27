@@ -114,19 +114,3 @@ snapshots["sbb-tag A11y tree Firefox"] =
 `;
 /* end snapshot sbb-tag A11y tree Firefox */
 
-snapshots["sbb-tag A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tag A11y tree Safari */
-

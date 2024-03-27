@@ -65,20 +65,3 @@ snapshots["sbb-datepicker-previous-day A11y tree Firefox"] =
 `;
 /* end snapshot sbb-datepicker-previous-day A11y tree Firefox */
 
-snapshots["sbb-datepicker-previous-day A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous day",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-previous-day A11y tree Safari */
-

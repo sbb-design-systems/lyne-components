@@ -45,13 +45,3 @@ snapshots["sbb-visual-checkbox A11y tree Firefox"] =
 `;
 /* end snapshot sbb-visual-checkbox A11y tree Firefox */
 
-snapshots["sbb-visual-checkbox A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-visual-checkbox A11y tree Safari */
-

@@ -101,35 +101,3 @@ snapshots["sbb-action-group renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-action-group renders A11y tree Firefox */
 
-snapshots["sbb-action-group renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Button"
-    },
-    {
-      "role": "link",
-      "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link",
-          "children": [
-            {
-              "role": "text",
-              "name": "Link"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-action-group renders A11y tree Safari */
-

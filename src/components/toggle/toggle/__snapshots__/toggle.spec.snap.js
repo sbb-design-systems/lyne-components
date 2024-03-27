@@ -44,25 +44,3 @@ snapshots["sbb-toggle A11y tree Firefox"] =
 `;
 /* end snapshot sbb-toggle A11y tree Firefox */
 
-snapshots["sbb-toggle A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "Value one",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "Value two",
-      "checked": false
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle A11y tree Safari */
-

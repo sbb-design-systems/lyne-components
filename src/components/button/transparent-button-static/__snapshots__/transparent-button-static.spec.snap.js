@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["Dom"] = 
+snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static without icon Dom"] = 
 `<sbb-transparent-button-static
   data-action=""
   data-sbb-button=""
@@ -14,7 +14,21 @@ snapshots["Dom"] =
   Label Text
 </sbb-transparent-button-static>
 `;
-/* end snapshot Dom */
+/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static without icon Dom */
+
+snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static without icon ShadowDom"] = 
+`<span class="sbb-action-base sbb-transparent-button-static">
+  <span class="sbb-button__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-button__label">
+    <slot>
+    </slot>
+  </span>
+</span>
+`;
+/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static without icon ShadowDom */
 
 snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon Dom"] = 
 `<sbb-transparent-button-static
@@ -36,50 +50,6 @@ snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static
 </sbb-transparent-button-static>
 `;
 /* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon Dom */
-
-snapshots["sbb-transparent-button-static A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-transparent-button-static A11y tree Chrome */
-
-snapshots["sbb-transparent-button-static A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-transparent-button-static A11y tree Firefox */
-
-snapshots["sbb-transparent-button-static A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-transparent-button-static A11y tree Safari */
-
-snapshots["ShadowDom"] = 
-`<span class="sbb-action-base sbb-transparent-button-static">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
-</span>
-`;
-/* end snapshot ShadowDom */
 
 snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-transparent-button-static">
@@ -126,49 +96,4 @@ snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static
 </p>
 `;
 /* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Firefox */
-
-snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Safari */
-
-snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static without icon Dom"] = 
-`<sbb-transparent-button-static
-  data-action=""
-  data-sbb-button=""
-  data-slot-names="unnamed"
-  dir="ltr"
-  disabled=""
-  negative=""
-  size="m"
->
-  Label Text
-</sbb-transparent-button-static>
-`;
-/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static without icon Dom */
-
-snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static without icon ShadowDom"] = 
-`<span class="sbb-action-base sbb-transparent-button-static">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
-</span>
-`;
-/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static without icon ShadowDom */
 

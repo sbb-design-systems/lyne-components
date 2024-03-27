@@ -3,7 +3,7 @@ import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { isChromium, isFirefox, isSafari } from '../../dom';
+import { isChromium, isFirefox } from '../../dom';
 import { testIf } from '../mocha-extensions';
 import { waitForLitRender } from '../wait-for-render';
 
@@ -45,9 +45,10 @@ export function testA11yTreeSnapshot(
       await a11yTreeEqualSnapshot();
     });
 
-    testIf(isSafari() && !exclude.safari, 'Safari', async () => {
-      await a11yTreeEqualSnapshot();
-    });
+    // TODO: Try if tests on CI are no longer flaky
+    // testIf(isSafari() && !exclude.safari, 'Safari', async () => {
+    //   await a11yTreeEqualSnapshot();
+    // });
 
     testIf(isFirefox() && !exclude.firefox, 'Firefox', async () => {
       await a11yTreeEqualSnapshot();

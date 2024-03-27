@@ -122,31 +122,3 @@ snapshots["sbb-breadcrumb A11y tree Firefox"] =
 `;
 /* end snapshot sbb-breadcrumb A11y tree Firefox */
 
-snapshots["sbb-breadcrumb A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": "Breadcrumb",
-          "children": [
-            {
-              "role": "text",
-              "name": "Breadcrumb"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-breadcrumb A11y tree Safari */
-

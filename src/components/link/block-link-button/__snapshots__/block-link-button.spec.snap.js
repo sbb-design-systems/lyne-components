@@ -74,19 +74,3 @@ snapshots["sbb-block-link-button A11y tree Firefox"] =
 `;
 /* end snapshot sbb-block-link-button A11y tree Firefox */
 
-snapshots["sbb-block-link-button A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Travelcards & tickets."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-block-link-button A11y tree Safari */
-
