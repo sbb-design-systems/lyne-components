@@ -2,7 +2,6 @@ import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
-import type { Context } from 'mocha';
 
 import { isChromium, isFirefox, isSafari } from '../../dom';
 import { testIf } from '../mocha-extensions';
@@ -42,18 +41,15 @@ export function testA11yTreeSnapshot(
       await waitForLitRender(document);
     });
 
-    testIf(isChromium() && !exclude.chrome, 'Chrome', async function (this: Context) {
-      this.retries(3);
+    testIf(isChromium() && !exclude.chrome, 'Chrome', async () => {
       await a11yTreeEqualSnapshot();
     });
 
-    testIf(isSafari() && !exclude.safari, 'Safari', async function (this: Context) {
-      this.retries(3);
+    testIf(isSafari() && !exclude.safari, 'Safari', async () => {
       await a11yTreeEqualSnapshot();
     });
 
-    testIf(isFirefox() && !exclude.firefox, 'Firefox', async function (this: Context) {
-      this.retries(3);
+    testIf(isFirefox() && !exclude.firefox, 'Firefox', async () => {
       await a11yTreeEqualSnapshot();
     });
   });
