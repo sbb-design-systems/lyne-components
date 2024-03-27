@@ -1,7 +1,7 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../core/dom';
@@ -41,7 +41,9 @@ const TemplateSlottedIcons = (args: Args): TemplateResult => html`
 `;
 
 const TemplateSbbSliderInFormField = ({ label, optional, ...args }: Args): TemplateResult => html`
-  <sbb-form-field label=${label} ?optional=${optional}> ${TemplateSbbSlider(args)} </sbb-form-field>
+  <sbb-form-field ?optional=${optional}>
+    ${label ? html`<label>${label}</label>` : nothing} ${TemplateSbbSlider(args)}
+  </sbb-form-field>
 `;
 
 const valueArg: InputType = {

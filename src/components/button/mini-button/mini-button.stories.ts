@@ -23,14 +23,16 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 });
 
 const MiniButtonCommonTemplate = ({ slot, ...args }: Args): TemplateResult => html`
-  <sbb-form-field label="Demo sbb-mini-button" ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative}>
+    <label>Demo sbb-mini-button</label>
     <input placeholder="Placeholder" ?disabled=${args.disabled} />
     <sbb-mini-button slot=${slot} ${sbbSpread(args)}></sbb-mini-button>
   </sbb-form-field>
 `;
 
 const MiniButtonSlottedIconCommonTemplate = ({ slot, ...args }: Args): TemplateResult => html`
-  <sbb-form-field label="Demo sbb-mini-button" ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative}>
+    <label>Demo sbb-mini-button</label>
     <input placeholder="Placeholder" ?disabled=${args.disabled} />
     <sbb-mini-button slot=${slot} ${sbbSpread(args)}>
       <sbb-icon name="user-small" slot="icon"></sbb-icon>

@@ -6,12 +6,10 @@ snapshots["sbb-form-field-clear renders Formfield Dom"] =
   data-input-type="input"
   data-slot-names="label suffix unnamed"
   error-space="none"
-  label="Label"
   size="m"
   width="default"
 >
   <label
-    data-creator="sbb-form-field"
     for="sbb-form-field-input-0"
     slot="label"
   >

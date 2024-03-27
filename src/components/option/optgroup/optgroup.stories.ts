@@ -133,7 +133,8 @@ const Template = ({ label, disabled, ...args }: Args): TemplateResult => html`
 
 const TemplateAutocomplete = (args: Args): TemplateResult => {
   return html`
-    <sbb-form-field label="Autocomplete" ?negative=${args.negative}>
+    <sbb-form-field ?negative=${args.negative}>
+      <label>Autocomplete</label>
       <input placeholder="Placeholder" />
       <sbb-autocomplete>${Template(args)}</sbb-autocomplete>
     </sbb-form-field>
@@ -142,7 +143,8 @@ const TemplateAutocomplete = (args: Args): TemplateResult => {
 
 const TemplateSelect = (args: Args): TemplateResult => {
   return html`
-    <sbb-form-field label="Select" ?negative=${args.negative}>
+    <sbb-form-field ?negative=${args.negative}>
+      <label>Select</label>
       <sbb-select ?multiple=${args.multiple} placeholder="Select"> ${Template(args)} </sbb-select>
     </sbb-form-field>
   `;

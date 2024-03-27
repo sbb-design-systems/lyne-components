@@ -15,7 +15,8 @@ If no value is provided, by default it is set halfway between the minimum and ma
 The component can be used within a `sbb-form-field` component.
 
 ```html
-<sbb-form-field label="Slider">
+<sbb-form-field>
+  <label>Slider</label>
   <sbb-slider value="0"></sbb-slider>
 </sbb-form-field>
 ```

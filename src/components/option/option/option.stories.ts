@@ -123,14 +123,16 @@ const createOptions = ({
 const StandaloneTemplate = (args: Args): TemplateResult => html`${createOptions(args)}`;
 
 const AutocompleteTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field label="sbb-autocomplete" ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative}>
+    <label>sbb-autocomplete</label>
     <input placeholder="Please select." />
     <sbb-autocomplete>${createOptions(args)}</sbb-autocomplete>
   </sbb-form-field>
 `;
 
 const SelectTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field label="sbb-select" ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative}>
+    <label>sbb-select</label>
     <sbb-select placeholder="Please select.">${createOptions(args)}</sbb-select>
   </sbb-form-field>
 `;

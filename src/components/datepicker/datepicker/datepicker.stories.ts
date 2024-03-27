@@ -10,7 +10,7 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -382,11 +382,11 @@ const TemplateFormField = ({
     <sbb-form-field
       size=${size}
       ?negative=${negative}
-      label=${label}
       ?optional=${optional}
       ?borderless=${borderless}
       width="collapse"
     >
+      ${label ? html`<label>${label}</label>` : nothing}
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-datepicker-next-day></sbb-datepicker-next-day>
       <sbb-datepicker-toggle
