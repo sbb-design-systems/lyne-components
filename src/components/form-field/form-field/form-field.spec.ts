@@ -84,7 +84,6 @@ describe(`sbb-form-field`, () => {
           </select>
         </sbb-form-field>
       `);
-
     });
 
     it('DOM', async () => {
