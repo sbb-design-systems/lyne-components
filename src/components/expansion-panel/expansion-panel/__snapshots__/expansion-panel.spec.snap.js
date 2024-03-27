@@ -46,22 +46,6 @@ snapshots["sbb-expansion-panel renders ShadowDom"] =
 `;
 /* end snapshot sbb-expansion-panel renders ShadowDom */
 
-snapshots["sbb-expansion-panel renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Header"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-expansion-panel renders A11y tree Chrome */
-
 snapshots["sbb-expansion-panel renders with level set Dom"] = 
 `<sbb-expansion-panel title-level="4">
   <sbb-expansion-panel-header
@@ -107,7 +91,7 @@ snapshots["sbb-expansion-panel renders with level set ShadowDom"] =
 `;
 /* end snapshot sbb-expansion-panel renders with level set ShadowDom */
 
-snapshots["sbb-expansion-panel renders A11y tree Firefox"] = 
+snapshots["sbb-expansion-panel renders with level set A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -121,5 +105,21 @@ snapshots["sbb-expansion-panel renders A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-expansion-panel renders A11y tree Firefox */
+/* end snapshot sbb-expansion-panel renders with level set A11y tree Firefox */
+
+snapshots["sbb-expansion-panel renders with level set A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Header"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-expansion-panel renders with level set A11y tree Chrome */
 
