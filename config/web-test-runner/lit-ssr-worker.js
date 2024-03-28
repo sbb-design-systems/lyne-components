@@ -13,7 +13,7 @@ if (parentPort === null) {
 
 const { template, modules } = workerData;
 if (modules?.length) {
-  const buildCacheOutDir = new URL(`../dist/testout/${moduleHash(modules)}/`, import.meta.url);
+  const buildCacheOutDir = new URL(`../../dist/testout/${moduleHash(modules)}/`, import.meta.url);
   const moduleIndex = new URL('index.js', buildCacheOutDir).pathname;
   if (!existsSync(moduleIndex)) {
     await buildModules(buildCacheOutDir);
@@ -45,7 +45,7 @@ parentPort.postMessage(rendered);
 async function buildModules(buildCacheOutDir) {
   mkdirSync(buildCacheOutDir, { recursive: true });
 
-  const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
+  const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   const entry = new URL('index.ts', buildCacheOutDir).pathname;
   const importStatement = modules
     .map((m) => `export * from '${relative(buildCacheOutDir.pathname, m)}';`)
@@ -65,32 +65,12 @@ async function buildModules(buildCacheOutDir) {
       sassPlugin({
         type: 'lit-css',
         loadPaths: [
-          new URL('../', import.meta.url).pathname,
-          new URL('../node_modules/', import.meta.url).pathname,
+          new URL('../../', import.meta.url).pathname,
+          new URL('../../node_modules/', import.meta.url).pathname,
         ],
       }),
     ],
   });
-
-  /*
-  // Vite build config. It is slower by about a factor of 3.
-  await build({
-    root: new URL('..', import.meta.url).pathname,
-    mode: 'development',
-    logLevel: 'warn',
-    build: {
-      lib: {
-        entry,
-        formats: ['es'],
-      },
-      ssr: true,
-      outDir: buildCacheOutDir.pathname,
-      emptyOutDir: false,
-      rollupOptions: { external: Object.keys({ ...pkg.dependencies, ...pkg.devDependencies }) },
-      sourcemap: 'inline',
-    },
-  });
-  */
 }
 
 /** Generate a hash from the contents of the given modules and their import chain. */
