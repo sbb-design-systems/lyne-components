@@ -11997,10 +11997,10 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-dts@3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-3.8.0.tgz#e879134e3d674e5d5dd659002694078df17b2b3f"
-  integrity sha512-wt9ST1MwS5lkxHtA3M30+lSA3TO8RnaUu3YUPmGgY1iKm+vWZmB7KBss6qspyUlto9ynLNHYG2eJ09d2Q4/7Qg==
+vite-plugin-dts@3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-3.8.1.tgz#a6bbdc9762acce21d0fee8812d1c73085b49dee5"
+  integrity sha512-zEYyQxH7lKto1VTKZHF3ZZeOPkkJgnMrePY4VxDHfDSvDjmYMMfWjZxYmNwW8QxbaItWJQhhXY+geAbyNphI7g==
   dependencies:
     "@microsoft/api-extractor" "7.43.0"
     "@rollup/pluginutils" "^5.1.0"
