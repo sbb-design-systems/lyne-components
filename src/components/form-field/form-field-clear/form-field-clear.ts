@@ -7,8 +7,7 @@ import {
   SbbLanguageController,
   SbbButtonBaseElement,
   SbbNegativeMixin,
-} from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+ SbbConnectedAbortController } from '../../core/common-behaviors';
 import { hostContext, isValidAttribute } from '../../core/dom';
 import { i18nClearInput } from '../../core/i18n';
 import type { SbbFormFieldElement } from '../form-field';

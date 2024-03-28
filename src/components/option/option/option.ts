@@ -7,8 +7,7 @@ import {
   hostAttributes,
   SbbSlotStateController,
   SbbDisabledMixin,
-} from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+ SbbConnectedAbortController } from '../../core/common-behaviors';
 import { isSafari, isValidAttribute, isAndroid, setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';

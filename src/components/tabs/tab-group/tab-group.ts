@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+import { SbbConnectedAbortController } from '../../core/common-behaviors';
 import { isValidAttribute, hostContext, setAttribute } from '../../core/dom';
 import { throttle, EventEmitter } from '../../core/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';

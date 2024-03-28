@@ -7,8 +7,7 @@ import {
   SbbLanguageController,
   SbbNegativeMixin,
   SbbButtonBaseElement,
-} from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+ SbbConnectedAbortController } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute } from '../../core/dom';
 import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../../core/i18n';

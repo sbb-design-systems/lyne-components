@@ -9,8 +9,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/common-behaviors';
-import { SbbLanguageController } from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+import { SbbLanguageController , SbbConnectedAbortController } from '../../core/common-behaviors';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbTrainElement } from '../train';

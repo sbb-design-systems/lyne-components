@@ -3,7 +3,7 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+import { SbbConnectedAbortController } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import type { SbbTitleLevel } from '../../title';

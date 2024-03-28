@@ -14,8 +14,7 @@ import {
   hostAttributes,
   type WithListChildren,
 } from '../../core/common-behaviors';
-import { SbbLanguageController } from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+import { SbbLanguageController , SbbConnectedAbortController } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';

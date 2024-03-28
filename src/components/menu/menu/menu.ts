@@ -10,8 +10,7 @@ import {
   isArrowKeyPressed,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { SbbNamedSlotListMixin } from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+import { SbbNamedSlotListMixin , SbbConnectedAbortController } from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,

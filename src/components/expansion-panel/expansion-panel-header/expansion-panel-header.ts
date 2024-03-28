@@ -7,8 +7,7 @@ import {
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
   hostAttributes,
-} from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+ SbbConnectedAbortController } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { SbbIconNameMixin } from '../../icon';
 import type { SbbExpansionPanelElement } from '../expansion-panel';

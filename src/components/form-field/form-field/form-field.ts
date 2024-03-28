@@ -8,8 +8,7 @@ import {
   SbbLanguageController,
   SbbSlotStateController,
   SbbNegativeMixin,
-} from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+ SbbConnectedAbortController } from '../../core/common-behaviors';
 import { isFirefox, isValidAttribute } from '../../core/dom';
 import { i18nOptional } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';

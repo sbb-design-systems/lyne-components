@@ -1,8 +1,7 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbNegativeMixin } from '../core/common-behaviors';
-import { SbbConnectedAbortController } from '../core/common-behaviors/controllers';
+import { SbbLanguageController, SbbNegativeMixin , SbbConnectedAbortController } from '../core/common-behaviors';
 import { i18nOccupancy } from '../core/i18n';
 import type { SbbOccupancy } from '../core/interfaces';
 import { SbbIconBase } from '../icon';

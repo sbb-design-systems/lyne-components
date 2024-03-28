@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { AbstractConstructor, SbbActionBaseElement } from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+import { SbbConnectedAbortController } from '../../core/common-behaviors';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationLinkElement } from '../navigation-link';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
