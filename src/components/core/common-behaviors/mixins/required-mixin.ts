@@ -1,8 +1,7 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from '../constructor';
-
+import type { AbstractConstructor } from './constructor';
 import type { SbbFormAssociatedMixinType } from './form-associated-mixin';
 
 export declare class SbbRequiredMixinType {

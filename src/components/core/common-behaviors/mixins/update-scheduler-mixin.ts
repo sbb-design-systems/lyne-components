@@ -1,6 +1,6 @@
 import type { LitElement } from 'lit';
 
-import type { Constructor } from '../constructor';
+import type { Constructor } from './constructor';
 
 // Define the interface for the mixin
 export declare class UpdateSchedulerMixinType {

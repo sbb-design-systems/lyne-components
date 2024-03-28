@@ -2,8 +2,8 @@ import { type LitElement, html, nothing, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
 import { getLocalName } from '../../dom';
-import type { AbstractConstructor } from '../constructor';
 
+import type { AbstractConstructor } from './constructor';
 import { SbbHydrationMixin, type SbbHydrationMixinType } from './hydration-mixin';
 
 import '../../../screen-reader-only';

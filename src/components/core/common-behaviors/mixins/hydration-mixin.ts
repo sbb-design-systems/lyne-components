@@ -1,7 +1,8 @@
 import { isServer, type LitElement, type PropertyValues } from 'lit';
 
 import { forwardEventToHost } from '../../eventing';
-import type { AbstractConstructor } from '../constructor';
+
+import type { AbstractConstructor } from './constructor';
 
 // Define the interface for the mixin
 export declare abstract class SbbHydrationMixinType {
