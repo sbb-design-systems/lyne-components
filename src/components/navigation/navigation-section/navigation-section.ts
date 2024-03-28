@@ -12,8 +12,8 @@ import {
 } from '../../core/a11y';
 import {
   hostAttributes,
-  LanguageController,
-  NamedSlotStateController,
+  SbbLanguageController,
+  SbbSlotStateController,
   UpdateSchedulerMixin,
 } from '../../core/common-behaviors';
 import {
@@ -100,11 +100,11 @@ export class SbbNavigationSectionElement extends UpdateSchedulerMixin(LitElement
   private _navigationSectionController!: AbortController;
   private _windowEventsController!: AbortController;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   /**

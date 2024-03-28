@@ -3,7 +3,7 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
+import { SbbSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
 import { SbbIconNameMixin } from '../../icon';
 import type { SbbTitleLevel } from '../../title';
 
@@ -34,7 +34,7 @@ export class SbbTabTitleElement extends SbbDisabledMixin(SbbIconNameMixin(LitEle
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override render(): TemplateResult {

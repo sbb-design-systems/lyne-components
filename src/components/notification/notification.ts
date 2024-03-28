@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
+import { SbbLanguageController, SbbSlotStateController } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
@@ -80,7 +80,7 @@ export class SbbNotificationElement extends LitElement {
 
   private _notificationElement!: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
   private _notificationResizeObserver = new AgnosticResizeObserver(() =>
     this._onNotificationResize(),
   );
@@ -111,7 +111,7 @@ export class SbbNotificationElement extends LitElement {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   private _open(): void {

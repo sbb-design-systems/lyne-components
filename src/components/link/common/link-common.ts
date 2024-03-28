@@ -7,7 +7,7 @@ import {
   type AbstractConstructor,
   type SbbNegativeMixinType,
   SbbNegativeMixin,
-  NamedSlotStateController,
+  SbbSlotStateController,
   hostAttributes,
 } from '../../core/common-behaviors';
 
@@ -39,7 +39,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
 
     public constructor(...args: any[]) {
       super(args);
-      new NamedSlotStateController(this);
+      new SbbSlotStateController(this);
     }
 
     protected override renderTemplate(): TemplateResult {

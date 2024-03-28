@@ -19,7 +19,7 @@ import type { ReactiveController, ReactiveControllerHost } from 'lit';
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors
  */
-export class NamedSlotStateController implements ReactiveController {
+export class SbbSlotStateController implements ReactiveController {
   public readonly slots = new Set<string>();
 
   // We avoid using AbortController here, as it would mean creating

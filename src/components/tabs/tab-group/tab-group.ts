@@ -4,8 +4,9 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import { isValidAttribute, hostContext, setAttribute } from '../../core/dom';
-import { throttle, EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { throttle, EventEmitter } from '../../core/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import type { SbbTabTitleElement } from '../tab-title';
 
@@ -59,7 +60,7 @@ export class SbbTabGroupElement extends LitElement {
   private _isNested: boolean = false;
   private _tabGroupElement!: HTMLElement;
   private _tabContentElement!: HTMLElement;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _tabAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
     this._onTabAttributesChange(mutationsList),
   );

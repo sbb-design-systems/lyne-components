@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
+import { SbbLanguageController, SbbNegativeMixin } from '../core/common-behaviors';
 import { i18nClass } from '../core/i18n';
 import type { SbbOccupancy } from '../core/interfaces';
 
@@ -24,7 +24,7 @@ export class SbbTimetableOccupancyElement extends SbbNegativeMixin(LitElement) {
   /** Occupancy for second class wagons. */
   @property({ attribute: 'second-class-occupancy' }) public secondClassOccupancy?: SbbOccupancy;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
     return html` ${(this.firstClassOccupancy || this.secondClassOccupancy) &&

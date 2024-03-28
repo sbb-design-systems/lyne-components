@@ -1,2 +1,3 @@
+export * from './connected-abort-controller';
 export * from './language-controller';
-export * from './named-slot-state-controller';
+export * from './slot-state-controller';

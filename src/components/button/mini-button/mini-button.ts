@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import {
-  NamedSlotStateController,
+  SbbSlotStateController,
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
   SbbNegativeMixin,
@@ -25,7 +25,7 @@ export class SbbMiniButtonElement extends SbbNegativeMixin(
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override renderTemplate(): TemplateResult {

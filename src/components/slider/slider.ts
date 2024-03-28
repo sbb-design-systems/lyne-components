@@ -5,9 +5,13 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { hostAttributes, SbbDisabledMixin } from '../core/common-behaviors';
+import {
+  hostAttributes,
+  SbbDisabledMixin,
+  SbbConnectedAbortController,
+} from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
-import { forwardEventToHost, EventEmitter, ConnectedAbortController } from '../core/eventing';
+import { forwardEventToHost, EventEmitter } from '../core/eventing';
 
 import style from './slider.scss?lit&inline';
 import '../icon';
@@ -76,7 +80,7 @@ export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
   /** Reference to the inner HTMLInputElement with type='range'. */
   private _rangeInput!: HTMLInputElement;
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();

@@ -4,13 +4,13 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import {
   hostAttributes,
-  LanguageController,
+  SbbLanguageController,
   SbbNegativeMixin,
   SbbButtonBaseElement,
 } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
 import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../../core/i18n';
 import {
   datepickerControlRegisteredEventFactory,
@@ -50,8 +50,8 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
 
   private _datePickerController!: AbortController;
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
 
   private _handleClick(): void {
     if (!this._datePickerElement || isValidAttribute(this, 'data-disabled')) {

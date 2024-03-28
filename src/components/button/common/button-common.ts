@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import {
   type AbstractConstructor,
   hostAttributes,
-  NamedSlotStateController,
+  SbbSlotStateController,
   type SbbActionBaseElement,
   type SbbDisabledMixinType,
   SbbNegativeMixin,
@@ -42,7 +42,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
 
     protected constructor(...args: any[]) {
       super(args);
-      new NamedSlotStateController(this);
+      new SbbSlotStateController(this);
     }
 
     protected override renderTemplate(): TemplateResult {

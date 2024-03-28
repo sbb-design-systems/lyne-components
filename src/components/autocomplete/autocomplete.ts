@@ -4,7 +4,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { assignId, getNextElementIndex } from '../core/a11y';
-import { SbbHydrationMixin, SbbNegativeMixin, hostAttributes } from '../core/common-behaviors';
+import {
+  SbbHydrationMixin,
+  SbbNegativeMixin,
+  hostAttributes,
+  SbbConnectedAbortController,
+} from '../core/common-behaviors';
 import {
   setAttribute,
   getDocumentWritingMode,
@@ -13,7 +18,7 @@ import {
   isValidAttribute,
   isBrowser,
 } from '../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
 import type { SbbOverlayState } from '../core/overlay';
 import {
   isEventOnElement,
@@ -116,7 +121,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   private _activeItemIndex = -1;
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   /**
    * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.

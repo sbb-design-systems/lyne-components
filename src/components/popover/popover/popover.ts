@@ -9,7 +9,7 @@ import {
   IS_FOCUSABLE_QUERY,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { LanguageController } from '../../core/common-behaviors';
+import { SbbLanguageController } from '../../core/common-behaviors';
 import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
 import { i18nClosePopover } from '../../core/i18n';
@@ -124,7 +124,7 @@ export class SbbPopoverElement extends LitElement {
   private _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /** Opens the popover on trigger click. */
   public open(): void {

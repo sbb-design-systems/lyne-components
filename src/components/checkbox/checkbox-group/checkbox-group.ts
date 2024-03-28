@@ -3,8 +3,8 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y';
-import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
-import { ConnectedAbortController } from '../../core/eventing';
+import { SbbSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox';
 
@@ -41,11 +41,11 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
     );
   }
 
-  private _abort: ConnectedAbortController = new ConnectedAbortController(this);
+  private _abort: SbbConnectedAbortController = new SbbConnectedAbortController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

@@ -4,17 +4,13 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import {
   hostAttributes,
-  LanguageController,
-  NamedSlotStateController,
+  SbbLanguageController,
+  SbbSlotStateController,
   UpdateSchedulerMixin,
+  SbbConnectedAbortController,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import {
-  HandlerRepository,
-  formElementHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { HandlerRepository, formElementHandlerAspect, EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import type {
   SbbCheckedStateChange,
@@ -132,8 +128,8 @@ export class SbbRadioButtonElement extends UpdateSchedulerMixin(LitElement) {
   @state() private _selectionPanelExpandedLabel?: string;
 
   private _selectionPanelElement: SbbSelectionPanelElement | null = null;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal
@@ -190,7 +186,7 @@ export class SbbRadioButtonElement extends UpdateSchedulerMixin(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import type { SbbTertiaryButtonElement } from '../button';
-import { LanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/common-behaviors';
 import { i18nMapContainerButtonLabel } from '../core/i18n';
 import { AgnosticIntersectionObserver } from '../core/observers';
 import '../button/tertiary-button';
@@ -33,7 +33,7 @@ export class SbbMapContainerElement extends LitElement {
   @state() private _scrollUpButtonVisible = false;
 
   private _intersector?: HTMLSpanElement;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
   private _observer = new AgnosticIntersectionObserver((entries) =>
     this._toggleButtonVisibilityOnIntersect(entries),
   );

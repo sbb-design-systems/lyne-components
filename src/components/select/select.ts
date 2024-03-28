@@ -5,6 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, assignId } from '../core/a11y';
 import {
+  SbbConnectedAbortController,
   hostAttributes,
   SbbDisabledMixin,
   SbbNegativeMixin,
@@ -17,7 +18,7 @@ import {
   setAttribute,
   isNextjs,
 } from '../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
 import type { SbbOverlayState } from '../core/overlay';
 import { setOverlayPosition, isEventOnElement, overlayGapFixCorners } from '../core/overlay';
 import type { SbbOptionElement, SbbOptGroupElement } from '../option';
@@ -136,7 +137,7 @@ export class SbbSelectElement extends UpdateSchedulerMixin(
   private _searchString = '';
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   /**
    * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.

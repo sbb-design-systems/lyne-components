@@ -11,6 +11,7 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y';
 import { SbbNamedSlotListMixin } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -18,7 +19,7 @@ import {
   ScrollHandler,
   setAttribute,
 } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
   applyInertMechanism,
@@ -121,7 +122,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
 

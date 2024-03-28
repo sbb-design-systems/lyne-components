@@ -3,12 +3,13 @@ import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import {
-  NamedSlotStateController,
+  SbbSlotStateController,
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
   hostAttributes,
 } from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+import { EventEmitter } from '../../core/eventing';
 import { SbbIconNameMixin } from '../../icon';
 import type { SbbExpansionPanelElement } from '../expansion-panel';
 
@@ -41,8 +42,8 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
       bubbles: true,
     },
   );
-  private _abort = new ConnectedAbortController(this);
-  private _namedSlots = new NamedSlotStateController(this, () => this._setDataIconAttribute());
+  private _abort = new SbbConnectedAbortController(this);
+  private _namedSlots = new SbbSlotStateController(this, () => this._setDataIconAttribute());
 
   public override connectedCallback(): void {
     super.connectedCallback();

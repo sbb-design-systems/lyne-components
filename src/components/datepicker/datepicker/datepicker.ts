@@ -2,12 +2,12 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { LanguageController } from '../../core/common-behaviors';
+import { SbbLanguageController, SbbConnectedAbortController } from '../../core/common-behaviors';
 import { readConfig } from '../../core/config';
 import type { DateAdapter } from '../../core/datetime';
 import { defaultDateAdapter } from '../../core/datetime';
 import { findInput, findReferencedElement, isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
 import type { SbbDateLike, ValidationChangeEvent } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
@@ -335,8 +335,8 @@ export class SbbDatepickerElement extends LitElement {
   private _dateAdapter: DateAdapter<Date> =
     readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this).withHandler(() => {
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => {
     if (this._inputElement) {
       this._inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
       const valueAsDate = this.getValueAsDate();

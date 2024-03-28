@@ -2,7 +2,7 @@ import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { isEventPrevented } from '../../eventing';
-import { hostAttributes } from '../host-attributes';
+import { hostAttributes } from '../decorators';
 
 import { SbbActionBaseElement } from './action-base-element';
 

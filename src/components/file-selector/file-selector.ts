@@ -7,8 +7,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import type { SbbSecondaryButtonStaticElement } from '../button';
 import { sbbInputModalityDetector } from '../core/a11y';
 import {
-  LanguageController,
-  NamedSlotStateController,
+  SbbLanguageController,
+  SbbSlotStateController,
   SbbDisabledMixin,
 } from '../core/common-behaviors';
 import { EventEmitter } from '../core/eventing';
@@ -91,11 +91,11 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
   private _liveRegion!: HTMLParagraphElement;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   private _blockEvent(event: DragEvent): void {

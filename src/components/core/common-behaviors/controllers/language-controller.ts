@@ -12,17 +12,17 @@ import { AgnosticMutationObserver } from '../../observers';
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
  */
-export class LanguageController implements ReactiveController {
+export class SbbLanguageController implements ReactiveController {
   private static readonly _defaultLanguage = 'en';
   private static readonly _supportedLocales = ['en', 'de', 'fr', 'it'];
 
   /** A set of connected components that should be notified on language change. */
-  private static readonly _listeners = new Set<LanguageController>();
+  private static readonly _listeners = new Set<SbbLanguageController>();
 
   /** MutationObserver that observes the "lang" attribute of the <html> element. */
   private static readonly _observer = new AgnosticMutationObserver((mutations) => {
     if (mutations[0].oldValue !== document.documentElement.getAttribute('lang')) {
-      LanguageController._listeners.forEach((l) => l._callHandlers());
+      SbbLanguageController._listeners.forEach((l) => l._callHandlers());
     }
   });
   private static readonly _observerConfig = {
@@ -36,19 +36,19 @@ export class LanguageController implements ReactiveController {
       (readConfig().language ??
         (isBrowser()
           ? document.documentElement.getAttribute('lang')
-          : LanguageController._defaultLanguage)) ||
-      LanguageController._defaultLanguage;
+          : SbbLanguageController._defaultLanguage)) ||
+      SbbLanguageController._defaultLanguage;
 
     // Support e.g. cases like `de-ch`.
     const langAttributeNormalized = language.split('-')[0];
-    return LanguageController._supportedLocales.includes(langAttributeNormalized)
+    return SbbLanguageController._supportedLocales.includes(langAttributeNormalized)
       ? langAttributeNormalized
-      : LanguageController._defaultLanguage;
+      : SbbLanguageController._defaultLanguage;
   }
 
   /** Get the current language. */
   public get current(): string {
-    return LanguageController.current;
+    return SbbLanguageController.current;
   }
 
   private _previousLanguage?: string;
@@ -67,14 +67,14 @@ export class LanguageController implements ReactiveController {
   }
 
   public hostConnected(): void {
-    if (!LanguageController._listeners.size) {
-      LanguageController._observer.observe(
+    if (!SbbLanguageController._listeners.size) {
+      SbbLanguageController._observer.observe(
         document.documentElement,
-        LanguageController._observerConfig,
+        SbbLanguageController._observerConfig,
       );
     }
 
-    LanguageController._listeners.add(this);
+    SbbLanguageController._listeners.add(this);
     if (this._previousLanguage !== this.current) {
       this._callHandlers(this._previousLanguage !== undefined);
     }
@@ -82,9 +82,9 @@ export class LanguageController implements ReactiveController {
 
   public hostDisconnected(): void {
     this._previousLanguage = this.current;
-    LanguageController._listeners.delete(this);
-    if (!LanguageController._listeners.size) {
-      LanguageController._observer.disconnect();
+    SbbLanguageController._listeners.delete(this);
+    if (!SbbLanguageController._listeners.size) {
+      SbbLanguageController._observer.disconnect();
     }
   }
 

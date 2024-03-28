@@ -3,7 +3,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/common-behaviors';
 import {
   defaultDateAdapter,
   durationToTime,
@@ -63,7 +63,7 @@ export class SbbJourneySummaryElement extends LitElement {
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
   private _hasContentSlot: boolean = false;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();

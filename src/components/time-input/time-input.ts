@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/common-behaviors';
 import { findInput, isValidAttribute } from '../core/dom';
 import { forwardEventToHost, EventEmitter } from '../core/eventing';
 import { i18nTimeInputChange } from '../core/i18n';
@@ -67,7 +67,7 @@ export class SbbTimeInputElement extends LitElement {
 
   private _statusContainer!: HTMLParagraphElement;
   private _abortController = new AbortController();
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();

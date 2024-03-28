@@ -4,7 +4,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbHydrationMixin } from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
+import { EventEmitter } from '../../core/eventing';
 import type { SbbOverlayState } from '../../core/overlay';
 import type { SbbTitleLevel } from '../../title';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
@@ -92,7 +93,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     SbbExpansionPanelElement.events.didClose,
   );
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _state: SbbOverlayState = 'closed';
 
   private _toggleExpanded(): void {

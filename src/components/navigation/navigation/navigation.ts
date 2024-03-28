@@ -6,8 +6,9 @@ import { ref } from 'lit/directives/ref.js';
 import { FocusHandler, assignId, setModalityOnNextFocus } from '../../core/a11y';
 import {
   hostAttributes,
-  LanguageController,
+  SbbLanguageController,
   UpdateSchedulerMixin,
+  SbbConnectedAbortController,
 } from '../../core/common-behaviors';
 import {
   ScrollHandler,
@@ -15,7 +16,7 @@ import {
   findReferencedElement,
   setAttribute,
 } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import type { SbbOverlayState } from '../../core/overlay';
@@ -137,8 +138,8 @@ export class SbbNavigationElement extends UpdateSchedulerMixin(LitElement) {
   private _triggerElement: HTMLElement | null = null;
   private _navigationController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
   private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;

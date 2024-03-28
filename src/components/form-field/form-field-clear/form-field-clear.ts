@@ -4,12 +4,12 @@ import { customElement } from 'lit/decorators.js';
 
 import {
   hostAttributes,
-  LanguageController,
+  SbbLanguageController,
   SbbButtonBaseElement,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import { hostContext, isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
 import type { SbbFormFieldElement } from '../form-field';
 import '../../icon';
@@ -27,8 +27,8 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
   public static override styles: CSSResultGroup = style;
 
   private _formField?: SbbFormFieldElement;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();

@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbHydrationMixin } from '../core/common-behaviors';
-import { ConnectedAbortController } from '../core/eventing';
+import { SbbConnectedAbortController } from '../core/common-behaviors/controllers';
 import { SbbExpansionPanelElement } from '../expansion-panel';
 import type { SbbTitleLevel } from '../title';
 
@@ -51,7 +51,7 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
   private _multi: boolean = false;
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   private _closePanels(e: CustomEvent): void {
     if ((e.target as HTMLElement)?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {

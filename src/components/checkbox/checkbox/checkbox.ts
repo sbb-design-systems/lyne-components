@@ -9,8 +9,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import {
   SbbFormAssociatedCheckboxMixin,
-  LanguageController,
-  NamedSlotStateController,
+  SbbLanguageController,
+  SbbSlotStateController,
   UpdateSchedulerMixin,
   SbbHydrationMixin,
 } from '../../core/common-behaviors';
@@ -94,7 +94,7 @@ export class SbbCheckboxElement extends UpdateSchedulerMixin(
   /** The label describing whether the selection panel is expanded (for screen readers only). */
   @state() private _selectionPanelExpandedLabel!: string;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
   private _selectionPanelElement: SbbSelectionPanelElement | null = null;
 
   /**
@@ -120,7 +120,7 @@ export class SbbCheckboxElement extends UpdateSchedulerMixin(
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

@@ -8,7 +8,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  NamedSlotStateController,
+  SbbSlotStateController,
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../../core/common-behaviors';
@@ -37,7 +37,7 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {

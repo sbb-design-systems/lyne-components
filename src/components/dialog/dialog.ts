@@ -6,8 +6,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
 import {
-  LanguageController,
-  NamedSlotStateController,
+  SbbLanguageController,
+  SbbSlotStateController,
   SbbNegativeMixin,
 } from '../core/common-behaviors';
 import { ScrollHandler, isValidAttribute, hostContext, setAttribute } from '../core/dom';
@@ -154,8 +154,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
 
-  private _language = new LanguageController(this);
-  private _namedSlots = new NamedSlotStateController(this, () =>
+  private _language = new SbbLanguageController(this);
+  private _namedSlots = new SbbSlotStateController(this, () =>
     setAttribute(this, 'data-fullscreen', !this._hasTitle),
   );
 

@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 
 import { preventScrollOnSpacebarPress } from '../../eventing';
 import type { Constructor } from '../constructor';
-import { hostAttributes } from '../host-attributes';
+import { hostAttributes } from '../decorators';
 
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin';
 import {

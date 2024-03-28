@@ -5,12 +5,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 import type { SbbInputModality } from '../../core/a11y';
 import { sbbInputModalityDetector } from '../../core/a11y';
 import {
-  LanguageController,
-  NamedSlotStateController,
+  SbbLanguageController,
+  SbbSlotStateController,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import { isFirefox, isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbSelectElement } from '../../select';
@@ -109,8 +109,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     return this._input;
   }
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -127,7 +127,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

@@ -1,7 +1,7 @@
 import { html, LitElement, type TemplateResult } from 'lit';
 
 import { getDocumentWritingMode, getLocalName } from '../../dom';
-import { hostAttributes } from '../host-attributes';
+import { hostAttributes } from '../decorators';
 
 /**
  * Whenever an element can be disabled it has disabled property

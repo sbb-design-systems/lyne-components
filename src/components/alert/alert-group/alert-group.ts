@@ -3,8 +3,9 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import { setAttribute } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import type { SbbTitleLevel } from '../../title';
 import { SbbAlertElement } from '../alert';
 
@@ -54,7 +55,7 @@ export class SbbAlertGroupElement extends LitElement {
   /** Emits when `sbb-alert-group` becomes empty. */
   private _empty: EventEmitter<void> = new EventEmitter(this, SbbAlertGroupElement.events.empty);
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   private _removeAlert(event: Event): void {
     const target = event.target as SbbAlertElement;

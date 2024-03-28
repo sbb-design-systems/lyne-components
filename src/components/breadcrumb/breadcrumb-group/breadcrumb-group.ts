@@ -14,9 +14,9 @@ import {
   hostAttributes,
   type WithListChildren,
 } from '../../core/common-behaviors';
-import { LanguageController } from '../../core/common-behaviors';
+import { SbbLanguageController } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import { setAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbBreadcrumbElement } from '../breadcrumb';
@@ -44,8 +44,8 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   @state() private _state?: 'collapsed' | 'manually-expanded';
 
   private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
   private _markForFocus = false;
 
   private _handleKeyDown(evt: KeyboardEvent): void {

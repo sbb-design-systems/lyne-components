@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { AbstractConstructor, SbbActionBaseElement } from '../../core/common-behaviors';
-import { ConnectedAbortController } from '../../core/eventing';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationLinkElement } from '../navigation-link';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
@@ -50,7 +50,7 @@ export const SbbNavigationActionCommonElementMixin = <
       return this._navigationSection;
     }
 
-    private _abort = new ConnectedAbortController(this);
+    private _abort = new SbbConnectedAbortController(this);
     private _navigationMarker: SbbNavigationMarkerElement | null = null;
     private _navigationSection: SbbNavigationSectionElement | null = null;
 

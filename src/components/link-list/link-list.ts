@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import {
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
-  NamedSlotStateController,
+  SbbSlotStateController,
   type WithListChildren,
 } from '../core/common-behaviors';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
@@ -62,7 +62,7 @@ export class SbbLinkListElement extends SbbNegativeMixin(
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {

@@ -9,8 +9,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/common-behaviors';
-import { LanguageController } from '../../core/common-behaviors';
-import { ConnectedAbortController } from '../../core/eventing';
+import { SbbLanguageController } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbTrainElement } from '../train';
@@ -47,8 +47,8 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
   /** Element that defines the visible content width. */
   private _formationDiv!: HTMLDivElement;
   private _contentResizeObserver = new AgnosticResizeObserver(() => this._applyCssWidth());
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();

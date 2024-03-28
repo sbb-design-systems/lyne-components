@@ -3,11 +3,12 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  NamedSlotStateController,
+  SbbSlotStateController,
   SbbDisabledTabIndexActionMixin,
   SbbButtonBaseElement,
+  SbbConnectedAbortController,
 } from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
   SbbStateChange,
@@ -65,11 +66,11 @@ export class SbbTagElement extends SbbIconNameMixin(
     bubbles: true,
   });
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

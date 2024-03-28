@@ -2,9 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes, NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  hostAttributes,
+  SbbSlotStateController,
+  SbbConnectedAbortController,
+} from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import { SbbIconNameMixin } from '../../icon';
 import type { SbbToggleElement, SbbToggleStateChange } from '../toggle';
 
@@ -82,11 +86,11 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
     { bubbles: true },
   );
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {

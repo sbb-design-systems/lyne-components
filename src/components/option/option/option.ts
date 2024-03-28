@@ -5,11 +5,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { assignId } from '../../core/a11y';
 import {
   hostAttributes,
-  NamedSlotStateController,
+  SbbSlotStateController,
   SbbDisabledMixin,
 } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/common-behaviors/controllers';
 import { isSafari, isValidAttribute, isAndroid, setAttribute } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
 import { SbbIconNameMixin } from '../../icon';
 
@@ -97,7 +98,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   private _optionId = `sbb-option-${++nextId}`;
   private _variant!: SbbOptionVariant;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   /**
    * On Safari, the groups labels are not read by VoiceOver.
@@ -123,7 +124,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   /**

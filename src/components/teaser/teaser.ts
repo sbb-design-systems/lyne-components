@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { NamedSlotStateController, SbbLinkBaseElement } from '../core/common-behaviors';
+import { SbbSlotStateController, SbbLinkBaseElement } from '../core/common-behaviors';
 import type { SbbTitleLevel } from '../title';
 import '../title';
 import '../chip';
@@ -36,7 +36,7 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override renderTemplate(): TemplateResult {

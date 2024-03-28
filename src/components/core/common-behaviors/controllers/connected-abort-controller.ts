@@ -1,6 +1,6 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
-export class ConnectedAbortController implements ReactiveController {
+export class SbbConnectedAbortController implements ReactiveController {
   private _abortController?: AbortController = new AbortController();
 
   public get signal(): AbortSignal | undefined {

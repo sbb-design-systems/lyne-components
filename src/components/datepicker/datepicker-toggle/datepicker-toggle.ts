@@ -5,7 +5,11 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { SbbCalendarElement } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
-import { hostAttributes, LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';
+import {
+  hostAttributes,
+  SbbLanguageController,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
 import { isValidAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
 import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover';
@@ -48,7 +52,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
   private _datePickerController!: AbortController;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Opens the calendar.

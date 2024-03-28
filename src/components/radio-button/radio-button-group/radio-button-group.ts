@@ -5,10 +5,11 @@ import { customElement, property } from 'lit/decorators.js';
 import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
 import {
   hostAttributes,
-  NamedSlotStateController,
+  SbbSlotStateController,
   SbbDisabledMixin,
+  SbbConnectedAbortController,
 } from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type {
@@ -95,7 +96,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
 
   private _hasSelectionPanel: boolean = false;
   private _didLoad = false;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   private _valueChanged(value: any | undefined): void {
     for (const radio of this.radioButtons) {
@@ -132,7 +133,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

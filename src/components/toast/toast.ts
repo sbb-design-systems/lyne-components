@@ -3,9 +3,13 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button';
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
+import {
+  SbbLanguageController,
+  SbbSlotStateController,
+  SbbConnectedAbortController,
+} from '../core/common-behaviors';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
-import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
+import { composedPathHasAttribute, EventEmitter } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import type { SbbOverlayState } from '../core/overlay';
 import { SbbIconNameMixin } from '../icon';
@@ -83,8 +87,8 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didClose);
 
   private _closeTimeout?: ReturnType<typeof setTimeout>;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
@@ -144,7 +148,7 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

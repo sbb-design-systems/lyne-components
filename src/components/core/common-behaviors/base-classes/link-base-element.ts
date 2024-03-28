@@ -4,8 +4,8 @@ import { property } from 'lit/decorators.js';
 import { getLocalName } from '../../dom';
 import { isEventPrevented } from '../../eventing';
 import { i18nTargetOpensInNewWindow } from '../../i18n';
-import { LanguageController } from '../controllers';
-import { hostAttributes } from '../host-attributes';
+import { SbbLanguageController } from '../controllers';
+import { hostAttributes } from '../decorators';
 
 import { SbbActionBaseElement } from './action-base-element';
 
@@ -33,7 +33,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
 
-  protected language = new LanguageController(this);
+  protected language = new SbbLanguageController(this);
 
   public constructor() {
     super();
