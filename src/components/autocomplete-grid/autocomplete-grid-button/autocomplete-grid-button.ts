@@ -28,6 +28,14 @@ const buttonObserverConfig: MutationObserverInit = {
 export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 
+  /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
+  public get option(): SbbAutocompleteGridOptionElement | null {
+    return (
+      this.closest('sbb-autocomplete-grid-row')?.querySelector('sbb-autocomplete-grid-option') ||
+      null
+    );
+  }
+
   /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
   @state() private _disabledFromGroup = false;
 
@@ -47,7 +55,7 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const parentGroup = this.closest?.('sbb-autocomplete-grid-optgroup');
+    const parentGroup = this.closest('sbb-autocomplete-grid-optgroup');
     if (parentGroup) {
       this._disabledFromGroup = parentGroup.disabled;
     }
@@ -79,14 +87,6 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
         metaKey,
         shiftKey,
       }),
-    );
-  }
-
-  /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
-  public get optionOnSameRow(): SbbAutocompleteGridOptionElement | null {
-    return (
-      this.closest?.('sbb-autocomplete-grid-row')?.querySelector('sbb-autocomplete-grid-option') ||
-      null
     );
   }
 
