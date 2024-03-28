@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
@@ -13,6 +13,7 @@ import {
 } from '../../core/controllers/index.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces/index.js';
 import { SbbDisabledMixin } from '../../core/mixins/index.js';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel';
 import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox/index.js';
 
 import style from './checkbox-group.scss?lit&inline';
@@ -42,9 +43,11 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   public orientation: SbbOrientation = 'horizontal';
 
   /** List of contained checkbox elements. */
-  public get checkboxes(): SbbCheckboxElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-checkbox') ?? []).filter(
-      (el: SbbCheckboxElement) => el.closest('sbb-checkbox-group') === this,
+  public get checkboxes(): (SbbCheckboxElement | SbbCheckboxPanelElement)[] {
+    return <(SbbCheckboxElement | SbbCheckboxPanelElement)[]>(
+      Array.from(this.querySelectorAll?.('sbb-checkbox, sbb-checkbox-panel') ?? []).filter(
+        (el) => el.closest('sbb-checkbox-group') === this,
+      )
     );
   }
 
@@ -75,10 +78,11 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    const enabledCheckboxes: SbbCheckboxElement[] = this.checkboxes.filter(
-      (checkbox: SbbCheckboxElement) =>
-        !checkbox.disabled && interactivityChecker.isVisible(checkbox),
-    );
+    const enabledCheckboxes: (SbbCheckboxElement | SbbCheckboxPanelElement)[] =
+      this.checkboxes.filter(
+        (checkbox: SbbCheckboxElement | SbbCheckboxPanelElement) =>
+          !checkbox.disabled && interactivityChecker.isVisible(checkbox as HTMLElement),
+      );
 
     if (
       !enabledCheckboxes ||
@@ -92,7 +96,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
 
     if (isArrowKeyPressed(evt)) {
       const current: number = enabledCheckboxes.findIndex(
-        (e: SbbCheckboxElement) => e === evt.target,
+        (e: SbbCheckboxElement | SbbCheckboxPanelElement) => e === evt.target,
       );
       const nextIndex: number = getNextElementIndex(evt, current, enabledCheckboxes.length);
       enabledCheckboxes[nextIndex]?.focus();
