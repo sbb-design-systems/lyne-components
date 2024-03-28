@@ -5,115 +5,11 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
-  --sbb-checkbox-label-color: var(--sbb-color-charcoal);
-  --sbb-checkbox-label-icon-color: var(--sbb-color-charcoal);
-  --sbb-checkbox-cursor: pointer;
-  --sbb-checkbox-suffix-color: var(--sbb-color-charcoal);
-  --sbb-checkbox-subtext-color: var(--sbb-color-granite);
-  --sbb-checkbox-label-gap: var(--sbb-spacing-fixed-2x);
-
   display: inline-block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
-}
-
-:host(:disabled) {
-  --sbb-checkbox-cursor: default;
-  --sbb-checkbox-label-color: var(--sbb-color-granite);
-}
-
-:host([data-is-selection-panel-input]) {
-  --sbb-checkbox-label-gap: 0;
-}
-
-:is(slot[name='subtext'], slot[name='suffix']) {
-  :host(:not([data-is-inside-selection-panel])) & {
-    display: none;
-  }
-}
-
-slot[name='suffix'] {
-  color: var(--sbb-checkbox-suffix-color);
-}
-
-slot[name='subtext'] {
-  display: block;
-  color: var(--sbb-checkbox-subtext-color);
-  padding-inline-start: var(--sbb-spacing-fixed-8x);
-
-  :host(:not([data-slot-names~='subtext'])) & {
-    display: none;
-  }
-}
-
-.sbb-checkbox-wrapper {
-  display: flex;
-
-  @include sbb.zero-width-space;
-
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(
-      :focus-visible:not(
-          [data-focus-origin='mouse'],
-          [data-focus-origin='touch'],
-          [data-is-selection-panel-input]
-        )
-    )
-    & {
-    @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-  }
-}
-
-.sbb-checkbox {
-  @include sbb.text-s--regular;
-
-  position: relative;
-  display: block;
-  width: 100%;
-  cursor: var(--sbb-checkbox-cursor);
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-
-  :host([size='m']) & {
-    @include sbb.text-m--regular;
-  }
-}
-
-.sbb-checkbox__inner {
-  display: flex;
-  align-items: start;
-  gap: var(--sbb-spacing-fixed-2x);
-
-  // Change the focus outline when the input is placed inside of a selection panel
-  // as the main input element.
-  :host(
-      [data-is-selection-panel-input]:focus-visible:not(
-          [data-focus-origin='mouse'],
-          [data-focus-origin='touch']
-        )
-    )
-    & {
-    &::before {
-      content: '';
-      position: absolute;
-      display: block;
-      inset-block: calc(
-        (var(--sbb-spacing-responsive-xs) * -1) + var(--sbb-focus-outline-width) -
-          (var(--sbb-focus-outline-offset) * 2)
-      );
-      inset-inline: calc(
-        (var(--sbb-spacing-responsive-xxs) * -1) + var(--sbb-focus-outline-width) -
-          (var(--sbb-focus-outline-offset) * 2)
-      );
-      border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
-      border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
-    }
-  }
 }
 
 .sbb-checkbox__aligner,
@@ -130,26 +26,15 @@ slot[name='subtext'] {
     margin-inline-start: auto;
   }
 
-  :host(
-    :is(
-        /** No icon */
-        :not([icon-name], [data-slot-names~="icon"]),
-        /** In selection panel */
-        [data-is-selection-panel-input]
-      )
-    ) & {
+  :host( :is(
+
+      /** No icon */
+      :not([icon-name], [data-slot-names~="icon"]))) & {
     display: none;
   }
 }
 
 .sbb-checkbox__label {
-  display: flex;
-  gap: var(--sbb-checkbox-label-gap);
-  color: var(--sbb-checkbox-label-color);
-
-  // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
-  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
-
   :host([icon-placement='start']) & {
     flex-direction: row-reverse;
     justify-content: flex-end;
@@ -158,11 +43,5 @@ slot[name='subtext'] {
   :host([icon-placement='end']) & {
     justify-content: flex-start;
     flex-grow: 1;
-  }
-}
-
-.sbb-checkbox__expanded-label {
-  :host(:not([data-is-selection-panel-input][data-has-selection-panel-label])) & {
-    display: none;
   }
 }

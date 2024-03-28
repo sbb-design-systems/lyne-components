@@ -28,14 +28,8 @@ snapshots["sbb-checkbox should render unchecked Shadow DOM"] =
           <slot name="icon">
           </slot>
         </span>
-        <slot name="suffix">
-        </slot>
       </span>
     </span>
-    <slot name="subtext">
-    </slot>
-    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
-    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -69,14 +63,8 @@ snapshots["sbb-checkbox should render checked Shadow DOM"] =
           <slot name="icon">
           </slot>
         </span>
-        <slot name="suffix">
-        </slot>
       </span>
     </span>
-    <slot name="subtext">
-    </slot>
-    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
-    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -110,14 +98,8 @@ snapshots["sbb-checkbox should render indeterminate Shadow DOM"] =
           <slot name="icon">
           </slot>
         </span>
-        <slot name="suffix">
-        </slot>
       </span>
     </span>
-    <slot name="subtext">
-    </slot>
-    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
-    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -151,14 +133,8 @@ snapshots["sbb-checkbox should render unchecked disabled Shadow DOM"] =
           <slot name="icon">
           </slot>
         </span>
-        <slot name="suffix">
-        </slot>
       </span>
     </span>
-    <slot name="subtext">
-    </slot>
-    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
-    </sbb-screen-reader-only>
   </span>
 </span>
 `;

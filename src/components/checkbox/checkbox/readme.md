@@ -86,11 +86,6 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `size`          | `size`           | public  | `SbbCheckboxSize`                 | `'m'`   | Label size variant, either m or s.                                                                                               |
 | `group`         | -                | public  | `SbbCheckboxGroupElement \| null` | `null`  | Reference to the connected checkbox group.                                                                                       |
 | `checked`       | `checked`        | public  | `boolean`                         | `false` | Whether the checkbox is checked.                                                                                                 |
-| `disabled`      | `disabled`       | public  | `boolean`                         | `false` | Whether the component is disabled.                                                                                               |
-| `required`      | `required`       | public  | `boolean`                         | `false` | Whether the component is required.                                                                                               |
-| `form`          | -                | public  | `HTMLFormElement \| null`         |         | Returns the form owner of internals target element.                                                                              |
-| `name`          | `name`           | public  | `string`                          |         | Name of the form element. Will be read from name attribute.                                                                      |
-| `value`         | `value`          | public  | `string \| null`                  | `null`  | Value of the form element.                                                                                                       |
 | `iconName`      | `icon-name`      | public  | `string \| undefined`             |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 
 ## Events
@@ -103,9 +98,7 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 ## Slots
 
-| Name      | Description                                                                                     |
-| --------- | ----------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add content to the `sbb-checkbox`.                                      |
-| `icon`    | Slot used to render the checkbox icon (disabled inside a selection panel).                      |
-| `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
-| `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |
+| Name   | Description                                                                |
+| ------ | -------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the `sbb-checkbox`.                 |
+| `icon` | Slot used to render the checkbox icon (disabled inside a selection panel). |

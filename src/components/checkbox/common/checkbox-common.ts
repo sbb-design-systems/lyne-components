@@ -1,26 +1,23 @@
-import type { CSSResultGroup, LitElement, PropertyValues, TemplateResult } from 'lit';
+import type { LitElement, PropertyValues, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  SbbFormAssociatedCheckboxMixin,
-  SbbHydrationMixin,
-  SbbIconNameMixin,
-  type Constructor,
-  type SbbDisabledMixinType,
-  type SbbFormAssociatedCheckboxMixinType,
-  type SbbHydrationMixinType,
-  type SbbIconNameMixinType,
-  type SbbRequiredMixinType,
-} from '../../core/common-behaviors';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbIconPlacement,
   SbbStateChange,
 } from '../../core/interfaces';
+import {
+  SbbFormAssociatedCheckboxMixin,
+  SbbHydrationMixin,
+  type Constructor,
+  type SbbDisabledMixinType,
+  type SbbFormAssociatedCheckboxMixinType,
+  type SbbHydrationMixinType,
+  type SbbRequiredMixinType,
+} from '../../core/mixins';
+import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon';
 import type { SbbCheckboxGroupElement } from '../checkbox-group';
-
-import style from './checkbox-common.scss?lit&inline';
 
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,
@@ -60,8 +57,6 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
     extends SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(SbbHydrationMixin(superClass)))
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
-
     /** Whether the checkbox is indeterminate. */
     @property({ type: Boolean }) public indeterminate = false;
 
