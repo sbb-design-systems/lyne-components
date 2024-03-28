@@ -38,6 +38,7 @@ snapshots["sbb-checkbox should render unchecked Shadow DOM"] =
 snapshots["sbb-checkbox should render checked DOM"] = 
 `<sbb-checkbox
   checked=""
+  data-checked=""
   data-slot-names="unnamed"
   icon-placement="end"
   size="m"

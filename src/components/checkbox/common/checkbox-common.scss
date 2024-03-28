@@ -19,17 +19,20 @@
   --sbb-checkbox-label-color: var(--sbb-color-granite);
 }
 
-:host([data-is-selection-panel-input]) {
-  --sbb-checkbox-label-gap: 0;
-}
-
 .sbb-checkbox-wrapper {
   display: flex;
 
   @include sbb.zero-width-space;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(
+      :focus-visible:not(
+          [data-focus-origin='mouse'],
+          [data-focus-origin='touch'],
+          [data-is-selection-panel-input]
+        )
+    )
+    & {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
@@ -58,10 +61,5 @@
 }
 
 .sbb-checkbox__label {
-  display: flex;
-  gap: var(--sbb-checkbox-label-gap);
-  color: var(--sbb-checkbox-label-color);
-
-  // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
-  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
+  flex-grow: 1;
 }
