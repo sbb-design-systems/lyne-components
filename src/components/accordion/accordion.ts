@@ -2,7 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbHydrationMixin , SbbConnectedAbortController } from '../core/common-behaviors';
+import { SbbConnectedAbortController } from '../core/controllers';
+import { SbbHydrationMixin } from '../core/mixins';
 import { SbbExpansionPanelElement } from '../expansion-panel';
 import type { SbbTitleLevel } from '../title';
 

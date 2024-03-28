@@ -1,37 +1,35 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { FocusHandler, assignId, setModalityOnNextFocus } from '../../core/a11y';
+import { assignId, FocusHandler, setModalityOnNextFocus } from '../../core/a11y';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import {
-  hostAttributes,
-  SbbLanguageController,
-  UpdateSchedulerMixin,
-  SbbConnectedAbortController,
-} from '../../core/common-behaviors';
-import {
-  ScrollHandler,
-  isValidAttribute,
   findReferencedElement,
+  isValidAttribute,
+  ScrollHandler,
   setAttribute,
 } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
+import { UpdateSchedulerMixin } from '../../core/mixins';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
-  isEventOnElement,
   applyInertMechanism,
+  isEventOnElement,
+  removeAriaOverlayTriggerAttributes,
   removeInertMechanism,
+  setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationLinkElement } from '../navigation-link';
-import '../../button/transparent-button';
 
 import style from './navigation.scss?lit&inline';
+
+import '../../button/transparent-button';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {

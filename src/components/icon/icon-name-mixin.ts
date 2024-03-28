@@ -1,7 +1,7 @@
 import { html, type LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from '../core/common-behaviors';
+import type { AbstractConstructor } from '../core/mixins';
 
 import './icon';
 

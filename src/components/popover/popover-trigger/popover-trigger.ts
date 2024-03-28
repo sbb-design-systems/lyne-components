@@ -1,12 +1,9 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  SbbButtonBaseElement,
-  SbbDisabledTabIndexActionMixin,
-  SbbNegativeMixin,
-} from '../../core/common-behaviors';
+import { SbbButtonBaseElement } from '../../core/base-classes';
 import { hostContext, isValidAttribute } from '../../core/dom';
+import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';
 
 import style from './popover-trigger.scss?lit&inline';

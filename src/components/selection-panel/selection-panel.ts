@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxElement } from '../checkbox';
-import { SbbSlotStateController, SbbConnectedAbortController } from '../core/common-behaviors';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers';
 import { setAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import type { SbbStateChange } from '../core/interfaces';

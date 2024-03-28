@@ -1,10 +1,10 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y';
-import { SbbLanguageController, SbbConnectedAbortController } from '../core/common-behaviors';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers';
 import type { DateAdapter } from '../core/datetime';
 import {
   DAYS_PER_ROW,

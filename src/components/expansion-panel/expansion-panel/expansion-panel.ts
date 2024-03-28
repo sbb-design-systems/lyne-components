@@ -3,8 +3,9 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbHydrationMixin , SbbConnectedAbortController } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
+import { SbbHydrationMixin } from '../../core/mixins';
 import type { SbbOverlayState } from '../../core/overlay';
 import type { SbbTitleLevel } from '../../title';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';

@@ -1,16 +1,16 @@
 import { defaultConverter, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { preventScrollOnSpacebarPress } from '../../eventing';
 import { hostAttributes } from '../decorators';
+import { preventScrollOnSpacebarPress } from '../eventing';
 
 import type { Constructor } from './constructor';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin';
 import {
-  SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType,
   type FormRestoreReason,
   type FormRestoreState,
+  SbbFormAssociatedMixin,
+  type SbbFormAssociatedMixinType,
 } from './form-associated-mixin';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin';
 

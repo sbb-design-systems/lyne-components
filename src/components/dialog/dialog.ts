@@ -5,14 +5,11 @@ import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
-import {
-  SbbLanguageController,
-  SbbSlotStateController,
-  SbbNegativeMixin,
-} from '../core/common-behaviors';
-import { ScrollHandler, isValidAttribute, hostContext, setAttribute } from '../core/dom';
+import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
+import { hostContext, isValidAttribute, ScrollHandler, setAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
+import { SbbNegativeMixin } from '../core/mixins';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';

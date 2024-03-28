@@ -2,9 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbNegativeMixin } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers';
 import { i18nClass } from '../core/i18n';
 import type { SbbOccupancy } from '../core/interfaces';
+import { SbbNegativeMixin } from '../core/mixins';
 
 import style from './timetable-occupancy.scss?lit&inline';
 

@@ -2,15 +2,12 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
-import {
-  hostAttributes,
-  SbbSlotStateController,
-  SbbDisabledMixin,
-  SbbConnectedAbortController,
-} from '../../core/common-behaviors';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { EventEmitter } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces';
+import { SbbDisabledMixin } from '../../core/mixins';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type {
   SbbRadioButtonElement,

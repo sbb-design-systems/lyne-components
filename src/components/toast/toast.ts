@@ -4,10 +4,10 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button';
 import {
+  SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
-  SbbConnectedAbortController,
-} from '../core/common-behaviors';
+} from '../core/controllers';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';

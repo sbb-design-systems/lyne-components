@@ -1,4 +1,4 @@
-import { SbbLanguageController } from '../common-behaviors';
+import { SbbLanguageController } from '../controllers';
 import type { SbbDateLike } from '../interfaces';
 
 import { DateAdapter, FORMAT_DATE } from './date-adapter';

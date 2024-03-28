@@ -2,8 +2,8 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbConnectedAbortController } from '../../core/common-behaviors';
 import { readConfig } from '../../core/config';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
 import type { DateAdapter } from '../../core/datetime';
 import { defaultDateAdapter } from '../../core/datetime';
 import { findInput, findReferencedElement, isValidAttribute } from '../../core/dom';

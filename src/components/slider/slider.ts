@@ -1,19 +1,18 @@
 import { spread } from '@open-wc/lit-helpers';
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import {
-  hostAttributes,
-  SbbDisabledMixin,
-  SbbConnectedAbortController,
-} from '../core/common-behaviors';
+import { SbbConnectedAbortController } from '../core/controllers';
+import { hostAttributes } from '../core/decorators';
 import { setAttributes } from '../core/dom';
-import { forwardEventToHost, EventEmitter } from '../core/eventing';
+import { EventEmitter, forwardEventToHost } from '../core/eventing';
+import { SbbDisabledMixin } from '../core/mixins';
 
 import style from './slider.scss?lit&inline';
+
 import '../icon';
 
 /**

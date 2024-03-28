@@ -3,7 +3,7 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbNegativeMixin } from '../core/common-behaviors';
+import { SbbNegativeMixin } from '../core/mixins';
 import type { SbbTitleLevel } from '../title';
 
 import style from './footer.scss?lit&inline';

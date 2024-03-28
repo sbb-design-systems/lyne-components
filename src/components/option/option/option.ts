@@ -3,13 +3,11 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { assignId } from '../../core/a11y';
-import {
-  hostAttributes,
-  SbbSlotStateController,
-  SbbDisabledMixin,
- SbbConnectedAbortController } from '../../core/common-behaviors';
-import { isSafari, isValidAttribute, isAndroid, setAttribute } from '../../core/dom';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
+import { isAndroid, isSafari, isValidAttribute, setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
+import { SbbDisabledMixin } from '../../core/mixins';
 import { AgnosticMutationObserver } from '../../core/observers';
 import { SbbIconNameMixin } from '../../icon';
 

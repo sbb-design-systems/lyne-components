@@ -2,8 +2,9 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement, AbstractConstructor } from '../../core/common-behaviors';
+import type { SbbActionBaseElement } from '../../core/base-classes';
 import type { SbbIconPlacement } from '../../core/interfaces';
+import type { AbstractConstructor } from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';
 
 import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common';

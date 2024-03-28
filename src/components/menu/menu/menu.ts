@@ -10,7 +10,7 @@ import {
   isArrowKeyPressed,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { SbbNamedSlotListMixin , SbbConnectedAbortController } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/controllers';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -19,6 +19,7 @@ import {
   setAttribute,
 } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
+import { SbbNamedSlotListMixin } from '../../core/mixins';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
   applyInertMechanism,

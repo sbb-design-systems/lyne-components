@@ -2,7 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbSlotStateController, SbbLinkBaseElement } from '../core/common-behaviors';
+import { SbbLinkBaseElement } from '../core/base-classes';
+import { SbbSlotStateController } from '../core/controllers';
 import type { SbbTitleLevel } from '../title';
 import '../title';
 import '../chip';

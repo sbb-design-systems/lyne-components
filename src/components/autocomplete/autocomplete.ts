@@ -4,12 +4,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { assignId, getNextElementIndex } from '../core/a11y';
-import {
-  SbbHydrationMixin,
-  SbbNegativeMixin,
-  hostAttributes,
-  SbbConnectedAbortController,
-} from '../core/common-behaviors';
+import { SbbConnectedAbortController } from '../core/controllers';
+import { hostAttributes } from '../core/decorators';
 import {
   setAttribute,
   getDocumentWritingMode,
@@ -19,6 +15,7 @@ import {
   isBrowser,
 } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins';
 import type { SbbOverlayState } from '../core/overlay';
 import {
   isEventOnElement,

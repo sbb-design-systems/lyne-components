@@ -2,24 +2,23 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import {
-  hostAttributes,
-  SbbLanguageController,
-  SbbNegativeMixin,
-  SbbButtonBaseElement,
- SbbConnectedAbortController } from '../../core/common-behaviors';
-import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
+import { SbbButtonBaseElement } from '../../core/base-classes';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
+import { type DateAdapter, defaultDateAdapter } from '../../core/datetime';
+import { hostAttributes } from '../../core/decorators';
 import { isValidAttribute } from '../../core/dom';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
+import { SbbNegativeMixin } from '../../core/mixins';
+import type { InputUpdateEvent, SbbDatepickerElement } from '../datepicker';
 import {
   datepickerControlRegisteredEventFactory,
   findNextAvailableDate,
   getDatePicker,
 } from '../datepicker';
-import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
-import '../../icon';
 
 import style from './datepicker-next-day.scss?lit&inline';
+
+import '../../icon';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.

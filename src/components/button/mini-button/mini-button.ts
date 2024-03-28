@@ -1,12 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  SbbSlotStateController,
-  SbbButtonBaseElement,
-  SbbDisabledTabIndexActionMixin,
-  SbbNegativeMixin,
-} from '../../core/common-behaviors';
+import { SbbButtonBaseElement } from '../../core/base-classes';
+import { SbbSlotStateController } from '../../core/controllers';
+import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';
 
 import style from './mini-button.scss?lit&inline';

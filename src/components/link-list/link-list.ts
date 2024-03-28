@@ -1,14 +1,10 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
-import { html, nothing, LitElement } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  SbbNamedSlotListMixin,
-  SbbNegativeMixin,
-  SbbSlotStateController,
-  type WithListChildren,
-} from '../core/common-behaviors';
+import { SbbSlotStateController } from '../core/controllers';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
+import { SbbNamedSlotListMixin, SbbNegativeMixin, type WithListChildren } from '../core/mixins';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,

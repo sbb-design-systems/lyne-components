@@ -9,7 +9,7 @@ import {
   IS_FOCUSABLE_QUERY,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { SbbLanguageController } from '../../core/common-behaviors';
+import { SbbLanguageController } from '../../core/controllers';
 import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
 import { i18nClosePopover } from '../../core/i18n';
@@ -20,9 +20,10 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import '../../button/secondary-button';
 
 import style from './popover.scss?lit&inline';
+
+import '../../button/secondary-button';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;

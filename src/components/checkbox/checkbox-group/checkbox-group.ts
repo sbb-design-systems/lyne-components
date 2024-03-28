@@ -3,8 +3,9 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y';
-import { SbbSlotStateController, SbbDisabledMixin , SbbConnectedAbortController } from '../../core/common-behaviors';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
+import { SbbDisabledMixin } from '../../core/mixins';
 import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox';
 
 import style from './checkbox-group.scss?lit&inline';

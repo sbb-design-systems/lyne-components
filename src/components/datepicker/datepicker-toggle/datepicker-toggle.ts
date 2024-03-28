@@ -5,20 +5,19 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { SbbCalendarElement } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
-import {
-  hostAttributes,
-  SbbLanguageController,
-  SbbNegativeMixin,
-} from '../../core/common-behaviors';
+import { SbbLanguageController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { isValidAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
+import { SbbNegativeMixin } from '../../core/mixins';
 import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover';
+import type { InputUpdateEvent, SbbDatepickerElement } from '../datepicker';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker';
-import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
-import '../../calendar';
-import '../../popover';
 
 import style from './datepicker-toggle.scss?lit&inline';
+
+import '../../calendar';
+import '../../popover';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.

@@ -1,22 +1,22 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
-  hostAttributes,
+  SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
-  UpdateSchedulerMixin,
-  SbbConnectedAbortController,
-} from '../../core/common-behaviors';
+} from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { setAttributes } from '../../core/dom';
-import { HandlerRepository, formElementHandlerAspect, EventEmitter } from '../../core/eventing';
+import { EventEmitter, formElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces';
+import { UpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group';
 

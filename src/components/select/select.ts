@@ -1,27 +1,23 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, assignId } from '../core/a11y';
+import { assignId, getNextElementIndex } from '../core/a11y';
+import { SbbConnectedAbortController } from '../core/controllers';
+import { hostAttributes } from '../core/decorators';
 import {
-  SbbConnectedAbortController,
-  hostAttributes,
-  SbbDisabledMixin,
-  SbbNegativeMixin,
-  UpdateSchedulerMixin,
-} from '../core/common-behaviors';
-import {
+  getDocumentWritingMode,
+  isNextjs,
   isSafari,
   isValidAttribute,
-  getDocumentWritingMode,
   setAttribute,
-  isNextjs,
 } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
+import { SbbDisabledMixin, SbbNegativeMixin, UpdateSchedulerMixin } from '../core/mixins';
 import type { SbbOverlayState } from '../core/overlay';
-import { setOverlayPosition, isEventOnElement, overlayGapFixCorners } from '../core/overlay';
-import type { SbbOptionElement, SbbOptGroupElement } from '../option';
+import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay';
+import type { SbbOptGroupElement, SbbOptionElement } from '../option';
 
 import style from './select.scss?lit&inline';
 

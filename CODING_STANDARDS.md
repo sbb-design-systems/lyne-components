@@ -101,7 +101,7 @@ components which require basic button or link functionality have to extend the c
 and they need to implement the `renderTemplate` method, which should return the component's inner content.
 
 ```ts
-import { SbbButtonBaseElement } from '../../core/common-behaviors';
+import { SbbButtonBaseElement } from '../../core/base-classes';
 import { html } from 'lit';
 
 @customElement('my-custom-button')
@@ -133,8 +133,6 @@ As the language can be changed dynamically, you have to listen to the `sbbLangua
 event and re-render the view. This can be done by marking the field with `@state` and using the language change handler (see code below).
 
 ```ts
-import { LanguageController } from '../core/common-behaviors';
-
 export class Component extends LitElement {
   private _language = new LanguageController(this);
 

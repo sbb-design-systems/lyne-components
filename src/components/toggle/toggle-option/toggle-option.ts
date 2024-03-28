@@ -1,12 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  hostAttributes,
-  SbbSlotStateController,
-  SbbConnectedAbortController,
-} from '../../core/common-behaviors';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { SbbIconNameMixin } from '../../icon';

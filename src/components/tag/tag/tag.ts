@@ -2,18 +2,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  SbbSlotStateController,
-  SbbDisabledTabIndexActionMixin,
-  SbbButtonBaseElement,
-  SbbConnectedAbortController,
-} from '../../core/common-behaviors';
+import { SbbButtonBaseElement } from '../../core/base-classes';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
   SbbStateChange,
   SbbValueStateChange,
 } from '../../core/interfaces';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';
 
 import style from './tag.scss?lit&inline';

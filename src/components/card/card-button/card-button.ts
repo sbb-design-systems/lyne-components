@@ -1,6 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/common-behaviors';
+import { SbbButtonBaseElement } from '../../core/base-classes';
 import { SbbCardActionCommonElementMixin } from '../common';
 
 /**

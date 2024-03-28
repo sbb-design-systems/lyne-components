@@ -2,12 +2,12 @@ import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
+import type { SbbActionBaseElement } from '../../core/base-classes';
 import {
-  type SbbActionBaseElement,
+  SbbDisabledTabIndexActionMixin,
   type AbstractConstructor,
   type SbbDisabledMixinType,
-  SbbDisabledTabIndexActionMixin,
-} from '../../core/common-behaviors';
+} from '../../core/mixins';
 import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon';
 
 import style from './menu-action.scss?lit&inline';

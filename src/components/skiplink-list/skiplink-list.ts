@@ -8,12 +8,9 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  SbbSlotStateController,
-  SbbNamedSlotListMixin,
-  type WithListChildren,
-} from '../core/common-behaviors';
-import type { SbbBlockLinkElement, SbbBlockLinkButtonElement } from '../link';
+import { SbbSlotStateController } from '../core/controllers';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins';
+import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link';
 import type { SbbTitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';

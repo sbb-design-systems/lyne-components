@@ -2,16 +2,15 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
+import type { SbbActionBaseElement } from '../../core/base-classes';
+import { SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import {
-  type SbbActionBaseElement,
-  type AbstractConstructor,
-  type SbbNegativeMixinType,
   SbbNegativeMixin,
-  SbbSlotStateController,
-  hostAttributes,
-} from '../../core/common-behaviors';
+  SbbNegativeMixinType,
+  type AbstractConstructor,
+} from '../../core/mixins';
 
-import '../../icon';
 import style from './link.scss?lit&inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';

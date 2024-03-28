@@ -3,8 +3,8 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { assignId } from '../core/a11y';
-import { SbbNegativeMixin } from '../core/common-behaviors';
 import { isValidAttribute } from '../core/dom';
+import { SbbNegativeMixin } from '../core/mixins';
 
 import style from './form-error.scss?lit&inline';
 

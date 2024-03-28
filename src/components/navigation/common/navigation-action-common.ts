@@ -2,16 +2,17 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { AbstractConstructor, SbbActionBaseElement } from '../../core/common-behaviors';
-import { SbbConnectedAbortController } from '../../core/common-behaviors';
+import type { SbbActionBaseElement } from '../../core/base-classes';
+import { SbbConnectedAbortController } from '../../core/controllers';
+import type { AbstractConstructor } from '../../core/mixins';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationLinkElement } from '../navigation-link';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
 import type { SbbNavigationSectionElement } from '../navigation-section';
 
-import '../../icon';
-
 import style from './navigation-action.scss?lit&inline';
+
+import '../../icon';
 
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
 

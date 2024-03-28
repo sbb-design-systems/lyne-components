@@ -7,13 +7,7 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import {
-  SbbFormAssociatedCheckboxMixin,
-  SbbLanguageController,
-  SbbSlotStateController,
-  UpdateSchedulerMixin,
-  SbbHydrationMixin,
-} from '../../core/common-behaviors';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import type {
@@ -22,6 +16,11 @@ import type {
   SbbIconPlacement,
   SbbStateChange,
 } from '../../core/interfaces';
+import {
+  SbbFormAssociatedCheckboxMixin,
+  SbbHydrationMixin,
+  UpdateSchedulerMixin,
+} from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbCheckboxGroupElement } from '../checkbox-group';

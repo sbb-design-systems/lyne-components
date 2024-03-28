@@ -10,12 +10,8 @@ import {
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import {
-  hostAttributes,
-  SbbLanguageController,
-  SbbSlotStateController,
-  UpdateSchedulerMixin,
-} from '../../core/common-behaviors';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -23,6 +19,7 @@ import {
   setAttribute,
 } from '../../core/dom';
 import { i18nGoBack } from '../../core/i18n';
+import { UpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
   removeAriaOverlayTriggerAttributes,

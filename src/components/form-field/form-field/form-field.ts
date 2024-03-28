@@ -1,16 +1,17 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbInputModality } from '../../core/a11y';
 import { sbbInputModalityDetector } from '../../core/a11y';
 import {
+  SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
-  SbbNegativeMixin,
- SbbConnectedAbortController } from '../../core/common-behaviors';
+} from '../../core/controllers';
 import { isFirefox, isValidAttribute } from '../../core/dom';
 import { i18nOptional } from '../../core/i18n';
+import { SbbNegativeMixin } from '../../core/mixins';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbSelectElement } from '../../select';
 import '../../icon';

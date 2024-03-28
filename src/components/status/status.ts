@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../core/common-behaviors';
+import { SbbSlotStateController } from '../core/controllers';
 import { SbbIconNameMixin } from '../icon';
 import type { SbbTitleLevel } from '../title';
 

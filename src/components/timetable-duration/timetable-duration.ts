@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers';
 import { i18nDurationHour, i18nDurationMinute } from '../core/i18n';
 
 import style from './timetable-duration.scss?lit&inline';

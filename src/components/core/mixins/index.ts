@@ -1,3 +1,4 @@
+export * from './constructor';
 export * from './disabled-mixin';
 export * from './form-associated-checkbox-mixin';
 export * from './form-associated-mixin';

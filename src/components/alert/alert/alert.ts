@@ -2,7 +2,8 @@ import { spread } from '@open-wc/lit-helpers';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController, type LinkTargetType } from '../../core/common-behaviors';
+import type { LinkTargetType } from '../../core/base-classes';
+import { SbbLanguageController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
 import { SbbIconNameMixin } from '../../icon';

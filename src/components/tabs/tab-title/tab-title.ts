@@ -3,7 +3,8 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
+import { SbbSlotStateController } from '../../core/controllers';
+import { SbbDisabledMixin } from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';
 import type { SbbTitleLevel } from '../../title';
 

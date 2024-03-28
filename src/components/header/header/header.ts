@@ -3,10 +3,11 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { FocusVisibleWithinController } from '../../core/a11y';
-import { SbbHydrationMixin } from '../../core/common-behaviors';
 import { findReferencedElement, isBrowser } from '../../core/dom';
+import { SbbHydrationMixin } from '../../core/mixins';
 
 import style from './header.scss?lit&inline';
+
 import '../../logo';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";

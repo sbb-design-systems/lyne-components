@@ -1,9 +1,9 @@
-import { isValid, format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers';
 import {
   defaultDateAdapter,
   durationToTime,
