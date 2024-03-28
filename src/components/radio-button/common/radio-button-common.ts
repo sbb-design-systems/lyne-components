@@ -1,17 +1,15 @@
 import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { hostAttributes, type AbstractConstructor } from '../../core/common-behaviors';
-import {
-  ConnectedAbortController,
-  HandlerRepository,
-  formElementHandlerAspect,
-} from '../../core/eventing';
+import { SbbConnectedAbortController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
+import { HandlerRepository, formElementHandlerAspect } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces';
+import type { AbstractConstructor } from '../../core/mixins';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group';
 
 import style from './radio-button-common.scss?lit&inline';
@@ -113,7 +111,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     }
     private _size: SbbRadioButtonSize = 'm';
 
-    private _abort = new ConnectedAbortController(this);
+    private _abort = new SbbConnectedAbortController(this);
     private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
 
     public select(): void {

@@ -62,14 +62,12 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 
 ## Methods
 
-| Name     | Privacy | Description | Parameters | Return | Inherited From |
-| -------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `select` | public  |             |            | `void` |                |
+| Name     | Privacy | Description | Parameters | Return | Inherited From                   |
+| -------- | ------- | ----------- | ---------- | ------ | -------------------------------- |
+| `select` | public  |             |            | `void` | SbbRadioButtonCommonElementMixin |
 
 ## Slots
 
-| Name      | Description                                                                                           |
-| --------- | ----------------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add content to the radio label.                                               |
-| `subtext` | Slot used to render a subtext under the label (only visible within a `sbb-selection-panel`).          |
-| `suffix`  | Slot used to render additional content after the label (only visible within a `sbb-selection-panel`). |
+| Name | Description                                             |
+| ---- | ------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the radio label. |
