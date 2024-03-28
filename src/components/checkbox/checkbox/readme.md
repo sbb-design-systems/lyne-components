@@ -49,6 +49,14 @@ The component has two `size`, named `s` (default) and `m`.
 <sbb-checkbox value="size" size="m">Size</sbb-checkbox>
 ```
 
+The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
+
+```html
+<sbb-checkbox value="bold">
+  <span class="sbb-text--bold">Bold label</span>
+</sbb-checkbox>
+```
+
 ## Events
 
 Consumers can listen to the native `change` event on the `sbb-checkbox` component to intercept the input's change;
