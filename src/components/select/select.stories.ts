@@ -15,9 +15,9 @@ import { html, nothing } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../../storybook/helpers/spread';
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../core/dom';
 import type { SbbFormErrorElement } from '../form-error';
 import { SbbOptionElement } from '../option';
 

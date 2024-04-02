@@ -3,7 +3,7 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 
 import type { SbbBreadcrumbGroupElement } from './breadcrumb-group';
 import readme from './readme.md?raw';

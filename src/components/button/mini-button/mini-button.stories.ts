@@ -11,7 +11,7 @@ import type {
 import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 import '../../form-field';
 import './mini-button';
 import { buttonDefaultArgs, buttonDefaultArgTypes } from '../common/button-common-stories';

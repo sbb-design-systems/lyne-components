@@ -3,7 +3,6 @@ import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../components/core/dom';
 import '../../../components/button/button';
 import '../../../components/button/secondary-button';
 import '../../../components/button/secondary-button-static';
@@ -21,6 +20,7 @@ import '../../../components/navigation';
 import '../../../components/skiplink-list';
 import '../../../components/teaser-hero';
 import '../../../components/title';
+import { sbbSpread } from '../../helpers/spread';
 
 export const skiplinkList = (): TemplateResult => html`
   <sbb-skiplink-list title-level="2" title-content="Skip to">

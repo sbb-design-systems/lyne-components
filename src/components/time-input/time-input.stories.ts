@@ -12,7 +12,7 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread';
 import type { SbbFormErrorElement } from '../form-error';
 import type { SbbFormFieldElement } from '../form-field';
 

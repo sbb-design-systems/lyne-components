@@ -3,8 +3,6 @@ import { Directive, directive } from 'lit/directive.js';
 import type { ElementPart, Part } from 'lit/html.js';
 import { nothing } from 'lit/html.js';
 
-import { setAttributes } from './is-valid-attribute';
-
 export class SbbSpreadDirective extends Directive {
   private _element!: Element;
   private _prevData: Record<string, any> = {};
@@ -23,7 +21,17 @@ export class SbbSpreadDirective extends Directive {
   }
 
   public apply(data: Record<string, any>): void {
-    setAttributes(this._element as HTMLElement, data);
+    if (!data) {
+      return;
+    }
+
+    for (const [name, value] of Object.entries(data)) {
+      if (typeof value === 'boolean' || !value) {
+        this._element.toggleAttribute(name, !!value);
+      } else {
+        this._element.setAttribute(name, value);
+      }
+    }
   }
 
   public groom(data: Record<string, any>): void {
