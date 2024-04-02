@@ -20,7 +20,7 @@ import style from './datepicker.scss?lit&inline';
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
-export interface InputUpdateEvent {
+export interface SbbInputUpdateEvent {
   disabled?: boolean;
   readonly?: boolean;
   min?: string | number;
@@ -209,7 +209,7 @@ export class SbbDatepickerElement extends LitElement {
   });
 
   /** Notifies that the attributes of the input connected to the datepicker have changes. */
-  private _inputUpdated: EventEmitter<InputUpdateEvent> = new EventEmitter(
+  private _inputUpdated: EventEmitter<SbbInputUpdateEvent> = new EventEmitter(
     this,
     SbbDatepickerElement.events.inputUpdated,
     { bubbles: true, cancelable: true },
@@ -518,6 +518,6 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    inputUpdated: CustomEvent<InputUpdateEvent>;
+    inputUpdated: CustomEvent<SbbInputUpdateEvent>;
   }
 }

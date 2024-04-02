@@ -9,7 +9,7 @@ import { hostAttributes } from '../../core/decorators';
 import { isValidAttribute } from '../../core/dom';
 import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../../core/i18n';
 import { SbbNegativeMixin } from '../../core/mixins';
-import type { InputUpdateEvent, SbbDatepickerElement } from '../datepicker';
+import type { SbbInputUpdateEvent, SbbDatepickerElement } from '../datepicker';
 import {
   datepickerControlRegisteredEventFactory,
   findPreviousAvailableDate,
@@ -114,7 +114,7 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
       // assuming that the two components share the same parent element.
       this.parentElement?.addEventListener(
         'inputUpdated',
-        (e: CustomEvent<InputUpdateEvent>) => this._init(e.target as SbbDatepickerElement),
+        (e: CustomEvent<SbbInputUpdateEvent>) => this._init(e.target as SbbDatepickerElement),
         { once: true, signal: this._datePickerController.signal },
       );
       return;
@@ -139,7 +139,7 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
     );
     this._datePickerElement.addEventListener(
       'inputUpdated',
-      (event: CustomEvent<InputUpdateEvent>) => {
+      (event: CustomEvent<SbbInputUpdateEvent>) => {
         this._inputDisabled = !!(event.detail.disabled || event.detail.readonly);
         if (this._min !== event.detail.min) {
           this._min = event.detail.min!;

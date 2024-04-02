@@ -11,7 +11,7 @@ import { isValidAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
 import { SbbNegativeMixin } from '../../core/mixins';
 import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover';
-import type { InputUpdateEvent, SbbDatepickerElement } from '../datepicker';
+import type { SbbInputUpdateEvent, SbbDatepickerElement } from '../datepicker';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker';
 
 import style from './datepicker-toggle.scss?lit&inline';
@@ -103,7 +103,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
     this._datePickerElement?.addEventListener(
       'inputUpdated',
-      (event: CustomEvent<InputUpdateEvent>) => {
+      (event: CustomEvent<SbbInputUpdateEvent>) => {
         this._datePickerElement = event.target as SbbDatepickerElement;
         this._disabled = !!(event.detail.disabled || event.detail.readonly);
         this._min = event.detail.min;
