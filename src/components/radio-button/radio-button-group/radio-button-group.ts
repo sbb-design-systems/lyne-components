@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y/index.js';
@@ -16,6 +16,7 @@ import type {
 } from '../../core/interfaces/index.js';
 import { SbbDisabledMixin } from '../../core/mixins/index.js';
 import type { SbbSelectionPanelElement } from '../../selection-panel/index.js';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel';
 import type {
   SbbRadioButtonElement,
   SbbRadioButtonSize,
@@ -26,7 +27,7 @@ import style from './radio-button-group.scss?lit&inline';
 
 export type SbbRadioButtonGroupEventDetail = {
   value: any | null;
-  radioButton: SbbRadioButtonElement;
+  radioButton: SbbRadioButtonElement | SbbRadioButtonPanelElement;
 };
 
 /**
@@ -88,7 +89,10 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
    */
   public get radioButtons(): SbbRadioButtonElement[] {
     return (
-      Array.from(this.querySelectorAll?.('sbb-radio-button') ?? []) as SbbRadioButtonElement[]
+      Array.from(this.querySelectorAll?.('sbb-radio-button, sbb-radio-button-panel') ?? []) as (
+        | SbbRadioButtonElement
+        | SbbRadioButtonPanelElement
+      )[]
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }
 

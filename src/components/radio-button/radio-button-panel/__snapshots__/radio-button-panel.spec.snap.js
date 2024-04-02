@@ -6,7 +6,7 @@ snapshots["sbb-radio-button-panel renders - Dom"] =
   aria-checked="false"
   aria-disabled="false"
   aria-required="false"
-  data-slot-names="unnamed"
+  data-slot-names="subtext suffix unnamed"
   role="radio"
   size="m"
   value="radio-value"
@@ -34,7 +34,11 @@ snapshots["sbb-radio-button-panel renders - ShadowDom"] =
   <span class="sbb-radio-button__label-slot">
     <slot>
     </slot>
+    <slot name="suffix">
+    </slot>
   </span>
+  <slot name="subtext">
+  </slot>
 </label>
 `;
 /* end snapshot sbb-radio-button-panel renders - ShadowDom */
@@ -44,7 +48,7 @@ snapshots["sbb-radio-button-panel should render unchecked DOM"] =
   aria-checked="false"
   aria-disabled="false"
   aria-required="false"
-  data-slot-names="unnamed"
+  data-slot-names="subtext suffix unnamed"
   role="radio"
   size="m"
   value="radio-value"
@@ -72,7 +76,11 @@ snapshots["sbb-radio-button-panel should render unchecked Shadow DOM"] =
   <span class="sbb-radio-button__label-slot">
     <slot>
     </slot>
+    <slot name="suffix">
+    </slot>
   </span>
+  <slot name="subtext">
+  </slot>
 </label>
 `;
 /* end snapshot sbb-radio-button-panel should render unchecked Shadow DOM */
@@ -85,7 +93,7 @@ snapshots["sbb-radio-button-panel A11y tree Chrome"] =
   "children": [
     {
       "role": "radio",
-      "name": "Label",
+      "name": "Label Suffix Subtext",
       "checked": false
     }
   ]
