@@ -1,4 +1,4 @@
-import type { CSSResultGroup, LitElement } from 'lit';
+import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers';
@@ -11,8 +11,6 @@ import type {
 } from '../../core/interfaces';
 import type { AbstractConstructor } from '../../core/mixins';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group';
-
-import style from './radio-button-common.scss?lit&inline';
 
 export type SbbRadioButtonSize = 's' | 'm';
 
@@ -43,8 +41,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     extends superClass
     implements Partial<SbbRadioButtonCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
-
     /**
      * Whether the radio can be deselected.
      */

@@ -13,7 +13,16 @@
   --sbb-radio-button-border-color: var(--sbb-color-smoke);
   --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
   --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
+  --sbb-radio-button-suffix-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-subtext-color: var(--sbb-color-granite);
   --sbb-radio-button-cursor: pointer;
+  --sbb-radio-button-panel-background: var(--sbb-color-white);
+  --sbb-radio-button-panel-border-color: var(--sbb-color-cloud);
+  --sbb-radio-button-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-radio-button-panel-border-width: var(--sbb-border-width-1x);
+  --sbb-radio-button-panel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-radio-button-panel-input-padding: var(--sbb-spacing-responsive-xs)
+    var(--sbb-spacing-responsive-xxs);
 
   // The border in unchecked state should fill the circle.
   --sbb-radio-button-background-fake-border-width: calc(var(--sbb-radio-button-dimension) / 2);
@@ -32,6 +41,35 @@
     --sbb-radio-button-background-color: Canvas !important;
     --sbb-radio-button-border-width: var(--sbb-border-width-2x);
     --sbb-radio-button-border-color: ButtonBorder;
+  }
+}
+
+:host([checked]:not(:disabled)) {
+  --sbb-radio-button-panel-border-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-panel-border-width: var(--sbb-border-width-2x);
+}
+
+// Change the focus outline when the input is placed inside of a selection panel
+// as the main input element.
+:host(:focus-visible[data-is-selection-panel-input]) {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  .sbb-radio-button::after {
+    content: '';
+    position: absolute;
+    display: block;
+    inset-block: calc(
+      (var(--sbb-spacing-responsive-xs) * -1) + var(--sbb-focus-outline-width) -
+        (var(--sbb-focus-outline-offset) * 2)
+    );
+    inset-inline: calc(
+      (var(--sbb-spacing-responsive-xxs) * -1) + var(--sbb-focus-outline-width) -
+        (var(--sbb-focus-outline-offset) * 2)
+    );
+    border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
+    border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
   }
 }
 
@@ -62,6 +100,10 @@
   }
 }
 
+.sbb-radio-button__input {
+  @include sbb.screen-reader-only;
+}
+
 // One radio button per line
 .sbb-radio-button {
   @include sbb.text-m--regular;
@@ -77,6 +119,39 @@
     @include sbb.text-s--regular;
   }
 
+  :host(:not([data-is-selection-panel-input])) & {
+    padding: var(--sbb-radio-button-panel-input-padding);
+    flex: auto;
+    position: relative;
+    width: 100%;
+    background-color: var(--sbb-radio-button-panel-background);
+    border-radius: var(--sbb-radio-button-panel-border-radius);
+
+    // To provide a smooth transition of width, we use box-shadow to imitate border.
+    box-shadow: inset 0 0 0 var(--sbb-radio-button-panel-border-width)
+      var(--sbb-radio-button-panel-border-color);
+
+    transition: {
+      duration: var(--sbb-radio-button-panel-animation-duration);
+      timing-function: var(--sbb-animation-easing);
+      property: box-shadow;
+    }
+
+    // For high contrast mode we need a real border
+    @include sbb.if-forced-colors {
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        border: var(--sbb-radio-button-panel-border-width) solid
+          var(--sbb-radio-button-panel-border-color);
+        border-radius: var(--sbb-radio-button-panel-border-radius);
+      }
+    }
+  }
+
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   :host(
       :focus-visible:not(
@@ -89,6 +164,20 @@
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+}
+
+slot[name='suffix'] {
+  color: var(--sbb-radio-button-suffix-color);
+}
+
+slot[name='subtext'] {
+  display: block;
+  color: var(--sbb-radio-button-subtext-color);
+  padding-inline-start: var(--sbb-spacing-fixed-8x);
+
+  :host(:not([data-slot-names~='subtext'])) & {
+    display: none;
   }
 }
 
@@ -135,6 +224,6 @@
   }
 }
 
-.sbb-screen-reader-only {
+.sbb-radio-button__expanded-label {
   @include sbb.screen-reader-only;
 }

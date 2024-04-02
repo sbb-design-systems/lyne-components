@@ -1,4 +1,4 @@
-import type { PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -16,6 +16,9 @@ import type {
 } from '../../core/interfaces/index.js';
 
 import { SbbRadioButtonCommonElementMixin } from '../common';
+import commonStyle from '../common/radio-button-common.scss?lit&inline';
+
+import style from './radio-button.scss?lit&inline';
 
 export type SbbRadioButtonStateChange = Extract<
   SbbStateChange,
@@ -32,6 +35,7 @@ export type SbbRadioButtonSize = 's' | 'm';
 
 @customElement('sbb-radio-button')
 export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement) {
+  public static override styles: CSSResultGroup = [commonStyle, style];
   public static readonly events = {
     stateChange: 'stateChange',
   } as const;
