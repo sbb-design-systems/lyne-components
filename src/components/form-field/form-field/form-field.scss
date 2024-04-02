@@ -265,24 +265,14 @@
 }
 
 .sbb-form-field__select-input-icon {
+  @include sbb.absolute-center-y;
+
   position: absolute;
+  inset-inline-end: 0;
+  z-index: 1;
+  margin-block-start: calc(-1 * var(--sbb-form-field-margin-block-start) / 2);
   pointer-events: none;
   color: var(--sbb-form-field-arrow-color);
-  z-index: 1;
-
-  :host(:not([data-input-type='textarea'])) & {
-    @include sbb.absolute-center-y;
-
-    inset-inline-end: 0;
-    margin-block-start: calc(-1 * var(--sbb-form-field-margin-block-start) / 2);
-  }
-
-  :host([data-input-type='textarea']) & {
-    cursor: row-resize;
-    color: var(--sbb-color-smoke);
-    inset-block-end: 0;
-    inset-inline-end: #{sbb.px-to-rem-build(-7)};
-  }
 }
 
 .sbb-form-field__input-container {
@@ -424,29 +414,15 @@
   @include sbb.scrollbar;
 
   position: relative;
-  resize: vertical;
+  resize: none;
+
+  // White-space break needed for Firefox
   white-space: break-spaces;
   overflow-y: auto;
   min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
 
   :host([negative]) & {
     @include sbb.scrollbar($negative: true);
-  }
-}
-
-// Custom resize  handle
-
-:host([data-input-type='textarea']) .sbb-form-field__input-container {
-  &::after {
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    display: block;
-    width: #{sbb.px-to-rem-build(14)};
-    height: #{sbb.px-to-rem-build(12)};
-    background-color: var(--sbb-form-field-background-color);
-    inset-inline-end: #{sbb.px-to-rem-build(-4)};
-    inset-block-end: #{sbb.px-to-rem-build(5)};
   }
 }
 

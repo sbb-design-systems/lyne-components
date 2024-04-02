@@ -298,7 +298,6 @@ const TemplateSelectWithIcons = ({ label, ...args }: Args): TemplateResult => ht
 const TemplateTextarea = (args: Args): TemplateResult => html`
   <sbb-form-field
     error-space=${args['error-space']}
-    label=${args.label}
     ?optional=${args.optional}
     size=${args.size}
     ?borderless=${args.borderless}
@@ -307,7 +306,7 @@ const TemplateTextarea = (args: Args): TemplateResult => html`
     ?floating-label=${args['floating-label']}
     ?negative=${args.negative}
   >
-    ${TemplateBasicTextarea(args)}
+    ${args.label ? html`<label>${args.label}</label>` : nothing} ${TemplateBasicTextarea(args)}
   </sbb-form-field>
 `;
 
@@ -321,7 +320,6 @@ const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
       <div>
         <sbb-form-field
           error-space=${args['error-space']}
-          label=${args.label}
           ?optional=${args.optional}
           size=${args.size}
           ?borderless=${args.borderless}
@@ -330,6 +328,7 @@ const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
           ?floating-label=${args['floating-label']}
           ?negative=${args.negative}
         >
+          ${args.label ? html`<label>${args.label}</label>` : nothing}
           <textarea
             @keyup=${(event: KeyboardEvent) => {
               const input = event.currentTarget as HTMLInputElement;
@@ -358,13 +357,12 @@ const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateTextareaWithIcons = (args: Args): TemplateResult => html`
+const TemplateTextareaWithIcon = (args: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
     <span slot="prefix">
       <sbb-icon name="pie-small"></sbb-icon>
     </span>
     ${TemplateBasicTextarea(args)}
-    <span slot="suffix">${PopoverTrigger()}</span>
   </sbb-form-field>
 `;
 
@@ -752,8 +750,8 @@ export const TextareaErrorSpace: StoryObj = {
   args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid' },
 };
 
-export const TextareaOptionalAndIcons: StoryObj = {
-  render: TemplateTextareaWithIcons,
+export const TextareaOptionalAndIcon: StoryObj = {
+  render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true },
 };
@@ -776,7 +774,7 @@ export const TextareaFloatingLongLabel: StoryObj = {
 };
 
 export const TextareaFloatingWithIcons: StoryObj = {
-  render: TemplateTextareaWithIcons,
+  render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
@@ -994,7 +992,7 @@ export const TextareaErrorSpaceNegative: StoryObj = {
 };
 
 export const TextareaOptionalAndIconsNegative: StoryObj = {
-  render: TemplateTextareaWithIcons,
+  render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true, negative: true },
 };
@@ -1018,7 +1016,7 @@ export const TextareaFloatingLongLabelNegative: StoryObj = {
 };
 
 export const TextareaFloatingWithIconsNegative: StoryObj = {
-  render: TemplateTextareaWithIcons,
+  render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,

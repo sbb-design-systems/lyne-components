@@ -46,7 +46,12 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover'];
 
-  private readonly _floatingLabelSupportedInputElements = ['input', 'select', 'sbb-select', 'textarea'];
+  private readonly _floatingLabelSupportedInputElements = [
+    'input',
+    'select',
+    'sbb-select',
+    'textarea',
+  ];
 
   private readonly _floatingLabelSupportedInputTypes = [
     'email',
@@ -456,11 +461,9 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            ${['select', 'sbb-select', 'textarea'].includes(this._input?.localName as string)
+            ${['select', 'sbb-select'].includes(this._input?.localName as string)
               ? html`<sbb-icon
-                  name="chevron-small-down${this._input?.tagName === 'TEXTAREA'
-                    ? '-flat'
-                    : ''}-small"
+                  name="chevron-small-down-small"
                   class="sbb-form-field__select-input-icon"
                 ></sbb-icon>`
               : nothing}

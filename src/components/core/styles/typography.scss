@@ -45,10 +45,6 @@ sbb-form-field {
 
   textarea {
     @include scrollbar.scrollbar;
-
-    &::-webkit-resizer {
-      display: none;
-    }
   }
 
   &[negative] textarea {
