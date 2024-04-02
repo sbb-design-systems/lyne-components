@@ -14,7 +14,7 @@ import {
   setAttribute,
 } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
-import { SbbDisabledMixin, SbbNegativeMixin, UpdateSchedulerMixin } from '../core/mixins';
+import { SbbDisabledMixin, SbbNegativeMixin, SbbUpdateSchedulerMixin } from '../core/mixins';
 import type { SbbOverlayState } from '../core/overlay';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option';
@@ -47,7 +47,7 @@ export interface SelectChange {
 @hostAttributes({
   dir: getDocumentWritingMode(),
 })
-export class SbbSelectElement extends UpdateSchedulerMixin(
+export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   SbbDisabledMixin(SbbNegativeMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = style;

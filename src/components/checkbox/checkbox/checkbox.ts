@@ -19,7 +19,7 @@ import type {
 import {
   SbbFormAssociatedCheckboxMixin,
   SbbHydrationMixin,
-  UpdateSchedulerMixin,
+  SbbUpdateSchedulerMixin,
 } from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
@@ -49,7 +49,7 @@ export type SbbCheckboxSize = 's' | 'm';
  * @event {InputEvent} input - Event fired on input.
  */
 @customElement('sbb-checkbox')
-export class SbbCheckboxElement extends UpdateSchedulerMixin(
+export class SbbCheckboxElement extends SbbUpdateSchedulerMixin(
   SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(SbbHydrationMixin(LitElement))),
 ) {
   public static override styles: CSSResultGroup = style;

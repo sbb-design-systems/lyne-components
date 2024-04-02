@@ -16,7 +16,7 @@ import type {
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces';
-import { UpdateSchedulerMixin } from '../../core/mixins';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group';
 
@@ -40,7 +40,7 @@ export type SbbRadioButtonSize = 's' | 'm';
 @hostAttributes({
   role: 'radio',
 })
-export class SbbRadioButtonElement extends UpdateSchedulerMixin(LitElement) {
+export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',

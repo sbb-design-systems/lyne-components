@@ -14,7 +14,7 @@ import {
 } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
-import { UpdateSchedulerMixin } from '../../core/mixins';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
@@ -56,7 +56,7 @@ const DEBOUNCE_TIME = 150;
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbNavigationElement extends UpdateSchedulerMixin(LitElement) {
+export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',

@@ -19,7 +19,7 @@ import {
   setAttribute,
 } from '../../core/dom';
 import { i18nGoBack } from '../../core/i18n';
-import { UpdateSchedulerMixin } from '../../core/mixins';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
   removeAriaOverlayTriggerAttributes,
@@ -44,7 +44,7 @@ let nextId = 0;
 @hostAttributes({
   slot: 'navigation-section',
 })
-export class SbbNavigationSectionElement extends UpdateSchedulerMixin(LitElement) {
+export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
