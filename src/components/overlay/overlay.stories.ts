@@ -286,6 +286,7 @@ export const Expanded: StoryObj = {
     ...basicArgs,
     expanded: true,
   },
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithBackButton: StoryObj = {
@@ -295,6 +296,7 @@ export const WithBackButton: StoryObj = {
     ...basicArgs,
     'back-button': true,
   },
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Form: StoryObj = {
