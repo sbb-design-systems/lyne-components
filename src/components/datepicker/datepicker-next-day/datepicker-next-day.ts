@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-classes';
+import { SbbButtonBaseElement } from '../../core/base-elements';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime';
 import { hostAttributes } from '../../core/decorators';

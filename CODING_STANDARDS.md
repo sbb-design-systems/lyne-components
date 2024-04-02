@@ -101,7 +101,7 @@ components which require basic button or link functionality have to extend the c
 and they need to implement the `renderTemplate` method, which should return the component's inner content.
 
 ```ts
-import { SbbButtonBaseElement } from '../../core/base-classes';
+import { SbbButtonBaseElement } from '../../core/base-elements';
 import { html } from 'lit';
 
 @customElement('my-custom-button')

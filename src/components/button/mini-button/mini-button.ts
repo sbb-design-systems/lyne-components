@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-classes';
+import { SbbButtonBaseElement } from '../../core/base-elements';
 import { SbbSlotStateController } from '../../core/controllers';
 import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';

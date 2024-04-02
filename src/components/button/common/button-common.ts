@@ -2,7 +2,7 @@ import type { TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-classes';
+import type { SbbActionBaseElement } from '../../core/base-elements';
 import { SbbSlotStateController } from '../../core/controllers';
 import { hostAttributes } from '../../core/decorators';
 import type {

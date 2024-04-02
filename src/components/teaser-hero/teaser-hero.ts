@@ -2,7 +2,7 @@ import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../core/base-classes';
+import { SbbLinkBaseElement } from '../core/base-elements';
 
 import style from './teaser-hero.scss?lit&inline';
 

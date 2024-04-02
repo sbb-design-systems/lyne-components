@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../../core/base-classes';
+import { SbbLinkBaseElement } from '../../core/base-elements';
 import { SbbHydrationMixin } from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';
 

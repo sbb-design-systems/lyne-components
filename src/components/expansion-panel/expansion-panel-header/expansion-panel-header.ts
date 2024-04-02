@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-classes';
+import { SbbButtonBaseElement } from '../../core/base-elements';
 import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
 import { hostAttributes } from '../../core/decorators';
 import { EventEmitter } from '../../core/eventing';

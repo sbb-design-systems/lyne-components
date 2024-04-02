@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-classes';
+import type { SbbActionBaseElement } from '../../core/base-elements';
 import { SbbConnectedAbortController } from '../../core/controllers';
 import type { AbstractConstructor } from '../../core/mixins';
 import type { SbbNavigationButtonElement } from '../navigation-button';

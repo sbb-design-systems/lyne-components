@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-classes';
+import { SbbButtonBaseElement } from '../../core/base-elements';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
 import { hostAttributes } from '../../core/decorators';
 import { hostContext, isValidAttribute } from '../../core/dom';

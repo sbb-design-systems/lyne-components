@@ -1,6 +1,6 @@
 import type { CSSResultGroup } from 'lit';
 
-import type { SbbActionBaseElement } from '../../core/base-classes';
+import type { SbbActionBaseElement } from '../../core/base-elements';
 import type { AbstractConstructor } from '../../core/mixins';
 
 import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common';

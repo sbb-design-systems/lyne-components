@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-classes';
+import { SbbButtonBaseElement } from '../../core/base-elements';
 import { hostContext, isValidAttribute } from '../../core/dom';
 import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins';
 import { SbbIconNameMixin } from '../../icon';

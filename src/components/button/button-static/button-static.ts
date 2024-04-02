@@ -1,7 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbActionBaseElement } from '../../core/base-classes';
+import { SbbActionBaseElement } from '../../core/base-elements';
 import { SbbDisabledMixin } from '../../core/mixins';
 import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } from '../common';
 

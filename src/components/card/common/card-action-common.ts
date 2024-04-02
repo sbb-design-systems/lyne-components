@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
-import type { SbbActionBaseElement } from '../../core/base-classes';
+import type { SbbActionBaseElement } from '../../core/base-elements';
 import { hostAttributes } from '../../core/decorators';
 import type { AbstractConstructor } from '../../core/mixins';
 import { AgnosticMutationObserver } from '../../core/observers';
