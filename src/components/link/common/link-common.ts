@@ -7,7 +7,7 @@ import { SbbSlotStateController } from '../../core/controllers';
 import { hostAttributes } from '../../core/decorators';
 import {
   SbbNegativeMixin,
-  SbbNegativeMixinType,
+  type SbbNegativeMixinType,
   type AbstractConstructor,
 } from '../../core/mixins';
 
