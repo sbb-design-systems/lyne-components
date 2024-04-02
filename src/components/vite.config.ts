@@ -33,8 +33,7 @@ export default defineConfig((config) =>
       ...(isProdBuild(config)
         ? [
             dts({
-              entryRoot: '.',
-              include: `**/*.ts`,
+              entryRoot: packageRoot.pathname,
               exclude: [
                 '**/*[.-]{stories,spec,e2e,test-utils}.ts',
                 '**/private/*',

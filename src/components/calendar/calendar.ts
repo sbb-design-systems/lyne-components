@@ -567,9 +567,9 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   }
 
   private _nextYearRangeDisabled(): boolean {
-    const lastYear = (isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years)
-      .at(-1)!
-      .at(-1)!;
+    const years = isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years;
+    const lastYearRange = years[years.length - 1];
+    const lastYear = lastYearRange[lastYearRange.length - 1];
     const nextYear = this._dateAdapter.createDate(lastYear + 1, 1, 1);
     return this._nextDisabled(nextYear);
   }
