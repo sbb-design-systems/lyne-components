@@ -4,7 +4,7 @@
 export default {
   litelement: true,
   globs: ['src/components/**/*.ts'],
-  exclude: ['**/*.spec.ts', '**/*.e2e.ts', '**/*.stories.ts'],
+  exclude: ['**/*[.-]{stories,spec,e2e,test-utils}.ts', '**/private/*', 'vite.config.ts'],
   outdir: 'dist/components',
   dependencies: false,
   packagejson: false,
@@ -26,8 +26,19 @@ export default {
         }
       },
       packageLinkPhase({ customElementsManifest }) {
+        function fixModulePaths(node) {
+          for (const [key, value] of Object.entries(node)) {
+            if (Array.isArray(value)) {
+              value.forEach(fixModulePaths);
+            } else if (typeof value === 'object') {
+              fixModulePaths(value);
+            } else if (key === 'module' || key === 'path') {
+              node[key] = value.replace(/^\/?src\/components\//, '').replace(/\/[^/.]+.ts$/, '');
+            }
+          }
+        }
         for (const module of customElementsManifest.modules) {
-          module.path = module.path.replace(/^src\/components\//, '').replace(/\/[^/.]+.ts$/, '');
+          fixModulePaths(module);
           for (const declaration of module.declarations.filter((d) => d.kind === 'class')) {
             for (const member of declaration.members) {
               if (member.name.startsWith('_') && member.default) {
