@@ -164,9 +164,9 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
  *
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Notifies that the connected input has changes.
- * @event {CustomEvent<InputUpdateEvent>} inputUpdated - Notifies that the attributes of the input connected to the datepicker have changes.
+ * @event {CustomEvent<SbbInputUpdateEvent>} inputUpdated - Notifies that the attributes of the input connected to the datepicker have changes.
  * @event {CustomEvent<void>} datePickerUpdated - Notifies that the attributes of the datepicker have changes.
- * @event {CustomEvent<ValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
+ * @event {CustomEvent<SbbValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
 @customElement('sbb-datepicker')
 export class SbbDatepickerElement extends LitElement {
