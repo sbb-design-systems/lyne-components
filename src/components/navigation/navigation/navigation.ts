@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { assignId, FocusHandler, setModalityOnNextFocus } from '../../core/a11y';
+import { assignId, SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
 import { hostAttributes } from '../../core/decorators';
 import {
@@ -138,7 +138,7 @@ export class SbbNavigationElement extends UpdateSchedulerMixin(LitElement) {
   private _windowEventsController!: AbortController;
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
-  private _focusHandler = new FocusHandler();
+  private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;

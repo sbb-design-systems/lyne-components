@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  FocusHandler,
+  SbbFocusHandler,
   getNextElementIndex,
   interactivityChecker,
   IS_FOCUSABLE_QUERY,
@@ -123,7 +123,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
   private _abort = new SbbConnectedAbortController(this);
-  private _focusHandler = new FocusHandler();
+  private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
 
   /**

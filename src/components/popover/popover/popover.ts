@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  FocusHandler,
+  SbbFocusHandler,
   getFirstFocusableElement,
   IS_FOCUSABLE_QUERY,
   setModalityOnNextFocus,
@@ -121,7 +121,7 @@ export class SbbPopoverElement extends LitElement {
   private _isPointerDownEventOnPopover?: boolean;
   private _popoverController!: AbortController;
   private _openStateController!: AbortController;
-  private _focusHandler = new FocusHandler();
+  private _focusHandler = new SbbFocusHandler();
   private _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;

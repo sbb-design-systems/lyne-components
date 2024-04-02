@@ -4,7 +4,7 @@ import { html } from 'lit';
 
 import { fixture } from '../testing/private';
 
-import { FocusHandler, getFirstFocusableElement, getFocusableElements } from './focus';
+import { SbbFocusHandler, getFirstFocusableElement, getFocusableElements } from './focus';
 
 describe('focus', () => {
   describe(`getFocusables`, () => {
@@ -115,7 +115,7 @@ describe('focus', () => {
     });
 
     it('should focus next element', async () => {
-      const focusHandler = new FocusHandler();
+      const focusHandler = new SbbFocusHandler();
       focusHandler.trap(element);
 
       element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
@@ -138,7 +138,7 @@ describe('focus', () => {
     });
 
     it('should focus next element with filter', async () => {
-      const focusHandler = new FocusHandler();
+      const focusHandler = new SbbFocusHandler();
       focusHandler.trap(element, {
         filter: (el) => ['div', 'input'].includes(el.localName),
       });
@@ -151,7 +151,7 @@ describe('focus', () => {
     });
 
     it('should focus next element with post filter', async () => {
-      const focusHandler = new FocusHandler();
+      const focusHandler = new SbbFocusHandler();
       focusHandler.trap(element, {
         postFilter: (el) => ['custom-button', 'custom-link'].includes(el.id),
       });

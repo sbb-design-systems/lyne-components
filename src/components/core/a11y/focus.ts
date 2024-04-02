@@ -73,7 +73,7 @@ export function getFirstFocusableElement(
   return focusableElements.length ? focusableElements[0] : null;
 }
 
-export class FocusHandler {
+export class SbbFocusHandler {
   private _controller = new AbortController();
 
   /**
