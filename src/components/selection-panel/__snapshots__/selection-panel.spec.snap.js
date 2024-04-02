@@ -24,7 +24,7 @@ snapshots["sbb-selection-panel renders - Dom"] =
       19.99
     </span>
   </sbb-card-badge>
-  <sbb-checkbox
+  <sbb-checkbox-panel
     data-has-selection-panel-label=""
     data-is-inside-selection-panel=""
     data-is-selection-panel-input=""
@@ -40,7 +40,7 @@ snapshots["sbb-selection-panel renders - Dom"] =
     <span slot="suffix">
       Suffix
     </span>
-  </sbb-checkbox>
+  </sbb-checkbox-panel>
   <div slot="content">
     Inner content
   </div>

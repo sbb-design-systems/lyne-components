@@ -1,12 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbCheckboxElement } from '../checkbox/index.js';
+import type { SbbCheckboxPanelElement } from '../checkbox';
 import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers/index.js';
 import { EventEmitter } from '../core/eventing/index.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces/index.js';
-import type { SbbRadioButtonElement } from '../radio-button/index.js';
+import type { SbbRadioButtonPanelElement } from '../radio-button';
 
 import style from './selection-panel.scss?lit&inline';
 
@@ -160,7 +160,7 @@ export class SbbSelectionPanelElement extends LitElement {
   }
 
   private _initFromInput(event: Event): void {
-    const input = event.target as SbbCheckboxElement | SbbRadioButtonElement;
+    const input = event.target as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
 
     if (!input.isSelectionPanelInput) {
       return;
@@ -172,7 +172,7 @@ export class SbbSelectionPanelElement extends LitElement {
   }
 
   private _onInputStateChange(event: CustomEvent<SbbStateChange>): void {
-    const input = event.target as SbbCheckboxElement | SbbRadioButtonElement;
+    const input = event.target as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
 
     if (!input.isSelectionPanelInput) {
       return;

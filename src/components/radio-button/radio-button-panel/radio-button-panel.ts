@@ -1,10 +1,11 @@
 import { html, nothing, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { LanguageController, UpdateScheduler } from '../../core/common-behaviors';
+import { SbbLanguageController } from '../../core/controllers';
 import { setAttributes } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import { SbbRadioButtonElement } from '../radio-button/radio-button';
 
@@ -21,7 +22,7 @@ import style from './radio-button-panel.scss?lit&inline';
  * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-panel`).
  */
 @customElement('sbb-radio-button-panel')
-export class SbbRadioButtonPanelElement extends UpdateScheduler(SbbRadioButtonElement) {
+export class SbbRadioButtonPanelElement extends SbbUpdateSchedulerMixin(SbbRadioButtonElement) {
   public static override styles: CSSResultGroup = style;
   public static override readonly events = {
     stateChange: 'stateChange',
@@ -43,7 +44,7 @@ export class SbbRadioButtonPanelElement extends UpdateScheduler(SbbRadioButtonEl
   @state() private _selectionPanelExpandedLabel?: string;
 
   private _selectionPanelElement: SbbSelectionPanelElement | null = null;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal

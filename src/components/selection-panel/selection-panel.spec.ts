@@ -3,10 +3,14 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
 
-import type { SbbSelectionPanelElement } from './selection-panel.js';
-import './selection-panel.js';
 import '../card/card-badge/index.js';
 import '../checkbox/index.js';
+import './selection-panel.js';
+import type { SbbSelectionPanelElement } from './selection-panel.js';
+
+import '../card/card-badge';
+import '../checkbox/checkbox-panel';
+import './selection-panel';
 
 describe(`sbb-selection-panel`, () => {
   let element: SbbSelectionPanelElement;
@@ -21,11 +25,11 @@ describe(`sbb-selection-panel`, () => {
           <span>from CHF</span>
           <span>19.99</span>
         </sbb-card-badge>
-        <sbb-checkbox>
+        <sbb-checkbox-panel>
           Value one
           <span slot="subtext">Subtext</span>
           <span slot="suffix">Suffix</span>
-        </sbb-checkbox>
+        </sbb-checkbox-panel>
         <div slot="content">Inner content</div>
       </sbb-selection-panel>
     `);

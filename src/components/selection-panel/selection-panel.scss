@@ -151,8 +151,8 @@ sbb-divider {
   margin-block-end: var(--sbb-spacing-responsive-xxs);
 }
 
-::slotted(sbb-radio-button),
-::slotted(sbb-checkbox) {
+::slotted(sbb-radio-button-panel),
+::slotted(sbb-checkbox-panel) {
   cursor: var(--sbb-selection-panel-cursor);
   pointer-events: var(--sbb-selection-panel-input-pointer-events);
   display: block;
