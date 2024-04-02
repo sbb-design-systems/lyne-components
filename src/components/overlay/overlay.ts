@@ -3,11 +3,12 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y';
-import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
-import { ScrollHandler, isValidAttribute, hostContext } from '../core/dom';
+import { SbbFocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y';
+import { SbbLanguageController } from '../core/controllers';
+import { SbbScrollHandler, isValidAttribute, hostContext } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
+import { SbbNegativeMixin } from '../core/mixins';
 import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
 import type { SbbScreenReaderOnlyElement } from '../screen-reader-only';
@@ -125,14 +126,14 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
   private _overlayCloseElement?: HTMLElement;
   private _overlayController!: AbortController;
   private _openOverlayController!: AbortController;
-  private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _focusHandler = new SbbFocusHandler();
+  private _scrollHandler = new SbbScrollHandler();
   private _returnValue: any;
 
   // Last element which had focus before the overlay was opened.
   private _lastFocusedElement?: HTMLElement;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Opens the overlay element.
