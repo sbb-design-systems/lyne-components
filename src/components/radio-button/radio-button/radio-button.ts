@@ -1,26 +1,22 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
-  hostAttributes,
-  LanguageController,
-  NamedSlotStateController,
-  UpdateScheduler,
-} from '../../core/common-behaviors';
+  SbbConnectedAbortController,
+  SbbLanguageController,
+  SbbSlotStateController,
+} from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { setAttributes } from '../../core/dom';
-import {
-  HandlerRepository,
-  formElementHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { EventEmitter, formElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group';
 
@@ -44,7 +40,7 @@ export type SbbRadioButtonSize = 's' | 'm';
 @hostAttributes({
   role: 'radio',
 })
-export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
+export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -132,8 +128,8 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   @state() private _selectionPanelExpandedLabel?: string;
 
   private _selectionPanelElement: SbbSelectionPanelElement | null = null;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal
@@ -190,7 +186,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

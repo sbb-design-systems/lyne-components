@@ -3,16 +3,16 @@ export type ElementRectangle = Pick<
   'scrollHeight' | 'clientHeight' | 'offsetHeight' | 'scrollWidth' | 'clientWidth' | 'offsetWidth'
 >;
 
-export interface Alignment {
+export interface SbbAlignment {
   horizontal: 'start' | 'center' | 'end';
   vertical: 'above' | 'below';
 }
 
-export interface ElementPositionInfos {
+export interface SbbElementPositionInfos {
   top: number;
   left: number;
   maxHeight: string;
-  alignment: Alignment;
+  alignment: SbbAlignment;
 }
 
 /**
@@ -98,7 +98,7 @@ export function getElementPosition(
     centered?: boolean;
     responsiveHeight?: boolean;
   },
-): ElementPositionInfos {
+): SbbElementPositionInfos {
   const maxWidthOffset = 16;
   const verticalOffset = properties?.verticalOffset || 0;
   const horizontalOffset = properties?.horizontalOffset || 0;
@@ -120,7 +120,7 @@ export function getElementPosition(
   let elementXPosition = triggerLeft;
   let elementYPosition = triggerTop + triggerRec.height + verticalOffset;
   let elementXOverflow = elementRec.offsetWidth - triggerRec.width;
-  const alignment: Alignment = { horizontal: 'start', vertical: 'below' };
+  const alignment: SbbAlignment = { horizontal: 'start', vertical: 'below' };
 
   // Calculate element max-height
   let elementMaxHeight = `${availableSpaceBelow - verticalOffset}px`;

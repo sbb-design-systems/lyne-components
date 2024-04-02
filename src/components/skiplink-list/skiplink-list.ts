@@ -8,12 +8,9 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  NamedSlotStateController,
-  SbbNamedSlotListMixin,
-  type WithListChildren,
-} from '../core/common-behaviors';
-import type { SbbBlockLinkElement, SbbBlockLinkButtonElement } from '../link';
+import { SbbSlotStateController } from '../core/controllers';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins';
+import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link';
 import type { SbbTitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';
@@ -44,7 +41,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {

@@ -2,9 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers';
 import { getDocumentWritingMode } from '../core/dom';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n';
+import { SbbNegativeMixin } from '../core/mixins';
 import type { SbbTitleLevel } from '../title';
 
 import style from './journey-header.scss?lit&inline';
@@ -37,7 +38,7 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
   /** Journey header size. */
   @property({ reflect: true }) public size?: JourneyHeaderSize = 'm';
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
     const iconName = this.roundTrip ? 'arrows-long-right-left-small' : 'arrow-long-right-small';

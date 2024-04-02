@@ -2,19 +2,16 @@ import type { TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  type AbstractConstructor,
-  hostAttributes,
-  NamedSlotStateController,
-  type SbbActionBaseElement,
-  type SbbDisabledMixinType,
-  SbbIconNameMixin,
-  type SbbIconNameMixinType,
-  SbbNegativeMixin,
-  type SbbNegativeMixinType,
-} from '../../core/common-behaviors';
-
-import '../../icon';
+import type { SbbActionBaseElement } from '../../core/base-elements';
+import { SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
+import type {
+  AbstractConstructor,
+  SbbDisabledMixinType,
+  SbbNegativeMixinType,
+} from '../../core/mixins';
+import { SbbNegativeMixin } from '../../core/mixins';
+import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon';
 
 export type SbbButtonCommonElement = SbbButtonCommonElementMixinType & SbbActionBaseElement;
 
@@ -45,7 +42,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
 
     protected constructor(...args: any[]) {
       super(args);
-      new NamedSlotStateController(this);
+      new SbbSlotStateController(this);
     }
 
     protected override renderTemplate(): TemplateResult {

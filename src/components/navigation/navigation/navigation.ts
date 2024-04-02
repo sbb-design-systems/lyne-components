@@ -1,32 +1,35 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { FocusHandler, assignId, setModalityOnNextFocus } from '../../core/a11y';
-import { hostAttributes, LanguageController, UpdateScheduler } from '../../core/common-behaviors';
+import { assignId, SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import {
-  ScrollHandler,
-  isValidAttribute,
   findReferencedElement,
+  isValidAttribute,
+  SbbScrollHandler,
   setAttribute,
 } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
-  isEventOnElement,
   applyInertMechanism,
+  isEventOnElement,
+  removeAriaOverlayTriggerAttributes,
   removeInertMechanism,
+  setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationLinkElement } from '../navigation-link';
-import '../../button/transparent-button';
 
 import style from './navigation.scss?lit&inline';
+
+import '../../button/transparent-button';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
@@ -53,7 +56,7 @@ const DEBOUNCE_TIME = 150;
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbNavigationElement extends UpdateScheduler(LitElement) {
+export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -133,10 +136,10 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _triggerElement: HTMLElement | null = null;
   private _navigationController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
-  private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
+  private _focusHandler = new SbbFocusHandler();
+  private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
   private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>

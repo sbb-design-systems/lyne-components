@@ -4,7 +4,7 @@ import { html } from 'lit';
 
 import { fixture } from '../testing/private';
 
-import { FocusHandler, getFirstFocusableElement, getFocusableElements } from './focus';
+import { SbbFocusHandler, getFirstFocusableElement, getFocusableElements } from './focus';
 
 describe('focus', () => {
   describe(`getFocusables`, () => {
@@ -25,8 +25,8 @@ describe('focus', () => {
       await customElements.whenDefined('my-custom-element');
       lightDOM = await fixture(html`
         <div>
-          <custom-button tabindex="0" id="custom-button">Button</custom-button>
-          <custom-link tabindex="0" href="#" id="custom-link">Link</custom-link>
+          <span tabindex="0" id="custom-button">Button</span>
+          <span tabindex="0" id="custom-link">Link</span>
           <div>
             <input id="input" />
             <button style="visibility: hidden" id="hidden-button">Button</button>
@@ -64,7 +64,7 @@ describe('focus', () => {
 
     it('should retrieve filtered focusable elements', () => {
       const elements = getFocusableElements([lightDOM, shadowDOM], {
-        filter: (el) => ['div', 'custom-link'].includes(el.localName),
+        filter: (el) => el.localName === 'div' || el.id === 'custom-link',
       });
 
       expect(elements.map((el) => el.id)).to.deep.equal(['custom-link']);
@@ -95,8 +95,8 @@ describe('focus', () => {
           super();
           const shadowRoot = this.attachShadow({ mode: 'open' });
           shadowRoot.innerHTML = `
-          <custom-button tabindex="0" id="custom-button">Button</custom-button>
-          <custom-link tabindex="0" href="#" id="custom-link">Link</custom-link>
+          <span tabindex="0" id="custom-button">Button</span>
+          <span tabindex="0" id="custom-link">Link</span>
           <div>
             <input id="input" />
             <button style="visibility: hidden" id="hidden-button">Button</button>
@@ -115,7 +115,7 @@ describe('focus', () => {
     });
 
     it('should focus next element', async () => {
-      const focusHandler = new FocusHandler();
+      const focusHandler = new SbbFocusHandler();
       focusHandler.trap(element);
 
       element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
@@ -138,7 +138,7 @@ describe('focus', () => {
     });
 
     it('should focus next element with filter', async () => {
-      const focusHandler = new FocusHandler();
+      const focusHandler = new SbbFocusHandler();
       focusHandler.trap(element, {
         filter: (el) => ['div', 'input'].includes(el.localName),
       });
@@ -151,7 +151,7 @@ describe('focus', () => {
     });
 
     it('should focus next element with post filter', async () => {
-      const focusHandler = new FocusHandler();
+      const focusHandler = new SbbFocusHandler();
       focusHandler.trap(element, {
         postFilter: (el) => ['custom-button', 'custom-link'].includes(el.id),
       });

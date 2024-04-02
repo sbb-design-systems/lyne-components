@@ -1,26 +1,23 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, assignId } from '../core/a11y';
+import { assignId, getNextElementIndex } from '../core/a11y';
+import { SbbConnectedAbortController } from '../core/controllers';
+import { hostAttributes } from '../core/decorators';
 import {
-  hostAttributes,
-  SbbDisabledMixin,
-  SbbNegativeMixin,
-  UpdateScheduler,
-} from '../core/common-behaviors';
-import {
+  getDocumentWritingMode,
+  isNextjs,
   isSafari,
   isValidAttribute,
-  getDocumentWritingMode,
   setAttribute,
-  isNextjs,
 } from '../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
+import { SbbDisabledMixin, SbbNegativeMixin, SbbUpdateSchedulerMixin } from '../core/mixins';
 import type { SbbOverlayState } from '../core/overlay';
-import { setOverlayPosition, isEventOnElement, overlayGapFixCorners } from '../core/overlay';
-import type { SbbOptionElement, SbbOptGroupElement } from '../option';
+import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay';
+import type { SbbOptGroupElement, SbbOptionElement } from '../option';
 
 import style from './select.scss?lit&inline';
 
@@ -50,7 +47,7 @@ export interface SelectChange {
 @hostAttributes({
   dir: getDocumentWritingMode(),
 })
-export class SbbSelectElement extends UpdateScheduler(
+export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   SbbDisabledMixin(SbbNegativeMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -136,7 +133,7 @@ export class SbbSelectElement extends UpdateScheduler(
   private _searchString = '';
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   /**
    * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.

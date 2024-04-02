@@ -14,9 +14,9 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../../storybook/helpers/spread';
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../core/dom';
 import sampleImages from '../core/images';
 
 import { SbbDialogElement } from './dialog';

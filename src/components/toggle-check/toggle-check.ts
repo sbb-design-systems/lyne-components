@@ -2,15 +2,11 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  NamedSlotStateController,
-  SbbFormAssociatedCheckboxMixin,
-  SbbIconNameMixin,
-} from '../core/common-behaviors';
+import { SbbSlotStateController } from '../core/controllers';
+import { SbbFormAssociatedCheckboxMixin } from '../core/mixins';
+import { SbbIconNameMixin } from '../icon';
 
 import style from './toggle-check.scss?lit&inline';
-
-import '../icon';
 
 /**
  * It displays a toggle checkbox.
@@ -42,7 +38,7 @@ export class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {

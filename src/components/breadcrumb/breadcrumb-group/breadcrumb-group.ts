@@ -1,23 +1,20 @@
 import {
   type CSSResultGroup,
+  html,
+  nothing,
   LitElement,
   type PropertyValueMap,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
-import {
-  SbbNamedSlotListMixin,
-  hostAttributes,
-  type WithListChildren,
-} from '../../core/common-behaviors';
-import { LanguageController } from '../../core/common-behaviors';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { setAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbBreadcrumbElement } from '../breadcrumb';
 
@@ -44,8 +41,8 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   @state() private _state?: 'collapsed' | 'manually-expanded';
 
   private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
   private _markForFocus = false;
 
   private _handleKeyDown(evt: KeyboardEvent): void {

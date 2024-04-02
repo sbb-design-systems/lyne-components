@@ -2,7 +2,7 @@ import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 
 import '../../button/secondary-button';
 import '../../title';

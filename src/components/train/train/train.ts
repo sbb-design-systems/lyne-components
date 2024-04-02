@@ -1,17 +1,17 @@
 import {
   type CSSResultGroup,
-  nothing,
   LitElement,
+  nothing,
   type PropertyValueMap,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/common-behaviors';
-import { LanguageController } from '../../core/common-behaviors';
+import { SbbLanguageController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
 import type { SbbTitleLevel } from '../../title';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage';
 import type { SbbTrainWagonElement } from '../train-wagon';
@@ -51,7 +51,7 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
   /** Controls the direction indicator to show the arrow left or right. Default is left.  */
   @property({ reflect: true }) public direction: 'left' | 'right' = 'left';
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal

@@ -1,18 +1,14 @@
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  NamedSlotStateController,
-  SbbButtonBaseElement,
-  SbbDisabledTabIndexActionMixin,
-  SbbIconNameMixin,
-  hostAttributes,
-} from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbButtonBaseElement } from '../../core/base-elements';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
+import { EventEmitter } from '../../core/eventing';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins';
+import { SbbIconNameMixin } from '../../icon';
 import type { SbbExpansionPanelElement } from '../expansion-panel';
 
-import '../../icon';
 import style from './expansion-panel-header.scss?lit&inline';
 
 /**
@@ -42,8 +38,8 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
       bubbles: true,
     },
   );
-  private _abort = new ConnectedAbortController(this);
-  private _namedSlots = new NamedSlotStateController(this, () => this._setDataIconAttribute());
+  private _abort = new SbbConnectedAbortController(this);
+  private _namedSlots = new SbbSlotStateController(this, () => this._setDataIconAttribute());
 
   public override connectedCallback(): void {
     super.connectedCallback();

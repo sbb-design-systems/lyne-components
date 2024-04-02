@@ -1,14 +1,14 @@
 import {
   type CSSResultGroup,
   html,
+  isServer,
   LitElement,
   type PropertyValueMap,
   type TemplateResult,
-  isServer,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/common-behaviors';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
 import type { SbbTagElement } from '../tag';
 
 import style from './tag-group.scss?lit&inline';

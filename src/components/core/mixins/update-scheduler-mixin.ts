@@ -3,7 +3,7 @@ import type { LitElement } from 'lit';
 import type { Constructor } from './constructor';
 
 // Define the interface for the mixin
-export declare class UpdateSchedulerType {
+export declare class SbbUpdateSchedulerMixinType {
   protected startUpdate(): void;
   protected completeUpdate(): void;
 }
@@ -14,10 +14,10 @@ export declare class UpdateSchedulerType {
  * @returns A class extended with the slot child observer functionality.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const UpdateScheduler = <T extends Constructor<LitElement>>(
+export const SbbUpdateSchedulerMixin = <T extends Constructor<LitElement>>(
   base: T,
-): Constructor<UpdateSchedulerType> & T => {
-  class UpdateSchedulerClass extends base implements Partial<UpdateSchedulerType> {
+): Constructor<SbbUpdateSchedulerMixinType> & T => {
+  class SbbUpdateSchedulerElement extends base implements Partial<SbbUpdateSchedulerMixinType> {
     private _updatePromise = Promise.resolve();
     private _updateResolve = (): void => {};
 
@@ -35,5 +35,5 @@ export const UpdateScheduler = <T extends Constructor<LitElement>>(
       return result;
     }
   }
-  return UpdateSchedulerClass as unknown as Constructor<UpdateSchedulerType> & T;
+  return SbbUpdateSchedulerElement as unknown as Constructor<SbbUpdateSchedulerMixinType> & T;
 };

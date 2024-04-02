@@ -1,12 +1,24 @@
+/**
+ * @deprecated
+ * TODO: remove once radio button became form element
+ */
 export interface HandlerAspectParams {
   host: HTMLElement;
   signal: AbortSignal;
 }
 
+/**
+ * @deprecated
+ * TODO: remove once radio button became form element
+ */
 export interface HandlerAspect {
   (params: HandlerAspectParams): void;
 }
 
+/**
+ * @deprecated
+ * TODO: remove once radio button became form element
+ */
 export class HandlerRepository {
   private _aspects: HandlerAspect[];
   private _controller?: AbortController;

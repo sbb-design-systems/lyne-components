@@ -1,13 +1,14 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/common-behaviors';
 import { isSafari, isValidAttribute, setAttribute } from '../../core/dom';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbOptionElement, SbbOptionVariant } from '../option';
 
 import style from './optgroup.scss?lit&inline';
+
 import '../../divider';
 
 /**

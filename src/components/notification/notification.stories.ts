@@ -6,8 +6,8 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 
+import { sbbSpread } from '../../storybook/helpers/spread';
 import type { SbbSecondaryButtonElement } from '../button';
-import { sbbSpread } from '../core/dom';
 
 import { SbbNotificationElement } from './notification';
 import readme from './readme.md?raw';

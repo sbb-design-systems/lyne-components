@@ -1,4 +1,4 @@
-import { type LitElement, html, nothing, type TemplateResult } from 'lit';
+import { html, type LitElement, nothing, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
 import { getLocalName } from '../dom';

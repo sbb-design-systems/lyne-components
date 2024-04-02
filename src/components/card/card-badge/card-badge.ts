@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/common-behaviors';
+import { hostAttributes } from '../../core/decorators';
 import { getDocumentWritingMode } from '../../core/dom';
 
 import style from './card-badge.scss?lit&inline';

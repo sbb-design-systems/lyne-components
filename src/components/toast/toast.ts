@@ -4,18 +4,18 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button';
 import {
-  LanguageController,
-  NamedSlotStateController,
-  SbbIconNameMixin,
-} from '../core/common-behaviors';
+  SbbConnectedAbortController,
+  SbbLanguageController,
+  SbbSlotStateController,
+} from '../core/controllers';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
-import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
+import { composedPathHasAttribute, EventEmitter } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import type { SbbOverlayState } from '../core/overlay';
+import { SbbIconNameMixin } from '../icon';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link';
 import '../button/transparent-button';
 
-import '../icon';
 import style from './toast.scss?lit&inline';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
@@ -87,8 +87,8 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didClose);
 
   private _closeTimeout?: ReturnType<typeof setTimeout>;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
@@ -148,7 +148,7 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

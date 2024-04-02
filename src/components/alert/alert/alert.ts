@@ -2,20 +2,17 @@ import { spread } from '@open-wc/lit-helpers';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  LanguageController,
-  type LinkTargetType,
-  SbbIconNameMixin,
-} from '../../core/common-behaviors';
+import type { LinkTargetType } from '../../core/base-elements';
+import { SbbLanguageController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
+import { SbbIconNameMixin } from '../../icon';
 import type { SbbTitleLevel } from '../../title';
 
 import style from './alert.scss?lit&inline';
 
 import '../../button/transparent-button';
 import '../../divider';
-import '../../icon';
 import '../../link';
 import '../../title';
 
@@ -100,7 +97,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
     SbbAlertElement.events.dismissalRequested,
   );
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   protected override async firstUpdated(): Promise<void> {
     this._open();

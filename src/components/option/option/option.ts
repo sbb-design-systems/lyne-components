@@ -3,19 +3,16 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { assignId } from '../../core/a11y';
-import {
-  hostAttributes,
-  NamedSlotStateController,
-  SbbDisabledMixin,
-  SbbIconNameMixin,
-} from '../../core/common-behaviors';
-import { isSafari, isValidAttribute, isAndroid, setAttribute } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
+import { isAndroid, isSafari, isValidAttribute, setAttribute } from '../../core/dom';
+import { EventEmitter } from '../../core/eventing';
+import { SbbDisabledMixin } from '../../core/mixins';
 import { AgnosticMutationObserver } from '../../core/observers';
+import { SbbIconNameMixin } from '../../icon';
 
 import style from './option.scss?lit&inline';
 
-import '../../icon';
 import '../../screen-reader-only';
 import '../../visual-checkbox';
 
@@ -98,7 +95,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   private _optionId = `sbb-option-${++nextId}`;
   private _variant!: SbbOptionVariant;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   /**
    * On Safari, the groups labels are not read by VoiceOver.
@@ -124,7 +121,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   /**

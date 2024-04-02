@@ -5,16 +5,19 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { SbbCalendarElement } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
-import { hostAttributes, LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';
+import { SbbLanguageController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { isValidAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
+import { SbbNegativeMixin } from '../../core/mixins';
 import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover';
+import type { SbbInputUpdateEvent, SbbDatepickerElement } from '../datepicker';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker';
-import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
-import '../../calendar';
-import '../../popover';
 
 import style from './datepicker-toggle.scss?lit&inline';
+
+import '../../calendar';
+import '../../popover';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
@@ -48,7 +51,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
   private _datePickerController!: AbortController;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Opens the calendar.
@@ -100,7 +103,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
     this._datePickerElement?.addEventListener(
       'inputUpdated',
-      (event: CustomEvent<InputUpdateEvent>) => {
+      (event: CustomEvent<SbbInputUpdateEvent>) => {
         this._datePickerElement = event.target as SbbDatepickerElement;
         this._disabled = !!(event.detail.disabled || event.detail.readonly);
         this._min = event.detail.min;

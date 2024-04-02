@@ -1,10 +1,10 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import type { ReactiveControllerHost } from 'lit';
 
-import { LanguageController } from './language-controller';
+import { SbbLanguageController } from './language-controller';
 
 describe('LanguageController', () => {
-  let controller: LanguageController;
+  let controller: SbbLanguageController;
   let host: ReactiveControllerHost & { requestUpdateCounter: number };
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('LanguageController', () => {
       },
       updateComplete: Promise.resolve(true),
     };
-    controller = new LanguageController(host);
+    controller = new SbbLanguageController(host);
     controller.hostConnected();
   });
 
@@ -27,7 +27,7 @@ describe('LanguageController', () => {
   });
 
   it('should match static and instance values', () => {
-    expect(controller.current).to.equal(LanguageController.current);
+    expect(controller.current).to.equal(SbbLanguageController.current);
   });
 
   it('should not trigger requestUpdate without language change', () => {
@@ -66,7 +66,7 @@ describe('LanguageController', () => {
 
   it('should call custom handler on connected and after change', async () => {
     const state = { counter: 0 };
-    controller = new LanguageController(host).withHandler(() => (state.counter += 1));
+    controller = new SbbLanguageController(host).withHandler(() => (state.counter += 1));
     expect(state.counter).to.equal(0);
     controller.hostConnected();
     expect(state.counter).to.equal(1);

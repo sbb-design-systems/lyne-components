@@ -3,17 +3,15 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
-import {
-  type AbstractConstructor,
-  hostAttributes,
-  type SbbActionBaseElement,
-} from '../../core/common-behaviors';
+import type { SbbActionBaseElement } from '../../core/base-elements';
+import { hostAttributes } from '../../core/decorators';
+import type { AbstractConstructor } from '../../core/mixins';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';
 
-import '../../screen-reader-only';
-
 import style from './card-action.scss?lit&inline';
+
+import '../../screen-reader-only';
 
 export declare class SbbCardActionCommonElementMixinType {
   public active: boolean;

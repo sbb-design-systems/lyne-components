@@ -1,6 +1,6 @@
 import { isServer, type ReactiveElement } from 'lit';
 
-import type { AbstractConstructor } from './constructor';
+import type { AbstractConstructor } from '../mixins';
 
 function applyAttributes(instance: ReactiveElement, attributes: Record<string, string>): void {
   for (const [name, value] of Object.entries(attributes)) {

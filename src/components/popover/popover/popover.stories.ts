@@ -14,8 +14,8 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../../../storybook/helpers/spread';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../../core/dom';
 
 import { SbbPopoverElement } from './popover';
 import readme from './readme.md?raw';

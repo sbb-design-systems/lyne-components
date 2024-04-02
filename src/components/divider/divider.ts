@@ -2,9 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes, SbbNegativeMixin } from '../core/common-behaviors';
+import { hostAttributes } from '../core/decorators';
 import { setAttribute } from '../core/dom';
 import type { SbbOrientation } from '../core/interfaces';
+import { SbbNegativeMixin } from '../core/mixins';
 
 import style from './divider.scss?lit&inline';
 

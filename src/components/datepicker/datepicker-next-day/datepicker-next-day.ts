@@ -2,25 +2,23 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import {
-  hostAttributes,
-  LanguageController,
-  SbbNegativeMixin,
-  SbbButtonBaseElement,
-} from '../../core/common-behaviors';
-import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
+import { SbbButtonBaseElement } from '../../core/base-elements';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
+import { type DateAdapter, defaultDateAdapter } from '../../core/datetime';
+import { hostAttributes } from '../../core/decorators';
 import { isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
+import { SbbNegativeMixin } from '../../core/mixins';
+import type { SbbInputUpdateEvent, SbbDatepickerElement } from '../datepicker';
 import {
   datepickerControlRegisteredEventFactory,
   findNextAvailableDate,
   getDatePicker,
 } from '../datepicker';
-import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
-import '../../icon';
 
 import style from './datepicker-next-day.scss?lit&inline';
+
+import '../../icon';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
@@ -50,8 +48,8 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
 
   private _datePickerController!: AbortController;
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
 
   private _handleClick(): void {
     if (!this._datePickerElement || isValidAttribute(this, 'data-disabled')) {
@@ -116,7 +114,7 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
       // assuming that the two components share the same parent element.
       this.parentElement?.addEventListener(
         'inputUpdated',
-        (e: CustomEvent<InputUpdateEvent>) => this._init(e.target as SbbDatepickerElement),
+        (e: CustomEvent<SbbInputUpdateEvent>) => this._init(e.target as SbbDatepickerElement),
         { once: true, signal: this._datePickerController.signal },
       );
       return;
@@ -141,7 +139,7 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
     );
     this._datePickerElement.addEventListener(
       'inputUpdated',
-      (event: CustomEvent<InputUpdateEvent>) => {
+      (event: CustomEvent<SbbInputUpdateEvent>) => {
         this._inputDisabled = !!(event.detail.disabled || event.detail.readonly);
         if (this._max !== event.detail.max) {
           this._max = event.detail.max!;

@@ -2,20 +2,17 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  NamedSlotStateController,
-  SbbDisabledTabIndexActionMixin,
-  SbbButtonBaseElement,
-  SbbIconNameMixin,
-} from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbButtonBaseElement } from '../../core/base-elements';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
+import { EventEmitter } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
   SbbStateChange,
   SbbValueStateChange,
 } from '../../core/interfaces';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins';
+import { SbbIconNameMixin } from '../../icon';
 
-import '../../icon';
 import style from './tag.scss?lit&inline';
 
 export type SbbTagStateChange = Extract<
@@ -66,11 +63,11 @@ export class SbbTagElement extends SbbIconNameMixin(
     bubbles: true,
   });
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

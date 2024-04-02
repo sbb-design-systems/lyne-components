@@ -10,12 +10,8 @@ import {
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import {
-  hostAttributes,
-  LanguageController,
-  NamedSlotStateController,
-  UpdateScheduler,
-} from '../../core/common-behaviors';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -23,6 +19,7 @@ import {
   setAttribute,
 } from '../../core/dom';
 import { i18nGoBack } from '../../core/i18n';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
   removeAriaOverlayTriggerAttributes,
@@ -47,7 +44,7 @@ let nextId = 0;
 @hostAttributes({
   slot: 'navigation-section',
 })
-export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
+export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -100,11 +97,11 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   private _navigationSectionController!: AbortController;
   private _windowEventsController!: AbortController;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   /**

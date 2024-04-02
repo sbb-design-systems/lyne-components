@@ -3,7 +3,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers';
 import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
 import { setAttribute } from '../core/dom';
 import {
@@ -27,12 +27,13 @@ import {
 import type { SbbOccupancy } from '../core/interfaces';
 import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
+
+import style from './timetable-row.scss?lit&inline';
+
 import '../card';
 import '../icon';
 import '../pearl-chain-time';
 import '../timetable-occupancy';
-
-import style from './timetable-row.scss?lit&inline';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
@@ -244,7 +245,7 @@ export class SbbTimetableRowElement extends LitElement {
   /** When this prop is true the sbb-card will be in the active state. */
   @property({ type: Boolean }) public active?: boolean;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   private _now(): number {
     const dataNow = +(this.dataset?.now as string);

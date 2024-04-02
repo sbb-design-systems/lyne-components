@@ -1,10 +1,10 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y';
-import { LanguageController } from '../core/common-behaviors';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers';
 import type { DateAdapter } from '../core/datetime';
 import {
   DAYS_PER_ROW,
@@ -14,7 +14,7 @@ import {
   YEARS_PER_ROW,
 } from '../core/datetime';
 import { isBreakpoint } from '../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
 import {
   i18nCalendarDateSelection,
   i18nNextMonth,
@@ -194,8 +194,8 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   private _initialized = false;
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this).withHandler(() => {
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => {
     this._monthNames = this._dateAdapter.getMonthNames('long');
     this._createMonthRows();
   });

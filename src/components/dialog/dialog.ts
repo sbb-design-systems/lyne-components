@@ -4,15 +4,12 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
-import {
-  LanguageController,
-  NamedSlotStateController,
-  SbbNegativeMixin,
-} from '../core/common-behaviors';
-import { ScrollHandler, isValidAttribute, hostContext, setAttribute } from '../core/dom';
+import { SbbFocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
+import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
+import { hostContext, isValidAttribute, SbbScrollHandler, setAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
+import { SbbNegativeMixin } from '../core/mixins';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
@@ -145,8 +142,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _dialogCloseElement?: HTMLElement;
   private _dialogController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _focusHandler = new SbbFocusHandler();
+  private _scrollHandler = new SbbScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean = false;
   private _dialogId = `sbb-dialog-${nextId++}`;
@@ -154,8 +151,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
 
-  private _language = new LanguageController(this);
-  private _namedSlots = new NamedSlotStateController(this, () =>
+  private _language = new SbbLanguageController(this);
+  private _namedSlots = new SbbSlotStateController(this, () =>
     setAttribute(this, 'data-fullscreen', !this._hasTitle),
   );
 

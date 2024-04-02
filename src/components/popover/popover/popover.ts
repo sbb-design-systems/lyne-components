@@ -4,12 +4,12 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  FocusHandler,
+  SbbFocusHandler,
   getFirstFocusableElement,
   IS_FOCUSABLE_QUERY,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { LanguageController } from '../../core/common-behaviors';
+import { SbbLanguageController } from '../../core/controllers';
 import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
 import { i18nClosePopover } from '../../core/i18n';
@@ -20,9 +20,10 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import '../../button/secondary-button';
 
 import style from './popover.scss?lit&inline';
+
+import '../../button/secondary-button';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -120,11 +121,11 @@ export class SbbPopoverElement extends LitElement {
   private _isPointerDownEventOnPopover?: boolean;
   private _popoverController!: AbortController;
   private _openStateController!: AbortController;
-  private _focusHandler = new FocusHandler();
+  private _focusHandler = new SbbFocusHandler();
   private _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /** Opens the popover on trigger click. */
   public open(): void {

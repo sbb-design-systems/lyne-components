@@ -1,17 +1,17 @@
 import { defaultConverter, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { hostAttributes } from '../decorators';
 import { preventScrollOnSpacebarPress } from '../eventing';
 
 import type { Constructor } from './constructor';
-import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixins';
+import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin';
 import {
-  SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType,
   type FormRestoreReason,
   type FormRestoreState,
+  SbbFormAssociatedMixin,
+  type SbbFormAssociatedMixinType,
 } from './form-associated-mixin';
-import { hostAttributes } from './host-attributes';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin';
 
 type CheckedSetterValue = { value: boolean; attribute: boolean };

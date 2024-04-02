@@ -2,7 +2,7 @@ import { type CSSResultGroup, LitElement, nothing, type TemplateResult } from 'l
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController, SbbNamedSlotListMixin } from '../../core/common-behaviors';
+import { SbbLanguageController } from '../../core/controllers';
 import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import {
@@ -16,12 +16,13 @@ import {
   i18nWagonLabelNumber,
 } from '../../core/i18n';
 import type { SbbOccupancy } from '../../core/interfaces';
+import { SbbNamedSlotListMixin } from '../../core/mixins';
 import type { SbbIconElement } from '../../icon';
+
+import style from './train-wagon.scss?lit&inline';
 
 import '../../icon';
 import '../../timetable-occupancy-icon';
-
-import style from './train-wagon.scss?lit&inline';
 
 /**
  * It displays a train compartment within a `sbb-train` component.
@@ -69,7 +70,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   @property({ attribute: 'additional-accessibility-text' })
   public additionalAccessibilityText?: string;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal

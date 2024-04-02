@@ -3,22 +3,23 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  FocusHandler,
+  SbbFocusHandler,
   getNextElementIndex,
   interactivityChecker,
   IS_FOCUSABLE_QUERY,
   isArrowKeyPressed,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { SbbNamedSlotListMixin } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/controllers';
 import {
   findReferencedElement,
   isBreakpoint,
   isValidAttribute,
-  ScrollHandler,
+  SbbScrollHandler,
   setAttribute,
 } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
+import { SbbNamedSlotListMixin } from '../../core/mixins';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
   applyInertMechanism,
@@ -121,9 +122,9 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new ConnectedAbortController(this);
-  private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _abort = new SbbConnectedAbortController(this);
+  private _focusHandler = new SbbFocusHandler();
+  private _scrollHandler = new SbbScrollHandler();
 
   /**
    * Opens the menu on trigger click.

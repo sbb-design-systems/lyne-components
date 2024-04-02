@@ -3,9 +3,9 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxElement } from '../checkbox';
-import { NamedSlotStateController } from '../core/common-behaviors';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers';
 import { setAttribute } from '../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
 import type { SbbStateChange } from '../core/interfaces';
 import type { SbbRadioButtonElement } from '../radio-button';
 
@@ -79,7 +79,7 @@ export class SbbSelectionPanelElement extends LitElement {
     SbbSelectionPanelElement.events.didClose,
   );
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _initialized: boolean = false;
 
   /**
@@ -93,7 +93,7 @@ export class SbbSelectionPanelElement extends LitElement {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {
