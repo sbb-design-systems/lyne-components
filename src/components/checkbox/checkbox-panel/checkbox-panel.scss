@@ -5,6 +5,8 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-checkbox-suffix-color: var(--sbb-color-charcoal);
+  --sbb-checkbox-subtext-color: var(--sbb-color-granite);
   --sbb-checkbox-panel-background: var(--sbb-color-white);
   --sbb-checkbox-panel-border-color: var(--sbb-color-cloud);
   --sbb-checkbox-panel-animation-duration: var(--sbb-animation-duration-4x);
