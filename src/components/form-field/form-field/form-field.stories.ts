@@ -19,37 +19,38 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
 });
 
-const formField = ({
-  'error-space': errorSpace,
-  label,
-  optional,
-  size,
-  borderless,
-  width,
-  negative,
-  'hidden-label': hiddenLabel,
-  'floating-label': floatingLabel,
-  slottedLabel,
-}: Args): { withInnerTemplate: (template: TemplateResult) => TemplateResult } => ({
-  withInnerTemplate: (template: TemplateResult) =>
-    html`<sbb-form-field
-      error-space=${errorSpace}
-      ?optional=${optional}
-      size=${size}
-      ?borderless=${borderless}
-      width=${width}
-      ?hidden-label=${hiddenLabel}
-      ?floating-label=${floatingLabel}
-      ?negative=${negative}
-    >
-      ${label && !slottedLabel
-        ? html`<label>${label}</label>`
-        : label && slottedLabel
-          ? html`<span slot="label">${label}</span>`
-          : nothing}
-      ${template}
-    </sbb-form-field>`,
-});
+const formField = (
+  {
+    'error-space': errorSpace,
+    label,
+    optional,
+    size,
+    borderless,
+    width,
+    negative,
+    'hidden-label': hiddenLabel,
+    'floating-label': floatingLabel,
+    slottedLabel,
+  }: Args,
+  template: TemplateResult,
+): TemplateResult =>
+  html`<sbb-form-field
+    error-space=${errorSpace}
+    ?optional=${optional}
+    size=${size}
+    ?borderless=${borderless}
+    width=${width}
+    ?hidden-label=${hiddenLabel}
+    ?floating-label=${floatingLabel}
+    ?negative=${negative}
+  >
+    ${label && !slottedLabel
+      ? html`<label>${label}</label>`
+      : label && slottedLabel
+        ? html`<span slot="label">${label}</span>`
+        : nothing}
+    ${template}
+  </sbb-form-field>`;
 
 const PopoverTrigger = (): TemplateResult => html`
   <sbb-popover-trigger
@@ -110,11 +111,10 @@ const TemplateBasicTextarea = ({
 ${value}</textarea
   >`;
 
-const TemplateInput = (args: Args): TemplateResult =>
-  formField(args).withInnerTemplate(TemplateBasicInput(args));
+const TemplateInput = (args: Args): TemplateResult => formField(args, TemplateBasicInput(args));
 
 const TemplateInputWithSlottedSpanLabel = (args: Args): TemplateResult =>
-  formField({ ...args, slottedLabel: true }).withInnerTemplate(TemplateBasicInput(args));
+  formField({ ...args, slottedLabel: true }, TemplateBasicInput(args));
 
 const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -124,7 +124,8 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
   return html`
     <form>
       <div>
-        ${formField(args).withInnerTemplate(
+        ${formField(
+          args,
           html`<input
               @keyup=${(event: KeyboardEvent) => {
                 const input = event.currentTarget as HTMLInputElement;
@@ -152,7 +153,8 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
 };
 
 const TemplateInputWithIcons = (args: Args): TemplateResult =>
-  formField(args).withInnerTemplate(
+  formField(
+    args,
     html`<sbb-icon slot="prefix" name="pie-small"></sbb-icon> ${TemplateBasicInput(args)}
       ${PopoverTrigger()}`,
   );
@@ -163,7 +165,8 @@ const TemplateInputWithMiniButton = ({
   active,
   ...args
 }: Args): TemplateResult =>
-  formField(args).withInnerTemplate(
+  formField(
+    args,
     html`${TemplateBasicInput({ disabled, readonly, ...args })}
       <sbb-mini-button
         slot="suffix"
@@ -175,13 +178,13 @@ const TemplateInputWithMiniButton = ({
   );
 
 const TemplateInputWithClearButton = ({ active, ...args }: Args): TemplateResult =>
-  formField(args).withInnerTemplate(
+  formField(
+    args,
     html`${TemplateBasicInput(args)}
       <sbb-form-field-clear ?data-active=${active}></sbb-form-field-clear>`,
   );
 
-const TemplateSelect = (args: Args): TemplateResult =>
-  formField(args).withInnerTemplate(TemplateBasicSelect(args));
+const TemplateSelect = (args: Args): TemplateResult => formField(args, TemplateBasicSelect(args));
 
 const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -191,7 +194,8 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
   return html`
     <form>
       <div>
-        ${formField(args).withInnerTemplate(
+        ${formField(
+          args,
           html`<select
               @change=${(event: Event) => {
                 const select = event.currentTarget as HTMLSelectElement;
@@ -224,15 +228,18 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
 };
 
 const TemplateSelectWithIcons = (args: Args): TemplateResult =>
-  formField(args).withInnerTemplate(html`
-    <span slot="prefix">
-      <sbb-icon name="pie-small"></sbb-icon>
-    </span>
-    ${TemplateBasicSelect(args)} ${PopoverTrigger()}
-  `);
+  formField(
+    args,
+    html`
+      <span slot="prefix">
+        <sbb-icon name="pie-small"></sbb-icon>
+      </span>
+      ${TemplateBasicSelect(args)} ${PopoverTrigger()}
+    `,
+  );
 
 const TemplateTextarea = (args: Args): TemplateResult =>
-  formField(args).withInnerTemplate(TemplateBasicTextarea(args));
+  formField(args, TemplateBasicTextarea(args));
 
 const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -242,7 +249,8 @@ const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
   return html`
     <form>
       <div>
-        ${formField(args).withInnerTemplate(
+        ${formField(
+          args,
           html`<textarea
               @keyup=${(event: KeyboardEvent) => {
                 const input = event.currentTarget as HTMLInputElement;
@@ -274,12 +282,13 @@ ${args.value}</textarea
 };
 
 const TemplateTextareaWithIcon = (args: Args): TemplateResult =>
-  formField(args).withInnerTemplate(html`
-    <span slot="prefix">
-      <sbb-icon name="pie-small"></sbb-icon>
-    </span>
-    ${TemplateBasicTextarea(args)}
-  `);
+  formField(
+    args,
+    html`<span slot="prefix">
+        <sbb-icon name="pie-small"></sbb-icon>
+      </span>
+      ${TemplateBasicTextarea(args)}`,
+  );
 
 const placeholder: InputType = {
   control: {
