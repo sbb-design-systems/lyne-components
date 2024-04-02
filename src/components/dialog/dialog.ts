@@ -6,7 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
 import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
-import { hostContext, isValidAttribute, ScrollHandler, setAttribute } from '../core/dom';
+import { hostContext, isValidAttribute, SbbScrollHandler, setAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { SbbNegativeMixin } from '../core/mixins';
@@ -143,7 +143,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _dialogController!: AbortController;
   private _windowEventsController!: AbortController;
   private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _scrollHandler = new SbbScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean = false;
   private _dialogId = `sbb-dialog-${nextId++}`;

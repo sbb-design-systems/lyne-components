@@ -9,7 +9,7 @@ import { hostAttributes } from '../../core/decorators';
 import {
   findReferencedElement,
   isValidAttribute,
-  ScrollHandler,
+  SbbScrollHandler,
   setAttribute,
 } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
@@ -139,7 +139,7 @@ export class SbbNavigationElement extends UpdateSchedulerMixin(LitElement) {
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
   private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
   private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>

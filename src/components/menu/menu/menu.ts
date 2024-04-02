@@ -15,7 +15,7 @@ import {
   findReferencedElement,
   isBreakpoint,
   isValidAttribute,
-  ScrollHandler,
+  SbbScrollHandler,
   setAttribute,
 } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
@@ -124,7 +124,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   private _windowEventsController!: AbortController;
   private _abort = new SbbConnectedAbortController(this);
   private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _scrollHandler = new SbbScrollHandler();
 
   /**
    * Opens the menu on trigger click.

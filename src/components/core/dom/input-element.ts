@@ -1,13 +1,6 @@
 import { findReferencedElement } from './find-referenced-element';
 
 /**
- * Resolves the input element inside the shadow DOM of the given element.
- */
-export function findShadowInput(element: HTMLElement): HTMLInputElement | null | undefined {
-  return element.shadowRoot?.querySelector('input');
-}
-
-/**
  * Given an element, returns the related input reference, if it exists respecting following priority.
  * 1. Input field in `sbb-form-field` (if trigger is undefiend)
  * 2. Input referenced by id (trigger is string)

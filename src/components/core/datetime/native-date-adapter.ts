@@ -12,7 +12,7 @@ const ISO_8601_REGEX =
   /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 
 export class NativeDateAdapter extends DateAdapter<Date> {
-  private _cutoffYearOffset: number;
+  private readonly _cutoffYearOffset: number;
 
   public constructor(cutoffYearOffset: number = 15) {
     super();

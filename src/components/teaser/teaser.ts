@@ -5,10 +5,11 @@ import { html } from 'lit/static-html.js';
 import { SbbLinkBaseElement } from '../core/base-classes';
 import { SbbSlotStateController } from '../core/controllers';
 import type { SbbTitleLevel } from '../title';
-import '../title';
-import '../chip';
 
 import style from './teaser.scss?lit&inline';
+
+import '../chip';
+import '../title';
 
 /**
  * It displays an interactive image with caption.

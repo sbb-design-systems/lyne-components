@@ -8,7 +8,7 @@ export function pageScrollDisabled(): boolean {
  * Handle the page scroll, allowing to disable/enable the window scroll avoiding a potential
  * content shift caused by the disappearance/appearance of the scrollbar.
  */
-export class ScrollHandler {
+export class SbbScrollHandler {
   private _position!: string;
   private _overflow!: string;
   private _marginInlineEnd!: string;
