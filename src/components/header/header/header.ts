@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { FocusVisibleWithinController } from '../../core/a11y';
+import { SbbFocusVisibleWithinController } from '../../core/a11y';
 import { findReferencedElement, isBrowser } from '../../core/dom';
 import { SbbHydrationMixin } from '../../core/mixins';
 
@@ -69,7 +69,7 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._setListenerOnScrollElement(this.scrollOrigin);
-    new FocusVisibleWithinController(this);
+    new SbbFocusVisibleWithinController(this);
   }
 
   /** Removes the scroll listener, if previously attached. */
