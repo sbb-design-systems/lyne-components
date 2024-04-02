@@ -7,7 +7,7 @@ import { SbbLanguageController } from '../core/controllers';
 import { findInput, isValidAttribute } from '../core/dom';
 import { EventEmitter, forwardEventToHost } from '../core/eventing';
 import { i18nTimeInputChange } from '../core/i18n';
-import type { SbbDateLike, ValidationChangeEvent } from '../core/interfaces';
+import type { SbbDateLike, SbbValidationChangeEvent } from '../core/interfaces';
 
 import style from './time-input.scss?lit&inline';
 
@@ -56,7 +56,7 @@ export class SbbTimeInputElement extends LitElement {
   });
 
   /** Emits whenever the internal validation state changes. */
-  private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
+  private _validationChange: EventEmitter<SbbValidationChangeEvent> = new EventEmitter(
     this,
     SbbTimeInputElement.events.validationChange,
     {

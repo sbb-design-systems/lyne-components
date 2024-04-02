@@ -9,7 +9,7 @@ import { defaultDateAdapter } from '../../core/datetime';
 import { findInput, findReferencedElement, isValidAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
-import type { SbbDateLike, ValidationChangeEvent } from '../../core/interfaces';
+import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbDatepickerNextDayElement } from '../datepicker-next-day';
 import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day';
@@ -226,7 +226,7 @@ export class SbbDatepickerElement extends LitElement {
   );
 
   /** Emits whenever the internal validation state changes. */
-  private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
+  private _validationChange: EventEmitter<SbbValidationChangeEvent> = new EventEmitter(
     this,
     SbbDatepickerElement.events.validationChange,
   );

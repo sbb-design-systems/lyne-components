@@ -1,3 +1,3 @@
-export interface ValidationChangeEvent {
+export interface SbbValidationChangeEvent {
   valid: boolean;
 }
