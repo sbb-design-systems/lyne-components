@@ -4,7 +4,6 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
 import type { SbbFormErrorElement } from '../../form-error';
 
 import readme from './readme.md?raw';
@@ -18,6 +17,38 @@ import '../../title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+});
+
+const formField = ({
+  'error-space': errorSpace,
+  label,
+  optional,
+  size,
+  borderless,
+  width,
+  negative,
+  'hidden-label': hiddenLabel,
+  'floating-label': floatingLabel,
+  slottedLabel,
+}: Args): { withInnerTemplate: (template: TemplateResult) => TemplateResult } => ({
+  withInnerTemplate: (template: TemplateResult) =>
+    html`<sbb-form-field
+      error-space=${errorSpace}
+      ?optional=${optional}
+      size=${size}
+      ?borderless=${borderless}
+      width=${width}
+      ?hidden-label=${hiddenLabel}
+      ?floating-label=${floatingLabel}
+      ?negative=${negative}
+    >
+      ${label && !slottedLabel
+        ? html`<label>${label}</label>`
+        : label && slottedLabel
+          ? html`<span slot="label">${label}</span>`
+          : nothing}
+      ${template}
+    </sbb-form-field>`,
 });
 
 const PopoverTrigger = (): TemplateResult => html`
@@ -69,68 +100,21 @@ const TemplateBasicTextarea = ({
   disabled,
   readonly,
   value,
-}: Args): TemplateResult => html`
-  <textarea
+}: Args): TemplateResult =>
+  html` <textarea
     class=${cssClass}
     placeholder=${placeholder}
     ?disabled=${disabled}
     ?readonly=${readonly}
-    value=${value}
-  ></textarea>
-`;
-
-const TemplateInput = ({
-  'error-space': errorSpace,
-  label,
-  optional,
-  size,
-  borderless,
-  width,
-  negative,
-  'hidden-label': hiddenLabel,
-  'floating-label': floatingLabel,
-  ...args
-}: Args): TemplateResult => html`
-  <sbb-form-field
-    error-space=${errorSpace}
-    ?optional=${optional}
-    size=${size}
-    ?borderless=${borderless}
-    width=${width}
-    ?hidden-label=${hiddenLabel}
-    ?floating-label=${floatingLabel}
-    ?negative=${negative}
   >
-    ${label ? html`<label>${label}</label>` : nothing} ${TemplateBasicInput(args)}
-  </sbb-form-field>
-`;
+${value}</textarea
+  >`;
 
-const TemplateInputWithSlottedSpanLabel = ({
-  'error-space': errorSpace,
-  label,
-  optional,
-  size,
-  borderless,
-  width,
-  negative,
-  'hidden-label': hiddenLabel,
-  'floating-label': floatingLabel,
-  ...args
-}: Args): TemplateResult => html`
-  <sbb-form-field
-    error-space=${errorSpace}
-    ?optional=${optional}
-    size=${size}
-    ?borderless=${borderless}
-    width=${width}
-    ?hidden-label=${hiddenLabel}
-    ?floating-label=${floatingLabel}
-    ?negative=${negative}
-  >
-    <span slot="label">${label}</span>
-    ${TemplateBasicInput(args)}
-  </sbb-form-field>
-`;
+const TemplateInput = (args: Args): TemplateResult =>
+  formField(args).withInnerTemplate(TemplateBasicInput(args));
+
+const TemplateInputWithSlottedSpanLabel = (args: Args): TemplateResult =>
+  formField({ ...args, slottedLabel: true }).withInnerTemplate(TemplateBasicInput(args));
 
 const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -140,35 +124,25 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
   return html`
     <form>
       <div>
-        <sbb-form-field
-          error-space=${args['error-space']}
-          ?optional=${args.optional}
-          size=${args.size}
-          ?borderless=${args.borderless}
-          width=${args.width}
-          ?hidden-label=${args['hidden-label']}
-          ?floating-label=${args['floating-label']}
-          ?negative=${args.negative}
-        >
-          ${args.label ? html`<label>${args.label}</label>` : nothing}
-          <input
-            @keyup=${(event: KeyboardEvent) => {
-              const input = event.currentTarget as HTMLInputElement;
-              if (input.value !== '') {
-                sbbFormError.remove();
-                input.classList.remove(args.cssClass);
-              } else {
-                input.closest('sbb-form-field')!.append(sbbFormError);
-                input.classList.add(args.cssClass);
-              }
-            }}
-            class=${args.cssClass}
-            placeholder=${args.placeholder}
-            ?disabled=${args.disabled}
-            ?readonly=${args.readonly}
-          />
-          ${sbbFormError}
-        </sbb-form-field>
+        ${formField(args).withInnerTemplate(
+          html`<input
+              @keyup=${(event: KeyboardEvent) => {
+                const input = event.currentTarget as HTMLInputElement;
+                if (input.value !== '') {
+                  sbbFormError.remove();
+                  input.classList.remove(args.cssClass);
+                } else {
+                  input.closest('sbb-form-field')!.append(sbbFormError);
+                  input.classList.add(args.cssClass);
+                }
+              }}
+              class=${args.cssClass}
+              placeholder=${args.placeholder}
+              ?disabled=${args.disabled}
+              ?readonly=${args.readonly}
+            />
+            ${sbbFormError}`,
+        )}
       </div>
       <div style="color: var(--sbb-color-smoke);">
         Some text, right below the form-field, inside a div.
@@ -177,62 +151,37 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateInputWithIcons = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ${sbbSpread(args)}>
-    ${label ? html`<label>${label}</label>` : nothing}
-    <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
-    ${TemplateBasicInput(args)} ${PopoverTrigger()}
-  </sbb-form-field>
-`;
+const TemplateInputWithIcons = (args: Args): TemplateResult =>
+  formField(args).withInnerTemplate(
+    html`<sbb-icon slot="prefix" name="pie-small"></sbb-icon> ${TemplateBasicInput(args)}
+      ${PopoverTrigger()}`,
+  );
 
 const TemplateInputWithMiniButton = ({
-  label,
   disabled,
   readonly,
   active,
   ...args
-}: Args): TemplateResult => html`
-  <sbb-form-field ${sbbSpread(args)}>
-    ${label ? html`<label>${label}</label>` : nothing}
-    ${TemplateBasicInput({ disabled, readonly, ...args })}
-    <sbb-mini-button
-      slot="suffix"
-      icon-name="pie-small"
-      ?disabled=${disabled || readonly}
-      aria-label="Input button"
-      ?data-active=${active}
-    ></sbb-mini-button>
-  </sbb-form-field>
-`;
+}: Args): TemplateResult =>
+  formField(args).withInnerTemplate(
+    html`${TemplateBasicInput({ disabled, readonly, ...args })}
+      <sbb-mini-button
+        slot="suffix"
+        icon-name="pie-small"
+        ?disabled=${disabled || readonly}
+        aria-label="Input button"
+        ?data-active=${active}
+      ></sbb-mini-button>`,
+  );
 
-const TemplateInputWithClearButton = ({
-  label,
-  disabled,
-  readonly,
-  active,
-  ...args
-}: Args): TemplateResult => html`
-  <sbb-form-field ${sbbSpread(args)}>
-    ${label ? html`<label>${label}</label>` : nothing}
-    ${TemplateBasicInput({ disabled, readonly, ...args })}
-    <sbb-form-field-clear ?data-active=${active}></sbb-form-field-clear>
-  </sbb-form-field>
-`;
+const TemplateInputWithClearButton = ({ active, ...args }: Args): TemplateResult =>
+  formField(args).withInnerTemplate(
+    html`${TemplateBasicInput(args)}
+      <sbb-form-field-clear ?data-active=${active}></sbb-form-field-clear>`,
+  );
 
-const TemplateSelect = (args: Args): TemplateResult => html`
-  <sbb-form-field
-    error-space=${args['error-space']}
-    ?optional=${args.optional}
-    size=${args.size}
-    ?borderless=${args.borderless}
-    width=${args.width}
-    ?hidden-label=${args['hidden-label']}
-    ?floating-label=${args['floating-label']}
-    ?negative=${args.negative}
-  >
-    ${args.label ? html`<label>${args.label}</label>` : nothing} ${TemplateBasicSelect(args)}
-  </sbb-form-field>
-`;
+const TemplateSelect = (args: Args): TemplateResult =>
+  formField(args).withInnerTemplate(TemplateBasicSelect(args));
 
 const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -242,38 +191,28 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
   return html`
     <form>
       <div>
-        <sbb-form-field
-          error-space=${args['error-space']}
-          ?optional=${args.optional}
-          size=${args.size}
-          ?borderless=${args.borderless}
-          width=${args.width}
-          ?hidden-label=${args['hidden-label']}
-          ?floating-label=${args['floating-label']}
-          ?negative=${args.negative}
-        >
-          ${args.label ? html`<label>${args.label}</label>` : nothing}
-          <select
-            @change=${(event: Event) => {
-              const select = event.currentTarget as HTMLSelectElement;
-              if (select.value !== '0') {
-                sbbFormError.remove();
-                select.classList.remove(args.cssClass);
-              } else {
-                select.closest('sbb-form-field')!.append(sbbFormError);
-                select.classList.add(args.cssClass);
-              }
-            }}
-            class=${args.cssClass}
-            ?disabled=${args.disabled}
-          >
-            <option value="0"></option>
-            <option value="1">Value 1</option>
-            <option value="2">Value 2</option>
-            <option value="3">Value 3</option>
-          </select>
-          ${sbbFormError}
-        </sbb-form-field>
+        ${formField(args).withInnerTemplate(
+          html`<select
+              @change=${(event: Event) => {
+                const select = event.currentTarget as HTMLSelectElement;
+                if (select.value !== '0') {
+                  sbbFormError.remove();
+                  select.classList.remove(args.cssClass);
+                } else {
+                  select.closest('sbb-form-field')!.append(sbbFormError);
+                  select.classList.add(args.cssClass);
+                }
+              }}
+              class=${args.cssClass}
+              ?disabled=${args.disabled}
+            >
+              <option value="0"></option>
+              <option value="1">Value 1</option>
+              <option value="2">Value 2</option>
+              <option value="3">Value 3</option>
+            </select>
+            ${sbbFormError}`,
+        )}
       </div>
       <div>
         <div style=${styleMap({ color: 'var(--sbb-color-smoke)' })}>
@@ -284,31 +223,16 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateSelectWithIcons = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ${sbbSpread(args)}>
-    ${label ? html`<label>${label}</label>` : nothing}
+const TemplateSelectWithIcons = (args: Args): TemplateResult =>
+  formField(args).withInnerTemplate(html`
     <span slot="prefix">
       <sbb-icon name="pie-small"></sbb-icon>
     </span>
-    ${TemplateBasicSelect(args)}
-    <span slot="suffix">${PopoverTrigger()}</span>
-  </sbb-form-field>
-`;
+    ${TemplateBasicSelect(args)} ${PopoverTrigger()}
+  `);
 
-const TemplateTextarea = (args: Args): TemplateResult => html`
-  <sbb-form-field
-    error-space=${args['error-space']}
-    ?optional=${args.optional}
-    size=${args.size}
-    ?borderless=${args.borderless}
-    width=${args.width}
-    ?hidden-label=${args['hidden-label']}
-    ?floating-label=${args['floating-label']}
-    ?negative=${args.negative}
-  >
-    ${args.label ? html`<label>${args.label}</label>` : nothing} ${TemplateBasicTextarea(args)}
-  </sbb-form-field>
-`;
+const TemplateTextarea = (args: Args): TemplateResult =>
+  formField(args).withInnerTemplate(TemplateBasicTextarea(args));
 
 const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -318,35 +242,27 @@ const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
   return html`
     <form>
       <div>
-        <sbb-form-field
-          error-space=${args['error-space']}
-          ?optional=${args.optional}
-          size=${args.size}
-          ?borderless=${args.borderless}
-          width=${args.width}
-          ?hidden-label=${args['hidden-label']}
-          ?floating-label=${args['floating-label']}
-          ?negative=${args.negative}
-        >
-          ${args.label ? html`<label>${args.label}</label>` : nothing}
-          <textarea
-            @keyup=${(event: KeyboardEvent) => {
-              const input = event.currentTarget as HTMLInputElement;
-              if (input.value !== '') {
-                sbbFormError.remove();
-                input.classList.remove(args.cssClass);
-              } else {
-                input.closest('sbb-form-field')!.append(sbbFormError);
-                input.classList.add(args.cssClass);
-              }
-            }}
-            class=${args.cssClass}
-            placeholder=${args.placeholder}
-            ?disabled=${args.disabled}
-            ?readonly=${args.readonly}
-          ></textarea>
-          ${sbbFormError}
-        </sbb-form-field>
+        ${formField(args).withInnerTemplate(
+          html`<textarea
+              @keyup=${(event: KeyboardEvent) => {
+                const input = event.currentTarget as HTMLInputElement;
+                if (input.value !== '') {
+                  sbbFormError.remove();
+                  input.classList.remove(args.cssClass);
+                } else {
+                  input.closest('sbb-form-field')!.append(sbbFormError);
+                  input.classList.add(args.cssClass);
+                }
+              }}
+              class=${args.cssClass}
+              placeholder=${args.placeholder}
+              ?disabled=${args.disabled}
+              ?readonly=${args.readonly}
+            >
+${args.value}</textarea
+            >
+            ${sbbFormError}`,
+        )}
       </div>
       <div>
         <div style=${styleMap({ color: 'var(--sbb-color-smoke)' })}>
@@ -357,14 +273,13 @@ const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateTextareaWithIcon = (args: Args): TemplateResult => html`
-  <sbb-form-field ${sbbSpread(args)}>
+const TemplateTextareaWithIcon = (args: Args): TemplateResult =>
+  formField(args).withInnerTemplate(html`
     <span slot="prefix">
       <sbb-icon name="pie-small"></sbb-icon>
     </span>
     ${TemplateBasicTextarea(args)}
-  </sbb-form-field>
-`;
+  `);
 
 const placeholder: InputType = {
   control: {
@@ -773,7 +688,7 @@ export const TextareaFloatingLongLabel: StoryObj = {
   },
 };
 
-export const TextareaFloatingWithIcons: StoryObj = {
+export const TextareaFloatingWithIcon: StoryObj = {
   render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: {
@@ -991,7 +906,7 @@ export const TextareaErrorSpaceNegative: StoryObj = {
   args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid', negative: true },
 };
 
-export const TextareaOptionalAndIconsNegative: StoryObj = {
+export const TextareaOptionalAndIconNegative: StoryObj = {
   render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true, negative: true },
@@ -1015,7 +930,7 @@ export const TextareaFloatingLongLabelNegative: StoryObj = {
   },
 };
 
-export const TextareaFloatingWithIconsNegative: StoryObj = {
+export const TextareaFloatingWithIconNegative: StoryObj = {
   render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: {
