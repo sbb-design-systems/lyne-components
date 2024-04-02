@@ -36,7 +36,7 @@ const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-select'];
 export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  private readonly _supportedNativeInputElements = ['input', 'select'];
+  private readonly _supportedNativeInputElements = ['input', 'select', 'textarea'];
   // List of supported element selectors in unnamed slot
   private readonly _supportedInputElements = [
     ...this._supportedNativeInputElements,
@@ -46,7 +46,12 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover'];
 
-  private readonly _floatingLabelSupportedInputElements = ['input', 'select', 'sbb-select'];
+  private readonly _floatingLabelSupportedInputElements = [
+    'input',
+    'select',
+    'sbb-select',
+    'textarea',
+  ];
 
   private readonly _floatingLabelSupportedInputTypes = [
     'email',
@@ -209,6 +214,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     this._applyAriaDescribedby();
     this._readInputState();
     this._registerInputListener();
+
+    if (this._input.tagName === 'TEXTAREA') {
+      this._input.setAttribute('rows', this._input.getAttribute('rows') || '3');
+    }
 
     this._formFieldAttributeObserver.disconnect();
     this._formFieldAttributeObserver.observe(this._input, {
