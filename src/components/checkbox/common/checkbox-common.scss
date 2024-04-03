@@ -21,20 +21,6 @@
   display: flex;
 
   @include sbb.zero-width-space;
-
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(
-      :focus-visible:not(
-          [data-focus-origin='mouse'],
-          [data-focus-origin='touch'],
-          [data-is-selection-panel-input]
-        )
-    )
-    & {
-    @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-  }
 }
 
 .sbb-checkbox {

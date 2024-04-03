@@ -1,13 +1,14 @@
-import { html, nothing, type CSSResultGroup, type TemplateResult } from 'lit';
+import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../../core/controllers';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers';
 import { setAttributes } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
-import { SbbRadioButtonElement } from '../radio-button/radio-button';
+import { SbbRadioButtonCommonElementMixin, type SbbRadioButtonStateChange } from '../common';
+import commonStyle from '../common/radio-button-common.scss?lit&inline';
 
 import '../../screen-reader-only';
 
@@ -22,9 +23,11 @@ import style from './radio-button-panel.scss?lit&inline';
  * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-panel`).
  */
 @customElement('sbb-radio-button-panel')
-export class SbbRadioButtonPanelElement extends SbbUpdateSchedulerMixin(SbbRadioButtonElement) {
-  public static override styles: CSSResultGroup = style;
-  public static override readonly events = {
+export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin(
+  SbbUpdateSchedulerMixin(LitElement),
+) {
+  public static override styles: CSSResultGroup = [commonStyle, style];
+  public static readonly events = {
     stateChange: 'stateChange',
     radioButtonLoaded: 'radioButtonLoaded',
   } as const;
@@ -45,6 +48,17 @@ export class SbbRadioButtonPanelElement extends SbbUpdateSchedulerMixin(SbbRadio
 
   private _selectionPanelElement: SbbSelectionPanelElement | null = null;
   private _language = new SbbLanguageController(this);
+
+  /**
+   * @internal
+   * Internal event that emits whenever the state of the radio option
+   * in relation to the parent selection panel changes.
+   */
+  private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
+    this,
+    SbbRadioButtonPanelElement.events.stateChange,
+    { bubbles: true },
+  );
 
   /**
    * @internal
@@ -78,8 +92,14 @@ export class SbbRadioButtonPanelElement extends SbbUpdateSchedulerMixin(SbbRadio
 
   protected override handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
-      this.stateChange.emit({ type: 'checked', checked: currentValue });
+      this._stateChange.emit({ type: 'checked', checked: currentValue });
       this._isSelectionPanelInput && this._updateExpandedLabel();
+    }
+  }
+
+  protected override handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }
 
@@ -94,6 +114,11 @@ export class SbbRadioButtonPanelElement extends SbbUpdateSchedulerMixin(SbbRadio
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
+  }
+
+  public constructor() {
+    super();
+    new SbbSlotStateController(this);
   }
 
   protected override render(): TemplateResult {

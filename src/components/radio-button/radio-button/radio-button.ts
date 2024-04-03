@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -32,7 +32,6 @@ export type SbbRadioButtonSize = 's' | 'm';
  *
  * @slot - Use the unnamed slot to add content to the radio label.
  */
-
 @customElement('sbb-radio-button')
 export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [commonStyle, style];
@@ -45,23 +44,23 @@ export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitE
    * Internal event that emits whenever the state of the radio option
    * in relation to the parent selection panel changes.
    */
-  protected stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
+  private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
     this,
     SbbRadioButtonElement.events.stateChange,
     { bubbles: true },
   );
 
-  protected handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+  protected override handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
       this.setAttribute('aria-checked', `${currentValue}`);
-      this.stateChange.emit({ type: 'checked', checked: currentValue });
+      this._stateChange.emit({ type: 'checked', checked: currentValue });
     }
   }
 
-  protected handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
+  protected override handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
       setOrRemoveAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
-      this.stateChange.emit({ type: 'disabled', disabled: currentValue });
+      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }
 
@@ -75,18 +74,6 @@ export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitE
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('checked')) {
-      this.handleCheckedChange(this.checked, changedProperties.get('checked')!);
-    }
-    if (changedProperties.has('disabled')) {
-      this.handleDisabledChange(this.disabled, changedProperties.get('disabled')!);
-    }
-    if (changedProperties.has('required')) {
-      this.setAttribute('aria-required', `${this.required}`);
-    }
   }
 
   protected override render(): TemplateResult {

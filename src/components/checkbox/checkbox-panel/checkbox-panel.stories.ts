@@ -118,6 +118,34 @@ const Template = ({ label, checked, ...args }: Args): TemplateResult =>
     </span>
   </sbb-checkbox-panel>`;
 
+const TemplateWithForm = (args: Args): TemplateResult => html`
+  <form
+    @submit=${(e: SubmitEvent) => {
+      e.preventDefault();
+      const form = (e.target as HTMLFormElement)!;
+      form.querySelector('#form-data')!.innerHTML = JSON.stringify(
+        Object.fromEntries(new FormData(form)),
+      );
+    }}
+  >
+    <fieldset>
+      <legend class="sbb-text-s">&nbsp;fieldset&nbsp;</legend>
+      ${Template(args)}
+    </fieldset>
+
+    <fieldset disabled>
+      <legend class="sbb-text-s">&nbsp;disabled fieldset&nbsp;</legend>
+      ${Template({ ...args, name: 'disabled' })}
+    </fieldset>
+    <div style="margin-block: var(--sbb-spacing-responsive-s)">
+      <sbb-secondary-button type="reset">Reset</sbb-secondary-button>
+      <sbb-button type="submit">Submit</sbb-button>
+    </div>
+    <p class="sbb-text-s">Form-Data after click submit:</p>
+    <sbb-card color="milk" id="form-data"></sbb-card>
+  </form>
+`;
+
 export const DefaultUnchecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -139,6 +167,12 @@ export const SizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[0] },
+};
+
+export const withForm: StoryObj = {
+  render: TemplateWithForm,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
 };
 
 const meta: Meta = {

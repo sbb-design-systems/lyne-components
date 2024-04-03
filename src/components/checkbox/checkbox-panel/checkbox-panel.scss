@@ -7,33 +7,25 @@
 :host {
   --sbb-checkbox-suffix-color: var(--sbb-color-charcoal);
   --sbb-checkbox-subtext-color: var(--sbb-color-granite);
-  --sbb-checkbox-panel-background: var(--sbb-color-white);
-  --sbb-checkbox-panel-border-color: var(--sbb-color-cloud);
-  --sbb-checkbox-panel-animation-duration: var(--sbb-animation-duration-4x);
-  --sbb-checkbox-panel-border-width: var(--sbb-border-width-1x);
-  --sbb-checkbox-panel-border-radius: var(--sbb-border-radius-4x);
-  --sbb-checkbox-panel-input-padding: var(--sbb-spacing-responsive-xs)
-    var(--sbb-spacing-responsive-xxs);
 
   display: inline-block;
+}
 
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
+:host(:not([data-is-selection-panel-input])) {
+  @include sbb.selection-panel-variables;
+  @include sbb.selection-panel;
 }
 
 :host([data-is-selection-panel-input]) {
   --sbb-checkbox-label-gap: 0;
 }
 
-:host(:not([data-is-selection-panel-input])) {
-  display: contents;
-  cursor: var(--sbb-checkbox-cursor);
+:host([data-checked]:not(:disabled)) {
+  @include sbb.selection-panel-checked;
 }
 
-:host([data-checked]:not(:disabled)) {
-  --sbb-checkbox-panel-border-color: var(--sbb-color-charcoal);
-  --sbb-checkbox-panel-border-width: var(--sbb-border-width-2x);
+:host(:focus-visible:not([data-is-selection-panel-input])) {
+  @include sbb.selection-panel-focus-visible;
 }
 
 slot[name='suffix'] {
@@ -44,40 +36,6 @@ slot[name='subtext'] {
   display: block;
   color: var(--sbb-checkbox-subtext-color);
   padding-inline-start: var(--sbb-spacing-fixed-8x);
-}
-
-.sbb-checkbox-wrapper {
-  :host(:not([data-is-selection-panel-input])) & {
-    padding: var(--sbb-checkbox-panel-input-padding);
-    flex: auto;
-    position: relative;
-    width: 100%;
-    background-color: var(--sbb-checkbox-panel-background);
-    border-radius: var(--sbb-checkbox-panel-border-radius);
-
-    // To provide a smooth transition of width, we use box-shadow to imitate border.
-    box-shadow: inset 0 0 0 var(--sbb-checkbox-panel-border-width)
-      var(--sbb-checkbox-panel-border-color);
-
-    transition: {
-      duration: var(--sbb-checkbox-panel-animation-duration);
-      timing-function: var(--sbb-animation-easing);
-      property: box-shadow;
-    }
-
-    // For high contrast mode we need a real border
-    @include sbb.if-forced-colors {
-      &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        border: var(--sbb-checkbox-panel-border-width) solid var(--sbb-checkbox-panel-border-color);
-        border-radius: var(--sbb-checkbox-panel-border-radius);
-      }
-    }
-  }
 }
 
 .sbb-checkbox__inner {
@@ -102,8 +60,6 @@ slot[name='subtext'] {
         (var(--sbb-spacing-responsive-xxs) * -1) + var(--sbb-focus-outline-width) -
           (var(--sbb-focus-outline-offset) * 2)
       );
-      border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
-      border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
     }
   }
 }

@@ -1,4 +1,4 @@
-import type { LitElement } from 'lit';
+import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers';
@@ -28,6 +28,9 @@ export declare class SbbRadioButtonCommonElementMixinType {
   public checked: boolean;
   public size: SbbRadioButtonSize;
   public select(): void;
+
+  protected handleCheckedChange(currentValue: boolean, previousValue: boolean): void;
+  protected handleDisabledChange(currentValue: boolean, previousValue: boolean): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -137,6 +140,18 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
       this._handlerRepository.disconnect();
     }
 
+    protected override willUpdate(changedProperties: PropertyValues<this>): void {
+      if (changedProperties.has('checked')) {
+        this.handleCheckedChange(this.checked, changedProperties.get('checked')!);
+      }
+      if (changedProperties.has('disabled')) {
+        this.handleDisabledChange(this.disabled, changedProperties.get('disabled')!);
+      }
+      if (changedProperties.has('required')) {
+        this.setAttribute('aria-required', `${this.required}`);
+      }
+    }
+
     private _handleClick(event: Event): void {
       event.preventDefault();
       this.select();
@@ -147,6 +162,9 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
         this.select();
       }
     }
+
+    protected abstract handleCheckedChange(currentValue: boolean, previousValue: boolean): void;
+    protected abstract handleDisabledChange(currentValue: boolean, previousValue: boolean): void;
   }
 
   return SbbRadioButtonCommonElement as unknown as AbstractConstructor<SbbRadioButtonCommonElementMixinType> &

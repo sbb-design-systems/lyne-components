@@ -26,38 +26,10 @@
     (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-dimension)) / 2
   );
 
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
-
   @include sbb.if-forced-colors {
     --sbb-radio-button-background-color: Canvas !important;
     --sbb-radio-button-border-width: var(--sbb-border-width-2x);
     --sbb-radio-button-border-color: ButtonBorder;
-  }
-}
-
-// Change the focus outline when the input is placed inside of a selection panel
-// as the main input element.
-:host(:focus-visible[data-is-selection-panel-input]) {
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
-
-  .sbb-radio-button::after {
-    content: '';
-    position: absolute;
-    display: block;
-    inset-block: calc(
-      (var(--sbb-spacing-responsive-xs) * -1) + var(--sbb-focus-outline-width) -
-        (var(--sbb-focus-outline-offset) * 2)
-    );
-    inset-inline: calc(
-      (var(--sbb-spacing-responsive-xxs) * -1) + var(--sbb-focus-outline-width) -
-        (var(--sbb-focus-outline-offset) * 2)
-    );
-    border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
-    border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
   }
 }
 
@@ -105,20 +77,6 @@
 
   :host([size='s']) & {
     @include sbb.text-s--regular;
-  }
-
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(
-      :focus-visible:not(
-          [data-focus-origin='mouse'],
-          [data-focus-origin='touch'],
-          [data-is-selection-panel-input]
-        )
-    )
-    & {
-    @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 }
 
@@ -177,8 +135,4 @@ slot[name='subtext'] {
     border: var(--sbb-radio-button-border-width) var(--sbb-radio-button-border-style)
       var(--sbb-radio-button-border-color);
   }
-}
-
-.sbb-radio-button__expanded-label {
-  @include sbb.screen-reader-only;
 }
