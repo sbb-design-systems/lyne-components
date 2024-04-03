@@ -1,4 +1,4 @@
-import { aTimeout, assert, expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
@@ -87,7 +87,6 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
     const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose);
 
     await waitForLitRender(element);
-    await aTimeout(100); // TODO: remove when the exp-panel has been migrated from transition to animation
 
     header.click();
     await waitForCondition(() => toggleExpandedEventSpy.events.length === 1);
