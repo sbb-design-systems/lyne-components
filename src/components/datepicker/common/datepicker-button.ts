@@ -19,14 +19,14 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
   /** Datepicker reference. */
   @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
 
-  /** Whether the component is disabled due date equals to boundary date. */
-  @state() private _disabled = false;
-
-  /** Whether the component is disabled due date-picker's input disabled. */
-  @state() private _inputDisabled = false;
-
   /** The boundary date (min/max) as set in the date-picker's input. */
   @state() protected boundary: string | number | null = null;
+
+  /** Whether the component is disabled due date equals to boundary date. */
+  private _disabled = false;
+
+  /** Whether the component is disabled due date-picker's input disabled. */
+  private _inputDisabled = false;
 
   protected datePickerElement?: SbbDatepickerElement | null = null;
   private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
@@ -70,6 +70,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
 
     if (!pickerValueAsDate) {
       this._disabled = true;
+      this._setDisabledRenderAttributes(true);
       return;
     }
 
@@ -80,6 +81,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
       this.boundary,
     );
     this._disabled = this._dateAdapter.compareDate(availableDate, pickerValueAsDate) === 0;
+    this._setDisabledRenderAttributes();
   }
 
   private _handleClick(): void {
@@ -111,6 +113,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
       if (inputElement) {
         this._inputDisabled =
           isValidAttribute(inputElement, 'disabled') || isValidAttribute(inputElement, 'readonly');
+        this._setDisabledRenderAttributes();
       }
     }
   }
@@ -152,6 +155,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
       'inputUpdated',
       (event: CustomEvent<SbbInputUpdateEvent>) => {
         this._inputDisabled = !!(event.detail.disabled || event.detail.readonly);
+        this._setDisabledRenderAttributes();
         this._setAriaLabel();
         this.onInputUpdated(event);
       },
@@ -180,9 +184,11 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
     );
   }
 
-  private _setDisabledRenderAttributes(): void {
-    this.toggleAttribute('data-disabled', this._disabled || this._inputDisabled);
-    if (isValidAttribute(this, 'data-disabled')) {
+  private _setDisabledRenderAttributes(
+    isDisabled: boolean = this._disabled || this._inputDisabled,
+  ): void {
+    this.toggleAttribute('data-disabled', isDisabled);
+    if (isDisabled) {
       this.setAttribute('aria-disabled', 'true');
       this.removeAttribute('tabindex');
     } else {
@@ -192,7 +198,6 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
   }
 
   protected override renderTemplate(): TemplateResult {
-    this._setDisabledRenderAttributes();
     return html` <sbb-icon name=${this.iconName}></sbb-icon> `;
   }
 }
