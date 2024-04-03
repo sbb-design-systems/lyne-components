@@ -49,7 +49,7 @@
     "test:csr": "wtr --group default",
     "test:ssr:hydrated": "wtr --group e2e-ssr-hydrated",
     "test:ssr:non-hydrated": "wtr --group e2e-ssr-non-hydrated",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "lit": "3.1.2"
