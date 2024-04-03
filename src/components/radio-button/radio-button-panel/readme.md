@@ -57,9 +57,9 @@ The `sbb-radio-button-panel` is a component . . .
 
 ## Methods
 
-| Name     | Privacy | Description | Parameters | Return | Inherited From        |
-| -------- | ------- | ----------- | ---------- | ------ | --------------------- |
-| `select` | public  |             |            | `void` | SbbRadioButtonElement |
+| Name     | Privacy | Description | Parameters | Return | Inherited From                   |
+| -------- | ------- | ----------- | ---------- | ------ | -------------------------------- |
+| `select` | public  |             |            | `void` | SbbRadioButtonCommonElementMixin |
 
 ## Slots
 

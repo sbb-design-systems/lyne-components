@@ -87,7 +87,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   /**
    * List of contained radio buttons.
    */
-  public get radioButtons(): SbbRadioButtonElement[] {
+  public get radioButtons(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] {
     return (
       Array.from(this.querySelectorAll?.('sbb-radio-button, sbb-radio-button-panel') ?? []) as (
         | SbbRadioButtonElement
@@ -96,7 +96,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }
 
-  private get _enabledRadios(): SbbRadioButtonElement[] | undefined {
+  private get _enabledRadios(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] | undefined {
     if (!this.disabled) {
       return this.radioButtons.filter((r) => !r.disabled);
     }
@@ -241,7 +241,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
   }
 
-  private _getRadioTabIndex(radio: SbbRadioButtonElement): number {
+  private _getRadioTabIndex(radio: SbbRadioButtonElement | SbbRadioButtonPanelElement): number {
     const isSelected: boolean = radio.checked && !radio.disabled && !this.disabled;
     const isParentPanelWithContent: boolean =
       radio.parentElement?.nodeName === 'SBB-SELECTION-PANEL' &&
@@ -268,7 +268,9 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       return;
     }
 
-    const current: number = enabledRadios.findIndex((e: SbbRadioButtonElement) => e === evt.target);
+    const current: number = enabledRadios.findIndex(
+      (e: SbbRadioButtonElement | SbbRadioButtonPanelElement) => e === evt.target,
+    );
     const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
 
     // Selection on arrow keypress is allowed only if all the selection-panels have no content.

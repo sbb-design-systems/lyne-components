@@ -5,7 +5,6 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import { SbbCheckboxPanelElement } from './checkbox-panel';
 
-
 describe('sbb-checkbox-panel', () => {
   let element: SbbCheckboxPanelElement;
 

@@ -12,7 +12,7 @@ import { SbbRadioButtonElement } from '../radio-button/index.js';
 
 import { SbbCheckboxPanelElement } from '../checkbox';
 import '../link/block-link-button/index.js';
-import { SbbRadioButtonPanelElement } from '../radio-button';
+import { SbbRadioButtonPanelElement } from '../radio-button/index.js';
 import { SbbSelectionPanelElement } from './selection-panel.js';
 
 import '../link/block-link-button';

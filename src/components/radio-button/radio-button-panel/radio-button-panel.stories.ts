@@ -6,7 +6,6 @@ import { html, type TemplateResult } from 'lit';
 import { SbbRadioButtonPanelElement } from './radio-button-panel';
 import readme from './readme.md?raw';
 
-
 const myProp: InputType = {
   control: {
     type: 'text',
