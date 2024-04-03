@@ -1,16 +1,17 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../../form-error/index.js';
 
-import readme from './readme.md?raw';
-import './radio-button-group.js';
-import '../radio-button/index.js';
 import '../../form-error/index.js';
+import '../radio-button/index.js';
+import '../radio-button-panel/index.js';
+import './radio-button-group.js';
+import readme from './readme.md?raw';
 
 const value: InputType = {
   control: {
@@ -92,8 +93,19 @@ const radioButtons = (): TemplateResult => html`
   <sbb-radio-button value="Value four">Value four</sbb-radio-button>
 `;
 
+const radioButtonPanels = (): TemplateResult => html`
+  <sbb-radio-button-panel value="Value one">Value one</sbb-radio-button-panel>
+  <sbb-radio-button-panel value="Value two">Value two</sbb-radio-button-panel>
+  <sbb-radio-button-panel value="Value three" disabled> Value three </sbb-radio-button-panel>
+  <sbb-radio-button-panel value="Value four">Value four</sbb-radio-button-panel>
+`;
+
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-radio-button-group ${sbbSpread(args)}>${radioButtons()}</sbb-radio-button-group>
+`;
+
+const PanelTemplate = (args: Args): TemplateResult => html`
+  <sbb-radio-button-group ${sbbSpread(args)}>${radioButtonPanels()}</sbb-radio-button-group>
 `;
 
 const ErrorMessageTemplate = (args: Args): TemplateResult => {
@@ -131,6 +143,28 @@ export const Vertical: StoryObj = {
 
 export const VerticalToHorizontal: StoryObj = {
   render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    orientation: orientation.options[1],
+    'horizontal-from': horizontalFrom.options[4],
+  },
+};
+
+export const HorizontalPanels: StoryObj = {
+  render: PanelTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const VerticalPanels: StoryObj = {
+  render: PanelTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, orientation: orientation.options[1] },
+};
+
+export const VerticalToHorizontalPanels: StoryObj = {
+  render: PanelTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,

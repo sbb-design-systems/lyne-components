@@ -1,6 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -10,9 +10,10 @@ import type { SbbCheckboxElement } from '../checkbox/index.js';
 
 import readme from './readme.md?raw';
 
-import './checkbox-group.js';
-import '../checkbox/index.js';
 import '../../form-error/index.js';
+import '../checkbox/index.js';
+import '../checkbox-panel/index.js';
+import './checkbox-group.js';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -48,6 +49,38 @@ const checkboxes = (
   </sbb-checkbox>
 `;
 
+const checkboxPanels = (
+  checked: boolean,
+  disabledSingle: boolean,
+  iconName: string,
+  iconPlacement: string,
+  label: string,
+): TemplateResult => html`
+  <sbb-checkbox-panel
+    value="checkbox-1"
+    ?checked=${checked}
+    icon-name=${iconName || nothing}
+    icon-placement=${iconPlacement}
+  >
+    ${label} 1
+  </sbb-checkbox-panel>
+  <sbb-checkbox-panel
+    value="checkbox-2"
+    ?disabled=${disabledSingle}
+    icon-name=${iconName || nothing}
+    icon-placement=${iconPlacement}
+  >
+    ${label} 2
+  </sbb-checkbox-panel>
+  <sbb-checkbox-panel
+    value="checkbox-3"
+    icon-name=${iconName || nothing}
+    icon-placement=${iconPlacement}
+  >
+    ${label} 3
+  </sbb-checkbox-panel>
+`;
+
 const DefaultTemplate = ({
   checked,
   disabledSingle,
@@ -58,6 +91,19 @@ const DefaultTemplate = ({
 }: Args): TemplateResult => html`
   <sbb-checkbox-group ${sbbSpread(args)}>
     ${checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
+  </sbb-checkbox-group>
+`;
+
+const PanelTemplate = ({
+  checked,
+  disabledSingle,
+  iconName,
+  iconPlacement,
+  label,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-checkbox-group ${sbbSpread(args)}>
+    ${checkboxPanels(checked, disabledSingle, iconName, iconPlacement, label)}
   </sbb-checkbox-group>
 `;
 
@@ -300,6 +346,23 @@ export const vertical: StoryObj = {
 
 export const verticalToHorizontal: StoryObj = {
   render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
+};
+export const horizontalPanel: StoryObj = {
+  render: PanelTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+export const verticalPanel: StoryObj = {
+  render: PanelTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVertical },
+};
+
+export const verticalToHorizontalPanel: StoryObj = {
+  render: PanelTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
 };
