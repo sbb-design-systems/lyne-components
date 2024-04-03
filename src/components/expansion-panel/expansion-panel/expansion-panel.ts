@@ -1,9 +1,10 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbHydrationMixin } from '../../core/common-behaviors';
+import { setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type { SbbOverlayState } from '../../core/overlay';
 import type { SbbTitleLevel } from '../../title';
@@ -64,6 +65,8 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   /** Whether the panel has no border. */
   @property({ reflect: true, type: Boolean }) public borderless = false;
 
+  @state() private _state: SbbOverlayState = 'closed';
+
   /** Emits whenever the `sbb-expansion-panel` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
@@ -88,36 +91,12 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     SbbExpansionPanelElement.events.didClose,
   );
 
-  private _abort = new ConnectedAbortController(this);
-  private _state: SbbOverlayState = 'closed';
-
-  private _toggleExpanded(): void {
-    this.expanded = !this.expanded;
-  }
-
-  private _onExpandedChange(): void {
-    this._headerRef?.setAttribute('aria-expanded', String(this.expanded));
-    this._contentRef?.setAttribute('aria-hidden', String(!this.expanded));
-
-    if (this.expanded) {
-      this._willOpen.emit();
-      this._state = 'opening';
-    } else if (this._state === 'opened') {
-      this._willClose.emit();
-      this._state = 'closing';
-    }
-  }
-
-  private _updateDisabledOnHeader(newDisabledValue: boolean): void {
-    if (this._headerRef) {
-      this._headerRef.disabled = newDisabledValue;
-    }
-  }
-
   private _transitionEventController!: AbortController;
   private _progressiveId = `-${++nextId}`;
   private _headerRef?: SbbExpansionPanelHeaderElement;
   private _contentRef?: SbbExpansionPanelContentElement;
+  private _abort = new ConnectedAbortController(this);
+  private _initialized: boolean = false;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -131,6 +110,46 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     super.disconnectedCallback();
     this._transitionEventController?.abort();
     this.toggleAttribute('data-accordion', false);
+  }
+
+  protected override firstUpdated(): void {
+    this._initialized = true;
+  }
+
+  private _toggleExpanded(): void {
+    this.expanded = !this.expanded;
+  }
+
+  private _onExpandedChange(): void {
+    this._headerRef?.setAttribute('aria-expanded', String(this.expanded));
+    this._contentRef?.setAttribute('aria-hidden', String(!this.expanded));
+
+    if (this.expanded) {
+      this._open(!this._initialized);
+    } else if (this._state === 'opened') {
+      this._close();
+    }
+  }
+
+  private _open(skipAnimation = false): void {
+    this._state = 'opening';
+    this._willOpen.emit();
+
+    if (skipAnimation) {
+      this._state = 'opened';
+      this._didOpen.emit();
+    }
+  }
+
+  private _close(): void {
+    this._state = 'closing';
+    this._willClose.emit();
+  }
+
+  private _updateDisabledOnHeader(newDisabledValue: boolean): void {
+    if (this._headerRef) {
+      this._headerRef.disabled = newDisabledValue;
+    }
   }
 
   private _handleSlotchange(): void {
@@ -166,30 +185,18 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     }
   }
 
-  private _onOpened(): void {
-    this._didOpen.emit();
-    this._state = 'opened';
-  }
-
-  private _onClosed(): void {
-    this._didClose.emit();
-    this._state = 'closed';
-  }
-
-  private _onTransitionEnd(event: TransitionEvent): void {
-    // All transitions have the same timing and opacity is defined last, be sure that they have all been performed.
-    if (event.propertyName !== 'opacity') {
-      return;
-    }
-
-    if (this.expanded) {
-      this._onOpened();
-    } else {
-      this._onClosed();
+  private _onAnimationEnd(event: AnimationEvent): void {
+    if (event.animationName === 'open-opacity' && this._state === 'opening') {
+      this._state = 'opened';
+      this._didOpen.emit();
+    } else if (event.animationName === 'close' && this._state === 'closing') {
+      this._state = 'closed';
+      this._didClose.emit();
     }
   }
 
   protected override render(): TemplateResult {
+    setAttribute(this, 'data-state', this._state);
     const TAGNAME = this.titleLevel ? `h${this.titleLevel}` : 'div';
 
     /* eslint-disable lit/binding-positions */
@@ -198,7 +205,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
         <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
           <slot name="header" @slotchange=${this._handleSlotchange}></slot>
         </${unsafeStatic(TAGNAME)}>
-        <div class="sbb-expansion-panel__content-wrapper" @transitionend=${this._onTransitionEnd}>
+        <div class="sbb-expansion-panel__content-wrapper" @animationend=${this._onAnimationEnd}>
           <span class="sbb-expansion-panel__content">
             <slot name="content" @slotchange=${this._handleSlotchange}></slot>
           </span>
