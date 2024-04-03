@@ -10,7 +10,7 @@ import type {
 import { html, type TemplateResult } from 'lit';
 import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 
 import readme from './readme.md?raw';
 
