@@ -31,7 +31,6 @@ snapshots["sbb-slider should render Shadow DOM"] =
         tabindex="-1"
         type="range"
         value="1"
-        valueasnumber="1"
       >
       <div class="sbb-slider__line">
         <div class="sbb-slider__selected-line">
@@ -109,7 +108,6 @@ snapshots["sbb-slider should render with properties Shadow DOM"] =
         tabindex="-1"
         type="range"
         value="100"
-        valueasnumber="100"
       >
       <div class="sbb-slider__line">
         <div class="sbb-slider__selected-line">
@@ -214,7 +212,6 @@ snapshots["sbb-slider should render disabled Shadow DOM"] =
         tabindex="-1"
         type="range"
         value="100"
-        valueasnumber="100"
       >
       <div class="sbb-slider__line">
         <div class="sbb-slider__selected-line">
@@ -321,7 +318,6 @@ snapshots["sbb-slider should render readonly Shadow DOM"] =
         tabindex="-1"
         type="range"
         value="100"
-        valueasnumber="100"
       >
       <div class="sbb-slider__line">
         <div class="sbb-slider__selected-line">
