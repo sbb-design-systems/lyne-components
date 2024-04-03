@@ -272,7 +272,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     super.connectedCallback();
 
     if (ariaRoleOnHost) {
-      this.id ??= this._overlayId;
+      this.id ||= this._overlayId;
     }
 
     this._state = this._state || 'closed';

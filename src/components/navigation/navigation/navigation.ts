@@ -365,7 +365,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ??= `sbb-navigation-${nextId++}`;
+    this.id ||= `sbb-navigation-${nextId++}`;
     this._state = this._state || 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });

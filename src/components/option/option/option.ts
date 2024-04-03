@@ -179,7 +179,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this.id ??= `sbb-option-${nextId++}`;
+    this.id ||= `sbb-option-${nextId++}`;
 
     const signal = this._abort.signal;
     const parentGroup = this.closest?.('sbb-optgroup');

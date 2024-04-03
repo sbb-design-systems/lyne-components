@@ -326,7 +326,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ??= `sbb-navigation-section-${nextId++}`;
+    this.id ||= `sbb-navigation-section-${nextId++}`;
     this._state = this._state || 'closed';
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);

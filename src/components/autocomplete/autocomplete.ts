@@ -228,7 +228,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   public override connectedCallback(): void {
     super.connectedCallback();
     if (ariaRoleOnHost) {
-      this.id ??= this._overlayId;
+      this.id ||= this._overlayId;
     }
 
     this._state = this._state || 'closed';
