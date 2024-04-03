@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbOptionBaseElement } from '../../core/base-elements/option-base-element';
@@ -81,10 +81,6 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     }
 
     this.setSelectedViaUserInteraction(true);
-  }
-
-  protected override render(): TemplateResult {
-    return super.render();
   }
 }
 
