@@ -33,11 +33,11 @@ describe('sbb-autocomplete-grid-option', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot(
-      html`<sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>`,
-    );
   });
+
+  testA11yTreeSnapshot(
+    html`<sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>`,
+  );
 
   describe('disabled', () => {
     let root: SbbAutocompleteGridOptionElement;
