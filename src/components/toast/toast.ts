@@ -73,10 +73,10 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
 
   /* The state of the toast. */
   private set _state(state: SbbOverlayState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+    return this.getAttribute('data-state') as SbbOverlayState;
   }
 
   /** Emits whenever the `sbb-toast` starts the opening transition. */

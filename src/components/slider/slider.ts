@@ -201,7 +201,7 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(LitElement)
               min=${this.min || nothing}
               max=${this.max || nothing}
               ?disabled=${this.disabled || this.readonly || nothing}
-              valueAsNumber=${this.valueAsNumber || nothing}
+              .valueAsNumber=${this.valueAsNumber || nothing}
               value=${this.value || nothing}
               class="sbb-slider__range-input"
               type="range"

@@ -224,7 +224,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       attributes: true,
       attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid'],
     });
-    this.dataset.inputType = this._input.localName;
+    this.setAttribute('data-input-type', this._input.localName);
     this._syncLabelInputReferences();
   }
 
@@ -291,8 +291,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       'focusin',
       () => {
         this.toggleAttribute('data-input-focused', true);
-        (this.dataset.focusOrigin as SbbInputModality) =
-          sbbInputModalityDetector.mostRecentModality;
+        this.setAttribute(
+          'data-focus-origin',
+          (sbbInputModalityDetector.mostRecentModality as SbbInputModality) ?? '',
+        );
       },
       {
         signal: this._inputAbortController.signal,
@@ -302,7 +304,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     inputFocusElement.addEventListener(
       'focusout',
       () => {
-        delete this.dataset.focusOrigin;
+        this.toggleAttribute('data-focus-origin', false);
         this.toggleAttribute('data-input-focused', false);
       },
       {

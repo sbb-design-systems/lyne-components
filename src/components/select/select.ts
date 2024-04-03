@@ -84,10 +84,10 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** The state of the select. */
   private set _state(state: SbbOverlayState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+    return this.getAttribute('data-state') as SbbOverlayState;
   }
 
   /** The value displayed by the component. */

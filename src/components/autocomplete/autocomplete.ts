@@ -84,10 +84,10 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
 
   /* The state of the autocomplete. */
   private set _state(state: SbbOverlayState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+    return this.getAttribute('data-state') as SbbOverlayState;
   }
 
   /** Emits whenever the `sbb-autocomplete` starts the opening transition. */

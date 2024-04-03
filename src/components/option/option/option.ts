@@ -110,10 +110,10 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   private _optionId = `sbb-option-${++nextId}`;
 
   private set _variant(state: SbbOptionVariant) {
-    this.dataset.variant = state;
+    this.setAttribute('data-variant', state);
   }
   private get _variant(): SbbOptionVariant {
-    return this.dataset?.variant as SbbOptionVariant;
+    return this.getAttribute('data-variant') as SbbOptionVariant;
   }
 
   private _abort = new SbbConnectedAbortController(this);

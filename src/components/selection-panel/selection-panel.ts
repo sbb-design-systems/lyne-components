@@ -51,10 +51,10 @@ export class SbbSelectionPanelElement extends LitElement {
   /** The state of the selection panel. */
   @state()
   private set _state(state: SbbSelectionPanelState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbSelectionPanelState {
-    return this.dataset?.state as SbbSelectionPanelState;
+    return this.getAttribute('data-state') as SbbSelectionPanelState;
   }
 
   /** Whether the selection panel is checked. */

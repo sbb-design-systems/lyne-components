@@ -92,10 +92,10 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
    * The state of the navigation.
    */
   private set _state(state: SbbOverlayState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+    return this.getAttribute('data-state') as SbbOverlayState;
   }
 
   /**

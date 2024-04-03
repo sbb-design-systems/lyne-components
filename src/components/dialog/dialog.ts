@@ -101,10 +101,10 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
    * The state of the dialog.
    */
   private set _state(state: SbbOverlayState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+    return this.getAttribute('data-state') as SbbOverlayState;
   }
 
   private get _hasTitle(): boolean {

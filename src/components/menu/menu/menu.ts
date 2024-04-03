@@ -103,10 +103,10 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
    * The state of the menu.
    */
   private set _state(state: SbbOverlayState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+    return this.getAttribute('data-state') as SbbOverlayState;
   }
 
   /** Emits whenever the `sbb-menu` starts the opening transition. */

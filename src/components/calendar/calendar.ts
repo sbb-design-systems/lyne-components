@@ -795,7 +795,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   private _now(): T {
     if (this.hasAttribute('data-now')) {
-      const today = new Date(+this.getAttribute('data-now')!);
+      const today = new Date(+this.dataset.now!);
       if (defaultDateAdapter.isValid(today)) {
         return this._dateAdapter.createDate(
           today.getFullYear(),

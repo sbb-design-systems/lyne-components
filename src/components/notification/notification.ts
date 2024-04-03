@@ -78,10 +78,10 @@ export class SbbNotificationElement extends LitElement {
    * The state of the notification.
    */
   private set _state(state: SbbNotificationState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbNotificationState {
-    return this.dataset?.state as SbbNotificationState;
+    return this.getAttribute('data-state') as SbbNotificationState;
   }
 
   private _notificationElement!: HTMLElement;

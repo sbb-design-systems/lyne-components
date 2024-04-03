@@ -80,9 +80,9 @@ export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitEl
 
   private _setVariantByContext(): void {
     if (this.closest?.('sbb-autocomplete')) {
-      this.dataset.variant = 'autocomplete';
+      this.setAttribute('data-variant', 'autocomplete');
     } else if (this.closest?.('sbb-select')) {
-      this.dataset.variant = 'select';
+      this.setAttribute('data-variant', 'select');
     }
   }
 

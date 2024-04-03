@@ -92,10 +92,10 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
    * The state of the overlay.
    */
   private set _state(state: SbbOverlayState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+    return this.getAttribute('data-state') as SbbOverlayState;
   }
 
   private _ariaLiveRef!: SbbScreenReaderOnlyElement;

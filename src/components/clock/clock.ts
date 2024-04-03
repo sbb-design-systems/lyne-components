@@ -258,7 +258,7 @@ export class SbbClockElement extends LitElement {
 
   private _now(): Date {
     if (this._hasDataNow()) {
-      return new Date(+(this.dataset.now as string));
+      return new Date(+(this.dataset?.now as string));
     }
     return new Date();
   }

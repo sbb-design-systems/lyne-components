@@ -85,13 +85,10 @@ export class SbbPopoverElement extends LitElement {
 
   /** The state of the popover. */
   private set _state(state: SbbOverlayState) {
-    if (!this.dataset) {
-      return;
-    }
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbOverlayState {
-    return this.dataset.state as SbbOverlayState;
+    return this.getAttribute('data-state') as SbbOverlayState;
   }
 
   /** Emits whenever the `sbb-popover` starts the opening transition. */

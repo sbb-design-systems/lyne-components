@@ -43,7 +43,7 @@ const setSbbInert = (el: HTMLElement): void => {
   if (!el.inert) {
     el.inert = true;
     if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert! + 1 || 0}`;
+      el.setAttribute('data-sbb-inert', `${+el.getAttribute('data-sbb-inert')! + 1 || 0}`);
     } else {
       el.toggleAttribute('data-sbb-inert', true);
     }
@@ -93,7 +93,7 @@ export function applyInertMechanism(overlay: HTMLElement): void {
       ) as HTMLElement[],
     );
     if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert! + 1 || 0}`;
+      el.setAttribute('data-sbb-inert', `${+el.getAttribute('data-sbb-inert')! + 1 || 0}`);
     }
   }
 
@@ -107,8 +107,10 @@ export function removeInertMechanism(): void {
 
   if (openOverlays.length) {
     openOverlays.forEach((el) => {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert! - 1}`;
-      if (el.dataset.sbbInert && +el.dataset.sbbInert < 0) {
+      const newValue = +el.getAttribute('data-sbb-inert')! - 1;
+      el.setAttribute('data-sbb-inert', `${newValue}`);
+
+      if (newValue && newValue < 0) {
         removeSbbInert(el);
         Array.from(el.children).forEach((el: Element) => removeSbbInert(el as HTMLElement));
       }
