@@ -46,6 +46,8 @@ describe(`sbb-image with ${fixture.name}`, () => {
         </div>
       </figure>
     `,
+      // Not every browser provides fetchpriority as attribute.
+      { ignoreAttributes: ['fetchpriority'] },
     );
   });
 });
