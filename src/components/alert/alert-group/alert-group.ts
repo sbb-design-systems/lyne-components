@@ -4,7 +4,6 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers';
-import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import type { SbbTitleLevel } from '../../title';
 import { SbbAlertElement } from '../alert';
@@ -94,12 +93,12 @@ export class SbbAlertGroupElement extends LitElement {
     if (!this._hasAlerts && hadAlerts) {
       this._empty.emit();
     }
+
+    this.toggleAttribute('data-empty', !this._hasAlerts);
   }
 
   protected override render(): TemplateResult {
     const TITLE_TAG_NAME = `h${this.accessibilityTitleLevel}`;
-
-    setAttribute(this, 'data-empty', !this._hasAlerts);
 
     /* eslint-disable lit/binding-positions */
     return html`

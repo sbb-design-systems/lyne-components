@@ -7,7 +7,6 @@ snapshots["sbb-select renders Chrome-Firefox Dom"] =
   dir="ltr"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
@@ -19,7 +18,6 @@ snapshots["sbb-select renders Chrome-Firefox Dom"] =
     Option 1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
@@ -31,7 +29,6 @@ snapshots["sbb-select renders Chrome-Firefox Dom"] =
     Option 2
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
@@ -108,13 +105,11 @@ snapshots["sbb-select renders A11y tree Chrome"] =
 
 snapshots["sbb-select renders multiple Chrome-Firefox Dom"] = 
 `<sbb-select
-  data-multiple=""
   data-state="closed"
   dir="ltr"
   multiple=""
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
@@ -127,7 +122,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox Dom"] =
     Option 1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
@@ -140,7 +134,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox Dom"] =
     Option 2
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
@@ -259,7 +252,6 @@ snapshots["sbb-select renders Safari Dom"] =
   role="listbox"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
@@ -271,7 +263,6 @@ snapshots["sbb-select renders Safari Dom"] =
     Option 1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
@@ -283,7 +274,6 @@ snapshots["sbb-select renders Safari Dom"] =
     Option 2
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
@@ -339,7 +329,6 @@ snapshots["sbb-select renders Safari ShadowDom"] =
 
 snapshots["sbb-select renders multiple Safari Dom"] = 
 `<sbb-select
-  data-multiple=""
   data-state="closed"
   dir="ltr"
   id="sbb-select-3"
@@ -347,7 +336,6 @@ snapshots["sbb-select renders multiple Safari Dom"] =
   role="listbox"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
@@ -360,7 +348,6 @@ snapshots["sbb-select renders multiple Safari Dom"] =
     Option 1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
@@ -373,7 +360,6 @@ snapshots["sbb-select renders multiple Safari Dom"] =
     Option 2
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""

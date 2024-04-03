@@ -9,7 +9,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Dom"] =
   trigger="trigger"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
@@ -20,7 +19,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Dom"] =
     1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
@@ -93,7 +91,6 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox Dom"] =
     dir="ltr"
   >
     <sbb-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
@@ -104,7 +101,6 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox Dom"] =
       1
     </sbb-option>
     <sbb-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
@@ -209,7 +205,6 @@ snapshots["sbb-autocomplete renders standalone Safari Dom"] =
   trigger="trigger"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
@@ -220,7 +215,6 @@ snapshots["sbb-autocomplete renders standalone Safari Dom"] =
     1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
@@ -291,7 +285,6 @@ snapshots["sbb-autocomplete renders in form field Safari Dom"] =
     role="listbox"
   >
     <sbb-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
@@ -302,7 +295,6 @@ snapshots["sbb-autocomplete renders in form field Safari Dom"] =
       1
     </sbb-option>
     <sbb-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"

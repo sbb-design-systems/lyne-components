@@ -6,7 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbFocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
 import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
-import { hostContext, isValidAttribute, SbbScrollHandler, setAttribute } from '../core/dom';
+import { hostContext, isValidAttribute, SbbScrollHandler } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { SbbNegativeMixin } from '../core/mixins';
@@ -153,7 +153,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
   private _language = new SbbLanguageController(this);
   private _namedSlots = new SbbSlotStateController(this, () =>
-    setAttribute(this, 'data-fullscreen', !this._hasTitle),
+    this.toggleAttribute('data-fullscreen', !this._hasTitle),
   );
 
   /**
@@ -417,8 +417,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
         ${closeButton}
       </div>
     `;
-
-    setAttribute(this, 'data-fullscreen', !this._hasTitle);
 
     return html`
       <div class="sbb-dialog__container">

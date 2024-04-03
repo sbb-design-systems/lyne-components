@@ -10,7 +10,7 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y';
 import { SbbLanguageController } from '../../core/controllers';
-import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
+import { findReferencedElement, isValidAttribute } from '../../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
 import { i18nClosePopover } from '../../core/i18n';
 import type { SbbOverlayState } from '../../core/overlay';
@@ -455,8 +455,7 @@ export class SbbPopoverElement extends LitElement {
         responsiveHeight: true,
       },
     );
-
-    setAttribute(this, 'data-position', popoverPosition.alignment.vertical);
+    this.setAttribute('data-position', popoverPosition.alignment.vertical);
 
     const arrowXPosition =
       this._triggerElement.getBoundingClientRect().left -

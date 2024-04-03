@@ -1,5 +1,12 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, isServer, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
@@ -149,7 +156,13 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   @state() private _selected?: string;
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
-  @state() private _wide: boolean = false;
+  @state()
+  private set _wide(wide: boolean) {
+    this.toggleAttribute('data-wide', wide);
+  }
+  private get _wide(): boolean {
+    return this.hasAttribute('data-wide');
+  }
 
   @state() private _calendarView: CalendarView = 'day';
 
@@ -1252,7 +1265,6 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    this.toggleAttribute('data-wide', this._wide);
     return html`<div class="sbb-calendar__wrapper">${this._getView}</div>`;
   }
 }

@@ -1,9 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
-import { setAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
@@ -14,6 +13,8 @@ import '../icon';
 import '../title';
 
 import style from './notification.scss?lit&inline';
+
+export type SbbNotificationState = 'closed' | 'opening' | 'opened' | 'closing';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -76,7 +77,12 @@ export class SbbNotificationElement extends LitElement {
   /**
    * The state of the notification.
    */
-  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  private set _state(state: SbbNotificationState) {
+    this.dataset.state = state;
+  }
+  private get _state(): SbbNotificationState {
+    return this.dataset?.state as SbbNotificationState;
+  }
 
   private _notificationElement!: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -132,6 +138,8 @@ export class SbbNotificationElement extends LitElement {
   }
 
   public override connectedCallback(): void {
+    this._state = this._state || 'closed';
+
     super.connectedCallback();
   }
 
@@ -204,8 +212,6 @@ export class SbbNotificationElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-
     return html`
       <div
         class="sbb-notification__wrapper"

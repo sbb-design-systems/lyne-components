@@ -2,12 +2,15 @@ import { isServer, type ReactiveElement } from 'lit';
 
 import type { AbstractConstructor } from '../mixins';
 
-function applyAttributes(instance: ReactiveElement, attributes: Record<string, string>): void {
+function applyAttributes(
+  instance: ReactiveElement,
+  attributes: Record<string, string | undefined>,
+): void {
   for (const [name, value] of Object.entries(attributes)) {
     if (value) {
       instance.setAttribute(name, value);
     } else {
-      instance.toggleAttribute(name, true);
+      instance.toggleAttribute(name, value !== undefined);
     }
   }
 }
@@ -30,7 +33,8 @@ function applyAttributes(instance: ReactiveElement, attributes: Record<string, s
  * @param attributes A record of attributes to apply to the element.
  */
 export const hostAttributes =
-  (attributes: Record<string, string>) => (target: AbstractConstructor<ReactiveElement>) =>
+  (attributes: Record<string, string | undefined>) =>
+  (target: AbstractConstructor<ReactiveElement>) =>
     (target as typeof ReactiveElement).addInitializer((instance: ReactiveElement) => {
       if (isServer) {
         applyAttributes(instance, attributes);

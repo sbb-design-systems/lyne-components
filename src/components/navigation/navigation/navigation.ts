@@ -6,12 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import { assignId, SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
 import { hostAttributes } from '../../core/decorators';
-import {
-  findReferencedElement,
-  isValidAttribute,
-  SbbScrollHandler,
-  setAttribute,
-} from '../../core/dom';
+import { findReferencedElement, isValidAttribute, SbbScrollHandler } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
@@ -96,7 +91,12 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   /**
    * The state of the navigation.
    */
-  @state() private _state: SbbOverlayState = 'closed';
+  private set _state(state: SbbOverlayState) {
+    this.dataset.state = state;
+  }
+  private get _state(): SbbOverlayState {
+    return this.dataset?.state as SbbOverlayState;
+  }
 
   /**
    * Whether a navigation section is displayed.
@@ -346,6 +346,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
         this._activeNavigationSection = this.querySelector(
           'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
         );
+        this.toggleAttribute('data-has-navigation-section', !!this._activeNavigationSection);
       }
     }
   }
@@ -370,6 +371,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._state = this._state || 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });
     // Validate trigger element and attach event listeners
@@ -408,8 +410,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
       ></sbb-transparent-button>
     `;
 
-    setAttribute(this, 'data-has-navigation-section', !!this._activeNavigationSection);
-    setAttribute(this, 'data-state', this._state);
     assignId(() => this._navigationId)(this);
 
     return html`

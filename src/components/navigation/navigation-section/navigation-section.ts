@@ -1,7 +1,6 @@
-import { spread } from '@open-wc/lit-helpers';
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
@@ -88,7 +87,13 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
   /**
    * The state of the navigation section.
    */
-  @state() private _state: SbbOverlayState = 'closed';
+  private set _state(state: SbbOverlayState) {
+    this.dataset.state = state;
+    setAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
+  }
+  private get _state(): SbbOverlayState {
+    return this.dataset?.state as SbbOverlayState;
+  }
 
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
   private _navigationSection!: HTMLElement;
@@ -328,6 +333,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._state = this._state || 'closed';
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
@@ -340,14 +346,6 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
   }
 
   protected override render(): TemplateResult {
-    // Accessibility label should win over aria-labelledby
-    let accessibilityAttributes: Record<string, string> = { 'aria-labelledby': 'title' };
-    if (this.accessibilityLabel) {
-      accessibilityAttributes = { 'aria-label': this.accessibilityLabel };
-    }
-
-    setAttribute(this, 'data-state', this._state);
-    setAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
     assignId(() => this._navigationSectionId)(this);
 
     return html`
@@ -358,7 +356,8 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
         <nav
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
           class="sbb-navigation-section"
-          ${spread(accessibilityAttributes)}
+          aria-labelledby=${!this.accessibilityLabel ? 'title' : nothing}
+          aria-label=${this.accessibilityLabel ? this.accessibilityLabel : nothing}
           ${ref(
             (navigationSectionRef?: Element) =>
               (this._navigationSection = navigationSectionRef as HTMLElement),

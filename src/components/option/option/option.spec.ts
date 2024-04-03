@@ -19,7 +19,7 @@ describe(`sbb-option`, () => {
       ).querySelector('sbb-option');
 
       expect(option).dom.to.be.equal(`
-        <sbb-option selected="" active="" aria-disabled="false" aria-selected="true" data-variant="autocomplete" id="sbb-option-1" role="option" value="1" data-slot-names="unnamed">
+        <sbb-option selected="" active="" aria-selected="true" data-variant="autocomplete" id="sbb-option-1" role="option" value="1" data-slot-names="unnamed">
           Option 1
         </sbb-option>
       `);
