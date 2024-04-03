@@ -26,7 +26,7 @@
     "build:storybook": "storybook build --quiet --output-dir dist/storybook --stats-json",
     "build": "npm-run-all --sequential build:components build:react build:storybook",
     "docs": "npm-run-all --sequential docs:manifest docs:to-md",
-    "docs:manifest": "custom-elements-manifest analyze --config config/custom-elements-manifest.config.js",
+    "docs:manifest": "custom-elements-manifest analyze --config tools/manifest/custom-elements-manifest.config.js",
     "docs:to-md": "tsx scripts/docs_generate.ts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "generate": "tsx tools/generate-component/index.mts",
