@@ -4,7 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  assignId,
   getFirstFocusableElement,
   getFocusableElements,
   setModalityOnNextFocus,
@@ -101,7 +100,6 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
   private _triggerElement: SbbNavigationButtonElement | null = null;
   private _navigationSectionController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
   private _language = new SbbLanguageController(this);
 
   public constructor() {
@@ -173,12 +171,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
       return;
     }
 
-    setAriaOverlayTriggerAttributes(
-      this._triggerElement,
-      'menu',
-      this.id || this._navigationSectionId,
-      this._state,
-    );
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
     this._navigationSectionController?.abort();
     this._navigationSectionController = new AbortController();
     this._triggerElement.connectedSection = this;
@@ -333,6 +326,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.id ??= `sbb-navigation-section-${nextId++}`;
     this._state = this._state || 'closed';
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
@@ -346,8 +340,6 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
   }
 
   protected override render(): TemplateResult {
-    assignId(() => this._navigationSectionId)(this);
-
     return html`
       <div
         class="sbb-navigation-section__container"

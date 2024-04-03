@@ -8,7 +8,6 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { assignId } from '../../core/a11y';
 import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
 import { hostAttributes } from '../../core/decorators';
 import { isAndroid, isSafari, isValidAttribute, setAttribute } from '../../core/dom';
@@ -107,8 +106,6 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   /** Disable the highlight of the label. */
   @state() private _disableLabelHighlight: boolean = false;
 
-  private _optionId = `sbb-option-${++nextId}`;
-
   private set _variant(state: SbbOptionVariant) {
     this.setAttribute('data-variant', state);
   }
@@ -181,6 +178,9 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   public override connectedCallback(): void {
     super.connectedCallback();
+
+    this.id ??= `sbb-option-${nextId++}`;
+
     const signal = this._abort.signal;
     const parentGroup = this.closest?.('sbb-optgroup');
     if (parentGroup) {
@@ -304,7 +304,6 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   protected override render(): TemplateResult {
     const isMultiple = this._isMultiple;
-    assignId(() => this._optionId)(this);
 
     return html`
       <div class="sbb-option__container">

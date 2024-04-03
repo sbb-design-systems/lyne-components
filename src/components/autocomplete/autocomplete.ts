@@ -3,7 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { assignId, getNextElementIndex } from '../core/a11y';
+import { getNextElementIndex } from '../core/a11y';
 import { SbbConnectedAbortController } from '../core/controllers';
 import { hostAttributes } from '../core/decorators';
 import {
@@ -227,6 +227,10 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    if (ariaRoleOnHost) {
+      this.id ??= this._overlayId;
+    }
+
     this._state = this._state || 'closed';
     const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
@@ -559,8 +563,6 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   }
 
   protected override render(): TemplateResult {
-    ariaRoleOnHost && assignId(() => this._overlayId)(this);
-
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
       <div class="sbb-autocomplete__container">

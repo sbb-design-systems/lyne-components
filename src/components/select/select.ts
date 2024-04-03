@@ -3,7 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { assignId, getNextElementIndex } from '../core/a11y';
+import { getNextElementIndex } from '../core/a11y';
 import { SbbConnectedAbortController } from '../core/controllers';
 import { hostAttributes } from '../core/decorators';
 import { getDocumentWritingMode, isNextjs, isSafari, isValidAttribute } from '../core/dom';
@@ -270,6 +270,11 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
+
+    if (ariaRoleOnHost) {
+      this.id ??= this._overlayId;
+    }
+
     this._state = this._state || 'closed';
 
     const signal = this._abort.signal;
@@ -698,8 +703,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   protected override render(): TemplateResult {
-    ariaRoleOnHost && assignId(() => this._overlayId)(this);
-
     return html`
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
