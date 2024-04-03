@@ -118,7 +118,6 @@ export class SbbNotificationElement extends LitElement {
   public close(): void {
     if (this._state === 'opened') {
       this._state = 'closing';
-      this.style.setProperty('--sbb-notification-margin', '0');
       this._willClose.emit();
     }
   }
@@ -169,15 +168,13 @@ export class SbbNotificationElement extends LitElement {
     );
   }
 
-  private _onNotificationTransitionEnd(event: TransitionEvent): void {
-    if (this._state === 'closing' && event.propertyName === 'max-height') {
-      this._handleClosing();
-    }
-  }
-
   private _onNotificationAnimationEnd(event: AnimationEvent): void {
     if (this._state === 'opening' && event.animationName === 'open') {
       this._handleOpening();
+    }
+
+    if (this._state === 'closing' && event.animationName === 'close-height') {
+      this._handleClosing();
     }
   }
 
@@ -200,7 +197,6 @@ export class SbbNotificationElement extends LitElement {
     return html`
       <div
         class="sbb-notification__wrapper"
-        @transitionend=${(event: TransitionEvent) => this._onNotificationTransitionEnd(event)}
         @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
       >
         <div class="sbb-notification">
