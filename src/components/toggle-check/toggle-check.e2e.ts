@@ -744,6 +744,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
             await waitForLitRender(form);
 
             // Attribute mutation should be blocked again
+            element.removeAttribute('checked');
             await waitForLitRender(form);
 
             await assertState({
