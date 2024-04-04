@@ -2,7 +2,7 @@ import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } f
 import { customElement, state } from 'lit/decorators.js';
 
 import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers';
-import { setAttributes } from '../../core/dom';
+import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
@@ -70,6 +70,42 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
     { bubbles: true },
   );
 
+  protected override handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.setAttribute('aria-checked', `${currentValue}`);
+      this._stateChange.emit({ type: 'checked', checked: currentValue });
+      this._isSelectionPanelInput && this._updateExpandedLabel();
+    }
+  }
+
+  protected override handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      setAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
+      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
+    }
+  }
+
+  public constructor() {
+    super();
+    new SbbSlotStateController(this);
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    // We can use closest here, as we expect the parent sbb-selection-expansion-panel to be in light DOM.
+    this._selectionPanelElement = this.closest('sbb-selection-expansion-panel');
+    this._isSelectionPanelInput =
+      !!this._selectionPanelElement &&
+      !this.closest('sbb-selection-expansion-panel [slot="content"]');
+
+    this.toggleAttribute('data-is-selection-panel-input', this._isSelectionPanelInput);
+
+    this._radioButtonLoaded.emit();
+
+    // We need to call requestUpdate to update the reflected attributes
+    ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
+  }
+
   protected override firstUpdated(): void {
     // We need to wait for the selection-panel to be fully initialized
     this.startUpdate();
@@ -90,47 +126,7 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
       : ', ' + i18nCollapsed[this._language.current];
   }
 
-  protected override handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'checked', checked: currentValue });
-      this._isSelectionPanelInput && this._updateExpandedLabel();
-    }
-  }
-
-  protected override handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
-    }
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    // We can use closest here, as we expect the parent sbb-selection-expansion-panel to be in light DOM.
-    this._selectionPanelElement = this.closest('sbb-selection-expansion-panel');
-    this._isSelectionPanelInput =
-      !!this._selectionPanelElement &&
-      !this.closest('sbb-selection-expansion-panel [slot="content"]');
-
-    this._radioButtonLoaded.emit();
-
-    // We need to call requestUpdate to update the reflected attributes
-    ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
-  }
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
-
   protected override render(): TemplateResult {
-    const attributes = {
-      'aria-checked': this.checked?.toString() ?? 'false',
-      'aria-required': this.required.toString(),
-      'aria-disabled': this.disabled.toString(),
-      'data-is-selection-panel-input': this._isSelectionPanelInput,
-    };
-    setAttributes(this, attributes);
-
     return html`
       <label class="sbb-radio-button">
         <input

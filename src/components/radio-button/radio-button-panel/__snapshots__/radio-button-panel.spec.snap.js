@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-radio-button-panel renders - Dom"] = 
 `<sbb-radio-button-panel
   aria-checked="false"
-  aria-disabled="false"
   aria-required="false"
   data-slot-names="subtext suffix unnamed"
   role="radio"
@@ -45,7 +44,6 @@ snapshots["sbb-radio-button-panel renders - ShadowDom"] =
 snapshots["sbb-radio-button-panel should render unchecked DOM"] = 
 `<sbb-radio-button-panel
   aria-checked="false"
-  aria-disabled="false"
   aria-required="false"
   data-slot-names="subtext suffix unnamed"
   role="radio"

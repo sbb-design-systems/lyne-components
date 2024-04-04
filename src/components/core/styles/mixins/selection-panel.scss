@@ -7,9 +7,11 @@
   --sbb-selection-expansion-panel-input-padding: var(--sbb-spacing-responsive-xs)
     var(--sbb-spacing-responsive-xxs);
   --sbb-selection-expansion-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-selection-expansion-panel-cursor: pointer;
 }
 
 @mixin selection-panel {
+  cursor: var(--sbb-selection-expansion-panel-cursor);
   flex: auto;
   position: relative;
   width: 100%;
@@ -46,4 +48,8 @@
 
 @mixin selection-panel-focus-visible {
   @include a11y.focus-outline;
+}
+
+@mixin selection-panel-disabled {
+  --sbb-selection-expansion-panel-cursor: default;
 }

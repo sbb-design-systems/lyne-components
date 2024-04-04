@@ -48,16 +48,6 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
     return this.hasAttribute('data-is-selection-panel-input');
   }
 
-  /**
-   * @internal
-   * Internal event that emits when the checkbox is loaded.
-   */
-  protected checkboxLoaded: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbCheckboxPanelElement.events.checkboxLoaded,
-    { bubbles: true },
-  );
-
   /** The label describing whether the selection panel is expanded (for screen readers only). */
   @state() private _selectionPanelExpandedLabel!: string;
 
@@ -72,6 +62,16 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
   private _stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
     this,
     SbbCheckboxPanelElement.events.stateChange,
+    { bubbles: true },
+  );
+
+  /**
+   * @internal
+   * Internal event that emits when the checkbox is loaded.
+   */
+  private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbCheckboxPanelElement.events.checkboxLoaded,
     { bubbles: true },
   );
 
@@ -92,10 +92,19 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
         !this.closest?.('sbb-selection-expansion-panel [slot="content"]'),
     );
 
-    this.checkboxLoaded.emit();
+    this._checkboxLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
+  }
+
+  protected override firstUpdated(): void {
+    // We need to wait for the selection-panel to be fully initialized
+    this.startUpdate();
+    setTimeout(() => {
+      this.isSelectionPanelInput && this._updateExpandedLabel();
+      this.completeUpdate();
+    });
   }
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
@@ -112,15 +121,6 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
         this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
       }
     }
-  }
-
-  protected override firstUpdated(): void {
-    // We need to wait for the selection-panel to be fully initialized
-    this.startUpdate();
-    setTimeout(() => {
-      this.isSelectionPanelInput && this._updateExpandedLabel();
-      this.completeUpdate();
-    });
   }
 
   private async _updateExpandedLabel(): Promise<void> {

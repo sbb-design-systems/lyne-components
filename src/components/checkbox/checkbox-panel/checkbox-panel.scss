@@ -28,6 +28,10 @@
   @include sbb.selection-panel-focus-visible;
 }
 
+:host([disabled]) {
+  @include sbb.selection-panel-disabled;
+}
+
 slot[name='suffix'] {
   color: var(--sbb-checkbox-suffix-color);
 }
