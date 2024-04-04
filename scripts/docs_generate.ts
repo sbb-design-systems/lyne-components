@@ -10,7 +10,7 @@ import * as glob from 'glob';
 import MagicString from 'magic-string';
 import { format, resolveConfig } from 'prettier';
 
-import componentAnalyzerConfig from '../config/custom-elements-manifest.config';
+import componentAnalyzerConfig from '../tools/manifest/custom-elements-manifest.config.js';
 
 const manifestFilePath = `${componentAnalyzerConfig.outdir}/custom-elements.json`;
 const tempFolderPath = './dist/docs';
