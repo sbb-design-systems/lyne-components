@@ -74,7 +74,7 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   };
 
   private _removeActiveMarker = (event: Event): void => {
-    (event.target as HTMLElement).toggleAttribute('data-active', false);
+    (event.target as HTMLElement).removeAttribute('data-active');
   };
 
   /**

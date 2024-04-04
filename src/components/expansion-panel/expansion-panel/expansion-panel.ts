@@ -143,7 +143,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._transitionEventController?.abort();
-    this.toggleAttribute('data-accordion', false);
+    this.removeAttribute('data-accordion');
   }
 
   private _handleSlotchange(): void {

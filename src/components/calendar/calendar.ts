@@ -1254,7 +1254,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
       this._resetFocus = true;
       this._calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
-      this.toggleAttribute('data-transition', false);
+      this.removeAttribute('data-transition');
     }
   }
 

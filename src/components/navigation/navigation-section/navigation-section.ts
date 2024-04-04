@@ -223,7 +223,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
     const activeActions = Array.from(
       this.querySelectorAll('[data-section-action][data-action-active]'),
     ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
-    activeActions?.forEach((action) => action.toggleAttribute('data-action-active', false));
+    activeActions?.forEach((action) => action.removeAttribute('data-action-active'));
   }
 
   private _attachWindowEvents(): void {

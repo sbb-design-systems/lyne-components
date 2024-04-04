@@ -86,9 +86,9 @@ export const SbbCardActionCommonElementMixin = <
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
       if (this._card) {
-        this._card.toggleAttribute('data-has-action', false);
-        this._card.toggleAttribute('data-has-active-action', false);
-        this._card.toggleAttribute('data-action-role', false);
+        ['data-has-action', 'data-has-active-action', 'data-action-role'].forEach((name) =>
+          this._card!.removeAttribute(name),
+        );
         this._card
           .querySelectorAll(`[data-card-focusable]`)
           .forEach((el) => el.removeAttribute('data-card-focusable'));

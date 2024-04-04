@@ -60,12 +60,12 @@ const setSbbInert = (el: HTMLElement): void => {
 const removeSbbInert = (el: HTMLElement): void => {
   if (el.hasAttribute('data-sbb-inert')) {
     el.inert = false;
-    el.toggleAttribute('data-sbb-inert', false);
+    el.removeAttribute('data-sbb-inert');
   }
 
   if (el.hasAttribute('data-sbb-aria-hidden')) {
     el.removeAttribute('aria-hidden');
-    el.toggleAttribute('data-sbb-aria-hidden', false);
+    el.removeAttribute('data-sbb-aria-hidden');
   }
 };
 

@@ -358,7 +358,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
 
     // Disable the animation when resizing the navigation to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(
-      () => this.toggleAttribute('data-resize-disable-animation', false),
+      () => this.removeAttribute('data-resize-disable-animation'),
       DEBOUNCE_TIME,
     );
   }
