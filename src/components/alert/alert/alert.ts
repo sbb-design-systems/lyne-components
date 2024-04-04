@@ -1,4 +1,3 @@
-import { spread } from '@open-wc/lit-helpers';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -6,6 +5,7 @@ import type { LinkTargetType } from '../../core/base-elements';
 import { SbbLanguageController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import { SbbIconNameMixin } from '../../icon';
 import type { SbbTitleLevel } from '../../title';
 
@@ -16,7 +16,7 @@ import '../../divider';
 import '../../link';
 import '../../title';
 
-export type SbbAlertState = 'closed' | 'opening' | 'opened';
+type SbbAlertState = Exclude<SbbOpenedClosedState, 'closing'>;
 
 /**
  * It displays messages which require user's attention.
@@ -121,15 +121,6 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
     }
   }
 
-  private _linkProperties(): Record<string, string | undefined> {
-    return {
-      ['aria-label']: this.accessibilityLabel,
-      href: this.href,
-      rel: this.rel,
-      target: this.target,
-    };
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>
@@ -150,7 +141,13 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
                 <slot></slot>
               </p>
               ${this.href
-                ? html` <sbb-link ${spread(this._linkProperties())} negative>
+                ? html` <sbb-link
+                    aria-label=${this.accessibilityLabel ?? nothing}
+                    href=${this.href ?? nothing}
+                    target=${this.target ?? nothing}
+                    rel=${this.rel ?? nothing}
+                    negative
+                  >
                     ${this.linkContent ? this.linkContent : i18nFindOutMore[this._language.current]}
                   </sbb-link>`
                 : nothing}

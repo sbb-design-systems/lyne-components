@@ -6,6 +6,7 @@ import { readConfig } from '../../core/config';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
 import type { DateAdapter } from '../../core/datetime';
 import { defaultDateAdapter } from '../../core/datetime';
+import { readDataNow } from '../../core/datetime/data-now';
 import { findInput, findReferencedElement, isValidAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
@@ -379,8 +380,8 @@ export class SbbDatepickerElement extends LitElement {
     this._datePickerController?.abort();
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
     this._setAriaLiveMessage(this.getValueAsDate());
   }
 
@@ -463,7 +464,7 @@ export class SbbDatepickerElement extends LitElement {
    */
   public now(): Date {
     if (this._hasDataNow()) {
-      const today = new Date(+(this.dataset?.now as string));
+      const today = new Date(readDataNow(this));
       today.setHours(0, 0, 0, 0);
       return today;
     }
@@ -471,8 +472,7 @@ export class SbbDatepickerElement extends LitElement {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +(this.dataset?.now as string);
-    return !!dataNow;
+    return this.hasAttribute('data-now');
   }
 
   private _parse(value: string): Date | undefined {

@@ -9,6 +9,7 @@ import {
   durationToTime,
   removeTimezoneFromISOTimeString,
 } from '../core/datetime';
+import { readDataNow } from '../core/datetime/data-now';
 import { i18nTripDuration } from '../core/i18n';
 import type { Leg } from '../core/timetable';
 import type { SbbTitleLevel } from '../title';
@@ -71,7 +72,7 @@ export class SbbJourneySummaryElement extends LitElement {
   }
 
   private _now(): number {
-    const dataNow = +(this.dataset?.now as string);
+    const dataNow = readDataNow(this);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 

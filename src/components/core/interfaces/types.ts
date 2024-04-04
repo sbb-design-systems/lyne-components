@@ -16,6 +16,8 @@ export type SbbStateChange = SbbCheckedStateChange | SbbDisabledStateChange | Sb
 
 export type SbbTimetableAppearance = 'first-level' | 'second-level';
 
+export type SbbOpenedClosedState = 'closed' | 'opening' | 'opened' | 'closing';
+
 export interface SbbCheckedStateChange {
   type: 'checked';
   checked: boolean;

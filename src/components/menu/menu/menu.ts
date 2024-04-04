@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
@@ -16,11 +16,10 @@ import {
   isBreakpoint,
   isValidAttribute,
   SbbScrollHandler,
-  setAttribute,
 } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import { SbbNamedSlotListMixin } from '../../core/mixins';
-import type { SbbOverlayState } from '../../core/overlay';
 import {
   applyInertMechanism,
   getElementPosition,
@@ -103,7 +102,12 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   /**
    * The state of the menu.
    */
-  @state() private _state: SbbOverlayState = 'closed';
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** Emits whenever the `sbb-menu` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willOpen);
@@ -218,6 +222,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
@@ -395,8 +400,6 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-
     // TODO: Handle case with other elements than sbb-menu-button/sbb-menu-link.
     return html`
       <div class="sbb-menu__container">

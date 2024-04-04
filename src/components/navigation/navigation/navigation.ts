@@ -3,20 +3,15 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { assignId, SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y';
+import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
 import { hostAttributes } from '../../core/decorators';
-import {
-  findReferencedElement,
-  isValidAttribute,
-  SbbScrollHandler,
-  setAttribute,
-} from '../../core/dom';
+import { findReferencedElement, isValidAttribute, SbbScrollHandler } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
-import type { SbbOverlayState } from '../../core/overlay';
 import {
   applyInertMechanism,
   isEventOnElement,
@@ -96,7 +91,12 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   /**
    * The state of the navigation.
    */
-  @state() private _state: SbbOverlayState = 'closed';
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /**
    * Whether a navigation section is displayed.
@@ -146,7 +146,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
     this._onNavigationSectionChange(mutationsList),
   );
   private _navigationResizeObserver = new AgnosticResizeObserver(() => this._onNavigationResize());
-  private _navigationId = `sbb-navigation-${++nextId}`;
 
   /**
    * Opens the navigation.
@@ -225,12 +224,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(
-      this._triggerElement,
-      'menu',
-      this.id || this._navigationId,
-      this._state,
-    );
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
     this._navigationController?.abort();
     this._navigationController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -346,6 +340,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
         this._activeNavigationSection = this.querySelector(
           'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
         );
+        this.toggleAttribute('data-has-navigation-section', !!this._activeNavigationSection);
       }
     }
   }
@@ -363,13 +358,15 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
 
     // Disable the animation when resizing the navigation to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(
-      () => this.toggleAttribute('data-resize-disable-animation', false),
+      () => this.removeAttribute('data-resize-disable-animation'),
       DEBOUNCE_TIME,
     );
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.id ||= `sbb-navigation-${nextId++}`;
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });
     // Validate trigger element and attach event listeners
@@ -407,10 +404,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
         sbb-navigation-close
       ></sbb-transparent-button>
     `;
-
-    setAttribute(this, 'data-has-navigation-section', !!this._activeNavigationSection);
-    setAttribute(this, 'data-state', this._state);
-    assignId(() => this._navigationId)(this);
 
     return html`
       <div class="sbb-navigation__container">

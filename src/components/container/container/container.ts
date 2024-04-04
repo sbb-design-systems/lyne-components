@@ -33,9 +33,11 @@ export class SbbContainerElement extends LitElement {
   }
 
   protected override willUpdate(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
+    changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
   ): void {
-    if (_changedProperties.has('expanded') || _changedProperties.has('color')) {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('expanded') || changedProperties.has('color')) {
       this._updateStickyBar();
     }
   }

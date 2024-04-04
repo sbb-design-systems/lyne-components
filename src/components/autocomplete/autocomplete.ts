@@ -1,13 +1,12 @@
 import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { assignId, getNextElementIndex } from '../core/a11y';
+import { getNextElementIndex } from '../core/a11y';
 import { SbbConnectedAbortController } from '../core/controllers';
 import { hostAttributes } from '../core/decorators';
 import {
-  setAttribute,
   getDocumentWritingMode,
   findReferencedElement,
   isSafari,
@@ -15,8 +14,8 @@ import {
   isBrowser,
 } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
+import type { SbbOpenedClosedState } from '../core/interfaces';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins';
-import type { SbbOverlayState } from '../core/overlay';
 import {
   isEventOnElement,
   overlayGapFixCorners,
@@ -29,6 +28,12 @@ import type { SbbOptionElement, SbbOptGroupElement } from '../option';
 import style from './autocomplete.scss?lit&inline';
 
 let nextId = 0;
+
+/**
+ * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
+ * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
+ */
+const ariaRoleOnHost = isSafari();
 
 /**
  * Combined with a native input, it displays a panel with a list of available options.
@@ -45,6 +50,7 @@ let nextId = 0;
 @customElement('sbb-autocomplete')
 @hostAttributes({
   dir: getDocumentWritingMode(),
+  role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
@@ -76,8 +82,13 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public preserveIconSpace?: boolean;
 
-  /** The state of the autocomplete. */
-  @state() private _state: SbbOverlayState = 'closed';
+  /* The state of the autocomplete. */
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
   private _willOpen: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.willOpen);
@@ -119,12 +130,6 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
   private _abort = new SbbConnectedAbortController(this);
-
-  /**
-   * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
-   * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
-   */
-  private _ariaRoleOnHost = isSafari();
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
   private get _readonly(): boolean {
@@ -222,6 +227,11 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    if (ariaRoleOnHost) {
+      this.id ||= this._overlayId;
+    }
+
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
@@ -553,10 +563,6 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-    setAttribute(this, 'role', this._ariaRoleOnHost ? 'listbox' : null);
-    this._ariaRoleOnHost && assignId(() => this._overlayId)(this);
-
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
       <div class="sbb-autocomplete__container">
@@ -564,14 +570,13 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
         <div
           @animationend=${this._onAnimationEnd}
           class="sbb-autocomplete__panel"
-          ?data-open=${this._state === 'opened' || this._state === 'opening'}
           ${ref((overlayRef?: Element) => (this._overlay = overlayRef as HTMLElement))}
         >
           <div class="sbb-autocomplete__wrapper">
             <div
               class="sbb-autocomplete__options"
-              role=${!this._ariaRoleOnHost ? 'listbox' : nothing}
-              id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
+              role=${!ariaRoleOnHost ? 'listbox' : nothing}
+              id=${!ariaRoleOnHost ? this._overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
               <slot @slotchange=${this._handleSlotchange}></slot>

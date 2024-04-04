@@ -9,22 +9,20 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Dom"] =
   trigger="trigger"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
     1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
@@ -93,22 +91,20 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox Dom"] =
     dir="ltr"
   >
     <sbb-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
-      id="sbb-option-5"
+      id="sbb-option-4"
       role="option"
       value="1"
     >
       1
     </sbb-option>
     <sbb-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
-      id="sbb-option-6"
+      id="sbb-option-5"
       role="option"
       value="2"
     >
@@ -209,22 +205,20 @@ snapshots["sbb-autocomplete renders standalone Safari Dom"] =
   trigger="trigger"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
     1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
@@ -291,22 +285,20 @@ snapshots["sbb-autocomplete renders in form field Safari Dom"] =
     role="listbox"
   >
     <sbb-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
-      id="sbb-option-5"
+      id="sbb-option-4"
       role="option"
       value="1"
     >
       1
     </sbb-option>
     <sbb-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
-      id="sbb-option-6"
+      id="sbb-option-5"
       role="option"
       value="2"
     >

@@ -6,6 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import type { SbbCalendarElement } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
 import { SbbLanguageController } from '../../core/controllers';
+import { readDataNow } from '../../core/datetime/data-now';
 import { hostAttributes } from '../../core/decorators';
 import { isValidAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
@@ -157,17 +158,9 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
     this._calendarElement.resetPosition();
   }
 
-  private _hasDataNow(): boolean {
-    if (!this._datePickerElement) {
-      return false;
-    }
-    const dataNow = +(this._datePickerElement.dataset?.now as string);
-    return !!dataNow;
-  }
-
   private _now(): Date | undefined {
-    if (this._hasDataNow()) {
-      const today = new Date(+(this._datePickerElement!.dataset.now as string));
+    if (this._datePickerElement?.hasAttribute('data-now')) {
+      const today = new Date(readDataNow(this._datePickerElement));
       today.setHours(0, 0, 0, 0);
       return today;
     }

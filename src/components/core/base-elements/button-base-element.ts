@@ -69,12 +69,12 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   private _preventScrollOnSpaceKeydown = (event: KeyboardEvent): void => {
     if (event.key === ' ') {
       event.preventDefault();
-      (event.target as HTMLElement).dataset.active = '';
+      (event.target as HTMLElement).toggleAttribute('data-active', true);
     }
   };
 
   private _removeActiveMarker = (event: Event): void => {
-    delete (event.target as HTMLElement).dataset.active;
+    (event.target as HTMLElement).removeAttribute('data-active');
   };
 
   /**

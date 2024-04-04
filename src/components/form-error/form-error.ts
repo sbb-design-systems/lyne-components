@@ -2,7 +2,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { assignId } from '../core/a11y';
 import { isValidAttribute } from '../core/dom';
 import { SbbNegativeMixin } from '../core/mixins';
 
@@ -22,6 +21,7 @@ export class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.id ||= `sbb-form-error-${nextId++}`;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
@@ -29,8 +29,6 @@ export class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    assignId(() => `sbb-form-error-${++nextId}`)(this);
-
     return html`
       <span class="form-error__icon">
         <slot name="icon">

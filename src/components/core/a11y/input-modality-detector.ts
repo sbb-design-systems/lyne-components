@@ -191,10 +191,14 @@ export function setModalityOnNextFocus(elementToFocus: HTMLElement | null | unde
   elementToFocus.addEventListener(
     'focus',
     () => {
-      (elementToFocus.dataset.focusOrigin as SbbInputModality) = mostRecentModality;
-      elementToFocus.addEventListener('blur', () => delete elementToFocus.dataset.focusOrigin, {
-        once: true,
-      });
+      elementToFocus.setAttribute('data-focus-origin', mostRecentModality);
+      elementToFocus.addEventListener(
+        'blur',
+        () => elementToFocus.removeAttribute('data-focus-origin'),
+        {
+          once: true,
+        },
+      );
     },
     { once: true },
   );

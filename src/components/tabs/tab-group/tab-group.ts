@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y';
 import { SbbConnectedAbortController } from '../../core/controllers';
-import { hostContext, isValidAttribute, setAttribute } from '../../core/dom';
+import { isValidAttribute } from '../../core/dom';
 import { EventEmitter, throttle } from '../../core/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import type { SbbTabTitleElement } from '../tab-title';
@@ -57,7 +57,6 @@ export class SbbTabGroupElement extends LitElement {
 
   private _tabs: InterfaceSbbTabGroupTab[] = [];
   private _selectedTab?: InterfaceSbbTabGroupTab;
-  private _isNested: boolean = false;
   private _tabGroupElement!: HTMLElement;
   private _tabContentElement!: HTMLElement;
   private _abort = new SbbConnectedAbortController(this);
@@ -142,7 +141,7 @@ export class SbbTabGroupElement extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._isNested = !!hostContext('sbb-tab-group', this);
+    this.toggleAttribute('data-nested', !!this.parentElement?.closest('sbb-tab-group'));
   }
 
   protected override firstUpdated(): void {
@@ -363,8 +362,6 @@ export class SbbTabGroupElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-nested', this._isNested);
-
     return html`
       <div
         class="tab-group"

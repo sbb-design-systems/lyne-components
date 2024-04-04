@@ -106,7 +106,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
     // there's no datepicker, so no event and the popoverTrigger is disabled due _datePickerElement not set
     expect(toggle).not.to.be.null;
     expect(inputUpdated.count).to.be.equal(0);
-    expect(trigger.getAttribute('disabled')).to.be.equal('');
+    expect(trigger).to.have.attribute('disabled');
 
     const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
     picker.setAttribute('input', 'datepicker-input');
@@ -117,7 +117,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
 
     // the datepicker is connected, which triggers a 1st inputUpdated event which calls _init and a 2nd one which sets max/min/disabled
     expect(inputUpdated.count).to.be.equal(2);
-    expect(trigger.getAttribute('disabled')).to.be.null;
+    expect(trigger).not.to.have.attribute('disabled');
   });
 
   it('datepicker is created after the component with different parent', async () => {
@@ -142,7 +142,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
     // there's no datepicker, so no event and the popoverTrigger is disabled due _datePickerElement not set
     expect(toggle).not.to.be.null;
     expect(inputUpdated.count).to.be.equal(0);
-    expect(trigger.getAttribute('disabled')).to.be.equal('');
+    expect(trigger).to.have.attribute('disabled');
 
     const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
     picker.setAttribute('input', 'datepicker-input');
@@ -153,7 +153,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
 
     // the datepicker is connected on a different parent, so no changes are triggered
     expect(inputUpdated.count).to.be.equal(0);
-    expect(trigger.getAttribute('disabled')).to.be.equal('');
+    expect(trigger).to.have.attribute('disabled');
   });
 
   it('renders in form field, open calendar and change date', async () => {
