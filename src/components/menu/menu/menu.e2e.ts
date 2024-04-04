@@ -195,7 +195,7 @@ describe(`sbb-menu with ${fixture.name}`, () => {
     expect(element).to.have.attribute('data-state', 'opened');
 
     const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
-      `--sbb-size-button-l-min-height-large`,
+      `--sbb-size-element-m`,
     );
     expect(buttonHeight.trim()).to.be.equal('3.5rem');
 

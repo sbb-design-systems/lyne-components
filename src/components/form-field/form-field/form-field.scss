@@ -10,7 +10,7 @@
   --sbb-form-field-border-style: solid;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
-  --sbb-form-field-min-height: var(--sbb-size-form-element-m-min-height);
+  --sbb-form-field-min-height: var(--sbb-size-element-m);
   --sbb-form-field-label-color: var(--sbb-color-metal);
   --sbb-form-field-prefix-color: var(--sbb-color-metal);
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
@@ -73,7 +73,7 @@
 }
 
 :host([size='l']) {
-  --sbb-form-field-min-height: var(--sbb-size-form-element-l-min-height);
+  --sbb-form-field-min-height: var(--sbb-size-element-l);
   --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
 }
 
