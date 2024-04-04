@@ -40,10 +40,6 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 </sbb-radio-button-panel>
 ```
 
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
-
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -56,7 +52,6 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 | `required`            | `required`              | public  | `boolean`                            | `false` | Whether the radio button is required.          |
 | `group`               | -                       | public  | `SbbRadioButtonGroupElement \| null` | `null`  | Reference to the connected radio button group. |
 | `checked`             | `checked`               | public  | `boolean`                            | `false` | Whether the radio button is checked.           |
-| `size`                | `size`                  | public  | `SbbRadioButtonSize`                 | `'m'`   | Label size variant, either m or s.             |
 
 ## Methods
 

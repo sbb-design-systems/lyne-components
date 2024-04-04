@@ -81,9 +81,9 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 | Name            | Attribute        | Privacy | Type                              | Default | Description                                                                                                                      |
 | --------------- | ---------------- | ------- | --------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `size`          | `size`           | public  | `SbbCheckboxSize`                 | `'m'`   | Label size variant, either m or s.                                                                                               |
 | `indeterminate` | `indeterminate`  | public  | `boolean`                         | `false` | Whether the checkbox is indeterminate.                                                                                           |
 | `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement`                | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                    |
-| `size`          | `size`           | public  | `SbbCheckboxSize`                 | `'m'`   | Label size variant, either m or s.                                                                                               |
 | `group`         | -                | public  | `SbbCheckboxGroupElement \| null` | `null`  | Reference to the connected checkbox group.                                                                                       |
 | `checked`       | `checked`        | public  | `boolean`                         | `false` | Whether the checkbox is checked.                                                                                                 |
 | `iconName`      | `icon-name`      | public  | `string \| undefined`             |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
