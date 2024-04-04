@@ -27,6 +27,7 @@
   }
 
   :host( :is(
+
       /** No icon */
       :not([icon-name], [data-slot-names~="icon"]))) & {
     display: none;
@@ -58,6 +59,10 @@
 }
 
 .sbb-checkbox__label {
+  display: flex;
+  gap: var(--sbb-checkbox-label-gap);
+  line-height: max(1em * var(--sbb-typo-line-height-body-text), var(--sbb-checkbox-dimension));
+
   :host([icon-placement='start']) & {
     flex-direction: row-reverse;
     justify-content: flex-end;
