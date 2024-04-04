@@ -1,5 +1,5 @@
 import { LitElement, html, type CSSResultGroup, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
@@ -10,6 +10,8 @@ import style from './checkbox.scss?lit&inline';
 
 import '../../screen-reader-only/index.js';
 import '../../visual-checkbox/index.js';
+
+export type SbbCheckboxSize = 's' | 'm';
 
 /**
  * It displays a checkbox enhanced with the SBB Design.
@@ -27,6 +29,16 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(LitElement
     didChange: 'didChange',
     checkboxLoaded: 'checkboxLoaded',
   } as const;
+
+  /** Label size variant, either m or s. */
+  @property({ reflect: true })
+  public set size(value: SbbCheckboxSize) {
+    this._size = value;
+  }
+  public get size(): SbbCheckboxSize {
+    return this.group?.size ?? this._size;
+  }
+  private _size: SbbCheckboxSize = 'm';
 
   /**
    * @internal

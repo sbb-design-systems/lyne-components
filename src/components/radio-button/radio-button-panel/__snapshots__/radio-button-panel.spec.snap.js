@@ -8,7 +8,6 @@ snapshots["sbb-radio-button-panel renders - Dom"] =
   aria-required="false"
   data-slot-names="subtext suffix unnamed"
   role="radio"
-  size="m"
   value="radio-value"
 >
   Label
@@ -50,7 +49,6 @@ snapshots["sbb-radio-button-panel should render unchecked DOM"] =
   aria-required="false"
   data-slot-names="subtext suffix unnamed"
   role="radio"
-  size="m"
   value="radio-value"
 >
   Label

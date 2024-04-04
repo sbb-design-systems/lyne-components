@@ -5,17 +5,12 @@ import { html, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread';
 
+import '../../button';
+import '../../card';
 import '../../icon';
 import './checkbox-panel';
 
 import readme from './readme.md?raw';
-
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['m', 's'],
-};
 
 const checked: InputType = {
   control: {
@@ -73,7 +68,6 @@ const ariaLabel: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  size,
   checked,
   indeterminate,
   disabled,
@@ -86,7 +80,6 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[1],
   checked: false,
   indeterminate: false,
   disabled: false,
@@ -161,12 +154,6 @@ export const DefaultIndeterminate: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, indeterminate: true },
-};
-
-export const SizeM: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[0] },
 };
 
 export const withForm: StoryObj = {

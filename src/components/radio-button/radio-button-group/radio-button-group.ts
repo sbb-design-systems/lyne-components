@@ -16,8 +16,8 @@ import type {
 } from '../../core/interfaces/index.js';
 import { SbbDisabledMixin } from '../../core/mixins/index.js';
 import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel';
-import type { SbbRadioButtonSize, SbbRadioButtonStateChange } from '../common';
-import type { SbbRadioButtonElement } from '../radio-button';
+import type { SbbRadioButtonStateChange } from '../common';
+import type { SbbRadioButtonElement, SbbRadioButtonSize } from '../radio-button';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel';
 
 import style from './radio-button-group.scss?lit&inline';

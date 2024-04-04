@@ -12,8 +12,6 @@ import type {
 import type { AbstractConstructor } from '../../core/mixins';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group';
 
-export type SbbRadioButtonSize = 's' | 'm';
-
 export type SbbRadioButtonStateChange = Extract<
   SbbStateChange,
   SbbDisabledStateChange | SbbCheckedStateChange
@@ -26,7 +24,6 @@ export declare class SbbRadioButtonCommonElementMixinType {
   public required: boolean;
   public get group(): SbbRadioButtonGroupElement | null;
   public checked: boolean;
-  public size: SbbRadioButtonSize;
   public select(): void;
 
   protected handleCheckedChange(currentValue: boolean, previousValue: boolean): void;
@@ -97,18 +94,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
      * Whether the radio button is checked.
      */
     @property({ reflect: true, type: Boolean }) public checked = false;
-
-    /**
-     * Label size variant, either m or s.
-     */
-    @property({ reflect: true })
-    public set size(value: SbbRadioButtonSize) {
-      this._size = value;
-    }
-    public get size(): SbbRadioButtonSize {
-      return this.group?.size ?? this._size;
-    }
-    private _size: SbbRadioButtonSize = 'm';
 
     private _abort = new SbbConnectedAbortController(this);
     private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);

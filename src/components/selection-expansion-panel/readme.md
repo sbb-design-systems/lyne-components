@@ -56,9 +56,6 @@ or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs
 </sbb-checkbox-group>
 ```
 
-As shown in the examples above, `sbb-checkbox-panel` and `sbb-radio-button-panel` placed in a `sbb-selection-expansion-panel` are extended
-with a slot named `subtext` for the subtext and a slot named `suffix` for the suffix items.
-
 ## Style
 
 The component has two background options that can be set using the `color` variable: `milk` and `white` (default).

@@ -11,6 +11,10 @@
 }
 
 .sbb-radio-button {
+  :host([size='s']) & {
+    @include sbb.text-s--regular;
+  }
+
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   :host(
       :focus-visible:not(

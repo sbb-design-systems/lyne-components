@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import {
   SbbSlotStateController
@@ -9,21 +9,11 @@ import { setOrRemoveAttribute } from '../../core/dom/index.js';
 import {
   EventEmitter
 } from '../../core/eventing/index.js';
-import type {
-  SbbCheckedStateChange,
-  SbbDisabledStateChange,
-  SbbStateChange,
-} from '../../core/interfaces/index.js';
 
-import { SbbRadioButtonCommonElementMixin } from '../common';
+import { SbbRadioButtonCommonElementMixin, type SbbRadioButtonStateChange } from '../common';
 import commonStyle from '../common/radio-button-common.scss?lit&inline';
 
 import style from './radio-button.scss?lit&inline';
-
-export type SbbRadioButtonStateChange = Extract<
-  SbbStateChange,
-  SbbDisabledStateChange | SbbCheckedStateChange
->;
 
 export type SbbRadioButtonSize = 's' | 'm';
 
@@ -38,6 +28,18 @@ export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitE
   public static readonly events = {
     stateChange: 'stateChange',
   } as const;
+
+  /**
+   * Label size variant, either m or s.
+   */
+  @property({ reflect: true })
+  public set size(value: SbbRadioButtonSize) {
+    this._size = value;
+  }
+  public get size(): SbbRadioButtonSize {
+    return this.group?.size ?? this._size;
+  }
+  private _size: SbbRadioButtonSize = 'm';
 
   /**
    * @internal

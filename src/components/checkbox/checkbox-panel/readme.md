@@ -1,45 +1,63 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-checkbox-panel` is a component . . .
-
-```html
-<sbb-checkbox-panel></sbb-checkbox-panel>
-```
+The `sbb-checkbox-panel` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the selection panel design and functionalities.
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
+It is possible to provide a label via an unnamed slot; additionally the slote named `subtext` can be used to provide a subtext and the slot named `suffix` can be used to provide suffix items.
+
+```html
+<sbb-checkbox-panel>
+  Label
+  <span slot="subtext">Subtext</span>
+  <span slot="suffix">Suffix</span>
+</sbb-checkbox-panel>
+```
 
 ## States
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+The component could be checked or not depending on the value of the `checked` attribute.
+
+```html
+<sbb-checkbox-panel value="example-value" checked>Checked state</sbb-checkbox-panel>
+```
+
+It has a third state too, which is set if the `indeterminate` property is true.
+This is useful when multiple dependent checkbox-panels are used
+(e.g., a parent which is checked only if all the children are checked, otherwise is in indeterminate state).
+Clicking on a `sbb-checkbox-panel` in this state sets `checked` to `true` and `indeterminate` to false.
+
+```html
+<sbb-checkbox-panel value="indeterminate-checkbox-panel" indeterminate="true"
+  >Indeterminate state</sbb-checkbox-panel
+>
+```
+
+The component can be disbaled by using the `disabled` property.
+
+```html
+<sbb-checkbox-panel value="disabled-checkbox" disabled="true">Disabled</sbb-checkbox-panel>
+```
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
 
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+```html
+<sbb-checkbox-panel value="bold">
+  <span class="sbb-text--bold">Bold label</span>
+</sbb-checkbox-panel>
+```
 
 ## Events
 
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+Consumers can listen to the native `change` event on the `sbb-checkbox-panel` component to intercept the input's change;
+the current state can be read from `event.target.checked`, while the value from `event.target.value`.
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+The component provides the same accessibility features as the native checkbox.
+
+Always provide an accessible label via `aria-label` for checkboxes without descriptive text content.
+If you don't want the label to appear next to the checkbox, you can use `aria-label` to specify an appropriate label.
 
 <!-- Auto Generated Below -->
 

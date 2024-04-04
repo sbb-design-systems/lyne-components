@@ -38,6 +38,10 @@ slot[name='subtext'] {
   padding-inline-start: var(--sbb-spacing-fixed-8x);
 }
 
+.sbb-checkbox {
+  @include sbb.text-m--regular;
+}
+
 .sbb-checkbox__inner {
   // Change the focus outline when the input is placed inside of a selection panel
   // as the main input element.

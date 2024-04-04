@@ -74,10 +74,6 @@
   position: relative;
   color: var(--sbb-radio-button-label-color);
   -webkit-tap-highlight-color: transparent;
-
-  :host([size='s']) & {
-    @include sbb.text-s--regular;
-  }
 }
 
 slot[name='suffix'] {

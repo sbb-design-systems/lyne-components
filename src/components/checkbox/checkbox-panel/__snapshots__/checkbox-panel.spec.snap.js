@@ -5,7 +5,6 @@ snapshots["sbb-checkbox-panel should render unchecked DOM"] =
 `<sbb-checkbox-panel
   data-slot-names="subtext suffix unnamed"
   icon-placement="end"
-  size="m"
   tabindex="0"
 >
   Label
@@ -49,7 +48,6 @@ snapshots["sbb-checkbox-panel should render checked DOM"] =
   data-checked=""
   data-slot-names="subtext suffix unnamed"
   icon-placement="end"
-  size="m"
   tabindex="0"
 >
   Label
@@ -92,7 +90,6 @@ snapshots["sbb-checkbox-panel should render indeterminate DOM"] =
   data-slot-names="subtext suffix unnamed"
   icon-placement="end"
   indeterminate=""
-  size="m"
   tabindex="0"
 >
   Label
@@ -135,7 +132,6 @@ snapshots["sbb-checkbox-panel should render unchecked disabled DOM"] =
   data-slot-names="subtext suffix unnamed"
   disabled=""
   icon-placement="end"
-  size="m"
   tabindex="0"
 >
   Label

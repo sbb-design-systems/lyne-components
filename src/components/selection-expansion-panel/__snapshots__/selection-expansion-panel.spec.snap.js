@@ -30,7 +30,6 @@ snapshots["sbb-selection-panel renders - Dom"] =
     data-is-selection-panel-input=""
     data-slot-names="subtext suffix unnamed"
     icon-placement="end"
-    size="m"
     tabindex="0"
   >
     Value one
@@ -163,7 +162,6 @@ snapshots["sbb-selection-expansion-panel renders - Dom"] =
     data-is-selection-panel-input=""
     data-slot-names="subtext suffix unnamed"
     icon-placement="end"
-    size="m"
     tabindex="0"
   >
     Value one

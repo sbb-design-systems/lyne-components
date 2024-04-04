@@ -27,7 +27,6 @@
   }
 
   :host( :is(
-
       /** No icon */
       :not([icon-name], [data-slot-names~="icon"]))) & {
     display: none;
@@ -47,6 +46,14 @@
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+}
+
+.sbb-checkbox {
+  @include sbb.text-s--regular;
+
+  :host([size='m']) & {
+    @include sbb.text-m--regular;
   }
 }
 
