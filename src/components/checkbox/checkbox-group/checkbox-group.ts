@@ -62,7 +62,10 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this.toggleAttribute('data-has-selection-panel', !!this.querySelector?.('sbb-selection-panel'));
+    this.toggleAttribute(
+      'data-has-selection-panel',
+      !!this.querySelector?.('sbb-selection-expansion-panel'),
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -89,7 +92,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this &&
         (evt.target as HTMLElement).parentElement !== this &&
-        (evt.target as HTMLElement).parentElement!.nodeName !== 'SBB-SELECTION-PANEL')
+        (evt.target as HTMLElement).parentElement!.nodeName !== 'SBB-SELECTION-EXPANSION-PANEL')
     ) {
       return;
     }

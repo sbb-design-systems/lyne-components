@@ -6,7 +6,7 @@ import { setAttributes } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
-import type { SbbSelectionPanelElement } from '../../selection-panel';
+import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel';
 import { SbbRadioButtonCommonElementMixin, type SbbRadioButtonStateChange } from '../common';
 import commonStyle from '../common/radio-button-common.scss?lit&inline';
 
@@ -19,8 +19,8 @@ import style from './radio-button-panel.scss?lit&inline';
  * It displays a radio button enhanced with the SBB Design.
  *
  * @slot - Use the unnamed slot to add content to the radio label.
- * @slot subtext - Slot used to render a subtext under the label (only visible within a `sbb-selection-panel`).
- * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-panel`).
+ * @slot subtext - Slot used to render a subtext under the label (only visible within a `sbb-selection-expansion-panel`).
+ * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-expansion-panel`).
  */
 @customElement('sbb-radio-button-panel')
 export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin(
@@ -46,7 +46,7 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
    */
   @state() private _selectionPanelExpandedLabel?: string;
 
-  private _selectionPanelElement: SbbSelectionPanelElement | null = null;
+  private _selectionPanelElement: SbbSelectionExpansionPanelElement | null = null;
   private _language = new SbbLanguageController(this);
 
   /**
@@ -105,10 +105,11 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-    this._selectionPanelElement = this.closest('sbb-selection-panel');
+    // We can use closest here, as we expect the parent sbb-selection-expansion-panel to be in light DOM.
+    this._selectionPanelElement = this.closest('sbb-selection-expansion-panel');
     this._isSelectionPanelInput =
-      !!this._selectionPanelElement && !this.closest('sbb-selection-panel [slot="content"]');
+      !!this._selectionPanelElement &&
+      !this.closest('sbb-selection-expansion-panel [slot="content"]');
 
     this._radioButtonLoaded.emit();
 

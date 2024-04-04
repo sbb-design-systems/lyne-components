@@ -1,6 +1,6 @@
 The `sbb-radio-button-group` is a component which can be used as a wrapper for
 a collection of [sbb-radio-button](/docs/components-sbb-radio-button-sbb-radio-button--docs)s,
-or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sbb-selection-panel--docs)s.
+or, alternatively, for a collection of [sbb-selection-expansion-panel](/docs/components-sbb-selection-expansion-panel--docs)s.
 
 ```html
 <!-- The first option will be selected by default -->

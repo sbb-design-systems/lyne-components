@@ -1,25 +1,25 @@
 @use './a11y';
 
 @mixin selection-panel-variables {
-  --sbb-selection-panel-border-color: var(--sbb-color-cloud);
-  --sbb-selection-panel-border-radius: var(--sbb-border-radius-4x);
-  --sbb-selection-panel-border-width: var(--sbb-border-width-1x);
-  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
+  --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
+  --sbb-selection-expansion-panel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-1x);
+  --sbb-selection-expansion-panel-input-padding: var(--sbb-spacing-responsive-xs)
     var(--sbb-spacing-responsive-xxs);
-  --sbb-selection-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-selection-expansion-panel-animation-duration: var(--sbb-animation-duration-4x);
 }
 
 @mixin selection-panel {
   flex: auto;
   position: relative;
   width: 100%;
-  border-radius: var(--sbb-selection-panel-border-radius);
-  box-shadow: inset 0 0 0 var(--sbb-selection-panel-border-width)
-    var(--sbb-selection-panel-border-color);
-  padding: var(--sbb-selection-panel-input-padding);
+  border-radius: var(--sbb-selection-expansion-panel-border-radius);
+  box-shadow: inset 0 0 0 var(--sbb-selection-expansion-panel-border-width)
+    var(--sbb-selection-expansion-panel-border-color);
+  padding: var(--sbb-selection-expansion-panel-input-padding);
 
   transition: {
-    duration: var(--sbb-selection-panel-animation-duration);
+    duration: var(--sbb-selection-expansion-panel-animation-duration);
     timing-function: var(--sbb-animation-easing);
     property: box-shadow;
   }
@@ -32,15 +32,16 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
-      border-radius: var(--sbb-selection-panel-border-radius);
+      border: var(--sbb-selection-expansion-panel-border-width) solid
+        var(--sbb-selection-expansion-panel-border-color);
+      border-radius: var(--sbb-selection-expansion-panel-border-radius);
     }
   }
 }
 
 @mixin selection-panel-checked {
-  --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
-  --sbb-selection-panel-border-width: var(--sbb-border-width-2x);
+  --sbb-selection-expansion-panel-border-color: var(--sbb-color-charcoal);
+  --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-2x);
 }
 
 @mixin selection-panel-focus-visible {

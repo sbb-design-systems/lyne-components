@@ -11,7 +11,7 @@ import { SbbLanguageController, SbbSlotStateController } from '../../core/contro
 import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
-import type { SbbSelectionPanelElement } from '../../selection-panel';
+import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel';
 import { SbbCheckboxCommonElementMixin, type SbbCheckboxStateChange } from '../common';
 import commonStyle from '../common/checkbox-common.scss?lit&inline';
 
@@ -61,7 +61,7 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
   /** The label describing whether the selection panel is expanded (for screen readers only). */
   @state() private _selectionPanelExpandedLabel!: string;
 
-  private _selectionPanelElement: SbbSelectionPanelElement | null = null;
+  private _selectionPanelElement: SbbSelectionExpansionPanelElement | null = null;
   private _language = new SbbLanguageController(this);
 
   /**
@@ -83,12 +83,13 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-    this._selectionPanelElement = this.closest?.('sbb-selection-panel');
+    // We can use closest here, as we expect the parent sbb-selection-expansion-panel to be in light DOM.
+    this._selectionPanelElement = this.closest?.('sbb-selection-expansion-panel');
     this.toggleAttribute('data-is-inside-selection-panel', !!this._selectionPanelElement);
     this.toggleAttribute(
       'data-is-selection-panel-input',
-      !!this._selectionPanelElement && !this.closest?.('sbb-selection-panel [slot="content"]'),
+      !!this._selectionPanelElement &&
+        !this.closest?.('sbb-selection-expansion-panel [slot="content"]'),
     );
 
     this.checkboxLoaded.emit();

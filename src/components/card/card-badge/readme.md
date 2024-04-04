@@ -1,6 +1,6 @@
 The `sbb-card-badge` can contain some information like prices or discounts,
 and can be used in [sbb-card](/docs/components-sbb-card-sbb-card--docs) or
-[sbb-selection-panel](/docs/components-sbb-selection-panel--docs).
+[sbb-selection-expansion-panel](/docs/components-sbb-selection-expansion-panel--docs).
 
 To achieve the correct spacing between elements inside the card badge, we recommend to use `span`-elements.
 All content parts are presented with a predefined gap in between.

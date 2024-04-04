@@ -63,8 +63,8 @@ The `sbb-radio-button-panel` is a component . . .
 
 ## Slots
 
-| Name      | Description                                                                                           |
-| --------- | ----------------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add content to the radio label.                                               |
-| `subtext` | Slot used to render a subtext under the label (only visible within a `sbb-selection-panel`).          |
-| `suffix`  | Slot used to render additional content after the label (only visible within a `sbb-selection-panel`). |
+| Name      | Description                                                                                                     |
+| --------- | --------------------------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to add content to the radio label.                                                         |
+| `subtext` | Slot used to render a subtext under the label (only visible within a `sbb-selection-expansion-panel`).          |
+| `suffix`  | Slot used to render additional content after the label (only visible within a `sbb-selection-expansion-panel`). |

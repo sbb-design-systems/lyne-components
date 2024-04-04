@@ -8,14 +8,14 @@ import { EventEmitter } from '../core/eventing/index.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces/index.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button';
 
-import style from './selection-panel.scss?lit&inline';
+import style from './selection-expansion-panel.scss?lit&inline';
 
 import '../divider/index.js';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
  *
- * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-panel`.
+ * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`.
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @slot content - Use this slot to provide custom content for the panel (optional).
  * @event {CustomEvent<void>} willOpen - Emits whenever the content section starts the opening transition.
@@ -23,8 +23,8 @@ import '../divider/index.js';
  * @event {CustomEvent<void>} willClose - Emits whenever the content section begins the closing transition.
  * @event {CustomEvent<void>} didClose - Emits whenever the content section is closed.
  */
-@customElement('sbb-selection-panel')
-export class SbbSelectionPanelElement extends LitElement {
+@customElement('sbb-selection-expansion-panel')
+export class SbbSelectionExpansionPanelElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     willOpen: 'willOpen',
@@ -71,25 +71,25 @@ export class SbbSelectionPanelElement extends LitElement {
   /** Emits whenever the content section starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionPanelElement.events.willOpen,
+    SbbSelectionExpansionPanelElement.events.willOpen,
   );
 
   /** Emits whenever the content section is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionPanelElement.events.didOpen,
+    SbbSelectionExpansionPanelElement.events.didOpen,
   );
 
   /** Emits whenever the content section begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionPanelElement.events.willClose,
+    SbbSelectionExpansionPanelElement.events.willClose,
   );
 
   /** Emits whenever the content section is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionPanelElement.events.didClose,
+    SbbSelectionExpansionPanelElement.events.didClose,
   );
 
   private _abort = new SbbConnectedAbortController(this);
@@ -201,20 +201,20 @@ export class SbbSelectionPanelElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-selection-panel">
-        <div class="sbb-selection-panel__badge">
+      <div class="sbb-selection-expansion-panel">
+        <div class="sbb-selection-expansion-panel__badge">
           <slot name="badge"></slot>
         </div>
 
-        <div class="sbb-selection-panel__input">
+        <div class="sbb-selection-expansion-panel__input">
           <slot></slot>
         </div>
         <div
-          class="sbb-selection-panel__content--wrapper"
+          class="sbb-selection-expansion-panel__content--wrapper"
           .inert=${this._state !== 'opened'}
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
         >
-          <div class="sbb-selection-panel__content">
+          <div class="sbb-selection-expansion-panel__content">
             <sbb-divider></sbb-divider>
             <slot name="content"></slot>
           </div>
@@ -227,6 +227,6 @@ export class SbbSelectionPanelElement extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-selection-panel': SbbSelectionPanelElement;
+    'sbb-selection-expansion-panel': SbbSelectionExpansionPanelElement;
   }
 }

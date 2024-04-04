@@ -1,7 +1,7 @@
-The `sbb-selection-panel` component wraps either a [sbb-checkbox](/docs/components-sbb-checkbox-sbb-checkbox--docs)
+The `sbb-selection-expansion-panel` component wraps either a [sbb-checkbox](/docs/components-sbb-checkbox-sbb-checkbox--docs)
 or a [sbb-radio-button](/docs/components-sbb-radio-button-sbb-radio-button--docs) that can optionally toggle a content section.
 
-The content section can be opened by checking `sbb-checkbox` or selecting the `sbb-radio-button`.
+The content section can be opened by checking `sbb-checkbox-panel` or selecting the `sbb-radio-button-panel`.
 Additionally, clicking on all the upper area sets the checked state and therefore opens the content;
 clicking on the content area does not toggle anything.
 
@@ -12,13 +12,13 @@ or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs
 
 ```html
 <sbb-radio-button-group>
-  <sbb-selection-panel>
+  <sbb-selection-expansion-panel>
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
       <span>19.99</span>
     </sbb-card-badge>
-    <sbb-radio-button>
+    <sbb-radio-button-panel>
       Value
       <span slot="subtext">Subtext</span>
       <span slot="suffix">
@@ -26,9 +26,9 @@ or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs
         <span class="sbb-text-xs sbb-text--bold">CHF</span>
         <span class="sbb-text-m sbb-text--bold">40.00</span>
       </span>
-    </sbb-radio-button>
+    </sbb-radio-button-panel>
     <div slot="content">Inner Content</div>
-  </sbb-selection-panel>
+  </sbb-selection-expansion-panel>
 </sbb-radio-button-group>
 ```
 
@@ -36,13 +36,13 @@ or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs
 
 ```html
 <sbb-checkbox-group>
-  <sbb-selection-panel>
+  <sbb-selection-expansion-panel>
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
       <span>19.99</span>
     </sbb-card-badge>
-    <sbb-checkbox>
+    <sbb-checkbox-panel>
       Value
       <span slot="subtext">Subtext</span>
       <span slot="suffix">
@@ -50,13 +50,13 @@ or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs
         <span class="sbb-text-xs sbb-text--bold">CHF</span>
         <span class="sbb-text-m sbb-text--bold">40.00</span>
       </span>
-    </sbb-checkbox>
+    </sbb-checkbox-panel>
     <div slot="content">Inner Content</div>
-  </sbb-selection-panel>
+  </sbb-selection-expansion-panel>
 </sbb-checkbox-group>
 ```
 
-As shown in the examples above, `sbb-checkbox` and `sbb-radio-button` placed in a `sbb-selection-panel` are extended
+As shown in the examples above, `sbb-checkbox-panel` and `sbb-radio-button-panel` placed in a `sbb-selection-expansion-panel` are extended
 with a slot named `subtext` for the subtext and a slot named `suffix` for the suffix items.
 
 ## Style
@@ -64,13 +64,13 @@ with a slot named `subtext` for the subtext and a slot named `suffix` for the su
 The component has two background options that can be set using the `color` variable: `milk` and `white` (default).
 
 ```html
-<sbb-selection-panel color="milk"> ... </sbb-selection-panel>
+<sbb-selection-expansion-panel color="milk"> ... </sbb-selection-expansion-panel>
 ```
 
-It's also possible to display the `sbb-selection-panel` without border by setting the `borderless` variable to `true`.
+It's also possible to display the `sbb-selection-expansion-panel` without border by setting the `borderless` variable to `true`.
 
 ```html
-<sbb-selection-panel borderless> ... </sbb-selection-panel>
+<sbb-selection-expansion-panel borderless> ... </sbb-selection-expansion-panel>
 ```
 
 <!-- Auto Generated Below -->
@@ -95,8 +95,8 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 
 ## Slots
 
-| Name      | Description                                                                                             |
-| --------- | ------------------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-panel`. |
-| `badge`   | Use this slot to provide a `sbb-card-badge` (optional).                                                 |
-| `content` | Use this slot to provide custom content for the panel (optional).                                       |
+| Name      | Description                                                                                                       |
+| --------- | ----------------------------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`. |
+| `badge`   | Use this slot to provide a `sbb-card-badge` (optional).                                                           |
+| `content` | Use this slot to provide custom content for the panel (optional).                                                 |

@@ -6,20 +6,22 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js'
 import '../card/card-badge/index.js';
 import '../checkbox/index.js';
 import './selection-panel.js';
-import type { SbbSelectionPanelElement } from './selection-panel.js';
+
+import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel';
 
 import '../card/card-badge';
 import '../checkbox/checkbox-panel';
+import './selection-expansion-panel';
 import './selection-panel';
 
-describe(`sbb-selection-panel`, () => {
-  let element: SbbSelectionPanelElement;
+describe(`sbb-selection-expansion-panel`, () => {
+  let element: SbbSelectionExpansionPanelElement;
 
   beforeEach(async () => {
     // Note: for easier testing, we add the slot="badge"
     // to <sbb-card-badge> which would not be needed in real.
     element = await fixture(html`
-      <sbb-selection-panel disable-animation>
+      <sbb-selection-expansion-panel disable-animation>
         <sbb-card-badge slot="badge">
           <span>%</span>
           <span>from CHF</span>
@@ -31,7 +33,7 @@ describe(`sbb-selection-panel`, () => {
           <span slot="suffix">Suffix</span>
         </sbb-checkbox-panel>
         <div slot="content">Inner content</div>
-      </sbb-selection-panel>
+      </sbb-selection-expansion-panel>
     `);
   });
 

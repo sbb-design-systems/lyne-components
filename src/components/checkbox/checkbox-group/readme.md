@@ -1,6 +1,6 @@
 The `sbb-checkbox-group` component is used as a container for one or multiple
 [sbb-checkbox](/docs/components-sbb-checkbox-sbb-checkbox--docs) components,
-or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sbb-selection-panel--docs).
+or, alternatively, for a collection of [sbb-selection-expansion-panel](/docs/components-sbb-selection-expansion-panel--docs).
 
 ```html
 <sbb-checkbox-group>
@@ -10,7 +10,7 @@ or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sb
 </sbb-checkbox-group>
 
 <sbb-checkbox-group>
-  <sbb-selection-panel>
+  <sbb-selection-expansion-panel>
     <sbb-checkbox>
       Value
       <span slot="suffix">
@@ -19,7 +19,7 @@ or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sb
         <span class="sbb-text-m sbb-text--bold">40.00</span>
       </span>
     </sbb-checkbox>
-  </sbb-selection-panel>
+  </sbb-selection-expansion-panel>
 </sbb-checkbox-group>
 ```
 
