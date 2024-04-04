@@ -301,7 +301,7 @@ export class SbbTabGroupElement extends LitElement {
 
           this._tabContentResizeObserver.observe(tab.relatedContent!);
           this._selectedTabChanged.emit();
-        } else if (tab.disabled) {
+        } else if (import.meta.env.DEV && tab.disabled) {
           console.warn('You cannot activate a disabled tab');
         }
       },
@@ -318,9 +318,11 @@ export class SbbTabGroupElement extends LitElement {
     } else {
       tab.insertAdjacentHTML('afterend', '<div>No content.</div>');
       tab.relatedContent = tab.nextElementSibling as HTMLElement;
-      console.warn(
-        `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`,
-      );
+      if (import.meta.env.DEV) {
+        console.warn(
+          `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`,
+        );
+      }
     }
     tab.tabIndex = -1;
     tab.disabled = isValidAttribute(tab, 'disabled');

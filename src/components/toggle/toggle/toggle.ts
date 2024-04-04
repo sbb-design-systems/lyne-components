@@ -95,7 +95,9 @@ export class SbbToggleElement extends LitElement {
       options[0];
 
     if (!selectedOption) {
-      isBrowser() && console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
+      if (import.meta.env.DEV && isBrowser()) {
+        console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
+      }
       return;
     }
     if (!selectedOption.checked) {

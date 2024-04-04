@@ -14,14 +14,15 @@ export default defineConfig((config) =>
     root: new URL('.', import.meta.url).pathname,
     plugins: [
       generateReactWrappers(),
-      ...(isProdBuild(config) ? [dts(), packageJsonTemplate()] : []),
+      ...(config.command === 'build' ? [dts()] : []),
+      ...(isProdBuild(config) ? [packageJsonTemplate()] : []),
     ],
     build: {
       lib: {
         formats: ['es'],
       },
-      minify: false,
-      outDir: new URL('./react/', distDir).pathname,
+      minify: isProdBuild(config),
+      outDir: new URL(`./react/${isProdBuild(config) ? '' : 'development/'}`, distDir).pathname,
       emptyOutDir: true,
       rollupOptions: {
         external: [/^@sbb-esta\/lyne-components\/?/, /^@lit\/react\/?/, /^lit\/?/, /^react/],
