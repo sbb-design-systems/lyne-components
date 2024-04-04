@@ -13,7 +13,7 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox Dom"] =
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
@@ -23,7 +23,7 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox Dom"] =
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
@@ -61,7 +61,22 @@ snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "combobox",
+      "name": "",
+      "expanded": true,
+      "focused": true,
+      "autocomplete": "list",
+      "haspopup": "listbox"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "orientation": "vertical"
+    }
+  ]
 }
 </p>
 `;
@@ -82,7 +97,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox Dom"] =
     data-group-disabled=""
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-7"
+    id="sbb-option-6"
     role="option"
     value="1"
   >
@@ -94,7 +109,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox Dom"] =
     data-group-disabled=""
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-8"
+    id="sbb-option-7"
     role="option"
     value="2"
   >
@@ -132,7 +147,31 @@ snapshots["sbb-optgroup autocomplete renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "combobox",
+      "name": "",
+      "expanded": true,
+      "focused": true,
+      "autocomplete": "list",
+      "haspopup": "listbox"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "children": [
+        {
+          "role": "option",
+          "name": "1"
+        },
+        {
+          "role": "option",
+          "name": "2"
+        }
+      ]
+    }
+  ]
 }
 </p>
 `;
@@ -148,7 +187,7 @@ snapshots["sbb-optgroup autocomplete renders Safari Dom"] =
     data-group-label="Label"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
@@ -159,7 +198,7 @@ snapshots["sbb-optgroup autocomplete renders Safari Dom"] =
     data-group-label="Label"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
@@ -206,7 +245,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari Dom"] =
     data-group-label="Label"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-5"
+    id="sbb-option-4"
     role="option"
     value="1"
   >
@@ -219,7 +258,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari Dom"] =
     data-group-label="Label"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-6"
+    id="sbb-option-5"
     role="option"
     value="2"
   >

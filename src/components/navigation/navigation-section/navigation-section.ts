@@ -26,10 +26,11 @@ import {
 import type { SbbNavigationElement } from '../navigation';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationLinkElement } from '../navigation-link';
-import '../../divider';
-import '../../button/transparent-button';
 
 import style from './navigation-section.scss?lit&inline';
+
+import '../../button/transparent-button';
+import '../../divider';
 
 let nextId = 0;
 

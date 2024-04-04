@@ -12,7 +12,7 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Dom"] =
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
@@ -22,7 +22,7 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Dom"] =
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
@@ -94,7 +94,7 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox Dom"] =
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
-      id="sbb-option-5"
+      id="sbb-option-4"
       role="option"
       value="1"
     >
@@ -104,7 +104,7 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox Dom"] =
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
-      id="sbb-option-6"
+      id="sbb-option-5"
       role="option"
       value="2"
     >
@@ -208,7 +208,7 @@ snapshots["sbb-autocomplete renders standalone Safari Dom"] =
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
@@ -218,7 +218,7 @@ snapshots["sbb-autocomplete renders standalone Safari Dom"] =
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
@@ -288,7 +288,7 @@ snapshots["sbb-autocomplete renders in form field Safari Dom"] =
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
-      id="sbb-option-5"
+      id="sbb-option-4"
       role="option"
       value="1"
     >
@@ -298,7 +298,7 @@ snapshots["sbb-autocomplete renders in form field Safari Dom"] =
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
-      id="sbb-option-6"
+      id="sbb-option-5"
       role="option"
       value="2"
     >

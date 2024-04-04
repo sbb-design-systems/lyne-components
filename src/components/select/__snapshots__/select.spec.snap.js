@@ -11,7 +11,7 @@ snapshots["sbb-select renders Chrome-Firefox Dom"] =
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
@@ -22,7 +22,7 @@ snapshots["sbb-select renders Chrome-Firefox Dom"] =
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
@@ -33,7 +33,7 @@ snapshots["sbb-select renders Chrome-Firefox Dom"] =
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-3"
+    id="sbb-option-2"
     role="option"
     value="3"
   >
@@ -115,7 +115,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Dom"] =
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-10"
+    id="sbb-option-9"
     role="option"
     value="1"
   >
@@ -127,7 +127,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Dom"] =
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-11"
+    id="sbb-option-10"
     role="option"
     value="2"
   >
@@ -139,7 +139,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Dom"] =
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-12"
+    id="sbb-option-11"
     role="option"
     value="3"
   >
@@ -256,7 +256,7 @@ snapshots["sbb-select renders Safari Dom"] =
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
@@ -267,7 +267,7 @@ snapshots["sbb-select renders Safari Dom"] =
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
@@ -278,7 +278,7 @@ snapshots["sbb-select renders Safari Dom"] =
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-3"
+    id="sbb-option-2"
     role="option"
     value="3"
   >
@@ -341,7 +341,7 @@ snapshots["sbb-select renders multiple Safari Dom"] =
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-7"
+    id="sbb-option-6"
     role="option"
     value="1"
   >
@@ -353,7 +353,7 @@ snapshots["sbb-select renders multiple Safari Dom"] =
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-8"
+    id="sbb-option-7"
     role="option"
     value="2"
   >
@@ -365,7 +365,7 @@ snapshots["sbb-select renders multiple Safari Dom"] =
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-9"
+    id="sbb-option-8"
     role="option"
     value="3"
   >
