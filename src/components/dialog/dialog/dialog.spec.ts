@@ -7,7 +7,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import type { SbbDialogElement } from './dialog';
 import './dialog';
 import '../dialog-title';
-import '../dialog-content/dialog';
+import '../dialog-content';
 
 describe(`sbb-dialog`, () => {
   describe('renders an open dialog', async () => {

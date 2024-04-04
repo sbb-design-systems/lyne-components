@@ -14,9 +14,10 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../../../storybook/helpers/spread';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread, breakpoints } from '../../core/dom';
+import { breakpoints } from '../../core/dom/breakpoint';
 import sampleImages from '../../core/images';
 import type { SbbTitleLevel } from '../../title';
 import { SbbDialogTitleElement } from '../dialog-title';
@@ -331,10 +332,12 @@ const FormTemplate = ({
         method and returning the form values to update the details.
       </div>
       <form style=${styleMap(formStyle)} @submit=${(e: SubmitEvent) => e.preventDefault()}>
-        <sbb-form-field error-space="none" label="Message" size="m">
+        <sbb-form-field error-space="none" size="m">
+          <label>Message</label>
           <input placeholder="Your custom massage" value="Hello 👋" name="message" />
         </sbb-form-field>
-        <sbb-form-field error-space="none" label="Favorite animal" size="m">
+        <sbb-form-field error-space="none" size="m">
+          <label>Favorite animal</label>
           <select name="animal">
             <option>Red Panda</option>
             <option>Cheetah</option>

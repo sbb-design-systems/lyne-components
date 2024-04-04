@@ -1,17 +1,18 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
-import { LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';
-import { ScrollHandler, isValidAttribute, hostContext, isBreakpoint } from '../../core/dom';
+import { SbbFocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
+import { SbbLanguageController } from '../../core/controllers';
+import { SbbScrollHandler, isValidAttribute, hostContext, isBreakpoint } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nDialog } from '../../core/i18n';
+import { SbbNegativeMixin } from '../../core/mixins';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbOverlayState } from '../../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../../core/overlay';
+import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only';
 import type { SbbDialogActionsElement } from '../dialog-actions';
 import type { SbbDialogTitleElement } from '../dialog-title';
 
@@ -19,7 +20,7 @@ import style from './dialog.scss?lit&inline';
 
 import '../../button/secondary-button';
 import '../../button/transparent-button';
-import '../../screenreader-only';
+import '../../screen-reader-only';
 import '../../title';
 
 // A global collection of existing dialogs
@@ -88,7 +89,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _dialogContentResizeObserver = new AgnosticResizeObserver(() =>
     setTimeout(() => this._onContentResize()),
   );
-  private _ariaLiveRef!: HTMLElement;
+  private _ariaLiveRef!: SbbScreenReaderOnlyElement;
   private _ariaLiveRefToggle = false;
 
   /** Emits whenever the `sbb-dialog` starts the opening transition. */
@@ -113,8 +114,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _dialogCloseElement?: HTMLElement;
   private _dialogController!: AbortController;
   private _openDialogController!: AbortController;
-  private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _focusHandler = new SbbFocusHandler();
+  private _scrollHandler = new SbbScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean = false;
   private _overflows: boolean = false;
@@ -124,7 +125,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Opens the dialog element.
@@ -245,10 +246,14 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(_changedProperties: PropertyValues): void {
+    this._ariaLiveRef =
+      this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
+
     // Synchronize the negative state before the first opening to avoid a possible color flash if it is negative.
     this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
     this._syncNegative();
+    super.firstUpdated(_changedProperties);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -470,10 +475,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
           </div>
         </div>
       </div>
-      <sbb-screenreader-only
-        aria-live="polite"
-        ${ref((el?: Element) => (this._ariaLiveRef = el as HTMLElement))}
-      ></sbb-screenreader-only>
+      <sbb-screen-reader-only aria-live="polite"></sbb-screen-reader-only>
     `;
   }
 }

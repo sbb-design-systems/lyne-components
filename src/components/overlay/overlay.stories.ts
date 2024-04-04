@@ -225,10 +225,12 @@ const FormTemplate = (args: Args): TemplateResult => html`
         method and returning the form values to update the details.
       </div>
       <form style=${styleMap(formStyle)} @submit=${(e: SubmitEvent) => e.preventDefault()}>
-        <sbb-form-field error-space="none" label="Message" size="m">
+        <sbb-form-field error-space="none" size="m">
+          <label>Message</label>
           <input placeholder="Your custom massage" value="Hello 👋" name="message" />
         </sbb-form-field>
-        <sbb-form-field error-space="none" label="Favorite animal" size="m">
+        <sbb-form-field error-space="none" size="m">
+          <label>Favorite animal</label>
           <select name="animal">
             <option>Red Panda</option>
             <option>Cheetah</option>

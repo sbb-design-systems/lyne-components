@@ -42,7 +42,7 @@ describe('sbb-dialog', () => {
         <sbb-dialog-actions>Action group</sbb-dialog-actions>
       </sbb-dialog>
     `);
-    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
+    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
   });
 
   it('renders', () => {

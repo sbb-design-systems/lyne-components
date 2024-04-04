@@ -3,8 +3,9 @@ import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { FocusVisibleWithinController } from '../../core/a11y';
-import { LanguageController, hostAttributes } from '../../core/common-behaviors';
+import { SbbFocusVisibleWithinController } from '../../core/a11y';
+import { SbbLanguageController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import type { Breakpoint } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseDialog, i18nGoBack } from '../../core/i18n';
@@ -63,7 +64,7 @@ export class SbbDialogTitleElement extends SbbTitleElement {
     this,
     SbbDialogTitleElement.events.backClick,
   );
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
@@ -73,7 +74,7 @@ export class SbbDialogTitleElement extends SbbTitleElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    new FocusVisibleWithinController(this);
+    new SbbFocusVisibleWithinController(this);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
