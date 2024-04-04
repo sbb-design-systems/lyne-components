@@ -90,7 +90,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm'],
+  options: ['l', 'm', 's'],
 };
 
 const iconName: InputType = {
@@ -189,6 +189,13 @@ export const sizeM: StoryObj = {
   render: Template,
   args: {
     size: size.options[1],
+  },
+};
+
+export const sizeS: StoryObj = {
+  render: Template,
+  args: {
+    size: size.options[2],
   },
 };
 
