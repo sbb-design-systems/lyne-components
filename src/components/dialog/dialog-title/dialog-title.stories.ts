@@ -4,7 +4,8 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { breakpoints, sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
+import { breakpoints } from '../../core/dom';
 
 import { SbbDialogTitleElement } from './dialog-title';
 import readme from './readme.md?raw';

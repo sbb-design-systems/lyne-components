@@ -109,18 +109,18 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 
 ## Events
 
-| Name        | Type                             | Description                                                                     | Inherited From |
-| ----------- | -------------------------------- | ------------------------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>`              | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. |                |
-| `didOpen`   | `CustomEvent<void>`              | Emits whenever the `sbb-dialog` is opened.                                      |                |
-| `willClose` | `CustomEvent<void>`              | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. |                |
-| `didClose`  | `CustomEvent<CloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      |                |
+| Name        | Type                                      | Description                                                                     | Inherited From |
+| ----------- | ----------------------------------------- | ------------------------------------------------------------------------------- | -------------- |
+| `willOpen`  | `CustomEvent<void>`                       | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. |                |
+| `didOpen`   | `CustomEvent<void>`                       | Emits whenever the `sbb-dialog` is opened.                                      |                |
+| `willClose` | `CustomEvent<void>`                       | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<SbbDialogCloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      |                |
 
 ## CSS Properties
 
-| Name                   | Default                              | Description                                                                                                                                                                                                   |
-| ---------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sbb-dialog-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
+| Name                   | Default                      | Description                                                                                                                                                                                           |
+| ---------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-dialog-z-index` | `var(--sbb-overlay-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-z-index)` with a value of `1000`. |
 
 ## Slots
 

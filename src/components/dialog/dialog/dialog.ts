@@ -27,7 +27,7 @@ import '../../title';
 const dialogRefs: SbbDialogElement[] = [];
 let nextId = 0;
 
-type CloseEventDetails = {
+export type SbbDialogCloseEventDetails = {
   returnValue?: any;
   closeTarget?: HTMLElement;
 };
@@ -41,7 +41,7 @@ type CloseEventDetails = {
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
- * @event {CustomEvent<CloseEventDetails>} didClose - Emits whenever the `sbb-dialog` is closed.
+ * @event {CustomEvent<SbbDialogCloseEventDetails>} didClose - Emits whenever the `sbb-dialog` is closed.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
@@ -102,7 +102,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _willClose: EventEmitter = new EventEmitter(this, SbbDialogElement.events.willClose);
 
   /** Emits whenever the `sbb-dialog` is closed. */
-  private _didClose: EventEmitter<CloseEventDetails> = new EventEmitter(
+  private _didClose: EventEmitter<SbbDialogCloseEventDetails> = new EventEmitter(
     this,
     SbbDialogElement.events.didClose,
   );
