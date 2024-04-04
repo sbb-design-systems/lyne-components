@@ -1,7 +1,6 @@
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-export type SbbOverlayState = 'closed' | 'opening' | 'opened' | 'closing';
 const IS_OPEN_OVERLAY_QUERY = `:is(sbb-dialog, sbb-navigation, sbb-menu)[data-state='opened']`;
 
 /**

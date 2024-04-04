@@ -18,8 +18,8 @@ import {
   SbbScrollHandler,
 } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import { SbbNamedSlotListMixin } from '../../core/mixins';
-import type { SbbOverlayState } from '../../core/overlay';
 import {
   applyInertMechanism,
   getElementPosition,
@@ -102,11 +102,11 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   /**
    * The state of the menu.
    */
-  private set _state(state: SbbOverlayState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.getAttribute('data-state') as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /** Emits whenever the `sbb-menu` starts the opening transition. */
@@ -222,7 +222,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });

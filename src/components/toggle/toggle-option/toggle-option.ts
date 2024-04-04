@@ -73,10 +73,7 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
       signal,
     });
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
-    const toggle = this.closest?.('sbb-toggle');
-    if (toggle) {
-      this._toggle = toggle;
-    }
+    this._toggle = this.closest?.('sbb-toggle') ?? undefined;
     this._verifyTabindex();
   }
 

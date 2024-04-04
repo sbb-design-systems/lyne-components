@@ -159,7 +159,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
   private _onPopupClose({ target }: CustomEvent<void>): void {
     if (supportedPopupTagNames.includes((target as HTMLElement).localName)) {
-      this.toggleAttribute('data-has-popup-open', false);
+      this.removeAttribute('data-has-popup-open');
     }
   }
 
@@ -303,10 +303,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
     inputFocusElement.addEventListener(
       'focusout',
-      () => {
-        this.toggleAttribute('data-focus-origin', false);
-        this.toggleAttribute('data-input-focused', false);
-      },
+      () =>
+        ['data-focus-origin', 'data-input-focused'].forEach((name) => this.removeAttribute(name)),
       {
         signal: this._inputAbortController.signal,
       },

@@ -5,14 +5,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 import type { SbbCheckboxElement } from '../checkbox';
 import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers';
 import { EventEmitter } from '../core/eventing';
-import type { SbbStateChange } from '../core/interfaces';
+import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces';
 import type { SbbRadioButtonElement } from '../radio-button';
 
 import style from './selection-panel.scss?lit&inline';
 
 import '../divider';
-
-export type SbbSelectionPanelState = 'closed' | 'opening' | 'opened' | 'closing';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -50,11 +48,11 @@ export class SbbSelectionPanelElement extends LitElement {
 
   /** The state of the selection panel. */
   @state()
-  private set _state(state: SbbSelectionPanelState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
-  private get _state(): SbbSelectionPanelState {
-    return this.getAttribute('data-state') as SbbSelectionPanelState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /** Whether the selection panel is checked. */
@@ -113,7 +111,7 @@ export class SbbSelectionPanelElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('stateChange', this._onInputStateChange.bind(this), { signal });
     this.addEventListener('checkboxLoaded', this._initFromInput.bind(this), { signal });

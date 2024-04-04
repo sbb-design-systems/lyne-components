@@ -14,8 +14,8 @@ import {
   isBrowser,
 } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
+import type { SbbOpenedClosedState } from '../core/interfaces';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins';
-import type { SbbOverlayState } from '../core/overlay';
 import {
   isEventOnElement,
   overlayGapFixCorners,
@@ -50,7 +50,7 @@ const ariaRoleOnHost = isSafari();
 @customElement('sbb-autocomplete')
 @hostAttributes({
   dir: getDocumentWritingMode(),
-  role: ariaRoleOnHost ? 'listbox' : undefined,
+  role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
@@ -83,11 +83,11 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   public preserveIconSpace?: boolean;
 
   /* The state of the autocomplete. */
-  private set _state(state: SbbOverlayState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.getAttribute('data-state') as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
@@ -231,7 +231,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
       this.id ||= this._overlayId;
     }
 
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 

@@ -17,8 +17,8 @@ import {
   setAttribute,
 } from '../../core/dom';
 import { i18nGoBack } from '../../core/i18n';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
-import type { SbbOverlayState } from '../../core/overlay';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
@@ -87,12 +87,12 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
   /**
    * The state of the navigation section.
    */
-  private set _state(state: SbbOverlayState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
     setAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
   }
-  private get _state(): SbbOverlayState {
-    return this.getAttribute('data-state') as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
@@ -328,7 +328,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-navigation-section-${nextId++}`;
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');

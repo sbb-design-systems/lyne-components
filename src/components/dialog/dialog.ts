@@ -9,9 +9,9 @@ import { SbbLanguageController, SbbSlotStateController } from '../core/controlle
 import { hostContext, isValidAttribute, SbbScrollHandler } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
+import type { SbbOpenedClosedState } from '../core/interfaces';
 import { SbbNegativeMixin } from '../core/mixins';
 import { AgnosticResizeObserver } from '../core/observers';
-import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
 import type { SbbTitleLevel } from '../title';
 
@@ -100,11 +100,11 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   /*
    * The state of the dialog.
    */
-  private set _state(state: SbbOverlayState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.getAttribute('data-state') as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   private get _hasTitle(): boolean {
@@ -214,7 +214,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
     this._dialogController?.abort();
     this._dialogController = new AbortController();
 

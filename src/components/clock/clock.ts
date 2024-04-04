@@ -3,6 +3,8 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { readDataNow } from '../core/datetime/data-now';
+
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
 import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg?raw';
@@ -252,13 +254,12 @@ export class SbbClockElement extends LitElement {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +(this.dataset?.now as string);
-    return !isNaN(dataNow);
+    return this.hasAttribute('data-now');
   }
 
   private _now(): Date {
     if (this._hasDataNow()) {
-      return new Date(+(this.dataset?.now as string));
+      return new Date(readDataNow(this));
     }
     return new Date();
   }

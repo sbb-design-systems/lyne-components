@@ -20,6 +20,7 @@ import {
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
 } from '../core/datetime';
+import { readDataNow } from '../core/datetime/data-now';
 import { isBreakpoint } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import {
@@ -795,7 +796,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   private _now(): T {
     if (this.hasAttribute('data-now')) {
-      const today = new Date(+this.dataset.now!);
+      const today = new Date(readDataNow(this));
       if (defaultDateAdapter.isValid(today)) {
         return this._dateAdapter.createDate(
           today.getFullYear(),

@@ -5,6 +5,7 @@ import type { LinkTargetType } from '../../core/base-elements';
 import { SbbLanguageController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import { SbbIconNameMixin } from '../../icon';
 import type { SbbTitleLevel } from '../../title';
 
@@ -15,7 +16,7 @@ import '../../divider';
 import '../../link';
 import '../../title';
 
-export type SbbAlertState = 'closed' | 'opening' | 'opened';
+type SbbAlertState = Exclude<SbbOpenedClosedState, 'closing'>;
 
 /**
  * It displays messages which require user's attention.

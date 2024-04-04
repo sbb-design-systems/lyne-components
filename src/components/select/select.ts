@@ -8,8 +8,8 @@ import { SbbConnectedAbortController } from '../core/controllers';
 import { hostAttributes } from '../core/decorators';
 import { getDocumentWritingMode, isNextjs, isSafari, isValidAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
+import type { SbbOpenedClosedState } from '../core/interfaces';
 import { SbbDisabledMixin, SbbNegativeMixin, SbbUpdateSchedulerMixin } from '../core/mixins';
-import type { SbbOverlayState } from '../core/overlay';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option';
 
@@ -46,7 +46,7 @@ export interface SelectChange {
 @customElement('sbb-select')
 @hostAttributes({
   dir: getDocumentWritingMode(),
-  role: ariaRoleOnHost ? 'listbox' : undefined,
+  role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   SbbDisabledMixin(SbbNegativeMixin(LitElement)),
@@ -83,11 +83,11 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   public disableAnimation = false;
 
   /** The state of the select. */
-  private set _state(state: SbbOverlayState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.getAttribute('data-state') as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /** The value displayed by the component. */
@@ -275,7 +275,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
       this.id ||= this._overlayId;
     }
 
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
 
     const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');

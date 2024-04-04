@@ -25,7 +25,7 @@ const inertAriaGroups = isSafari();
  * @slot - Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`.
  */
 @customElement('sbb-optgroup')
-@hostAttributes({ role: !inertAriaGroups ? 'group' : undefined })
+@hostAttributes({ role: !inertAriaGroups ? 'group' : null })
 export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 

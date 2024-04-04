@@ -13,7 +13,7 @@ import { SbbLanguageController } from '../../core/controllers';
 import { findReferencedElement, isValidAttribute } from '../../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
 import { i18nClosePopover } from '../../core/i18n';
-import type { SbbOverlayState } from '../../core/overlay';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import {
   getElementPosition,
   isEventOnElement,
@@ -84,11 +84,11 @@ export class SbbPopoverElement extends LitElement {
     | undefined;
 
   /** The state of the popover. */
-  private set _state(state: SbbOverlayState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.getAttribute('data-state') as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /** Emits whenever the `sbb-popover` starts the opening transition. */
@@ -136,7 +136,7 @@ export class SbbPopoverElement extends LitElement {
 
     // Close the other popovers
     for (const popover of Array.from(popoversRef)) {
-      const state = popover.getAttribute('data-state') as SbbOverlayState;
+      const state = popover.getAttribute('data-state') as SbbOpenedClosedState;
       if (state && (state === 'opened' || state === 'opening')) {
         popover.close();
       }

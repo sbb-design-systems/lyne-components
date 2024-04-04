@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
+import type { SbbOpenedClosedState } from '../core/interfaces';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbTitleLevel } from '../title';
 import '../button/secondary-button';
@@ -13,8 +14,6 @@ import '../icon';
 import '../title';
 
 import style from './notification.scss?lit&inline';
-
-export type SbbNotificationState = 'closed' | 'opening' | 'opened' | 'closing';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -77,11 +76,11 @@ export class SbbNotificationElement extends LitElement {
   /**
    * The state of the notification.
    */
-  private set _state(state: SbbNotificationState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
-  private get _state(): SbbNotificationState {
-    return this.getAttribute('data-state') as SbbNotificationState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   private _notificationElement!: HTMLElement;
@@ -138,7 +137,7 @@ export class SbbNotificationElement extends LitElement {
   }
 
   public override connectedCallback(): void {
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
 
     super.connectedCallback();
   }

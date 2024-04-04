@@ -11,7 +11,7 @@ import {
 import { isFirefox, isValidAttribute } from '../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
-import type { SbbOverlayState } from '../core/overlay';
+import type { SbbOpenedClosedState } from '../core/interfaces';
 import { SbbIconNameMixin } from '../icon';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link';
 import '../button/transparent-button';
@@ -72,11 +72,11 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   public disableAnimation = false;
 
   /* The state of the toast. */
-  private set _state(state: SbbOverlayState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.getAttribute('data-state') as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /** Emits whenever the `sbb-toast` starts the opening transition. */
@@ -158,7 +158,7 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
 
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });

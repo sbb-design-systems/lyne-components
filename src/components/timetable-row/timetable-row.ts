@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers';
 import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
+import { readDataNow } from '../core/datetime/data-now';
 import {
   i18nArrival,
   i18nClass,
@@ -259,7 +260,7 @@ export class SbbTimetableRowElement extends LitElement {
   }
 
   private _now(): number {
-    const dataNow = +(this.dataset?.now as string);
+    const dataNow = readDataNow(this);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 

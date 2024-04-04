@@ -9,9 +9,9 @@ import { hostAttributes } from '../../core/decorators';
 import { findReferencedElement, isValidAttribute, SbbScrollHandler } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
-import type { SbbOverlayState } from '../../core/overlay';
 import {
   applyInertMechanism,
   isEventOnElement,
@@ -91,11 +91,11 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   /**
    * The state of the navigation.
    */
-  private set _state(state: SbbOverlayState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.getAttribute('data-state') as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /**
@@ -366,7 +366,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-navigation-${nextId++}`;
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });
     // Validate trigger element and attach event listeners
