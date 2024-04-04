@@ -7,13 +7,10 @@ import {
 } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import {
-  LanguageController,
-  NamedSlotStateController,
-  UpdateScheduler,
-} from '../../core/common-behaviors';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import { SbbCheckboxCommonElementMixin, type SbbCheckboxStateChange } from '../common';
 import commonStyle from '../common/checkbox-common.scss?lit&inline';
@@ -34,7 +31,7 @@ import style from './checkbox-panel.scss?lit&inline';
  */
 @customElement('sbb-checkbox-panel')
 export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
-  UpdateScheduler(LitElement),
+  SbbUpdateSchedulerMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = [commonStyle, style];
   public static readonly events = {
@@ -65,7 +62,7 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
   @state() private _selectionPanelExpandedLabel!: string;
 
   private _selectionPanelElement: SbbSelectionPanelElement | null = null;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal
@@ -80,7 +77,7 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {
