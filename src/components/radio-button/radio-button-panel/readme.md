@@ -1,4 +1,4 @@
-The `sbb-radio-button-panel` component provides the same functionality as a native `<input type="radio"/>` enhanced with the selection panel design and functionalities. Use multiple `sbb-radio-button-panel` components inside a [sbb-radio-button-group](/docs components-sbb-radio-button-sbb-radio-button-group--docs) component in order to display a radio input within a group.
+The `sbb-radio-button-panel` component provides the same functionality as a native `<input type="radio"/>` enhanced with the selection panel design and functionalities. Use multiple `sbb-radio-button-panel` components inside a [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs) component in order to display a radio input within a group.
 
 ```html
 <sbb-radio-button-group value="Value one" aria-label="Radio group label">
