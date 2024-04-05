@@ -32,3 +32,13 @@ snapshots["sbb-radio-button-group A11y tree Chrome"] =
 `;
 /* end snapshot sbb-radio-button-group A11y tree Chrome */
 
+snapshots["sbb-radio-button-group A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-radio-button-group A11y tree Firefox */
+

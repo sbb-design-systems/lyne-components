@@ -98,3 +98,19 @@ snapshots["sbb-radio-button-panel A11y tree Chrome"] =
 `;
 /* end snapshot sbb-radio-button-panel A11y tree Chrome */
 
+snapshots["sbb-radio-button-panel A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "Label Suffix Subtext"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-radio-button-panel A11y tree Firefox */
+

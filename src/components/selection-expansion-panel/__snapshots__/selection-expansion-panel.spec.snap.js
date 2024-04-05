@@ -237,3 +237,31 @@ snapshots["sbb-selection-expansion-panel A11y tree Chrome"] =
 `;
 /* end snapshot sbb-selection-expansion-panel A11y tree Chrome */
 
+snapshots["sbb-selection-expansion-panel A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "%"
+    },
+    {
+      "role": "text leaf",
+      "name": "from CHF"
+    },
+    {
+      "role": "text leaf",
+      "name": "19.99"
+    },
+    {
+      "role": "checkbox",
+      "name": "​ Value one Suffix Subtext , collapsed"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-selection-expansion-panel A11y tree Firefox */
+
