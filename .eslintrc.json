@@ -11,6 +11,11 @@
   "parserOptions": {
     "ecmaVersion": 2020
   },
+  "settings": {
+    "import/resolver": {
+      "typescript": true
+    }
+  },
   "overrides": [
     {
       "files": ["*.js"],
@@ -84,8 +89,6 @@
           }
         ],
         "@typescript-eslint/no-use-before-define": "error",
-        // TODO: Remove this after fixing issues
-        "@typescript-eslint/no-var-requires": "off",
         // TODO: Evaluate this rule
         "@typescript-eslint/semi": "error",
 
