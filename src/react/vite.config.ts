@@ -6,8 +6,8 @@ import {
   generateReactWrappers,
   isProdBuild,
   packageJsonTemplate,
-} from '../../tools/vite';
-import rootConfig from '../../vite.config';
+} from '../../tools/vite/index.js';
+import rootConfig from '../../vite.config.js';
 
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{

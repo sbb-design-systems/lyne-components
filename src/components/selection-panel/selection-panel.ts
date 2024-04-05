@@ -2,15 +2,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbCheckboxElement } from '../checkbox';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers';
-import { EventEmitter } from '../core/eventing';
-import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces';
-import type { SbbRadioButtonElement } from '../radio-button';
+import type { SbbCheckboxElement } from '../checkbox/index.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers/index.js';
+import { EventEmitter } from '../core/eventing/index.js';
+import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces/index.js';
+import type { SbbRadioButtonElement } from '../radio-button/index.js';
 
 import style from './selection-panel.scss?lit&inline';
 
-import '../divider';
+import '../divider/index.js';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.

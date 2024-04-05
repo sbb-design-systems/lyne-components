@@ -1,3 +1,3 @@
-export * from './connected-abort-controller';
-export * from './language-controller';
-export * from './slot-state-controller';
+export * from './connected-abort-controller.js';
+export * from './language-controller.js';
+export * from './slot-state-controller.js';

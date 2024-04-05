@@ -12,8 +12,8 @@ import {
   isProdBuild,
   packageJsonTemplate,
   typography,
-} from '../../tools/vite';
-import rootConfig from '../../vite.config';
+} from '../../tools/vite/index.js';
+import rootConfig from '../../vite.config.js';
 
 const packageRoot = new URL('.', import.meta.url);
 // Include all directories containing an index.ts

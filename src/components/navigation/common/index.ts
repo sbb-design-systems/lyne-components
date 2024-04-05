@@ -1,1 +1,1 @@
-export * from './navigation-action-common';
+export * from './navigation-action-common.js';

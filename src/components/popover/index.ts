@@ -1,2 +1,2 @@
-export * from './popover';
-export * from './popover-trigger';
+export * from './popover/index.js';
+export * from './popover-trigger/index.js';

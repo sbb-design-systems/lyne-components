@@ -1,4 +1,4 @@
-import { isBrowser } from './platform';
+import { isBrowser } from './platform.js';
 
 /**
  * Looks for the closest element matching the given selector starting from the given element.

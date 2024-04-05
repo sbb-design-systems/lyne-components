@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { EventSpy, waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbTeaserElement } from './teaser';
+import { SbbTeaserElement } from './teaser.js';
 
 describe(`sbb-teaser with ${fixture.name}`, () => {
   let element: SbbTeaserElement;

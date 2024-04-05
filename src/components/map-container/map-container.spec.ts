@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
 
-import type { SbbMapContainerElement } from './map-container';
+import type { SbbMapContainerElement } from './map-container.js';
 
-import './map-container';
+import './map-container.js';
 
 describe(`sbb-map-container`, () => {
   let element: SbbMapContainerElement;

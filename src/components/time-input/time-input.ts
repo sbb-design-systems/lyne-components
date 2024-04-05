@@ -3,11 +3,11 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbLanguageController } from '../core/controllers';
-import { findInput, isValidAttribute } from '../core/dom';
-import { EventEmitter, forwardEventToHost } from '../core/eventing';
-import { i18nTimeInputChange } from '../core/i18n';
-import type { SbbDateLike, SbbValidationChangeEvent } from '../core/interfaces';
+import { SbbLanguageController } from '../core/controllers/index.js';
+import { findInput, isValidAttribute } from '../core/dom/index.js';
+import { EventEmitter, forwardEventToHost } from '../core/eventing/index.js';
+import { i18nTimeInputChange } from '../core/i18n/index.js';
+import type { SbbDateLike, SbbValidationChangeEvent } from '../core/interfaces/index.js';
 
 import style from './time-input.scss?lit&inline';
 

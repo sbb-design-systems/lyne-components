@@ -1,2 +1,2 @@
-export * from './container';
-export * from './sticky-bar';
+export * from './container/index.js';
+export * from './sticky-bar/index.js';

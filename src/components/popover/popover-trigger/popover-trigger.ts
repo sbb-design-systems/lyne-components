@@ -1,10 +1,10 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements';
-import { hostContext, isValidAttribute } from '../../core/dom';
-import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins';
-import { SbbIconNameMixin } from '../../icon';
+import { SbbButtonBaseElement } from '../../core/base-elements/index.js';
+import { hostContext, isValidAttribute } from '../../core/dom/index.js';
+import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins/index.js';
+import { SbbIconNameMixin } from '../../icon/index.js';
 
 import style from './popover-trigger.scss?lit&inline';
 

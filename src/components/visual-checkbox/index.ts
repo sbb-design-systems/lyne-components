@@ -1,1 +1,1 @@
-export * from './visual-checkbox';
+export * from './visual-checkbox.js';

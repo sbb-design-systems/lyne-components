@@ -5,11 +5,11 @@ import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './toggle';
-import '../toggle-option';
+import './toggle.js';
+import '../toggle-option/index.js';
 
 const disabled: InputType = {
   control: {

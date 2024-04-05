@@ -3,7 +3,7 @@ import { join } from 'path';
 
 import type { PluginOption, ResolvedConfig } from 'vite';
 
-import { root } from './build-meta';
+import { root } from './build-meta.js';
 
 export function packageJsonTemplate(
   options: { exports?: Record<string, Record<string, unknown>> } = {},

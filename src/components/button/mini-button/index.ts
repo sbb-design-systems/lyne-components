@@ -1,1 +1,1 @@
-export * from './mini-button';
+export * from './mini-button.js';

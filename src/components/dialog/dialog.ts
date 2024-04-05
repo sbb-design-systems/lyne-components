@@ -4,23 +4,23 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbFocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
-import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
-import { hostContext, isValidAttribute, SbbScrollHandler } from '../core/dom';
-import { EventEmitter } from '../core/eventing';
-import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
-import type { SbbOpenedClosedState } from '../core/interfaces';
-import { SbbNegativeMixin } from '../core/mixins';
-import { AgnosticResizeObserver } from '../core/observers';
-import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
-import type { SbbTitleLevel } from '../title';
+import { SbbFocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y/index.js';
+import { SbbLanguageController, SbbSlotStateController } from '../core/controllers/index.js';
+import { hostContext, isValidAttribute, SbbScrollHandler } from '../core/dom/index.js';
+import { EventEmitter } from '../core/eventing/index.js';
+import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n/index.js';
+import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
+import { SbbNegativeMixin } from '../core/mixins/index.js';
+import { AgnosticResizeObserver } from '../core/observers/index.js';
+import { applyInertMechanism, removeInertMechanism } from '../core/overlay/index.js';
+import type { SbbTitleLevel } from '../title/index.js';
 
 import style from './dialog.scss?lit&inline';
 
-import '../button/secondary-button';
-import '../button/transparent-button';
-import '../screen-reader-only';
-import '../title';
+import '../button/secondary-button/index.js';
+import '../button/transparent-button/index.js';
+import '../screen-reader-only/index.js';
+import '../title/index.js';
 
 // A global collection of existing dialogs
 const dialogRefs: SbbDialogElement[] = [];

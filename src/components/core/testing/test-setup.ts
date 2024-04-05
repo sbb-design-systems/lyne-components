@@ -1,8 +1,8 @@
-import { sbbInputModalityDetector } from '../a11y';
-import type { SbbIconConfig } from '../config';
-import { mergeConfig } from '../config';
+import { sbbInputModalityDetector } from '../a11y/index.js';
+import type { SbbIconConfig } from '../config/index.js';
+import { mergeConfig } from '../config/index.js';
 
-import { isHydratedSsr } from './platform';
+import { isHydratedSsr } from './platform.js';
 
 function setupIconConfig(): void {
   const testNamespaces = ['default', 'picto'];

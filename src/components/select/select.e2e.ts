@@ -2,11 +2,11 @@ import { aTimeout, assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { fixture } from '../core/testing/private';
-import { SbbOptionElement } from '../option';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
+import { SbbOptionElement } from '../option/index.js';
 
-import { SbbSelectElement } from './select';
+import { SbbSelectElement } from './select.js';
 
 describe(`sbb-select with ${fixture.name}`, () => {
   let element: SbbSelectElement,

@@ -4,13 +4,13 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { i18nDateChangedTo } from '../../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture, typeInElement } from '../../core/testing/private';
+import { i18nDateChangedTo } from '../../core/i18n/index.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture, typeInElement } from '../../core/testing/private/index.js';
 
-import { SbbDatepickerElement } from './datepicker';
+import { SbbDatepickerElement } from './datepicker.js';
 
-import '../../form-field';
+import '../../form-field/index.js';
 
 describe(`sbb-datepicker with ${fixture.name}`, () => {
   it('renders', async () => {

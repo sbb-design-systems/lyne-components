@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbIconElement } from '../../icon';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbIconElement } from '../../icon/index.js';
 
-import { SbbTrainWagonElement } from './train-wagon';
+import { SbbTrainWagonElement } from './train-wagon.js';
 
 describe(`sbb-train-wagon with ${fixture.name}`, () => {
   let element: SbbTrainWagonElement;

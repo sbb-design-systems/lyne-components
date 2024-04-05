@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
-import type { PtRideLeg } from '../core/timetable';
+import { waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
+import type { PtRideLeg } from '../core/timetable/index.js';
 
-import type { SbbPearlChainElement } from './pearl-chain';
+import type { SbbPearlChainElement } from './pearl-chain.js';
 
-import './pearl-chain';
+import './pearl-chain.js';
 
 describe(`sbb-pearl-chain`, () => {
   describe('sbb-pearl-chain with one leg', () => {

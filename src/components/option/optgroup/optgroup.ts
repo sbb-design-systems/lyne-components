@@ -2,15 +2,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators';
-import { isSafari, isValidAttribute } from '../../core/dom';
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins';
-import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbOptionElement } from '../option';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { isSafari, isValidAttribute } from '../../core/dom/index.js';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins/index.js';
+import { AgnosticMutationObserver } from '../../core/observers/index.js';
+import type { SbbOptionElement } from '../option/index.js';
 
 import style from './optgroup.scss?lit&inline';
 
-import '../../divider';
+import '../../divider/index.js';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.

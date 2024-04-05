@@ -1,10 +1,10 @@
 import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../decorators';
-import { isEventPrevented } from '../eventing';
+import { hostAttributes } from '../decorators/index.js';
+import { isEventPrevented } from '../eventing/index.js';
 
-import { SbbActionBaseElement } from './action-base-element';
+import { SbbActionBaseElement } from './action-base-element.js';
 
 /** Enumeration for type attribute in <button> HTML tag. */
 export type SbbButtonType = 'button' | 'reset' | 'submit';

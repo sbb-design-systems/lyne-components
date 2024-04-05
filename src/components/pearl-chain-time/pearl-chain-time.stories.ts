@@ -4,11 +4,11 @@ import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.js';
 
 import readme from './readme.md?raw';
-import './pearl-chain-time';
+import './pearl-chain-time.js';
 
 const departureWalk: InputType = {
   control: {

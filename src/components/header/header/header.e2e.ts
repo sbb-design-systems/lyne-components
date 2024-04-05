@@ -2,13 +2,18 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import { SbbMenuElement } from '../../menu';
-import type { SbbHeaderButtonElement } from '../header-button';
+import {
+  EventSpy,
+  waitForLitRender,
+  mockScrollTo,
+  waitForCondition,
+} from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import { SbbMenuElement } from '../../menu/index.js';
+import type { SbbHeaderButtonElement } from '../header-button/index.js';
 
-import { SbbHeaderElement } from './header';
-import '../header-button';
+import { SbbHeaderElement } from './header.js';
+import '../header-button/index.js';
 
 describe(`sbb-header with ${fixture.name}`, () => {
   let element: SbbHeaderElement;

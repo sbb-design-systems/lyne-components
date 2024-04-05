@@ -7,9 +7,9 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../../core/controllers';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
-import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
+import { SbbSlotStateController } from '../../core/controllers/index.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
+import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index.js';
 
 import style from './navigation-list.scss?lit&inline';
 

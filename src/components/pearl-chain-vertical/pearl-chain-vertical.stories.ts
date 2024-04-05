@@ -5,9 +5,9 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import './pearl-chain-vertical';
-import '../pearl-chain-vertical-item';
-import '../icon';
+import './pearl-chain-vertical.js';
+import '../pearl-chain-vertical-item/index.js';
+import '../icon/index.js';
 
 const lineType: InputType = {
   options: ['dotted', 'standard', 'thin'],

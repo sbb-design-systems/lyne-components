@@ -2,17 +2,17 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements';
-import { SbbConnectedAbortController } from '../../core/controllers';
-import type { AbstractConstructor } from '../../core/mixins';
-import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationLinkElement } from '../navigation-link';
-import type { SbbNavigationMarkerElement } from '../navigation-marker';
-import type { SbbNavigationSectionElement } from '../navigation-section';
+import type { SbbActionBaseElement } from '../../core/base-elements/index.js';
+import { SbbConnectedAbortController } from '../../core/controllers/index.js';
+import type { AbstractConstructor } from '../../core/mixins/index.js';
+import type { SbbNavigationButtonElement } from '../navigation-button/index.js';
+import type { SbbNavigationLinkElement } from '../navigation-link/index.js';
+import type { SbbNavigationMarkerElement } from '../navigation-marker/index.js';
+import type { SbbNavigationSectionElement } from '../navigation-section/index.js';
 
 import style from './navigation-action.scss?lit&inline';
 
-import '../../icon';
+import '../../icon/index.js';
 
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
 

@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
 
-import './loading-indicator';
+import './loading-indicator.js';
 
 describe(`sbb-loading-indicator`, () => {
   it('renders with variant `window`', async () => {

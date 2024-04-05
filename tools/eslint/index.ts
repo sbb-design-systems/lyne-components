@@ -1,7 +1,7 @@
-import * as customElementClassName from './custom-element-class-name-rule';
-import * as customElementDecoratorPosition from './custom-element-decorator-position-rule';
-import * as importExtensionRule from './import-extension-rule';
-import * as missingComponentDocumentation from './missing-component-documentation-rule';
+import * as customElementClassName from './custom-element-class-name-rule.js';
+import * as customElementDecoratorPosition from './custom-element-decorator-position-rule.js';
+import * as importExtensionRule from './import-extension-rule.js';
+import * as missingComponentDocumentation from './missing-component-documentation-rule.js';
 
 export default {
   rules: {

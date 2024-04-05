@@ -1,1 +1,1 @@
-export * from './selection-panel';
+export * from './selection-panel.js';

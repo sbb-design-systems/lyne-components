@@ -1,1 +1,1 @@
-export * from './overlay';
+export * from './overlay.js';

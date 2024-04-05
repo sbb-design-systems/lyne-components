@@ -2,12 +2,12 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements';
-import type { SbbIconPlacement } from '../../core/interfaces';
-import type { AbstractConstructor } from '../../core/mixins';
-import { SbbIconNameMixin } from '../../icon';
+import type { SbbActionBaseElement } from '../../core/base-elements/index.js';
+import type { SbbIconPlacement } from '../../core/interfaces/index.js';
+import type { AbstractConstructor } from '../../core/mixins/index.js';
+import { SbbIconNameMixin } from '../../icon/index.js';
 
-import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common';
+import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common.js';
 // eslint-disable-next-line import/order
 import blockStyle from './block-link.scss?lit&inline';
 import style from './link.scss?lit&inline';

@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { waitForCondition, EventSpy } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbAlertElement } from './alert';
+import { SbbAlertElement } from './alert.js';
 
 describe(`sbb-alert with ${fixture.name}`, () => {
   let alert: SbbAlertElement;

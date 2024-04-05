@@ -5,7 +5,7 @@ import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import {
@@ -26,8 +26,8 @@ import {
   skippedArrivalStopTrip,
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
-} from './timetable-row.sample-data';
-import './timetable-row';
+} from './timetable-row.sample-data.js';
+import './timetable-row.js';
 
 const cardActionLabel: InputType = {
   control: {

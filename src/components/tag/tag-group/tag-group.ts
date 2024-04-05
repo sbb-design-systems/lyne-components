@@ -8,8 +8,8 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
-import type { SbbTagElement } from '../tag';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
+import type { SbbTagElement } from '../tag/index.js';
 
 import style from './tag-group.scss?lit&inline';
 

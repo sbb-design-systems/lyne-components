@@ -2,19 +2,22 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button';
+import type {
+  SbbTransparentButtonElement,
+  SbbTransparentButtonLinkElement,
+} from '../button/index.js';
 import {
   SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
-} from '../core/controllers';
-import { isFirefox, isValidAttribute } from '../core/dom';
-import { composedPathHasAttribute, EventEmitter } from '../core/eventing';
-import { i18nCloseAlert } from '../core/i18n';
-import type { SbbOpenedClosedState } from '../core/interfaces';
-import { SbbIconNameMixin } from '../icon';
-import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link';
-import '../button/transparent-button';
+} from '../core/controllers/index.js';
+import { isFirefox, isValidAttribute } from '../core/dom/index.js';
+import { composedPathHasAttribute, EventEmitter } from '../core/eventing/index.js';
+import { i18nCloseAlert } from '../core/i18n/index.js';
+import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
+import { SbbIconNameMixin } from '../icon/index.js';
+import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link/index.js';
+import '../button/transparent-button/index.js';
 
 import style from './toast.scss?lit&inline';
 

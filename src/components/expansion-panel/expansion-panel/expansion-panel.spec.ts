@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import type { SbbExpansionPanelElement } from './expansion-panel';
+import type { SbbExpansionPanelElement } from './expansion-panel.js';
 
-import './expansion-panel';
-import '../expansion-panel-header';
-import '../expansion-panel-content';
+import './expansion-panel.js';
+import '../expansion-panel-header/index.js';
+import '../expansion-panel-content/index.js';
 
 describe(`sbb-expansion-panel`, () => {
   describe('renders', () => {

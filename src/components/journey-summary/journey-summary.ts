@@ -3,23 +3,23 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers';
+import { SbbLanguageController } from '../core/controllers/index.js';
+import { readDataNow } from '../core/datetime/data-now.js';
 import {
   defaultDateAdapter,
   durationToTime,
   removeTimezoneFromISOTimeString,
-} from '../core/datetime';
-import { readDataNow } from '../core/datetime/data-now';
-import { i18nTripDuration } from '../core/i18n';
-import type { Leg } from '../core/timetable';
-import type { SbbTitleLevel } from '../title';
+} from '../core/datetime/index.js';
+import { i18nTripDuration } from '../core/i18n/index.js';
+import type { Leg } from '../core/timetable/index.js';
+import type { SbbTitleLevel } from '../title/index.js';
 
 import style from './journey-summary.scss?lit&inline';
 
-import '../divider';
-import '../journey-header';
-import '../pearl-chain-time';
-import '../screen-reader-only';
+import '../divider/index.js';
+import '../journey-header/index.js';
+import '../pearl-chain-time/index.js';
+import '../screen-reader-only/index.js';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];

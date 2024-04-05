@@ -1,9 +1,13 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbActionBaseElement } from '../../core/base-elements';
-import { SbbDisabledMixin } from '../../core/mixins';
-import { buttonCommonStyle, buttonTransparentStyle, SbbButtonCommonElementMixin } from '../common';
+import { SbbActionBaseElement } from '../../core/base-elements/index.js';
+import { SbbDisabledMixin } from '../../core/mixins/index.js';
+import {
+  buttonCommonStyle,
+  buttonTransparentStyle,
+  SbbButtonCommonElementMixin,
+} from '../common/index.js';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'transparent' variant.

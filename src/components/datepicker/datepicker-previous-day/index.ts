@@ -1,1 +1,1 @@
-export * from './datepicker-previous-day';
+export * from './datepicker-previous-day.js';

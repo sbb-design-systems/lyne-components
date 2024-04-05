@@ -9,17 +9,17 @@ import {
   IS_FOCUSABLE_QUERY,
   isArrowKeyPressed,
   setModalityOnNextFocus,
-} from '../../core/a11y';
-import { SbbConnectedAbortController } from '../../core/controllers';
+} from '../../core/a11y/index.js';
+import { SbbConnectedAbortController } from '../../core/controllers/index.js';
 import {
   findReferencedElement,
   isBreakpoint,
   isValidAttribute,
   SbbScrollHandler,
-} from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
-import type { SbbOpenedClosedState } from '../../core/interfaces';
-import { SbbNamedSlotListMixin } from '../../core/mixins';
+} from '../../core/dom/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
+import { SbbNamedSlotListMixin } from '../../core/mixins/index.js';
 import {
   applyInertMechanism,
   getElementPosition,
@@ -27,8 +27,8 @@ import {
   removeAriaOverlayTriggerAttributes,
   removeInertMechanism,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay';
-import type { SbbMenuButtonElement, SbbMenuLinkElement } from '../index';
+} from '../../core/overlay/index.js';
+import type { SbbMenuButtonElement, SbbMenuLinkElement } from '../index.js';
 
 import style from './menu.scss?lit&inline';
 

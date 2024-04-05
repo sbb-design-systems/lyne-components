@@ -1,14 +1,14 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { mergeConfig, type SbbIconConfig } from '../core/config';
-import { readConfig } from '../core/config';
-import { waitForLitRender } from '../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { mergeConfig, type SbbIconConfig } from '../core/config/index.js';
+import { readConfig } from '../core/config/index.js';
+import { waitForLitRender } from '../core/testing/index.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
 
-import type { SbbIconElement } from './icon';
+import type { SbbIconElement } from './icon.js';
 
-import './icon';
+import './icon.js';
 
 describe(`sbb-icon`, () => {
   let iconConfig: SbbIconConfig;

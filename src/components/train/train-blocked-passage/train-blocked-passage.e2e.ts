@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbTrainBlockedPassageElement } from './train-blocked-passage';
+import { SbbTrainBlockedPassageElement } from './train-blocked-passage.js';
 
 describe(`sbb-train-blocked-passage with ${fixture.name}`, () => {
   let element: SbbTrainBlockedPassageElement;

@@ -12,11 +12,11 @@ import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
-import '../../form-field';
-import '../../autocomplete';
-import '../../select';
-import '../option';
-import './optgroup';
+import '../../form-field/index.js';
+import '../../autocomplete/index.js';
+import '../../select/index.js';
+import '../option/index.js';
+import './optgroup.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

@@ -1,1 +1,1 @@
-export * from './toggle-check';
+export * from './toggle-check.js';

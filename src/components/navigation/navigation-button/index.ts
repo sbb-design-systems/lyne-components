@@ -1,1 +1,1 @@
-export * from './navigation-button';
+export * from './navigation-button.js';

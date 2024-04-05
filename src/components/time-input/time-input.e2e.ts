@@ -3,14 +3,14 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { i18nTimeInputChange } from '../core/i18n';
-import type { SbbValidationChangeEvent } from '../core/interfaces';
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { clearElement, fixture, typeInElement } from '../core/testing/private';
+import { i18nTimeInputChange } from '../core/i18n/index.js';
+import type { SbbValidationChangeEvent } from '../core/interfaces/index.js';
+import { EventSpy, waitForLitRender } from '../core/testing/index.js';
+import { clearElement, fixture, typeInElement } from '../core/testing/private/index.js';
 
-import { SbbTimeInputElement } from './time-input';
+import { SbbTimeInputElement } from './time-input.js';
 
-import '../form-field/form-field';
+import '../form-field/form-field/index.js';
 
 describe(`sbb-time-input with ${fixture.name}`, () => {
   let element: SbbTimeInputElement, input: HTMLInputElement;

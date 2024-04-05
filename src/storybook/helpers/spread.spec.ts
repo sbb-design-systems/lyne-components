@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { html, LitElement, render } from 'lit';
 
-import { sbbSpread } from './spread';
+import { sbbSpread } from './spread.js';
 
 class SpreadDirectiveTestOnlyElement extends LitElement {
   public static override get properties(): Record<string, any> {

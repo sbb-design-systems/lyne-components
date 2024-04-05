@@ -1,3 +1,3 @@
-export * from './access-leg-helper';
-export * from './timetable-helper';
-export * from './timetable-properties';
+export * from './access-leg-helper.js';
+export * from './timetable-helper.js';
+export * from './timetable-properties.js';

@@ -1,1 +1,1 @@
-export * from './form-field-clear';
+export * from './form-field-clear.js';

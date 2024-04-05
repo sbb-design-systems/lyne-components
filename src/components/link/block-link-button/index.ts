@@ -1,1 +1,1 @@
-export * from './block-link-button';
+export * from './block-link-button.js';

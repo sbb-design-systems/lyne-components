@@ -1,7 +1,7 @@
 import type { PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbIconBase } from './icon-base';
+import { SbbIconBase } from './icon-base.js';
 
 /**
  * It displays an icon loaded from a registered namespace.

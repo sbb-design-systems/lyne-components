@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private/index.js';
 
-import './train-formation';
-import '../train';
-import '../train-wagon';
+import './train-formation.js';
+import '../train/index.js';
+import '../train-wagon/index.js';
 
 describe(`sbb-train-formation`, () => {
   it('should render with one train', async () => {

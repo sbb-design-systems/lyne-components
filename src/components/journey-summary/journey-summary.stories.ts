@@ -5,19 +5,19 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 import {
   futureLeg,
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../pearl-chain/pearl-chain.sample-data';
+} from '../pearl-chain/pearl-chain.sample-data.js';
 
 import readme from './readme.md?raw';
 
-import './journey-summary';
-import '../button/button';
-import '../button/secondary-button';
+import './journey-summary.js';
+import '../button/button/index.js';
+import '../button/secondary-button/index.js';
 
 const disableAnimation: InputType = {
   control: {

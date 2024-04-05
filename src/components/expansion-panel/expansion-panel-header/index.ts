@@ -1,1 +1,1 @@
-export * from './expansion-panel-header';
+export * from './expansion-panel-header.js';

@@ -1,1 +1,1 @@
-export * from './signet';
+export * from './signet.js';

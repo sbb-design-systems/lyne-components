@@ -1,1 +1,1 @@
-export * from './menu-link';
+export * from './menu-link.js';

@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import type { SbbCardBadgeElement } from './card-badge';
+import type { SbbCardBadgeElement } from './card-badge.js';
 
-import './card-badge';
+import './card-badge.js';
 
 describe(`sbb-card-badge`, () => {
   let element: SbbCardBadgeElement;

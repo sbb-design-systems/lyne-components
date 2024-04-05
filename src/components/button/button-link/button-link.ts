@@ -1,9 +1,13 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbLinkBaseElement } from '../../core/base-elements';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins';
-import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } from '../common';
+import { SbbLinkBaseElement } from '../../core/base-elements/index.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins/index.js';
+import {
+  buttonCommonStyle,
+  buttonPrimaryStyle,
+  SbbButtonCommonElementMixin,
+} from '../common/index.js';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'primary' variant, which will behave as a link.

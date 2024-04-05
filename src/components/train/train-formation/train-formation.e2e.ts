@@ -1,15 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbTrainElement } from '../train';
-import type { SbbTrainWagonElement } from '../train-wagon';
+import { waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbTrainElement } from '../train/index.js';
+import type { SbbTrainWagonElement } from '../train-wagon/index.js';
 
-import { SbbTrainFormationElement } from './train-formation';
-import '../train';
-import '../train-wagon';
-import '../train-blocked-passage';
+import { SbbTrainFormationElement } from './train-formation.js';
+import '../train/index.js';
+import '../train-wagon/index.js';
+import '../train-blocked-passage/index.js';
 
 function extractAggregatedSectors(element: SbbTrainFormationElement): Record<string, string>[] {
   return Array.from(

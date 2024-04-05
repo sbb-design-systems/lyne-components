@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { EventSpy, waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbSliderElement } from './slider';
+import { SbbSliderElement } from './slider.js';
 
 const keyboardPressTimes = async (
   slider: SbbSliderElement,
