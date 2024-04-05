@@ -6,7 +6,7 @@ import { EventEmitter } from '../../core/eventing/index.js';
 import { SbbCheckboxCommonElementMixin } from '../common';
 import commonStyle from '../common/checkbox-common.scss?lit&inline';
 
-import style from './checkbox.scss?lit&inline';
+import { checkboxStyle } from '../common';
 
 import '../../screen-reader-only/index.js';
 import '../../visual-checkbox/index.js';
@@ -24,7 +24,7 @@ export type SbbCheckboxSize = 's' | 'm';
  */
 @customElement('sbb-checkbox')
 export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = [commonStyle, style];
+  public static override styles: CSSResultGroup = [commonStyle, checkboxStyle];
   public static readonly events = {
     didChange: 'didChange',
     checkboxLoaded: 'checkboxLoaded',

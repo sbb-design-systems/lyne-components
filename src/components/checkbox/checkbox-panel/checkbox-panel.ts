@@ -12,13 +12,16 @@ import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel';
-import { SbbCheckboxCommonElementMixin, type SbbCheckboxStateChange } from '../common';
-import commonStyle from '../common/checkbox-common.scss?lit&inline';
+import {
+  SbbCheckboxCommonElementMixin,
+  checkboxPanelStyle,
+  commonStyle,
+  type SbbCheckboxStateChange,
+} from '../common';
 
-import '../../visual-checkbox';
 import '../../screen-reader-only';
+import '../../visual-checkbox';
 
-import style from './checkbox-panel.scss?lit&inline';
 /**
  * Describe the purpose of the component with a single short sentence.
  *
@@ -33,7 +36,7 @@ import style from './checkbox-panel.scss?lit&inline';
 export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
   SbbUpdateSchedulerMixin(LitElement),
 ) {
-  public static override styles: CSSResultGroup = [commonStyle, style];
+  public static override styles: CSSResultGroup = [commonStyle, checkboxPanelStyle];
   public static readonly events = {
     didChange: 'didChange',
     stateChange: 'stateChange',

@@ -13,7 +13,9 @@ import {
 import { SbbRadioButtonCommonElementMixin, type SbbRadioButtonStateChange } from '../common';
 import commonStyle from '../common/radio-button-common.scss?lit&inline';
 
-import style from './radio-button.scss?lit&inline';
+import {
+  radioButtonStyle
+} from '../common';
 
 export type SbbRadioButtonSize = 's' | 'm';
 
@@ -24,7 +26,7 @@ export type SbbRadioButtonSize = 's' | 'm';
  */
 @customElement('sbb-radio-button')
 export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = [commonStyle, style];
+  public static override styles: CSSResultGroup = [commonStyle, radioButtonStyle];
   public static readonly events = {
     stateChange: 'stateChange',
   } as const;

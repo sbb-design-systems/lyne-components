@@ -7,12 +7,14 @@ import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins';
 import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel';
-import { SbbRadioButtonCommonElementMixin, type SbbRadioButtonStateChange } from '../common';
-import commonStyle from '../common/radio-button-common.scss?lit&inline';
+import {
+  SbbRadioButtonCommonElementMixin,
+  commonStyle,
+  radioButtonPanelStyle,
+  type SbbRadioButtonStateChange,
+} from '../common';
 
 import '../../screen-reader-only';
-
-import style from './radio-button-panel.scss?lit&inline';
 
 /**
  /**
@@ -26,7 +28,7 @@ import style from './radio-button-panel.scss?lit&inline';
 export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin(
   SbbUpdateSchedulerMixin(LitElement),
 ) {
-  public static override styles: CSSResultGroup = [commonStyle, style];
+  public static override styles: CSSResultGroup = [commonStyle, radioButtonPanelStyle];
   public static readonly events = {
     stateChange: 'stateChange',
     radioButtonLoaded: 'radioButtonLoaded',
