@@ -151,10 +151,6 @@ export class SbbOptionElement extends SbbOptionBaseElement {
       ? html`<sbb-icon name="tick-small"></sbb-icon>`
       : nothing;
   }
-
-  protected override render(): TemplateResult {
-    return super.render();
-  }
 }
 
 declare global {

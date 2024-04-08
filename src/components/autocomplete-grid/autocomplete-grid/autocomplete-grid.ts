@@ -1,8 +1,8 @@
-import { nothing, type TemplateResult } from 'lit';
+import { nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { getNextElementIndex } from '../../core/a11y';
-import { SbbAutocompleteBaseElement } from '../../core/base-elements/autocomplete-base-element';
+import { SbbAutocompleteBaseElement } from '../../core/base-elements';
 import { hostAttributes } from '../../core/decorators';
 import { getDocumentWritingMode, isSafari } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
@@ -122,6 +122,9 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    if (ariaRoleOnHost) {
+      this.id ||= this.overlayId;
+    }
     const signal = this.abort.signal;
     this.addEventListener(
       'autocompleteOptionSelectionChange',
@@ -271,10 +274,6 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
 
   protected setRoleOnInnerPanel(): string | typeof nothing {
     return !ariaRoleOnHost ? 'grid' : nothing;
-  }
-
-  protected override render(): TemplateResult {
-    return super.render();
   }
 }
 

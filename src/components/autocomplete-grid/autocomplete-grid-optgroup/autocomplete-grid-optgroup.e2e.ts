@@ -6,6 +6,11 @@ import { fixture } from '../../core/testing/private';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
 
 import { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup';
+import '../autocomplete-grid';
+import '../autocomplete-grid-row';
+import '../autocomplete-grid-actions';
+import '../autocomplete-grid-button';
+import '../autocomplete-grid-option';
 
 describe(`sbb-autocomplete-grid-optgroup with ${fixture.name}`, () => {
   let element: SbbAutocompleteGridOptgroupElement;

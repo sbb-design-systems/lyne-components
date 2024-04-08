@@ -1,4 +1,4 @@
-import { nothing, type TemplateResult } from 'lit';
+import { nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
@@ -186,10 +186,6 @@ export class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
 
   protected setRoleOnInnerPanel(): string | typeof nothing {
     return !ariaRoleOnHost ? 'listbox' : nothing;
-  }
-
-  protected override render(): TemplateResult {
-    return super.render();
   }
 }
 

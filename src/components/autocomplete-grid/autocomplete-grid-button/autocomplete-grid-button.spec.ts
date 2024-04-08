@@ -5,6 +5,7 @@ import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button';
+import '../../form-field';
 import '../autocomplete-grid';
 import '../autocomplete-grid-row';
 import '../autocomplete-grid-actions';

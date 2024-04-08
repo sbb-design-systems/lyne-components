@@ -8,6 +8,9 @@ import { SbbFormFieldElement } from '../../form-field';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
 
 import { SbbAutocompleteGridElement } from './autocomplete-grid';
+import '../autocomplete-grid-row';
+import '../autocomplete-grid-actions';
+import '../autocomplete-grid-button';
 
 describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
   let formField: SbbFormFieldElement;

@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid-option default Dom"] = 
 `<sbb-autocomplete-grid-option
-  aria-disabled="false"
   aria-selected="false"
   data-slot-names="unnamed"
   id="sbb-autocomplete-grid-item-1x0"

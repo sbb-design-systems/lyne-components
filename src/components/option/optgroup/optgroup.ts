@@ -1,13 +1,11 @@
-import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import type { SbbAutocompleteElement } from '../../autocomplete.js';
-import { SbbOptgroupBaseElement } from '../../core/base-elements/optgroup-base-element.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { isSafari } from '../../core/dom.js';
 import type { SbbOptionElement } from '../option.js';
 
-import '../../divider.js';
+import { SbbOptgroupBaseElement } from './optgroup-base-element.js';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.
@@ -24,7 +22,6 @@ const inertAriaGroups = isSafari();
 @customElement('sbb-optgroup')
 @hostAttributes({ role: !inertAriaGroups ? 'group' : null })
 export class SbbOptGroupElement extends SbbOptgroupBaseElement {
-
   protected get options(): SbbOptionElement[] {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOptionElement[];
   }
@@ -50,10 +47,6 @@ export class SbbOptGroupElement extends SbbOptgroupBaseElement {
     } else if (this.closest?.('sbb-select')) {
       this.setAttribute('data-variant', 'select');
     }
-  }
-
-  protected override render(): TemplateResult {
-    return super.render();
   }
 }
 

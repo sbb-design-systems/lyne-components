@@ -11,7 +11,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] =
     role="row"
   >
     <sbb-autocomplete-grid-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-item-1x0"
@@ -40,7 +39,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] =
     role="row"
   >
     <sbb-autocomplete-grid-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-item-2x0"
@@ -136,7 +134,6 @@ snapshots["sbb-autocomplete-grid Safari Dom"] =
     role="row"
   >
     <sbb-autocomplete-grid-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-item-1x0"
@@ -165,7 +162,6 @@ snapshots["sbb-autocomplete-grid Safari Dom"] =
     role="row"
   >
     <sbb-autocomplete-grid-option
-      aria-disabled="false"
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-item-2x0"

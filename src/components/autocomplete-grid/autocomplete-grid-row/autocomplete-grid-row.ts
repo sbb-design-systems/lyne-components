@@ -2,7 +2,11 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit'
 import { customElement } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators';
-import type { SbbAutocompleteGridOptionElement, SbbAutocompleteGridActionsElement } from '../index';
+import type { SbbAutocompleteGridActionsElement } from '../autocomplete-grid-actions';
+import {
+  type SbbAutocompleteGridOptionElement,
+  autocompleteGridOptionId,
+} from '../autocomplete-grid-option';
 
 import style from './autocomplete-grid-row.scss?lit&inline';
 
@@ -35,7 +39,8 @@ export class SbbAutocompleteGridRowElement extends LitElement {
     const option = elements.find(
       (e): e is SbbAutocompleteGridOptionElement => e.tagName === 'SBB-AUTOCOMPLETE-GRID-OPTION',
     );
-    if (option && !option.id) {
+    // Overrides default autocomplete id
+    if (option && (!option.id || option.id.includes(autocompleteGridOptionId))) {
       option.setAttribute('id', `sbb-autocomplete-grid-item-${this._rowId}x0`);
     }
 

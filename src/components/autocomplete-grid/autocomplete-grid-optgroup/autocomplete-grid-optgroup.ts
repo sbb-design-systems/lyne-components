@@ -1,11 +1,18 @@
 import { customElement } from 'lit/decorators.js';
 
-import { SbbOptgroupBaseElement } from '../../core/base-elements/optgroup-base-element';
+import { hostAttributes } from '../../core/decorators';
+import { isSafari } from '../../core/dom';
+import { SbbOptgroupBaseElement } from '../../option/optgroup';
 import type { SbbAutocompleteGridElement } from '../autocomplete-grid';
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
 
-import '../../divider';
+/**
+ * On Safari, the groups labels are not read by VoiceOver.
+ * To solve the problem, we remove the role="group" and add a hidden span containing the group name
+ * TODO: We should periodically check if it has been solved and, if so, remove the property.
+ */
+const inertAriaGroups = isSafari();
 
 /**
  * It can be used as a container for one or more `sbb-autocomplete-grid-option`.
@@ -13,6 +20,7 @@ import '../../divider';
  * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-option` elements to the `sbb-autocomplete-grid-optgroup`.
  */
 @customElement('sbb-autocomplete-grid-optgroup')
+@hostAttributes({ role: !inertAriaGroups ? 'group' : null })
 export class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
   protected get options(): SbbAutocompleteGridOptionElement[] {
     return Array.from(

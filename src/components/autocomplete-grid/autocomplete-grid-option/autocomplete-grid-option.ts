@@ -9,6 +9,8 @@ import '../../icon';
 import '../../screen-reader-only';
 import style from './autocomplete-grid-option.scss?lit&inline';
 
+export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
+
 /**
  * It displays an option item which can be used in `sbb-autocomplete-grid`.
  *
@@ -30,7 +32,7 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     optionSelected: 'autocompleteOptionSelected',
   } as const;
 
-  protected optionId = `sbb-autocomplete-grid-option`;
+  protected optionId = autocompleteGridOptionId;
 
   /** Emits when the option selection status changes. */
   protected selectionChange: EventEmitter = new EventEmitter(
@@ -53,6 +55,7 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
         'data-disabled',
         this.disabled || this.disabledFromGroup,
       );
+      this.updateAriaDisabled();
     }
   }
 
