@@ -188,7 +188,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
   private _onSlotLabelChange(): void {
     const labels = Array.from(this.querySelectorAll('label'));
-    if (labels.length > 1) {
+    if (import.meta.env.DEV && labels.length > 1) {
       console.warn(
         `Detected more than one label in sbb-form-field#${this.id}. Only one label is supported.`,
       );

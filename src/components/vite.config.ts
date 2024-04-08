@@ -4,6 +4,7 @@ import { defineConfig, mergeConfig, type UserConfig } from 'vite';
 
 import {
   copyAssets,
+  copySass,
   customElementsManifest,
   distDir,
   dts,
@@ -28,9 +29,9 @@ export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
     root: packageRoot.pathname,
     plugins: [
+      ...(config.command === 'build' ? [dts()] : []),
       ...(isProdBuild(config)
         ? [
-            dts(),
             customElementsManifest(),
             packageJsonTemplate({
               exports: {
@@ -40,7 +41,8 @@ export default defineConfig((config) =>
                 },
               },
             }),
-            copyAssets(['_index.scss', 'core/styles/**/*.scss', '../../README.md']),
+            copyAssets(['_index.scss', '../../README.md']),
+            copySass('core/styles'),
             typography(),
           ]
         : []),
@@ -51,9 +53,11 @@ export default defineConfig((config) =>
         entry: entryPoints,
         formats: ['es'],
       },
-      minify: false,
-      outDir: new URL('./components/', distDir).pathname,
+      minify: isProdBuild(config),
+      outDir: new URL(`./components/${isProdBuild(config) ? '' : 'development/'}`, distDir)
+        .pathname,
       emptyOutDir: true,
+      sourcemap: isProdBuild(config) ? false : 'inline',
       rollupOptions: {
         external: (source: string, importer: string | undefined) => {
           if (

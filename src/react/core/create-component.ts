@@ -19,7 +19,7 @@ import {
 import type React from 'react';
 
 const NODE_MODE = isServer;
-const DEV_MODE = true;
+const DEV_MODE = import.meta.env.DEV;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DistributiveOmit<T, K extends string | number | symbol> = T extends any
