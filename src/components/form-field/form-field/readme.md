@@ -94,6 +94,21 @@ Please refer to their documentation for more details.
 
 ## Style
 
+The component has a `size` property, which accepts three different values: `s`, `m` (default) and `l`.
+
+```html
+<sbb-form-field size="s">
+  <label>Example</label>
+  <input />
+</sbb-form-field>
+
+<sbb-form-field size="l">
+  <label>Example</label>
+  <input required />
+  <sbb-form-error>This field is required!</sbb-form-error>
+</sbb-form-field>
+```
+
 By default, the component has a defined width and min-width. However, this behavior can be overridden by setting
 the `width` property to `collapse`: in this way the component adapts its width to the inner slotted input component.
 This is useful, for example, for the [sbb-time-input](/docs/components-sbb-time-input--docs) component.
@@ -137,7 +152,7 @@ technology will announce errors when they appear.
 | --------------- | ---------------- | ------- | ------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve' \| undefined`                                  | `'none'`    | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
 | `optional`      | `optional`       | public  | `boolean \| undefined`                                              |             | Indicates whether the input is optional.                                                                                                                              |
-| `size`          | `size`           | public  | `'l' \| 'm' \| undefined`                                           | `'m'`       | Size variant, either l or m.                                                                                                                                          |
+| `size`          | `size`           | public  | `'l' \| 'm' \| 's' \| undefined`                                    | `'m'`       | Size variant, either l or m.                                                                                                                                          |
 | `borderless`    | `borderless`     | public  | `boolean`                                                           | `false`     | Whether to display the form field without a border.                                                                                                                   |
 | `width`         | `width`          | public  | `'default' \| 'collapse'`                                           | `'default'` | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 | `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                           | `false`     | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
