@@ -6,7 +6,7 @@ import { DateAdapter, FORMAT_DATE } from './date-adapter';
 /**
  * Matches strings that have the form of a valid RFC 3339 string
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
- * because the regex will match strings an with out of bounds month, date, etc.
+ * because the regex will match strings an without of bounds month, date, etc.
  */
 const ISO_8601_REGEX =
   /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
