@@ -75,7 +75,7 @@
     "@storybook/web-components-vite": "8.0.5",
     "@types/glob": "8.1.0",
     "@types/mocha": "^10.0.4",
-    "@types/node": "20.12.4",
+    "@types/node": "20.12.5",
     "@types/react": "18.2.74",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "7.5.0",
@@ -123,7 +123,7 @@
     "vite-plugin-dts": "3.8.1"
   },
   "resolutions": {
-    "@types/node": "20.12.4",
+    "@types/node": "20.12.5",
     "@webcomponents/template-shadowroot": "0.2.1",
     "jackspeak": "2.1.1",
     "lit": "3.1.2"
