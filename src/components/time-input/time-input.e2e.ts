@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import { i18nTimeInputChange } from '../core/i18n';
-import type { ValidationChangeEvent } from '../core/interfaces';
+import type { SbbValidationChangeEvent } from '../core/interfaces';
 import { EventSpy, waitForLitRender } from '../core/testing';
 import { clearElement, fixture, typeInElement } from '../core/testing/private';
 
@@ -52,7 +52,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
   });
 
   it('should emit validation change event', async () => {
-    const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
+    const validationChangeSpy = new EventSpy<CustomEvent<SbbValidationChangeEvent>>(
       SbbTimeInputElement.events.validationChange,
       element,
     );
@@ -93,7 +93,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
     input.blur();
     await waitForLitRender(element);
 
-    const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
+    const validationChangeSpy = new EventSpy<CustomEvent<SbbValidationChangeEvent>>(
       SbbTimeInputElement.events.validationChange,
       element,
     );

@@ -2,14 +2,12 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
-import {
-  hostAttributes,
-  NamedSlotStateController,
-  SbbDisabledMixin,
-} from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
+import { EventEmitter } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces';
+import { SbbDisabledMixin } from '../../core/mixins';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type {
   SbbRadioButtonElement,
@@ -95,7 +93,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
 
   private _hasSelectionPanel: boolean = false;
   private _didLoad = false;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   private _valueChanged(value: any | undefined): void {
     for (const radio of this.radioButtons) {
@@ -132,7 +130,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

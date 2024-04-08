@@ -1,13 +1,10 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  NamedSlotStateController,
-  SbbButtonBaseElement,
-  SbbDisabledTabIndexActionMixin,
-  SbbIconNameMixin,
-  SbbNegativeMixin,
-} from '../../core/common-behaviors';
+import { SbbButtonBaseElement } from '../../core/base-elements';
+import { SbbSlotStateController } from '../../core/controllers';
+import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins';
+import { SbbIconNameMixin } from '../../icon';
 
 import style from './mini-button.scss?lit&inline';
 
@@ -25,7 +22,7 @@ export class SbbMiniButtonElement extends SbbNegativeMixin(
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override renderTemplate(): TemplateResult {

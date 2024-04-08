@@ -1,6 +1,6 @@
 import type { ReactiveElement } from 'lit';
 
-import type { SbbHydrationMixinType } from '../common-behaviors';
+import type { SbbHydrationMixinType } from '../mixins';
 
 /**
  * Tests if an element is a Lit `ReactiveElement`.

@@ -6,11 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../button';
 import { sbbInputModalityDetector } from '../core/a11y';
-import {
-  LanguageController,
-  NamedSlotStateController,
-  SbbDisabledMixin,
-} from '../core/common-behaviors';
+import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
 import { EventEmitter } from '../core/eventing';
 import {
   i18nFileSelectorButtonLabel,
@@ -18,11 +14,13 @@ import {
   i18nFileSelectorDeleteFile,
   i18nFileSelectorSubtitleLabel,
 } from '../core/i18n';
+import { SbbDisabledMixin } from '../core/mixins';
+
+import style from './file-selector.scss?lit&inline';
+
 import '../button/secondary-button';
 import '../button/secondary-button-static';
 import '../icon';
-
-import style from './file-selector.scss?lit&inline';
 
 export type DOMEvent = globalThis.Event;
 
@@ -91,11 +89,11 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
   private _liveRegion!: HTMLParagraphElement;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   private _blockEvent(event: DragEvent): void {
@@ -144,7 +142,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
 
   private _onBlur(): void {
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this._loadButton.toggleAttribute('data-focus-visible', false);
+      this._loadButton.removeAttribute('data-focus-visible');
     }
   }
 

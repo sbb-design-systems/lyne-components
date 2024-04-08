@@ -1,11 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
-import { setAttribute } from '../core/dom';
+import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
+import type { SbbOpenedClosedState } from '../core/interfaces';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbTitleLevel } from '../title';
 import '../button/secondary-button';
@@ -70,11 +70,16 @@ export class SbbNotificationElement extends LitElement {
   /**
    * The state of the notification.
    */
-  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   private _notificationElement!: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
   private _notificationResizeObserver = new AgnosticResizeObserver(() =>
     this._onNotificationResize(),
   );
@@ -105,7 +110,7 @@ export class SbbNotificationElement extends LitElement {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   private _open(): void {
@@ -124,6 +129,8 @@ export class SbbNotificationElement extends LitElement {
   }
 
   public override connectedCallback(): void {
+    this._state ||= 'closed';
+
     super.connectedCallback();
   }
 
@@ -164,7 +171,7 @@ export class SbbNotificationElement extends LitElement {
 
     // Disable the animation when resizing the notification to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(
-      () => this.toggleAttribute('data-resize-disable-animation', false),
+      () => this.removeAttribute('data-resize-disable-animation'),
       DEBOUNCE_TIME,
     );
   }
@@ -195,8 +202,6 @@ export class SbbNotificationElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-
     return html`
       <div
         class="sbb-notification__wrapper"

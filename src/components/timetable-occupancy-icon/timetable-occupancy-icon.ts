@@ -1,10 +1,10 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
-import { ConnectedAbortController } from '../core/eventing';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers';
 import { i18nOccupancy } from '../core/i18n';
 import type { SbbOccupancy } from '../core/interfaces';
+import { SbbNegativeMixin } from '../core/mixins';
 import { SbbIconBase } from '../icon';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';
@@ -19,8 +19,8 @@ export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBa
   /** Wagon occupancy. */
   @property() public occupancy!: SbbOccupancy;
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
 
   private async _setNameAndAriaLabel(): Promise<void> {
     if (!this.occupancy) {

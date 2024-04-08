@@ -2,17 +2,17 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { LanguageController } from '../../core/common-behaviors';
 import { readConfig } from '../../core/config';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
 import type { DateAdapter } from '../../core/datetime';
 import { defaultDateAdapter } from '../../core/datetime';
+import { readDataNow } from '../../core/datetime/data-now';
 import { findInput, findReferencedElement, isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
-import type { SbbDateLike, ValidationChangeEvent } from '../../core/interfaces';
+import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbDatepickerNextDayElement } from '../datepicker-next-day';
-import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day';
+import type { SbbDatepickerButton } from '../common/datepicker-button';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle';
 
 import style from './datepicker.scss?lit&inline';
@@ -20,7 +20,7 @@ import style from './datepicker.scss?lit&inline';
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
-export interface InputUpdateEvent {
+export interface SbbInputUpdateEvent {
   disabled?: boolean;
   readonly?: boolean;
   min?: string | number;
@@ -34,10 +34,7 @@ export interface InputUpdateEvent {
  * @param trigger The id or the reference of the SbbDatePicker.
  */
 export function getDatePicker(
-  element:
-    | SbbDatepickerPreviousDayElement
-    | SbbDatepickerNextDayElement
-    | SbbDatepickerToggleElement,
+  element: SbbDatepickerButton | SbbDatepickerToggleElement,
   trigger?: string | HTMLElement,
 ): SbbDatepickerElement | null | undefined {
   if (!trigger) {
@@ -164,9 +161,9 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
  *
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Notifies that the connected input has changes.
- * @event {CustomEvent<InputUpdateEvent>} inputUpdated - Notifies that the attributes of the input connected to the datepicker have changes.
+ * @event {CustomEvent<SbbInputUpdateEvent>} inputUpdated - Notifies that the attributes of the input connected to the datepicker have changes.
  * @event {CustomEvent<void>} datePickerUpdated - Notifies that the attributes of the datepicker have changes.
- * @event {CustomEvent<ValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
+ * @event {CustomEvent<SbbValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
 @customElement('sbb-datepicker')
 export class SbbDatepickerElement extends LitElement {
@@ -209,7 +206,7 @@ export class SbbDatepickerElement extends LitElement {
   });
 
   /** Notifies that the attributes of the input connected to the datepicker have changes. */
-  private _inputUpdated: EventEmitter<InputUpdateEvent> = new EventEmitter(
+  private _inputUpdated: EventEmitter<SbbInputUpdateEvent> = new EventEmitter(
     this,
     SbbDatepickerElement.events.inputUpdated,
     { bubbles: true, cancelable: true },
@@ -226,7 +223,7 @@ export class SbbDatepickerElement extends LitElement {
   );
 
   /** Emits whenever the internal validation state changes. */
-  private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
+  private _validationChange: EventEmitter<SbbValidationChangeEvent> = new EventEmitter(
     this,
     SbbDatepickerElement.events.validationChange,
   );
@@ -335,8 +332,8 @@ export class SbbDatepickerElement extends LitElement {
   private _dateAdapter: DateAdapter<Date> =
     readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this).withHandler(() => {
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => {
     if (this._inputElement) {
       this._inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
       const valueAsDate = this.getValueAsDate();
@@ -379,8 +376,8 @@ export class SbbDatepickerElement extends LitElement {
     this._datePickerController?.abort();
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
     this._setAriaLiveMessage(this.getValueAsDate());
   }
 
@@ -463,7 +460,7 @@ export class SbbDatepickerElement extends LitElement {
    */
   public now(): Date {
     if (this._hasDataNow()) {
-      const today = new Date(+(this.dataset?.now as string));
+      const today = new Date(readDataNow(this));
       today.setHours(0, 0, 0, 0);
       return today;
     }
@@ -471,8 +468,7 @@ export class SbbDatepickerElement extends LitElement {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +(this.dataset?.now as string);
-    return !!dataNow;
+    return this.hasAttribute('data-now');
   }
 
   private _parse(value: string): Date | undefined {
@@ -518,6 +514,6 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    inputUpdated: CustomEvent<InputUpdateEvent>;
+    inputUpdated: CustomEvent<SbbInputUpdateEvent>;
   }
 }

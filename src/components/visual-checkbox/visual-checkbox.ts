@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbDisabledMixin, SbbNegativeMixin } from '../core/common-behaviors';
+import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins';
 
 import style from './visual-checkbox.scss?lit&inline';
 

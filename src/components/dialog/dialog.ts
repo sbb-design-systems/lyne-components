@@ -4,17 +4,14 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
-import {
-  LanguageController,
-  NamedSlotStateController,
-  SbbNegativeMixin,
-} from '../core/common-behaviors';
-import { ScrollHandler, isValidAttribute, hostContext, setAttribute } from '../core/dom';
+import { SbbFocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
+import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
+import { hostContext, isValidAttribute, SbbScrollHandler } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
+import type { SbbOpenedClosedState } from '../core/interfaces';
+import { SbbNegativeMixin } from '../core/mixins';
 import { AgnosticResizeObserver } from '../core/observers';
-import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
 import type { SbbTitleLevel } from '../title';
 
@@ -40,9 +37,9 @@ let nextId = 0;
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-dialog` is closed.
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
- * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-dialog')
 export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
@@ -97,11 +94,11 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   /*
    * The state of the dialog.
    */
-  private set _state(state: SbbOverlayState) {
-    this.dataset.state = state;
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   private get _hasTitle(): boolean {
@@ -139,8 +136,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _dialogCloseElement?: HTMLElement;
   private _dialogController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _focusHandler = new SbbFocusHandler();
+  private _scrollHandler = new SbbScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean = false;
   private _dialogId = `sbb-dialog-${nextId++}`;
@@ -148,9 +145,9 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
 
-  private _language = new LanguageController(this);
-  private _namedSlots = new NamedSlotStateController(this, () =>
-    setAttribute(this, 'data-fullscreen', !this._hasTitle),
+  private _language = new SbbLanguageController(this);
+  private _namedSlots = new SbbSlotStateController(this, () =>
+    this.toggleAttribute('data-fullscreen', !this._hasTitle),
   );
 
   /**
@@ -211,7 +208,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
     this._dialogController?.abort();
     this._dialogController = new AbortController();
 
@@ -414,8 +411,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
         ${closeButton}
       </div>
     `;
-
-    setAttribute(this, 'data-fullscreen', !this._hasTitle);
 
     return html`
       <div class="sbb-dialog__container">

@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.48.3",
+  "version": "0.49.0",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -21,12 +21,16 @@
   "private": true,
   "scripts": {
     "postinstall": "yarn playwright install",
-    "build:components": "vite build --config src/components/vite.config.ts",
-    "build:react": "vite build --config src/react/vite.config.ts",
+    "build:components": "npm-run-all --sequential build:components:*",
+    "build:components:production": "vite build --config src/components/vite.config.ts",
+    "build:components:development": "NODE_ENV=development vite build --mode development --config src/components/vite.config.ts",
+    "build:react": "npm-run-all --sequential build:react:*",
+    "build:react:production": "vite build --config src/react/vite.config.ts",
+    "build:react:development": "NODE_ENV=development vite build --mode development --config src/react/vite.config.ts",
     "build:storybook": "storybook build --quiet --output-dir dist/storybook --stats-json",
     "build": "npm-run-all --sequential build:components build:react build:storybook",
     "docs": "npm-run-all --sequential docs:manifest docs:to-md",
-    "docs:manifest": "custom-elements-manifest analyze --config config/custom-elements-manifest.config.js",
+    "docs:manifest": "custom-elements-manifest analyze --config tools/manifest/custom-elements-manifest.config.js",
     "docs:to-md": "tsx scripts/docs_generate.ts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "generate": "tsx tools/generate-component/index.mts",
@@ -39,7 +43,7 @@
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
     "lint:styles": "stylelint \"**/*.scss\"",
     "lint:lit": "yarn lit-analyzer \"src/components/**/*.ts\"",
-    "lint:circular-imports": "madge --circular --extensions ts ./",
+    "lint:circular-imports": "madge --circular --extensions ts ./src",
     "lint:tsc": "npm-run-all --sequential lint:tsc:*",
     "lint:tsc:components": "tsc --noEmit --project src/components/tsconfig.json",
     "lint:tsc:components-spec": "tsc --noEmit --project src/components/tsconfig.spec.json",
@@ -49,7 +53,7 @@
     "test:csr": "wtr --group default",
     "test:ssr:hydrated": "wtr --group e2e-ssr-hydrated",
     "test:ssr:non-hydrated": "wtr --group e2e-ssr-non-hydrated",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "lit": "3.1.2"
@@ -63,28 +67,28 @@
     "@lit/react": "^1.0.1",
     "@open-wc/lit-helpers": "0.7.0",
     "@open-wc/testing": "4.0.0",
-    "@sbb-esta/lyne-design-tokens": "0.4.1",
-    "@storybook/addon-a11y": "8.0.4",
-    "@storybook/addon-actions": "8.0.4",
-    "@storybook/addon-essentials": "8.0.4",
-    "@storybook/addon-interactions": "8.0.4",
-    "@storybook/addon-links": "8.0.4",
-    "@storybook/blocks": "8.0.4",
-    "@storybook/test": "8.0.4",
-    "@storybook/web-components": "8.0.4",
-    "@storybook/web-components-vite": "8.0.4",
+    "@sbb-esta/lyne-design-tokens": "0.5.0",
+    "@storybook/addon-a11y": "8.0.6",
+    "@storybook/addon-actions": "8.0.6",
+    "@storybook/addon-essentials": "8.0.6",
+    "@storybook/addon-interactions": "8.0.6",
+    "@storybook/addon-links": "8.0.6",
+    "@storybook/blocks": "8.0.6",
+    "@storybook/test": "8.0.6",
+    "@storybook/web-components": "8.0.6",
+    "@storybook/web-components-vite": "8.0.6",
     "@types/glob": "8.1.0",
     "@types/mocha": "^10.0.4",
-    "@types/node": "20.11.30",
-    "@types/react": "18.2.72",
+    "@types/node": "20.12.5",
+    "@types/react": "18.2.74",
     "@types/react-dom": "^18.2.15",
-    "@typescript-eslint/eslint-plugin": "7.4.0",
-    "@typescript-eslint/parser": "7.4.0",
+    "@typescript-eslint/eslint-plugin": "7.5.0",
+    "@typescript-eslint/parser": "7.5.0",
     "@web/test-runner": "0.18.1",
     "@web/test-runner-commands": "0.9.0",
     "@web/test-runner-playwright": "0.11.0",
     "@web/test-runner-puppeteer": "0.16.0",
-    "chromatic": "11.2.0",
+    "chromatic": "11.3.0",
     "custom-elements-manifest": "^2.0.0",
     "date-fns": "3.6.0",
     "esbuild-sass-plugin": "^3.1.0",
@@ -96,11 +100,11 @@
     "eslint-plugin-react": "7.34.1",
     "eslint-plugin-storybook": "0.8.0",
     "eslint-plugin-yaml": "0.5.0",
-    "glob": "10.3.10",
+    "glob": "10.3.12",
     "husky": "9.0.11",
     "lint-staged": "15.2.2",
     "lit-analyzer": "2.0.3",
-    "madge": "6.1.0",
+    "madge": "7.0.0",
     "npm-run-all2": "6.1.2",
     "playwright": "^1.41.1",
     "postcss": "8.4.38",
@@ -108,61 +112,24 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "rollup-plugin-postcss-lit": "2.1.0",
-    "sass": "1.72.0",
+    "sass": "1.74.1",
     "sinon": "17.0.1",
-    "standard-version": "^9.5.0",
-    "storybook": "8.0.4",
+    "storybook": "8.0.6",
     "stylelint": "16.3.1",
     "stylelint-config-prettier-scss": "1.0.0",
     "stylelint-config-standard-scss": "12.0.0",
     "stylelint-scss": "6.2.1",
     "ts-lit-plugin": "2.0.2",
-    "tsx": "4.7.1",
-    "typescript": "5.4.3",
-    "vite": "5.2.6",
-    "vite-plugin-dts": "3.7.3"
+    "tsx": "4.7.2",
+    "typescript": "5.4.4",
+    "vite": "5.2.8",
+    "vite-plugin-dts": "3.8.1"
   },
   "resolutions": {
-    "@types/node": "20.11.30",
+    "@types/node": "20.12.5",
     "@webcomponents/template-shadowroot": "0.2.1",
     "jackspeak": "2.1.1",
     "lit": "3.1.2"
-  },
-  "standard-version": {
-    "types": [
-      {
-        "type": "feat",
-        "section": "Features"
-      },
-      {
-        "type": "fix",
-        "section": "Bug Fixes"
-      },
-      {
-        "type": "chore",
-        "hidden": true
-      },
-      {
-        "type": "docs",
-        "section": "Documentation"
-      },
-      {
-        "type": "style",
-        "section": "Bug Fixes"
-      },
-      {
-        "type": "refactor",
-        "section": "Refactorings"
-      },
-      {
-        "type": "perf",
-        "hidden": "Performance"
-      },
-      {
-        "type": "test",
-        "hidden": true
-      }
-    ]
   },
   "prettier": {
     "singleQuote": true,
@@ -179,5 +146,12 @@
     "*.{js,ts,css,scss,json,md,html,yaml,yml}": [
       "prettier --write"
     ]
+  },
+  "madge": {
+    "detectiveOptions": {
+      "ts": {
+        "skipTypeImports": true
+      }
+    }
   }
 }

@@ -4,12 +4,13 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import type { SbbTertiaryButtonElement } from '../button';
-import { LanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers';
 import { i18nMapContainerButtonLabel } from '../core/i18n';
 import { AgnosticIntersectionObserver } from '../core/observers';
-import '../button/tertiary-button';
 
 import style from './map-container.scss?lit&inline';
+
+import '../button/tertiary-button';
 
 /**
  * It can be used as a container for maps.
@@ -33,7 +34,7 @@ export class SbbMapContainerElement extends LitElement {
   @state() private _scrollUpButtonVisible = false;
 
   private _intersector?: HTMLSpanElement;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
   private _observer = new AgnosticIntersectionObserver((entries) =>
     this._toggleButtonVisibilityOnIntersect(entries),
   );

@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 import '../index';
 
 /* eslint-disable lit/binding-positions */

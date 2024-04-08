@@ -3,9 +3,10 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbHydrationMixin } from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import type { SbbOverlayState } from '../../core/overlay';
+import { SbbConnectedAbortController } from '../../core/controllers';
+import { EventEmitter } from '../../core/eventing';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
+import { SbbHydrationMixin } from '../../core/mixins';
 import type { SbbTitleLevel } from '../../title';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
@@ -88,8 +89,8 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     SbbExpansionPanelElement.events.didClose,
   );
 
-  private _abort = new ConnectedAbortController(this);
-  private _state: SbbOverlayState = 'closed';
+  private _abort = new SbbConnectedAbortController(this);
+  private _state: SbbOpenedClosedState = 'closed';
 
   private _toggleExpanded(): void {
     this.expanded = !this.expanded;
@@ -130,7 +131,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._transitionEventController?.abort();
-    this.toggleAttribute('data-accordion', false);
+    this.removeAttribute('data-accordion');
   }
 
   private _handleSlotchange(): void {

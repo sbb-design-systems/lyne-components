@@ -1,11 +1,11 @@
 import { format } from 'date-fns';
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers';
 import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
-import { setAttribute } from '../core/dom';
+import { readDataNow } from '../core/datetime/data-now';
 import {
   i18nArrival,
   i18nClass,
@@ -27,12 +27,13 @@ import {
 import type { SbbOccupancy } from '../core/interfaces';
 import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
+
+import style from './timetable-row.scss?lit&inline';
+
 import '../card';
 import '../icon';
 import '../pearl-chain-time';
 import '../timetable-occupancy';
-
-import style from './timetable-row.scss?lit&inline';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
@@ -224,13 +225,13 @@ export class SbbTimetableRowElement extends LitElement {
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
-  @property({ attribute: 'loading-trip', type: Boolean }) public loadingTrip?: boolean;
+  @property({ attribute: 'loading-trip', type: Boolean }) public loadingTrip = false;
 
   /**
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
-  @property({ attribute: 'loading-price', type: Boolean }) public loadingPrice?: boolean;
+  @property({ attribute: 'loading-price', type: Boolean }) public loadingPrice = false;
 
   /**
    * Hidden label for the card action. It overrides the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
@@ -244,10 +245,22 @@ export class SbbTimetableRowElement extends LitElement {
   /** When this prop is true the sbb-card will be in the active state. */
   @property({ type: Boolean }) public active?: boolean;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
+
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('loadingTrip')) {
+      if (!this.loadingTrip) {
+        this.setAttribute('role', 'rowgroup');
+      } else {
+        this.removeAttribute('role');
+      }
+    }
+  }
 
   private _now(): number {
-    const dataNow = +(this.dataset?.now as string);
+    const dataNow = readDataNow(this);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
@@ -476,7 +489,6 @@ export class SbbTimetableRowElement extends LitElement {
     const noticeAttributes = notices && handleNotices(notices);
 
     const durationObj = duration ? durationToTime(duration, this._language.current) : null;
-    setAttribute(this, 'role', 'rowgroup');
 
     return html`
       <sbb-card size="l" id=${id}>

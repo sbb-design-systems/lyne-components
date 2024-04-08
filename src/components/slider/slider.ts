@@ -1,15 +1,17 @@
-import { spread } from '@open-wc/lit-helpers';
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { hostAttributes, SbbDisabledMixin } from '../core/common-behaviors';
-import { setAttributes } from '../core/dom';
-import { forwardEventToHost, EventEmitter, ConnectedAbortController } from '../core/eventing';
+import { SbbConnectedAbortController } from '../core/controllers';
+import { hostAttributes } from '../core/decorators';
+import { setAttribute } from '../core/dom';
+import { EventEmitter, forwardEventToHost } from '../core/eventing';
+import { SbbDisabledTabIndexActionMixin } from '../core/mixins';
 
 import style from './slider.scss?lit&inline';
+
 import '../icon';
 
 /**
@@ -23,7 +25,7 @@ import '../icon';
 @hostAttributes({
   role: 'slider',
 })
-export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
+export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -76,7 +78,7 @@ export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
   /** Reference to the inner HTMLInputElement with type='range'. */
   private _rangeInput!: HTMLInputElement;
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -86,10 +88,22 @@ export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('value')) {
       this._handleChange(Number(this.value));
     } else if (changedProperties.has('valueAsNumber')) {
       this._handleChange(Number(this.valueAsNumber));
+    }
+
+    if (changedProperties.has('min')) {
+      setAttribute(this, 'aria-valuemin', this.min ?? null);
+    }
+    if (changedProperties.has('max')) {
+      setAttribute(this, 'aria-valuemax', this.max ?? null);
+    }
+    if (changedProperties.has('readonly')) {
+      setAttribute(this, 'aria-readonly', this.readonly ? 'true' : null);
     }
   }
 
@@ -102,6 +116,7 @@ export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
 
     this.value = newValue.toString();
     this.valueAsNumber = newValue as number;
+    setAttribute(this, 'aria-valuenow', this.value || null);
   }
 
   /**
@@ -170,26 +185,6 @@ export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    const hostAttributes = {
-      tabIndex: this.disabled ? null : '0',
-      'aria-valuemin': this.min || null,
-      'aria-valuemax': this.max || null,
-      'aria-valuenow': this.value || null,
-      'aria-readonly': this.readonly?.toString() ?? 'false',
-      'aria-disabled': this.disabled?.toString() ?? 'false',
-    };
-    const inputAttributes = {
-      tabIndex: -1,
-      name: this.name || null,
-      min: this.min || null,
-      max: this.max || null,
-      disabled: this.disabled || this.readonly || null,
-      valueAsNumber: this.valueAsNumber || null,
-      value: this.value || null,
-    };
-
-    setAttributes(this, hostAttributes);
-
     return html`
       <div class="sbb-slider__height-container">
         <div class="sbb-slider__wrapper">
@@ -201,7 +196,13 @@ export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
             style=${styleMap({ '--sbb-slider-value-fraction': this._valueFraction.toString() })}
           >
             <input
-              ${spread(inputAttributes)}
+              tabindex="-1"
+              name=${this.name || nothing}
+              min=${this.min || nothing}
+              max=${this.max || nothing}
+              ?disabled=${this.disabled || this.readonly || nothing}
+              .valueAsNumber=${this.valueAsNumber || nothing}
+              value=${this.value || nothing}
               class="sbb-slider__range-input"
               type="range"
               @change=${(event: Event) => this._emitChange(event)}

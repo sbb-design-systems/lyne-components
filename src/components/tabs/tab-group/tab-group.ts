@@ -3,9 +3,10 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
-import { isValidAttribute, hostContext, setAttribute } from '../../core/dom';
-import { throttle, EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y';
+import { SbbConnectedAbortController } from '../../core/controllers';
+import { isValidAttribute } from '../../core/dom';
+import { EventEmitter, throttle } from '../../core/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import type { SbbTabTitleElement } from '../tab-title';
 
@@ -56,10 +57,9 @@ export class SbbTabGroupElement extends LitElement {
 
   private _tabs: InterfaceSbbTabGroupTab[] = [];
   private _selectedTab?: InterfaceSbbTabGroupTab;
-  private _isNested: boolean = false;
   private _tabGroupElement!: HTMLElement;
   private _tabContentElement!: HTMLElement;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _tabAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
     this._onTabAttributesChange(mutationsList),
   );
@@ -141,7 +141,7 @@ export class SbbTabGroupElement extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._isNested = !!hostContext('sbb-tab-group', this);
+    this.toggleAttribute('data-nested', !!this.parentElement?.closest('sbb-tab-group'));
   }
 
   protected override firstUpdated(): void {
@@ -301,7 +301,7 @@ export class SbbTabGroupElement extends LitElement {
 
           this._tabContentResizeObserver.observe(tab.relatedContent!);
           this._selectedTabChanged.emit();
-        } else if (tab.disabled) {
+        } else if (import.meta.env.DEV && tab.disabled) {
           console.warn('You cannot activate a disabled tab');
         }
       },
@@ -318,9 +318,11 @@ export class SbbTabGroupElement extends LitElement {
     } else {
       tab.insertAdjacentHTML('afterend', '<div>No content.</div>');
       tab.relatedContent = tab.nextElementSibling as HTMLElement;
-      console.warn(
-        `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`,
-      );
+      if (import.meta.env.DEV) {
+        console.warn(
+          `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`,
+        );
+      }
     }
     tab.tabIndex = -1;
     tab.disabled = isValidAttribute(tab, 'disabled');
@@ -362,8 +364,6 @@ export class SbbTabGroupElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-nested', this._isNested);
-
     return html`
       <div
         class="tab-group"

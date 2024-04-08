@@ -13,8 +13,8 @@ import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
+import { sbbSpread } from '../../../storybook/helpers/spread';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { sbbSpread } from '../../core/dom';
 
 import { SbbNavigationElement } from './navigation';
 import readme from './readme.md?raw';

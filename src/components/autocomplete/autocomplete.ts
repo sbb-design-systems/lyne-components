@@ -1,20 +1,21 @@
 import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { assignId, getNextElementIndex } from '../core/a11y';
-import { SbbHydrationMixin, SbbNegativeMixin, hostAttributes } from '../core/common-behaviors';
+import { getNextElementIndex } from '../core/a11y';
+import { SbbConnectedAbortController } from '../core/controllers';
+import { hostAttributes } from '../core/decorators';
 import {
-  setAttribute,
   getDocumentWritingMode,
   findReferencedElement,
   isSafari,
   isValidAttribute,
   isBrowser,
 } from '../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
-import type { SbbOverlayState } from '../core/overlay';
+import { EventEmitter } from '../core/eventing';
+import type { SbbOpenedClosedState } from '../core/interfaces';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins';
 import {
   isEventOnElement,
   overlayGapFixCorners,
@@ -29,6 +30,12 @@ import style from './autocomplete.scss?lit&inline';
 let nextId = 0;
 
 /**
+ * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
+ * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
+ */
+const ariaRoleOnHost = isSafari();
+
+/**
  * Combined with a native input, it displays a panel with a list of available options.
  *
  * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`.
@@ -36,13 +43,14 @@ let nextId = 0;
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-autocomplete` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
- * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-autocomplete')
 @hostAttributes({
   dir: getDocumentWritingMode(),
+  role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
@@ -70,8 +78,13 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public preserveIconSpace?: boolean;
 
-  /** The state of the autocomplete. */
-  @state() private _state: SbbOverlayState = 'closed';
+  /* The state of the autocomplete. */
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
   private _willOpen: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.willOpen);
@@ -112,13 +125,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   private _activeItemIndex = -1;
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _abort = new ConnectedAbortController(this);
-
-  /**
-   * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
-   * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
-   */
-  private _ariaRoleOnHost = isSafari();
+  private _abort = new SbbConnectedAbortController(this);
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
   private get _readonly(): boolean {
@@ -216,6 +223,11 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    if (ariaRoleOnHost) {
+      this.id ||= this._overlayId;
+    }
+
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
@@ -547,10 +559,6 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-    setAttribute(this, 'role', this._ariaRoleOnHost ? 'listbox' : null);
-    this._ariaRoleOnHost && assignId(() => this._overlayId)(this);
-
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
       <div class="sbb-autocomplete__container">
@@ -558,14 +566,13 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
         <div
           @animationend=${this._onAnimationEnd}
           class="sbb-autocomplete__panel"
-          ?data-open=${this._state === 'opened' || this._state === 'opening'}
           ${ref((overlayRef?: Element) => (this._overlay = overlayRef as HTMLElement))}
         >
           <div class="sbb-autocomplete__wrapper">
             <div
               class="sbb-autocomplete__options"
-              role=${!this._ariaRoleOnHost ? 'listbox' : nothing}
-              id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
+              role=${!ariaRoleOnHost ? 'listbox' : nothing}
+              id=${!ariaRoleOnHost ? this._overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
               <slot @slotchange=${this._handleSlotchange}></slot>

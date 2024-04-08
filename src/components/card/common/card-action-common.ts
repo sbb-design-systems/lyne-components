@@ -3,17 +3,15 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
-import {
-  type AbstractConstructor,
-  hostAttributes,
-  type SbbActionBaseElement,
-} from '../../core/common-behaviors';
+import type { SbbActionBaseElement } from '../../core/base-elements';
+import { hostAttributes } from '../../core/decorators';
+import type { AbstractConstructor } from '../../core/mixins';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';
 
-import '../../screen-reader-only';
-
 import style from './card-action.scss?lit&inline';
+
+import '../../screen-reader-only';
 
 export declare class SbbCardActionCommonElementMixinType {
   public active: boolean;
@@ -75,7 +73,7 @@ export const SbbCardActionCommonElementMixin = <
       if (this._card) {
         this._card.toggleAttribute('data-has-action', true);
         this._card.toggleAttribute('data-has-active-action', this.active);
-        this._card.dataset.actionRole = this.getAttribute('role')!;
+        this._card.setAttribute('data-action-role', this.getAttribute('role')!);
 
         this._checkForSlottedActions();
         this._cardMutationObserver.observe(this._card, {
@@ -88,9 +86,9 @@ export const SbbCardActionCommonElementMixin = <
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
       if (this._card) {
-        this._card.toggleAttribute('data-has-action', false);
-        this._card.toggleAttribute('data-has-active-action', false);
-        this._card.toggleAttribute('data-action-role', false);
+        ['data-has-action', 'data-has-active-action', 'data-action-role'].forEach((name) =>
+          this._card!.removeAttribute(name),
+        );
         this._card
           .querySelectorAll(`[data-card-focusable]`)
           .forEach((el) => el.removeAttribute('data-card-focusable'));

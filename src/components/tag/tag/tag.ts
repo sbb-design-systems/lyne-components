@@ -2,20 +2,17 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  NamedSlotStateController,
-  SbbDisabledTabIndexActionMixin,
-  SbbButtonBaseElement,
-  SbbIconNameMixin,
-} from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbButtonBaseElement } from '../../core/base-elements';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
+import { EventEmitter } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
   SbbStateChange,
   SbbValueStateChange,
 } from '../../core/interfaces';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins';
+import { SbbIconNameMixin } from '../../icon';
 
-import '../../icon';
 import style from './tag.scss?lit&inline';
 
 export type SbbTagStateChange = Extract<
@@ -66,11 +63,11 @@ export class SbbTagElement extends SbbIconNameMixin(
     bubbles: true,
   });
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {
@@ -97,6 +94,11 @@ export class SbbTagElement extends SbbIconNameMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      this.setAttribute('aria-pressed', `${this.checked}`);
+    }
+
     const tagGroup = this.closest?.('sbb-tag-group');
     if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
       tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
@@ -104,8 +106,6 @@ export class SbbTagElement extends SbbIconNameMixin(
   }
 
   protected override renderTemplate(): TemplateResult {
-    // We have to ensure that the value is always present
-    this.setAttribute('aria-pressed', this.checked.toString());
     return html`
       <span class="sbb-tag__icon sbb-tag--shift"> ${this.renderIconSlot()} </span>
       <span class="sbb-tag__text sbb-tag--shift">

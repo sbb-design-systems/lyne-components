@@ -11,7 +11,9 @@ export function preventScrollOnSpacebarPress(event: KeyboardEvent): void {
 }
 
 /**
- * Handler to prevent scrolling on space bar click
+ * Handler to prevent scrolling on space bar click.
+ *
+ * @deprecated TODO: remove once radio button became form element
  */
 export const formElementHandlerAspect: HandlerAspect = ({ host, signal }) => {
   host.addEventListener('keydown', preventScrollOnSpacebarPress, { signal });

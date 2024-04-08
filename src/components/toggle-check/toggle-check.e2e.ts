@@ -557,7 +557,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
                 focusable: false,
               });
 
-              element.toggleAttribute('disabled', false);
+              element.removeAttribute('disabled');
               await waitForLitRender(form);
 
               await assertDisabledState({
@@ -727,7 +727,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
             });
 
             // When performing
-            element.toggleAttribute('checked', false);
+            element.removeAttribute('checked');
             await waitForLitRender(form);
 
             // Attribute should be considered
@@ -744,7 +744,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
             await waitForLitRender(form);
 
             // Attribute mutation should be blocked again
-            element.toggleAttribute('checked', false);
+            element.removeAttribute('checked');
             await waitForLitRender(form);
 
             await assertState({

@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/common-behaviors';
+import { hostAttributes } from '../../core/decorators';
 import { AgnosticIntersectionObserver } from '../../core/observers';
 
 import style from './sticky-bar.scss?lit&inline';

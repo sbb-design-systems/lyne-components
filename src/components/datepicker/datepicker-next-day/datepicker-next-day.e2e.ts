@@ -72,7 +72,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
       // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
       expect(nextButton).not.to.be.null;
       expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton.dataset.disabled).to.be.equal('');
+      expect(nextButton).to.have.attribute('data-disabled');
 
       const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
       picker.setAttribute('input', 'datepicker-input');
@@ -83,7 +83,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
 
       // the datepicker is connected, which triggers a 1st inputUpdated event which calls _init and a 2nd one which sets max/min/disabled
       expect(inputUpdated.count).to.be.equal(2);
-      expect(nextButton.dataset.disabled).to.be.undefined;
+      expect(nextButton).not.to.have.attribute('data-disabled');
     });
 
     it('datepicker is created after the component with different parent', async () => {
@@ -106,7 +106,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
       // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
       expect(nextButton).not.to.be.null;
       expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton.dataset.disabled).to.be.equal('');
+      expect(nextButton).to.have.attribute('data-disabled');
 
       const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
       picker.setAttribute('input', 'datepicker-input');
@@ -117,7 +117,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
 
       // the datepicker is connected on a different parent, so no changes are triggered
       expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton.dataset.disabled).to.be.equal('');
+      expect(nextButton).to.have.attribute('data-disabled');
     });
   });
 

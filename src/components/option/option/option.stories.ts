@@ -12,7 +12,7 @@ import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 
 import { SbbOptionElement } from './option';
 import readme from './readme.md?raw';

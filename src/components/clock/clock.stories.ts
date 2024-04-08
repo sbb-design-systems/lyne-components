@@ -5,7 +5,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread';
 
 import readme from './readme.md?raw';
 
@@ -42,9 +42,7 @@ if (isChromatic()) {
 }
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ 'max-width': '600px' })}>${story()}</div> `,
-  ],
+  decorators: [(story) => html`<div style=${styleMap({ 'max-width': '600px' })}>${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

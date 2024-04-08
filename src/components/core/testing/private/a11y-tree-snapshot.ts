@@ -24,7 +24,7 @@ async function a11yTreeEqualSnapshot(): Promise<void> {
  * The function creates and tests the accessibility tree snapshot on each browser.
  * If a template is passed, it will be instantiated before the snapshot is taken.
  * Note:
- * We skip a11yTreeSnashots in debug environment because they're not consistent on Puppeteer
+ * We skip a11yTreeSnapshots in debug environment because they're not consistent on Puppeteer
  * @param title The title of the section
  * @param template The optional html template
  */

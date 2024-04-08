@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.49.0](https://github.com/lyne-design-system/lyne-components/compare/v0.48.3...v0.49.0) (2024-03-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-form-field:** `label` property and attribute of `<sbb-form-field>` was removed. Use `<label>` tag inside `<sbb-form-field>` to provide the label information. E.g. `<sbb-form-field label="Example">...</sbb-form-field>` becomes `<sbb-form-field><label>Example</label>...</sbb-form-field>`
+* renamed component `sbb-screenreader-only` to `sbb-screeen-reader-only`.
+* **sbb-calendar:** The `SbbDatepicker` property `selectedDate` has been renamed to `selected`. This also applies to the attribute `selected-date`, which has been renamed to `selected`. Additionally the `DateAdapter` (and `NativeDateAdapter`) have been superficially refactored. An important change is that the month is now `1`-based, instead of `0`-based.
+
+### Features
+
+* implement experimental support for server side rendering (SSR) ([#2466](https://github.com/lyne-design-system/lyne-components/issues/2466)) ([3abcc68](https://github.com/lyne-design-system/lyne-components/commit/3abcc6827a3152c7216c3a2178e63a19f96ba22b))
+
+
+### Bug Fixes
+
+* fix scrollbar styles for Chrome ([#2524](https://github.com/lyne-design-system/lyne-components/issues/2524)) ([1266a21](https://github.com/lyne-design-system/lyne-components/commit/1266a2197237eee1712896b7e5959658a3956193))
+* **sbb-button:** remove gap for hidden icons in icon slot ([#2526](https://github.com/lyne-design-system/lyne-components/issues/2526)) ([433c57c](https://github.com/lyne-design-system/lyne-components/commit/433c57c5c5533ebb6409d3be5c47fec1fdd3aac6))
+* **sbb-form-field:** remove label property and attribute ([#2523](https://github.com/lyne-design-system/lyne-components/issues/2523)) ([602064c](https://github.com/lyne-design-system/lyne-components/commit/602064c3d0ff4092c94b8faec4f95c1c1ae3bbb0))
+* stories with label bold for sbb-checkbox and sbb-radio-button ([#2528](https://github.com/lyne-design-system/lyne-components/issues/2528)) ([9e85be5](https://github.com/lyne-design-system/lyne-components/commit/9e85be5d1c63c309e583402162f67e59e78bb897))
+
+
+### Code Refactoring
+
+* rename component name from `sbb-screenreader-only` to `sbb-screeen-reader-only` ([#2520](https://github.com/lyne-design-system/lyne-components/issues/2520)) ([6fbf085](https://github.com/lyne-design-system/lyne-components/commit/6fbf085dab84d64acac5151ed09dd29a8bc3d034))
+* **sbb-calendar:** implement initial support for other date libraries ([6d4e9c2](https://github.com/lyne-design-system/lyne-components/commit/6d4e9c2d22ae9cdf4d2ea73cbca650fd6d3ec4c2))
+
 ## [0.48.3](https://github.com/lyne-design-system/lyne-components/compare/v0.48.2...v0.48.3) (2024-03-21)
 
 

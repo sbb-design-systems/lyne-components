@@ -12,7 +12,7 @@ import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 
 import '../../icon';
 import '../../loading-indicator';

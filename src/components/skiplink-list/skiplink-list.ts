@@ -8,12 +8,9 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  NamedSlotStateController,
-  SbbNamedSlotListMixin,
-  type WithListChildren,
-} from '../core/common-behaviors';
-import type { SbbBlockLinkElement, SbbBlockLinkButtonElement } from '../link';
+import { SbbSlotStateController } from '../core/controllers';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins';
+import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link';
 import type { SbbTitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';
@@ -24,9 +21,9 @@ import '../title';
  * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
  *
  * @slot - Use the unnamed slot to add `sbb-block-link`/`sbb-block-link-button` elements to the `sbb-skiplink-list`.
- * @cssprop [--sbb-skiplink-list-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-skiplink-list-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-skiplink-list')
 export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
@@ -44,7 +41,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {

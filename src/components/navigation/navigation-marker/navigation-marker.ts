@@ -1,7 +1,7 @@
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/common-behaviors';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
 
@@ -87,7 +87,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
 
   public reset(): void {
     if (this._currentActiveAction) {
-      this._currentActiveAction.toggleAttribute('data-action-active', false);
+      this._currentActiveAction.removeAttribute('data-action-active');
       this._currentActiveAction.connectedSection?.close();
       this._currentActiveAction = undefined;
     }

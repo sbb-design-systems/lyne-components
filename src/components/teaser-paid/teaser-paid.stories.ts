@@ -3,7 +3,7 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread';
 import sampleImages from '../core/images';
 
 import readme from './readme.md?raw';

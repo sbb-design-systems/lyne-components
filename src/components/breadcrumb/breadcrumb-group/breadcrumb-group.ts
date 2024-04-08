@@ -1,23 +1,20 @@
 import {
   type CSSResultGroup,
+  html,
+  nothing,
   LitElement,
   type PropertyValueMap,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
-import {
-  SbbNamedSlotListMixin,
-  hostAttributes,
-  type WithListChildren,
-} from '../../core/common-behaviors';
-import { LanguageController } from '../../core/common-behaviors';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { setAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbBreadcrumbElement } from '../breadcrumb';
 
@@ -41,11 +38,18 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-BREADCRUMB'];
 
-  @state() private _state?: 'collapsed' | 'manually-expanded';
+  /* The state of the breadcrumb group. */
+  @state()
+  private set _state(state: 'collapsed' | 'manually-expanded' | null) {
+    setAttribute(this, 'data-state', state);
+  }
+  private get _state(): 'collapsed' | 'manually-expanded' | null {
+    return this.getAttribute('data-state') as 'collapsed' | 'manually-expanded' | null;
+  }
 
   private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
   private _markForFocus = false;
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -112,7 +116,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
 
     // If it is not expandable, reset state
     if (this.listChildren.length < 3) {
-      this._state = undefined;
+      this._state = null;
     }
   }
 
@@ -204,8 +208,6 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-
     return html`
       <ol class="sbb-breadcrumb-group">
         ${this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}

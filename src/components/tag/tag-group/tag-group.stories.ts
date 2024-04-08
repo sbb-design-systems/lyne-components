@@ -5,7 +5,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 import type { SbbTagElement } from '../tag';
 
 import readme from './readme.md?raw';

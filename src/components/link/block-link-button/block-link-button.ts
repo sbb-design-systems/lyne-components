@@ -1,6 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement, SbbDisabledTabIndexActionMixin } from '../../core/common-behaviors';
+import { SbbButtonBaseElement } from '../../core/base-elements';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins';
 import { SbbBlockLinkCommonElementMixin } from '../common';
 
 /**

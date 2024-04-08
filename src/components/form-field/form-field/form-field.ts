@@ -1,17 +1,17 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbInputModality } from '../../core/a11y';
 import { sbbInputModalityDetector } from '../../core/a11y';
 import {
-  LanguageController,
-  NamedSlotStateController,
-  SbbNegativeMixin,
-} from '../../core/common-behaviors';
+  SbbConnectedAbortController,
+  SbbLanguageController,
+  SbbSlotStateController,
+} from '../../core/controllers';
 import { isFirefox, isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
+import { SbbNegativeMixin } from '../../core/mixins';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbSelectElement } from '../../select';
 import '../../icon';
@@ -36,7 +36,7 @@ const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-select'];
 export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  private readonly _supportedNativeInputElements = ['input', 'select'];
+  private readonly _supportedNativeInputElements = ['input', 'select', 'textarea'];
   // List of supported element selectors in unnamed slot
   private readonly _supportedInputElements = [
     ...this._supportedNativeInputElements,
@@ -46,7 +46,12 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover'];
 
-  private readonly _floatingLabelSupportedInputElements = ['input', 'select', 'sbb-select'];
+  private readonly _floatingLabelSupportedInputElements = [
+    'input',
+    'select',
+    'sbb-select',
+    'textarea',
+  ];
 
   private readonly _floatingLabelSupportedInputTypes = [
     'email',
@@ -104,8 +109,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     return this._input;
   }
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -122,7 +127,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {
@@ -154,7 +159,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
   private _onPopupClose({ target }: CustomEvent<void>): void {
     if (supportedPopupTagNames.includes((target as HTMLElement).localName)) {
-      this.toggleAttribute('data-has-popup-open', false);
+      this.removeAttribute('data-has-popup-open');
     }
   }
 
@@ -183,7 +188,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
   private _onSlotLabelChange(): void {
     const labels = Array.from(this.querySelectorAll('label'));
-    if (labels.length > 1) {
+    if (import.meta.env.DEV && labels.length > 1) {
       console.warn(
         `Detected more than one label in sbb-form-field#${this.id}. Only one label is supported.`,
       );
@@ -210,12 +215,16 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     this._readInputState();
     this._registerInputListener();
 
+    if (this._input.tagName === 'TEXTAREA') {
+      this._input.setAttribute('rows', this._input.getAttribute('rows') || '3');
+    }
+
     this._formFieldAttributeObserver.disconnect();
     this._formFieldAttributeObserver.observe(this._input, {
       attributes: true,
       attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid'],
     });
-    this.dataset.inputType = this._input.localName;
+    this.setAttribute('data-input-type', this._input.localName);
     this._syncLabelInputReferences();
   }
 
@@ -282,8 +291,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       'focusin',
       () => {
         this.toggleAttribute('data-input-focused', true);
-        (this.dataset.focusOrigin as SbbInputModality) =
-          sbbInputModalityDetector.mostRecentModality;
+        this.setAttribute(
+          'data-focus-origin',
+          (sbbInputModalityDetector.mostRecentModality as SbbInputModality) ?? '',
+        );
       },
       {
         signal: this._inputAbortController.signal,
@@ -292,10 +303,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
     inputFocusElement.addEventListener(
       'focusout',
-      () => {
-        delete this.dataset.focusOrigin;
-        this.toggleAttribute('data-input-focused', false);
-      },
+      () =>
+        ['data-focus-origin', 'data-input-focused'].forEach((name) => this.removeAttribute(name)),
       {
         signal: this._inputAbortController.signal,
       },

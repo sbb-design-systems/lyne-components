@@ -49,29 +49,29 @@ export default (jsonString: string): InterfaceImageAttributesSizesConfigBreakpoi
   }
 
   // make sure that we have `breakpoints` key in object
-  const errorMessage =
-    'sbb-image error: attribute breakpoints has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
-
+  const logWarning = import.meta.env.DEV
+    ? () =>
+        console.warn(
+          'sbb-image error: attribute breakpoints has wrong data format. Reference the documentation to see how you should format the data for this attribute.',
+        )
+    : null;
   let jsonObject: InterfaceImageAttributesSizesConfig;
 
   try {
     jsonObject = JSON.parse(jsonString);
   } catch (error) {
-    console.warn(errorMessage);
-
+    logWarning?.();
     return [];
   }
 
   if (!jsonObject.breakpoints || jsonObject.breakpoints.length === 0) {
-    console.warn(errorMessage);
-
+    logWarning?.();
     return [];
   }
 
   // make sure we get an array of breakpoints
   if (!Array.isArray(jsonObject.breakpoints)) {
-    console.warn(errorMessage);
-
+    logWarning?.();
     return [];
   }
 
@@ -101,8 +101,7 @@ export default (jsonString: string): InterfaceImageAttributesSizesConfigBreakpoi
   });
 
   if (wrongKeyDetected || missingKeyDetected) {
-    console.warn(errorMessage);
-
+    logWarning?.();
     return [];
   }
 

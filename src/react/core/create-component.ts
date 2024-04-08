@@ -19,7 +19,7 @@ import {
 import type React from 'react';
 
 const NODE_MODE = isServer;
-const DEV_MODE = true;
+const DEV_MODE = import.meta.env.DEV;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DistributiveOmit<T, K extends string | number | symbol> = T extends any
@@ -285,6 +285,9 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
           reactProps[attributeName] = toAttribute ? toAttribute(v) : v;
         } else if (v) {
           reactProps[attributeName] = '';
+          // Some boolean props like `checked` don't react to mutations after user interaction.
+          // To ensure expectation from React/JSX, we set also the corresponding property in this case.
+          elementProps[k] = v;
         } else {
           elementProps[k] = v;
         }

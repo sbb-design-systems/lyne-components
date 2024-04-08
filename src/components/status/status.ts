@@ -2,10 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotStateController, SbbIconNameMixin } from '../core/common-behaviors';
+import { SbbSlotStateController } from '../core/controllers';
+import { SbbIconNameMixin } from '../icon';
 import type { SbbTitleLevel } from '../title';
 
-import '../icon';
 import '../title';
 import style from './status.scss?lit&inline';
 
@@ -40,7 +40,7 @@ export class SbbStatusElement extends SbbIconNameMixin(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override renderIconSlot(): TemplateResult {

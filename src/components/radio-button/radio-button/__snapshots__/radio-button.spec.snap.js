@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-radio-button renders - Dom"] = 
 `<sbb-radio-button
   aria-checked="false"
-  aria-disabled="false"
   aria-required="false"
   role="radio"
   size="m"

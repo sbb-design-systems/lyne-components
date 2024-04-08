@@ -4,9 +4,10 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { hostAttributes } from '../../core/common-behaviors';
+import { SbbConnectedAbortController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { isBrowser } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
   SbbStateChange,
@@ -88,7 +89,9 @@ export class SbbToggleElement extends LitElement {
       options[0];
 
     if (!selectedOption) {
-      isBrowser() && console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
+      if (import.meta.env.DEV && isBrowser()) {
+        console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
+      }
       return;
     }
     if (!selectedOption.checked) {
@@ -128,7 +131,7 @@ export class SbbToggleElement extends LitElement {
   private _handleInput(): void {
     this._emitChange();
   }
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   private _handleStateChange(event: CustomEvent<SbbToggleStateChange>): void {
     const target: SbbToggleOptionElement = event.target as SbbToggleOptionElement;

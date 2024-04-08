@@ -3,7 +3,7 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
 import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 
 import readme from './readme.md?raw';
 import './navigation-button';

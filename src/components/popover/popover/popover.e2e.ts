@@ -170,7 +170,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
       expect(element).to.have.attribute('data-state', 'opened');
 
       const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
-        `--sbb-size-button-l-min-height-large`,
+        `--sbb-size-element-m`,
       );
       expect(buttonHeight.trim()).to.be.equal('3.5rem');
 
@@ -218,8 +218,8 @@ describe(`sbb-popover with ${fixture.name}`, () => {
       await sendMouse({
         type: 'click',
         position: [
-          interactiveElementPosition.x + interactiveElementPosition.width / 2,
-          interactiveElementPosition.y + interactiveElementPosition.height / 2,
+          Math.round(interactiveElementPosition.x + interactiveElementPosition.width / 2),
+          Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2),
         ],
       });
       await waitForCondition(() => didCloseEventSpy.events.length === 1);

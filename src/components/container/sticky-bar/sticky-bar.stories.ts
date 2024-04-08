@@ -3,7 +3,7 @@ import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 
 import '../../action-group';
 import '../../button/button';

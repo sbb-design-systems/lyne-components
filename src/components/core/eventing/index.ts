@@ -1,5 +1,4 @@
 export * from './composed-path-has-attribute';
-export * from './connected-abort-controller';
 export * from './event-emitter';
 export * from './event-target';
 export * from './form-element-handlers';

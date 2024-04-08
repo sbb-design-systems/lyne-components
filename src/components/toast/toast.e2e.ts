@@ -150,15 +150,17 @@ describe(`sbb-toast with ${fixture.name}`, () => {
   });
 
   it('closes other toasts on open', async () => {
-    const toast1 = await fixture<SbbToastElement>(
+    element = await fixture<SbbToastElement>(
       html`
-        <sbb-toast id="toast1"></sbb-toast>
-        <sbb-toast id="toast2"></sbb-toast>
+        <div>
+          <sbb-toast id="toast1"></sbb-toast>
+          <sbb-toast id="toast2"></sbb-toast>
+        </div>
       `,
       { modules: ['./toast.ts'] },
     );
 
-    const toast2 = toast1.nextElementSibling! as SbbToastElement;
+    const [toast1, toast2] = Array.from(element.querySelectorAll('sbb-toast'));
 
     // Open the first toast
     toast1.open();
@@ -172,6 +174,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
     await waitForLitRender(element);
 
     await waitForCondition(() => toast1.getAttribute('data-state') === 'closed');
+    await waitForCondition(() => toast2.getAttribute('data-state') === 'opened');
     expect(toast1).to.have.attribute('data-state', 'closed');
     expect(toast2).to.have.attribute('data-state', 'opened');
   });

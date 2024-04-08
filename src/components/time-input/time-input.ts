@@ -3,11 +3,11 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers';
 import { findInput, isValidAttribute } from '../core/dom';
-import { forwardEventToHost, EventEmitter } from '../core/eventing';
+import { EventEmitter, forwardEventToHost } from '../core/eventing';
 import { i18nTimeInputChange } from '../core/i18n';
-import type { ValidationChangeEvent, SbbDateLike } from '../core/interfaces';
+import type { SbbDateLike, SbbValidationChangeEvent } from '../core/interfaces';
 
 import style from './time-input.scss?lit&inline';
 
@@ -24,7 +24,7 @@ interface Time {
  * * Combined with a native input, it displays the input's value as a formatted time.
  *
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
- * @event {CustomEvent<ValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
+ * @event {CustomEvent<SbbValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
 @customElement('sbb-time-input')
 export class SbbTimeInputElement extends LitElement {
@@ -56,7 +56,7 @@ export class SbbTimeInputElement extends LitElement {
   });
 
   /** Emits whenever the internal validation state changes. */
-  private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
+  private _validationChange: EventEmitter<SbbValidationChangeEvent> = new EventEmitter(
     this,
     SbbTimeInputElement.events.validationChange,
     {
@@ -67,7 +67,7 @@ export class SbbTimeInputElement extends LitElement {
 
   private _statusContainer!: HTMLParagraphElement;
   private _abortController = new AbortController();
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();

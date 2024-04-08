@@ -2,19 +2,17 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  hostAttributes,
-  LanguageController,
-  SbbButtonBaseElement,
-  SbbNegativeMixin,
-} from '../../core/common-behaviors';
+import { SbbButtonBaseElement } from '../../core/base-elements';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
+import { hostAttributes } from '../../core/decorators';
 import { hostContext, isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
+import { SbbNegativeMixin } from '../../core/mixins';
 import type { SbbFormFieldElement } from '../form-field';
-import '../../icon';
 
 import style from './form-field-clear.scss?lit&inline';
+
+import '../../icon';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
@@ -27,8 +25,8 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
   public static override styles: CSSResultGroup = style;
 
   private _formField?: SbbFormFieldElement;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();

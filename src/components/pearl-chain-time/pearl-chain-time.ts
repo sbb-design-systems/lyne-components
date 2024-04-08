@@ -3,14 +3,16 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers';
 import { removeTimezoneFromISOTimeString } from '../core/datetime';
-import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../core/i18n';
+import { readDataNow } from '../core/datetime/data-now';
+import { i18nArrival, i18nDeparture, i18nTransferProcedures } from '../core/i18n';
 import type { Leg, PtRideLeg } from '../core/timetable';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
-import '../pearl-chain';
 
 import style from './pearl-chain-time.scss?lit&inline';
+
+import '../pearl-chain';
 
 /**
  * Combined with `sbb-pearl-chain`, it displays walk time information.
@@ -47,10 +49,10 @@ export class SbbPearlChainTimeElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   private _now(): number {
-    const dataNow = +(this.dataset?.now as string);
+    const dataNow = readDataNow(this);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 

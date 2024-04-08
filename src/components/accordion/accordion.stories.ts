@@ -13,7 +13,7 @@ import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread';
 import { SbbExpansionPanelElement } from '../expansion-panel';
 
 import readme from './readme.md?raw';
