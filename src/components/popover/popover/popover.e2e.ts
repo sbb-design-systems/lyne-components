@@ -218,8 +218,8 @@ describe(`sbb-popover with ${fixture.name}`, () => {
       await sendMouse({
         type: 'click',
         position: [
-          interactiveElementPosition.x + interactiveElementPosition.width / 2,
-          interactiveElementPosition.y + interactiveElementPosition.height / 2,
+          Math.round(interactiveElementPosition.x + interactiveElementPosition.width / 2),
+          Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2),
         ],
       });
       await waitForCondition(() => didCloseEventSpy.events.length === 1);

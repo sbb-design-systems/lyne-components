@@ -18,9 +18,11 @@ const firefox = process.argv.includes('--firefox');
 const webkit = process.argv.includes('--webkit');
 const concurrency = process.argv.includes('--parallel') ? {} : { concurrency: 1 };
 
-const globalCss = sass.compile('./src/components/core/styles/global.scss', {
-  loadPaths: ['.', './node_modules/'],
-});
+const stylesCompiler = new sass.initCompiler();
+const renderStyles = () =>
+  stylesCompiler.compile('./src/components/core/styles/global.scss', {
+    loadPaths: ['.', './node_modules/'],
+  }).css;
 
 const browsers = isCIEnvironment
   ? [
@@ -52,9 +54,11 @@ const testRunnerHtml = (testFramework, _config, group) => `
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="testEnvironment" ${isDebugMode ? 'debug' : ''}>
-    <meta name="testGroup" content="${groupNameOverride ?? group?.name ?? 'default'}">
-    <style type="text/css">${globalCss.css}</style>
+    <style type="text/css">${renderStyles()}</style>
+    <script>
+      globalThis.testEnv = '${isDebugMode ? 'debug' : ''}';
+      globalThis.testGroup = '${groupNameOverride ?? group?.name ?? 'default'}';
+    </script>
   </head>
   <body>
     <script type="module" src="/src/components/core/testing/test-setup.ts"></script>
@@ -69,6 +73,12 @@ function resolveConcurrency() {
   const factor = localCpus.some((el) => el.model.includes('Apple M')) ? 4 : 2;
   return Math.floor(localCpus.length / factor);
 }
+
+// A list of log messages, that should not be printed to the test console.
+const suppressedLogs = [
+  'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.',
+  '[vite] connecting...',
+];
 
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
@@ -96,8 +106,6 @@ export default {
   coverageConfig: {
     exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/*.scss'],
   },
-  filterBrowserLogs: (log) =>
-    log.args[0] !==
-    'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.',
+  filterBrowserLogs: (log) => suppressedLogs.includes(log.args[0]),
   testRunnerHtml,
 };
