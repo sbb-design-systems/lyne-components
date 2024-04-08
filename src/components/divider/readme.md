@@ -16,7 +16,7 @@ It's also possible to display the component in `negative` variant using the self
 
 ## Properties
 
-| Name          | Attribute     | Privacy | Type                          | Default        | Description                                                                                   |
-| ------------- | ------------- | ------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------- |
-| `orientation` | `orientation` | public  | `SbbOrientation \| undefined` | `'horizontal'` | Orientation property with possible values 'horizontal' \| 'vertical'. Defaults to horizontal. |
-| `negative`    | `negative`    | public  | `boolean`                     | `false`        | Negative coloring variant flag.                                                               |
+| Name          | Attribute     | Privacy | Type             | Default        | Description                                                                                   |
+| ------------- | ------------- | ------- | ---------------- | -------------- | --------------------------------------------------------------------------------------------- |
+| `orientation` | `orientation` | public  | `SbbOrientation` | `'horizontal'` | Orientation property with possible values 'horizontal' \| 'vertical'. Defaults to horizontal. |
+| `negative`    | `negative`    | public  | `boolean`        | `false`        | Negative coloring variant flag.                                                               |

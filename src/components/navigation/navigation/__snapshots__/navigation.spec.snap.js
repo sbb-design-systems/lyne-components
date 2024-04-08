@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-navigation renders DOM"] = 
 `<sbb-navigation
   data-state="closed"
-  id="sbb-navigation-1"
+  id="sbb-navigation-0"
   role="navigation"
   trigger="nav-trigger"
 >

@@ -44,6 +44,6 @@ export class SbbScrollHandler {
     document.body.style.marginInlineEnd = this._marginInlineEnd || '';
     document.body.style.setProperty('--sbb-scrollbar-width', '0');
 
-    document.body.toggleAttribute('data-sbb-scroll-disabled', false);
+    document.body.removeAttribute('data-sbb-scroll-disabled');
   }
 }

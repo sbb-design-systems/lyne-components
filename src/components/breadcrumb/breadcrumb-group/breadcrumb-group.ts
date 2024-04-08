@@ -38,7 +38,14 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-BREADCRUMB'];
 
-  @state() private _state?: 'collapsed' | 'manually-expanded';
+  /* The state of the breadcrumb group. */
+  @state()
+  private set _state(state: 'collapsed' | 'manually-expanded' | null) {
+    setAttribute(this, 'data-state', state);
+  }
+  private get _state(): 'collapsed' | 'manually-expanded' | null {
+    return this.getAttribute('data-state') as 'collapsed' | 'manually-expanded' | null;
+  }
 
   private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
   private _abort = new SbbConnectedAbortController(this);
@@ -109,7 +116,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
 
     // If it is not expandable, reset state
     if (this.listChildren.length < 3) {
-      this._state = undefined;
+      this._state = null;
     }
   }
 
@@ -201,8 +208,6 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-
     return html`
       <ol class="sbb-breadcrumb-group">
         ${this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}

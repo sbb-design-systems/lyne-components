@@ -285,6 +285,9 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
           reactProps[attributeName] = toAttribute ? toAttribute(v) : v;
         } else if (v) {
           reactProps[attributeName] = '';
+          // Some boolean props like `checked` don't react to mutations after user interaction.
+          // To ensure expectation from React/JSX, we set also the corresponding property in this case.
+          elementProps[k] = v;
         } else {
           elementProps[k] = v;
         }

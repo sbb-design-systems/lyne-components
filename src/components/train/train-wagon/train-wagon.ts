@@ -1,9 +1,14 @@
-import { type CSSResultGroup, LitElement, nothing, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbLanguageController } from '../../core/controllers';
-import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import {
   i18nAdditionalWagonInformationHeading,
@@ -85,6 +90,21 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
     },
   );
 
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (
+      changedProperties.has('type') ||
+      changedProperties.has('occupancy') ||
+      changedProperties.has('wagonClass')
+    ) {
+      this.toggleAttribute(
+        'data-has-visible-wagon-content',
+        Boolean((this.type === 'wagon' && this.occupancy) || this.wagonClass),
+      );
+    }
+  }
+
   private _sectorChanged(): void {
     this._sectorChange.emit();
   }
@@ -110,12 +130,6 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
     };
 
     const sectorString = `${i18nSector[this._language.current]}, ${this.sector}`;
-
-    setAttribute(
-      this,
-      'data-has-visible-wagon-content',
-      Boolean((this.type === 'wagon' && this.occupancy) || this.wagonClass),
-    );
 
     return html`
       <div class="sbb-train-wagon">

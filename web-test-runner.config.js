@@ -10,7 +10,7 @@ import {
   patchedSummaryReporter,
   ssrPlugin,
   vitePlugin,
-} from './config/web-test-runner/index.js';
+} from './tools/web-test-runner/index.js';
 
 const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');

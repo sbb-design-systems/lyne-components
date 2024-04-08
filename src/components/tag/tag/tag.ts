@@ -94,6 +94,11 @@ export class SbbTagElement extends SbbIconNameMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      this.setAttribute('aria-pressed', `${this.checked}`);
+    }
+
     const tagGroup = this.closest?.('sbb-tag-group');
     if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
       tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
@@ -101,8 +106,6 @@ export class SbbTagElement extends SbbIconNameMixin(
   }
 
   protected override renderTemplate(): TemplateResult {
-    // We have to ensure that the value is always present
-    this.setAttribute('aria-pressed', this.checked.toString());
     return html`
       <span class="sbb-tag__icon sbb-tag--shift"> ${this.renderIconSlot()} </span>
       <span class="sbb-tag__text sbb-tag--shift">

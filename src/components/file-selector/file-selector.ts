@@ -142,7 +142,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
 
   private _onBlur(): void {
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this._loadButton.toggleAttribute('data-focus-visible', false);
+      this._loadButton.removeAttribute('data-focus-visible');
     }
   }
 

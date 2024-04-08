@@ -8,8 +8,8 @@ import { SbbLanguageController } from '../core/controllers';
 import { SbbScrollHandler, isValidAttribute, hostContext } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
+import type { SbbOpenedClosedState } from '../core/interfaces';
 import { SbbNegativeMixin } from '../core/mixins';
-import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
 import type { SbbScreenReaderOnlyElement } from '../screen-reader-only';
 
@@ -91,11 +91,11 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
   /*
    * The state of the overlay.
    */
-  private set _state(state: SbbOverlayState) {
-    this.dataset.state = state;
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   private _ariaLiveRef!: SbbScreenReaderOnlyElement;
@@ -196,7 +196,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
     this._overlayController?.abort();
     this._overlayController = new AbortController();
 
@@ -214,10 +214,10 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
     removeInertMechanism();
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     this._ariaLiveRef =
       this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
-    super.firstUpdated(_changedProperties);
+    super.firstUpdated(changedProperties);
   }
 
   private _removeInstanceFromGlobalCollection(): void {

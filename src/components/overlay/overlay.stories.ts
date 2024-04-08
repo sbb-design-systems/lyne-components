@@ -227,10 +227,12 @@ const FormTemplate = (args: Args): TemplateResult => html`
       <form style=${styleMap(formStyle)} @submit=${(e: SubmitEvent) => e.preventDefault()}>
         <sbb-form-field error-space="none" size="m">
           <label>Message</label>
+        <sbb-form-field error-space="none" size="m">
+          <label>Message</label>
           <input placeholder="Your custom massage" value="Hello 👋" name="message" />
         </sbb-form-field>
         <sbb-form-field error-space="none" size="m">
-          <label>Favorite animal</label>
+          <label>Favorite Animal</label>
           <select name="animal">
             <option>Red Panda</option>
             <option>Cheetah</option>

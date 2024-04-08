@@ -38,7 +38,7 @@ export class SbbCardBadgeElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     if (this._parentElement) {
-      this._parentElement.toggleAttribute('data-has-card-badge', false);
+      this._parentElement.removeAttribute('data-has-card-badge');
     }
     this._parentElement = undefined;
   }

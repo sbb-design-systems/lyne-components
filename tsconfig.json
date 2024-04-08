@@ -42,7 +42,13 @@
           "no-incompatible-type-binding": "off",
           // In the calendar we have properties, that support Date/string/number values
           // TODO: Maybe change the signature to only accept a date object.
-          "no-incompatible-property-type": "off"
+          "no-incompatible-property-type": "off",
+          "no-unknown-tag-name": "error",
+          "no-missing-import": "error",
+          "no-missing-element-type-definition": "error",
+          "no-unknown-attribute": "error",
+          "no-unknown-property": "error",
+          "no-unknown-slot": "error"
         },
         "globalAttributes": [
           "align-self",

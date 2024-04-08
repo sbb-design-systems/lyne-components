@@ -1,7 +1,6 @@
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-export type SbbOverlayState = 'closed' | 'opening' | 'opened' | 'closing';
 const IS_OPEN_OVERLAY_QUERY = `:is(sbb-dialog, sbb-navigation, sbb-menu)[data-state='opened']`;
 
 /**
@@ -43,7 +42,7 @@ const setSbbInert = (el: HTMLElement): void => {
   if (!el.inert) {
     el.inert = true;
     if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert! + 1 || 0}`;
+      el.setAttribute('data-sbb-inert', `${+el.getAttribute('data-sbb-inert')! + 1 || 0}`);
     } else {
       el.toggleAttribute('data-sbb-inert', true);
     }
@@ -61,12 +60,12 @@ const setSbbInert = (el: HTMLElement): void => {
 const removeSbbInert = (el: HTMLElement): void => {
   if (el.hasAttribute('data-sbb-inert')) {
     el.inert = false;
-    el.toggleAttribute('data-sbb-inert', false);
+    el.removeAttribute('data-sbb-inert');
   }
 
   if (el.hasAttribute('data-sbb-aria-hidden')) {
     el.removeAttribute('aria-hidden');
-    el.toggleAttribute('data-sbb-aria-hidden', false);
+    el.removeAttribute('data-sbb-aria-hidden');
   }
 };
 
@@ -93,7 +92,7 @@ export function applyInertMechanism(overlay: HTMLElement): void {
       ) as HTMLElement[],
     );
     if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert! + 1 || 0}`;
+      el.setAttribute('data-sbb-inert', `${+el.getAttribute('data-sbb-inert')! + 1 || 0}`);
     }
   }
 
@@ -107,8 +106,10 @@ export function removeInertMechanism(): void {
 
   if (openOverlays.length) {
     openOverlays.forEach((el) => {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert! - 1}`;
-      if (el.dataset.sbbInert && +el.dataset.sbbInert < 0) {
+      const newValue = +el.getAttribute('data-sbb-inert')! - 1;
+      el.setAttribute('data-sbb-inert', `${newValue}`);
+
+      if (newValue && newValue < 0) {
         removeSbbInert(el);
         Array.from(el.children).forEach((el: Element) => removeSbbInert(el as HTMLElement));
       }

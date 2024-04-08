@@ -10,10 +10,10 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y';
 import { SbbLanguageController } from '../../core/controllers';
-import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
+import { findReferencedElement, isValidAttribute } from '../../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
 import { i18nClosePopover } from '../../core/i18n';
-import type { SbbOverlayState } from '../../core/overlay';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import {
   getElementPosition,
   isEventOnElement,
@@ -84,14 +84,11 @@ export class SbbPopoverElement extends LitElement {
     | undefined;
 
   /** The state of the popover. */
-  private set _state(state: SbbOverlayState) {
-    if (!this.dataset) {
-      return;
-    }
-    this.dataset.state = state;
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.dataset.state as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /** Emits whenever the `sbb-popover` starts the opening transition. */
@@ -139,7 +136,7 @@ export class SbbPopoverElement extends LitElement {
 
     // Close the other popovers
     for (const popover of Array.from(popoversRef)) {
-      const state = popover.getAttribute('data-state') as SbbOverlayState;
+      const state = popover.getAttribute('data-state') as SbbOpenedClosedState;
       if (state && (state === 'opened' || state === 'opening')) {
         popover.close();
       }
@@ -455,8 +452,7 @@ export class SbbPopoverElement extends LitElement {
         responsiveHeight: true,
       },
     );
-
-    setAttribute(this, 'data-position', popoverPosition.alignment.vertical);
+    this.setAttribute('data-position', popoverPosition.alignment.vertical);
 
     const arrowXPosition =
       this._triggerElement.getBoundingClientRect().left -

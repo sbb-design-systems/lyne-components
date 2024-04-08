@@ -14,29 +14,9 @@ export function isValidAttribute(element: Element, attribute: string): boolean {
  * @param value The attribute value
  */
 export function setAttribute(element: HTMLElement, attribute: string, value?: any): void {
-  if (!value) {
-    element.removeAttribute(attribute);
-    return;
-  }
-
-  if (typeof value === 'boolean') {
-    element.setAttribute(attribute, '');
+  if (typeof value === 'boolean' || !value) {
+    element.toggleAttribute(attribute, !!value);
   } else {
     element.setAttribute(attribute, value);
-  }
-}
-
-/**
- * Set multiple attributes
- * @param element The element that will have the attributes
- * @param attributes Attributes object
- */
-export function setAttributes(element: HTMLElement, attributes?: Record<string, any>): void {
-  if (!attributes) {
-    return;
-  }
-
-  for (const [name, value] of Object.entries(attributes)) {
-    setAttribute(element, name, value);
   }
 }

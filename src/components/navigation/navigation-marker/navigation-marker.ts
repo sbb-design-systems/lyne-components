@@ -87,7 +87,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
 
   public reset(): void {
     if (this._currentActiveAction) {
-      this._currentActiveAction.toggleAttribute('data-action-active', false);
+      this._currentActiveAction.removeAttribute('data-action-active');
       this._currentActiveAction.connectedSection?.close();
       this._currentActiveAction = undefined;
     }

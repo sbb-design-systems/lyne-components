@@ -1,9 +1,8 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../core/decorators';
-import { setAttribute } from '../core/dom';
 import type { SbbOrientation } from '../core/interfaces';
 import { SbbNegativeMixin } from '../core/mixins';
 
@@ -20,11 +19,17 @@ export class SbbDividerElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */
-  @property({ reflect: true }) public orientation?: SbbOrientation = 'horizontal';
+  @property({ reflect: true }) public orientation: SbbOrientation = 'horizontal';
+
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('orientation')) {
+      this.setAttribute('aria-orientation', this.orientation);
+    }
+  }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'aria-orientation', this.orientation);
-
     return html` <div class="sbb-divider"></div> `;
   }
 }

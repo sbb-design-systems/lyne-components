@@ -133,14 +133,12 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // Scrolling down
-        this.toggleAttribute('data-shadow', false);
-        this.toggleAttribute('data-visible', false);
+        ['data-shadow', 'data-visible'].forEach((name) => this.removeAttribute(name));
       } else {
         // Scrolling up
-        this.toggleAttribute('data-fixed', true);
-        this.toggleAttribute('data-shadow', true);
-        this.toggleAttribute('data-animated', true);
-        this.toggleAttribute('data-visible', true);
+        ['data-fixed', 'data-shadow', 'data-animated', 'data-visible'].forEach((name) =>
+          this.toggleAttribute(name, true),
+        );
       }
     } else {
       // Check if header in its original position, scroll position < header height.
@@ -149,10 +147,9 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
-        this.toggleAttribute('data-shadow', false);
-        this.toggleAttribute('data-animated', false);
-        this.toggleAttribute('data-fixed', false);
-        this.toggleAttribute('data-visible', false);
+        ['data-shadow', 'data-animated', 'data-fixed', 'data-visible'].forEach((name) =>
+          this.removeAttribute(name),
+        );
       }
     }
     // `currentScroll` can be negative, e.g. on mobile; this is not allowed.

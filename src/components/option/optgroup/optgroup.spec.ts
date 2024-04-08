@@ -6,6 +6,7 @@ import { describeIf } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbOptGroupElement } from './optgroup';
+
 import '../../autocomplete';
 import '../option';
 import './optgroup';
@@ -13,12 +14,13 @@ import './optgroup';
 describe(`sbb-optgroup`, () => {
   describe('autocomplete', () => {
     describe('renders', () => {
-      let elem: SbbOptGroupElement;
+      let element: SbbOptGroupElement;
 
       beforeEach(async () => {
         const testFixture = await fixture(html`
           <div>
-            <sbb-autocomplete origin="anchor">
+            <input id="input" />
+            <sbb-autocomplete origin="anchor" trigger="input">
               <sbb-optgroup label="Label">
                 <sbb-option value="1">1</sbb-option>
                 <sbb-option value="2">2</sbb-option>
@@ -27,26 +29,29 @@ describe(`sbb-optgroup`, () => {
             <div id="anchor"></div>
           </div>
         `);
-        elem = testFixture.querySelector('sbb-optgroup')!;
+        element = testFixture.querySelector('sbb-optgroup')!;
+
+        // Open input for a meaningful a11y tree
+        testFixture.querySelector<HTMLInputElement>('input')!.focus();
       });
 
       describeIf(!isSafari(), 'Chrome-Firefox', async () => {
         it('Dom', async () => {
-          await expect(elem).dom.to.be.equalSnapshot();
+          await expect(element).dom.to.be.equalSnapshot();
         });
 
         it('ShadowDom', async () => {
-          await expect(elem).shadowDom.to.be.equalSnapshot();
+          await expect(element).shadowDom.to.be.equalSnapshot();
         });
       });
 
       describeIf(isSafari(), 'Safari', async () => {
         it('Dom', async () => {
-          await expect(elem).dom.to.be.equalSnapshot();
+          await expect(element).dom.to.be.equalSnapshot();
         });
 
         it('ShadowDom', async () => {
-          await expect(elem).shadowDom.to.be.equalSnapshot();
+          await expect(element).shadowDom.to.be.equalSnapshot();
         });
       });
 

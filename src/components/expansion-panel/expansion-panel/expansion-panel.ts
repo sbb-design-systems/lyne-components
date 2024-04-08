@@ -5,8 +5,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers';
 import { EventEmitter } from '../../core/eventing';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import { SbbHydrationMixin } from '../../core/mixins';
-import type { SbbOverlayState } from '../../core/overlay';
 import type { SbbTitleLevel } from '../../title';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
@@ -94,7 +94,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   );
 
   private _abort = new SbbConnectedAbortController(this);
-  private _state: SbbOverlayState = 'closed';
+  private _state: SbbOpenedClosedState = 'closed';
 
   private _toggleExpanded(): void {
     this.expanded = !this.expanded;
@@ -143,7 +143,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._transitionEventController?.abort();
-    this.toggleAttribute('data-accordion', false);
+    this.removeAttribute('data-accordion');
   }
 
   private _handleSlotchange(): void {

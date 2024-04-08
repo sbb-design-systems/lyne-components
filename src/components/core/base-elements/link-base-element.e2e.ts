@@ -73,3 +73,10 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
     });
   });
 });
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'generic-link': GenericLink;
+  }
+}

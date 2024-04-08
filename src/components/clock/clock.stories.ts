@@ -42,9 +42,7 @@ if (isChromatic()) {
 }
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ 'max-width': '600px' })}>${story()}</div> `,
-  ],
+  decorators: [(story) => html`<div style=${styleMap({ 'max-width': '600px' })}>${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

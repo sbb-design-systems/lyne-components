@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { removeTimezoneFromISOTimeString } from '../core/datetime';
+import { readDataNow } from '../core/datetime/data-now';
 import type { Leg, PtRideLeg } from '../core/timetable';
 import { isRideLeg } from '../core/timetable';
 
@@ -36,7 +37,7 @@ export class SbbPearlChainElement extends LitElement {
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
   private _now(): number {
-    const dataNow = +(this.dataset?.now as string);
+    const dataNow = readDataNow(this);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 

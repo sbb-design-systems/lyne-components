@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button';
 import {
@@ -8,10 +8,10 @@ import {
   SbbLanguageController,
   SbbSlotStateController,
 } from '../core/controllers';
-import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
+import { isFirefox, isValidAttribute } from '../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
-import type { SbbOverlayState } from '../core/overlay';
+import type { SbbOpenedClosedState } from '../core/interfaces';
 import { SbbIconNameMixin } from '../icon';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link';
 import '../button/transparent-button';
@@ -71,8 +71,13 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
 
-  /** The state of the autocomplete. */
-  @state() private _state: SbbOverlayState = 'closed';
+  /* The state of the toast. */
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** Emits whenever the `sbb-toast` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willOpen);
@@ -153,6 +158,8 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._state ||= 'closed';
+
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
 
@@ -239,10 +246,6 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    // ## Host attributes ##
-    setAttribute(this, 'data-state', this._state);
-    // ####
-
     return html`
       <div class="sbb-toast__overlay-container">
         <div

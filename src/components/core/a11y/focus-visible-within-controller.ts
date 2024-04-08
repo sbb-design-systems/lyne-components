@@ -12,7 +12,7 @@ export class SbbFocusVisibleWithinController implements ReactiveController {
   };
 
   private _focusoutHandler = (): void => {
-    this._host.toggleAttribute('data-has-visible-focus-within', false);
+    this._host.removeAttribute('data-has-visible-focus-within');
   };
 
   public constructor(private _host: ReactiveControllerHost & HTMLElement) {
