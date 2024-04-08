@@ -64,7 +64,5 @@ export const parameters = {
 };
 
 export const decorators: Decorator[] = [
-  (story) => html`
-    <div class=${isChromatic() ? 'sbb-disable-animation' : nothing}>${story()}</div>
-  `,
+  (story) => (isChromatic() ? html`<div class="sbb-disable-animation">${story()}</div>` : story()),
 ];
