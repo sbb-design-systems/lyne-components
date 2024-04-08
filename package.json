@@ -114,7 +114,6 @@
     "rollup-plugin-postcss-lit": "2.1.0",
     "sass": "1.74.1",
     "sinon": "17.0.1",
-    "standard-version": "^9.5.0",
     "storybook": "8.0.6",
     "stylelint": "16.3.1",
     "stylelint-config-prettier-scss": "1.0.0",
@@ -131,42 +130,6 @@
     "@webcomponents/template-shadowroot": "0.2.1",
     "jackspeak": "2.1.1",
     "lit": "3.1.2"
-  },
-  "standard-version": {
-    "types": [
-      {
-        "type": "feat",
-        "section": "Features"
-      },
-      {
-        "type": "fix",
-        "section": "Bug Fixes"
-      },
-      {
-        "type": "chore",
-        "hidden": true
-      },
-      {
-        "type": "docs",
-        "section": "Documentation"
-      },
-      {
-        "type": "style",
-        "section": "Bug Fixes"
-      },
-      {
-        "type": "refactor",
-        "section": "Refactorings"
-      },
-      {
-        "type": "perf",
-        "hidden": "Performance"
-      },
-      {
-        "type": "test",
-        "hidden": true
-      }
-    ]
   },
   "prettier": {
     "singleQuote": true,
