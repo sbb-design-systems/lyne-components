@@ -4,6 +4,7 @@ import { defineConfig, mergeConfig, type UserConfig } from 'vite';
 
 import {
   copyAssets,
+  copySass,
   customElementsManifest,
   distDir,
   dts,
@@ -40,7 +41,8 @@ export default defineConfig((config) =>
                 },
               },
             }),
-            copyAssets(['_index.scss', 'core/styles/**/*.scss', '../../README.md']),
+            copyAssets(['_index.scss', '../../README.md']),
+            copySass('core/styles'),
             typography(),
           ]
         : []),

@@ -1,5 +1,6 @@
 export * from './build-meta';
 export * from './copy-assets';
+export * from './copy-sass';
 export * from './custom-elements-manifest';
 export * from './dts';
 export * from './generate-react-wrappers';
