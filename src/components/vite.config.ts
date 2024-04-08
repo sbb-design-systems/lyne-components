@@ -57,6 +57,7 @@ export default defineConfig((config) =>
       outDir: new URL(`./components/${isProdBuild(config) ? '' : 'development/'}`, distDir)
         .pathname,
       emptyOutDir: true,
+      sourcemap: isProdBuild(config) ? false : 'inline',
       rollupOptions: {
         external: (source: string, importer: string | undefined) => {
           if (
