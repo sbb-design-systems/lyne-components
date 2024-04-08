@@ -82,6 +82,7 @@
   --sbb-form-field-label-size: calc(
     var(--sbb-font-size-text-xxs) * var(--sbb-typo-line-height-body-text)
   );
+  --sbb-form-field-label-to-input-overlapping: var(--sbb-spacing-fixed-2x);
 }
 
 :host([size='l']) {
