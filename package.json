@@ -39,7 +39,7 @@
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
     "lint:styles": "stylelint \"**/*.scss\"",
     "lint:lit": "yarn lit-analyzer \"src/components/**/*.ts\"",
-    "lint:circular-imports": "madge --circular --extensions ts ./",
+    "lint:circular-imports": "madge --circular --extensions ts ./src",
     "lint:tsc": "npm-run-all --sequential lint:tsc:*",
     "lint:tsc:components": "tsc --noEmit --project src/components/tsconfig.json",
     "lint:tsc:components-spec": "tsc --noEmit --project src/components/tsconfig.spec.json",
@@ -179,5 +179,12 @@
     "*.{js,ts,css,scss,json,md,html,yaml,yml}": [
       "prettier --write"
     ]
+  },
+  "madge": {
+    "detectiveOptions": {
+      "ts": {
+        "skipTypeImports": true
+      }
+    }
   }
 }
