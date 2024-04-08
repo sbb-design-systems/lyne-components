@@ -2,7 +2,11 @@ The `sbb-dialog-title` component extends the [sbb-title](/docs/components-sbb-ti
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-title accessibility-close-label="Close button" accessibility-back-label="Back button">
+  <sbb-dialog-title
+    slot="title"
+    accessibility-close-label="Close button"
+    accessibility-back-label="Back button"
+  >
     A describing title of the dialog
   </sbb-dialog-title>
 </sbb-dialog>
@@ -18,7 +22,9 @@ In addition, the title can be hidden when scrolling down the content, to provide
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-title hide-on-scroll="small"> A describing title of the dialog </sbb-dialog-title>
+  <sbb-dialog-title slot="title" hide-on-scroll="small">
+    A describing title of the dialog
+  </sbb-dialog-title>
 </sbb-dialog>
 ```
 
@@ -28,7 +34,7 @@ A close button is always displayed and can be used to close the dialog. Optional
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-title back-button> A describing title of the dialog </sbb-dialog-title>
+  <sbb-dialog-title slot="title" back-button> A describing title of the dialog </sbb-dialog-title>
 </sbb-dialog>
 ```
 

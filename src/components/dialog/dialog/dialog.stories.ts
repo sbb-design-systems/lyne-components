@@ -174,7 +174,12 @@ const triggerButton = (dialogId: string, triggerId?: string): TemplateResult => 
 `;
 
 const dialogActions = (negative: boolean): TemplateResult => html`
-  <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
+  <sbb-dialog-actions
+    slot="actions"
+    align-group="stretch"
+    orientation="vertical"
+    horizontal-from="medium"
+  >
     <sbb-block-link
       align-self="start"
       icon-name="chevron-small-left-small"
@@ -226,6 +231,7 @@ const dialogTitle = (
   accessibilityBackLabel: string,
 ): TemplateResult => html`
   <sbb-dialog-title
+    slot="title"
     level=${level}
     ?back-button=${backButton}
     hide-on-scroll=${hideOnScroll === 'Deactivate hide on scroll' ? nothing : hideOnScroll}
@@ -255,7 +261,7 @@ const DefaultTemplate = ({
   ${triggerButton('my-dialog-1')}
   <sbb-dialog data-testid="dialog" id="my-dialog-1" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
-    <sbb-dialog-content>
+    <sbb-dialog-content slot="content">
       <p id="dialog-content-1" style=${styleMap({ margin: '0' })}>Dialog content</p>
     </sbb-dialog-content>
     ${dialogActions(args.negative)}
@@ -273,7 +279,7 @@ const LongContentTemplate = ({
   ${triggerButton('my-dialog-2')}
   <sbb-dialog data-testid="dialog" id="my-dialog-2" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
-    <sbb-dialog-content data-testid="content">
+    <sbb-dialog-content slot="content" data-testid="content">
       Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
       like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
       Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad in
@@ -325,7 +331,7 @@ const FormTemplate = ({
     ${sbbSpread(args)}
   >
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
-    <sbb-dialog-content>
+    <sbb-dialog-content slot="content">
       <div style=${styleMap({ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' })}>
         Submit the form below to close the dialog box using the
         <code style=${styleMap(codeStyle)}>close(result?: any, target?: HTMLElement)</code>
@@ -362,7 +368,7 @@ const NoFooterTemplate = ({
   ${triggerButton('my-dialog-4')}
   <sbb-dialog data-testid="dialog" id="my-dialog-4" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
-    <sbb-dialog-content>
+    <sbb-dialog-content slot="content">
       <p id="dialog-content-5" style=${styleMap({ margin: '0' })}>
         “What really knocks me out is a book that, when you're all done reading it, you wish the
         author that wrote it was a terrific friend of yours and you could call him up on the phone
@@ -384,7 +390,7 @@ const NestedTemplate = ({
   ${triggerButton('my-dialog-5')}
   <sbb-dialog data-testid="dialog" id="my-dialog-5" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
-    <sbb-dialog-content
+    <sbb-dialog-content slot="content"
       >Click the button to open a nested
       dialog.&nbsp;${triggerButton('my-dialog-6', 'nested-trigger-id')}</sbb-dialog-content
     >
@@ -396,7 +402,7 @@ const NestedTemplate = ({
         accessibilityCloseLabel,
         accessibilityBackLabel,
       )}
-      <sbb-dialog-content
+      <sbb-dialog-content slot="content"
         >Nested dialog content. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
         nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute

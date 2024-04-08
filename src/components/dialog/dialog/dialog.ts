@@ -8,9 +8,9 @@ import { SbbLanguageController } from '../../core/controllers';
 import { SbbScrollHandler, isValidAttribute, hostContext, isBreakpoint } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nDialog } from '../../core/i18n';
+import type { SbbOpenedClosedState } from '../../core/interfaces';
 import { SbbNegativeMixin } from '../../core/mixins';
 import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbOverlayState } from '../../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../../core/overlay';
 import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only';
 import type { SbbDialogActionsElement } from '../dialog-actions';
@@ -75,11 +75,11 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   /*
    * The state of the dialog.
    */
-  private set _state(state: SbbOverlayState) {
+  private set _state(state: SbbOpenedClosedState) {
     this.dataset.state = state;
   }
-  private get _state(): SbbOverlayState {
-    return this.dataset?.state as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.dataset?.state as SbbOpenedClosedState;
   }
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.

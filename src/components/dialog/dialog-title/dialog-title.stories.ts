@@ -64,7 +64,7 @@ const defaultArgs: Args = {
 };
 
 const Template = (args: Args): TemplateResult =>
-  html`<sbb-dialog-title ${sbbSpread(args)}>Dialog title</sbb-dialog-title>`;
+  html`<sbb-dialog-title slot="title" ${sbbSpread(args)}>Dialog title</sbb-dialog-title>`;
 
 export const Default: StoryObj = {
   render: Template,

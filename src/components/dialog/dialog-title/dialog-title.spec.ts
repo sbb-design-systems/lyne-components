@@ -6,10 +6,10 @@ import './dialog-title';
 
 describe('sbb-dialog-title', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-dialog-title>Title</sbb-dialog-title>`);
+    const root = await fixture(html`<sbb-dialog-title slot="title">Title</sbb-dialog-title>`);
 
     expect(root).dom.to.be.equal(`
-      <sbb-dialog-title
+      <sbb-dialog-title slot="title"
        level="2"
        role="heading"
        slot="title"
@@ -19,5 +19,5 @@ describe('sbb-dialog-title', () => {
     await expect(root).shadowDom.to.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(html`<sbb-dialog-title>Title</sbb-dialog-title>`);
+  testA11yTreeSnapshot(html`<sbb-dialog-title slot="title">Title</sbb-dialog-title>`);
 });

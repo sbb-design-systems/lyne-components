@@ -190,9 +190,9 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-secondary-button>
 
           <sbb-dialog id="my-dialog" title-content="My Dialog">
-            <sbb-dialog-title back-button>My Dialog</sbb-dialog-title>
+            <sbb-dialog-title slot="title" back-button>My Dialog</sbb-dialog-title>
 
-            <sbb-dialog-content>
+            <sbb-dialog-content slot="content">
               <p style="margin-top: 0;">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -211,6 +211,7 @@ const Template = (args: Args): TemplateResult => html`
             </sbb-dialog-content>
 
             <sbb-dialog-actions
+              slot="actions"
               align-group="stretch"
               orientation="vertical"
               horizontal-from="medium"
@@ -230,8 +231,8 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-dialog>
 
           <sbb-dialog id="my-stacked-dialog">
-            <sbb-dialog-title back-button>Stacked Dialog</sbb-dialog-title>
-            <sbb-dialog-content>
+            <sbb-dialog-title slot="title" back-button>Stacked Dialog</sbb-dialog-title>
+            <sbb-dialog-content slot="content">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.
             </sbb-dialog-content>

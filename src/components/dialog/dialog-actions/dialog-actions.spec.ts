@@ -6,7 +6,7 @@ import './dialog-actions';
 
 describe('sbb-dialog-actions', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-dialog-actions></sbb-dialog-actions>`);
+    const root = await fixture(html`<sbb-dialog-actions slot="actions"></sbb-dialog-actions>`);
 
     await expect(root).dom.to.equalSnapshot();
 
@@ -20,5 +20,5 @@ describe('sbb-dialog-actions', () => {
     `);
   });
 
-  testA11yTreeSnapshot(html`<sbb-dialog-actions></sbb-dialog-actions>`);
+  testA11yTreeSnapshot(html`<sbb-dialog-actions slot="actions"></sbb-dialog-actions>`);
 });
