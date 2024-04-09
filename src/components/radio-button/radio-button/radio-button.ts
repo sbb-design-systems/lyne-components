@@ -13,9 +13,7 @@ import {
 import { SbbRadioButtonCommonElementMixin, type SbbRadioButtonStateChange } from '../common';
 import commonStyle from '../common/radio-button-common.scss?lit&inline';
 
-import {
-  radioButtonStyle
-} from '../common';
+import { radioButtonStyle } from '../common/index.js';
 
 export type SbbRadioButtonSize = 's' | 'm';
 

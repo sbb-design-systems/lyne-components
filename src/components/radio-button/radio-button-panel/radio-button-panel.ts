@@ -1,20 +1,20 @@
 import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers';
-import { setAttribute } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
-import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins';
-import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers/index.js';
+import { setAttribute } from '../../core/dom/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import { i18nCollapsed, i18nExpanded } from '../../core/i18n/index.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins/index.js';
+import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel/index.js';
 import {
   SbbRadioButtonCommonElementMixin,
   commonStyle,
   radioButtonPanelStyle,
   type SbbRadioButtonStateChange,
-} from '../common';
+} from '../common/index.js';
 
-import '../../screen-reader-only';
+import '../../screen-reader-only/index.js';
 
 /**
  /**

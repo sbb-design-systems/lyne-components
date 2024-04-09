@@ -3,19 +3,19 @@ import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbCheckboxGroupElement } from '../checkbox/index.js';
-import { SbbCheckboxElement } from '../checkbox/index.js';
+import type { SbbCheckboxElement, SbbCheckboxGroupElement } from '../checkbox/index.js';
+import { SbbCheckboxPanelElement } from '../checkbox/index.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing/index.js';
 import { fixture } from '../core/testing/private/index.js';
-import type { SbbRadioButtonGroupElement } from '../radio-button/index.js';
-import { SbbRadioButtonElement } from '../radio-button/index.js';
+import type {
+  SbbRadioButtonGroupElement,
+  SbbRadioButtonElement,
+  SbbRadioButtonPanelElement,
+} from '../radio-button/index.js';
 
-import { SbbCheckboxPanelElement } from '../checkbox';
 import '../link/block-link-button/index.js';
-import { SbbRadioButtonPanelElement } from '../radio-button/index.js';
 
-import '../link/block-link-button';
-import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
 
 describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
   let elements: SbbSelectionExpansionPanelElement[];

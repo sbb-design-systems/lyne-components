@@ -6,7 +6,7 @@ import type {
   SbbDisabledStateChange,
   SbbIconPlacement,
   SbbStateChange,
-} from '../../core/interfaces';
+} from '../../core/interfaces/index.js';
 import {
   SbbFormAssociatedCheckboxMixin,
   SbbHydrationMixin,
@@ -15,9 +15,9 @@ import {
   type SbbFormAssociatedCheckboxMixinType,
   type SbbHydrationMixinType,
   type SbbRequiredMixinType,
-} from '../../core/mixins';
-import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon';
-import type { SbbCheckboxGroupElement } from '../checkbox-group';
+} from '../../core/mixins/index.js';
+import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon/index.js';
+import type { SbbCheckboxGroupElement } from '../checkbox-group/index.js';
 
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,

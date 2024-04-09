@@ -5,14 +5,11 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js'
 
 import '../card/card-badge/index.js';
 import '../checkbox/index.js';
-import './selection-panel.js';
 
-import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel';
+import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
 
-import '../card/card-badge';
-import '../checkbox/checkbox-panel';
-import './selection-expansion-panel';
-import './selection-panel';
+import '../checkbox/checkbox-panel/index.js';
+import './selection-expansion-panel.js';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let element: SbbSelectionExpansionPanelElement;

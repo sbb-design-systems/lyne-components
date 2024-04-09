@@ -2,12 +2,12 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbRadioButtonGroupElement } from '../radio-button-group';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { SbbRadioButtonGroupElement } from '../radio-button-group/index.js';
 
-import type { SbbRadioButtonPanelElement } from './radio-button-panel';
+import type { SbbRadioButtonPanelElement } from './radio-button-panel.js';
 
-import '../index';
+import '../index.js';
 
 describe('sbb-radio-button-panel', () => {
   let element: SbbRadioButtonGroupElement;

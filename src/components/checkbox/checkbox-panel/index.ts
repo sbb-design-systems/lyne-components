@@ -1,1 +1,1 @@
-export * from './checkbox-panel';
+export * from './checkbox-panel.js';

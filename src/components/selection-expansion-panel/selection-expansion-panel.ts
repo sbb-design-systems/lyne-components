@@ -2,11 +2,11 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbCheckboxPanelElement } from '../checkbox';
+import type { SbbCheckboxPanelElement } from '../checkbox/index.js';
 import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers/index.js';
 import { EventEmitter } from '../core/eventing/index.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces/index.js';
-import type { SbbRadioButtonPanelElement } from '../radio-button';
+import type { SbbRadioButtonPanelElement } from '../radio-button/index.js';
 
 import style from './selection-expansion-panel.scss?lit&inline';
 

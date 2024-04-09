@@ -3,10 +3,8 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
-import { SbbCheckboxCommonElementMixin } from '../common';
 import commonStyle from '../common/checkbox-common.scss?lit&inline';
-
-import { checkboxStyle } from '../common';
+import { SbbCheckboxCommonElementMixin, checkboxStyle } from '../common/index.js';
 
 import '../../screen-reader-only/index.js';
 import '../../visual-checkbox/index.js';

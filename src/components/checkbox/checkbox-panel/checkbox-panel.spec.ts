@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import { SbbCheckboxPanelElement } from './checkbox-panel';
+import { SbbCheckboxPanelElement } from './checkbox-panel.js';
 
 describe('sbb-checkbox-panel', () => {
   let element: SbbCheckboxPanelElement;

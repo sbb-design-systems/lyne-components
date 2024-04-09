@@ -24,7 +24,7 @@ import '../popover/index.js';
 import '../radio-button/index.js';
 import '../title/index.js';
 import readme from './readme.md?raw';
-import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
 
 const color: InputType = {
   control: {

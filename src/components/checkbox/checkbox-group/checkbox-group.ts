@@ -13,8 +13,8 @@ import {
 } from '../../core/controllers/index.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces/index.js';
 import { SbbDisabledMixin } from '../../core/mixins/index.js';
-import type { SbbCheckboxPanelElement } from '../checkbox-panel';
 import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox/index.js';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel/index.js';
 
 import style from './checkbox-group.scss?lit&inline';
 
