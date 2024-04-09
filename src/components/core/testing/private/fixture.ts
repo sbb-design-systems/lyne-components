@@ -1,8 +1,8 @@
 import type { FixtureOptions } from '@lit-labs/testing/lib/fixtures/fixture-options';
 import type { TemplateResult } from 'lit';
 
-import { isHydratedSsr, isNonHydratedSsr } from '../platform';
-import { waitForLitRender } from '../wait-for-render';
+import { isHydratedSsr, isNonHydratedSsr } from '../platform.js';
+import { waitForLitRender } from '../wait-for-render.js';
 
 /**
  * We want to dynamically use the correct fixture from Lit testing for the current context.

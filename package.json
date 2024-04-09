@@ -94,6 +94,7 @@
     "esbuild-sass-plugin": "^3.1.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
+    "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "npm:eslint-plugin-i@latest",
     "eslint-plugin-lit": "1.11.0",
     "eslint-plugin-lyne": "file:tools/eslint/link/",

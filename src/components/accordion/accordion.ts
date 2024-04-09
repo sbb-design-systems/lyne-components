@@ -2,10 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../core/controllers';
-import { SbbHydrationMixin } from '../core/mixins';
-import { SbbExpansionPanelElement } from '../expansion-panel';
-import type { SbbTitleLevel } from '../title';
+import { SbbConnectedAbortController } from '../core/controllers/index.js';
+import { SbbHydrationMixin } from '../core/mixins/index.js';
+import { SbbExpansionPanelElement } from '../expansion-panel/index.js';
+import type { SbbTitleLevel } from '../title/index.js';
 
 import style from './accordion.scss?lit&inline';
 

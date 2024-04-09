@@ -2,14 +2,14 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbCardElement } from '../card';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbCardElement } from '../card/index.js';
 
-import type { SbbCardButtonElement } from './card-button';
+import type { SbbCardButtonElement } from './card-button.js';
 
-import '../card';
-import './card-button';
+import '../card/index.js';
+import './card-button.js';
 
 describe(`sbb-card-button with ${fixture.name}`, () => {
   let element: SbbCardElement;

@@ -3,14 +3,14 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbTertiaryButtonElement } from '../button';
-import { SbbLanguageController } from '../core/controllers';
-import { i18nMapContainerButtonLabel } from '../core/i18n';
-import { AgnosticIntersectionObserver } from '../core/observers';
+import type { SbbTertiaryButtonElement } from '../button/index.js';
+import { SbbLanguageController } from '../core/controllers/index.js';
+import { i18nMapContainerButtonLabel } from '../core/i18n/index.js';
+import { AgnosticIntersectionObserver } from '../core/observers/index.js';
 
 import style from './map-container.scss?lit&inline';
 
-import '../button/tertiary-button';
+import '../button/tertiary-button/index.js';
 
 /**
  * It can be used as a container for maps.

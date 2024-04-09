@@ -5,17 +5,17 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import '../clock';
-import '../button';
-import '../divider';
-import '../link';
-import '../link-list';
-import '../title';
-import './footer';
+import '../clock/index.js';
+import '../button/index.js';
+import '../divider/index.js';
+import '../link/index.js';
+import '../link-list/index.js';
+import '../title/index.js';
+import './footer.js';
 
 const variant: InputType = {
   control: {

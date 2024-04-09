@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { waitForLitRender, EventSpy } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbTagElement } from './tag';
+import { SbbTagElement } from './tag.js';
 
 describe(`sbb-tag with ${fixture.name}`, () => {
   let element: SbbTagElement;

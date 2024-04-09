@@ -5,12 +5,12 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import images from '../core/images';
-import '../image';
-import '../title';
-import '../button/secondary-button';
-import './message';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import images from '../core/images.js';
+import '../image/index.js';
+import '../title/index.js';
+import '../button/secondary-button/index.js';
+import './message.js';
 
 import readme from './readme.md?raw';
 

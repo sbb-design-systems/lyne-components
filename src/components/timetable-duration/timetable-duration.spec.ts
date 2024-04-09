@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private';
+import { fixture } from '../core/testing/private/index.js';
 
-import sampleData from './timetable-duration.sample-data';
+import sampleData from './timetable-duration.sample-data.js';
 
-import './timetable-duration';
+import './timetable-duration.js';
 
 const config = JSON.stringify(sampleData[0]);
 

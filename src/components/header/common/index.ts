@@ -1,1 +1,1 @@
-export * from './header-action-common';
+export * from './header-action-common.js';

@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { isValidAttribute } from '../core/dom';
-import { SbbNegativeMixin } from '../core/mixins';
+import { isValidAttribute } from '../core/dom/index.js';
+import { SbbNegativeMixin } from '../core/mixins/index.js';
 
 import style from './form-error.scss?lit&inline';
 

@@ -2,14 +2,14 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements';
-import { SbbSlotStateController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
+import type { SbbActionBaseElement } from '../../core/base-elements/index.js';
+import { SbbSlotStateController } from '../../core/controllers/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
 import {
   SbbNegativeMixin,
   type SbbNegativeMixinType,
   type AbstractConstructor,
-} from '../../core/mixins';
+} from '../../core/mixins/index.js';
 
 import style from './link.scss?lit&inline';
 

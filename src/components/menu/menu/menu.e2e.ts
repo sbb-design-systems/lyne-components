@@ -2,16 +2,16 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import type { SbbButtonElement } from '../../button/index.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbMenuElement } from './menu';
+import { SbbMenuElement } from './menu.js';
 
-import '../../button/button';
-import '../../link';
-import '../../divider';
-import '../menu-button';
+import '../../button/button/index.js';
+import '../../link/index.js';
+import '../../divider/index.js';
+import '../menu-button/index.js';
 
 describe(`sbb-menu with ${fixture.name}`, () => {
   let element: SbbMenuElement, trigger: SbbButtonElement;

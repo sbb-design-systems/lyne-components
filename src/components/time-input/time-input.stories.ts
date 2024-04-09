@@ -12,15 +12,15 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import type { SbbFormErrorElement } from '../form-error';
-import type { SbbFormFieldElement } from '../form-field';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import type { SbbFormErrorElement } from '../form-error/index.js';
+import type { SbbFormFieldElement } from '../form-field/index.js';
 
 import readme from './readme.md?raw';
-import { SbbTimeInputElement } from './time-input';
-import '../button/secondary-button';
-import '../form-field';
-import '../form-error';
+import { SbbTimeInputElement } from './time-input.js';
+import '../button/secondary-button/index.js';
+import '../form-field/index.js';
+import '../form-error/index.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

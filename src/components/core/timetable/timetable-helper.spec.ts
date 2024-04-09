@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 
-import { extractTimeAndStringFromNoticeText } from './timetable-helper';
-import type { Notice } from './timetable-properties';
+import { extractTimeAndStringFromNoticeText } from './timetable-helper.js';
+import type { Notice } from './timetable-properties.js';
 
 describe('timetable-helper', () => {
   it('should return duration and text from notice', () => {

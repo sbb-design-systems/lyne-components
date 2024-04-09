@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbNavigationListElement } from './navigation-list';
+import { SbbNavigationListElement } from './navigation-list.js';
 
-import '../navigation-button';
+import '../navigation-button/index.js';
 
 describe(`sbb-navigation-list with ${fixture.name}`, () => {
   let element: SbbNavigationListElement;

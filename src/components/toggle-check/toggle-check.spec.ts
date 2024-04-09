@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
 
-import type { SbbToggleCheckElement } from './toggle-check';
+import type { SbbToggleCheckElement } from './toggle-check.js';
 
-import './toggle-check';
+import './toggle-check.js';
 
 describe(`sbb-toggle-check`, () => {
   describe('should render', async () => {

@@ -3,27 +3,27 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex } from '../core/a11y';
-import { SbbConnectedAbortController } from '../core/controllers';
-import { hostAttributes } from '../core/decorators';
+import { getNextElementIndex } from '../core/a11y/index.js';
+import { SbbConnectedAbortController } from '../core/controllers/index.js';
+import { hostAttributes } from '../core/decorators/index.js';
 import {
   getDocumentWritingMode,
   findReferencedElement,
   isSafari,
   isValidAttribute,
   isBrowser,
-} from '../core/dom';
-import { EventEmitter } from '../core/eventing';
-import type { SbbOpenedClosedState } from '../core/interfaces';
-import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins';
+} from '../core/dom/index.js';
+import { EventEmitter } from '../core/eventing/index.js';
+import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins/index.js';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../core/overlay';
-import type { SbbOptionElement, SbbOptGroupElement } from '../option';
+} from '../core/overlay/index.js';
+import type { SbbOptionElement, SbbOptGroupElement } from '../option/index.js';
 
 import style from './autocomplete.scss?lit&inline';
 

@@ -5,14 +5,14 @@ import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
 
 import readme from './readme.md?raw';
 
-import './skiplink-list';
-import '../link/block-link';
+import './skiplink-list.js';
+import '../link/block-link/index.js';
 
 const titleContent: InputType = {
   control: {

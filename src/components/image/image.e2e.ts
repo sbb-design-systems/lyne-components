@@ -2,10 +2,10 @@ import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { waitForCondition } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { waitForCondition } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbImageElement } from './image';
+import { SbbImageElement } from './image.js';
 
 describe(`sbb-image with ${fixture.name}`, () => {
   let element: SbbImageElement;

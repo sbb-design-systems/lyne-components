@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbTrainWagonElement } from '../train-wagon';
+import { EventSpy, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbTrainWagonElement } from '../train-wagon/index.js';
 
-import { SbbTrainElement } from './train';
+import { SbbTrainElement } from './train.js';
 
-import '../train-wagon';
+import '../train-wagon/index.js';
 
 describe(`sbb-train with ${fixture.name}`, () => {
   let element: SbbTrainElement;

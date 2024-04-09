@@ -1,13 +1,16 @@
 import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { EventEmitter } from '../../core/eventing';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins';
-import { SbbIconNameMixin } from '../../icon';
-import type { SbbExpansionPanelElement } from '../expansion-panel';
+import { SbbButtonBaseElement } from '../../core/base-elements/index.js';
+import {
+  SbbConnectedAbortController,
+  SbbSlotStateController,
+} from '../../core/controllers/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins/index.js';
+import { SbbIconNameMixin } from '../../icon/index.js';
+import type { SbbExpansionPanelElement } from '../expansion-panel/index.js';
 
 import style from './expansion-panel-header.scss?lit&inline';
 

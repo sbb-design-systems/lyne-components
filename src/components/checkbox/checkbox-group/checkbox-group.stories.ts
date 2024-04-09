@@ -5,14 +5,14 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
-import type { SbbCheckboxElement } from '../checkbox';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import type { SbbCheckboxElement } from '../checkbox/index.js';
 
 import readme from './readme.md?raw';
 
-import './checkbox-group';
-import '../checkbox';
-import '../../form-error';
+import './checkbox-group.js';
+import '../checkbox/index.js';
+import '../../form-error/index.js';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

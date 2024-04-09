@@ -1,1 +1,1 @@
-export * from './teaser-paid';
+export * from './teaser-paid.js';

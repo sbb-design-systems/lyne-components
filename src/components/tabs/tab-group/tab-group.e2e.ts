@@ -2,13 +2,13 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbTabTitleElement } from '../tab-title';
+import { EventSpy, waitForCondition } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbTabTitleElement } from '../tab-title/index.js';
 
-import { SbbTabGroupElement } from './tab-group';
+import { SbbTabGroupElement } from './tab-group.js';
 
-import '../tab-title';
+import '../tab-title/index.js';
 
 describe(`sbb-tab-group with ${fixture.name}`, () => {
   let element: SbbTabGroupElement;

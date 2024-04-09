@@ -9,18 +9,25 @@ import {
 } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { setAttribute } from '../../core/dom';
-import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
-import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbBreadcrumbElement } from '../breadcrumb';
+import {
+  getNextElementIndex,
+  isArrowKeyPressed,
+  sbbInputModalityDetector,
+} from '../../core/a11y/index.js';
+import {
+  SbbConnectedAbortController,
+  SbbLanguageController,
+} from '../../core/controllers/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { setAttribute } from '../../core/dom/index.js';
+import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n/index.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
+import { AgnosticResizeObserver } from '../../core/observers/index.js';
+import type { SbbBreadcrumbElement } from '../breadcrumb/index.js';
 
 import style from './breadcrumb-group.scss?lit&inline';
 
-import '../../icon';
+import '../../icon/index.js';
 
 /**
  * It can be used as a container for one or more `sbb-breadcrumb` component.

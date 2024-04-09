@@ -14,19 +14,19 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import sampleImages from '../core/images';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
+import sampleImages from '../core/images.js';
 
-import { SbbOverlayElement } from './overlay';
+import { SbbOverlayElement } from './overlay.js';
 import readme from './readme.md?raw';
 
-import '../button';
-import '../form-field';
-import '../image';
-import '../link';
-import '../title';
+import '../button/index.js';
+import '../form-field/index.js';
+import '../image/index.js';
+import '../link/index.js';
+import '../title/index.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

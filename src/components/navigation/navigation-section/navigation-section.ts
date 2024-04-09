@@ -7,30 +7,30 @@ import {
   getFirstFocusableElement,
   getFocusableElements,
   setModalityOnNextFocus,
-} from '../../core/a11y';
-import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
+} from '../../core/a11y/index.js';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
 import {
   findReferencedElement,
   isBreakpoint,
   isValidAttribute,
   setAttribute,
-} from '../../core/dom';
-import { i18nGoBack } from '../../core/i18n';
-import type { SbbOpenedClosedState } from '../../core/interfaces';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins';
+} from '../../core/dom/index.js';
+import { i18nGoBack } from '../../core/i18n/index.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins/index.js';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay';
-import type { SbbNavigationElement } from '../navigation';
-import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationLinkElement } from '../navigation-link';
+} from '../../core/overlay/index.js';
+import type { SbbNavigationElement } from '../navigation/index.js';
+import type { SbbNavigationButtonElement } from '../navigation-button/index.js';
+import type { SbbNavigationLinkElement } from '../navigation-link/index.js';
 
 import style from './navigation-section.scss?lit&inline';
 
-import '../../button/transparent-button';
-import '../../divider';
+import '../../button/transparent-button/index.js';
+import '../../divider/index.js';
 
 let nextId = 0;
 

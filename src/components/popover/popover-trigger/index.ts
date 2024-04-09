@@ -1,1 +1,1 @@
-export * from './popover-trigger';
+export * from './popover-trigger.js';

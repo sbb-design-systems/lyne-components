@@ -1,4 +1,4 @@
-import { isBrowser } from './platform';
+import { isBrowser } from './platform.js';
 
 export type Breakpoint = 'zero' | 'micro' | 'small' | 'medium' | 'wide' | 'large' | 'ultra';
 

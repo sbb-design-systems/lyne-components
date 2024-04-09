@@ -14,17 +14,17 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
 import readme from './readme.md?raw';
 
-import './header';
-import '../header-button';
-import '../header-link';
-import '../../divider';
-import '../../menu';
+import './header.js';
+import '../header-button/index.js';
+import '../header-link/index.js';
+import '../../divider/index.js';
+import '../../menu/index.js';
 
 const LoremIpsumTemplate = (): TemplateResult => html`
   <div>

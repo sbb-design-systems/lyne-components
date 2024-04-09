@@ -8,17 +8,17 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbLanguageController } from '../../core/controllers';
-import { EventEmitter } from '../../core/eventing';
-import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
-import type { SbbTitleLevel } from '../../title';
-import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage';
-import type { SbbTrainWagonElement } from '../train-wagon';
+import { SbbLanguageController } from '../../core/controllers/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import { i18nTrain, i18nWagonsLabel } from '../../core/i18n/index.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
+import type { SbbTitleLevel } from '../../title/index.js';
+import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/index.js';
+import type { SbbTrainWagonElement } from '../train-wagon/index.js';
 
 import style from './train.scss?lit&inline';
 
-import '../../icon';
+import '../../icon/index.js';
 
 /**
  * It can be used as a container for `sbb-train-wagon` or `sbb-train-blocked-passage` components.

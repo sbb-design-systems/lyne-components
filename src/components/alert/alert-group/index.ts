@@ -1,1 +1,1 @@
-export * from './alert-group';
+export * from './alert-group.js';

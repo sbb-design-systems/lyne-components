@@ -1,2 +1,2 @@
-export * from './create-component';
-export * from './ssr-extensions';
+export * from './create-component.js';
+export * from './ssr-extensions.js';

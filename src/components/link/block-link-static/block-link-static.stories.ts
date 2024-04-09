@@ -19,10 +19,10 @@ import {
   linkCommonDefaultArgs,
   linkCommonDefaultArgTypes,
   wrapperStyle,
-} from '../common/link-common-stories';
+} from '../common/link-common-stories.js';
 
 import readme from './readme.md?raw';
-import './block-link-static';
+import './block-link-static.js';
 
 const defaultArgTypes: ArgTypes = {
   ...blockLinkCommonDefaultArgTypes,

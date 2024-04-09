@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbLinkListElement } from './link-list';
-import '../link/block-link';
+import { SbbLinkListElement } from './link-list.js';
+import '../link/block-link/index.js';
 
 describe(`sbb-link-list with ${fixture.name}`, () => {
   let element: SbbLinkListElement;

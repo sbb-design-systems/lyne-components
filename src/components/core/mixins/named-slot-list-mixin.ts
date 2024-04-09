@@ -1,12 +1,12 @@
 import { html, type LitElement, nothing, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { getLocalName } from '../dom';
+import { getLocalName } from '../dom/index.js';
 
-import type { AbstractConstructor } from './constructor';
-import { SbbHydrationMixin, type SbbHydrationMixinType } from './hydration-mixin';
+import type { AbstractConstructor } from './constructor.js';
+import { SbbHydrationMixin, type SbbHydrationMixinType } from './hydration-mixin.js';
 
-import '../../screen-reader-only';
+import '../../screen-reader-only/index.js';
 
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
 const SLOTNAME_PREFIX = 'li';

@@ -1,1 +1,1 @@
-export * from './breadcrumb-group';
+export * from './breadcrumb-group.js';

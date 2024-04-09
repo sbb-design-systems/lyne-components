@@ -14,18 +14,18 @@ import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import type { SbbPopoverTriggerElement } from '../../popover';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
+import type { SbbPopoverTriggerElement } from '../../popover/index.js';
 
-import { SbbDatepickerElement } from './datepicker';
+import { SbbDatepickerElement } from './datepicker.js';
 import readme from './readme.md?raw';
 
-import '../datepicker-next-day';
-import '../datepicker-previous-day';
-import '../datepicker-toggle';
-import '../../form-field';
+import '../datepicker-next-day/index.js';
+import '../datepicker-previous-day/index.js';
+import '../datepicker-toggle/index.js';
+import '../../form-field/index.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

@@ -1,9 +1,9 @@
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
-import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
+import { AgnosticResizeObserver } from '../../core/observers/index.js';
+import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index.js';
 
 import style from './navigation-marker.scss?lit&inline';
 

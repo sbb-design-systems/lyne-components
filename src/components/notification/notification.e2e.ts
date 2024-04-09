@@ -1,13 +1,13 @@
 import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../button';
-import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import type { SbbSecondaryButtonElement } from '../button/index.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbNotificationElement } from './notification';
+import { SbbNotificationElement } from './notification.js';
 
-import '../link/link';
+import '../link/link/index.js';
 
 describe(`sbb-notification with ${fixture.name}`, () => {
   let element: SbbNotificationElement;

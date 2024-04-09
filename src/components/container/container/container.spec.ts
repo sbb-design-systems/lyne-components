@@ -1,8 +1,8 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
-import './container';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
+import './container.js';
 
 describe(`sbb-container`, () => {
   it('renders', async () => {

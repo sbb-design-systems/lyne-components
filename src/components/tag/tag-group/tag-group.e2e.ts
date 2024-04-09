@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbTagElement } from '../tag';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbTagElement } from '../tag/index.js';
 
-import { SbbTagGroupElement } from './tag-group';
+import { SbbTagGroupElement } from './tag-group.js';
 
-import '../tag';
+import '../tag/index.js';
 
 describe(`sbb-tag-group with ${fixture.name}`, () => {
   let element: SbbTagGroupElement;

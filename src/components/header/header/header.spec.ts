@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import type { SbbHeaderElement } from './header';
-import './header';
-import '../header-link';
+import type { SbbHeaderElement } from './header.js';
+import './header.js';
+import '../header-link/index.js';
 
 describe(`sbb-header`, () => {
   it('renders', async () => {

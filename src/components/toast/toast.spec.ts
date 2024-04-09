@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isFirefox } from '../core/dom';
-import { describeIf } from '../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { isFirefox } from '../core/dom/index.js';
+import { describeIf } from '../core/testing/index.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
 
-import type { SbbToastElement } from './toast';
+import type { SbbToastElement } from './toast.js';
 
-import './toast';
+import './toast.js';
 
 describe(`sbb-toast`, () => {
   describe('renders', () => {

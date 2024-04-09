@@ -2,14 +2,14 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import type { SbbButtonElement } from '../../button/index.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbPopoverElement } from './popover';
+import { SbbPopoverElement } from './popover.js';
 
-import '../../button/button';
-import '../../link';
+import '../../button/button/index.js';
+import '../../link/index.js';
 
 describe(`sbb-popover with ${fixture.name}`, () => {
   let element: SbbPopoverElement, trigger: SbbButtonElement;

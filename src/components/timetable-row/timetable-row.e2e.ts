@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbCardElement } from '../card';
-import { EventSpy, waitForCondition } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import type { SbbCardElement } from '../card/index.js';
+import { EventSpy, waitForCondition } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbTimetableRowElement } from './timetable-row';
+import { SbbTimetableRowElement } from './timetable-row.js';
 
 describe(`sbb-timetable-row with ${fixture.name}`, () => {
   let element: SbbTimetableRowElement;

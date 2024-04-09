@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html, type TemplateResult } from 'lit';
 
-import { fixture } from '../testing/private';
+import { fixture } from '../testing/private/index.js';
 
-import { SbbActionBaseElement } from './action-base-element';
+import { SbbActionBaseElement } from './action-base-element.js';
 
 class GenericAction extends SbbActionBaseElement {
   protected override renderTemplate(): TemplateResult {

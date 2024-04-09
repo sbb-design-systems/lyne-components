@@ -15,16 +15,16 @@ import { html, nothing } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import type { SbbFormErrorElement } from '../form-error';
-import { SbbOptionElement } from '../option';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
+import type { SbbFormErrorElement } from '../form-error/index.js';
+import { SbbOptionElement } from '../option/index.js';
 
 import readme from './readme.md?raw';
-import { SbbSelectElement } from './select';
-import '../form-error';
-import '../form-field';
+import { SbbSelectElement } from './select.js';
+import '../form-error/index.js';
+import '../form-field/index.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

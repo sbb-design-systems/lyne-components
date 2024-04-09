@@ -2,12 +2,12 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { i18nDialog } from '../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { i18nDialog } from '../core/i18n/index.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbDialogElement } from './dialog';
-import '../title';
+import { SbbDialogElement } from './dialog.js';
+import '../title/index.js';
 
 async function openDialog(element: SbbDialogElement): Promise<void> {
   const willOpen = new EventSpy(SbbDialogElement.events.willOpen);

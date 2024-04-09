@@ -1,7 +1,7 @@
 import { html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbLinkBaseElement } from '../core/base-elements';
+import { SbbLinkBaseElement } from '../core/base-elements/index.js';
 
 import style from './teaser-paid.scss?lit&inline';
 

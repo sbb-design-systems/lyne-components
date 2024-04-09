@@ -1,11 +1,11 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers';
-import { i18nOccupancy } from '../core/i18n';
-import type { SbbOccupancy } from '../core/interfaces';
-import { SbbNegativeMixin } from '../core/mixins';
-import { SbbIconBase } from '../icon';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers/index.js';
+import { i18nOccupancy } from '../core/i18n/index.js';
+import type { SbbOccupancy } from '../core/interfaces/index.js';
+import { SbbNegativeMixin } from '../core/mixins/index.js';
+import { SbbIconBase } from '../icon/index.js';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';
 

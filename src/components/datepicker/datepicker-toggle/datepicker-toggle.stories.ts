@@ -14,15 +14,15 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import type { SbbPopoverTriggerElement } from '../../popover';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
+import type { SbbPopoverTriggerElement } from '../../popover/index.js';
 
-import '../../form-field';
-import '../datepicker';
+import '../../form-field/index.js';
+import '../datepicker/index.js';
 
-import './datepicker-toggle';
+import './datepicker-toggle.js';
 import readme from './readme.md?raw';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

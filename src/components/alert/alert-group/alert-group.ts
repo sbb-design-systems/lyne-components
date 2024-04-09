@@ -3,10 +3,10 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers';
-import { EventEmitter } from '../../core/eventing';
-import type { SbbTitleLevel } from '../../title';
-import { SbbAlertElement } from '../alert';
+import { SbbConnectedAbortController } from '../../core/controllers/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import type { SbbTitleLevel } from '../../title/index.js';
+import { SbbAlertElement } from '../alert/index.js';
 
 import style from './alert-group.scss?lit&inline';
 

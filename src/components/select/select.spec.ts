@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../core/dom';
-import { describeIf } from '../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { isSafari } from '../core/dom/index.js';
+import { describeIf } from '../core/testing/index.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
 
-import type { SbbSelectElement } from './select';
-import './select';
-import '../option';
+import type { SbbSelectElement } from './select.js';
+import './select.js';
+import '../option/index.js';
 
 describe(`sbb-select`, () => {
   describe('renders', () => {

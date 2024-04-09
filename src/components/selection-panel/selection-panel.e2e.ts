@@ -3,15 +3,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbCheckboxGroupElement } from '../checkbox';
-import { SbbCheckboxElement } from '../checkbox';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
-import type { SbbRadioButtonGroupElement } from '../radio-button';
-import { SbbRadioButtonElement } from '../radio-button';
+import type { SbbCheckboxGroupElement } from '../checkbox/index.js';
+import { SbbCheckboxElement } from '../checkbox/index.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
+import type { SbbRadioButtonGroupElement } from '../radio-button/index.js';
+import { SbbRadioButtonElement } from '../radio-button/index.js';
 
-import { SbbSelectionPanelElement } from './selection-panel';
-import '../link/block-link-button';
+import { SbbSelectionPanelElement } from './selection-panel.js';
+import '../link/block-link-button/index.js';
 
 describe(`sbb-selection-panel with ${fixture.name}`, () => {
   let elements: SbbSelectionPanelElement[];

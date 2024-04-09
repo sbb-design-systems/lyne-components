@@ -1,1 +1,1 @@
-export * from './link-static';
+export * from './link-static.js';

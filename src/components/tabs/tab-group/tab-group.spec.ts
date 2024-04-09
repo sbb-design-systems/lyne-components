@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { waitForLitRender } from '../../core/testing/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import type { SbbTabGroupElement } from './tab-group';
-import './tab-group';
-import '../tab-title';
+import type { SbbTabGroupElement } from './tab-group.js';
+import './tab-group.js';
+import '../tab-title/index.js';
 
 describe(`sbb-tab-group`, () => {
   let element: SbbTabGroupElement;

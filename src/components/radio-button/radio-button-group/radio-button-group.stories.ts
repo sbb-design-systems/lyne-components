@@ -4,13 +4,13 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
-import type { SbbFormErrorElement } from '../../form-error';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import type { SbbFormErrorElement } from '../../form-error/index.js';
 
 import readme from './readme.md?raw';
-import './radio-button-group';
-import '../radio-button';
-import '../../form-error';
+import './radio-button-group.js';
+import '../radio-button/index.js';
+import '../../form-error/index.js';
 
 const value: InputType = {
   control: {

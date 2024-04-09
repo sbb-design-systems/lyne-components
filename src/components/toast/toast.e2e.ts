@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../button';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import type { SbbTransparentButtonElement } from '../button/index.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbToastElement } from './toast';
+import { SbbToastElement } from './toast.js';
 
-import '../button/transparent-button';
-import '../link/link-button';
+import '../button/transparent-button/index.js';
+import '../link/link-button/index.js';
 
 describe(`sbb-toast with ${fixture.name}`, () => {
   let element: SbbToastElement;

@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbNavigationLinkElement } from './navigation-link';
+import { SbbNavigationLinkElement } from './navigation-link.js';
 
 describe(`sbb-navigation-link with ${fixture.name}`, () => {
   let element: SbbNavigationLinkElement;

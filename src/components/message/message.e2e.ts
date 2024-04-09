@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbMessageElement } from './message';
+import { SbbMessageElement } from './message.js';
 
 describe(`sbb-message with ${fixture.name}`, () => {
   let element: SbbMessageElement;

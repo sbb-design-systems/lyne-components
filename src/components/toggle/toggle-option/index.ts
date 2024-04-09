@@ -1,1 +1,1 @@
-export * from './toggle-option';
+export * from './toggle-option.js';

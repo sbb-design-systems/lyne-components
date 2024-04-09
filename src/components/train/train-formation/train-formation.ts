@@ -8,13 +8,16 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
-import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
-import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbTrainElement } from '../train';
-import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage';
-import type { SbbTrainWagonElement } from '../train-wagon';
+import {
+  SbbConnectedAbortController,
+  SbbLanguageController,
+} from '../../core/controllers/index.js';
+import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n/index.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
+import { AgnosticResizeObserver } from '../../core/observers/index.js';
+import type { SbbTrainElement } from '../train/index.js';
+import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/index.js';
+import type { SbbTrainWagonElement } from '../train-wagon/index.js';
 
 import style from './train-formation.scss?lit&inline';
 

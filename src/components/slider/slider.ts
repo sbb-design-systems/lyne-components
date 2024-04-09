@@ -4,15 +4,15 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { SbbConnectedAbortController } from '../core/controllers';
-import { hostAttributes } from '../core/decorators';
-import { setAttribute } from '../core/dom';
-import { EventEmitter, forwardEventToHost } from '../core/eventing';
-import { SbbDisabledTabIndexActionMixin } from '../core/mixins';
+import { SbbConnectedAbortController } from '../core/controllers/index.js';
+import { hostAttributes } from '../core/decorators/index.js';
+import { setAttribute } from '../core/dom/index.js';
+import { EventEmitter, forwardEventToHost } from '../core/eventing/index.js';
+import { SbbDisabledTabIndexActionMixin } from '../core/mixins/index.js';
 
 import style from './slider.scss?lit&inline';
 
-import '../icon';
+import '../icon/index.js';
 
 /**
  * It displays an input knob that can be moved in a range.

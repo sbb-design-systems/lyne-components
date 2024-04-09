@@ -8,7 +8,7 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import '../../components/title';
+import '../../components/title/index.js';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type StoryParameter = Record<string, StoryObj> & { __namedExportsOrder?: string[] };
