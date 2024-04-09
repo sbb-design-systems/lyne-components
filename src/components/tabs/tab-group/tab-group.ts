@@ -330,10 +330,7 @@ export class SbbTabGroupElement extends LitElement {
     tab.setAttribute('aria-controls', tab.relatedContent.id);
     tab.setAttribute('aria-selected', 'false');
     tab.relatedContent.setAttribute('role', 'tabpanel');
-    tab.relatedContent.removeAttribute('active');
-    if (tab.active) {
-      tab.relatedContent.toggleAttribute('active', true);
-    }
+    tab.relatedContent.toggleAttribute('active', tab.active);
     tab.addEventListener('click', () => {
       tab.tabGroupActions?.select();
     });

@@ -9,7 +9,7 @@ import {
   SbbLanguageController,
   SbbSlotStateController,
 } from '../../core/controllers/index.js';
-import { isFirefox } from '../../core/dom/index.js';
+import { isFirefox, setAttribute } from '../../core/dom/index.js';
 import { i18nOptional } from '../../core/i18n/index.js';
 import { SbbNegativeMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
@@ -405,10 +405,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     }
 
     const ariaDescribedby = ids.join(' ');
-    if (ariaDescribedby) {
-      this._input?.setAttribute('aria-describedby', ariaDescribedby);
-    } else {
-      this._input?.removeAttribute('aria-describedby');
+    if (this._input) {
+      setAttribute(this._input, 'aria-describedby', ariaDescribedby);
     }
   }
 
@@ -437,9 +435,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   private _syncNegative(): void {
     this.querySelectorAll?.(
       'sbb-form-error,sbb-mini-button,sbb-popover-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
-    ).forEach((element) =>
-      this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
-    );
+    ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 
   protected override render(): TemplateResult {

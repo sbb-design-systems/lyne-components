@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators/index.js';
-import { isSafari } from '../../core/dom/index.js';
+import { isSafari, setAttribute } from '../../core/dom/index.js';
 import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
 import type { SbbOptionElement } from '../option/index.js';
@@ -94,11 +94,7 @@ export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitEl
 
   private _proxyGroupLabelToOptions(): void {
     if (!inertAriaGroups) {
-      if (this.label) {
-        this.setAttribute('aria-label', this.label);
-      } else {
-        this.removeAttribute('aria-label');
-      }
+      setAttribute(this, 'aria-label', this.label);
       return;
     } else if (this.label) {
       this.removeAttribute('aria-label');

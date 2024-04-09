@@ -6,6 +6,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbLanguageController } from '../core/controllers/index.js';
 import { readDataNow } from '../core/datetime/data-now.js';
 import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime/index.js';
+import { setAttribute } from '../core/dom/index.js';
 import {
   i18nArrival,
   i18nClass,
@@ -251,11 +252,7 @@ export class SbbTimetableRowElement extends LitElement {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('loadingTrip')) {
-      if (!this.loadingTrip) {
-        this.setAttribute('role', 'rowgroup');
-      } else {
-        this.removeAttribute('role');
-      }
+      setAttribute(this, 'role', !this.loadingTrip ? 'rowgroup' : null);
     }
   }
 
