@@ -39,6 +39,7 @@ $intersector-overlapping: 1px;
   position: sticky;
   inset-block-end: 0;
   display: block;
+  z-index: var(--sbb-sticky-bar-z-index, var(--sbb-overlay-default-z-index));
 
   &::after,
   &::before {
