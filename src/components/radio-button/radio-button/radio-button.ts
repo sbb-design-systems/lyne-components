@@ -2,18 +2,16 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  SbbSlotStateController
-} from '../../core/controllers/index.js';
+import { SbbSlotStateController } from '../../core/controllers/index.js';
 import { setOrRemoveAttribute } from '../../core/dom/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+
 import {
-  EventEmitter
-} from '../../core/eventing/index.js';
-
-import { SbbRadioButtonCommonElementMixin, type SbbRadioButtonStateChange } from '../common';
-import commonStyle from '../common/radio-button-common.scss?lit&inline';
-
-import { radioButtonStyle } from '../common/index.js';
+  SbbRadioButtonCommonElementMixin,
+  commonStyle,
+  radioButtonStyle,
+  type SbbRadioButtonStateChange,
+} from '../common/index.js';
 
 export type SbbRadioButtonSize = 's' | 'm';
 
