@@ -3,22 +3,33 @@ import * as customElementDecoratorPosition from './custom-element-decorator-posi
 import * as importExtensionRule from './import-extension-rule.js';
 import * as missingComponentDocumentation from './missing-component-documentation-rule.js';
 
-export default {
+const plugin = {
+  meta: {
+    name: 'lyne',
+  },
+  configs: {},
   rules: {
     [missingComponentDocumentation.name]: missingComponentDocumentation.rule,
     [customElementClassName.name]: customElementClassName.rule,
     [importExtensionRule.name]: importExtensionRule.rule,
     [customElementDecoratorPosition.name]: customElementDecoratorPosition.rule,
   },
-  configs: {
-    all: {
-      plugins: ['lyne'],
-      rules: {
-        [`lyne/${customElementClassName.name}`]: 'error',
-        [`lyne/${customElementDecoratorPosition.name}`]: 'error',
-        [`lyne/${importExtensionRule.name}`]: 'error',
-        [`lyne/${missingComponentDocumentation.name}`]: 'error',
-      },
+};
+
+// assign configs here so we can reference `plugin`
+Object.assign(plugin.configs, {
+  recommended: {
+    plugins: {
+      lyne: plugin,
+    },
+    rules: {
+      [`lyne/${customElementClassName.name}`]: 'error',
+      [`lyne/${customElementDecoratorPosition.name}`]: 'error',
+      [`lyne/${importExtensionRule.name}`]: 'error',
+      [`lyne/${missingComponentDocumentation.name}`]: 'error',
     },
   },
-};
+});
+
+// for ESM
+export default plugin;

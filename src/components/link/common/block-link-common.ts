@@ -8,7 +8,7 @@ import type { AbstractConstructor } from '../../core/mixins/index.js';
 import { SbbIconNameMixin } from '../../icon/index.js';
 
 import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common.js';
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import-x/order
 import blockStyle from './block-link.scss?lit&inline';
 import style from './link.scss?lit&inline';
 

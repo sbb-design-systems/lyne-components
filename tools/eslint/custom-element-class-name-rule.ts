@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention, import/no-unresolved  */
+/* eslint-disable @typescript-eslint/naming-convention, import-x/no-unresolved  */
 import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 
