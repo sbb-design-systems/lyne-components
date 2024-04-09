@@ -7,11 +7,8 @@ import type { SbbCheckboxElement, SbbCheckboxGroupElement } from '../checkbox/in
 import { SbbCheckboxPanelElement } from '../checkbox/index.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing/index.js';
 import { fixture } from '../core/testing/private/index.js';
-import type {
-  SbbRadioButtonGroupElement,
-  SbbRadioButtonElement,
-  SbbRadioButtonPanelElement,
-} from '../radio-button/index.js';
+import type { SbbRadioButtonElement, SbbRadioButtonGroupElement } from '../radio-button/index.js';
+import { SbbRadioButtonPanelElement } from '../radio-button/index.js';
 
 import '../link/block-link-button/index.js';
 
@@ -293,9 +290,9 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
         `,
         {
           modules: [
-            '../radio-button/index.ts',
+            '../radio-button/radio-button-group/index.ts',
+            '../radio-button/radio-button-panel/index.ts',
             './selection-expansion-panel.ts',
-            '../radio-button/index.ts',
           ],
         },
       );
@@ -379,11 +376,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           </sbb-radio-button-group>
         `,
         {
-          modules: [
-            '../radio-button/index.ts',
-            './selection-expansion-panel.ts',
-            '../radio-button/index.ts',
-          ],
+          modules: ['../radio-button/index.ts', './selection-expansion-panel.ts'],
         },
       );
       panel1 = nestedElement.querySelector<SbbSelectionExpansionPanelElement>('#panel1')!;
@@ -521,11 +514,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           </div>
         `,
         {
-          modules: [
-            './selection-expansion-panel.ts',
-            '../radio-button/index.ts',
-            '../radio-button/index.ts',
-          ],
+          modules: ['../radio-button/index.ts', './selection-expansion-panel.ts'],
         },
       );
 
@@ -730,11 +719,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           </sbb-checkbox-group>
         `,
         {
-          modules: [
-            '../checkbox/index.ts',
-            './selection-expansion-panel.ts',
-            '../checkbox/index.ts',
-          ],
+          modules: ['../checkbox/index.ts', './selection-expansion-panel.ts'],
         },
       );
     });
