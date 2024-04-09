@@ -3,20 +3,15 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  SbbFocusHandler,
   getNextElementIndex,
   interactivityChecker,
   IS_FOCUSABLE_QUERY,
   isArrowKeyPressed,
+  SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y/index.js';
 import { SbbConnectedAbortController } from '../../core/controllers/index.js';
-import {
-  findReferencedElement,
-  isBreakpoint,
-  isValidAttribute,
-  SbbScrollHandler,
-} from '../../core/dom/index.js';
+import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins/index.js';
@@ -316,7 +311,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
   private _closeOnInteractiveElementClick(event: Event): void {
     const target = event.target as HTMLElement;
-    if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !isValidAttribute(target, 'disabled')) {
+    if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !target.hasAttribute('disabled')) {
       this.close();
     }
   }

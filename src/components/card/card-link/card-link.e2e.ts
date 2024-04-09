@@ -61,7 +61,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
-    element.querySelector<SbbCardLinkElement>('sbb-card-link')!.setAttribute('active', '');
+    element.querySelector<SbbCardLinkElement>('sbb-card-link')!.toggleAttribute('active', true);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-has-active-action');

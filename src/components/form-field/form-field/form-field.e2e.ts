@@ -316,7 +316,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should focus select on form field click readonly', async () => {
-      select.setAttribute('readonly', '');
+      select.toggleAttribute('readonly', true);
       await waitForLitRender(element);
 
       expect(element).not.to.have.attribute('data-input-focused');

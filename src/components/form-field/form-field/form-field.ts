@@ -9,7 +9,7 @@ import {
   SbbLanguageController,
   SbbSlotStateController,
 } from '../../core/controllers/index.js';
-import { isFirefox, isValidAttribute } from '../../core/dom/index.js';
+import { isFirefox } from '../../core/dom/index.js';
 import { i18nOptional } from '../../core/i18n/index.js';
 import { SbbNegativeMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
@@ -357,8 +357,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     if (!this._input) {
       return;
     }
-    this.toggleAttribute('data-readonly', isValidAttribute(this._input, 'readonly'));
-    this.toggleAttribute('data-disabled', isValidAttribute(this._input, 'disabled'));
+    this.toggleAttribute('data-readonly', this._input.hasAttribute('readonly'));
+    this.toggleAttribute('data-disabled', this._input.hasAttribute('disabled'));
     this.toggleAttribute(
       'data-invalid',
       this._input.hasAttribute('data-sbb-invalid') ||

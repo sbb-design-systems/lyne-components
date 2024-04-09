@@ -13,7 +13,7 @@ import {
   SbbSlotStateController,
 } from '../../core/controllers/index.js';
 import { hostAttributes } from '../../core/decorators/index.js';
-import { isAndroid, isSafari, isValidAttribute, setAttribute } from '../../core/dom/index.js';
+import { isAndroid, isSafari, setAttribute } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
 import { SbbDisabledMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
@@ -249,10 +249,10 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   private _onOptionAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = isValidAttribute(this, 'data-group-disabled');
+        this._disabledFromGroup = this.hasAttribute('data-group-disabled');
         this._updateAriaDisabled();
       } else if (mutation.attributeName === 'data-negative') {
-        this._negative = isValidAttribute(this, 'data-negative');
+        this._negative = this.hasAttribute('data-negative');
       }
     }
   }

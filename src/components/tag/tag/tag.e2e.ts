@@ -33,7 +33,7 @@ describe(`sbb-tag with ${fixture.name}`, () => {
 
   it('should not be checked after click when disabled', async () => {
     expect(element).not.to.have.attribute('checked');
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await waitForLitRender(element);
 
     const changeSpy = new EventSpy('change');

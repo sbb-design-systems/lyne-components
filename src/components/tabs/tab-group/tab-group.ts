@@ -5,7 +5,6 @@ import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y/index.js';
 import { SbbConnectedAbortController } from '../../core/controllers/index.js';
-import { isValidAttribute } from '../../core/dom/index.js';
 import { EventEmitter, throttle } from '../../core/eventing/index.js';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers/index.js';
 import type { SbbTabTitleElement } from '../tab-title/index.js';
@@ -134,7 +133,7 @@ export class SbbTabGroupElement extends LitElement {
   }
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
-    return this._tabs.filter((t) => !isValidAttribute(t, 'disabled'));
+    return this._tabs.filter((t) => !t.hasAttribute('disabled'));
   }
 
   public override connectedCallback(): void {
@@ -208,17 +207,17 @@ export class SbbTabGroupElement extends LitElement {
       const tab = mutation.target as InterfaceSbbTabGroupTab;
 
       if (mutation.attributeName === 'disabled') {
-        if (isValidAttribute(tab, 'disabled') && tab !== this._selectedTab) {
+        if (tab.hasAttribute('disabled') && tab !== this._selectedTab) {
           tab.tabGroupActions?.disable();
         } else if (tab.disabled) {
           tab.tabGroupActions?.enable();
         }
       }
       if (mutation.attributeName === 'active') {
-        if (isValidAttribute(tab, 'active') && !tab.disabled) {
+        if (tab.hasAttribute('active') && !tab.disabled) {
           tab.tabGroupActions?.select();
         } else if (tab === this._selectedTab) {
-          tab.setAttribute('active', '');
+          tab.toggleAttribute('active', true);
         }
       }
     }
@@ -251,11 +250,11 @@ export class SbbTabGroupElement extends LitElement {
   private _configure(tab: InterfaceSbbTabGroupTab): void {
     tab.tabGroupActions = {
       activate: (): void => {
-        tab.setAttribute('active', '');
+        tab.toggleAttribute('active', true);
         tab.active = true;
         tab.tabIndex = 0;
         tab.setAttribute('aria-selected', 'true');
-        tab.relatedContent?.setAttribute('active', '');
+        tab.relatedContent?.toggleAttribute('active', true);
       },
       deactivate: (): void => {
         tab.removeAttribute('active');
@@ -268,8 +267,8 @@ export class SbbTabGroupElement extends LitElement {
         if (tab.disabled) {
           return;
         }
-        if (!isValidAttribute(tab, 'disabled')) {
-          tab.setAttribute('disabled', '');
+        if (!tab.hasAttribute('disabled')) {
+          tab.toggleAttribute('disabled', true);
         }
         tab.disabled = true;
         tab.tabIndex = -1;
@@ -325,15 +324,15 @@ export class SbbTabGroupElement extends LitElement {
       }
     }
     tab.tabIndex = -1;
-    tab.disabled = isValidAttribute(tab, 'disabled');
-    tab.active = isValidAttribute(tab, 'active') && !tab.disabled;
+    tab.disabled = tab.hasAttribute('disabled');
+    tab.active = tab.hasAttribute('active') && !tab.disabled;
     tab.setAttribute('role', 'tab');
     tab.setAttribute('aria-controls', tab.relatedContent.id);
     tab.setAttribute('aria-selected', 'false');
     tab.relatedContent.setAttribute('role', 'tabpanel');
     tab.relatedContent.removeAttribute('active');
     if (tab.active) {
-      tab.relatedContent.setAttribute('active', '');
+      tab.relatedContent.toggleAttribute('active', true);
     }
     tab.addEventListener('click', () => {
       tab.tabGroupActions?.select();

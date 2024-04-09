@@ -6,7 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import { getNextElementIndex } from '../core/a11y/index.js';
 import { SbbConnectedAbortController } from '../core/controllers/index.js';
 import { hostAttributes } from '../core/decorators/index.js';
-import { getDocumentWritingMode, isNextjs, isSafari, isValidAttribute } from '../core/dom/index.js';
+import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom/index.js';
 import { EventEmitter } from '../core/eventing/index.js';
 import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
 import {
@@ -164,7 +164,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   private get _filteredOptions(): SbbOptionElement[] {
     return this._options.filter(
-      (opt: SbbOptionElement) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
+      (opt: SbbOptionElement) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
   }
 
@@ -289,7 +289,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
     this._syncProperties();
 

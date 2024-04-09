@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators/index.js';
-import { isSafari, isValidAttribute } from '../../core/dom/index.js';
+import { isSafari } from '../../core/dom/index.js';
 import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
 import type { SbbOptionElement } from '../option/index.js';
@@ -133,7 +133,7 @@ export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitEl
   }
 
   private _onNegativeChange(): void {
-    this._negative = isValidAttribute(this, 'data-negative');
+    this._negative = this.hasAttribute('data-negative');
   }
 
   protected override render(): TemplateResult {

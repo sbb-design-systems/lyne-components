@@ -8,11 +8,10 @@ import { sbbInputModalityDetector } from '../../core/a11y/index.js';
 import { SbbLanguageController } from '../../core/controllers/index.js';
 import { readDataNow } from '../../core/datetime/data-now.js';
 import { hostAttributes } from '../../core/decorators/index.js';
-import { isValidAttribute } from '../../core/dom/index.js';
 import { i18nShowCalendar } from '../../core/i18n/index.js';
 import { SbbNegativeMixin } from '../../core/mixins/index.js';
 import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover/index.js';
-import type { SbbInputUpdateEvent, SbbDatepickerElement } from '../datepicker/index.js';
+import type { SbbDatepickerElement, SbbInputUpdateEvent } from '../datepicker/index.js';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker/index.js';
 
 import style from './datepicker-toggle.scss?lit&inline';
@@ -72,7 +71,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
   }
 

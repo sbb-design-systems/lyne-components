@@ -32,7 +32,7 @@ describe(`sbb-optgroup with ${fixture.name}`, () => {
     const optionOne = element.querySelector(':scope > sbb-option#option-1');
     const optionTwo = element.querySelector(':scope > sbb-option#option-2');
     const optionThree = element.querySelector(':scope > sbb-option#option-3');
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('disabled');
@@ -55,7 +55,7 @@ describe(`sbb-optgroup with ${fixture.name}`, () => {
 
     options.forEach((opt) => expect(opt).not.to.have.attribute('selected'));
 
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await waitForLitRender(element);
     expect(element).to.have.attribute('disabled');
 

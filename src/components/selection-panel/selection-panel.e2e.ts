@@ -409,7 +409,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
     });
 
     it('should mark only outer group children as disabled', async () => {
-      nestedElement.setAttribute('disabled', '');
+      nestedElement.toggleAttribute('disabled', true);
       await waitForLitRender(nestedElement);
 
       const radioButtons = Array.from(nestedElement.querySelectorAll('sbb-radio-button'));
@@ -725,7 +725,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
     });
 
     it('should mark only outer group children as disabled', async () => {
-      nestedElement.setAttribute('disabled', '');
+      nestedElement.toggleAttribute('disabled', true);
       await waitForLitRender(nestedElement);
 
       const checkboxes = Array.from(nestedElement.querySelectorAll('sbb-checkbox'));

@@ -9,7 +9,7 @@ import {
   SbbLanguageController,
 } from '../../core/controllers/index.js';
 import { hostAttributes } from '../../core/decorators/index.js';
-import { findReferencedElement, isValidAttribute, SbbScrollHandler } from '../../core/dom/index.js';
+import { findReferencedElement, SbbScrollHandler } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
 import { i18nCloseNavigation } from '../../core/i18n/index.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
@@ -297,7 +297,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _isCloseElement(element: HTMLElement): boolean {
     return (
       element.nodeName === 'A' ||
-      (element.hasAttribute('sbb-navigation-close') && !isValidAttribute(element, 'disabled'))
+      (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled'))
     );
   }
 

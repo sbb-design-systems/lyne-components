@@ -42,7 +42,7 @@ describe(`sbb-form-field-clear with ${fixture.name}`, () => {
   });
 
   it('is hidden if the form field is disabled', async () => {
-    input.setAttribute('disabled', '');
+    input.toggleAttribute('disabled', true);
 
     await waitForLitRender(element);
 
@@ -50,7 +50,7 @@ describe(`sbb-form-field-clear with ${fixture.name}`, () => {
   });
 
   it('is hidden if the form field is readonly', async () => {
-    input.setAttribute('readonly', '');
+    input.toggleAttribute('readonly', true);
 
     await waitForLitRender(element);
 
