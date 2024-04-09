@@ -1,12 +1,12 @@
 import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbIconNameMixin } from '../../icon';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../controllers';
-import { isAndroid, isSafari, setOrRemoveAttribute } from '../dom';
-import type { EventEmitter } from '../eventing';
-import { SbbDisabledMixin } from '../mixins';
-import { AgnosticMutationObserver } from '../observers';
+import { SbbIconNameMixin } from '../../icon/index.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../controllers/index.js';
+import { isAndroid, isSafari, setOrRemoveAttribute } from '../dom/index.js';
+import type { EventEmitter } from '../eventing/index.js';
+import { SbbDisabledMixin } from '../mixins/index.js';
+import { AgnosticMutationObserver } from '../observers/index.js';
 
 let nextId = 0;
 

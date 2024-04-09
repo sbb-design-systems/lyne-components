@@ -14,19 +14,19 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/index.js';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
 
-import { SbbAutocompleteGridElement } from './autocomplete-grid';
+import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
 import readme from './readme.md?raw';
 
-import '../autocomplete-grid-row';
-import '../autocomplete-grid-optgroup';
-import '../autocomplete-grid-actions';
-import '../autocomplete-grid-button';
-import '../../form-field';
+import '../autocomplete-grid-row/index.js';
+import '../autocomplete-grid-optgroup/index.js';
+import '../autocomplete-grid-actions/index.js';
+import '../autocomplete-grid-button/index.js';
+import '../../form-field/index.js';
 
 const getOption = (event: Event): void => {
   const button = event.target as SbbAutocompleteGridButtonElement;

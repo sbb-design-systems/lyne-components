@@ -1,1 +1,1 @@
-export * from './autocomplete-grid';
+export * from './autocomplete-grid.js';

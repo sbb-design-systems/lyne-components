@@ -2,19 +2,19 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbFormFieldElement } from '../../form-field';
-import type { SbbAutocompleteGridElement } from '../autocomplete-grid';
-import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup';
+import { EventSpy, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbFormFieldElement } from '../../form-field/index.js';
+import type { SbbAutocompleteGridElement } from '../autocomplete-grid/index.js';
+import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup/index.js';
 
-import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option';
-import '../../form-field';
-import '../autocomplete-grid';
-import '../autocomplete-grid-optgroup';
-import '../autocomplete-grid-row';
-import '../autocomplete-grid-actions';
-import '../autocomplete-grid-button';
+import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.js';
+import '../../form-field/index.js';
+import '../autocomplete-grid/index.js';
+import '../autocomplete-grid-optgroup/index.js';
+import '../autocomplete-grid-row/index.js';
+import '../autocomplete-grid-actions/index.js';
+import '../autocomplete-grid-button/index.js';
 
 describe(`sbb-autocomplete-grid-option with ${fixture.name}`, () => {
   let element: SbbFormFieldElement;

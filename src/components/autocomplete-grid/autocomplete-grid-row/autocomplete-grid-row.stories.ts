@@ -13,10 +13,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
 
-import './autocomplete-grid-row';
-import '../autocomplete-grid-actions';
-import '../autocomplete-grid-option';
-import '../autocomplete-grid-button';
+import './autocomplete-grid-row.js';
+import '../autocomplete-grid-actions/index.js';
+import '../autocomplete-grid-option/index.js';
+import '../autocomplete-grid-button/index.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

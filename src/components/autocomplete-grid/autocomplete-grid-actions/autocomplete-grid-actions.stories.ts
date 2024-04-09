@@ -12,12 +12,12 @@ import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../autocomplete-grid-row';
-import './autocomplete-grid-actions';
-import '../autocomplete-grid-button';
+import '../autocomplete-grid-row/index.js';
+import './autocomplete-grid-actions.js';
+import '../autocomplete-grid-button/index.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

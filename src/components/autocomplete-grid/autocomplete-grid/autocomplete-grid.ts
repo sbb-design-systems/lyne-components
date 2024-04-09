@@ -1,17 +1,17 @@
 import { nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { getNextElementIndex } from '../../core/a11y';
-import { SbbAutocompleteBaseElement } from '../../core/base-elements';
-import { hostAttributes } from '../../core/decorators';
-import { getDocumentWritingMode, isSafari } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
-import { setAriaComboBoxAttributes } from '../../core/overlay';
-import type { SbbDividerElement } from '../../divider';
-import type { SbbOptGroupElement, SbbOptionElement } from '../../option';
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
-import type { SbbAutocompleteGridRowElement } from '../autocomplete-grid-row';
+import { getNextElementIndex } from '../../core/a11y/index.js';
+import { SbbAutocompleteBaseElement } from '../../core/base-elements/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { getDocumentWritingMode, isSafari } from '../../core/dom/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import { setAriaComboBoxAttributes } from '../../core/overlay/index.js';
+import type { SbbDividerElement } from '../../divider/index.js';
+import type { SbbOptGroupElement, SbbOptionElement } from '../../option/index.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/index.js';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
+import type { SbbAutocompleteGridRowElement } from '../autocomplete-grid-row/index.js';
 
 let nextId = 0;
 

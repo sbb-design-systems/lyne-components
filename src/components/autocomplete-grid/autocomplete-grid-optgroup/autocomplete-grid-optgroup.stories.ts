@@ -12,13 +12,13 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
-import '../../form-field';
-import './autocomplete-grid-optgroup';
-import '../autocomplete-grid';
-import '../autocomplete-grid-row';
-import '../autocomplete-grid-option';
-import '../autocomplete-grid-actions';
-import '../autocomplete-grid-button';
+import '../../form-field/index.js';
+import './autocomplete-grid-optgroup.js';
+import '../autocomplete-grid/index.js';
+import '../autocomplete-grid-row/index.js';
+import '../autocomplete-grid-option/index.js';
+import '../autocomplete-grid-actions/index.js';
+import '../autocomplete-grid-button/index.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

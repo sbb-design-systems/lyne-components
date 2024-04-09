@@ -10,14 +10,14 @@ import type {
 import { html, type TemplateResult } from 'lit';
 import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import '../../form-field';
-import '../autocomplete-grid';
-import '../autocomplete-grid-row';
-import './autocomplete-grid-option';
+import '../../form-field/index.js';
+import '../autocomplete-grid/index.js';
+import '../autocomplete-grid-row/index.js';
+import './autocomplete-grid-option.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

@@ -1,14 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import type { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option';
-import '../autocomplete-grid';
-import '../autocomplete-grid-row';
-import './autocomplete-grid-option';
-import '../autocomplete-grid-actions';
-import '../autocomplete-grid-button';
+import type { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.js';
+import '../autocomplete-grid/index.js';
+import '../autocomplete-grid-row/index.js';
+import './autocomplete-grid-option.js';
+import '../autocomplete-grid-actions/index.js';
+import '../autocomplete-grid-button/index.js';
 
 describe('sbb-autocomplete-grid-option', () => {
   describe('default', () => {

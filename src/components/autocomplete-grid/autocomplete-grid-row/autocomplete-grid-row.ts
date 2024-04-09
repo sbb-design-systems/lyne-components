@@ -1,12 +1,12 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators';
-import type { SbbAutocompleteGridActionsElement } from '../autocomplete-grid-actions';
+import { hostAttributes } from '../../core/decorators/index.js';
+import type { SbbAutocompleteGridActionsElement } from '../autocomplete-grid-actions/index.js';
 import {
   type SbbAutocompleteGridOptionElement,
   autocompleteGridOptionId,
-} from '../autocomplete-grid-option';
+} from '../autocomplete-grid-option/index.js';
 
 import style from './autocomplete-grid-row.scss?lit&inline';
 

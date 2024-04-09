@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbAutocompleteGridActionsElement } from './autocomplete-grid-actions';
+import { SbbAutocompleteGridActionsElement } from './autocomplete-grid-actions.js';
 
 describe('sbb-autocomplete-grid-actions', () => {
   let element: SbbAutocompleteGridActionsElement;

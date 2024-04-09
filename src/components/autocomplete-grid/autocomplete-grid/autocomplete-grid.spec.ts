@@ -1,16 +1,16 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../../core/dom';
-import { describeIf } from '../../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { isSafari } from '../../core/dom/index.js';
+import { describeIf } from '../../core/testing/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import type { SbbAutocompleteGridElement } from './autocomplete-grid';
-import './autocomplete-grid';
-import '../autocomplete-grid-row';
-import '../autocomplete-grid-option';
-import '../autocomplete-grid-actions';
-import '../autocomplete-grid-button';
+import type { SbbAutocompleteGridElement } from './autocomplete-grid.js';
+import './autocomplete-grid.js';
+import '../autocomplete-grid-row/index.js';
+import '../autocomplete-grid-option/index.js';
+import '../autocomplete-grid-actions/index.js';
+import '../autocomplete-grid-button/index.js';
 
 describe('sbb-autocomplete-grid', () => {
   let root: SbbAutocompleteGridElement;

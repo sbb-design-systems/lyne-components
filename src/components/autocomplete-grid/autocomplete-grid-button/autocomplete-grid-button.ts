@@ -1,14 +1,14 @@
 import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { SbbMiniButtonBaseElement } from '../../core/base-elements';
-import { hostAttributes } from '../../core/decorators';
-import { isValidAttribute, setAttribute } from '../../core/dom';
-import { SbbDisabledMixin } from '../../core/mixins';
-import { AgnosticMutationObserver } from '../../core/observers';
-import { type SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
+import { SbbMiniButtonBaseElement } from '../../core/base-elements/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { isValidAttribute, setAttribute } from '../../core/dom/index.js';
+import { SbbDisabledMixin } from '../../core/mixins/index.js';
+import { AgnosticMutationObserver } from '../../core/observers/index.js';
+import { type SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
 
-import '../../icon';
+import '../../icon/index.js';
 import style from './autocomplete-grid-button.scss?lit&inline';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-optgroup */

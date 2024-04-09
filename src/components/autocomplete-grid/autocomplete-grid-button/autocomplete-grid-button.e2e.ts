@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button';
+import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.js';
 
 describe(`sbb-autocomplete-grid-button with ${fixture.name}`, () => {
   let element: SbbAutocompleteGridButtonElement;

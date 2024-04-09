@@ -9,21 +9,21 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbConnectedAbortController } from '../controllers';
-import { findReferencedElement, isBrowser, isSafari } from '../dom';
-import type { EventEmitter } from '../eventing';
-import type { SbbOpenedClosedState } from '../interfaces';
-import { SbbHydrationMixin } from '../mixins';
-import { SbbNegativeMixin } from '../mixins/negative-mixin';
+import { SbbConnectedAbortController } from '../controllers/index.js';
+import { findReferencedElement, isBrowser, isSafari } from '../dom/index.js';
+import type { EventEmitter } from '../eventing/index.js';
+import type { SbbOpenedClosedState } from '../interfaces/index.js';
+import { SbbHydrationMixin } from '../mixins/index.js';
+import { SbbNegativeMixin } from '../mixins/negative-mixin.js';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../overlay';
+} from '../overlay/index.js';
 
 import style from './autocomplete-base-element.scss?lit&inline';
-import type { SbbOptionBaseElement } from './option-base-element';
+import type { SbbOptionBaseElement } from './option-base-element.js';
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.

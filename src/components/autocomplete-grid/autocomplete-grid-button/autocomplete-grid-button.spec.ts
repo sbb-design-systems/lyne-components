@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { waitForLitRender } from '../../core/testing/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button';
-import '../../form-field';
-import '../autocomplete-grid';
-import '../autocomplete-grid-row';
-import '../autocomplete-grid-actions';
-import './autocomplete-grid-button';
+import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.js';
+import '../../form-field/index.js';
+import '../autocomplete-grid/index.js';
+import '../autocomplete-grid-row/index.js';
+import '../autocomplete-grid-actions/index.js';
+import './autocomplete-grid-button.js';
 
 describe('sbb-autocomplete-grid-button', () => {
   describe('renders', () => {

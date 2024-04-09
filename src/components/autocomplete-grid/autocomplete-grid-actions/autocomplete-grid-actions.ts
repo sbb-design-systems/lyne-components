@@ -1,8 +1,8 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators';
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button';
+import { hostAttributes } from '../../core/decorators/index.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/index.js';
 
 import style from './autocomplete-grid-actions.scss?lit&inline';
 

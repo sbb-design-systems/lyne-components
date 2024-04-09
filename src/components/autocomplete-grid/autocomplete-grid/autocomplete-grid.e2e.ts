@@ -2,15 +2,15 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import { SbbFormFieldElement } from '../../form-field';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import { SbbFormFieldElement } from '../../form-field/index.js';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
 
-import { SbbAutocompleteGridElement } from './autocomplete-grid';
-import '../autocomplete-grid-row';
-import '../autocomplete-grid-actions';
-import '../autocomplete-grid-button';
+import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
+import '../autocomplete-grid-row/index.js';
+import '../autocomplete-grid-actions/index.js';
+import '../autocomplete-grid-button/index.js';
 
 describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
   let formField: SbbFormFieldElement;

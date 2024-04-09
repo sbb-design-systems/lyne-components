@@ -1,11 +1,11 @@
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators';
-import { isSafari } from '../../core/dom';
-import { SbbOptgroupBaseElement } from '../../option/optgroup';
-import type { SbbAutocompleteGridElement } from '../autocomplete-grid';
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button';
-import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { isSafari } from '../../core/dom/index.js';
+import { SbbOptgroupBaseElement } from '../../option/optgroup/index.js';
+import type { SbbAutocompleteGridElement } from '../autocomplete-grid/index.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/index.js';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.
