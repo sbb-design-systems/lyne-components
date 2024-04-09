@@ -1036,7 +1036,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
         ${this._wide
           ? html`<thead class="sbb-calendar__table-header" aria-hidden="true">
               <tr class="sbb-calendar__table-header-row">
-                <th class="sbb-calendar__table-header" .colspan=${MONTHS_PER_ROW}>${year}</th>
+                <th class="sbb-calendar__table-header" colspan=${MONTHS_PER_ROW}>${year}</th>
               </tr>
             </thead>`
           : nothing}
