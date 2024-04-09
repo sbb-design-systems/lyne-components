@@ -5,8 +5,8 @@
  * @param value The attribute value
  */
 export function setAttribute(element: HTMLElement, attribute: string, value?: any): void {
-  if (typeof value === 'boolean' || !value) {
-    element.toggleAttribute(attribute, !!value);
+  if (!value) {
+    element.removeAttribute(attribute);
   } else {
     element.setAttribute(attribute, value);
   }
