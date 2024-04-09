@@ -128,7 +128,6 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
         }
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

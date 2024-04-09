@@ -269,7 +269,6 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
         )}
       </${unsafeStatic(TAG_NAME.WRAPPER)}>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 
   protected override render(): TemplateResult {

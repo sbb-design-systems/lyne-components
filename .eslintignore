@@ -1,6 +1,0 @@
-dist/
-tools/generate-component/boilerplate/
-**/__snapshots__/
-
-# not ignored folders/files
-!.github/

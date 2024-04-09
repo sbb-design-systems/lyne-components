@@ -218,7 +218,6 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
         </div>
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 
