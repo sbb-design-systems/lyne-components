@@ -1,6 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';

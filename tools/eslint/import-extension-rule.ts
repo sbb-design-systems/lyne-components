@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention, import-x/no-unresolved  */
 import { existsSync, statSync } from 'fs';
 import { dirname, resolve } from 'path';
 

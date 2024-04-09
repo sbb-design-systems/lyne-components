@@ -3,7 +3,6 @@ export class NodeMutationObserver implements MutationObserver {
     // Noop
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public observe(_target: Node, _options?: MutationObserverInit): void {
     // Noop
   }

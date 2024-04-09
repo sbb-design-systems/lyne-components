@@ -57,7 +57,6 @@ export class SbbTabTitleElement extends SbbDisabledMixin(SbbIconNameMixin(LitEle
         </${unsafeStatic(TAGNAME)}>
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

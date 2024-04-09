@@ -126,7 +126,6 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           }
         </${unsafeStatic(TAG_NAME)}>
       `;
-      /* eslint-disable lit/binding-positions */
     };
 
     const sectorString = `${i18nSector[this._language.current]}, ${this.sector}`;

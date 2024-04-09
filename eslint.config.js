@@ -8,7 +8,6 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginYml from 'eslint-plugin-yml';
 import eslint from '@eslint/js';
-import { parse, parseForESLint } from '@typescript-eslint/parser';
 const eslintPluginLyne = await import('./tools/eslint/index.ts');
 
 const compat = new FlatCompat({
@@ -26,9 +25,7 @@ export default [
   },
   {
     languageOptions: {
-      globals: { ...globals.browser },
-      ecmaVersion: 2020,
-      parser: { parse, parseForESLint },
+      globals: { ...globals.browser, ...globals.node },
     },
   },
   {
@@ -132,6 +129,20 @@ export default [
       camelcase: 'off',
     },
   },
-
+  {
+    files: ['**/*.stories.ts'],
+    rules: {
+      '@typescript-eslint/naming-convention': 'off',
+    },
+  },
+  {
+    files: ['**/*.js'],
+    rules: {
+      'import-x/namespace': 'off',
+      'import-x/default': 'off',
+      'import-x/no-named-as-default': 'off',
+      'import-x/no-named-as-default-member': 'off',
+    },
+  },
   eslintConfigPrettier,
 ];

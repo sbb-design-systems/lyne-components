@@ -1,8 +1,22 @@
-import type { FixtureOptions } from '@lit-labs/testing/lib/fixtures/fixture-options';
 import type { TemplateResult } from 'lit';
 
 import { isHydratedSsr, isNonHydratedSsr } from '../platform.js';
 import { waitForLitRender } from '../wait-for-render.js';
+
+// Copied from @lit-labs/testing/lib/fixtures/fixture-options.d.ts
+interface FixtureOptions {
+  /**
+   * Array of relative module paths to be imported before rendering. Normally
+   * would contain custom element definitions.
+   */
+  modules: string[];
+  /**
+   * Base url for resolving module paths. If not provided, will guess the
+   * location based on call stack to have the same effect as passing in
+   * `import.meta.url`.
+   */
+  base?: string;
+}
 
 /**
  * We want to dynamically use the correct fixture from Lit testing for the current context.

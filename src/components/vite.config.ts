@@ -24,7 +24,6 @@ const barrelExports = Object.keys(entryPoints)
   .filter((v, _i, a) => a.some((e) => e.startsWith(`${v}/`)))
   .map((e) => `${e}/index.ts`);
 
-/* eslint-disable @typescript-eslint/no-use-before-define */
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
     root: packageRoot.pathname,

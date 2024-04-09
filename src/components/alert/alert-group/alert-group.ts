@@ -111,7 +111,6 @@ export class SbbAlertGroupElement extends LitElement {
         <slot @slotchange=${(event: Event) => this._slotChanged(event)}></slot>
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

@@ -1,9 +1,11 @@
+import type { TSESLint } from '@typescript-eslint/utils';
+
 import * as customElementClassName from './custom-element-class-name-rule.js';
 import * as customElementDecoratorPosition from './custom-element-decorator-position-rule.js';
 import * as importExtensionRule from './import-extension-rule.js';
 import * as missingComponentDocumentation from './missing-component-documentation-rule.js';
 
-const plugin = {
+const plugin: Omit<Required<TSESLint.FlatConfig.Plugin>, 'processors'> = {
   meta: {
     name: 'lyne',
   },
@@ -16,20 +18,14 @@ const plugin = {
   },
 };
 
-// assign configs here so we can reference `plugin`
-Object.assign(plugin.configs, {
-  recommended: {
-    plugins: {
-      lyne: plugin,
-    },
-    rules: {
-      [`lyne/${customElementClassName.name}`]: 'error',
-      [`lyne/${customElementDecoratorPosition.name}`]: 'error',
-      [`lyne/${importExtensionRule.name}`]: 'error',
-      [`lyne/${missingComponentDocumentation.name}`]: 'error',
-    },
+plugin.configs!.recommended = {
+  plugins: {
+    lyne: plugin,
   },
-});
+  rules: Object.keys(plugin.rules!).reduce(
+    (current, next) => Object.assign(current, { [`lyne/${next}`]: 'error' }),
+    {} as TSESLint.FlatConfig.Rules,
+  ),
+};
 
-// for ESM
 export default plugin;
