@@ -6,7 +6,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { SbbConnectedAbortController } from '../core/controllers/index.js';
 import { hostAttributes } from '../core/decorators/index.js';
-import { setAttribute } from '../core/dom/index.js';
+import { setOrRemoveAttribute } from '../core/dom/index.js';
 import { EventEmitter, forwardEventToHost } from '../core/eventing/index.js';
 import { SbbDisabledTabIndexActionMixin } from '../core/mixins/index.js';
 
@@ -97,13 +97,13 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(LitElement)
     }
 
     if (changedProperties.has('min')) {
-      setAttribute(this, 'aria-valuemin', this.min ?? null);
+      setOrRemoveAttribute(this, 'aria-valuemin', this.min ?? null);
     }
     if (changedProperties.has('max')) {
-      setAttribute(this, 'aria-valuemax', this.max ?? null);
+      setOrRemoveAttribute(this, 'aria-valuemax', this.max ?? null);
     }
     if (changedProperties.has('readonly')) {
-      setAttribute(this, 'aria-readonly', this.readonly ? 'true' : null);
+      setOrRemoveAttribute(this, 'aria-readonly', this.readonly ? 'true' : null);
     }
   }
 
@@ -116,7 +116,7 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(LitElement)
 
     this.value = newValue.toString();
     this.valueAsNumber = newValue as number;
-    setAttribute(this, 'aria-valuenow', this.value || null);
+    setOrRemoveAttribute(this, 'aria-valuenow', this.value || null);
   }
 
   /**

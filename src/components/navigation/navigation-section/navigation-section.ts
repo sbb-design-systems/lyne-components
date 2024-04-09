@@ -9,7 +9,7 @@ import {
 } from '../../core/a11y/index.js';
 import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers/index.js';
 import { hostAttributes } from '../../core/decorators/index.js';
-import { findReferencedElement, isBreakpoint, setAttribute } from '../../core/dom/index.js';
+import { findReferencedElement, isBreakpoint, setOrRemoveAttribute } from '../../core/dom/index.js';
 import { i18nGoBack } from '../../core/i18n/index.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins/index.js';
@@ -83,7 +83,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
    */
   private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
-    setAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
+    setOrRemoveAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
   }
   private get _state(): SbbOpenedClosedState {
     return this.getAttribute('data-state') as SbbOpenedClosedState;

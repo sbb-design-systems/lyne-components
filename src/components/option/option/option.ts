@@ -13,7 +13,7 @@ import {
   SbbSlotStateController,
 } from '../../core/controllers/index.js';
 import { hostAttributes } from '../../core/decorators/index.js';
-import { isAndroid, isSafari, setAttribute } from '../../core/dom/index.js';
+import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
 import { SbbDisabledMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
@@ -212,7 +212,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('disabled')) {
-      setAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
+      setOrRemoveAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
       this._updateAriaDisabled();
     }
   }
@@ -225,7 +225,11 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   }
 
   private _updateAriaDisabled(): void {
-    setAttribute(this, 'aria-disabled', this.disabled || this._disabledFromGroup ? 'true' : null);
+    setOrRemoveAttribute(
+      this,
+      'aria-disabled',
+      this.disabled || this._disabledFromGroup ? 'true' : null,
+    );
   }
 
   private _updateAriaSelected(): void {

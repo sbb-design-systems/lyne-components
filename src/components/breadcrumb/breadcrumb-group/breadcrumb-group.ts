@@ -19,7 +19,7 @@ import {
   SbbLanguageController,
 } from '../../core/controllers/index.js';
 import { hostAttributes } from '../../core/decorators/index.js';
-import { setAttribute } from '../../core/dom/index.js';
+import { setOrRemoveAttribute } from '../../core/dom/index.js';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n/index.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
 import { AgnosticResizeObserver } from '../../core/observers/index.js';
@@ -48,7 +48,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   /* The state of the breadcrumb group. */
   @state()
   private set _state(state: 'collapsed' | 'manually-expanded' | null) {
-    setAttribute(this, 'data-state', state);
+    setOrRemoveAttribute(this, 'data-state', state);
   }
   private get _state(): 'collapsed' | 'manually-expanded' | null {
     return this.getAttribute('data-state') as 'collapsed' | 'manually-expanded' | null;

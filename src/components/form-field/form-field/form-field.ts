@@ -9,7 +9,7 @@ import {
   SbbLanguageController,
   SbbSlotStateController,
 } from '../../core/controllers/index.js';
-import { isFirefox, setAttribute } from '../../core/dom/index.js';
+import { isFirefox, setOrRemoveAttribute } from '../../core/dom/index.js';
 import { i18nOptional } from '../../core/i18n/index.js';
 import { SbbNegativeMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
@@ -406,7 +406,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
     const ariaDescribedby = ids.join(' ');
     if (this._input) {
-      setAttribute(this._input, 'aria-describedby', ariaDescribedby);
+      setOrRemoveAttribute(this._input, 'aria-describedby', ariaDescribedby);
     }
   }
 

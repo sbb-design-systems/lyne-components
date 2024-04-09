@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers/index.js';
-import { setAttribute } from '../core/dom/index.js';
+import { setOrRemoveAttribute } from '../core/dom/index.js';
 import { i18nOccupancy } from '../core/i18n/index.js';
 import type { SbbOccupancy } from '../core/interfaces/index.js';
 import { SbbNegativeMixin } from '../core/mixins/index.js';
@@ -52,7 +52,7 @@ export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBa
     const label = (i18nOccupancy[this.occupancy] as Record<string, string>)?.[
       this._language.current
     ];
-    setAttribute(this, 'aria-label', label);
+    setOrRemoveAttribute(this, 'aria-label', label);
   }
 
   public override connectedCallback(): void {

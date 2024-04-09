@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { setAttribute } from '../../core/dom/index.js';
+import { setOrRemoveAttribute } from '../../core/dom/index.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
 import type { SbbTagElement } from '../tag/index.js';
 
@@ -98,7 +98,7 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
         .slice(1)
         .forEach((tag) => (tag.checked = false));
     }
-    setAttribute(
+    setOrRemoveAttribute(
       this,
       'role',
       changedProperties.has('listAccessibilityLabel') && this.listAccessibilityLabel

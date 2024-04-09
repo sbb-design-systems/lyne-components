@@ -4,7 +4,7 @@
  * @param attribute The attribute name
  * @param value The attribute value
  */
-export function setAttribute(element: HTMLElement, attribute: string, value?: any): void {
+export function setOrRemoveAttribute(element: HTMLElement, attribute: string, value?: any): void {
   if (!value) {
     element.removeAttribute(attribute);
   } else {
