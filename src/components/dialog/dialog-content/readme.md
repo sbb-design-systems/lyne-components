@@ -6,8 +6,6 @@ Use the `sbb-dialog-content` in combination with the [sbb-dialog](/docs/componen
 </sbb-dialog>
 ```
 
-It has an implicit slot name: `content`.
-
 <!-- Auto Generated Below -->
 
 ## Slots

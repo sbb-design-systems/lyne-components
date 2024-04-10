@@ -3,7 +3,6 @@ import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionGroupElement } from '../../action-group/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
 
 import style from './dialog-actions.scss?lit&inline';
 
@@ -13,9 +12,6 @@ import style from './dialog-actions.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-dialog-actions`.
  */
 @customElement('sbb-dialog-actions')
-@hostAttributes({
-  slot: 'actions',
-})
 export class SbbDialogActionsElement extends SbbActionGroupElement {
   public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, style];
 

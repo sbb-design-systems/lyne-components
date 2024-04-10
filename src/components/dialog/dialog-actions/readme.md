@@ -10,8 +10,6 @@ The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/componen
 </sbb-dialog>
 ```
 
-It has an implicit slot name: `actions`.
-
 <!-- Auto Generated Below -->
 
 ## Properties

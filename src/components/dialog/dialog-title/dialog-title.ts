@@ -5,7 +5,6 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y/index.js';
 import { SbbLanguageController } from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
 import type { Breakpoint } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
 import { i18nCloseDialog, i18nGoBack } from '../../core/i18n/index.js';
@@ -26,9 +25,6 @@ import '../../button/transparent-button/index.js';
  * and is not relevant to dialog title margin customization.
  */
 @customElement('sbb-dialog-title')
-@hostAttributes({
-  slot: 'title',
-})
 export class SbbDialogTitleElement extends SbbTitleElement {
   public static override styles: CSSResultGroup = [SbbTitleElement.styles, style];
   public static readonly events: Record<string, string> = {

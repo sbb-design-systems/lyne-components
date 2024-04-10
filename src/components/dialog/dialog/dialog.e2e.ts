@@ -37,9 +37,9 @@ describe('sbb-dialog', () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
       <sbb-dialog id="my-dialog-1" disable-animation>
-        <sbb-dialog-title slot="title">Title</sbb-dialog-title>
-        <sbb-dialog-content slot="content">Dialog content</sbb-dialog-content>
-        <sbb-dialog-actions slot="actions">Action group</sbb-dialog-actions>
+        <sbb-dialog-title>Title</sbb-dialog-title>
+        <sbb-dialog-content>Dialog content</sbb-dialog-content>
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
       </sbb-dialog>
     `);
     ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
@@ -250,15 +250,15 @@ describe('sbb-dialog', () => {
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
     element = await fixture(html`
       <sbb-dialog id="my-dialog-3" disable-animation>
-        <sbb-dialog-title slot="title">Title</sbb-dialog-title>
-        <sbb-dialog-content slot="content">Dialog content</sbb-dialog-content>
-        <sbb-dialog-actions slot="actions">Action group</sbb-dialog-actions>
+        <sbb-dialog-title>Title</sbb-dialog-title>
+        <sbb-dialog-content>Dialog content</sbb-dialog-content>
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
       </sbb-dialog>
 
       <sbb-dialog id="stacked-dialog" disable-animation>
-        <sbb-dialog-title slot="title">Stacked title</sbb-dialog-title>
-        <sbb-dialog-content slot="content">Dialog content</sbb-dialog-content>
-        <sbb-dialog-actions slot="actions">Action group</sbb-dialog-actions>
+        <sbb-dialog-title>Stacked title</sbb-dialog-title>
+        <sbb-dialog-content>Dialog content</sbb-dialog-content>
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
       </sbb-dialog>
     `);
 
@@ -323,12 +323,12 @@ describe('sbb-dialog', () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
       <sbb-dialog id="my-dialog-4" disable-animation>
-        <sbb-dialog-title slot="title">Title</sbb-dialog-title>
-        <sbb-dialog-content slot="content">Dialog content</sbb-dialog-content>
+        <sbb-dialog-title>Title</sbb-dialog-title>
+        <sbb-dialog-content>Dialog content</sbb-dialog-content>
 
-        <sbb-dialog id="inner-dialog" slot="content" disable-animation>
-          <sbb-dialog-title slot="title">Inner Dialog title</sbb-dialog-title>
-          <sbb-dialog-content slot="content">Dialog content</sbb-dialog-content>
+        <sbb-dialog id="inner-dialog" disable-animation>
+          <sbb-dialog-title>Inner Dialog title</sbb-dialog-title>
+          <sbb-dialog-content>Dialog content</sbb-dialog-content>
         </sbb-dialog>
       </sbb-dialog>
     `);
@@ -412,8 +412,8 @@ describe('sbb-dialog with long content', () => {
     await setViewport({ width: 900, height: 300 });
     element = await fixture(html`
       <sbb-dialog id="my-dialog-1" disable-animation>
-        <sbb-dialog-title slot="title" hide-on-scroll="">Title</sbb-dialog-title>
-        <sbb-dialog-content slot="content">
+        <sbb-dialog-title hide-on-scroll="">Title</sbb-dialog-title>
+        <sbb-dialog-content>
           Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his
           face like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo
           saw that Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be
@@ -428,7 +428,7 @@ describe('sbb-dialog with long content', () => {
           pioneered fantasy literature. Tolkien's linguistic brilliance and mythic passion converge
           in a literary legacy that continues to transport readers to magical realms.
         </sbb-dialog-content>
-        <sbb-dialog-actions slot="actions">Action group</sbb-dialog-actions>
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
       </sbb-dialog>
     `);
   });

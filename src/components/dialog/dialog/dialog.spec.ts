@@ -15,8 +15,8 @@ describe(`sbb-dialog`, () => {
     beforeEach(async () => {
       root = await fixture(
         html` <sbb-dialog disable-animation>
-          <sbb-dialog-title slot="title">Title</sbb-dialog-title>
-          <sbb-dialog-content slot="content">Content</sbb-dialog-content>
+          <sbb-dialog-title>Title</sbb-dialog-title>
+          <sbb-dialog-content>Content</sbb-dialog-content>
         </sbb-dialog>`,
       );
       root.open();

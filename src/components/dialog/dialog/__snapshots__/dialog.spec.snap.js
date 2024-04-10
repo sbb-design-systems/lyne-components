@@ -9,12 +9,11 @@ snapshots["sbb-dialog renders an open dialog Dom"] =
   <sbb-dialog-title
     level="2"
     role="heading"
-    slot="title"
     visual-level="3"
   >
     Title
   </sbb-dialog-title>
-  <sbb-dialog-content slot="content">
+  <sbb-dialog-content>
     Content
   </sbb-dialog-content>
 </sbb-dialog>
@@ -28,11 +27,7 @@ snapshots["sbb-dialog renders an open dialog ShadowDom"] =
     id="sbb-dialog-1"
   >
     <div class="sbb-dialog__wrapper">
-      <slot name="title">
-      </slot>
-      <slot name="content">
-      </slot>
-      <slot name="actions">
+      <slot>
       </slot>
     </div>
   </div>

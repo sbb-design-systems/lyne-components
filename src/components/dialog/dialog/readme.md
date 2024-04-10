@@ -20,9 +20,6 @@ It offers the following features:
 
 There are three slots: `title`, `content` and `actions`, which can respectively be used to provide an `sbb-dialog-title`, `sbb-dialog-content` and an `sbb-dialog-actions`.
 
-**NOTE:**
-It's not necessary to set the slots explicitly on the dialog's inner components, as they already have an implicit slot name.
-
 ```html
 <sbb-dialog>
   <sbb-dialog-title>Title</sbb-dialog-title>
@@ -124,8 +121,6 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 
 ## Slots
 
-| Name      | Description                                      |
-| --------- | ------------------------------------------------ |
-| `title`   | Use this slot to provide a `sbb-dialog-title`.   |
-| `content` | Use this slot to provide a `sbb-dialog-content`. |
-| `actions` | Use this slot to provide a `sbb-dialog-actions`. |
+| Name | Description                                                                                                      |
+| ---- | ---------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`. |

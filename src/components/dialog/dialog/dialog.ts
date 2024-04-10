@@ -36,9 +36,7 @@ export type SbbDialogCloseEventDetails = {
 /**
  * It displays an interactive overlay element.
  *
- * @slot title - Use this slot to provide a `sbb-dialog-title`.
- * @slot content - Use this slot to provide a `sbb-dialog-content`.
- * @slot actions - Use this slot to provide a `sbb-dialog-actions`.
+ * @slot - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
@@ -466,9 +464,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
             @click=${(event: Event) => this._closeOnSbbDialogCloseClick(event)}
             class="sbb-dialog__wrapper"
           >
-            <slot name="title"></slot>
-            <slot name="content"></slot>
-            <slot name="actions"></slot>
+            <slot></slot>
           </div>
         </div>
       </div>
