@@ -3,7 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 
 import { SbbMiniButtonBaseElement } from '../../core/base-elements/index.js';
 import { hostAttributes } from '../../core/decorators/index.js';
-import { isValidAttribute, setAttribute } from '../../core/dom/index.js';
+import { setOrRemoveAttribute } from '../../core/dom/index.js';
 import { SbbDisabledMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
 import { type SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
@@ -48,7 +48,7 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
   private _onOptionAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = isValidAttribute(this, 'data-group-disabled');
+        this._disabledFromGroup = this.hasAttribute('data-group-disabled');
       }
     }
   }
@@ -91,7 +91,7 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
   }
 
   protected override renderTemplate(): TemplateResult {
-    setAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
+    setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
     return super.renderTemplate();
   }
 }

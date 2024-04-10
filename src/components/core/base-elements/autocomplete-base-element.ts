@@ -10,7 +10,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbConnectedAbortController } from '../controllers/index.js';
-import { findReferencedElement, isBrowser, isSafari } from '../dom/index.js';
+import { findReferencedElement, isBrowser, isSafari, setOrRemoveAttribute } from '../dom/index.js';
 import type { EventEmitter } from '../eventing/index.js';
 import type { SbbOpenedClosedState } from '../interfaces/index.js';
 import { SbbHydrationMixin } from '../mixins/index.js';
@@ -421,7 +421,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this.state);
+    setOrRemoveAttribute(this, 'data-state', this.state);
 
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>

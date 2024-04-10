@@ -257,7 +257,7 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
         .forEach((e) => e.toggleAttribute('data-focus-visible', false));
     } else {
       const activeElement = this.options.filter(
-        (opt) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
+        (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
       )[this._activeItemIndex];
       if (activeElement) {
         activeElement.active = false;
