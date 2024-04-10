@@ -20,6 +20,7 @@ import {
   primaryNegativeActive,
   primaryNegativeDisabled,
   sizeM,
+  sizeS,
   withHiddenSlottedIcon,
   withSlottedIcon,
 } from '../common/common-stories.js';
@@ -44,6 +45,7 @@ export const IconOnlyNegative: StoryObj = iconOnlyNegative;
 export const IconOnlyDisabled: StoryObj = iconOnlyDisabled;
 export const NoIcon: StoryObj = noIcon;
 export const SizeM: StoryObj = sizeM;
+export const SizeS: StoryObj = sizeS;
 export const FixedWidth: StoryObj = fixedWidth;
 export const WithSlottedIcon: StoryObj = withSlottedIcon;
 export const Active: StoryObj = primaryActive;

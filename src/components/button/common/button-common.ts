@@ -15,7 +15,7 @@ import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon/index.js
 
 export type SbbButtonCommonElement = SbbButtonCommonElementMixinType & SbbActionBaseElement;
 
-export type SbbButtonSize = 'l' | 'm';
+export type SbbButtonSize = 'l' | 'm' | 's';
 
 export declare class SbbButtonCommonElementMixinType
   implements SbbNegativeMixinType, Partial<SbbDisabledMixinType>, Partial<SbbIconNameMixinType>
