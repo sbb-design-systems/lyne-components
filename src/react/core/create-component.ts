@@ -1,6 +1,11 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable
+  @typescript-eslint/explicit-function-return-type,
+  @typescript-eslint/ban-types,
+  @typescript-eslint/naming-convention,
+  @typescript-eslint/naming-convention,
+  import-x/default,
+  import-x/no-named-as-default-member
+*/
 /**
  * Copied from https://github.com/lit/lit/blob/main/packages/react/src/create-component.ts
  * TODO: Can be removed once https://github.com/lit/lit/issues/4023 or https://github.com/lit/lit/pull/4476 is solved.
@@ -19,9 +24,8 @@ import {
 import type React from 'react';
 
 const NODE_MODE = isServer;
-const DEV_MODE = true;
+const DEV_MODE = import.meta.env.DEV;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DistributiveOmit<T, K extends string | number | symbol> = T extends any
   ? K extends keyof T
     ? Omit<T, K>

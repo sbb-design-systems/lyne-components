@@ -1,1 +1,1 @@
-export * from './sticky-bar';
+export * from './sticky-bar.js';

@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbChipElement } from '../chip';
-import { fixture } from '../core/testing/private';
-import type { SbbImageElement } from '../image';
+import type { SbbChipElement } from '../chip/index.js';
+import { fixture } from '../core/testing/private/index.js';
+import type { SbbImageElement } from '../image/index.js';
 
-import { SbbTeaserPaidElement } from './teaser-paid';
+import { SbbTeaserPaidElement } from './teaser-paid.js';
 
-import '../chip';
-import '../image';
+import '../chip/index.js';
+import '../image/index.js';
 
 describe(`sbb-teaser-paid with ${fixture.name}`, () => {
   let element: SbbTeaserPaidElement;

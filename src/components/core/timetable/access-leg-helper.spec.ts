@@ -1,9 +1,12 @@
 import { expect } from '@open-wc/testing';
 
-import { defaultTrip, extendedEnterTimeTrip } from '../../timetable-row/timetable-row.sample-data';
+import {
+  defaultTrip,
+  extendedEnterTimeTrip,
+} from '../../timetable-row/timetable-row.sample-data.js';
 
-import { getDepartureArrivalTimeAttribute } from './access-leg-helper';
-import type { Leg } from './timetable-properties';
+import { getDepartureArrivalTimeAttribute } from './access-leg-helper.js';
+import type { Leg } from './timetable-properties.js';
 
 describe('getDepartureArrivalTimeAttribute', () => {
   it('should returns correct departure time attribute', () => {

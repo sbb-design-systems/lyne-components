@@ -9,10 +9,10 @@ import {
   linkDefaultArgs,
   linkDefaultArgTypes,
   wrapperStyle,
-} from '../common/link-common-stories';
+} from '../common/link-common-stories.js';
 
 import readme from './readme.md?raw';
-import './link';
+import './link.js';
 
 const defaultArgTypes: ArgTypes = {
   ...linkDefaultArgTypes,

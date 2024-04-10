@@ -4,23 +4,23 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../button';
-import { sbbInputModalityDetector } from '../core/a11y';
-import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
-import { EventEmitter } from '../core/eventing';
+import type { SbbSecondaryButtonStaticElement } from '../button/index.js';
+import { sbbInputModalityDetector } from '../core/a11y/index.js';
+import { SbbLanguageController, SbbSlotStateController } from '../core/controllers/index.js';
+import { EventEmitter } from '../core/eventing/index.js';
 import {
   i18nFileSelectorButtonLabel,
   i18nFileSelectorCurrentlySelected,
   i18nFileSelectorDeleteFile,
   i18nFileSelectorSubtitleLabel,
-} from '../core/i18n';
-import { SbbDisabledMixin } from '../core/mixins';
+} from '../core/i18n/index.js';
+import { SbbDisabledMixin } from '../core/mixins/index.js';
 
 import style from './file-selector.scss?lit&inline';
 
-import '../button/secondary-button';
-import '../button/secondary-button-static';
-import '../icon';
+import '../button/secondary-button/index.js';
+import '../button/secondary-button-static/index.js';
+import '../icon/index.js';
 
 export type DOMEvent = globalThis.Event;
 
@@ -269,7 +269,6 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
         )}
       </${unsafeStatic(TAG_NAME.WRAPPER)}>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 
   protected override render(): TemplateResult {

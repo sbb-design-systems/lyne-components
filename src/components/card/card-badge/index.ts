@@ -1,1 +1,1 @@
-export * from './card-badge';
+export * from './card-badge.js';

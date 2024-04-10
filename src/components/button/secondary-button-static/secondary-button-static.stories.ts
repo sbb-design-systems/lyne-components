@@ -21,11 +21,11 @@ import {
   sizeM,
   withSlottedIcon,
   withHiddenSlottedIcon,
-} from '../common/common-stories';
+} from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
-import '../../loading-indicator';
-import './secondary-button-static';
+import '../../loading-indicator/index.js';
+import './secondary-button-static.js';
 
 const disabled: InputType = {
   control: {

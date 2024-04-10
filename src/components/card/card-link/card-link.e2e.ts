@@ -2,14 +2,14 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbCardElement } from '../card';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbCardElement } from '../card/index.js';
 
-import type { SbbCardLinkElement } from './card-link';
+import type { SbbCardLinkElement } from './card-link.js';
 
-import '../card';
-import './card-link';
+import '../card/index.js';
+import './card-link.js';
 
 describe(`sbb-card-link with ${fixture.name}`, () => {
   let element: SbbCardElement;
@@ -61,7 +61,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
-    element.querySelector<SbbCardLinkElement>('sbb-card-link')!.setAttribute('active', '');
+    element.querySelector<SbbCardLinkElement>('sbb-card-link')!.toggleAttribute('active', true);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-has-active-action');

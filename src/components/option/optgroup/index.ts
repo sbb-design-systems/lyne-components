@@ -1,1 +1,1 @@
-export * from './optgroup';
+export * from './optgroup.js';

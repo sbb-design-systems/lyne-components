@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbButtonElement } from './button';
+import { SbbButtonElement } from './button.js';
 
 describe(`sbb-button with ${fixture.name}`, () => {
   let element: SbbButtonElement;

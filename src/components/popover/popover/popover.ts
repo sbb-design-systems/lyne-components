@@ -4,26 +4,26 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  SbbFocusHandler,
   getFirstFocusableElement,
   IS_FOCUSABLE_QUERY,
+  SbbFocusHandler,
   setModalityOnNextFocus,
-} from '../../core/a11y';
-import { SbbLanguageController } from '../../core/controllers';
-import { findReferencedElement, isValidAttribute } from '../../core/dom';
-import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
-import { i18nClosePopover } from '../../core/i18n';
-import type { SbbOpenedClosedState } from '../../core/interfaces';
+} from '../../core/a11y/index.js';
+import { SbbLanguageController } from '../../core/controllers/index.js';
+import { findReferencedElement } from '../../core/dom/index.js';
+import { composedPathHasAttribute, EventEmitter } from '../../core/eventing/index.js';
+import { i18nClosePopover } from '../../core/i18n/index.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
 import {
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay';
+} from '../../core/overlay/index.js';
 
 import style from './popover.scss?lit&inline';
 
-import '../../button/secondary-button';
+import '../../button/secondary-button/index.js';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -310,7 +310,7 @@ export class SbbPopoverElement extends LitElement {
   private _closeOnSbbPopoverCloseClick(event: Event): void {
     const closeElement = composedPathHasAttribute(event, 'sbb-popover-close', this);
 
-    if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
+    if (closeElement && !closeElement.hasAttribute('disabled')) {
       clearTimeout(this._closeTimeout);
       this.close(closeElement);
     }

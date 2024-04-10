@@ -1,1 +1,1 @@
-export * from './datepicker-toggle';
+export * from './datepicker-toggle.js';

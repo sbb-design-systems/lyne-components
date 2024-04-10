@@ -1,2 +1,2 @@
-export * from './form-field';
-export * from './form-field-clear';
+export * from './form-field/index.js';
+export * from './form-field-clear/index.js';

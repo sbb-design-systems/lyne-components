@@ -2,17 +2,17 @@ import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationSectionElement } from '../navigation-section';
+import type { SbbButtonElement } from '../../button/index.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbNavigationButtonElement } from '../navigation-button/index.js';
+import type { SbbNavigationSectionElement } from '../navigation-section/index.js';
 
-import { SbbNavigationElement } from './navigation';
+import { SbbNavigationElement } from './navigation.js';
 
-import '../navigation-button';
-import '../navigation-marker';
-import '../navigation-section';
+import '../navigation-button/index.js';
+import '../navigation-marker/index.js';
+import '../navigation-section/index.js';
 
 describe(`sbb-navigation with ${fixture.name}`, () => {
   let element: SbbNavigationElement;

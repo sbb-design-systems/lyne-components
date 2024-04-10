@@ -2,19 +2,19 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbInputModality } from '../../core/a11y';
-import { sbbInputModalityDetector } from '../../core/a11y';
+import type { SbbInputModality } from '../../core/a11y/index.js';
+import { sbbInputModalityDetector } from '../../core/a11y/index.js';
 import {
   SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
-} from '../../core/controllers';
-import { isFirefox, isValidAttribute } from '../../core/dom';
-import { i18nOptional } from '../../core/i18n';
-import { SbbNegativeMixin } from '../../core/mixins';
-import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbSelectElement } from '../../select';
-import '../../icon';
+} from '../../core/controllers/index.js';
+import { isFirefox, setOrRemoveAttribute } from '../../core/dom/index.js';
+import { i18nOptional } from '../../core/i18n/index.js';
+import { SbbNegativeMixin } from '../../core/mixins/index.js';
+import { AgnosticMutationObserver } from '../../core/observers/index.js';
+import type { SbbSelectElement } from '../../select/index.js';
+import '../../icon/index.js';
 
 import style from './form-field.scss?lit&inline';
 
@@ -188,7 +188,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
   private _onSlotLabelChange(): void {
     const labels = Array.from(this.querySelectorAll('label'));
-    if (labels.length > 1) {
+    if (import.meta.env.DEV && labels.length > 1) {
       console.warn(
         `Detected more than one label in sbb-form-field#${this.id}. Only one label is supported.`,
       );
@@ -357,8 +357,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     if (!this._input) {
       return;
     }
-    this.toggleAttribute('data-readonly', isValidAttribute(this._input, 'readonly'));
-    this.toggleAttribute('data-disabled', isValidAttribute(this._input, 'disabled'));
+    this.toggleAttribute('data-readonly', this._input.hasAttribute('readonly'));
+    this.toggleAttribute('data-disabled', this._input.hasAttribute('disabled'));
     this.toggleAttribute(
       'data-invalid',
       this._input.hasAttribute('data-sbb-invalid') ||
@@ -405,10 +405,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     }
 
     const ariaDescribedby = ids.join(' ');
-    if (ariaDescribedby) {
-      this._input?.setAttribute('aria-describedby', ariaDescribedby);
-    } else {
-      this._input?.removeAttribute('aria-describedby');
+    if (this._input) {
+      setOrRemoveAttribute(this._input, 'aria-describedby', ariaDescribedby);
     }
   }
 
@@ -437,9 +435,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   private _syncNegative(): void {
     this.querySelectorAll?.(
       'sbb-form-error,sbb-mini-button,sbb-popover-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
-    ).forEach((element) =>
-      this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
-    );
+    ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 
   protected override render(): TemplateResult {

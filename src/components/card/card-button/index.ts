@@ -1,1 +1,1 @@
-export * from './card-button';
+export * from './card-button.js';

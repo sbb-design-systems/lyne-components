@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { readDataNow } from '../core/datetime/data-now';
+import { readDataNow } from '../core/datetime/data-now.js';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';

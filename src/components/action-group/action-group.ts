@@ -2,14 +2,14 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbButtonCommonElement, SbbButtonSize } from '../button';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
+import type { SbbButtonCommonElement, SbbButtonSize } from '../button/index.js';
+import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces/index.js';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
   SbbLinkSize,
-} from '../link';
+} from '../link/index.js';
 
 import style from './action-group.scss?lit&inline';
 

@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbToggleOptionElement } from './toggle-option';
+import { SbbToggleOptionElement } from './toggle-option.js';
 
 describe(`sbb-toggle-option with ${fixture.name}`, () => {
   let element: SbbToggleOptionElement;

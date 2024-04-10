@@ -2,8 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { isValidAttribute } from '../core/dom';
-import { SbbNegativeMixin } from '../core/mixins';
+import { SbbNegativeMixin } from '../core/mixins/index.js';
 
 import style from './form-error.scss?lit&inline';
 
@@ -24,7 +23,7 @@ export class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
     this.id ||= `sbb-form-error-${nextId++}`;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
   }
 

@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { isValid } from './icon-validate';
+import { isValid } from './icon-validate.js';
 
 describe('isValid', () => {
   it('invalid onload attr', () => {

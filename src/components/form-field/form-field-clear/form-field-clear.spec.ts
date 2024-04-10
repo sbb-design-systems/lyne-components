@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
-import type { SbbFormFieldElement } from '../form-field';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
+import type { SbbFormFieldElement } from '../form-field/index.js';
 
-import type { SbbFormFieldClearElement } from './form-field-clear';
-import './form-field-clear';
-import '../form-field';
+import type { SbbFormFieldClearElement } from './form-field-clear.js';
+import './form-field-clear.js';
+import '../form-field/index.js';
 
 describe(`sbb-form-field-clear`, () => {
   describe('renders', () => {

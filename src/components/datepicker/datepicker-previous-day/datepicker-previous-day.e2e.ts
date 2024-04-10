@@ -1,15 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbFormFieldElement } from '../../form-field';
-import type { SbbDatepickerElement } from '../datepicker';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbFormFieldElement } from '../../form-field/index.js';
+import type { SbbDatepickerElement } from '../datepicker/index.js';
 
-import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day';
+import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.js';
 
-import '../datepicker';
-import '../../form-field/form-field';
+import '../datepicker/index.js';
+import '../../form-field/form-field/index.js';
 
 describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
   describe('standalone', () => {
@@ -188,7 +188,7 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
 
     it('disabled due disabled picker', async () => {
       expect(input.value).to.be.equal('Fr, 20.01.2023');
-      input.setAttribute('disabled', '');
+      input.toggleAttribute('disabled', true);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-disabled');

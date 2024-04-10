@@ -1,3 +1,3 @@
-export * from './block-link-common';
-export * from './inline-link-common';
-export * from './link-common';
+export * from './block-link-common.js';
+export * from './inline-link-common.js';
+export * from './link-common.js';

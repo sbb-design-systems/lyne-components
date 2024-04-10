@@ -1,1 +1,1 @@
-export * from './host-attributes';
+export * from './host-attributes.js';

@@ -3,11 +3,11 @@ import { html } from 'lit/static-html.js';
 import type { SinonStub } from 'sinon';
 import { stub } from 'sinon';
 
-import { i18nOccupancy } from '../core/i18n';
-import { waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { i18nOccupancy } from '../core/i18n/index.js';
+import { waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon';
+import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.js';
 
 describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
   let matchMediaStub: SinonStub<[query: string], MediaQueryList>;

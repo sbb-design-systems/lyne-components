@@ -4,11 +4,11 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../link/block-link';
-import './link-list';
+import '../link/block-link/index.js';
+import './link-list.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

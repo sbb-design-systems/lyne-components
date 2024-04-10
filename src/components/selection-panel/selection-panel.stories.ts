@@ -1,27 +1,30 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import type { SbbFormErrorElement } from '../form-error';
-import type { SbbRadioButtonGroupElement, SbbRadioButtonGroupEventDetail } from '../radio-button';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import type { SbbFormErrorElement } from '../form-error/index.js';
+import type {
+  SbbRadioButtonGroupElement,
+  SbbRadioButtonGroupEventDetail,
+} from '../radio-button/index.js';
 
 import readme from './readme.md?raw';
-import { SbbSelectionPanelElement } from './selection-panel';
-import '../card';
-import '../checkbox';
-import '../divider';
-import '../form-error';
-import '../icon';
-import '../link/block-link-button';
-import '../radio-button';
-import '../popover';
-import '../title';
+import { SbbSelectionPanelElement } from './selection-panel.js';
+import '../card/index.js';
+import '../checkbox/index.js';
+import '../divider/index.js';
+import '../form-error/index.js';
+import '../icon/index.js';
+import '../link/block-link-button/index.js';
+import '../radio-button/index.js';
+import '../popover/index.js';
+import '../title/index.js';
 
 const color: InputType = {
   control: {

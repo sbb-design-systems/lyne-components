@@ -3,18 +3,22 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { SbbConnectedAbortController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { isBrowser } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
+import {
+  isArrowKeyPressed,
+  getNextElementIndex,
+  interactivityChecker,
+} from '../../core/a11y/index.js';
+import { SbbConnectedAbortController } from '../../core/controllers/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { isBrowser } from '../../core/dom/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
 import type {
   SbbCheckedStateChange,
   SbbStateChange,
   SbbValueStateChange,
-} from '../../core/interfaces';
-import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbToggleOptionElement } from '../toggle-option';
+} from '../../core/interfaces/index.js';
+import { AgnosticResizeObserver } from '../../core/observers/index.js';
+import type { SbbToggleOptionElement } from '../toggle-option/index.js';
 
 import style from './toggle.scss?lit&inline';
 
@@ -95,7 +99,9 @@ export class SbbToggleElement extends LitElement {
       options[0];
 
     if (!selectedOption) {
-      isBrowser() && console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
+      if (import.meta.env.DEV && isBrowser()) {
+        console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
+      }
       return;
     }
     if (!selectedOption.checked) {

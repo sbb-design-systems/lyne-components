@@ -2,12 +2,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { setAttribute } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
-import { SbbIconNameMixin } from '../../icon';
-import type { SbbToggleElement, SbbToggleStateChange } from '../toggle';
+import {
+  SbbConnectedAbortController,
+  SbbSlotStateController,
+} from '../../core/controllers/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { setOrRemoveAttribute } from '../../core/dom/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import { SbbIconNameMixin } from '../../icon/index.js';
+import type { SbbToggleElement, SbbToggleStateChange } from '../toggle/index.js';
 
 import style from './toggle-option.scss?lit&inline';
 
@@ -114,7 +117,7 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
     } else if (!this._toggle.disabled && this.disabled) {
       this.disabled = false;
     }
-    setAttribute(this, 'aria-disabled', this.disabled ? `true` : null);
+    setOrRemoveAttribute(this, 'aria-disabled', this.disabled ? `true` : null);
     this._verifyTabindex();
   }
 

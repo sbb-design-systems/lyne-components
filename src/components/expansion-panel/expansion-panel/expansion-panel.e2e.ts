@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
-import '../expansion-panel-content';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/index.js';
+import '../expansion-panel-content/index.js';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/index.js';
 
-import { SbbExpansionPanelElement } from './expansion-panel';
+import { SbbExpansionPanelElement } from './expansion-panel.js';
 
 describe(`sbb-expansion-panel with ${fixture.name}`, () => {
   let element: SbbExpansionPanelElement;

@@ -1,1 +1,1 @@
-export * from './datepicker-next-day';
+export * from './datepicker-next-day.js';

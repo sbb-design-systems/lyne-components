@@ -5,11 +5,11 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import placeholderImage from './stories/placeholder.png';
-import './teaser';
+import './teaser.js';
 
 const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea

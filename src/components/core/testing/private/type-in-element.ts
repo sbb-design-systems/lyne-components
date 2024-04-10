@@ -8,7 +8,7 @@
 
 // Copied from https://github.com/angular/components/blob/main/src/cdk/testing/testbed/fake-events/type-in-element.ts
 
-import { dispatchFakeEvent, dispatchKeyboardEvent } from './dispatch-events';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from './dispatch-events.js';
 
 const PERIOD = 190;
 

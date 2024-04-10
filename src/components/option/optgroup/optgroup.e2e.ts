@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbOptionElement } from '../option';
-import '../option';
+import { waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbOptionElement } from '../option/index.js';
+import '../option/index.js';
 
-import { SbbOptGroupElement } from './optgroup';
+import { SbbOptGroupElement } from './optgroup.js';
 
 describe(`sbb-optgroup with ${fixture.name}`, () => {
   let element: SbbOptGroupElement;
@@ -32,7 +32,7 @@ describe(`sbb-optgroup with ${fixture.name}`, () => {
     const optionOne = element.querySelector(':scope > sbb-option#option-1');
     const optionTwo = element.querySelector(':scope > sbb-option#option-2');
     const optionThree = element.querySelector(':scope > sbb-option#option-3');
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('disabled');
@@ -55,7 +55,7 @@ describe(`sbb-optgroup with ${fixture.name}`, () => {
 
     options.forEach((opt) => expect(opt).not.to.have.attribute('selected'));
 
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await waitForLitRender(element);
     expect(element).to.have.attribute('disabled');
 

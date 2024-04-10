@@ -6,19 +6,23 @@ import {
   SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
-} from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { setAttribute } from '../../core/dom';
-import { EventEmitter, formElementHandlerAspect, HandlerRepository } from '../../core/eventing';
-import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
+} from '../../core/controllers/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { setOrRemoveAttribute } from '../../core/dom/index.js';
+import {
+  EventEmitter,
+  formElementHandlerAspect,
+  HandlerRepository,
+} from '../../core/eventing/index.js';
+import { i18nCollapsed, i18nExpanded } from '../../core/i18n/index.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
-} from '../../core/interfaces';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins';
-import type { SbbSelectionPanelElement } from '../../selection-panel';
-import type { SbbRadioButtonGroupElement } from '../radio-button-group';
+} from '../../core/interfaces/index.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins/index.js';
+import type { SbbSelectionPanelElement } from '../../selection-panel/index.js';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group/index.js';
 
 import style from './radio-button.scss?lit&inline';
 
@@ -162,7 +166,7 @@ export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   private _handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
-      setAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
+      setOrRemoveAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
       this._stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }

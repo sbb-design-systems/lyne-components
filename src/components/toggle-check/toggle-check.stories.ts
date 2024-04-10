@@ -4,15 +4,15 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './toggle-check';
-import '../button/button';
-import '../button/secondary-button';
-import '../card';
-import '../icon';
-import '../title';
+import './toggle-check.js';
+import '../button/button/index.js';
+import '../button/secondary-button/index.js';
+import '../card/index.js';
+import '../icon/index.js';
+import '../title/index.js';
 
 const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum.

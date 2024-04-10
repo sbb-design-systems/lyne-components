@@ -1,1 +1,1 @@
-export * from './file-selector';
+export * from './file-selector.js';

@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 import {
   buttonIconTestTemplate,
   buttonSlottedIconTestTemplate,
   buttonSpaceIconTestTemplate,
   buttonTestTemplate,
-} from '../common/button-test-utils';
+} from '../common/button-test-utils.js';
 
-import type { SbbTransparentButtonStaticElement } from './transparent-button-static';
-import './transparent-button-static';
+import type { SbbTransparentButtonStaticElement } from './transparent-button-static.js';
+import './transparent-button-static.js';
 
 describe(`sbb-transparent-button-static`, () => {
   describe('renders a sbb-transparent-button-static without icon', async () => {

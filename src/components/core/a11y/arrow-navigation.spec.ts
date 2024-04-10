@@ -5,7 +5,7 @@ import {
   isArrowKeyPressed,
   isNextArrowKeyPressed,
   isPreviousArrowKeyPressed,
-} from './arrow-navigation';
+} from './arrow-navigation.js';
 
 describe('isArrowKeyPressed', () => {
   it('should return false', () => {

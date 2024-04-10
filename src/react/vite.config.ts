@@ -6,22 +6,23 @@ import {
   generateReactWrappers,
   isProdBuild,
   packageJsonTemplate,
-} from '../../tools/vite';
-import rootConfig from '../../vite.config';
+} from '../../tools/vite/index.js';
+import rootConfig from '../../vite.config.js';
 
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
     root: new URL('.', import.meta.url).pathname,
     plugins: [
       generateReactWrappers(),
-      ...(isProdBuild(config) ? [dts(), packageJsonTemplate()] : []),
+      ...(config.command === 'build' ? [dts()] : []),
+      ...(isProdBuild(config) ? [packageJsonTemplate()] : []),
     ],
     build: {
       lib: {
         formats: ['es'],
       },
-      minify: false,
-      outDir: new URL('./react/', distDir).pathname,
+      minify: isProdBuild(config),
+      outDir: new URL(`./react/${isProdBuild(config) ? '' : 'development/'}`, distDir).pathname,
       emptyOutDir: true,
       rollupOptions: {
         external: [/^@sbb-esta\/lyne-components\/?/, /^@lit\/react\/?/, /^lit\/?/, /^react/],

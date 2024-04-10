@@ -38,7 +38,7 @@ export function vitePlugin() {
         // This configuration is necessary, as vite will otherwise detect dependencies
         // that can be optimized. This will cause vite to reload, which leads to
         // 'Could not import your test module.' errors, that happen randomly.
-        // Excluding the dependencies, prevents this from happening at the cost of slightly
+        // Disabling discovery prevents this from happening at the cost of slightly
         // increased test times.
         optimizeDeps: {
           noDiscovery: true,
@@ -46,11 +46,12 @@ export function vitePlugin() {
       });
       await viteServer.listen();
 
-      const vitePort = viteServer.config.server.port;
-      const viteProtocol = viteServer.config.server.https ? 'https' : 'http';
-
+      const baseUrl = `http${viteServer.config.server.https ? 's' : ''}://localhost:${viteServer.config.server.port}`;
       app.use(async (ctx) => {
-        const response = await fetch(`${viteProtocol}://localhost:${vitePort}${ctx.originalUrl}`);
+        const url = baseUrl + ctx.originalUrl;
+        // Retry once on failure.
+        // This can happen when too many http requests are being handled by the operating system.
+        const response = await fetch(url).catch(() => Promise.resolve().then(() => fetch(url)));
         ctx.set(Object.fromEntries(response.headers));
         ctx.body = await response.text();
         ctx.status = response.status;

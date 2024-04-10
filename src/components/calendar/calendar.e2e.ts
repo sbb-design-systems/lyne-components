@@ -2,12 +2,12 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbCalendarElement } from './calendar';
+import { SbbCalendarElement } from './calendar.js';
 
-import '../button';
+import '../button/index.js';
 
 describe(`sbb-calendar with ${fixture.name}`, () => {
   let element: SbbCalendarElement;

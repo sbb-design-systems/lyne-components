@@ -1,7 +1,7 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from './constructor';
+import type { AbstractConstructor } from './constructor.js';
 
 export declare class SbbDisabledMixinType {
   public set disabled(value: boolean);

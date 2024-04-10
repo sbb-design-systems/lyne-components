@@ -2,17 +2,21 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers';
-import { getDocumentWritingMode } from '../core/dom';
-import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n';
-import { SbbNegativeMixin } from '../core/mixins';
-import type { SbbTitleLevel } from '../title';
+import { SbbLanguageController } from '../core/controllers/index.js';
+import { getDocumentWritingMode } from '../core/dom/index.js';
+import {
+  i18nConnectionFrom,
+  i18nConnectionRoundtrip,
+  i18nConnectionTo,
+} from '../core/i18n/index.js';
+import { SbbNegativeMixin } from '../core/mixins/index.js';
+import type { SbbTitleLevel } from '../title/index.js';
 
 import style from './journey-header.scss?lit&inline';
 
-import '../icon';
-import '../screen-reader-only';
-import '../title';
+import '../icon/index.js';
+import '../screen-reader-only/index.js';
+import '../title/index.js';
 
 export type JourneyHeaderSize = 'm' | 'l';
 

@@ -1,1 +1,1 @@
-export * from './card-action-common';
+export * from './card-action-common.js';

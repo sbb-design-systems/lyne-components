@@ -11,10 +11,10 @@ import type {
 import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
-import '../../form-field';
-import './mini-button';
-import { buttonDefaultArgs, buttonDefaultArgTypes } from '../common/button-common-stories';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import '../../form-field/index.js';
+import './mini-button.js';
+import { buttonDefaultArgs, buttonDefaultArgTypes } from '../common/button-common-stories.js';
 
 import readme from './readme.md?raw';
 

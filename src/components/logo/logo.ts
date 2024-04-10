@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbProtectiveRoom } from '../core/interfaces';
-import { SbbNegativeMixin } from '../core/mixins';
+import type { SbbProtectiveRoom } from '../core/interfaces/index.js';
+import { SbbNegativeMixin } from '../core/mixins/index.js';
 
 import style from './logo.scss?lit&inline';
 

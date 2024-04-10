@@ -1,29 +1,28 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex } from '../core/a11y';
-import { SbbConnectedAbortController } from '../core/controllers';
-import { hostAttributes } from '../core/decorators';
+import { getNextElementIndex } from '../core/a11y/index.js';
+import { SbbConnectedAbortController } from '../core/controllers/index.js';
+import { hostAttributes } from '../core/decorators/index.js';
 import {
-  getDocumentWritingMode,
   findReferencedElement,
-  isSafari,
-  isValidAttribute,
+  getDocumentWritingMode,
   isBrowser,
-} from '../core/dom';
-import { EventEmitter } from '../core/eventing';
-import type { SbbOpenedClosedState } from '../core/interfaces';
-import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins';
+  isSafari,
+} from '../core/dom/index.js';
+import { EventEmitter } from '../core/eventing/index.js';
+import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins/index.js';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../core/overlay';
-import type { SbbOptionElement, SbbOptGroupElement } from '../option';
+} from '../core/overlay/index.js';
+import type { SbbOptGroupElement, SbbOptionElement } from '../option/index.js';
 
 import style from './autocomplete.scss?lit&inline';
 
@@ -133,7 +132,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
   private get _readonly(): boolean {
-    return !!this.triggerElement && isValidAttribute(this.triggerElement, 'readonly');
+    return this.triggerElement?.hasAttribute('readonly') ?? false;
   }
 
   private get _options(): SbbOptionElement[] {
@@ -236,7 +235,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
 
     if (this._didLoad) {
@@ -513,7 +512,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
 
   private _setNextActiveOption(event: KeyboardEvent): void {
     const filteredOptions = this._options.filter(
-      (opt) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
+      (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
 
     // Get and activate the next active option

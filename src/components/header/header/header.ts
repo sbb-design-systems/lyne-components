@@ -2,13 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbFocusVisibleWithinController } from '../../core/a11y';
-import { findReferencedElement, isBrowser } from '../../core/dom';
-import { SbbHydrationMixin } from '../../core/mixins';
+import { SbbFocusVisibleWithinController } from '../../core/a11y/index.js';
+import { findReferencedElement, isBrowser } from '../../core/dom/index.js';
+import { SbbHydrationMixin } from '../../core/mixins/index.js';
 
 import style from './header.scss?lit&inline';
 
-import '../../logo';
+import '../../logo/index.js';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 

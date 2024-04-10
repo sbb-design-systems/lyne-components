@@ -4,6 +4,7 @@ import { defineConfig, mergeConfig, type UserConfig } from 'vite';
 
 import {
   copyAssets,
+  copySass,
   customElementsManifest,
   distDir,
   dts,
@@ -11,8 +12,8 @@ import {
   isProdBuild,
   packageJsonTemplate,
   typography,
-} from '../../tools/vite';
-import rootConfig from '../../vite.config';
+} from '../../tools/vite/index.js';
+import rootConfig from '../../vite.config.js';
 
 const packageRoot = new URL('.', import.meta.url);
 // Include all directories containing an index.ts
@@ -23,14 +24,13 @@ const barrelExports = Object.keys(entryPoints)
   .filter((v, _i, a) => a.some((e) => e.startsWith(`${v}/`)))
   .map((e) => `${e}/index.ts`);
 
-/* eslint-disable @typescript-eslint/no-use-before-define */
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
     root: packageRoot.pathname,
     plugins: [
+      ...(config.command === 'build' ? [dts()] : []),
       ...(isProdBuild(config)
         ? [
-            dts(),
             customElementsManifest(),
             packageJsonTemplate({
               exports: {
@@ -40,7 +40,8 @@ export default defineConfig((config) =>
                 },
               },
             }),
-            copyAssets(['_index.scss', 'core/styles/**/*.scss', '../../README.md']),
+            copyAssets(['_index.scss', '../../README.md']),
+            copySass('core/styles'),
             typography(),
           ]
         : []),
@@ -51,9 +52,11 @@ export default defineConfig((config) =>
         entry: entryPoints,
         formats: ['es'],
       },
-      minify: false,
-      outDir: new URL('./components/', distDir).pathname,
+      minify: isProdBuild(config),
+      outDir: new URL(`./components/${isProdBuild(config) ? '' : 'development/'}`, distDir)
+        .pathname,
       emptyOutDir: true,
+      sourcemap: isProdBuild(config) ? false : 'inline',
       rollupOptions: {
         external: (source: string, importer: string | undefined) => {
           if (

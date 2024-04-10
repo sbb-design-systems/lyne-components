@@ -1,1 +1,1 @@
-export * from './menu-action-common';
+export * from './menu-action-common.js';

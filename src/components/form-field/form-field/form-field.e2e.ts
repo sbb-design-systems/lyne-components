@@ -2,12 +2,12 @@ import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import { SbbOptionElement } from '../../option';
-import { SbbSelectElement } from '../../select';
+import { waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import { SbbOptionElement } from '../../option/index.js';
+import { SbbSelectElement } from '../../select/index.js';
 
-import { SbbFormFieldElement } from './form-field';
+import { SbbFormFieldElement } from './form-field.js';
 
 describe(`sbb-form-field with ${fixture.name}`, () => {
   describe('with input', () => {
@@ -316,7 +316,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should focus select on form field click readonly', async () => {
-      select.setAttribute('readonly', '');
+      select.toggleAttribute('readonly', true);
       await waitForLitRender(element);
 
       expect(element).not.to.have.attribute('data-input-focused');

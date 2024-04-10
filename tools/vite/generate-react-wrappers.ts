@@ -22,8 +22,8 @@ import type {
 } from 'custom-elements-manifest';
 import type { PluginOption } from 'vite';
 
-import { distDir } from './build-meta';
-import { globIndexMap } from './index-map';
+import { distDir } from './build-meta.js';
+import { globIndexMap } from './index-map.js';
 
 export function generateReactWrappers(): PluginOption {
   const manifestPath = new URL('./components/custom-elements.json', distDir);

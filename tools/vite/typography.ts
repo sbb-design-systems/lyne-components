@@ -3,7 +3,7 @@ import { join } from 'path';
 import * as sass from 'sass';
 import type { PluginOption, ResolvedConfig } from 'vite';
 
-import { root } from './build-meta';
+import { root } from './build-meta.js';
 
 export function typography(): PluginOption {
   let viteConfig: ResolvedConfig;

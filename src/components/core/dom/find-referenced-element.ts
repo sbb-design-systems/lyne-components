@@ -1,4 +1,4 @@
-import { isBrowser } from './platform';
+import { isBrowser } from './platform.js';
 
 /**
  *  Check whether it's a string or an HTMLElement, if it's a string queries the element with the

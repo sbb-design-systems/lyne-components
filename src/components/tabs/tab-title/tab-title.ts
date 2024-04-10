@@ -3,10 +3,10 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbSlotStateController } from '../../core/controllers';
-import { SbbDisabledMixin } from '../../core/mixins';
-import { SbbIconNameMixin } from '../../icon';
-import type { SbbTitleLevel } from '../../title';
+import { SbbSlotStateController } from '../../core/controllers/index.js';
+import { SbbDisabledMixin } from '../../core/mixins/index.js';
+import { SbbIconNameMixin } from '../../icon/index.js';
+import type { SbbTitleLevel } from '../../title/index.js';
 
 import style from './tab-title.scss?lit&inline';
 
@@ -57,7 +57,6 @@ export class SbbTabTitleElement extends SbbDisabledMixin(SbbIconNameMixin(LitEle
         </${unsafeStatic(TAGNAME)}>
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

@@ -2,12 +2,12 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { fixture } from '../core/testing/private';
-import { SbbFormFieldElement } from '../form-field';
-import { SbbOptionElement } from '../option';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
+import { SbbFormFieldElement } from '../form-field/index.js';
+import { SbbOptionElement } from '../option/index.js';
 
-import { SbbAutocompleteElement } from './autocomplete';
+import { SbbAutocompleteElement } from './autocomplete.js';
 
 describe(`sbb-autocomplete with ${fixture.name}`, () => {
   let element: SbbAutocompleteElement, formField: SbbFormFieldElement, input: HTMLInputElement;
@@ -150,7 +150,7 @@ describe(`sbb-autocomplete with ${fixture.name}`, () => {
   });
 
   it('should stay closed when disabled', async () => {
-    input.setAttribute('disabled', '');
+    input.toggleAttribute('disabled', true);
 
     input.focus();
     await waitForLitRender(element);
@@ -166,7 +166,7 @@ describe(`sbb-autocomplete with ${fixture.name}`, () => {
   });
 
   it('should stay closed when readonly', async () => {
-    input.setAttribute('readonly', '');
+    input.toggleAttribute('readonly', true);
 
     input.focus();
     await waitForLitRender(element);

@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbNavigationSectionElement } from './navigation-section';
+import { SbbNavigationSectionElement } from './navigation-section.js';
 
-import '../navigation';
-import '../navigation-list';
-import '../navigation-button';
+import '../navigation/index.js';
+import '../navigation-list/index.js';
+import '../navigation-button/index.js';
 
 describe(`sbb-navigation-section with ${fixture.name}`, () => {
   let element: SbbNavigationSectionElement;

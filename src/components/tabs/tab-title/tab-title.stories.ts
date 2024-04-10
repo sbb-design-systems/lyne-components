@@ -3,11 +3,11 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../../icon';
-import './tab-title';
+import '../../icon/index.js';
+import './tab-title.js';
 
 const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`
   <sbb-tab-title ${sbbSpread(args)}>

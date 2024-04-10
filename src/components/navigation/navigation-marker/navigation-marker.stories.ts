@@ -5,11 +5,11 @@ import { html, nothing } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './navigation-marker';
-import '../navigation-button';
+import './navigation-marker.js';
+import '../navigation-button/index.js';
 
 const size: InputType = {
   control: {

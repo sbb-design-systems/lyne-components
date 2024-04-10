@@ -1,2 +1,2 @@
-export * from './tag';
-export * from './tag-group';
+export * from './tag/index.js';
+export * from './tag-group/index.js';

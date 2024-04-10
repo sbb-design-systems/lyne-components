@@ -1,1 +1,1 @@
-export * from './tab-title';
+export * from './tab-title.js';

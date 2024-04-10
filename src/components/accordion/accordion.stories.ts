@@ -13,11 +13,11 @@ import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import { SbbExpansionPanelElement } from '../expansion-panel';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { SbbExpansionPanelElement } from '../expansion-panel/index.js';
 
 import readme from './readme.md?raw';
-import './accordion';
+import './accordion.js';
 
 const numberOfPanels: InputType = {
   control: {

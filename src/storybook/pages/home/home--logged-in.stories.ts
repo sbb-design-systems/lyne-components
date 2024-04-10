@@ -1,12 +1,12 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import type { SbbDialogElement } from '../../../components/dialog';
-import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data';
+import type { SbbDialogElement } from '../../../components/dialog/index.js';
+import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data.js';
 
 import {
   bikeProduct,
@@ -18,11 +18,11 @@ import {
   teaserHero,
   timetableInput,
   wrapperStyle,
-} from './home.common';
+} from './home.common.js';
 import readme from './readme.md?raw';
-import '../../../components/dialog';
-import '../../../components/journey-header';
-import '../../../components/pearl-chain';
+import '../../../components/dialog/index.js';
+import '../../../components/journey-header/index.js';
+import '../../../components/pearl-chain/index.js';
 import './home.scss';
 
 const negative: InputType = {

@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
 import type {
   SbbJourneySummaryElement,
   InterfaceSbbJourneySummaryAttributes,
-} from './journey-summary';
+} from './journey-summary.js';
 
-import './journey-summary';
+import './journey-summary.js';
 
 const now = new Date('2022-08-29T21:00:00Z').valueOf();
 

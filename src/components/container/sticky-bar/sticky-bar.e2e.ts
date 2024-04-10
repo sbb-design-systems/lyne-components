@@ -2,13 +2,13 @@ import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 
-import { waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbContainerElement } from '../container';
+import { waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
+import type { SbbContainerElement } from '../container/index.js';
 
-import { SbbStickyBarElement } from './sticky-bar';
+import { SbbStickyBarElement } from './sticky-bar.js';
 
-import '../container';
+import '../container/index.js';
 
 describe(`sbb-sticky-bar with ${fixture.name}`, () => {
   let container: SbbContainerElement;

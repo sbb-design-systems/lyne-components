@@ -1,8 +1,8 @@
 import { isServer, type LitElement, type PropertyValues } from 'lit';
 
-import { forwardEventToHost } from '../eventing';
+import { forwardEventToHost } from '../eventing/index.js';
 
-import type { AbstractConstructor } from './constructor';
+import type { AbstractConstructor } from './constructor.js';
 
 // Define the interface for the mixin
 export declare abstract class SbbHydrationMixinType {
@@ -39,10 +39,7 @@ const litElementHydrateSupport = 'litElementHydrateSupport';
  * a production module.
  * TODO: Should this be solved in a different way or removed in a production build?
  */
-const hydrationSuppressed =
-  isServer ||
-  document.head.querySelector('meta[name="testGroup"]')?.getAttribute('content') ===
-    'e2e-ssr-non-hydrated';
+const hydrationSuppressed = isServer || (globalThis as any).testGroup === 'e2e-ssr-non-hydrated';
 
 /**
  * This mixin extends a base class with functionality to check if hydration is completed.

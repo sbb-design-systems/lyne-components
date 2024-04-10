@@ -3,13 +3,13 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers';
-import { EventEmitter } from '../../core/eventing';
-import type { SbbOpenedClosedState } from '../../core/interfaces';
-import { SbbHydrationMixin } from '../../core/mixins';
-import type { SbbTitleLevel } from '../../title';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
-import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
+import { SbbConnectedAbortController } from '../../core/controllers/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
+import { SbbHydrationMixin } from '../../core/mixins/index.js';
+import type { SbbTitleLevel } from '../../title/index.js';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/index.js';
+import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/index.js';
 
 import style from './expansion-panel.scss?lit&inline';
 
@@ -218,7 +218,6 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
         </div>
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

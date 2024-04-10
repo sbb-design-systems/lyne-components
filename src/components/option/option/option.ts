@@ -8,18 +8,21 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { isAndroid, isSafari, isValidAttribute, setAttribute } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
-import { SbbDisabledMixin } from '../../core/mixins';
-import { AgnosticMutationObserver } from '../../core/observers';
-import { SbbIconNameMixin } from '../../icon';
+import {
+  SbbConnectedAbortController,
+  SbbSlotStateController,
+} from '../../core/controllers/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
+import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import { SbbDisabledMixin } from '../../core/mixins/index.js';
+import { AgnosticMutationObserver } from '../../core/observers/index.js';
+import { SbbIconNameMixin } from '../../icon/index.js';
 
 import style from './option.scss?lit&inline';
 
-import '../../screen-reader-only';
-import '../../visual-checkbox';
+import '../../screen-reader-only/index.js';
+import '../../visual-checkbox/index.js';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.
@@ -209,7 +212,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('disabled')) {
-      setAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
+      setOrRemoveAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
       this._updateAriaDisabled();
     }
   }
@@ -222,7 +225,11 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   }
 
   private _updateAriaDisabled(): void {
-    setAttribute(this, 'aria-disabled', this.disabled || this._disabledFromGroup ? 'true' : null);
+    setOrRemoveAttribute(
+      this,
+      'aria-disabled',
+      this.disabled || this._disabledFromGroup ? 'true' : null,
+    );
   }
 
   private _updateAriaSelected(): void {
@@ -246,10 +253,10 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   private _onOptionAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = isValidAttribute(this, 'data-group-disabled');
+        this._disabledFromGroup = this.hasAttribute('data-group-disabled');
         this._updateAriaDisabled();
       } else if (mutation.attributeName === 'data-negative') {
-        this._negative = isValidAttribute(this, 'data-negative');
+        this._negative = this.hasAttribute('data-negative');
       }
     }
   }

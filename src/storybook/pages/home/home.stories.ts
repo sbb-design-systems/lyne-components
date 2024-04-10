@@ -4,8 +4,8 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import '../../../components/alert';
-import '../../../components/action-group';
+import '../../../components/alert/index.js';
+import '../../../components/action-group/index.js';
 import {
   bikeProduct,
   dailyTicketProduct,
@@ -16,7 +16,7 @@ import {
   teaserHero,
   timetableInput,
   wrapperStyle,
-} from './home.common';
+} from './home.common.js';
 import readme from './readme.md?raw';
 import './home.scss';
 

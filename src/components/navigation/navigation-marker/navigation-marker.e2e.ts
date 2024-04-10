@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { waitForLitRender } from '../../core/testing/index.js';
+import { fixture } from '../../core/testing/private/index.js';
 
-import { SbbNavigationMarkerElement } from './navigation-marker';
+import { SbbNavigationMarkerElement } from './navigation-marker.js';
 
-import '../navigation-button';
+import '../navigation-button/index.js';
 
 describe(`sbb-navigation-marker with ${fixture.name}`, () => {
   let element: SbbNavigationMarkerElement;

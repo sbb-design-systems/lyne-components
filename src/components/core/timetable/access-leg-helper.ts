@@ -3,12 +3,16 @@
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
-import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../i18n';
+import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../i18n/index.js';
 
-import { extractTimeAndStringFromNoticeText, isConnectionLeg, isRideLeg } from './timetable-helper';
-import type { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties';
+import {
+  extractTimeAndStringFromNoticeText,
+  isConnectionLeg,
+  isRideLeg,
+} from './timetable-helper.js';
+import type { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties.js';
 
-import '../../icon';
+import '../../icon/index.js';
 
 interface IAccessAttribute {
   duration: number;

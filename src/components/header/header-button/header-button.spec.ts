@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import type { SbbHeaderButtonElement } from './header-button';
-import './header-button';
+import type { SbbHeaderButtonElement } from './header-button.js';
+import './header-button.js';
 
 describe(`sbb-header-button`, () => {
   describe('renders the component as a button with icon', () => {

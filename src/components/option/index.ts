@@ -1,2 +1,2 @@
-export * from './optgroup';
-export * from './option';
+export * from './optgroup/index.js';
+export * from './option/index.js';

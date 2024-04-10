@@ -1,4 +1,4 @@
-export * from './button-common';
+export * from './button-common.js';
 
 export { default as buttonCommonStyle } from './button-common.scss?lit&inline';
 export { default as buttonPrimaryStyle } from './primary-button.scss?lit&inline';

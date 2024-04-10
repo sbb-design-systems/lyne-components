@@ -5,11 +5,11 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './menu-link';
-import '../../icon';
+import './menu-link.js';
+import '../../icon/index.js';
 
 const getBasicTemplate = (
   { text, ...args }: Args,

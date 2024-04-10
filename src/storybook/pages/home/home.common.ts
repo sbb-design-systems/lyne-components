@@ -1,26 +1,26 @@
 import type { Args, StoryContext } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../components/button/button';
-import '../../../components/button/secondary-button';
-import '../../../components/button/secondary-button-static';
-import '../../../components/card';
-import '../../../components/clock';
-import '../../../components/divider';
-import '../../../components/footer';
-import '../../../components/icon';
-import '../../../components/header';
-import '../../../components/logo';
-import '../../../components/link';
-import '../../../components/link-list';
-import '../../../components/menu';
-import '../../../components/navigation';
-import '../../../components/skiplink-list';
-import '../../../components/teaser-hero';
-import '../../../components/title';
-import { sbbSpread } from '../../helpers/spread';
+import '../../../components/button/button/index.js';
+import '../../../components/button/secondary-button/index.js';
+import '../../../components/button/secondary-button-static/index.js';
+import '../../../components/card/index.js';
+import '../../../components/clock/index.js';
+import '../../../components/divider/index.js';
+import '../../../components/footer/index.js';
+import '../../../components/icon/index.js';
+import '../../../components/header/index.js';
+import '../../../components/logo/index.js';
+import '../../../components/link/index.js';
+import '../../../components/link-list/index.js';
+import '../../../components/menu/index.js';
+import '../../../components/navigation/index.js';
+import '../../../components/skiplink-list/index.js';
+import '../../../components/teaser-hero/index.js';
+import '../../../components/title/index.js';
+import { sbbSpread } from '../../helpers/spread.js';
 
 export const skiplinkList = (): TemplateResult => html`
   <sbb-skiplink-list title-level="2" title-content="Skip to">

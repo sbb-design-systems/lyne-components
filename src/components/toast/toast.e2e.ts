@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../button';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import type { SbbTransparentButtonElement } from '../button/index.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing/index.js';
+import { fixture } from '../core/testing/private/index.js';
 
-import { SbbToastElement } from './toast';
+import { SbbToastElement } from './toast.js';
 
-import '../button/transparent-button';
-import '../link/link-button';
+import '../button/transparent-button/index.js';
+import '../link/link-button/index.js';
 
 describe(`sbb-toast with ${fixture.name}`, () => {
   let element: SbbToastElement;
@@ -63,7 +63,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
     const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
 
-    element.setAttribute('dismissible', '');
+    element.toggleAttribute('dismissible', true);
     await waitForLitRender(element);
     element.open();
     await waitForLitRender(element);
@@ -150,27 +150,28 @@ describe(`sbb-toast with ${fixture.name}`, () => {
   });
 
   it('closes other toasts on open', async () => {
-    const root = await fixture<SbbToastElement>(
-      html`<div>
-        <sbb-toast id="toast1" disable-animation></sbb-toast>
-        <sbb-toast id="toast2" disable-animation></sbb-toast>
-      </div>`,
+    element = await fixture<SbbToastElement>(
+      html`
+        <div>
+          <sbb-toast id="toast1" disable-animation></sbb-toast>
+          <sbb-toast id="toast2" disable-animation></sbb-toast>
+        </div>
+      `,
       { modules: ['./toast.ts'] },
     );
 
-    const toast1 = root.querySelector('#toast1')! as SbbToastElement;
-    const toast2 = root.querySelector('#toast2')! as SbbToastElement;
+    const [toast1, toast2] = Array.from(element.querySelectorAll('sbb-toast'));
 
     // Open the first toast
     toast1.open();
-    await waitForLitRender(root);
+    await waitForLitRender(element);
 
     await waitForCondition(() => toast1.getAttribute('data-state') === 'opened');
     expect(toast1).to.have.attribute('data-state', 'opened');
 
     // Open the second toast and expect the first to be closed
     toast2.open();
-    await waitForLitRender(root);
+    await waitForLitRender(element);
 
     await waitForCondition(() => toast1.getAttribute('data-state') === 'closed');
     await waitForCondition(() => toast2.getAttribute('data-state') === 'opened');

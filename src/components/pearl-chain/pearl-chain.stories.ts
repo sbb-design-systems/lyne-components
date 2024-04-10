@@ -1,10 +1,10 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import {
   cancelledLeg,
@@ -14,9 +14,9 @@ import {
   longFutureLeg,
   redirectedOnDepartureLeg,
   redirectedOnArrivalLeg,
-} from './pearl-chain.sample-data';
+} from './pearl-chain.sample-data.js';
 import readme from './readme.md?raw';
-import './pearl-chain';
+import './pearl-chain.js';
 
 const disableAnimation: InputType = {
   control: {

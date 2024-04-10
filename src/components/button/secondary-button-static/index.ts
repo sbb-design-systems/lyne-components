@@ -1,1 +1,1 @@
-export * from './secondary-button-static';
+export * from './secondary-button-static.js';

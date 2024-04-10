@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private/index.js';
 
-import './menu-button';
+import './menu-button.js';
 
 describe(`sbb-menu-button`, () => {
   it('renders', async () => {
