@@ -20,6 +20,10 @@ import '../../button/transparent-button/index.js';
  * It displays a title inside a dialog header.
  *
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
+ * @cssprop --sbb-title-margin-block-start - This property is inherited from `SbbTitleElement`
+ * and is not relevant to dialog title margin customization.
+ * @cssprop --sbb-title-margin-block-end - This property is inherited from `SbbTitleElement`
+ * and is not relevant to dialog title margin customization.
  */
 @customElement('sbb-dialog-title')
 @hostAttributes({

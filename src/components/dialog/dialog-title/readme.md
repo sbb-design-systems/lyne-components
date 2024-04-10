@@ -66,10 +66,10 @@ If a back button is displayed it emits a `requestBackAction` event on click.
 
 ## CSS Properties
 
-| Name                             | Default                           | Description                      |
-| -------------------------------- | --------------------------------- | -------------------------------- |
-| `--sbb-title-margin-block-start` | `var(--sbb-spacing-responsive-m)` | Margin block start of the title. |
-| `--sbb-title-margin-block-end`   | `var(--sbb-spacing-responsive-s)` | Margin block end of the title.   |
+| Name                             | Default                           | Description                                                                                                 |
+| -------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `--sbb-title-margin-block-start` | `var(--sbb-spacing-responsive-m)` | This property is inherited from `SbbTitleElement` and is not relevant to dialog title margin customization. |
+| `--sbb-title-margin-block-end`   | `var(--sbb-spacing-responsive-s)` | This property is inherited from `SbbTitleElement` and is not relevant to dialog title margin customization. |
 
 ## Slots
 
