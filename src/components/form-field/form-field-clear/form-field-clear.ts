@@ -46,7 +46,7 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
 
   private async _handleClick(): Promise<void> {
     const input = this._formField?.inputElement;
-    if (!input || input.tagName !== 'INPUT') {
+    if (!input || input.localName !== 'input') {
       return;
     }
     this._formField?.clear();

@@ -32,7 +32,7 @@ const tabObserverConfig: MutationObserverInit = {
   attributeFilter: ['active', 'disabled'],
 };
 
-const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION', 'SBB-TAB-GROUP'];
+const SUPPORTED_CONTENT_WRAPPERS = ['article', 'div', 'section', 'sbb-tab-group'];
 
 let nextId = 0;
 
@@ -128,7 +128,7 @@ export class SbbTabGroupElement extends LitElement {
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
     return Array.from(this.children ?? []).filter((child) =>
-      /^SBB-TAB-TITLE$/u.test(child.tagName),
+      /^sbb-tab-title$/u.test(child.localName),
     ) as InterfaceSbbTabGroupTab[];
   }
 
@@ -306,8 +306,8 @@ export class SbbTabGroupElement extends LitElement {
       },
     };
     if (
-      tab.nextElementSibling?.tagName &&
-      SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.tagName)
+      tab.nextElementSibling?.localName &&
+      SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.localName)
     ) {
       tab.relatedContent = tab.nextElementSibling as HTMLElement;
       tab.relatedContent.id = this._assignId();

@@ -34,7 +34,10 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
   public static readonly events = {
     trainSlotChange: 'trainSlotChange',
   } as const;
-  protected override readonly listChildTagNames = ['SBB-TRAIN-WAGON', 'SBB-TRAIN-BLOCKED-PASSAGE'];
+  protected override readonly listChildLocalNames = [
+    'sbb-train-wagon',
+    'sbb-train-blocked-passage',
+  ];
 
   /** General label for "driving direction". */
   @property({ attribute: 'direction-label' }) public directionLabel!: string;

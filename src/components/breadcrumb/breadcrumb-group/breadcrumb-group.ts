@@ -43,7 +43,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-BREADCRUMB'];
+  protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /* The state of the breadcrumb group. */
   @state()

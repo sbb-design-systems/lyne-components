@@ -31,7 +31,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-BLOCK-LINK', 'SBB-BLOCK-LINK-BUTTON'];
+  protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
   /** The title text we want to place before the list. */
   @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;

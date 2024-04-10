@@ -238,7 +238,7 @@ function namedSlotListElements(declaration: ClassDeclaration): string[] {
     declaration.members
       ?.find(
         (m): m is ClassField =>
-          m.inheritedFrom?.name === 'NamedSlotListElement' && m.name === 'listChildTagNames',
+          m.inheritedFrom?.name === 'NamedSlotListElement' && m.name === 'listChildLocalNames',
       )
       ?.default?.match(/([\w-]+)/g)
       ?.map((m) =>
