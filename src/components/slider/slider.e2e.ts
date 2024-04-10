@@ -75,7 +75,7 @@ describe(`sbb-slider with ${fixture.name}`, () => {
 
   it('should not change value on arrow keypress if disabled', async () => {
     const changeEvent = new EventSpy('change', element);
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await keyboardPressTimes(element, 'ArrowLeft');
     expect(changeEvent.count).not.to.be.greaterThan(0);
     await keyboardPressTimes(element, 'ArrowRight');

@@ -3,7 +3,7 @@ export * from './find-referenced-element.js';
 export * from './get-document-writing-mode.js';
 export * from './host-context.js';
 export * from './input-element.js';
-export * from './is-valid-attribute.js';
+export * from './set-or-remove-attribute.js';
 export * from './platform.js';
 export * from './scroll.js';
 export * from './ssr.js';

@@ -150,7 +150,7 @@ describe(`sbb-autocomplete with ${fixture.name}`, () => {
   });
 
   it('should stay closed when disabled', async () => {
-    input.setAttribute('disabled', '');
+    input.toggleAttribute('disabled', true);
 
     input.focus();
     await waitForLitRender(element);
@@ -166,7 +166,7 @@ describe(`sbb-autocomplete with ${fixture.name}`, () => {
   });
 
   it('should stay closed when readonly', async () => {
-    input.setAttribute('readonly', '');
+    input.toggleAttribute('readonly', true);
 
     input.focus();
     await waitForLitRender(element);

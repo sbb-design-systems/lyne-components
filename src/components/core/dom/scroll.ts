@@ -1,7 +1,5 @@
-import { isValidAttribute } from './is-valid-attribute.js';
-
 export function pageScrollDisabled(): boolean {
-  return isValidAttribute(document.body, 'data-sbb-scroll-disabled');
+  return document.body.hasAttribute('data-sbb-scroll-disabled');
 }
 
 /**

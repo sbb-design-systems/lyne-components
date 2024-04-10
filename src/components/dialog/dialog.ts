@@ -4,9 +4,9 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbFocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y/index.js';
+import { IS_FOCUSABLE_QUERY, SbbFocusHandler, setModalityOnNextFocus } from '../core/a11y/index.js';
 import { SbbLanguageController, SbbSlotStateController } from '../core/controllers/index.js';
-import { hostContext, isValidAttribute, SbbScrollHandler } from '../core/dom/index.js';
+import { hostContext, SbbScrollHandler } from '../core/dom/index.js';
 import { EventEmitter } from '../core/eventing/index.js';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n/index.js';
 import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
@@ -296,7 +296,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _closeOnSbbDialogCloseClick(event: Event): void {
     const target = event.target as HTMLElement;
 
-    if (target.hasAttribute('sbb-dialog-close') && !isValidAttribute(target, 'disabled')) {
+    if (target.hasAttribute('sbb-dialog-close') && !target.hasAttribute('disabled')) {
       // Check if the target is a submission element within a form and return the form, if present
       const closestForm =
         target.getAttribute('type') === 'submit'

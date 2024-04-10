@@ -188,7 +188,7 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
 
     it('disabled due disabled picker', async () => {
       expect(input.value).to.be.equal('Fr, 20.01.2023');
-      input.setAttribute('disabled', '');
+      input.toggleAttribute('disabled', true);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-disabled');

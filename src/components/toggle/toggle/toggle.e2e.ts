@@ -56,7 +56,7 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
 
       expect(firstOption).to.have.attribute('checked');
 
-      secondOption.setAttribute('checked', '');
+      secondOption.toggleAttribute('checked', true);
       await waitForLitRender(element);
 
       expect(secondOption).to.have.attribute('checked');

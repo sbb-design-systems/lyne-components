@@ -63,7 +63,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
     const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
 
-    element.setAttribute('dismissible', '');
+    element.toggleAttribute('dismissible', true);
     await waitForLitRender(element);
     element.open();
     await waitForLitRender(element);

@@ -11,7 +11,7 @@ import {
   SbbLanguageController,
   SbbSlotStateController,
 } from '../core/controllers/index.js';
-import { isFirefox, isValidAttribute } from '../core/dom/index.js';
+import { isFirefox } from '../core/dom/index.js';
 import { composedPathHasAttribute, EventEmitter } from '../core/eventing/index.js';
 import { i18nCloseAlert } from '../core/i18n/index.js';
 import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
@@ -149,7 +149,7 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   private _onClick(event: Event): void {
     const closeElement = composedPathHasAttribute(event, 'sbb-toast-close', this);
 
-    if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
+    if (closeElement && !closeElement.hasAttribute('disabled')) {
       this.close();
     }
   }

@@ -8,7 +8,7 @@ import {
   SbbLanguageController,
 } from '../../core/controllers/index.js';
 import { hostAttributes } from '../../core/decorators/index.js';
-import { hostContext, isValidAttribute } from '../../core/dom/index.js';
+import { hostContext } from '../../core/dom/index.js';
 import { i18nClearInput } from '../../core/i18n/index.js';
 import { SbbNegativeMixin } from '../../core/mixins/index.js';
 import type { SbbFormFieldElement } from '../form-field/index.js';
@@ -40,7 +40,7 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
       (hostContext('[data-form-field]', this) as SbbFormFieldElement);
 
     if (this._formField) {
-      this.negative = isValidAttribute(this._formField, 'negative');
+      this.negative = this._formField.hasAttribute('negative');
     }
   }
 

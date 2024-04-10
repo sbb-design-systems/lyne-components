@@ -8,7 +8,7 @@ import {
   SbbSlotStateController,
 } from '../../core/controllers/index.js';
 import { hostAttributes } from '../../core/decorators/index.js';
-import { setAttribute } from '../../core/dom/index.js';
+import { setOrRemoveAttribute } from '../../core/dom/index.js';
 import {
   EventEmitter,
   formElementHandlerAspect,
@@ -166,7 +166,7 @@ export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   private _handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
-      setAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
+      setOrRemoveAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
       this._stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }

@@ -59,7 +59,7 @@ describe(`sbb-link-list with ${fixture.name}`, () => {
     });
 
     it('should update attributes with negative', async () => {
-      element.setAttribute('negative', '');
+      element.toggleAttribute('negative', true);
       await waitForLitRender(element);
       const links = Array.from(element.querySelectorAll('sbb-block-link'));
       expect(links.every((l) => l.negative)).to.be.true;

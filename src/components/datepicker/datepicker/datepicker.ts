@@ -10,7 +10,7 @@ import {
 import { readDataNow } from '../../core/datetime/data-now.js';
 import type { DateAdapter } from '../../core/datetime/index.js';
 import { defaultDateAdapter } from '../../core/datetime/index.js';
-import { findInput, findReferencedElement, isValidAttribute } from '../../core/dom/index.js';
+import { findInput, findReferencedElement } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n/index.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces/index.js';
@@ -415,7 +415,7 @@ export class SbbDatepickerElement extends LitElement {
             this._inputElement?.min,
             this._inputElement?.max,
           ));
-      const wasValid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
+      const wasValid = !this._inputElement.hasAttribute('data-sbb-invalid');
       this._inputElement.toggleAttribute('data-sbb-invalid', !isEmptyOrValid);
       if (wasValid !== isEmptyOrValid) {
         this._validationChange.emit({ valid: isEmptyOrValid });

@@ -9,7 +9,7 @@ import {
   SbbLanguageController,
   SbbSlotStateController,
 } from '../../core/controllers/index.js';
-import { isFirefox, isValidAttribute } from '../../core/dom/index.js';
+import { isFirefox, setOrRemoveAttribute } from '../../core/dom/index.js';
 import { i18nOptional } from '../../core/i18n/index.js';
 import { SbbNegativeMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
@@ -357,8 +357,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     if (!this._input) {
       return;
     }
-    this.toggleAttribute('data-readonly', isValidAttribute(this._input, 'readonly'));
-    this.toggleAttribute('data-disabled', isValidAttribute(this._input, 'disabled'));
+    this.toggleAttribute('data-readonly', this._input.hasAttribute('readonly'));
+    this.toggleAttribute('data-disabled', this._input.hasAttribute('disabled'));
     this.toggleAttribute(
       'data-invalid',
       this._input.hasAttribute('data-sbb-invalid') ||
@@ -405,10 +405,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     }
 
     const ariaDescribedby = ids.join(' ');
-    if (ariaDescribedby) {
-      this._input?.setAttribute('aria-describedby', ariaDescribedby);
-    } else {
-      this._input?.removeAttribute('aria-describedby');
+    if (this._input) {
+      setOrRemoveAttribute(this._input, 'aria-describedby', ariaDescribedby);
     }
   }
 
@@ -437,9 +435,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   private _syncNegative(): void {
     this.querySelectorAll?.(
       'sbb-form-error,sbb-mini-button,sbb-popover-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
-    ).forEach((element) =>
-      this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
-    );
+    ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 
   protected override render(): TemplateResult {
