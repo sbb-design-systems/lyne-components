@@ -2,7 +2,7 @@ Use the `sbb-dialog-content` in combination with the [sbb-dialog](/docs/componen
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-content slot="content">Dialog content.</sbb-dialog-content>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
 </sbb-dialog>
 ```
 

@@ -7,7 +7,7 @@ import './dialog-content.js';
 import readme from './readme.md?raw';
 
 const Template = (): TemplateResult =>
-  html`<sbb-dialog-content slot="content">This is a dialog content.</sbb-dialog-content>`;
+  html`<sbb-dialog-content>This is a dialog content.</sbb-dialog-content>`;
 
 export const Default: StoryObj = { render: Template };
 

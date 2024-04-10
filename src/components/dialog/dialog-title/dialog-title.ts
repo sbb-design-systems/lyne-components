@@ -10,9 +10,11 @@ import type { Breakpoint } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
 import { i18nCloseDialog, i18nGoBack } from '../../core/i18n/index.js';
 import { SbbTitleElement } from '../../title/index.js';
-import '../../button/index.js';
 
 import style from './dialog-title.scss?lit&inline';
+
+import '../../button/secondary-button/index.js';
+import '../../button/transparent-button/index.js';
 
 /**
  * It displays a title inside a dialog header.

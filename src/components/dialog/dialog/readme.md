@@ -11,8 +11,8 @@ It offers the following features:
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-title slot="title">Title</sbb-dialog-title>
-  <sbb-dialog-content slot="content">Dialog content.</sbb-dialog-content>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
 </sbb-dialog>
 ```
 
@@ -25,8 +25,8 @@ It's not necessary to set the slots explicitly on the dialog's inner components,
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-title slot="title">Title</sbb-dialog-title>
-  <sbb-dialog-content slot="content">Dialog content.</sbb-dialog-content>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
   <sbb-dialog-action>
     <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
     <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
@@ -50,8 +50,8 @@ whether it has been opened by click or keyboard, so that the focus can be better
 ></sbb-button>
 
 <sbb-dialog id="my-dialog">
-  <sbb-dialog-title slot="title">Title</sbb-dialog-title>
-  <sbb-dialog-content slot="content">Dialog content.</sbb-dialog-content>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
 </sbb-dialog>
 
 <script>
@@ -77,8 +77,8 @@ It's possible to display the component in `negative` variant using the self-name
 
 ```html
 <sbb-dialog negative>
-  <sbb-dialog-title slot="title">Title</sbb-dialog-title>
-  <sbb-dialog-content slot="content">Dialog content.</sbb-dialog-content>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
 </sbb-dialog>
 ```
 

@@ -22,10 +22,7 @@ import type { SbbDialogTitleElement } from '../dialog-title/index.js';
 
 import style from './dialog.scss?lit&inline';
 
-import '../../button/secondary-button/index.js';
-import '../../button/transparent-button/index.js';
 import '../../screen-reader-only/index.js';
-import '../../title/index.js';
 
 // A global collection of existing dialogs
 const dialogRefs: SbbDialogElement[] = [];
@@ -80,10 +77,10 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
    * The state of the dialog.
    */
   private set _state(state: SbbOpenedClosedState) {
-    this.dataset.state = state;
+    this.setAttribute('data-state', state);
   }
   private get _state(): SbbOpenedClosedState {
-    return this.dataset?.state as SbbOpenedClosedState;
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
@@ -233,7 +230,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._state = this._state || 'closed';
+    this._state ||= 'closed';
     this._dialogController?.abort();
     this._dialogController = new AbortController();
 
@@ -453,11 +450,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
   private _setOverflowsDataAttribute(): void {
     this.toggleAttribute('data-overflows', this._overflows);
-    this._dialogTitleElement &&
-      this._dialogTitleElement.toggleAttribute('data-overflows', this._overflows);
-    if (this._dialogActionsElement) {
-      this._dialogActionsElement.toggleAttribute('data-overflows', this._overflows);
-    }
+    this._dialogTitleElement?.toggleAttribute('data-overflows', this._overflows);
+    this._dialogActionsElement?.toggleAttribute('data-overflows', this._overflows);
   }
 
   protected override render(): TemplateResult {

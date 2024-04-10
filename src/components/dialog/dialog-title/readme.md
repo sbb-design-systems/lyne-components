@@ -4,6 +4,7 @@ The `sbb-dialog-title` component extends the [sbb-title](/docs/components-sbb-ti
 <sbb-dialog>
   <sbb-dialog-title
     slot="title"
+    back-button
     accessibility-close-label="Close button"
     accessibility-back-label="Back button"
   >
