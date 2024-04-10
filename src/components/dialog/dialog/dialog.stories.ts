@@ -46,16 +46,6 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   await userEvent.click(button);
 };
 
-const hideHeader = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await playStory({ canvasElement } as StoryContext);
-
-  // Scroll the content to hide the title.
-  await new Promise((resolve) => setTimeout(resolve, 250));
-  setTimeout(() => canvas.getByTestId('image').scrollIntoView(), 250);
-};
-
 const level: InputType = {
   control: {
     type: 'inline-radio',
@@ -449,7 +439,6 @@ export const HiddenTitle: StoryObj = {
   render: LongContentTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, hideOnScroll: hideOnScroll.options[7] },
-  play: isChromatic() ? hideHeader : undefined,
 };
 
 export const Form: StoryObj = {

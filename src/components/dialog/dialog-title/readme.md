@@ -23,9 +23,7 @@ In addition, the title can be hidden when scrolling down the content, to provide
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-title slot="title" hide-on-scroll="small">
-    A describing title of the dialog
-  </sbb-dialog-title>
+  <sbb-dialog-title hide-on-scroll="small"> A describing title of the dialog </sbb-dialog-title>
 </sbb-dialog>
 ```
 
@@ -35,7 +33,7 @@ A close button is always displayed and can be used to close the dialog. Optional
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-title slot="title" back-button> A describing title of the dialog </sbb-dialog-title>
+  <sbb-dialog-title back-button> A describing title of the dialog </sbb-dialog-title>
 </sbb-dialog>
 ```
 
