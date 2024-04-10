@@ -14,6 +14,8 @@ import style from './sticky-bar.scss?lit&inline';
  * @cssprop [--sbb-sticky-bar-bottom-overlapping-height=0px] - Define an additional area where
  * the sticky bar overlaps the following content on the bottom.
  * This area becomes visible when the sticky bar transitions from sticky to the normal document flow.
+ * @cssprop [--sbb-sticky-bar-z-index] - To specify a custom stack order,
+ * the `z-index` can be overridden by defining this CSS variable.
  */
 @customElement('sbb-sticky-bar')
 @hostAttributes({
