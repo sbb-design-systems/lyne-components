@@ -5,7 +5,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbSlotStateController } from '../../core/controllers/index.js';
 import { setOrRemoveAttribute } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
-
 import {
   SbbRadioButtonCommonElementMixin,
   commonStyle,

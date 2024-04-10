@@ -2,7 +2,7 @@ import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } f
 import { customElement, state } from 'lit/decorators.js';
 
 import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers/index.js';
-import { setAttribute } from '../../core/dom/index.js';
+import { setOrRemoveAttribute } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n/index.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins/index.js';
@@ -82,7 +82,7 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
 
   protected override handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
-      setAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
+      setOrRemoveAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
       this._stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }
