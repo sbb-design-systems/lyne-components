@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './dialog-content';
+import './dialog-content.js';
 
 describe('sbb-dialog-content', () => {
   it('renders', async () => {

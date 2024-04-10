@@ -4,10 +4,10 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
-import { breakpoints } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { breakpoints } from '../../core/dom/index.js';
 
-import { SbbDialogTitleElement } from './dialog-title';
+import { SbbDialogTitleElement } from './dialog-title.js';
 import readme from './readme.md?raw';
 
 const level: InputType = {

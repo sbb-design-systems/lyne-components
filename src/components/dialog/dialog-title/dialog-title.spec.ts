@@ -1,8 +1,8 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
-import './dialog-title';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
+import './dialog-title.js';
 
 describe('sbb-dialog-title', () => {
   it('renders', async () => {

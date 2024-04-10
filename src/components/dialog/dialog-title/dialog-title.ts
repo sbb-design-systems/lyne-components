@@ -3,14 +3,14 @@ import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbFocusVisibleWithinController } from '../../core/a11y';
-import { SbbLanguageController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import type { Breakpoint } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
-import { i18nCloseDialog, i18nGoBack } from '../../core/i18n';
-import { SbbTitleElement } from '../../title';
-import '../../button';
+import { SbbFocusVisibleWithinController } from '../../core/a11y/index.js';
+import { SbbLanguageController } from '../../core/controllers/index.js';
+import { hostAttributes } from '../../core/decorators/index.js';
+import type { Breakpoint } from '../../core/dom/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import { i18nCloseDialog, i18nGoBack } from '../../core/i18n/index.js';
+import { SbbTitleElement } from '../../title/index.js';
+import '../../button/index.js';
 
 import style from './dialog-title.scss?lit&inline';
 

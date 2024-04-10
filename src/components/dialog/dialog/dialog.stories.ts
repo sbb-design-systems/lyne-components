@@ -9,28 +9,28 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { breakpoints } from '../../core/dom/breakpoint';
-import sampleImages from '../../core/images';
-import type { SbbTitleLevel } from '../../title';
-import { SbbDialogTitleElement } from '../dialog-title';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
+import { breakpoints } from '../../core/dom/breakpoint.js';
+import sampleImages from '../../core/images.js';
+import type { SbbTitleLevel } from '../../title/index.js';
+import { SbbDialogTitleElement } from '../dialog-title/index.js';
 
-import { SbbDialogElement } from './dialog';
+import { SbbDialogElement } from './dialog.js';
 import readme from './readme.md?raw';
 
-import '../../button';
-import '../../link';
-import '../../form-field';
-import '../../image';
-import '../dialog-content';
-import '../dialog-actions';
+import '../../button/index.js';
+import '../../link/index.js';
+import '../../form-field/index.js';
+import '../../image/index.js';
+import '../dialog-content/index.js';
+import '../dialog-actions/index.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

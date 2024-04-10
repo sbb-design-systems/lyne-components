@@ -3,25 +3,29 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbFocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
-import { SbbLanguageController } from '../../core/controllers';
-import { SbbScrollHandler, isValidAttribute, hostContext, isBreakpoint } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
-import { i18nDialog } from '../../core/i18n';
-import type { SbbOpenedClosedState } from '../../core/interfaces';
-import { SbbNegativeMixin } from '../../core/mixins';
-import { AgnosticResizeObserver } from '../../core/observers';
-import { applyInertMechanism, removeInertMechanism } from '../../core/overlay';
-import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only';
-import type { SbbDialogActionsElement } from '../dialog-actions';
-import type { SbbDialogTitleElement } from '../dialog-title';
+import {
+  SbbFocusHandler,
+  getFirstFocusableElement,
+  setModalityOnNextFocus,
+} from '../../core/a11y/index.js';
+import { SbbLanguageController } from '../../core/controllers/index.js';
+import { SbbScrollHandler, hostContext, isBreakpoint } from '../../core/dom/index.js';
+import { EventEmitter } from '../../core/eventing/index.js';
+import { i18nDialog } from '../../core/i18n/index.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
+import { SbbNegativeMixin } from '../../core/mixins/index.js';
+import { AgnosticResizeObserver } from '../../core/observers/index.js';
+import { applyInertMechanism, removeInertMechanism } from '../../core/overlay/index.js';
+import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only/index.js';
+import type { SbbDialogActionsElement } from '../dialog-actions/index.js';
+import type { SbbDialogTitleElement } from '../dialog-title/index.js';
 
 import style from './dialog.scss?lit&inline';
 
-import '../../button/secondary-button';
-import '../../button/transparent-button';
-import '../../screen-reader-only';
-import '../../title';
+import '../../button/secondary-button/index.js';
+import '../../button/transparent-button/index.js';
+import '../../screen-reader-only/index.js';
+import '../../title/index.js';
 
 // A global collection of existing dialogs
 const dialogRefs: SbbDialogElement[] = [];
@@ -347,8 +351,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
       .composedPath()
       .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
       .find(
-        (target) =>
-          target.hasAttribute('sbb-dialog-close') && !isValidAttribute(target, 'disabled'),
+        (target) => target.hasAttribute('sbb-dialog-close') && !target.hasAttribute('disabled'),
       );
 
     if (!dialogCloseElement) {

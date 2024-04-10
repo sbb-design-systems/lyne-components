@@ -3,12 +3,12 @@ import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import './dialog-actions';
+import './dialog-actions.js';
 import readme from './readme.md?raw';
 
-import '../../button/button';
-import '../../button/secondary-button';
-import '../../link';
+import '../../button/button/index.js';
+import '../../button/secondary-button/index.js';
+import '../../link/index.js';
 
 const Template = (): TemplateResult =>
   html`<sbb-dialog-actions

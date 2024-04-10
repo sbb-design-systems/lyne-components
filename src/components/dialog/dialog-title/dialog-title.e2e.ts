@@ -1,9 +1,9 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../../core/testing';
+import { EventSpy, waitForLitRender } from '../../core/testing/index.js';
 
-import { SbbDialogTitleElement } from './dialog-title';
+import { SbbDialogTitleElement } from './dialog-title.js';
 
 describe('sbb-dialog-title', () => {
   let element: SbbDialogTitleElement;

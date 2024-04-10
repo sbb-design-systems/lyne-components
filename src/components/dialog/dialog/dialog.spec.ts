@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { waitForLitRender } from '../../core/testing/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
 
-import type { SbbDialogElement } from './dialog';
-import './dialog';
-import '../dialog-title';
-import '../dialog-content';
+import type { SbbDialogElement } from './dialog.js';
+import './dialog.js';
+import '../dialog-title/index.js';
+import '../dialog-content/index.js';
 
 describe(`sbb-dialog`, () => {
   describe('renders an open dialog', async () => {
