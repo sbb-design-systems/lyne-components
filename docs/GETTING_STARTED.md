@@ -38,8 +38,8 @@ Choose your technology to receive the first steps to take.
 <details>
   <summary>Angular</summary>
 
-ⓘ We will soonish provide a Lyne Angular Wrapper which helps to use lyne components in Angular.
-However, it's already possible to use Lyne Components in Angular.
+> ⓘ We will soonish provide a Lyne Angular Wrapper which helps to use lyne components in Angular.
+> However, it's already possible to use Lyne Components in Angular.
 
 1. Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
 2. Install the `@sbb-esta/lyne-components` package:
@@ -183,7 +183,9 @@ bootstrapApplication(App).catch((err) => console.error(err));
 
 </details>
 
-## Full Font
+## Styles
+
+### Full Font
 
 The `typography.css` file only contains a subset of the `SBBWeb` fonts that does not contain all characters (e.g. the French "œ").
 For including the full fontset, we provide the `fullfont.css` file which can be added after the `typography.css` file.
@@ -193,11 +195,78 @@ For including the full fontset, we provide the `fullfont.css` file which can be 
 @import '@sbb-esta/angular/fullfont.css';
 ```
 
-## Mixins
+### SASS Mixins
 
-If you need to reuse some mixins from the library, you have to configure your own Angular application in
-SCSS mode and import via `@use`:
+Lyne components provides various SASS mixins which can be consumed by consumers.
+For available SASS mixins, check [SASS Mixins](https://github.com/lyne-design-system/lyne-components/tree/main/src/components/core/styles/mixins).
 
 ```scss
 @use '@sbb-esta/lyne-components' as sbb;
+
+.my-class {
+  @include sbb.grid-base;
+}
+```
+
+### Design Tokens
+
+The `@sbb-esta/lyne-components` package provides the CSS variable design tokens
+from `@sbb-esta/lyne-design-tokens` in the `typography.css`.
+
+> If you have to use design tokens within javascript context,
+> please add also `@sbb-esta/lyne-design-tokens` package to your project.
+
+Please check `node_modules/@sbb-esta/lyne-components/typography.css` for available design tokens.
+
+#### How to work with design tokens
+
+Designers are using design tokens in Figma from where developers can get the name to be used.
+Some design tokens are responsive: they change their value depending on the current breakpoint.
+
+> Whenever a design token ends with `-{breakpoint}`, e.g. `--sbb-spacing-responsive-s-zero`,
+> there is a corresponding responsive CSS variable without the `-breakpoint` suffix,
+> e.g. `sbb-spacing-responsive-s` which should be used.
+
+### CSS Classes
+
+As a base rule, styles are included in components. However, there are a few exceptions
+where we provide CSS classes to consumers:
+
+- [Layout styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-layout--docs)
+- [List styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-list--docs)
+- [Scrollbar styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-scrollbar--docs)
+- [Text styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-typography--docs)
+
+### Manipulating styles of components
+
+Basically, styles of components should not be changed.
+Although, some specific cases may require to overwrite some styles of a component.
+For these cases you can use CSS variables of a component. Please check a specific component for available CSS variables.
+
+> IMPORTANT: CSS variable names which are not documented in component docs section, can be changed at any time.
+
+Please reach out to the Lyne team if you think a component needs a new variant.
+
+### Animations
+
+Generally animations are part of the design and should not be suppressed.
+However, e.g. for testing purposes it makes sense to deactivate animations.
+
+Add the `sbb-disable-animation` CSS class to disable animations and transition effects for the element and all its children.
+
+Sometimes, you might need to disable animations only for a specific element.
+To achieve that, you can add `sbb-disable-animation-specific` class or re-enable animations using the `sbb-enable-animation` CSS class.
+
+```html
+<sbb-component class="sbb-disable-animation-specific">
+  <!-- animations will play -->
+</sbb-component>
+
+<!-- Or  alternatively-->
+
+<sbb-component class="sbb-disable-animation">
+  <sbb-component class="sbb-enable-animation">
+    <!-- animations will play -->
+  </sbb-component>
+</sbb-component>
 ```
