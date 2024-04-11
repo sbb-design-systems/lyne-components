@@ -12,9 +12,7 @@ snapshots["sbb-breadcrumb-group renders - Dom"] =
     dir="ltr"
     href="https://example.com"
     icon-name="pie-small"
-    role="link"
     slot="li-0"
-    tabindex="0"
   >
   </sbb-breadcrumb>
   <sbb-breadcrumb
@@ -22,9 +20,7 @@ snapshots["sbb-breadcrumb-group renders - Dom"] =
     data-link=""
     dir="ltr"
     href="https://example.com/one"
-    role="link"
     slot="li-1"
-    tabindex="0"
   >
     One
   </sbb-breadcrumb>
@@ -34,9 +30,7 @@ snapshots["sbb-breadcrumb-group renders - Dom"] =
     data-link=""
     dir="ltr"
     href="https://example.com/one"
-    role="link"
     slot="li-2"
-    tabindex="0"
   >
     Two
   </sbb-breadcrumb>
@@ -90,33 +84,15 @@ snapshots["sbb-breadcrumb-group A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": ""
-        }
-      ]
+      "name": ""
     },
     {
       "role": "link",
-      "name": "One",
-      "children": [
-        {
-          "role": "link",
-          "name": "One"
-        }
-      ]
+      "name": "One"
     },
     {
       "role": "link",
-      "name": "Two",
-      "children": [
-        {
-          "role": "link",
-          "name": "Two"
-        }
-      ]
+      "name": "Two"
     }
   ]
 }
@@ -133,35 +109,17 @@ snapshots["sbb-breadcrumb-group A11y tree Firefox"] =
     {
       "role": "link",
       "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": "",
-          "value": "https://example.com/"
-        }
-      ]
+      "value": "https://example.com/"
     },
     {
       "role": "link",
       "name": "One",
-      "children": [
-        {
-          "role": "link",
-          "name": "One",
-          "value": "https://example.com/one"
-        }
-      ]
+      "value": "https://example.com/one"
     },
     {
       "role": "link",
       "name": "Two",
-      "children": [
-        {
-          "role": "link",
-          "name": "Two",
-          "value": "https://example.com/one"
-        }
-      ]
+      "value": "https://example.com/one"
     }
   ]
 }

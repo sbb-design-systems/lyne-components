@@ -16,7 +16,7 @@ describe(`sbb-teaser-hero`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-teaser-hero
-          aria-label="label"
+          accessibility-label="label"
           href="https://www.sbb.ch"
           rel="external"
           target="_blank"
@@ -41,7 +41,7 @@ describe(`sbb-teaser-hero`, () => {
 
   it('should render with slots', async () => {
     const root = await fixture(
-      html`<sbb-teaser-hero aria-label="label" href="https://www.sbb.ch"
+      html`<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch"
         >Break out and explore castles and palaces.<span slot="link-content">Find out more</span
         ><sbb-image
           slot="image"
@@ -53,7 +53,7 @@ describe(`sbb-teaser-hero`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-teaser-hero aria-label="label" href="https://www.sbb.ch" role="link" tabindex="0" dir="ltr" data-action data-link>
+      <sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch" dir="ltr" data-action data-link>
           Break out and explore castles and palaces.
           <span slot="link-content">Find out more</span>
           <sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>

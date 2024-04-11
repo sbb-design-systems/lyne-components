@@ -52,10 +52,8 @@ snapshots["sbb-skiplink-list renders Dom"] =
     href="#"
     icon-placement="start"
     negative=""
-    role="link"
     size="m"
     slot="li-0"
-    tabindex="0"
   >
     Link 1
   </sbb-block-link>
@@ -68,10 +66,8 @@ snapshots["sbb-skiplink-list renders Dom"] =
     href="#"
     icon-placement="start"
     negative=""
-    role="link"
     size="m"
     slot="li-1"
-    tabindex="0"
   >
     Link 2
   </sbb-block-link>
@@ -84,10 +80,8 @@ snapshots["sbb-skiplink-list renders Dom"] =
     href="#"
     icon-placement="start"
     negative=""
-    role="link"
     size="m"
     slot="li-2"
-    tabindex="0"
   >
     Link 3
   </sbb-block-link>
@@ -150,10 +144,8 @@ snapshots["sbb-skiplink-list renders with title Dom"] =
     href="https://www.sbb.ch"
     icon-placement="start"
     negative=""
-    role="link"
     size="m"
     slot="li-0"
-    tabindex="0"
   >
     Link 1
   </sbb-block-link>
@@ -166,10 +158,8 @@ snapshots["sbb-skiplink-list renders with title Dom"] =
     href="https://www.sbb.ch"
     icon-placement="start"
     negative=""
-    role="link"
     size="m"
     slot="li-1"
-    tabindex="0"
   >
     Link 2
   </sbb-block-link>
@@ -182,10 +172,8 @@ snapshots["sbb-skiplink-list renders with title Dom"] =
     href="https://www.sbb.ch"
     icon-placement="start"
     negative=""
-    role="link"
     size="m"
     slot="li-2"
-    tabindex="0"
   >
     Link 3
   </sbb-block-link>
@@ -247,33 +235,15 @@ snapshots["sbb-skiplink-list renders with title A11y tree Chrome"] =
     },
     {
       "role": "link",
-      "name": "Link 1",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link 1"
-        }
-      ]
+      "name": "Link 1"
     },
     {
       "role": "link",
-      "name": "Link 2",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link 2"
-        }
-      ]
+      "name": "Link 2"
     },
     {
       "role": "link",
-      "name": "Link 3",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link 3"
-        }
-      ]
+      "name": "Link 3"
     }
   ]
 }
@@ -295,35 +265,17 @@ snapshots["sbb-skiplink-list renders with title A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Link 1",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link 1",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     },
     {
       "role": "link",
       "name": "Link 2",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link 2",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     },
     {
       "role": "link",
       "name": "Link 3",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link 3",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     }
   ]
 }

@@ -16,10 +16,8 @@ describe(`sbb-breadcrumb`, () => {
     expect(root).dom.to.be.equal(`
       <sbb-breadcrumb
         dir="ltr"
-        role="link"
         data-action
         data-link
-        tabindex="0"
         href="https://example.com/test"
         target="_blank"
         download
@@ -39,8 +37,6 @@ describe(`sbb-breadcrumb`, () => {
     expect(root).dom.to.be.equal(`
       <sbb-breadcrumb
         dir="ltr"
-        role="link"
-        tabindex="0"
         data-action
         data-link
         href="/"
@@ -58,10 +54,8 @@ describe(`sbb-breadcrumb`, () => {
     expect(root).dom.to.be.equal(`
       <sbb-breadcrumb
         dir="ltr"
-        role="link"
         data-action
         data-link
-        tabindex="0"
         href="/"
         icon-name="house-small">
         Home

@@ -7,9 +7,7 @@ snapshots["sbb-navigation-link renders DOM"] =
   data-link=""
   dir="ltr"
   href="https://www.sbb.ch"
-  role="link"
   size="l"
-  tabindex="0"
   target="_blank"
 >
   This is a link
@@ -22,8 +20,6 @@ snapshots["sbb-navigation-link renders Shadow DOM"] =
   class="sbb-action-base sbb-navigation-link"
   href="https://www.sbb.ch"
   rel="external noopener nofollow"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <sbb-icon
@@ -50,13 +46,7 @@ snapshots["sbb-navigation-link renders A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "This is a link . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "This is a link . Link target opens in a new window."
-        }
-      ]
+      "name": "This is a link . Link target opens in a new window."
     }
   ]
 }
@@ -73,13 +63,7 @@ snapshots["sbb-navigation-link renders A11y tree Firefox"] =
     {
       "role": "link",
       "name": "This is a link . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "This is a link . Link target opens in a new window.",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     }
   ]
 }

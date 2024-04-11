@@ -17,7 +17,7 @@ describe(`sbb-teaser`, () => {
         html`<sbb-teaser
           href="https://github.com/lyne-design-system/lyne-components"
           alignment="after-centered"
-          aria-label="SBB teaser"
+          accessibility-label="SBB teaser"
         ></sbb-teaser>`,
       );
     });
@@ -39,7 +39,7 @@ describe(`sbb-teaser`, () => {
         html`<sbb-teaser
           href="https://github.com/lyne-design-system/lyne-components"
           alignment="after"
-          aria-label="SBB teaser"
+          accessibility-label="SBB teaser"
           title-level="2"
         ></sbb-teaser>`,
       );
@@ -59,7 +59,7 @@ describe(`sbb-teaser`, () => {
       element = await fixture(
         html`<sbb-teaser
           href="https://github.com/lyne-design-system/lyne-components"
-          aria-label="SBB teaser"
+          accessibility-label="SBB teaser"
           alignment="below"
         >
           <img slot="image" src=${images[0]} alt="400x300" />

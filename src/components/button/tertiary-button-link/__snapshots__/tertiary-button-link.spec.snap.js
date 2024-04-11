@@ -11,9 +11,7 @@ snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without i
   download=""
   href="https://www.sbb.ch"
   rel="noopener"
-  role="link"
   size="m"
-  tabindex="0"
   target="_blank"
 >
   Label Text
@@ -27,8 +25,6 @@ snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without i
   download=""
   href="https://www.sbb.ch"
   rel="noopener"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <slot name="icon">
@@ -52,13 +48,7 @@ snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without i
   "children": [
     {
       "role": "link",
-      "name": "Label Text . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Label Text . Link target opens in a new window."
-        }
-      ]
+      "name": "Label Text . Link target opens in a new window."
     }
   ]
 }
@@ -68,7 +58,6 @@ snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without i
 
 snapshots["sbb-tertiary-button-link renders a disabled sbb-tertiary-button-link with slotted icon Dom"] = 
 `<sbb-tertiary-button-link
-  aria-disabled="true"
   data-action=""
   data-link=""
   data-sbb-button=""
@@ -76,7 +65,6 @@ snapshots["sbb-tertiary-button-link renders a disabled sbb-tertiary-button-link 
   dir="ltr"
   disabled=""
   href="https://www.sbb.ch"
-  role="link"
   size="l"
 >
   <sbb-icon
@@ -96,8 +84,6 @@ snapshots["sbb-tertiary-button-link renders a disabled sbb-tertiary-button-link 
 `<a
   class="sbb-action-base sbb-tertiary-button-link"
   href="https://www.sbb.ch"
-  role="presentation"
-  tabindex="-1"
 >
   <slot name="icon">
   </slot>
@@ -118,13 +104,7 @@ snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without i
     {
       "role": "link",
       "name": "Label Text . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Label Text . Link target opens in a new window.",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     }
   ]
 }

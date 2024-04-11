@@ -19,12 +19,12 @@ describe(`sbb-menu-link`, () => {
     `);
 
     expect(root).dom.to.be.equal(`
-      <sbb-menu-link amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" dir="ltr" data-action data-link>
+      <sbb-menu-link amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" dir="ltr" data-action data-link>
         <span>Action</span>
       </sbb-menu-link>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-action-base sbb-menu-link" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank" role="presentation" tabindex="-1">
+      <a class="sbb-action-base sbb-menu-link" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank">
         <span class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon">
             <slot name="icon">

@@ -9,8 +9,6 @@ snapshots["sbb-header-link renders the component as a button with icon Light DOM
   expand-from="small"
   href="https://github.com/lyne-design-system/lyne-components"
   icon-name="pie-small"
-  role="link"
-  tabindex="0"
   target="_blank"
 >
   Action
@@ -23,8 +21,6 @@ snapshots["sbb-header-link renders the component as a button with icon Shadow DO
   class="sbb-action-base sbb-header-link"
   href="https://github.com/lyne-design-system/lyne-components"
   rel="external noopener nofollow"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <span class="sbb-header-action__wrapper">
@@ -59,13 +55,7 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
   "children": [
     {
       "role": "link",
-      "name": "Action . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Action . Link target opens in a new window."
-        }
-      ]
+      "name": "Action . Link target opens in a new window."
     }
   ]
 }
@@ -82,13 +72,7 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
     {
       "role": "link",
       "name": "Action . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Action . Link target opens in a new window.",
-          "value": "https://github.com/lyne-design-system/lyne-components"
-        }
-      ]
+      "value": "https://github.com/lyne-design-system/lyne-components"
     }
   ]
 }

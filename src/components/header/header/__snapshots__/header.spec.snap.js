@@ -26,8 +26,6 @@ snapshots["sbb-header renders actions and logo Dom"] =
     expand-from="medium"
     href="https://github.com/lyne-design-system/lyne-components"
     icon-name="hamburger-menu-small"
-    role="link"
-    tabindex="0"
   >
     Menu
   </sbb-header-link>
@@ -67,13 +65,7 @@ snapshots["sbb-header renders actions and logo A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "Menu",
-      "children": [
-        {
-          "role": "link",
-          "name": "Menu"
-        }
-      ]
+      "name": "Menu"
     }
   ]
 }
@@ -90,13 +82,7 @@ snapshots["sbb-header renders actions and logo A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Menu",
-      "children": [
-        {
-          "role": "link",
-          "name": "Menu",
-          "value": "https://github.com/lyne-design-system/lyne-components"
-        }
-      ]
+      "value": "https://github.com/lyne-design-system/lyne-components"
     }
   ]
 }

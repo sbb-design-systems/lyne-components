@@ -18,7 +18,7 @@ describe(`sbb-link-button`, () => {
         form="form"
         value="value"
         size="m"
-        aria-label="Travelcards &amp; tickets"
+        accessibility-label="Travelcards &amp; tickets"
       >
         Travelcards &amp; tickets.
       </sbb-link-button>

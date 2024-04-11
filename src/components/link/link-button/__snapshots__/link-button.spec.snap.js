@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-link-button renders - DOM"] = 
 `<sbb-link-button
-  aria-label="Travelcards &amp; tickets"
+  accessibility-label="Travelcards &amp; tickets"
   data-action=""
   data-button=""
   data-sbb-link=""
@@ -38,7 +38,7 @@ snapshots["sbb-link-button A11y tree Chrome"] =
   "children": [
     {
       "role": "button",
-      "name": "Travelcards & tickets"
+      "name": "Travelcards & tickets."
     }
   ]
 }
@@ -54,7 +54,7 @@ snapshots["sbb-link-button A11y tree Firefox"] =
   "children": [
     {
       "role": "button",
-      "name": "Travelcards & tickets"
+      "name": "Travelcards & tickets."
     }
   ]
 }

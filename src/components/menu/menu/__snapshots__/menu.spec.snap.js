@@ -15,9 +15,7 @@ snapshots["sbb-menu renders DOM"] =
     dir="ltr"
     href="https://www.sbb.ch/en"
     icon-placement="start"
-    role="link"
     size="s"
-    tabindex="0"
   >
     Profile
   </sbb-block-link>
@@ -33,13 +31,13 @@ snapshots["sbb-menu renders DOM"] =
   </sbb-menu-button>
   <sbb-menu-button
     amount="1"
-    aria-disabled="true"
     data-action=""
     data-button=""
     dir="ltr"
     disabled=""
     icon-name="pen-small"
     role="button"
+    tabindex="0"
   >
     Edit
   </sbb-menu-button>
@@ -105,7 +103,6 @@ snapshots["sbb-menu renders with list DOM"] =
   </sbb-menu-button>
   <sbb-menu-button
     amount="1"
-    aria-disabled="true"
     data-action=""
     data-button=""
     dir="ltr"
@@ -113,6 +110,7 @@ snapshots["sbb-menu renders with list DOM"] =
     icon-name="pen-small"
     role="button"
     slot="li-1"
+    tabindex="0"
   >
     Edit
   </sbb-menu-button>
