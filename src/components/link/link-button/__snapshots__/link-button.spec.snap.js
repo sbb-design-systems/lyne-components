@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-link-button renders - DOM"] = 
 `<sbb-link-button
-  accessibility-label="Travelcards &amp; tickets"
   data-action=""
   data-button=""
   data-sbb-link=""

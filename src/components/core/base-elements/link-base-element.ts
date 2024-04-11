@@ -4,7 +4,6 @@ import { property } from 'lit/decorators.js';
 import { SbbLanguageController } from '../controllers/index.js';
 import { hostAttributes } from '../decorators/index.js';
 import { getLocalName } from '../dom/index.js';
-import { isEventPrevented } from '../eventing/index.js';
 import { i18nTargetOpensInNewWindow } from '../i18n/index.js';
 
 import { SbbActionBaseElement } from './action-base-element.js';
@@ -40,47 +39,22 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
     super();
     if (!isServer) {
       this.setupBaseEventHandlers();
-      this.addEventListener('click', this._triggerAnchorWhenNecessary);
     }
   }
 
   /** @internal */
   public override focus(options?: FocusOptions | undefined): void {
-    this.shadowRoot!.querySelector<HTMLAnchorElement>('a.sbb-action-base')?.focus(options);
+    this.shadowRoot!.querySelector<HTMLAnchorElement>('a')?.focus(options);
   }
 
-  /**
-   * Trigger an anchor element click after the event has finished the bubbling phase and
-   * preventDefault() has not been called for the event.
-   */
-  private async _triggerAnchorWhenNecessary(event: MouseEvent): Promise<void> {
-    const target = event.target as Element;
-    const composedTarget = event.composedPath()[0] as Element;
-    // We only want to trigger a click event on the inner anchor element, if the host element is the
-    // event origin, which means the inner anchor element has not actually been activated/clicked.
-    if (
-      !this.href ||
-      !target.tagName.startsWith('SBB-') ||
-      target !== composedTarget ||
-      (await isEventPrevented(event))
-    ) {
-      return;
-    }
+  /** @internal */
+  public override blur(): void {
+    this.shadowRoot!.querySelector<HTMLAnchorElement>('a')?.blur();
+  }
 
-    // We are using dispatchEvent here, instead of just .click() in order to
-    // prevent another click event from bubbling up the DOM tree.
-    // TODO: The CTRL case does not work exactly the same as with a use interaction PointerEvent
-    //  as the newly created tab immediately receives focus, instead of remaining on the current page.
-    const { altKey, ctrlKey, metaKey, shiftKey } = event;
-    target.shadowRoot?.querySelector('a')?.dispatchEvent(
-      // We need to use a MouseEvent here, as PointerEvent does not work on Firefox.
-      new MouseEvent('click', {
-        altKey,
-        ctrlKey,
-        metaKey,
-        shiftKey,
-      }),
-    );
+  /** @internal */
+  public override click(): void {
+    this.shadowRoot!.querySelector<HTMLAnchorElement>('a')?.click();
   }
 
   private _evaluateRelAttribute = (): string | typeof nothing => {
@@ -97,6 +71,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
         target=${this.target || nothing}
         rel=${this._evaluateRelAttribute()}
         aria-label=${this.accessibilityLabel || nothing}
+        tabindex=${this.maybeDisabled ? '-1' : nothing}
       >
         ${this.renderTemplate()}
         ${!!this.href && this.target === '_blank'

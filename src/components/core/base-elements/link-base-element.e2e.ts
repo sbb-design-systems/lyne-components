@@ -52,8 +52,6 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
     });
 
     it('dispatch event', async () => {
-      element.href = '#';
-      await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
       element.click();
       await waitForLitRender(element);
@@ -61,9 +59,8 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
     });
 
     it('enter keydown', async () => {
-      element.focus();
-      await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
+      element.focus();
 
       await sendKeys({ down: 'Enter' });
       await waitForLitRender(element);

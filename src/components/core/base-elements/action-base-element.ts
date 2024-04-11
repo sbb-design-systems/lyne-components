@@ -18,12 +18,16 @@ type MaybeDisabled = {
   'data-action': '',
 })
 export abstract class SbbActionBaseElement extends LitElement {
+  protected get maybeDisabled(): boolean | undefined {
+    const maybeDisabled = this as MaybeDisabled;
+    return maybeDisabled.disabled || maybeDisabled.formDisabled;
+  }
+
   protected setupBaseEventHandlers(): void {
     this.addEventListener(
       'click',
       (event) => {
-        const maybeDisabled = this as MaybeDisabled;
-        if (maybeDisabled.disabled || maybeDisabled.formDisabled) {
+        if (this.maybeDisabled) {
           event.preventDefault();
           event.stopImmediatePropagation();
         }
@@ -31,32 +35,6 @@ export abstract class SbbActionBaseElement extends LitElement {
       // capture is necessary here, as this event handler needs to be executed before any other
       // in order to stop immediate propagation in the disabled case.
       { capture: true },
-    );
-    this.addEventListener(
-      'keypress',
-      (event: KeyboardEvent): void => {
-        if (event.key === 'Enter' || event.key === '\n') {
-          this.dispatchClickEvent(event);
-        }
-      },
-      { passive: true },
-    );
-  }
-
-  protected dispatchClickEvent(event: KeyboardEvent): void {
-    const { altKey, ctrlKey, metaKey, shiftKey } = event;
-    (event.target as Element).dispatchEvent(
-      new PointerEvent('click', {
-        bubbles: true,
-        cancelable: true,
-        composed: true,
-        pointerId: -1,
-        pointerType: '',
-        altKey,
-        ctrlKey,
-        metaKey,
-        shiftKey,
-      }),
     );
   }
 
