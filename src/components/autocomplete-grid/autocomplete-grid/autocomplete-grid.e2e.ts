@@ -2,22 +2,17 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../../core/dom/index.js';
-import {
-  describeIf,
-  EventSpy,
-  waitForCondition,
-  waitForLitRender,
-} from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import { SbbFormFieldElement } from '../../form-field/index.js';
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/index.js';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
+import { isSafari } from '../../core/dom.js';
+import { fixture } from '../../core/testing/private.js';
+import { describeIf, EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
 import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
-import '../autocomplete-grid-row/index.js';
-import '../autocomplete-grid-actions/index.js';
-import '../autocomplete-grid-button/index.js';
+import '../autocomplete-grid-row.js';
+import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-button.js';
 
 describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
   let formField: SbbFormFieldElement;
@@ -59,7 +54,7 @@ describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
           </sbb-autocomplete-grid>
         </sbb-form-field>
       `,
-      { modules: ['../index.ts', '../../form-field/index.ts'] },
+      { modules: ['../../autocomplete-grid.ts', '../../form-field.ts'] },
     );
     input = formField.querySelector<HTMLInputElement>('input')!;
     element = formField.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;

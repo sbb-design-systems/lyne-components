@@ -1,16 +1,16 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { SbbMiniButtonBaseElement } from '../../core/base-elements/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import { setOrRemoveAttribute } from '../../core/dom/index.js';
-import { SbbDisabledMixin } from '../../core/mixins/index.js';
-import { AgnosticMutationObserver } from '../../core/observers/index.js';
-import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
+import { SbbMiniButtonBaseElement } from '../../core/base-elements.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
 import style from './autocomplete-grid-button.scss?lit&inline';
 
-import '../../icon/index.js';
+import '../../icon.js';
 
 let autocompleteButtonNextId = 0;
 

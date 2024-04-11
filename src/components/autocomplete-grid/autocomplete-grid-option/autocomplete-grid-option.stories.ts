@@ -14,9 +14,9 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import '../../form-field/index.js';
-import '../autocomplete-grid/index.js';
-import '../autocomplete-grid-row/index.js';
+import '../../form-field.js';
+import '../autocomplete-grid.js';
+import '../autocomplete-grid-row.js';
 import './autocomplete-grid-option.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

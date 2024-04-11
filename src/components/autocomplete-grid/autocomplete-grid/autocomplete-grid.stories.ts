@@ -16,17 +16,17 @@ import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/index.js';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
 import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
 import readme from './readme.md?raw';
 
-import '../autocomplete-grid-row/index.js';
-import '../autocomplete-grid-optgroup/index.js';
-import '../autocomplete-grid-actions/index.js';
-import '../autocomplete-grid-button/index.js';
-import '../../form-field/index.js';
+import '../autocomplete-grid-row.js';
+import '../autocomplete-grid-optgroup.js';
+import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-button.js';
+import '../../form-field.js';
 
 const getOption = (event: Event): void => {
   const button = event.target as SbbAutocompleteGridButtonElement;

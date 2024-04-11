@@ -1,16 +1,16 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
 import { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.js';
-import '../autocomplete-grid/index.js';
-import '../autocomplete-grid-row/index.js';
-import '../autocomplete-grid-actions/index.js';
-import '../autocomplete-grid-button/index.js';
-import '../autocomplete-grid-option/index.js';
+import '../autocomplete-grid.js';
+import '../autocomplete-grid-row.js';
+import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-button.js';
+import '../autocomplete-grid-option.js';
 
 describe(`sbb-autocomplete-grid-optgroup with ${fixture.name}`, () => {
   let element: SbbAutocompleteGridOptgroupElement;
@@ -45,7 +45,7 @@ describe(`sbb-autocomplete-grid-optgroup with ${fixture.name}`, () => {
           </sbb-autocomplete-grid-row>
         </sbb-autocomplete-grid-optgroup>
       `,
-      { modules: ['../index.ts'] },
+      { modules: ['../../autocomplete-grid.ts'] },
     );
   });
 

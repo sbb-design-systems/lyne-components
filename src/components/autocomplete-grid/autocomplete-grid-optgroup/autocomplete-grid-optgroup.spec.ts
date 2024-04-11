@@ -2,16 +2,16 @@ import { expect } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../../core/dom/index.js';
-import { describeIf } from '../../core/testing/index.js';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
+import { isSafari } from '../../core/dom.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { describeIf } from '../../core/testing.js';
 
 import './autocomplete-grid-optgroup.js';
-import '../autocomplete-grid/index.js';
-import '../autocomplete-grid-row/index.js';
-import '../autocomplete-grid-option/index.js';
-import '../autocomplete-grid-actions/index.js';
-import '../autocomplete-grid-button/index.js';
+import '../autocomplete-grid.js';
+import '../autocomplete-grid-row.js';
+import '../autocomplete-grid-option.js';
+import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-button.js';
 import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.js';
 
 describe('sbb-autocomplete-grid-optgroup', () => {

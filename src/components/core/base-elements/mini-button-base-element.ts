@@ -1,8 +1,8 @@
 import type { TemplateResult } from 'lit';
 
-import { SbbIconNameMixin } from '../../icon/index.js';
-import { SbbSlotStateController } from '../controllers/index.js';
-import { SbbNegativeMixin } from '../mixins/index.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import { SbbSlotStateController } from '../controllers.js';
+import { SbbNegativeMixin } from '../mixins.js';
 
 import { SbbButtonBaseElement } from './button-base-element.js';
 

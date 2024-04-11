@@ -1,17 +1,14 @@
 import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import {
-  SbbConnectedAbortController,
-  SbbSlotStateController,
-} from '../../core/controllers/index.js';
-import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom/index.js';
-import type { EventEmitter } from '../../core/eventing/index.js';
-import { SbbDisabledMixin } from '../../core/mixins/index.js';
-import { AgnosticMutationObserver } from '../../core/observers/index.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import type { EventEmitter } from '../../core/eventing.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
 import { SbbIconNameMixin } from '../../icon/icon-name-mixin.js';
-import '../../screen-reader-only/index.js';
-import '../../icon/index.js';
+import '../../screen-reader-only.js';
+import '../../icon.js';
 
 let nextId = 0;
 

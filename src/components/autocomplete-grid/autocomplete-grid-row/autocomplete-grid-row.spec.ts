@@ -2,14 +2,14 @@ import { expect } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
 import type { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.js';
-import '../autocomplete-grid/index.js';
+import '../autocomplete-grid.js';
 import './autocomplete-grid-row.js';
-import '../autocomplete-grid-option/index.js';
-import '../autocomplete-grid-actions/index.js';
-import '../autocomplete-grid-button/index.js';
+import '../autocomplete-grid-option.js';
+import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-button.js';
 
 describe('sbb-autocomplete-grid-row', () => {
   let root: SbbAutocompleteGridRowElement;

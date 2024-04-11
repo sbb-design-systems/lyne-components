@@ -1,9 +1,9 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { SbbOptionBaseElement } from '../../option/index.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { SbbOptionBaseElement } from '../../option.js';
 
 import style from './autocomplete-grid-option.scss?lit&inline';
 

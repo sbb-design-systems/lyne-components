@@ -7,15 +7,15 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete/index.js';
-import { isSafari, setOrRemoveAttribute } from '../../core/dom/index.js';
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins/index.js';
-import { AgnosticMutationObserver } from '../../core/observers/index.js';
-import type { SbbOptionBaseElement } from '../option/index.js';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
+import { isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
+import type { SbbOptionBaseElement } from '../option.js';
 
 import style from './optgroup-base-element.scss?lit&inline';
 
-import '../../divider/index.js';
+import '../../divider.js';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.

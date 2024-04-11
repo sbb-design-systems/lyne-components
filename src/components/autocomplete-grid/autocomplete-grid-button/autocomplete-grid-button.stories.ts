@@ -14,8 +14,8 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../autocomplete-grid-row/index.js';
-import '../autocomplete-grid-actions/index.js';
+import '../autocomplete-grid-row.js';
+import '../autocomplete-grid-actions.js';
 import './autocomplete-grid-button.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

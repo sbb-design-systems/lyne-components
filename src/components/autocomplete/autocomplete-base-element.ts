@@ -9,19 +9,19 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbConnectedAbortController } from '../core/controllers/index.js';
-import { findReferencedElement, isBrowser, isSafari } from '../core/dom/index.js';
-import type { EventEmitter } from '../core/eventing/index.js';
-import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
-import { SbbHydrationMixin } from '../core/mixins/index.js';
+import { SbbConnectedAbortController } from '../core/controllers.js';
+import { findReferencedElement, isBrowser, isSafari } from '../core/dom.js';
+import type { EventEmitter } from '../core/eventing.js';
+import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins/negative-mixin.js';
+import { SbbHydrationMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../core/overlay/index.js';
-import type { SbbOptionBaseElement } from '../option/index.js';
+} from '../core/overlay.js';
+import type { SbbOptionBaseElement } from '../option.js';
 
 import style from './autocomplete-base-element.scss?lit&inline';
 

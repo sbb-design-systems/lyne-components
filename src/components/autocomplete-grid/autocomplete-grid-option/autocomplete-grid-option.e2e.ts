@@ -2,19 +2,19 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbFormFieldElement } from '../../form-field/index.js';
-import type { SbbAutocompleteGridElement } from '../autocomplete-grid/index.js';
-import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.js';
+import type { SbbAutocompleteGridElement } from '../autocomplete-grid.js';
 
 import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.js';
-import '../../form-field/index.js';
-import '../autocomplete-grid/index.js';
-import '../autocomplete-grid-optgroup/index.js';
-import '../autocomplete-grid-row/index.js';
-import '../autocomplete-grid-actions/index.js';
-import '../autocomplete-grid-button/index.js';
+import '../../form-field.js';
+import '../autocomplete-grid.js';
+import '../autocomplete-grid-optgroup.js';
+import '../autocomplete-grid-row.js';
+import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-button.js';
 
 describe(`sbb-autocomplete-grid-option with ${fixture.name}`, () => {
   let element: SbbFormFieldElement;
@@ -40,7 +40,7 @@ describe(`sbb-autocomplete-grid-option with ${fixture.name}`, () => {
           </sbb-autocomplete-grid>
         </sbb-form-field>
       `,
-      { modules: ['../../autocomplete-grid/index.ts', '../../form-field/index.ts'] },
+      { modules: ['../../autocomplete-grid.ts', '../../form-field.ts'] },
     );
   });
 
@@ -192,7 +192,7 @@ describe(`sbb-autocomplete-grid-option with ${fixture.name}`, () => {
         </sbb-form-field>
       `,
       {
-        modules: ['../../form-field/index.ts', '../../autocomplete-grid/index.ts'],
+        modules: ['../../autocomplete-grid.ts', '../../form-field.ts'],
       },
     );
 
