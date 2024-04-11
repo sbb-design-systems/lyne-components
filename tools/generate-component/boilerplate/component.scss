@@ -4,9 +4,9 @@
 @include sbb.box-sizing;
 
 :host {
-  display: block;
-
   --__name__-some-color-var: var(--color-black);
+
+  display: block;
 }
 
 .__name__ {

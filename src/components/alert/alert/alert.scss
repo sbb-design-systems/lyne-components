@@ -1,13 +1,13 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
-@include sbb.box-sizing;
-
 // Open/Close animation vars
 $open-anim-rows-from: 0fr;
 $open-anim-rows-to: 1fr;
 $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
+
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);

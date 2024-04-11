@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
-@include sbb.box-sizing;
-
 @mixin sbb-pearl-chain-dotted {
   background-color: unset;
   background-image: linear-gradient(to right, currentcolor 0%, currentcolor 50%, Canvas 50%);
@@ -16,6 +13,9 @@
     transform: translateY(#{sbb.px-to-rem-build(1)});
   }
 }
+
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-pearl-chain-height: var(--sbb-border-width-2x);

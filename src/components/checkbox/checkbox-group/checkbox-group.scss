@@ -1,14 +1,14 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
-@include sbb.box-sizing;
-
 @mixin horizontal-orientation {
   --sbb-checkbox-group-orientation: row;
   --sbb-checkbox-group-checkbox-width: auto;
 }
 
 $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
 
 :host {
   @include horizontal-orientation;

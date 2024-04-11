@@ -4,8 +4,6 @@
 @include sbb.box-sizing;
 
 :host {
-  display: block;
-
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;

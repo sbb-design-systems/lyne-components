@@ -11,8 +11,8 @@
   --sbb-file-selector-transition-duration: var(--sbb-animation-duration-2x);
   --sbb-file-selector-transition-easing-function: var(--sbb-animation-easing);
 
-  width: #{sbb.px-to-rem-build(320)};
   display: block;
+  width: #{sbb.px-to-rem-build(320)};
 }
 
 :host([disabled]) {
