@@ -142,7 +142,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
               </p>
               ${this.href
                 ? html` <sbb-link
-                    aria-label=${this.accessibilityLabel ?? nothing}
+                    accessibility-label=${this.accessibilityLabel ?? nothing}
                     href=${this.href ?? nothing}
                     target=${this.target ?? nothing}
                     rel=${this.rel ?? nothing}

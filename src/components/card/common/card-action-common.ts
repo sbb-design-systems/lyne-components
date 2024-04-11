@@ -15,6 +15,7 @@ import '../../screen-reader-only/index.js';
 
 export declare class SbbCardActionCommonElementMixinType {
   public active: boolean;
+  protected actionRole: 'link' | 'button';
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -42,6 +43,8 @@ export const SbbCardActionCommonElementMixin = <
       return this._active;
     }
     private _active: boolean = false;
+
+    protected abstract actionRole: 'link' | 'button';
 
     private _card: SbbCardElement | null = null;
     private _cardMutationObserver = new AgnosticMutationObserver(() =>
@@ -73,7 +76,7 @@ export const SbbCardActionCommonElementMixin = <
       if (this._card) {
         this._card.toggleAttribute('data-has-action', true);
         this._card.toggleAttribute('data-has-active-action', this.active);
-        this._card.setAttribute('data-action-role', this.getAttribute('role')!);
+        this._card.setAttribute('data-action-role', this.actionRole);
 
         this._checkForSlottedActions();
         this._cardMutationObserver.observe(this._card, {

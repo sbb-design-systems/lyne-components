@@ -10,7 +10,9 @@ import { SbbCardActionCommonElementMixin } from '../common/index.js';
  *   This is relevant for SEO and screen readers.
  */
 @customElement('sbb-card-link')
-export class SbbCardLinkElement extends SbbCardActionCommonElementMixin(SbbLinkBaseElement) {}
+export class SbbCardLinkElement extends SbbCardActionCommonElementMixin(SbbLinkBaseElement) {
+  protected override actionRole: 'link' | 'button' = 'link';
+}
 
 declare global {
   interface HTMLElementTagNameMap {

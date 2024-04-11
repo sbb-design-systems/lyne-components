@@ -39,7 +39,7 @@
   text-decoration: none;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-teaser-border-radius);

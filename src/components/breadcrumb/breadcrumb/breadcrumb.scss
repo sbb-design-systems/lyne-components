@@ -20,13 +20,6 @@
   --sbb-breadcrumb-color: var(--sbb-color-anthracite);
 }
 
-// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
-  @include sbb.focus-outline;
-
-  border-radius: var(--sbb-border-radius-2x);
-}
-
 .sbb-breadcrumb {
   @include sbb.text-xs--regular;
   @include sbb.link-base;
@@ -40,6 +33,13 @@
 
   @include sbb.if-forced-colors {
     --sbb-breadcrumb-color: ButtonText;
+  }
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-border-radius-2x);
   }
 }
 

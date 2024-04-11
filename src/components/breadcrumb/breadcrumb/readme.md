@@ -39,13 +39,14 @@ By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on t
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                                    | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `iconName` | `icon-name` | public  | `string \| undefined`                   |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `href`     | `href`      | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                              |
-| `target`   | `target`    | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                 |
-| `rel`      | `rel`       | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
-| `download` | `download`  | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                      |
+| Name                 | Attribute             | Privacy | Type                                    | Default | Description                                                                                                                      |
+| -------------------- | --------------------- | ------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `iconName`           | `icon-name`           | public  | `string \| undefined`                   |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `href`               | `href`                | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                              |
+| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                 |
+| `rel`                | `rel`                 | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
+| `download`           | `download`            | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                      |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the relevant nested element.                                                             |
 
 ## Slots
 

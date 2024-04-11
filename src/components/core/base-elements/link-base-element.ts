@@ -16,8 +16,6 @@ export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
 /** Link base class. */
 @hostAttributes({
-  role: 'link',
-  tabindex: '0',
   'data-link': '',
 })
 export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
@@ -33,6 +31,9 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
 
+  /** This will be forwarded as aria-label to the relevant nested element. */
+  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
+
   protected language = new SbbLanguageController(this);
 
   public constructor() {
@@ -41,6 +42,11 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._triggerAnchorWhenNecessary);
     }
+  }
+
+  /** @internal */
+  public override focus(options?: FocusOptions | undefined): void {
+    this.shadowRoot!.querySelector<HTMLAnchorElement>('a.sbb-action-base')?.focus(options);
   }
 
   /**
@@ -86,12 +92,11 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
     return html`
       <a
         class="sbb-action-base ${this.localName ?? getLocalName(this)}"
-        role="presentation"
-        tabindex="-1"
-        href=${this.href ?? nothing}
+        href=${this.href || nothing}
         ?download=${this.download}
-        target=${this.target ?? nothing}
+        target=${this.target || nothing}
         rel=${this._evaluateRelAttribute()}
+        aria-label=${this.accessibilityLabel || nothing}
       >
         ${this.renderTemplate()}
         ${!!this.href && this.target === '_blank'
