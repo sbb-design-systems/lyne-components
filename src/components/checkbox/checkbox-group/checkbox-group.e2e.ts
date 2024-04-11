@@ -2,9 +2,9 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import { SbbCheckboxElement } from '../checkbox/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import { SbbCheckboxElement } from '../checkbox.js';
 
 import { SbbCheckboxGroupElement } from './checkbox-group.js';
 
@@ -23,7 +23,7 @@ describe(`sbb-checkbox-group with ${fixture.name}`, () => {
           <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
         </sbb-checkbox-group>
       `,
-      { modules: ['./checkbox-group.ts', '../checkbox/index.ts'] },
+      { modules: ['./checkbox-group.ts', '../checkbox.ts'] },
     );
     checkboxOne = element.querySelector<SbbCheckboxElement>('#checkbox-1')!;
     checkboxTwo = element.querySelector<SbbCheckboxElement>('#checkbox-2')!;

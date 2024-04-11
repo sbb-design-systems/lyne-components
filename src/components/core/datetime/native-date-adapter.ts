@@ -1,5 +1,5 @@
-import { SbbLanguageController } from '../controllers/index.js';
-import type { SbbDateLike } from '../interfaces/index.js';
+import { SbbLanguageController } from '../controllers.js';
+import type { SbbDateLike } from '../interfaces.js';
 
 import { DateAdapter, FORMAT_DATE } from './date-adapter.js';
 

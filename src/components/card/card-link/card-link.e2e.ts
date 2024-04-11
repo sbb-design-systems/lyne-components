@@ -2,13 +2,13 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbCardElement } from '../card/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbCardElement } from '../card.js';
 
 import type { SbbCardLinkElement } from './card-link.js';
 
-import '../card/index.js';
+import '../card.js';
 import './card-link.js';
 
 describe(`sbb-card-link with ${fixture.name}`, () => {
@@ -26,7 +26,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
           Content text
         </sbb-card>
       `,
-      { modules: ['../card/index.ts', './card-link.ts'] },
+      { modules: ['../card.ts', './card-link.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -57,7 +57,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
   it('should correctly toggle active state', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-link href="#">Click me</sbb-card-link>Content</sbb-card>`,
-      { modules: ['../card/index.ts', './card-link.ts'] },
+      { modules: ['../card.ts', './card-link.ts'] },
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
@@ -73,7 +73,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
         ><sbb-card-link active href="#">Click me</sbb-card-link
         ><span><button>Content</button></span></sbb-card
       >`,
-      { modules: ['../card/index.ts', './card-link.ts'] },
+      { modules: ['../card.ts', './card-link.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -97,7 +97,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
           <button>Content</button>
         </span>
       </sbb-card>`,
-      { modules: ['../card/index.ts', './card-link.ts'] },
+      { modules: ['../card.ts', './card-link.ts'] },
     );
     expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
 
@@ -128,7 +128,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
         <sbb-card-link href="#">Click me</sbb-card-link>
         <span id="content"></span>
       </sbb-card>`,
-      { modules: ['../card/index.ts', './card-link.ts'] },
+      { modules: ['../card.ts', './card-link.ts'] },
     );
 
     // Add a button to slot
@@ -146,7 +146,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
           <button></button>
         </span>
       </sbb-card>`,
-      { modules: ['../card/index.ts'] },
+      { modules: ['../card.ts'] },
     );
 
     // Add a sbb-card-link
@@ -170,7 +170,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
             Content
           </sbb-card>
         `,
-        { modules: ['../card/index.ts', './card-link.ts'] },
+        { modules: ['../card.ts', './card-link.ts'] },
       );
       action = element.querySelector<SbbCardLinkElement>('sbb-card-link')!;
     });

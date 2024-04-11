@@ -9,7 +9,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './toggle.js';
-import '../toggle-option/index.js';
+import '../toggle-option.js';
 
 const disabled: InputType = {
   control: {

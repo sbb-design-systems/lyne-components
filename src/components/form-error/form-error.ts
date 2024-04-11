@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../core/mixins/index.js';
+import { SbbNegativeMixin } from '../core/mixins.js';
 
 import style from './form-error.scss?lit&inline';
 

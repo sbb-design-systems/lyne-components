@@ -3,7 +3,7 @@
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
-import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../i18n/index.js';
+import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../i18n.js';
 
 import {
   extractTimeAndStringFromNoticeText,
@@ -12,7 +12,7 @@ import {
 } from './timetable-helper.js';
 import type { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties.js';
 
-import '../../icon/index.js';
+import '../../icon.js';
 
 interface IAccessAttribute {
   duration: number;

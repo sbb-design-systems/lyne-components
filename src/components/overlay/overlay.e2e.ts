@@ -2,12 +2,12 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { i18nDialog } from '../core/i18n/index.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing/index.js';
+import { i18nDialog } from '../core/i18n.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
 import { SbbOverlayElement } from './overlay.js';
-import '../button/index.js';
-import '../icon/index.js';
+import '../button.js';
+import '../icon.js';
 
 async function openOverlay(element: SbbOverlayElement): Promise<void> {
   const willOpen = new EventSpy(SbbOverlayElement.events.willOpen);

@@ -2,15 +2,12 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  SbbConnectedAbortController,
-  SbbSlotStateController,
-} from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import { setOrRemoveAttribute } from '../../core/dom/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { SbbIconNameMixin } from '../../icon/index.js';
-import type { SbbToggleElement, SbbToggleStateChange } from '../toggle/index.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbToggleElement, SbbToggleStateChange } from '../toggle.js';
 
 import style from './toggle-option.scss?lit&inline';
 

@@ -10,19 +10,19 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y/index.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers/index.js';
+import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import { readDataNow } from '../core/datetime/data-now.js';
-import type { DateAdapter } from '../core/datetime/index.js';
+import type { DateAdapter } from '../core/datetime.js';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,
   MONTHS_PER_ROW,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
-} from '../core/datetime/index.js';
-import { isBreakpoint } from '../core/dom/index.js';
-import { EventEmitter } from '../core/eventing/index.js';
+} from '../core/datetime.js';
+import { isBreakpoint } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
 import {
   i18nCalendarDateSelection,
   i18nNextMonth,
@@ -32,14 +32,14 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../core/i18n/index.js';
-import type { SbbDateLike } from '../core/interfaces/index.js';
+} from '../core/i18n.js';
+import type { SbbDateLike } from '../core/interfaces.js';
 
 import style from './calendar.scss?lit&inline';
 
-import '../button/secondary-button/index.js';
-import '../icon/index.js';
-import '../screen-reader-only/index.js';
+import '../button/secondary-button.js';
+import '../icon.js';
+import '../screen-reader-only.js';
 
 /**
  * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;

@@ -7,28 +7,28 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { i18nCollapsed, i18nExpanded } from '../../core/i18n/index.js';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nCollapsed, i18nExpanded } from '../../core/i18n.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbIconPlacement,
   SbbStateChange,
-} from '../../core/interfaces/index.js';
+} from '../../core/interfaces.js';
 import {
   SbbFormAssociatedCheckboxMixin,
   SbbHydrationMixin,
   SbbUpdateSchedulerMixin,
-} from '../../core/mixins/index.js';
-import { SbbIconNameMixin } from '../../icon/index.js';
-import type { SbbSelectionPanelElement } from '../../selection-panel/index.js';
-import type { SbbCheckboxGroupElement } from '../checkbox-group/index.js';
+} from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbSelectionPanelElement } from '../../selection-panel.js';
+import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
 
 import style from './checkbox.scss?lit&inline';
 
-import '../../screen-reader-only/index.js';
-import '../../visual-checkbox/index.js';
+import '../../screen-reader-only.js';
+import '../../visual-checkbox.js';
 
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,

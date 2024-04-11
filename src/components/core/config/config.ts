@@ -1,4 +1,4 @@
-import type { DateAdapter } from '../datetime/index.js';
+import type { DateAdapter } from '../datetime.js';
 
 export interface SbbIconConfig {
   interceptor?: (parameters: {

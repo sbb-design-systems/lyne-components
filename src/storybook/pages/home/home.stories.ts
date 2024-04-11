@@ -4,8 +4,8 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import '../../../components/alert/index.js';
-import '../../../components/action-group/index.js';
+import '../../../components/alert.js';
+import '../../../components/action-group.js';
 import {
   bikeProduct,
   dailyTicketProduct,

@@ -8,10 +8,10 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './map-container.js';
-import '../form-field/index.js';
-import '../icon/index.js';
-import '../title/index.js';
-import '../header/index.js';
+import '../form-field.js';
+import '../icon.js';
+import '../title.js';
+import '../header.js';
 
 const hideScrollUpButton: InputType = {
   control: {

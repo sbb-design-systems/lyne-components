@@ -13,14 +13,14 @@ import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../form-error/index.js';
-import type { SbbFormFieldElement } from '../form-field/index.js';
+import type { SbbFormErrorElement } from '../form-error.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 
 import readme from './readme.md?raw';
 import { SbbTimeInputElement } from './time-input.js';
-import '../button/secondary-button/index.js';
-import '../form-field/index.js';
-import '../form-error/index.js';
+import '../button/secondary-button.js';
+import '../form-field.js';
+import '../form-error.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

@@ -23,7 +23,7 @@ import type {
 import type { PluginOption } from 'vite';
 
 import { distDir } from './build-meta.js';
-import { globIndexMap } from './index-map.js';
+import { resolveEntryPoints } from './resolve-entry-points.js';
 
 export function generateReactWrappers(): PluginOption {
   const manifestPath = new URL('./components/custom-elements.json', distDir);
@@ -85,7 +85,7 @@ export function generateReactWrappers(): PluginOption {
 
       config.build!.lib = {
         ...(config.build!.lib ? config.build!.lib : {}),
-        entry: globIndexMap(packageRoot),
+        entry: resolveEntryPoints(packageRoot),
       };
     },
     closeBundle() {

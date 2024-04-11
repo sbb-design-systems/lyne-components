@@ -16,9 +16,9 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import { SbbOptionElement } from './option.js';
 import readme from './readme.md?raw';
-import '../../form-field/index.js';
-import '../../select/index.js';
-import '../../autocomplete/index.js';
+import '../../form-field.js';
+import '../../select.js';
+import '../../autocomplete.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

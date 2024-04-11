@@ -2,9 +2,9 @@ import { aTimeout, assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing/index.js';
-import { fixture } from '../core/testing/private/index.js';
-import { SbbOptionElement } from '../option/index.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
+import { SbbOptionElement } from '../option.js';
 
 import { SbbSelectElement } from './select.js';
 
@@ -28,7 +28,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
           </sbb-select>
         </div>
       `,
-      { modules: ['./select.ts', '../option/index.ts'] },
+      { modules: ['./select.ts', '../option.ts'] },
     );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
@@ -128,7 +128,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
           </sbb-select>
         </div>
       `,
-      { modules: ['./select.ts', '../option/index.ts'] },
+      { modules: ['./select.ts', '../option.ts'] },
     );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
@@ -155,7 +155,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
           </sbb-select>
         </div>
       `,
-      { modules: ['./select.ts', '../option/index.ts'] },
+      { modules: ['./select.ts', '../option.ts'] },
     );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
     comboBoxElement = root.querySelector('[role="combobox"]')!;

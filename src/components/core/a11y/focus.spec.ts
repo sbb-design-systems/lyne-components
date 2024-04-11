@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 
-import { fixture } from '../testing/private/index.js';
+import { fixture } from '../testing/private.js';
 
 import { SbbFocusHandler, getFirstFocusableElement, getFocusableElements } from './focus.js';
 

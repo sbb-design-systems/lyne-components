@@ -1,14 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../../button/index.js';
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbAlertElement } from '../alert/index.js';
+import type { SbbTransparentButtonElement } from '../../button.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
+import type { SbbAlertElement } from '../alert.js';
 
 import { SbbAlertGroupElement } from './alert-group.js';
 
-import '../alert/index.js';
+import '../alert.js';
 
 describe(`sbb-alert-group with ${fixture.name}`, () => {
   let element: SbbAlertGroupElement;
@@ -30,7 +30,7 @@ describe(`sbb-alert-group with ${fixture.name}`, () => {
           <sbb-alert title-content="Interruption" href="www.sbb.ch">Second</sbb-alert>
         </sbb-alert-group>
       `,
-      { modules: ['./alert-group.ts', '../alert/index.ts'] },
+      { modules: ['./alert-group.ts', '../alert.ts'] },
     );
     const didDismissAlertSpy = new EventSpy(SbbAlertGroupElement.events.didDismissAlert);
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);

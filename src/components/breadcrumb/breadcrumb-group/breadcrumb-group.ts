@@ -13,21 +13,18 @@ import {
   getNextElementIndex,
   isArrowKeyPressed,
   sbbInputModalityDetector,
-} from '../../core/a11y/index.js';
-import {
-  SbbConnectedAbortController,
-  SbbLanguageController,
-} from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import { setOrRemoveAttribute } from '../../core/dom/index.js';
-import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n/index.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
-import { AgnosticResizeObserver } from '../../core/observers/index.js';
-import type { SbbBreadcrumbElement } from '../breadcrumb/index.js';
+} from '../../core/a11y.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import { AgnosticResizeObserver } from '../../core/observers.js';
+import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
 import style from './breadcrumb-group.scss?lit&inline';
 
-import '../../icon/index.js';
+import '../../icon.js';
 
 /**
  * It can be used as a container for one or more `sbb-breadcrumb` component.

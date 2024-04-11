@@ -15,8 +15,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../icon/index.js';
-import '../../loading-indicator/index.js';
+import '../../icon.js';
+import '../../loading-indicator.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white)',

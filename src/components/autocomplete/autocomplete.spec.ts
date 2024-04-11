@@ -1,14 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../core/dom/index.js';
-import { describeIf } from '../core/testing/index.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
-import type { SbbFormFieldElement } from '../form-field/index.js';
+import { isSafari } from '../core/dom.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { describeIf } from '../core/testing.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 
 import type { SbbAutocompleteElement } from './autocomplete.js';
-import '../form-field/index.js';
-import '../option/index.js';
+import '../form-field.js';
+import '../option.js';
 import './autocomplete.js';
 
 describe(`sbb-autocomplete`, () => {

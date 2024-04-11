@@ -5,7 +5,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import type { SbbDialogElement } from '../../../components/dialog/index.js';
+import type { SbbDialogElement } from '../../../components/dialog.js';
 import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data.js';
 
 import {
@@ -20,9 +20,9 @@ import {
   wrapperStyle,
 } from './home.common.js';
 import readme from './readme.md?raw';
-import '../../../components/dialog/index.js';
-import '../../../components/journey-header/index.js';
-import '../../../components/pearl-chain/index.js';
+import '../../../components/dialog.js';
+import '../../../components/journey-header.js';
+import '../../../components/pearl-chain.js';
 import './home.scss';
 
 const negative: InputType = {

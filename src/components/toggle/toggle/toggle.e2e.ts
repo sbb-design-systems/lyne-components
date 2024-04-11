@@ -2,13 +2,13 @@ import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbToggleOptionElement } from '../toggle-option/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbToggleOptionElement } from '../toggle-option.js';
 
 import { SbbToggleElement } from './toggle.js';
 
-import '../toggle-option/index.js';
+import '../toggle-option.js';
 
 describe(`sbb-toggle with ${fixture.name}`, () => {
   let element: SbbToggleElement;
@@ -25,7 +25,7 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
           >
         </sbb-toggle>
       `,
-      { modules: ['./toggle.ts', '../toggle-option/index.ts'] },
+      { modules: ['./toggle.ts', '../toggle-option.ts'] },
     );
   });
 

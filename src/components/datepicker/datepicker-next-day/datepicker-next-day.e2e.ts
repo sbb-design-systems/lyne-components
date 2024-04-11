@@ -1,15 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbFormFieldElement } from '../../form-field/index.js';
-import type { SbbDatepickerElement } from '../datepicker/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbDatepickerElement } from '../datepicker.js';
 
 import { SbbDatepickerNextDayElement } from './datepicker-next-day.js';
 
-import '../datepicker/index.js';
-import '../../form-field/form-field/index.js';
+import '../datepicker.js';
+import '../../form-field/form-field.js';
 
 describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
   describe('standalone', () => {
@@ -32,7 +32,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
             <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
           </div>
         `,
-        { modules: ['../datepicker/index.ts', './datepicker-next-day.ts'] },
+        { modules: ['../datepicker.ts', './datepicker-next-day.ts'] },
       );
 
       const element: SbbDatepickerNextDayElement =
@@ -134,11 +134,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
           </sbb-form-field>
         `,
         {
-          modules: [
-            '../../form-field/index.ts',
-            '../datepicker/index.ts',
-            './datepicker-next-day.ts',
-          ],
+          modules: ['../../form-field.ts', '../datepicker.ts', './datepicker-next-day.ts'],
         },
       );
       element = form.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
@@ -171,11 +167,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
           </sbb-form-field>
         `,
         {
-          modules: [
-            '../../form-field/index.ts',
-            './datepicker-next-day.ts',
-            '../datepicker/index.ts',
-          ],
+          modules: ['../../form-field.ts', './datepicker-next-day.ts', '../datepicker.ts'],
         },
       );
       input = form.querySelector<HTMLInputElement>('input')!;

@@ -8,8 +8,8 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbLanguageController } from '../../core/controllers/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -19,15 +19,15 @@ import {
   i18nSector,
   i18nWagonLabel,
   i18nWagonLabelNumber,
-} from '../../core/i18n/index.js';
-import type { SbbOccupancy } from '../../core/interfaces/index.js';
-import { SbbNamedSlotListMixin } from '../../core/mixins/index.js';
-import type { SbbIconElement } from '../../icon/index.js';
+} from '../../core/i18n.js';
+import type { SbbOccupancy } from '../../core/interfaces.js';
+import { SbbNamedSlotListMixin } from '../../core/mixins.js';
+import type { SbbIconElement } from '../../icon.js';
 
 import style from './train-wagon.scss?lit&inline';
 
-import '../../icon/index.js';
-import '../../timetable-occupancy-icon/index.js';
+import '../../icon.js';
+import '../../timetable-occupancy-icon.js';
 
 /**
  * It displays a train compartment within a `sbb-train` component.

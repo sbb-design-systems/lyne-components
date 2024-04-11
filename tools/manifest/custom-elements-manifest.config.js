@@ -33,7 +33,7 @@ export default {
             } else if (typeof value === 'object') {
               fixModulePaths(value);
             } else if (key === 'module' || key === 'path') {
-              node[key] = value.replace(/^\/?src\/components\//, '').replace(/\/[^/.]+.ts$/, '');
+              node[key] = value.replace(/^\/?src\/components\//, '').replace(/.ts$/, '.js');
             }
           }
         }
@@ -49,6 +49,36 @@ export default {
                 }
               }
             }
+          }
+        }
+        const isInlinedEntryPoint = (entry) => {
+          const parts = entry.declaration.package?.split(/[./]+/) ?? [];
+          return (
+            entry.name === '*' &&
+            entry.declaration.name === '*' &&
+            parts.length === 4 &&
+            parts[0] === '' &&
+            parts[1] === parts[2] &&
+            parts[3] === 'js'
+          );
+        };
+        for (const moduleEntry of customElementsManifest.modules) {
+          if (
+            !moduleEntry.declarations.length &&
+            moduleEntry.exports.length === 1 &&
+            isInlinedEntryPoint(moduleEntry.exports[0])
+          ) {
+            const entry = moduleEntry.exports.pop();
+            const path = `${moduleEntry.path.replace(/\/[\w-]+.js/, '/').replace(/[\w-]+.js$/, '')}${entry.declaration.package.substring(2)}`;
+            const compiledModule = customElementsManifest.modules.find((m) => m.path === path);
+            moduleEntry.declarations.push(...compiledModule.declarations);
+            for (const entry of compiledModule.exports) {
+              entry.declaration.module = entry.declaration.module.replace(/\/[\w-]+.js/, '.js');
+            }
+            moduleEntry.exports.push(...compiledModule.exports);
+            customElementsManifest.modules = customElementsManifest.modules.filter(
+              (m) => m !== compiledModule,
+            );
           }
         }
       },

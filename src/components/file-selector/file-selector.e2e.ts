@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../button/index.js';
-import { EventSpy, waitForLitRender } from '../core/testing/index.js';
-import { fixture } from '../core/testing/private/index.js';
+import type { SbbSecondaryButtonElement } from '../button.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
 import { SbbFileSelectorElement } from './file-selector.js';
-import '../button/secondary-button/index.js';
+import '../button/secondary-button.js';
 
 function addFilesToComponentInput(
   elem: SbbFileSelectorElement,

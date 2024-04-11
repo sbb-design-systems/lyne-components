@@ -1,21 +1,18 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements/index.js';
-import {
-  SbbConnectedAbortController,
-  SbbLanguageController,
-} from '../../core/controllers/index.js';
-import { type DateAdapter, defaultDateAdapter } from '../../core/datetime/index.js';
-import { i18nToday } from '../../core/i18n/index.js';
-import { SbbNegativeMixin } from '../../core/mixins/index.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
+import { i18nToday } from '../../core/i18n.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
 import {
   datepickerControlRegisteredEventFactory,
   getDatePicker,
   type SbbDatepickerElement,
   type SbbInputUpdateEvent,
-} from '../datepicker/index.js';
-import '../../icon/index.js';
+} from '../datepicker.js';
+import '../../icon.js';
 
 export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBaseElement) {
   /** Datepicker reference. */
