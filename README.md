@@ -1,6 +1,6 @@
 # Lyne Components
 
-> _Lyne Components_ are the building blocks of the Lyne Design System
+> Lyne Components are the building blocks of the Lyne Design System
 > and are based on standard compliant Web Components
 > created using [Lit](https://lit.dev/) and
 > browsable through [Storybook](https://lyne-storybook.app.sbb.ch/)
@@ -17,7 +17,7 @@ Lyne Design Tokens and Lyne Components are available for developers and designer
 ## 📚 Documentation
 
 - General docs: [digital.sbb.ch](https://digital.sbb.ch)
-- Component docs on [Storybook](https://lyne-storybook.app.sbb.ch)
+- Component docs: [Storybook](https://lyne-storybook.app.sbb.ch)
 - [Getting started guide](./docs/GETTING_STARTED.md)
 
 ## 🔗 Packages
@@ -37,7 +37,10 @@ Android: Android Accessibility Suite (formerly TalkBack) with Chrome.
 
 ## 🙌 Contributing
 
-See our [contributing guide](./docs/CONTRIBUTING.md) and check also our [code of conduct](./docs/CODE_OF_CONDUCT.md) 👀.
+- [General contribution guide](./docs/CONTRIBUTING.md)
+- [Developer guide](./docs/DEVELOPER.md) for developers to get started working with this repo.
+- [Coding standards](./docs/CODING_STANDARDS.md) for developers.
+- [Code of conduct](./docs/CODE_OF_CONDUCT.md)
 
 ## 📝 License
 

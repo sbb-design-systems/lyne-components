@@ -106,7 +106,8 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 - All features or bug fixes **must be tested** by one or more specs (unit-tests).
 - All public API methods **must be documented**.
 - We use [prettier](https://prettier.io/) and [eslint](https://eslint.org/) rules to enforce code style.
-- Also see [CODING_STANDARDS](./CODING_STANDARDS.md)
+- Also see [CODING_STANDARDS](./CODING_STANDARDS.md).
+- Check [Review docs](./REVIEW.md) to know what is going to be reviewed.
 
 ## <a name="commit"></a> Commit Message Guidelines
 
