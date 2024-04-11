@@ -1,5 +1,8 @@
 @use '../../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 // Open/Close animation vars
 $open-anim-rows-from: 0fr;
 $open-anim-rows-to: 1fr;

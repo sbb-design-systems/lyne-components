@@ -1,5 +1,8 @@
 @use '../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 :host {
   --sbb-message-subtitle-color: var(--sbb-color-granite);
   --sbb-message-image-margin-block: 0 var(--sbb-spacing-responsive-s);

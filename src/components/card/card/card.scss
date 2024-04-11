@@ -1,5 +1,8 @@
 @use '../../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 // # Stacking of action
 // To support content with actions that should be accessible, we have to stack the action and content like following:
 // The content is basically on top of the action, but is made pointer transparent with `pointer-events: none`.

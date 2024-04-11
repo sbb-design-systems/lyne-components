@@ -1,5 +1,8 @@
 @use '../../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 :host {
   --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
   --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);

@@ -1,10 +1,11 @@
 @use '../../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 $intersector-overlapping: 1px;
 
 :host {
-  @include sbb.box-sizing;
-
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xs);
   --sbb-sticky-bar-fade-in-animation-duration: var(--sbb-animation-duration-5x);
   --sbb-sticky-bar-fade-out-animation-duration: var(--sbb-animation-duration-2x);

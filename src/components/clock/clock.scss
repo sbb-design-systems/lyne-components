@@ -1,5 +1,8 @@
 @use '../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 :host {
   --sbb-clock-hours-animation-start-angle: 0deg;
   --sbb-clock-seconds-animation-start-angle: 0deg;

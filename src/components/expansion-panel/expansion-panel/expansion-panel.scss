@@ -1,5 +1,8 @@
 @use '../../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 :host {
   --sbb-expansion-panel-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-expansion-panel-background-color: var(--sbb-color-white);

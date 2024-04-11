@@ -1,5 +1,8 @@
 @use '../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 // Fixes the gap between the origin and the overlay by creating conjunction
 // corners based on the origin element border radius
 @include sbb.overlay-gap-fix;

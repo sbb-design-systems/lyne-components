@@ -1,5 +1,8 @@
 @use '../../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 :host {
   --sbb-expansion-panel-header-cursor: pointer;
   --sbb-expansion-panel-header-text-color: var(--sbb-color-charcoal);

@@ -1,5 +1,8 @@
 @use '../../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 :host {
   --sbb-train-formation-inline-padding: var(--sbb-spacing-fixed-4x);
   --sbb-train-formation-background-color: var(--sbb-color-white);

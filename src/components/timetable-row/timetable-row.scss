@@ -1,5 +1,8 @@
 @use '../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+@include sbb.box-sizing;
+
 :host {
   --sbb-timetable-row-gap: var(--sbb-spacing-fixed-2x);
   --sbb-timetable-row-height: #{sbb.px-to-rem-build(25)};
