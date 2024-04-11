@@ -12,14 +12,7 @@ describe(`sbb-link-button`, () => {
 
   beforeEach(async () => {
     element = await fixture(html`
-      <sbb-link-button
-        name="name"
-        type="button"
-        form="form"
-        value="value"
-        size="m"
-        accessibility-label="Travelcards &amp; tickets"
-      >
+      <sbb-link-button name="name" type="button" form="form" value="value" size="m">
         Travelcards &amp; tickets.
       </sbb-link-button>
     `);
