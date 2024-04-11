@@ -1,4 +1,4 @@
-# lyne Coding Standards
+# Lyne Coding Standards
 
 ## Code style
 
@@ -22,8 +22,8 @@ For example, this is a not-very-useful comment:
 
 ```ts
 // Set default tabindex.
-if (!$attrs['tabindex']) {
-  $element.attr('tabindex', '-1');
+if (!this.getAttribute('tabindex')) {
+  this.setAttribute('tabindex', '-1');
 }
 ```
 
@@ -31,10 +31,10 @@ While this is much more useful:
 
 ```ts
 // Unless the user specifies so, the calendar should not be a tab stop.
-// This is necessary because ngAria might add a tabindex to anything with an ng-model
+// This is necessary because it might add a tabindex to anything with an ng-model
 // (based on whether or not the user has turned that particular feature on/off).
-if (!$attrs['tabindex']) {
-  $element.attr('tabindex', '-1');
+if (!this.getAttribute('tabindex')) {
+  this.setAttribute('tabindex', '-1');
 }
 ```
 
@@ -56,9 +56,9 @@ Start with a brief sentence which describes the main purpose of the component an
 if it is related to other components, mention them and add a link to their documentation.
 
 Then describe how the component should be used, adding code examples:
-if it's a presentational one explain its graphic variants using the `### Style` paragraph,
+if it's a presentational one, explain its graphic variants using the `### Style` paragraph,
 while if it's a complex one you could use the `### Interaction` paragraph.
-Almost all the components has `### Slots` and can have different `### States`; describe how they can be used.
+Almost all the components have `### Slots` and can have different `### States`; describe how they can be used.
 
 #### Prefer small, focused modules
 
@@ -129,8 +129,8 @@ Compare with existing components (e.g. `<sbb-button>`, `<sbb-breadcrumb>`, etc.)
 #### I18N
 
 If using texts in components they have to be provided in English, French, German and Italian.
-As the language can be changed dynamically, you have to listen to the `sbbLanguageChange`
-event and re-render the view. This can be done by marking the field with `@state` and using the language change handler (see code below).
+As the language can be changed dynamically, you have to use the `SbbLanguageController`.
+The `SbbLanguageController` does automatically update the view if needed.
 
 ```ts
 import { SbbLanguageController } from '../core/controllers.js';
@@ -237,7 +237,9 @@ disabled: boolean = false;
 
 #### Properties initialization
 
-Boolean properties with a default value can be initialized with `false` but not with `true`. This is due to how Lit handles boolean attributes in the DOM: it evaluates, for example, `sanitize="false"` as `true` and not `false` as we would expect. Therefore the property should be converted in something like `noSanitize = false`:
+Boolean properties with a default value can be initialized with `false` but not with `true`.
+This is due to how Lit handles boolean attributes in the DOM: it evaluates, for example, `sanitize="false"` as `true`
+and not `false` as we would expect. Therefore, the property should be converted in something like `noSanitize = false`:
 
 ```ts
 // AVOID
@@ -392,25 +394,25 @@ Use `@property() negative: boolean` to provide a color negative design for a com
 
 #### Handling aria attributes
 
-Id references, which are used commonly with aria attributes, cannot pass shadow DOM boundaries.
-Due to this, the host element of a web component should be enrichted with the appropriate
+ID references, which are used commonly with aria attributes, cannot pass shadow DOM boundaries.
+Due to this, the host element of a web component should be enriched with the appropriate
 role and aria attributes and inner elements with the same semantic meaning should be assigned
 `role="presentation"`.
 
 This allows consumers to use the host element as the reference and also place id references
 on it.
 
-#### id handling
+#### ID handling
 
 Element ids are relevant for both connecting elements for specific functionality and to provide a
 better experience for accessibility.
 
-##### Host id
+##### Host ID
 
-In certain scenarios a component should have a default id (e.g. when the usage of the id is
+In certain scenarios a component should have a default ID (e.g. when the usage of the ID is
 expected).
 
-There are various ways to assign an id to the host. One option is to use the `assignId` function:
+There are various ways to assign an ID to the host. One option is to do it in the connectedCallback.
 
 ```ts
 let nextId = 0;
@@ -418,12 +420,9 @@ let nextId = 0;
 @customElement('sbb-example')
 export class SbbExample extends LitElement {
   ...
-  protected override render(): TemplateResult {
-    assignId(() => `sbb-example-${++nextId}`)(this);
-
-    return html`
-      ...
-    `;
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.id ||= `sbb-example-${nextId++}`;
   }
 }
 
@@ -449,7 +448,7 @@ which should minimize the performance impact of this detection.
 
 **Usages of this functionality should be carefully considered. If a component has too many variants
 depending on context, this should be discussed at design level. Also in many cases,
-`this._element.closest(selector)` can be used instead, which is far more performant. **
+`this.closest(selector)` can be used instead, which is far more performant. **
 
 ```ts
 connectedCallback() {
