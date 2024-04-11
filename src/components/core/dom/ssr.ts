@@ -6,7 +6,7 @@ const localNameCache = new Map<unknown, string>();
  * In SSR the local/tag name is not available on the class instance, but it is available
  * in the shim customElements registry.
  *
- * https://github.com/lit/lit/blob/main/packages/labs/ssr-dom-shim/src/index.ts (See CustomElementRegistryShim)
+ * https://github.com/lit/lit/blob/main/packages/labs/ssr-dom-shim/src.ts (See CustomElementRegistryShim)
  *
  * Can be removed once https://github.com/lit/lit/pull/4553 is merged/released.
  */

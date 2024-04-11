@@ -1,11 +1,11 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators/index.js';
-import { i18nPreviousDay, i18nSelectPreviousDay } from '../../core/i18n/index.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { i18nPreviousDay, i18nSelectPreviousDay } from '../../core/i18n.js';
 import { SbbDatepickerButton } from '../common/datepicker-button.js';
-import { findPreviousAvailableDate, type SbbInputUpdateEvent } from '../datepicker/index.js';
-import '../../icon/index.js';
+import { findPreviousAvailableDate, type SbbInputUpdateEvent } from '../datepicker.js';
+import '../../icon.js';
 
 import style from './datepicker-previous-day.scss?lit&inline';
 

@@ -2,13 +2,13 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbBreadcrumbElement } from '../breadcrumb/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
+import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
 import { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
 
-import '../breadcrumb/index.js';
+import '../breadcrumb.js';
 
 describe(`sbb-breadcrumb-group with ${fixture.name}`, () => {
   describe('without ellipsis', () => {
@@ -23,7 +23,7 @@ describe(`sbb-breadcrumb-group with ${fixture.name}`, () => {
             <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
           </sbb-breadcrumb-group>
         `,
-        { modules: ['./breadcrumb-group.ts', '../breadcrumb/index.ts'] },
+        { modules: ['./breadcrumb-group.ts', '../breadcrumb.ts'] },
       );
     });
 
@@ -66,7 +66,7 @@ describe(`sbb-breadcrumb-group with ${fixture.name}`, () => {
             <sbb-breadcrumb href="#" id="breadcrumb-6">Sixth</sbb-breadcrumb>
           </sbb-breadcrumb-group>
         `,
-        { modules: ['./breadcrumb-group.ts', '../breadcrumb/index.ts'] },
+        { modules: ['./breadcrumb-group.ts', '../breadcrumb.ts'] },
       );
 
       ellipsisListItemElement = element.shadowRoot!.querySelector<HTMLLIElement>(

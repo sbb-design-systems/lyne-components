@@ -19,18 +19,18 @@ import { waitForComponentsReady } from '../../../storybook/testing/wait-for-comp
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 import { breakpoints } from '../../core/dom/breakpoint.js';
 import sampleImages from '../../core/images.js';
-import type { SbbTitleLevel } from '../../title/index.js';
-import { SbbDialogTitleElement } from '../dialog-title/index.js';
+import type { SbbTitleLevel } from '../../title.js';
+import { SbbDialogTitleElement } from '../dialog-title.js';
 
 import { SbbDialogElement } from './dialog.js';
 import readme from './readme.md?raw';
 
-import '../../button/index.js';
-import '../../link/index.js';
-import '../../form-field/index.js';
-import '../../image/index.js';
-import '../dialog-content/index.js';
-import '../dialog-actions/index.js';
+import '../../button.js';
+import '../../link.js';
+import '../../form-field.js';
+import '../../image.js';
+import '../dialog-content.js';
+import '../dialog-actions.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

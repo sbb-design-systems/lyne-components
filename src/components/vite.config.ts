@@ -1,4 +1,4 @@
-import { dirname, join } from 'path';
+import { join } from 'path';
 
 import { defineConfig, mergeConfig, type UserConfig } from 'vite';
 
@@ -8,7 +8,7 @@ import {
   customElementsManifest,
   distDir,
   dts,
-  globIndexMap,
+  resolveEntryPoints,
   isProdBuild,
   packageJsonTemplate,
   typography,
@@ -17,12 +17,12 @@ import rootConfig from '../../vite.config.js';
 
 const packageRoot = new URL('.', import.meta.url);
 // Include all directories containing an index.ts
-const entryPoints = globIndexMap(packageRoot);
+const entryPoints = resolveEntryPoints(packageRoot, ['core', 'core/styles/**/']);
 const barrelExports = Object.keys(entryPoints)
-  .map((e) => join(packageRoot.pathname, dirname(e)))
+  .map((e) => join(packageRoot.pathname, e))
   .sort()
   .filter((v, _i, a) => a.some((e) => e.startsWith(`${v}/`)))
-  .map((e) => `${e}/index.ts`);
+  .map((e) => `${e}.ts`);
 
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
@@ -66,7 +66,7 @@ export default defineConfig((config) =>
           ) {
             if (source.includes('.scss')) {
               throw Error(`Do not import scss from another directory.
-               Re export sass via barrel export (index.ts). See button/common/index.ts.
+               Re export sass via barrel export (index.ts). See button/common.ts.
                Source: ${source}.
                Importer: ${importer}.`);
             }

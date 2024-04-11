@@ -6,23 +6,19 @@ import {
   SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
-} from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import { setOrRemoveAttribute } from '../../core/dom/index.js';
-import {
-  EventEmitter,
-  formElementHandlerAspect,
-  HandlerRepository,
-} from '../../core/eventing/index.js';
-import { i18nCollapsed, i18nExpanded } from '../../core/i18n/index.js';
+} from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { EventEmitter, formElementHandlerAspect, HandlerRepository } from '../../core/eventing.js';
+import { i18nCollapsed, i18nExpanded } from '../../core/i18n.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
-} from '../../core/interfaces/index.js';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins/index.js';
-import type { SbbSelectionPanelElement } from '../../selection-panel/index.js';
-import type { SbbRadioButtonGroupElement } from '../radio-button-group/index.js';
+} from '../../core/interfaces.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import type { SbbSelectionPanelElement } from '../../selection-panel.js';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
 
 import style from './radio-button.scss?lit&inline';
 

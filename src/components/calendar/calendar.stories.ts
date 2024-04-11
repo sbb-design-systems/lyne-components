@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { defaultDateAdapter } from '../core/datetime/index.js';
+import { defaultDateAdapter } from '../core/datetime.js';
 
 import { SbbCalendarElement } from './calendar.js';
 import readme from './readme.md?raw';

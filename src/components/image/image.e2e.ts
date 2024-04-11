@@ -2,8 +2,8 @@ import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { waitForCondition } from '../core/testing/index.js';
-import { fixture } from '../core/testing/private/index.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition } from '../core/testing.js';
 
 import { SbbImageElement } from './image.js';
 

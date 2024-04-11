@@ -12,7 +12,7 @@ import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import '../../form-field/index.js';
+import '../../form-field.js';
 import './mini-button.js';
 import { buttonDefaultArgs, buttonDefaultArgTypes } from '../common/button-common-stories.js';
 

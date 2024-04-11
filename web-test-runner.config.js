@@ -106,6 +106,6 @@ export default {
   coverageConfig: {
     exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/*.scss'],
   },
-  filterBrowserLogs: (log) => suppressedLogs.includes(log.args[0]),
+  filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),
   testRunnerHtml,
 };

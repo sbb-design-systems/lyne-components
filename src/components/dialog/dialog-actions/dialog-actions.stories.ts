@@ -6,9 +6,9 @@ import { html } from 'lit';
 import './dialog-actions.js';
 import readme from './readme.md?raw';
 
-import '../../button/button/index.js';
-import '../../button/secondary-button/index.js';
-import '../../link/index.js';
+import '../../button/button.js';
+import '../../button/secondary-button.js';
+import '../../link.js';
 
 const Template = (): TemplateResult =>
   html`<sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">

@@ -8,9 +8,9 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
 import readme from './readme.md?raw';
 
-import '../../button/secondary-button/index.js';
+import '../../button/secondary-button.js';
 import './breadcrumb-group.js';
-import '../breadcrumb/index.js';
+import '../breadcrumb.js';
 
 const addBreadcrumb = (event: Event): void => {
   const breadcrumbGroup = (event.target as HTMLElement)

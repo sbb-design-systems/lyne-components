@@ -20,11 +20,11 @@ import { waitForStablePosition } from '../../../storybook/testing/wait-for-stabl
 import { SbbMenuElement } from './menu.js';
 import readme from './readme.md?raw';
 
-import '../../button/button/index.js';
-import '../../divider/index.js';
-import '../../link/index.js';
-import '../menu-button/index.js';
-import '../menu-link/index.js';
+import '../../button/button.js';
+import '../../divider.js';
+import '../../link.js';
+import '../menu-button.js';
+import '../menu-link.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

@@ -16,7 +16,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import { SbbTabGroupElement } from './tab-group.js';
-import '../tab-title/index.js';
+import '../tab-title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',

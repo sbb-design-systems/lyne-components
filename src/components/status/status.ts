@@ -2,11 +2,11 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../core/controllers/index.js';
-import { SbbIconNameMixin } from '../icon/index.js';
-import type { SbbTitleLevel } from '../title/index.js';
+import { SbbSlotStateController } from '../core/controllers.js';
+import { SbbIconNameMixin } from '../icon.js';
+import type { SbbTitleLevel } from '../title.js';
 
-import '../title/index.js';
+import '../title.js';
 import style from './status.scss?lit&inline';
 
 export type SbbStatusType = 'info' | 'success' | 'warning' | 'error';

@@ -2,18 +2,11 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  getNextElementIndex,
-  interactivityChecker,
-  isArrowKeyPressed,
-} from '../../core/a11y/index.js';
-import {
-  SbbConnectedAbortController,
-  SbbSlotStateController,
-} from '../../core/controllers/index.js';
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces/index.js';
-import { SbbDisabledMixin } from '../../core/mixins/index.js';
-import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox/index.js';
+import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
+import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox.js';
 
 import style from './checkbox-group.scss?lit&inline';
 

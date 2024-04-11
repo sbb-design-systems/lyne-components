@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender } from '../../core/testing.js';
 
 import { SbbNavigationSectionElement } from './navigation-section.js';
 
-import '../navigation/index.js';
-import '../navigation-list/index.js';
-import '../navigation-button/index.js';
+import '../navigation.js';
+import '../navigation-list.js';
+import '../navigation-button.js';
 
 describe(`sbb-navigation-section with ${fixture.name}`, () => {
   let element: SbbNavigationSectionElement;
@@ -29,10 +29,10 @@ describe(`sbb-navigation-section with ${fixture.name}`, () => {
       `,
       {
         modules: [
-          '../navigation/index.ts',
+          '../navigation.ts',
           './navigation-section.ts',
-          '../navigation-list/index.ts',
-          '../navigation-button/index.ts',
+          '../navigation-list.ts',
+          '../navigation-button.ts',
         ],
       },
     );

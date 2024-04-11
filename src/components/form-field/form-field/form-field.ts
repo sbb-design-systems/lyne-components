@@ -2,19 +2,19 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbInputModality } from '../../core/a11y/index.js';
-import { sbbInputModalityDetector } from '../../core/a11y/index.js';
+import type { SbbInputModality } from '../../core/a11y.js';
+import { sbbInputModalityDetector } from '../../core/a11y.js';
 import {
   SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
-} from '../../core/controllers/index.js';
-import { isFirefox, setOrRemoveAttribute } from '../../core/dom/index.js';
-import { i18nOptional } from '../../core/i18n/index.js';
-import { SbbNegativeMixin } from '../../core/mixins/index.js';
-import { AgnosticMutationObserver } from '../../core/observers/index.js';
-import type { SbbSelectElement } from '../../select/index.js';
-import '../../icon/index.js';
+} from '../../core/controllers.js';
+import { isFirefox, setOrRemoveAttribute } from '../../core/dom.js';
+import { i18nOptional } from '../../core/i18n.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
+import type { SbbSelectElement } from '../../select.js';
+import '../../icon.js';
 
 import style from './form-field.scss?lit&inline';
 

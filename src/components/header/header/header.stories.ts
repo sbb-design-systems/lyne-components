@@ -21,10 +21,10 @@ import { waitForStablePosition } from '../../../storybook/testing/wait-for-stabl
 import readme from './readme.md?raw';
 
 import './header.js';
-import '../header-button/index.js';
-import '../header-link/index.js';
-import '../../divider/index.js';
-import '../../menu/index.js';
+import '../header-button.js';
+import '../header-link.js';
+import '../../divider.js';
+import '../../menu.js';
 
 const LoremIpsumTemplate = (): TemplateResult => html`
   <div>

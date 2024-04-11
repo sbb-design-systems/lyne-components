@@ -7,22 +7,22 @@ import {
   SbbFocusHandler,
   getFirstFocusableElement,
   setModalityOnNextFocus,
-} from '../../core/a11y/index.js';
-import { SbbLanguageController } from '../../core/controllers/index.js';
-import { SbbScrollHandler, hostContext, isBreakpoint } from '../../core/dom/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { i18nDialog } from '../../core/i18n/index.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
-import { SbbNegativeMixin } from '../../core/mixins/index.js';
-import { AgnosticResizeObserver } from '../../core/observers/index.js';
-import { applyInertMechanism, removeInertMechanism } from '../../core/overlay/index.js';
-import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only/index.js';
-import type { SbbDialogActionsElement } from '../dialog-actions/index.js';
-import type { SbbDialogTitleElement } from '../dialog-title/index.js';
+} from '../../core/a11y.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { SbbScrollHandler, hostContext, isBreakpoint } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nDialog } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import { AgnosticResizeObserver } from '../../core/observers.js';
+import { applyInertMechanism, removeInertMechanism } from '../../core/overlay.js';
+import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only.js';
+import type { SbbDialogActionsElement } from '../dialog-actions.js';
+import type { SbbDialogTitleElement } from '../dialog-title.js';
 
 import style from './dialog.scss?lit&inline';
 
-import '../../screen-reader-only/index.js';
+import '../../screen-reader-only.js';
 
 // A global collection of existing dialogs
 const dialogRefs: SbbDialogElement[] = [];

@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private/index.js';
+import { fixture } from '../../core/testing/private.js';
 
 import { SbbCardElement } from './card.js';
 
-import '../card-badge/index.js';
+import '../card-badge.js';
 
 describe(`sbb-card with ${fixture.name}`, () => {
   let element: SbbCardElement;
@@ -30,7 +30,7 @@ describe(`sbb-card with ${fixture.name}`, () => {
           </sbb-card-badge>
         </sbb-card>
       `,
-      { modules: ['./card.ts', '../card-badge/index.ts'] },
+      { modules: ['./card.ts', '../card-badge.ts'] },
     );
 
     expect(
@@ -69,7 +69,7 @@ describe(`sbb-card with ${fixture.name}`, () => {
           <span>19.99</span>
         </sbb-card-badge>
       </sbb-card>`,
-      { modules: ['./card.ts', '../card-badge/index.ts'] },
+      { modules: ['./card.ts', '../card-badge.ts'] },
     );
 
     expect(root.shadowRoot!.querySelector('.sbb-card__badge-wrapper')).not.to.be.ok;

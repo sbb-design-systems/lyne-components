@@ -5,12 +5,12 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../action-group/index.js';
-import '../../button/button/index.js';
-import '../../button/secondary-button/index.js';
-import '../../link/index.js';
-import '../../title/index.js';
-import '../container/index.js';
+import '../../action-group.js';
+import '../../button/button.js';
+import '../../button/secondary-button.js';
+import '../../link.js';
+import '../../title.js';
+import '../container.js';
 import readme from './readme.md?raw';
 import './sticky-bar.js';
 

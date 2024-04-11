@@ -9,12 +9,12 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import '../clock/index.js';
-import '../button/index.js';
-import '../divider/index.js';
-import '../link/index.js';
-import '../link-list/index.js';
-import '../title/index.js';
+import '../clock.js';
+import '../button.js';
+import '../divider.js';
+import '../link.js';
+import '../link-list.js';
+import '../title.js';
 import './footer.js';
 
 const variant: InputType = {

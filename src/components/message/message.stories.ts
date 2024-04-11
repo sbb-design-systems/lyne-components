@@ -7,9 +7,9 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import images from '../core/images.js';
-import '../image/index.js';
-import '../title/index.js';
-import '../button/secondary-button/index.js';
+import '../image.js';
+import '../title.js';
+import '../button/secondary-button.js';
 import './message.js';
 
 import readme from './readme.md?raw';

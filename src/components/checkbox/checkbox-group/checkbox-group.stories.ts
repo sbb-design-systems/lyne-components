@@ -6,13 +6,13 @@ import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbCheckboxElement } from '../checkbox/index.js';
+import type { SbbCheckboxElement } from '../checkbox.js';
 
 import readme from './readme.md?raw';
 
 import './checkbox-group.js';
-import '../checkbox/index.js';
-import '../../form-error/index.js';
+import '../checkbox.js';
+import '../../form-error.js';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing/index.js';
-import { fixture } from '../core/testing/private/index.js';
-import type { ITripItem, Notice, PtSituation } from '../core/timetable/index.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
+import type { ITripItem, Notice, PtSituation } from '../core/timetable.js';
 
 import type { SbbTimetableRowElement } from './timetable-row.js';
 import { filterNotices, getCus, getHimIcon, sortSituation } from './timetable-row.js';
@@ -13,7 +13,6 @@ import {
   partiallyCancelled,
   walkTimeTrip,
 } from './timetable-row.sample-data.js';
-import './index.js';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 

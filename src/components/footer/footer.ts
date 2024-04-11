@@ -3,8 +3,8 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbNegativeMixin } from '../core/mixins/index.js';
-import type { SbbTitleLevel } from '../title/index.js';
+import { SbbNegativeMixin } from '../core/mixins.js';
+import type { SbbTitleLevel } from '../title.js';
 
 import style from './footer.scss?lit&inline';
 

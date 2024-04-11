@@ -9,8 +9,8 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 import readme from './readme.md?raw';
 import type { SbbSliderElement } from './slider.js';
 import './slider.js';
-import '../form-field/index.js';
-import '../icon/index.js';
+import '../form-field.js';
+import '../icon.js';
 
 const changeEventHandler = (event: Event): void => {
   const div: HTMLDivElement = document.createElement('div');

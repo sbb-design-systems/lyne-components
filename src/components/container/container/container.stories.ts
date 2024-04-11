@@ -4,8 +4,8 @@ import { type TemplateResult, html, nothing } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../button/secondary-button/index.js';
-import '../../title/index.js';
+import '../../button/secondary-button.js';
+import '../../title.js';
 import './container.js';
 
 import readme from './readme.md?raw';

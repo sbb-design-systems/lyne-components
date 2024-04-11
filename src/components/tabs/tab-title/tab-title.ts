@@ -3,10 +3,10 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbSlotStateController } from '../../core/controllers/index.js';
-import { SbbDisabledMixin } from '../../core/mixins/index.js';
-import { SbbIconNameMixin } from '../../icon/index.js';
-import type { SbbTitleLevel } from '../../title/index.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbTitleLevel } from '../../title.js';
 
 import style from './tab-title.scss?lit&inline';
 

@@ -1,4 +1,4 @@
-import type { ITripItem } from '../core/timetable/index.js';
+import type { ITripItem } from '../core/timetable.js';
 import {
   cancelledLeg,
   extendedLeg,

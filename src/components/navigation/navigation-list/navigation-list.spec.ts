@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
 import type { SbbNavigationListElement } from './navigation-list.js';
 
 import './navigation-list.js';
-import '../navigation-button/index.js';
+import '../navigation-button.js';
 
 describe(`sbb-navigation-list`, () => {
   let element: SbbNavigationListElement;
