@@ -183,6 +183,11 @@ bootstrapApplication(App).catch((err) => console.error(err));
 
 </details>
 
+## Components
+
+Components documentation is available on [digital.sbb.ch](https://digital.sbb.ch)
+and on [storybook](https://lyne-storybook.app.sbb.ch).
+
 ## Styles
 
 ### Full Font
@@ -193,19 +198,6 @@ For including the full fontset, we provide the `fullfont.css` file which can be 
 ```css
 @import '@sbb-esta/angular/typography.css';
 @import '@sbb-esta/angular/fullfont.css';
-```
-
-### SASS Mixins
-
-Lyne components provides various SASS mixins which can be consumed by consumers.
-For available SASS mixins, check [SASS Mixins](https://github.com/lyne-design-system/lyne-components/tree/main/src/components/core/styles/mixins).
-
-```scss
-@use '@sbb-esta/lyne-components' as sbb;
-
-.my-class {
-  @include sbb.grid-base;
-}
 ```
 
 ### Design Tokens
@@ -226,6 +218,19 @@ Some design tokens are responsive: they change their value depending on the curr
 > Whenever a design token ends with `-{breakpoint}`, e.g. `--sbb-spacing-responsive-s-zero`,
 > there is a corresponding responsive CSS variable without the `-breakpoint` suffix,
 > e.g. `sbb-spacing-responsive-s` which should be used.
+
+### SASS Mixins
+
+Lyne components provides various SASS mixins which can be consumed by consumers.
+For available SASS mixins, check [SASS Mixins](https://github.com/lyne-design-system/lyne-components/tree/main/src/components/core/styles/mixins).
+
+```scss
+@use '@sbb-esta/lyne-components' as sbb;
+
+.my-class {
+  @include sbb.grid-base;
+}
+```
 
 ### CSS Classes
 
@@ -270,3 +275,9 @@ To achieve that, you can add `sbb-disable-animation-specific` class or re-enable
   </sbb-component>
 </sbb-component>
 ```
+
+### Units
+
+All our tokens and components are using `rem` as size unit.
+We strongly recommend to use the `rem` unit all over the project to guarantee a consistent scaling
+when font-size are changed in browsers.
