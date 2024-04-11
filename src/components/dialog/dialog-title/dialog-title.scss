@@ -28,7 +28,7 @@
   padding-block: var(--sbb-dialog-header-padding-block);
   background-color: var(--sbb-dialog-background-color);
   border-block-end: var(--sbb-dialog-title-border);
-  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
+  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
 
   // Apply show/hide animation unless it has a visible focus within.
   :host(:not([data-has-visible-focus-within])) & {
