@@ -40,6 +40,9 @@ export default {
         for (const module of customElementsManifest.modules) {
           fixModulePaths(module);
           for (const declaration of module.declarations.filter((d) => d.kind === 'class')) {
+            if (declaration.name === 'SbbIconBase') {
+              delete declaration.customElement;
+            }
             for (const member of declaration.members) {
               if (member.name.startsWith('_') && member.default) {
                 const publicName = member.name.replace(/^_/, '');

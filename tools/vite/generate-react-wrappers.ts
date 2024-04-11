@@ -23,7 +23,6 @@ import type {
 import type { PluginOption } from 'vite';
 
 import { distDir } from './build-meta.js';
-import { resolveEntryPoints } from './resolve-entry-points.js';
 
 export function generateReactWrappers(): PluginOption {
   const manifestPath = new URL('./components/custom-elements.json', distDir);
@@ -56,11 +55,14 @@ export function generateReactWrappers(): PluginOption {
         (current, next) => current.concat(next.exports ?? []),
         [] as Export[],
       );
+      const entryPoints: Record<string, string> = { core: 'core.ts' };
       for (const module of manifest.modules.filter((m) => !m.path.startsWith('core/'))) {
         for (const declaration of module.declarations?.filter(
           (d): d is CustomElementDeclaration => 'customElement' in d && d.customElement,
         ) ?? []) {
-          const targetPath = new URL(`./${module.path}/index.ts`, packageRoot);
+          const entryPoint = module.path.replace(/.js$/, '.ts');
+          entryPoints[entryPoint.replace(/.ts$/, '')] = entryPoint;
+          const targetPath = new URL(`./${entryPoint}`, packageRoot);
           createDir(new URL('.', targetPath));
           const reactTemplate = renderTemplate(declaration, declarations, module, exports);
           generatedPaths.push(targetPath);
@@ -72,20 +74,23 @@ export function generateReactWrappers(): PluginOption {
         d.isDirectory(),
       )) {
         const dir = new URL(`./${dirent.name}/`, packageRoot);
-        const dirIndex = new URL('./index.ts', dir);
-        if (!existsSync(dirIndex)) {
-          generatedPaths.push(dirIndex);
+        const entryPoint = `${dirent.name}.ts`;
+        entryPoints[dirent.name] = entryPoint;
+        const dirEntryPoint = new URL(`../${entryPoint}`, dir);
+
+        if (!existsSync(dirEntryPoint)) {
+          generatedPaths.push(dirEntryPoint);
           const dirInfo = readdirSync(dir, { withFileTypes: true })
-            .filter((d) => d.isDirectory())
-            .map((d) => `export * from './${d.name}';\n`)
+            .filter((d) => d.isFile())
+            .map((d) => `export * from './${dirent.name}/${d.name.replace(/.ts$/, '.js')}';\n`)
             .join('');
-          writeFileSync(new URL('./index.ts', dir), dirInfo, 'utf8');
+          writeFileSync(dirEntryPoint, dirInfo, 'utf8');
         }
       }
 
       config.build!.lib = {
         ...(config.build!.lib ? config.build!.lib : {}),
-        entry: resolveEntryPoints(packageRoot),
+        entry: entryPoints,
       };
     },
     closeBundle() {
@@ -111,7 +116,8 @@ function renderTemplate(
   exports: Export[],
 ): string {
   const extensions = findExtensionUsage(declaration, declarations);
-  const relativeCoreImportPath = `${'../'.repeat(module.path.split('/').length)}core`;
+  const dirDepth = module.path.split('/').length - 1;
+  const relativeCoreImportPath = `${!dirDepth ? './' : '../'.repeat(dirDepth)}core.js`;
   const extensionImport = !extensions.size
     ? ''
     : `
@@ -135,7 +141,10 @@ function renderTemplate(
   // If a type or interface needs to be imported, the custom elements analyzer will not
   // detect/extract these and therefore we need to have a manual list of required
   // types/interfaces.
-  const interfaces = new Map<string, string>().set('SbbValidationChangeEvent', 'core/interfaces');
+  const interfaces = new Map<string, string>().set(
+    'SbbValidationChangeEvent',
+    'core/interfaces.js',
+  );
   for (const customEventType of customEventTypes) {
     const exportModule = exports.find((e) => e.name === customEventType);
     if (exportModule) {
