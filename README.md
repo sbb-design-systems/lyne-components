@@ -12,7 +12,7 @@ as our common language — our Single Source of Truth.
 For this purpose we use [Design Tokens](https://github.com/lyne-design-system/lyne-design-tokens) as our design abstractions.
 Those [Design Tokens](https://github.com/lyne-design-system/lyne-design-tokens) are consumed by Lyne Components and are integrated within our documentation.
 
-Lyne Design Tokens and Lyne Components are available for developer and designer.
+Lyne Design Tokens and Lyne Components are available for developers and designers.
 
 ## 📚 Documentation
 

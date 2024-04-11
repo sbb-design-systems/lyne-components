@@ -281,3 +281,11 @@ To achieve that, you can add `sbb-disable-animation-specific` class or re-enable
 All our tokens and components are using `rem` as size unit.
 We strongly recommend to use the `rem` unit all over the project to guarantee a consistent scaling
 when font-size are changed in browsers.
+
+### Stacking
+
+As we can't use popover API so far, stacking of overlay context is done manually.
+However, this can interfere with z-index of your components.
+Every overlay component therefore provides a CSS variable to override the z-index of the component.
+Additionally, there is the global CSS variable `--sbb-overlay-default-z-index` which has a default z-index of 1000.
+So developers have the chance to either globally or component specifically change the z-index.
