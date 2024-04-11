@@ -38,7 +38,7 @@ Depending on circumstances, additional options might be considered.
 
 #### Architecture
 
-- Reusability for internal usages, is the component flexible enough?
+- Re-usability for internal usages, is the component flexible enough?
 - Is the API consistent with existing (finalized) components?
 - Is the meaning of newly added properties and public methods understandable?
 - Can the main content be slotted (achieve flexibility)?

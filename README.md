@@ -1,25 +1,30 @@
-<h1 align="center">
-  Lyne Components
-</h1>
+# Lyne Components
 
-> _Lyne Components_ are the building blocks of the [Lyne Design System](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#lyne)
-> and are based on standard compliant [Web Components](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#web-components)
-> created using [Lit](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#lit) and
-> browsable through [Storybook](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#storybook)
+> _Lyne Components_ are the building blocks of the Lyne Design System
+> and are based on standard compliant Web Components
+> created using [Lit](https://lit.dev/) and
+> browsable through [Storybook](https://lyne-storybook.app.sbb.ch/)
 
-<br>
+## 🎯 Our aim
 
-## ⚠️ Notice
+To fulfill our [Vision](./docs/VISION.md), we are building and maintaining Lyne, our Design System, which is and acts
+as our common language — our Single Source of Truth.
+For this purpose we use [Design Tokens](https://github.com/lyne-design-system/lyne-design-tokens) as our design abstractions.
+Those [Design Tokens](https://github.com/lyne-design-system/lyne-design-tokens) are consumed by Lyne Components and are integrated within our documentation.
 
-**_Lyne Components_ are 🧪experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy.**
+Lyne Design Tokens and Lyne Components are available for developer and designer.
 
-<br>
+## 📚 Documentation
 
-## 💻 What we're working on right now
+- General docs: [digital.sbb.ch](https://digital.sbb.ch)
+- Component docs on [Storybook](https://lyne-storybook.app.sbb.ch)
+- [Getting started guide](./docs/GETTING_STARTED.md)
 
-Check the current tasks we're working on over [here](https://github.com/lyne-design-system/lyne-components/projects/4) but since the project is still **🧪 experimental** and in rapid development not all tasks we're working on are reflected as issues (or tickets) since this would be too cumbersome at the current development stage. Also check out over [TODOS](./TODOS.md) what all needs to be done (at some point).
+## 🔗 Packages
 
-## Browser and screen reader support
+- [NPM Packages](https://www.npmjs.com/search?q=%40sbb-esta%2Flyne-)
+
+## 🖥 Browser and screen reader support
 
 This library supports the most recent two versions of all major browsers: Chrome (including Android), Firefox, Safari (including iOS), and Edge.
 
@@ -30,24 +35,11 @@ macOS: VoiceOver with Safari / Chrome.
 iOS: VoiceOver with Safari
 Android: Android Accessibility Suite (formerly TalkBack) with Chrome.
 
-## ⛩️ Storybook
-
-The latest still **🧪 experimental** version of the Storybook component browser for _Lyne Components_ can be found [here](https://lyne-storybook.app.sbb.ch/).
-
-## 🍱 npm
-
-The current **🧪 experimental** build of Lyne Components can be found on [npm](https://www.npmjs.com/package/@sbb-esta/lyne-components).
-
-## 📚 Documentation
-
-Check the [docs](docs/README.md) directory for our documentation which we will continuously enhance.
-Component specific docs are available on our [storybook](https://lyne-storybook.app.sbb.ch).
-General docs can be read on [digital.sbb.ch](https://digital.sbb.ch).
-
 ## 🙌 Contributing
 
-See our [contributing guide](CONTRIBUTING.md) and check also our [code of conduct](CODE_OF_CONDUCT.md) 👀.
+See our [contributing guide](./docs/CONTRIBUTING.md) and check also our [code of conduct](./docs/CODE_OF_CONDUCT.md) 👀.
 
 ## 📝 License
 
-This software is published by SBB-CFF-FFS under the [MIT](/LICENSE) licence and unsupported unless otherwise clearly stated. Use at your own risk.
+This software is published by SBB-CFF-FFS under the [MIT](/LICENSE) licence and unsupported unless otherwise clearly stated.
+Use at your own risk.

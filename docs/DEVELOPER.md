@@ -31,7 +31,7 @@ Run `yarn lint --fix` to fix any automatically fixable lint issues and report th
 
 To run unit tests, run `yarn test`. This will run the full test suite with client side rendering
 and server side rendering with and without hydration.
-During development it is preferable to run `yarn test:csr`, which will just run the client side
+During development, it is preferable to run `yarn test:csr`, which will just run the client side
 rendering.
 
 ### Debugging with Visual Studio Code

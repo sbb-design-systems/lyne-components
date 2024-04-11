@@ -65,7 +65,7 @@ You can file new issues by providing the above information [here](https://github
 - Create your patch, **including appropriate test cases**.
 - Follow our [Coding Rules](#rules).
 - Test your changes with our supported browsers and screen readers.
-- Run tests via `yarn test:dev` and ensure that all tests pass.
+- Run tests via `yarn test` and ensure that all tests pass.
 - Commit your changes using a descriptive commit message that follows our
   [commit message conventions](#commit). Adherence to these conventions
   is necessary because release notes are automatically generated from these messages.
