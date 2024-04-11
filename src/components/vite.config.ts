@@ -38,6 +38,9 @@ export default defineConfig((config) =>
                 './typography.css': {
                   style: './typography.css',
                 },
+                './fullfont.css': {
+                  style: './fullfont.css',
+                },
               },
             }),
             copyAssets(['_index.scss', '../../README.md']),
