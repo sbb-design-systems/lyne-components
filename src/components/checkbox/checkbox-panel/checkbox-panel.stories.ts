@@ -48,19 +48,6 @@ const name: InputType = {
   },
 };
 
-const icon: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const iconPlacement: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['start', 'end'],
-};
-
 const ariaLabel: InputType = {
   control: {
     type: 'text',
@@ -74,8 +61,6 @@ const defaultArgTypes: ArgTypes = {
   label,
   value,
   name,
-  'icon-name': icon,
-  'icon-placement': iconPlacement,
   'aria-label': ariaLabel,
 };
 
@@ -86,8 +71,6 @@ const defaultArgs: Args = {
   label: 'Label',
   value: 'Value',
   name: 'name',
-  'icon-name': undefined,
-  'icon-placement': undefined,
   'aria-label': undefined,
 };
 

@@ -10,15 +10,15 @@ import type { SbbSelectionExpansionPanelElement } from '../../selection-expansio
 import {
   SbbRadioButtonCommonElementMixin,
   commonStyle,
-  radioButtonPanelStyle,
   type SbbRadioButtonStateChange,
 } from '../common/index.js';
 
 import '../../screen-reader-only/index.js';
+import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
 
 /**
  /**
- * It displays a radio button enhanced with the SBB Design.
+ * It displays a radio button enhanced with the selection panel design.
  *
  * @slot - Use the unnamed slot to add content to the radio label.
  * @slot subtext - Slot used to render a subtext under the label (only visible within a `sbb-selection-expansion-panel`).
@@ -105,7 +105,7 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
     this._radioButtonLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
-    ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
+    ['disabled', 'required'].forEach((p) => this.requestUpdate(p));
   }
 
   protected override firstUpdated(): void {

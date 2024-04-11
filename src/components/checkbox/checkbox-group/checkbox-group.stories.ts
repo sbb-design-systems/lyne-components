@@ -11,8 +11,8 @@ import type { SbbCheckboxElement } from '../checkbox/index.js';
 import readme from './readme.md?raw';
 
 import '../../form-error/index.js';
-import '../checkbox/index.js';
 import '../checkbox-panel/index.js';
+import '../checkbox/index.js';
 import './checkbox-group.js';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
@@ -52,33 +52,13 @@ const checkboxes = (
 const checkboxPanels = (
   checked: boolean,
   disabledSingle: boolean,
-  iconName: string,
-  iconPlacement: string,
   label: string,
 ): TemplateResult => html`
-  <sbb-checkbox-panel
-    value="checkbox-1"
-    ?checked=${checked}
-    icon-name=${iconName || nothing}
-    icon-placement=${iconPlacement}
-  >
-    ${label} 1
-  </sbb-checkbox-panel>
-  <sbb-checkbox-panel
-    value="checkbox-2"
-    ?disabled=${disabledSingle}
-    icon-name=${iconName || nothing}
-    icon-placement=${iconPlacement}
-  >
+  <sbb-checkbox-panel value="checkbox-1" ?checked=${checked}> ${label} 1 </sbb-checkbox-panel>
+  <sbb-checkbox-panel value="checkbox-2" ?disabled=${disabledSingle}>
     ${label} 2
   </sbb-checkbox-panel>
-  <sbb-checkbox-panel
-    value="checkbox-3"
-    icon-name=${iconName || nothing}
-    icon-placement=${iconPlacement}
-  >
-    ${label} 3
-  </sbb-checkbox-panel>
+  <sbb-checkbox-panel value="checkbox-3"> ${label} 3 </sbb-checkbox-panel>
 `;
 
 const DefaultTemplate = ({
@@ -94,16 +74,9 @@ const DefaultTemplate = ({
   </sbb-checkbox-group>
 `;
 
-const PanelTemplate = ({
-  checked,
-  disabledSingle,
-  iconName,
-  iconPlacement,
-  label,
-  ...args
-}: Args): TemplateResult => html`
+const PanelTemplate = ({ checked, disabledSingle, label, ...args }: Args): TemplateResult => html`
   <sbb-checkbox-group ${sbbSpread(args)}>
-    ${checkboxPanels(checked, disabledSingle, iconName, iconPlacement, label)}
+    ${checkboxPanels(checked, disabledSingle, label)}
   </sbb-checkbox-group>
 `;
 
@@ -300,6 +273,10 @@ const basicArgTypes: ArgTypes = {
   label,
   checked,
   disabledSingle,
+};
+
+const checkboxArgTypes: ArgTypes = {
+  ...basicArgTypes,
   iconName,
   iconPlacement,
 };
@@ -313,12 +290,16 @@ const basicArgs: Args = {
   label: 'Label',
   checked: true,
   disabledSingle: false,
+};
+
+const checkboxArgs: Args = {
+  ...basicArgs,
   iconName: undefined,
   iconPlacement: undefined,
 };
 
-const basicArgsVertical = {
-  ...basicArgs,
+const checkboxArgsVertical = {
+  ...checkboxArgs,
   orientation: orientation.options[1],
 };
 
@@ -334,20 +315,20 @@ const iconEnd: Args = {
 
 export const horizontal: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgs },
 };
 
 export const vertical: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgsVertical },
 };
 
 export const verticalToHorizontal: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgsVertical, 'horizontal-from': 'medium' },
 };
 export const horizontalPanel: StoryObj = {
   render: PanelTemplate,
@@ -358,79 +339,79 @@ export const horizontalPanel: StoryObj = {
 export const verticalPanel: StoryObj = {
   render: PanelTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgsVertical },
+  args: { ...basicArgs, orientation: orientation.options[1] },
 };
 
 export const verticalToHorizontalPanel: StoryObj = {
   render: PanelTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
+  argTypes: checkboxArgTypes,
+  args: { ...basicArgs, orientation: orientation.options[1], 'horizontal-from': 'medium' },
 };
 
 export const horizontalSizeM: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, size: 'm' },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgs, size: 'm' },
 };
 
 export const horizontalDisabled: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true, disabledSingle: true },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgs, disabled: true, disabledSingle: true },
 };
 
 export const verticalDisabled: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, disabled: true, disabledSingle: true },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgsVertical, disabled: true, disabledSingle: true },
 };
 
 export const horizontalIconStart: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, ...iconStart },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgs, ...iconStart },
 };
 
 export const verticalIconStart: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, ...iconStart },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgsVertical, ...iconStart },
 };
 
 export const horizontalIconEnd: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, ...iconEnd },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgs, ...iconEnd },
 };
 
 export const verticalIconEnd: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, ...iconEnd },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgsVertical, ...iconEnd },
 };
 
 export const verticalIconEndLongLabel: StoryObj = {
   render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, ...iconEnd, label: longLabelText },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgsVertical, ...iconEnd, label: longLabelText },
 };
 
 export const horizontalWithSbbFormError: StoryObj = {
   render: ErrorMessageTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, required: true },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgs, required: true },
 };
 
 export const verticalWithSbbFormError: StoryObj = {
   render: ErrorMessageTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, required: true },
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgsVertical, required: true },
 };
 
 export const indeterminateGroup: StoryObj = {
   render: IndeterminateGroupTemplate,
-  argTypes: { ...basicArgTypes },
-  args: { ...basicArgsVertical, checked: undefined },
+  argTypes: { ...checkboxArgTypes },
+  args: { ...checkboxArgsVertical, checked: undefined },
 };
 
 const meta: Meta = {

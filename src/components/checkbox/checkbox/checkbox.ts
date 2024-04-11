@@ -3,7 +3,11 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
-import { SbbCheckboxCommonElementMixin, checkboxStyle, commonStyle } from '../common/index.js';
+import type { SbbIconPlacement } from '../../core/interfaces/types.js';
+import { SbbIconNameMixin } from '../../icon/icon-name-mixin.js';
+import { SbbCheckboxCommonElementMixin, commonStyle } from '../common/index.js';
+
+import checkboxStyle from './checkbox.scss?lit&inline';
 
 import '../../screen-reader-only/index.js';
 import '../../visual-checkbox/index.js';
@@ -20,7 +24,9 @@ export type SbbCheckboxSize = 's' | 'm';
  * @event {InputEvent} input - Event fired on input.
  */
 @customElement('sbb-checkbox')
-export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(LitElement) {
+export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
+  SbbIconNameMixin(LitElement),
+) {
   public static override styles: CSSResultGroup = [commonStyle, checkboxStyle];
   public static readonly events = {
     didChange: 'didChange',
@@ -36,6 +42,10 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(LitElement
     return this.group?.size ?? this._size;
   }
   private _size: SbbCheckboxSize = 'm';
+
+  /** The label position relative to the labelIcon. Defaults to end */
+  @property({ attribute: 'icon-placement', reflect: true })
+  public iconPlacement: SbbIconPlacement = 'end';
 
   /**
    * @internal

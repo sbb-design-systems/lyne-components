@@ -80,8 +80,8 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
         this._attributeMutationBlocked = true;
       }
       this._checked = Boolean(value);
-      this.updateFormValue();
       this.toggleAttribute('data-checked', this._checked);
+      this.updateFormValue();
     }
     public get checked(): boolean {
       return this._checked;

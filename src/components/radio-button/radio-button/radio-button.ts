@@ -8,9 +8,10 @@ import { EventEmitter } from '../../core/eventing/index.js';
 import {
   SbbRadioButtonCommonElementMixin,
   commonStyle,
-  radioButtonStyle,
   type SbbRadioButtonStateChange,
 } from '../common/index.js';
+
+import radioButtonStyle from './radio-button.scss?lit&inline';
 
 export type SbbRadioButtonSize = 's' | 'm';
 

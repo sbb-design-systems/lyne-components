@@ -14,7 +14,6 @@ import { SbbUpdateSchedulerMixin } from '../../core/mixins/index.js';
 import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel/index.js';
 import {
   SbbCheckboxCommonElementMixin,
-  checkboxPanelStyle,
   commonStyle,
   type SbbCheckboxStateChange,
 } from '../common/index.js';
@@ -22,8 +21,10 @@ import {
 import '../../screen-reader-only/index.js';
 import '../../visual-checkbox/index.js';
 
+import checkboxPanelStyle from './checkbox-panel.scss?lit&inline';
+
 /**
- * Describe the purpose of the component with a single short sentence.
+ * It displays a checkbox enhanced with selection panel design.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-checkbox`.
  * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
@@ -98,7 +99,7 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
     this._checkboxLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
-    ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
+    ['disabled', 'required'].forEach((p) => this.requestUpdate(p));
   }
 
   protected override firstUpdated(): void {
