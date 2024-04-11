@@ -15,7 +15,7 @@
   --sbb-option-icon-color: var(--sbb-color-smoke);
 }
 
-// if the highlight is enabled, hide the slot content
+// If highlighting is enabled, hide the original slot content
 :host(:not([data-disable-highlight])) {
   .sbb-option__label slot {
     display: none;
@@ -51,8 +51,4 @@
     // Can be overridden by the 'preserve-icon-space' on the autocomplete
     display: var(--sbb-option-icon-container-display, none);
   }
-}
-
-.sbb-option__label {
-  white-space: initial;
 }

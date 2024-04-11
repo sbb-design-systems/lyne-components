@@ -1,8 +1,7 @@
-import { nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbAutocompleteBaseElement } from '../../autocomplete/index.js';
 import { getNextElementIndex } from '../../core/a11y/index.js';
-import { SbbAutocompleteBaseElement } from '../../core/base-elements/index.js';
 import { hostAttributes } from '../../core/decorators/index.js';
 import { getDocumentWritingMode, isSafari } from '../../core/dom/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
@@ -71,6 +70,7 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
   );
 
   protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
+  protected panelRole = 'grid';
   private _activeItemIndex = -1;
   private _activeColumnIndex = 0;
 
@@ -86,33 +86,9 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     );
   }
 
-  /** When an option is selected, update the input value and close the autocomplete. */
-  protected onOptionSelected(event: CustomEvent): void {
-    const target = event.target as SbbAutocompleteGridOptionElement;
-    if (!target.selected) {
-      return;
-    }
-
-    // Deselect the previous options
-    this.options
-      .filter((option) => option.id !== target.id && option.selected)
-      .forEach((option) => (option.selected = false));
-
-    if (this.triggerElement) {
-      // Set the option value
-      this.triggerElement.value = target.value as string;
-
-      // Manually trigger the change events
-      this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
-      this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-    }
-
-    this.close();
-  }
-
   protected onOptionClick(event: MouseEvent): void {
     if (
-      (event.target as Element).tagName !== 'SBB-AUTOCOMPLETE-GRID-OPTION' ||
+      (event.target as Element).localName !== 'sbb-autocomplete-grid-option' ||
       (event.target as SbbOptionElement).disabled
     ) {
       return;
@@ -122,9 +98,6 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    if (ariaRoleOnHost) {
-      this.id ||= this.overlayId;
-    }
     const signal = this.abort.signal;
     this.addEventListener(
       'autocompleteOptionSelectionChange',
@@ -170,6 +143,13 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     }
   }
 
+  /**
+   * Select an element on 'Enter' keypress.
+   *
+   * Due to keyboard navigation code, the `_activeColumnIndex` is zero when an option is 'focused'
+   * and greater than zero when a button is 'focused', so asking for `querySelectorAll(...)[this._activeColumnIndex]`
+   * would always return a `SbbAutocompleteGridButtonElement`.
+   */
   protected selectByKeyboard(event: KeyboardEvent): void {
     if (this._activeColumnIndex !== 0) {
       (
@@ -178,10 +158,7 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
         )[this._activeColumnIndex] as SbbAutocompleteGridButtonElement
       ).dispatchClick(event);
     } else {
-      const activeOption = this.options[this._activeItemIndex];
-      if (activeOption) {
-        activeOption.setSelectedViaUserInteraction(true);
-      }
+      this.options[this._activeItemIndex]?.setSelectedViaUserInteraction(true);
     }
   }
 
@@ -269,11 +246,7 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {
-    setAriaComboBoxAttributes(element, this.id || this.overlayId, false, 'grid');
-  }
-
-  protected setRoleOnInnerPanel(): string | typeof nothing {
-    return !ariaRoleOnHost ? 'grid' : nothing;
+    setAriaComboBoxAttributes(element, ariaRoleOnHost ? this.id : this.overlayId, false, 'grid');
   }
 }
 

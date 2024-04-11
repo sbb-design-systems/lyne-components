@@ -38,15 +38,5 @@ describe('sbb-autocomplete-grid-row', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  it('id check', () => {
-    expect(root.id).to.be.equal('sbb-autocomplete-grid-row-3');
-    expect(root.querySelector('sbb-autocomplete-grid-option')!.id).to.be.equal(
-      'sbb-autocomplete-grid-item-3x0',
-    );
-    expect(root.querySelector('sbb-autocomplete-grid-actions')!.id).to.be.equal(
-      'sbb-autocomplete-grid-item-3x1',
-    );
-  });
-
   testA11yTreeSnapshot(row);
 });

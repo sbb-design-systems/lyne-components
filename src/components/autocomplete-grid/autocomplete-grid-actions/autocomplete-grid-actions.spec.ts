@@ -34,13 +34,6 @@ describe('sbb-autocomplete-grid-actions', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  it('id check', () => {
-    expect(root.id).to.be.equal('sbb-autocomplete-grid-item-3x1');
-    expect(root.querySelector('sbb-autocomplete-grid-button')!.id).to.be.equal(
-      'sbb-autocomplete-grid-item-3x1x0',
-    );
-  });
-
   testA11yTreeSnapshot(html`
     <sbb-autocomplete-grid-actions>
       <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>

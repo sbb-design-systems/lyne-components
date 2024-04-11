@@ -9,23 +9,20 @@ snapshots["sbb-autocomplete-grid-row Dom"] =
   <sbb-autocomplete-grid-option
     aria-selected="false"
     data-slot-names="unnamed"
-    id="sbb-autocomplete-grid-item-1x0"
+    id="sbb-autocomplete-grid-option-0"
     role="gridcell"
     value="1"
   >
     Option 1
   </sbb-autocomplete-grid-option>
-  <sbb-autocomplete-grid-actions
-    id="sbb-autocomplete-grid-item-1x1"
-    role="gridcell"
-  >
+  <sbb-autocomplete-grid-actions role="gridcell">
     <sbb-autocomplete-grid-button
       aria-disabled="false"
       data-action=""
       data-button=""
       dir="ltr"
       icon-name="pie-small"
-      id="sbb-autocomplete-grid-item-1x1x0"
+      id="sbb-autocomplete-grid-button-1"
       role="button"
     >
     </sbb-autocomplete-grid-button>

@@ -2,18 +2,15 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit'
 import { customElement } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators/index.js';
-import type { SbbAutocompleteGridActionsElement } from '../autocomplete-grid-actions/index.js';
-import {
-  type SbbAutocompleteGridOptionElement,
-  autocompleteGridOptionId,
-} from '../autocomplete-grid-option/index.js';
 
 import style from './autocomplete-grid-row.scss?lit&inline';
 
 let autocompleteRowNextId = 0;
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * The component is used as a wrapper for options and action buttons.
+ *
+ * @slot - Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-actions` with one or more `sbb-autocomplete-grid-button`.
  */
 @customElement('sbb-autocomplete-grid-row')
 @hostAttributes({
@@ -21,41 +18,16 @@ let autocompleteRowNextId = 0;
 })
 export class SbbAutocompleteGridRowElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-  private _rowId = ++autocompleteRowNextId;
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    if (!this.id) {
-      this.id = `sbb-autocomplete-grid-row-${this._rowId}`;
-    }
-  }
-
-  private _setChildrenParameters(event: Event): void {
-    const elements = (event.target as HTMLSlotElement).assignedElements();
-    if (!elements.length) {
-      return;
-    }
-
-    const option = elements.find(
-      (e): e is SbbAutocompleteGridOptionElement => e.tagName === 'SBB-AUTOCOMPLETE-GRID-OPTION',
-    );
-    // Overrides default autocomplete id
-    if (option && (!option.id || option.id.includes(autocompleteGridOptionId))) {
-      option.setAttribute('id', `sbb-autocomplete-grid-item-${this._rowId}x0`);
-    }
-
-    const action = elements.find(
-      (e): e is SbbAutocompleteGridActionsElement => e.tagName === 'SBB-AUTOCOMPLETE-GRID-ACTIONS',
-    );
-    if (action && !action.id) {
-      action.setAttribute('id', `sbb-autocomplete-grid-item-${this._rowId}x1`);
-    }
+    this.id ||= `sbb-autocomplete-grid-row-${++autocompleteRowNextId}`;
   }
 
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-autocomplete-grid-row">
-        <slot @slotchange=${this._setChildrenParameters}></slot>
+        <slot></slot>
       </span>
     `;
   }

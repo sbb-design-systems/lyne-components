@@ -1,13 +1,13 @@
-import { nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
-import { SbbAutocompleteBaseElement } from '../core/base-elements/autocomplete-base-element.js';
 import { hostAttributes } from '../core/decorators.js';
 import { getDocumentWritingMode, isSafari } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
+
+import { SbbAutocompleteBaseElement } from './autocomplete-base-element.js';
 
 let nextId = 0;
 
@@ -58,39 +58,16 @@ export class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
   protected didClose: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.didClose);
 
   protected overlayId = `sbb-autocomplete-${++nextId}`;
+  protected panelRole = 'listbox';
   private _activeItemIndex = -1;
 
   protected get options(): SbbOptionElement[] {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
   }
 
-  /** When an option is selected, update the input value and close the autocomplete. */
-  protected onOptionSelected(event: CustomEvent): void {
-    const target = event.target as SbbOptionElement;
-    if (!target.selected) {
-      return;
-    }
-
-    // Deselect the previous options
-    this.options
-      .filter((option) => option.id !== target.id && option.selected)
-      .forEach((option) => (option.selected = false));
-
-    if (this.triggerElement) {
-      // Set the option value
-      this.triggerElement.value = target.value as string;
-
-      // Manually trigger the change events
-      this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
-      this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-    }
-
-    this.close();
-  }
-
   protected onOptionClick(event: MouseEvent): void {
     if (
-      (event.target as Element).tagName !== 'SBB-OPTION' ||
+      (event.target as Element).localName !== 'sbb-option' ||
       (event.target as SbbOptionElement).disabled
     ) {
       return;
@@ -100,9 +77,6 @@ export class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    if (ariaRoleOnHost) {
-      this.id ||= this.overlayId;
-    }
     const signal = this.abort.signal;
     this.addEventListener(
       'optionSelectionChange',
@@ -181,11 +155,7 @@ export class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {
-    setAriaComboBoxAttributes(element, this.id || this.overlayId, false);
-  }
-
-  protected setRoleOnInnerPanel(): string | typeof nothing {
-    return !ariaRoleOnHost ? 'listbox' : nothing;
+    setAriaComboBoxAttributes(element, ariaRoleOnHost ? this.id : this.overlayId, false);
   }
 }
 

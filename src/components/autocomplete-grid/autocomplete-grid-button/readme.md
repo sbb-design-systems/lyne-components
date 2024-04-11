@@ -104,12 +104,6 @@ since the focus must always stay on the connected `<input>`.
 | `value`    | `value`     | public  | `string`                                   |            | The value of the button element.                                                                                                 |
 | `form`     | `form`      | public  | `string \| undefined`                      |            | The <form> element to associate the button with.                                                                                 |
 
-## Methods
-
-| Name            | Privacy | Description | Parameters             | Return | Inherited From |
-| --------------- | ------- | ----------- | ---------------------- | ------ | -------------- |
-| `dispatchClick` | public  |             | `event: KeyboardEvent` | `void` |                |
-
 ## Events
 
 | Name    | Type           | Description | Inherited From |

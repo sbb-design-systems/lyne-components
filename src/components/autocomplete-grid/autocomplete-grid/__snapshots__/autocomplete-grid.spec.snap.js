@@ -13,22 +13,19 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] =
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
-      id="sbb-autocomplete-grid-item-1x0"
+      id="sbb-autocomplete-grid-option-0"
       role="gridcell"
     >
       Option 1
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions
-      id="sbb-autocomplete-grid-item-1x1"
-      role="gridcell"
-    >
+    <sbb-autocomplete-grid-actions role="gridcell">
       <sbb-autocomplete-grid-button
         aria-disabled="false"
         data-action=""
         data-button=""
         dir="ltr"
         icon-name="dog-small"
-        id="sbb-autocomplete-grid-item-1x1x0"
+        id="sbb-autocomplete-grid-button-1"
         role="button"
       >
       </sbb-autocomplete-grid-button>
@@ -41,22 +38,19 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] =
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
-      id="sbb-autocomplete-grid-item-2x0"
+      id="sbb-autocomplete-grid-option-1"
       role="gridcell"
     >
       Option 2
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions
-      id="sbb-autocomplete-grid-item-2x1"
-      role="gridcell"
-    >
+    <sbb-autocomplete-grid-actions role="gridcell">
       <sbb-autocomplete-grid-button
         aria-disabled="false"
         data-action=""
         data-button=""
         dir="ltr"
         icon-name="dog-small"
-        id="sbb-autocomplete-grid-item-2x1x0"
+        id="sbb-autocomplete-grid-button-2"
         role="button"
       >
       </sbb-autocomplete-grid-button>
@@ -102,25 +96,49 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid Chrome-Firefox ShadowDom */
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome */
-
 snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "statictext",
+      "name": "​"
+    },
+    {
+      "role": "combobox",
+      "name": "",
+      "autocomplete": "list",
+      "haspopup": "grid"
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox */
+
+snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "combobox",
+      "name": "",
+      "autocomplete": "list",
+      "haspopup": "grid"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome */
 
 snapshots["sbb-autocomplete-grid Safari Dom"] = 
 `<sbb-autocomplete-grid
@@ -136,22 +154,19 @@ snapshots["sbb-autocomplete-grid Safari Dom"] =
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
-      id="sbb-autocomplete-grid-item-1x0"
+      id="sbb-autocomplete-grid-option-0"
       role="gridcell"
     >
       Option 1
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions
-      id="sbb-autocomplete-grid-item-1x1"
-      role="gridcell"
-    >
+    <sbb-autocomplete-grid-actions role="gridcell">
       <sbb-autocomplete-grid-button
         aria-disabled="false"
         data-action=""
         data-button=""
         dir="ltr"
         icon-name="dog-small"
-        id="sbb-autocomplete-grid-item-1x1x0"
+        id="sbb-autocomplete-grid-button-1"
         role="button"
       >
       </sbb-autocomplete-grid-button>
@@ -164,22 +179,19 @@ snapshots["sbb-autocomplete-grid Safari Dom"] =
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
-      id="sbb-autocomplete-grid-item-2x0"
+      id="sbb-autocomplete-grid-option-1"
       role="gridcell"
     >
       Option 2
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions
-      id="sbb-autocomplete-grid-item-2x1"
-      role="gridcell"
-    >
+    <sbb-autocomplete-grid-actions role="gridcell">
       <sbb-autocomplete-grid-button
         aria-disabled="false"
         data-action=""
         data-button=""
         dir="ltr"
         icon-name="dog-small"
-        id="sbb-autocomplete-grid-item-2x1x0"
+        id="sbb-autocomplete-grid-button-2"
         role="button"
       >
       </sbb-autocomplete-grid-button>

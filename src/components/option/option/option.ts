@@ -2,14 +2,12 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbOptionBaseElement } from '../../core/base-elements/option-base-element.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 
-import '../../icon.js';
-import '../../screen-reader-only.js';
-import '../../visual-checkbox.js';
+import { SbbOptionBaseElement } from './option-base-element.js';
 import style from './option.scss?lit&inline';
+import '../../visual-checkbox.js';
 
 export type SbbOptionVariant = 'autocomplete' | 'select';
 

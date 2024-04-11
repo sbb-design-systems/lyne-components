@@ -1,12 +1,10 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbOptionBaseElement } from '../../core/base-elements/option-base-element.js';
 import { hostAttributes } from '../../core/decorators/index.js';
 import { EventEmitter } from '../../core/eventing/index.js';
+import { SbbOptionBaseElement } from '../../option/index.js';
 
-import '../../icon/index.js';
-import '../../screen-reader-only/index.js';
 import style from './autocomplete-grid-option.scss?lit&inline';
 
 export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;

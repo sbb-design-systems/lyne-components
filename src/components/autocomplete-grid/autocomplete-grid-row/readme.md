@@ -32,3 +32,9 @@ The `sbb-autocomplete-grid` follows the combobox `grid` pattern;
 this means that the `sbb-autocomplete-grid-row` has a `row` role and its child would receive an `id` based on the `sbb-autocomplete-grid-row`'s `id`.
 
 <!-- Auto Generated Below -->
+
+## Slots
+
+| Name | Description                                                                                                                                         |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-actions` with one or more `sbb-autocomplete-grid-button`. |

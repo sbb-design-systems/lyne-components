@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { SbbMiniButtonBaseElement } from '../../core/base-elements/index.js';
@@ -6,10 +6,13 @@ import { hostAttributes } from '../../core/decorators/index.js';
 import { setOrRemoveAttribute } from '../../core/dom/index.js';
 import { SbbDisabledMixin } from '../../core/mixins/index.js';
 import { AgnosticMutationObserver } from '../../core/observers/index.js';
-import { type SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
+
+import style from './autocomplete-grid-button.scss?lit&inline';
 
 import '../../icon/index.js';
-import style from './autocomplete-grid-button.scss?lit&inline';
+
+let autocompleteButtonNextId = 0;
 
 /** Configuration for the attribute to look at if component is nested in a sbb-optgroup */
 const buttonObserverConfig: MutationObserverInit = {
@@ -49,17 +52,26 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
         this._disabledFromGroup = this.hasAttribute('data-group-disabled');
+        setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
       }
     }
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.id ||= `sbb-autocomplete-grid-button-${++autocompleteButtonNextId}`;
     const parentGroup = this.closest('sbb-autocomplete-grid-optgroup');
     if (parentGroup) {
       this._disabledFromGroup = parentGroup.disabled;
+      setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
     }
     this._optionAttributeObserver.observe(this, buttonObserverConfig);
+  }
+
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('disabled')) {
+      setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -67,6 +79,10 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
     this._optionAttributeObserver.disconnect();
   }
 
+  /**
+   * Used to dispatch a click event when users interact with the button via keyboard (the component does not receive focus).
+   * @internal
+   */
   public dispatchClick(event: KeyboardEvent): void {
     return this.dispatchClickEvent(event);
   }
@@ -88,11 +104,6 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
         shiftKey,
       }),
     );
-  }
-
-  protected override renderTemplate(): TemplateResult {
-    setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
-    return super.renderTemplate();
   }
 }
 

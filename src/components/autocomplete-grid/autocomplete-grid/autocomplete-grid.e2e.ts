@@ -2,9 +2,16 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
+import { isSafari } from '../../core/dom/index.js';
+import {
+  describeIf,
+  EventSpy,
+  waitForCondition,
+  waitForLitRender,
+} from '../../core/testing/index.js';
 import { fixture } from '../../core/testing/private/index.js';
 import { SbbFormFieldElement } from '../../form-field/index.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/index.js';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/index.js';
 
 import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
@@ -28,7 +35,10 @@ describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
                 >Option 1</sbb-autocomplete-grid-option
               >
               <sbb-autocomplete-grid-actions>
-                <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+                <sbb-autocomplete-grid-button
+                  id="button-1"
+                  icon-name="pen-small"
+                ></sbb-autocomplete-grid-button>
               </sbb-autocomplete-grid-actions>
             </sbb-autocomplete-grid-row>
             <sbb-autocomplete-grid-row>
@@ -36,7 +46,14 @@ describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
                 >Option 2</sbb-autocomplete-grid-option
               >
               <sbb-autocomplete-grid-actions>
-                <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+                <sbb-autocomplete-grid-button
+                  id="button-2"
+                  icon-name="pen-small"
+                ></sbb-autocomplete-grid-button>
+                <sbb-autocomplete-grid-button
+                  id="button-3"
+                  icon-name="trash-small"
+                ></sbb-autocomplete-grid-button>
               </sbb-autocomplete-grid-actions>
             </sbb-autocomplete-grid-row>
           </sbb-autocomplete-grid>
@@ -48,19 +65,38 @@ describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
     element = formField.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
   });
 
-  it('renders and sets the correct attributes', () => {
-    assert.instanceOf(formField, SbbFormFieldElement);
-    assert.instanceOf(element, SbbAutocompleteGridElement);
+  describeIf(isSafari(), 'Safari', async () => {
+    it('renders and sets the correct attributes', () => {
+      assert.instanceOf(formField, SbbFormFieldElement);
+      assert.instanceOf(element, SbbAutocompleteGridElement);
 
-    expect(element).not.to.have.attribute('autocomplete-origin-borderless');
+      expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
-    expect(input).to.have.attribute('autocomplete', 'off');
-    expect(input).to.have.attribute('role', 'combobox');
-    expect(input).to.have.attribute('aria-autocomplete', 'list');
-    expect(input).to.have.attribute('aria-haspopup', 'grid');
-    expect(input).to.have.attribute('aria-controls', 'myAutocomplete');
-    expect(input).to.have.attribute('aria-owns', 'myAutocomplete');
-    expect(input).to.have.attribute('aria-expanded', 'false');
+      expect(input).to.have.attribute('autocomplete', 'off');
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete', 'list');
+      expect(input).to.have.attribute('aria-haspopup', 'grid');
+      expect(input).to.have.attribute('aria-controls', 'myAutocomplete');
+      expect(input).to.have.attribute('aria-owns', 'myAutocomplete');
+      expect(input).to.have.attribute('aria-expanded', 'false');
+    });
+  });
+
+  describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+    it('renders and sets the correct attributes', () => {
+      assert.instanceOf(formField, SbbFormFieldElement);
+      assert.instanceOf(element, SbbAutocompleteGridElement);
+
+      expect(element).not.to.have.attribute('autocomplete-origin-borderless');
+
+      expect(input).to.have.attribute('autocomplete', 'off');
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete', 'list');
+      expect(input).to.have.attribute('aria-haspopup', 'grid');
+      expect(input).to.have.attribute('aria-controls', 'sbb-autocomplete-grid-11');
+      expect(input).to.have.attribute('aria-owns', 'sbb-autocomplete-grid-11');
+      expect(input).to.have.attribute('aria-expanded', 'false');
+    });
   });
 
   it('opens and closes with mouse and keyboard', async () => {
@@ -137,6 +173,75 @@ describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
     expect(optionSelectedEventSpy.firstEvent!.target).to.have.property('id', 'option-2');
   });
 
+  it('select button and get related option', async () => {
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
+    const clickSpy = new EventSpy('click');
+
+    input.focus();
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    const buttonOne = element.querySelector('#button-1') as SbbAutocompleteGridButtonElement;
+    buttonOne.click();
+    await waitForLitRender(element);
+
+    await waitForCondition(() => clickSpy.events.length === 1);
+    expect(clickSpy.count).to.be.equal(1);
+    expect(
+      (clickSpy.firstEvent!.target as SbbAutocompleteGridButtonElement).option!.textContent,
+    ).to.be.equal('Option 1');
+    expect(
+      (clickSpy.firstEvent!.target as SbbAutocompleteGridButtonElement).option!.value,
+    ).to.be.equal('1');
+  });
+
+  it('keyboard navigation', async () => {
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
+    const optOne = element.querySelector('#option-1');
+    const buttonOne = element.querySelector('#button-1');
+    const optTwo = element.querySelector('#option-2');
+    const buttonTwo = element.querySelector('#button-2');
+    const buttonThree = element.querySelector('#button-3');
+    input.focus();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    await sendKeys({ press: 'ArrowDown' });
+    await sendKeys({ press: 'ArrowDown' });
+    await waitForLitRender(element);
+    expect(optTwo).to.have.attribute('active');
+    expect(buttonTwo).not.to.have.attribute('data-focus-visible');
+    expect(buttonThree).not.to.have.attribute('data-focus-visible');
+    expect(input).to.have.attribute('aria-activedescendant', 'option-2');
+
+    await sendKeys({ press: 'ArrowRight' });
+    await waitForLitRender(element);
+    expect(optTwo).not.to.have.attribute('active');
+    expect(buttonTwo).to.have.attribute('data-focus-visible');
+    expect(buttonThree).not.to.have.attribute('data-focus-visible');
+    expect(input).to.have.attribute('aria-activedescendant', 'button-2');
+
+    await sendKeys({ press: 'ArrowRight' });
+    await waitForLitRender(element);
+    expect(optTwo).not.to.have.attribute('active');
+    expect(buttonTwo).not.to.have.attribute('data-focus-visible');
+    expect(buttonThree).to.have.attribute('data-focus-visible');
+    expect(input).to.have.attribute('aria-activedescendant', 'button-3');
+
+    await sendKeys({ press: 'ArrowDown' });
+    await waitForLitRender(element);
+    expect(optOne).to.have.attribute('active');
+    expect(buttonOne).not.to.have.attribute('data-focus-visible');
+    expect(optTwo).not.to.have.attribute('active');
+    expect(buttonTwo).not.to.have.attribute('data-focus-visible');
+    expect(buttonThree).not.to.have.attribute('data-focus-visible');
+    expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+  });
+
   it('opens and select with keyboard', async () => {
     const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didClose);
@@ -168,6 +273,41 @@ describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
     expect(input).not.to.have.attribute('aria-activedescendant');
+  });
+
+  it('opens and select button with keyboard', async () => {
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
+    const clickSpy = new EventSpy('click');
+    const optOne = element.querySelector('#option-1');
+    const buttonOne = element.querySelector('#button-1');
+    const buttonTwo = element.querySelector('#button-2');
+    input.focus();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    await sendKeys({ press: 'ArrowDown' });
+    await waitForLitRender(element);
+    expect(optOne).to.have.attribute('active');
+    expect(buttonOne).not.to.have.attribute('data-focus-visible');
+    await sendKeys({ press: 'ArrowRight' });
+    expect(optOne).not.to.have.attribute('active');
+    expect(buttonOne).to.have.attribute('data-focus-visible');
+    expect(input).to.have.attribute('aria-activedescendant', 'button-1');
+    await sendKeys({ press: 'Enter' });
+    await waitForCondition(() => clickSpy.events.length === 1);
+    expect(clickSpy.count).to.be.equal(1);
+
+    await sendKeys({ press: 'ArrowDown' });
+    await sendKeys({ press: 'ArrowRight' });
+    await waitForLitRender(element);
+    expect(optOne).not.to.have.attribute('active');
+    expect(buttonOne).not.to.have.attribute('data-focus-visible');
+    expect(buttonTwo).to.have.attribute('data-focus-visible');
+    expect(input).to.have.attribute('aria-activedescendant', 'button-2');
+    await sendKeys({ press: 'Enter' });
+    await waitForCondition(() => clickSpy.events.length === 2);
+    expect(clickSpy.count).to.be.equal(2);
   });
 
   it('should stay closed when disabled', async () => {

@@ -9,21 +9,21 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbConnectedAbortController } from '../controllers/index.js';
-import { findReferencedElement, isBrowser, isSafari, setOrRemoveAttribute } from '../dom/index.js';
-import type { EventEmitter } from '../eventing/index.js';
-import type { SbbOpenedClosedState } from '../interfaces/index.js';
-import { SbbHydrationMixin } from '../mixins/index.js';
-import { SbbNegativeMixin } from '../mixins/negative-mixin.js';
+import { SbbConnectedAbortController } from '../core/controllers/index.js';
+import { findReferencedElement, isBrowser, isSafari } from '../core/dom/index.js';
+import type { EventEmitter } from '../core/eventing/index.js';
+import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
+import { SbbHydrationMixin } from '../core/mixins/index.js';
+import { SbbNegativeMixin } from '../core/mixins/negative-mixin.js';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../overlay/index.js';
+} from '../core/overlay/index.js';
+import type { SbbOptionBaseElement } from '../option/index.js';
 
 import style from './autocomplete-base-element.scss?lit&inline';
-import type { SbbOptionBaseElement } from './option-base-element.js';
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -93,6 +93,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _triggerElement: HTMLInputElement | undefined;
 
   protected abstract overlayId: string;
+  protected abstract panelRole: string;
   protected abort = new SbbConnectedAbortController(this);
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
@@ -104,13 +105,10 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   protected abstract get options(): SbbOptionBaseElement[];
   protected abstract syncNegative(): void;
   protected abstract setTriggerAttributes(element: HTMLInputElement): void;
-  protected abstract setRoleOnInnerPanel(): string | typeof nothing;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
   protected abstract selectByKeyboard(event: KeyboardEvent): void;
   protected abstract setNextActiveOption(event: KeyboardEvent): void;
   protected abstract resetActiveElement(): void;
-  /** When an option is selected, update the input value and close the autocomplete. */
-  protected abstract onOptionSelected(event: CustomEvent): void;
   protected abstract onOptionClick(event: MouseEvent): void;
 
   /** Opens the autocomplete. */
@@ -141,7 +139,9 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
+    if (ariaRoleOnHost) {
+      this.id ||= this.overlayId;
+    }
     this.state ||= 'closed';
     const signal = this.abort.signal;
     const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
@@ -177,14 +177,38 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this._didLoad = true;
   }
 
-  private _handleSlotchange(): void {
-    this._highlightOptions(this.triggerElement?.value);
-  }
-
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._triggerEventsController?.abort();
     this._openPanelEventsController?.abort();
+  }
+
+  /** When an option is selected, update the input value and close the autocomplete. */
+  protected onOptionSelected(event: CustomEvent): void {
+    const target = event.target as SbbOptionBaseElement;
+    if (!target.selected) {
+      return;
+    }
+
+    // Deselect the previous options
+    this.options
+      .filter((option) => option.id !== target.id && option.selected)
+      .forEach((option) => (option.selected = false));
+
+    if (this.triggerElement) {
+      // Set the option value
+      this.triggerElement.value = target.value as string;
+
+      // Manually trigger the change events
+      this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
+      this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+    }
+
+    this.close();
+  }
+
+  private _handleSlotchange(): void {
+    this._highlightOptions(this.triggerElement?.value);
   }
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
@@ -421,8 +445,6 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   }
 
   protected override render(): TemplateResult {
-    setOrRemoveAttribute(this, 'data-state', this.state);
-
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
       <div class="sbb-autocomplete__container">
@@ -436,7 +458,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
           <div class="sbb-autocomplete__wrapper">
             <div
               class="sbb-autocomplete__options"
-              role=${this.setRoleOnInnerPanel()}
+              role=${!ariaRoleOnHost ? this.panelRole : nothing}
               id=${!ariaRoleOnHost ? this.overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >

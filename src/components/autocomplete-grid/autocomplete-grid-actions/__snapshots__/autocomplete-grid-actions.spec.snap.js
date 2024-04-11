@@ -2,17 +2,14 @@
 export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid-actions Dom"] = 
-`<sbb-autocomplete-grid-actions
-  id="sbb-autocomplete-grid-item-1x1"
-  role="gridcell"
->
+`<sbb-autocomplete-grid-actions role="gridcell">
   <sbb-autocomplete-grid-button
     aria-disabled="false"
     data-action=""
     data-button=""
     dir="ltr"
     icon-name="pie-small"
-    id="sbb-autocomplete-grid-item-1x1x0"
+    id="sbb-autocomplete-grid-button-1"
     role="button"
   >
   </sbb-autocomplete-grid-button>

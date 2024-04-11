@@ -1,12 +1,17 @@
 import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbIconNameMixin } from '../../icon/index.js';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../controllers/index.js';
-import { isAndroid, isSafari, setOrRemoveAttribute } from '../dom/index.js';
-import type { EventEmitter } from '../eventing/index.js';
-import { SbbDisabledMixin } from '../mixins/index.js';
-import { AgnosticMutationObserver } from '../observers/index.js';
+import {
+  SbbConnectedAbortController,
+  SbbSlotStateController,
+} from '../../core/controllers/index.js';
+import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom/index.js';
+import type { EventEmitter } from '../../core/eventing/index.js';
+import { SbbDisabledMixin } from '../../core/mixins/index.js';
+import { AgnosticMutationObserver } from '../../core/observers/index.js';
+import { SbbIconNameMixin } from '../../icon/icon-name-mixin.js';
+import '../../screen-reader-only/index.js';
+import '../../icon/index.js';
 
 let nextId = 0;
 
@@ -69,7 +74,6 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
 
   private _abort = new SbbConnectedAbortController(this);
   protected abstract selectByClick(event: MouseEvent): void;
-  // protected abstract setupHighlightHandler(event: Event): void;
   protected abstract setAttributeFromParent(): void;
 
   protected updateDisableHighlight(disabled: boolean): void {

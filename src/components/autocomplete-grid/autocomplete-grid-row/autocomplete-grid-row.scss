@@ -50,7 +50,7 @@
   );
 }
 
-:host(:is([data-disabled])) {
+:host([data-disabled]) {
   --sbb-autocomplete-grid-row-cursor: default;
 
   @include sbb.if-forced-colors {

@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit'
 import { customElement } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators/index.js';
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/index.js';
 
 import style from './autocomplete-grid-actions.scss?lit&inline';
 
@@ -18,23 +17,10 @@ import style from './autocomplete-grid-actions.scss?lit&inline';
 export class SbbAutocompleteGridActionsElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  private _setChildrenParameters(event: Event): void {
-    const elements = (event.target as HTMLSlotElement).assignedElements();
-    if (!elements.length) {
-      return;
-    }
-
-    elements
-      .filter(
-        (e): e is SbbAutocompleteGridButtonElement => e.tagName === 'SBB-AUTOCOMPLETE-GRID-BUTTON',
-      )
-      .forEach((element, index) => element.setAttribute('id', `${this.id}x${index}`));
-  }
-
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-autocomplete-grid-action">
-        <slot @slotchange=${this._setChildrenParameters}></slot>
+        <slot></slot>
       </span>
     `;
   }
