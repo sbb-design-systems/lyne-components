@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   --sbb-popover-position: absolute;
   --sbb-popover-position-x: 0;
@@ -23,6 +19,8 @@
   // As the popover has always a white background, we have to fix the focus outline color
   // to default color for cases where the popover is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
+  display: block;
 }
 
 :host([disable-animation]) {

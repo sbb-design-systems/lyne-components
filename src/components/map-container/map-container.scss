@@ -1,9 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   --sbb-map-container-map-height-zero: #{sbb.px-to-rem-build(295)};
   --sbb-map-container-map-height-small: #{sbb.px-to-rem-build(320)};
@@ -24,6 +20,8 @@
   @include sbb.mq($from: wide) {
     --sbb-map-container-sidebar-width: #{sbb.px-to-rem-build(480)};
   }
+
+  display: block;
 }
 
 .sbb-map-container {

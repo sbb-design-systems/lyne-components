@@ -2,10 +2,6 @@
 @use 'sass:color';
 @use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   --sbb-notification-opacity: 0;
   --sbb-notification-max-height: 0;
@@ -35,6 +31,8 @@
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
+  display: block;
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {

@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 @mixin horizontal-orientation {
   --sbb-checkbox-group-orientation: row;
   --sbb-checkbox-group-checkbox-width: auto;
@@ -16,6 +12,8 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
   --sbb-checkbox-group-width: max-content;
   --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
+
+  display: block;
 }
 
 :host([orientation='vertical']) {

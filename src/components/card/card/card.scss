@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 // # Stacking of action
 // To support content with actions that should be accessible, we have to stack the action and content like following:
 // The content is basically on top of the action, but is made pointer transparent with `pointer-events: none`.
@@ -11,6 +7,8 @@
 
 :host {
   @include sbb.card-variables;
+
+  display: block;
 }
 
 :host([color='milk']) {

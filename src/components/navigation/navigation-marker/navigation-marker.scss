@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
   --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);
@@ -17,6 +13,8 @@
     1em * var(--sbb-navigation-marker-typo-line-height) / 2 - var(--sbb-navigation-marker-border) /
       2
   );
+
+  display: block;
 }
 
 :host([size='s']) {

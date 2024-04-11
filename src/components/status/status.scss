@@ -1,9 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 $has-title: ':is([data-slot-names~=title], [title-content])';
 
 :host {
@@ -11,6 +7,8 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
   --sbb-status-icon-color: var(--sbb-color-iron);
   --sbb-status-text-color: var(--sbb-color-iron);
   --_sbb-status-icon-font-size: var(--sbb-font-size-text-s);
+
+  display: block;
 }
 
 :host([type='error']) {

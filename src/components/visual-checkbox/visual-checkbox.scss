@@ -1,9 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   --sbb-visual-checkbox-dimension: var(--sbb-size-icon-ui-small);
   --sbb-visual-checkbox-background-color: var(--sbb-color-white);
@@ -17,6 +13,8 @@
     --sbb-visual-checkbox-selection-color: Canvas;
     --sbb-visual-checkbox-border-width: 0;
   }
+
+  display: block;
 }
 
 :host([negative]) {

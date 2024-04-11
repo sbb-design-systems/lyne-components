@@ -14,21 +14,17 @@
   }
 }
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
-  @include sbb.pearl-chain-bullet-variables;
-
-  display: block;
-
   --sbb-pearl-chain-height: var(--sbb-border-width-2x);
   --sbb-pearl-chain-spacing-small: var(--sbb-spacing-fixed-1x);
   --sbb-pearl-chain-color: var(--sbb-pearl-chain-bullet-color);
   --sbb-pearl-chain-color-disruption: var(--sbb-pearl-chain-bullet-color-disruption);
   --sbb-pearl-chain-color-past: var(--sbb-pearl-chain-bullet-color-past);
   --sbb-pearl-chain-leg-width: 100%;
+
+  @include sbb.pearl-chain-bullet-variables;
+
+  display: block;
 }
 
 .sbb-pearl-chain {

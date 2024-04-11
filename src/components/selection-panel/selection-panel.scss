@@ -1,9 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 // Open/Close animation vars
 $open-anim-rows-from: 0fr;
 $open-anim-rows-to: 1fr;

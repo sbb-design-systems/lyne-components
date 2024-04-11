@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
@@ -15,6 +11,8 @@
   --sbb-menu-action-cursor: pointer;
   --sbb-menu-action-color: var(--sbb-color-white);
   --sbb-menu-action-forced-color-border-color: CanvasText;
+
+  display: block;
 }
 
 :host(:hover:not([disabled])) {

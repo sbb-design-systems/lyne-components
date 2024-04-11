@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   --sbb-train-wagon-width: var(--sbb-train-formation-wagon-width);
   --sbb-train-wagon-height: var(--sbb-train-formation-wagon-height);
@@ -19,6 +15,8 @@
   @include sbb.if-forced-colors {
     --sbb-train-wagon-shape-color-closed: CanvasText;
   }
+
+  display: block;
 }
 
 .sbb-train-wagon {

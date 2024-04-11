@@ -1,9 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   --sbb-logo-panel-color: var(--sbb-color-red);
   --sbb-logo-panel-stroke-color: var(--sbb-color-red);
@@ -21,6 +17,7 @@
     --sbb-logo-word-mark-color: ButtonText !important;
   }
 
+  display: block;
   height: var(--sbb-logo-height);
 }
 

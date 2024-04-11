@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   --sbb-radio-button-label-color: var(--sbb-color-charcoal);
   --sbb-radio-button-background-color: var(--sbb-color-white);
@@ -25,6 +21,8 @@
   --sbb-radio-button-icon-align: calc(
     (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-dimension)) / 2
   );
+
+  display: block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.

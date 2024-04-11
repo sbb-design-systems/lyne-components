@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-header-action-color: var(--sbb-color-black);

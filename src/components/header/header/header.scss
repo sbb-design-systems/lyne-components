@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
@@ -14,6 +10,8 @@
   @include sbb.mq($from: medium) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
   }
+
+  display: block;
 
   // Setting the height here reserves the space for the header which will else be lost with fixed position.
   height: var(--sbb-header-height);
