@@ -6,7 +6,7 @@ $open-anim-rows-to: 1fr;
 $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
 
-// Box-sizing rules contained in typography are not applied on this level. We need to include box-sizing for every component.
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
 :host {
