@@ -53,6 +53,7 @@
     "test:csr": "wtr --group default",
     "test:ssr:hydrated": "wtr --group e2e-ssr-hydrated",
     "test:ssr:non-hydrated": "wtr --group e2e-ssr-non-hydrated",
+    "test:visual-regression": "tsx tools/visual-regression-testing/exec.ts --group=visual-regression --all-browsers",
     "prepare": "husky"
   },
   "dependencies": {
@@ -90,6 +91,7 @@
     "@web/test-runner-commands": "0.9.0",
     "@web/test-runner-playwright": "0.11.0",
     "@web/test-runner-puppeteer": "0.16.0",
+    "@web/test-runner-visual-regression": "0.9.0",
     "chromatic": "11.3.2",
     "custom-elements-manifest": "2.1.0",
     "date-fns": "3.6.0",

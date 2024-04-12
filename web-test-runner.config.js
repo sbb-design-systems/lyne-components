@@ -2,6 +2,7 @@ import { defaultReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
+import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 import * as sass from 'sass';
 import { cpus } from 'node:os';
 
@@ -9,14 +10,18 @@ import {
   minimalReporter,
   patchedSummaryReporter,
   ssrPlugin,
+  visualRegressionConfig,
   vitePlugin,
 } from './tools/web-test-runner/index.js';
 
 const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');
+const allBrowsers = process.argv.includes('--all-browsers');
 const firefox = process.argv.includes('--firefox');
 const webkit = process.argv.includes('--webkit');
 const concurrency = process.argv.includes('--parallel') ? {} : { concurrency: 1 };
+const updateBaseImages =
+  process.argv.includes('--update-visual-baseline') || process.argv.includes('--uv');
 
 const stylesCompiler = new sass.initCompiler();
 const renderStyles = () =>
@@ -24,25 +29,26 @@ const renderStyles = () =>
     loadPaths: ['.', './node_modules/'],
   }).css;
 
-const browsers = isCIEnvironment
-  ? [
-      // Parallelism has problems, we need force concurrency to 1
-      playwrightLauncher({ product: 'chromium', ...concurrency }),
-      playwrightLauncher({ product: 'firefox', ...concurrency }),
-      playwrightLauncher({ product: 'webkit', ...concurrency }),
-    ]
-  : firefox
-    ? [playwrightLauncher({ product: 'firefox' })]
-    : webkit
-      ? [playwrightLauncher({ product: 'webkit' })]
-      : isDebugMode
-        ? [
-            puppeteerLauncher({
-              launchOptions: { headless: false, devtools: true },
-              ...concurrency,
-            }),
-          ]
-        : [playwrightLauncher({ product: 'chromium' })];
+const browsers =
+  isCIEnvironment || allBrowsers
+    ? [
+        // Parallelism has problems, we need force concurrency to 1
+        playwrightLauncher({ product: 'chromium', ...concurrency }),
+        playwrightLauncher({ product: 'firefox', ...concurrency }),
+        playwrightLauncher({ product: 'webkit', ...concurrency }),
+      ]
+    : firefox
+      ? [playwrightLauncher({ product: 'firefox' })]
+      : webkit
+        ? [playwrightLauncher({ product: 'webkit' })]
+        : isDebugMode
+          ? [
+              puppeteerLauncher({
+                launchOptions: { headless: false, devtools: true },
+                ...concurrency,
+              }),
+            ]
+          : [playwrightLauncher({ product: 'chromium' })];
 
 const groupNameOverride = process.argv.includes('--ssr-hydrated')
   ? 'e2e-ssr-hydrated'
@@ -82,11 +88,12 @@ const suppressedLogs = [
 
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
-  files: ['src/**/*.{e2e,spec}.ts'],
+  files: ['src/**/*.{e2e,spec,!snapshot.spec}.ts'],
   groups: [
     // Disable ssr tests until stabilized.
     // { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
     // { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+    { name: 'visual-regression', files: 'src/**/*.snapshot.spec.ts', testRunnerHtml },
   ],
   nodeResolve: true,
   concurrency: resolveConcurrency(),
@@ -95,7 +102,12 @@ export default {
       ? [defaultReporter(), patchedSummaryReporter()]
       : [minimalReporter()],
   browsers: browsers,
-  plugins: [a11ySnapshotPlugin(), ssrPlugin(), vitePlugin()],
+  plugins: [
+    a11ySnapshotPlugin(),
+    ssrPlugin(),
+    vitePlugin(),
+    visualRegressionPlugin(visualRegressionConfig(updateBaseImages)),
+  ],
   testFramework: {
     config: {
       timeout: '10000',
