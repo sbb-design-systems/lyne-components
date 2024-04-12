@@ -1,4 +1,4 @@
-FROM nginxinc/nginx-unprivileged:stable
+FROM ghcr.io/nginxinc/nginx-unprivileged:stable
 
 # Copy nginx configuration
 COPY ./.github/default.conf /etc/nginx/conf.d/default.conf

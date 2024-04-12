@@ -151,3 +151,35 @@ jobs:
           zip: true
           onlyChanged: true
           externals: '**/components/core/styles/**/*.scss'
+
+  visual-regression:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: [test]
+    env:
+      IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/${{ github.repository }}/visual-regression
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Install browser dependencies
+        run: yarn playwright install-deps
+      - name: Run tests
+        run: yarn test:visual-regression --update-visual-baseline
+        env:
+          NODE_ENV: production
+
+      - name: Build and push visual regression baseline
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+          docker build \
+            --file tools/visual-regression-testing/baseline.Dockerfile \
+            --tag $IMAGE_REPO_VISUAL_REGRESSION:baseline \
+            .
+          docker push $IMAGE_REPO_VISUAL_REGRESSION:baseline
