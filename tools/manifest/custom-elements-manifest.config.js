@@ -48,7 +48,8 @@ export default {
         for (const module of customElementsManifest.modules) {
           fixModulePaths(module, fixTsPaths);
           for (const declaration of module.declarations.filter((d) => d.kind === 'class')) {
-            if (declaration.name === 'SbbIconBase') {
+            // Abstract base classes are considered components even if they don't have the `customElement` annotation.
+            if (declaration.name.includes('Base')) {
               delete declaration.customElement;
             }
             for (const member of declaration.members) {
