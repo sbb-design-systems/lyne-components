@@ -109,7 +109,7 @@
     "lit-analyzer": "2.0.3",
     "madge": "7.0.0",
     "npm-run-all2": "6.1.2",
-    "playwright": "1.43.0",
+    "playwright": "1.43.1",
     "postcss": "8.4.38",
     "prettier": "3.2.5",
     "react": "18.2.0",
