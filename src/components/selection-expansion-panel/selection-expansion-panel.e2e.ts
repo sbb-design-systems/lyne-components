@@ -23,7 +23,6 @@ import '../selection-expansion-panel.js';
 import '../checkbox.js';
 import '../radio-button.js';
 
-
 describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
   let elements: SbbSelectionExpansionPanelElement[];
 
