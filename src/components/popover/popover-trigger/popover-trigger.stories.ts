@@ -7,10 +7,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../../link/index.js';
-import '../popover/index.js';
+import '../../link.js';
+import '../popover.js';
 import './popover-trigger.js';
-import '../../title/index.js';
+import '../../title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

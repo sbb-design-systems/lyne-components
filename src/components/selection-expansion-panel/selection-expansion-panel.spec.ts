@@ -1,15 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import '../card/card-badge/index.js';
-import '../checkbox/index.js';
+import './selection-expansion-panel.js';
+import '../card/card-badge.js';
+import '../checkbox.js';
+import '../checkbox/checkbox-panel.js';
 
 import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
-
-import '../checkbox/checkbox-panel/index.js';
-import './selection-expansion-panel.js';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let element: SbbSelectionExpansionPanelElement;

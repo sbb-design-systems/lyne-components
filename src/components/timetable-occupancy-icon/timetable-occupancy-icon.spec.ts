@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private/index.js';
+import { fixture } from '../core/testing/private.js';
 
 import './timetable-occupancy-icon.js';
 

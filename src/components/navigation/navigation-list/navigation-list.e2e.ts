@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private/index.js';
+import { fixture } from '../../core/testing/private.js';
 
 import { SbbNavigationListElement } from './navigation-list.js';
 
-import '../navigation-button/index.js';
+import '../navigation-button.js';
 
 describe(`sbb-navigation-list with ${fixture.name}`, () => {
   let element: SbbNavigationListElement;
@@ -18,7 +18,7 @@ describe(`sbb-navigation-list with ${fixture.name}`, () => {
           <sbb-navigation-button>Label 2</sbb-navigation-button>
         </sbb-navigation-list>
       `,
-      { modules: ['./navigation-list.ts', '../navigation-button/index.ts'] },
+      { modules: ['./navigation-list.ts', '../navigation-button.ts'] },
     );
   });
 

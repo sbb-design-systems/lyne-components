@@ -1,5 +1,5 @@
-import type { SbbIconConfig } from '../core/config/index.js';
-import { readConfig } from '../core/config/index.js';
+import type { SbbIconConfig } from '../core/config.js';
+import { readConfig } from '../core/config.js';
 
 import { validateContent } from './icon-validate.js';
 

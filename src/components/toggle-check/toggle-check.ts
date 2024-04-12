@@ -2,9 +2,9 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../core/controllers/index.js';
-import { SbbFormAssociatedCheckboxMixin } from '../core/mixins/index.js';
-import { SbbIconNameMixin } from '../icon/index.js';
+import { SbbSlotStateController } from '../core/controllers.js';
+import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.js';
+import { SbbIconNameMixin } from '../icon.js';
 
 import style from './toggle-check.scss?lit&inline';
 

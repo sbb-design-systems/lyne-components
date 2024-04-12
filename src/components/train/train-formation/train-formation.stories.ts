@@ -6,10 +6,10 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../../icon/index.js';
-import '../train/index.js';
-import '../train-wagon/index.js';
-import '../train-blocked-passage/index.js';
+import '../../icon.js';
+import '../train.js';
+import '../train-wagon.js';
+import '../train-blocked-passage.js';
 import './train-formation.js';
 
 const MountedFormationTemplate = (args: Args): TemplateResult => html`

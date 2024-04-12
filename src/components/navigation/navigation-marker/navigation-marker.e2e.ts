@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
 
 import { SbbNavigationMarkerElement } from './navigation-marker.js';
 
-import '../navigation-button/index.js';
+import '../navigation-button.js';
 
 describe(`sbb-navigation-marker with ${fixture.name}`, () => {
   let element: SbbNavigationMarkerElement;
@@ -19,7 +19,7 @@ describe(`sbb-navigation-marker with ${fixture.name}`, () => {
         <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
         <sbb-navigation-button id="nav-4">Help & Contact</sbb-navigation-button>
       </sbb-navigation-marker>`,
-      { modules: ['./navigation-marker.ts', '../navigation-button/index.ts'] },
+      { modules: ['./navigation-marker.ts', '../navigation-button.ts'] },
     );
   });
 

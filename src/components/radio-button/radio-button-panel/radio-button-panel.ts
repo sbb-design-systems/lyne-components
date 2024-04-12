@@ -1,19 +1,19 @@
 import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers/index.js';
-import { setOrRemoveAttribute } from '../../core/dom/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { i18nCollapsed, i18nExpanded } from '../../core/i18n/index.js';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins/index.js';
-import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel/index.js';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nCollapsed, i18nExpanded } from '../../core/i18n.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel.js';
 import {
   SbbRadioButtonCommonElementMixin,
   commonStyle,
   type SbbRadioButtonStateChange,
 } from '../common/index.js';
 
-import '../../screen-reader-only/index.js';
+import '../../screen-reader-only.js';
 import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
 
 /**

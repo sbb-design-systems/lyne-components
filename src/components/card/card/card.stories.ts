@@ -16,10 +16,10 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './card.js';
-import '../card-badge/index.js';
-import '../card-button/index.js';
-import '../card-link/index.js';
-import '../../title/index.js';
+import '../card-badge.js';
+import '../card-button.js';
+import '../card-link.js';
+import '../../title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color':

@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 import type { SinonStub } from 'sinon';
 import { stub } from 'sinon';
 
-import { i18nOccupancy } from '../core/i18n/index.js';
-import { waitForLitRender } from '../core/testing/index.js';
-import { fixture } from '../core/testing/private/index.js';
+import { i18nOccupancy } from '../core/i18n.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
 import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.js';
 

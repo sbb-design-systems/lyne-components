@@ -1,8 +1,8 @@
 import { defaultConverter, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../decorators/index.js';
-import { preventScrollOnSpacebarPress } from '../eventing/index.js';
+import { hostAttributes } from '../decorators.js';
+import { preventScrollOnSpacebarPress } from '../eventing.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';

@@ -1,10 +1,10 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { mergeConfig, type SbbIconConfig } from '../core/config/index.js';
-import { readConfig } from '../core/config/index.js';
-import { waitForLitRender } from '../core/testing/index.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
+import { mergeConfig, type SbbIconConfig } from '../core/config.js';
+import { readConfig } from '../core/config.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
 import type { SbbIconElement } from './icon.js';
 

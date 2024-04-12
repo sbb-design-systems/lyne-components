@@ -8,23 +8,25 @@ import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../form-error/index.js';
+import type { SbbFormErrorElement } from '../form-error.js';
 import type {
   SbbRadioButtonGroupElement,
   SbbRadioButtonGroupEventDetail,
-} from '../radio-button/index.js';
+} from '../radio-button.js';
+import { SbbSelectionExpansionPanelElement } from '../selection-expansion-panel.js';
 
-import '../card/index.js';
-import '../checkbox/index.js';
-import '../divider/index.js';
-import '../form-error/index.js';
-import '../icon/index.js';
-import '../link/block-link-button/index.js';
-import '../popover/index.js';
-import '../radio-button/index.js';
-import '../title/index.js';
+import '../card.js';
+import '../checkbox.js';
+import '../checkbox/checkbox-panel.js';
+import '../divider.js';
+import '../form-error.js';
+import '../icon.js';
+import '../link/block-link-button.js';
+import '../popover.js';
+import '../radio-button.js';
+import '../title.js';
+
 import readme from './readme.md?raw';
-import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
 
 const color: InputType = {
   control: {

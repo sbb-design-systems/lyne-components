@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../button/index.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
+import type { SbbSecondaryButtonElement } from '../button.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
 import type { SbbActionGroupElement } from './action-group.js';
 import './action-group.js';
-import '../button/secondary-button/index.js';
-import '../link/block-link/index.js';
+import '../button/secondary-button.js';
+import '../link/block-link.js';
 
 describe(`sbb-action-group`, () => {
   describe('renders', () => {

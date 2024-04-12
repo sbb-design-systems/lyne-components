@@ -9,9 +9,9 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './checkbox.js';
-import '../../card/index.js';
-import '../../button/button/index.js';
-import '../../button/secondary-button/index.js';
+import '../../card.js';
+import '../../button/button.js';
+import '../../button/secondary-button.js';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

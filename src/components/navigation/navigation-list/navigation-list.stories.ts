@@ -9,7 +9,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './navigation-list.js';
-import '../navigation-button/index.js';
+import '../navigation-button.js';
 
 const label: InputType = {
   control: {

@@ -1,16 +1,17 @@
 import { LitElement, html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../../core/controllers/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import type { SbbIconPlacement } from '../../core/interfaces/types.js';
-import { SbbIconNameMixin } from '../../icon/icon-name-mixin.js';
-import { SbbCheckboxCommonElementMixin, commonStyle } from '../common/index.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type { SbbIconPlacement } from '../../core/interfaces.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import { SbbCheckboxCommonElementMixin } from '../common/checkbox-common.js';
+import { commonStyle } from '../common/index.js';
 
 import checkboxStyle from './checkbox.scss?lit&inline';
 
-import '../../screen-reader-only/index.js';
-import '../../visual-checkbox/index.js';
+import '../../screen-reader-only.js';
+import '../../visual-checkbox.js';
 
 export type SbbCheckboxSize = 's' | 'm';
 

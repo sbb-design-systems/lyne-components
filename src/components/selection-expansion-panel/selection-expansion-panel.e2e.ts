@@ -3,16 +3,25 @@ import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbCheckboxElement, SbbCheckboxGroupElement } from '../checkbox/index.js';
-import { SbbCheckboxPanelElement } from '../checkbox/index.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing/index.js';
-import { fixture } from '../core/testing/private/index.js';
-import type { SbbRadioButtonElement, SbbRadioButtonGroupElement } from '../radio-button/index.js';
-import { SbbRadioButtonPanelElement } from '../radio-button/index.js';
-
-import '../link/block-link-button/index.js';
+import {
+  SbbCheckboxPanelElement,
+  type SbbCheckboxElement,
+  type SbbCheckboxGroupElement,
+} from '../checkbox.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+import {
+  SbbRadioButtonPanelElement,
+  type SbbRadioButtonElement,
+  type SbbRadioButtonGroupElement,
+} from '../radio-button.js';
 
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
+
+import '../link/block-link-button.js';
+import '../selection-expansion-panel.js';
+import '../checkbox.js';
+import '../radio-button.js';
 
 describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
   let elements: SbbSelectionExpansionPanelElement[];
@@ -135,11 +144,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
       didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen);
 
       wrapper = await fixture(getPageContent('radio-button'), {
-        modules: [
-          './selection-expansion-panel.ts',
-          '../button/index.ts',
-          '../radio-button/index.ts',
-        ],
+        modules: ['./selection-expansion-panel.ts', '../button.ts', '../radio-button.ts'],
       });
       elements = Array.from(wrapper.querySelectorAll('sbb-selection-expansion-panel'));
       firstPanel = wrapper.querySelector<SbbSelectionExpansionPanelElement>(
@@ -290,8 +295,8 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
         `,
         {
           modules: [
-            '../radio-button/radio-button-group/index.ts',
-            '../radio-button/radio-button-panel/index.ts',
+            '../radio-button/radio-button.ts',
+            '../radio-button/radio-button-panel.ts',
             './selection-expansion-panel.ts',
           ],
         },
@@ -376,7 +381,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           </sbb-radio-button-group>
         `,
         {
-          modules: ['../radio-button/index.ts', './selection-expansion-panel.ts'],
+          modules: ['../radio-button.ts', './selection-panel.ts', '../radio-button.ts'],
         },
       );
       panel1 = nestedElement.querySelector<SbbSelectionExpansionPanelElement>('#panel1')!;
@@ -514,7 +519,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           </div>
         `,
         {
-          modules: ['../radio-button/index.ts', './selection-expansion-panel.ts'],
+          modules: ['./selection-panel.ts', '../radio-button.ts', '../radio-button.ts'],
         },
       );
 
@@ -559,7 +564,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
       didCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didClose);
 
       wrapper = await fixture(getPageContent('checkbox'), {
-        modules: ['./selection-expansion-panel.ts', '../button/index.ts', '../checkbox/index.ts'],
+        modules: ['./selection-panel.ts', '../button.ts', '../checkbox.ts'],
       });
       elements = Array.from(wrapper.querySelectorAll('sbb-selection-expansion-panel'));
       firstPanel = wrapper.querySelector<SbbSelectionExpansionPanelElement>(
@@ -718,9 +723,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
             </sbb-selection-expansion-panel>
           </sbb-checkbox-group>
         `,
-        {
-          modules: ['../checkbox/index.ts', './selection-expansion-panel.ts'],
-        },
+        { modules: ['../checkbox.ts', './selection-panel.ts', '../checkbox.ts'] },
       );
     });
 

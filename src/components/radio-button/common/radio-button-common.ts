@@ -1,16 +1,16 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import { HandlerRepository, formElementHandlerAspect } from '../../core/eventing/index.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { HandlerRepository, formElementHandlerAspect } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
-} from '../../core/interfaces/index.js';
-import type { AbstractConstructor } from '../../core/mixins/index.js';
-import type { SbbRadioButtonGroupElement } from '../radio-button-group/index.js';
+} from '../../core/interfaces.js';
+import type { AbstractConstructor } from '../../core/mixins.js';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
 
 export type SbbRadioButtonStateChange = Extract<
   SbbStateChange,

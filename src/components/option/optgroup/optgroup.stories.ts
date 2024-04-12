@@ -12,10 +12,10 @@ import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
-import '../../form-field/index.js';
-import '../../autocomplete/index.js';
-import '../../select/index.js';
-import '../option/index.js';
+import '../../form-field.js';
+import '../../autocomplete.js';
+import '../../select.js';
+import '../option.js';
 import './optgroup.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

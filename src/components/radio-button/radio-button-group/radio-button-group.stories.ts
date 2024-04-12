@@ -5,13 +5,13 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../../form-error/index.js';
+import type { SbbFormErrorElement } from '../../form-error.js';
 
-import '../../form-error/index.js';
-import '../radio-button/index.js';
-import '../radio-button-panel/index.js';
-import './radio-button-group.js';
 import readme from './readme.md?raw';
+import './radio-button-group.js';
+import '../radio-button.js';
+import '../radio-button-panel.js';
+import '../../form-error.js';
 
 const value: InputType = {
   control: {

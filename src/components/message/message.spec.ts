@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
 import type { SbbMessageElement } from './message.js';
 import './message.js';
-import '../image/index.js';
-import '../button/button/index.js';
+import '../image.js';
+import '../button/button.js';
 
 describe(`sbb-message`, () => {
   describe('renders', () => {

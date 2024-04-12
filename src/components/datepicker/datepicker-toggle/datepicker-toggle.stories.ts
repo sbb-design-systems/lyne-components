@@ -17,10 +17,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
-import type { SbbPopoverTriggerElement } from '../../popover/index.js';
+import type { SbbPopoverTriggerElement } from '../../popover.js';
 
-import '../../form-field/index.js';
-import '../datepicker/index.js';
+import '../../form-field.js';
+import '../datepicker.js';
 
 import './datepicker-toggle.js';
 import readme from './readme.md?raw';

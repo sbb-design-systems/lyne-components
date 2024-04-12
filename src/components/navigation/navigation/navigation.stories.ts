@@ -18,13 +18,13 @@ import { waitForComponentsReady } from '../../../storybook/testing/wait-for-comp
 
 import { SbbNavigationElement } from './navigation.js';
 import readme from './readme.md?raw';
-import '../navigation-section/index.js';
-import '../navigation-marker/index.js';
-import '../navigation-list/index.js';
-import '../navigation-button/index.js';
-import '../navigation-link/index.js';
-import '../../button/button/index.js';
-import '../../button/secondary-button/index.js';
+import '../navigation-section.js';
+import '../navigation-marker.js';
+import '../navigation-list.js';
+import '../navigation-button.js';
+import '../navigation-link.js';
+import '../../button/button.js';
+import '../../button/secondary-button.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

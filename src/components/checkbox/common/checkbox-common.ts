@@ -5,7 +5,7 @@ import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
-} from '../../core/interfaces/index.js';
+} from '../../core/interfaces.js';
 import {
   SbbFormAssociatedCheckboxMixin,
   SbbHydrationMixin,
@@ -14,8 +14,8 @@ import {
   type SbbFormAssociatedCheckboxMixinType,
   type SbbHydrationMixinType,
   type SbbRequiredMixinType,
-} from '../../core/mixins/index.js';
-import type { SbbCheckboxGroupElement } from '../checkbox-group/index.js';
+} from '../../core/mixins.js';
+import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
 
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,

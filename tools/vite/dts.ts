@@ -6,6 +6,7 @@ export function dts(): Plugin {
     entryRoot: '.',
     exclude: ['**/*[.-]{stories,spec,e2e,test-utils}.ts', '**/private/*', 'vite.config.ts'],
     pathsToAliases: false,
+    strictOutput: false,
     afterDiagnostic(diagnostics) {
       if (diagnostics.length) {
         throw new Error('dts generation for react package failed! See logs for details.');

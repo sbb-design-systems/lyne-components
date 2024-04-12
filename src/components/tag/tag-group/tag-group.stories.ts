@@ -6,11 +6,11 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbTagElement } from '../tag/index.js';
+import type { SbbTagElement } from '../tag.js';
 
 import readme from './readme.md?raw';
 import './tag-group.js';
-import '../tag/index.js';
+import '../tag.js';
 import type { SbbTagGroupElement } from './tag-group.js';
 
 const uncheckAllTag = (event: Event): void => {
