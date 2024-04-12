@@ -3,16 +3,16 @@ import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type {
-  SbbCheckboxElement,
+import {
   SbbCheckboxPanelElement,
+  type SbbCheckboxElement,
   type SbbCheckboxGroupElement,
 } from '../checkbox.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
-import type {
-  SbbRadioButtonElement,
+import {
   SbbRadioButtonPanelElement,
+  type SbbRadioButtonElement,
   type SbbRadioButtonGroupElement,
 } from '../radio-button.js';
 
