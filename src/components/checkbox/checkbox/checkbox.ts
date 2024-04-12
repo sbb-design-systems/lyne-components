@@ -6,7 +6,7 @@ import { EventEmitter } from '../../core/eventing.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import { SbbCheckboxCommonElementMixin } from '../common/checkbox-common.js';
-import { commonStyle } from '../common/index.js';
+import { commonStyle } from '../common.js';
 
 import checkboxStyle from './checkbox.scss?lit&inline';
 

@@ -16,7 +16,7 @@ import {
   SbbCheckboxCommonElementMixin,
   commonStyle,
   type SbbCheckboxStateChange,
-} from '../common/index.js';
+} from '../common.js';
 
 import '../../screen-reader-only.js';
 import '../../visual-checkbox.js';

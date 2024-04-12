@@ -11,7 +11,7 @@ import {
   SbbRadioButtonCommonElementMixin,
   commonStyle,
   type SbbRadioButtonStateChange,
-} from '../common/index.js';
+} from '../common.js';
 
 import '../../screen-reader-only.js';
 import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
