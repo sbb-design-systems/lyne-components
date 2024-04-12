@@ -8,6 +8,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
+import { hostAttributes } from '../../core/decorators.js';
 import { isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
@@ -24,6 +25,7 @@ import '../../divider.js';
  */
 const inertAriaGroups = isSafari();
 
+@hostAttributes({ role: !inertAriaGroups ? 'group' : null })
 export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
   SbbHydrationMixin(LitElement),
 ) {
