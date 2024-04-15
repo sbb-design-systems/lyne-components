@@ -1,7 +1,9 @@
 import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
 import { dirname, extname, join } from 'path';
 
-const baselineUrl = 'http://localhost:8080/'; //'https://lyne-visual-regression-baseline.app.sbb.ch/';
+const baselineUrl = process.env.CI
+  ? 'http://localhost:8050/'
+  : 'https://lyne-visual-regression-baseline.app.sbb.ch/';
 
 export const visualRegressionConfig = (update) =>
   /** @type {Parameters<import('@web/test-runner-visual-regression/plugin').visualRegressionPlugin>[0]} */
@@ -45,8 +47,7 @@ export const visualRegressionConfig = (update) =>
         if (response.status === 200) {
           return await downloadFile();
         } else if (response.status === 404) {
-          unlinkSync(cacheFile);
-          unlinkSync(cacheFileDetails);
+          [cacheFile, cacheFileDetails].forEach(unlinkSync);
         } else if (response.status === 304) {
           return readFileSync(cacheFile);
         } else {
