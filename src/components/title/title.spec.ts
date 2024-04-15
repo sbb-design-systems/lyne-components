@@ -1,11 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import './title';
+import './title.js';
 
-describe('sbb-title', () => {
+describe(`sbb-title`, () => {
   it('renders', async () => {
     const root = await fixture(
       html`<sbb-title level="1" visual-level="2">Sample Title Text</sbb-title>`,

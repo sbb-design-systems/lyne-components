@@ -1,27 +1,31 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import type { SbbRadioButtonElement } from '../radio-button';
-import '../radio-button';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import type { SbbRadioButtonElement } from '../radio-button.js';
+import '../radio-button.js';
 
-import { SbbRadioButtonGroupElement } from './radio-button-group';
+import { SbbRadioButtonGroupElement } from './radio-button-group.js';
 
-describe('sbb-radio-button-group', () => {
+describe(`sbb-radio-button-group with ${fixture.name}`, () => {
   let element: SbbRadioButtonGroupElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-radio-button-group value="Value one">
-        <sbb-radio-button id="sbb-radio-1" value="Value one">Value one</sbb-radio-button>
-        <sbb-radio-button id="sbb-radio-2" value="Value two">Value two</sbb-radio-button>
-        <sbb-radio-button id="sbb-radio-3" value="Value three" disabled
-          >Value three</sbb-radio-button
-        >
-        <sbb-radio-button id="sbb-radio-4" value="Value four">Value four</sbb-radio-button>
-      </sbb-radio-button-group>
-    `);
+    element = await fixture(
+      html`
+        <sbb-radio-button-group value="Value one">
+          <sbb-radio-button id="sbb-radio-1" value="Value one">Value one</sbb-radio-button>
+          <sbb-radio-button id="sbb-radio-2" value="Value two">Value two</sbb-radio-button>
+          <sbb-radio-button id="sbb-radio-3" value="Value three" disabled
+            >Value three</sbb-radio-button
+          >
+          <sbb-radio-button id="sbb-radio-4" value="Value four">Value four</sbb-radio-button>
+        </sbb-radio-button-group>
+      `,
+      { modules: ['./radio-button-group.ts', '../radio-button.ts'] },
+    );
   });
 
   it('renders', () => {

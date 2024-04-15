@@ -1,11 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
 
-import './menu-link';
+import './menu-link.js';
 
-describe('sbb-menu-link', () => {
+describe(`sbb-menu-link`, () => {
   it('renders component with icon and amount', async () => {
     const root = await fixture(html`
       <sbb-menu-link
@@ -17,8 +17,6 @@ describe('sbb-menu-link', () => {
         <span>Action</span>
       </sbb-menu-link>
     `);
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
       <sbb-menu-link amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" dir="ltr" data-action data-link>
@@ -45,9 +43,9 @@ describe('sbb-menu-link', () => {
             123456
           </span>
         </span>
-        <sbb-screenreader-only>
+        <sbb-screen-reader-only>
           . Link target opens in a new window.
-        </sbb-screenreader-only>
+        </sbb-screen-reader-only>
       </a>
     `);
   });

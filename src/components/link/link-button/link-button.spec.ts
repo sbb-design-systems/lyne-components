@@ -1,12 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbLinkButtonElement } from './link-button';
-import './link-button';
+import type { SbbLinkButtonElement } from './link-button.js';
 
-describe('sbb-link-button', () => {
+import './link-button.js';
+
+describe(`sbb-link-button`, () => {
   let element: SbbLinkButtonElement;
 
   beforeEach(async () => {

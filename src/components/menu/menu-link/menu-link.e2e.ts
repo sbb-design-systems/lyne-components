@@ -1,17 +1,19 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import { SbbMenuLinkElement } from './menu-link';
+import { SbbMenuLinkElement } from './menu-link.js';
 
-describe('sbb-menu-link', () => {
+describe(`sbb-menu-link with ${fixture.name}`, () => {
   let element: SbbMenuLinkElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-menu-link href="#" id="focus-id">Menu Action</sbb-menu-link>`,
+      { modules: ['./menu-link.ts'] },
     );
   });
 

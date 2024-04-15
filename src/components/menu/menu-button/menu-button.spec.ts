@@ -1,11 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
 
-import './menu-button';
+import './menu-button.js';
 
-describe('sbb-menu-button', () => {
+describe(`sbb-menu-button`, () => {
   it('renders', async () => {
     const root = await fixture(html`
       <sbb-menu-button form="formid" name="name" type="submit">
@@ -38,8 +38,6 @@ describe('sbb-menu-button', () => {
         <span>Action</span>
       </sbb-menu-button>
     `);
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
       <sbb-menu-button amount="123456" icon-name="menu-small" role="button" tabindex="0" dir="ltr" data-action data-button>

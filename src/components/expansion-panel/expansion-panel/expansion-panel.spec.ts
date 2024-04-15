@@ -1,14 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbExpansionPanelElement } from './expansion-panel';
-import './expansion-panel';
-import '../expansion-panel-header';
-import '../expansion-panel-content';
+import type { SbbExpansionPanelElement } from './expansion-panel.js';
 
-describe('sbb-expansion-panel', () => {
+import './expansion-panel.js';
+import '../expansion-panel-header.js';
+import '../expansion-panel-content.js';
+
+describe(`sbb-expansion-panel`, () => {
   describe('renders', () => {
     let element: SbbExpansionPanelElement;
 
@@ -28,8 +29,6 @@ describe('sbb-expansion-panel', () => {
     it('ShadowDom', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot();
   });
 
   describe('renders with level set', () => {
@@ -51,5 +50,7 @@ describe('sbb-expansion-panel', () => {
     it('ShadowDom', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 });

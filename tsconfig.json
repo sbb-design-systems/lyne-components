@@ -40,13 +40,22 @@
         "rules": {
           // The following rules are broken
           "no-incompatible-type-binding": "off",
-          "no-missing-import": "off"
+          // In the calendar we have properties, that support Date/string/number values
+          // TODO: Maybe change the signature to only accept a date object.
+          "no-incompatible-property-type": "off",
+          "no-unknown-tag-name": "error",
+          "no-missing-import": "error",
+          "no-missing-element-type-definition": "error",
+          "no-unknown-attribute": "error",
+          "no-unknown-property": "error",
+          "no-unknown-slot": "error"
         },
         "globalAttributes": [
           "align-self",
           "sbb-dialog-close",
           "sbb-navigation-close",
           "sbb-navigation-section-close",
+          "sbb-overlay-close",
           "sbb-popover-close",
           "sbb-toast-close",
           "sbb-stepper-next",

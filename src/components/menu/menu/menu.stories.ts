@@ -9,22 +9,22 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
-import { SbbMenuElement } from './menu';
+import { SbbMenuElement } from './menu.js';
 import readme from './readme.md?raw';
 
-import '../../button/button';
-import '../../divider';
-import '../../link';
-import '../menu-button';
-import '../menu-link';
+import '../../button/button.js';
+import '../../divider.js';
+import '../../link.js';
+import '../menu-button.js';
+import '../menu-link.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

@@ -1,18 +1,19 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import images from '../core/images';
-import { waitForLitRender } from '../core/testing';
+import images from '../core/images.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
-import { SbbTeaserHeroElement } from './teaser-hero';
-import '.';
+import { SbbTeaserHeroElement } from './teaser-hero.js';
 
-describe('sbb-teaser-hero', () => {
+describe(`sbb-teaser-hero with ${fixture.name}`, () => {
   let element: SbbTeaserHeroElement;
 
   it('renders', async () => {
     element = await fixture(
       html`<sbb-teaser-hero href="https://www.sbb.ch" image-src="${images[0]}"></sbb-teaser-hero>`,
+      { modules: ['./teaser-hero.ts'] },
     );
     assert.instanceOf(element, SbbTeaserHeroElement);
   });
@@ -20,6 +21,7 @@ describe('sbb-teaser-hero', () => {
   it('should receive focus', async () => {
     element = await fixture(
       html`<sbb-teaser-hero href="link" id="focus-id">Hero content</sbb-teaser-hero>`,
+      { modules: ['./teaser-hero.ts'] },
     );
 
     element.focus();

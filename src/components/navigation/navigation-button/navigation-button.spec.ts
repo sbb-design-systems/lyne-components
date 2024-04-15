@@ -1,30 +1,28 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './navigation-button';
 
-describe('sbb-navigation-button', () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-navigation-button></sbb-navigation-button>`);
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-navigation-button size="l" role="button" tabindex="0" dir="ltr" data-action data-button>
-        </sbb-navigation-button>
-      `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-action-base sbb-navigation-button">
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            name="dash-small"
-            role="img"
-          >
-          </sbb-icon>
-          <slot></slot>
-        </span>
-      `,
-    );
+import type { SbbNavigationButtonElement } from './navigation-button.js';
+
+import './navigation-button.js';
+
+describe(`sbb-navigation-button`, () => {
+  let element: SbbNavigationButtonElement;
+
+  describe('renders', async () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-navigation-button>Button</sbb-navigation-button>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 });

@@ -5,9 +5,9 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbAlertElement } from './alert';
+import { SbbAlertElement } from './alert.js';
 import readme from './readme.md?raw';
 
 const Default = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`

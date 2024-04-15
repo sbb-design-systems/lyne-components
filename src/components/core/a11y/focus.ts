@@ -1,4 +1,4 @@
-import { interactivityChecker } from './interactivity-checker';
+import { interactivityChecker } from './interactivity-checker.js';
 
 export const IS_FOCUSABLE_QUERY = [
   'button',
@@ -73,7 +73,7 @@ export function getFirstFocusableElement(
   return focusableElements.length ? focusableElements[0] : null;
 }
 
-export class FocusHandler {
+export class SbbFocusHandler {
   private _controller = new AbortController();
 
   /**

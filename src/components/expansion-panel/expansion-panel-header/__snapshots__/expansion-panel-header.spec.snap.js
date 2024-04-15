@@ -112,19 +112,3 @@ snapshots["sbb-expansion-panel-header A11y tree Firefox"] =
 `;
 /* end snapshot sbb-expansion-panel-header A11y tree Firefox */
 
-snapshots["sbb-expansion-panel-header A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Header"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-expansion-panel-header A11y tree Safari */
-

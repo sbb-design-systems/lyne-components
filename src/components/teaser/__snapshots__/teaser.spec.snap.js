@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser renders after centered - DOM"] = 
+snapshots["sbb-teaser renders after centered DOM"] = 
 `<sbb-teaser
   alignment="after-centered"
   aria-label="SBB teaser"
@@ -14,9 +14,9 @@ snapshots["sbb-teaser renders after centered - DOM"] =
 >
 </sbb-teaser>
 `;
-/* end snapshot sbb-teaser renders after centered - DOM */
+/* end snapshot sbb-teaser renders after centered DOM */
 
-snapshots["sbb-teaser renders after centered - ShadowDOM"] = 
+snapshots["sbb-teaser renders after centered Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-teaser"
   href="https://github.com/lyne-design-system/lyne-components"
@@ -55,9 +55,32 @@ snapshots["sbb-teaser renders after centered - ShadowDOM"] =
   </span>
 </a>
 `;
-/* end snapshot sbb-teaser renders after centered - ShadowDOM */
+/* end snapshot sbb-teaser renders after centered Shadow DOM */
 
-snapshots["sbb-teaser renders after with title level set - DOM"] = 
+snapshots["sbb-teaser renders after centered A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "SBB teaser",
+      "children": [
+        {
+          "role": "link",
+          "name": "​",
+          "value": "https://github.com/lyne-design-system/lyne-components"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser renders after centered A11y tree Firefox */
+
+snapshots["sbb-teaser renders after with title level set DOM"] = 
 `<sbb-teaser
   alignment="after"
   aria-label="SBB teaser"
@@ -71,9 +94,9 @@ snapshots["sbb-teaser renders after with title level set - DOM"] =
 >
 </sbb-teaser>
 `;
-/* end snapshot sbb-teaser renders after with title level set - DOM */
+/* end snapshot sbb-teaser renders after with title level set DOM */
 
-snapshots["sbb-teaser renders after with title level set - ShadowDOM"] = 
+snapshots["sbb-teaser renders after with title level set Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-teaser"
   href="https://github.com/lyne-design-system/lyne-components"
@@ -112,9 +135,9 @@ snapshots["sbb-teaser renders after with title level set - ShadowDOM"] =
   </span>
 </a>
 `;
-/* end snapshot sbb-teaser renders after with title level set - ShadowDOM */
+/* end snapshot sbb-teaser renders after with title level set Shadow DOM */
 
-snapshots["sbb-teaser renders below with projected content - DOM"] = 
+snapshots["sbb-teaser renders below with projected content DOM"] = 
 `<sbb-teaser
   alignment="below"
   aria-label="SBB teaser"
@@ -140,9 +163,9 @@ snapshots["sbb-teaser renders below with projected content - DOM"] =
   description
 </sbb-teaser>
 `;
-/* end snapshot sbb-teaser renders below with projected content - DOM */
+/* end snapshot sbb-teaser renders below with projected content DOM */
 
-snapshots["sbb-teaser renders below with projected content - ShadowDOM"] = 
+snapshots["sbb-teaser renders below with projected content Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-teaser"
   href="https://github.com/lyne-design-system/lyne-components"
@@ -181,9 +204,9 @@ snapshots["sbb-teaser renders below with projected content - ShadowDOM"] =
   </span>
 </a>
 `;
-/* end snapshot sbb-teaser renders below with projected content - ShadowDOM */
+/* end snapshot sbb-teaser renders below with projected content Shadow DOM */
 
-snapshots["sbb-teaser A11y tree Chrome"] = 
+snapshots["sbb-teaser renders after centered A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -203,56 +226,5 @@ snapshots["sbb-teaser A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-teaser A11y tree Chrome */
-
-snapshots["sbb-teaser A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "SBB teaser",
-      "children": [
-        {
-          "role": "link",
-          "name": "​",
-          "value": "https://github.com/lyne-design-system/lyne-components"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser A11y tree Firefox */
-
-snapshots["sbb-teaser A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "SBB teaser",
-      "children": [
-        {
-          "role": "link",
-          "name": "​",
-          "children": [
-            {
-              "role": "text",
-              "name": "​"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser A11y tree Safari */
+/* end snapshot sbb-teaser renders after centered A11y tree Chrome */
 

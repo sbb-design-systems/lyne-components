@@ -1,25 +1,30 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import type { SbbTagElement } from '../tag';
-import '../tag';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import type { SbbTagElement } from '../tag.js';
 
-import { SbbTagGroupElement } from './tag-group';
+import { SbbTagGroupElement } from './tag-group.js';
 
-describe('sbb-tag-group', () => {
+import '../tag.js';
+
+describe(`sbb-tag-group with ${fixture.name}`, () => {
   let element: SbbTagGroupElement;
 
   describe('multiple mode', () => {
     describe('no initialized checked tag', () => {
       beforeEach(async () => {
-        element = await fixture(html`
-          <sbb-tag-group multiple>
-            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group multiple>
+              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
       });
 
       it('renders', async () => {
@@ -34,7 +39,7 @@ describe('sbb-tag-group', () => {
       it('should emit events and update value by checking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         expect(tag1).not.to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(false);
@@ -54,7 +59,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.checked = true;
         await waitForLitRender(element);
@@ -68,7 +73,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.setAttribute('checked', 'true');
         await waitForLitRender(element);
@@ -82,13 +87,16 @@ describe('sbb-tag-group', () => {
 
     describe('one initialized checked tag', () => {
       beforeEach(async () => {
-        element = await fixture(html`
-          <sbb-tag-group multiple>
-            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group multiple>
+              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
       });
 
       it('should have one activated tag', async () => {
@@ -99,7 +107,7 @@ describe('sbb-tag-group', () => {
       it('should emit events and update value by unchecking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         expect(tag2).to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(true);
@@ -119,7 +127,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag2.checked = false;
         await waitForLitRender(element);
@@ -133,7 +141,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag2.removeAttribute('checked');
         await waitForLitRender(element);
@@ -147,19 +155,24 @@ describe('sbb-tag-group', () => {
 
     describe('initialization', () => {
       it('should read empty array as value [template attribute]', async () => {
-        element = await fixture(html` <sbb-tag-group multiple value="[]"></sbb-tag-group> `);
+        element = await fixture(html` <sbb-tag-group multiple value="[]"></sbb-tag-group> `, {
+          modules: ['./tag-group.ts'],
+        });
 
         expect(element.value).to.be.an('array').that.is.empty;
       });
 
       it('should read array as value [template attribute]', async () => {
-        element = await fixture(html`
-          <sbb-tag-group multiple value='["tag1", "tag3"]'>
-            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group multiple value='["tag1", "tag3"]'>
+              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
 
         expect(element.value).to.be.eql(['tag1', 'tag3']);
         expect(element.querySelector('sbb-tag#sbb-tag-1')).to.have.attribute('checked');
@@ -168,7 +181,9 @@ describe('sbb-tag-group', () => {
       });
 
       it('should read empty array as value [prop]', async () => {
-        element = await fixture(html` <sbb-tag-group multiple></sbb-tag-group> `);
+        element = await fixture(html` <sbb-tag-group multiple></sbb-tag-group> `, {
+          modules: ['./tag-group.ts'],
+        });
         element.value = [];
         await waitForLitRender(element);
 
@@ -176,13 +191,16 @@ describe('sbb-tag-group', () => {
       });
 
       it('should read array as value [prop]', async () => {
-        element = await fixture(html`
-          <sbb-tag-group multiple>
-            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group multiple>
+              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
         element.value = ['tag1', 'tag3'];
         await waitForLitRender(element);
 
@@ -193,13 +211,16 @@ describe('sbb-tag-group', () => {
       });
 
       it('should coerce non-array value to array value', async () => {
-        element = await fixture(html`
-          <sbb-tag-group multiple>
-            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group multiple>
+              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
         element.value = 'tag1';
         await waitForLitRender(element);
 
@@ -212,13 +233,16 @@ describe('sbb-tag-group', () => {
 
     describe('value change', () => {
       beforeEach(async () => {
-        element = await fixture(html`
-          <sbb-tag-group multiple>
-            <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3" checked>Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group multiple>
+              <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3" checked>Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
       });
 
       it('should update group value if single value changes [prop]', async () => {
@@ -246,13 +270,16 @@ describe('sbb-tag-group', () => {
   describe('exclusive mode', () => {
     describe('no initialized checked tag', () => {
       beforeEach(async () => {
-        element = await fixture(html`
-          <sbb-tag-group>
-            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group>
+              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
       });
 
       it('renders', async () => {
@@ -267,7 +294,7 @@ describe('sbb-tag-group', () => {
       it('should emit events and update value by checking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         expect(tag1).not.to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(false);
@@ -287,7 +314,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.checked = true;
         await waitForLitRender(element);
@@ -301,7 +328,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.setAttribute('checked', 'true');
         await waitForLitRender(element);
@@ -315,13 +342,16 @@ describe('sbb-tag-group', () => {
 
     describe('one initialized checked tag', () => {
       beforeEach(async () => {
-        element = await fixture(html`
-          <sbb-tag-group>
-            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group>
+              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
       });
 
       it('should have one activated tag', async () => {
@@ -332,7 +362,7 @@ describe('sbb-tag-group', () => {
       it('should avoid unchecking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         expect(tag2).to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(true);
@@ -350,7 +380,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically to false [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag2.checked = false;
         await waitForLitRender(element);
@@ -365,7 +395,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically to false [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag2.removeAttribute('checked');
         await waitForLitRender(element);
@@ -380,8 +410,8 @@ describe('sbb-tag-group', () => {
       it('should select another tag manually and uncheck others', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
-        const tag3 = document.querySelector('sbb-tag#sbb-tag-3') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag3 = element.querySelector('sbb-tag#sbb-tag-3') as SbbTagElement;
 
         tag3.click();
         await waitForLitRender(element);
@@ -399,14 +429,14 @@ describe('sbb-tag-group', () => {
         expect(changeSpy.count).to.be.equal(1);
 
         expect(element.value).to.be.equal('tag3');
-        expect(document.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
+        expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
       });
 
       it('should select another tag (before) manually and uncheck others', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector('sbb-tag#sbb-tag-1') as SbbTagElement;
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag1 = element.querySelector('sbb-tag#sbb-tag-1') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag1.click();
         await waitForLitRender(element);
@@ -424,14 +454,14 @@ describe('sbb-tag-group', () => {
         expect(changeSpy.count).to.be.equal(1);
 
         expect(element.value).to.be.equal('tag1');
-        expect(document.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
+        expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
       });
 
       it('should select another tag programmatically and uncheck others', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
-        const tag3 = document.querySelector('sbb-tag#sbb-tag-3') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag3 = element.querySelector('sbb-tag#sbb-tag-3') as SbbTagElement;
 
         tag3.checked = true;
         await waitForLitRender(element);
@@ -446,19 +476,22 @@ describe('sbb-tag-group', () => {
         expect(changeSpy.count).not.to.be.greaterThan(0);
 
         expect(element.value).to.be.equal('tag3');
-        expect(document.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
+        expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
       });
     });
 
     describe('initialization', () => {
       it('should read value [template attribute]', async () => {
-        element = await fixture(html`
-          <sbb-tag-group value="tag2">
-            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group value="tag2">
+              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
 
         expect(element.value).to.be.equal('tag2');
         expect(element.querySelector('sbb-tag#sbb-tag-1')).not.to.have.attribute('checked');
@@ -467,13 +500,16 @@ describe('sbb-tag-group', () => {
       });
 
       it('should read value [prop]', async () => {
-        element = await fixture(html`
-          <sbb-tag-group>
-            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group>
+              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
 
         element.value = 'tag2';
         await waitForLitRender(element);
@@ -485,7 +521,9 @@ describe('sbb-tag-group', () => {
       });
 
       it('should ignore because value is an array', async () => {
-        element = await fixture(html` <sbb-tag-group></sbb-tag-group> `);
+        element = await fixture(html` <sbb-tag-group></sbb-tag-group> `, {
+          modules: ['./tag-group.ts'],
+        });
         element.value = [];
         await waitForLitRender(element);
 
@@ -493,13 +531,16 @@ describe('sbb-tag-group', () => {
       });
 
       it('should ensure only first option selected', async () => {
-        element = await fixture(html`
-          <sbb-tag-group>
-            <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group>
+              <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
         expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
         expect(element.value).to.be.equal('tag1');
       });
@@ -507,13 +548,16 @@ describe('sbb-tag-group', () => {
 
     describe('value change', () => {
       beforeEach(async () => {
-        element = await fixture(html`
-          <sbb-tag-group>
-            <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
-            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-          </sbb-tag-group>
-        `);
+        element = await fixture(
+          html`
+            <sbb-tag-group>
+              <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
+              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+            </sbb-tag-group>
+          `,
+          { modules: ['./tag-group.ts', '../tag.ts'] },
+        );
       });
 
       it('should update group value if single value changes [prop]', async () => {

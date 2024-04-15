@@ -1,15 +1,18 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbBreadcrumbElement } from './breadcrumb';
+import { SbbBreadcrumbElement } from './breadcrumb.js';
 
-describe('sbb-breadcrumb', () => {
+describe(`sbb-breadcrumb with ${fixture.name}`, () => {
   let element: SbbBreadcrumbElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-breadcrumb id="focus-id" href="#">Test</sbb-breadcrumb>`);
+    element = await fixture(html`<sbb-breadcrumb id="focus-id" href="#">Test</sbb-breadcrumb>`, {
+      modules: ['./breadcrumb.ts'],
+    });
   });
 
   it('renders', async () => {

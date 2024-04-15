@@ -1,4 +1,4 @@
-import type { ITripItem } from '../core/timetable';
+import type { ITripItem } from '../core/timetable.js';
 import {
   cancelledLeg,
   extendedLeg,
@@ -8,7 +8,7 @@ import {
   progressLeg,
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
-} from '../pearl-chain/pearl-chain.sample-data';
+} from '../pearl-chain/pearl-chain.sample-data.js';
 
 type DeepPartial<T> = T extends object
   ? {
@@ -32,6 +32,8 @@ export const defaultTrip: DeepPartial<ITripItem> = {
       line: '37',
       vehicleMode: 'TRAIN',
       vehicleSubModeShortName: 'IR',
+      corporateIdentityIcon: 'ir-37',
+      corporateIdentityPictogram: 'train-right',
     },
   },
 };
@@ -52,6 +54,8 @@ export const cancelledTrip: DeepPartial<ITripItem> = {
       line: '37',
       vehicleMode: 'TRAIN',
       vehicleSubModeShortName: 'IR',
+      corporateIdentityIcon: 'ir-37',
+      corporateIdentityPictogram: 'train-right',
     },
     tripStatus: {
       cancelled: true,
@@ -79,6 +83,8 @@ export const progressTrip: DeepPartial<ITripItem> = {
       line: '37',
       vehicleMode: 'TRAIN',
       vehicleSubModeShortName: 'IR',
+      corporateIdentityIcon: 'ir-37',
+      corporateIdentityPictogram: 'train-right',
     },
   },
 };
@@ -99,6 +105,8 @@ export const partiallyCancelled: DeepPartial<ITripItem> = {
       line: '37',
       vehicleMode: 'TRAIN',
       vehicleSubModeShortName: 'IR',
+      corporateIdentityIcon: 'ir-37',
+      corporateIdentityPictogram: 'train-right',
     },
     tripStatus: {
       partiallyCancelled: true,
@@ -123,6 +131,8 @@ export const pastTrip: DeepPartial<ITripItem> = {
       line: '37',
       vehicleMode: 'TRAIN',
       vehicleSubModeShortName: 'IR',
+      corporateIdentityIcon: 'ir-37',
+      corporateIdentityPictogram: 'train-right',
     },
     tripStatus: {
       partiallyCancelled: false,
@@ -145,6 +155,7 @@ export const skippedLastArrivalStopTrip: DeepPartial<ITripItem> = {
       line: '502',
       vehicleMode: 'BUS',
       vehicleSubModeShortName: 'B',
+      corporateIdentityPictogram: 'bus-right',
     },
   },
 };
@@ -164,6 +175,7 @@ export const skippedArrivalStopTrip: DeepPartial<ITripItem> = {
       line: '502',
       vehicleMode: 'BUS',
       vehicleSubModeShortName: 'B',
+      corporateIdentityPictogram: 'bus-right',
     },
   },
 };
@@ -183,6 +195,7 @@ export const skippedDepartureStopTrip: DeepPartial<ITripItem> = {
       line: '502',
       vehicleMode: 'BUS',
       vehicleSubModeShortName: 'B',
+      corporateIdentityPictogram: 'bus-right',
     },
   },
 };
@@ -202,6 +215,7 @@ export const skippedFirstDepartureStopTrip: DeepPartial<ITripItem> = {
       line: '502',
       vehicleMode: 'BUS',
       vehicleSubModeShortName: 'B',
+      corporateIdentityPictogram: 'bus-right',
     },
   },
 };
@@ -255,6 +269,7 @@ export const disturbanceTrip: DeepPartial<ITripItem> = {
       number: '2204',
       vehicleMode: 'BUS',
       vehicleSubModeShortName: 'B',
+      corporateIdentityPictogram: 'bus-right',
     },
     occupancy: {
       firstClass: 'MEDIUM',
@@ -306,6 +321,7 @@ export const quayChangeTrip: DeepPartial<ITripItem> = {
       number: '2204',
       vehicleMode: 'BUS',
       vehicleSubModeShortName: 'B',
+      corporateIdentityPictogram: 'bus-right',
     },
     occupancy: {
       firstClass: 'MEDIUM',
@@ -338,6 +354,8 @@ export const trainTrip: DeepPartial<ITripItem> = {
       number: '2377',
       vehicleMode: 'TRAIN',
       vehicleSubModeShortName: 'IR',
+      corporateIdentityIcon: 'ic-35',
+      corporateIdentityPictogram: 'train-right',
     },
     occupancy: {
       firstClass: 'LOW',
@@ -364,12 +382,12 @@ export const busTrip: DeepPartial<ITripItem> = {
     departureWalk: 0,
     direction: 'Spiegel, Blinzern',
     product: {
-      name: 'B 19 27014',
+      name: 'B 19',
       line: '19',
       number: '27014',
       vehicleMode: 'BUS',
       vehicleSubModeShortName: 'B',
-      corporateIdentityIcon: 'SBB_oev_b_t06',
+      corporateIdentityPictogram: 'bus-right',
     },
     occupancy: {
       firstClass: 'LOW',
@@ -398,6 +416,7 @@ export const shipTrip: DeepPartial<ITripItem> = {
     product: {
       line: null,
       vehicleMode: 'SHIP',
+      corporateIdentityPictogram: 'jetty-right',
     },
     tripStatus: {},
   },
@@ -543,7 +562,7 @@ export const walkTimeTrip: DeepPartial<ITripItem> = {
       number: '2258',
       vehicleMode: 'TRAMWAY',
       vehicleSubModeShortName: 'T',
-      corporateIdentityIcon: 'SBB_oev_b_t04',
+      corporateIdentityPictogram: 'tram-right',
     },
     occupancy: {
       firstClass: 'LOW',
@@ -581,6 +600,8 @@ export const extendedEnterTimeTrip: DeepPartial<ITripItem> = {
       number: '2377',
       vehicleMode: 'TRAIN',
       vehicleSubModeShortName: 'IR',
+      corporateIdentityIcon: 'ir-35',
+      corporateIdentityPictogram: 'train-right',
     },
     occupancy: {},
     tripStatus: {},
@@ -664,6 +685,8 @@ export const noticesTrip: DeepPartial<ITripItem> = {
       number: '2377',
       vehicleMode: 'TRAIN',
       vehicleSubModeShortName: 'IR',
+      corporateIdentityIcon: 'ir-35',
+      corporateIdentityPictogram: 'train-right',
     },
     occupancy: {
       firstClass: 'LOW',

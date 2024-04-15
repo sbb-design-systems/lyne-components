@@ -1,11 +1,11 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import { SbbClockElement } from './clock';
+import { SbbClockElement } from './clock.js';
 
-describe('sbb-clock', () => {
+describe(`sbb-clock`, () => {
   let element: SbbClockElement;
 
   it('renders', async () => {

@@ -1,10 +1,15 @@
-import { type CSSResultGroup, LitElement, nothing, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController, SbbNamedSlotListElementMixin } from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -14,12 +19,15 @@ import {
   i18nSector,
   i18nWagonLabel,
   i18nWagonLabelNumber,
-} from '../../core/i18n';
-import type { SbbOccupancy } from '../../core/interfaces';
-import type { SbbIconElement } from '../../icon';
-import '../../timetable-occupancy-icon';
+} from '../../core/i18n.js';
+import type { SbbOccupancy } from '../../core/interfaces.js';
+import { SbbNamedSlotListMixin } from '../../core/mixins.js';
+import type { SbbIconElement } from '../../icon.js';
 
 import style from './train-wagon.scss?lit&inline';
+
+import '../../icon.js';
+import '../../timetable-occupancy-icon.js';
 
 /**
  * It displays a train compartment within a `sbb-train` component.
@@ -27,10 +35,9 @@ import style from './train-wagon.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
  */
 @customElement('sbb-train-wagon')
-export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
-  SbbIconElement,
-  typeof LitElement
->(LitElement) {
+export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof LitElement>(
+  LitElement,
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     sectorChange: 'sectorChange',
@@ -68,7 +75,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
   @property({ attribute: 'additional-accessibility-text' })
   public additionalAccessibilityText?: string;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal
@@ -83,6 +90,21 @@ export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
     },
   );
 
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (
+      changedProperties.has('type') ||
+      changedProperties.has('occupancy') ||
+      changedProperties.has('wagonClass')
+    ) {
+      this.toggleAttribute(
+        'data-has-visible-wagon-content',
+        Boolean((this.type === 'wagon' && this.occupancy) || this.wagonClass),
+      );
+    }
+  }
+
   private _sectorChanged(): void {
     this._sectorChange.emit();
   }
@@ -96,7 +118,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
           .label).toString()}>
           ${
             this.label
-              ? html` <span class="sbb-screenreaderonly">
+              ? html` <span class="sbb-screen-reader-only">
                     ${`${i18nWagonLabelNumber[this._language.current]},`}&nbsp;
                   </span>
                   ${this.label}`
@@ -104,16 +126,9 @@ export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
           }
         </${unsafeStatic(TAG_NAME)}>
       `;
-      /* eslint-disable lit/binding-positions */
     };
 
     const sectorString = `${i18nSector[this._language.current]}, ${this.sector}`;
-
-    setAttribute(
-      this,
-      'data-has-visible-wagon-content',
-      Boolean((this.type === 'wagon' && this.occupancy) || this.wagonClass),
-    );
 
     return html`
       <div class="sbb-train-wagon">
@@ -122,11 +137,13 @@ export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
               aria-label=${i18nWagonLabel[this._language.current]}
               class="sbb-train-wagon__compartment"
             >
-              ${this.sector ? html`<li class="sbb-screenreaderonly">${sectorString}</li>` : nothing}
+              ${this.sector
+                ? html`<li class="sbb-screen-reader-only">${sectorString}</li>`
+                : nothing}
               ${label('li')}
               ${this.wagonClass
                 ? html`<li class="sbb-train-wagon__class">
-                    <span class="sbb-screenreaderonly">
+                    <span class="sbb-screen-reader-only">
                       ${this.wagonClass === '1'
                         ? i18nClass['first'][this._language.current]
                         : i18nClass['second'][this._language.current]}
@@ -142,7 +159,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
                   ></sbb-timetable-occupancy-icon>`
                 : nothing}
               ${this.blockedPassage && this.blockedPassage !== 'none'
-                ? html`<li class="sbb-screenreaderonly">
+                ? html`<li class="sbb-screen-reader-only">
                     ${i18nBlockedPassage[this.blockedPassage][this._language.current]}
                   </li>`
                 : nothing}
@@ -150,7 +167,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
           : nothing}
         ${this.type === 'closed'
           ? html`<span class="sbb-train-wagon__compartment">
-              <span class="sbb-screenreaderonly">
+              <span class="sbb-screen-reader-only">
                 ${i18nClosedCompartmentLabel(this.label ? parseInt(this.label) : undefined)[
                   this._language.current
                 ]}
@@ -161,7 +178,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
           : nothing}
         ${this.type === 'locomotive'
           ? html`<span class="sbb-train-wagon__compartment">
-              <span class="sbb-screenreaderonly">
+              <span class="sbb-screen-reader-only">
                 ${i18nLocomotiveLabel[this._language.current]}
                 ${this.sector ? `, ${sectorString}` : nothing}
               </span>
@@ -183,7 +200,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
             </span>`
           : nothing}
         ${this.additionalAccessibilityText
-          ? html`<span class="sbb-screenreaderonly">, ${this.additionalAccessibilityText}</span>`
+          ? html`<span class="sbb-screen-reader-only">, ${this.additionalAccessibilityText}</span>`
           : nothing}
         ${this.type === 'wagon'
           ? html`<span class="sbb-train-wagon__icons" ?hidden=${this.listChildren.length === 0}>

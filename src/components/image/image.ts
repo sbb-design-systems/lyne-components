@@ -1,4 +1,3 @@
-import { spread } from '@open-wc/lit-helpers';
 import {
   SbbBreakpointZeroMin,
   SbbBreakpointZeroMax,
@@ -22,14 +21,14 @@ import { customElement, eventOptions, property, state } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { hostContext, isBrowser } from '../core/dom';
+import { hostContext, isBrowser } from '../core/dom.js';
 
 import type {
   InterfaceImageAttributes,
   InterfaceImageAttributesSizesConfigBreakpoint,
   InterfaceImageAttributesSizesConfigMediaQuery,
-} from './image.helper';
-import imageHelperGetBreakpoints from './image.helper';
+} from './image.helper.js';
+import imageHelperGetBreakpoints from './image.helper.js';
 import style from './image.scss?lit&inline';
 
 const eventListenerOptions = {
@@ -435,10 +434,6 @@ export class SbbImageElement extends LitElement {
     let { caption } = this;
     let schemaData = '';
 
-    const attributes: {
-      role?: string;
-    } = {};
-
     const imageUrlLQIP = this._prepareImageUrl(this.imageSrc, true);
     const imageUrlWithParams = this._prepareImageUrl(this.imageSrc, false);
 
@@ -472,7 +467,6 @@ export class SbbImageElement extends LitElement {
           [`image__figure--ratio-${this.aspectRatio}`]: true,
           [`image__figure--loaded`]: this._loaded,
         })}
-        ${spread(attributes)}
       >
         <div class="image__wrapper">
           ${!this.skipLqip
@@ -515,7 +509,7 @@ export class SbbImageElement extends LitElement {
               height="562"
               loading=${this.loading ?? nothing}
               decoding=${this.decoding ?? nothing}
-              importance=${this.importance ?? nothing}
+              .fetchPriority=${this.importance ?? nothing}
             />
           </picture>
         </div>

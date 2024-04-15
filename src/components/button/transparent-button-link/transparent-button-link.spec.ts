@@ -1,13 +1,12 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
-import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils.js';
 
-import type { SbbTransparentButtonLinkElement } from './transparent-button-link';
-import './transparent-button-link';
+import type { SbbTransparentButtonLinkElement } from './transparent-button-link.js';
+import './transparent-button-link.js';
 
-describe('sbb-transparent-button-link', () => {
+describe(`sbb-transparent-button-link`, () => {
   describe('renders a sbb-transparent-button-link without icon', async () => {
     let root: SbbTransparentButtonLinkElement;
 
@@ -31,7 +30,6 @@ describe('sbb-transparent-button-link', () => {
 
     beforeEach(async () => {
       root = await fixture(buttonLinkIconTestTemplate('sbb-transparent-button-link'));
-      await waitForLitRender(root);
     });
 
     it('Dom', async () => {

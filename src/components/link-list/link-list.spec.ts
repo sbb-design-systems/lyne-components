@@ -1,15 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
-import type { SbbBlockLinkElement } from '../link';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import type { SbbBlockLinkElement } from '../link.js';
 
-import type { SbbLinkListElement } from './link-list';
+import type { SbbLinkListElement } from './link-list.js';
 
-import '../link/block-link';
-import './link-list';
+import '../link/block-link.js';
+import './link-list.js';
 
-describe('sbb-link-list', () => {
+describe(`sbb-link-list`, () => {
   let element: SbbLinkListElement;
 
   const sbbLinkSnippet = html`

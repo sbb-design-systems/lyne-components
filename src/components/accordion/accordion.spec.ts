@@ -1,14 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbAccordionElement } from './accordion';
-import './accordion';
-import '../expansion-panel';
+import type { SbbAccordionElement } from './accordion.js';
+import './accordion.js';
+import '../expansion-panel.js';
 
-describe('sbb-accordion', () => {
+describe(`sbb-accordion`, () => {
   let element: SbbAccordionElement;
 
   beforeEach(async () => {
@@ -24,7 +23,6 @@ describe('sbb-accordion', () => {
         </sbb-expansion-panel>
       </sbb-accordion>
     `);
-    await waitForLitRender(element);
   });
 
   it('renders - Dom', async () => {

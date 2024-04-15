@@ -1,23 +1,27 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import type { SbbOptionElement } from '../option';
-import '../option';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import type { SbbOptionElement } from '../option.js';
+import '../option.js';
 
-import { SbbOptGroupElement } from './optgroup';
+import { SbbOptGroupElement } from './optgroup.js';
 
-describe('sbb-optgroup', () => {
+describe(`sbb-optgroup with ${fixture.name}`, () => {
   let element: SbbOptGroupElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-optgroup label="Group 1">
-        <sbb-option id="option-1" value="option-1">Label 1</sbb-option>
-        <sbb-option id="option-2" disabled value="option-2">Label 2</sbb-option>
-        <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
-      </sbb-optgroup>
-    `);
+    element = await fixture(
+      html`
+        <sbb-optgroup label="Group 1">
+          <sbb-option id="option-1" value="option-1">Label 1</sbb-option>
+          <sbb-option id="option-2" disabled value="option-2">Label 2</sbb-option>
+          <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
+        </sbb-optgroup>
+      `,
+      { modules: ['./optgroup.ts', '../option.ts'] },
+    );
   });
 
   it('renders', async () => {
@@ -25,10 +29,10 @@ describe('sbb-optgroup', () => {
   });
 
   it('disabled status is inherited', async () => {
-    const optionOne = document.querySelector('sbb-optgroup > sbb-option#option-1');
-    const optionTwo = document.querySelector('sbb-optgroup > sbb-option#option-2');
-    const optionThree = document.querySelector('sbb-optgroup > sbb-option#option-3');
-    element.setAttribute('disabled', '');
+    const optionOne = element.querySelector(':scope > sbb-option#option-1');
+    const optionTwo = element.querySelector(':scope > sbb-option#option-2');
+    const optionThree = element.querySelector(':scope > sbb-option#option-3');
+    element.toggleAttribute('disabled', true);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('disabled');
@@ -44,20 +48,14 @@ describe('sbb-optgroup', () => {
   });
 
   it('disabled status prevents changes', async () => {
-    const optionOne: SbbOptionElement = document.querySelector<SbbOptionElement>(
-      'sbb-optgroup > sbb-option#option-1',
-    )!;
-    const optionTwo: SbbOptionElement = document.querySelector<SbbOptionElement>(
-      'sbb-optgroup > sbb-option#option-2',
-    )!;
-    const optionThree: SbbOptionElement = document.querySelector<SbbOptionElement>(
-      'sbb-optgroup > sbb-option#option-3',
-    )!;
+    const optionOne = element.querySelector<SbbOptionElement>(':scope > sbb-option#option-1')!;
+    const optionTwo = element.querySelector<SbbOptionElement>(':scope > sbb-option#option-2')!;
+    const optionThree = element.querySelector<SbbOptionElement>(':scope > sbb-option#option-3')!;
     const options = [optionOne, optionTwo, optionThree];
 
     options.forEach((opt) => expect(opt).not.to.have.attribute('selected'));
 
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await waitForLitRender(element);
     expect(element).to.have.attribute('disabled');
 

@@ -1,15 +1,16 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, EventSpy } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy } from '../../core/testing.js';
 
-import { SbbAlertElement } from './alert';
+import { SbbAlertElement } from './alert.js';
 
-describe('sbb-alert', () => {
+describe(`sbb-alert with ${fixture.name}`, () => {
   let alert: SbbAlertElement;
 
   it('renders', async () => {
-    alert = await fixture(html`<sbb-alert></sbb-alert>`);
+    alert = await fixture(html`<sbb-alert></sbb-alert>`, { modules: ['./alert.ts'] });
     assert.instanceOf(alert, SbbAlertElement);
   });
 
@@ -17,7 +18,9 @@ describe('sbb-alert', () => {
     const willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen);
     const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen);
 
-    await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
+    await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`, {
+      modules: ['./alert.ts'],
+    });
 
     await waitForCondition(() => willOpenSpy.events.length === 1);
     expect(willOpenSpy.count).to.be.equal(1);
@@ -28,6 +31,7 @@ describe('sbb-alert', () => {
   it('should hide close button in readonly mode', async () => {
     alert = await fixture(
       html`<sbb-alert title-content="Interruption" readonly>Alert content</sbb-alert>`,
+      { modules: ['./alert.ts'] },
     );
 
     expect(alert.shadowRoot!.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;

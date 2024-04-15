@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-radio-button renders - Dom"] = 
 `<sbb-radio-button
   aria-checked="false"
-  aria-disabled="false"
   aria-required="false"
   role="radio"
   size="m"
@@ -18,7 +17,7 @@ snapshots["sbb-radio-button renders - ShadowDom"] =
 `<label class="sbb-radio-button">
   <input
     aria-hidden="true"
-    class="sbb-screenreader-only"
+    class="sbb-screen-reader-only"
     tabindex="-1"
     type="radio"
     value="radio-value"
@@ -63,21 +62,4 @@ snapshots["sbb-radio-button A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-radio-button A11y tree Firefox */
-
-snapshots["sbb-radio-button A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "checked": false
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-radio-button A11y tree Safari */
 

@@ -6,12 +6,10 @@ snapshots["sbb-form-field-clear renders Formfield Dom"] =
   data-input-type="input"
   data-slot-names="label suffix unnamed"
   error-space="none"
-  label="Label"
   size="m"
   width="default"
 >
   <label
-    data-creator="SBB-FORM-FIELD"
     for="sbb-form-field-input-0"
     slot="label"
   >
@@ -86,7 +84,7 @@ snapshots["sbb-form-field-clear renders FormfieldClear ShadowDom"] =
 `;
 /* end snapshot sbb-form-field-clear renders FormfieldClear ShadowDom */
 
-snapshots["sbb-form-field-clear renders A11y tree Chrome"] =
+snapshots["sbb-form-field-clear renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -143,33 +141,4 @@ snapshots["sbb-form-field-clear renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-form-field-clear renders A11y tree Firefox */
-
-snapshots["sbb-form-field-clear renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "text",
-      "name": "Label"
-    },
-    {
-      "role": "textbox",
-      "name": "Label",
-      "value": "Input value"
-    },
-    {
-      "role": "button",
-      "name": "Clear input value"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-form-field-clear renders A11y tree Safari */
 

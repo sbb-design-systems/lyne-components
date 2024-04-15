@@ -8,15 +8,15 @@ import type {
   StoryObj,
   WebComponentsRenderer,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../icon';
-import '../../loading-indicator';
+import '../../icon.js';
+import '../../loading-indicator.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white)',
@@ -38,11 +38,12 @@ const IconSlotTemplate = ({
   tag,
   text,
   'icon-name': iconName,
+  hiddenIcon,
   ...args
 }: Args): TemplateResult => html`
   <${unsafeStatic(tag)} ${sbbSpread(args)}>
     ${text}
-    <sbb-icon slot="icon" name=${iconName}></sbb-icon>
+    <sbb-icon slot="icon" name=${iconName} style=${hiddenIcon ? 'display: none;' : ''} ></sbb-icon>
   </${unsafeStatic(tag)}>
 `;
 
@@ -89,7 +90,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm'],
+  options: ['l', 'm', 's'],
 };
 
 const iconName: InputType = {
@@ -191,6 +192,13 @@ export const sizeM: StoryObj = {
   },
 };
 
+export const sizeS: StoryObj = {
+  render: Template,
+  args: {
+    size: size.options[2],
+  },
+};
+
 export const fixedWidth: StoryObj = {
   render: FixedWidthTemplate,
   args: {
@@ -224,6 +232,14 @@ export const primaryFocusVisible: StoryObj = {
 export const loadingIndicator: StoryObj = {
   render: LoadingIndicatorTemplate,
   args: { disabled: true },
+};
+
+export const withHiddenSlottedIcon: StoryObj = {
+  render: IconSlotTemplate,
+  args: {
+    hiddenIcon: true,
+    'icon-name': 'chevron-small-right-small',
+  },
 };
 
 export const commonDecorators = [

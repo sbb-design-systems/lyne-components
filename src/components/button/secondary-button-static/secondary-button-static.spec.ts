@@ -1,20 +1,23 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import {
   buttonIconTestTemplate,
   buttonSlottedIconTestTemplate,
   buttonSpaceIconTestTemplate,
   buttonTestTemplate,
-} from '../common/button-test-utils';
+} from '../common/button-test-utils.js';
 
-import type { SbbSecondaryButtonStaticElement } from './secondary-button-static';
-import './secondary-button-static';
+import type { SbbSecondaryButtonStaticElement } from './secondary-button-static.js';
+import './secondary-button-static.js';
 
-describe('sbb-secondary-button-static', () => {
+describe(`sbb-secondary-button-static`, () => {
   describe('renders a sbb-secondary-button-static without icon', async () => {
-    const root = await fixture(buttonTestTemplate('sbb-secondary-button-static', true));
+    let root: SbbSecondaryButtonStaticElement;
+
+    beforeEach(async () => {
+      root = await fixture(buttonTestTemplate('sbb-secondary-button-static', true));
+    });
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();
@@ -30,7 +33,6 @@ describe('sbb-secondary-button-static', () => {
 
     beforeEach(async () => {
       root = await fixture(buttonSlottedIconTestTemplate('sbb-secondary-button-static'));
-      await waitForLitRender(root);
     });
 
     it('Dom', async () => {
@@ -46,7 +48,6 @@ describe('sbb-secondary-button-static', () => {
 
   it('should detect icon in sbb-secondary-button-static', async () => {
     const root = await fixture(buttonIconTestTemplate('sbb-secondary-button-static'));
-    await waitForLitRender(root);
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');

@@ -111,13 +111,3 @@ snapshots["sbb-loading-indicator A11y tree Firefox"] =
 `;
 /* end snapshot sbb-loading-indicator A11y tree Firefox */
 
-snapshots["sbb-loading-indicator A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-loading-indicator A11y tree Safari */
-

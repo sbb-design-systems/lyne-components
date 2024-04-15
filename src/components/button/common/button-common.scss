@@ -25,7 +25,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
   --sbb-button-border-width: var(--sbb-border-width-2x);
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-button-min-height: var(--sbb-size-button-l-min-height);
+  --sbb-button-min-height: var(--sbb-size-element-m);
   --sbb-button-transition-duration: var(--sbb-animation-duration-2x);
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);
   --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
@@ -57,11 +57,20 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 }
 
 :host([size='m']) {
-  --sbb-button-min-height: var(--sbb-size-button-m-min-height);
+  --sbb-button-min-height: var(--sbb-size-element-s);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
+  }
+}
+
+:host([size='s']) {
+  --sbb-button-min-height: var(--sbb-size-element-xs);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-4x);
+
+  @include sbb.mq($from: medium) {
+    --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
   }
 }
 
@@ -195,7 +204,8 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 }
 
 .sbb-button__label,
-.sbb-button__icon {
+::slotted([slot='icon']),
+sbb-icon {
   transition: transform var(--sbb-button-transition-duration)
     var(--sbb-button-transition-easing-function);
   transform: translateY(var(--sbb-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
@@ -207,14 +217,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   display: block;
 
   :host(#{$icon-only}) & {
-    display: none;
-  }
-}
-
-.sbb-button__icon {
-  display: flex;
-
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
     display: none;
   }
 }

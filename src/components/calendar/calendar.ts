@@ -1,20 +1,28 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
-import { html, isServer, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y';
-import { LanguageController } from '../core/common-behaviors';
-import type { DateAdapter } from '../core/datetime';
+import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { readDataNow } from '../core/datetime/data-now.js';
+import type { DateAdapter } from '../core/datetime.js';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,
   MONTHS_PER_ROW,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
-} from '../core/datetime';
-import { isBreakpoint } from '../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../core/eventing';
+} from '../core/datetime.js';
+import { isBreakpoint } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
 import {
   i18nCalendarDateSelection,
   i18nNextMonth,
@@ -24,14 +32,14 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../core/i18n';
-import type { SbbDateLike } from '../core/interfaces';
+} from '../core/i18n.js';
+import type { SbbDateLike } from '../core/interfaces.js';
 
 import style from './calendar.scss?lit&inline';
 
-import '../button/secondary-button';
-import '../icon';
-import '../screenreader-only';
+import '../button/secondary-button.js';
+import '../icon.js';
+import '../screen-reader-only.js';
 
 /**
  * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;
@@ -80,10 +88,10 @@ export type CalendarView = 'day' | 'month' | 'year';
 /**
  * It displays a calendar which allows to choose a date.
  *
- * @event {CustomEvent<Date>} dateSelected - Event emitted on date selection.
+ * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
 @customElement('sbb-calendar')
-export class SbbCalendarElement extends LitElement {
+export class SbbCalendarElement<T = Date> extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     dateSelected: 'dateSelected',
@@ -92,44 +100,74 @@ export class SbbCalendarElement extends LitElement {
   /** If set to true, two months are displayed */
   @property({ type: Boolean }) public wide = false;
 
-  /** The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @property() public min?: SbbDateLike;
+  /** The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
+  @property()
+  public set min(value: SbbDateLike<T> | null) {
+    this._min = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+  }
+  public get min(): T | null {
+    return this._min ?? null;
+  }
+  private _min?: T | null;
 
-  /** The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @property() public max?: SbbDateLike;
+  /** The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
+  @property()
+  public set max(value: SbbDateLike<T> | undefined) {
+    this._max = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+  }
+  public get max(): T | null {
+    return this._max ?? null;
+  }
+  private _max?: T | null;
+
+  /** The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
+  @property()
+  public set selected(value: SbbDateLike<T> | undefined) {
+    this._selectedDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+    if (
+      !!this._selectedDate &&
+      (!this._isDayInRange(this._dateAdapter.toIso8601(this._selectedDate)) ||
+        this._dateFilter(this._selectedDate))
+    ) {
+      this._selected = this._dateAdapter.toIso8601(this._selectedDate);
+    } else {
+      this._selected = undefined;
+    }
+  }
+  public get selected(): T | null {
+    return this._selectedDate ?? null;
+  }
+  private _selectedDate?: T | null;
 
   /** A function used to filter out dates. */
-  @property({ attribute: 'date-filter' }) public dateFilter?: (date: Date | null) => boolean;
+  @property({ attribute: 'date-filter' }) public dateFilter?: (date: T | null) => boolean;
 
-  /** The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @property({ attribute: 'selected-date' }) public selectedDate?: SbbDateLike;
+  private _dateAdapter: DateAdapter<T> = defaultDateAdapter as unknown as DateAdapter<T>;
 
   /** Event emitted on date selection. */
-  private _dateSelected: EventEmitter<Date> = new EventEmitter(
+  private _dateSelected: EventEmitter<T> = new EventEmitter(
     this,
     SbbCalendarElement.events.dateSelected,
   );
 
   /** The currently active date. */
-  @state() private _activeDate!: Date;
+  @state() private _activeDate: T = this._now();
 
   /** The selected date as ISOString. */
   @state() private _selected?: string;
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
-  @state() private _wide: boolean = false;
-
-  /** Minimum value converted to date */
-  @state() private _min?: Date | null;
-
-  /** Maximum value converted to date */
-  @state() private _max?: Date | null;
+  @state()
+  private set _wide(wide: boolean) {
+    this.toggleAttribute('data-wide', wide);
+  }
+  private get _wide(): boolean {
+    return this.hasAttribute('data-wide');
+  }
 
   @state() private _calendarView: CalendarView = 'day';
 
   private _nextCalendarView: CalendarView = 'day';
-
-  private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
 
   /** A list of days, in two formats (long and single char). */
   private _weekdays!: Weekday[];
@@ -170,8 +208,8 @@ export class SbbCalendarElement extends LitElement {
 
   private _initialized = false;
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this).withHandler(() => {
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => {
     this._monthNames = this._dateAdapter.getMonthNames('long');
     this._createMonthRows();
   });
@@ -184,37 +222,11 @@ export class SbbCalendarElement extends LitElement {
     // Workaround to execute initialization immediately after hydration
     // If no hydration is needed, will be executed before the first rendering
     this.addController({
-      hostConnected: () => {
-        this._convertMinDate(this.min);
-        this._convertMaxDate(this.max);
-        this._setDates();
-        this._init();
-      },
+      hostConnected: () => this.resetPosition(),
     });
   }
 
-  private _convertMinDate(newMin?: SbbDateLike): void {
-    this._min = this._dateAdapter.deserializeDate(newMin);
-  }
-
-  private _convertMaxDate(newMax?: SbbDateLike): void {
-    this._max = this._dateAdapter.deserializeDate(newMax);
-  }
-
-  /** Sets the selected date. */
-  private _setSelectedDate(selectedDate: SbbDateLike | null): void {
-    const value = this._dateAdapter.deserializeDate(selectedDate);
-    if (
-      !!value &&
-      (!this._isDayInRange(this._dateAdapter.getISOString(value)) || this._dateFilter(value))
-    ) {
-      this._selected = this._dateAdapter.getISOString(value);
-    } else {
-      this._selected = undefined;
-    }
-  }
-
-  private get _dateFilter(): (date: Date) => boolean {
+  private get _dateFilter(): (date: T) => boolean {
     return this.dateFilter ?? (() => true);
   }
 
@@ -223,7 +235,7 @@ export class SbbCalendarElement extends LitElement {
     if (this._calendarView !== 'day') {
       this._resetToDayView();
     }
-    this._setDates();
+    this._activeDate = this.selected ?? this._now();
     this._init();
   }
 
@@ -244,21 +256,13 @@ export class SbbCalendarElement extends LitElement {
       return;
     }
 
-    if (changedProperties.has('min')) {
-      this._convertMinDate(this.min);
-    }
-    if (changedProperties.has('max')) {
-      this._convertMaxDate(this.max);
-    }
-    if (changedProperties.has('selectedDate')) {
-      this._setSelectedDate(this.selectedDate as Date);
-    }
     if (changedProperties.has('wide')) {
       this.resetPosition();
     }
   }
 
-  protected override updated(): void {
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
     // The calendar needs to calculate tab-indexes on first render,
     // and every time a date is selected or the month view changes.
     this._setTabIndex();
@@ -271,7 +275,7 @@ export class SbbCalendarElement extends LitElement {
   }
 
   /** Initializes the component. */
-  private _init(activeDate?: Date): void {
+  private _init(activeDate?: T): void {
     //Due to its complexity, the caledar is only initialized on client side
     if (isServer) {
       return;
@@ -281,19 +285,13 @@ export class SbbCalendarElement extends LitElement {
       this._assignActiveDate(activeDate);
     }
     this._wide = isBreakpoint('medium') && this.wide;
-    this._weeks = this._createWeekRows(
-      this._dateAdapter.getMonth(this._activeDate),
-      this._dateAdapter.getYear(this._activeDate),
-    );
+    this._weeks = this._createWeekRows(this._activeDate);
+    this._years = this._createYearRows();
     this._nextMonthWeeks = [[]];
     this._nextMonthYears = [[]];
-    this._years = this._createYearRows();
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
-      this._nextMonthWeeks = this._createWeekRows(
-        this._dateAdapter.getMonth(nextMonthDate),
-        this._dateAdapter.getYear(nextMonthDate),
-      );
+      this._nextMonthWeeks = this._createWeekRows(nextMonthDate);
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
     }
     this._initialized = true;
@@ -305,13 +303,6 @@ export class SbbCalendarElement extends LitElement {
       this._getFirstFocusable()?.focus();
       this._resetFocus = false;
     }
-  }
-
-  /** Sets the date variables. */
-  private _setDates(): void {
-    const selectedDate = this._dateAdapter.deserializeDate(this.selectedDate);
-    this._activeDate = selectedDate ?? this._now();
-    this._setSelectedDate(selectedDate);
   }
 
   /** Creates the array of weekdays. */
@@ -329,22 +320,26 @@ export class SbbCalendarElement extends LitElement {
   }
 
   /** Creates the rows for each week. */
-  private _createWeekRows(month: number, year: number): Day[][] {
-    const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(year, month);
+  private _createWeekRows(value: T): Day[][] {
+    const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
     const dateNames: string[] = this._dateAdapter.getDateNames();
     const weeks: Day[][] = [[]];
-    const weekOffset = this._dateAdapter.getFirstWeekOffset(year, month);
+    const weekOffset = this._dateAdapter.getFirstWeekOffset(value);
     for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
       if (cell === DAYS_PER_ROW) {
         weeks.push([]);
         cell = 0;
       }
-      const date = this._dateAdapter.createDate(year, month, i + 1)!;
+      const date = this._dateAdapter.createDate(
+        this._dateAdapter.getYear(value),
+        this._dateAdapter.getMonth(value),
+        i + 1,
+      )!;
       weeks[weeks.length - 1].push({
-        value: this._dateAdapter.getISOString(date),
+        value: this._dateAdapter.toIso8601(date),
         dayValue: dateNames[i],
-        monthValue: String(month + 1),
-        yearValue: String(year),
+        monthValue: String(this._dateAdapter.getMonth(date)),
+        yearValue: String(this._dateAdapter.getYear(date)),
       });
     }
     return weeks;
@@ -357,7 +352,7 @@ export class SbbCalendarElement extends LitElement {
       (_, i: number): Month => ({
         value: shortNames[i],
         longValue: this._monthNames[i],
-        monthValue: i,
+        monthValue: i + 1,
       }),
     );
     const rows: number = 12 / MONTHS_PER_ROW;
@@ -370,11 +365,7 @@ export class SbbCalendarElement extends LitElement {
 
   /** Creates the rows for the year selection view. */
   private _createYearRows(offset: number = 0): number[][] {
-    const startValueYearView: number = this._dateAdapter.getStartValueYearView(
-      this._activeDate,
-      this._min,
-      this._max,
-    );
+    const startValueYearView: number = this._getStartValueYearView();
     const allYears: number[] = new Array(YEARS_PER_PAGE)
       .fill(0)
       .map((_, i: number) => startValueYearView + offset + i);
@@ -386,6 +377,30 @@ export class SbbCalendarElement extends LitElement {
     return yearArray;
   }
 
+  /**
+   * Calculates the first year that will be shown in the year selection panel.
+   * If `minDate` and `maxDate` are both null, the starting year is calculated as
+   * the multiple of YEARS_PER_PAGE closest to and less than activeDate,
+   * e.g., with `YEARS_PER_PAGE` = 24 and `activeDate` = 2020, the function will return 2016 (24 * 83),
+   * while with `activeDate` = 2000, the function will return 1992 (24 * 82).
+   * If `minDate` is not null, it returns the corresponding year; if `maxDate` is not null,
+   * it returns the corresponding year minus `YEARS_PER_PAGE`, so that the `maxDate` is the last rendered year.
+   * If both are not null, `maxDate` has priority over `minDate`.
+   */
+  private _getStartValueYearView(): number {
+    let startingYear = 0;
+    if (this.max) {
+      startingYear = this._dateAdapter.getYear(this.max) - YEARS_PER_PAGE + 1;
+    } else if (this.min) {
+      startingYear = this._dateAdapter.getYear(this.min);
+    }
+    const activeYear = this._dateAdapter.getYear(this._activeDate);
+    return (
+      activeYear -
+      ((((activeYear - startingYear) % YEARS_PER_PAGE) + YEARS_PER_PAGE) % YEARS_PER_PAGE)
+    );
+  }
+
   /** Checks if date is within the min-max range. */
   private _isDayInRange(date: string): boolean {
     if (!this._min && !this._max) {
@@ -393,12 +408,10 @@ export class SbbCalendarElement extends LitElement {
     }
     const isBeforeMin: boolean =
       this._dateAdapter.isValid(this._min) &&
-      this._dateAdapter.compareDate(this._min!, this._dateAdapter.createDateFromISOString(date)!) >
-        0;
+      this._dateAdapter.compareDate(this._min!, this._dateAdapter.deserialize(date)!) > 0;
     const isAfterMax: boolean =
       this._dateAdapter.isValid(this._max) &&
-      this._dateAdapter.compareDate(this._max!, this._dateAdapter.createDateFromISOString(date)!) <
-        0;
+      this._dateAdapter.compareDate(this._max!, this._dateAdapter.deserialize(date)!) < 0;
     return !(isBeforeMin || isAfterMax);
   }
 
@@ -436,7 +449,7 @@ export class SbbCalendarElement extends LitElement {
 
     const firstOfMonth = this._dateAdapter.createDate(this._chosenYear!, month, 1)!;
     for (
-      let date: Date = firstOfMonth;
+      let date: T = firstOfMonth;
       this._dateAdapter.getMonth(date) == month;
       date = this._dateAdapter.addCalendarDays(date, 1)
     ) {
@@ -454,9 +467,9 @@ export class SbbCalendarElement extends LitElement {
       return true;
     }
 
-    const firstOfYear = this._dateAdapter.createDate(year, 0, 1)!;
+    const firstOfYear = this._dateAdapter.createDate(year, 1, 1)!;
     for (
-      let date: Date = firstOfYear;
+      let date: T = firstOfYear;
       this._dateAdapter.getYear(date) == year;
       date = this._dateAdapter.addCalendarDays(date, 1)
     ) {
@@ -474,11 +487,11 @@ export class SbbCalendarElement extends LitElement {
     this._chosenYear = undefined;
     if (this._selected !== day) {
       this._selected = day;
-      this._dateSelected.emit(this._dateAdapter.createDateFromISOString(day)!);
+      this._dateSelected.emit(this._dateAdapter.deserialize(day)!);
     }
   }
 
-  private _assignActiveDate(date: Date): void {
+  private _assignActiveDate(date: T): void {
     if (this._min && this._dateAdapter.compareDate(this._min, date) > 0) {
       this._activeDate = this._min;
       return;
@@ -498,7 +511,7 @@ export class SbbCalendarElement extends LitElement {
   private _goToDifferentYear(years: number): void {
     this._chosenYear! += years;
     // Can't use `_assignActiveDate(...)` here, because it will set it to min/max value if argument is out of range
-    this._activeDate = new Date(
+    this._activeDate = this._dateAdapter.createDate(
       this._chosenYear!,
       this._dateAdapter.getMonth(this._activeDate),
       this._dateAdapter.getDate(this._activeDate),
@@ -510,14 +523,14 @@ export class SbbCalendarElement extends LitElement {
     this._init(this._dateAdapter.addCalendarYears(this._activeDate, years));
   }
 
-  private _prevDisabled(prevDate: Date): boolean {
+  private _prevDisabled(prevDate: T): boolean {
     if (!this._min) {
       return false;
     }
     return this._dateAdapter.compareDate(prevDate, this._min) < 0;
   }
 
-  private _nextDisabled(nextDate: Date): boolean {
+  private _nextDisabled(nextDate: T): boolean {
     if (!this._max) {
       return false;
     }
@@ -526,46 +539,52 @@ export class SbbCalendarElement extends LitElement {
 
   /** Checks if the "previous month" button should be disabled. */
   private _previousMonthDisabled(): boolean {
-    const prevMonth: Date = this._dateAdapter.clone(this._activeDate);
-    prevMonth.setDate(0);
+    const prevMonth = this._dateAdapter.addCalendarDays(
+      this._activeDate,
+      this._dateAdapter.getDate(this._activeDate) * -1,
+    );
     return this._prevDisabled(prevMonth);
   }
 
   /** Checks if the "next month" button should be disabled. */
   private _nextMonthDisabled(): boolean {
-    const nextMonth: Date = this._dateAdapter.addCalendarMonths(
-      this._activeDate,
-      this._wide ? 2 : 1,
+    let nextMonth = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? 2 : 1);
+    nextMonth = this._dateAdapter.createDate(
+      this._dateAdapter.getYear(nextMonth),
+      this._dateAdapter.getMonth(nextMonth),
+      1,
     );
-    nextMonth.setDate(1);
     return this._nextDisabled(nextMonth);
   }
 
   private _previousYearDisabled(): boolean {
-    const prevYear: Date = this._dateAdapter.clone(this._activeDate);
-    prevYear.setFullYear(this._dateAdapter.getYear(this._activeDate) - 1, 11, 31);
+    const prevYear = this._dateAdapter.createDate(
+      this._dateAdapter.getYear(this._activeDate) - 1,
+      12,
+      31,
+    );
     return this._prevDisabled(prevYear);
   }
 
   private _nextYearDisabled(): boolean {
-    const nextYear: Date = this._dateAdapter.clone(this._activeDate);
-    nextYear.setFullYear(this._dateAdapter.getYear(this._activeDate) + 1, 0, 1);
+    const nextYear = this._dateAdapter.createDate(
+      this._dateAdapter.getYear(this._activeDate) + 1,
+      1,
+      1,
+    );
     return this._nextDisabled(nextYear);
   }
 
   private _previousYearRangeDisabled(): boolean {
-    const prevYear: Date = this._dateAdapter.clone(this._activeDate);
-    prevYear.setFullYear(this._years.flat()[0] - 1, 11, 31);
+    const prevYear = this._dateAdapter.createDate(this._years[0][0] - 1, 12, 31);
     return this._prevDisabled(prevYear);
   }
 
   private _nextYearRangeDisabled(): boolean {
-    const lastYearArray: number[] = (
-      isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years
-    ).flat();
-    const lastYear: number = lastYearArray[lastYearArray.length - 1];
-    const nextYear: Date = this._dateAdapter.clone(this._activeDate);
-    nextYear.setFullYear(lastYear + 1, 0, 1);
+    const years = isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years;
+    const lastYearRange = years[years.length - 1];
+    const lastYear = lastYearRange[lastYearRange.length - 1];
+    const nextYear = this._dateAdapter.createDate(lastYear + 1, 1, 1);
     return this._nextDisabled(nextYear);
   }
 
@@ -586,16 +605,16 @@ export class SbbCalendarElement extends LitElement {
   }
 
   private _getFirstFocusable(): HTMLButtonElement {
-    const active = this._selected ? new Date(this._selected) : this._now();
+    const active = this._selected ? this._dateAdapter.deserialize(this._selected)! : this._now();
     let firstFocusable =
       this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
       this.shadowRoot!.querySelector(
-        `[data-day="${active.getDate()} ${
-          this._activeDate.getMonth() + 1
-        } ${this._activeDate.getFullYear()}"]`,
+        `[data-day="${this._dateAdapter.getDate(active)} ${this._dateAdapter.getMonth(
+          active,
+        )} ${this._dateAdapter.getYear(active)}"]`,
       ) ??
-      this.shadowRoot!.querySelector(`[data-month="${this._activeDate.getMonth()}"]`) ??
-      this.shadowRoot!.querySelector(`[data-year="${this._activeDate.getFullYear()}"]`);
+      this.shadowRoot!.querySelector(`[data-month="${this._dateAdapter.getMonth(active)}"]`) ??
+      this.shadowRoot!.querySelector(`[data-year="${this._dateAdapter.getYear(active)}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable = this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
     }
@@ -692,7 +711,12 @@ export class SbbCalendarElement extends LitElement {
           offsetForWideMode: index - indexInView,
           lastElementIndexForWideMode:
             index === indexInView
-              ? this._dateAdapter.getNumDaysInMonth(+day!.yearValue, +day!.monthValue - 1)
+              ? this._dateAdapter.getNumDaysInMonth(
+                  this._dateAdapter.addCalendarMonths(
+                    this._dateAdapter.deserialize(day!.value)!,
+                    -1,
+                  ),
+                )
               : cells.length,
         };
       }
@@ -770,23 +794,23 @@ export class SbbCalendarElement extends LitElement {
       : this._findNext(days, nextIndex, -verticalOffset);
   }
 
-  private _now(): Date {
-    if (this._hasDataNow()) {
-      const today: Date = new Date(+(this.dataset.now as string));
-      today.setHours(0, 0, 0, 0);
-      return today;
+  private _now(): T {
+    if (this.hasAttribute('data-now')) {
+      const today = new Date(readDataNow(this));
+      if (defaultDateAdapter.isValid(today)) {
+        return this._dateAdapter.createDate(
+          today.getFullYear(),
+          today.getMonth() + 1,
+          today.getDate(),
+        );
+      }
     }
     return this._dateAdapter.today();
   }
 
-  private _hasDataNow(): boolean {
-    const dataNow = +(this.dataset?.now as string);
-    return !!dataNow;
-  }
-
   private _resetToDayView(): void {
     this._resetFocus = true;
-    this._activeDate = this._dateAdapter.deserializeDate(this.selectedDate) ?? this._now();
+    this._activeDate = this.selected ?? this._now();
     this._chosenYear = undefined;
     this._chosenMonth = undefined;
     this._nextCalendarView = 'day';
@@ -809,9 +833,9 @@ export class SbbCalendarElement extends LitElement {
         <div class="sbb-calendar__controls-month">
           ${this._createLabelForDayView(this._activeDate)}
           ${this._wide ? this._createLabelForDayView(nextMonthActiveDate!) : nothing}
-          <sbb-screenreader-only role="status">
+          <sbb-screen-reader-only role="status">
             ${this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate!)}
-          </sbb-screenreader-only>
+          </sbb-screen-reader-only>
         </div>
         ${this._getArrow(
           'right',
@@ -828,9 +852,9 @@ export class SbbCalendarElement extends LitElement {
   }
 
   /** Creates the label with the month for the daily view. */
-  private _createLabelForDayView(d: Date): TemplateResult {
+  private _createLabelForDayView(d: T): TemplateResult {
     const monthLabel = `${
-      this._monthNames[this._dateAdapter.getMonth(d)]
+      this._monthNames[this._dateAdapter.getMonth(d) - 1]
     } ${this._dateAdapter.getYear(d)}`;
     return html`
       <button
@@ -851,12 +875,12 @@ export class SbbCalendarElement extends LitElement {
   }
 
   /** Creates the aria-label for the daily view. */
-  private _createAriaLabelForDayView(...dates: Date[]): string {
+  private _createAriaLabelForDayView(...dates: T[]): string {
     let monthLabel = '';
     for (const d of dates) {
       if (d) {
         monthLabel += `${
-          this._monthNames[this._dateAdapter.getMonth(d)]
+          this._monthNames[this._dateAdapter.getMonth(d) - 1]
         } ${this._dateAdapter.getYear(d)} `;
       }
     }
@@ -889,7 +913,7 @@ export class SbbCalendarElement extends LitElement {
     return this._weekdays.map(
       (day: Weekday) => html`
         <th class="sbb-calendar__table-header">
-          <sbb-screenreader-only>${day.long}</sbb-screenreader-only>
+          <sbb-screen-reader-only>${day.long}</sbb-screen-reader-only>
           <span aria-hidden="true">${day.narrow}</span>
         </th>
       `,
@@ -898,7 +922,7 @@ export class SbbCalendarElement extends LitElement {
 
   /** Creates the table body with the day cells. For the first row, it also considers the possible day's offset. */
   private _createDayTableBody(weeks: Day[][]): TemplateResult[] {
-    const today: string = this._dateAdapter.getISOString(this._now());
+    const today: string = this._dateAdapter.toIso8601(this._now());
     return weeks.map((week: Day[], rowIndex: number) => {
       const firstRowOffset: number = DAYS_PER_ROW - week.length;
       if (rowIndex === 0 && firstRowOffset) {
@@ -925,9 +949,7 @@ export class SbbCalendarElement extends LitElement {
   private _createDayCells(week: Day[], today: string): TemplateResult[] {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this._dateFilter(
-        this._dateAdapter.createDateFromISOString(day.value)!,
-      );
+      const isFilteredOut = !this._dateFilter(this._dateAdapter.deserialize(day.value)!);
       const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;
@@ -1001,7 +1023,7 @@ export class SbbCalendarElement extends LitElement {
         ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear! + 1}` : nothing}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
       </button>
-      <sbb-screenreader-only role="status"> ${this._chosenYear} </sbb-screenreader-only>`;
+      <sbb-screen-reader-only role="status"> ${this._chosenYear} </sbb-screen-reader-only>`;
   }
 
   /** Creates the table for the month selection view. */
@@ -1014,7 +1036,7 @@ export class SbbCalendarElement extends LitElement {
         ${this._wide
           ? html`<thead class="sbb-calendar__table-header" aria-hidden="true">
               <tr class="sbb-calendar__table-header-row">
-                <th class="sbb-calendar__table-header" .colspan=${MONTHS_PER_ROW}>${year}</th>
+                <th class="sbb-calendar__table-header" colspan=${MONTHS_PER_ROW}>${year}</th>
               </tr>
             </thead>`
           : nothing}
@@ -1026,10 +1048,10 @@ export class SbbCalendarElement extends LitElement {
                   const isOutOfRange = !this._isMonthInRange(month.monthValue);
                   const isFilteredOut = !this._isMonthFilteredOut(month.monthValue);
                   const selectedMonth = this._selected
-                    ? this._dateAdapter.getMonth(new Date(this._selected))
+                    ? this._dateAdapter.getMonth(this._dateAdapter.deserialize(this._selected)!)
                     : undefined;
                   const selectedYear = this._selected
-                    ? this._dateAdapter.getYear(new Date(this._selected))
+                    ? this._dateAdapter.getYear(this._dateAdapter.deserialize(this._selected)!)
                     : undefined;
                   const selected: boolean =
                     !!this._selected && year === selectedYear && month.monthValue === selectedMonth;
@@ -1075,9 +1097,15 @@ export class SbbCalendarElement extends LitElement {
 
   /** Select the month and change the view to day selection. */
   private _onMonthSelection(month: number, year: number, shiftRight: boolean): void {
-    this._chosenMonth = shiftRight ? month - 1 : month;
+    this._chosenMonth = shiftRight ? month + 1 : month;
     this._nextCalendarView = 'day';
-    this._init(new Date(year, this._chosenMonth, this._activeDate.getDate()));
+    this._init(
+      this._dateAdapter.createDate(
+        year,
+        this._chosenMonth,
+        this._dateAdapter.getDate(this._activeDate),
+      ),
+    );
     this._removeTable();
   }
 
@@ -1142,12 +1170,13 @@ export class SbbCalendarElement extends LitElement {
         ${yearLabel}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
       </button>
-      <sbb-screenreader-only role="status"> ${yearLabel} </sbb-screenreader-only>
+      <sbb-screen-reader-only role="status"> ${yearLabel} </sbb-screen-reader-only>
     `;
   }
 
   /** Creates the table for the year selection view. */
   private _createYearTable(years: number[][], shiftRight = false): TemplateResult {
+    const now = this._now();
     return html` <table
       class="sbb-calendar__table"
       @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
@@ -1160,10 +1189,10 @@ export class SbbCalendarElement extends LitElement {
                 const isOutOfRange = !this._isYearInRange(year);
                 const isFilteredOut = !this._isYearFilteredOut(year);
                 const selectedYear = this._selected
-                  ? this._dateAdapter.getYear(new Date(this._selected))
+                  ? this._dateAdapter.getYear(this._dateAdapter.deserialize(this._selected)!)
                   : undefined;
                 const selected: boolean = !!this._selected && year === selectedYear;
-                const isCurrentYear = this._dateAdapter.getYear(this._now()) === year;
+                const isCurrentYear = this._dateAdapter.getYear(now) === year;
                 return html` <td class="sbb-calendar__table-data sbb-calendar__table-year">
                   <button
                     class=${classMap({
@@ -1197,7 +1226,11 @@ export class SbbCalendarElement extends LitElement {
     this._chosenYear = rightSide ? year - 1 : year;
     this._nextCalendarView = 'month';
     this._assignActiveDate(
-      new Date(this._chosenYear, this._activeDate.getMonth(), this._activeDate.getDate()),
+      this._dateAdapter.createDate(
+        this._chosenYear,
+        this._dateAdapter.getMonth(this._activeDate),
+        this._dateAdapter.getDate(this._activeDate),
+      ),
     );
     this._removeTable();
   }
@@ -1221,7 +1254,7 @@ export class SbbCalendarElement extends LitElement {
       this._resetFocus = true;
       this._calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
-      this.toggleAttribute('data-transition', false);
+      this.removeAttribute('data-transition');
     }
   }
 
@@ -1233,7 +1266,6 @@ export class SbbCalendarElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    this.toggleAttribute('data-wide', this._wide);
     return html`<div class="sbb-calendar__wrapper">${this._getView}</div>`;
   }
 }

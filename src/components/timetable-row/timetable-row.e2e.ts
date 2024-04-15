@@ -1,16 +1,19 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbCardElement } from '../card';
-import { EventSpy, waitForCondition } from '../core/testing';
+import type { SbbCardElement } from '../card.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForCondition } from '../core/testing.js';
 
-import { SbbTimetableRowElement } from './timetable-row';
+import { SbbTimetableRowElement } from './timetable-row.js';
 
-describe('sbb-timetable-row', () => {
+describe(`sbb-timetable-row with ${fixture.name}`, () => {
   let element: SbbTimetableRowElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-timetable-row></sbb-timetable-row>`);
+    element = await fixture(html`<sbb-timetable-row></sbb-timetable-row>`, {
+      modules: ['./timetable-row.ts'],
+    });
   });
 
   it('renders', () => {

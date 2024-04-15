@@ -48,20 +48,3 @@ snapshots["sbb-footer A11y tree Firefox"] =
 `;
 /* end snapshot sbb-footer A11y tree Firefox */
 
-snapshots["sbb-footer A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Footer",
-      "level": 1
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-footer A11y tree Safari */
-

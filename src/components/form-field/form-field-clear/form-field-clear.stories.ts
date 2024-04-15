@@ -12,11 +12,11 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './form-field-clear';
-import '../form-field';
+import './form-field-clear.js';
+import '../form-field.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
@@ -59,7 +59,8 @@ const basicArgs: Args = {
 };
 
 const DefaultTemplate = ({ negative, ...args }: Args): TemplateResult => html`
-  <sbb-form-field label="Label" ?negative=${negative}>
+  <sbb-form-field ?negative=${negative}>
+    <label>Label</label>
     <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
     <input type="text" placeholder="Input placeholder" value="Input value" ${sbbSpread(args)} />
     <sbb-form-field-clear></sbb-form-field-clear>

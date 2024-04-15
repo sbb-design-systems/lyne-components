@@ -1,21 +1,19 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbAlertElement } from './alert';
+import type { SbbAlertElement } from './alert.js';
 
-import './alert';
+import './alert.js';
 
-describe('sbb-alert', () => {
+describe(`sbb-alert`, () => {
   let element: SbbAlertElement;
 
   it('should render default properties', async () => {
     element = await fixture(
       html`<sbb-alert disable-animation title-content="Interruption">Alert content</sbb-alert>`,
     );
-    await waitForLitRender(element);
 
     expect(element).dom.to.be.equal(
       `
@@ -44,8 +42,6 @@ describe('sbb-alert', () => {
         >Alert content</sbb-alert
       >`,
     );
-
-    await waitForLitRender(element);
 
     expect(element).dom.to.be.equal(
       `

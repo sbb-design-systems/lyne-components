@@ -1,4 +1,4 @@
-import { isBrowser } from './platform';
+import { isBrowser } from './platform.js';
 
 export const breakpoints = ['zero', 'micro', 'small', 'medium', 'wide', 'large', 'ultra'] as const;
 export type Breakpoint = (typeof breakpoints)[number];

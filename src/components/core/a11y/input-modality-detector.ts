@@ -1,12 +1,12 @@
 // This implementation is inspired by https://github.com/angular/components/blob/main/src/cdk/a11y/input-modality/input-modality-detector.ts
 
-import { isBrowser } from '../dom';
-import { getEventTarget } from '../eventing';
+import { isBrowser } from '../dom.js';
+import { getEventTarget } from '../eventing.js';
 
 import {
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
-} from './fake-event-detection';
+} from './fake-event-detection.js';
 
 export type SbbInputModality = 'touch' | 'mouse' | 'keyboard' | 'program' | null;
 
@@ -191,10 +191,14 @@ export function setModalityOnNextFocus(elementToFocus: HTMLElement | null | unde
   elementToFocus.addEventListener(
     'focus',
     () => {
-      (elementToFocus.dataset.focusOrigin as SbbInputModality) = mostRecentModality;
-      elementToFocus.addEventListener('blur', () => delete elementToFocus.dataset.focusOrigin, {
-        once: true,
-      });
+      elementToFocus.setAttribute('data-focus-origin', mostRecentModality);
+      elementToFocus.addEventListener(
+        'blur',
+        () => elementToFocus.removeAttribute('data-focus-origin'),
+        {
+          once: true,
+        },
+      );
     },
     { once: true },
   );

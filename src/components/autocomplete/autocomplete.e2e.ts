@@ -1,28 +1,32 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { SbbFormFieldElement } from '../form-field';
-import { SbbOptionElement } from '../option';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
+import { SbbFormFieldElement } from '../form-field.js';
+import { SbbOptionElement } from '../option.js';
 
-import { SbbAutocompleteElement } from './autocomplete';
+import { SbbAutocompleteElement } from './autocomplete.js';
 
-describe('sbb-autocomplete', () => {
+describe(`sbb-autocomplete with ${fixture.name}`, () => {
   let element: SbbAutocompleteElement, formField: SbbFormFieldElement, input: HTMLInputElement;
 
   beforeEach(async () => {
-    formField = await fixture(html`
-      <sbb-form-field>
-        <input />
-        <sbb-autocomplete id="myAutocomplete" disable-animation>
-          <sbb-option id="option-1" value="1">1</sbb-option>
-          <sbb-option id="option-2" value="2">2</sbb-option>
-          <sbb-option id="option-3" value="3">3</sbb-option>
-        </sbb-autocomplete>
-      </sbb-form-field>
-      <button>Use this for backdrop click</button>
-    `);
+    formField = await fixture(
+      html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete id="myAutocomplete" disable-animation>
+            <sbb-option id="option-1" value="1">1</sbb-option>
+            <sbb-option id="option-2" value="2">2</sbb-option>
+            <sbb-option id="option-3" value="3">3</sbb-option>
+          </sbb-autocomplete>
+        </sbb-form-field>
+        <button>Use this for backdrop click</button>
+      `,
+      { modules: ['../form-field.ts', './autocomplete.ts', '../option.ts'] },
+    );
     input = formField.querySelector<HTMLInputElement>('input')!;
     element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
   });
@@ -146,7 +150,7 @@ describe('sbb-autocomplete', () => {
   });
 
   it('should stay closed when disabled', async () => {
-    input.setAttribute('disabled', '');
+    input.toggleAttribute('disabled', true);
 
     input.focus();
     await waitForLitRender(element);
@@ -162,7 +166,7 @@ describe('sbb-autocomplete', () => {
   });
 
   it('should stay closed when readonly', async () => {
-    input.setAttribute('readonly', '');
+    input.toggleAttribute('readonly', true);
 
     input.focus();
     await waitForLitRender(element);

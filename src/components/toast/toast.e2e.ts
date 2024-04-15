@@ -1,19 +1,20 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../button';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import type { SbbTransparentButtonElement } from '../button.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
-import { SbbToastElement } from './toast';
+import { SbbToastElement } from './toast.js';
 
-import '../button/transparent-button';
-import '../link/link-button';
+import '../button/transparent-button.js';
+import '../link/link-button.js';
 
-describe('sbb-toast', () => {
+describe(`sbb-toast with ${fixture.name}`, () => {
   let element: SbbToastElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <sbb-toast></sbb-toast> `);
+    element = await fixture(html` <sbb-toast></sbb-toast> `, { modules: ['./toast.ts'] });
   });
 
   it('renders and sets the correct attributes', async () => {
@@ -62,7 +63,7 @@ describe('sbb-toast', () => {
     const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
 
-    element.setAttribute('dismissible', '');
+    element.toggleAttribute('dismissible', true);
     await waitForLitRender(element);
     element.open();
     await waitForLitRender(element);
@@ -86,11 +87,14 @@ describe('sbb-toast', () => {
   });
 
   it('closes by marked action element', async () => {
-    element = await fixture(html`
-      <sbb-toast>
-        <sbb-transparent-button slot="action" sbb-toast-close></sbb-transparent-button>
-      </sbb-toast>
-    `);
+    element = await fixture(
+      html`
+        <sbb-toast>
+          <sbb-transparent-button slot="action" sbb-toast-close></sbb-transparent-button>
+        </sbb-toast>
+      `,
+      { modules: ['./toast.ts', '../button.ts'] },
+    );
     const actionBtn = element.querySelector('sbb-transparent-button') as HTMLElement;
 
     const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
@@ -116,11 +120,14 @@ describe('sbb-toast', () => {
   });
 
   it('forces state on button actions', async () => {
-    element = await fixture(html`
-      <sbb-toast>
-        <sbb-transparent-button slot="action"></sbb-transparent-button>
-      </sbb-toast>
-    `);
+    element = await fixture(
+      html`
+        <sbb-toast>
+          <sbb-transparent-button slot="action"></sbb-transparent-button>
+        </sbb-toast>
+      `,
+      { modules: ['./toast.ts', '../button.ts'] },
+    );
 
     const actionBtn = element.querySelector('sbb-transparent-button');
 
@@ -129,24 +136,31 @@ describe('sbb-toast', () => {
   });
 
   it('forces state on link actions', async () => {
-    element = await fixture(html`
-      <sbb-toast>
-        <sbb-link-button slot="action"></sbb-link-button>
-      </sbb-toast>
-    `);
+    element = await fixture(
+      html`
+        <sbb-toast>
+          <sbb-link-button slot="action"></sbb-link-button>
+        </sbb-toast>
+      `,
+      { modules: ['./toast.ts', '../link.ts'] },
+    );
     const actionLink = element.querySelector('sbb-link-button');
 
     expect(actionLink).to.have.attribute('negative');
   });
 
   it('closes other toasts on open', async () => {
-    await fixture(html`
-      <sbb-toast id="toast1" disable-animation></sbb-toast>
-      <sbb-toast id="toast2" disable-animation></sbb-toast>
-    `);
+    element = await fixture<SbbToastElement>(
+      html`
+        <div>
+          <sbb-toast id="toast1" disable-animation></sbb-toast>
+          <sbb-toast id="toast2" disable-animation></sbb-toast>
+        </div>
+      `,
+      { modules: ['./toast.ts'] },
+    );
 
-    const toast1: SbbToastElement = document.querySelector<SbbToastElement>('#toast1')!;
-    const toast2: SbbToastElement = document.querySelector<SbbToastElement>('#toast2')!;
+    const [toast1, toast2] = Array.from(element.querySelectorAll('sbb-toast'));
 
     // Open the first toast
     toast1.open();
@@ -160,6 +174,7 @@ describe('sbb-toast', () => {
     await waitForLitRender(element);
 
     await waitForCondition(() => toast1.getAttribute('data-state') === 'closed');
+    await waitForCondition(() => toast2.getAttribute('data-state') === 'opened');
     expect(toast1).to.have.attribute('data-state', 'closed');
     expect(toast2).to.have.attribute('data-state', 'opened');
   });

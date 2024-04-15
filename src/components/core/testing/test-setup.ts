@@ -1,8 +1,8 @@
-import { sbbInputModalityDetector } from '../a11y';
-import type { SbbIconConfig } from '../config';
-import { mergeConfig } from '../config';
+import { sbbInputModalityDetector } from '../a11y.js';
+import type { SbbIconConfig } from '../config.js';
+import { mergeConfig } from '../config.js';
 
-import { isHydratedSsr } from './platform';
+import { isHydratedSsr } from './platform.js';
 
 function setupIconConfig(): void {
   const testNamespaces = ['default', 'picto'];
@@ -24,22 +24,29 @@ function setupIconConfig(): void {
     },
   };
 
-  mergeConfig({
-    icon,
-  });
+  mergeConfig({ icon });
 }
+
+setupIconConfig();
 
 if (isHydratedSsr()) {
   await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
 }
 
-beforeEach(() => {
-  setupIconConfig();
+function globalTestingSetup(): void {
+  beforeEach(() => {
+    sbbInputModalityDetector.reset();
+  });
 
-  sbbInputModalityDetector.reset();
-});
+  afterEach(async () => {
+    const fixtures = await import('@lit-labs/testing/fixtures.js');
+    fixtures.cleanupFixtures();
+  });
+}
 
-afterEach(async () => {
-  const fixtures = await import('@lit-labs/testing/fixtures.js');
-  fixtures.cleanupFixtures();
-});
+if (document.readyState === 'loading') {
+  // Loading hasn't finished yet
+  document.addEventListener('DOMContentLoaded', globalTestingSetup);
+} else {
+  setTimeout(globalTestingSetup);
+}

@@ -1,27 +1,33 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import type { SbbCardElement } from '../card';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbCardElement } from '../card.js';
 
-import type { SbbCardLinkElement } from './card-link';
+import type { SbbCardLinkElement } from './card-link.js';
 
-import '../card';
-import './card-link';
+import '../card.js';
+import './card-link.js';
 
-describe('sbb-card-link', () => {
+describe(`sbb-card-link with ${fixture.name}`, () => {
   let element: SbbCardElement;
 
   it('should render an sbb-card-link as a link opening in a new window', async () => {
-    element = await fixture(html`
-      <sbb-card>
-        <sbb-card-link href="https://github.com/lyne-design-system/lyne-components" target="_blank"
-          >Follow me</sbb-card-link
-        >
-        Content text
-      </sbb-card>
-    `);
+    element = await fixture(
+      html`
+        <sbb-card>
+          <sbb-card-link
+            href="https://github.com/lyne-design-system/lyne-components"
+            target="_blank"
+            >Follow me</sbb-card-link
+          >
+          Content text
+        </sbb-card>
+      `,
+      { modules: ['../card.ts', './card-link.ts'] },
+    );
 
     expect(element).to.have.attribute('data-has-action');
     expect(element).not.to.have.attribute('data-has-active-action');
@@ -29,21 +35,33 @@ describe('sbb-card-link', () => {
 
     const cardAction = element.querySelector('sbb-card-link');
 
-    expect(cardAction).dom.to.be.equal(`
-      <sbb-card-link href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" dir="ltr" tabindex="0" data-action data-link slot="action">
+    expect(cardAction).dom.to.be.equal(
+      `
+      <sbb-card-link
+        href="https://github.com/lyne-design-system/lyne-components"
+        target="_blank"
+        role="link"
+        dir="ltr"
+        tabindex="0"
+        data-action
+        data-link
+        slot="action">
         Follow me
       </sbb-card-link>
-    `);
+    `,
+      { ignoreAttributes: ['defer-hydration'], ignoreTags: ['template'] },
+    );
     await expect(cardAction).shadowDom.to.be.equalSnapshot();
   });
 
   it('should correctly toggle active state', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-link href="#">Click me</sbb-card-link>Content</sbb-card>`,
+      { modules: ['../card.ts', './card-link.ts'] },
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
-    element.querySelector<SbbCardLinkElement>('sbb-card-link')!.setAttribute('active', '');
+    element.querySelector<SbbCardLinkElement>('sbb-card-link')!.toggleAttribute('active', true);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-has-active-action');
@@ -55,6 +73,7 @@ describe('sbb-card-link', () => {
         ><sbb-card-link active href="#">Click me</sbb-card-link
         ><span><button>Content</button></span></sbb-card
       >`,
+      { modules: ['../card.ts', './card-link.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -78,17 +97,18 @@ describe('sbb-card-link', () => {
           <button>Content</button>
         </span>
       </sbb-card>`,
+      { modules: ['../card.ts', './card-link.ts'] },
     );
-    expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
 
     // Add a second button in content
-    document
-      .getElementById('content')!
-      .insertBefore(document.createElement('button'), document.querySelector('button'));
+    element
+      .querySelector('#content')!
+      .insertBefore(document.createElement('button'), element.querySelector('button'));
 
     // Both buttons should be marked as focusable
     await waitForLitRender(element);
-    const buttons = document.querySelectorAll('button');
+    const buttons = element.querySelectorAll('button');
     expect(buttons.length).to.be.equal(2);
     expect(
       Array.from(buttons).every((el) => el.getAttribute('data-card-focusable') !== null),
@@ -99,7 +119,7 @@ describe('sbb-card-link', () => {
     await waitForLitRender(element);
 
     // Card should not have marker anymore
-    expect(document.querySelectorAll('button').length).to.be.equal(0);
+    expect(element.querySelectorAll('button').length).to.be.equal(0);
   });
 
   it('should detect added second element of slot to update focusable elements', async () => {
@@ -108,16 +128,15 @@ describe('sbb-card-link', () => {
         <sbb-card-link href="#">Click me</sbb-card-link>
         <span id="content"></span>
       </sbb-card>`,
+      { modules: ['../card.ts', './card-link.ts'] },
     );
 
     // Add a button to slot
-    document
-      .querySelector<SbbCardElement>('sbb-card')!
-      .insertBefore(document.createElement('button'), document.getElementById('content'));
+    element.insertBefore(document.createElement('button'), element.querySelector('#content'));
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
   });
 
   it('should detect focusable elements when action was added at later point', async () => {
@@ -127,29 +146,33 @@ describe('sbb-card-link', () => {
           <button></button>
         </span>
       </sbb-card>`,
+      { modules: ['../card.ts'] },
     );
 
     // Add a sbb-card-link
     const link = document.createElement('sbb-card-link');
     link.setAttribute('href', '#');
-    document.querySelector<SbbCardElement>('sbb-card')!.appendChild(link);
+    element.appendChild(link);
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
   });
 
   describe('events', () => {
     let action: SbbCardLinkElement;
 
     beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-card>
-          <sbb-card-link id="focus-id" href="#">Card</sbb-card-link>
-          Content
-        </sbb-card>
-      `);
-      action = document.querySelector<SbbCardLinkElement>('sbb-card-link')!;
+      element = await fixture(
+        html`
+          <sbb-card>
+            <sbb-card-link id="focus-id" href="#">Card</sbb-card-link>
+            Content
+          </sbb-card>
+        `,
+        { modules: ['../card.ts', './card-link.ts'] },
+      );
+      action = element.querySelector<SbbCardLinkElement>('sbb-card-link')!;
     });
 
     it('dispatches event on click', async () => {

@@ -1,17 +1,19 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
 
-import { SbbNavigationButtonElement } from './navigation-button';
+import { SbbNavigationButtonElement } from './navigation-button.js';
 
-describe('sbb-navigation-button', () => {
+describe(`sbb-navigation-button with ${fixture.name}`, () => {
   let element: SbbNavigationButtonElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-navigation-button id="focus-id">Navigation Action</sbb-navigation-button>`,
+      { modules: ['./navigation-button.ts'] },
     );
   });
 
@@ -21,10 +23,8 @@ describe('sbb-navigation-button', () => {
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      const navigationButton =
-        document.querySelector<SbbNavigationButtonElement>('sbb-navigation-button')!;
       const changeSpy = new EventSpy('click');
-      navigationButton.click();
+      element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy.count).to.be.equal(1);
     });

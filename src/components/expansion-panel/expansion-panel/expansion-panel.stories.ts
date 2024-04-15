@@ -12,14 +12,14 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
-import { SbbExpansionPanelElement } from './expansion-panel';
+import { SbbExpansionPanelElement } from './expansion-panel.js';
 import readme from './readme.md?raw';
 
-import '../expansion-panel-content';
-import '../../icon';
+import '../expansion-panel-content.js';
+import '../../icon.js';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

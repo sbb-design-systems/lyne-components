@@ -6,9 +6,9 @@ import type { UnsafeHTMLDirective } from 'lit/directives/unsafe-html.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
-import { hostAttributes } from '../core/common-behaviors';
+import { hostAttributes } from '../core/decorators.js';
 
-import { getSvgContent } from './icon-request';
+import { getSvgContent } from './icon-request.js';
 import style from './icon.scss?lit&inline';
 
 /**

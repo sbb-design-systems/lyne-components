@@ -1,8 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './train-blocked-passage';
 
-describe('sbb-train-blocked-passage', () => {
+import { fixture } from '../../core/testing/private.js';
+
+import './train-blocked-passage.js';
+
+describe(`sbb-train-blocked-passage`, () => {
   it('renders', async () => {
     const root = await fixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`);
 

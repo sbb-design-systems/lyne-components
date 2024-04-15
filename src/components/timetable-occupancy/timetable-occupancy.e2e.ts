@@ -1,15 +1,18 @@
-import { assert, fixture } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbTimetableOccupancyElement } from './timetable-occupancy';
+import { fixture } from '../core/testing/private.js';
 
-describe('sbb-timetable-occupancy', () => {
+import { SbbTimetableOccupancyElement } from './timetable-occupancy.js';
+
+describe(`sbb-timetable-occupancy with ${fixture.name}`, () => {
   let element: SbbTimetableOccupancyElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-timetable-occupancy first-class-occupancy="high"></sbb-timetable-occupancy>
-    `);
+    element = await fixture(
+      html` <sbb-timetable-occupancy first-class-occupancy="high"></sbb-timetable-occupancy> `,
+      { modules: ['./timetable-occupancy.ts'] },
+    );
   });
 
   it('renders', async () => {

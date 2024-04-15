@@ -1,12 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbMapContainerElement } from './map-container';
-import '.';
+import type { SbbMapContainerElement } from './map-container.js';
 
-describe('sbb-map-container', () => {
+import './map-container.js';
+
+describe(`sbb-map-container`, () => {
   let element: SbbMapContainerElement;
 
   it('renders the container with button', async () => {

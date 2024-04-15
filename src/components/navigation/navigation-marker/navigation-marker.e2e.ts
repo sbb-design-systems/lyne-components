@@ -1,13 +1,14 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import '../navigation-button';
-import { waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
 
-import { SbbNavigationMarkerElement } from './navigation-marker';
-import '.';
+import { SbbNavigationMarkerElement } from './navigation-marker.js';
 
-describe('sbb-navigation-marker', () => {
+import '../navigation-button.js';
+
+describe(`sbb-navigation-marker with ${fixture.name}`, () => {
   let element: SbbNavigationMarkerElement;
 
   beforeEach(async () => {
@@ -18,6 +19,7 @@ describe('sbb-navigation-marker', () => {
         <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
         <sbb-navigation-button id="nav-4">Help & Contact</sbb-navigation-button>
       </sbb-navigation-marker>`,
+      { modules: ['./navigation-marker.ts', '../navigation-button.ts'] },
     );
   });
 

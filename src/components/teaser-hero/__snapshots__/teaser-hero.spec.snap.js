@@ -91,9 +91,9 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
     >
     </sbb-image>
   </slot>
-  <sbb-screenreader-only>
+  <sbb-screen-reader-only>
     . Link target opens in a new window.
-  </sbb-screenreader-only>
+  </sbb-screen-reader-only>
 </a>
 `;
 /* end snapshot sbb-teaser-hero should render all properties ShadowDom */
@@ -142,48 +142,4 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-teaser-hero should render all properties A11y tree Firefox */
-
-snapshots["sbb-teaser-hero should render all properties A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "label",
-      "children": [
-        {
-          "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more SBB CFF FFS Employee . Link target opens in a new window.",
-          "children": [
-            {
-              "role": "text",
-              "name": "Break out and explore castles and palaces."
-            },
-            {
-              "role": "text",
-              "name": "Find out more"
-            },
-            {
-              "role": "image",
-              "name": "SBB CFF FFS Employee"
-            },
-            {
-              "role": "text",
-              "name": ". "
-            },
-            {
-              "role": "text",
-              "name": "Link target opens in a new window."
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser-hero should render all properties A11y tree Safari */
 

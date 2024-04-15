@@ -9,14 +9,6 @@ snapshots["sbb-expansion-panel-content renders"] =
 `;
 /* end snapshot sbb-expansion-panel-content renders */
 
-snapshots["sbb-expansion-panel-content renders expanded"] = 
-`<div class="sbb-expansion-panel-content">
-  <slot>
-  </slot>
-</div>
-`;
-/* end snapshot sbb-expansion-panel-content renders expanded */
-
 snapshots["sbb-expansion-panel-content A11y tree Chrome"] = 
 `<p>
   {
@@ -48,20 +40,4 @@ snapshots["sbb-expansion-panel-content A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-expansion-panel-content A11y tree Firefox */
-
-snapshots["sbb-expansion-panel-content A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Content"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-expansion-panel-content A11y tree Safari */
 

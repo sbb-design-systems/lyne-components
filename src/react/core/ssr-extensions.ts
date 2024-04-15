@@ -1,3 +1,4 @@
+/* eslint-disable import-x/default, import-x/no-named-as-default-member */
 import { isServer } from 'lit';
 import type { ComponentType, JSXElementConstructor, ReactNode } from 'react';
 import react, { Children, isValidElement } from 'react';
@@ -18,7 +19,8 @@ export const withSsrDataSlotNames = <P extends object>(
 ): ComponentType<P> => {
   return !isServer
     ? component
-    : (props: WithChildren<P>) => {
+    : (originalProps) => {
+        const props = originalProps as WithChildren<P>;
         if (!props.children) {
           return react.createElement(component, props);
         }
@@ -69,7 +71,8 @@ export const withSsrDataChildCount = <P extends object>(
 ): ComponentType<P> => {
   return !isServer
     ? component
-    : (props: WithChildren<P>) => {
+    : (originalProps) => {
+        const props = originalProps as WithChildren<P>;
         if (!props.children) {
           return react.createElement(component, props);
         }

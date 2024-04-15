@@ -30,9 +30,9 @@ snapshots["sbb-link renders - ShadowDOM"] =
 >
   <slot>
   </slot>
-  <sbb-screenreader-only>
+  <sbb-screen-reader-only>
     . Link target opens in a new window.
-  </sbb-screenreader-only>
+  </sbb-screen-reader-only>
 </a>
 `;
 /* end snapshot sbb-link renders - ShadowDOM */
@@ -81,40 +81,4 @@ snapshots["sbb-link A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-link A11y tree Firefox */
-
-snapshots["sbb-link A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": "Travelcards & tickets. . Link target opens in a new window.",
-          "children": [
-            {
-              "role": "text",
-              "name": "Travelcards & tickets."
-            },
-            {
-              "role": "text",
-              "name": ". "
-            },
-            {
-              "role": "text",
-              "name": "Link target opens in a new window."
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link A11y tree Safari */
 

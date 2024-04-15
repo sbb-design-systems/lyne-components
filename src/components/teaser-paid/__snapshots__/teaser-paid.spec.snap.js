@@ -30,9 +30,9 @@ snapshots["sbb-teaser-paid ShadowDom"] =
   </slot>
   <slot name="image">
   </slot>
-  <sbb-screenreader-only>
+  <sbb-screen-reader-only>
     . Link target opens in a new window.
-  </sbb-screenreader-only>
+  </sbb-screen-reader-only>
 </a>
 `;
 /* end snapshot sbb-teaser-paid ShadowDom */
@@ -81,36 +81,4 @@ snapshots["sbb-teaser-paid A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-teaser-paid A11y tree Firefox */
-
-snapshots["sbb-teaser-paid A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "label",
-      "children": [
-        {
-          "role": "link",
-          "name": ". Link target opens in a new window.",
-          "children": [
-            {
-              "role": "text",
-              "name": ". "
-            },
-            {
-              "role": "text",
-              "name": "Link target opens in a new window."
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser-paid A11y tree Safari */
 

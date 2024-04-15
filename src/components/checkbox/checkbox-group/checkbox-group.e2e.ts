@@ -1,29 +1,33 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { SbbCheckboxElement } from '../checkbox';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import { SbbCheckboxElement } from '../checkbox.js';
 
-import { SbbCheckboxGroupElement } from './checkbox-group';
+import { SbbCheckboxGroupElement } from './checkbox-group.js';
 
-describe('sbb-checkbox-group', () => {
+describe(`sbb-checkbox-group with ${fixture.name}`, () => {
   let element: SbbCheckboxGroupElement;
   let checkboxOne: SbbCheckboxElement,
     checkboxTwo: SbbCheckboxElement,
     checkboxThree: SbbCheckboxElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-checkbox-group>
-        <sbb-checkbox id="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
-        <sbb-checkbox id="checkbox-2" disabled value="checkbox-2">Label 2</sbb-checkbox>
-        <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
-      </sbb-checkbox-group>
-    `);
-    checkboxOne = document.querySelector<SbbCheckboxElement>('#checkbox-1')!;
-    checkboxTwo = document.querySelector<SbbCheckboxElement>('#checkbox-2')!;
-    checkboxThree = document.querySelector<SbbCheckboxElement>('#checkbox-3')!;
+    element = await fixture(
+      html`
+        <sbb-checkbox-group>
+          <sbb-checkbox id="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
+          <sbb-checkbox id="checkbox-2" disabled value="checkbox-2">Label 2</sbb-checkbox>
+          <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
+        </sbb-checkbox-group>
+      `,
+      { modules: ['./checkbox-group.ts', '../checkbox.ts'] },
+    );
+    checkboxOne = element.querySelector<SbbCheckboxElement>('#checkbox-1')!;
+    checkboxTwo = element.querySelector<SbbCheckboxElement>('#checkbox-2')!;
+    checkboxThree = element.querySelector<SbbCheckboxElement>('#checkbox-3')!;
   });
 
   it('renders', async () => {

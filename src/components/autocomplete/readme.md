@@ -25,7 +25,8 @@ it will automatically connect to the native `<input>` as trigger and will displa
 
 ```html
 <!-- Origin element -->
-<sbb-form-field label="Label">
+<sbb-form-field>
+  <label>Label</label>
   <!-- Trigger element -->
   <input placeholder="Trigger element" />
 
@@ -50,7 +51,8 @@ The displayed `sbb-option` can be collected into groups using `sbb-optgroup` ele
 
 ```html
 <!-- Origin element -->
-<sbb-form-field label="Label">
+<sbb-form-field>
+  <label>Label</label>
   <!-- Trigger element -->
   <input placeholder="Trigger element" />
 
@@ -123,9 +125,9 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## CSS Properties
 
-| Name                         | Default                      | Description                                                                                                                                                                                           |
-| ---------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sbb-autocomplete-z-index` | `var(--sbb-overlay-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-z-index)` with a value of `1000`. |
+| Name                         | Default                              | Description                                                                                                                                                                                                   |
+| ---------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-autocomplete-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
 ## Slots
 

@@ -1,12 +1,12 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
-import './notification';
+import './notification.js';
 
-describe('sbb-notification', () => {
+describe(`sbb-notification`, () => {
   it('renders', async () => {
     const root = await fixture(
       html`<sbb-notification disable-animation
@@ -30,7 +30,6 @@ describe('sbb-notification', () => {
         >The quick brown fox jumps over the lazy dog.</sbb-notification
       >`,
     );
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `
@@ -48,7 +47,6 @@ describe('sbb-notification', () => {
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
     );
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `
@@ -68,7 +66,6 @@ describe('sbb-notification', () => {
         >The quick brown fox jumps over the lazy dog.</sbb-notification
       >`,
     );
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `

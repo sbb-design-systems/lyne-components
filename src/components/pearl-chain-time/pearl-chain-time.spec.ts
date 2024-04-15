@@ -1,16 +1,17 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import type { PtRideLeg } from '../core/timetable';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
+import type { PtRideLeg } from '../core/timetable.js';
 
-import type { SbbPearlChainTimeElement } from './pearl-chain-time';
+import type { SbbPearlChainTimeElement } from './pearl-chain-time.js';
 
-import './pearl-chain-time';
+import './pearl-chain-time.js';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 
-describe('sbb-pearl-chain-time', () => {
+describe(`sbb-pearl-chain-time`, () => {
   it('should render component with time', async () => {
     const element = await fixture<SbbPearlChainTimeElement>(html`
       <sbb-pearl-chain-time
@@ -33,14 +34,14 @@ describe('sbb-pearl-chain-time', () => {
     expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain__time">
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Departure:
           </span>
           12:00
         </time>
         <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Arrival:
           </span>
           15:00
@@ -79,7 +80,7 @@ describe('sbb-pearl-chain-time', () => {
             role="img"
           ></sbb-icon>
           <time datetime="10M">
-            <span class="sbb-screenreaderonly">
+            <span class="sbb-screen-reader-only">
               minutes of walking time before departure:
             </span>
             10
@@ -89,14 +90,14 @@ describe('sbb-pearl-chain-time', () => {
           </time>
         </span>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Departure:
           </span>
           12:00
         </time>
         <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Arrival:
           </span>
           15:00
@@ -128,14 +129,14 @@ describe('sbb-pearl-chain-time', () => {
     expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain__time">
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Departure:
           </span>
           12:00
         </time>
         <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Arrival:
           </span>
           15:00
@@ -148,7 +149,7 @@ describe('sbb-pearl-chain-time', () => {
             role="img"
           ></sbb-icon>
           <time datetime="10M">
-            <span class="sbb-screenreaderonly">
+            <span class="sbb-screen-reader-only">
               minutes of walking time after arrival:
             </span>
             10
@@ -192,7 +193,7 @@ describe('sbb-pearl-chain-time', () => {
             role="img"
           ></sbb-icon>
           <time datetime="20M">
-            <span class="sbb-screenreaderonly">
+            <span class="sbb-screen-reader-only">
               minutes of walking time before departure:
             </span>
             20
@@ -202,14 +203,14 @@ describe('sbb-pearl-chain-time', () => {
           </time>
         </span>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Departure:
           </span>
           12:00
         </time>
         <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
-          <span class="sbb-screenreaderonly">
+          <span class="sbb-screen-reader-only">
             Arrival:
           </span>
           15:00
@@ -222,7 +223,7 @@ describe('sbb-pearl-chain-time', () => {
             role="img"
           ></sbb-icon>
           <time datetime="10M">
-            <span class="sbb-screenreaderonly">
+            <span class="sbb-screen-reader-only">
               minutes of walking time after arrival:
             </span>
             10

@@ -1,30 +1,31 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { defaultDateAdapter } from '../core/datetime.js';
 
-import { SbbCalendarElement } from './calendar';
+import { SbbCalendarElement } from './calendar.js';
 import readme from './readme.md?raw';
 
-const getCalendarAttr = (min: Date | string, max: Date | string): Record<string, Date> => {
-  const attr: Record<string, Date> = {};
+const getCalendarAttr = (min: Date | string, max: Date | string): Record<string, string> => {
+  const attr: Record<string, string> = {};
   if (min) {
-    attr.min = new Date(min);
+    attr.min = defaultDateAdapter.toIso8601(new Date(min));
   }
   if (max) {
-    attr.max = new Date(max);
+    attr.max = defaultDateAdapter.toIso8601(new Date(max));
   }
   return attr;
 };
 
-const Template = ({ min, max, selectedDate, dateFilter, ...args }: Args): TemplateResult => html`
+const Template = ({ min, max, selected, dateFilter, ...args }: Args): TemplateResult => html`
   <sbb-calendar
-    .selectedDate=${new Date(selectedDate)}
+    .selected=${new Date(selected)}
     .dateFilter=${dateFilter}
     ${sbbSpread(getCalendarAttr(min, max))}
     ${sbbSpread(args)}
@@ -34,13 +35,13 @@ const Template = ({ min, max, selectedDate, dateFilter, ...args }: Args): Templa
 const TemplateDynamicWidth = ({
   min,
   max,
-  selectedDate,
+  selected,
   dateFilter,
   ...args
 }: Args): TemplateResult => html`
   <sbb-calendar
     style=${styleMap({ width: '900px' })}
-    .selectedDate=${new Date(selectedDate)}
+    .selected=${new Date(selected)}
     .dateFilter=${dateFilter}
     ${sbbSpread(getCalendarAttr(min, max))}
     ${sbbSpread(args)}
@@ -56,7 +57,7 @@ const wide: InputType = {
   },
 };
 
-const selectedDate: InputType = {
+const selected: InputType = {
   control: {
     type: 'date',
   },
@@ -119,7 +120,7 @@ const dateFilter: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   wide,
-  selectedDate,
+  selected,
   min,
   max,
   dateFilter,
@@ -131,7 +132,7 @@ today.setDate(today.getDate() >= 15 ? 8 : 18);
 
 const defaultArgs: Args = {
   wide: false,
-  selectedDate: isChromatic() ? new Date(2023, 0, 20) : today,
+  selected: isChromatic() ? new Date(2023, 0, 20) : today,
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 

@@ -1,25 +1,21 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
-import { html, nothing, LitElement } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  SbbNamedSlotListElementMixin,
-  SbbNegativeMixin,
-  NamedSlotStateController,
-  type WithListChildren,
-} from '../core/common-behaviors';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
+import { SbbSlotStateController } from '../core/controllers.js';
+import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.js';
+import { SbbNamedSlotListMixin, SbbNegativeMixin, type WithListChildren } from '../core/mixins.js';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
   SbbLinkSize,
-} from '../link';
-import type { SbbTitleLevel } from '../title';
+} from '../link.js';
+import type { SbbTitleLevel } from '../title.js';
 
 import style from './link-list.scss?lit&inline';
 
-import '../title';
+import '../title.js';
 
 /**
  * It displays a list of `sbb-block-link`.
@@ -29,7 +25,7 @@ import '../title';
  */
 @customElement('sbb-link-list')
 export class SbbLinkListElement extends SbbNegativeMixin(
-  SbbNamedSlotListElementMixin<
+  SbbNamedSlotListMixin<
     SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement,
     typeof LitElement
   >(LitElement),
@@ -62,7 +58,7 @@ export class SbbLinkListElement extends SbbNegativeMixin(
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {

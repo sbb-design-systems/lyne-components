@@ -54,19 +54,3 @@ snapshots["sbb-link-static A11y tree Firefox"] =
 `;
 /* end snapshot sbb-link-static A11y tree Firefox */
 
-snapshots["sbb-link-static A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Travelcards & tickets."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link-static A11y tree Safari */
-

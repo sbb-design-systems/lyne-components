@@ -1,29 +1,30 @@
 import {
   type CSSResultGroup,
+  html,
+  nothing,
   LitElement,
   type PropertyValueMap,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
 import {
-  hostAttributes,
-  SbbNamedSlotListElementMixin,
-  type WithListChildren,
-} from '../../core/common-behaviors';
-import { LanguageController } from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
-import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
-import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbBreadcrumbElement } from '../breadcrumb';
+  getNextElementIndex,
+  isArrowKeyPressed,
+  sbbInputModalityDetector,
+} from '../../core/a11y.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import { AgnosticResizeObserver } from '../../core/observers.js';
+import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
 import style from './breadcrumb-group.scss?lit&inline';
 
-import '../../icon';
+import '../../icon.js';
 
 /**
  * It can be used as a container for one or more `sbb-breadcrumb` component.
@@ -34,18 +35,25 @@ import '../../icon';
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbBreadcrumbGroupElement extends SbbNamedSlotListElementMixin<
+export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   SbbBreadcrumbElement,
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-BREADCRUMB'];
 
-  @state() private _state?: 'collapsed' | 'manually-expanded';
+  /* The state of the breadcrumb group. */
+  @state()
+  private set _state(state: 'collapsed' | 'manually-expanded' | null) {
+    setOrRemoveAttribute(this, 'data-state', state);
+  }
+  private get _state(): 'collapsed' | 'manually-expanded' | null {
+    return this.getAttribute('data-state') as 'collapsed' | 'manually-expanded' | null;
+  }
 
   private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
   private _markForFocus = false;
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -112,7 +120,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListElementMixin<
 
     // If it is not expandable, reset state
     if (this.listChildren.length < 3) {
-      this._state = undefined;
+      this._state = null;
     }
   }
 
@@ -204,8 +212,6 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListElementMixin<
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-
     return html`
       <ol class="sbb-breadcrumb-group">
         ${this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}

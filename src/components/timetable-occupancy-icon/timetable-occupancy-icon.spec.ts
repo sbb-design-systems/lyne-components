@@ -1,8 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './timetable-occupancy-icon';
 
-describe('sbb-timetable-occupancy-icon', () => {
+import { fixture } from '../core/testing/private.js';
+
+import './timetable-occupancy-icon.js';
+
+describe(`sbb-timetable-occupancy-icon`, () => {
   it('renders with high occupancy', async () => {
     const root = await fixture(
       html`<sbb-timetable-occupancy-icon occupancy="high"></sbb-timetable-occupancy-icon>`,

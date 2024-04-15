@@ -1,11 +1,15 @@
-import { assert, fixture } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbChipElement } from './chip';
+import { fixture } from '../core/testing/private.js';
 
-describe('sbb-chip', () => {
+import { SbbChipElement } from './chip.js';
+
+describe(`sbb-chip with ${fixture.name}`, () => {
   it('renders', async () => {
-    const element: SbbChipElement = await fixture(html`<sbb-chip>Label</sbb-chip>`);
+    const element: SbbChipElement = await fixture(html`<sbb-chip>Label</sbb-chip>`, {
+      modules: ['./chip.ts'],
+    });
     assert.instanceOf(element, SbbChipElement);
   });
 });

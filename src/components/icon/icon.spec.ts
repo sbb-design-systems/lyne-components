@@ -1,16 +1,26 @@
-import { aTimeout, expect, fixture } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbIconConfig } from '../core/config';
-import { readConfig } from '../core/config';
-import { waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { mergeConfig, type SbbIconConfig } from '../core/config.js';
+import { readConfig } from '../core/config.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
-import type { SbbIconElement } from './icon';
+import type { SbbIconElement } from './icon.js';
 
-import './icon';
+import './icon.js';
 
-describe('sbb-icon', () => {
+describe(`sbb-icon`, () => {
+  let iconConfig: SbbIconConfig;
+
+  beforeEach(() => {
+    iconConfig = readConfig().icon!;
+  });
+
+  afterEach(() => {
+    mergeConfig({ icon: iconConfig });
+  });
+
   it('renders', async () => {
     const root = await fixture(html`<sbb-icon></sbb-icon>`);
 
@@ -116,7 +126,6 @@ describe('sbb-icon', () => {
     };
 
     const root = await fixture(html`<sbb-icon name="kom:heart-medium"></sbb-icon>`);
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
       <sbb-icon name="kom:heart-medium" aria-hidden="true" role="img" data-namespace="kom">

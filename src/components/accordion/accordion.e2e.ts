@@ -2,10 +2,14 @@ import { assert, expect } from '@open-wc/testing';
 import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy, fixture, isSsr } from '../core/testing';
-import { SbbExpansionPanelElement, type SbbExpansionPanelHeaderElement } from '../expansion-panel';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy, isSsr } from '../core/testing.js';
+import {
+  SbbExpansionPanelElement,
+  type SbbExpansionPanelHeaderElement,
+} from '../expansion-panel.js';
 
-import { SbbAccordionElement } from './accordion';
+import { SbbAccordionElement } from './accordion.js';
 
 describe(`sbb-accordion ${fixture.name}`, () => {
   let element: SbbAccordionElement;
@@ -29,7 +33,7 @@ describe(`sbb-accordion ${fixture.name}`, () => {
           </sbb-expansion-panel>
         </sbb-accordion>
       `,
-      { modules: ['./accordion.ts', '../expansion-panel/index.ts'] },
+      { modules: ['./accordion.ts', '../expansion-panel.ts'] },
     );
   });
 

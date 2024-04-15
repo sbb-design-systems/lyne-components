@@ -9,22 +9,22 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
 import readme from './readme.md?raw';
 
-import './header';
-import '../header-button';
-import '../header-link';
-import '../../divider';
-import '../../menu';
+import './header.js';
+import '../header-button.js';
+import '../header-link.js';
+import '../../divider.js';
+import '../../menu.js';
 
 const LoremIpsumTemplate = (): TemplateResult => html`
   <div>

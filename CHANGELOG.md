@@ -2,6 +2,78 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.50.0](https://github.com/lyne-design-system/lyne-components/compare/v0.49.0...v0.50.0) (2024-04-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* The entry points for the `@sbb-esta/lyne-components` have changed from extension-less to including the extension (e.g. `@sbb-esta/lyne-components/button` to `@sbb-esta/lyne-components/button.js`).
+* **sbb-dialog:** The `sbb-dialog` component now needs the dedicated inner elements `sbb-dialog-title`, `sbb-dialog-content`, and `sbb-dialog-actions`. Use these components to respectively provide a title, a content and, optionally, a footer with an action group. Moreover, the full-screen variant (which occurred when no title was provided to the dialog) has been removed. To achieve a full-screen overlay, please use the new `sbb-overlay` component. As a migration help, consider the following example. Old: ```<sbb-dialog title-content="Title"><p>Dialog content.</p><sbb-action-group slot="action-group">...</sbb-action-group></sbb-dialog>```. New: ```<sbb-dialog><sbb-dialog-title>Title</sbb-dialog-title><sbb-dialog-content><p>Dialog content</p></sbb-dialog-content><sbb-dialog-actions>...</sbb-dialog-actions></sbb-dialog>```. Previously, a full-screen dialog was displayed if no title was provided to the dialog component: ```<sbb-dialog><p>Dialog content.</p></sbb-dialog>```. To achieve the same, it is now mandatory to use the `sbb-overlay` component: ```<sbb-overlay><p>Overlay content.</p></sbb-overlay>```.
+* Changed several internal class names. Consumers shouldn't be affected.
+* **sbb-form-field:** The css var `--sbb-form-field-height` has been renamed to `--sbb-form-field-min-height`.
+
+### Features
+
+* **button:** implemented size 'S' ([#2544](https://github.com/lyne-design-system/lyne-components/issues/2544)) ([396d4dc](https://github.com/lyne-design-system/lyne-components/commit/396d4dc00749c1335ec86128571ac31b2a8f875f))
+* provide full font characters set as alternative ([#2573](https://github.com/lyne-design-system/lyne-components/issues/2573)) ([4047883](https://github.com/lyne-design-system/lyne-components/commit/40478831addeb79dc92cabc52b9d0665dd37a195))
+* **sbb-form-field:** support the textarea inside the `&lt;sbb-form-field&gt;` ([#2506](https://github.com/lyne-design-system/lyne-components/issues/2506)) ([f8316f0](https://github.com/lyne-design-system/lyne-components/commit/f8316f074a36fe91c46d36ace2f5ebb2194e1e3a)), closes [#2497](https://github.com/lyne-design-system/lyne-components/issues/2497)
+* **sbb-overlay:** extract `sbb-overlay` component from dialog ([#2477](https://github.com/lyne-design-system/lyne-components/issues/2477)) ([5ea4fb7](https://github.com/lyne-design-system/lyne-components/commit/5ea4fb79c98495cf7859c99a3b16778a633c81d7)), closes [#2476](https://github.com/lyne-design-system/lyne-components/issues/2476) [#2470](https://github.com/lyne-design-system/lyne-components/issues/2470)
+* **sbb-sticky-bar:** allow configuration of z-index ([#2566](https://github.com/lyne-design-system/lyne-components/issues/2566)) ([20a98b2](https://github.com/lyne-design-system/lyne-components/commit/20a98b2c126c4eccfc15c039b13da57df717a1e3))
+* update size tokens ([#2551](https://github.com/lyne-design-system/lyne-components/issues/2551)) ([74d8929](https://github.com/lyne-design-system/lyne-components/commit/74d892927ff7d52536833e5502b31078716fbeac))
+
+
+### Bug Fixes
+
+* fix boolean handling in react wrapper ([#2547](https://github.com/lyne-design-system/lyne-components/issues/2547)) ([e4ba04b](https://github.com/lyne-design-system/lyne-components/commit/e4ba04b8144b2fa391cf9b406df28033832d319c))
+* **sbb-calendar:** align month view label ([#2564](https://github.com/lyne-design-system/lyne-components/issues/2564)) ([0215e00](https://github.com/lyne-design-system/lyne-components/commit/0215e00d9aad145b1f5d26b1b00470c79c8e8640))
+* **sbb-dialog:** fix accessibility with option to hide the header on scroll ([159f536](https://github.com/lyne-design-system/lyne-components/commit/159f536b429350ac54cd28bd55cb63754a423a11))
+* **sbb-dialog:** fix z-index ([#2572](https://github.com/lyne-design-system/lyne-components/issues/2572)) ([374d7b7](https://github.com/lyne-design-system/lyne-components/commit/374d7b7ed88ef2e97656417e6266ac20a11d1881))
+* **sbb-form-error:** fix internal css variable name ([#2558](https://github.com/lyne-design-system/lyne-components/issues/2558)) ([cc275af](https://github.com/lyne-design-system/lyne-components/commit/cc275afb7fc8066723738bebaf3f61fb90bdf22e))
+* set colspan properly ([0215e00](https://github.com/lyne-design-system/lyne-components/commit/0215e00d9aad145b1f5d26b1b00470c79c8e8640))
+* use valid import/export syntax ([#2563](https://github.com/lyne-design-system/lyne-components/issues/2563)) ([585cfc5](https://github.com/lyne-design-system/lyne-components/commit/585cfc52091a66c4da7d88fb781a7d419cc35ff0))
+
+
+### Code Refactoring
+
+* re-structure common behaviors ([#2533](https://github.com/lyne-design-system/lyne-components/issues/2533)) ([906d576](https://github.com/lyne-design-system/lyne-components/commit/906d5764b113a725c064d695e8e997f83c9628f4)), closes [#2534](https://github.com/lyne-design-system/lyne-components/issues/2534)
+* restructure entry points ([#2575](https://github.com/lyne-design-system/lyne-components/issues/2575)) ([3d4c8ab](https://github.com/lyne-design-system/lyne-components/commit/3d4c8ab34f63315548009c31920d89ce8235024f))
+
+## [0.49.0](https://github.com/lyne-design-system/lyne-components/compare/v0.48.3...v0.49.0) (2024-03-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-form-field:** `label` property and attribute of `<sbb-form-field>` was removed. Use `<label>` tag inside `<sbb-form-field>` to provide the label information. E.g. `<sbb-form-field label="Example">...</sbb-form-field>` becomes `<sbb-form-field><label>Example</label>...</sbb-form-field>`
+* renamed component `sbb-screenreader-only` to `sbb-screeen-reader-only`.
+* **sbb-calendar:** The `SbbDatepicker` property `selectedDate` has been renamed to `selected`. This also applies to the attribute `selected-date`, which has been renamed to `selected`. Additionally the `DateAdapter` (and `NativeDateAdapter`) have been superficially refactored. An important change is that the month is now `1`-based, instead of `0`-based.
+
+### Features
+
+* implement experimental support for server side rendering (SSR) ([#2466](https://github.com/lyne-design-system/lyne-components/issues/2466)) ([3abcc68](https://github.com/lyne-design-system/lyne-components/commit/3abcc6827a3152c7216c3a2178e63a19f96ba22b))
+
+
+### Bug Fixes
+
+* fix scrollbar styles for Chrome ([#2524](https://github.com/lyne-design-system/lyne-components/issues/2524)) ([1266a21](https://github.com/lyne-design-system/lyne-components/commit/1266a2197237eee1712896b7e5959658a3956193))
+* **sbb-button:** remove gap for hidden icons in icon slot ([#2526](https://github.com/lyne-design-system/lyne-components/issues/2526)) ([433c57c](https://github.com/lyne-design-system/lyne-components/commit/433c57c5c5533ebb6409d3be5c47fec1fdd3aac6))
+* **sbb-form-field:** remove label property and attribute ([#2523](https://github.com/lyne-design-system/lyne-components/issues/2523)) ([602064c](https://github.com/lyne-design-system/lyne-components/commit/602064c3d0ff4092c94b8faec4f95c1c1ae3bbb0))
+* stories with label bold for sbb-checkbox and sbb-radio-button ([#2528](https://github.com/lyne-design-system/lyne-components/issues/2528)) ([9e85be5](https://github.com/lyne-design-system/lyne-components/commit/9e85be5d1c63c309e583402162f67e59e78bb897))
+
+
+### Code Refactoring
+
+* rename component name from `sbb-screenreader-only` to `sbb-screeen-reader-only` ([#2520](https://github.com/lyne-design-system/lyne-components/issues/2520)) ([6fbf085](https://github.com/lyne-design-system/lyne-components/commit/6fbf085dab84d64acac5151ed09dd29a8bc3d034))
+* **sbb-calendar:** implement initial support for other date libraries ([6d4e9c2](https://github.com/lyne-design-system/lyne-components/commit/6d4e9c2d22ae9cdf4d2ea73cbca650fd6d3ec4c2))
+
+## [0.48.3](https://github.com/lyne-design-system/lyne-components/compare/v0.48.2...v0.48.3) (2024-03-21)
+
+
+### Bug Fixes
+
+* **sbb-checkbox, sbb-toggle-check:** enable attribute mutation after form reset ([#2505](https://github.com/lyne-design-system/lyne-components/issues/2505)) ([6bd8924](https://github.com/lyne-design-system/lyne-components/commit/6bd892499aa3745ffa9dc52fecc3d8a392a35914))
+* **sbb-header:** fix header shadow on keyboard navigation ([#2508](https://github.com/lyne-design-system/lyne-components/issues/2508)) ([3eefbea](https://github.com/lyne-design-system/lyne-components/commit/3eefbea158d28d54ed18b2a650c7ae7155fd1c42))
+* **sbb-navigation-section:** ensure `sbb-active` initializes correctly ([#2493](https://github.com/lyne-design-system/lyne-components/issues/2493)) ([baede50](https://github.com/lyne-design-system/lyne-components/commit/baede50909c745f5d74d55722c0bc6db12701454))
+
 ## [0.48.2](https://github.com/lyne-design-system/lyne-components/compare/v0.48.1...v0.48.2) (2024-03-14)
 
 

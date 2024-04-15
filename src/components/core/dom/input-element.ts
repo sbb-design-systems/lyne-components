@@ -1,11 +1,4 @@
-import { findReferencedElement } from './find-referenced-element';
-
-/**
- * Resolves the input element inside the shadow DOM of the given element.
- */
-export function findShadowInput(element: HTMLElement): HTMLInputElement | null | undefined {
-  return element.shadowRoot?.querySelector('input');
-}
+import { findReferencedElement } from './find-referenced-element.js';
 
 /**
  * Given an element, returns the related input reference, if it exists respecting following priority.

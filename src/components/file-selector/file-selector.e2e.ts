@@ -1,11 +1,12 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../button';
-import { EventSpy, waitForLitRender } from '../core/testing';
+import type { SbbSecondaryButtonElement } from '../button.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbFileSelectorElement } from './file-selector';
-import '../button/secondary-button';
+import { SbbFileSelectorElement } from './file-selector.js';
+import '../button/secondary-button.js';
 
 function addFilesToComponentInput(
   elem: SbbFileSelectorElement,
@@ -27,11 +28,13 @@ function addFilesToComponentInput(
   input.dispatchEvent(new Event('change'));
 }
 
-describe('sbb-file-selector', () => {
+describe(`sbb-file-selector with ${fixture.name}`, () => {
   let element: SbbFileSelectorElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-file-selector></sbb-file-selector>`);
+    element = await fixture(html`<sbb-file-selector></sbb-file-selector>`, {
+      modules: ['./file-selector.ts'],
+    });
   });
 
   it('renders', () => {

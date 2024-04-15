@@ -1,7 +1,8 @@
 The `sbb-form-field` component is intended to be used as a form input wrapper with label and errors.
 
 ```html
-<sbb-form-field label="Example">
+<sbb-form-field>
+  <label>Example</label>
   <input />
 </sbb-form-field>
 
@@ -20,6 +21,7 @@ The following components are designed to work inside a `sbb-form-field`:
 
 - `<input>`
 - `<select>`
+- `<textarea>`
 - [sbb-datepicker](/docs/components-sbb-datepicker-sbb-datepicker--docs) and its associated components
 - [sbb-select](/docs/components-sbb-select--docs)
 - [sbb-slider](/docs/components-sbb-slider--docs)
@@ -30,7 +32,7 @@ The following components are designed to work inside a `sbb-form-field`:
 
 ### Label
 
-Either use a `<label>` or the `label` attribute to provide a label for a form input. The
+Use a `<label>` element to provide a label for a form input. The
 `sbb-form-field` will automatically assign the correct id reference between label and input.
 
 It's possible to use the `floatingLabel` property to display the label inside the input.
@@ -38,9 +40,9 @@ When using it and setting the value programmatically to empty or from empty to a
 it's mandatory to call the `reset()` method of the `sbb-form-field` to update the state of the floating label.
 
 ```html
-<sbb-form-field label="Example" floating-label>
-  <input required />
-  <sbb-form-error>This field is required!</sbb-form-error>
+<sbb-form-field>
+  <label>Example</label>
+  <input />
 </sbb-form-field>
 ```
 
@@ -50,8 +52,10 @@ Error messages can be shown under the form field by adding `sbb-form-error` elem
 The component will automatically assign them to the `slot='error'`.
 
 ```html
-<sbb-form-field label="Example">
-  <input />
+<sbb-form-field floating-label>
+  <label>Example</label>
+  <input required />
+  <sbb-form-error>This field is required!</sbb-form-error>
 </sbb-form-field>
 ```
 
@@ -64,7 +68,8 @@ It is possible to add content as a prefix or suffix in a `sbb-form-field`.
 This can be done via the `prefix` and `suffix` slots.
 
 ```html
-<sbb-form-field label="Example">
+<sbb-form-field>
+  <label>Example</label>
   <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
   <input />
   <sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>
@@ -75,7 +80,8 @@ It's also possible to slot an icon-only button using the [sbb-mini-button](/docs
 Please note that only this component is correctly supported when slotting buttons in `negative` mode.
 
 ```html
-<sbb-form-field label="Example">
+<sbb-form-field>
+  <label>Example</label>
   <input />
   <sbb-mini-button slot="suffix" icon-name="pen-small"></sbb-mini-button>
 </sbb-form-field>
@@ -107,8 +113,8 @@ By itself, the `sbb-form-field` does not apply any additional accessibility trea
 element. However, several of the form field's optional features interact with the form element
 contained within the form field.
 
-When you provide a label via `<label>` or the `label` attribute, the `sbb-form-field` automatically
-associates this label with the field's form element via a native `<label>` element, using the `for`
+When you provide a label, the `sbb-form-field` automatically
+associates this label with the form element using the `for`
 attribute to reference the control's ID.
 When using a non-native form element (e.g. `sbb-select`), the `aria-labelledby` is used to connect the
 form element with the label, by setting an id on the label and referencing this id in the
@@ -130,7 +136,6 @@ technology will announce errors when they appear.
 | Name            | Attribute        | Privacy | Type                                                                | Default     | Description                                                                                                                                                           |
 | --------------- | ---------------- | ------- | ------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve' \| undefined`                                  | `'none'`    | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
-| `label`         | `label`          | public  | `string \| undefined`                                               |             | Label text for the input which is internally rendered as `<label>`.                                                                                                   |
 | `optional`      | `optional`       | public  | `boolean \| undefined`                                              |             | Indicates whether the input is optional.                                                                                                                              |
 | `size`          | `size`           | public  | `'l' \| 'm' \| undefined`                                           | `'m'`       | Size variant, either l or m.                                                                                                                                          |
 | `borderless`    | `borderless`     | public  | `boolean`                                                           | `false`     | Whether to display the form field without a border.                                                                                                                   |

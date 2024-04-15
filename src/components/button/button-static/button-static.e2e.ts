@@ -1,17 +1,19 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import { SbbButtonStaticElement } from './button-static';
+import { SbbButtonStaticElement } from './button-static.js';
 
-describe('sbb-button-static', () => {
+describe(`sbb-button-static with ${fixture.name}`, () => {
   let element: SbbButtonStaticElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-button-static id="focus-id">I am a static button</sbb-button-static>`,
+      { modules: ['./button-static.ts'] },
     );
   });
 

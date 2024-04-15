@@ -2,11 +2,12 @@ import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../core/common-behaviors';
-import '../link/block-link-static';
-import '../image';
+import { SbbLinkBaseElement } from '../core/base-elements.js';
 
 import style from './teaser-hero.scss?lit&inline';
+
+import '../image.js';
+import '../link/block-link-static.js';
 
 /**
  * It displays an image and an action call within a panel.

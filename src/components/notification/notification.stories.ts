@@ -6,13 +6,13 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbSecondaryButtonElement } from '../button';
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import type { SbbSecondaryButtonElement } from '../button.js';
 
-import { SbbNotificationElement } from './notification';
+import { SbbNotificationElement } from './notification.js';
 import readme from './readme.md?raw';
-import '../button/secondary-button';
-import '../link/link';
+import '../button/secondary-button.js';
+import '../link/link.js';
 
 const titleContent: InputType = {
   control: {

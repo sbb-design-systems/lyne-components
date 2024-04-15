@@ -1,4 +1,4 @@
-import { getDocumentWritingMode } from '../dom';
+import { getDocumentWritingMode } from '../dom.js';
 
 interface PrevAndNextKeys {
   prevKey: string;

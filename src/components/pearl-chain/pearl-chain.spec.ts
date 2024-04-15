@@ -1,14 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import type { PtRideLeg } from '../core/timetable';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
+import type { PtRideLeg } from '../core/timetable.js';
 
-import type { SbbPearlChainElement } from './pearl-chain';
+import type { SbbPearlChainElement } from './pearl-chain.js';
 
-import './pearl-chain';
+import './pearl-chain.js';
 
-describe('sbb-pearl-chain', () => {
+describe(`sbb-pearl-chain`, () => {
   describe('sbb-pearl-chain with one leg', () => {
     it('renders component with config', async () => {
       const element = await fixture<SbbPearlChainElement>(

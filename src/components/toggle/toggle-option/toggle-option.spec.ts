@@ -1,73 +1,82 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import './toggle-option';
-import '../../icon';
+import type { SbbToggleOptionElement } from './toggle-option.js';
 
-describe('sbb-toggle-option', () => {
-  it('renders', async () => {
-    const root = await fixture(
-      html`<sbb-toggle-option checked value="Option 1"></sbb-toggle-option>`,
-    );
+import './toggle-option.js';
 
-    expect(root).dom.to.be.equal(`
-      <sbb-toggle-option aria-checked="true" checked role="radio" tabindex="0" value="Option 1">
-      </sbb-toggle-option>
-    `);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+describe(`sbb-toggle-option`, () => {
+  let element: SbbToggleOptionElement;
+
+  describe('renders', async () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-toggle-option checked value="Option 1"></sbb-toggle-option>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
-  it('renders with sbb-icon', async () => {
-    const root = await fixture(
-      html`<sbb-toggle-option checked icon-name="arrow-right-small"></sbb-toggle-option>`,
-    );
+  describe('renders unchecked', async () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-toggle-option value="Option 1"></sbb-toggle-option>`);
+    });
 
-    await waitForLitRender(root);
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-toggle-option
-        aria-checked="true"
-        checked
-        icon-name="arrow-right-small"
-        role="radio"
-        tabindex="0"
-      >
-      </sbb-toggle-option>
-    `);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
-  it('renders with slotted sbb-icon', async () => {
-    const root = await fixture(
-      html` <sbb-toggle-option>
-        <sbb-icon slot="icon" name="arrow-right-small"></sbb-icon>
-      </sbb-toggle-option>`,
-    );
+  describe('renders checked disabled', async () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-toggle-option checked disabled value="Option 1"></sbb-toggle-option>`,
+      );
+    });
 
-    await waitForLitRender(root);
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-toggle-option
-        aria-checked="false"
-        role="radio"
-        tabindex="-1"
-        data-slot-names="icon"
-      >
-        <sbb-icon
-          aria-hidden="true"
-          data-namespace="default"
-          name="arrow-right-small"
-          role="img"
-          slot="icon"
-        >
-        </sbb-icon>
-      </sbb-toggle-option>
-    `);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
-  testA11yTreeSnapshot(html`<sbb-toggle-option checked value="Option 1"></sbb-toggle-option>`);
+  describe('renders unchecked disabled', async () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-toggle-option disabled value="Option 1"></sbb-toggle-option>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
 });

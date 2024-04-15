@@ -9,19 +9,19 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
-import { SbbPopoverElement } from './popover';
+import { SbbPopoverElement } from './popover.js';
 import readme from './readme.md?raw';
-import '../../link';
-import '../../title';
-import '../popover-trigger';
+import '../../link.js';
+import '../../title.js';
+import '../popover-trigger.js';
 
 async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
   const canvas = within(canvasElement);

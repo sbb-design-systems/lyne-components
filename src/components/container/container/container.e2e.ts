@@ -1,13 +1,15 @@
-import { assert, fixture } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbContainerElement } from './container';
+import { fixture } from '../../core/testing/private.js';
 
-describe('sbb-container', () => {
+import { SbbContainerElement } from './container.js';
+
+describe(`sbb-container with ${fixture.name}`, () => {
   let element: SbbContainerElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-container></sbb-container>`);
+    element = await fixture(html`<sbb-container></sbb-container>`, { modules: ['./container.ts'] });
   });
 
   it('renders', async () => {

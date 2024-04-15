@@ -1,13 +1,12 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
-import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils.js';
 
-import type { SbbTertiaryButtonLinkElement } from './tertiary-button-link';
-import './tertiary-button-link';
+import type { SbbTertiaryButtonLinkElement } from './tertiary-button-link.js';
+import './tertiary-button-link.js';
 
-describe('sbb-tertiary-button-link', () => {
+describe(`sbb-tertiary-button-link`, () => {
   describe('renders a sbb-tertiary-button-link without icon', async () => {
     let root: SbbTertiaryButtonLinkElement;
 
@@ -31,7 +30,6 @@ describe('sbb-tertiary-button-link', () => {
 
     beforeEach(async () => {
       root = await fixture(buttonLinkIconTestTemplate('sbb-tertiary-button-link'));
-      await waitForLitRender(root);
     });
 
     it('Dom', async () => {

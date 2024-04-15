@@ -2,16 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  type SbbActionBaseElement,
-  type AbstractConstructor,
-  SbbIconNameMixin,
-} from '../../core/common-behaviors';
-import type { SbbIconPlacement } from '../../core/interfaces';
+import type { SbbActionBaseElement } from '../../core/base-elements.js';
+import type { SbbIconPlacement } from '../../core/interfaces.js';
+import type { AbstractConstructor } from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
 
-import '../../icon';
-import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common';
-// eslint-disable-next-line import/order
+import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common.js';
+// eslint-disable-next-line import-x/order
 import blockStyle from './block-link.scss?lit&inline';
 import style from './link.scss?lit&inline';
 

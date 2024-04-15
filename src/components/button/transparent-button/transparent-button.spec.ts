@@ -1,20 +1,23 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import {
   buttonTestTemplate,
   buttonIconTestTemplate,
   buttonSlottedIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils';
+} from '../common/button-test-utils.js';
 
-import type { SbbTransparentButtonElement } from './transparent-button';
-import './transparent-button';
+import type { SbbTransparentButtonElement } from './transparent-button.js';
+import './transparent-button.js';
 
-describe('sbb-transparent-button', () => {
+describe(`sbb-transparent-button`, () => {
   describe('renders a sbb-transparent-button without icon', async () => {
-    const root = await fixture(buttonTestTemplate('sbb-transparent-button'));
+    let root: SbbTransparentButtonElement;
+
+    beforeEach(async () => {
+      root = await fixture(buttonTestTemplate('sbb-transparent-button'));
+    });
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();
@@ -30,7 +33,6 @@ describe('sbb-transparent-button', () => {
 
     beforeEach(async () => {
       root = await fixture(buttonSlottedIconTestTemplate('sbb-transparent-button'));
-      await waitForLitRender(root);
     });
 
     it('Dom', async () => {
@@ -46,7 +48,6 @@ describe('sbb-transparent-button', () => {
 
   it('should detect icon in sbb-transparent-button', async () => {
     const root = await fixture(buttonIconTestTemplate('sbb-transparent-button'));
-    await waitForLitRender(root);
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');

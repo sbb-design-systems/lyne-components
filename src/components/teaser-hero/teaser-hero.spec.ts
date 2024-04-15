@@ -1,14 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import sampleImages from '../core/images';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import sampleImages from '../core/images.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbTeaserHeroElement } from './teaser-hero';
-import './teaser-hero';
-import '../image';
+import type { SbbTeaserHeroElement } from './teaser-hero.js';
 
-describe('sbb-teaser-hero', () => {
+import './teaser-hero.js';
+import '../image.js';
+
+describe(`sbb-teaser-hero`, () => {
   describe('should render all properties', () => {
     let element: SbbTeaserHeroElement;
 

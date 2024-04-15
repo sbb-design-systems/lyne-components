@@ -53,19 +53,3 @@ snapshots["sbb-chip A11y tree Firefox"] =
 `;
 /* end snapshot sbb-chip A11y tree Firefox */
 
-snapshots["sbb-chip A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-chip A11y tree Safari */
-

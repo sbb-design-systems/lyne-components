@@ -1,23 +1,33 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
-import '../expansion-panel-content';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
+import '../expansion-panel-content.js';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
-import { SbbExpansionPanelElement } from './expansion-panel';
+import { SbbExpansionPanelElement } from './expansion-panel.js';
 
-describe('sbb-expansion-panel', () => {
+describe(`sbb-expansion-panel with ${fixture.name}`, () => {
   let element: SbbExpansionPanelElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-expansion-panel disable-animation>
-        <sbb-expansion-panel-header icon-name="dog-medium">Header</sbb-expansion-panel-header>
-        <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
-      </sbb-expansion-panel>
-    `);
+    element = await fixture(
+      html`
+        <sbb-expansion-panel disable-animation>
+          <sbb-expansion-panel-header icon-name="dog-medium">Header</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+        </sbb-expansion-panel>
+      `,
+      {
+        modules: [
+          './expansion-panel.ts',
+          '../expansion-panel-header.ts',
+          '../expansion-panel-content.ts',
+        ],
+      },
+    );
   });
 
   it('renders', async () => {
@@ -37,12 +47,21 @@ describe('sbb-expansion-panel', () => {
   });
 
   it('has slotted elements with the correct properties when id are set', async () => {
-    element = await fixture(html`
-      <sbb-expansion-panel disable-animation>
-        <sbb-expansion-panel-header id="header">Header</sbb-expansion-panel-header>
-        <sbb-expansion-panel-content id="content">Content</sbb-expansion-panel-content>
-      </sbb-expansion-panel>
-    `);
+    element = await fixture(
+      html`
+        <sbb-expansion-panel disable-animation>
+          <sbb-expansion-panel-header id="header">Header</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content id="content">Content</sbb-expansion-panel-content>
+        </sbb-expansion-panel>
+      `,
+      {
+        modules: [
+          './expansion-panel.ts',
+          '../expansion-panel-header.ts',
+          '../expansion-panel-content.ts',
+        ],
+      },
+    );
 
     const header = element.querySelector('sbb-expansion-panel-header');
     expect(header).to.have.attribute('aria-controls', 'content');

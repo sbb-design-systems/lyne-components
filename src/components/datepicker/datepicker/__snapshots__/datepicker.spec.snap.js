@@ -17,8 +17,8 @@ snapshots["sbb-datepicker A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "textbox",
-      "name": "DD.MM.YYYY"
+      "role": "text",
+      "name": "​"
     },
     {
       "role": "button",
@@ -27,13 +27,17 @@ snapshots["sbb-datepicker A11y tree Chrome"] =
     },
     {
       "role": "button",
-      "name": "Next day",
-      "disabled": true
+      "name": "Show calendar",
+      "haspopup": "dialog"
+    },
+    {
+      "role": "textbox",
+      "name": "DD.MM.YYYY"
     },
     {
       "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
+      "name": "Next day",
+      "disabled": true
     }
   ]
 }
@@ -48,8 +52,8 @@ snapshots["sbb-datepicker A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "textbox",
-      "name": "DD.MM.YYYY"
+      "role": "statictext",
+      "name": "​"
     },
     {
       "role": "button",
@@ -58,48 +62,21 @@ snapshots["sbb-datepicker A11y tree Firefox"] =
     },
     {
       "role": "button",
-      "name": "Next day",
-      "disabled": true
+      "name": "Show calendar",
+      "haspopup": "dialog"
+    },
+    {
+      "role": "textbox",
+      "name": "DD.MM.YYYY"
     },
     {
       "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
+      "name": "Next day",
+      "disabled": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-datepicker A11y tree Firefox */
-
-snapshots["sbb-datepicker A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "textbox",
-      "name": "DD.MM.YYYY"
-    },
-    {
-      "role": "button",
-      "name": "Previous day",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next day",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker A11y tree Safari */
 

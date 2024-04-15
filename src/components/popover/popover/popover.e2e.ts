@@ -1,31 +1,36 @@
-import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import type { SbbButtonElement } from '../../button.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
 
-import '../../button/button';
-import '../../link';
-import { SbbPopoverElement } from './popover';
+import { SbbPopoverElement } from './popover.js';
 
-describe('sbb-popover', () => {
+import '../../button/button.js';
+import '../../link.js';
+
+describe(`sbb-popover with ${fixture.name}`, () => {
   let element: SbbPopoverElement, trigger: SbbButtonElement;
 
   describe('with interactive content', () => {
     beforeEach(async () => {
-      const content = await fixture(html`
-        <span>
-          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-          <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
-            Popover content.
-            <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
-          </sbb-popover>
-          <sbb-block-link href="#" id="interactive-background-element"
-            >Other interactive element</sbb-block-link
-          >
-        </span>
-      `);
+      const content = await fixture(
+        html`
+          <span>
+            <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+            <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+              Popover content.
+              <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
+            </sbb-popover>
+            <sbb-block-link href="#" id="interactive-background-element"
+              >Other interactive element</sbb-block-link
+            >
+          </span>
+        `,
+        { modules: ['../../button.ts', './popover.ts', '../../link.ts'] },
+      );
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
     });
@@ -123,7 +128,7 @@ describe('sbb-popover', () => {
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
       const willCloseEventSpy = new EventSpy(SbbPopoverElement.events.willClose);
       const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
-      const popoverLink = document.querySelector('sbb-popover > sbb-link') as HTMLElement;
+      const popoverLink = element.querySelector(':scope > sbb-link') as HTMLElement;
 
       trigger.click();
 
@@ -165,15 +170,14 @@ describe('sbb-popover', () => {
       expect(element).to.have.attribute('data-state', 'opened');
 
       const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
-        `--sbb-size-button-l-min-height-large`,
+        `--sbb-size-element-m`,
       );
       expect(buttonHeight.trim()).to.be.equal('3.5rem');
 
       const buttonHeightPx = parseFloat(buttonHeight) * 16;
-      const button = document.querySelector<SbbButtonElement>('sbb-button')!;
-      expect(button.offsetHeight).to.be.equal(buttonHeightPx);
-      expect(button.offsetTop).to.be.equal(0);
-      expect(button.offsetLeft).to.be.equal(0);
+      expect(trigger.offsetHeight).to.be.equal(buttonHeightPx);
+      expect(trigger.offsetTop).to.be.equal(0);
+      expect(trigger.offsetLeft).to.be.equal(0);
 
       // Expect overlay offsetTop to be equal to the trigger height + the overlay offset (8px)
       const popoverOverlay = element.shadowRoot!.querySelector<HTMLElement>('.sbb-popover')!;
@@ -200,7 +204,7 @@ describe('sbb-popover', () => {
     });
 
     it('should set correct focus attribute on trigger after backdrop click on an interactive element', async () => {
-      const interactiveBackgroundElement = document.querySelector(
+      const interactiveBackgroundElement = element.parentElement!.querySelector(
         '#interactive-background-element',
       ) as HTMLElement;
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
@@ -214,8 +218,8 @@ describe('sbb-popover', () => {
       await sendMouse({
         type: 'click',
         position: [
-          interactiveElementPosition.x + interactiveElementPosition.width / 2,
-          interactiveElementPosition.y + interactiveElementPosition.height / 2,
+          Math.round(interactiveElementPosition.x + interactiveElementPosition.width / 2),
+          Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2),
         ],
       });
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
@@ -226,7 +230,7 @@ describe('sbb-popover', () => {
     it('closes on interactive element click by keyboard', async () => {
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
       const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
-      const popoverLink = document.querySelector('sbb-popover > sbb-link') as HTMLElement;
+      const popoverLink = element.querySelector(':scope > sbb-link') as HTMLElement;
 
       trigger.click();
 
@@ -384,17 +388,20 @@ describe('sbb-popover', () => {
     let content: HTMLElement;
 
     beforeEach(async () => {
-      content = await fixture(html`
-        <span>
-          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-          <sbb-popover id="popover" trigger="popover-trigger" disable-animation hide-close-button>
-            Popover content.
-          </sbb-popover>
-          <sbb-block-link href="#" id="interactive-background-element"
-            >Other interactive element</sbb-block-link
-          >
-        </span>
-      `);
+      content = await fixture(
+        html`
+          <span>
+            <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+            <sbb-popover id="popover" trigger="popover-trigger" disable-animation hide-close-button>
+              Popover content.
+            </sbb-popover>
+            <sbb-block-link href="#" id="interactive-background-element"
+              >Other interactive element</sbb-block-link
+            >
+          </span>
+        `,
+        { modules: ['../../button.ts', './popover.ts', '../../link.ts'] },
+      );
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
     });
@@ -445,23 +452,28 @@ describe('sbb-popover', () => {
   });
 
   it('should close an open popover when another one is opened', async () => {
-    await fixture(html`
-      <sbb-block-link href="#somewhere" id="interactive-background-element"
-        >Other interactive element</sbb-block-link
-      >
-      <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-      <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
-      <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
-        Popover content.
-      </sbb-popover>
-      <sbb-popover id="another-popover" trigger="another-popover-trigger" disable-animation>
-        Another popover content.
-      </sbb-popover>
-    `);
-    trigger = document.querySelector<SbbButtonElement>('#popover-trigger')!;
-    element = document.querySelector<SbbPopoverElement>('#popover')!;
-    const secondTrigger = document.querySelector<SbbButtonElement>('#another-popover-trigger');
-    const secondElement = document.querySelector<SbbPopoverElement>('#another-popover');
+    const root = await fixture(
+      html`
+        <div>
+          <sbb-block-link href="#somewhere" id="interactive-background-element"
+            >Other interactive element</sbb-block-link
+          >
+          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+          <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
+          <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+            Popover content.
+          </sbb-popover>
+          <sbb-popover id="another-popover" trigger="another-popover-trigger" disable-animation>
+            Another popover content.
+          </sbb-popover>
+        </div>
+      `,
+      { modules: ['../../link.ts', '../../button.ts', './popover.ts'] },
+    );
+    trigger = root.querySelector<SbbButtonElement>('#popover-trigger')!;
+    element = root.querySelector<SbbPopoverElement>('#popover')!;
+    const secondTrigger = root.querySelector<SbbButtonElement>('#another-popover-trigger');
+    const secondElement = root.querySelector<SbbPopoverElement>('#another-popover');
 
     const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
     const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);

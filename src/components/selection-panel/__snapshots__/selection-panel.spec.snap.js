@@ -3,11 +3,17 @@ export const snapshots = {};
 
 snapshots["sbb-selection-panel renders - Dom"] = 
 `<sbb-selection-panel
+  data-has-card-badge=""
   data-slot-names="badge content unnamed"
   data-state="closed"
   disable-animation=""
 >
-  <sbb-card-badge slot="badge">
+  <sbb-card-badge
+    color="charcoal"
+    dir="ltr"
+    role="text"
+    slot="badge"
+  >
     <span>
       %
     </span>
@@ -83,15 +89,7 @@ snapshots["sbb-selection-panel A11y tree Chrome"] =
     },
     {
       "role": "text",
-      "name": " "
-    },
-    {
-      "role": "text",
       "name": "from CHF"
-    },
-    {
-      "role": "text",
-      "name": " "
     },
     {
       "role": "text",
@@ -135,33 +133,4 @@ snapshots["sbb-selection-panel A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-selection-panel A11y tree Firefox */
-
-snapshots["sbb-selection-panel A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "%"
-    },
-    {
-      "role": "text",
-      "name": "from CHF"
-    },
-    {
-      "role": "text",
-      "name": "19.99"
-    },
-    {
-      "role": "checkbox",
-      "name": "​ Value one Suffix Subtext , collapsed",
-      "checked": false
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-selection-panel A11y tree Safari */
 

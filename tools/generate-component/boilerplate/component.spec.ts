@@ -1,8 +1,9 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import './__noPrefixName__';
+import { fixture } from '../../../src/components/core/testing';
 
-describe('__name__', () => {
+describe(`__name__`, () => {
   it('renders', async () => {
     const root = await fixture(html`<__name__ my-prop="Label"></__name__>`);
 

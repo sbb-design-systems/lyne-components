@@ -1,25 +1,29 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import type { SbbBlockLinkElement } from '../link';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
+import type { SbbBlockLinkElement } from '../link.js';
 
-import { SbbSkiplinkListElement } from './skiplink-list';
+import { SbbSkiplinkListElement } from './skiplink-list.js';
 
-import '../link/block-link';
+import '../link/block-link.js';
 
-describe('sbb-skiplink-list', () => {
+describe(`sbb-skiplink-list with ${fixture.name}`, () => {
   let element: SbbSkiplinkListElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-skiplink-list>
-        <sbb-block-link href="#" id="link-1">Link 1</sbb-block-link>
-        <sbb-block-link href="#" id="link-2">Link 2</sbb-block-link>
-        <sbb-block-link href="#" id="link-3">Link 3</sbb-block-link>
-      </sbb-skiplink-list>
-      <button id="button">Focus me</button>
-    `);
+    element = await fixture(
+      html`
+        <sbb-skiplink-list>
+          <sbb-block-link href="#" id="link-1">Link 1</sbb-block-link>
+          <sbb-block-link href="#" id="link-2">Link 2</sbb-block-link>
+          <sbb-block-link href="#" id="link-3">Link 3</sbb-block-link>
+        </sbb-skiplink-list>
+        <button id="button">Focus me</button>
+      `,
+      { modules: ['./skiplink-list.ts', '../link.ts'] },
+    );
   });
 
   it('renders', async () => {
@@ -33,12 +37,12 @@ describe('sbb-skiplink-list', () => {
     expect(listItemLinks[0]).to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
 
-    const firstLink: SbbBlockLinkElement = element.querySelector('sbb-block-link:nth-child(1)')!;
+    const firstLink: SbbBlockLinkElement = element.querySelector('sbb-block-link:first-of-type')!;
     firstLink.focus();
     expect(listItemLinks[0]).not.to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'visible');
 
-    const secondLink: SbbBlockLinkElement = element.querySelector('sbb-block-link:nth-child(2)')!;
+    const secondLink: SbbBlockLinkElement = element.querySelector('sbb-block-link:nth-of-type(2)')!;
     secondLink.focus();
     expect(listItemLinks[0]).to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
@@ -47,7 +51,9 @@ describe('sbb-skiplink-list', () => {
   });
 
   it('should detected later added links', async () => {
-    element = await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`);
+    element = await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`, {
+      modules: ['./skiplink-list.ts'],
+    });
 
     element.innerHTML = `
         <sbb-block-link href='1'>Link 1</sbb-block-link>

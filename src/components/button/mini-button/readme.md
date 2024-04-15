@@ -29,7 +29,8 @@ The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ```html
-<sbb-form-field label="Tickets">
+<sbb-form-field>
+  <label>Tickets</label>
   <input placeholder="Insert the number of tickets you want to purchase." />
   <sbb-mini-button
     slot="suffix"

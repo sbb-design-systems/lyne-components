@@ -1,15 +1,17 @@
-import { assert, fixture } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbFormErrorElement } from './form-error';
+import { fixture } from '../core/testing/private.js';
 
-describe('sbb-form-error', () => {
+import { SbbFormErrorElement } from './form-error.js';
+
+describe(`sbb-form-error with ${fixture.name}`, () => {
   let element: SbbFormErrorElement;
 
   it('renders', async () => {
-    await fixture(html`<sbb-form-error></sbb-form-error>`);
-
-    element = document.querySelector<SbbFormErrorElement>('sbb-form-error')!;
+    element = await fixture(html`<sbb-form-error></sbb-form-error>`, {
+      modules: ['./form-error.ts'],
+    });
     assert.instanceOf(element, SbbFormErrorElement);
   });
 });

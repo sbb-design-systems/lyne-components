@@ -1,10 +1,11 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbSliderElement } from './slider';
+import { SbbSliderElement } from './slider.js';
 
 const keyboardPressTimes = async (
   slider: SbbSliderElement,
@@ -18,19 +19,22 @@ const keyboardPressTimes = async (
   await waitForLitRender(slider);
 };
 
-describe('sbb-slider', () => {
+describe(`sbb-slider with ${fixture.name}`, () => {
   let element: SbbSliderElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-slider
-        start-icon="walk-slow-small"
-        end-icon="walk-fast-small"
-        max="500"
-        min="100"
-        value="400"
-      ></sbb-slider>
-    `);
+    element = await fixture(
+      html`
+        <sbb-slider
+          start-icon="walk-slow-small"
+          end-icon="walk-fast-small"
+          max="500"
+          min="100"
+          value="400"
+        ></sbb-slider>
+      `,
+      { modules: ['./slider.ts'] },
+    );
   });
 
   it('renders', async () => {
@@ -71,7 +75,7 @@ describe('sbb-slider', () => {
 
   it('should not change value on arrow keypress if disabled', async () => {
     const changeEvent = new EventSpy('change', element);
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await keyboardPressTimes(element, 'ArrowLeft');
     expect(changeEvent.count).not.to.be.greaterThan(0);
     await keyboardPressTimes(element, 'ArrowRight');

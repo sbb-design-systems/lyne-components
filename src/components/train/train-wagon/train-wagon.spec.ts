@@ -1,12 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
 
-import type { SbbTrainWagonElement } from './train-wagon';
-import '.';
-import '../../icon';
-import '../../timetable-occupancy-icon';
+import type { SbbTrainWagonElement } from './train-wagon.js';
+import './train-wagon.js';
+import '../../icon.js';
+import '../../timetable-occupancy-icon.js';
 
 async function extractAriaLabels(
   properties: Partial<
@@ -50,7 +51,7 @@ async function extractAriaLabels(
   // Select all accessibility relevant text parts
   return Array.from(
     element.shadowRoot!.querySelectorAll(
-      '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screenreaderonly:not(.sbb-train-wagon__label > span)',
+      '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screen-reader-only:not(.sbb-train-wagon__label > span)',
     ),
   ).map((entry) =>
     entry.hasAttribute('aria-label')
@@ -59,7 +60,7 @@ async function extractAriaLabels(
   );
 }
 
-describe('sbb-train-wagon', () => {
+describe(`sbb-train-wagon`, () => {
   describe('render', () => {
     it('should render as type wagon', async () => {
       const root = await fixture(
@@ -85,8 +86,6 @@ describe('sbb-train-wagon', () => {
       const root = await fixture(
         html`<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>`,
       );
-
-      await waitForLitRender(root);
       expect(root).dom.to.be.equal(
         `
           <sbb-train-wagon data-has-visible-wagon-content type="wagon">
@@ -111,7 +110,6 @@ describe('sbb-train-wagon', () => {
         ></sbb-train-wagon>`,
       );
 
-      await waitForLitRender(root);
       expect(root).dom.to.be.equal(
         `
         <sbb-train-wagon data-has-visible-wagon-content type="wagon">

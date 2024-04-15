@@ -1,13 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbFooterElement } from './footer';
+import type { SbbFooterElement } from './footer.js';
 
-import './footer';
+import './footer.js';
 
-describe('sbb-footer', () => {
+describe(`sbb-footer`, () => {
   it('renders', async () => {
     const element: SbbFooterElement = await fixture(
       html`<sbb-footer accessibility-title="Footer"></sbb-footer>`,

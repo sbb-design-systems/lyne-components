@@ -1,24 +1,24 @@
 import {
   type CSSResultGroup,
-  nothing,
   LitElement,
+  nothing,
   type PropertyValueMap,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
-import { LanguageController } from '../../core/common-behaviors';
-import { EventEmitter } from '../../core/eventing';
-import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
-import type { SbbTitleLevel } from '../../title';
-import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage';
-import type { SbbTrainWagonElement } from '../train-wagon';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nTrain, i18nWagonsLabel } from '../../core/i18n.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import type { SbbTitleLevel } from '../../title.js';
+import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
+import type { SbbTrainWagonElement } from '../train-wagon.js';
 
 import style from './train.scss?lit&inline';
 
-import '../../icon';
+import '../../icon.js';
 
 /**
  * It can be used as a container for `sbb-train-wagon` or `sbb-train-blocked-passage` components.
@@ -26,7 +26,7 @@ import '../../icon';
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
 @customElement('sbb-train')
-export class SbbTrainElement extends SbbNamedSlotListElementMixin<
+export class SbbTrainElement extends SbbNamedSlotListMixin<
   SbbTrainWagonElement | SbbTrainBlockedPassageElement,
   typeof LitElement
 >(LitElement) {
@@ -51,7 +51,7 @@ export class SbbTrainElement extends SbbNamedSlotListElementMixin<
   /** Controls the direction indicator to show the arrow left or right. Default is left.  */
   @property({ reflect: true }) public direction: 'left' | 'right' = 'left';
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal
@@ -128,7 +128,6 @@ export class SbbTrainElement extends SbbNamedSlotListElementMixin<
         }
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

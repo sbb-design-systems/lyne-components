@@ -459,13 +459,3 @@ snapshots["sbb-link-list rendered with a slotted title A11y tree Firefox"] =
 `;
 /* end snapshot sbb-link-list rendered with a slotted title A11y tree Firefox */
 
-snapshots["sbb-link-list rendered with a slotted title A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-link-list rendered with a slotted title A11y tree Safari */
-

@@ -1,12 +1,14 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
-import { isChromium, isFirefox } from '../../core/dom';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import type { SbbVisualCheckboxElement } from '../../visual-checkbox';
+import { isChromium, isFirefox } from '../../core/dom.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbVisualCheckboxElement } from '../../visual-checkbox.js';
 
-import { SbbCheckboxElement } from './checkbox';
+import { SbbCheckboxElement } from './checkbox.js';
 
 interface CheckboxAccessibilitySnapshot {
   checked: boolean;
@@ -15,12 +17,14 @@ interface CheckboxAccessibilitySnapshot {
   required: boolean;
 }
 
-describe('sbb-checkbox', () => {
+describe(`sbb-checkbox with ${fixture.name}`, () => {
   describe('general', () => {
     let element: SbbCheckboxElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`);
+      element = await fixture(html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`, {
+        modules: ['./checkbox.ts'],
+      });
     });
 
     it('should render', async () => {
@@ -66,6 +70,7 @@ describe('sbb-checkbox', () => {
             <sbb-checkbox></sbb-checkbox>
           </div>
         </div>`,
+        { modules: ['./checkbox.ts'] },
       );
       element = root.querySelector<SbbCheckboxElement>('sbb-checkbox')!;
 
@@ -88,7 +93,10 @@ describe('sbb-checkbox', () => {
       expect(snapshot.required).to.be.undefined;
     });
 
-    it('should reflect accessibility tree setting required attribute to true', async () => {
+    it('should reflect accessibility tree setting required attribute to true', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+      this.retries(3);
+
       element.toggleAttribute('required', true);
       await waitForLitRender(element);
 
@@ -102,7 +110,10 @@ describe('sbb-checkbox', () => {
       }
     });
 
-    it('should reflect accessibility tree setting required attribute to false', async () => {
+    it('should reflect accessibility tree setting required attribute to false', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+      this.retries(3);
+
       element.toggleAttribute('required', true);
       await waitForLitRender(element);
 
@@ -116,7 +127,10 @@ describe('sbb-checkbox', () => {
       expect(snapshot.required).not.to.be.ok;
     });
 
-    it('should reflect accessibility tree setting required property to true', async () => {
+    it('should reflect accessibility tree setting required property to true', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+      this.retries(3);
+
       element.required = true;
       await waitForLitRender(element);
 
@@ -130,7 +144,10 @@ describe('sbb-checkbox', () => {
       }
     });
 
-    it('should reflect accessibility tree setting required property to false', async () => {
+    it('should reflect accessibility tree setting required property to false', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+      this.retries(3);
+
       element.required = true;
       await waitForLitRender(element);
 
@@ -233,12 +250,12 @@ describe('sbb-checkbox', () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
+              { modules: ['./checkbox.ts'] },
             );
-            await waitForLitRender(form);
 
-            element = document.querySelector(selector)!;
-            fieldset = document.querySelector<HTMLFieldSetElement>('fieldset')!;
-            formResetButton = document.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
+            element = form.querySelector(selector)!;
+            fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
+            formResetButton = form.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
             inputSpy = new EventSpy('input', element);
             changeSpy = new EventSpy('change', element);
           });
@@ -525,7 +542,7 @@ describe('sbb-checkbox', () => {
                 expect(element).not.to.have.attribute('disabled');
               }
 
-              const disabledElements = Array.from(document.querySelectorAll(':disabled'));
+              const disabledElements = Array.from(form.querySelectorAll(':disabled'));
 
               expect(disabledElements.includes(element), ':disabled selector').to.be.equal(
                 assertions.disabledSelector,
@@ -647,7 +664,7 @@ describe('sbb-checkbox', () => {
                 focusable: false,
               });
 
-              element.toggleAttribute('disabled', false);
+              element.removeAttribute('disabled');
               await waitForLitRender(form);
 
               await assertDisabledState({
@@ -713,12 +730,12 @@ describe('sbb-checkbox', () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
+              { modules: ['./checkbox.ts'] },
             );
-            await waitForLitRender(form);
 
-            element = document.querySelector(selector)!;
-            fieldset = document.querySelector<HTMLFieldSetElement>('fieldset')!;
-            formResetButton = document.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
+            element = form.querySelector(selector)!;
+            fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
+            formResetButton = form.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
             inputSpy = new EventSpy('input', element);
             changeSpy = new EventSpy('change', element);
           });
@@ -824,7 +841,7 @@ describe('sbb-checkbox', () => {
             });
 
             // When performing
-            element.toggleAttribute('checked', false);
+            element.removeAttribute('checked');
             await waitForLitRender(form);
 
             // Attribute should be considered
@@ -842,7 +859,7 @@ describe('sbb-checkbox', () => {
             await waitForLitRender(form);
 
             // Attribute mutation should be blocked again
-            element.toggleAttribute('checked', false);
+            element.removeAttribute('checked');
             await waitForLitRender(form);
 
             await assertState({

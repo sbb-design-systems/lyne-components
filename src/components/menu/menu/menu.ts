@@ -1,25 +1,20 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  FocusHandler,
   getNextElementIndex,
   interactivityChecker,
   IS_FOCUSABLE_QUERY,
   isArrowKeyPressed,
+  SbbFocusHandler,
   setModalityOnNextFocus,
-} from '../../core/a11y';
-import { SbbNamedSlotListElementMixin } from '../../core/common-behaviors';
-import {
-  findReferencedElement,
-  isBreakpoint,
-  isValidAttribute,
-  ScrollHandler,
-  setAttribute,
-} from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import type { SbbOverlayState } from '../../core/overlay';
+} from '../../core/a11y.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   applyInertMechanism,
   getElementPosition,
@@ -27,8 +22,9 @@ import {
   removeAriaOverlayTriggerAttributes,
   removeInertMechanism,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay';
-import type { SbbMenuButtonElement, SbbMenuLinkElement } from '../index';
+} from '../../core/overlay.js';
+import type { SbbMenuButtonElement } from '../menu-button.js';
+import type { SbbMenuLinkElement } from '../menu-link.js';
 
 import style from './menu.scss?lit&inline';
 
@@ -54,12 +50,12 @@ let nextId = 0;
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-menu` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-menu` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
- * @cssprop [--sbb-menu-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-menu-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-menu')
-export class SbbMenuElement extends SbbNamedSlotListElementMixin<
+export class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
   typeof LitElement
 >(LitElement) {
@@ -102,7 +98,12 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
   /**
    * The state of the menu.
    */
-  @state() private _state: SbbOverlayState = 'closed';
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** Emits whenever the `sbb-menu` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willOpen);
@@ -121,9 +122,9 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new ConnectedAbortController(this);
-  private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _abort = new SbbConnectedAbortController(this);
+  private _focusHandler = new SbbFocusHandler();
+  private _scrollHandler = new SbbScrollHandler();
 
   /**
    * Opens the menu on trigger click.
@@ -217,9 +218,17 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+    // Due to the fact that menu can both be a list and just a container, we need to check its
+    // state before the SbbNamedSlotListMixin handles the slotchange event, in order to avoid
+    // it interpreting the non list case as a list.
+    this.shadowRoot?.addEventListener('slotchange', (e) => this._checkListCase(e), {
+      signal,
+      capture: true,
+    });
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
 
@@ -236,7 +245,7 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
     removeInertMechanism();
   }
 
-  protected override checkChildren(): void {
+  private _checkListCase(event: Event): void {
     // If all children are sbb-menu-button/menu-link instances, we render them as a list.
     if (
       this.children?.length &&
@@ -244,8 +253,11 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
         (c) => c.tagName === 'SBB-MENU-BUTTON' || c.tagName === 'SBB-MENU-LINK',
       )
     ) {
-      super.checkChildren();
-    } else if (this.listChildren.length) {
+      return;
+    }
+
+    event.stopImmediatePropagation();
+    if (this.listChildren.length) {
       this.listChildren.forEach((c) => c.removeAttribute('slot'));
       this.listChildren = [];
     }
@@ -300,7 +312,7 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
   private _closeOnInteractiveElementClick(event: Event): void {
     const target = event.target as HTMLElement;
-    if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !isValidAttribute(target, 'disabled')) {
+    if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !target.hasAttribute('disabled')) {
       this.close();
     }
   }
@@ -384,8 +396,6 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-
     // TODO: Handle case with other elements than sbb-menu-button/sbb-menu-link.
     return html`
       <div class="sbb-menu__container">

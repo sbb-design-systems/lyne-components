@@ -1,16 +1,20 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import { SbbHeaderLinkElement } from './header-link';
+import { SbbHeaderLinkElement } from './header-link.js';
 
-describe('sbb-header-link', () => {
+describe(`sbb-header-link with ${fixture.name}`, () => {
   let element: SbbHeaderLinkElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-header-link id="focus-id" href="#">Action</sbb-header-link>`);
+    element = await fixture(
+      html`<sbb-header-link id="focus-id" href="#">Action</sbb-header-link>`,
+      { modules: ['./header-link.ts'] },
+    );
   });
 
   it('renders', async () => {

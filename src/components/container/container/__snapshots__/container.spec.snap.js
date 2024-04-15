@@ -31,13 +31,3 @@ snapshots["sbb-container A11y tree Firefox"] =
 `;
 /* end snapshot sbb-container A11y tree Firefox */
 
-snapshots["sbb-container A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-container A11y tree Safari */
-

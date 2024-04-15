@@ -5,12 +5,13 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-form-error-height: calc(var(--sbb-typo-line-height-body-text) * 1em);
   --sbb-form-error-color: var(--sbb-color-red125);
+  --sbb-form-error-height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  --sbb-form-error-icon-size: #{sbb.px-to-rem-build(17)};
 
   // Overrides sbb icon
-  --sbb-icon-svg-width: var(--sbb-size-icon-form-error);
-  --sbb-icon-svg-height: var(--sbb-size-icon-form-error);
+  --sbb-icon-svg-width: var(--sbb-form-error-icon-size);
+  --sbb-icon-svg-height: var(--sbb-form-error-icon-size);
 
   @include sbb.if-forced-colors {
     --sbb-form-error-color: LinkText !important;

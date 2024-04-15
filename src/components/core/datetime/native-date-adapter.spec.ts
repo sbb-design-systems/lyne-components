@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { NativeDateAdapter } from './native-date-adapter';
+import { NativeDateAdapter } from './native-date-adapter.js';
 
 describe('NativeDateAdapter', () => {
   let nativeDateAdapter: NativeDateAdapter;
@@ -10,19 +10,19 @@ describe('NativeDateAdapter', () => {
   });
 
   it('getFirstWeekOffset should return the right value', () => {
-    expect(nativeDateAdapter.getFirstWeekOffset(2023, 4)).to.be.equal(0);
-    expect(nativeDateAdapter.getFirstWeekOffset(2023, 7)).to.be.equal(1);
-    expect(nativeDateAdapter.getFirstWeekOffset(2023, 1)).to.be.equal(2);
-    expect(nativeDateAdapter.getFirstWeekOffset(2023, 5)).to.be.equal(3);
-    expect(nativeDateAdapter.getFirstWeekOffset(2023, 8)).to.be.equal(4);
-    expect(nativeDateAdapter.getFirstWeekOffset(2023, 3)).to.be.equal(5);
-    expect(nativeDateAdapter.getFirstWeekOffset(2023, 0)).to.be.equal(6);
+    expect(nativeDateAdapter.getFirstWeekOffset(new Date(2023, 4, 1))).to.be.equal(0);
+    expect(nativeDateAdapter.getFirstWeekOffset(new Date(2023, 7, 1))).to.be.equal(1);
+    expect(nativeDateAdapter.getFirstWeekOffset(new Date(2023, 1, 1))).to.be.equal(2);
+    expect(nativeDateAdapter.getFirstWeekOffset(new Date(2023, 5, 1))).to.be.equal(3);
+    expect(nativeDateAdapter.getFirstWeekOffset(new Date(2023, 8, 1))).to.be.equal(4);
+    expect(nativeDateAdapter.getFirstWeekOffset(new Date(2023, 3, 1))).to.be.equal(5);
+    expect(nativeDateAdapter.getFirstWeekOffset(new Date(2023, 0, 1))).to.be.equal(6);
   });
 
   it('should return the right value for year month, date and weekday', () => {
     const date: Date = new Date(2023, 0, 1);
     expect(nativeDateAdapter.getYear(date)).to.be.equal(2023);
-    expect(nativeDateAdapter.getMonth(date)).to.be.equal(0);
+    expect(nativeDateAdapter.getMonth(date)).to.be.equal(1);
     expect(nativeDateAdapter.getDate(date)).to.be.equal(1);
     expect(nativeDateAdapter.getDayOfWeek(date)).to.be.equal(0);
   });
@@ -71,43 +71,27 @@ describe('NativeDateAdapter', () => {
   });
 
   it('getNumDaysInMonth should return the correct value', () => {
-    expect(nativeDateAdapter.getNumDaysInMonth(2023, 1)).to.be.equal(28);
-    expect(nativeDateAdapter.getNumDaysInMonth(2024, 1)).to.be.equal(29);
-    expect(nativeDateAdapter.getNumDaysInMonth(2023, 3)).to.be.equal(30);
-    expect(nativeDateAdapter.getNumDaysInMonth(2023, 0)).to.be.equal(31);
+    expect(nativeDateAdapter.getNumDaysInMonth(new Date(2023, 1, 1))).to.be.equal(28);
+    expect(nativeDateAdapter.getNumDaysInMonth(new Date(2024, 1, 1))).to.be.equal(29);
+    expect(nativeDateAdapter.getNumDaysInMonth(new Date(2023, 3, 1))).to.be.equal(30);
+    expect(nativeDateAdapter.getNumDaysInMonth(new Date(2023, 0, 1))).to.be.equal(31);
   });
 
   it('createDate should return the correct value or error', () => {
-    expect(nativeDateAdapter.createDate(2023, 17, 1)).to.be.undefined;
-    expect(nativeDateAdapter.createDate(2023, 3, -11)).to.be.undefined;
-    expect(nativeDateAdapter.createDate(2023, -5, 1)).to.be.undefined;
-    expect(nativeDateAdapter.createDate(2023, 3, 99)).to.be.undefined;
-    const firstDate: Date = nativeDateAdapter.createDate(2023, 0, 1)!;
+    expect(() => nativeDateAdapter.createDate(2023, 17, 1)).to.throw();
+    expect(() => nativeDateAdapter.createDate(2023, 3, -11)).to.throw();
+    expect(() => nativeDateAdapter.createDate(2023, -5, 1)).to.throw();
+    expect(() => nativeDateAdapter.createDate(2023, 3, 99)).to.throw();
+    const firstDate: Date = nativeDateAdapter.createDate(2023, 1, 1)!;
     expect(firstDate instanceof Date).to.be.equal(true);
     expect(
       `${firstDate.getDate()}.${firstDate.getMonth() + 1}.${firstDate.getFullYear()}`,
     ).to.be.equal('1.1.2023');
-    const secondDate: Date = nativeDateAdapter.createDate(18, 0, 1)!;
+    const secondDate: Date = nativeDateAdapter.createDate(18, 1, 1)!;
     expect(secondDate instanceof Date).to.be.equal(true);
     expect(
       `${secondDate.getDate()}.${secondDate.getMonth() + 1}.${secondDate.getFullYear()}`,
     ).to.be.equal('1.1.18');
-  });
-
-  it('hasSameMonthAndYear should return the correct value', () => {
-    expect(
-      nativeDateAdapter.hasSameMonthAndYear(new Date(2023, 8, 15, 0, 0, 0, 0), new Date(0)),
-    ).to.be.equal(false);
-    expect(
-      nativeDateAdapter.hasSameMonthAndYear(new Date(2023, 0, 1), new Date(2023, 1, 4)),
-    ).to.be.equal(false);
-    expect(nativeDateAdapter.hasSameMonthAndYear(null, new Date(2023, 1, 4))).to.be.equal(false);
-    expect(nativeDateAdapter.hasSameMonthAndYear(new Date(2023, 0, 1), undefined)).to.be.equal(
-      false,
-    );
-    expect(
-      nativeDateAdapter.hasSameMonthAndYear(new Date(1677000000), new Date(1676000000)),
-    ).to.be.equal(true);
   });
 
   it('isDateInstance and isValid should return the correct value', () => {
@@ -177,48 +161,48 @@ describe('NativeDateAdapter', () => {
   });
 
   it('deserializeDate should return the correct value', () => {
-    expect(nativeDateAdapter.deserializeDate(null)).to.be.null;
+    expect(nativeDateAdapter.deserialize(null)).to.be.null;
 
-    const date: Date = nativeDateAdapter.deserializeDate(new Date(0))!;
+    const date: Date = nativeDateAdapter.deserialize(new Date(0))!;
     expect(date instanceof Date).to.be.equal(true);
     expect(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`).to.be.equal(
       '1.1.1970',
     );
 
-    const dateNumber: Date = nativeDateAdapter.deserializeDate(946684800)!;
+    const dateNumber: Date = nativeDateAdapter.deserialize(946684800)!;
     expect(dateNumber instanceof Date).to.be.equal(true);
     expect(
       `${dateNumber.getDate()}.${dateNumber.getMonth() + 1}.${dateNumber.getFullYear()}`,
     ).to.be.equal('1.1.2000');
 
-    const dateNumAsStr: Date = nativeDateAdapter.deserializeDate('946684800')!;
+    const dateNumAsStr: Date = nativeDateAdapter.deserialize('946684800')!;
     expect(dateNumAsStr instanceof Date).to.be.equal(true);
     expect(
       `${dateNumAsStr.getDate()}.${dateNumAsStr.getMonth() + 1}.${dateNumAsStr.getFullYear()}`,
     ).to.be.equal('1.1.2000');
 
-    const dateString: Date = nativeDateAdapter.deserializeDate('2024-01-01')!;
+    const dateString: Date = nativeDateAdapter.deserialize('2024-01-01')!;
     expect(dateString instanceof Date).to.be.equal(true);
     expect(
       `${dateString.getDate()}.${dateString.getMonth() + 1}.${dateString.getFullYear()}`,
     ).to.be.equal('1.1.2024');
 
-    const fakeDate: Date = nativeDateAdapter.deserializeDate({} as string)!;
-    expect(fakeDate instanceof Date).to.be.equal(false);
-    expect(fakeDate).to.be.null;
+    const fakeDate: Date = nativeDateAdapter.deserialize({} as string)!;
+    expect(fakeDate instanceof Date).to.be.equal(true);
+    expect(+fakeDate).to.be.NaN;
   });
 
   it('parseDate should return the correct value', function () {
     const now = new Date(2023, 8, 15, 0, 0, 0, 0);
-    expect(nativeDateAdapter.parseDate(null, now)).to.be.undefined;
-    expect(nativeDateAdapter.parseDate('Test', now)).to.be.undefined;
-    expect(nativeDateAdapter.parseDate('1.1', now)).to.be.undefined;
-    let formattedDate = nativeDateAdapter.parseDate('1/1/2000', now)!;
+    expect(nativeDateAdapter.parse(null, now)).to.be.undefined;
+    expect(nativeDateAdapter.parse('Test', now)).to.be.undefined;
+    expect(nativeDateAdapter.parse('1.1', now)).to.be.undefined;
+    let formattedDate = nativeDateAdapter.parse('1/1/2000', now)!;
     expect(formattedDate.getFullYear()).to.be.equal(2000);
     expect(formattedDate.getMonth()).to.be.equal(0);
     expect(formattedDate.getDate()).to.be.equal(1);
 
-    formattedDate = nativeDateAdapter.parseDate('1.1.2000', now)!;
+    formattedDate = nativeDateAdapter.parse('1.1.2000', now)!;
     expect(formattedDate.getFullYear()).to.be.equal(2000);
     expect(formattedDate.getMonth()).to.be.equal(0);
     expect(formattedDate.getDate()).to.be.equal(1);
@@ -250,23 +234,5 @@ describe('NativeDateAdapter', () => {
     expect(
       nativeDateAdapter.getAccessibilityFormatDate(new Date(2018, 7, 15, 0, 0, 0)),
     ).to.be.equal('15 août 2018');
-  });
-
-  it('should return the correct year', () => {
-    const startDate: Date = new Date(2023, 0, 1);
-    const minDate: Date = new Date(2000, 0, 1);
-    const maxDate: Date = new Date(2042, 0, 1);
-    const noMinAndMax: number = nativeDateAdapter.getStartValueYearView(startDate, null, null);
-    expect(noMinAndMax).to.be.equal(2016);
-    const withMin: number = nativeDateAdapter.getStartValueYearView(startDate, minDate, null);
-    expect(withMin).to.be.equal(2000);
-    const withMax: number = nativeDateAdapter.getStartValueYearView(startDate, null, maxDate);
-    expect(withMax).to.be.equal(2019);
-    const withMinAndMax: number = nativeDateAdapter.getStartValueYearView(
-      startDate,
-      minDate,
-      maxDate,
-    );
-    expect(withMinAndMax).to.be.equal(2019);
   });
 });

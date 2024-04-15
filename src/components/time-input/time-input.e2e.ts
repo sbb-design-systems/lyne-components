@@ -1,25 +1,30 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { i18nTimeInputChange } from '../core/i18n';
-import type { ValidationChangeEvent } from '../core/interfaces';
-import { EventSpy, waitForLitRender } from '../core/testing';
+import { i18nTimeInputChange } from '../core/i18n.js';
+import type { SbbValidationChangeEvent } from '../core/interfaces.js';
+import { clearElement, fixture, typeInElement } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbTimeInputElement } from './time-input';
+import { SbbTimeInputElement } from './time-input.js';
 
-describe('sbb-time-input', () => {
+import '../form-field/form-field.js';
+
+describe(`sbb-time-input with ${fixture.name}`, () => {
   let element: SbbTimeInputElement, input: HTMLInputElement;
 
   beforeEach(async () => {
-    await fixture(html`
-      <sbb-time-input input="input-1"></sbb-time-input>
-      <input id="input-1" />
-    `);
+    element = await fixture(
+      html`
+        <sbb-time-input input="input-1"></sbb-time-input>
+        <input id="input-1" />
+      `,
+      { modules: ['./time-input.ts'] },
+    );
 
-    element = document.querySelector<SbbTimeInputElement>('sbb-time-input')!;
-    input = document.querySelector<HTMLInputElement>('input')!;
+    input = element.nextElementSibling! as HTMLInputElement;
   });
 
   it('renders', async () => {
@@ -38,8 +43,7 @@ describe('sbb-time-input', () => {
     const changeSpy = new EventSpy('change', element);
     const inputSpy = new EventSpy('input', element);
 
-    input.focus();
-    await sendKeys({ press: '1' });
+    typeInElement(input, '1');
     input.blur();
     await waitForLitRender(element);
 
@@ -48,14 +52,13 @@ describe('sbb-time-input', () => {
   });
 
   it('should emit validation change event', async () => {
-    const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
+    const validationChangeSpy = new EventSpy<CustomEvent<SbbValidationChangeEvent>>(
       SbbTimeInputElement.events.validationChange,
       element,
     );
 
     // When entering 99
-    input.focus();
-    await sendKeys({ type: '99' });
+    typeInElement(input, '99');
     input.blur();
 
     // Then validation event should emit with false
@@ -65,7 +68,7 @@ describe('sbb-time-input', () => {
     // When adding another 9 (999)
     input.focus();
     await sendKeys({ press: 'ArrowRight' }); // Fix for Firefox: de-highlight text
-    await sendKeys({ press: '9' });
+    typeInElement(input, '9');
     input.blur();
 
     // Then validation event should not be emitted a second time
@@ -86,12 +89,11 @@ describe('sbb-time-input', () => {
 
   it('should emit valid validation change event when empty', async () => {
     // Creating invalid entry
-    input.focus();
-    await sendKeys({ type: '99' });
+    typeInElement(input, '99');
     input.blur();
     await waitForLitRender(element);
 
-    const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
+    const validationChangeSpy = new EventSpy<CustomEvent<SbbValidationChangeEvent>>(
       SbbTimeInputElement.events.validationChange,
       element,
     );
@@ -108,7 +110,6 @@ describe('sbb-time-input', () => {
   });
 
   it('should interpret valid values', async function (this: Context) {
-    this.timeout(5000);
     const testCases = [
       { value: '0', interpretedAs: '00:00' },
       { value: '1', interpretedAs: '01:00' },
@@ -137,8 +138,7 @@ describe('sbb-time-input', () => {
       // Clear input
       input.value = '';
 
-      input.focus();
-      await sendKeys({ type: testCase.value });
+      typeInElement(input, testCase.value);
       input.blur();
       await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
@@ -163,8 +163,12 @@ describe('sbb-time-input', () => {
       // Clear input
       input.value = '';
 
-      input.focus();
-      await sendKeys({ type: testCase.value });
+      if (testCase.value) {
+        typeInElement(input, testCase.value);
+      } else {
+        clearElement(input);
+      }
+
       input.blur();
       await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
@@ -175,12 +179,7 @@ describe('sbb-time-input', () => {
   });
 
   it('should prevent char insertion', async () => {
-    input.focus();
-    await sendKeys({ press: '1' });
-
-    // Inserting invalid key
-    await sendKeys({ press: 'V' });
-
+    typeInElement(input, '1V');
     expect(input.value).to.be.equal('1');
   });
 
@@ -226,12 +225,15 @@ describe('sbb-time-input', () => {
   });
 
   it('should work with sbb-form-field', async () => {
-    const root = await fixture(html`
-      <sbb-form-field>
-        <sbb-time-input></sbb-time-input>
-        <input />
-      </sbb-form-field>
-    `);
+    const root = await fixture(
+      html`
+        <sbb-form-field>
+          <sbb-time-input></sbb-time-input>
+          <input />
+        </sbb-form-field>
+      `,
+      { modules: ['../form-field.ts', './time-input.ts'] },
+    );
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
 
@@ -241,12 +243,15 @@ describe('sbb-time-input', () => {
   });
 
   it('should support asynchronously adding input by element reference', async () => {
-    const root = await fixture(html`
-      <div>
-        <sbb-time-input id="time-input"></sbb-time-input>
-        <input id="input" />
-      </div>
-    `);
+    const root = await fixture(
+      html`
+        <div>
+          <sbb-time-input id="time-input"></sbb-time-input>
+          <input id="input" />
+        </div>
+      `,
+      { modules: ['./time-input.ts'] },
+    );
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
     element.input = input;
@@ -257,12 +262,15 @@ describe('sbb-time-input', () => {
   });
 
   it('should support asynchronously adding input by id', async () => {
-    const root = await fixture(html`
-      <div>
-        <sbb-time-input id="time-input"></sbb-time-input>
-        <input id="input-2" />
-      </div>
-    `);
+    const root = await fixture(
+      html`
+        <div>
+          <sbb-time-input id="time-input"></sbb-time-input>
+          <input id="input-2" />
+        </div>
+      `,
+      { modules: ['./time-input.ts'] },
+    );
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
 

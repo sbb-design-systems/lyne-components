@@ -1,12 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbRadioButtonGroupElement } from './radio-button-group';
-import './radio-button-group';
+import type { SbbRadioButtonGroupElement } from './radio-button-group.js';
 
-describe('sbb-radio-button-group', () => {
+import './radio-button-group.js';
+
+describe(`sbb-radio-button-group`, () => {
   let element: SbbRadioButtonGroupElement;
 
   beforeEach(async () => {

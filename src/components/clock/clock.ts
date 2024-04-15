@@ -1,9 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { setAttributes } from '../core/dom';
+import { readDataNow } from '../core/datetime/data-now.js';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
@@ -52,9 +52,6 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 @customElement('sbb-clock')
 export class SbbClockElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-
-  /** If it's false, the clock's hands are hidden; it's set to true when calculations are ready. */
-  @state() private _isInitialized = false;
 
   /** Reference to the hour hand. */
   private _clockHandHours!: HTMLElement;
@@ -174,7 +171,7 @@ export class SbbClockElement extends LitElement {
     this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
     this.style.setProperty('--sbb-clock-animation-play-state', 'running');
 
-    this._isInitialized = true;
+    this.toggleAttribute('data-initialized', true);
   }
 
   /** Set the starting position for the minutes hand. */
@@ -257,13 +254,12 @@ export class SbbClockElement extends LitElement {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +(this.dataset?.now as string);
-    return !isNaN(dataNow);
+    return this.hasAttribute('data-now');
   }
 
   private _now(): Date {
     if (this._hasDataNow()) {
-      return new Date(+(this.dataset.now as string));
+      return new Date(readDataNow(this));
     }
     return new Date();
   }
@@ -284,9 +280,6 @@ export class SbbClockElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const hostAttributes = { 'data-initialized': this._isInitialized };
-    setAttributes(this, hostAttributes);
-
     return html`
       <div class="sbb-clock">
         <span class="sbb-clock__face" .innerHTML=${clockFaceSVG}></span>

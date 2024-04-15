@@ -1,24 +1,25 @@
-import { isValid, format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { SbbLanguageController } from '../core/controllers.js';
+import { readDataNow } from '../core/datetime/data-now.js';
 import {
   defaultDateAdapter,
   durationToTime,
   removeTimezoneFromISOTimeString,
-} from '../core/datetime';
-import { i18nTripDuration } from '../core/i18n';
-import type { Leg } from '../core/timetable';
-import type { SbbTitleLevel } from '../title';
+} from '../core/datetime.js';
+import { i18nTripDuration } from '../core/i18n.js';
+import type { Leg } from '../core/timetable.js';
+import type { SbbTitleLevel } from '../title.js';
 
 import style from './journey-summary.scss?lit&inline';
 
-import '../divider';
-import '../journey-header';
-import '../pearl-chain-time';
-import '../screenreader-only';
+import '../divider.js';
+import '../journey-header.js';
+import '../pearl-chain-time.js';
+import '../screen-reader-only.js';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];
@@ -63,7 +64,7 @@ export class SbbJourneySummaryElement extends LitElement {
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
   private _hasContentSlot: boolean = false;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -71,7 +72,7 @@ export class SbbJourneySummaryElement extends LitElement {
   }
 
   private _now(): number {
-    const dataNow = +(this.dataset?.now as string);
+    const dataNow = readDataNow(this);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
@@ -89,9 +90,9 @@ export class SbbJourneySummaryElement extends LitElement {
           ${dateAdapter.format(departureTime).replace(',', '.')}</time
         >${duration && duration > 0
           ? html`,<time>
-                <sbb-screenreader-only>
+                <sbb-screen-reader-only>
                   ${i18nTripDuration[this._language.current]} ${durationObj!.long}
-                </sbb-screenreader-only>
+                </sbb-screen-reader-only>
                 <span aria-hidden="true">${durationObj!.short}</span>
               </time>`
           : nothing}

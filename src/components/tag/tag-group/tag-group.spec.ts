@@ -1,13 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbTagGroupElement } from './tag-group';
-import './tag-group';
+import type { SbbTagGroupElement } from './tag-group.js';
+import './tag-group.js';
+import '../tag.js';
 
-describe('sbb-tag-group', () => {
+describe(`sbb-tag-group`, () => {
   let element: SbbTagGroupElement;
 
   beforeEach(async () => {
@@ -19,7 +19,6 @@ describe('sbb-tag-group', () => {
         <sbb-tag value="tag-3">Third tag</sbb-tag>
       </sbb-tag-group>
     `);
-    await waitForLitRender(element);
   });
 
   it('renders - Dom', async () => {

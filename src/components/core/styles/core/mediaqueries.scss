@@ -2,7 +2,7 @@
 
 @use 'sass:math';
 @use 'sass:string';
-@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
+@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 
 $mq-breakpoints: (
   zero: sbb-tokens.$sbb-breakpoint-zero-min,

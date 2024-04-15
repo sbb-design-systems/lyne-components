@@ -1,29 +1,37 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbCardElement } from './card';
-import '../card-badge';
+import { fixture } from '../../core/testing/private.js';
 
-describe('sbb-card', () => {
+import { SbbCardElement } from './card.js';
+
+import '../card-badge.js';
+
+describe(`sbb-card with ${fixture.name}`, () => {
   let element: SbbCardElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-card size="l" color="transparent-bordered"></sbb-card>`);
+    element = await fixture(html`<sbb-card size="l" color="transparent-bordered"></sbb-card>`, {
+      modules: ['./card.ts'],
+    });
     assert.instanceOf(element, SbbCardElement);
   });
 
   it('should render with sbb-card-badge', async () => {
-    element = await fixture(html`
-      <sbb-card size="xl">
-        <h2>Title</h2>
-        Content text
-        <sbb-card-badge>
-          <span>%</span>
-          <span>from CHF</span>
-          <span>19.99</span>
-        </sbb-card-badge>
-      </sbb-card>
-    `);
+    element = await fixture(
+      html`
+        <sbb-card size="xl">
+          <h2>Title</h2>
+          Content text
+          <sbb-card-badge>
+            <span>%</span>
+            <span>from CHF</span>
+            <span>19.99</span>
+          </sbb-card-badge>
+        </sbb-card>
+      `,
+      { modules: ['./card.ts', '../card-badge.ts'] },
+    );
 
     expect(
       getComputedStyle(
@@ -39,6 +47,7 @@ describe('sbb-card', () => {
         <h2>Title</h2>
         Content text
       </sbb-card>`,
+      { modules: ['./card.ts'] },
     );
 
     expect(
@@ -60,6 +69,7 @@ describe('sbb-card', () => {
           <span>19.99</span>
         </sbb-card-badge>
       </sbb-card>`,
+      { modules: ['./card.ts', '../card-badge.ts'] },
     );
 
     expect(root.shadowRoot!.querySelector('.sbb-card__badge-wrapper')).not.to.be.ok;

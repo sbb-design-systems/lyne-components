@@ -4,13 +4,27 @@ export const snapshots = {};
 snapshots["sbb-tag-group renders - Dom"] = 
 `<sbb-tag-group role="group">
   <sbb-tag
+    aria-pressed="false"
+    data-action=""
+    data-button=""
+    data-slot-names="unnamed"
+    dir="ltr"
+    role="button"
     slot="li-0"
+    tabindex="0"
     value="tag-1"
   >
     First tag
   </sbb-tag>
   <sbb-tag
+    aria-pressed="false"
+    data-action=""
+    data-button=""
+    data-slot-names="unnamed"
+    dir="ltr"
+    role="button"
     slot="li-1"
+    tabindex="0"
     value="tag-2"
   >
     Second tag
@@ -18,7 +32,14 @@ snapshots["sbb-tag-group renders - Dom"] =
   <div slot="li-2">
   </div>
   <sbb-tag
+    aria-pressed="false"
+    data-action=""
+    data-button=""
+    data-slot-names="unnamed"
+    dir="ltr"
+    role="button"
     slot="li-3"
+    tabindex="0"
     value="tag-3"
   >
     Third tag
@@ -62,16 +83,19 @@ snapshots["sbb-tag-group A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "First tag"
+      "role": "button",
+      "name": "First tag",
+      "pressed": false
     },
     {
-      "role": "text",
-      "name": "Second tag"
+      "role": "button",
+      "name": "Second tag",
+      "pressed": false
     },
     {
-      "role": "text",
-      "name": "Third tag"
+      "role": "button",
+      "name": "Third tag",
+      "pressed": false
     }
   ]
 }
@@ -86,15 +110,15 @@ snapshots["sbb-tag-group A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "text leaf",
+      "role": "toggle button",
       "name": "First tag"
     },
     {
-      "role": "text leaf",
+      "role": "toggle button",
       "name": "Second tag"
     },
     {
-      "role": "text leaf",
+      "role": "toggle button",
       "name": "Third tag"
     }
   ]
@@ -102,28 +126,4 @@ snapshots["sbb-tag-group A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-tag-group A11y tree Firefox */
-
-snapshots["sbb-tag-group A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "First tag"
-    },
-    {
-      "role": "text",
-      "name": "Second tag"
-    },
-    {
-      "role": "text",
-      "name": "Third tag"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tag-group A11y tree Safari */
 

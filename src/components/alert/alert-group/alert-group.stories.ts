@@ -5,12 +5,12 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbAlertGroupElement } from './alert-group';
+import { SbbAlertGroupElement } from './alert-group.js';
 import readme from './readme.md?raw';
 
-import '../alert';
+import '../alert.js';
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-alert-group ${sbbSpread(args)}>

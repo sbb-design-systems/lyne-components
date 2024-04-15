@@ -1,8 +1,8 @@
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { sbbSpread } from '../../core/dom';
-import '../index';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import '../../button.js';
 
 /* eslint-disable lit/binding-positions */
 export const buttonTestTemplate = (tag: string, isStatic = false): TemplateResult => {

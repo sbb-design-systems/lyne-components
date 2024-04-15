@@ -7,36 +7,33 @@ snapshots["sbb-select renders Chrome-Firefox Dom"] =
   dir="ltr"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
     Option 1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
     Option 2
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-3"
+    id="sbb-option-2"
     role="option"
     value="3"
   >
@@ -108,13 +105,23 @@ snapshots["sbb-select renders A11y tree Chrome"] =
 
 snapshots["sbb-select renders multiple Chrome-Firefox Dom"] = 
 `<sbb-select
-  data-multiple=""
   data-state="closed"
   dir="ltr"
   multiple=""
 >
   <sbb-option
-    aria-disabled="false"
+    aria-selected="false"
+    data-disable-highlight=""
+    data-multiple=""
+    data-slot-names="unnamed"
+    data-variant="select"
+    id="sbb-option-9"
+    role="option"
+    value="1"
+  >
+    Option 1
+  </sbb-option>
+  <sbb-option
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
@@ -122,31 +129,17 @@ snapshots["sbb-select renders multiple Chrome-Firefox Dom"] =
     data-variant="select"
     id="sbb-option-10"
     role="option"
-    value="1"
+    value="2"
   >
-    Option 1
+    Option 2
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-11"
-    role="option"
-    value="2"
-  >
-    Option 2
-  </sbb-option>
-  <sbb-option
-    aria-disabled="false"
-    aria-selected="false"
-    data-disable-highlight=""
-    data-multiple=""
-    data-slot-names="unnamed"
-    data-variant="select"
-    id="sbb-option-12"
     role="option"
     value="3"
   >
@@ -259,36 +252,33 @@ snapshots["sbb-select renders Safari Dom"] =
   role="listbox"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-1"
+    id="sbb-option-0"
     role="option"
     value="1"
   >
     Option 1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-2"
+    id="sbb-option-1"
     role="option"
     value="2"
   >
     Option 2
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-3"
+    id="sbb-option-2"
     role="option"
     value="3"
   >
@@ -337,66 +327,45 @@ snapshots["sbb-select renders Safari ShadowDom"] =
 `;
 /* end snapshot sbb-select renders Safari ShadowDom */
 
-snapshots["sbb-select renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "combobox",
-      "name": "",
-      "haspopup": "listbox"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-select renders A11y tree Safari */
-
 snapshots["sbb-select renders multiple Safari Dom"] = 
 `<sbb-select
-  data-multiple=""
   data-state="closed"
   dir="ltr"
-  id="sbb-select-4"
+  id="sbb-select-3"
   multiple=""
   role="listbox"
 >
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-10"
+    id="sbb-option-6"
     role="option"
     value="1"
   >
     Option 1
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-11"
+    id="sbb-option-7"
     role="option"
     value="2"
   >
     Option 2
   </sbb-option>
   <sbb-option
-    aria-disabled="false"
     aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-slot-names="unnamed"
     data-variant="select"
-    id="sbb-option-12"
+    id="sbb-option-8"
     role="option"
     value="3"
   >
@@ -447,21 +416,4 @@ snapshots["sbb-select renders multiple Safari ShadowDom"] =
 </div>
 `;
 /* end snapshot sbb-select renders multiple Safari ShadowDom */
-
-snapshots["sbb-select renders multiple A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "combobox",
-      "name": "",
-      "haspopup": "listbox"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-select renders multiple A11y tree Safari */
 

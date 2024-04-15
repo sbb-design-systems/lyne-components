@@ -74,19 +74,3 @@ snapshots["sbb-header-button renders the component as a button with icon A11y tr
 `;
 /* end snapshot sbb-header-button renders the component as a button with icon A11y tree Firefox */
 
-snapshots["sbb-header-button renders the component as a button with icon A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Action"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-header-button renders the component as a button with icon A11y tree Safari */
-

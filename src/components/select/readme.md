@@ -10,7 +10,8 @@ Options or groups of options (see [sbb-option](/docs/components-sbb-option-sbb-o
 can be provided via an unnamed slot.
 
 ```html
-<sbb-form-field label="Train types">
+<sbb-form-field>
+  <label>Train types</label>
   <sbb-select>
     <sbb-option value="Astoro" selected>Astoro</sbb-option>
     <sbb-option value="Flirt">Flirt</sbb-option>
@@ -32,7 +33,8 @@ It is possible to display the component in `disabled` or `readonly` state by usi
 has a `required` property, which can be useful for setting a custom `sbb-form-error` message within a `sbb-form-field`.
 
 ```html
-<sbb-form-field label="Pick one:">
+<sbb-form-field>
+  <label>Pick one:</label>
   <sbb-select placeholder="1st gen starters">
     <sbb-option value="Bulbasaur">Bulbasaur</sbb-option>
     <sbb-option value="Charmander">Charmander</sbb-option>
@@ -52,7 +54,8 @@ If the `multiple` attribute is set to true, a visual checkbox will appear on the
 the selected values will be displayed in selection order, separated by a comma.
 
 ```html
-<sbb-form-field label="Cities">
+<sbb-form-field>
+  <label>Cities</label>
   <sbb-select multiple>
     <sbb-optgroup label="Switzerland">
       <sbb-option value="Zurich">Zurich</sbb-option>
@@ -134,9 +137,9 @@ Opened panel:
 
 ## CSS Properties
 
-| Name                   | Default                      | Description                                                                                                                                                                                           |
-| ---------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sbb-select-z-index` | `var(--sbb-overlay-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-z-index)` with a value of `1000`. |
+| Name                   | Default                              | Description                                                                                                                                                                                                   |
+| ---------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-select-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
 ## Slots
 

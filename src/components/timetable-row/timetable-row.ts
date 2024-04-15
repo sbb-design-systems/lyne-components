@@ -1,11 +1,12 @@
 import { format } from 'date-fns';
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
-import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
-import { setAttribute } from '../core/dom';
+import { SbbLanguageController } from '../core/controllers.js';
+import { readDataNow } from '../core/datetime/data-now.js';
+import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime.js';
+import { setOrRemoveAttribute } from '../core/dom.js';
 import {
   i18nArrival,
   i18nClass,
@@ -23,16 +24,17 @@ import {
   i18nTravelhints,
   i18nTripDuration,
   i18nTripQuayChange,
-} from '../core/i18n';
-import type { SbbOccupancy } from '../core/interfaces';
-import type { ITripItem, Notice, PtRideLeg, PtSituation, VehicleModeEnum } from '../core/timetable';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
-import '../card';
-import '../icon';
-import '../pearl-chain-time';
-import '../timetable-occupancy';
+} from '../core/i18n.js';
+import type { SbbOccupancy } from '../core/interfaces.js';
+import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.js';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 
 import style from './timetable-row.scss?lit&inline';
+
+import '../card.js';
+import '../icon.js';
+import '../pearl-chain-time.js';
+import '../timetable-occupancy.js';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
@@ -52,78 +54,10 @@ export interface Price {
   isDiscount?: boolean;
 }
 
-export const getTransportIcon = (
-  vehicleMode: VehicleModeEnum,
-  vehicleSubMode: string,
-  language: string,
-): string => {
-  // As there are no English pictograms, we fall back to German
-  const normalizedLanguage = language.replace('en', 'de');
-
-  if (vehicleMode === 'BUS') {
-    return 'bus-right';
-  } else if (vehicleMode === 'CABLEWAY') {
-    return 'funicular-railway-right';
-  } else if (vehicleMode === 'CHAIRLIFT') {
-    return 'chair-lift-right';
-  } else if (vehicleMode === 'COG_RAILWAY') {
-    return 'cog-railway-right';
-  } else if (vehicleMode === 'GONDOLA' && vehicleSubMode === 'PB') {
-    return 'cableway-right';
-  } else if (vehicleMode === 'GONDOLA') {
-    return 'gondola-lift-right';
-  } else if (vehicleMode === 'METRO') {
-    return `metro-right-${normalizedLanguage}`;
-  } else if (vehicleMode === 'PLANE') {
-    return 'aeroplane-right';
-  } else if (vehicleMode === 'SHIP') {
-    return 'jetty-right';
-  } else if (vehicleMode === 'TAXI') {
-    return 'taxi-right';
-  } else if (vehicleMode === 'TRAIN') {
-    return 'train-right';
-  } else if (vehicleMode === 'TRAMWAY') {
-    return 'tram-right';
-  } else if (vehicleMode === 'ELEVATOR') {
-    return 'lift';
-  } else {
-    return '';
-  }
-};
-
-export const isProductIcon = (transport: string): boolean => {
-  const possibleTransportTypes = [
-    'bex',
-    'cnl',
-    'ec',
-    'en',
-    'gex',
-    'ic',
-    'ice',
-    'icn',
-    'ir',
-    'nj',
-    'ogv',
-    'pe',
-    're',
-    'rj',
-    'rjx',
-    'rx',
-    'sn',
-    'rgv',
-    'vae',
-    'tgv',
-  ];
-
-  return possibleTransportTypes.includes(transport);
-};
-
-export const renderIconProduct = (transport: string, line?: string | null): TemplateResult => {
-  const dashLine = line ? '-' + line : '';
-
+export const renderIconProduct = (icon: string, name: string): TemplateResult => {
   return html`<span class="sbb-timetable__row-transport">
-    <sbb-icon name=${transport.toLowerCase() + dashLine}></sbb-icon>
-    <span class="sbb-screenreaderonly"> ${transport.toLowerCase() + dashLine}</span>
+    <sbb-icon name=${icon}></sbb-icon>
+    <span class="sbb-screen-reader-only">${name}</span>
   </span>`;
 };
 
@@ -292,13 +226,13 @@ export class SbbTimetableRowElement extends LitElement {
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
-  @property({ attribute: 'loading-trip', type: Boolean }) public loadingTrip?: boolean;
+  @property({ attribute: 'loading-trip', type: Boolean }) public loadingTrip = false;
 
   /**
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
-  @property({ attribute: 'loading-price', type: Boolean }) public loadingPrice?: boolean;
+  @property({ attribute: 'loading-price', type: Boolean }) public loadingPrice = false;
 
   /**
    * Hidden label for the card action. It overrides the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
@@ -312,10 +246,18 @@ export class SbbTimetableRowElement extends LitElement {
   /** When this prop is true the sbb-card will be in the active state. */
   @property({ type: Boolean }) public active?: boolean;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
+
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('loadingTrip')) {
+      setOrRemoveAttribute(this, 'role', !this.loadingTrip ? 'rowgroup' : null);
+    }
+  }
 
   private _now(): number {
-    const dataNow = +(this.dataset?.now as string);
+    const dataNow = readDataNow(this);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
@@ -365,7 +307,7 @@ export class SbbTimetableRowElement extends LitElement {
     const quayTypeStrings = this._getQuayTypeStrings();
     return html`
       <span class="sbb-timetable__row--quay">
-        <span class="sbb-screenreaderonly">${quayTypeStrings?.long}&nbsp;</span>
+        <span class="sbb-screen-reader-only">${quayTypeStrings?.long}&nbsp;</span>
         <span class="sbb-timetable__row--quay-type" aria-hidden="true"
           >${quayTypeStrings?.short}</span
         >
@@ -544,7 +486,6 @@ export class SbbTimetableRowElement extends LitElement {
     const noticeAttributes = notices && handleNotices(notices);
 
     const durationObj = duration ? durationToTime(duration, this._language.current) : null;
-    setAttribute(this, 'role', 'rowgroup');
 
     return html`
       <sbb-card size="l" id=${id}>
@@ -561,7 +502,7 @@ export class SbbTimetableRowElement extends LitElement {
           ? html`<sbb-card-badge color=${this.price.isDiscount ? 'charcoal' : 'white'}>
               ${this.price.isDiscount
                 ? html`<span aria-hidden="true">
-                    %<span class="sbb-screenreaderonly"
+                    %<span class="sbb-screen-reader-only"
                       >${i18nSupersaver[this._language.current]}</span
                     >
                   </span>`
@@ -573,38 +514,25 @@ export class SbbTimetableRowElement extends LitElement {
         <div class="sbb-timetable__row" role="row">
           <div class="sbb-timetable__row-header" role="gridcell">
             <div class="sbb-timetable__row-details">
+              ${product?.corporateIdentityPictogram &&
+              html`<span class="sbb-timetable__row-transport-wrapper">
+                <sbb-icon
+                  class="sbb-timetable__row-transport-icon"
+                  name="picto:${product.corporateIdentityPictogram}"
+                ></sbb-icon>
+                <span class="sbb-screen-reader-only">
+                  ${product &&
+                  product.vehicleMode &&
+                  i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
+                  i18nMeansOfTransport[product.vehicleMode.toLowerCase()][this._language.current]}
+                  &nbsp;
+                </span>
+              </span>`}
               ${product &&
-              getTransportIcon(
-                product.vehicleMode,
-                product.vehicleSubModeShortName || '',
-                this._language.current,
-              )
-                ? html`<span class="sbb-timetable__row-transport-wrapper">
-                    <sbb-icon
-                      class="sbb-timetable__row-transport-icon"
-                      name=${'picto:' +
-                      getTransportIcon(
-                        product.vehicleMode,
-                        product.vehicleSubModeShortName || '',
-                        this._language.current,
-                      )}
-                    ></sbb-icon>
-                    <span class="sbb-screenreaderonly">
-                      ${product &&
-                      product.vehicleMode &&
-                      i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
-                      i18nMeansOfTransport[product.vehicleMode.toLowerCase()][
-                        this._language.current
-                      ]}
-                      &nbsp;
-                    </span>
-                  </span>`
-                : nothing}
-              ${product &&
-              product.vehicleSubModeShortName &&
-              (isProductIcon(product?.vehicleSubModeShortName?.toLocaleLowerCase())
-                ? renderIconProduct(product.vehicleSubModeShortName, product.line)
-                : renderStringProduct(product.vehicleSubModeShortName, product?.line))}
+              (product.corporateIdentityIcon
+                ? renderIconProduct(product.corporateIdentityIcon, product.name)
+                : product.vehicleSubModeShortName &&
+                  renderStringProduct(product.vehicleSubModeShortName, product?.line))}
             </div>
             ${direction
               ? html`<p>${`${i18nDirection[this._language.current]} ${direction}`}</p>`
@@ -625,7 +553,7 @@ export class SbbTimetableRowElement extends LitElement {
               ? html`<span
                   class=${departure?.quayChanged ? `sbb-timetable__row-quay--changed` : nothing}
                 >
-                  <span class="sbb-screenreaderonly">
+                  <span class="sbb-screen-reader-only">
                     ${`${i18nDeparture[this._language.current]} ${
                       departure?.quayChanged ? i18nNew[this._language.current] : ''
                     }`}
@@ -650,7 +578,7 @@ export class SbbTimetableRowElement extends LitElement {
                             class="sbb-travel-hints__item"
                             name=${'sa-' + notice.name?.toLowerCase()}
                           ></sbb-icon>
-                          <span class="sbb-screenreaderonly">${notice.text?.template}</span>
+                          <span class="sbb-screen-reader-only">${notice.text?.template}</span>
                         </li>`
                       : nothing,
                   )}
@@ -668,7 +596,7 @@ export class SbbTimetableRowElement extends LitElement {
               : nothing}
             ${duration && duration > 0
               ? html`<time>
-                  <span class="sbb-screenreaderonly">
+                  <span class="sbb-screen-reader-only">
                     ${`${i18nTripDuration[this._language.current]} ${durationObj!.long}`}
                   </span>
                   <span aria-hidden="true">${durationObj!.short}</span>
@@ -677,7 +605,7 @@ export class SbbTimetableRowElement extends LitElement {
             ${hasHimCus && (himCus.cus || himCus.him)
               ? html`<span class="sbb-timetable__row-warning">
                   <sbb-icon name=${(himCus.cus || himCus.him)!.name}></sbb-icon>
-                  <span class="sbb-screenreaderonly">${(himCus.cus || himCus.him)!.text}</span>
+                  <span class="sbb-screen-reader-only">${(himCus.cus || himCus.him)!.text}</span>
                 </span>`
               : nothing}
           </div>

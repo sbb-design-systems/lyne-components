@@ -3,10 +3,10 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { setAttribute } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import type { SbbTitleLevel } from '../../title';
-import { SbbAlertElement } from '../alert';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type { SbbTitleLevel } from '../../title.js';
+import { SbbAlertElement } from '../alert.js';
 
 import style from './alert-group.scss?lit&inline';
 
@@ -54,7 +54,7 @@ export class SbbAlertGroupElement extends LitElement {
   /** Emits when `sbb-alert-group` becomes empty. */
   private _empty: EventEmitter<void> = new EventEmitter(this, SbbAlertGroupElement.events.empty);
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   private _removeAlert(event: Event): void {
     const target = event.target as SbbAlertElement;
@@ -86,16 +86,19 @@ export class SbbAlertGroupElement extends LitElement {
 
   private _slotChanged(event: Event): void {
     const hadAlerts = this._hasAlerts;
-    this._hasAlerts = (event.target as HTMLSlotElement).assignedElements().length > 0;
+    this._hasAlerts =
+      (event.target as HTMLSlotElement)
+        .assignedElements()
+        .filter((e) => e instanceof Element && e.localName === 'sbb-alert').length > 0;
     if (!this._hasAlerts && hadAlerts) {
       this._empty.emit();
     }
+
+    this.toggleAttribute('data-empty', !this._hasAlerts);
   }
 
   protected override render(): TemplateResult {
     const TITLE_TAG_NAME = `h${this.accessibilityTitleLevel}`;
-
-    setAttribute(this, 'data-empty', !this._hasAlerts);
 
     /* eslint-disable lit/binding-positions */
     return html`
@@ -108,7 +111,6 @@ export class SbbAlertGroupElement extends LitElement {
         <slot @slotchange=${(event: Event) => this._slotChanged(event)}></slot>
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

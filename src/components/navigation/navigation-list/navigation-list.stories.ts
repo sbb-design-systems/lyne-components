@@ -5,11 +5,11 @@ import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './navigation-list';
-import '../navigation-button';
+import './navigation-list.js';
+import '../navigation-button.js';
 
 const label: InputType = {
   control: {

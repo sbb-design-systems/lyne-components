@@ -11,10 +11,10 @@ import type {
 import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
-import '../../form-field';
-import './mini-button';
-import { buttonDefaultArgs, buttonDefaultArgTypes } from '../common/button-common-stories';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import '../../form-field.js';
+import './mini-button.js';
+import { buttonDefaultArgs, buttonDefaultArgTypes } from '../common/button-common-stories.js';
 
 import readme from './readme.md?raw';
 
@@ -23,14 +23,16 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 });
 
 const MiniButtonCommonTemplate = ({ slot, ...args }: Args): TemplateResult => html`
-  <sbb-form-field label="Demo sbb-mini-button" ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative}>
+    <label>Demo sbb-mini-button</label>
     <input placeholder="Placeholder" ?disabled=${args.disabled} />
     <sbb-mini-button slot=${slot} ${sbbSpread(args)}></sbb-mini-button>
   </sbb-form-field>
 `;
 
 const MiniButtonSlottedIconCommonTemplate = ({ slot, ...args }: Args): TemplateResult => html`
-  <sbb-form-field label="Demo sbb-mini-button" ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative}>
+    <label>Demo sbb-mini-button</label>
     <input placeholder="Placeholder" ?disabled=${args.disabled} />
     <sbb-mini-button slot=${slot} ${sbbSpread(args)}>
       <sbb-icon name="user-small" slot="icon"></sbb-icon>

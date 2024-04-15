@@ -1,15 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
-import type { SbbToggleOptionElement } from '../toggle-option';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import type { SbbToggleOptionElement } from '../toggle-option.js';
 
-import type { SbbToggleElement } from './toggle';
-import './toggle';
-import '../toggle-option';
+import type { SbbToggleElement } from './toggle.js';
+import './toggle.js';
+import '../toggle-option.js';
 
-describe('sbb-toggle', () => {
+describe(`sbb-toggle`, () => {
   let option: SbbToggleOptionElement, page: SbbToggleElement;
   const simpleToggleTemplate = html`
     <sbb-toggle>
@@ -38,9 +38,6 @@ describe('sbb-toggle', () => {
         </sbb-toggle>
       `);
       option = page.querySelectorAll('sbb-toggle-option')[1];
-
-      await waitForLitRender(page);
-
       expect(option).to.have.attribute('checked');
     });
 
@@ -80,16 +77,12 @@ describe('sbb-toggle', () => {
       page = await fixture(simpleToggleTemplate);
       option = page.querySelectorAll('sbb-toggle-option')[0];
 
-      await waitForLitRender(page);
-
       expect(option).to.have.attribute('checked');
     });
 
     it('should initially have the checked property set to true on the first option by default', async () => {
       page = await fixture(simpleToggleTemplate);
       option = page.querySelectorAll('sbb-toggle-option')[0];
-
-      await waitForLitRender(page);
 
       expect(option.checked).to.be.equal(true);
     });

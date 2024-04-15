@@ -72,7 +72,7 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 
 ## Events
 
-| Name               | Type                                 | Description                                                                      | Inherited From |
-| ------------------ | ------------------------------------ | -------------------------------------------------------------------------------- | -------------- |
-| `didChange`        | `CustomEvent<void>`                  | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
-| `validationChange` | `CustomEvent<ValidationChangeEvent>` | Emits whenever the internal validation state changes.                            |                |
+| Name               | Type                                    | Description                                                                      | Inherited From |
+| ------------------ | --------------------------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `didChange`        | `CustomEvent<void>`                     | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| `validationChange` | `CustomEvent<SbbValidationChangeEvent>` | Emits whenever the internal validation state changes.                            |                |

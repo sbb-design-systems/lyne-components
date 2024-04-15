@@ -1,37 +1,52 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import type { SbbButtonElement } from '../../button.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import { SbbMenuElement } from './menu';
-import '../../button/button';
-import '../menu-button';
-import '../../link';
-import '../../divider';
+import { SbbMenuElement } from './menu.js';
 
-describe('sbb-menu', () => {
+import '../../button/button.js';
+import '../../link.js';
+import '../../divider.js';
+import '../menu-button.js';
+
+describe(`sbb-menu with ${fixture.name}`, () => {
   let element: SbbMenuElement, trigger: SbbButtonElement;
 
   beforeEach(async () => {
-    await fixture(html`
-      <sbb-button id="menu-trigger">Menu trigger</sbb-button>
-      <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
-        <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
-        <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
-        <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled
-          >Edit</sbb-menu-button
-        >
-        <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" amount="2"
-          >Details</sbb-menu-button
-        >
-        <sbb-divider id="menu-divider"></sbb-divider>
-        <sbb-menu-button id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-button>
-      </sbb-menu>
-    `);
-    trigger = document.querySelector<SbbButtonElement>('sbb-button')!;
-    element = document.querySelector<SbbMenuElement>('sbb-menu')!;
+    const root = await fixture(
+      html`
+        <div>
+          <sbb-button id="menu-trigger">Menu trigger</sbb-button>
+          <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
+            <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
+            <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
+            <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled
+              >Edit</sbb-menu-button
+            >
+            <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" amount="2"
+              >Details</sbb-menu-button
+            >
+            <sbb-divider id="menu-divider"></sbb-divider>
+            <sbb-menu-button id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-button>
+          </sbb-menu>
+        </div>
+      `,
+      {
+        modules: [
+          './menu.ts',
+          '../../button.ts',
+          '../../divider.ts',
+          '../../link.ts',
+          '../menu-button.ts',
+        ],
+      },
+    );
+    trigger = root.querySelector<SbbButtonElement>('sbb-button')!;
+    element = root.querySelector<SbbMenuElement>('sbb-menu')!;
   });
 
   it('renders', () => {
@@ -96,7 +111,7 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose);
-    const menuAction = document.querySelector('sbb-menu > sbb-menu-button') as HTMLElement;
+    const menuAction = element.querySelector(':scope > sbb-menu-button') as HTMLElement;
 
     trigger.click();
     await waitForLitRender(element);
@@ -130,7 +145,7 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose);
-    const menuLink = document.querySelector('sbb-menu > sbb-block-link') as HTMLElement;
+    const menuLink = element.querySelector(':scope > sbb-block-link') as HTMLElement;
 
     trigger.click();
     await waitForLitRender(element);
@@ -180,7 +195,7 @@ describe('sbb-menu', () => {
     expect(element).to.have.attribute('data-state', 'opened');
 
     const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
-      `--sbb-size-button-l-min-height-large`,
+      `--sbb-size-element-m`,
     );
     expect(buttonHeight.trim()).to.be.equal('3.5rem');
 

@@ -1,8 +1,6 @@
 @use 'sass:math';
 
-/**
- * size: value in px (no unit)
- */
 @function px-to-rem-build($size) {
+  /* size: value in px (no unit) */
   @return ((math.div($size, 16)) * 1rem);
 }

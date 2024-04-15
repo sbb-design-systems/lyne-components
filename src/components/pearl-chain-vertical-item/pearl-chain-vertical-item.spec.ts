@@ -1,13 +1,14 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
-import type { LineColor, SbbPearlChainVerticalItemElement } from './pearl-chain-vertical-item';
+import type { LineColor, SbbPearlChainVerticalItemElement } from './pearl-chain-vertical-item.js';
 
-import './pearl-chain-vertical-item';
+import './pearl-chain-vertical-item.js';
 
-describe('sbb-pearl-chain-vertical-item', () => {
+describe(`sbb-pearl-chain-vertical-item`, () => {
   it('renders component with charcoal standard line and bullet', async () => {
     const element = await fixture<SbbPearlChainVerticalItemElement>(html`
       <sbb-pearl-chain-vertical-item></sbb-pearl-chain-vertical-item>

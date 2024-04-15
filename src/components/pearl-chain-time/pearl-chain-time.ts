@@ -3,14 +3,16 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
-import { removeTimezoneFromISOTimeString } from '../core/datetime';
-import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../core/i18n';
-import type { Leg, PtRideLeg } from '../core/timetable';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
-import '../pearl-chain';
+import { SbbLanguageController } from '../core/controllers.js';
+import { readDataNow } from '../core/datetime/data-now.js';
+import { removeTimezoneFromISOTimeString } from '../core/datetime.js';
+import { i18nArrival, i18nDeparture, i18nTransferProcedures } from '../core/i18n.js';
+import type { Leg, PtRideLeg } from '../core/timetable.js';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 
 import style from './pearl-chain-time.scss?lit&inline';
+
+import '../pearl-chain.js';
 
 /**
  * Combined with `sbb-pearl-chain`, it displays walk time information.
@@ -47,10 +49,10 @@ export class SbbPearlChainTimeElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   private _now(): number {
-    const dataNow = +(this.dataset?.now as string);
+    const dataNow = readDataNow(this);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
@@ -76,14 +78,14 @@ export class SbbPearlChainTimeElement extends LitElement {
         ${renderDepartureTimeAttribute()}
         ${departure
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime!}>
-              <span class="sbb-screenreaderonly"
+              <span class="sbb-screen-reader-only"
                 >${i18nDeparture[this._language.current]}:&nbsp;</span
               >
               ${format(departure, 'HH:mm')}
             </time>`
           : nothing}
         ${rideLegs?.length > 1
-          ? html`<span class="sbb-screenreaderonly" role="paragraph">
+          ? html`<span class="sbb-screen-reader-only" role="paragraph">
               ${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}
             </span>`
           : nothing}
@@ -95,7 +97,7 @@ export class SbbPearlChainTimeElement extends LitElement {
         ></sbb-pearl-chain>
         ${arrival
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
-              <span class="sbb-screenreaderonly"
+              <span class="sbb-screen-reader-only"
                 >${i18nArrival[this._language.current]}:&nbsp;</span
               >
               ${format(arrival, 'HH:mm')}

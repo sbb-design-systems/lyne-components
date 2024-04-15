@@ -1,8 +1,9 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement, SbbDisabledTabIndexActionMixin } from '../../core/common-behaviors';
-import { buttonCommonStyle, buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
+import { buttonCommonStyle, buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common.js';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'secondary' variant.

@@ -1,10 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
-import './popover';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import './popover.js';
 
-describe('sbb-popover', () => {
+describe(`sbb-popover`, () => {
   it('renders', async () => {
     const root = await fixture(html`<sbb-popover></sbb-popover>`);
 

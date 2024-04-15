@@ -33,13 +33,3 @@ snapshots["sbb-sticky-bar A11y tree Firefox"] =
 `;
 /* end snapshot sbb-sticky-bar A11y tree Firefox */
 
-snapshots["sbb-sticky-bar A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-sticky-bar A11y tree Safari */
-

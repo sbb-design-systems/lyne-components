@@ -1,14 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbSkiplinkListElement } from './skiplink-list';
-import './skiplink-list';
-import '../link/block-link';
+import type { SbbSkiplinkListElement } from './skiplink-list.js';
+import './skiplink-list.js';
+import '../link/block-link.js';
 
-describe('sbb-skiplink-list', () => {
+describe(`sbb-skiplink-list`, () => {
   describe('renders', () => {
     let element: SbbSkiplinkListElement;
 
@@ -20,7 +19,6 @@ describe('sbb-skiplink-list', () => {
           <sbb-block-link href="#">Link 3</sbb-block-link>
         </sbb-skiplink-list>
       `);
-      await waitForLitRender(element);
     });
 
     it('Dom', async () => {
@@ -43,7 +41,6 @@ describe('sbb-skiplink-list', () => {
           <sbb-block-link href="https://www.sbb.ch">Link 3</sbb-block-link>
         </sbb-skiplink-list>
       `);
-      await waitForLitRender(element);
     });
 
     it('Dom', async () => {

@@ -9,21 +9,21 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import type { SbbFormErrorElement } from '../form-error';
-import { SbbOptionElement } from '../option';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
+import type { SbbFormErrorElement } from '../form-error.js';
+import { SbbOptionElement } from '../option.js';
 
-import { SbbAutocompleteElement } from './autocomplete';
+import { SbbAutocompleteElement } from './autocomplete.js';
 import readme from './readme.md?raw';
 
-import '../form-field';
-import '../form-error';
+import '../form-field.js';
+import '../form-error.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
@@ -252,9 +252,9 @@ const Template = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      label="Label"
       data-testid="form-field"
     >
+      <label>Label</label>
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -279,9 +279,9 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      label="Label"
       data-testid="form-field"
     >
+      <label>Label</label>
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -309,9 +309,9 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      label="Label"
       data-testid="form-field"
     >
+      <label>Label</label>
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -352,10 +352,10 @@ const RequiredTemplate = (args: Args): TemplateResult => {
         ?negative=${args.negative}
         ?borderless=${args.borderless}
         ?floating-label=${args.floatingLabel}
-        label="Label"
         data-testid="form-field"
         id="sbb-form-field"
       >
+        <label>Label</label>
         <input
           id="sbb-autocomplete"
           data-testid="autocomplete-input"

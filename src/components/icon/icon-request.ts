@@ -1,7 +1,7 @@
-import type { SbbIconConfig } from '../core/config';
-import { readConfig } from '../core/config';
+import type { SbbIconConfig } from '../core/config.js';
+import { readConfig } from '../core/config.js';
 
-import { validateContent } from './icon-validate';
+import { validateContent } from './icon-validate.js';
 
 const iconCdn = 'https://icons.app.sbb.ch/';
 

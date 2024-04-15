@@ -1,51 +1,57 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../../core/dom';
-import { describeIf, waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { isSafari } from '../../core/dom.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { describeIf } from '../../core/testing.js';
 
-import type { SbbOptGroupElement } from './optgroup';
-import '../../autocomplete';
-import '../option';
-import './optgroup';
+import type { SbbOptGroupElement } from './optgroup.js';
 
-describe('sbb-optgroup', () => {
+import '../../autocomplete.js';
+import '../option.js';
+import './optgroup.js';
+
+describe(`sbb-optgroup`, () => {
   describe('autocomplete', () => {
     describe('renders', () => {
-      let elem: SbbOptGroupElement;
+      let element: SbbOptGroupElement;
 
       beforeEach(async () => {
-        await fixture(html`
-          <sbb-autocomplete origin="anchor">
-            <sbb-optgroup label="Label">
-              <sbb-option value="1">1</sbb-option>
-              <sbb-option value="2">2</sbb-option>
-            </sbb-optgroup>
-          </sbb-autocomplete>
-          <div id="anchor"></div>
+        const testFixture = await fixture(html`
+          <div>
+            <input id="input" />
+            <sbb-autocomplete origin="anchor" trigger="input">
+              <sbb-optgroup label="Label">
+                <sbb-option value="1">1</sbb-option>
+                <sbb-option value="2">2</sbb-option>
+              </sbb-optgroup>
+            </sbb-autocomplete>
+            <div id="anchor"></div>
+          </div>
         `);
-        elem = document.querySelector('sbb-optgroup')!;
-        await waitForLitRender(elem);
+        element = testFixture.querySelector('sbb-optgroup')!;
+
+        // Open input for a meaningful a11y tree
+        testFixture.querySelector<HTMLInputElement>('input')!.focus();
       });
 
       describeIf(!isSafari(), 'Chrome-Firefox', async () => {
         it('Dom', async () => {
-          await expect(elem).dom.to.be.equalSnapshot();
+          await expect(element).dom.to.be.equalSnapshot();
         });
 
         it('ShadowDom', async () => {
-          await expect(elem).shadowDom.to.be.equalSnapshot();
+          await expect(element).shadowDom.to.be.equalSnapshot();
         });
       });
 
       describeIf(isSafari(), 'Safari', async () => {
         it('Dom', async () => {
-          await expect(elem).dom.to.be.equalSnapshot();
+          await expect(element).dom.to.be.equalSnapshot();
         });
 
         it('ShadowDom', async () => {
-          await expect(elem).shadowDom.to.be.equalSnapshot();
+          await expect(element).shadowDom.to.be.equalSnapshot();
         });
       });
 
@@ -56,17 +62,18 @@ describe('sbb-optgroup', () => {
       let elem: SbbOptGroupElement;
 
       beforeEach(async () => {
-        await fixture(html`
-          <sbb-autocomplete origin="anchor">
-            <sbb-optgroup label="Label" disabled>
-              <sbb-option value="1">1</sbb-option>
-              <sbb-option value="2">2</sbb-option>
-            </sbb-optgroup>
-          </sbb-autocomplete>
-          <div id="anchor"></div>
+        const testFixture = await fixture(html`
+          <div>
+            <sbb-autocomplete origin="anchor">
+              <sbb-optgroup label="Label" disabled>
+                <sbb-option value="1">1</sbb-option>
+                <sbb-option value="2">2</sbb-option>
+              </sbb-optgroup>
+            </sbb-autocomplete>
+            <div id="anchor"></div>
+          </div>
         `);
-        elem = document.querySelector('sbb-optgroup')!;
-        await waitForLitRender(elem);
+        elem = testFixture.querySelector('sbb-optgroup')!;
       });
 
       describeIf(!isSafari(), 'Chrome-Firefox', async () => {

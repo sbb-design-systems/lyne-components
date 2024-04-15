@@ -33,9 +33,9 @@ snapshots["sbb-calendar renders"] =
         >
         </sbb-icon>
       </button>
-      <sbb-screenreader-only role="status">
+      <sbb-screen-reader-only role="status">
         January 2023
-      </sbb-screenreader-only>
+      </sbb-screen-reader-only>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -56,57 +56,57 @@ snapshots["sbb-calendar renders"] =
       <thead class="sbb-calendar__table-header">
         <tr class="sbb-calendar__table-header-row">
           <th class="sbb-calendar__table-header">
-            <sbb-screenreader-only>
+            <sbb-screen-reader-only>
               Monday
-            </sbb-screenreader-only>
+            </sbb-screen-reader-only>
             <span aria-hidden="true">
               M
             </span>
           </th>
           <th class="sbb-calendar__table-header">
-            <sbb-screenreader-only>
+            <sbb-screen-reader-only>
               Tuesday
-            </sbb-screenreader-only>
+            </sbb-screen-reader-only>
             <span aria-hidden="true">
               T
             </span>
           </th>
           <th class="sbb-calendar__table-header">
-            <sbb-screenreader-only>
+            <sbb-screen-reader-only>
               Wednesday
-            </sbb-screenreader-only>
+            </sbb-screen-reader-only>
             <span aria-hidden="true">
               W
             </span>
           </th>
           <th class="sbb-calendar__table-header">
-            <sbb-screenreader-only>
+            <sbb-screen-reader-only>
               Thursday
-            </sbb-screenreader-only>
+            </sbb-screen-reader-only>
             <span aria-hidden="true">
               T
             </span>
           </th>
           <th class="sbb-calendar__table-header">
-            <sbb-screenreader-only>
+            <sbb-screen-reader-only>
               Friday
-            </sbb-screenreader-only>
+            </sbb-screen-reader-only>
             <span aria-hidden="true">
               F
             </span>
           </th>
           <th class="sbb-calendar__table-header">
-            <sbb-screenreader-only>
+            <sbb-screen-reader-only>
               Saturday
-            </sbb-screenreader-only>
+            </sbb-screen-reader-only>
             <span aria-hidden="true">
               S
             </span>
           </th>
           <th class="sbb-calendar__table-header">
-            <sbb-screenreader-only>
+            <sbb-screen-reader-only>
               Sunday
-            </sbb-screenreader-only>
+            </sbb-screen-reader-only>
             <span aria-hidden="true">
               S
             </span>

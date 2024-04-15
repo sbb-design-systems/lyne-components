@@ -1,14 +1,23 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbDisabledMixin, SlotChildObserver } from '../../core/common-behaviors';
-import { isSafari, isValidAttribute, setAttribute } from '../../core/dom';
-import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbOptionElement, SbbOptionVariant } from '../option';
+import { hostAttributes } from '../../core/decorators.js';
+import { isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
+import type { SbbOptionElement } from '../option.js';
 
 import style from './optgroup.scss?lit&inline';
-import '../../divider';
+
+import '../../divider.js';
+
+/**
+ * On Safari, the groups labels are not read by VoiceOver.
+ * To solve the problem, we remove the role="group" and add a hidden span containing the group name
+ * TODO: We should periodically check if it has been solved and, if so, remove the property.
+ */
+const inertAriaGroups = isSafari();
 
 /**
  * It can be used as a container for one or more `sbb-option`.
@@ -16,7 +25,8 @@ import '../../divider';
  * @slot - Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`.
  */
 @customElement('sbb-optgroup')
-export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitElement)) {
+@hostAttributes({ role: !inertAriaGroups ? 'group' : null })
+export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** Option group label. */
@@ -25,19 +35,6 @@ export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitEl
   @state() private _negative = false;
 
   private _negativeObserver = new AgnosticMutationObserver(() => this._onNegativeChange());
-
-  private _variant!: SbbOptionVariant;
-
-  /**
-   * On Safari, the groups labels are not read by VoiceOver.
-   * To solve the problem, we remove the role="group" and add a hidden span containing the group name
-   * TODO: We should periodically check if it has been solved and, if so, remove the property.
-   */
-  private _inertAriaGroups = isSafari();
-
-  private get _isMultiple(): boolean {
-    return this._variant === 'select' && !!this.closest('sbb-select')?.hasAttribute('multiple');
-  }
 
   private get _options(): SbbOptionElement[] {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOptionElement[];
@@ -58,11 +55,17 @@ export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitEl
 
     this._setVariantByContext();
     this._proxyGroupLabelToOptions();
+
+    this.toggleAttribute('data-multiple', !!this.closest('sbb-select[multiple]'));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
+      if (!inertAriaGroups) {
+        this.setAttribute('aria-disabled', this.disabled.toString());
+      }
+
       this._proxyDisabledToOptions();
     }
     if (changedProperties.has('label')) {
@@ -77,24 +80,34 @@ export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitEl
 
   private _setVariantByContext(): void {
     if (this.closest?.('sbb-autocomplete')) {
-      this._variant = 'autocomplete';
+      this.setAttribute('data-variant', 'autocomplete');
     } else if (this.closest?.('sbb-select')) {
-      this._variant = 'select';
+      this.setAttribute('data-variant', 'select');
     }
   }
 
-  protected override checkChildren(): void {
+  private _handleSlotchange(): void {
     this._proxyDisabledToOptions();
     this._proxyGroupLabelToOptions();
     this._highlightOptions();
   }
 
   private _proxyGroupLabelToOptions(): void {
-    if (!this._inertAriaGroups) {
+    if (!inertAriaGroups) {
+      setOrRemoveAttribute(this, 'aria-label', this.label);
       return;
+    } else if (this.label) {
+      this.removeAttribute('aria-label');
+      for (const option of this._options) {
+        option.setAttribute('data-group-label', this.label);
+        option.requestUpdate?.();
+      }
+    } else {
+      for (const option of this._options) {
+        option.removeAttribute('data-group-label');
+        option.requestUpdate?.();
+      }
     }
-
-    this._options.forEach((opt) => opt.setGroupLabel(this.label));
   }
 
   private _proxyDisabledToOptions(): void {
@@ -116,16 +129,10 @@ export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitEl
   }
 
   private _onNegativeChange(): void {
-    this._negative = isValidAttribute(this, 'data-negative');
+    this._negative = this.hasAttribute('data-negative');
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'role', !this._inertAriaGroups ? 'group' : null);
-    setAttribute(this, 'data-variant', this._variant);
-    setAttribute(this, 'data-multiple', this._isMultiple);
-    setAttribute(this, 'aria-label', !this._inertAriaGroups && this.label);
-    setAttribute(this, 'aria-disabled', !this._inertAriaGroups && this.disabled.toString());
-
     return html`
       <div class="sbb-optgroup__divider">
         <sbb-divider ?negative=${this._negative}></sbb-divider>
@@ -134,7 +141,7 @@ export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitEl
         <div class="sbb-optgroup__icon-space"></div>
         <span>${this.label}</span>
       </div>
-      <slot></slot>
+      <slot @slotchange=${this._handleSlotchange}></slot>
     `;
   }
 }

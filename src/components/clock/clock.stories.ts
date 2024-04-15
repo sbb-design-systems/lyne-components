@@ -1,15 +1,15 @@
 import type { InputType } from '@storybook/types';
 import type { Args, Meta, StoryObj } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './clock';
+import './clock.js';
 
 const dataNow: InputType = {
   control: {
@@ -42,9 +42,7 @@ if (isChromatic()) {
 }
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ 'max-width': '600px' })}>${story()}</div> `,
-  ],
+  decorators: [(story) => html`<div style=${styleMap({ 'max-width': '600px' })}>${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

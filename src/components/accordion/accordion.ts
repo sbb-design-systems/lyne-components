@@ -2,10 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbHydrationMixin } from '../core/common-behaviors';
-import { ConnectedAbortController } from '../core/eventing';
-import { SbbExpansionPanelElement } from '../expansion-panel';
-import type { SbbTitleLevel } from '../title';
+import { SbbConnectedAbortController } from '../core/controllers.js';
+import { SbbHydrationMixin } from '../core/mixins.js';
+import { SbbExpansionPanelElement } from '../expansion-panel.js';
+import type { SbbTitleLevel } from '../title.js';
 
 import style from './accordion.scss?lit&inline';
 
@@ -51,7 +51,7 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
   private _multi: boolean = false;
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   private _closePanels(e: CustomEvent): void {
     if ((e.target as HTMLElement)?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {

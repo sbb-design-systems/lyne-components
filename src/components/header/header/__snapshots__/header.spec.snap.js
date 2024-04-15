@@ -20,8 +20,14 @@ snapshots["sbb-header renders"] =
 snapshots["sbb-header renders actions and logo Dom"] = 
 `<sbb-header>
   <sbb-header-link
+    data-action=""
+    data-link=""
+    dir="ltr"
+    expand-from="medium"
     href="https://github.com/lyne-design-system/lyne-components"
     icon-name="hamburger-menu-small"
+    role="link"
+    tabindex="0"
   >
     Menu
   </sbb-header-link>
@@ -53,15 +59,21 @@ snapshots["sbb-header renders actions and logo ShadowDom"] =
 `;
 /* end snapshot sbb-header renders actions and logo ShadowDom */
 
-snapshots["sbb-header renders actions and logo A11y tree Chrome"] =
+snapshots["sbb-header renders actions and logo A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "Menu"
+      "role": "link",
+      "name": "Menu",
+      "children": [
+        {
+          "role": "link",
+          "name": "Menu"
+        }
+      ]
     }
   ]
 }
@@ -76,28 +88,19 @@ snapshots["sbb-header renders actions and logo A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "text leaf",
-      "name": "Menu"
+      "role": "link",
+      "name": "Menu",
+      "children": [
+        {
+          "role": "link",
+          "name": "Menu",
+          "value": "https://github.com/lyne-design-system/lyne-components"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-header renders actions and logo A11y tree Firefox */
-
-snapshots["sbb-header renders actions and logo A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Menu"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-header renders actions and logo A11y tree Safari */
 

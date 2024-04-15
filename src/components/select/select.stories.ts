@@ -15,16 +15,16 @@ import { html, nothing } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../core/dom';
-import type { SbbFormErrorElement } from '../form-error';
-import { SbbOptionElement } from '../option';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
+import type { SbbFormErrorElement } from '../form-error.js';
+import { SbbOptionElement } from '../option.js';
 
 import readme from './readme.md?raw';
-import { SbbSelectElement } from './select';
-import '../form-error';
-import '../form-field';
+import { SbbSelectElement } from './select.js';
+import '../form-error.js';
+import '../form-field.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
@@ -299,9 +299,9 @@ const FormFieldTemplate = ({
       ?borderless=${borderless}
       ?negative=${negative}
       ?floating-label=${floatingLabel}
-      label="Select"
       data-testid="form-field"
     >
+      <label>Select</label>
       <sbb-select
         ${sbbSpread(args)}
         @change=${(event: Event) => changeEventHandler(event)}
@@ -338,9 +338,9 @@ const SelectEllipsisTemplate = ({
         ?borderless=${borderless}
         ?negative=${negative}
         ?floating-label=${floatingLabel}
-        label="Select"
         data-testid="form-field"
       >
+        <label>Select</label>
         <sbb-select
           ${sbbSpread(args)}
           @change=${(event: Event) => changeEventHandler(event)}
@@ -386,9 +386,9 @@ const FormFieldTemplateWithError = ({
         ?negative=${negative}
         ?floating-label=${floatingLabel}
         id="sbb-form-field"
-        label="Select"
         data-testid="form-field"
       >
+        <label>Select</label>
         <sbb-select
           ${sbbSpread(args)}
           id="sbb-select"
@@ -425,9 +425,9 @@ const KeyboardInteractionTemplate = ({
     ?borderless=${borderless}
     ?negative=${negative}
     ?floating-label=${floatingLabel}
-    label="Select"
     data-testid="form-field"
   >
+    <label>Select</label>
     <sbb-select
       ?multiple=${args.multiple}
       placeholder=${args.placeholder}

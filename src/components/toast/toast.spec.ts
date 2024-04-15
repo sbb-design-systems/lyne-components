@@ -1,15 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isFirefox } from '../core/dom';
-import { describeIf, waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { isFirefox } from '../core/dom.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { describeIf } from '../core/testing.js';
 
-import type { SbbToastElement } from './toast';
+import type { SbbToastElement } from './toast.js';
 
-import './toast';
+import './toast.js';
 
-describe('sbb-toast', () => {
+describe(`sbb-toast`, () => {
   describe('renders', () => {
     let elem: SbbToastElement;
 
@@ -17,7 +17,6 @@ describe('sbb-toast', () => {
       elem = await fixture(html`
         <sbb-toast icon-name="circle-tick-small" dismissible> 'Lorem ipsum dolor' </sbb-toast>
       `);
-      await waitForLitRender(elem);
     });
 
     describeIf(!isFirefox(), 'Chrome-Safari', async () => {

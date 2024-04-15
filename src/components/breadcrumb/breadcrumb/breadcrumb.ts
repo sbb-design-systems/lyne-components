@@ -2,13 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  SbbIconNameMixin,
-  SbbLinkBaseElement,
-  SlotChildObserver,
-} from '../../core/common-behaviors';
+import { SbbLinkBaseElement } from '../../core/base-elements.js';
+import { SbbHydrationMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
 
-import '../../icon';
 import style from './breadcrumb.scss?lit&inline';
 
 /**
@@ -18,12 +15,12 @@ import style from './breadcrumb.scss?lit&inline';
  * @slot icon - Use this to display an icon as breadcrumb.
  */
 @customElement('sbb-breadcrumb')
-export class SbbBreadcrumbElement extends SlotChildObserver(SbbIconNameMixin(SbbLinkBaseElement)) {
+export class SbbBreadcrumbElement extends SbbIconNameMixin(SbbHydrationMixin(SbbLinkBaseElement)) {
   public static override styles: CSSResultGroup = style;
 
   @state() private _hasText = false;
 
-  protected override checkChildren(): void {
+  private _handleSlotchange(): void {
     this._hasText = Array.from(this.childNodes ?? []).some(
       (n) => !(n as Element).slot && n.textContent?.trim(),
     );
@@ -33,7 +30,7 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbIconNameMixin(Sbb
     return html`
       ${this.renderIconSlot('sbb-breadcrumb__icon')}
       <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
-        <slot></slot>
+        <slot @slotchange=${this._handleSlotchange}></slot>
       </span>
     `;
   }

@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
-import { i18nDurationHour, i18nDurationMinute } from '../core/i18n';
+import { SbbLanguageController } from '../core/controllers.js';
+import { i18nDurationHour, i18nDurationMinute } from '../core/i18n.js';
 
 import style from './timetable-duration.scss?lit&inline';
 
@@ -22,7 +22,7 @@ export class SbbTimetableDurationElement extends LitElement {
    */
   @property() public config!: string;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
     const config = JSON.parse(this.config);

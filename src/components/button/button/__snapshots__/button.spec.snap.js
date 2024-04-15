@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["Dom"] = 
+snapshots["sbb-button renders a sbb-button without icon Dom"] = 
 `<sbb-button
   aria-disabled="true"
   data-action=""
@@ -21,21 +21,19 @@ snapshots["Dom"] =
   Label Text
 </sbb-button>
 `;
-/* end snapshot Dom */
+/* end snapshot sbb-button renders a sbb-button without icon Dom */
 
-snapshots["ShadowDom"] = 
+snapshots["sbb-button renders a sbb-button without icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-button">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>
   </span>
 </span>
 `;
-/* end snapshot ShadowDom */
+/* end snapshot sbb-button renders a sbb-button without icon ShadowDom */
 
 snapshots["sbb-button renders a sbb-button with slotted icon Dom"] = 
 `<sbb-button
@@ -63,10 +61,8 @@ snapshots["sbb-button renders a sbb-button with slotted icon Dom"] =
 
 snapshots["sbb-button renders a sbb-button with slotted icon ShadowDom"] = 
 `<span class="sbb-action-base sbb-button">
-  <span class="sbb-button__icon">
-    <slot name="icon">
-    </slot>
-  </span>
+  <slot name="icon">
+  </slot>
   <span class="sbb-button__label">
     <slot>
     </slot>
@@ -74,46 +70,6 @@ snapshots["sbb-button renders a sbb-button with slotted icon ShadowDom"] =
 </span>
 `;
 /* end snapshot sbb-button renders a sbb-button with slotted icon ShadowDom */
-
-snapshots["sbb-button A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-button A11y tree Chrome */
-
-snapshots["sbb-button A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-button A11y tree Firefox */
-
-snapshots["sbb-button A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-button A11y tree Safari */
-
-snapshots["A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot A11y tree Chrome */
 
 snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Chrome"] = 
 `<p>
@@ -146,20 +102,4 @@ snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Firefox"]
 </p>
 `;
 /* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Firefox */
-
-snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Safari */
 

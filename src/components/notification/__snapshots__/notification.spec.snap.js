@@ -239,28 +239,3 @@ snapshots["sbb-notification A11y tree Firefox"] =
 `;
 /* end snapshot sbb-notification A11y tree Firefox */
 
-snapshots["sbb-notification A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Test title",
-      "level": 3
-    },
-    {
-      "role": "text",
-      "name": "Lorem ipsum ..."
-    },
-    {
-      "role": "button",
-      "name": "Close message"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-notification A11y tree Safari */
-

@@ -1,14 +1,14 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbSelectionPanelElement } from './selection-panel';
-import './selection-panel';
-import '../checkbox';
+import type { SbbSelectionPanelElement } from './selection-panel.js';
+import './selection-panel.js';
+import '../card/card-badge.js';
+import '../checkbox.js';
 
-describe('sbb-selection-panel', () => {
+describe(`sbb-selection-panel`, () => {
   let element: SbbSelectionPanelElement;
 
   beforeEach(async () => {
@@ -29,7 +29,6 @@ describe('sbb-selection-panel', () => {
         <div slot="content">Inner content</div>
       </sbb-selection-panel>
     `);
-    await waitForLitRender(element);
   });
 
   it('renders - Dom', async () => {

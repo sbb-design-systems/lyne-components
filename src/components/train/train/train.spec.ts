@@ -1,11 +1,12 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
 
-import './train';
+import './train.js';
 
-describe('sbb-train', () => {
+describe(`sbb-train`, () => {
   it('should render', async () => {
     const root = await fixture(
       html`<sbb-train direction-label="Driving direction" station="Bern"></sbb-train>`,

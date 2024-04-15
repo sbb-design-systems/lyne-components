@@ -1,14 +1,12 @@
-import { isValidAttribute } from './is-valid-attribute';
-
 export function pageScrollDisabled(): boolean {
-  return isValidAttribute(document.body, 'data-sbb-scroll-disabled');
+  return document.body.hasAttribute('data-sbb-scroll-disabled');
 }
 
 /**
  * Handle the page scroll, allowing to disable/enable the window scroll avoiding a potential
  * content shift caused by the disappearance/appearance of the scrollbar.
  */
-export class ScrollHandler {
+export class SbbScrollHandler {
   private _position!: string;
   private _overflow!: string;
   private _marginInlineEnd!: string;
@@ -44,6 +42,6 @@ export class ScrollHandler {
     document.body.style.marginInlineEnd = this._marginInlineEnd || '';
     document.body.style.setProperty('--sbb-scrollbar-width', '0');
 
-    document.body.toggleAttribute('data-sbb-scroll-disabled', false);
+    document.body.removeAttribute('data-sbb-scroll-disabled');
   }
 }

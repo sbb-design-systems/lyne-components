@@ -3,18 +3,21 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbCalendarElement } from '../../calendar';
-import { sbbInputModalityDetector } from '../../core/a11y';
-import { hostAttributes, LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';
-import { isValidAttribute } from '../../core/dom';
-import { i18nShowCalendar } from '../../core/i18n';
-import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover';
-import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker';
-import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
-import '../../calendar';
-import '../../popover';
+import type { SbbCalendarElement } from '../../calendar.js';
+import { sbbInputModalityDetector } from '../../core/a11y.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { readDataNow } from '../../core/datetime/data-now.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { i18nShowCalendar } from '../../core/i18n.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover.js';
+import type { SbbDatepickerElement, SbbInputUpdateEvent } from '../datepicker.js';
+import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker.js';
 
 import style from './datepicker-toggle.scss?lit&inline';
+
+import '../../calendar.js';
+import '../../popover.js';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
@@ -48,7 +51,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
   private _datePickerController!: AbortController;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Opens the calendar.
@@ -68,7 +71,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
   }
 
@@ -100,7 +103,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
     this._datePickerElement?.addEventListener(
       'inputUpdated',
-      (event: CustomEvent<InputUpdateEvent>) => {
+      (event: CustomEvent<SbbInputUpdateEvent>) => {
         this._datePickerElement = event.target as SbbDatepickerElement;
         this._disabled = !!(event.detail.disabled || event.detail.readonly);
         this._min = event.detail.min;
@@ -134,7 +137,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
   private _datePickerChanged(event: Event): void {
     this._datePickerElement = event.target as SbbDatepickerElement;
-    this._calendarElement.selectedDate = this._datePickerElement.getValueAsDate();
+    this._calendarElement.selected = this._datePickerElement.getValueAsDate();
   }
 
   private _assignCalendar(calendar: SbbCalendarElement): void {
@@ -149,22 +152,14 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
     ) {
       return;
     }
-    this._calendarElement.selectedDate = this._datePickerElement.getValueAsDate();
+    this._calendarElement.selected = this._datePickerElement.getValueAsDate();
     this._configureCalendar(this._calendarElement, this._datePickerElement);
     this._calendarElement.resetPosition();
   }
 
-  private _hasDataNow(): boolean {
-    if (!this._datePickerElement) {
-      return false;
-    }
-    const dataNow = +(this._datePickerElement.dataset?.now as string);
-    return !!dataNow;
-  }
-
   private _now(): Date | undefined {
-    if (this._hasDataNow()) {
-      const today = new Date(+(this._datePickerElement!.dataset.now as string));
+    if (this._datePickerElement?.hasAttribute('data-now')) {
+      const today = new Date(readDataNow(this._datePickerElement));
       today.setHours(0, 0, 0, 0);
       return today;
     }
@@ -204,7 +199,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
           .dateFilter=${this._datePickerElement?.dateFilter}
           @dateSelected=${(d: CustomEvent<Date>) => {
             const newDate = new Date(d.detail);
-            this._calendarElement.selectedDate = newDate;
+            this._calendarElement.selected = newDate;
             this._datePickerElement?.setValueAsDate(newDate);
           }}
           ${ref((calendar?: Element) => this._assignCalendar(calendar as SbbCalendarElement))}

@@ -135,32 +135,3 @@ snapshots["sbb-message renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-message renders A11y tree Firefox */
 
-snapshots["sbb-message renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Title.",
-      "level": 3
-    },
-    {
-      "role": "text",
-      "name": "Subtitle."
-    },
-    {
-      "role": "text",
-      "name": "Error code: 0001"
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-message renders A11y tree Safari */
-

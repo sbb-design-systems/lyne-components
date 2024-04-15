@@ -1,8 +1,9 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbActionBaseElement, SbbDisabledMixin } from '../../core/common-behaviors';
-import { buttonCommonStyle, buttonTertiaryStyle, SbbButtonCommonElementMixin } from '../common';
+import { SbbActionBaseElement } from '../../core/base-elements.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
+import { buttonCommonStyle, buttonTertiaryStyle, SbbButtonCommonElementMixin } from '../common.js';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'tertiary' variant.

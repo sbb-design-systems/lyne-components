@@ -1,13 +1,15 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
 
-import { SbbCalendarElement } from './calendar';
+import { SbbCalendarElement } from './calendar.js';
 
-describe('sbb-calendar', () => {
-  const selected = new Date(2023, 0, 15).getTime() / 1000;
+import '../button.js';
+
+describe(`sbb-calendar with ${fixture.name}`, () => {
   let element: SbbCalendarElement;
   const waitForTransition = async (): Promise<void> => {
     await waitForLitRender(element);
@@ -16,7 +18,8 @@ describe('sbb-calendar', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html`<sbb-calendar data-now="1673348400000" selected-date="${selected}"></sbb-calendar>`,
+      html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
+      { modules: ['./calendar.ts'] },
     );
   });
 
@@ -185,7 +188,13 @@ describe('sbb-calendar', () => {
     expect(monthCells.length).to.be.equal(12);
     expect(monthCells[0]).dom.to.be.equal(`
       <td class="sbb-calendar__table-data sbb-calendar__table-month">
-        <button aria-disabled="false" aria-label="January 2023" aria-pressed="true" class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected sbb-calendar__cell-current" tabindex="0">
+        <button
+          aria-disabled="false"
+          aria-label="January 2023"
+          aria-pressed="true"
+          class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected sbb-calendar__cell-current"
+          data-month="1"
+          tabindex="0">
           Jan
         </button>
       </td>
@@ -317,7 +326,8 @@ describe('sbb-calendar', () => {
   describe('navigation for year view', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-calendar data-now="1673348400000" selected-date="${selected}"></sbb-calendar>`,
+        html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
+        { modules: ['./calendar.ts'] },
       );
 
       const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(

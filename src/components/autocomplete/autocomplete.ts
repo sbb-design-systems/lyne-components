@@ -1,32 +1,33 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { assignId, getNextElementIndex } from '../core/a11y';
-import { hostAttributes, SbbNegativeMixin, SlotChildObserver } from '../core/common-behaviors';
-import {
-  setAttribute,
-  getDocumentWritingMode,
-  findReferencedElement,
-  isSafari,
-  isValidAttribute,
-  isBrowser,
-} from '../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
-import type { SbbOverlayState } from '../core/overlay';
+import { getNextElementIndex } from '../core/a11y.js';
+import { SbbConnectedAbortController } from '../core/controllers.js';
+import { hostAttributes } from '../core/decorators.js';
+import { findReferencedElement, getDocumentWritingMode, isBrowser, isSafari } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
+import type { SbbOpenedClosedState } from '../core/interfaces.js';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../core/overlay';
-import type { SbbOptionElement, SbbOptGroupElement } from '../option';
+} from '../core/overlay.js';
+import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
 import style from './autocomplete.scss?lit&inline';
 
 let nextId = 0;
+
+/**
+ * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
+ * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
+ */
+const ariaRoleOnHost = isSafari();
 
 /**
  * Combined with a native input, it displays a panel with a list of available options.
@@ -36,15 +37,16 @@ let nextId = 0;
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-autocomplete` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
- * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-autocomplete')
 @hostAttributes({
   dir: getDocumentWritingMode(),
+  role: ariaRoleOnHost ? 'listbox' : null,
 })
-export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(LitElement)) {
+export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -74,8 +76,13 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public preserveIconSpace?: boolean;
 
-  /** The state of the autocomplete. */
-  @state() private _state: SbbOverlayState = 'closed';
+  /* The state of the autocomplete. */
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
   private _willOpen: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.willOpen);
@@ -116,17 +123,11 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
   private _activeItemIndex = -1;
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _abort = new ConnectedAbortController(this);
-
-  /**
-   * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
-   * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
-   */
-  private _ariaRoleOnHost = isSafari();
+  private _abort = new SbbConnectedAbortController(this);
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
   private get _readonly(): boolean {
-    return !!this.triggerElement && isValidAttribute(this.triggerElement, 'readonly');
+    return this.triggerElement?.hasAttribute('readonly') ?? false;
   }
 
   private get _options(): SbbOptionElement[] {
@@ -220,11 +221,16 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    if (ariaRoleOnHost) {
+      this.id ||= this._overlayId;
+    }
+
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
 
     if (this._didLoad) {
@@ -257,10 +263,6 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
     super.firstUpdated(changedProperties);
     this._componentSetup();
     this._didLoad = true;
-  }
-
-  public override checkChildren(): void {
-    this._highlightOptions(this.triggerElement?.value);
   }
 
   private _syncNegative(): void {
@@ -505,7 +507,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
 
   private _setNextActiveOption(event: KeyboardEvent): void {
     const filteredOptions = this._options.filter(
-      (opt) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
+      (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
 
     // Get and activate the next active option
@@ -550,11 +552,11 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
     removeAriaComboBoxAttributes(element);
   }
 
-  protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-    setAttribute(this, 'role', this._ariaRoleOnHost ? 'listbox' : null);
-    this._ariaRoleOnHost && assignId(() => this._overlayId)(this);
+  private _handleSlotchange(): void {
+    this._highlightOptions(this.triggerElement?.value);
+  }
 
+  protected override render(): TemplateResult {
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
       <div class="sbb-autocomplete__container">
@@ -562,17 +564,16 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
         <div
           @animationend=${this._onAnimationEnd}
           class="sbb-autocomplete__panel"
-          ?data-open=${this._state === 'opened' || this._state === 'opening'}
           ${ref((overlayRef?: Element) => (this._overlay = overlayRef as HTMLElement))}
         >
           <div class="sbb-autocomplete__wrapper">
             <div
               class="sbb-autocomplete__options"
-              role=${!this._ariaRoleOnHost ? 'listbox' : nothing}
-              id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
+              role=${!ariaRoleOnHost ? 'listbox' : nothing}
+              id=${!ariaRoleOnHost ? this._overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot></slot>
+              <slot @slotchange=${this._handleSlotchange}></slot>
             </div>
           </div>
         </div>

@@ -1,25 +1,34 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
-import { SbbPopoverElement } from '../popover';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
+import { SbbPopoverElement } from '../popover.js';
 
-import { SbbPopoverTriggerElement } from './popover-trigger';
+import { SbbPopoverTriggerElement } from './popover-trigger.js';
 
-describe('sbb-popover-trigger', () => {
+import '../../icon.js';
+import '../../link/link.js';
+
+describe(`sbb-popover-trigger with ${fixture.name}`, () => {
   let element: SbbPopoverTriggerElement, popover: SbbPopoverElement;
 
   beforeEach(async () => {
-    await fixture(html`
-      <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
-      <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
-        Popover content.
-        <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
-      </sbb-popover>
-    `);
-    element = document.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
-    popover = document.querySelector<SbbPopoverElement>('sbb-popover')!;
+    const root = await fixture(
+      html`
+        <div>
+          <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+          <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+            Popover content.
+            <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
+          </sbb-popover>
+        </div>
+      `,
+      { modules: ['./popover-trigger.ts', '../popover.ts', '../../link.ts'] },
+    );
+    element = root.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    popover = root.querySelector<SbbPopoverElement>('sbb-popover')!;
   });
 
   it('renders', () => {

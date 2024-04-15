@@ -1,11 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import './expansion-panel-content';
+import './expansion-panel-content.js';
 
-describe('sbb-expansion-panel-content', () => {
+describe(`sbb-expansion-panel-content`, () => {
   it('renders', async () => {
     const root = await fixture(
       html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`,

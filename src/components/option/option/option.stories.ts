@@ -12,13 +12,13 @@ import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbOptionElement } from './option';
+import { SbbOptionElement } from './option.js';
 import readme from './readme.md?raw';
-import '../../form-field';
-import '../../select';
-import '../../autocomplete';
+import '../../form-field.js';
+import '../../select.js';
+import '../../autocomplete.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
@@ -123,14 +123,16 @@ const createOptions = ({
 const StandaloneTemplate = (args: Args): TemplateResult => html`${createOptions(args)}`;
 
 const AutocompleteTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field label="sbb-autocomplete" ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative}>
+    <label>sbb-autocomplete</label>
     <input placeholder="Please select." />
     <sbb-autocomplete>${createOptions(args)}</sbb-autocomplete>
   </sbb-form-field>
 `;
 
 const SelectTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field label="sbb-select" ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative}>
+    <label>sbb-select</label>
     <sbb-select placeholder="Please select.">${createOptions(args)}</sbb-select>
   </sbb-form-field>
 `;

@@ -1,14 +1,15 @@
-import { assert, fixture } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbTitleElement } from './title';
+import { fixture } from '../core/testing/private.js';
 
-describe('sbb-title', () => {
+import { SbbTitleElement } from './title.js';
+
+describe(`sbb-title with ${fixture.name}`, () => {
   let element: SbbTitleElement;
 
   it('renders', async () => {
-    await fixture(html`<sbb-title></sbb-title>`);
-    element = document.querySelector<SbbTitleElement>('sbb-title')!;
+    element = await fixture(html`<sbb-title></sbb-title>`, { modules: ['./title.ts'] });
     assert.instanceOf(element, SbbTitleElement);
   });
 });

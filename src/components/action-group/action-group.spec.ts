@@ -1,16 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../button';
-import { waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import type { SbbSecondaryButtonElement } from '../button.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbActionGroupElement } from './action-group';
-import './action-group';
-import '../button/secondary-button';
-import '../link/block-link';
+import type { SbbActionGroupElement } from './action-group.js';
+import './action-group.js';
+import '../button/secondary-button.js';
+import '../link/block-link.js';
 
-describe('sbb-action-group', () => {
+describe(`sbb-action-group`, () => {
   describe('renders', () => {
     let element: SbbActionGroupElement;
 
@@ -26,7 +25,6 @@ describe('sbb-action-group', () => {
           </sbb-block-link>
         </sbb-action-group>
       `);
-      await waitForLitRender(element);
     });
 
     it('renders - Dom', async () => {

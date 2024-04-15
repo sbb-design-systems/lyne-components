@@ -1,15 +1,18 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy } from '../../core/testing.js';
 
-import { SbbExpansionPanelHeaderElement } from './expansion-panel-header';
+import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.js';
 
-describe('sbb-expansion-panel-header', () => {
+describe(`sbb-expansion-panel-header with ${fixture.name}`, () => {
   let element: SbbExpansionPanelHeaderElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`);
+    element = await fixture(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`, {
+      modules: ['./expansion-panel-header.ts'],
+    });
   });
 
   it('renders', async () => {
@@ -25,6 +28,7 @@ describe('sbb-expansion-panel-header', () => {
   it('should not emit event on click if disabled', async () => {
     element = await fixture(
       html`<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`,
+      { modules: ['./expansion-panel-header.ts'] },
     );
     const spy = new EventSpy(SbbExpansionPanelHeaderElement.events.toggleExpanded);
     element.click();

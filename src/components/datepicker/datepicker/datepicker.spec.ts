@@ -1,25 +1,28 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { NativeDateAdapter } from '../../core/datetime';
-import { findInput } from '../../core/dom';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
-import type { SbbFormFieldElement } from '../../form-field';
-import type { SbbDatepickerNextDayElement, SbbDatepickerPreviousDayElement } from '../index';
+import { NativeDateAdapter } from '../../core/datetime.js';
+import { findInput } from '../../core/dom.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbDatepickerNextDayElement } from '../datepicker-next-day.js';
+import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day.js';
 
-import type { SbbDatepickerElement } from './datepicker';
+import type { SbbDatepickerElement } from './datepicker.js';
 import {
   getDatePicker,
   getAvailableDate,
   findPreviousAvailableDate,
   findNextAvailableDate,
   isDateAvailable,
-} from './datepicker';
-import '../datepicker-next-day';
-import '../datepicker-previous-day';
-import '../datepicker-toggle';
+} from './datepicker.js';
 
-describe('sbb-datepicker', () => {
+import '../datepicker-next-day.js';
+import '../datepicker-previous-day.js';
+import '../datepicker-toggle.js';
+import '../../form-field.js';
+
+describe(`sbb-datepicker`, () => {
   it('renders', async () => {
     const root = await fixture(html`<sbb-datepicker></sbb-datepicker>`);
 
@@ -38,7 +41,7 @@ describe('sbb-datepicker', () => {
   `);
 });
 
-describe('getDatePicker', () => {
+describe(`getDatePicker`, () => {
   it('returns the datepicker if no trigger', async () => {
     const page: SbbFormFieldElement = await fixture(html`
       <sbb-form-field>
@@ -69,7 +72,7 @@ describe('getDatePicker', () => {
   });
 });
 
-describe('getInput', () => {
+describe(`getInput`, () => {
   it('returns the input if no trigger', async () => {
     const page: SbbFormFieldElement = await fixture(html`
       <sbb-form-field>
@@ -98,7 +101,7 @@ describe('getInput', () => {
   });
 });
 
-describe('getAvailableDate', () => {
+describe(`getAvailableDate`, () => {
   it('with dateFilter', async () => {
     const availableDate: Date = getAvailableDate(
       new Date(2024, 0, 1, 0, 0, 0, 0),
@@ -120,7 +123,7 @@ describe('getAvailableDate', () => {
   });
 });
 
-describe('findPreviousAvailableDate', () => {
+describe(`findPreviousAvailableDate`, () => {
   it('get date without dateFilter and without min', async () => {
     const availableDate: Date = findPreviousAvailableDate(
       new Date(2023, 1, 26, 0, 0, 0, 0),
@@ -154,7 +157,7 @@ describe('findPreviousAvailableDate', () => {
   });
 });
 
-describe('findNextAvailableDate', () => {
+describe(`findNextAvailableDate`, () => {
   it('get date without max and without dateFilter', async () => {
     const availableDate: Date = findNextAvailableDate(
       new Date(2023, 1, 26, 0, 0, 0, 0),
@@ -188,7 +191,7 @@ describe('findNextAvailableDate', () => {
   });
 });
 
-describe('isDateAvailable', () => {
+describe(`isDateAvailable`, () => {
   describe('invalid', () => {
     it('get invalid date with min', async () => {
       expect(

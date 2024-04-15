@@ -1,13 +1,15 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { SinonStub } from 'sinon';
 import { stub } from 'sinon';
 
-import { i18nOccupancy } from '../core/i18n';
+import { i18nOccupancy } from '../core/i18n.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
-import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon';
+import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.js';
 
-describe('sbb-timetable-occupancy-icon', () => {
+describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
   let matchMediaStub: SinonStub<[query: string], MediaQueryList>;
   const mediaQueryListArgs: MediaQueryList = {
     matches: false,
@@ -41,10 +43,15 @@ describe('sbb-timetable-occupancy-icon', () => {
     });
     const element: SbbTimetableOccupancyIconElement = await fixture(
       html` <sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
+      { modules: ['./timetable-occupancy-icon.ts'] },
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.low.en);
-    await expect(element).shadowDom.to.equalSnapshot();
+    await waitForLitRender(element);
+    expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
+      'data-name',
+      'utilization-low',
+    );
   });
 
   it('renders high contrast mode', async () => {
@@ -60,10 +67,15 @@ describe('sbb-timetable-occupancy-icon', () => {
     });
     const element: SbbTimetableOccupancyIconElement = await fixture(
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
+      { modules: ['./timetable-occupancy-icon.ts'] },
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
-    await expect(element).shadowDom.to.equalSnapshot();
+    await waitForLitRender(element);
+    expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
+      'data-name',
+      'utilization-medium-high-contrast',
+    );
   });
 
   it('renders negative', async () => {
@@ -79,9 +91,14 @@ describe('sbb-timetable-occupancy-icon', () => {
     });
     const element: SbbTimetableOccupancyIconElement = await fixture(
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
+      { modules: ['./timetable-occupancy-icon.ts'] },
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
-    await expect(element).shadowDom.to.equalSnapshot();
+    await waitForLitRender(element);
+    expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
+      'data-name',
+      'utilization-medium-negative',
+    );
   });
 });

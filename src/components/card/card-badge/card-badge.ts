@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/common-behaviors';
-import { getDocumentWritingMode } from '../../core/dom';
+import { hostAttributes } from '../../core/decorators.js';
+import { getDocumentWritingMode } from '../../core/dom.js';
 
 import style from './card-badge.scss?lit&inline';
 
@@ -38,7 +38,7 @@ export class SbbCardBadgeElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     if (this._parentElement) {
-      this._parentElement.toggleAttribute('data-has-card-badge', false);
+      this._parentElement.removeAttribute('data-has-card-badge');
     }
     this._parentElement = undefined;
   }

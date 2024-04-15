@@ -1,15 +1,16 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../../button';
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
-import type { SbbAlertElement } from '../alert';
+import type { SbbTransparentButtonElement } from '../../button.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
+import type { SbbAlertElement } from '../alert.js';
 
-import { SbbAlertGroupElement } from './alert-group';
+import { SbbAlertGroupElement } from './alert-group.js';
 
-import '../alert';
+import '../alert.js';
 
-describe('sbb-alert-group', () => {
+describe(`sbb-alert-group with ${fixture.name}`, () => {
   let element: SbbAlertGroupElement;
 
   it('should handle events ond states on interacting with alerts', async () => {
@@ -18,21 +19,21 @@ describe('sbb-alert-group', () => {
     const accessibilityTitleLevel = '3';
 
     // Given sbb-alert-group with two alerts
-    element = await fixture(html`
-      <sbb-alert-group
-        id="${alertGroupId}"
-        accessibility-title="${accessibilityTitle}"
-        accessibility-title-level="${accessibilityTitleLevel}"
-      >
-        <sbb-alert title-content="Interruption" href="www.sbb.ch">First</sbb-alert>
-        <sbb-alert title-content="Interruption" href="www.sbb.ch">Second</sbb-alert>
-      </sbb-alert-group>
-    `);
+    element = await fixture(
+      html`
+        <sbb-alert-group
+          id="${alertGroupId}"
+          accessibility-title="${accessibilityTitle}"
+          accessibility-title-level="${accessibilityTitleLevel}"
+        >
+          <sbb-alert title-content="Interruption" href="www.sbb.ch">First</sbb-alert>
+          <sbb-alert title-content="Interruption" href="www.sbb.ch">Second</sbb-alert>
+        </sbb-alert-group>
+      `,
+      { modules: ['./alert-group.ts', '../alert.ts'] },
+    );
     const didDismissAlertSpy = new EventSpy(SbbAlertGroupElement.events.didDismissAlert);
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
-
-    // When rendering initially
-    await waitForLitRender(element);
 
     // Then two alerts should be rendered and accessibility title should be displayed
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(2);
@@ -97,6 +98,7 @@ describe('sbb-alert-group', () => {
     // Given empty sbb-alert-group
     element = await fixture(
       html`<sbb-alert-group accessibility-title="Disruptions"></sbb-alert-group>`,
+      { modules: ['./alert-group.ts'] },
     );
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
 

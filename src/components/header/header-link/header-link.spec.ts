@@ -1,13 +1,12 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbHeaderLinkElement } from './header-link';
-import './header-link';
+import type { SbbHeaderLinkElement } from './header-link.js';
+import './header-link.js';
 
-describe('sbb-header-link', () => {
+describe(`sbb-header-link`, () => {
   describe('renders the component as a button with icon', () => {
     let element: SbbHeaderLinkElement;
 
@@ -21,7 +20,6 @@ describe('sbb-header-link', () => {
           >Action</sbb-header-link
         >`,
       );
-      await waitForLitRender(element);
     });
 
     it('Light DOM', async () => {

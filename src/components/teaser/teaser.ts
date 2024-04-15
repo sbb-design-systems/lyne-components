@@ -2,12 +2,14 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { NamedSlotStateController, SbbLinkBaseElement } from '../core/common-behaviors';
-import type { SbbTitleLevel } from '../title';
-import '../title';
-import '../chip';
+import { SbbLinkBaseElement } from '../core/base-elements.js';
+import { SbbSlotStateController } from '../core/controllers.js';
+import type { SbbTitleLevel } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
+
+import '../chip.js';
+import '../title.js';
 
 /**
  * It displays an interactive image with caption.
@@ -36,7 +38,7 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override renderTemplate(): TemplateResult {

@@ -1,15 +1,16 @@
 import {
   type CSSResultGroup,
   html,
+  isServer,
   LitElement,
   type PropertyValueMap,
   type TemplateResult,
-  isServer,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
-import type { SbbTagElement } from '../tag';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import type { SbbTagElement } from '../tag.js';
 
 import style from './tag-group.scss?lit&inline';
 
@@ -19,10 +20,9 @@ import style from './tag-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
  */
 @customElement('sbb-tag-group')
-export class SbbTagGroupElement extends SbbNamedSlotListElementMixin<
-  SbbTagElement,
-  typeof LitElement
->(LitElement) {
+export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(
+  LitElement,
+) {
   public static override styles: CSSResultGroup = style;
   // DIV is added here due to special requirements from sbb.ch.
   protected override readonly listChildTagNames = ['SBB-TAG', 'DIV'];
@@ -65,11 +65,11 @@ export class SbbTagGroupElement extends SbbNamedSlotListElementMixin<
       const valueAsArray = Array.isArray(value) ? value : [value];
       tags.forEach((t) => (t.checked = valueAsArray.includes(t.value ?? t.getAttribute('value'))));
     } else {
-      if (Array.isArray(value)) {
+      if (!Array.isArray(value)) {
+        tags.forEach((t) => (t.checked = (t.value ?? t.getAttribute('value')) === value));
+      } else if (import.meta.env.DEV) {
         console.warn('value must not be set as an array in singular mode.', value);
-        return;
       }
-      tags.forEach((t) => (t.checked = (t.value ?? t.getAttribute('value')) === value));
     }
   }
   public get value(): string | string[] | null {
@@ -98,11 +98,13 @@ export class SbbTagGroupElement extends SbbNamedSlotListElementMixin<
         .slice(1)
         .forEach((tag) => (tag.checked = false));
     }
-    if (changedProperties.has('listAccessibilityLabel') && this.listAccessibilityLabel) {
-      this.removeAttribute('role');
-    } else {
-      this.setAttribute('role', 'group');
-    }
+    setOrRemoveAttribute(
+      this,
+      'role',
+      changedProperties.has('listAccessibilityLabel') && this.listAccessibilityLabel
+        ? null
+        : 'group',
+    );
   }
 
   protected override render(): TemplateResult {

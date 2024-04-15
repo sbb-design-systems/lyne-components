@@ -1,21 +1,26 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import type { SbbIconElement } from '../../icon';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbIconElement } from '../../icon.js';
 
-import { SbbTrainWagonElement } from './train-wagon';
+import { SbbTrainWagonElement } from './train-wagon.js';
 
-describe('sbb-train-wagon', () => {
+describe(`sbb-train-wagon with ${fixture.name}`, () => {
   let element: SbbTrainWagonElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
+    element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`, {
+      modules: ['./train-wagon.ts'],
+    });
     assert.instanceOf(element, SbbTrainWagonElement);
   });
 
   it('should emit sectorChange', async () => {
-    element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`);
+    element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`, {
+      modules: ['./train-wagon.ts'],
+    });
     const sectorChangeSpy = new EventSpy(SbbTrainWagonElement.events.sectorChange);
     element.sector = 'B';
 
@@ -29,6 +34,7 @@ describe('sbb-train-wagon', () => {
         <sbb-icon name="sa-rs"></sbb-icon>
         <sbb-icon name="sa-rs"></sbb-icon>
       </sbb-train-wagon>`,
+      { modules: ['./train-wagon.ts', '../../icon.ts'] },
     );
 
     Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {

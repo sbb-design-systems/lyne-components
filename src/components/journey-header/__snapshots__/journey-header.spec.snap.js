@@ -13,9 +13,9 @@ snapshots["sbb-journey-header renders"] =
     dir="ltr"
   >
     <span class="sbb-journey-header__origin">
-      <sbb-screenreader-only>
+      <sbb-screen-reader-only>
         Connection from
-      </sbb-screenreader-only>
+      </sbb-screen-reader-only>
       A
     </span>
     <sbb-icon
@@ -26,9 +26,9 @@ snapshots["sbb-journey-header renders"] =
     >
     </sbb-icon>
     <span class="sbb-journey-header__destination">
-      <sbb-screenreader-only>
+      <sbb-screen-reader-only>
         to
-      </sbb-screenreader-only>
+      </sbb-screen-reader-only>
       B
     </span>
   </span>
@@ -49,9 +49,9 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative"] =
     dir="ltr"
   >
     <span class="sbb-journey-header__origin">
-      <sbb-screenreader-only>
+      <sbb-screen-reader-only>
         Connection from
-      </sbb-screenreader-only>
+      </sbb-screen-reader-only>
       B
     </span>
     <sbb-icon
@@ -62,13 +62,13 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative"] =
     >
     </sbb-icon>
     <span class="sbb-journey-header__destination">
-      <sbb-screenreader-only>
+      <sbb-screen-reader-only>
         to
-      </sbb-screenreader-only>
+      </sbb-screen-reader-only>
       C
-      <sbb-screenreader-only>
+      <sbb-screen-reader-only>
         and back to B.
-      </sbb-screenreader-only>
+      </sbb-screen-reader-only>
     </span>
   </span>
 </sbb-title>
@@ -108,48 +108,4 @@ snapshots["sbb-journey-header A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-journey-header A11y tree Firefox */
-
-snapshots["sbb-journey-header A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Connection from"
-    },
-    {
-      "role": "text",
-      "name": " "
-    },
-    {
-      "role": "text",
-      "name": "B"
-    },
-    {
-      "role": "text",
-      "name": " "
-    },
-    {
-      "role": "text",
-      "name": "to"
-    },
-    {
-      "role": "text",
-      "name": " "
-    },
-    {
-      "role": "text",
-      "name": "C"
-    },
-    {
-      "role": "text",
-      "name": "and back to B."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-journey-header A11y tree Safari */
 

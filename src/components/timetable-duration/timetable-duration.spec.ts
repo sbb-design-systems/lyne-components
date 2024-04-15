@@ -1,13 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import sampleData from './timetable-duration.sample-data';
+import { fixture } from '../core/testing/private.js';
 
-import './timetable-duration';
+import sampleData from './timetable-duration.sample-data.js';
+
+import './timetable-duration.js';
 
 const config = JSON.stringify(sampleData[0]);
 
-describe('sbb-timetable-duration', () => {
+describe(`sbb-timetable-duration`, () => {
   it('renders', async () => {
     const root = await fixture(
       html`<sbb-timetable-duration config="${config}"></sbb-timetable-duration>`,

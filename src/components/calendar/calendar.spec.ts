@@ -1,23 +1,18 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import './calendar';
+import './calendar.js';
 
-describe('sbb-calendar', () => {
+describe(`sbb-calendar`, () => {
   it('renders', async () => {
     const root = await fixture(
-      html`<sbb-calendar
-        selected-date="2023-01-20T00:00:00"
-        data-now="1672790400000"
-      ></sbb-calendar>`,
+      html`<sbb-calendar selected="2023-01-20T00:00:00" data-now="1672790400000"></sbb-calendar>`,
     );
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
-      `<sbb-calendar data-now="1672790400000" selected-date="2023-01-20T00:00:00"></sbb-calendar>`,
+      `<sbb-calendar data-now="1672790400000" selected="2023-01-20T00:00:00"></sbb-calendar>`,
     );
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
@@ -25,7 +20,7 @@ describe('sbb-calendar', () => {
   it('renders with min and max', async () => {
     const page: HTMLElement = await fixture(
       html`<sbb-calendar
-        selected-date="2023-01-20T00:00:00"
+        selected="2023-01-20T00:00:00"
         min="2023-01-09T00:00:00"
         max="2023-01-29T00:00:00"
       ></sbb-calendar>`,
@@ -59,10 +54,7 @@ describe('sbb-calendar', () => {
   });
 
   testA11yTreeSnapshot(
-    html`<sbb-calendar
-      selected-date="2023-01-20T00:00:00"
-      data-now="1672790400000"
-    ></sbb-calendar>`,
+    html`<sbb-calendar selected="2023-01-20T00:00:00" data-now="1672790400000"></sbb-calendar>`,
     undefined,
     { safari: true }, // We skip safari because it has an inconsistent behavior on ci environment
   );

@@ -1,13 +1,14 @@
-import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
+import { aTimeout, assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { SbbOptionElement } from '../option';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
+import { SbbOptionElement } from '../option.js';
 
-import { SbbSelectElement } from './select';
+import { SbbSelectElement } from './select.js';
 
-describe('sbb-select', () => {
+describe(`sbb-select with ${fixture.name}`, () => {
   let element: SbbSelectElement,
     focusableElement: HTMLElement,
     firstOption: SbbOptionElement,
@@ -17,19 +18,21 @@ describe('sbb-select', () => {
     comboBoxElement: HTMLElement;
 
   beforeEach(async () => {
-    await fixture(html`
-      <div id="parent">
-        <sbb-select placeholder="Placeholder" disable-animation>
-          <sbb-option id="option-1" value="1">First</sbb-option>
-          <sbb-option id="option-2" value="2">Second</sbb-option>
-          <sbb-option id="option-3" value="3">Third</sbb-option>
-        </sbb-select>
-      </div>
-    `);
-    element = document.querySelector<SbbSelectElement>('sbb-select')!;
-    await waitForLitRender(element);
+    const root = await fixture(
+      html`
+        <div id="parent">
+          <sbb-select placeholder="Placeholder" disable-animation>
+            <sbb-option id="option-1" value="1">First</sbb-option>
+            <sbb-option id="option-2" value="2">Second</sbb-option>
+            <sbb-option id="option-3" value="3">Third</sbb-option>
+          </sbb-select>
+        </div>
+      `,
+      { modules: ['./select.ts', '../option.ts'] },
+    );
+    element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
-    comboBoxElement = document.querySelector('[role="combobox"]')!;
+    comboBoxElement = root.querySelector('[role="combobox"]')!;
     focusableElement = comboBoxElement;
     firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
     secondOption = element.querySelector<SbbOptionElement>('#option-2')!;
@@ -97,7 +100,7 @@ describe('sbb-select', () => {
 
   it("displays joined string if both multiple and value props are set, or placeholder if value doesn't match available options", async () => {
     expect(displayValue).to.have.trimmed.text('Placeholder');
-    element.setAttribute('multiple', '');
+    element.toggleAttribute('multiple', true);
 
     element.value = ['1', '3'];
     await waitForLitRender(element);
@@ -115,17 +118,19 @@ describe('sbb-select', () => {
   });
 
   it("displays value if it's set with 'wrong' selected attributes on sbb-options", async () => {
-    const root = await fixture(html`
-      <div id="parent">
-        <sbb-select value="2">
-          <sbb-option id="option-1" value="1" selected>First</sbb-option>
-          <sbb-option id="option-2" value="2">Second</sbb-option>
-          <sbb-option id="option-3" value="3" selected>Third</sbb-option>
-        </sbb-select>
-      </div>
-    `);
+    const root = await fixture(
+      html`
+        <div id="parent">
+          <sbb-select value="2">
+            <sbb-option id="option-1" value="1" selected>First</sbb-option>
+            <sbb-option id="option-2" value="2">Second</sbb-option>
+            <sbb-option id="option-3" value="3" selected>Third</sbb-option>
+          </sbb-select>
+        </div>
+      `,
+      { modules: ['./select.ts', '../option.ts'] },
+    );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
-    await waitForLitRender(element);
 
     const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
     const firstOption = element.querySelector('#option-1');
@@ -140,17 +145,19 @@ describe('sbb-select', () => {
   });
 
   it('display selected sbb-option if no value is set, then handles selection', async () => {
-    const root = await fixture(html`
-      <div id="parent">
-        <sbb-select>
-          <sbb-option id="option-1" value="1" selected>First</sbb-option>
-          <sbb-option id="option-2" value="2">Second</sbb-option>
-          <sbb-option id="option-3" value="3">Third</sbb-option>
-        </sbb-select>
-      </div>
-    `);
+    const root = await fixture(
+      html`
+        <div id="parent">
+          <sbb-select>
+            <sbb-option id="option-1" value="1" selected>First</sbb-option>
+            <sbb-option id="option-2" value="2">Second</sbb-option>
+            <sbb-option id="option-3" value="3">Third</sbb-option>
+          </sbb-select>
+        </div>
+      `,
+      { modules: ['./select.ts', '../option.ts'] },
+    );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
-    await waitForLitRender(element);
     comboBoxElement = root.querySelector('[role="combobox"]')!;
     focusableElement = comboBoxElement;
 
@@ -199,7 +206,7 @@ describe('sbb-select', () => {
   });
 
   it('handles selection in multiple', async () => {
-    element.setAttribute('multiple', '');
+    element.toggleAttribute('multiple', true);
     await waitForLitRender(element);
 
     const willOpen = new EventSpy(SbbSelectElement.events.willOpen);
@@ -322,7 +329,7 @@ describe('sbb-select', () => {
   });
 
   it('handles keyboard selection in multiple', async () => {
-    element.setAttribute('multiple', '');
+    element.toggleAttribute('multiple', true);
     await waitForLitRender(element);
 
     const didOpen = new EventSpy(SbbSelectElement.events.didOpen);

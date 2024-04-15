@@ -111,23 +111,3 @@ snapshots["sbb-accordion A11y tree Firefox"] =
 `;
 /* end snapshot sbb-accordion A11y tree Firefox */
 
-snapshots["sbb-accordion A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Header 1"
-    },
-    {
-      "role": "button",
-      "name": "Header 2"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-accordion A11y tree Safari */
-

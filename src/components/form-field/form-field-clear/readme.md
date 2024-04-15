@@ -2,7 +2,8 @@ The `sbb-form-field-clear` component can be used with the [sbb-form-field](/docs
 to provide the possibility to display a clear button which can clear the input value.
 
 ```html
-<sbb-form-field label="Label">
+<sbb-form-field>
+  <label>Label</label>
   <input type="text" placeholder="Input placeholder" value="Input value" />
   <sbb-form-field-clear></sbb-form-field-clear>
 </sbb-form-field>

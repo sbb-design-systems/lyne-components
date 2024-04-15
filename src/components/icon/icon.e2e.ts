@@ -1,13 +1,15 @@
-import { assert, fixture } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbIconElement } from './icon';
+import { fixture } from '../core/testing/private.js';
 
-describe('sbb-icon', () => {
+import { SbbIconElement } from './icon.js';
+
+describe(`sbb-icon with ${fixture.name}`, () => {
   let element: SbbIconElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-icon></sbb-icon>`);
+    element = await fixture(html`<sbb-icon></sbb-icon>`, { modules: ['./icon.ts'] });
 
     assert.instanceOf(element, SbbIconElement);
   });

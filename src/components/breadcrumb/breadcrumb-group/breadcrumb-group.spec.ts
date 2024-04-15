@@ -1,14 +1,14 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbBreadcrumbGroupElement } from './breadcrumb-group';
-import '../breadcrumb';
-import './breadcrumb-group';
+import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
 
-describe('sbb-breadcrumb-group', () => {
+import '../breadcrumb.js';
+import './breadcrumb-group.js';
+
+describe(`sbb-breadcrumb-group`, () => {
   let root: SbbBreadcrumbGroupElement;
 
   beforeEach(async () => {
@@ -19,7 +19,6 @@ describe('sbb-breadcrumb-group', () => {
         <sbb-breadcrumb href="https://example.com/one">Two</sbb-breadcrumb>
       </sbb-breadcrumb-group>
     `);
-    await waitForLitRender(root);
   });
 
   it('renders - Dom', async () => {

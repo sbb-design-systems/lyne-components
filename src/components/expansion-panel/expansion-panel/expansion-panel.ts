@@ -3,12 +3,13 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbHydrationMixin } from '../../core/common-behaviors';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import type { SbbOverlayState } from '../../core/overlay';
-import type { SbbTitleLevel } from '../../title';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
-import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbHydrationMixin } from '../../core/mixins.js';
+import type { SbbTitleLevel } from '../../title.js';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
+import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
 import style from './expansion-panel.scss?lit&inline';
 
@@ -92,8 +93,8 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     SbbExpansionPanelElement.events.didClose,
   );
 
-  private _abort = new ConnectedAbortController(this);
-  private _state: SbbOverlayState = 'closed';
+  private _abort = new SbbConnectedAbortController(this);
+  private _state: SbbOpenedClosedState = 'closed';
 
   private _toggleExpanded(): void {
     this.expanded = !this.expanded;
@@ -142,7 +143,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._transitionEventController?.abort();
-    this.toggleAttribute('data-accordion', false);
+    this.removeAttribute('data-accordion');
   }
 
   private _handleSlotchange(): void {
@@ -217,7 +218,6 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
         </div>
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

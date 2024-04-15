@@ -4,25 +4,26 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  FocusHandler,
   getFirstFocusableElement,
   IS_FOCUSABLE_QUERY,
+  SbbFocusHandler,
   setModalityOnNextFocus,
-} from '../../core/a11y';
-import { LanguageController } from '../../core/common-behaviors';
-import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
-import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
-import { i18nClosePopover } from '../../core/i18n';
-import type { SbbOverlayState } from '../../core/overlay';
+} from '../../core/a11y.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { findReferencedElement } from '../../core/dom.js';
+import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
+import { i18nClosePopover } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import {
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay';
-import '../../button/secondary-button';
+} from '../../core/overlay.js';
 
 import style from './popover.scss?lit&inline';
+
+import '../../button/secondary-button.js';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -40,9 +41,9 @@ const popoversRef = new Set<SbbPopoverElement>();
  * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-popover` begins the closing
  * transition. Can be canceled.
  * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-popover` is closed.
- * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-popover')
 export class SbbPopoverElement extends LitElement {
@@ -83,14 +84,11 @@ export class SbbPopoverElement extends LitElement {
     | undefined;
 
   /** The state of the popover. */
-  private set _state(state: SbbOverlayState) {
-    if (!this.dataset) {
-      return;
-    }
-    this.dataset.state = state;
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
   }
-  private get _state(): SbbOverlayState {
-    return this.dataset.state as SbbOverlayState;
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /** Emits whenever the `sbb-popover` starts the opening transition. */
@@ -120,11 +118,11 @@ export class SbbPopoverElement extends LitElement {
   private _isPointerDownEventOnPopover?: boolean;
   private _popoverController!: AbortController;
   private _openStateController!: AbortController;
-  private _focusHandler = new FocusHandler();
+  private _focusHandler = new SbbFocusHandler();
   private _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /** Opens the popover on trigger click. */
   public open(): void {
@@ -138,7 +136,7 @@ export class SbbPopoverElement extends LitElement {
 
     // Close the other popovers
     for (const popover of Array.from(popoversRef)) {
-      const state = popover.getAttribute('data-state') as SbbOverlayState;
+      const state = popover.getAttribute('data-state') as SbbOpenedClosedState;
       if (state && (state === 'opened' || state === 'opening')) {
         popover.close();
       }
@@ -312,7 +310,7 @@ export class SbbPopoverElement extends LitElement {
   private _closeOnSbbPopoverCloseClick(event: Event): void {
     const closeElement = composedPathHasAttribute(event, 'sbb-popover-close', this);
 
-    if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
+    if (closeElement && !closeElement.hasAttribute('disabled')) {
       clearTimeout(this._closeTimeout);
       this.close(closeElement);
     }
@@ -454,8 +452,7 @@ export class SbbPopoverElement extends LitElement {
         responsiveHeight: true,
       },
     );
-
-    setAttribute(this, 'data-position', popoverPosition.alignment.vertical);
+    this.setAttribute('data-position', popoverPosition.alignment.vertical);
 
     const arrowXPosition =
       this._triggerElement.getBoundingClientRect().left -

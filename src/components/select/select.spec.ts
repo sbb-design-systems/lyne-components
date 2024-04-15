@@ -1,15 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../core/dom';
-import { describeIf, waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { isSafari } from '../core/dom.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { describeIf } from '../core/testing.js';
 
-import type { SbbSelectElement } from './select';
-import './select';
-import '../option';
+import type { SbbSelectElement } from './select.js';
+import './select.js';
+import '../option.js';
 
-describe('sbb-select', () => {
+describe(`sbb-select`, () => {
   describe('renders', () => {
     let elem: SbbSelectElement;
 
@@ -21,7 +21,6 @@ describe('sbb-select', () => {
           <sbb-option value="3">Option 3</sbb-option>
         </sbb-select>
       `);
-      await waitForLitRender(elem);
     });
 
     describeIf(!isSafari(), 'Chrome-Firefox', async () => {
@@ -58,7 +57,6 @@ describe('sbb-select', () => {
           <sbb-option value="3">Option 3</sbb-option>
         </sbb-select>
       `);
-      await waitForLitRender(elem);
     });
 
     describeIf(!isSafari(), 'Chrome-Firefox', async () => {

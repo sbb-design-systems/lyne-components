@@ -1,162 +1,169 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit';
 
-import { FocusHandler, getFirstFocusableElement, getFocusableElements } from './focus';
+import { fixture } from '../testing/private.js';
 
-describe('getFocusables', () => {
-  let lightDOM: HTMLElement, shadowDOM: HTMLElement;
+import { SbbFocusHandler, getFirstFocusableElement, getFocusableElements } from './focus.js';
 
-  customElements.define(
-    'my-custom-element',
-    class extends HTMLElement {
-      public constructor() {
-        super();
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        shadowRoot.innerHTML = `<div><button id="shadow-button">Button</button><slot></slot></div>`;
-      }
-    },
-  );
+describe('focus', () => {
+  describe(`getFocusables`, () => {
+    let lightDOM: HTMLElement, shadowDOM: HTMLElement;
 
-  beforeEach(async () => {
-    lightDOM = await fixture(`
-    <div>
-      <sbb-button tabindex="0" id="sbb-button">Button</sbb-button>
-      <a href="#" id="a">Link</a>
-      <div>
-        <input id="input" />
-        <button style="visibility: hidden" id="hidden-button">Button</button>
-      </div>
-    </div>
-    `);
+    customElements.define(
+      'my-custom-element',
+      class extends HTMLElement {
+        public constructor() {
+          super();
+          const shadowRoot = this.attachShadow({ mode: 'open' });
+          shadowRoot.innerHTML = `<div><button id="shadow-button">Button</button><slot></slot></div>`;
+        }
+      },
+    );
 
-    shadowDOM = await fixture(`
-    <my-custom-element></my-custom-element>
-    `);
-  });
+    beforeEach(async () => {
+      await customElements.whenDefined('my-custom-element');
+      lightDOM = await fixture(html`
+        <div>
+          <span tabindex="0" id="custom-button">Button</span>
+          <span tabindex="0" id="custom-link">Link</span>
+          <div>
+            <input id="input" />
+            <button style="visibility: hidden" id="hidden-button">Button</button>
+          </div>
+        </div>
+      `);
 
-  it('should retrieve focusable elements', () => {
-    const elements = getFocusableElements([lightDOM, shadowDOM]);
-
-    expect(elements.map((el) => el.id)).to.deep.equal([
-      'sbb-button',
-      'a',
-      'input',
-      'shadow-button',
-    ]);
-  });
-
-  it('should retrieve focusable elements including invisible ones', () => {
-    const elements = getFocusableElements([lightDOM, shadowDOM], {
-      includeInvisibleElements: true,
+      shadowDOM = await fixture(html` <my-custom-element></my-custom-element> `);
     });
 
-    expect(elements.map((el) => el.id)).to.deep.equal([
-      'sbb-button',
-      'a',
-      'input',
-      'hidden-button',
-      'shadow-button',
-    ]);
-  });
+    it('should retrieve focusable elements', () => {
+      const elements = getFocusableElements([lightDOM, shadowDOM]);
 
-  it('should retrieve filtered focusable elements', () => {
-    const elements = getFocusableElements([lightDOM, shadowDOM], {
-      filter: (el) => el.tagName === 'DIV' || el.tagName === 'A',
+      expect(elements.map((el) => el.id)).to.deep.equal([
+        'custom-button',
+        'custom-link',
+        'input',
+        'shadow-button',
+      ]);
     });
 
-    expect(elements.map((el) => el.id)).to.deep.equal(['a']);
+    it('should retrieve focusable elements including invisible ones', () => {
+      const elements = getFocusableElements([lightDOM, shadowDOM], {
+        includeInvisibleElements: true,
+      });
+
+      expect(elements.map((el) => el.id)).to.deep.equal([
+        'custom-button',
+        'custom-link',
+        'input',
+        'hidden-button',
+        'shadow-button',
+      ]);
+    });
+
+    it('should retrieve filtered focusable elements', () => {
+      const elements = getFocusableElements([lightDOM, shadowDOM], {
+        filter: (el) => el.localName === 'div' || el.id === 'custom-link',
+      });
+
+      expect(elements.map((el) => el.id)).to.deep.equal(['custom-link']);
+    });
+
+    it('should prefer slotted over shadow DOM', () => {
+      shadowDOM.innerHTML = '<button id="slotted-button">Button</button>';
+
+      const elements = getFocusableElements([shadowDOM]);
+
+      expect(elements.map((el) => el.id)).to.deep.equal(['slotted-button']);
+    });
+
+    it('should retrieve first focusable element', () => {
+      const element = getFirstFocusableElement([lightDOM, shadowDOM]);
+
+      expect(element!.id).to.equal('custom-button');
+    });
   });
 
-  it('should prefer slotted over shadow DOM', () => {
-    shadowDOM.innerHTML = '<button id="slotted-button">Button</button>';
+  describe(`focus trap`, () => {
+    let element: HTMLElement;
 
-    const elements = getFocusableElements([shadowDOM]);
-
-    expect(elements.map((el) => el.id)).to.deep.equal(['slotted-button']);
-  });
-
-  it('should retrieve first focusable element', () => {
-    const element = getFirstFocusableElement([lightDOM, shadowDOM]);
-
-    expect(element!.id).to.equal('sbb-button');
-  });
-});
-
-describe('focus trap', () => {
-  let element: HTMLElement;
-
-  customElements.define(
-    'my-container-element',
-    class extends HTMLElement {
-      public constructor() {
-        super();
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        shadowRoot.innerHTML = `
-          <sbb-button tabindex="0" id="sbb-button">Button</sbb-button>
-          <a href="#" id="a">Link</a>
+    customElements.define(
+      'my-container-element',
+      class extends HTMLElement {
+        public constructor() {
+          super();
+          const shadowRoot = this.attachShadow({ mode: 'open' });
+          shadowRoot.innerHTML = `
+          <span tabindex="0" id="custom-button">Button</span>
+          <span tabindex="0" id="custom-link">Link</span>
           <div>
             <input id="input" />
             <button style="visibility: hidden" id="hidden-button">Button</button>
           </div>
           <slot></slot>
       `;
-      }
-    },
-  );
+        }
+      },
+    );
 
-  beforeEach(async () => {
-    element = await fixture(`
-    <my-container-element><button id="slotted-button">Button</button></my-container-element>
-    `);
-  });
-
-  it('should focus next element', async () => {
-    const focusHandler = new FocusHandler();
-    focusHandler.trap(element);
-
-    element.shadowRoot!.querySelector('sbb-button')!.focus();
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('sbb-button');
-
-    await sendKeys({ down: 'Tab' });
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('a');
-
-    await sendKeys({ down: 'Tab' });
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
-
-    await sendKeys({ down: 'Tab' });
-    expect(document.activeElement!.id).to.equal('slotted-button');
-
-    // Wrap around
-    await sendKeys({ down: 'Tab' });
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('sbb-button');
-  });
-
-  it('should focus next element with filter', async () => {
-    const focusHandler = new FocusHandler();
-    focusHandler.trap(element, {
-      filter: (el) => ['DIV', 'INPUT'].includes(el.tagName),
+    beforeEach(async () => {
+      await customElements.whenDefined('my-container-element');
+      element = await fixture(html`
+        <my-container-element><button id="slotted-button">Button</button></my-container-element>
+      `);
     });
 
-    element.shadowRoot!.querySelector('input')!.focus();
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
+    it('should focus next element', async () => {
+      const focusHandler = new SbbFocusHandler();
+      focusHandler.trap(element);
 
-    await sendKeys({ down: 'Tab' });
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
-  });
+      element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
 
-  it('should focus next element with post filter', async () => {
-    const focusHandler = new FocusHandler();
-    focusHandler.trap(element, {
-      postFilter: (el) => ['SBB-BUTTON', 'A'].includes(el.tagName),
+      await sendKeys({ press: 'Tab' });
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-link');
+
+      await sendKeys({ press: 'Tab' });
+
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
+
+      await sendKeys({ press: 'Tab' });
+
+      expect(document.activeElement!.id).to.equal('slotted-button');
+
+      // Wrap around
+      await sendKeys({ press: 'Tab' });
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
     });
 
-    element.shadowRoot!.querySelector('sbb-button')!.focus();
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('sbb-button');
+    it('should focus next element with filter', async () => {
+      const focusHandler = new SbbFocusHandler();
+      focusHandler.trap(element, {
+        filter: (el) => ['div', 'input'].includes(el.localName),
+      });
 
-    await sendKeys({ down: 'Tab' });
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('a');
+      element.shadowRoot!.querySelector('input')!.focus();
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
 
-    await sendKeys({ down: 'Tab' });
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('sbb-button');
+      await sendKeys({ press: 'Tab' });
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
+    });
+
+    it('should focus next element with post filter', async () => {
+      const focusHandler = new SbbFocusHandler();
+      focusHandler.trap(element, {
+        postFilter: (el) => ['custom-button', 'custom-link'].includes(el.id),
+      });
+
+      element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
+
+      await sendKeys({ press: 'Tab' });
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-link');
+
+      await sendKeys({ press: 'Tab' });
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
+    });
   });
 });

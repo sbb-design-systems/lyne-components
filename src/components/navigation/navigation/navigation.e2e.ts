@@ -1,40 +1,52 @@
-import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
+import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import '../navigation-marker';
-import type { SbbButtonElement } from '../../button';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import type { SbbNavigationButtonElement } from '../navigation-button';
-import '../navigation-button';
-import type { SbbNavigationSectionElement } from '../navigation-section';
-import '../navigation-section';
+import type { SbbButtonElement } from '../../button.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import type { SbbNavigationButtonElement } from '../navigation-button.js';
+import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
-import { SbbNavigationElement } from './navigation';
+import { SbbNavigationElement } from './navigation.js';
 
-describe('sbb-navigation', () => {
+import '../navigation-button.js';
+import '../navigation-marker.js';
+import '../navigation-section.js';
+
+describe(`sbb-navigation with ${fixture.name}`, () => {
   let element: SbbNavigationElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-navigation id="navigation" disable-animation>
-        <sbb-navigation-marker>
-          <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
-          <sbb-navigation-button>Travel information</sbb-navigation-button>
-          <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
-        </sbb-navigation-marker>
+    element = await fixture(
+      html`
+        <sbb-navigation id="navigation" disable-animation>
+          <sbb-navigation-marker>
+            <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
+            <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
+            <sbb-navigation-button>Travel information</sbb-navigation-button>
+            <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
+          </sbb-navigation-marker>
 
-        <sbb-navigation-section trigger="action-1" id="first-section" disable-animation>
-          <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-        </sbb-navigation-section>
-        <sbb-navigation-section trigger="action-2" id="second-section" disable-animation>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-        </sbb-navigation-section>
-      </sbb-navigation>
-    `);
+          <sbb-navigation-section trigger="action-1" id="first-section" disable-animation>
+            <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+          </sbb-navigation-section>
+          <sbb-navigation-section trigger="action-2" id="second-section" disable-animation>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+          </sbb-navigation-section>
+        </sbb-navigation>
+      `,
+      {
+        modules: [
+          './navigation.ts',
+          '../navigation-marker.ts',
+          '../navigation-button.ts',
+          '../navigation-section.ts',
+        ],
+      },
+    );
   });
 
   it('renders', () => {
@@ -55,30 +67,35 @@ describe('sbb-navigation', () => {
   });
 
   it('sets the initial active actions and focuses on the close button', async () => {
-    element = await fixture(html`
-      <sbb-navigation id="navigation" disable-animation>
-        <sbb-navigation-marker>
-          <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-active-1" class="sbb-active"
-            >Vacations & Recreation</sbb-navigation-button
-          >
-        </sbb-navigation-marker>
+    element = await fixture(
+      html`
+        <sbb-navigation id="navigation" disable-animation>
+          <sbb-navigation-marker>
+            <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
+            <sbb-navigation-button id="action-active-1" class="sbb-active"
+              >Vacations & Recreation</sbb-navigation-button
+            >
+          </sbb-navigation-marker>
 
-        <sbb-navigation-marker>
-          <sbb-navigation-button id="action-active-2" class="sbb-active"
-            >English</sbb-navigation-button
-          >
-          <sbb-navigation-button>German</sbb-navigation-button>
-        </sbb-navigation-marker>
-      </sbb-navigation>
-    `);
+          <sbb-navigation-marker>
+            <sbb-navigation-button id="action-active-2" class="sbb-active"
+              >English</sbb-navigation-button
+            >
+            <sbb-navigation-button>German</sbb-navigation-button>
+          </sbb-navigation-marker>
+        </sbb-navigation>
+      `,
+      {
+        modules: ['./navigation.ts', '../navigation-marker.ts', '../navigation-button.ts'],
+      },
+    );
 
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const action2: SbbNavigationButtonElement = document.querySelector<SbbNavigationButtonElement>(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-button#action-active-1',
+    const action2 = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-marker > sbb-navigation-button#action-active-1',
     )!;
-    const action3: SbbNavigationButtonElement = document.querySelector<SbbNavigationButtonElement>(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-button#action-active-2',
+    const action3 = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-marker > sbb-navigation-button#action-active-2',
     )!;
 
     element.open();
@@ -98,37 +115,44 @@ describe('sbb-navigation', () => {
   });
 
   it('sets the initial active action and opens the connected section', async () => {
-    element = await fixture(html`
-      <sbb-navigation id="navigation" disable-animation>
-        <sbb-navigation-marker>
-          <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-active" class="sbb-active"
-            >Vacations & Recreation</sbb-navigation-button
-          >
-        </sbb-navigation-marker>
+    element = await fixture(
+      html`
+        <sbb-navigation id="navigation" disable-animation>
+          <sbb-navigation-marker>
+            <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
+            <sbb-navigation-button id="action-active" class="sbb-active"
+              >Vacations & Recreation</sbb-navigation-button
+            >
+          </sbb-navigation-marker>
 
-        <sbb-navigation-section trigger="action-active" id="active-section" disable-animation>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-          <sbb-navigation-button id="section-action-active" class="sbb-active"
-            >Label</sbb-navigation-button
-          >
-        </sbb-navigation-section>
-      </sbb-navigation>
-    `);
+          <sbb-navigation-section trigger="action-active" id="active-section" disable-animation>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+            <sbb-navigation-button id="section-action-active" class="sbb-active"
+              >Label</sbb-navigation-button
+            >
+          </sbb-navigation-section>
+        </sbb-navigation>
+      `,
+      {
+        modules: [
+          './navigation.ts',
+          '../navigation-marker.ts',
+          '../navigation-button.ts',
+          '../navigation-section.ts',
+        ],
+      },
+    );
 
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const actionActive: SbbNavigationButtonElement =
-      document.querySelector<SbbNavigationButtonElement>(
-        'sbb-navigation > sbb-navigation-marker > sbb-navigation-button#action-active',
-      )!;
-    const sectionActionActive: SbbNavigationButtonElement =
-      document.querySelector<SbbNavigationButtonElement>(
-        'sbb-navigation > sbb-navigation-section > sbb-navigation-button#section-action-active',
-      )!;
-    const activeSection: SbbNavigationButtonElement =
-      document.querySelector<SbbNavigationButtonElement>(
-        'sbb-navigation > sbb-navigation-section#active-section',
-      )!;
+    const actionActive = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-marker > sbb-navigation-button#action-active',
+    )!;
+    const sectionActionActive = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-section > sbb-navigation-button#section-action-active',
+    )!;
+    const activeSection = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-section#active-section',
+    )!;
 
     element.open();
     await waitForLitRender(element);
@@ -147,34 +171,35 @@ describe('sbb-navigation', () => {
   });
 
   it('resets the markers on navigation close', async () => {
-    element = await fixture(html`
-      <sbb-navigation id="navigation" disable-animation>
-        <sbb-navigation-marker>
-          <sbb-navigation-button id="first-action">Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="second-action" class="sbb-active"
-            >Vacations & Recreation</sbb-navigation-button
-          >
-        </sbb-navigation-marker>
+    element = await fixture(
+      html`
+        <sbb-navigation id="navigation" disable-animation>
+          <sbb-navigation-marker>
+            <sbb-navigation-button id="first-action">Tickets & Offers</sbb-navigation-button>
+            <sbb-navigation-button id="second-action" class="sbb-active"
+              >Vacations & Recreation</sbb-navigation-button
+            >
+          </sbb-navigation-marker>
 
-        <sbb-navigation-marker>
-          <sbb-navigation-button id="third-action" class="sbb-active"
-            >English</sbb-navigation-button
-          >
-          <sbb-navigation-button id="forth-action">German</sbb-navigation-button>
-        </sbb-navigation-marker>
-      </sbb-navigation>
-    `);
+          <sbb-navigation-marker>
+            <sbb-navigation-button id="third-action" class="sbb-active"
+              >English</sbb-navigation-button
+            >
+            <sbb-navigation-button id="forth-action">German</sbb-navigation-button>
+          </sbb-navigation-marker>
+        </sbb-navigation>
+      `,
+      {
+        modules: ['./navigation.ts', '../navigation-marker.ts', '../navigation-button.ts'],
+      },
+    );
 
     const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const action1: SbbNavigationButtonElement =
-      document.querySelector<SbbNavigationButtonElement>('#first-action')!;
-    const action2: SbbNavigationButtonElement =
-      document.querySelector<SbbNavigationButtonElement>('#second-action')!;
-    const action3: SbbNavigationButtonElement =
-      document.querySelector<SbbNavigationButtonElement>('#third-action')!;
-    const action4: SbbNavigationButtonElement =
-      document.querySelector<SbbNavigationButtonElement>('#forth-action')!;
+    const action1 = element.querySelector<SbbNavigationButtonElement>('#first-action')!;
+    const action2 = element.querySelector<SbbNavigationButtonElement>('#second-action')!;
+    const action3 = element.querySelector<SbbNavigationButtonElement>('#third-action')!;
+    const action4 = element.querySelector<SbbNavigationButtonElement>('#forth-action')!;
 
     element.open();
     await waitForLitRender(element);
@@ -302,12 +327,11 @@ describe('sbb-navigation', () => {
   it('closes navigation with sbb-navigation-close', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
-    const section: SbbNavigationSectionElement =
-      element.querySelector<SbbNavigationSectionElement>('#first-section')!;
-    const action: SbbNavigationButtonElement = element.querySelector<SbbNavigationButtonElement>(
+    const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action = element.querySelector<SbbNavigationButtonElement>(
       'sbb-navigation-marker > sbb-navigation-button#action-1',
     )!;
-    const closeEl: SbbNavigationButtonElement = element.querySelector<SbbNavigationButtonElement>(
+    const closeEl = element.querySelector<SbbNavigationButtonElement>(
       'sbb-navigation-marker > sbb-navigation-button[sbb-navigation-close]',
     )!;
 
@@ -337,10 +361,9 @@ describe('sbb-navigation', () => {
 
   it('opens navigation and opens section', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const section: SbbNavigationSectionElement =
-      element.querySelector<SbbNavigationSectionElement>('#first-section')!;
-    const action: SbbNavigationButtonElement = document.querySelector<SbbNavigationButtonElement>(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-button#action-1',
+    const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
     )!;
 
     element.open();
@@ -363,18 +386,14 @@ describe('sbb-navigation', () => {
 
   it('opens navigation and toggles sections', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const firstSection: SbbNavigationSectionElement =
-      document.querySelector<SbbNavigationSectionElement>('#first-section')!;
-    const secondSection: SbbNavigationSectionElement =
-      document.querySelector<SbbNavigationSectionElement>('#second-section')!;
-    const firstAction: SbbNavigationButtonElement =
-      document.querySelector<SbbNavigationButtonElement>(
-        'sbb-navigation-marker > sbb-navigation-button#action-1',
-      )!;
-    const secondAction: SbbNavigationButtonElement =
-      document.querySelector<SbbNavigationButtonElement>(
-        'sbb-navigation-marker > sbb-navigation-button#action-2',
-      )!;
+    const firstSection = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const secondSection = element.querySelector<SbbNavigationSectionElement>('#second-section')!;
+    const firstAction = element.querySelector<SbbNavigationButtonElement>(
+      'sbb-navigation-marker > sbb-navigation-button#action-1',
+    )!;
+    const secondAction = element.querySelector<SbbNavigationButtonElement>(
+      'sbb-navigation-marker > sbb-navigation-button#action-2',
+    )!;
 
     element.open();
     await waitForLitRender(element);
@@ -403,12 +422,11 @@ describe('sbb-navigation', () => {
   it('closes the navigation and the section on close button click', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
-    const section: SbbNavigationSectionElement =
-      element.querySelector<SbbNavigationSectionElement>('#first-section')!;
-    const action: SbbNavigationButtonElement = document.querySelector<SbbNavigationButtonElement>(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-button#action-1',
+    const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
     )!;
-    const closeButton: SbbButtonElement =
+    const closeButton =
       element.shadowRoot!.querySelector<SbbButtonElement>('.sbb-navigation__close')!;
 
     element.open();
@@ -441,10 +459,9 @@ describe('sbb-navigation', () => {
   it('closes the navigation and the section on Esc key press', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
-    const section: SbbNavigationSectionElement =
-      element.querySelector<SbbNavigationSectionElement>('#first-section')!;
-    const action: SbbNavigationButtonElement = document.querySelector<SbbNavigationButtonElement>(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-button#action-1',
+    const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
     )!;
 
     element.open();
@@ -476,13 +493,12 @@ describe('sbb-navigation', () => {
 
   it('closes section with sbb-navigation-section-close', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const section: SbbNavigationSectionElement =
-      document.querySelector<SbbNavigationSectionElement>('#first-section')!;
-    const action: SbbNavigationButtonElement = document.querySelector<SbbNavigationButtonElement>(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-button#action-1',
+    const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
     )!;
-    const closeEl: SbbNavigationButtonElement = document.querySelector<SbbNavigationButtonElement>(
-      'sbb-navigation > sbb-navigation-section > sbb-navigation-button[sbb-navigation-section-close]',
+    const closeEl = element.querySelector<SbbNavigationButtonElement>(
+      ':scope > sbb-navigation-section > sbb-navigation-button[sbb-navigation-section-close]',
     )!;
 
     element.open();

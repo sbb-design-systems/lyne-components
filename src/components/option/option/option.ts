@@ -1,23 +1,32 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { assignId } from '../../core/a11y';
-import {
-  hostAttributes,
-  NamedSlotStateController,
-  SbbDisabledMixin,
-  SbbIconNameMixin,
-} from '../../core/common-behaviors';
-import { isSafari, isValidAttribute, isAndroid, setAttribute } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import { AgnosticMutationObserver } from '../../core/observers';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
+import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './option.scss?lit&inline';
 
-import '../../icon';
-import '../../screenreader-only';
-import '../../visual-checkbox';
+import '../../screen-reader-only.js';
+import '../../visual-checkbox.js';
+
+/**
+ * On Safari, the groups labels are not read by VoiceOver.
+ * To solve the problem, we remove the role="group" and add an hidden span containing the group name
+ * TODO: We should periodically check if it has been solved and, if so, remove the property.
+ */
+const inertAriaGroups = isSafari();
 
 let nextId = 0;
 
@@ -50,13 +59,26 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   } as const;
 
   /** Value of the option. */
-  @property() public value?: string;
+  @property()
+  public set value(value: string) {
+    this.setAttribute('value', `${value}`);
+  }
+  public get value(): string {
+    return this.getAttribute('value') ?? '';
+  }
 
   /** Whether the option is currently active. */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
 
   /** Whether the option is selected. */
-  @property({ reflect: true, type: Boolean }) public selected = false;
+  @property({ type: Boolean })
+  public set selected(value: boolean) {
+    this.toggleAttribute('selected', value);
+    this._updateAriaSelected();
+  }
+  public get selected(): boolean {
+    return this.hasAttribute('selected');
+  }
 
   /** Emits when the option selection status changes. */
   private _selectionChange: EventEmitter = new EventEmitter(
@@ -84,18 +106,14 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   /** Disable the highlight of the label. */
   @state() private _disableLabelHighlight: boolean = false;
 
-  @state() private _groupLabel: string | null = null;
+  private set _variant(state: SbbOptionVariant) {
+    this.setAttribute('data-variant', state);
+  }
+  private get _variant(): SbbOptionVariant {
+    return this.getAttribute('data-variant') as SbbOptionVariant;
+  }
 
-  private _optionId = `sbb-option-${++nextId}`;
-  private _variant!: SbbOptionVariant;
-  private _abort = new ConnectedAbortController(this);
-
-  /**
-   * On Safari, the groups labels are not read by VoiceOver.
-   * To solve the problem, we remove the role="group" and add an hidden span containing the group name
-   * TODO: We should periodically check if it has been solved and, if so, remove the property.
-   */
-  private _inertAriaGroups = isSafari();
+  private _abort = new SbbConnectedAbortController(this);
 
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
@@ -105,16 +123,18 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   private get _isAutocomplete(): boolean {
     return this._variant === 'autocomplete';
   }
+
   private get _isSelect(): boolean {
     return this._variant === 'select';
   }
+
   private get _isMultiple(): boolean {
-    return !!this.closest?.('sbb-select')?.hasAttribute('multiple');
+    return !!this.closest?.('sbb-select[multiple]');
   }
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   /**
@@ -127,14 +147,6 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   }
 
   /**
-   * Set the option group label (used for a11y)
-   * @param value the label of the option group
-   */
-  public setGroupLabel(value: string): void {
-    this._groupLabel = value;
-  }
-
-  /**
    * @internal
    */
   public setSelectedViaUserInteraction(selected: boolean): void {
@@ -143,6 +155,11 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     if (this.selected) {
       this._optionSelected.emit();
     }
+  }
+
+  private _updateDisableHighlight(disabled: boolean): void {
+    this._disableLabelHighlight = disabled;
+    this.toggleAttribute('data-disable-highlight', disabled);
   }
 
   private _selectByClick(event: MouseEvent): void {
@@ -161,10 +178,14 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   public override connectedCallback(): void {
     super.connectedCallback();
+
+    this.id ||= `sbb-option-${nextId++}`;
+
     const signal = this._abort.signal;
     const parentGroup = this.closest?.('sbb-optgroup');
     if (parentGroup) {
       this._disabledFromGroup = parentGroup.disabled;
+      this._updateAriaDisabled();
     }
     this._optionAttributeObserver.observe(this, optionObserverConfig);
 
@@ -176,10 +197,40 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
     this._setVariantByContext();
 
+    this.toggleAttribute('data-multiple', this._isMultiple);
+
     this.addEventListener('click', (e: MouseEvent) => this._selectByClick(e), {
       signal,
       passive: true,
     });
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('disabled')) {
+      setOrRemoveAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
+      this._updateAriaDisabled();
+    }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    // Init first select state because false would not call setter of selected property.
+    this._updateAriaSelected();
+  }
+
+  private _updateAriaDisabled(): void {
+    setOrRemoveAttribute(
+      this,
+      'aria-disabled',
+      this.disabled || this._disabledFromGroup ? 'true' : null,
+    );
+  }
+
+  private _updateAriaSelected(): void {
+    this.setAttribute('aria-selected', `${this.selected}`);
   }
 
   public override disconnectedCallback(): void {
@@ -199,16 +250,17 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   private _onOptionAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = isValidAttribute(this, 'data-group-disabled');
+        this._disabledFromGroup = this.hasAttribute('data-group-disabled');
+        this._updateAriaDisabled();
       } else if (mutation.attributeName === 'data-negative') {
-        this._negative = isValidAttribute(this, 'data-negative');
+        this._negative = this.hasAttribute('data-negative');
       }
     }
   }
 
   private _setupHighlightHandler(event: Event): void {
     if (!this._isAutocomplete) {
-      this._disableLabelHighlight = true;
+      this._updateDisableHighlight(true);
       return;
     }
 
@@ -216,8 +268,12 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
     // Disable the highlight if the slot contain more than just text nodes
-    if (labelNodes.length === 0 || slotNodes.length !== labelNodes.length) {
-      this._disableLabelHighlight = true;
+    if (
+      labelNodes.length === 0 ||
+      slotNodes.filter((n) => !(n instanceof Element) || n.localName !== 'template').length !==
+        labelNodes.length
+    ) {
+      this._updateDisableHighlight(true);
       return;
     }
     this._label = labelNodes
@@ -252,13 +308,6 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   protected override render(): TemplateResult {
     const isMultiple = this._isMultiple;
-    setAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
-    setAttribute(this, 'data-variant', this._variant);
-    setAttribute(this, 'data-multiple', isMultiple);
-    setAttribute(this, 'data-disable-highlight', this._disableLabelHighlight);
-    setAttribute(this, 'aria-selected', `${this.selected}`);
-    setAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
-    assignId(() => this._optionId)(this);
 
     return html`
       <div class="sbb-option__container">
@@ -285,8 +334,10 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
             ${this._isAutocomplete && this._label && !this._disableLabelHighlight
               ? this._getHighlightedLabel()
               : nothing}
-            ${this._inertAriaGroups && this._groupLabel
-              ? html` <sbb-screenreader-only>(${this._groupLabel})</sbb-screenreader-only>`
+            ${inertAriaGroups && this.getAttribute('data-group-label')
+              ? html` <sbb-screen-reader-only>
+                  (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
+                >`
               : nothing}
           </span>
 

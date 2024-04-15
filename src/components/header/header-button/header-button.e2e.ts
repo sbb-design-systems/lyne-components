@@ -1,16 +1,19 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import { SbbHeaderButtonElement } from './header-button';
+import { SbbHeaderButtonElement } from './header-button.js';
 
-describe('sbb-header-button', () => {
+describe(`sbb-header-button with ${fixture.name}`, () => {
   let element: SbbHeaderButtonElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-header-button id="focus-id">Action</sbb-header-button>`);
+    element = await fixture(html`<sbb-header-button id="focus-id">Action</sbb-header-button>`, {
+      modules: ['./header-button.ts'],
+    });
   });
 
   it('renders', async () => {

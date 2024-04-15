@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import type { Leg, Notice } from './timetable-properties';
+import type { Leg, Notice } from './timetable-properties.js';
 
 export const isRideLeg = (leg: any): leg is Extract<Leg, { __typename: 'PTRideLeg' }> => {
   return leg?.__typename === 'PTRideLeg';

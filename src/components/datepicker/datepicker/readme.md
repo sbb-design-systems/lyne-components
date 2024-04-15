@@ -121,10 +121,10 @@ This is helpful if you need a specific state of the component.
 
 ## Events
 
-| Name                | Type                                 | Description                                                                         | Inherited From |
-| ------------------- | ------------------------------------ | ----------------------------------------------------------------------------------- | -------------- |
-| `didChange`         | `CustomEvent<void>`                  | Deprecated. used for React. Will probably be removed once React 19 is available.    |                |
-| `change`            | `CustomEvent<void>`                  | Notifies that the connected input has changes.                                      |                |
-| `inputUpdated`      | `CustomEvent<InputUpdateEvent>`      | Notifies that the attributes of the input connected to the datepicker have changes. |                |
-| `datePickerUpdated` | `CustomEvent<void>`                  | Notifies that the attributes of the datepicker have changes.                        |                |
-| `validationChange`  | `CustomEvent<ValidationChangeEvent>` | Emits whenever the internal validation state changes.                               |                |
+| Name                | Type                                    | Description                                                                         | Inherited From |
+| ------------------- | --------------------------------------- | ----------------------------------------------------------------------------------- | -------------- |
+| `didChange`         | `CustomEvent<void>`                     | Deprecated. used for React. Will probably be removed once React 19 is available.    |                |
+| `change`            | `CustomEvent<void>`                     | Notifies that the connected input has changes.                                      |                |
+| `inputUpdated`      | `CustomEvent<SbbInputUpdateEvent>`      | Notifies that the attributes of the input connected to the datepicker have changes. |                |
+| `datePickerUpdated` | `CustomEvent<void>`                     | Notifies that the attributes of the datepicker have changes.                        |                |
+| `validationChange`  | `CustomEvent<SbbValidationChangeEvent>` | Emits whenever the internal validation state changes.                               |                |

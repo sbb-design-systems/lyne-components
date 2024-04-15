@@ -1,14 +1,17 @@
-import { assert, fixture } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbExpansionPanelContentElement } from './expansion-panel-content';
+import { fixture } from '../../core/testing/private.js';
 
-describe('sbb-expansion-panel-content', () => {
+import { SbbExpansionPanelContentElement } from './expansion-panel-content.js';
+
+describe(`sbb-expansion-panel-content with ${fixture.name}`, () => {
   let element: SbbExpansionPanelContentElement;
 
   it('renders', async () => {
     element = await fixture(
       html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`,
+      { modules: ['./expansion-panel-content.ts'] },
     );
     assert.instanceOf(element, SbbExpansionPanelContentElement);
   });

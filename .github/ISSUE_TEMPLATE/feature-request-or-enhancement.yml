@@ -25,8 +25,8 @@ body:
     attributes:
       label: Request type
       options:
-        - 'Request for a new component'
-        - 'Request for enhancement of a component'
+        - Request for a new component
+        - Request for enhancement of a component
     validations:
       required: true
   - type: dropdown
@@ -34,10 +34,10 @@ body:
     attributes:
       label: It affects the following packages
       options:
-        - 'Design Tokens'
-        - 'Components'
+        - Design Tokens
+        - Components
         - 'Design Tokens & Components'
-        - 'Other'
+        - Other
     validations:
       required: true
   - type: textarea

@@ -2,23 +2,20 @@ import type { TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  type AbstractConstructor,
-  hostAttributes,
-  NamedSlotStateController,
-  type SbbActionBaseElement,
-  type SbbDisabledMixinType,
-  SbbIconNameMixin,
-  type SbbIconNameMixinType,
-  SbbNegativeMixin,
-  type SbbNegativeMixinType,
-} from '../../core/common-behaviors';
-
-import '../../icon';
+import type { SbbActionBaseElement } from '../../core/base-elements.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import type {
+  AbstractConstructor,
+  SbbDisabledMixinType,
+  SbbNegativeMixinType,
+} from '../../core/mixins.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon.js';
 
 export type SbbButtonCommonElement = SbbButtonCommonElementMixinType & SbbActionBaseElement;
 
-export type SbbButtonSize = 'l' | 'm';
+export type SbbButtonSize = 'l' | 'm' | 's';
 
 export declare class SbbButtonCommonElementMixinType
   implements SbbNegativeMixinType, Partial<SbbDisabledMixinType>, Partial<SbbIconNameMixinType>
@@ -45,12 +42,12 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
 
     protected constructor(...args: any[]) {
       super(args);
-      new NamedSlotStateController(this);
+      new SbbSlotStateController(this);
     }
 
     protected override renderTemplate(): TemplateResult {
       return html`
-        <span class="sbb-button__icon"> ${super.renderIconSlot()} </span>
+        ${super.renderIconSlot()}
         <span class="sbb-button__label">
           <slot></slot>
         </span>

@@ -1,21 +1,21 @@
 import { userEvent, waitFor, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
 
 import readme from './readme.md?raw';
-import '../../button';
-import '../navigation-list';
-import '../navigation-button';
-import '../navigation-link';
-import '../navigation-marker';
-import '../navigation';
-import './navigation-section';
+import '../../button.js';
+import '../navigation-list.js';
+import '../navigation-button.js';
+import '../navigation-link.js';
+import '../navigation-marker.js';
+import '../navigation.js';
+import './navigation-section.js';
 
 // Story interaction executed after the story renders
 const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<void> => {
