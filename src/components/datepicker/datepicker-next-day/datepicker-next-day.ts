@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nNextDay, i18nSelectNextDay } from '../../core/i18n.js';
-import { SbbDatepickerButton } from '../common/datepicker-button.js';
+import { SbbDatepickerButton } from '../common.js';
 import { findNextAvailableDate, type SbbInputUpdateEvent } from '../datepicker.js';
 
 import '../../icon.js';

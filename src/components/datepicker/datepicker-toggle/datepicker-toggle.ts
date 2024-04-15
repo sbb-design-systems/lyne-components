@@ -6,7 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import type { SbbCalendarElement } from '../../calendar.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { readDataNow } from '../../core/datetime/data-now.js';
+import { readDataNow } from '../../core/datetime.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
