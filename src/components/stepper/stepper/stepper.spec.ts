@@ -1,13 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
 
-import type { SbbStepperElement } from '.';
-import './stepper';
-import '../step';
-import '../step-label';
+import type { SbbStepperElement } from './stepper.js';
+import './stepper.js';
+import '../step.js';
+import '../step-label.js';
 
 describe('sbb-stepper', () => {
   let element: SbbStepperElement;

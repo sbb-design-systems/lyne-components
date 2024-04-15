@@ -7,10 +7,10 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { breakpoints, isBreakpoint } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
-import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { breakpoints, isBreakpoint } from '../../core/dom.js';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
+import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step.js';
 
 import style from './stepper.scss?lit&inline';
 
@@ -55,23 +55,27 @@ export class SbbStepperElement extends LitElement {
   /**
    * The currently selected step.
    */
+  @property({ attribute: false })
+  public set selected(step: SbbStepElement) {
+    if (this._loaded) {
+      this._select(step);
+    }
+  }
   public get selected(): SbbStepElement | undefined {
     return this.querySelector<SbbStepElement>('sbb-step[data-selected]') ?? undefined;
-  }
-
-  public set selected(step: SbbStepElement) {
-    this._select(step);
   }
 
   /**
    * The currently selected step index.
    */
+  @property({ attribute: 'selected-index', type: Number })
+  public set selectedIndex(index: number) {
+    if (this._loaded) {
+      this._select(this.steps[index]);
+    }
+  }
   public get selectedIndex(): number | undefined {
     return this.selected ? this.steps.indexOf(this.selected) : undefined;
-  }
-
-  public set selectedIndex(index: number) {
-    this._select(this.steps[index]);
   }
 
   /**
@@ -112,7 +116,7 @@ export class SbbStepperElement extends LitElement {
   }
 
   private _loaded: boolean = false;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
 
   private _isValidStep(step: SbbStepElement): boolean {
@@ -240,12 +244,11 @@ export class SbbStepperElement extends LitElement {
 
   protected override async firstUpdated(): Promise<void> {
     await this.updateComplete;
+    this._loaded = true;
     this.selectedIndex = !this.linear ? Number(this.getAttribute('selected-index')) || 0 : 0;
     if (!this.horizontalFrom) {
       this._checkOrientation();
     }
-    this._loaded = true;
-
     // Remove [data-disable-animation] after component init
     setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
   }

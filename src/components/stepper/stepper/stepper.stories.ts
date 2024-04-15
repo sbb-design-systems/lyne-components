@@ -4,19 +4,19 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
-import type { SbbFormErrorElement } from '../../form-error';
-import { SbbStepElement } from '../step';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import type { SbbFormErrorElement } from '../../form-error.js';
+import { SbbStepElement } from '../step.js';
 
 import readme from './readme.md?raw';
 
-import './stepper';
-import '../step-label';
-import '../../link/block-link-button';
-import '../../button/button';
-import '../../button/secondary-button';
-import '../../form-field';
-import '../../form-error';
+import './stepper.js';
+import '../step-label.js';
+import '../../link/block-link-button.js';
+import '../../button/button.js';
+import '../../button/secondary-button.js';
+import '../../form-field.js';
+import '../../form-error.js';
 
 const linear: InputType = {
   control: {
@@ -104,7 +104,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           }}
         >
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-            <sbb-form-field error-space="reserve" label="Name" size="m">
+            <sbb-form-field error-space="reserve" size="m">
+              <label>Name</label>
               <input
                 @input=${(event: KeyboardEvent) => {
                   const input = event.currentTarget as HTMLInputElement;
@@ -129,7 +130,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         <sbb-step-label slot="step-label">Step 2</sbb-step-label>
         <sbb-step slot="step">
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-            <sbb-form-field error-space="none" label="Favorite number" size="m">
+            <sbb-form-field error-space="none" size="m">
+              <label>Favorite number</label>
               <input type="number" placeholder="Your lucky number" name="number" value="75" />
             </sbb-form-field>
           </div>
@@ -140,7 +142,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         <sbb-step-label slot="step-label" icon-name="dog-small">Step 3</sbb-step-label>
         <sbb-step slot="step">
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-            <sbb-form-field error-space="none" label="Favorite animal" size="m">
+            <sbb-form-field error-space="none" size="m">
+              <label>Favorite animal</label>
               <select name="animal">
                 <option>Panda 🐼</option>
                 <option>Jellyfish 🪼</option>
@@ -202,7 +205,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
               );
             }}
           >
-            <sbb-form-field error-space="reserve" label="Name" size="m">
+            <sbb-form-field error-space="reserve" size="m">
+              <label>Name</label>
               <input
                 @input=${(event: KeyboardEvent) => {
                   const input = event.currentTarget as HTMLInputElement;
@@ -229,7 +233,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
       <sbb-step slot="step">
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
           <form>
-            <sbb-form-field error-space="none" label="Favorite number" size="m">
+            <sbb-form-field error-space="none" size="m">
+              <label>Favorite number</label>
               <input type="number" placeholder="Your lucky number" name="number" value="75" />
             </sbb-form-field>
           </form>
@@ -242,7 +247,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
       <sbb-step slot="step">
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
           <form>
-            <sbb-form-field error-space="none" label="Favorite animal" size="m">
+            <sbb-form-field error-space="none" size="m">
+              <label>Favorite animal</label>
               <select name="animal">
                 <option>Panda 🐼</option>
                 <option>Jellyfish 🪼</option>

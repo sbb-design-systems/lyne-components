@@ -15,13 +15,7 @@ snapshots["sbb-step A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Label"
-    }
-  ]
+  "name": ""
 }
 </p>
 `;
@@ -31,13 +25,7 @@ snapshots["sbb-step A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Label"
-    }
-  ]
+  "name": ""
 }
 </p>
 `;
@@ -47,13 +35,7 @@ snapshots["sbb-step A11y tree Safari"] =
 `<p>
   {
   "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Label"
-    }
-  ]
+  "name": ""
 }
 </p>
 `;

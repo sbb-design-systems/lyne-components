@@ -1,12 +1,12 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/common-behaviors';
-import { isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
-import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbStepLabelElement } from '../step-label';
-import type { SbbStepperElement } from '../stepper';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { AgnosticResizeObserver } from '../../core/observers.js';
+import type { SbbStepLabelElement } from '../step-label.js';
+import type { SbbStepperElement } from '../stepper.js';
 
 import style from './step.scss?lit&inline';
 
@@ -45,7 +45,7 @@ export class SbbStepElement extends LitElement {
   );
 
   private _loaded: boolean = false;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _stepper: SbbStepperElement | null = null;
   private _label: SbbStepLabelElement | null = null;
   private _stepResizeObserver = new AgnosticResizeObserver((entries) =>
@@ -64,7 +64,7 @@ export class SbbStepElement extends LitElement {
    * @internal
    */
   public select(): void {
-    if (!this.label) {
+    if (!this._loaded || !this.label) {
       return;
     }
     this.toggleAttribute('data-selected', true);
@@ -106,11 +106,11 @@ export class SbbStepElement extends LitElement {
   }
 
   private _isGoNextElement(element: HTMLElement): boolean {
-    return element.hasAttribute('sbb-stepper-next') && !isValidAttribute(element, 'disabled');
+    return element.hasAttribute('sbb-stepper-next') && !element.hasAttribute('disabled');
   }
 
   private _isGoPreviousElement(element: HTMLElement): boolean {
-    return element.hasAttribute('sbb-stepper-previous') && !isValidAttribute(element, 'disabled');
+    return element.hasAttribute('sbb-stepper-previous') && !element.hasAttribute('disabled');
   }
 
   private _onStepElementResize(entries: ResizeObserverEntry[]): void {

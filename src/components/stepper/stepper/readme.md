@@ -91,7 +91,7 @@ Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-s
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of `orientation` property.                                |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'horizontal'` | Steps orientation, either horizontal or vertical.                                 |
 | `selected`       | -                 | public  | `SbbStepElement \| undefined`    |                | The currently selected step.                                                      |
-| `selectedIndex`  | -                 | public  | `number \| undefined`            |                | The currently selected step index.                                                |
+| `selectedIndex`  | `selected-index`  | public  | `number \| undefined`            |                | The currently selected step index.                                                |
 | `steps`          | -                 | public  | `SbbStepElement[]`               |                | The steps of the stepper.                                                         |
 
 ## Methods

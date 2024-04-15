@@ -3,7 +3,7 @@ import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
-import './step';
+import './step.js';
 
 const Template = (): TemplateResult =>
   html`<sbb-step slot="step" data-selected>Step content.</sbb-step>`;

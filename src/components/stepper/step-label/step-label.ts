@@ -1,18 +1,15 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  SbbButtonBaseElement,
-  SbbDisabledTabIndexActionMixin,
-  SbbIconNameMixin,
-  hostAttributes,
-} from '../../core/common-behaviors';
-import { ConnectedAbortController } from '../../core/eventing';
-import type { SbbStepElement } from '../step/step';
-import type { SbbStepperElement } from '../stepper';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbStepElement } from '../step/step.js';
+import type { SbbStepperElement } from '../stepper.js';
 
 import style from './step-label.scss?lit&inline';
-import '../../icon';
 
 let nextId = 0;
 
@@ -69,7 +66,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
     this._internals.ariaSetSize = `${setSize}`;
   }
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _stepper: SbbStepperElement | null = null;
   private _step: SbbStepElement | null = null;
 

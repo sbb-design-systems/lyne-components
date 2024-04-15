@@ -1,13 +1,14 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbStepElement } from '../step/step';
-import type { SbbStepLabelElement } from '../step-label';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { SbbStepElement } from '../step/step.js';
+import type { SbbStepLabelElement } from '../step-label.js';
 
-import { SbbStepperElement } from './stepper';
-import '../step-label';
-import '../step';
+import { SbbStepperElement } from './stepper.js';
+import '../step-label.js';
+import '../step.js';
 
 describe('sbb-stepper', () => {
   let element: SbbStepperElement;
