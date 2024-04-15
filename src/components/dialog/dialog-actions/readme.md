@@ -2,7 +2,7 @@ The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/componen
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-action>
+  <sbb-dialog-actions>
     <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
     <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
     <sbb-button sbb-dialog-close> Confirm </sbb-button>

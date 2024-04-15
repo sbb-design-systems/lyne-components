@@ -24,7 +24,7 @@ There are three slots: `title`, `content` and `actions`, which can respectively 
 <sbb-dialog>
   <sbb-dialog-title>Title</sbb-dialog-title>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
-  <sbb-dialog-action>
+  <sbb-dialog-actions>
     <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
     <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
     <sbb-button sbb-dialog-close> Confirm </sbb-button>
