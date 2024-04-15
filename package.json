@@ -65,6 +65,8 @@
     "@custom-elements-manifest/to-markdown": "0.1.0",
     "@eslint/eslintrc": "3.0.2",
     "@eslint/js": "9.0.0",
+    "@guidepup/guidepup": "^0.22.3",
+    "@guidepup/virtual-screen-reader": "^0.24.1",
     "@lit-labs/testing": "0.2.3",
     "@lit/react": "1.0.4",
     "@open-wc/lit-helpers": "0.7.0",
