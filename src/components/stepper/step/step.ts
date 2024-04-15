@@ -44,6 +44,7 @@ export class SbbStepElement extends LitElement {
     SbbStepElement.events.validate,
   );
 
+  private _loaded: boolean = false;
   private _abort = new ConnectedAbortController(this);
   private _stepper: SbbStepperElement | null = null;
   private _label: SbbStepLabelElement | null = null;
@@ -82,10 +83,17 @@ export class SbbStepElement extends LitElement {
     this.label.deselect();
   }
 
+  /**
+   * Emits a validate event whenever step switch is triggered.
+   * @internal
+   */
   public validate(eventData: SbbStepValidateEventDetails): boolean {
     return !!this._validate.emit(eventData);
   }
 
+  /**
+   * Watches for clicked elements with `sbb-stepper-next` or `sbb-stepper-previous` attributes.
+   */
   private _handleClick(event: Event): void {
     const composedPathElements = event
       .composedPath()
@@ -109,10 +117,8 @@ export class SbbStepElement extends LitElement {
     if (!this.hasAttribute('data-selected')) {
       return;
     }
-    for (const entry of entries) {
-      const contentHeight = Math.floor(entry.contentRect.height);
-      this._stepper?.style?.setProperty('--sbb-stepper-content-height', `${contentHeight}px`);
-    }
+    const contentHeight = Math.floor(entries[0].contentRect.height);
+    this._stepper?.style?.setProperty('--sbb-stepper-content-height', `${contentHeight}px`);
   }
 
   public override connectedCallback(): void {
@@ -121,8 +127,11 @@ export class SbbStepElement extends LitElement {
     this.id = this.id || `sbb-step-${nextId++}`;
     this.addEventListener('click', (e) => this._handleClick(e), { signal });
     this._stepper = this.closest('sbb-stepper');
-    if (this.previousElementSibling?.tagName === 'SBB-STEP-LABEL') {
+    if (this.previousElementSibling?.localName === 'sbb-step-label') {
       this._label = this.previousElementSibling as SbbStepLabelElement;
+    }
+    if (this._loaded && this.label) {
+      this.setAttribute('aria-labelledby', this.label.id);
     }
   }
 
@@ -131,6 +140,7 @@ export class SbbStepElement extends LitElement {
     if (this.label) {
       this.setAttribute('aria-labelledby', this.label.id);
     }
+    this._loaded = true;
   }
 
   public override disconnectedCallback(): void {

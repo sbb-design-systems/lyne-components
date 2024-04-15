@@ -192,11 +192,12 @@ export class SbbStepperElement extends LitElement {
   }
 
   private _configure(): void {
-    const labels = this.steps.filter((s) => s.label).map((s) => s.label!);
-
-    labels.forEach((label, i) => {
-      label.configure(i + 1, labels.length);
-    });
+    this.steps
+      .filter((s) => s.label)
+      .map((s) => s.label!)
+      .forEach((label, i, array) => {
+        label.configure(i + 1, array.length);
+      });
   }
 
   private _updateLabels(): void {
@@ -234,7 +235,7 @@ export class SbbStepperElement extends LitElement {
       signal,
       passive: true,
     });
-    this.toggleAttribute('data-disable-animation', true);
+    this.toggleAttribute('data-disable-animation', !this._loaded);
   }
 
   protected override async firstUpdated(): Promise<void> {

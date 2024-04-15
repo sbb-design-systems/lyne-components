@@ -24,12 +24,6 @@ The aria attribute `aria-labelledby` is set automatically.
 | ------- | --------- | ------- | ----------------------------- | ------- | ---------------------- |
 | `label` | -         | public  | `SbbStepLabelElement \| null` | `null`  | The label of the step. |
 
-## Methods
-
-| Name       | Privacy | Description | Parameters                               | Return    | Inherited From |
-| ---------- | ------- | ----------- | ---------------------------------------- | --------- | -------------- |
-| `validate` | public  |             | `eventData: SbbStepValidateEventDetails` | `boolean` |                |
-
 ## Events
 
 | Name       | Type                                       | Description                                               | Inherited From |

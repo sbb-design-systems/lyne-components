@@ -13,8 +13,7 @@ It has an implicit slot name: `step-label`.
 It can ben selected or `disabled`.
 
 ```html
-<sbb-step-label data-selected>Step label</sbb-step-label>
-<sbb-step-label disabled>Step label</sbb-step-label>
+<sbb-step-label>Step label</sbb-step-label> <sbb-step-label disabled>Step label</sbb-step-label>
 ```
 
 ## Style
@@ -31,7 +30,7 @@ If it is used in an `sbb-stepper` and no `icon-name` is specified, it displays a
 
 ## Accessibility
 
-The aria attributes `aria-controls`, `aria-setsize`, `aria-posinset` are set automatically.
+The aria values `aria-controls`, `aria-setsize`, `aria-posinset` are set automatically.
 
 <!-- Auto Generated Below -->
 
@@ -49,6 +48,7 @@ The aria attributes `aria-controls`, `aria-setsize`, `aria-posinset` are set aut
 
 ## Slots
 
-| Name | Description                              |
-| ---- | ---------------------------------------- |
-|      | Use the unnamed slot to provide a label. |
+| Name   | Description                                      |
+| ------ | ------------------------------------------------ |
+|        | Use the unnamed slot to provide a label.         |
+| `icon` | Use this to display an icon in the label bubble. |

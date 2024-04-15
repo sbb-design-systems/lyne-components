@@ -5,7 +5,8 @@ import { html, type TemplateResult } from 'lit';
 import readme from './readme.md?raw';
 import './step';
 
-const Template = (): TemplateResult => html`<sbb-step data-selected>Step content.</sbb-step>`;
+const Template = (): TemplateResult =>
+  html`<sbb-step slot="step" data-selected>Step content.</sbb-step>`;
 
 export const Default: StoryObj = {
   render: Template,

@@ -80,8 +80,6 @@
 }
 
 ::slotted(sbb-step-label) {
-  @include sbb.text-xxs--regular;
-
   position: relative;
   min-width: 0;
   max-width: fit-content;
@@ -91,17 +89,18 @@
   }
 
   &::before {
+    @include sbb.text-xxs--regular;
+    @include sbb.absolute-center-x-y;
+
     content: counter(step-label);
     counter-increment: step-label;
     cursor: pointer;
-    position: absolute;
     color: var(--sbb-step-label-color);
     inset-block-start: calc(
       var(--sbb-font-size-text-l) * (var(--sbb-typo-line-height-body-text) / 2) +
         (var(--sbb-border-width-1x) / 2)
     );
     inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
-    transform: translate(-50%, -50%);
     line-height: 1;
     z-index: 1;
   }

@@ -31,7 +31,7 @@ const defaultArgs: Args = {
 };
 
 const Template = (args: Args): TemplateResult =>
-  html`<sbb-step-label ${sbbSpread(args)}>Label</sbb-step-label>`;
+  html`<sbb-step-label slot="step-label" ${sbbSpread(args)}>Label</sbb-step-label>`;
 
 export const Default: StoryObj = {
   render: Template,

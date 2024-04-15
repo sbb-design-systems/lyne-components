@@ -6,6 +6,7 @@
 
 :host {
   --sbb-step-label-color: var(--sbb-color-iron);
+  --sbb-step-label-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(36)};
   --sbb-step-label-prefix-border-style: solid;
   --sbb-step-label-prefix-border-color: var(--sbb-color-cloud);
@@ -32,6 +33,7 @@
 
 :host(:hover:not([disabled])) {
   @include sbb.hover-mq($hover: true) {
+    --sbb-step-label-cursor: pointer;
     --sbb-step-label-prefix-background-color: var(--sbb-color-milk);
   }
 }
@@ -46,7 +48,7 @@
 .sbb-step-label {
   @include sbb.text-l--bold;
 
-  cursor: pointer;
+  cursor: var(--sbb-step-label-cursor);
   position: relative;
   display: flex;
   gap: var(--sbb-spacing-fixed-4x);
@@ -61,7 +63,7 @@
   justify-content: center;
   width: var(--sbb-step-label-prefix-size);
   height: var(--sbb-step-label-prefix-size);
-  border-radius: 50%;
+  border-radius: var(--sbb-border-radius-infinity);
   border: var(--sbb-border-width-1x) var(--sbb-step-label-prefix-border-style)
     var(--sbb-step-label-prefix-border-color);
   background-color: var(--sbb-step-label-prefix-background-color);
@@ -69,7 +71,7 @@
     1em * (var(--sbb-typo-line-height-body-text) / 2) + (var(--sbb-border-width-1x) / 2) -
       (var(--sbb-step-label-prefix-size) / 2)
   );
-  transition: background-color var(--sbb-animation-duration-6x) ease;
+  transition: background-color var(--sbb-step-label-animation-duration) var(--sbb-animation-easing);
 
   &::before {
     content: var(--sbb-step-label-counter);
@@ -82,8 +84,9 @@
   }
 }
 
+::slotted(sbb-icon),
 sbb-icon {
   z-index: 1;
   background-color: var(--sbb-step-label-prefix-background-color);
-  transition: background-color var(--sbb-animation-duration-6x) ease;
+  transition: background-color var(--sbb-step-label-animation-duration) var(--sbb-animation-easing);
 }

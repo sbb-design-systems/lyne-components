@@ -94,8 +94,9 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
       }}
     >
       <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
-        <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
+        <sbb-step-label slot="step-label" icon-name="pen-small">Step 1</sbb-step-label>
         <sbb-step
+          slot="step"
           @validate=${(e: CustomEvent) => {
             if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
               e.preventDefault();
@@ -125,8 +126,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
 
-        <sbb-step-label>Step 2</sbb-step-label>
-        <sbb-step>
+        <sbb-step-label slot="step-label">Step 2</sbb-step-label>
+        <sbb-step slot="step">
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
             <sbb-form-field error-space="none" label="Favorite number" size="m">
               <input type="number" placeholder="Your lucky number" name="number" value="75" />
@@ -136,8 +137,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
 
-        <sbb-step-label icon-name="dog-small">Step 3</sbb-step-label>
-        <sbb-step>
+        <sbb-step-label slot="step-label" icon-name="dog-small">Step 3</sbb-step-label>
+        <sbb-step slot="step">
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
             <sbb-form-field error-space="none" label="Favorite animal" size="m">
               <select name="animal">
@@ -152,8 +153,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
 
-        <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
-        <sbb-step>
+        <sbb-step-label slot="step-label" icon-name="tick-small">Step 4</sbb-step-label>
+        <sbb-step slot="step">
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">You are now done.</div>
           <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
           <sbb-button type="submit" size="m" sbb-stepper-next>Submit</sbb-button>
@@ -184,8 +185,9 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
 
   return html`
     <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
-      <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
+      <sbb-step-label slot="step-label" icon-name="pen-small">Step 1</sbb-step-label>
       <sbb-step
+        slot="step"
         @validate=${(e: CustomEvent) => {
           if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
             e.preventDefault();
@@ -223,8 +225,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
         <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
       </sbb-step>
 
-      <sbb-step-label>Step 2</sbb-step-label>
-      <sbb-step>
+      <sbb-step-label slot="step-label">Step 2</sbb-step-label>
+      <sbb-step slot="step">
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
           <form>
             <sbb-form-field error-space="none" label="Favorite number" size="m">
@@ -236,8 +238,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
         <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
       </sbb-step>
 
-      <sbb-step-label icon-name="dog-small">Step 3</sbb-step-label>
-      <sbb-step>
+      <sbb-step-label slot="step-label" icon-name="dog-small">Step 3</sbb-step-label>
+      <sbb-step slot="step">
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
           <form>
             <sbb-form-field error-space="none" label="Favorite animal" size="m">
@@ -254,8 +256,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
         <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
       </sbb-step>
 
-      <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
-      <sbb-step>
+      <sbb-step-label slot="step-label" icon-name="tick-small">Step 4</sbb-step-label>
+      <sbb-step slot="step">
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">You are now done.</div>
         <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
         <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
@@ -273,8 +275,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
-    <sbb-step-label>Step 1</sbb-step-label>
-    <sbb-step>
+    <sbb-step-label slot="step-label">Step 1</sbb-step-label>
+    <sbb-step slot="step">
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
         First step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
@@ -284,8 +286,8 @@ const Template = (args: Args): TemplateResult => html`
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
-    <sbb-step-label>Step 2</sbb-step-label>
-    <sbb-step>
+    <sbb-step-label slot="step-label">Step 2</sbb-step-label>
+    <sbb-step slot="step">
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
         Second step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
         nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
@@ -295,8 +297,8 @@ const Template = (args: Args): TemplateResult => html`
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
-    <sbb-step-label icon-name="tick-small">Step 3</sbb-step-label>
-    <sbb-step>
+    <sbb-step-label slot="step-label" icon-name="tick-small">Step 3</sbb-step-label>
+    <sbb-step slot="step">
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
         Third step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
@@ -305,8 +307,8 @@ const Template = (args: Args): TemplateResult => html`
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
-    <sbb-step-label>Step 4</sbb-step-label>
-    <sbb-step>
+    <sbb-step-label slot="step-label">Step 4</sbb-step-label>
+    <sbb-step slot="step">
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
         Forth step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
@@ -324,37 +326,37 @@ const Template = (args: Args): TemplateResult => html`
 
 const LongLabelsTemplate = (args: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
-    <sbb-step-label
+    <sbb-step-label slot="step-label"
       >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
       invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
     >
-    <sbb-step>
+    <sbb-step slot="step">
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">First step content.</div>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
-    <sbb-step-label
+    <sbb-step-label slot="step-label"
       >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
       tempor.</sbb-step-label
     >
-    <sbb-step>
+    <sbb-step slot="step">
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Second step content.</div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
-    <sbb-step-label
+    <sbb-step-label slot="step-label"
       >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
       invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
     >
-    <sbb-step>
+    <sbb-step slot="step">
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Third step content.</div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
-    <sbb-step-label
+    <sbb-step-label slot="step-label"
       >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
       tempor.</sbb-step-label
     >
-    <sbb-step>
+    <sbb-step slot="step">
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Forth step content.</div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>

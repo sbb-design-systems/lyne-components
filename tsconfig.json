@@ -48,7 +48,9 @@
           "sbb-navigation-close",
           "sbb-navigation-section-close",
           "sbb-popover-close",
-          "sbb-toast-close"
+          "sbb-toast-close",
+          "sbb-stepper-next",
+          "sbb-stepper-previous"
         ]
       }
     ]

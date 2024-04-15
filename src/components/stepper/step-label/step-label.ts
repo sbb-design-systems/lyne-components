@@ -20,6 +20,7 @@ let nextId = 0;
  * Combined with a `sbb-stepper`, it displays a step's label.
  *
  * @slot - Use the unnamed slot to provide a label.
+ * @slot icon - Use this to display an icon in the label bubble.
  */
 @customElement('sbb-step-label')
 @hostAttributes({
@@ -78,7 +79,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
     this.id = this.id || `sbb-step-label-${nextId++}`;
     this._internals.ariaSelected = 'false';
     this._stepper = this.closest('sbb-stepper');
-    if (this.nextElementSibling?.tagName === 'SBB-STEP') {
+    if (this.nextElementSibling?.localName === 'sbb-step') {
       this._step = this.nextElementSibling as SbbStepElement;
     }
     this.addEventListener(
