@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.50.1](https://github.com/lyne-design-system/lyne-components/compare/v0.50.0...v0.50.1) (2024-04-15)
+
+
+### Bug Fixes
+
+* update import paths missed in the migration ([#2579](https://github.com/lyne-design-system/lyne-components/issues/2579)) ([9c90fa8](https://github.com/lyne-design-system/lyne-components/commit/9c90fa88f83978bc163ab886b968cff13327ed9b))
+
 ## [0.50.0](https://github.com/lyne-design-system/lyne-components/compare/v0.49.0...v0.50.0) (2024-04-11)
 
 
