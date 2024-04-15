@@ -1,4 +1,6 @@
-@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--placeholder.scss';
+// Some tools complain about missing 'as' with @use, therefore we define a scope without using it.
+@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--placeholder.scss' as
+  foo;
 @use './mediaqueries';
 @use './functions';
 
