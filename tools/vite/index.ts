@@ -7,3 +7,4 @@ export * from './generate-react-wrappers.js';
 export * from './package-json-template.js';
 export * from './resolve-entry-points.js';
 export * from './typography.js';
+export * from './verify-entry-points.js';

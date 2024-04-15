@@ -4,8 +4,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { readDataNow } from '../core/datetime/data-now.js';
-import { removeTimezoneFromISOTimeString } from '../core/datetime.js';
+import { readDataNow, removeTimezoneFromISOTimeString } from '../core/datetime.js';
 import type { Leg, PtRideLeg } from '../core/timetable.js';
 import { isRideLeg } from '../core/timetable.js';
 

@@ -4,11 +4,11 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { readDataNow } from '../core/datetime/data-now.js';
 import {
   defaultDateAdapter,
   durationToTime,
   removeTimezoneFromISOTimeString,
+  readDataNow,
 } from '../core/datetime.js';
 import { i18nTripDuration } from '../core/i18n.js';
 import type { Leg } from '../core/timetable.js';

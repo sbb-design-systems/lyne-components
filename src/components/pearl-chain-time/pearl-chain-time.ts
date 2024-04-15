@@ -4,8 +4,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { readDataNow } from '../core/datetime/data-now.js';
-import { removeTimezoneFromISOTimeString } from '../core/datetime.js';
+import { readDataNow, removeTimezoneFromISOTimeString } from '../core/datetime.js';
 import { i18nArrival, i18nDeparture, i18nTransferProcedures } from '../core/i18n.js';
 import type { Leg, PtRideLeg } from '../core/timetable.js';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';

@@ -4,15 +4,14 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { readConfig } from '../../core/config.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
-import { readDataNow } from '../../core/datetime/data-now.js';
-import type { DateAdapter } from '../../core/datetime.js';
+import { type DateAdapter, readDataNow } from '../../core/datetime.js';
 import { defaultDateAdapter } from '../../core/datetime.js';
 import { findInput, findReferencedElement } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
-import type { SbbDatepickerButton } from '../common/datepicker-button.js';
+import type { SbbDatepickerButton } from '../common.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 
 import style from './datepicker.scss?lit&inline';
