@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.50.0",
+  "version": "0.50.1",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -127,7 +127,7 @@
     "typescript": "5.4.5",
     "typescript-eslint": "7.6.0",
     "vite": "5.2.8",
-    "vite-plugin-dts": "3.8.2"
+    "vite-plugin-dts": "3.8.3"
   },
   "resolutions": {
     "@types/node": "20.12.7",
