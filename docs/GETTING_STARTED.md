@@ -255,15 +255,15 @@ Please reach out to the Lyne team if you think a component needs a new variant.
 ### Animations
 
 Generally animations are part of the design and should not be suppressed.
-However, e.g. for testing purposes it makes sense to deactivate animations.
+However, e.g. for testing purposes it makes sense to deactivate them.
 
 Add the `sbb-disable-animation` CSS class to disable animations and transition effects for the element and all its children.
 
 Sometimes, you might need to disable animations only for a specific element.
-To achieve that, you can add `sbb-disable-animation-specific` class or re-enable animations using the `sbb-enable-animation` CSS class.
+To achieve that, you can add `sbb-disable-animation-locally` class or re-enable animations using the `sbb-enable-animation` CSS class.
 
 ```html
-<sbb-component class="sbb-disable-animation-specific">
+<sbb-component class="sbb-disable-animation-locally">
   <!-- animations will play -->
 </sbb-component>
 
