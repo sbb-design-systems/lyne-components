@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-dialog renders an open dialog Dom"] = 
 `<sbb-dialog
   data-state="opening"
-  disable-animation=""
 >
   <sbb-dialog-title
     level="2"

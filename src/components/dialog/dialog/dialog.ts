@@ -65,12 +65,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
    */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
-  /**
-   * Whether the animation is enabled.
-   */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /*
    * The state of the dialog.
    */

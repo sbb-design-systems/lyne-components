@@ -411,7 +411,7 @@ describe('sbb-dialog with long content', () => {
   beforeEach(async () => {
     await setViewport({ width: 900, height: 300 });
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-1" disable-animation>
+      <sbb-dialog id="my-dialog-1">
         <sbb-dialog-title hide-on-scroll="">Title</sbb-dialog-title>
         <sbb-dialog-content>
           Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his
