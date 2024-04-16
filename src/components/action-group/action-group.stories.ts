@@ -95,7 +95,7 @@ const buttonSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm'],
+  options: ['l', 'm', 's'],
 };
 
 const linkSize: InputType = {
@@ -150,6 +150,16 @@ const basicArgsVertical = {
 const basicArgsVerticalFullWidth = {
   ...basicArgsVertical,
   'align-group': 'stretch',
+};
+
+const basicArgsSizeS = {
+  ...basicArgs,
+  'button-size': buttonSize.options[2],
+};
+
+const basicArgsVerticalSizeS = {
+  ...basicArgsVertical,
+  'button-size': buttonSize.options[2],
 };
 
 export const HorizontalAllocation3_0_0: StoryObj = {
@@ -264,6 +274,78 @@ export const VerticalToHorizontal3_0_0: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
+};
+
+export const HorizontalAllocationSizeS3_0_0: StoryObj = {
+  render: CommonTemplateThreeElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsSizeS },
+};
+
+export const HorizontalAllocationSizeS1_1_1: StoryObj = {
+  render: TemplateHorizontalAllocation111,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsSizeS },
+};
+
+export const HorizontalAllocationSizeS2_0_1: StoryObj = {
+  render: TemplateHorizontalAllocation201,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsSizeS },
+};
+
+export const HorizontalAllocationSizeS1_0_2: StoryObj = {
+  render: TemplateHorizontalAllocation102,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsSizeS, 'align-group': 'end' },
+};
+
+export const HorizontalAllocationSizeS2_0_0: StoryObj = {
+  render: CommonTemplateTwoElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsSizeS },
+};
+
+export const HorizontalAllocationSizeS1_0_1: StoryObj = {
+  render: TemplateHorizontalAllocation101,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsSizeS },
+};
+
+export const VerticalAllocationSizeS3_0_0: StoryObj = {
+  render: CommonTemplateThreeElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVerticalSizeS, 'align-group': 'start' },
+};
+
+export const VerticalAllocationSizeS2_0_0: StoryObj = {
+  render: CommonTemplateTwoElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVerticalSizeS, 'align-group': 'start' },
+};
+
+export const VerticalAllocationSizeS0_3_0: StoryObj = {
+  render: CommonTemplateThreeElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVerticalSizeS, 'align-group': 'center' },
+};
+
+export const VerticalAllocationSizeS0_2_0: StoryObj = {
+  render: CommonTemplateTwoElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVerticalSizeS, 'align-group': 'center' },
+};
+
+export const VerticalAllocationSizeS0_0_3: StoryObj = {
+  render: CommonTemplateThreeElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVerticalSizeS, 'align-group': 'end' },
+};
+
+export const VerticalAllocationSizeS0_0_2: StoryObj = {
+  render: CommonTemplateTwoElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVerticalSizeS, 'align-group': 'end' },
 };
 
 const meta: Meta = {
