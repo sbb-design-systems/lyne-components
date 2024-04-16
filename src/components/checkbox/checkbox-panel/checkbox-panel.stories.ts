@@ -139,6 +139,22 @@ export const DefaultIndeterminate: StoryObj = {
   args: { ...defaultArgs, indeterminate: true },
 };
 
+export const disabledChecked: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true, checked: true },
+};
+export const disabledUnchecked: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+export const disabledIndeterminate: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true, indeterminate: true },
+};
+
 export const withForm: StoryObj = {
   render: TemplateWithForm,
   argTypes: defaultArgTypes,
