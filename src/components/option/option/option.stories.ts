@@ -12,13 +12,13 @@ import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbOptionElement } from './option';
+import { SbbOptionElement } from './option.js';
 import readme from './readme.md?raw';
-import '../../form-field';
-import '../../select';
-import '../../autocomplete';
+import '../../form-field.js';
+import '../../select.js';
+import '../../autocomplete.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

@@ -4,13 +4,13 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import type { SbbFormErrorElement } from '../form-error';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import type { SbbFormErrorElement } from '../form-error.js';
 
-import { SbbFileSelectorElement } from './file-selector';
+import { SbbFileSelectorElement } from './file-selector.js';
 import readme from './readme.md?raw';
 
-import '../form-error';
+import '../form-error.js';
 
 const variant: InputType = {
   control: {

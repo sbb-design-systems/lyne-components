@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbIconElement } from '../../icon';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbIconElement } from '../../icon.js';
 
-import { SbbTrainWagonElement } from './train-wagon';
+import { SbbTrainWagonElement } from './train-wagon.js';
 
 describe(`sbb-train-wagon with ${fixture.name}`, () => {
   let element: SbbTrainWagonElement;
@@ -34,7 +34,7 @@ describe(`sbb-train-wagon with ${fixture.name}`, () => {
         <sbb-icon name="sa-rs"></sbb-icon>
         <sbb-icon name="sa-rs"></sbb-icon>
       </sbb-train-wagon>`,
-      { modules: ['./train-wagon.ts', '../../icon/index.ts'] },
+      { modules: ['./train-wagon.ts', '../../icon.ts'] },
     );
 
     Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {

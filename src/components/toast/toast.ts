@@ -2,19 +2,19 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button';
+import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import {
   SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
-} from '../core/controllers';
-import { isFirefox, isValidAttribute } from '../core/dom';
-import { composedPathHasAttribute, EventEmitter } from '../core/eventing';
-import { i18nCloseAlert } from '../core/i18n';
-import type { SbbOpenedClosedState } from '../core/interfaces';
-import { SbbIconNameMixin } from '../icon';
-import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link';
-import '../button/transparent-button';
+} from '../core/controllers.js';
+import { isFirefox } from '../core/dom.js';
+import { composedPathHasAttribute, EventEmitter } from '../core/eventing.js';
+import { i18nCloseAlert } from '../core/i18n.js';
+import type { SbbOpenedClosedState } from '../core/interfaces.js';
+import { SbbIconNameMixin } from '../icon.js';
+import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
+import '../button/transparent-button.js';
 
 import style from './toast.scss?lit&inline';
 
@@ -142,7 +142,7 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   private _onClick(event: Event): void {
     const closeElement = composedPathHasAttribute(event, 'sbb-toast-close', this);
 
-    if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
+    if (closeElement && !closeElement.hasAttribute('disabled')) {
       this.close();
     }
   }

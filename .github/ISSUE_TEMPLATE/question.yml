@@ -25,10 +25,10 @@ body:
     attributes:
       label: It affects the following packages
       options:
-        - 'Design Tokens'
-        - 'Components'
+        - Design Tokens
+        - Components
         - 'Design Tokens & Components'
-        - 'Other'
+        - Other
     validations:
       required: true
   - type: input

@@ -1,4 +1,4 @@
-import type { ITripItem } from '../core/timetable';
+import type { ITripItem } from '../core/timetable.js';
 import {
   cancelledLeg,
   extendedLeg,
@@ -8,7 +8,7 @@ import {
   progressLeg,
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
-} from '../pearl-chain/pearl-chain.sample-data';
+} from '../pearl-chain/pearl-chain.sample-data.js';
 
 type DeepPartial<T> = T extends object
   ? {

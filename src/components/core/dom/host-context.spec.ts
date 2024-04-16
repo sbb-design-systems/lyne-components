@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { hostContext } from './host-context';
+import { hostContext } from './host-context.js';
 
 describe('hostContext', () => {
   it('should travers shadow dom boundaries', async () => {

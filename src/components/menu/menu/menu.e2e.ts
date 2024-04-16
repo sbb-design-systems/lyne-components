@@ -2,16 +2,16 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import type { SbbButtonElement } from '../../button.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import { SbbMenuElement } from './menu';
+import { SbbMenuElement } from './menu.js';
 
-import '../../button/button';
-import '../../link';
-import '../../divider';
-import '../menu-button';
+import '../../button/button.js';
+import '../../link.js';
+import '../../divider.js';
+import '../menu-button.js';
 
 describe(`sbb-menu with ${fixture.name}`, () => {
   let element: SbbMenuElement, trigger: SbbButtonElement;
@@ -38,10 +38,10 @@ describe(`sbb-menu with ${fixture.name}`, () => {
       {
         modules: [
           './menu.ts',
-          '../../button/index.ts',
-          '../../divider/index.ts',
-          '../../link/index.ts',
-          '../menu-button/index.ts',
+          '../../button.ts',
+          '../../divider.ts',
+          '../../link.ts',
+          '../menu-button.ts',
         ],
       },
     );

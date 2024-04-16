@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../core/decorators';
+import { hostAttributes } from '../core/decorators.js';
 
 import style from './loading-indicator.scss?lit&inline';
 

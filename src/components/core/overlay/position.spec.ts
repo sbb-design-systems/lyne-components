@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import type { SinonStubbedInstance } from 'sinon';
 import { createStubInstance } from 'sinon';
 
-import { getElementPosition } from './position';
+import { getElementPosition } from './position.js';
 
 describe('getElementPosition', () => {
   let trigger: SinonStubbedInstance<HTMLElement>,

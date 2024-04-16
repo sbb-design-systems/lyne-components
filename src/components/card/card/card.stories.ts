@@ -12,14 +12,14 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './card';
-import '../card-badge';
-import '../card-button';
-import '../card-link';
-import '../../title';
+import './card.js';
+import '../card-badge.js';
+import '../card-button.js';
+import '../card-link.js';
+import '../../title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color':

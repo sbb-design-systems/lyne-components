@@ -8,17 +8,17 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbLanguageController } from '../../core/controllers';
-import { EventEmitter } from '../../core/eventing';
-import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
-import type { SbbTitleLevel } from '../../title';
-import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage';
-import type { SbbTrainWagonElement } from '../train-wagon';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nTrain, i18nWagonsLabel } from '../../core/i18n.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import type { SbbTitleLevel } from '../../title.js';
+import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
+import type { SbbTrainWagonElement } from '../train-wagon.js';
 
 import style from './train.scss?lit&inline';
 
-import '../../icon';
+import '../../icon.js';
 
 /**
  * It can be used as a container for `sbb-train-wagon` or `sbb-train-blocked-passage` components.
@@ -128,7 +128,6 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
         }
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

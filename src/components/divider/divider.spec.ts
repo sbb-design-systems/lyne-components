@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
-import type { SbbDividerElement } from './divider';
+import type { SbbDividerElement } from './divider.js';
 
-import './divider';
+import './divider.js';
 
 describe(`sbb-divider`, () => {
   it('should render with default values', async () => {

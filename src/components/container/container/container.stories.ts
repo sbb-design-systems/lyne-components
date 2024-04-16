@@ -2,11 +2,11 @@ import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../button/secondary-button';
-import '../../title';
-import './container';
+import '../../button/secondary-button.js';
+import '../../title.js';
+import './container.js';
 
 import readme from './readme.md?raw';
 

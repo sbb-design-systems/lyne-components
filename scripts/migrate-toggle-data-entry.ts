@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
-import ts from 'typescript';
+import * as ts from 'typescript';
 
 function* iterate(node: ts.Node): Generator<ts.Node, void, unknown> {
   yield node;

@@ -2,17 +2,17 @@ import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationSectionElement } from '../navigation-section';
+import type { SbbButtonElement } from '../../button.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import type { SbbNavigationButtonElement } from '../navigation-button.js';
+import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
-import { SbbNavigationElement } from './navigation';
+import { SbbNavigationElement } from './navigation.js';
 
-import '../navigation-button';
-import '../navigation-marker';
-import '../navigation-section';
+import '../navigation-button.js';
+import '../navigation-marker.js';
+import '../navigation-section.js';
 
 describe(`sbb-navigation with ${fixture.name}`, () => {
   let element: SbbNavigationElement;
@@ -41,9 +41,9 @@ describe(`sbb-navigation with ${fixture.name}`, () => {
       {
         modules: [
           './navigation.ts',
-          '../navigation-marker/index.ts',
-          '../navigation-button/index.ts',
-          '../navigation-section/index.ts',
+          '../navigation-marker.ts',
+          '../navigation-button.ts',
+          '../navigation-section.ts',
         ],
       },
     );
@@ -86,11 +86,7 @@ describe(`sbb-navigation with ${fixture.name}`, () => {
         </sbb-navigation>
       `,
       {
-        modules: [
-          './navigation.ts',
-          '../navigation-marker/index.ts',
-          '../navigation-button/index.ts',
-        ],
+        modules: ['./navigation.ts', '../navigation-marker.ts', '../navigation-button.ts'],
       },
     );
 
@@ -140,9 +136,9 @@ describe(`sbb-navigation with ${fixture.name}`, () => {
       {
         modules: [
           './navigation.ts',
-          '../navigation-marker/index.ts',
-          '../navigation-button/index.ts',
-          '../navigation-section/index.ts',
+          '../navigation-marker.ts',
+          '../navigation-button.ts',
+          '../navigation-section.ts',
         ],
       },
     );
@@ -194,11 +190,7 @@ describe(`sbb-navigation with ${fixture.name}`, () => {
         </sbb-navigation>
       `,
       {
-        modules: [
-          './navigation.ts',
-          '../navigation-marker/index.ts',
-          '../navigation-button/index.ts',
-        ],
+        modules: ['./navigation.ts', '../navigation-marker.ts', '../navigation-button.ts'],
       },
     );
 

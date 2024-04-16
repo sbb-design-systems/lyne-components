@@ -3,12 +3,12 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import images from '../core/images';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import images from '../core/images.js';
 
 import readme from './readme.md?raw';
 
-import './image';
+import './image.js';
 
 const Template = (args: Args): TemplateResult => html`<sbb-image ${sbbSpread(args)}></sbb-image>`;
 

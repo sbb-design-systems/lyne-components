@@ -2,17 +2,17 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { hostContext, isValidAttribute } from '../../core/dom';
-import { i18nClearInput } from '../../core/i18n';
-import { SbbNegativeMixin } from '../../core/mixins';
-import type { SbbFormFieldElement } from '../form-field';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { hostContext } from '../../core/dom.js';
+import { i18nClearInput } from '../../core/i18n.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 
 import style from './form-field-clear.scss?lit&inline';
 
-import '../../icon';
+import '../../icon.js';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
@@ -37,7 +37,7 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
       (hostContext('[data-form-field]', this) as SbbFormFieldElement);
 
     if (this._formField) {
-      this.negative = isValidAttribute(this._formField, 'negative');
+      this.negative = this._formField.hasAttribute('negative');
     }
   }
 

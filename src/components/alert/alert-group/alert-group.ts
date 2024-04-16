@@ -3,10 +3,10 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers';
-import { EventEmitter } from '../../core/eventing';
-import type { SbbTitleLevel } from '../../title';
-import { SbbAlertElement } from '../alert';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type { SbbTitleLevel } from '../../title.js';
+import { SbbAlertElement } from '../alert.js';
 
 import style from './alert-group.scss?lit&inline';
 
@@ -111,7 +111,6 @@ export class SbbAlertGroupElement extends LitElement {
         <slot @slotchange=${(event: Event) => this._slotChanged(event)}></slot>
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

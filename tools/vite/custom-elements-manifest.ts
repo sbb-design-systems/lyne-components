@@ -1,7 +1,8 @@
+/* eslint-disable import-x/namespace  */
 import { cli } from '@custom-elements-manifest/analyzer/cli';
 import type { PluginOption } from 'vite';
 
-import { root } from './build-meta';
+import { root } from './build-meta.js';
 
 export function customElementsManifest(): PluginOption {
   return {

@@ -2,14 +2,14 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../core/base-elements';
-import { SbbSlotStateController } from '../core/controllers';
-import type { SbbTitleLevel } from '../title';
+import { SbbLinkBaseElement } from '../core/base-elements.js';
+import { SbbSlotStateController } from '../core/controllers.js';
+import type { SbbTitleLevel } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
 
-import '../chip';
-import '../title';
+import '../chip.js';
+import '../title.js';
 
 /**
  * It displays an interactive image with caption.

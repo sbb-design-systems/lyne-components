@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
-import type { SbbOverlayElement } from './overlay';
-import './overlay';
+import type { SbbOverlayElement } from './overlay.js';
+import './overlay.js';
 
 describe('sbb-overlay', () => {
   let root: SbbOverlayElement;

@@ -1,18 +1,18 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbCalendarElement } from '../../calendar';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbFormFieldElement } from '../../form-field';
-import type { SbbPopoverTriggerElement } from '../../popover';
-import { SbbPopoverElement } from '../../popover';
-import type { SbbDatepickerElement } from '../datepicker';
+import type { SbbCalendarElement } from '../../calendar.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbPopoverTriggerElement } from '../../popover.js';
+import { SbbPopoverElement } from '../../popover.js';
+import type { SbbDatepickerElement } from '../datepicker.js';
 
-import { SbbDatepickerToggleElement } from './datepicker-toggle';
+import { SbbDatepickerToggleElement } from './datepicker-toggle.js';
 
-import '../datepicker';
-import '../../form-field/form-field';
+import '../datepicker.js';
+import '../../form-field/form-field.js';
 
 describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
   it('renders standalone', async () => {
@@ -36,7 +36,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
           <input id="datepicker-input" />
         </div>
       `,
-      { modules: ['./datepicker-toggle.ts', '../datepicker/index.ts'] },
+      { modules: ['./datepicker-toggle.ts', '../datepicker.ts'] },
     );
     const element: SbbDatepickerToggleElement =
       root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
@@ -66,7 +66,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
           <input id="datepicker-input" />
         </div>
       `,
-      { modules: ['./datepicker-toggle.ts', '../datepicker/index.ts'] },
+      { modules: ['./datepicker-toggle.ts', '../datepicker.ts'] },
     );
     const element: SbbDatepickerToggleElement =
       root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
@@ -166,7 +166,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
         </sbb-form-field>
       `,
       {
-        modules: ['../../form-field/index.ts', './datepicker-toggle.ts', '../datepicker/index.ts'],
+        modules: ['../../form-field.ts', './datepicker-toggle.ts', '../datepicker.ts'],
       },
     );
     const element: SbbDatepickerToggleElement =

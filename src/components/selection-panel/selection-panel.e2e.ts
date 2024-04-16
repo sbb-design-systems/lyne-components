@@ -3,15 +3,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbCheckboxGroupElement } from '../checkbox';
-import { SbbCheckboxElement } from '../checkbox';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
-import type { SbbRadioButtonGroupElement } from '../radio-button';
-import { SbbRadioButtonElement } from '../radio-button';
+import type { SbbCheckboxGroupElement } from '../checkbox.js';
+import { SbbCheckboxElement } from '../checkbox.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+import type { SbbRadioButtonGroupElement } from '../radio-button.js';
+import { SbbRadioButtonElement } from '../radio-button.js';
 
-import { SbbSelectionPanelElement } from './selection-panel';
-import '../link/block-link-button';
+import { SbbSelectionPanelElement } from './selection-panel.js';
+import '../link/block-link-button.js';
 
 describe(`sbb-selection-panel with ${fixture.name}`, () => {
   let elements: SbbSelectionPanelElement[];
@@ -134,7 +134,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
       didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
 
       wrapper = await fixture(getPageContent('radio-button'), {
-        modules: ['./selection-panel.ts', '../button/index.ts', '../radio-button/index.ts'],
+        modules: ['./selection-panel.ts', '../button.ts', '../radio-button.ts'],
       });
       elements = Array.from(wrapper.querySelectorAll('sbb-selection-panel'));
       firstPanel = wrapper.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
@@ -276,7 +276,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
           </sbb-radio-button-group>
         `,
         {
-          modules: ['../radio-button/index.ts', './selection-panel.ts', '../radio-button/index.ts'],
+          modules: ['../radio-button.ts', './selection-panel.ts', '../radio-button.ts'],
         },
       );
       const firstInputNoContent =
@@ -358,7 +358,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
           </sbb-radio-button-group>
         `,
         {
-          modules: ['../radio-button/index.ts', './selection-panel.ts', '../radio-button/index.ts'],
+          modules: ['../radio-button.ts', './selection-panel.ts', '../radio-button.ts'],
         },
       );
       panel1 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel1')!;
@@ -409,7 +409,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
     });
 
     it('should mark only outer group children as disabled', async () => {
-      nestedElement.setAttribute('disabled', '');
+      nestedElement.toggleAttribute('disabled', true);
       await waitForLitRender(nestedElement);
 
       const radioButtons = Array.from(nestedElement.querySelectorAll('sbb-radio-button'));
@@ -488,7 +488,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
           </div>
         `,
         {
-          modules: ['./selection-panel.ts', '../radio-button/index.ts', '../radio-button/index.ts'],
+          modules: ['./selection-panel.ts', '../radio-button.ts', '../radio-button.ts'],
         },
       );
 
@@ -533,7 +533,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
       didCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.didClose);
 
       wrapper = await fixture(getPageContent('checkbox'), {
-        modules: ['./selection-panel.ts', '../button/index.ts', '../checkbox/index.ts'],
+        modules: ['./selection-panel.ts', '../button.ts', '../checkbox.ts'],
       });
       elements = Array.from(wrapper.querySelectorAll('sbb-selection-panel'));
       firstPanel = wrapper.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
@@ -686,7 +686,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
             </sbb-selection-panel>
           </sbb-checkbox-group>
         `,
-        { modules: ['../checkbox/index.ts', './selection-panel.ts', '../checkbox/index.ts'] },
+        { modules: ['../checkbox.ts', './selection-panel.ts', '../checkbox.ts'] },
       );
     });
 
@@ -725,7 +725,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
     });
 
     it('should mark only outer group children as disabled', async () => {
-      nestedElement.setAttribute('disabled', '');
+      nestedElement.toggleAttribute('disabled', true);
       await waitForLitRender(nestedElement);
 
       const checkboxes = Array.from(nestedElement.querySelectorAll('sbb-checkbox'));

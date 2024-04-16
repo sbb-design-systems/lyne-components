@@ -2,12 +2,12 @@ import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import { SbbOptionElement } from '../../option';
-import { SbbSelectElement } from '../../select';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { SbbOptionElement } from '../../option.js';
+import { SbbSelectElement } from '../../select.js';
 
-import { SbbFormFieldElement } from './form-field';
+import { SbbFormFieldElement } from './form-field.js';
 
 describe(`sbb-form-field with ${fixture.name}`, () => {
   describe('with input', () => {
@@ -282,7 +282,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
             <sbb-select><sbb-option>Test</sbb-option></sbb-select>
           </sbb-form-field>
         `,
-        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
       );
       select = element.querySelector<SbbSelectElement>('sbb-select')!;
     });
@@ -316,7 +316,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should focus select on form field click readonly', async () => {
-      select.setAttribute('readonly', '');
+      select.toggleAttribute('readonly', true);
       await waitForLitRender(element);
 
       expect(element).not.to.have.attribute('data-input-focused');
@@ -387,7 +387,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
             </sbb-select>
           </sbb-form-field>
         `,
-        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
       );
 
       expect(element).to.have.attribute('data-input-empty');
@@ -403,7 +403,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
             </sbb-select>
           </sbb-form-field>
         `,
-        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
       );
 
       expect(element).not.to.have.attribute('data-input-empty');
@@ -416,7 +416,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
             <sbb-option value="1" selected>Displayed Value</sbb-option>
           </sbb-select>
         </sbb-form-field>`,
-        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
       );
 
       element.querySelector<SbbSelectElement>('sbb-select')!.value = '';

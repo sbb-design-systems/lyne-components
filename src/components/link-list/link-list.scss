@@ -1,8 +1,7 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 @mixin horizontal-orientation {
   --sbb-link-list-flex-flow: row wrap;
@@ -16,6 +15,8 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 :host {
   --sbb-link-list-flex-flow: column nowrap;
+
+  display: block;
 }
 
 :host([orientation='horizontal']) {

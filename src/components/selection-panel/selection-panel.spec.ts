@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbSelectionPanelElement } from './selection-panel';
-import './selection-panel';
-import '../card/card-badge';
-import '../checkbox';
+import type { SbbSelectionPanelElement } from './selection-panel.js';
+import './selection-panel.js';
+import '../card/card-badge.js';
+import '../checkbox.js';
 
 describe(`sbb-selection-panel`, () => {
   let element: SbbSelectionPanelElement;

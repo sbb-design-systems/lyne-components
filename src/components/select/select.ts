@@ -3,15 +3,15 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex } from '../core/a11y';
-import { SbbConnectedAbortController } from '../core/controllers';
-import { hostAttributes } from '../core/decorators';
-import { getDocumentWritingMode, isNextjs, isSafari, isValidAttribute } from '../core/dom';
-import { EventEmitter } from '../core/eventing';
-import type { SbbOpenedClosedState } from '../core/interfaces';
-import { SbbDisabledMixin, SbbNegativeMixin, SbbUpdateSchedulerMixin } from '../core/mixins';
-import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay';
-import type { SbbOptGroupElement, SbbOptionElement } from '../option';
+import { getNextElementIndex } from '../core/a11y.js';
+import { SbbConnectedAbortController } from '../core/controllers.js';
+import { hostAttributes } from '../core/decorators.js';
+import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
+import type { SbbOpenedClosedState } from '../core/interfaces.js';
+import { SbbDisabledMixin, SbbNegativeMixin, SbbUpdateSchedulerMixin } from '../core/mixins.js';
+import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
+import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
 import style from './select.scss?lit&inline';
 
@@ -152,7 +152,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   private get _filteredOptions(): SbbOptionElement[] {
     return this._options.filter(
-      (opt: SbbOptionElement) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
+      (opt: SbbOptionElement) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
   }
 
@@ -277,7 +277,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
     this._syncProperties();
 

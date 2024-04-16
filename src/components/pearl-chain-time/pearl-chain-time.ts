@@ -3,16 +3,15 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers';
-import { removeTimezoneFromISOTimeString } from '../core/datetime';
-import { readDataNow } from '../core/datetime/data-now';
-import { i18nArrival, i18nDeparture, i18nTransferProcedures } from '../core/i18n';
-import type { Leg, PtRideLeg } from '../core/timetable';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
+import { SbbLanguageController } from '../core/controllers.js';
+import { readDataNow, removeTimezoneFromISOTimeString } from '../core/datetime.js';
+import { i18nArrival, i18nDeparture, i18nTransferProcedures } from '../core/i18n.js';
+import type { Leg, PtRideLeg } from '../core/timetable.js';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 
 import style from './pearl-chain-time.scss?lit&inline';
 
-import '../pearl-chain';
+import '../pearl-chain.js';
 
 /**
  * Combined with `sbb-pearl-chain`, it displays walk time information.

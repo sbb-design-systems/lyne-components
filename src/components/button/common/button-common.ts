@@ -2,20 +2,20 @@ import type { TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements';
-import { SbbSlotStateController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
+import type { SbbActionBaseElement } from '../../core/base-elements.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
 import type {
   AbstractConstructor,
   SbbDisabledMixinType,
   SbbNegativeMixinType,
-} from '../../core/mixins';
-import { SbbNegativeMixin } from '../../core/mixins';
-import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon';
+} from '../../core/mixins.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon.js';
 
 export type SbbButtonCommonElement = SbbButtonCommonElementMixinType & SbbActionBaseElement;
 
-export type SbbButtonSize = 'l' | 'm';
+export type SbbButtonSize = 'l' | 'm' | 's';
 
 export declare class SbbButtonCommonElementMixinType
   implements SbbNegativeMixinType, Partial<SbbDisabledMixinType>, Partial<SbbIconNameMixinType>

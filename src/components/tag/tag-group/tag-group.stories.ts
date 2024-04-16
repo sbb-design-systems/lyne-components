@@ -5,13 +5,13 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
-import type { SbbTagElement } from '../tag';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import type { SbbTagElement } from '../tag.js';
 
 import readme from './readme.md?raw';
-import './tag-group';
-import '../tag';
-import type { SbbTagGroupElement } from './tag-group';
+import './tag-group.js';
+import '../tag.js';
+import type { SbbTagGroupElement } from './tag-group.js';
 
 const uncheckAllTag = (event: Event): void => {
   const tagGroup = (event.currentTarget as SbbTagElement).closest(

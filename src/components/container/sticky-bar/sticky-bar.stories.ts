@@ -1,18 +1,18 @@
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../action-group';
-import '../../button/button';
-import '../../button/secondary-button';
-import '../../link';
-import '../../title';
-import '../container';
+import '../../action-group.js';
+import '../../button/button.js';
+import '../../button/secondary-button.js';
+import '../../link.js';
+import '../../title.js';
+import '../container.js';
 import readme from './readme.md?raw';
-import './sticky-bar';
+import './sticky-bar.js';
 
 const expanded: InputType = {
   control: {

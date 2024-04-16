@@ -1,9 +1,9 @@
 import { html, type LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from '../core/mixins';
+import type { AbstractConstructor } from '../core/mixins.js';
 
-import './icon';
+import './icon.js';
 
 export declare class SbbIconNameMixinType {
   public iconName?: string;

@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbTagElement } from '../tag';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import type { SbbTagElement } from '../tag.js';
 
-import { SbbTagGroupElement } from './tag-group';
+import { SbbTagGroupElement } from './tag-group.js';
 
-import '../tag';
+import '../tag.js';
 
 describe(`sbb-tag-group with ${fixture.name}`, () => {
   let element: SbbTagGroupElement;
@@ -23,7 +23,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
       });
 
@@ -95,7 +95,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
       });
 
@@ -171,7 +171,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
 
         expect(element.value).to.be.eql(['tag1', 'tag3']);
@@ -199,7 +199,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
         element.value = ['tag1', 'tag3'];
         await waitForLitRender(element);
@@ -219,7 +219,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
         element.value = 'tag1';
         await waitForLitRender(element);
@@ -241,7 +241,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3" checked>Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
       });
 
@@ -278,7 +278,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
       });
 
@@ -350,7 +350,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
       });
 
@@ -490,7 +490,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
 
         expect(element.value).to.be.equal('tag2');
@@ -508,7 +508,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
 
         element.value = 'tag2';
@@ -539,7 +539,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
         expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
         expect(element.value).to.be.equal('tag1');
@@ -556,7 +556,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
               <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
             </sbb-tag-group>
           `,
-          { modules: ['./tag-group.ts', '../tag/index.ts'] },
+          { modules: ['./tag-group.ts', '../tag.ts'] },
         );
       });
 

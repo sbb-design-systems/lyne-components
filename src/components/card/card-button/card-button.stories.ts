@@ -4,7 +4,7 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
-import '../card';
+import '../card.js';
 
 const Template = (): TemplateResult => html`
   <sbb-card color="milk">

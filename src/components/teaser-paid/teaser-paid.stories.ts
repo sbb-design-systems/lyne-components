@@ -3,14 +3,14 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import sampleImages from '../core/images';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
 
-import '../chip';
-import '../image';
-import './teaser-paid';
+import '../chip.js';
+import '../image.js';
+import './teaser-paid.js';
 
 const ariaLabel: InputType = {
   control: {

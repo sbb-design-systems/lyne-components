@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy } from '../../core/testing.js';
 
-import { SbbExpansionPanelHeaderElement } from './expansion-panel-header';
+import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.js';
 
 describe(`sbb-expansion-panel-header with ${fixture.name}`, () => {
   let element: SbbExpansionPanelHeaderElement;

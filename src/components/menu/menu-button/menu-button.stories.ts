@@ -4,11 +4,11 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './menu-button';
-import '../../icon';
+import './menu-button.js';
+import '../../icon.js';
 
 const getBasicTemplate = (
   { text, ...args }: Args,

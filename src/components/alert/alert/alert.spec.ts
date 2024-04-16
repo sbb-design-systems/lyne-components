@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbAlertElement } from './alert';
+import type { SbbAlertElement } from './alert.js';
 
-import './alert';
+import './alert.js';
 
 describe(`sbb-alert`, () => {
   let element: SbbAlertElement;

@@ -4,13 +4,13 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import type { SbbSliderElement } from './slider';
-import './slider';
-import '../form-field';
-import '../icon';
+import type { SbbSliderElement } from './slider.js';
+import './slider.js';
+import '../form-field.js';
+import '../icon.js';
 
 const changeEventHandler = (event: Event): void => {
   const div: HTMLDivElement = document.createElement('div');

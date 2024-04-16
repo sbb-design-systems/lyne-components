@@ -1,8 +1,8 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
-import './popover';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import './popover.js';
 
 describe(`sbb-popover`, () => {
   it('renders', async () => {

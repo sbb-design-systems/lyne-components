@@ -9,24 +9,24 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import sampleImages from '../core/images';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
+import sampleImages from '../core/images.js';
 
-import { SbbOverlayElement } from './overlay';
+import { SbbOverlayElement } from './overlay.js';
 import readme from './readme.md?raw';
 
-import '../button';
-import '../form-field';
-import '../image';
-import '../link';
-import '../title';
+import '../button.js';
+import '../form-field.js';
+import '../image.js';
+import '../link.js';
+import '../title.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

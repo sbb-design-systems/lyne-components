@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import images from '../core/images';
-import { waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import images from '../core/images.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
-import { SbbTeaserHeroElement } from './teaser-hero';
+import { SbbTeaserHeroElement } from './teaser-hero.js';
 
 describe(`sbb-teaser-hero with ${fixture.name}`, () => {
   let element: SbbTeaserHeroElement;

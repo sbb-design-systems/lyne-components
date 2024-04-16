@@ -19,13 +19,14 @@ import {
   primaryNegativeActive,
   primaryNegativeDisabled,
   sizeM,
+  sizeS,
   withSlottedIcon,
   withHiddenSlottedIcon,
-} from '../common/common-stories';
+} from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
-import '../../loading-indicator';
-import './secondary-button-static';
+import '../../loading-indicator.js';
+import './secondary-button-static.js';
 
 const disabled: InputType = {
   control: {
@@ -56,6 +57,7 @@ export const IconOnlyNegative: StoryObj = iconOnlyNegative;
 export const IconOnlyDisabled: StoryObj = iconOnlyDisabled;
 export const NoIcon: StoryObj = noIcon;
 export const SizeM: StoryObj = sizeM;
+export const SizeS: StoryObj = sizeS;
 export const FixedWidth: StoryObj = fixedWidth;
 export const WithSlottedIcon: StoryObj = withSlottedIcon;
 export const Active: StoryObj = primaryActive;

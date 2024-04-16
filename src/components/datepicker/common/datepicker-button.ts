@@ -1,19 +1,18 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
-import { type DateAdapter, defaultDateAdapter } from '../../core/datetime';
-import { isValidAttribute } from '../../core/dom';
-import { i18nToday } from '../../core/i18n';
-import { SbbNegativeMixin } from '../../core/mixins';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
+import { i18nToday } from '../../core/i18n.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
 import {
   datepickerControlRegisteredEventFactory,
   getDatePicker,
-  type SbbInputUpdateEvent,
   type SbbDatepickerElement,
-} from '../datepicker';
-import '../../icon';
+  type SbbInputUpdateEvent,
+} from '../datepicker.js';
+import '../../icon.js';
 
 export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBaseElement) {
   /** Datepicker reference. */
@@ -85,7 +84,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
   }
 
   private _handleClick(): void {
-    if (!this.datePickerElement || isValidAttribute(this, 'data-disabled')) {
+    if (!this.datePickerElement || this.hasAttribute('data-disabled')) {
       return;
     }
     const startingDate: Date =
@@ -104,7 +103,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
   private _syncUpstreamProperties(): void {
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
 
       // We can't use getInputElement of SbbFormFieldElement as async awaiting is not supported in connectedCallback.
       // We here only have to look for input.
@@ -112,7 +111,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
 
       if (inputElement) {
         this._inputDisabled =
-          isValidAttribute(inputElement, 'disabled') || isValidAttribute(inputElement, 'readonly');
+          inputElement.hasAttribute('disabled') || inputElement.hasAttribute('readonly');
         this._setDisabledRenderAttributes();
       }
     }

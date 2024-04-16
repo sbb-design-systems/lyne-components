@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { EventSpy, waitForLitRender } from '../testing';
-import { fixture } from '../testing/private';
+import { fixture } from '../testing/private.js';
+import { EventSpy, waitForLitRender } from '../testing.js';
 
-import { SbbButtonBaseElement } from './button-base-element';
+import { SbbButtonBaseElement } from './button-base-element.js';
 
 class GenericButton extends SbbButtonBaseElement {
   public disabled = false;

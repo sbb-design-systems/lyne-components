@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition } from '../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { waitForCondition } from '../core/testing.js';
 
-import './notification';
+import './notification.js';
 
 describe(`sbb-notification`, () => {
   it('renders', async () => {

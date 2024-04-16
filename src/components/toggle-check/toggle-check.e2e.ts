@@ -3,11 +3,11 @@ import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { isChromium, isFirefox } from '../core/dom';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { isChromium, isFirefox } from '../core/dom.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
-import { SbbToggleCheckElement } from './toggle-check';
+import { SbbToggleCheckElement } from './toggle-check.js';
 
 interface ToggleCheckAccessibilitySnapshot {
   checked: boolean;

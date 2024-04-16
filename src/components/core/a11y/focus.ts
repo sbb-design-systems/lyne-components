@@ -1,4 +1,4 @@
-import { interactivityChecker } from './interactivity-checker';
+import { interactivityChecker } from './interactivity-checker.js';
 
 export const IS_FOCUSABLE_QUERY = [
   'button',

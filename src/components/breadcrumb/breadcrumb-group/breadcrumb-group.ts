@@ -9,18 +9,22 @@ import {
 } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { setAttribute } from '../../core/dom';
-import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins';
-import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbBreadcrumbElement } from '../breadcrumb';
+import {
+  getNextElementIndex,
+  isArrowKeyPressed,
+  sbbInputModalityDetector,
+} from '../../core/a11y.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import { AgnosticResizeObserver } from '../../core/observers.js';
+import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
 import style from './breadcrumb-group.scss?lit&inline';
 
-import '../../icon';
+import '../../icon.js';
 
 /**
  * It can be used as a container for one or more `sbb-breadcrumb` component.
@@ -41,7 +45,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   /* The state of the breadcrumb group. */
   @state()
   private set _state(state: 'collapsed' | 'manually-expanded' | null) {
-    setAttribute(this, 'data-state', state);
+    setOrRemoveAttribute(this, 'data-state', state);
   }
   private get _state(): 'collapsed' | 'manually-expanded' | null {
     return this.getAttribute('data-state') as 'collapsed' | 'manually-expanded' | null;

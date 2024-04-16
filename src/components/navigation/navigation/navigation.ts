@@ -3,28 +3,28 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { findReferencedElement, isValidAttribute, SbbScrollHandler } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
-import { i18nCloseNavigation } from '../../core/i18n';
-import type { SbbOpenedClosedState } from '../../core/interfaces';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins';
-import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
+import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nCloseNavigation } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import {
   applyInertMechanism,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   removeInertMechanism,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay';
-import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationLinkElement } from '../navigation-link';
+} from '../../core/overlay.js';
+import type { SbbNavigationButtonElement } from '../navigation-button.js';
+import type { SbbNavigationLinkElement } from '../navigation-link.js';
 
 import style from './navigation.scss?lit&inline';
 
-import '../../button/transparent-button';
+import '../../button/transparent-button.js';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
@@ -288,7 +288,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _isCloseElement(element: HTMLElement): boolean {
     return (
       element.nodeName === 'A' ||
-      (element.hasAttribute('sbb-navigation-close') && !isValidAttribute(element, 'disabled'))
+      (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled'))
     );
   }
 

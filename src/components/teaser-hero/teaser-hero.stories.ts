@@ -4,11 +4,11 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import sampleImages from '../core/images';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
-import './teaser-hero';
+import './teaser-hero.js';
 
 const ariaLabel: InputType = {
   control: {

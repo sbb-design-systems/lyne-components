@@ -1,8 +1,8 @@
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins';
-import { SbbBlockLinkCommonElementMixin } from '../common';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
+import { SbbBlockLinkCommonElementMixin } from '../common.js';
 
 /**
  * It displays a link enhanced with the SBB Design, which will behave as a button.

@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators';
+import { hostAttributes } from '../../core/decorators.js';
 
 import style from './expansion-panel-content.scss?lit&inline';
 

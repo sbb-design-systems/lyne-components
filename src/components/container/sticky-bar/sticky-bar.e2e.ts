@@ -2,13 +2,13 @@ import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 
-import { waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbContainerElement } from '../container';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbContainerElement } from '../container.js';
 
-import { SbbStickyBarElement } from './sticky-bar';
+import { SbbStickyBarElement } from './sticky-bar.js';
 
-import '../container';
+import '../container.js';
 
 describe(`sbb-sticky-bar with ${fixture.name}`, () => {
   let container: SbbContainerElement;
@@ -37,7 +37,7 @@ describe(`sbb-sticky-bar with ${fixture.name}`, () => {
           <sbb-sticky-bar></sbb-sticky-bar>
         </sbb-container>
       `,
-      { modules: ['../container/index.ts', './sticky-bar.ts'] },
+      { modules: ['../container.ts', './sticky-bar.ts'] },
     );
     stickyBar = container.querySelector('sbb-sticky-bar')!;
   });
@@ -68,7 +68,7 @@ describe(`sbb-sticky-bar with ${fixture.name}`, () => {
           </sbb-sticky-bar>
         </sbb-container>
       `,
-      { modules: ['../container/index.ts', './sticky-bar.ts'] },
+      { modules: ['../container.ts', './sticky-bar.ts'] },
     );
     stickyBar = container.querySelector('sbb-sticky-bar')!;
 
@@ -87,7 +87,7 @@ describe(`sbb-sticky-bar with ${fixture.name}`, () => {
           </sbb-sticky-bar>
         </sbb-container>
       `,
-      { modules: ['../container/index.ts', './sticky-bar.ts'] },
+      { modules: ['../container.ts', './sticky-bar.ts'] },
     );
     stickyBar = container.querySelector('sbb-sticky-bar')!;
 

@@ -2,13 +2,13 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import { SbbMenuElement } from '../../menu';
-import type { SbbHeaderButtonElement } from '../header-button';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing.js';
+import { SbbMenuElement } from '../../menu.js';
+import type { SbbHeaderButtonElement } from '../header-button.js';
 
-import { SbbHeaderElement } from './header';
-import '../header-button';
+import { SbbHeaderElement } from './header.js';
+import '../header-button.js';
 
 describe(`sbb-header with ${fixture.name}`, () => {
   let element: SbbHeaderElement;
@@ -91,7 +91,7 @@ describe(`sbb-header with ${fixture.name}`, () => {
           <div style="height: 2000px;"></div>
         </div>
       `,
-      { modules: ['./header.ts', '../header-button/index.ts'] },
+      { modules: ['./header.ts', '../header-button.ts'] },
     );
 
     element = root.querySelector('sbb-header')!;
@@ -159,12 +159,7 @@ describe(`sbb-header with ${fixture.name}`, () => {
         </div>
       `,
       {
-        modules: [
-          './header.ts',
-          '../header-button/index.ts',
-          '../../menu/index.ts',
-          '../../menu/index.ts',
-        ],
+        modules: ['./header.ts', '../header-button.ts', '../../menu.ts', '../../menu.ts'],
       },
     );
 

@@ -4,9 +4,9 @@ import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../icon';
+import '../../icon.js';
 
 export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

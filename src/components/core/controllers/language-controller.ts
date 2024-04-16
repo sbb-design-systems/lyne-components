@@ -1,8 +1,8 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import { readConfig } from '../config';
-import { isBrowser } from '../dom';
-import { AgnosticMutationObserver } from '../observers';
+import { readConfig } from '../config.js';
+import { isBrowser } from '../dom.js';
+import { AgnosticMutationObserver } from '../observers.js';
 
 /**
  * The LanguageController is a reactive controller that observes the "lang" attribute

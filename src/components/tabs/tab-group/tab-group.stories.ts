@@ -12,11 +12,11 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import { SbbTabGroupElement } from './tab-group';
-import '../tab-title';
+import { SbbTabGroupElement } from './tab-group.js';
+import '../tab-title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',

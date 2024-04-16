@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import {
   buttonTestTemplate,
   buttonIconTestTemplate,
   buttonSlottedIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils';
+} from '../common/button-test-utils.js';
 
-import type { SbbTertiaryButtonElement } from './tertiary-button';
-import './tertiary-button';
+import type { SbbTertiaryButtonElement } from './tertiary-button.js';
+import './tertiary-button.js';
 
 describe(`sbb-tertiary-button`, () => {
   describe('renders a sbb-tertiary-button without icon', async () => {

@@ -12,10 +12,10 @@ import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../icon';
-import '../../loading-indicator';
+import '../../icon.js';
+import '../../loading-indicator.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white)',
@@ -88,7 +88,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm'],
+  options: ['l', 'm', 's'],
 };
 
 const iconName: InputType = {
@@ -187,6 +187,13 @@ export const sizeM: StoryObj = {
   render: Template,
   args: {
     size: size.options[1],
+  },
+};
+
+export const sizeS: StoryObj = {
+  render: Template,
+  args: {
+    size: size.options[2],
   },
 };
 

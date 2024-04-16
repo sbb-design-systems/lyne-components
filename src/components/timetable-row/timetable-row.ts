@@ -3,9 +3,9 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers';
-import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
-import { readDataNow } from '../core/datetime/data-now';
+import { SbbLanguageController } from '../core/controllers.js';
+import { readDataNow, removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime.js';
+import { setOrRemoveAttribute } from '../core/dom.js';
 import {
   i18nArrival,
   i18nClass,
@@ -23,17 +23,17 @@ import {
   i18nTravelhints,
   i18nTripDuration,
   i18nTripQuayChange,
-} from '../core/i18n';
-import type { SbbOccupancy } from '../core/interfaces';
-import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
+} from '../core/i18n.js';
+import type { SbbOccupancy } from '../core/interfaces.js';
+import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.js';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 
 import style from './timetable-row.scss?lit&inline';
 
-import '../card';
-import '../icon';
-import '../pearl-chain-time';
-import '../timetable-occupancy';
+import '../card.js';
+import '../icon.js';
+import '../pearl-chain-time.js';
+import '../timetable-occupancy.js';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
@@ -251,11 +251,7 @@ export class SbbTimetableRowElement extends LitElement {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('loadingTrip')) {
-      if (!this.loadingTrip) {
-        this.setAttribute('role', 'rowgroup');
-      } else {
-        this.removeAttribute('role');
-      }
+      setOrRemoveAttribute(this, 'role', !this.loadingTrip ? 'rowgroup' : null);
     }
   }
 

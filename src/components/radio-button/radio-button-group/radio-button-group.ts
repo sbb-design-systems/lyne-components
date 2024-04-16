@@ -2,18 +2,18 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
-import { hostAttributes } from '../../core/decorators';
-import { EventEmitter } from '../../core/eventing';
-import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces';
-import { SbbDisabledMixin } from '../../core/mixins';
-import type { SbbSelectionPanelElement } from '../../selection-panel';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
+import type { SbbSelectionPanelElement } from '../../selection-panel.js';
 import type {
   SbbRadioButtonElement,
   SbbRadioButtonSize,
   SbbRadioButtonStateChange,
-} from '../radio-button';
+} from '../radio-button.js';
 
 import style from './radio-button-group.scss?lit&inline';
 

@@ -2,16 +2,16 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers';
-import { EventEmitter } from '../../core/eventing';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbStateChange,
   SbbValueStateChange,
-} from '../../core/interfaces';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins';
-import { SbbIconNameMixin } from '../../icon';
+} from '../../core/interfaces.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './tag.scss?lit&inline';
 

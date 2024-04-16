@@ -21,14 +21,14 @@ import { customElement, eventOptions, property, state } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { hostContext, isBrowser } from '../core/dom';
+import { hostContext, isBrowser } from '../core/dom.js';
 
 import type {
   InterfaceImageAttributes,
   InterfaceImageAttributesSizesConfigBreakpoint,
   InterfaceImageAttributesSizesConfigMediaQuery,
-} from './image.helper';
-import imageHelperGetBreakpoints from './image.helper';
+} from './image.helper.js';
+import imageHelperGetBreakpoints from './image.helper.js';
 import style from './image.scss?lit&inline';
 
 const eventListenerOptions = {

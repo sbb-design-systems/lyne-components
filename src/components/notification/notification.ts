@@ -2,16 +2,16 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
-import { EventEmitter } from '../core/eventing';
-import { i18nCloseNotification } from '../core/i18n';
-import type { SbbOpenedClosedState } from '../core/interfaces';
-import { AgnosticResizeObserver } from '../core/observers';
-import type { SbbTitleLevel } from '../title';
-import '../button/secondary-button';
-import '../divider';
-import '../icon';
-import '../title';
+import { SbbLanguageController, SbbSlotStateController } from '../core/controllers.js';
+import { EventEmitter } from '../core/eventing.js';
+import { i18nCloseNotification } from '../core/i18n.js';
+import type { SbbOpenedClosedState } from '../core/interfaces.js';
+import { AgnosticResizeObserver } from '../core/observers.js';
+import type { SbbTitleLevel } from '../title.js';
+import '../button/secondary-button.js';
+import '../divider.js';
+import '../icon.js';
+import '../title.js';
 
 import style from './notification.scss?lit&inline';
 

@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbFormErrorElement } from './form-error';
+import type { SbbFormErrorElement } from './form-error.js';
 
-import './form-error';
+import './form-error.js';
 
 describe(`sbb-form-error`, () => {
   let element: SbbFormErrorElement;

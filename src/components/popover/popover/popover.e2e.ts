@@ -2,14 +2,14 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import type { SbbButtonElement } from '../../button.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
 
-import { SbbPopoverElement } from './popover';
+import { SbbPopoverElement } from './popover.js';
 
-import '../../button/button';
-import '../../link';
+import '../../button/button.js';
+import '../../link.js';
 
 describe(`sbb-popover with ${fixture.name}`, () => {
   let element: SbbPopoverElement, trigger: SbbButtonElement;
@@ -29,7 +29,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
             >
           </span>
         `,
-        { modules: ['../../button/index.ts', './popover.ts', '../../link/index.ts'] },
+        { modules: ['../../button.ts', './popover.ts', '../../link.ts'] },
       );
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
@@ -400,7 +400,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
             >
           </span>
         `,
-        { modules: ['../../button/index.ts', './popover.ts', '../../link/index.ts'] },
+        { modules: ['../../button.ts', './popover.ts', '../../link.ts'] },
       );
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
@@ -466,7 +466,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
           </sbb-popover>
         </div>
       `,
-      { modules: ['../../link/index.ts', '../../button/index.ts', './popover.ts'] },
+      { modules: ['../../link.ts', '../../button.ts', './popover.ts'] },
     );
     trigger = root.querySelector<SbbButtonElement>('#popover-trigger')!;
     element = root.querySelector<SbbPopoverElement>('#popover')!;

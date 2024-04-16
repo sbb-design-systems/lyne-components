@@ -4,14 +4,14 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './map-container';
-import '../form-field';
-import '../icon';
-import '../title';
-import '../header';
+import './map-container.js';
+import '../form-field.js';
+import '../icon.js';
+import '../title.js';
+import '../header.js';
 
 const hideScrollUpButton: InputType = {
   control: {

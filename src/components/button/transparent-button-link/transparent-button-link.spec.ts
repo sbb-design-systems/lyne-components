@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
-import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils.js';
 
-import type { SbbTransparentButtonLinkElement } from './transparent-button-link';
-import './transparent-button-link';
+import type { SbbTransparentButtonLinkElement } from './transparent-button-link.js';
+import './transparent-button-link.js';
 
 describe(`sbb-transparent-button-link`, () => {
   describe('renders a sbb-transparent-button-link without icon', async () => {

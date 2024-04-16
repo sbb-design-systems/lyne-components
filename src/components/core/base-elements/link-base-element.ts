@@ -1,15 +1,15 @@
 import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers';
-import { hostAttributes } from '../decorators';
-import { getLocalName } from '../dom';
-import { isEventPrevented } from '../eventing';
-import { i18nTargetOpensInNewWindow } from '../i18n';
+import { SbbLanguageController } from '../controllers.js';
+import { hostAttributes } from '../decorators.js';
+import { getLocalName } from '../dom.js';
+import { isEventPrevented } from '../eventing.js';
+import { i18nTargetOpensInNewWindow } from '../i18n.js';
 
-import { SbbActionBaseElement } from './action-base-element';
+import { SbbActionBaseElement } from './action-base-element.js';
 
-import '../../screen-reader-only';
+import '../../screen-reader-only.js';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';

@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbChipElement } from '../chip';
-import { fixture } from '../core/testing/private';
-import type { SbbImageElement } from '../image';
+import type { SbbChipElement } from '../chip.js';
+import { fixture } from '../core/testing/private.js';
+import type { SbbImageElement } from '../image.js';
 
-import { SbbTeaserPaidElement } from './teaser-paid';
+import { SbbTeaserPaidElement } from './teaser-paid.js';
 
-import '../chip';
-import '../image';
+import '../chip.js';
+import '../image.js';
 
 describe(`sbb-teaser-paid with ${fixture.name}`, () => {
   let element: SbbTeaserPaidElement;
@@ -21,7 +21,7 @@ describe(`sbb-teaser-paid with ${fixture.name}`, () => {
           <sbb-image slot="image"></sbb-image>
         </sbb-teaser-paid>
       `,
-      { modules: ['./teaser-paid.ts', '../chip/index.ts', '../image/index.ts'] },
+      { modules: ['./teaser-paid.ts', '../chip.ts', '../image.ts'] },
     );
   });
 

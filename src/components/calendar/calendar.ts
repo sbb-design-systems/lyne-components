@@ -10,19 +10,18 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y';
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers';
-import type { DateAdapter } from '../core/datetime';
+import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { type DateAdapter, readDataNow } from '../core/datetime.js';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,
   MONTHS_PER_ROW,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
-} from '../core/datetime';
-import { readDataNow } from '../core/datetime/data-now';
-import { isBreakpoint } from '../core/dom';
-import { EventEmitter } from '../core/eventing';
+} from '../core/datetime.js';
+import { isBreakpoint } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
 import {
   i18nCalendarDateSelection,
   i18nNextMonth,
@@ -32,14 +31,14 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../core/i18n';
-import type { SbbDateLike } from '../core/interfaces';
+} from '../core/i18n.js';
+import type { SbbDateLike } from '../core/interfaces.js';
 
 import style from './calendar.scss?lit&inline';
 
-import '../button/secondary-button';
-import '../icon';
-import '../screen-reader-only';
+import '../button/secondary-button.js';
+import '../icon.js';
+import '../screen-reader-only.js';
 
 /**
  * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;
@@ -1036,7 +1035,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
         ${this._wide
           ? html`<thead class="sbb-calendar__table-header" aria-hidden="true">
               <tr class="sbb-calendar__table-header-row">
-                <th class="sbb-calendar__table-header" .colspan=${MONTHS_PER_ROW}>${year}</th>
+                <th class="sbb-calendar__table-header" colspan=${MONTHS_PER_ROW}>${year}</th>
               </tr>
             </thead>`
           : nothing}

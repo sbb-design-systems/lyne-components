@@ -2,14 +2,14 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import { SbbPopoverElement } from '../popover';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
+import { SbbPopoverElement } from '../popover.js';
 
-import { SbbPopoverTriggerElement } from './popover-trigger';
+import { SbbPopoverTriggerElement } from './popover-trigger.js';
 
-import '../../icon';
-import '../../link/link';
+import '../../icon.js';
+import '../../link/link.js';
 
 describe(`sbb-popover-trigger with ${fixture.name}`, () => {
   let element: SbbPopoverTriggerElement, popover: SbbPopoverElement;
@@ -25,7 +25,7 @@ describe(`sbb-popover-trigger with ${fixture.name}`, () => {
           </sbb-popover>
         </div>
       `,
-      { modules: ['./popover-trigger.ts', '../popover/index.ts', '../../link/index.ts'] },
+      { modules: ['./popover-trigger.ts', '../popover.ts', '../../link.ts'] },
     );
     element = root.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
     popover = root.querySelector<SbbPopoverElement>('sbb-popover')!;

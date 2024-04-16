@@ -1,4 +1,4 @@
-import { findReferencedElement } from './find-referenced-element';
+import { findReferencedElement } from './find-referenced-element.js';
 
 /**
  * Given an element, returns the related input reference, if it exists respecting following priority.

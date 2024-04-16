@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbTimetableOccupancyElement } from './timetable-occupancy';
+import type { SbbTimetableOccupancyElement } from './timetable-occupancy.js';
 
-import './timetable-occupancy';
+import './timetable-occupancy.js';
 
 describe(`sbb-timetable-occupancy`, () => {
   let element: SbbTimetableOccupancyElement;

@@ -1,8 +1,7 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 // Fixes the gap between the origin and the overlay by creating conjunction
 // corners based on the origin element border radius
@@ -15,6 +14,8 @@
     --sbb-autocomplete-z-index,
     var(--sbb-overlay-default-z-index)
   );
+
+  display: block;
 }
 
 :host([negative]) {

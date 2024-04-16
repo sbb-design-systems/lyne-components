@@ -1,10 +1,11 @@
-import { html, nothing } from 'lit';
-import isChromatic from 'chromatic';
-import type { Decorator } from '@storybook/web-components';
 import * as tokens from '@sbb-esta/lyne-design-tokens';
+import type { Decorator } from '@storybook/web-components';
+import isChromatic from 'chromatic/isChromatic';
+import { html } from 'lit';
 import '../src/components/core/styles/global.scss';
 
-const getViewportName = (key: string) => key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
+const getViewportName = (key: string): string =>
+  key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
 const breakpoints = Object.entries(tokens)
   .filter(([key]) => key.startsWith('SbbBreakpoint') && key.endsWith('Min'))
   .map(([key, value]) => ({ key: getViewportName(key), value: value as number }))

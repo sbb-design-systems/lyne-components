@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../button';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import type { SbbTransparentButtonElement } from '../button.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
-import { SbbToastElement } from './toast';
+import { SbbToastElement } from './toast.js';
 
-import '../button/transparent-button';
-import '../link/link-button';
+import '../button/transparent-button.js';
+import '../link/link-button.js';
 
 describe(`sbb-toast with ${fixture.name}`, () => {
   let element: SbbToastElement;
@@ -63,7 +63,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
     const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
 
-    element.setAttribute('dismissible', '');
+    element.toggleAttribute('dismissible', true);
     await waitForLitRender(element);
     element.open();
     await waitForLitRender(element);
@@ -93,7 +93,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
           <sbb-transparent-button slot="action" sbb-toast-close></sbb-transparent-button>
         </sbb-toast>
       `,
-      { modules: ['./toast.ts', '../button/index.ts'] },
+      { modules: ['./toast.ts', '../button.ts'] },
     );
     const actionBtn = element.querySelector('sbb-transparent-button') as HTMLElement;
 
@@ -126,7 +126,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
           <sbb-transparent-button slot="action"></sbb-transparent-button>
         </sbb-toast>
       `,
-      { modules: ['./toast.ts', '../button/index.ts'] },
+      { modules: ['./toast.ts', '../button.ts'] },
     );
 
     const actionBtn = element.querySelector('sbb-transparent-button');
@@ -142,7 +142,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
           <sbb-link-button slot="action"></sbb-link-button>
         </sbb-toast>
       `,
-      { modules: ['./toast.ts', '../link/index.ts'] },
+      { modules: ['./toast.ts', '../link.ts'] },
     );
     const actionLink = element.querySelector('sbb-link-button');
 

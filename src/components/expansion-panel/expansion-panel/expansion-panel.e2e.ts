@@ -1,13 +1,13 @@
 import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
-import '../expansion-panel-content';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
+import '../expansion-panel-content.js';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
-import { SbbExpansionPanelElement } from './expansion-panel';
+import { SbbExpansionPanelElement } from './expansion-panel.js';
 
 describe(`sbb-expansion-panel with ${fixture.name}`, () => {
   let element: SbbExpansionPanelElement;
@@ -23,8 +23,8 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
       {
         modules: [
           './expansion-panel.ts',
-          '../expansion-panel-header/index.ts',
-          '../expansion-panel-content/index.ts',
+          '../expansion-panel-header.ts',
+          '../expansion-panel-content.ts',
         ],
       },
     );
@@ -57,8 +57,8 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
       {
         modules: [
           './expansion-panel.ts',
-          '../expansion-panel-header/index.ts',
-          '../expansion-panel-content/index.ts',
+          '../expansion-panel-header.ts',
+          '../expansion-panel-content.ts',
         ],
       },
     );

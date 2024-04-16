@@ -1,15 +1,15 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import { defaultDateAdapter } from '../core/datetime';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { defaultDateAdapter } from '../core/datetime.js';
 
-import { SbbCalendarElement } from './calendar';
+import { SbbCalendarElement } from './calendar.js';
 import readme from './readme.md?raw';
 
 const getCalendarAttr = (min: Date | string, max: Date | string): Record<string, string> => {
