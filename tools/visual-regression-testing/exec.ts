@@ -2,12 +2,13 @@
 // and if it is not Linux, runs it in a container.
 
 import { execSync, type ExecSyncOptionsWithStringEncoding } from 'child_process';
+import { mkdirSync } from 'fs';
 import { platform } from 'os';
 
 import { startTestRunner } from '@web/test-runner';
 
 const args = process.argv.slice(2);
-if (platform() === 'linux' && !process.env.DEBUG) {
+if ((platform() === 'linux' && !process.env.DEBUG) || process.env.FORCE_LOCAL) {
   startTestRunner();
 } else {
   function executableIsAvailable(name: string): string | null {
@@ -19,7 +20,7 @@ if (platform() === 'linux' && !process.env.DEBUG) {
     }
   }
 
-  const containerCmd = executableIsAvailable('docker') ?? executableIsAvailable('podman');
+  const containerCmd = executableIsAvailable('podman') ?? executableIsAvailable('docker');
   if (!containerCmd) {
     console.log('Either docker or podman need to be installed!');
     process.exit(1);
@@ -41,6 +42,7 @@ if (platform() === 'linux' && !process.env.DEBUG) {
     execOptions,
   );
   console.log(`\nTest image ready\n`);
+  mkdirSync(new URL('./dist/screenshots', cwd), { recursive: true });
   execSync(
     `${containerCmd} run  -it --rm --ipc=host ` +
       `--env=BRANCH_NAME="${branchName}" ` +
