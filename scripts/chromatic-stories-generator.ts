@@ -1,8 +1,9 @@
+/* eslint-disable import-x/default, import-x/no-named-as-default-member */
 import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 
-import * as ts from 'typescript';
+import ts from 'typescript';
 
 const chromaticFile = join(
   dirname(fileURLToPath(import.meta.url)),
