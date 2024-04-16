@@ -39,10 +39,6 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 </sbb-accordion>
 ```
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

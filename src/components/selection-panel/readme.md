@@ -73,10 +73,6 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 <sbb-selection-panel borderless> ... </sbb-selection-panel>
 ```
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

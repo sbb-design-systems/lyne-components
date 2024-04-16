@@ -54,10 +54,6 @@ On opening, the focus will be automatically set on the first focusable element o
 When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g., the selected language) `aria-pressed` should be set on that action.
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

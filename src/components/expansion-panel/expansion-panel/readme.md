@@ -67,10 +67,6 @@ and the header's `id` is set as `aria-labelledby` attribute on the content.
 The `expanded` attribute is used to correctly set the `aria-expanded` attribute on the header
 and the `aria-hidden` attribute on the content.
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

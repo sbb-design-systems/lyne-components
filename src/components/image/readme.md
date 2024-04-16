@@ -3,10 +3,6 @@ The `sbb-image` component is used to render an image.
 Mainly from cdn.img.sbb.ch (with `imageSrc`), but we can set an external image too.
 The size can be set with `pictureSizesConfig`.
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -75,8 +75,6 @@ This ensures that users who rely on screen readers are promptly informed of any 
 
 By default, the `sbb-notification` only runs a close animation. Set the `animation` attribute to define what animations should run.
 
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

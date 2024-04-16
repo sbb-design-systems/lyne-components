@@ -57,10 +57,6 @@ As the menu opens, the focus will automatically be set to the first focusable it
 When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute
 to identify which actions are active and which are not.
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties
