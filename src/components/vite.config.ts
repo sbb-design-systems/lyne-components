@@ -12,6 +12,7 @@ import {
   isProdBuild,
   packageJsonTemplate,
   typography,
+  verifyEntryPoints,
 } from '../../tools/vite/index.js';
 import rootConfig from '../../vite.config.js';
 
@@ -46,6 +47,7 @@ export default defineConfig((config) =>
             copyAssets(['_index.scss', '../../README.md']),
             copySass('core/styles'),
             typography(),
+            verifyEntryPoints(),
           ]
         : []),
     ],

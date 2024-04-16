@@ -4,8 +4,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { readDataNow } from '../core/datetime/data-now.js';
-import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime.js';
+import { readDataNow, removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime.js';
 import { setOrRemoveAttribute } from '../core/dom.js';
 import {
   i18nArrival,

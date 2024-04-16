@@ -22,15 +22,15 @@ export function copySass(sassRoot: string): PluginOption {
           type: 'asset',
           fileName: file,
           source: readFileSync(join(viteConfig.root, file), 'utf8').replace(
-            /@use '(node_modules\/[^']+)'/g,
-            (_m, useFile: string) => {
+            /(@use|@import) '(node_modules\/[^']+)'/g,
+            (_m, useOrImport, useFile: string) => {
               const outFile = join(sassRoot, useFile.replaceAll('/', '_'));
               this.emitFile({
                 type: 'asset',
                 fileName: outFile,
                 source: readFileSync(new URL(useFile, root), 'utf8'),
               });
-              return `@use '${relative(dirname(file), outFile)}'`;
+              return `${useOrImport} '${relative(dirname(file), outFile)}'`;
             },
           ),
         });

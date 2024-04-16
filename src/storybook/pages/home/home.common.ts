@@ -3,9 +3,7 @@ import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../components/button/button.js';
-import '../../../components/button/secondary-button.js';
-import '../../../components/button/secondary-button-static.js';
+import '../../../components/button.js';
 import '../../../components/card.js';
 import '../../../components/clock.js';
 import '../../../components/divider.js';
@@ -257,12 +255,12 @@ export const footer = (args: Args): TemplateResult => html`
           Report property damage
         </sbb-block-link>
       </sbb-link-list>
-      <sbb-button
+      <sbb-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         size="m"
       >
         All help topics
-      </sbb-button>
+      </sbb-button-link>
     </div>
     <sbb-link-list title-level="2" title-content="More SBB." ?negative=${args.negative}>
       <sbb-block-link
@@ -305,12 +303,12 @@ export const footer = (args: Args): TemplateResult => html`
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </p>
       </span>
-      <sbb-secondary-button
+      <sbb-secondary-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         size="m"
       >
         Subscribe
-      </sbb-secondary-button>
+      </sbb-secondary-button-link>
     </div>
     <sbb-clock
       ${sbbSpread(
