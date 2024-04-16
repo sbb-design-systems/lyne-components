@@ -98,6 +98,9 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     private _abort = new SbbConnectedAbortController(this);
     private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
 
+    protected abstract handleCheckedChange(currentValue: boolean, previousValue: boolean): void;
+    protected abstract handleDisabledChange(currentValue: boolean, previousValue: boolean): void;
+
     public select(): void {
       if (this.disabled) {
         return;
@@ -147,9 +150,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
         this.select();
       }
     }
-
-    protected abstract handleCheckedChange(currentValue: boolean, previousValue: boolean): void;
-    protected abstract handleDisabledChange(currentValue: boolean, previousValue: boolean): void;
   }
 
   return SbbRadioButtonCommonElement as unknown as AbstractConstructor<SbbRadioButtonCommonElementMixinType> &
