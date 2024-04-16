@@ -31,16 +31,25 @@ const readonly: InputType = {
   },
 };
 
+const animation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['none', 'close', 'open', 'all'],
+};
+
 const basicArgTypes: ArgTypes = {
   'title-content': titleContent,
   type: type,
   readonly: readonly,
+  animation: animation,
 };
 
 const basicArgs: Args = {
   'title-content': 'Title',
   type: type.options[0],
   readonly: false,
+  animation: animation.options[1],
 };
 
 const appendNotification = (event: Event, args: Args): void => {
@@ -53,6 +62,7 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
   newNotification.readonly = args['readonly'];
+  newNotification.animation = args['animation'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
   (event.target as SbbSecondaryButtonElement).parentElement

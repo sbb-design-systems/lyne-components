@@ -73,7 +73,7 @@ This ensures that users who rely on screen readers are promptly informed of any 
 
 ## Animation
 
-By default, the `sbb-notification` does not have an open animation. Add the `.sbb-animate` class to the element to enable it.
+By default, the `sbb-notification` only runs a close animation. Set the `animation` attribute to define what animations should run.
 
 Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
 
@@ -81,12 +81,13 @@ Add the `sbb-disable-animation` class to disable animation and transition effect
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type                                       | Default  | Description                                                                                             |
-| -------------- | --------------- | ------- | ------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------- |
-| `type`         | `type`          | public  | `'info' \| 'success' \| 'warn' \| 'error'` | `'info'` | The type of the notification.                                                                           |
-| `titleContent` | `title-content` | public  | `string \| undefined`                      |          | Content of title.                                                                                       |
-| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                            | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                      |
-| `readonly`     | `readonly`      | public  | `boolean`                                  | `false`  | Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user. |
+| Name           | Attribute       | Privacy | Type                                       | Default   | Description                                                                                             |
+| -------------- | --------------- | ------- | ------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------- |
+| `type`         | `type`          | public  | `'info' \| 'success' \| 'warn' \| 'error'` | `'info'`  | The type of the notification.                                                                           |
+| `titleContent` | `title-content` | public  | `string \| undefined`                      |           | Content of title.                                                                                       |
+| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                            | `'3'`     | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                      |
+| `readonly`     | `readonly`      | public  | `boolean`                                  | `false`   | Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user. |
+| `animation`    | `animation`     | public  | `'open' \| 'close' \| 'all' \| 'none'`     | `'close'` | The enabled animations.                                                                                 |
 
 ## Methods
 

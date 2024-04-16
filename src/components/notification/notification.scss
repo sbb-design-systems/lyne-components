@@ -42,7 +42,11 @@
 }
 
 // By default, the open animation is disabled
-:host([data-state='opening']:not(.sbb-animate)) {
+:host([data-state='opening']:not([animation='open'], [animation='all'])) {
+  @include sbb.disable-animation;
+}
+
+:host([data-state='closing']:not([animation='close'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 

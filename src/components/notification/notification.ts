@@ -68,6 +68,11 @@ export class SbbNotificationElement extends LitElement {
   @property({ reflect: true, type: Boolean }) public readonly = false;
 
   /**
+   * The enabled animations.
+   */
+  @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'close';
+
+  /**
    * The state of the notification.
    */
   private set _state(state: SbbOpenedClosedState) {
