@@ -44,7 +44,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   @property({ reflect: true, type: Boolean }) public readonly = false;
 
   /** You can choose between `m` or `l` size. */
-  @property({ reflect: true }) public size: 'm' | 'l' = 'm';
+  @property({ reflect: true }) public size: 's' | 'm' | 'l' = 'm';
 
   /** Whether the fade in animation should be disabled. */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation = false;
