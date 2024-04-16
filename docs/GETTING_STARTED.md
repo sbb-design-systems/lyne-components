@@ -28,7 +28,7 @@ Choose your technology to receive the first steps to take.
 3. Import the desired element and add it to globalThis:
 
    ```ts
-   import { SbbButtonElement } from '@sbb-esta/lyne-components/button';
+   import { SbbButtonElement } from '@sbb-esta/lyne-components/button.js';
 
    globalThis.SbbButtonElement = SbbButtonElement;
    ```
@@ -79,7 +79,7 @@ Choose your technology to receive the first steps to take.
 import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 
-import '@sbb-esta/lyne-components/button';
+import '@sbb-esta/lyne-components/button.js';
 
 @Component({
   selector: 'my-app',
@@ -172,7 +172,7 @@ bootstrapApplication(App).catch((err) => console.error(err));
    Whenever e.g. types are needed, they can be imported directly from `@sbb-esta/lyne-components` package:
 
    ```tsx
-   import type { SbbButtonSize } from '@sbb-esta/lyne-components/button';
+   import type { SbbButtonSize } from '@sbb-esta/lyne-components/button.js';
    import { SbbButton } from '@sbb-esta/lyne-components-react/button';
 
    export default function MyComponent() {
@@ -196,8 +196,8 @@ The `typography.css` file only contains a subset of the `SBBWeb` fonts that does
 For including the full fontset, we provide the `fullfont.css` file which can be added after the `typography.css` file.
 
 ```css
-@import '@sbb-esta/angular/typography.css';
-@import '@sbb-esta/angular/fullfont.css';
+@import '@sbb-esta/lyne-components/typography.css';
+@import '@sbb-esta/lyne-components/fullfont.css';
 ```
 
 ### Design Tokens
@@ -206,7 +206,7 @@ The `@sbb-esta/lyne-components` package provides the CSS variable design tokens
 from `@sbb-esta/lyne-design-tokens` in the `typography.css`.
 
 > If you have to use design tokens within javascript context,
-> please add also `@sbb-esta/lyne-design-tokens` package to your project.
+> please also add `@sbb-esta/lyne-design-tokens` package to your project.
 
 Please check `node_modules/@sbb-esta/lyne-components/typography.css` for available design tokens.
 
