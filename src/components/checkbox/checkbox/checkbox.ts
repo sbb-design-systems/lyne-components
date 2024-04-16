@@ -2,12 +2,9 @@ import { LitElement, html, type CSSResultGroup, type TemplateResult } from 'lit'
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers.js';
-import { EventEmitter } from '../../core/eventing.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import { SbbCheckboxCommonElementMixin, commonStyle } from '../common.js';
-
-import '../../visual-checkbox.js';
 
 import checkboxStyle from './checkbox.scss?lit&inline';
 
@@ -27,10 +24,6 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
   SbbIconNameMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = [commonStyle, checkboxStyle];
-  public static readonly events = {
-    didChange: 'didChange',
-    checkboxLoaded: 'checkboxLoaded',
-  } as const;
 
   /** Label size variant, either m or s. */
   @property({ reflect: true })
@@ -46,16 +39,6 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
   @property({ attribute: 'icon-placement', reflect: true })
   public iconPlacement: SbbIconPlacement = 'end';
 
-  /**
-   * @internal
-   * Internal event that emits when the checkbox is loaded.
-   */
-  private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbCheckboxElement.events.checkboxLoaded,
-    { bubbles: true },
-  );
-
   public constructor() {
     super();
     new SbbSlotStateController(this);
@@ -64,7 +47,7 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this._checkboxLoaded.emit();
+    this.checkboxLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));

@@ -8,18 +8,12 @@ import {
 import { customElement, state } from 'lit/decorators.js';
 
 import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel.js';
-import {
-  SbbCheckboxCommonElementMixin,
-  commonStyle,
-  type SbbCheckboxStateChange,
-} from '../common.js';
+import { SbbCheckboxCommonElementMixin, commonStyle } from '../common.js';
 
 import '../../screen-reader-only.js';
-import '../../visual-checkbox.js';
 
 import checkboxPanelStyle from './checkbox-panel.scss?lit&inline';
 
@@ -38,11 +32,6 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
   SbbUpdateSchedulerMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = [commonStyle, checkboxPanelStyle];
-  public static readonly events = {
-    didChange: 'didChange',
-    stateChange: 'stateChange',
-    checkboxLoaded: 'checkboxLoaded',
-  } as const;
 
   /**
    * Whether the input is the main input of a selection panel.
@@ -57,27 +46,6 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
 
   private _selectionPanelElement: SbbSelectionExpansionPanelElement | null = null;
   private _language = new SbbLanguageController(this);
-
-  /**
-   * @internal
-   * Internal event that emits whenever the state of the checkbox
-   * in relation to the parent selection panel changes.
-   */
-  private _stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
-    this,
-    SbbCheckboxPanelElement.events.stateChange,
-    { bubbles: true },
-  );
-
-  /**
-   * @internal
-   * Internal event that emits when the checkbox is loaded.
-   */
-  private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbCheckboxPanelElement.events.checkboxLoaded,
-    { bubbles: true },
-  );
 
   public constructor() {
     super();
@@ -96,7 +64,7 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
         !this.closest?.('sbb-selection-expansion-panel [slot="content"]'),
     );
 
-    this._checkboxLoaded.emit();
+    this.checkboxLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required'].forEach((p) => this.requestUpdate(p));
@@ -116,13 +84,13 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
 
     if (changedProperties.has('checked')) {
       if (this.isSelectionPanelInput && this.checked !== changedProperties.get('checked')!) {
-        this._stateChange.emit({ type: 'checked', checked: this.checked });
+        this.stateChange.emit({ type: 'checked', checked: this.checked });
         this._updateExpandedLabel();
       }
     }
     if (changedProperties.has('disabled')) {
       if (this.isSelectionPanelInput && this.disabled !== changedProperties.get('disabled')!) {
-        this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
+        this.stateChange.emit({ type: 'disabled', disabled: this.disabled });
       }
     }
   }

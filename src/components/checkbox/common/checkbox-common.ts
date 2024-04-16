@@ -1,6 +1,7 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
@@ -16,6 +17,8 @@ import {
   type SbbRequiredMixinType,
 } from '../../core/mixins.js';
 import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
+
+import '../../visual-checkbox.js';
 
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,
@@ -37,6 +40,9 @@ export declare class SbbCheckboxCommonElementMixinType
 
   protected recoverSsrState?(): void;
   protected getAndRemoveAttribute(name: string): string | null;
+
+  protected stateChange: EventEmitter<SbbCheckboxStateChange>;
+  protected checkboxLoaded: EventEmitter<void>;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -47,6 +53,12 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
     extends SbbFormAssociatedCheckboxMixin(SbbHydrationMixin(superClass))
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
+    public static readonly events = {
+      didChange: 'didChange',
+      stateChange: 'stateChange',
+      checkboxLoaded: 'checkboxLoaded',
+    } as const;
+
     /** Whether the checkbox is indeterminate. */
     @property({ type: Boolean }) public indeterminate = false;
 
@@ -55,6 +67,27 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
       return this._group;
     }
     private _group: SbbCheckboxGroupElement | null = null;
+
+    /**
+     * @internal
+     * Internal event that emits whenever the state of the checkbox
+     * in relation to the parent selection panel changes.
+     */
+    protected stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
+      this,
+      SbbCheckboxCommonElement.events.stateChange,
+      { bubbles: true },
+    );
+
+    /**
+     * @internal
+     * Internal event that emits when the checkbox is loaded.
+     */
+    protected checkboxLoaded: EventEmitter<void> = new EventEmitter(
+      this,
+      SbbCheckboxCommonElement.events.checkboxLoaded,
+      { bubbles: true },
+    );
 
     public override connectedCallback(): void {
       super.connectedCallback();
