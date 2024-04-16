@@ -31,7 +31,7 @@ Clicking on a `sbb-checkbox-panel` in this state sets `checked` to `true` and `i
 >
 ```
 
-The component can be disbaled by using the `disabled` property.
+The component can be disabled by using the `disabled` property.
 
 ```html
 <sbb-checkbox-panel value="disabled-checkbox" disabled="true">Disabled</sbb-checkbox-panel>
