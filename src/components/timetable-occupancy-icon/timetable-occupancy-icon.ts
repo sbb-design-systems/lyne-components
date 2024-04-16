@@ -1,11 +1,12 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers/index.js';
-import { i18nOccupancy } from '../core/i18n/index.js';
-import type { SbbOccupancy } from '../core/interfaces/index.js';
-import { SbbNegativeMixin } from '../core/mixins/index.js';
-import { SbbIconBase } from '../icon/index.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { setOrRemoveAttribute } from '../core/dom.js';
+import { i18nOccupancy } from '../core/i18n.js';
+import type { SbbOccupancy } from '../core/interfaces.js';
+import { SbbNegativeMixin } from '../core/mixins.js';
+import { SbbIconBase } from '../icon.js';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';
 
@@ -51,11 +52,7 @@ export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBa
     const label = (i18nOccupancy[this.occupancy] as Record<string, string>)?.[
       this._language.current
     ];
-    if (label) {
-      this.setAttribute('aria-label', label);
-    } else {
-      this.removeAttribute('aria-label');
-    }
+    setOrRemoveAttribute(this, 'aria-label', label);
   }
 
   public override connectedCallback(): void {

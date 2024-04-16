@@ -15,7 +15,7 @@ export default defineConfig((config) =>
     plugins: [
       generateReactWrappers(),
       ...(config.command === 'build' ? [dts()] : []),
-      ...(isProdBuild(config) ? [packageJsonTemplate()] : []),
+      ...(isProdBuild(config) ? [packageJsonTemplate({ exportsExtensions: ['', '.js'] })] : []),
     ],
     build: {
       lib: {

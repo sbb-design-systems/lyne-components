@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils.js';
 
 import type { SbbTertiaryButtonLinkElement } from './tertiary-button-link.js';

@@ -1,5 +1,5 @@
-import type { SbbIconConfig } from '../config/index.js';
-import { mergeConfig } from '../config/index.js';
+import type { SbbIconConfig } from '../config.js';
+import { mergeConfig } from '../config.js';
 
 function setupIconConfig(): void {
   const testNamespaces = ['default', 'picto'];

@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isFirefox } from '../core/dom/index.js';
-import { describeIf } from '../core/testing/index.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
+import { isFirefox } from '../core/dom.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { describeIf } from '../core/testing.js';
 
 import type { SbbToastElement } from './toast.js';
 

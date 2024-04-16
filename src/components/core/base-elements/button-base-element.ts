@@ -1,8 +1,8 @@
 import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../decorators/index.js';
-import { isEventPrevented } from '../eventing/index.js';
+import { hostAttributes } from '../decorators.js';
+import { isEventPrevented } from '../eventing.js';
 
 import { SbbActionBaseElement } from './action-base-element.js';
 

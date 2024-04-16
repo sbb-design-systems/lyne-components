@@ -3,14 +3,14 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { i18nTimeInputChange } from '../core/i18n/index.js';
-import type { SbbValidationChangeEvent } from '../core/interfaces/index.js';
-import { EventSpy, waitForLitRender } from '../core/testing/index.js';
-import { clearElement, fixture, typeInElement } from '../core/testing/private/index.js';
+import { i18nTimeInputChange } from '../core/i18n.js';
+import type { SbbValidationChangeEvent } from '../core/interfaces.js';
+import { clearElement, fixture, typeInElement } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
 import { SbbTimeInputElement } from './time-input.js';
 
-import '../form-field/form-field/index.js';
+import '../form-field/form-field.js';
 
 describe(`sbb-time-input with ${fixture.name}`, () => {
   let element: SbbTimeInputElement, input: HTMLInputElement;
@@ -232,7 +232,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
           <input />
         </sbb-form-field>
       `,
-      { modules: ['../form-field/index.ts', './time-input.ts'] },
+      { modules: ['../form-field.ts', './time-input.ts'] },
     );
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;

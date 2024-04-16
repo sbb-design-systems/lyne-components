@@ -5,12 +5,12 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../form-error/index.js';
+import type { SbbFormErrorElement } from '../form-error.js';
 
 import { SbbFileSelectorElement } from './file-selector.js';
 import readme from './readme.md?raw';
 
-import '../form-error/index.js';
+import '../form-error.js';
 
 const variant: InputType = {
   control: {

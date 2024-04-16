@@ -8,8 +8,9 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
-import type { SbbTagElement } from '../tag/index.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import type { SbbTagElement } from '../tag.js';
 
 import style from './tag-group.scss?lit&inline';
 
@@ -97,11 +98,13 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
         .slice(1)
         .forEach((tag) => (tag.checked = false));
     }
-    if (changedProperties.has('listAccessibilityLabel') && this.listAccessibilityLabel) {
-      this.removeAttribute('role');
-    } else {
-      this.setAttribute('role', 'group');
-    }
+    setOrRemoveAttribute(
+      this,
+      'role',
+      changedProperties.has('listAccessibilityLabel') && this.listAccessibilityLabel
+        ? null
+        : 'group',
+    );
   }
 
   protected override render(): TemplateResult {

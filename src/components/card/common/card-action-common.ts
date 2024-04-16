@@ -2,16 +2,16 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y/index.js';
-import type { SbbActionBaseElement } from '../../core/base-elements/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import type { AbstractConstructor } from '../../core/mixins/index.js';
-import { AgnosticMutationObserver } from '../../core/observers/index.js';
-import type { SbbCardElement } from '../card/index.js';
+import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.js';
+import { hostAttributes } from '../../core/decorators.js';
+import type { AbstractConstructor } from '../../core/mixins.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
+import type { SbbCardElement } from '../card.js';
 
 import style from './card-action.scss?lit&inline';
 
-import '../../screen-reader-only/index.js';
+import '../../screen-reader-only.js';
 
 export declare class SbbCardActionCommonElementMixinType {
   public active: boolean;

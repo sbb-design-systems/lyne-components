@@ -1,8 +1,7 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-clock-hours-animation-start-angle: 0deg;
@@ -11,6 +10,8 @@
   --sbb-clock-seconds-animation-duration: 0s;
   --sbb-clock-animation-play-state: paused;
   --sbb-clock-seconds-hand-color: var(--sbb-color-red);
+
+  display: block;
 }
 
 .sbb-clock {

@@ -1,5 +1,4 @@
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -7,30 +6,25 @@ import {
   getFirstFocusableElement,
   getFocusableElements,
   setModalityOnNextFocus,
-} from '../../core/a11y/index.js';
-import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import {
-  findReferencedElement,
-  isBreakpoint,
-  isValidAttribute,
-  setAttribute,
-} from '../../core/dom/index.js';
-import { i18nGoBack } from '../../core/i18n/index.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins/index.js';
+} from '../../core/a11y.js';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { findReferencedElement, isBreakpoint, setOrRemoveAttribute } from '../../core/dom.js';
+import { i18nGoBack } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay/index.js';
-import type { SbbNavigationElement } from '../navigation/index.js';
-import type { SbbNavigationButtonElement } from '../navigation-button/index.js';
-import type { SbbNavigationLinkElement } from '../navigation-link/index.js';
+} from '../../core/overlay.js';
+import type { SbbNavigationButtonElement } from '../navigation-button.js';
+import type { SbbNavigationLinkElement } from '../navigation-link.js';
+import type { SbbNavigationElement } from '../navigation.js';
 
 import style from './navigation-section.scss?lit&inline';
 
-import '../../button/transparent-button/index.js';
-import '../../divider/index.js';
+import '../../button/transparent-button.js';
+import '../../divider.js';
 
 let nextId = 0;
 
@@ -89,7 +83,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
    */
   private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
-    setAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
+    setOrRemoveAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
   }
   private get _state(): SbbOpenedClosedState {
     return this.getAttribute('data-state') as SbbOpenedClosedState;
@@ -251,7 +245,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
   private _isCloseElement(element: HTMLElement): boolean {
     return (
       element.nodeName === 'A' ||
-      (!isValidAttribute(element, 'disabled') &&
+      (!element.hasAttribute('disabled') &&
         (element.hasAttribute('sbb-navigation-close') ||
           element.hasAttribute('sbb-navigation-section-close')))
     );

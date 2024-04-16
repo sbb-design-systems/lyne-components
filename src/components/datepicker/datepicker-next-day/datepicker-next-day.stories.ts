@@ -16,8 +16,8 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './datepicker-next-day.js';
-import '../../form-field/index.js';
-import '../datepicker/index.js';
+import '../../form-field.js';
+import '../datepicker.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

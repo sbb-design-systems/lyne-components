@@ -6,8 +6,9 @@ import type { PluginOption, ResolvedConfig } from 'vite';
 import { root } from './build-meta.js';
 
 export function packageJsonTemplate(
-  options: { exports?: Record<string, Record<string, unknown>> } = {},
+  options: { exports?: Record<string, Record<string, unknown>>; exportsExtensions?: string[] } = {},
 ): PluginOption {
+  options.exportsExtensions ??= ['.js'];
   let viteConfig: ResolvedConfig;
   return {
     name: 'package-json-templating',
@@ -40,13 +41,16 @@ export function packageJsonTemplate(
           .sort((a, b) => a[0].localeCompare(b[0]))
           .reduce(
             (current, next) =>
-              Object.assign(current, {
-                [`./${next[0].replace(/\/index$/, '')}`]: {
-                  types: `./development/${next[0]}.d.ts`,
-                  development: `./development/${next[0]}.js`,
-                  default: `./${next[0]}.js`,
-                },
-              }),
+              Object.assign(
+                current,
+                ...options.exportsExtensions!.map((ext) => ({
+                  [`./${next[0]}${ext}`]: {
+                    types: `./development/${next[0]}.d.ts`,
+                    development: `./development/${next[0]}.js`,
+                    default: `./${next[0]}.js`,
+                  },
+                })),
+              ),
             { ...options.exports, './package.json': { default: './package.json' } } as Record<
               string,
               Record<string, string>

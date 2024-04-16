@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 
-import ts from 'typescript';
+import * as ts from 'typescript';
 
 const chromaticFile = join(
   dirname(fileURLToPath(import.meta.url)),

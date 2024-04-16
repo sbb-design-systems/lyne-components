@@ -1,6 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -16,8 +16,8 @@ import {
 import readme from './readme.md?raw';
 
 import './journey-summary.js';
-import '../button/button/index.js';
-import '../button/secondary-button/index.js';
+import '../button/button.js';
+import '../button/secondary-button.js';
 
 const disableAnimation: InputType = {
   control: {

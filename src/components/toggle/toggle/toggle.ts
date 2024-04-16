@@ -3,22 +3,18 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import {
-  isArrowKeyPressed,
-  getNextElementIndex,
-  interactivityChecker,
-} from '../../core/a11y/index.js';
-import { SbbConnectedAbortController } from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import { isBrowser } from '../../core/dom/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { isBrowser } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbStateChange,
   SbbValueStateChange,
-} from '../../core/interfaces/index.js';
-import { AgnosticResizeObserver } from '../../core/observers/index.js';
-import type { SbbToggleOptionElement } from '../toggle-option/index.js';
+} from '../../core/interfaces.js';
+import { AgnosticResizeObserver } from '../../core/observers.js';
+import type { SbbToggleOptionElement } from '../toggle-option.js';
 
 import style from './toggle.scss?lit&inline';
 

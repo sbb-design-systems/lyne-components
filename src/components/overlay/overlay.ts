@@ -3,26 +3,22 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import {
-  SbbFocusHandler,
-  getFirstFocusableElement,
-  setModalityOnNextFocus,
-} from '../core/a11y/index.js';
-import { SbbLanguageController } from '../core/controllers/index.js';
-import { SbbScrollHandler, isValidAttribute, hostContext } from '../core/dom/index.js';
-import { EventEmitter } from '../core/eventing/index.js';
-import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n/index.js';
-import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
-import { SbbNegativeMixin } from '../core/mixins/index.js';
-import { applyInertMechanism, removeInertMechanism } from '../core/overlay/index.js';
-import type { SbbScreenReaderOnlyElement } from '../screen-reader-only/index.js';
+import { getFirstFocusableElement, SbbFocusHandler, setModalityOnNextFocus } from '../core/a11y.js';
+import { SbbLanguageController } from '../core/controllers.js';
+import { hostContext, SbbScrollHandler } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
+import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n.js';
+import type { SbbOpenedClosedState } from '../core/interfaces.js';
+import { SbbNegativeMixin } from '../core/mixins.js';
+import { applyInertMechanism, removeInertMechanism } from '../core/overlay.js';
+import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
 
 import style from './overlay.scss?lit&inline';
 
-import '../button/secondary-button/index.js';
-import '../button/transparent-button/index.js';
-import '../container/index.js';
-import '../screen-reader-only/index.js';
+import '../button/secondary-button.js';
+import '../button/transparent-button.js';
+import '../container.js';
+import '../screen-reader-only.js';
 
 // A global collection of existing overlays
 const overlayRefs: SbbOverlayElement[] = [];
@@ -252,8 +248,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
       .composedPath()
       .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
       .find(
-        (target) =>
-          target.hasAttribute('sbb-overlay-close') && !isValidAttribute(target, 'disabled'),
+        (target) => target.hasAttribute('sbb-overlay-close') && !target.hasAttribute('disabled'),
       );
 
     if (!overlayCloseElement) {

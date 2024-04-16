@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import images from '../core/images.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
 import type { SbbTeaserElement } from './teaser.js';
 

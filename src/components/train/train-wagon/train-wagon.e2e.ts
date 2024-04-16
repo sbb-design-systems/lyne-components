@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbIconElement } from '../../icon/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbIconElement } from '../../icon.js';
 
 import { SbbTrainWagonElement } from './train-wagon.js';
 
@@ -34,7 +34,7 @@ describe(`sbb-train-wagon with ${fixture.name}`, () => {
         <sbb-icon name="sa-rs"></sbb-icon>
         <sbb-icon name="sa-rs"></sbb-icon>
       </sbb-train-wagon>`,
-      { modules: ['./train-wagon.ts', '../../icon/index.ts'] },
+      { modules: ['./train-wagon.ts', '../../icon.ts'] },
     );
 
     Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {

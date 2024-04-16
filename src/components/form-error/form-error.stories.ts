@@ -7,7 +7,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../icon/index.js';
+import '../icon.js';
 import './form-error.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

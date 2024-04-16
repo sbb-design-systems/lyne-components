@@ -2,12 +2,12 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import sampleImages from '../core/images.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private/index.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
 import type { SbbTeaserHeroElement } from './teaser-hero.js';
 
 import './teaser-hero.js';
-import '../image/index.js';
+import '../image.js';
 
 describe(`sbb-teaser-hero`, () => {
   describe('should render all properties', () => {

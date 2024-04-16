@@ -7,12 +7,12 @@ import { html } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbSecondaryButtonElement } from '../button/index.js';
+import type { SbbSecondaryButtonElement } from '../button.js';
 
 import { SbbNotificationElement } from './notification.js';
 import readme from './readme.md?raw';
-import '../button/secondary-button/index.js';
-import '../link/link/index.js';
+import '../button/secondary-button.js';
+import '../link/link.js';
 
 const titleContent: InputType = {
   control: {

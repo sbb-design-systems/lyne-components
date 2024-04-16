@@ -19,6 +19,8 @@ For progress indication, we use labels to indicate a specific expectation:
 - When a pull request is reviewed by a lead developer, the label "pr: lead review approved" is automatically added and the label "pr: lead review required" is removed
 - When a pull request should be reviewed by UX, the label "pr: ux review required" should be added
 - When a pull request is reviewed by UX, the label "pr: ux review approved" is automatically added and the label "pr: ux review required" is removed
+- When a pull request should be reviewed by an accessibility expert, the label "pr: a11y review required" should be added
+- When a pull request is reviewed by an accessibility expert, the label "pr: a11y review approved" can manually be added and "pr: a11y review required" can manually be removed
 - When a pull request should not be considered/merged/reviewed, add the label "pr: blocked"
 
 ## Review Checks

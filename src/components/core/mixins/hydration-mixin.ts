@@ -1,6 +1,6 @@
 import { isServer, type LitElement, type PropertyValues } from 'lit';
 
-import { forwardEventToHost } from '../eventing/index.js';
+import { forwardEventToHost } from '../eventing.js';
 
 import type { AbstractConstructor } from './constructor.js';
 

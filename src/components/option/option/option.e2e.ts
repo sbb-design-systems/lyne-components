@@ -2,17 +2,17 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete/index.js';
-import { waitForLitRender, EventSpy } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbFormFieldElement } from '../../form-field/index.js';
-import type { SbbOptGroupElement } from '../optgroup/index.js';
+import type { SbbAutocompleteElement } from '../../autocomplete.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender, EventSpy } from '../../core/testing.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbOptGroupElement } from '../optgroup.js';
 
 import { SbbOptionElement } from './option.js';
 
-import '../../autocomplete/index.js';
-import '../../form-field/index.js';
-import '../optgroup/index.js';
+import '../../autocomplete.js';
+import '../../form-field.js';
+import '../optgroup.js';
 
 describe(`sbb-option with ${fixture.name}`, () => {
   describe('autocomplete', () => {
@@ -30,7 +30,7 @@ describe(`sbb-option with ${fixture.name}`, () => {
             </sbb-autocomplete>
           </sbb-form-field>
         `,
-        { modules: ['../../form-field/index.ts', '../../autocomplete/index.ts', './option.ts'] },
+        { modules: ['../../form-field.ts', '../../autocomplete.ts', './option.ts'] },
       );
     });
 
@@ -176,9 +176,9 @@ describe(`sbb-option with ${fixture.name}`, () => {
         `,
         {
           modules: [
-            '../../form-field/index.ts',
-            '../../autocomplete/index.ts',
-            '../optgroup/index.ts',
+            '../../form-field.ts',
+            '../../autocomplete.ts',
+            '../optgroup.ts',
             './option.ts',
           ],
         },

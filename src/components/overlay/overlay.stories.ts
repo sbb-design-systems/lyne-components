@@ -9,7 +9,7 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
@@ -22,11 +22,11 @@ import sampleImages from '../core/images.js';
 import { SbbOverlayElement } from './overlay.js';
 import readme from './readme.md?raw';
 
-import '../button/index.js';
-import '../form-field/index.js';
-import '../image/index.js';
-import '../link/index.js';
-import '../title/index.js';
+import '../button.js';
+import '../form-field.js';
+import '../image.js';
+import '../link.js';
+import '../title.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

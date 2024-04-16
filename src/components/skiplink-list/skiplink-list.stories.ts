@@ -1,7 +1,7 @@
 import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -12,7 +12,7 @@ import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-p
 import readme from './readme.md?raw';
 
 import './skiplink-list.js';
-import '../link/block-link/index.js';
+import '../link/block-link.js';
 
 const titleContent: InputType = {
   control: {

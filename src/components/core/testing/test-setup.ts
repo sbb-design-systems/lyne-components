@@ -1,6 +1,6 @@
-import { sbbInputModalityDetector } from '../a11y/index.js';
-import type { SbbIconConfig } from '../config/index.js';
-import { mergeConfig } from '../config/index.js';
+import { sbbInputModalityDetector } from '../a11y.js';
+import type { SbbIconConfig } from '../config.js';
+import { mergeConfig } from '../config.js';
 
 import { isHydratedSsr } from './platform.js';
 

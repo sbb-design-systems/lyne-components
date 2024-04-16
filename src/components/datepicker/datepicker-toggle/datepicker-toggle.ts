@@ -3,22 +3,21 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbCalendarElement } from '../../calendar/index.js';
-import { sbbInputModalityDetector } from '../../core/a11y/index.js';
-import { SbbLanguageController } from '../../core/controllers/index.js';
-import { readDataNow } from '../../core/datetime/data-now.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import { isValidAttribute } from '../../core/dom/index.js';
-import { i18nShowCalendar } from '../../core/i18n/index.js';
-import { SbbNegativeMixin } from '../../core/mixins/index.js';
-import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover/index.js';
-import type { SbbInputUpdateEvent, SbbDatepickerElement } from '../datepicker/index.js';
-import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker/index.js';
+import type { SbbCalendarElement } from '../../calendar.js';
+import { sbbInputModalityDetector } from '../../core/a11y.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { readDataNow } from '../../core/datetime.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { i18nShowCalendar } from '../../core/i18n.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover.js';
+import type { SbbDatepickerElement, SbbInputUpdateEvent } from '../datepicker.js';
+import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker.js';
 
 import style from './datepicker-toggle.scss?lit&inline';
 
-import '../../calendar/index.js';
-import '../../popover/index.js';
+import '../../calendar.js';
+import '../../popover.js';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
@@ -72,7 +71,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
   }
 

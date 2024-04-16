@@ -2,21 +2,17 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { readConfig } from '../../core/config/index.js';
-import {
-  SbbConnectedAbortController,
-  SbbLanguageController,
-} from '../../core/controllers/index.js';
-import { readDataNow } from '../../core/datetime/data-now.js';
-import type { DateAdapter } from '../../core/datetime/index.js';
-import { defaultDateAdapter } from '../../core/datetime/index.js';
-import { findInput, findReferencedElement, isValidAttribute } from '../../core/dom/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n/index.js';
-import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces/index.js';
-import { AgnosticMutationObserver } from '../../core/observers/index.js';
-import type { SbbDatepickerButton } from '../common/datepicker-button.js';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle/index.js';
+import { readConfig } from '../../core/config.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { type DateAdapter, readDataNow } from '../../core/datetime.js';
+import { defaultDateAdapter } from '../../core/datetime.js';
+import { findInput, findReferencedElement } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
+import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
+import type { SbbDatepickerButton } from '../common.js';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 
 import style from './datepicker.scss?lit&inline';
 
@@ -415,7 +411,7 @@ export class SbbDatepickerElement extends LitElement {
             this._inputElement?.min,
             this._inputElement?.max,
           ));
-      const wasValid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
+      const wasValid = !this._inputElement.hasAttribute('data-sbb-invalid');
       this._inputElement.toggleAttribute('data-sbb-invalid', !isEmptyOrValid);
       if (wasValid !== isEmptyOrValid) {
         this._validationChange.emit({ valid: isEmptyOrValid });

@@ -1,8 +1,8 @@
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements/index.js';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins/disabled-mixin.js';
-import { SbbMenuActionCommonElementMixin } from '../common/index.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
+import { SbbMenuActionCommonElementMixin } from '../common.js';
 
 /**
  * It displays a button element that can be used in the `sbb-menu` component.

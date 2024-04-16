@@ -5,7 +5,7 @@ name: Continuous Integration Secure
 # https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
 on:
   workflow_run:
-    workflows: ['Continuous Integration']
+    workflows: [Continuous Integration]
     types: [completed]
 
 permissions:
@@ -73,7 +73,7 @@ jobs:
         # This label is used for filtering deployments in ArgoCD
         uses: actions-ecosystem/action-add-labels@v1
         with:
-          labels: 'preview-available'
+          labels: preview-available
           number: ${{ env.PR_NUMBER }}
 
   codecov:

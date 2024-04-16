@@ -4,6 +4,7 @@ export * from './copy-sass.js';
 export * from './custom-elements-manifest.js';
 export * from './dts.js';
 export * from './generate-react-wrappers.js';
-export * from './index-map.js';
 export * from './package-json-template.js';
+export * from './resolve-entry-points.js';
 export * from './typography.js';
+export * from './verify-entry-points.js';

@@ -9,8 +9,8 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './action-group.js';
-import '../button/index.js';
-import '../link/block-link/index.js';
+import '../button.js';
+import '../link/block-link.js';
 
 const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`
   <sbb-secondary-button align-self=${alignSelf || nothing}> Button 1 </sbb-secondary-button>

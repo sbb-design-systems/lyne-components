@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
 import type { SbbTagGroupElement } from './tag-group.js';
 import './tag-group.js';
-import '../tag/index.js';
+import '../tag.js';
 
 describe(`sbb-tag-group`, () => {
   let element: SbbTagGroupElement;

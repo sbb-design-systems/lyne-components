@@ -8,8 +8,8 @@ import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
 
-import '../chip/index.js';
-import '../image/index.js';
+import '../chip.js';
+import '../image.js';
 import './teaser-paid.js';
 
 const ariaLabel: InputType = {

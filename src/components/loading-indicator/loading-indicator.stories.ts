@@ -1,7 +1,7 @@
 import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -10,7 +10,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import type { SbbLoadingIndicatorElement } from './loading-indicator.js';
 import readme from './readme.md?raw';
-import '../button/button/index.js';
+import '../button/button.js';
 import './loading-indicator.js';
 
 const textBlockStyle: Args = {

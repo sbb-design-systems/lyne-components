@@ -9,19 +9,19 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
-import type { SbbButtonElement } from '../button/index.js';
+import type { SbbButtonElement } from '../button.js';
 
 import readme from './readme.md?raw';
 import { SbbToastElement } from './toast.js';
-import '../button/button/index.js';
-import '../button/transparent-button/index.js';
-import '../link/link/index.js';
+import '../button/button.js';
+import '../button/transparent-button.js';
+import '../link/link.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
