@@ -18,14 +18,21 @@ export const visualRegressionConfig = (update) =>
       mkdirSync(dirname(cacheFile), { recursive: true });
       const baselineFileUrl = baselineUrl + name + extname(filePath);
       const downloadFile = async () => {
-        const response = await fetch(baselineFileUrl);
-        if (response.ok) {
-          writeFileSync(cacheFile, Buffer.from(new Uint8Array(await response.arrayBuffer())));
-          writeFileSync(
-            cacheFileDetails,
-            JSON.stringify({ etag: response.headers.get('etag') }, null, 2),
-            'utf8',
-          );
+        try {
+          const response = await fetch(baselineFileUrl);
+
+          if (response.ok) {
+            writeFileSync(cacheFile, Buffer.from(new Uint8Array(await response.arrayBuffer())));
+            writeFileSync(
+              cacheFileDetails,
+              JSON.stringify({ etag: response.headers.get('etag') }, null, 2),
+              'utf8',
+            );
+
+            return readFileSync(cacheFile);
+          }
+        } catch {
+          /* empty */
         }
       };
 
@@ -36,8 +43,7 @@ export const visualRegressionConfig = (update) =>
           headers: { 'if-none-match': details.etag },
         });
         if (response.status === 200) {
-          await downloadFile();
-          return readFileSync(cacheFile);
+          return await downloadFile();
         } else if (response.status === 404) {
           unlinkSync(cacheFile);
           unlinkSync(cacheFileDetails);
@@ -47,8 +53,7 @@ export const visualRegressionConfig = (update) =>
           console.error(`Unexpected response from baseline service: ${response.status} (${name})`);
         }
       } else {
-        await downloadFile();
-        return readFileSync(cacheFile);
+        return await downloadFile();
       }
     },
   });
