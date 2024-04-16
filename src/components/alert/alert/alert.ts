@@ -121,6 +121,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
     }
   }
 
+  // FIXME revert me
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>
