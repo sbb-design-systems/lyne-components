@@ -1,14 +1,83 @@
 @use '../../core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
 :host {
   display: block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
+
+  @include sbb.if-forced-colors {
+    --sbb-radio-button-background-color: Canvas !important;
+    --sbb-radio-button-border-width: var(--sbb-border-width-2x);
+    --sbb-radio-button-border-color: ButtonBorder;
+  }
 }
 
+// Change the focus outline when the input is placed inside of a selection panel
+// as the main input element.
+:host(:focus-visible[data-is-selection-panel-input]) {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  .sbb-radio-button::after {
+    content: '';
+    position: absolute;
+    display: block;
+    inset-block: calc(
+      (var(--sbb-spacing-responsive-xs) * -1) + var(--sbb-focus-outline-width) -
+        (var(--sbb-focus-outline-offset) * 2)
+    );
+    inset-inline: calc(
+      (var(--sbb-spacing-responsive-xxs) * -1) + var(--sbb-focus-outline-width) -
+        (var(--sbb-focus-outline-offset) * 2)
+    );
+    border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
+    border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
+  }
+}
+
+:host([checked]) {
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-red);
+  --sbb-radio-button-background-fake-border-width: calc(
+    (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
+  );
+
+  @include sbb.if-forced-colors {
+    --sbb-radio-button-inner-circle-color: Highlight;
+    --sbb-radio-button-border-color: Highlight;
+  }
+}
+
+// Disabled definitions have to be after checked definitions
+:host([disabled]) {
+  --sbb-radio-button-label-color: var(--sbb-color-granite);
+  --sbb-radio-button-background-color: var(--sbb-color-milk);
+  --sbb-radio-button-border-style: dashed;
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-radio-button-inner-circle-color: GrayText;
+    --sbb-radio-button-border-color: GrayText;
+    --sbb-radio-button-border-style: solid;
+  }
+}
+
+// One radio button per line
 .sbb-radio-button {
+  @include sbb.text-m--regular;
+
+  display: block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
   :host([size='s']) & {
     @include sbb.text-s--regular;
   }
