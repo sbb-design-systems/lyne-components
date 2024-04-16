@@ -18,9 +18,10 @@ $open-anim-opacity-to: 1;
   --sbb-alert-icon-size: #{sbb.px-to-rem-build(20)};
   --sbb-alert-close-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
-
-  // By default, the open animation is disabled
-  --sbb-alert-open-animation-duration: 0ms;
+  --sbb-alert-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-6x)
+  );
 
   @include sbb.mq($from: medium) {
     --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
@@ -36,8 +37,8 @@ $open-anim-opacity-to: 1;
   display: block;
 }
 
-:host(.sbb-animate) {
-  --sbb-alert-open-animation-duration: var(--sbb-animation-duration-6x);
+:host([animation='none']) {
+  @include sbb.disable-animation;
 }
 
 :host([size='l']) {

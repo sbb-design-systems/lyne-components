@@ -131,6 +131,13 @@ const accessibilityLabel: InputType = {
   },
 };
 
+const animation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['none', 'open'],
+};
+
 const defaultArgTypes: ArgTypes = {
   'title-content': titleContent,
   'title-level': titleLevel,
@@ -143,6 +150,7 @@ const defaultArgTypes: ArgTypes = {
   target,
   rel,
   'accessibility-label': accessibilityLabel,
+  animation: animation,
 };
 
 const defaultArgs: Args = {
@@ -158,6 +166,7 @@ const defaultArgs: Args = {
   target: undefined,
   rel: undefined,
   'accessibility-label': undefined,
+  animation: animation.options[0],
 };
 
 export const defaultAlert: StoryObj = {

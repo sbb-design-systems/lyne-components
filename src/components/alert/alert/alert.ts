@@ -74,6 +74,9 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   /** This will be forwarded as aria-label to the relevant nested element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
+  /** The enabled animations. */
+  @property({ reflect: true }) public animation: 'open' | 'none' = 'none';
+
   /** The state of the alert. */
   private get _state(): SbbAlertState {
     return (this.getAttribute('data-state') as SbbAlertState | null) ?? 'closed';

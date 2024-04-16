@@ -73,7 +73,7 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 ## Animation
 
-By default, the `sbb-alert` does not have an open animation. Add the `.sbb-animate` class to the element to enable a fade-in animation.
+By default, the `sbb-alert` does not have an open animation. Set `[animation]='open'` to enable a fade-in animation.
 
 <!-- Auto Generated Below -->
 
@@ -91,6 +91,7 @@ By default, the `sbb-alert` does not have an open animation. Add the `.sbb-anima
 | `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |          | Where to display the linked URL.                                                                                                                                 |
 | `rel`                | `rel`                 | public  | `string \| undefined`                   |          | The relationship of the linked URL as space-separated link types.                                                                                                |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |          | This will be forwarded as aria-label to the relevant nested element.                                                                                             |
+| `animation`          | `animation`           | public  | `'open' \| 'none'`                      | `'none'` | The enabled animations.                                                                                                                                          |
 
 ## Methods
 
