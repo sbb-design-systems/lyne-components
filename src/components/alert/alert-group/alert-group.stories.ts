@@ -10,7 +10,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { SbbAlertGroupElement } from './alert-group.js';
 import readme from './readme.md?raw';
 
-import '../alert/index.js';
+import '../alert.js';
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-alert-group ${sbbSpread(args)}>

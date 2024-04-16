@@ -1,14 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
-import type { SbbFormFieldElement } from '../../form-field/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
 
 import type { SbbDatepickerNextDayElement } from './datepicker-next-day.js';
 
 import './datepicker-next-day.js';
-import '../datepicker/index.js';
-import '../../form-field/index.js';
+import '../datepicker.js';
+import '../../form-field.js';
 
 describe(`sbb-datepicker-next-day`, () => {
   it('renders', async () => {

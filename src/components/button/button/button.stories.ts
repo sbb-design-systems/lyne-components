@@ -27,7 +27,7 @@ import {
 } from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
-import '../../loading-indicator/index.js';
+import '../../loading-indicator.js';
 import './button.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonDefaultArgTypes };

@@ -7,8 +7,8 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
+import placeholderImage from './assets/placeholder.png';
 import readme from './readme.md?raw';
-import placeholderImage from './stories/placeholder.png';
 import './teaser.js';
 
 const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor

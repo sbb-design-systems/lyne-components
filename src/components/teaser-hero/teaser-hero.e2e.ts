@@ -2,8 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import images from '../core/images.js';
-import { waitForLitRender } from '../core/testing/index.js';
-import { fixture } from '../core/testing/private/index.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
 import { SbbTeaserHeroElement } from './teaser-hero.js';
 

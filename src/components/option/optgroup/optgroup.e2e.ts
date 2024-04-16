@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbOptionElement } from '../option/index.js';
-import '../option/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import type { SbbOptionElement } from '../option.js';
+import '../option.js';
 
 import { SbbOptGroupElement } from './optgroup.js';
 
@@ -20,7 +20,7 @@ describe(`sbb-optgroup with ${fixture.name}`, () => {
           <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
         </sbb-optgroup>
       `,
-      { modules: ['./optgroup.ts', '../option/index.ts'] },
+      { modules: ['./optgroup.ts', '../option.ts'] },
     );
   });
 

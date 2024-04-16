@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing/index.js';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private/index.js';
-import type { SbbToggleOptionElement } from '../toggle-option/index.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import type { SbbToggleOptionElement } from '../toggle-option.js';
 
 import type { SbbToggleElement } from './toggle.js';
 import './toggle.js';
-import '../toggle-option/index.js';
+import '../toggle-option.js';
 
 describe(`sbb-toggle`, () => {
   let option: SbbToggleOptionElement, page: SbbToggleElement;

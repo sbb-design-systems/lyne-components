@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../../core/testing/index.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
 import { SbbDialogTitleElement } from './dialog-title.js';
 

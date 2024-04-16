@@ -17,15 +17,15 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
-import type { SbbPopoverTriggerElement } from '../../popover/index.js';
+import type { SbbPopoverTriggerElement } from '../../popover.js';
 
 import { SbbDatepickerElement } from './datepicker.js';
 import readme from './readme.md?raw';
 
-import '../datepicker-next-day/index.js';
-import '../datepicker-previous-day/index.js';
-import '../datepicker-toggle/index.js';
-import '../../form-field/index.js';
+import '../datepicker-next-day.js';
+import '../datepicker-previous-day.js';
+import '../datepicker-toggle.js';
+import '../../form-field.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

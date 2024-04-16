@@ -8,22 +8,22 @@ import {
   IS_FOCUSABLE_QUERY,
   SbbFocusHandler,
   setModalityOnNextFocus,
-} from '../../core/a11y/index.js';
-import { SbbLanguageController } from '../../core/controllers/index.js';
-import { findReferencedElement } from '../../core/dom/index.js';
-import { composedPathHasAttribute, EventEmitter } from '../../core/eventing/index.js';
-import { i18nClosePopover } from '../../core/i18n/index.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
+} from '../../core/a11y.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { findReferencedElement } from '../../core/dom.js';
+import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
+import { i18nClosePopover } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import {
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay/index.js';
+} from '../../core/overlay.js';
 
 import style from './popover.scss?lit&inline';
 
-import '../../button/secondary-button/index.js';
+import '../../button/secondary-button.js';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;

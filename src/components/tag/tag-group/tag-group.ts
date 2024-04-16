@@ -8,9 +8,9 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { setOrRemoveAttribute } from '../../core/dom/index.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins/index.js';
-import type { SbbTagElement } from '../tag/index.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import type { SbbTagElement } from '../tag.js';
 
 import style from './tag-group.scss?lit&inline';
 

@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbCardElement } from '../card/index.js';
-import { EventSpy, waitForCondition } from '../core/testing/index.js';
-import { fixture } from '../core/testing/private/index.js';
+import type { SbbCardElement } from '../card.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForCondition } from '../core/testing.js';
 
 import { SbbTimetableRowElement } from './timetable-row.js';
 

@@ -2,20 +2,17 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements/index.js';
-import {
-  SbbConnectedAbortController,
-  SbbLanguageController,
-} from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import { hostContext } from '../../core/dom/index.js';
-import { i18nClearInput } from '../../core/i18n/index.js';
-import { SbbNegativeMixin } from '../../core/mixins/index.js';
-import type { SbbFormFieldElement } from '../form-field/index.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { hostContext } from '../../core/dom.js';
+import { i18nClearInput } from '../../core/i18n.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 
 import style from './form-field-clear.scss?lit&inline';
 
-import '../../icon/index.js';
+import '../../icon.js';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.

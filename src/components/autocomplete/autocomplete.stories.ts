@@ -16,14 +16,14 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
-import type { SbbFormErrorElement } from '../form-error/index.js';
-import { SbbOptionElement } from '../option/index.js';
+import type { SbbFormErrorElement } from '../form-error.js';
+import { SbbOptionElement } from '../option.js';
 
 import { SbbAutocompleteElement } from './autocomplete.js';
 import readme from './readme.md?raw';
 
-import '../form-field/index.js';
-import '../form-error/index.js';
+import '../form-field.js';
+import '../form-error.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

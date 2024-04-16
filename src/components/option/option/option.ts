@@ -8,21 +8,18 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import {
-  SbbConnectedAbortController,
-  SbbSlotStateController,
-} from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
-import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { SbbDisabledMixin } from '../../core/mixins/index.js';
-import { AgnosticMutationObserver } from '../../core/observers/index.js';
-import { SbbIconNameMixin } from '../../icon/index.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
+import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './option.scss?lit&inline';
 
-import '../../screen-reader-only/index.js';
-import '../../visual-checkbox/index.js';
+import '../../screen-reader-only.js';
+import '../../visual-checkbox.js';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.

@@ -9,12 +9,12 @@ import {
   isArrowKeyPressed,
   SbbFocusHandler,
   setModalityOnNextFocus,
-} from '../../core/a11y/index.js';
-import { SbbConnectedAbortController } from '../../core/controllers/index.js';
-import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
-import { SbbNamedSlotListMixin } from '../../core/mixins/index.js';
+} from '../../core/a11y.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   applyInertMechanism,
   getElementPosition,
@@ -22,8 +22,9 @@ import {
   removeAriaOverlayTriggerAttributes,
   removeInertMechanism,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay/index.js';
-import type { SbbMenuButtonElement, SbbMenuLinkElement } from '../index.js';
+} from '../../core/overlay.js';
+import type { SbbMenuButtonElement } from '../menu-button.js';
+import type { SbbMenuLinkElement } from '../menu-link.js';
 
 import style from './menu.scss?lit&inline';
 

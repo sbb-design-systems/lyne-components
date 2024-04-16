@@ -3,11 +3,11 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y/index.js';
-import { SbbConnectedAbortController } from '../../core/controllers/index.js';
-import { EventEmitter, throttle } from '../../core/eventing/index.js';
-import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers/index.js';
-import type { SbbTabTitleElement } from '../tab-title/index.js';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { EventEmitter, throttle } from '../../core/eventing.js';
+import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
+import type { SbbTabTitleElement } from '../tab-title.js';
 
 import style from './tab-group.scss?lit&inline';
 

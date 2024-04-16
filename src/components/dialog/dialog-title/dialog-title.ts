@@ -3,17 +3,17 @@ import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbFocusVisibleWithinController } from '../../core/a11y/index.js';
-import { SbbLanguageController } from '../../core/controllers/index.js';
-import type { Breakpoint } from '../../core/dom/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { i18nCloseDialog, i18nGoBack } from '../../core/i18n/index.js';
-import { SbbTitleElement } from '../../title/index.js';
+import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import type { Breakpoint } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nCloseDialog, i18nGoBack } from '../../core/i18n.js';
+import { SbbTitleElement } from '../../title.js';
 
 import style from './dialog-title.scss?lit&inline';
 
-import '../../button/secondary-button/index.js';
-import '../../button/transparent-button/index.js';
+import '../../button/secondary-button.js';
+import '../../button/transparent-button.js';
 
 /**
  * It displays a title inside a dialog header.

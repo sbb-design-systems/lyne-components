@@ -1,20 +1,20 @@
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { LinkTargetType } from '../../core/base-elements/index.js';
-import { SbbLanguageController } from '../../core/controllers/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n/index.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
-import { SbbIconNameMixin } from '../../icon/index.js';
-import type { SbbTitleLevel } from '../../title/index.js';
+import type { LinkTargetType } from '../../core/base-elements.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbTitleLevel } from '../../title.js';
 
 import style from './alert.scss?lit&inline';
 
-import '../../button/transparent-button/index.js';
-import '../../divider/index.js';
-import '../../link/index.js';
-import '../../title/index.js';
+import '../../button/transparent-button.js';
+import '../../divider.js';
+import '../../link.js';
+import '../../title.js';
 
 type SbbAlertState = Exclude<SbbOpenedClosedState, 'closing'>;
 

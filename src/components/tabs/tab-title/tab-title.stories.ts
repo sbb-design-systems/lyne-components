@@ -6,7 +6,7 @@ import { html, nothing } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../../icon/index.js';
+import '../../icon.js';
 import './tab-title.js';
 
 const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`

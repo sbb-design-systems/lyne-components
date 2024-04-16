@@ -1,7 +1,7 @@
 // This implementation is inspired by https://github.com/angular/components/blob/main/src/cdk/a11y/input-modality/input-modality-detector.ts
 
-import { isBrowser } from '../dom/index.js';
-import { getEventTarget } from '../eventing/index.js';
+import { isBrowser } from '../dom.js';
+import { getEventTarget } from '../eventing.js';
 
 import {
   isFakeMousedownFromScreenReader,

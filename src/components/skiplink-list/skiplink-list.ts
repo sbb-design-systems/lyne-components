@@ -8,14 +8,14 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../core/controllers/index.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins/index.js';
-import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link/index.js';
-import type { SbbTitleLevel } from '../title/index.js';
+import { SbbSlotStateController } from '../core/controllers.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins.js';
+import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.js';
+import type { SbbTitleLevel } from '../title.js';
 
 import style from './skiplink-list.scss?lit&inline';
 
-import '../title/index.js';
+import '../title.js';
 
 /**
  * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.

@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import { SbbFormFieldElement } from '../form-field/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import { SbbFormFieldElement } from '../form-field.js';
 
 import { SbbFormFieldClearElement } from './form-field-clear.js';
 
@@ -19,7 +19,7 @@ describe(`sbb-form-field-clear with ${fixture.name}`, () => {
         <input id="input" type="text" placeholder="Input placeholder" value="Input value" />
         <sbb-form-field-clear></sbb-form-field-clear>
       </sbb-form-field>`,
-      { modules: ['../form-field/index.ts', './form-field-clear.ts'] },
+      { modules: ['../form-field.ts', './form-field-clear.ts'] },
     );
     element = formField.querySelector<SbbFormFieldClearElement>('sbb-form-field-clear')!;
     input = formField.querySelector<HTMLInputElement>('input')!;

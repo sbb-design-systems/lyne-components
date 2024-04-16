@@ -3,23 +3,15 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex } from '../core/a11y/index.js';
-import { SbbConnectedAbortController } from '../core/controllers/index.js';
-import { hostAttributes } from '../core/decorators/index.js';
-import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom/index.js';
-import { EventEmitter } from '../core/eventing/index.js';
-import type { SbbOpenedClosedState } from '../core/interfaces/index.js';
-import {
-  SbbDisabledMixin,
-  SbbNegativeMixin,
-  SbbUpdateSchedulerMixin,
-} from '../core/mixins/index.js';
-import {
-  isEventOnElement,
-  overlayGapFixCorners,
-  setOverlayPosition,
-} from '../core/overlay/index.js';
-import type { SbbOptGroupElement, SbbOptionElement } from '../option/index.js';
+import { getNextElementIndex } from '../core/a11y.js';
+import { SbbConnectedAbortController } from '../core/controllers.js';
+import { hostAttributes } from '../core/decorators.js';
+import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
+import type { SbbOpenedClosedState } from '../core/interfaces.js';
+import { SbbDisabledMixin, SbbNegativeMixin, SbbUpdateSchedulerMixin } from '../core/mixins.js';
+import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
+import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
 import style from './select.scss?lit&inline';
 

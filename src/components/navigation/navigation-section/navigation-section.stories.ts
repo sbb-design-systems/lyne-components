@@ -9,12 +9,12 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
 
 import readme from './readme.md?raw';
-import '../../button/index.js';
-import '../navigation-list/index.js';
-import '../navigation-button/index.js';
-import '../navigation-link/index.js';
-import '../navigation-marker/index.js';
-import '../navigation/index.js';
+import '../../button.js';
+import '../navigation-list.js';
+import '../navigation-button.js';
+import '../navigation-link.js';
+import '../navigation-marker.js';
+import '../navigation.js';
 import './navigation-section.js';
 
 // Story interaction executed after the story renders

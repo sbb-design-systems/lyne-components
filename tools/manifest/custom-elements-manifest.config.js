@@ -4,10 +4,16 @@
 export default {
   litelement: true,
   globs: ['src/components/**/*.ts'],
-  exclude: ['**/*[.-]{stories,spec,e2e,test-utils}.ts', '**/private/*', 'vite.config.ts'],
+  exclude: [
+    '**/*[.-]{stories,spec,e2e,test-utils}.ts',
+    '**/private/*',
+    '**/private.ts',
+    'vite.config.ts',
+  ],
   outdir: 'dist/components',
   dependencies: false,
   packagejson: false,
+  /** @type {import('@custom-elements-manifest/analyzer').Plugin[]} */
   plugins: [
     {
       analyzePhase({ ts, node, moduleDoc }) {
@@ -26,20 +32,25 @@ export default {
         }
       },
       packageLinkPhase({ customElementsManifest }) {
-        function fixModulePaths(node) {
+        function fixModulePaths(node, pathAction) {
           for (const [key, value] of Object.entries(node)) {
             if (Array.isArray(value)) {
-              value.forEach(fixModulePaths);
+              value.forEach((v) => fixModulePaths(v, pathAction));
             } else if (typeof value === 'object') {
-              fixModulePaths(value);
+              fixModulePaths(value, pathAction);
             } else if (key === 'module' || key === 'path') {
-              node[key] = value.replace(/^\/?src\/components\//, '').replace(/\/[^/.]+.ts$/, '');
+              node[key] = pathAction(value);
             }
           }
         }
+        const fixTsPaths = (value) =>
+          value.replace(/^\/?src\/components\//, '').replace(/.ts$/, '.js');
         for (const module of customElementsManifest.modules) {
-          fixModulePaths(module);
+          fixModulePaths(module, fixTsPaths);
           for (const declaration of module.declarations.filter((d) => d.kind === 'class')) {
+            if (declaration.name === 'SbbIconBase') {
+              delete declaration.customElement;
+            }
             for (const member of declaration.members) {
               if (member.name.startsWith('_') && member.default) {
                 const publicName = member.name.replace(/^_/, '');
@@ -51,6 +62,40 @@ export default {
             }
           }
         }
+        const reexportModules = [];
+        const moduleMapping = new Map();
+        for (const moduleEntry of customElementsManifest.modules) {
+          if (
+            !reexportModules.includes(moduleEntry) &&
+            moduleEntry.exports?.length &&
+            moduleEntry.exports.some((e) => e.name !== '*')
+          ) {
+            const reexportPath = moduleEntry.path.replace(/\/[\w-]+\.js/, '.js');
+            const reexportModule = customElementsManifest.modules.find(
+              (m) => m.path === reexportPath,
+            );
+            if (reexportModule) {
+              moduleMapping.set(moduleEntry.path, reexportModule.path);
+              reexportModules.push(reexportModule);
+              reexportModule.declarations.push(...moduleEntry.declarations);
+              for (const entry of moduleEntry.exports) {
+                entry.declaration.module = reexportModule.path;
+              }
+              reexportModule.exports = reexportModule.exports.filter(
+                (e) =>
+                  e.name !== '*' ||
+                  moduleEntry.path ===
+                    reexportModule.path.replace(/\/[\w-]+\.js/, '') +
+                      e.declaration.package.substring(2),
+              );
+              reexportModule.exports.push(...moduleEntry.exports);
+              customElementsManifest.modules = customElementsManifest.modules.filter(
+                (m) => m !== moduleEntry,
+              );
+            }
+          }
+        }
+        fixModulePaths(customElementsManifest, (value) => moduleMapping.get(value) ?? value);
       },
     },
   ],

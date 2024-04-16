@@ -2,16 +2,16 @@ import type { TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements/index.js';
-import { SbbSlotStateController } from '../../core/controllers/index.js';
-import { hostAttributes } from '../../core/decorators/index.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
 import type {
   AbstractConstructor,
   SbbDisabledMixinType,
   SbbNegativeMixinType,
-} from '../../core/mixins/index.js';
-import { SbbNegativeMixin } from '../../core/mixins/index.js';
-import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon/index.js';
+} from '../../core/mixins.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon.js';
 
 export type SbbButtonCommonElement = SbbButtonCommonElementMixinType & SbbActionBaseElement;
 

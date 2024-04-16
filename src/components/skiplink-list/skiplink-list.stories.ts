@@ -12,7 +12,7 @@ import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-p
 import readme from './readme.md?raw';
 
 import './skiplink-list.js';
-import '../link/block-link/index.js';
+import '../link/block-link.js';
 
 const titleContent: InputType = {
   control: {

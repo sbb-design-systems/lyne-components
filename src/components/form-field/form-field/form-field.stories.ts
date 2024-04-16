@@ -4,16 +4,16 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import type { SbbFormErrorElement } from '../../form-error/index.js';
+import type { SbbFormErrorElement } from '../../form-error.js';
 
 import readme from './readme.md?raw';
 import './form-field.js';
-import '../form-field-clear/index.js';
-import '../../button/mini-button/index.js';
-import '../../form-error/index.js';
-import '../../link/index.js';
-import '../../popover/index.js';
-import '../../title/index.js';
+import '../form-field-clear.js';
+import '../../button/mini-button.js';
+import '../../form-error.js';
+import '../../link.js';
+import '../../popover.js';
+import '../../title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

@@ -1,15 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing/index.js';
-import { fixture } from '../../core/testing/private/index.js';
-import type { SbbFormFieldElement } from '../../form-field/index.js';
-import type { SbbDatepickerElement } from '../datepicker/index.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbDatepickerElement } from '../datepicker.js';
 
 import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.js';
 
-import '../datepicker/index.js';
-import '../../form-field/form-field/index.js';
+import '../datepicker.js';
+import '../../form-field/form-field.js';
 
 describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
   describe('standalone', () => {
@@ -32,7 +32,7 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
             <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
           </div>
         `,
-        { modules: ['./datepicker-previous-day.ts', '../datepicker/index.ts'] },
+        { modules: ['./datepicker-previous-day.ts', '../datepicker.ts'] },
       );
       const element: SbbDatepickerPreviousDayElement = root.querySelector(
         'sbb-datepicker-previous-day',
@@ -133,11 +133,7 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
           </sbb-form-field>
         `,
         {
-          modules: [
-            '../../form-field/index.ts',
-            './datepicker-previous-day.ts',
-            '../datepicker/index.ts',
-          ],
+          modules: ['../../form-field.ts', './datepicker-previous-day.ts', '../datepicker.ts'],
         },
       );
       element = form.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
@@ -169,11 +165,7 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
           </sbb-form-field>
         `,
         {
-          modules: [
-            '../../form-field/index.ts',
-            './datepicker-previous-day.ts',
-            '../datepicker/index.ts',
-          ],
+          modules: ['../../form-field.ts', './datepicker-previous-day.ts', '../datepicker.ts'],
         },
       );
       input = form.querySelector<HTMLInputElement>('input')!;

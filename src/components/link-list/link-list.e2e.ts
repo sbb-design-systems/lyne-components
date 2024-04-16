@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing/index.js';
-import { fixture } from '../core/testing/private/index.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
 import { SbbLinkListElement } from './link-list.js';
-import '../link/block-link/index.js';
+import '../link/block-link.js';
 
 describe(`sbb-link-list with ${fixture.name}`, () => {
   let element: SbbLinkListElement;
@@ -37,7 +37,7 @@ describe(`sbb-link-list with ${fixture.name}`, () => {
           >
         </sbb-link-list>
       `,
-      { modules: ['./link-list.ts', '../link/index.ts'] },
+      { modules: ['./link-list.ts', '../link.ts'] },
     );
   });
 

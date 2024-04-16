@@ -7,22 +7,22 @@ import {
   SbbFocusHandler,
   getFirstFocusableElement,
   setModalityOnNextFocus,
-} from '../../core/a11y/index.js';
-import { SbbLanguageController } from '../../core/controllers/index.js';
-import { SbbScrollHandler, hostContext, isBreakpoint } from '../../core/dom/index.js';
-import { EventEmitter } from '../../core/eventing/index.js';
-import { i18nDialog } from '../../core/i18n/index.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces/index.js';
-import { SbbNegativeMixin } from '../../core/mixins/index.js';
-import { AgnosticResizeObserver } from '../../core/observers/index.js';
-import { applyInertMechanism, removeInertMechanism } from '../../core/overlay/index.js';
-import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only/index.js';
-import type { SbbDialogActionsElement } from '../dialog-actions/index.js';
-import type { SbbDialogTitleElement } from '../dialog-title/index.js';
+} from '../../core/a11y.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { SbbScrollHandler, hostContext, isBreakpoint } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nDialog } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import { AgnosticResizeObserver } from '../../core/observers.js';
+import { applyInertMechanism, removeInertMechanism } from '../../core/overlay.js';
+import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only.js';
+import type { SbbDialogActionsElement } from '../dialog-actions.js';
+import type { SbbDialogTitleElement } from '../dialog-title.js';
 
 import style from './dialog.scss?lit&inline';
 
-import '../../screen-reader-only/index.js';
+import '../../screen-reader-only.js';
 
 // A global collection of existing dialogs
 const dialogRefs: SbbDialogElement[] = [];
@@ -41,9 +41,9 @@ export type SbbDialogCloseEventDetails = {
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
  * @event {CustomEvent<SbbDialogCloseEventDetails>} didClose - Emits whenever the `sbb-dialog` is closed.
- * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-dialog')
 export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
