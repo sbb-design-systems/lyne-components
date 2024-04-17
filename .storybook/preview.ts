@@ -1,5 +1,7 @@
 import * as tokens from '@sbb-esta/lyne-design-tokens';
+
 import '../src/components/core/styles/global.scss';
+import { withBackgroundDecorator } from '../src/storybook/testing/with-background-decorator.js';
 
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
@@ -52,6 +54,7 @@ export const parameters = {
     source: { format: 'html' },
   },
   viewport: { viewports: storybookViewports },
+  backgrounds: { disable: true },
   options: {
     storySort: {
       // Story section order.
@@ -68,3 +71,5 @@ export const parameters = {
     },
   },
 };
+
+export const decorators = [withBackgroundDecorator];

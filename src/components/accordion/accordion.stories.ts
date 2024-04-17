@@ -240,7 +240,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 const meta: Meta = {
   decorators: [
     (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+      <div style=${styleMap({ ...wrapperStyle(context) })}>${story()}</div>
     `,
     withActions as Decorator,
   ],

@@ -25,10 +25,6 @@ import readme from './readme.md?raw';
 import '../form-field.js';
 import '../form-error.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -508,20 +504,7 @@ export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          height: 'calc(100vh - 2rem)',
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -534,9 +517,8 @@ const meta: Meta = {
         SbbOptionElement.events.optionSelected,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,
