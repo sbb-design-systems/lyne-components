@@ -1,0 +1,53 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-title-text-color-normal: var(
+    --sbb-title-text-color-normal-override,
+    var(--sbb-color-charcoal)
+  );
+
+  display: block;
+}
+
+:host([negative]) {
+  @include sbb.title--negative;
+}
+
+:host([id]) {
+  @include sbb.scroll-margin-block-start;
+}
+
+.sbb-title {
+  color: var(--sbb-title-text-color-normal);
+
+  :host([visually-hidden]) & {
+    @include sbb.screen-reader-only;
+  }
+
+  :host(:is([level='1']:not([visual-level]), [visual-level='1'])) & {
+    @include sbb.title-1($exclude-spacing: true);
+  }
+
+  :host(:is([level='2']:not([visual-level]), [visual-level='2'])) & {
+    @include sbb.title-2($exclude-spacing: true);
+  }
+
+  :host(:is([level='3']:not([visual-level]), [visual-level='3'])) & {
+    @include sbb.title-3($exclude-spacing: true);
+  }
+
+  :host(:is([level='4']:not([visual-level]), [visual-level='4'])) & {
+    @include sbb.title-4($exclude-spacing: true);
+  }
+
+  :host(:is([level='5']:not([visual-level]), [visual-level='5'])) & {
+    @include sbb.title-5($exclude-spacing: true);
+  }
+
+  :host(:is([level='6']:not([visual-level]), [visual-level='6'])) & {
+    @include sbb.title-6($exclude-spacing: true);
+  }
+}
