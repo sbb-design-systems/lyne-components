@@ -1,4 +1,4 @@
-// This script serves as checking which OS visual regression testing is run
+// This script checks which OS the visual regression testing is run on
 // and if it is not Linux, runs it in a container.
 
 import { execSync, type ExecSyncOptionsWithStringEncoding } from 'child_process';
@@ -28,7 +28,6 @@ if ((platform() === 'linux' && !process.env.DEBUG) || process.env.FORCE_LOCAL) {
 
   const cwd = new URL('../../', import.meta.url);
   const tag = 'lyne-vrt';
-  const branchName = execSync('git rev-parse --abbrev-ref HEAD');
   const execOptions: ExecSyncOptionsWithStringEncoding = {
     encoding: 'utf8',
     stdio: 'inherit',
@@ -37,7 +36,6 @@ if ((platform() === 'linux' && !process.env.DEBUG) || process.env.FORCE_LOCAL) {
   execSync(
     `${containerCmd} build ` +
       '--file=tools/visual-regression-testing/testing.Dockerfile ' +
-      //`--build-arg=VERSION=${readFileSync(new URL('../../.nvmrc', import.meta.url), 'utf8').replace('v', '')}` +
       `--tag=${tag} .`,
     execOptions,
   );
@@ -45,7 +43,6 @@ if ((platform() === 'linux' && !process.env.DEBUG) || process.env.FORCE_LOCAL) {
   mkdirSync(new URL('./dist/screenshots', cwd), { recursive: true });
   execSync(
     `${containerCmd} run  -it --rm --ipc=host ` +
-      `--env=BRANCH_NAME="${branchName}" ` +
       `--volume=./dist/screenshots:/dist/screenshots ` +
       `--entrypoint='["yarn", "wtr"${args.map((a) => `, "${a}"`).join('')}]' ` +
       tag,
