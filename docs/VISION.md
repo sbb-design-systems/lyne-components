@@ -10,7 +10,7 @@ The _Lyne Design System_ is based on an intuitive, unique — the Single Source 
 
 ## What _Lyne_ does
 
-The _Lyne Design System_ not only enables an optimized collaboration and integration workflow between the Lyne team and consumers of _Lyne Design System_ but also accelerates the creation and development process (time to market) in a sustainable, maintainable, and long term committed fashion.
+The _Lyne Design System_ not only enables an optimized collaboration and integration workflow between the Lyne team and consumers of _Lyne Design System_ but also accelerates the creation and development process (time to market) in a sustainable, maintainable, and long-term committed fashion.
 
 ## _Lyne_'s advantages and the resulting (→) chances
 
@@ -22,7 +22,7 @@ The _Lyne Design System_ not only enables an optimized collaboration and integra
   - Iterating faster
 - Single Source of Truth (SSoT) →
   - Central knowledge collection
-  - Easy on-boarding
+  - Easy onboarding
   - Empowerment
   - Reducing the knowledge gap
 - Efficient & optimized collaboration →
@@ -47,7 +47,7 @@ The _Lyne Design System_ not only enables an optimized collaboration and integra
 - Technology/tool agnostic →
   - Exchangeable
   - Allows growth
-  - No vendor lock in
+  - No vendor lock-in
   - Faster implementation of projects (time to market)
 - Well tested →
   - Better QA
@@ -55,7 +55,7 @@ The _Lyne Design System_ not only enables an optimized collaboration and integra
   - Built-in accessibility on module level
 - Measurable →
   - Data-driven decisions
-- Long term focus →
+- Long-term focus →
   - Sustainability
   - Commitment
 
@@ -80,17 +80,17 @@ The _Lyne Design System_ not only enables an optimized collaboration and integra
 - Allows growth
 - No vendor lock in
 - Better QA
-- Built in a11y on component level for everybody
+- Built-in a11y on component level for everybody
 - Data-driven decisions
 - Sustainability
 - Commitment
 
 ## Risks
 
-General risks of a Design System which we always need to face and be aware of:
+General risks of a Design System that we always need to face and be aware of:
 
 - Single Point of Failure (SPoF)
-- Fear of harming the designers creativity
+- Fear of harming the designers' creativity
 - Governance difficulties
   - Design System rejection/denial
   - Missing adoption

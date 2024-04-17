@@ -25,10 +25,10 @@ For progress indication, we use labels to indicate a specific expectation:
 
 ## Review Checks
 
-This document shows what should be done during review process.
+This document shows what should be done during the review process.
 
 A basic review only contains the entries which have an exclamation mark (⚠️).
-Depending on circumstances, additional options might be considered.
+Depending on the circumstances, additional options might be considered.
 
 #### General
 
@@ -73,7 +73,7 @@ Depending on circumstances, additional options might be considered.
 
 - Is there a story for each visual representation?
 - Are the story templates reused and divided into small vars if necessary?
-- Are the controls working and consistent as possible through all stories?
+- Are the controls working and as consistent as possible through all stories?
 - Are the stories working on chromatic and give a value?
 - Are all texts written in English language?
 
@@ -83,13 +83,13 @@ Depending on circumstances, additional options might be considered.
 - ⚠️ Is every value from a design token and if not, well documented?
 - Are modern style properties used (e.g. gap, inset, margin-block, padding-inline, etc.)?
 - Are there as little style definitions as possible (e.g. using gap instead of exceptions for last-child, etc.)?
-- Do the css class names follow BEM and have sbb prefix?
+- Do the css class names follow BEM and have the sbb prefix?
 - Does the visual output match the Figma spec (also confirmed with UX)?
 
 #### Accessibility
 
 - Are the components semantically correct (aria attributes, native elements, etc.)?
-- Check if the developer has tested all screen readers?
+- Check if the developer has tested all screen readers.
 - Do some smoke tests.
 - Is Windows high contrast mode supported well?
 - Does keyboard navigation work and is the focused element visible (:focus-visible)?

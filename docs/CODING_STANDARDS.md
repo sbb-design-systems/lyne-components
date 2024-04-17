@@ -13,10 +13,10 @@ This project uses [Prettier](https://prettier.io/) to enforce a consistent code 
 Comments that explain what some block of code does are nice; they can tell you something in less
 time than it would take to follow through the code itself.
 
-Comments that explain why some block of code exists at all, or does something the way it does,
+Comments that explain why some block of code exists at all or does something the way it does,
 are _invaluable_. The "why" is difficult, or sometimes impossible, to track down without seeking out
 the original author. When collaborators are in the same room, this hurts productivity.
-When collaborators are in different timezones, this can be devastating to productivity.
+When collaborators are in different time zones, this can be devastating to productivity.
 
 For example, this is a not-very-useful comment:
 
@@ -50,7 +50,7 @@ In HTML code, use `<!-- ... -->` comments, which will be stripped when packaging
 Every time a component is created, a `readme.md` file is generated;
 don't underestimate its value, as it will be the documentation entry point for consumers.
 
-The `generate` script will create a base structure for the component description; try to stick at it if you can.
+The `generate` script will create a base structure for the component description; try to stick to it if you can.
 
 Start with a brief sentence which describes the main purpose of the component and why it should be used;
 if it is related to other components, mention them and add a link to their documentation.
@@ -66,15 +66,15 @@ Keeping modules to a single responsibility makes the code easier to test, consum
 ESM modules offer a straightforward way to organize code into logical, granular units.
 Ideally, individual files are 200 - 300 lines of code.
 
-As a rule of thumb, once a file draws near 400 lines (barring abnormally long constants / comments),
+As a rule of thumb, once a file draws near 400 lines (barring abnormally long constants/comments),
 start considering how to refactor into smaller pieces.
 
-This might not always apply to components, but should be considered during implementation.
+This might not always apply to components but should be considered during implementation.
 
 #### Less is more
 
 Once a feature is released, it never goes away. We should avoid adding features that don't offer
-high user value for price we pay both in maintenance, complexity, and payload size. When in doubt,
+high user value for the price we pay both in maintenance, complexity, and payload size. When in doubt,
 leave it out.
 
 This applies especially to providing two different APIs to accomplish the same thing. Always
@@ -82,7 +82,7 @@ prefer sticking to a _single_ API for accomplishing something.
 
 #### Action elements
 
-As we have to "reimplement" button and anchor functionality in order to comply with
+Since we have to "reimplement" the button and anchor functionality in order to comply with
 accessibility, we need to consider all native behavior of a native `<button>` and `<anchor>`
 element.
 
@@ -91,13 +91,13 @@ named `SbbButtonBaseElement` and `SbbLinkBaseElement`,
 which holds all the logic needed to "emulate" the native `<button>` and `<anchor>` elements.
 In detail, the new classes implement:
 
-- the native component related properties (`form`, `name`... for the button, `href`, `target`... for the link);
+- the native component-related properties (`form`, `name`... for the button, `href`, `target`... for the link);
 - the interaction logic (like `click`, `keypress` and so on);
 - the accessibility attributes (like `role`);
 - the rendering of the wrapper tag with its attributes (`span` for the button, `a` for the link).
 
 These classes can be used as follows:
-components which require basic button or link functionality have to extend the corresponding "base" class,
+components that require basic button or link functionality have to extend the corresponding "base" class,
 and they need to implement the `renderTemplate` method, which should return the component's inner content.
 
 ```ts
@@ -194,7 +194,7 @@ class ConfigBuilder {
 
 #### Access modifiers
 
-- Use `public` keyword as it is the recommendation by TypeScript.
+- Use `public` keyword as it is recommended by TypeScript.
 - Use `private` when appropriate and possible, prefixing the name with an underscore.
 - Use `protected` when appropriate and possible with no prefix.
 
@@ -239,7 +239,7 @@ disabled: boolean = false;
 
 Boolean properties with a default value can be initialized with `false` but not with `true`.
 This is due to how Lit handles boolean attributes in the DOM: it evaluates, for example, `sanitize="false"` as `true`
-and not `false` as we would expect. Therefore, the property should be converted in something like `noSanitize = false`:
+and not `false` as we would expect. Therefore, the property should be converted into something like `noSanitize = false`:
 
 ```ts
 // AVOID
@@ -272,7 +272,7 @@ specific error being caught and why it cannot be prevented.
 - Prefer to write out words instead of using abbreviations.
 - Prefer _exact_ names to short names (within reason). E.g., `labelPosition` is better than
   `align` because the former much more exactly communicates what the property means.
-- Except for `@property` properties, use `is` and `has` prefixes for boolean properties / methods.
+- Except for `@property` properties, use `is` and `has` prefixes for boolean properties/methods.
 
 ##### Classes
 
@@ -311,8 +311,8 @@ openDialog() {
 
 #### Prefer for-of instead of forEach
 
-Prefer usage of `for (... of ...)` instead of forEach, as it is slightly more performant.
-Exceptions can be made, if only one action/line is performed.
+Prefer the usage of `for (... of ...)` instead of forEach, as it is slightly more performant.
+Exceptions can be made if only one action/line is performed.
 
 ```ts
 /** AVOID: do not use forEach for actions that require multiple lines. */
@@ -372,7 +372,7 @@ after an action (e.g. `willOpen` and `didOpen`).
 Properties/Attributes are automatically documented and can be inferred by the IDE/compiler.
 
 ```html
-<!-- AVOID: needs to be clearly documented and is not IDE friendly. -->
+<!-- AVOID: needs to be clearly documented and is not IDE-friendly. -->
 <sbb-example class="sbb-negative sbb-vertical"></sbb-example>
 
 <!-- PREFER: describes the action performed by the function. -->
@@ -384,11 +384,11 @@ Properties/Attributes are automatically documented and can be inferred by the ID
 Instead of forwarding properties/content, use a `<slot>` (and/or a named slot
 `<slot name="example">`) to provide the possibility of directly assigning content/values.
 
-#### Use `variant` property, if a component has more than one variant
+#### Use the `variant` property, if a component has more than one variant
 
 Use `@property() variant: 'default' | 'etc'` to provide different design variants for a component.
 
-#### Use `negative` property, if a component has a color negative specification
+#### Use the `negative` property, if a component has a color-negative specification
 
 Use `@property() negative: boolean` to provide a color negative design for a component.
 
@@ -399,17 +399,17 @@ Due to this, the host element of a web component should be enriched with the app
 role and aria attributes and inner elements with the same semantic meaning should be assigned
 `role="presentation"`.
 
-This allows consumers to use the host element as the reference and also place id references
+This allows consumers to use the host element as the reference and also place ID references
 on it.
 
 #### ID handling
 
-Element ids are relevant for both connecting elements for specific functionality and to provide a
+Element IDs are relevant for both connecting elements for specific functionality and providing a
 better experience for accessibility.
 
 ##### Host ID
 
-In certain scenarios a component should have a default ID (e.g. when the usage of the ID is
+In certain scenarios, a component should have a default ID (e.g. when the usage of the ID is
 expected).
 
 There are various ways to assign an ID to the host. One option is to do it in the connectedCallback.
@@ -435,7 +435,7 @@ within another component (e.g. a `<sbb-link>` should not render an `<a>` or `<bu
 when placed in another `<a>` or `<button>` ancestor or `<sbb-title>` should be designed in a
 specific way when placed within a `<sbb-alert>`, etc.).
 
-(Ideally we could use the `:host-context` for the styling part, but the Firefox and Safari
+(Ideally, we could use the `:host-context` for the styling part, but the Firefox and Safari
 teams have indicated that this will not be implemented:
 https://github.com/w3c/csswg-drafts/issues/1914)
 
@@ -447,7 +447,7 @@ This can be used in the `connectedCallback()` (see
 which should minimize the performance impact of this detection.
 
 **Usages of this functionality should be carefully considered. If a component has too many variants
-depending on context, this should be discussed at design level. Also in many cases,
+depending on the context, this should be discussed at design level. Also in many cases,
 `this.closest(selector)` can be used instead, which is far more performant. **
 
 ```ts
@@ -513,7 +513,7 @@ Use these variables instead of the original ones and only define new variables f
 If a global variable is missing, create an issue or pull request in
 [lyne-design-system/lyne-design-tokens][lyne-design-tokens].
 
-#### Be cautious with use of `display: flex`
+#### Be cautious with the use of `display: flex`
 
 - The [baseline calculation for flex elements](http://www.w3.org/TR/css-flexbox-1/#flex-baselines)
   is different from other display values, making it difficult to align flex elements with standard
@@ -584,7 +584,7 @@ The end-user of a component should be the one to decide how much margin a compon
 
 In order to avoid unwanted style overrides from outside,
 prefer to encapsulate styles to inner elements instead of the host.
-We provide css vars as an api to the outside.
+We provide CSS vars as an API to the outside.
 
 For example, rather than
 
@@ -629,7 +629,7 @@ This is a low-effort task that makes a big difference for low-vision users. Exam
 When it is not super obvious, include a brief description of what a class represents. For example:
 
 ```scss
-// The calendar icon button used to open the calendar pane.
+// The calendar icon button is used to open the calendar pane.
 .sbb-datepicker-button { ... }
 
 // Floating pane that contains the calendar at the bottom of the input.
@@ -645,7 +645,7 @@ When it is not super obvious, include a brief description of what a class repres
 
 In order to avoid chromatic detected regressions, it's recommended to create separate stories for all visual variants.
 It's also recommended to include stories for the most important side cases,
-e.g. for a label that receives ellipsis, if it is too long to fit in a container.
+e.g. for a label that receives ellipsis if it is too long to fit in a container.
 
 #### Controls
 
@@ -659,7 +659,7 @@ Templates can be very large, so try to reuse the common code blocks (avoiding du
 
 #### Language of stories
 
-Stories with its example texts should be written in English
+Stories with example texts should be written in English
 to be neutral and also understandable for all developers and consumers.
 
 [ts-mixins]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-mix-in-classes
@@ -675,19 +675,19 @@ The state when no other state applies.
 
 ### Hover
 
-State when mouse is hovering over the component. Does not exist on touch devices.
+State when the mouse is hovering over the component. Does not exist on touch devices.
 Should visually highlight the component.
 For accessibility compliance, the visual highlight must not be reduced to color, but should either include translation, cursor/pointer change or other effects that make it understandable for visually impaired consumers.
 
 ### Focused
 
-State when component or element has focus via keyboard.
-Should provide an outline when component has focus (via keyboard).
+State when a component or element has focus via keyboard.
+Should provide an outline when a component has focus (via keyboard).
 
 ### Active
 
-State when component or element is active and not a form element.
-(e.g. an active tab in a tab group, an expanded accordion panel, a pressed button)
+State when a component or element is active and not a form element.
+(e.g. an active tab in a tab group, an expanded accordion panel or a pressed button)
 Should visually highlight the component.
 For accessibility compliance, the visual highlight must not be reduced to color, but should either include translation, cursor/pointer change or other effects that make it understandable for visually impaired consumers.
 
@@ -700,7 +700,7 @@ Indeterminate is a substate of this.
 
 ### Disabled
 
-State when component or element is disabled and cannot be used or selected.
+State when a component or element is disabled and cannot be used or selected.
 Should prevent focus or selection by keyboard or mouse.
 Should visually indicate its state.
 

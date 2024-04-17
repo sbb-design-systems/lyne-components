@@ -29,8 +29,8 @@ Run `yarn lint --fix` to fix any automatically fixable lint issues and report th
 
 ## Running tests
 
-To run unit tests, run `yarn test`. This will run the full test suite with client side rendering
-and server side rendering with and without hydration.
+To run unit tests, run `yarn test`. This will run the full test suite with client-side rendering
+and server-side rendering with and without hydration.
 During development, it is preferable to run `yarn test:csr`, which will just run the client side
 rendering.
 
@@ -57,7 +57,7 @@ Add the `--debug` param to enable breakpoint debugging and the detailed test rep
 
 ### Debugging with IntelliJ
 
-It is possible to debug tests and/or run them in isolation also with Intellij IDEA.
+It is possible to debug tests and/or run them in isolation also with IntelliJ IDEA.
 From the title bar, open the 'Run' menu, then select 'Edit configuration'.
 Create and save a new `npm` configuration with the following parameters,
 possibly replacing `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-hydrated` to test SSR:
@@ -75,7 +75,7 @@ To start the showcase, run `yarn start`. This will run the devserver in watch mo
 
 ## Commits
 
-Commits have to follow `Conventional Commits` standard ([https://www.conventionalcommits.org/](https://www.conventionalcommits.org/)).
+Commits have to follow the `Conventional Commits` standard ([https://www.conventionalcommits.org/](https://www.conventionalcommits.org/)).
 
 To make sure developers properly style their commit messages, we use `husky` together with `commit-lint`.
 
@@ -83,6 +83,6 @@ To make sure developers properly style their commit messages, we use `husky` tog
 
 ### `playwright`: `browserType.launch: Executable doesn't exist at ...`
 
-Most likely two versions of playwright are installed. Try running
+Most likely two versions of Playwright are installed. Try running
 `yarn remove playwright @web/test-runner-playwright`, followed by
 `yarn add -ED playwright @web/test-runner-playwright` and check if the problem is resolved.
