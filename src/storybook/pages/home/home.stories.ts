@@ -139,15 +139,15 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-card>
         </div>
         <sbb-action-group orientation="vertical" horizontal-from="small">
-          <sbb-button
+          <sbb-button-link
             href="https://github.com/lyne-design-system/lyne-components"
             icon-name="qrcode-small"
           >
             My tickets & subscriptions
-          </sbb-button>
-          <sbb-secondary-button href="https://github.com/lyne-design-system/lyne-components">
+          </sbb-button-link>
+          <sbb-secondary-button-link href="https://github.com/lyne-design-system/lyne-components">
             All Products
-          </sbb-secondary-button>
+          </sbb-secondary-button-link>
         </sbb-action-group>
       </div>
     </section>

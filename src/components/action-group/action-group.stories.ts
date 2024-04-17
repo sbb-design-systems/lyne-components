@@ -95,7 +95,7 @@ const buttonSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm'],
+  options: ['l', 'm', 's'],
 };
 
 const linkSize: InputType = {
@@ -150,6 +150,18 @@ const basicArgsVertical = {
 const basicArgsVerticalFullWidth = {
   ...basicArgsVertical,
   'align-group': 'stretch',
+};
+
+const basicArgsSizeS = {
+  ...basicArgs,
+  'button-size': buttonSize.options[2],
+  'link-size': linkSize.options[2],
+};
+
+const basicArgsVerticalSizeS = {
+  ...basicArgsVertical,
+  'button-size': buttonSize.options[2],
+  'link-size': linkSize.options[2],
 };
 
 export const HorizontalAllocation3_0_0: StoryObj = {
@@ -264,6 +276,18 @@ export const VerticalToHorizontal3_0_0: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
+};
+
+export const HorizontalAllocationSizeS3_0_0: StoryObj = {
+  render: CommonTemplateThreeElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsSizeS },
+};
+
+export const VerticalAllocationSizeS3_0_0: StoryObj = {
+  render: CommonTemplateThreeElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVerticalSizeS, 'align-group': 'start' },
 };
 
 const meta: Meta = {

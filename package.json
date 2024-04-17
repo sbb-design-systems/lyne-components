@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.50.1",
+  "version": "0.50.2",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -42,7 +42,7 @@
     "lint:js": "eslint \"**/*.js\"",
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
     "lint:styles": "stylelint \"**/*.scss\"",
-    "lint:lit": "yarn lit-analyzer \"src/components/**/*.ts\"",
+    "lint:lit": "yarn lit-analyzer \"src/**/*.ts\"",
     "lint:circular-imports": "madge --circular --extensions ts ./src",
     "lint:tsc": "npm-run-all --sequential lint:tsc:*",
     "lint:tsc:components": "tsc --noEmit --project src/components/tsconfig.json",
@@ -69,7 +69,7 @@
     "@lit/react": "1.0.4",
     "@open-wc/lit-helpers": "0.7.0",
     "@open-wc/testing": "4.0.0",
-    "@sbb-esta/lyne-design-tokens": "0.5.0",
+    "@sbb-esta/lyne-design-tokens": "0.6.0",
     "@storybook/addon-a11y": "8.0.8",
     "@storybook/addon-actions": "8.0.8",
     "@storybook/addon-essentials": "8.0.8",

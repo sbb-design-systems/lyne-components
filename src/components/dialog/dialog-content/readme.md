@@ -1,4 +1,4 @@
-Use the `sbb-dialog-content` in combination with the [sbb-dialog](/docs/components-sbb-dialog--docs) to display a content inside the dialog.
+Use the `sbb-dialog-content` in combination with the [sbb-dialog](/docs/components-sbb-dialog-sbb-dialog--docs) to display a content inside the dialog.
 
 ```html
 <sbb-dialog>

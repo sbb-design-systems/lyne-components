@@ -43,6 +43,8 @@
 .sbb-teaser-hero__panel-text {
   @include sbb.panel-text;
 
+  hyphens: auto;
+
   // Reset paragraph styles
   display: inline;
   margin: 0;

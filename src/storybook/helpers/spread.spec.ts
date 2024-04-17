@@ -142,3 +142,10 @@ describe(`sbbSpread`, () => {
     });
   });
 });
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'spread-test-only': SpreadDirectiveTestOnlyElement;
+  }
+}

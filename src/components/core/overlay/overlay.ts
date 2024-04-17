@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-const IS_OPEN_OVERLAY_QUERY = `:is(sbb-dialog, sbb-navigation, sbb-menu)[data-state='opened']`;
+const IS_OPEN_OVERLAY_QUERY = `:is(sbb-dialog, sbb-navigation, sbb-menu, sbb-overlay)[data-state='opened']`;
 
 /**
  * Used to create the "wrapping" effect around the anchor for overlays (es. autocomplete)
