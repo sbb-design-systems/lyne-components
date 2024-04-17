@@ -1,5 +1,6 @@
 @use './core/font-face';
 @use './mixins/a11y';
+@use './mixins/animation';
 @use './mixins/layout';
 @use './mixins/lists';
 @use './mixins/scrollbar';
@@ -153,17 +154,17 @@ input[data-sbb-time-input] {
 }
 
 .sbb-disable-animation {
-  @include a11y.disable-animation;
+  @include animation.disable-animation;
 }
 
 .sbb-disable-animation-locally {
-  @include a11y.disable-animation;
+  @include animation.disable-animation;
 
   & > * {
-    @include a11y.enable-animation;
+    @include animation.enable-animation;
   }
 }
 
 .sbb-enable-animation {
-  @include a11y.enable-animation;
+  @include animation.enable-animation;
 }
