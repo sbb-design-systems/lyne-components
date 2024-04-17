@@ -11,7 +11,6 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import { SbbExpansionPanelElement } from '../expansion-panel.js';
@@ -233,21 +232,11 @@ export const NoAnimation: StoryObj = {
   args: { ...defaultArgs, 'disable-animation': true },
 };
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white)',
-});
-
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context) })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.borderless ? 'var(--sbb-color-cement)' : 'var(--sbb-color-white)',
     actions: {
       handles: [
         SbbExpansionPanelElement.events.willOpen,
