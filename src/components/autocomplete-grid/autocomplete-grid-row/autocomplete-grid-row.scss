@@ -1,8 +1,7 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-autocomplete-grid-row-color: var(--sbb-color-charcoal);
@@ -20,6 +19,8 @@
   --sbb-autocomplete-grid-row-cursor: pointer;
   --sbb-autocomplete-grid-row-border-radius: var(--sbb-border-radius-4x);
   --sbb-autocomplete-grid-row-icon-color: var(--sbb-color-metal);
+
+  display: block;
 }
 
 :host([data-negative]) {

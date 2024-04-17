@@ -1,13 +1,14 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-option-color: var(--sbb-color-charcoal);
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-icon-color: var(--sbb-color-metal);
+
+  display: block;
 }
 
 :host([data-negative]) {
