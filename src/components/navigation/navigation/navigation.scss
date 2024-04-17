@@ -100,7 +100,7 @@
   }
 }
 
-:host(:is([data-resize-disable-animation])) {
+:host([data-resize-disable-animation]) {
   @include sbb.disable-animation;
 }
 

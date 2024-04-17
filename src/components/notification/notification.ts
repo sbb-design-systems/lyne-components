@@ -156,9 +156,10 @@ export class SbbNotificationElement extends LitElement {
   }
 
   private _setNotificationHeight(): void {
-    const notificationHeight = this._notificationElement.scrollHeight
-      ? `${this._notificationElement.scrollHeight}px`
-      : 'auto';
+    if (!this._notificationElement?.scrollHeight) {
+      return;
+    }
+    const notificationHeight = `${this._notificationElement.scrollHeight}px`;
     this.style.setProperty('--sbb-notification-height', notificationHeight);
   }
 
