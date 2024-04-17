@@ -161,7 +161,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
                   ></sbb-divider>
                   <sbb-transparent-button
                     negative
-                    size="m"
+                    size=${this.size === 'l' ? 'm' : this.size}
                     icon-name="cross-small"
                     @click=${() => this.requestDismissal()}
                     aria-label=${i18nCloseAlert[this._language.current]}
