@@ -44,7 +44,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   @property({ reflect: true, type: Boolean }) public readonly = false;
 
   /** You can choose between `m` or `l` size. */
-  @property({ reflect: true }) public size: 'm' | 'l' = 'm';
+  @property({ reflect: true }) public size: 's' | 'm' | 'l' = 'm';
 
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
@@ -161,7 +161,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
                   ></sbb-divider>
                   <sbb-transparent-button
                     negative
-                    size="m"
+                    size=${this.size === 'l' ? 'm' : this.size}
                     icon-name="cross-small"
                     @click=${() => this.requestDismissal()}
                     aria-label=${i18nCloseAlert[this._language.current]}

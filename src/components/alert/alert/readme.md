@@ -57,9 +57,11 @@ which automatically removes an alert after clicking the close button.
 
 ## Style
 
-Users can choose between two `size`, `m` (default) and `l`.
+Users can choose between three `size`: `s`, `m` (default) and `l`.
 
 ```html
+<sbb-alert size="s"> ... </sbb-alert>
+
 <sbb-alert size="l"> ... </sbb-alert>
 ```
 
@@ -83,7 +85,7 @@ As a base rule, opening animations should be activated whenever an alert arrives
 | Name                 | Attribute             | Privacy | Type                                    | Default  | Description                                                                                                                                                      |
 | -------------------- | --------------------- | ------- | --------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `readonly`           | `readonly`            | public  | `boolean`                               | `false`  | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                 |
-| `size`               | `size`                | public  | `'m' \| 'l'`                            | `'m'`    | You can choose between `m` or `l` size.                                                                                                                          |
+| `size`               | `size`                | public  | `'s' \| 'm' \| 'l'`                     | `'m'`    | You can choose between `m` or `l` size.                                                                                                                          |
 | `iconName`           | `icon-name`           | public  | `string \| undefined`                   | `'info'` | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
 | `titleContent`       | `title-content`       | public  | `string \| undefined`                   |          | Content of title.                                                                                                                                                |
 | `titleLevel`         | `title-level`         | public  | `SbbTitleLevel`                         | `'3'`    | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  |

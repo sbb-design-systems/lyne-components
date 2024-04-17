@@ -58,7 +58,7 @@ const size: InputType = {
   control: {
     type: 'select',
   },
-  options: ['m', 'l'],
+  options: ['m', 'l', 's'],
 };
 
 const readonly: InputType = {
@@ -178,7 +178,13 @@ export const defaultAlert: StoryObj = {
 export const sizeL: StoryObj = {
   render: Default,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: 'l' },
+  args: { ...defaultArgs, size: size.options[1] },
+};
+
+export const sizeS: StoryObj = {
+  render: Default,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options[2] },
 };
 
 export const withoutCloseButton: StoryObj = {
