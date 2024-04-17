@@ -4,7 +4,7 @@ It offers the following features:
 - creates a backdrop for disabling interaction below the modal;
 - disables scrolling of the page content while open;
 - manages focus properly by setting it on the first focusable element;
-- can host a [sbb-dialog-actions](/docs/components-sbb-dialog-actions--docs) component in the footer;
+- can host a [sbb-dialog-actions](/docs/components-sbb-dialog-sbb-dialog-actions--docs) component in the footer;
 - has a close button, which is always visible;
 - can display a back button next to the title;
 - adds the appropriate ARIA roles automatically.
@@ -84,7 +84,7 @@ It's possible to display the component in `negative` variant using the self-name
 When using a button to trigger the dialog, ensure to manage the appropriate ARIA attributes on the button element itself. This includes: `aria-haspopup="dialog"` that signals to assistive technologies that the button controls a dialog element,
 `aria-controls="dialog-id"` that connects the button to the dialog by referencing the dialog's ID. Consider using `aria-expanded` to indicate the dialog's current state (open or closed).
 
-The `sbb-dialog` component may visually hide the title thanks to the `hideOnScroll` property of the [sbb-dialog-title](/docs/components-sbb-dialog-title--docs) to create more space for content, this is useful especially on smaller screens. Screen readers and other assistive technologies will still have access to the title information for context.
+The `sbb-dialog` component may visually hide the title thanks to the `hideOnScroll` property of the [sbb-dialog-title](/docs/components-sbb-dialog-sbb-dialog-title--docs) to create more space for content, this is useful especially on smaller screens. Screen readers and other assistive technologies will still have access to the title information for context.
 
 <!-- Auto Generated Below -->
 

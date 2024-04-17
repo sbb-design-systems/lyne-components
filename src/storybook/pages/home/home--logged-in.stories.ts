@@ -186,7 +186,7 @@ const Template = (args: Args): TemplateResult => html`
             All purchased tickets
           </sbb-secondary-button>
 
-          <sbb-dialog id="my-dialog" title-content="My Dialog">
+          <sbb-dialog id="my-dialog">
             <sbb-dialog-title back-button>My Dialog</sbb-dialog-title>
 
             <sbb-dialog-content>
@@ -197,14 +197,13 @@ const Template = (args: Args): TemplateResult => html`
                 irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                 pariatur.
               </p>
-              <sbb-button
-                variant="secondary"
+              <sbb-secondary-button
                 size="m"
                 @click=${() =>
                   (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
               >
                 Open stacked dialog
-              </sbb-button>
+              </sbb-secondary-button>
             </sbb-dialog-content>
 
             <sbb-dialog-actions

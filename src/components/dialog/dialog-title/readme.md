@@ -1,4 +1,4 @@
-The `sbb-dialog-title` component extends the [sbb-title](/docs/components-sbb-title--docs) component. Use it in combination with the [sbb-dialog](/docs/components-sbb-dialog--docs) to display a header in the dialog with a title, a close button and an optional back button.
+The `sbb-dialog-title` component extends the [sbb-title](/docs/components-sbb-title--docs) component. Use it in combination with the [sbb-dialog](/docs/components-sbb-dialog-sbb-dialog--docs) to display a header in the dialog with a title, a close button and an optional back button.
 
 ```html
 <sbb-dialog>

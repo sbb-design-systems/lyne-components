@@ -67,12 +67,11 @@ const actionGroup = (): TemplateResult => html`
       align-self="start"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
-      sbb-dialog-close
     >
       Link
     </sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-    <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    <sbb-secondary-button>Cancel</sbb-secondary-button>
+    <sbb-button>Confirm</sbb-button>
   </sbb-action-group>
 `;
 
