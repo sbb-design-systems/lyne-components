@@ -135,7 +135,7 @@ const animation: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['none', 'open'],
+  options: ['open', 'none'],
 };
 
 const defaultArgTypes: ArgTypes = {

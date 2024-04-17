@@ -35,7 +35,7 @@ const animation: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['none', 'close', 'open', 'all'],
+  options: ['all', 'close', 'open', 'none'],
 };
 
 const basicArgTypes: ArgTypes = {
@@ -49,7 +49,7 @@ const basicArgs: Args = {
   'title-content': 'Title',
   type: type.options[0],
   readonly: false,
-  animation: animation.options[1],
+  animation: animation.options[0],
 };
 
 const appendNotification = (event: Event, args: Args): void => {
@@ -101,7 +101,7 @@ const pageContent = (): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread(args)}
+    ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
@@ -113,7 +113,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 
 const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread(args)}
+    ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
@@ -128,7 +128,7 @@ const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
 
 const SlottedTitleTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread(args)}
+    ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
     <span slot="title">Slotted title</span>
