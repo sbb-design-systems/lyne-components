@@ -1,32 +1,21 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { getFirstFocusableElement, SbbFocusHandler, setModalityOnNextFocus } from '../core/a11y.js';
+import { getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { hostContext, SbbScrollHandler } from '../core/dom.js';
+import { SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n.js';
-import type { SbbOpenedClosedState } from '../core/interfaces.js';
-import { SbbNegativeMixin } from '../core/mixins.js';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay.js';
-import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
+import { dialogRefs, SbbDialogBaseElement } from '../dialog.js';
 
 import style from './overlay.scss?lit&inline';
-
 import '../button/secondary-button.js';
 import '../button/transparent-button.js';
 import '../container.js';
 import '../screen-reader-only.js';
-
-// A global collection of existing overlays
-const overlayRefs: SbbOverlayElement[] = [];
-
-export type SbbOverlayCloseEventDetails = {
-  returnValue?: any;
-  closeTarget?: HTMLElement;
-};
 
 /**
  * It displays an interactive overlay element.
@@ -35,16 +24,18 @@ export type SbbOverlayCloseEventDetails = {
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-overlay` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled.
- * @event {CustomEvent<SbbOverlayCloseEventDetails>} didClose - Emits whenever the `sbb-overlay` is closed.
+ * @event {CustomEvent<SbbDialogCloseEventDetails>} didClose - Emits whenever the `sbb-overlay` is closed.
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  * @cssprop [--sbb-overlay-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-overlay')
-export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
+export class SbbOverlayElement extends SbbDialogBaseElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
+
+  // FIXME using { ...super.events, backClick: 'requestBackAction' } breaks the eslint missing-component-documentation-rule
+  public static override readonly events = {
     willOpen: 'willOpen',
     didOpen: 'didOpen',
     willClose: 'willClose',
@@ -58,14 +49,10 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
    */
   @property({ reflect: true, type: Boolean }) public expanded = false;
 
-  /**
-   * Whether a back button is displayed next to the title.
-   */
+  /** Whether a back button is displayed next to the title. */
   @property({ attribute: 'back-button', type: Boolean }) public backButton = false;
 
-  /**
-   * This will be forwarded as aria-label to the close button element.
-   */
+  /** This will be forwarded as aria-label to the close button element. */
   @property({ attribute: 'accessibility-close-label' }) public accessibilityCloseLabel:
     | string
     | undefined;
@@ -77,44 +64,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
     | string
     | undefined;
 
-  /**
-   * This will be forwarded as aria-label adn will describe the purpose of the dialog.
-   */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
-
-  /**
-   * Whether the animation is enabled.
-   */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
-  /*
-   * The state of the overlay.
-   */
-  private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
-  }
-  private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
-  private _ariaLiveRef!: SbbScreenReaderOnlyElement;
   private _ariaLiveRefToggle = false;
-
-  /** Emits whenever the `sbb-overlay` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbOverlayElement.events.willOpen);
-
-  /** Emits whenever the `sbb-overlay` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbOverlayElement.events.didOpen);
-
-  /** Emits whenever the `sbb-overlay` begins the closing transition. */
-  private _willClose: EventEmitter = new EventEmitter(this, SbbOverlayElement.events.willClose);
-
-  /** Emits whenever the `sbb-overlay` is closed. */
-  private _didClose: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
-    this,
-    SbbOverlayElement.events.didClose,
-  );
 
   /** Emits whenever the back button is clicked. */
   private _backClick: EventEmitter<any> = new EventEmitter(
@@ -123,23 +73,17 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
   );
 
   private _overlayContentElement: HTMLElement | null = null;
-  private _overlayCloseElement?: HTMLElement;
-  private _overlayController!: AbortController;
-  private _openOverlayController!: AbortController;
-  private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
-  private _returnValue: any;
-
-  // Last element which had focus before the overlay was opened.
+  // The last element which had focus before the overlay was opened.
   private _lastFocusedElement?: HTMLElement;
-
   private _language = new SbbLanguageController(this);
+  protected closeAttribute: string = 'sbb-overlay-close';
 
   /**
    * Opens the overlay element.
    */
   public open(): void {
-    if (this._state !== 'closed') {
+    if (this.state !== 'closed') {
       return;
     }
     this._lastFocusedElement = document.activeElement as HTMLElement;
@@ -148,169 +92,80 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
       '.sbb-overlay__content',
     ) as HTMLElement;
 
-    if (!this._willOpen.emit()) {
+    if (!this.willOpen.emit()) {
       return;
     }
-    this._state = 'opening';
+    this.state = 'opening';
 
     // Add this overlay to the global collection
-    overlayRefs.push(this as SbbOverlayElement);
+    dialogRefs.push(this as SbbOverlayElement);
 
     // Disable scrolling for content below the overlay
     this._scrollHandler.disableScroll();
   }
 
-  /**
-   * Closes the overlay element.
-   */
-  public close(result?: any, target?: HTMLElement): any {
-    if (this._state !== 'opened') {
-      return;
-    }
-
-    this._returnValue = result;
-    this._overlayCloseElement = target;
-    const eventData = {
-      returnValue: this._returnValue,
-      closeTarget: this._overlayCloseElement,
-    };
-
-    if (!this._willClose.emit(eventData)) {
-      return;
-    }
-    this._state = 'closing';
-    this._removeAriaLiveRefContent();
-  }
-
-  // Closes the overlay on "Esc" key pressed.
-  private _onKeydownEvent(event: KeyboardEvent): void {
-    if (this._state !== 'opened') {
-      return;
-    }
-
-    if (event.key === 'Escape') {
-      overlayRefs[overlayRefs.length - 1].close();
-      return;
-    }
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._state ||= 'closed';
-    this._overlayController?.abort();
-    this._overlayController = new AbortController();
-
-    if (this._state === 'opened') {
-      applyInertMechanism(this);
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._overlayController?.abort();
-    this._openOverlayController?.abort();
-    this._focusHandler.disconnect();
-    this._removeInstanceFromGlobalCollection();
-    removeInertMechanism();
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues): void {
-    this._ariaLiveRef =
-      this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
-    super.firstUpdated(changedProperties);
-  }
-
-  private _removeInstanceFromGlobalCollection(): void {
-    overlayRefs.splice(overlayRefs.indexOf(this), 1);
-  }
-
-  private _attachOpenOverlayEvents(): void {
-    this._openOverlayController = new AbortController();
+  protected attachOpenDialogEvents(): void {
+    this.openDialogController = new AbortController();
     // Remove overlay label as soon as it is not needed anymore to prevent accessing it with browse mode.
     window.addEventListener(
       'keydown',
       (event: KeyboardEvent) => {
-        this._removeAriaLiveRefContent();
-        this._onKeydownEvent(event);
+        this.removeAriaLiveRefContent();
+        this.onKeydownEvent(event);
       },
       {
-        signal: this._openOverlayController.signal,
+        signal: this.openDialogController.signal,
       },
     );
-    window.addEventListener('click', () => this._removeAriaLiveRefContent(), {
-      signal: this._openOverlayController.signal,
+    window.addEventListener('click', () => this.removeAriaLiveRefContent(), {
+      signal: this.openDialogController.signal,
     });
-  }
-
-  // Close the overlay on click of any element that has the 'sbb-overlay-close' attribute.
-  private _closeOnSbbOverlayCloseClick(event: Event): void {
-    const overlayCloseElement = event
-      .composedPath()
-      .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
-      .find(
-        (target) => target.hasAttribute('sbb-overlay-close') && !target.hasAttribute('disabled'),
-      );
-
-    if (!overlayCloseElement) {
-      return;
-    }
-
-    // Check if the target is a submission element within a form and return the form, if present
-    const closestForm =
-      overlayCloseElement.getAttribute('type') === 'submit'
-        ? (hostContext('form', overlayCloseElement) as HTMLFormElement)
-        : undefined;
-    overlayRefs[overlayRefs.length - 1].close(closestForm, overlayCloseElement);
   }
 
   // Wait for overlay transition to complete.
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
-  private _onOverlayAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this._state === 'opening') {
-      this._state = 'opened';
-      this._didOpen.emit();
+  protected onDialogAnimationEnd(event: AnimationEvent): void {
+    if (event.animationName === 'open' && this.state === 'opening') {
+      this.state = 'opened';
+      this.didOpen.emit();
       applyInertMechanism(this);
-      this._attachOpenOverlayEvents();
-      this._setOverlayFocus();
+      this.attachOpenDialogEvents();
+      this.setDialogFocus();
       // Use timeout to read label after focused element
-      setTimeout(() => this._setAriaLiveRefContent());
-      this._focusHandler.trap(this);
-    } else if (event.animationName === 'close' && this._state === 'closing') {
+      setTimeout(() => this.setAriaLiveRefContent());
+      this.focusHandler.trap(this);
+    } else if (event.animationName === 'close' && this.state === 'closing') {
       this._overlayContentElement?.scrollTo(0, 0);
-      this._state = 'closed';
+      this.state = 'closed';
       removeInertMechanism();
       setModalityOnNextFocus(this._lastFocusedElement);
       // Manually focus last focused element
       this._lastFocusedElement?.focus();
-      this._openOverlayController?.abort();
-      this._focusHandler.disconnect();
-      this._removeInstanceFromGlobalCollection();
+      this.openDialogController?.abort();
+      this.focusHandler.disconnect();
+      this.removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the overlay if no overlay is open
-      !overlayRefs.length && this._scrollHandler.enableScroll();
-      this._didClose.emit({
-        returnValue: this._returnValue,
-        closeTarget: this._overlayCloseElement,
+      !dialogRefs.length && this._scrollHandler.enableScroll();
+      this.didClose.emit({
+        returnValue: this.returnValue,
+        closeTarget: this.dialogCloseElement,
       });
     }
   }
 
-  private _setAriaLiveRefContent(): void {
+  protected setAriaLiveRefContent(): void {
     this._ariaLiveRefToggle = !this._ariaLiveRefToggle;
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
     // In order to support reading on every opening, we toggle an invisible space.
-    this._ariaLiveRef.textContent = `${i18nDialog[this._language.current]}${
+    this.ariaLiveRef.textContent = `${i18nDialog[this._language.current]}${
       this.accessibilityLabel ? `, ${this.accessibilityLabel}` : ''
     }${this._ariaLiveRefToggle ? ' ' : ''}`;
   }
 
-  private _removeAriaLiveRefContent(): void {
-    this._ariaLiveRef.textContent = '';
-  }
-
   // Set focus on the first focusable element.
-  private _setOverlayFocus(): void {
+  protected setDialogFocus(): void {
     const firstFocusable = getFirstFocusableElement(
       Array.from(this.shadowRoot!.children).filter(
         (e): e is HTMLElement => e instanceof window.HTMLElement,
@@ -352,11 +207,11 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
     return html`
       <div class="sbb-overlay__container">
         <div
-          @animationend=${(event: AnimationEvent) => this._onOverlayAnimationEnd(event)}
+          @animationend=${(event: AnimationEvent) => this.onDialogAnimationEnd(event)}
           class="sbb-overlay"
         >
           <div
-            @click=${(event: Event) => this._closeOnSbbOverlayCloseClick(event)}
+            @click=${(event: Event) => this.closeOnSbbDialogCloseClick(event)}
             class="sbb-overlay__wrapper"
           >
             <div class="sbb-overlay__header">

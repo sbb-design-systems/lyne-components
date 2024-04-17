@@ -93,16 +93,16 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 | Name                 | Attribute             | Privacy | Type                  | Default   | Description                                                          |
 | -------------------- | --------------------- | ------- | --------------------- | --------- | -------------------------------------------------------------------- |
 | `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`   | `'close'` | Backdrop click action.                                               |
+| `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                      |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined` |           | This will be forwarded as aria-label to the relevant nested element. |
 | `disableAnimation`   | `disable-animation`   | public  | `boolean`             | `false`   | Whether the animation is enabled.                                    |
-| `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                      |
 
 ## Methods
 
-| Name    | Privacy | Description                | Parameters                         | Return | Inherited From |
-| ------- | ------- | -------------------------- | ---------------------------------- | ------ | -------------- |
-| `open`  | public  | Opens the dialog element.  |                                    | `void` |                |
-| `close` | public  | Closes the dialog element. | `result: any, target: HTMLElement` | `any`  |                |
+| Name    | Privacy | Description                | Parameters                         | Return | Inherited From       |
+| ------- | ------- | -------------------------- | ---------------------------------- | ------ | -------------------- |
+| `open`  | public  | Opens the dialog element.  |                                    | `void` | SbbDialogBaseElement |
+| `close` | public  | Closes the dialog element. | `result: any, target: HTMLElement` | `any`  | SbbDialogBaseElement |
 
 ## Events
 
