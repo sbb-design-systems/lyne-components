@@ -121,15 +121,21 @@ export class SbbStepElement extends LitElement {
     this._stepper?.style?.setProperty('--sbb-stepper-content-height', `${contentHeight}px`);
   }
 
+  private _getStepLabel(): SbbStepLabelElement | null {
+    let previousSibling = this.previousElementSibling;
+    while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
+      previousSibling = previousSibling.previousElementSibling;
+    }
+    return previousSibling as SbbStepLabelElement;
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.id = this.id || `sbb-step-${nextId++}`;
     this.addEventListener('click', (e) => this._handleClick(e), { signal });
     this._stepper = this.closest('sbb-stepper');
-    if (this.previousElementSibling?.localName === 'sbb-step-label') {
-      this._label = this.previousElementSibling as SbbStepLabelElement;
-    }
+    this._label = this._getStepLabel();
     if (this._loaded && this.label) {
       this.setAttribute('aria-labelledby', this.label.id);
     }

@@ -70,15 +70,21 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
   private _stepper: SbbStepperElement | null = null;
   private _step: SbbStepElement | null = null;
 
+  private _getStep(): SbbStepElement | null {
+    let nextSibling = this.nextElementSibling;
+    while (nextSibling && nextSibling.localName !== 'sbb-step') {
+      nextSibling = nextSibling.nextElementSibling;
+    }
+    return nextSibling as SbbStepElement;
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.id = this.id || `sbb-step-label-${nextId++}`;
     this._internals.ariaSelected = 'false';
     this._stepper = this.closest('sbb-stepper');
-    if (this.nextElementSibling?.localName === 'sbb-step') {
-      this._step = this.nextElementSibling as SbbStepElement;
-    }
+    this._step = this._getStep();
     this.addEventListener(
       'click',
       () => {
