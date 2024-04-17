@@ -6,7 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { hostAttributes } from '../core/decorators.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 
-import style from './title.scss?lit&inline';
+import style from './title-common.scss?lit&inline';
 
 export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 
