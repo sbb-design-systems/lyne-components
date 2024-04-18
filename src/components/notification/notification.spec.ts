@@ -17,7 +17,7 @@ describe(`sbb-notification`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification disable-animation data-state="opened" type="info" data-slot-names="unnamed" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-state="opened" type="info" size="m" data-slot-names="unnamed" style="--sbb-notification-height: auto;">
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
     );
@@ -33,7 +33,7 @@ describe(`sbb-notification`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification disable-animation data-state="opened" title-content="Title" type="info" data-slot-names="unnamed" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-state="opened" title-content="Title" type="info" size="m" data-slot-names="unnamed" style="--sbb-notification-height: auto;">
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
     );
@@ -50,7 +50,7 @@ describe(`sbb-notification`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification disable-animation data-state="opened" type="info" data-slot-names="title unnamed" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-state="opened" type="info" size="m" data-slot-names="title unnamed" style="--sbb-notification-height: auto;">
         <span slot="title">
           Slotted title
         </span>
@@ -69,7 +69,7 @@ describe(`sbb-notification`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification disable-animation readonly data-state="opened" title-content="Title" type="info" data-slot-names="unnamed" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation readonly data-state="opened" title-content="Title" type="info" size="m" data-slot-names="unnamed" style="--sbb-notification-height: auto;">
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
     );

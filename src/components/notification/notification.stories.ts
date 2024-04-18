@@ -27,6 +27,13 @@ const type: InputType = {
   options: ['info', 'success', 'warn', 'error'],
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm'],
+};
+
 const readonly: InputType = {
   control: {
     type: 'boolean',
@@ -42,6 +49,7 @@ const disableAnimation: InputType = {
 const basicArgTypes: ArgTypes = {
   'title-content': titleContent,
   type: type,
+  size: size,
   readonly: readonly,
   'disable-animation': disableAnimation,
 };
@@ -49,6 +57,7 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   'title-content': 'Title',
   type: type.options[0],
+  size: size.options[1],
   readonly: false,
   'disable-animation': isChromatic(),
 };
@@ -62,6 +71,7 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
   newNotification.readonly = args['readonly'];
+  newNotification.size = args['size'];
   newNotification.disableAnimation = args['disable-animation'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
@@ -205,6 +215,12 @@ export const Readonly: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, readonly: true },
+};
+
+export const SizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, size: 's' },
 };
 
 export const NoTitle: StoryObj = {

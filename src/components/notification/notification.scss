@@ -30,6 +30,8 @@
     border var(--sbb-notification-animation-duration) var(--sbb-animation-duration-2x)
       var(--sbb-notification-timing-function),
     opacity var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function);
+  --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
+    var(--sbb-spacing-responsive-xs);
 
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.
@@ -80,6 +82,18 @@
 :host([type='error']) {
   --sbb-notification-type-color: var(--sbb-color-red);
   --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red, white, 5%)};
+}
+
+:host([size='s']) {
+  --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
+    var(--sbb-spacing-responsive-xxs);
+
+  @include sbb.mq($to: small) {
+    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs)
+      var(--sbb-spacing-responsive-xxxs);
+  }
 }
 
 .sbb-notification__wrapper {
@@ -138,6 +152,10 @@
     grid-template-columns: auto 1fr auto;
     align-items: flex-start;
   }
+
+  :host([size='s']) & {
+    @include sbb.text-xs--regular;
+  }
 }
 
 .sbb-notification__icon {
@@ -178,7 +196,7 @@
     order: initial;
     grid-area: initial;
     margin-block-start: 0;
-    padding-inline: var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xs);
+    padding-inline: var(--sbb-notification-content-padding-inline);
   }
 }
 
