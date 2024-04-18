@@ -97,12 +97,11 @@
     :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
       @include sbb.focus-outline;
     }
-  }
 
-  // Handle focus on the action (link variant)
-  /* stylelint-disable-next-line no-descending-specificity */
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])::before {
-    @include sbb.focus-outline;
+    // Handle focus on the action (link variant)
+    :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) :focus-visible & {
+      @include sbb.focus-outline;
+    }
   }
 }
 

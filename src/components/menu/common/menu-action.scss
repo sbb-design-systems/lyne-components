@@ -3,12 +3,6 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
-@mixin menu-action-focus-outline {
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-
-  @include sbb.focus-outline;
-}
-
 :host {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
@@ -62,9 +56,20 @@
   -webkit-tap-highlight-color: transparent;
   background-color: var(--sbb-menu-background-color);
 
+  @mixin menu-action-focus-outline {
+    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+    @include sbb.focus-outline;
+  }
+
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   // Handle focus on the host (button variant)
   :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include menu-action-focus-outline;
+  }
+
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) :focus-visible & {
     @include menu-action-focus-outline;
   }
 
@@ -84,13 +89,6 @@
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
-
-  // Handle focus on the action (link variant)
-  /* stylelint-disable-next-line no-descending-specificity */
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
-    .sbb-menu-action__content {
-    @include menu-action-focus-outline;
-  }
 }
 
 .sbb-menu-action__icon {

@@ -21,9 +21,13 @@
   cursor: pointer;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  // Both rules are needed because the link and button implementations behave differently
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+  // Handle focus when on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+  }
+
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) :focus-visible & {
     @include sbb.focus-outline;
   }
 }
