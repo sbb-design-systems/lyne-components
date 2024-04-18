@@ -6,9 +6,8 @@ import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import type { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
-import { SbbIconNameMixin } from '../../icon/icon-name-mixin.js';
+import { SbbIconNameMixin } from '../../icon.js';
 import '../../screen-reader-only.js';
-import '../../icon.js';
 
 let nextId = 0;
 

@@ -13,8 +13,7 @@ import { SbbConnectedAbortController } from '../core/controllers.js';
 import { findReferencedElement, isBrowser, isSafari } from '../core/dom.js';
 import type { EventEmitter } from '../core/eventing.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
-import { SbbNegativeMixin } from '../core/mixins/negative-mixin.js';
-import { SbbHydrationMixin } from '../core/mixins.js';
+import { SbbNegativeMixin, SbbHydrationMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
   overlayGapFixCorners,
