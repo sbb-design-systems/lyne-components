@@ -1,4 +1,4 @@
-import type { Args, StoryContext } from '@storybook/web-components';
+import type { Args } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -350,6 +350,3 @@ export const footer = (args: Args): TemplateResult => html`
     </sbb-link-list>
   </sbb-footer>
 `;
-
-export const backgroundColor = (context: StoryContext): string =>
-  context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)';

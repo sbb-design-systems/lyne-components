@@ -1,11 +1,10 @@
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 
 import {
   buttonLinkDefaultArgs,
   buttonLinkDefaultArgTypes,
 } from '../common/button-link-common-stories.js';
 import {
-  backgroundColor,
   commonDecorators,
   fixedWidth,
   iconOnly,
@@ -61,7 +60,8 @@ const meta: Meta = {
   excludeStories: /.*(Active|FocusVisible)$/,
   decorators: commonDecorators,
   parameters: {
-    backgroundColor,
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? '#484040' : 'var(--sbb-color-white)',
     actions: {
       handles: ['click'],
     },

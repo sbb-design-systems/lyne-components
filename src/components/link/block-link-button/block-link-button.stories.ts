@@ -1,11 +1,18 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  Meta,
+  StoryContext,
+  StoryObj,
+} from '@storybook/web-components';
 
 import {
-  blockLinkCommonDefaultArgTypes,
-  blockLinkCommonDefaultArgs,
   blockFixedWidth,
   blockIconStart,
+  blockLinkCommonDefaultArgs,
+  blockLinkCommonDefaultArgTypes,
   blockM,
   blockMIcon,
   blockNegative,
@@ -16,7 +23,6 @@ import {
   blockXSIcon,
   linkButtonDefaultArgs,
   linkButtonDefaultArgTypes,
-  backgroundColor,
 } from '../common/link-common-stories.js';
 
 import readme from './readme.md?raw';
@@ -49,7 +55,8 @@ const meta: Meta = {
   args: defaultArgs,
   decorators: [withActions as Decorator],
   parameters: {
-    backgroundColor,
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     actions: {
       handles: ['click'],
     },

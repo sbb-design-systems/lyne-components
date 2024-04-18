@@ -18,9 +18,6 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import '../../icon.js';
 import '../../loading-indicator.js';
 
-export const backgroundColor = (context: StoryContext): string =>
-  context.args.negative ? '#484040' : 'var(--sbb-color-white)';
-
 const focusStyle = (context: StoryContext): Record<string, string> =>
   context.args.negative
     ? { '--sbb-focus-outline-color': 'var(--sbb-focus-outline-color-dark)' }

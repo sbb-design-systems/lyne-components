@@ -1,10 +1,10 @@
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 
 import {
+  commonDecorators,
   commonDefaultArgs,
   commonDefaultArgTypes,
-  commonDecorators,
   fixedWidth,
   iconOnly,
   iconOnlyDisabled,
@@ -20,9 +20,8 @@ import {
   primaryNegativeDisabled,
   sizeM,
   sizeS,
-  withSlottedIcon,
   withHiddenSlottedIcon,
-  backgroundColor,
+  withSlottedIcon,
 } from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
@@ -73,7 +72,8 @@ const meta: Meta = {
   excludeStories: /.*(Active|FocusVisible)$/,
   decorators: commonDecorators,
   parameters: {
-    backgroundColor,
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? '#484040' : 'var(--sbb-color-white)',
     actions: {
       handles: ['click'],
     },
