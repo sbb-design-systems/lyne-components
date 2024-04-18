@@ -8,7 +8,7 @@ snapshots["sbb-alert-group should render Dom"] =
   role="status"
 >
   <sbb-alert
-    animation="none"
+    animation="open"
     data-state="opening"
     href="https://www.sbb.ch"
     size="m"
@@ -123,7 +123,7 @@ snapshots["sbb-alert-group should render with slots"] =
     Interruptions
   </span>
   <sbb-alert
-    animation="none"
+    animation="open"
     data-state="opening"
     href="https://www.sbb.ch"
     size="m"

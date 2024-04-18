@@ -17,7 +17,7 @@ describe(`sbb-alert`, () => {
 
     expect(element).dom.to.be.equal(
       `
-        <sbb-alert title-content="Interruption" size="m" data-state="opening" animation="none">
+        <sbb-alert title-content="Interruption" size="m" data-state="opening" animation="open">
            Alert content
         </sbb-alert>
       `,
@@ -53,7 +53,7 @@ describe(`sbb-alert`, () => {
           href="https://www.sbb.ch"
           rel="noopener" target="_blank"
           link-content="Show much more"
-          animation="none"
+          animation="open"
           data-state="opening"
         >
            Alert content
