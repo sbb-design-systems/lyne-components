@@ -105,7 +105,7 @@ import { html } from 'lit';
 
 const meta: Meta = {
   decorators: [
-    (story) => html\` <div ${fixedHeightStyle}>\${story()}</div> \`,
+    (story) => html\`<div ${fixedHeightStyle}>\${story()}</div>\`,
   ],
   parameters: {
     ${parameters.backgroundColor ? `backgroundColor: ${parameters.backgroundColor.toString()}, ` : ''}
