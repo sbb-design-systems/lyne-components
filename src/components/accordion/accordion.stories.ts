@@ -43,6 +43,16 @@ const titleLevel: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 's'],
+  table: {
+    category: 'Accordion',
+  },
+};
+
 const color: InputType = {
   control: {
     type: 'inline-radio',
@@ -111,6 +121,7 @@ const defaultArgTypes: ArgTypes = {
   numberOfPanels,
   multi,
   'title-level': titleLevel,
+  size,
   color,
   expanded,
   borderless,
@@ -124,6 +135,7 @@ const defaultArgs: Args = {
   numberOfPanels: 3,
   multi: false,
   'title-level': titleLevel.options![2],
+  size: size.options![0],
   color: color.options![0],
   expanded: false,
   borderless: false,
@@ -213,6 +225,24 @@ export const Multi: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multi: true },
+};
+
+export const NoAnimation: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'disable-animation': true },
+};
+
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
+};
+
+export const SizeSWithIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1], iconName: 'swisspass-medium' },
 };
 
 const meta: Meta = {
