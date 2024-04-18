@@ -73,6 +73,10 @@
   cursor: pointer;
   user-select: none;
 
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
   &::before {
     position: absolute;
     content: '';
@@ -89,11 +93,16 @@
     }
 
     // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-    // Both rules are needed because the link and button implementations behave differently
-    &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']),
+    // Handle focus when on the host (button variant)
     :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
       @include sbb.focus-outline;
     }
+  }
+
+  // Handle focus on the action (link variant)
+  /* stylelint-disable-next-line no-descending-specificity */
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])::before {
+    @include sbb.focus-outline;
   }
 }
 

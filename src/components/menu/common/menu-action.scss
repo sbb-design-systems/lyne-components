@@ -3,6 +3,12 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
+@mixin menu-action-focus-outline {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+  @include sbb.focus-outline;
+}
+
 :host {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
@@ -44,15 +50,6 @@
   }
 }
 
-:is(.sbb-menu-button, .sbb-menu-link) {
-  text-decoration: none;
-  display: block;
-  width: 100%;
-  color: var(--sbb-menu-action-color);
-  padding: var(--sbb-spacing-fixed-1x) var(--sbb-menu-action-outer-horizontal-padding);
-  cursor: var(--sbb-menu-action-cursor);
-}
-
 .sbb-menu-action__content {
   @include sbb.text-xs--regular;
 
@@ -66,16 +63,33 @@
   background-color: var(--sbb-menu-background-color);
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  // Both rules are needed because the link and button implementations behave differently
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']),
+  // Handle focus on the host (button variant)
   :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-
-    @include sbb.focus-outline;
+    @include menu-action-focus-outline;
   }
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-2x) solid var(--sbb-menu-action-forced-color-border-color);
+  }
+}
+
+:is(.sbb-menu-button, .sbb-menu-link) {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  color: var(--sbb-menu-action-color);
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-menu-action-outer-horizontal-padding);
+  cursor: var(--sbb-menu-action-cursor);
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  // Handle focus on the action (link variant)
+  /* stylelint-disable-next-line no-descending-specificity */
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+    .sbb-menu-action__content {
+    @include menu-action-focus-outline;
   }
 }
 
