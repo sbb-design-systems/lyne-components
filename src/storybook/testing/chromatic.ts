@@ -8,6 +8,9 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+
+import { withBackgroundDecorator } from './with-background-decorator.js';
+
 import '../../components/title.js';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -20,18 +23,20 @@ export function combineStories(config: Meta, stories: StoryParameter): StoryObj[
   const decorators = (name: string, story: StoryObj): Decorator[] =>
     (
       [
-        (story, context) => html`
-          <div style="margin-block-end: 2rem;">
+        (story) =>
+          html`<div style="margin-block-end: 2rem;">
             <sbb-title
               level="5"
               style="margin-block-end: 1rem; margin-block-start: 0; text-transform: capitalize;"
             >
-              ${unCamelCase(name)}
+              ${unCamelCase(name)} ${story()}
             </sbb-title>
-            <div
-              style="outline: 1px solid #ad00ff;${context.parameters.originalLayout !== 'fullscreen'
-                ? 'padding: 2rem'
-                : ''}"
+          </div>`,
+        withBackgroundDecorator,
+        (story, context) => html`
+            <div style="outline: 1px solid #ad00ff;${
+              context.parameters.originalLayout !== 'fullscreen' ? 'padding: 2rem' : ''
+            }"
             >
               ${story()}
             </div>
