@@ -59,6 +59,7 @@ sbb-icon {
   hyphens: auto;
   text-align: left;
   color: var(--sbb-navigation-action-color);
+  outline: none;
 
   @include sbb.if-forced-colors {
     transition: none;
@@ -85,7 +86,7 @@ sbb-icon {
   }
 
   // Handle focus on the action (link variant)
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) :focus-visible & {
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
     @include navigation-action-focus-outline;
   }
 }

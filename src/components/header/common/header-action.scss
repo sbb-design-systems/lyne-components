@@ -72,10 +72,7 @@
   padding-inline: var(--sbb-header-action-padding-inline);
   cursor: pointer;
   user-select: none;
-
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
+  outline: none;
 
   &::before {
     position: absolute;

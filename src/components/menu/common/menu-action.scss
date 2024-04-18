@@ -44,6 +44,16 @@
   }
 }
 
+:is(.sbb-menu-button, .sbb-menu-link) {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  color: var(--sbb-menu-action-color);
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-menu-action-outer-horizontal-padding);
+  cursor: var(--sbb-menu-action-cursor);
+  outline: none;
+}
+
 .sbb-menu-action__content {
   @include sbb.text-xs--regular;
 
@@ -76,19 +86,6 @@
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-2x) solid var(--sbb-menu-action-forced-color-border-color);
   }
-}
-
-:is(.sbb-menu-button, .sbb-menu-link) {
-  text-decoration: none;
-  display: block;
-  width: 100%;
-  color: var(--sbb-menu-action-color);
-  padding: var(--sbb-spacing-fixed-1x) var(--sbb-menu-action-outer-horizontal-padding);
-  cursor: var(--sbb-menu-action-cursor);
-
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
 }
 
 .sbb-menu-action__icon {
