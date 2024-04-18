@@ -4,10 +4,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y.js';
-import { SbbLanguageController } from '../core/controllers.js';
-import { SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
-import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n.js';
+import { i18nCloseDialog, i18nGoBack } from '../core/i18n.js';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay.js';
 import { dialogRefs, SbbDialogBaseElement } from '../dialog.js';
 
@@ -57,36 +55,26 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
     | string
     | undefined;
 
-  /**
-   * This will be forwarded as aria-label to the back button element.
-   */
+  /** This will be forwarded as aria-label to the back button element. */
   @property({ attribute: 'accessibility-back-label' }) public accessibilityBackLabel:
     | string
     | undefined;
 
-  private _ariaLiveRefToggle = false;
+  protected closeAttribute: string = 'sbb-overlay-close';
 
   /** Emits whenever the back button is clicked. */
   private _backClick: EventEmitter<any> = new EventEmitter(
     this,
     SbbOverlayElement.events.backClick,
   );
-
   private _overlayContentElement: HTMLElement | null = null;
-  private _scrollHandler = new SbbScrollHandler();
-  // The last element which had focus before the overlay was opened.
-  private _lastFocusedElement?: HTMLElement;
-  private _language = new SbbLanguageController(this);
-  protected closeAttribute: string = 'sbb-overlay-close';
 
-  /**
-   * Opens the overlay element.
-   */
+  /** Opens the overlay element. */
   public open(): void {
     if (this.state !== 'closed') {
       return;
     }
-    this._lastFocusedElement = document.activeElement as HTMLElement;
+    this.lastFocusedElement = document.activeElement as HTMLElement;
 
     this._overlayContentElement = this.shadowRoot?.querySelector(
       '.sbb-overlay__content',
@@ -101,29 +89,11 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
     dialogRefs.push(this as SbbOverlayElement);
 
     // Disable scrolling for content below the overlay
-    this._scrollHandler.disableScroll();
-  }
-
-  protected attachOpenDialogEvents(): void {
-    this.openDialogController = new AbortController();
-    // Remove overlay label as soon as it is not needed anymore to prevent accessing it with browse mode.
-    window.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        this.removeAriaLiveRefContent();
-        this.onKeydownEvent(event);
-      },
-      {
-        signal: this.openDialogController.signal,
-      },
-    );
-    window.addEventListener('click', () => this.removeAriaLiveRefContent(), {
-      signal: this.openDialogController.signal,
-    });
+    this.scrollHandler.disableScroll();
   }
 
   // Wait for overlay transition to complete.
-  // In rare cases it can be that the animationEnd event is triggered twice.
+  // In rare cases, it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   protected onDialogAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
@@ -133,35 +103,25 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
       this.attachOpenDialogEvents();
       this.setDialogFocus();
       // Use timeout to read label after focused element
-      setTimeout(() => this.setAriaLiveRefContent());
+      setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
       this.focusHandler.trap(this);
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this._overlayContentElement?.scrollTo(0, 0);
       this.state = 'closed';
       removeInertMechanism();
-      setModalityOnNextFocus(this._lastFocusedElement);
+      setModalityOnNextFocus(this.lastFocusedElement);
       // Manually focus last focused element
-      this._lastFocusedElement?.focus();
+      this.lastFocusedElement?.focus();
       this.openDialogController?.abort();
       this.focusHandler.disconnect();
       this.removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the overlay if no overlay is open
-      !dialogRefs.length && this._scrollHandler.enableScroll();
+      !dialogRefs.length && this.scrollHandler.enableScroll();
       this.didClose.emit({
         returnValue: this.returnValue,
         closeTarget: this.dialogCloseElement,
       });
     }
-  }
-
-  protected setAriaLiveRefContent(): void {
-    this._ariaLiveRefToggle = !this._ariaLiveRefToggle;
-
-    // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
-    // In order to support reading on every opening, we toggle an invisible space.
-    this.ariaLiveRef.textContent = `${i18nDialog[this._language.current]}${
-      this.accessibilityLabel ? `, ${this.accessibilityLabel}` : ''
-    }${this._ariaLiveRefToggle ? ' ' : ''}`;
   }
 
   // Set focus on the first focusable element.
@@ -182,7 +142,7 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
     const closeButton = html`
       <${unsafeStatic(TAG_NAME)}
         class="sbb-overlay__close"
-        aria-label=${this.accessibilityCloseLabel || i18nCloseDialog[this._language.current]}
+        aria-label=${this.accessibilityCloseLabel || i18nCloseDialog[this.language.current]}
         ?negative=${this.negative}
         size="m"
         type="button"
@@ -194,7 +154,7 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
     const backButton = html`
       <${unsafeStatic(TAG_NAME)}
         class="sbb-overlay__back"
-        aria-label=${this.accessibilityBackLabel || i18nGoBack[this._language.current]}
+        aria-label=${this.accessibilityBackLabel || i18nGoBack[this.language.current]}
         ?negative=${this.negative}
         size="m"
         type="button"

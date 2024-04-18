@@ -1,12 +1,14 @@
 import { LitElement, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbFocusHandler } from '../../core/a11y/focus.js';
-import { hostContext } from '../../core/dom/host-context.js';
-import { EventEmitter } from '../../core/eventing/event-emitter.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces/types.js';
-import { SbbNegativeMixin } from '../../core/mixins/negative-mixin.js';
-import { applyInertMechanism, removeInertMechanism } from '../../core/overlay/overlay.js';
+import { SbbFocusHandler } from '../../core/a11y.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { hostContext, SbbScrollHandler } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nDialog } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import { applyInertMechanism, removeInertMechanism } from '../../core/overlay.js';
 import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only.js';
 
 // A global collection of existing dialogs
@@ -61,18 +63,21 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(LitElement) 
     SbbDialogBaseElement.events.didClose,
   );
 
+  // The last element which had focus before the dialog was opened.
+  protected lastFocusedElement?: HTMLElement;
   protected dialogCloseElement?: HTMLElement;
   protected dialogController!: AbortController;
   protected openDialogController!: AbortController;
   protected focusHandler = new SbbFocusHandler();
+  protected scrollHandler = new SbbScrollHandler();
   protected returnValue: any;
+  protected ariaLiveRefToggle = false;
   protected ariaLiveRef!: SbbScreenReaderOnlyElement;
+  protected language = new SbbLanguageController(this);
 
   /** Opens the dialog element. */
   public abstract open(): void;
-  protected abstract attachOpenDialogEvents(): void;
   protected abstract onDialogAnimationEnd(event: AnimationEvent): void;
-  protected abstract setAriaLiveRefContent(): void;
   protected abstract setDialogFocus(): void;
   protected abstract closeAttribute: string;
 
@@ -94,17 +99,6 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(LitElement) 
     }
     this.state = 'closing';
     this.removeAriaLiveRefContent();
-  }
-
-  protected onKeydownEvent(event: KeyboardEvent): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-
-    if (event.key === 'Escape') {
-      dialogRefs[dialogRefs.length - 1].close();
-      return;
-    }
   }
 
   public override connectedCallback(): void {
@@ -134,6 +128,35 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(LitElement) 
     removeInertMechanism();
   }
 
+  protected attachOpenDialogEvents(): void {
+    this.openDialogController = new AbortController();
+    // Remove overlay label as soon as it is not needed any more to prevent accessing it with browse mode.
+    window.addEventListener(
+      'keydown',
+      async (event: KeyboardEvent) => {
+        this.removeAriaLiveRefContent();
+        await this.onKeydownEvent(event);
+      },
+      {
+        signal: this.openDialogController.signal,
+      },
+    );
+    window.addEventListener('click', () => this.removeAriaLiveRefContent(), {
+      signal: this.openDialogController.signal,
+    });
+  }
+
+  protected onKeydownEvent(event: KeyboardEvent): void {
+    if (this.state !== 'opened') {
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      dialogRefs[dialogRefs.length - 1].close();
+      return;
+    }
+  }
+
   protected removeInstanceFromGlobalCollection(): void {
     dialogRefs.splice(dialogRefs.indexOf(this as SbbDialogBaseElement), 1);
   }
@@ -161,5 +184,15 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(LitElement) 
 
   protected removeAriaLiveRefContent(): void {
     this.ariaLiveRef.textContent = '';
+  }
+
+  protected setAriaLiveRefContent(label?: string): void {
+    this.ariaLiveRefToggle = !this.ariaLiveRefToggle;
+
+    // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
+    // In order to support reading on every opening, we toggle an invisible space.
+    this.ariaLiveRef.textContent = `${i18nDialog[this.language.current]}${
+      label ? `, ${label}` : ''
+    }${this.ariaLiveRefToggle ? ' ' : ''}`;
   }
 }

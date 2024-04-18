@@ -3,9 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { SbbScrollHandler, isBreakpoint } from '../../core/dom.js';
-import { i18nDialog } from '../../core/i18n.js';
+import { isBreakpoint } from '../../core/dom.js';
 import { AgnosticResizeObserver } from '../../core/observers.js';
 import { applyInertMechanism, removeInertMechanism } from '../../core/overlay.js';
 import type { SbbDialogActionsElement } from '../dialog-actions.js';
@@ -44,20 +42,15 @@ export class SbbDialogElement extends SbbDialogBaseElement {
   private _dialogContentResizeObserver = new AgnosticResizeObserver(() =>
     setTimeout(() => this._onContentResize()),
   );
-  private _ariaLiveRefToggle = false;
 
   private _dialogTitleElement: SbbDialogTitleElement | null = null;
   private _dialogTitleHeight?: number;
   private _dialogContentElement: HTMLElement | null = null;
   private _dialogActionsElement: SbbDialogActionsElement | null = null;
-  private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnDialog: boolean = false;
   private _overflows: boolean = false;
   private _lastScroll = 0;
   private _dialogId = `sbb-dialog-${nextId++}`;
-  // The last element which had focus before the dialog was opened.
-  private _lastFocusedElement?: HTMLElement;
-  private _language = new SbbLanguageController(this);
   protected closeAttribute: string = 'sbb-dialog-close';
 
   /** Opens the dialog element. */
@@ -65,7 +58,7 @@ export class SbbDialogElement extends SbbDialogBaseElement {
     if (this.state !== 'closed') {
       return;
     }
-    this._lastFocusedElement = document.activeElement as HTMLElement;
+    this.lastFocusedElement = document.activeElement as HTMLElement;
 
     // Initialize dialog elements
     this._dialogTitleElement = this.querySelector('sbb-dialog-title');
@@ -85,7 +78,107 @@ export class SbbDialogElement extends SbbDialogBaseElement {
     this._dialogContentResizeObserver.observe(this._dialogContentElement);
 
     // Disable scrolling for content below the dialog
-    this._scrollHandler.disableScroll();
+    this.scrollHandler.disableScroll();
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    // Close dialog on backdrop click
+    this.addEventListener('pointerdown', this._pointerDownListener, {
+      signal: this.dialogController.signal,
+    });
+    this.addEventListener('pointerup', this._closeOnBackdropClick, {
+      signal: this.dialogController.signal,
+    });
+  }
+
+  protected override firstUpdated(_changedProperties: PropertyValues): void {
+    // Synchronize the negative state before the first opening to avoid a possible color flash if it is negative.
+    this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
+    this._syncNegative();
+    super.firstUpdated(_changedProperties);
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('negative')) {
+      this._syncNegative();
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._dialogContentResizeObserver.disconnect();
+  }
+
+  protected override attachOpenDialogEvents(): void {
+    super.attachOpenDialogEvents();
+
+    // If the content overflows, show/hide the dialog header on scroll.
+    this._dialogContentElement?.addEventListener('scroll', () => this._onContentScroll(), {
+      passive: true,
+      signal: this.openDialogController.signal,
+    });
+    window.addEventListener('resize', () => this._setHideHeaderDataAttribute(false), {
+      signal: this.openDialogController.signal,
+    });
+  }
+
+  // Wait for dialog transition to complete.
+  // In rare cases, it can be that the animationEnd event is triggered twice.
+  // To avoid entering a corrupt state, exit when state is not expected.
+  protected onDialogAnimationEnd(event: AnimationEvent): void {
+    if (event.animationName === 'open' && this.state === 'opening') {
+      this.state = 'opened';
+      this.didOpen.emit();
+      applyInertMechanism(this);
+      this.attachOpenDialogEvents();
+      this.setDialogFocus();
+      // Use timeout to read label after focused element
+      setTimeout(() =>
+        this.setAriaLiveRefContent(
+          this.accessibilityLabel || this._dialogTitleElement?.innerText.trim(),
+        ),
+      );
+      this.focusHandler.trap(this);
+    } else if (event.animationName === 'close' && this.state === 'closing') {
+      this._setHideHeaderDataAttribute(false);
+      this._dialogContentElement?.scrollTo(0, 0);
+      this.state = 'closed';
+      removeInertMechanism();
+      setModalityOnNextFocus(this.lastFocusedElement);
+      // Manually focus last focused element
+      this.lastFocusedElement?.focus();
+      this.openDialogController?.abort();
+      this.focusHandler.disconnect();
+      this._dialogContentResizeObserver.disconnect();
+      this.removeInstanceFromGlobalCollection();
+      // Enable scrolling for content below the dialog if no dialog is open
+      !dialogRefs.length && this.scrollHandler.enableScroll();
+      this.didClose.emit({
+        returnValue: this.returnValue,
+        closeTarget: this.dialogCloseElement,
+      });
+    }
+  }
+
+  // Set focus on the first focusable element.
+  protected setDialogFocus(): void {
+    const firstFocusable = getFirstFocusableElement(
+      Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
+    );
+    setModalityOnNextFocus(firstFocusable);
+    firstFocusable?.focus();
+  }
+
+  private _syncNegative(): void {
+    if (this._dialogTitleElement) {
+      this._dialogTitleElement.negative = this.negative;
+    }
+
+    if (this._dialogActionsElement) {
+      this._dialogActionsElement.toggleAttribute('data-negative', this.negative);
+    }
   }
 
   private _onContentScroll(): void {
@@ -124,72 +217,6 @@ export class SbbDialogElement extends SbbDialogBaseElement {
     this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    // Close dialog on backdrop click
-    this.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this.dialogController.signal,
-    });
-    this.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this.dialogController.signal,
-    });
-  }
-
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    // Synchronize the negative state before the first opening to avoid a possible color flash if it is negative.
-    this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
-    this._syncNegative();
-    super.firstUpdated(_changedProperties);
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('negative')) {
-      this._syncNegative();
-    }
-  }
-
-  private _syncNegative(): void {
-    if (this._dialogTitleElement) {
-      this._dialogTitleElement.negative = this.negative;
-    }
-
-    if (this._dialogActionsElement) {
-      this._dialogActionsElement.toggleAttribute('data-negative', this.negative);
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._dialogContentResizeObserver.disconnect();
-  }
-
-  protected attachOpenDialogEvents(): void {
-    this.openDialogController = new AbortController();
-    // Remove dialog label as soon as it is not needed anymore to prevent accessing it with browse mode.
-    window.addEventListener(
-      'keydown',
-      async (event: KeyboardEvent) => {
-        this.removeAriaLiveRefContent();
-        await this.onKeydownEvent(event);
-      },
-      {
-        signal: this.openDialogController.signal,
-      },
-    );
-    window.addEventListener('click', () => this.removeAriaLiveRefContent(), {
-      signal: this.openDialogController.signal,
-    });
-    // If the content overflows, show/hide the dialog header on scroll.
-    this._dialogContentElement?.addEventListener('scroll', () => this._onContentScroll(), {
-      passive: true,
-      signal: this.openDialogController.signal,
-    });
-    window.addEventListener('resize', () => this._setHideHeaderDataAttribute(false), {
-      signal: this.openDialogController.signal,
-    });
-  }
-
   // Check if the pointerdown event target is triggered on the dialog.
   private _pointerDownListener = (event: PointerEvent): void => {
     if (this.backdropAction !== 'close') {
@@ -218,62 +245,6 @@ export class SbbDialogElement extends SbbDialogBaseElement {
       this.close();
     }
   };
-
-  // Wait for dialog transition to complete.
-  // In rare cases it can be that the animationEnd event is triggered twice.
-  // To avoid entering a corrupt state, exit when state is not expected.
-  protected onDialogAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this.state === 'opening') {
-      this.state = 'opened';
-      this.didOpen.emit();
-      applyInertMechanism(this);
-      this.attachOpenDialogEvents();
-      this.setDialogFocus();
-      // Use timeout to read label after focused element
-      setTimeout(() => this.setAriaLiveRefContent());
-      this.focusHandler.trap(this);
-    } else if (event.animationName === 'close' && this.state === 'closing') {
-      this._setHideHeaderDataAttribute(false);
-      this._dialogContentElement?.scrollTo(0, 0);
-      this.state = 'closed';
-      removeInertMechanism();
-      setModalityOnNextFocus(this._lastFocusedElement);
-      // Manually focus last focused element
-      this._lastFocusedElement?.focus();
-      this.openDialogController?.abort();
-      this.focusHandler.disconnect();
-      this._dialogContentResizeObserver.disconnect();
-      this.removeInstanceFromGlobalCollection();
-      // Enable scrolling for content below the dialog if no dialog is open
-      !dialogRefs.length && this._scrollHandler.enableScroll();
-      this.didClose.emit({
-        returnValue: this.returnValue,
-        closeTarget: this.dialogCloseElement,
-      });
-    }
-  }
-
-  protected setAriaLiveRefContent(): void {
-    this._ariaLiveRefToggle = !this._ariaLiveRefToggle;
-
-    // Take accessibility label or current string in title section
-    const label = this.accessibilityLabel || this._dialogTitleElement?.innerText.trim();
-
-    // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
-    // In order to support reading on every opening, we toggle an invisible space.
-    this.ariaLiveRef.textContent = `${i18nDialog[this._language.current]}${
-      label ? `, ${label}` : ''
-    }${this._ariaLiveRefToggle ? ' ' : ''}`;
-  }
-
-  // Set focus on the first focusable element.
-  protected setDialogFocus(): void {
-    const firstFocusable = getFirstFocusableElement(
-      Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-    );
-    setModalityOnNextFocus(firstFocusable);
-    firstFocusable?.focus();
-  }
 
   private _setDialogHeaderHeight(): void {
     this._dialogTitleHeight = this._dialogTitleElement?.shadowRoot!.firstElementChild!.clientHeight;
