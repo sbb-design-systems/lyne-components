@@ -504,7 +504,10 @@ export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
+  decorators: [
+    (story) => (isChromatic() ? html` <div style="min-height: 100vh">${story()}</div>` : story()),
+    withActions as Decorator,
+  ],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {

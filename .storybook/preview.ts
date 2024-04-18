@@ -1,7 +1,12 @@
 import * as tokens from '@sbb-esta/lyne-design-tokens';
+import type { StoryContext } from '@storybook/types';
+import type { Decorator } from '@storybook/web-components';
+import isChromatic from 'chromatic/isChromatic';
+import { html } from 'lit';
+
+import { withBackgroundDecorator } from '../src/storybook/testing/with-background-decorator.js';
 
 import '../src/components/core/styles/global.scss';
-import { withBackgroundDecorator } from '../src/storybook/testing/with-background-decorator.js';
 
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
@@ -72,4 +77,10 @@ export const parameters = {
   },
 };
 
-export const decorators = [withBackgroundDecorator];
+export const decorators: Decorator[] = [
+  (story, context: StoryContext) =>
+    isChromatic() && context.parameters.layout !== 'fullscreen'
+      ? html`<div style="padding: 2rem"></div>`
+      : story(),
+  withBackgroundDecorator,
+];
