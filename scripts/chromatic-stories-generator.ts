@@ -109,6 +109,7 @@ const meta: Meta = {
   ],
   parameters: {
     ${parameters.backgroundColor ? `backgroundColor: ${parameters.backgroundColor.toString()}, ` : ''}
+    ${parameters.layout ? `originalLayout: '${parameters.layout}', ` : ''}
     backgrounds: {
       disable: true,
     },

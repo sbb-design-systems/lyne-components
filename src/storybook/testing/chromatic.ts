@@ -20,7 +20,7 @@ export function combineStories(config: Meta, stories: StoryParameter): StoryObj[
   const decorators = (name: string, story: StoryObj): Decorator[] =>
     (
       [
-        (story) => html`
+        (story, context) => html`
           <div style="margin-block-end: 2rem;">
             <sbb-title
               level="5"
@@ -28,7 +28,13 @@ export function combineStories(config: Meta, stories: StoryParameter): StoryObj[
             >
               ${unCamelCase(name)}
             </sbb-title>
-            <div style="outline: 1px solid #ad00ff;">${story()}</div>
+            <div
+              style="outline: 1px solid #ad00ff;${context.parameters.originalLayout !== 'fullscreen'
+                ? 'padding: 2rem'
+                : ''}"
+            >
+              ${story()}
+            </div>
           </div>
         `,
       ] as Decorator[]
