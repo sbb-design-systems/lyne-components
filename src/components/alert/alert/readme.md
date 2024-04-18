@@ -94,7 +94,7 @@ As a base rule, opening animations should be activated whenever an alert arrives
 | `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |          | Where to display the linked URL.                                                                                                                                 |
 | `rel`                | `rel`                 | public  | `string \| undefined`                   |          | The relationship of the linked URL as space-separated link types.                                                                                                |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |          | This will be forwarded as aria-label to the relevant nested element.                                                                                             |
-| `animation`          | `animation`           | public  | `'open' \| 'none'`                      | `'none'` | The enabled animations.                                                                                                                                          |
+| `animation`          | `animation`           | public  | `'open' \| 'none'`                      | `'open'` | The enabled animations.                                                                                                                                          |
 
 ## Methods
 

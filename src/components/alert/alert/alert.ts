@@ -75,7 +75,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /** The enabled animations. */
-  @property({ reflect: true }) public animation: 'open' | 'none' = 'none';
+  @property({ reflect: true }) public animation: 'open' | 'none' = 'open';
 
   /** The state of the alert. */
   private get _state(): SbbAlertState {

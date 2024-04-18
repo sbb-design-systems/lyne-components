@@ -70,7 +70,7 @@ export class SbbNotificationElement extends LitElement {
   /**
    * The enabled animations.
    */
-  @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'close';
+  @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
   /**
    * The state of the notification.
