@@ -126,9 +126,6 @@ const meta: Meta = {
       context.args.color === 'milk' || context.args.color === 'white'
         ? 'var(--sbb-color-granite)'
         : 'var(--sbb-color-white)',
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

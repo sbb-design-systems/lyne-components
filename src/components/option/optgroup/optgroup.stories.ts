@@ -177,9 +177,6 @@ const meta: Meta = {
     actions: {
       handles: ['click'],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,

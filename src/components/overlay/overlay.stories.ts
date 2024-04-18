@@ -334,9 +334,6 @@ const meta: Meta = {
         SbbOverlayElement.events.backClick,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,

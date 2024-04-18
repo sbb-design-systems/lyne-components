@@ -225,9 +225,6 @@ const meta: Meta = {
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     actions: {
       handles: ['click'],
     },

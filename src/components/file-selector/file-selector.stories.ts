@@ -181,9 +181,6 @@ const meta: Meta = {
     actions: {
       handles: [SbbFileSelectorElement.events.fileChangedEvent],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

@@ -722,9 +722,6 @@ const meta: Meta = {
         SbbSelectionPanelElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

@@ -212,7 +212,6 @@ const meta: Meta = {
       context.args.color === 'white' && context.args.borderless
         ? 'var(--sbb-color-cement)'
         : 'var(--sbb-color-white)',
-
     actions: {
       handles: [
         SbbExpansionPanelElement.events.willOpen,
@@ -221,9 +220,6 @@ const meta: Meta = {
         SbbExpansionPanelElement.events.didClose,
         SbbExpansionPanelHeaderElement.events.toggleExpanded,
       ],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

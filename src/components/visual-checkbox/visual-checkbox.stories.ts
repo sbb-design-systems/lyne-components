@@ -125,9 +125,6 @@ const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

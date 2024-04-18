@@ -107,9 +107,6 @@ const meta: Meta = {
     actions: {
       handles: ['click'],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

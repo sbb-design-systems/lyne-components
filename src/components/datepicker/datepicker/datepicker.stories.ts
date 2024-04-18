@@ -512,12 +512,8 @@ const meta: Meta = {
     actions: {
       handles: ['input', 'change', SbbDatepickerElement.events.validationChange],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '600px' },
-
       extractComponentDescription: () => readme,
     },
   },

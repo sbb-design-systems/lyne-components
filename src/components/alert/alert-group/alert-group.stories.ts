@@ -80,9 +80,6 @@ const meta: Meta = {
     actions: {
       handles: [SbbAlertGroupElement.events.didDismissAlert, SbbAlertGroupElement.events.empty],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

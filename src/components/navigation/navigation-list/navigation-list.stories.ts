@@ -56,9 +56,6 @@ export const SlottedLabel: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: () => 'var(--sbb-color-midnight)',
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

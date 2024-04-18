@@ -289,9 +289,6 @@ const meta: Meta = {
     actions: {
       handles: ['change', 'input'],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

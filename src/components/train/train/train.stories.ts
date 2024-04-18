@@ -88,9 +88,6 @@ export const trainWithoutStation: StoryObj = {
 
 const meta: Meta = {
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

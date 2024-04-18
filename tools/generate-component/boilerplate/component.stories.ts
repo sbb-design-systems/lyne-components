@@ -36,9 +36,6 @@ const meta: Meta = {
     actions: {
       handles: [__nameUpperCase__.events.myEventName],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

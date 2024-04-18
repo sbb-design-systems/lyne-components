@@ -220,9 +220,6 @@ const meta: Meta = {
     actions: {
       handles: [SbbTabGroupElement.events.didChange],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

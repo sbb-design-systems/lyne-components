@@ -196,9 +196,6 @@ const meta: Meta = {
     actions: {
       handles: [SbbOptionElement.events.selectionChange, SbbOptionElement.events.optionSelected],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,

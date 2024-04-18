@@ -279,12 +279,8 @@ const meta: Meta = {
         SbbMenuElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '400px' },
-
       extractComponentDescription: () => readme,
     },
   },

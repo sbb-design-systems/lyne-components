@@ -114,9 +114,6 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     chromatic: { diffThreshold: 0.11, delay: 5000 },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

@@ -192,9 +192,6 @@ const meta: Meta = {
         SbbToastElement.events.didClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '200px' },
       extractComponentDescription: () => readme,

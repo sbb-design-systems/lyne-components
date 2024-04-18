@@ -258,9 +258,6 @@ const meta: Meta = {
         SbbNotificationElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

@@ -151,9 +151,6 @@ const meta: Meta = {
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,

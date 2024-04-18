@@ -225,9 +225,6 @@ const meta: Meta = {
         SbbAlertElement.events.dismissalRequested,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

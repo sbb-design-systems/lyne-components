@@ -148,9 +148,6 @@ const meta: Meta = {
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

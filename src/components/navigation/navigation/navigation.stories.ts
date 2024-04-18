@@ -255,9 +255,6 @@ const meta: Meta = {
         SbbNavigationElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,

@@ -633,9 +633,6 @@ const meta: Meta = {
         SbbOptionElement.events.optionSelected,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,

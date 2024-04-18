@@ -84,9 +84,6 @@ const meta: Meta = {
     actions: {
       handles: [SbbDialogTitleElement.events.backClick],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

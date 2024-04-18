@@ -363,9 +363,6 @@ const meta: Meta = {
     actions: {
       handles: ['change', 'input', SbbTimeInputElement.events.validationChange],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

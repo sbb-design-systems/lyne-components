@@ -130,9 +130,6 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

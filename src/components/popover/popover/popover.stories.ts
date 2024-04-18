@@ -281,9 +281,6 @@ const meta: Meta = {
         SbbPopoverElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       story: { inline: false, iframeHeight: '250px' },
       extractComponentDescription: () => readme,
