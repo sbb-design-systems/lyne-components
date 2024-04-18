@@ -29,7 +29,7 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 ### Button-size and link-size
 
 The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `sbb-button` and `sbb-block-link`.
-Default values are `l` for `sbb-button` and `m` for `sbb-block-link`.
+The accepted values are `s`, `m` and `l` (default) for `sbb-button` and `xs`, `s` and `m` (default) for `sbb-block-link`.
 
 ```html
 <sbb-action-group button-size="m" link-size="s">

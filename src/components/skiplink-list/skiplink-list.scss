@@ -1,14 +1,15 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-skiplink-list-height: 0;
   --sbb-skiplink-list-overflow: hidden;
   --sbb-skiplink-list-background: transparent;
   --sbb-skiplink-list-border: unset;
+
+  display: block;
 }
 
 .sbb-skiplink-list__wrapper {

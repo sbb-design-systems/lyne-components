@@ -1,8 +1,7 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-footer-gap-horizontal: var(--sbb-grid-base-gutter-responsive);
@@ -14,6 +13,8 @@
   @include sbb.mq($from: small) {
     --sbb-footer-clock-width: #{sbb.px-to-rem-build(112)};
   }
+
+  display: block;
 }
 
 :host([negative]) {
