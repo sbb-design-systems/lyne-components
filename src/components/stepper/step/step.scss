@@ -32,6 +32,7 @@
 
 .sbb-step--wrapper {
   :host([data-orientation='vertical']) & {
+    margin-inline-start: var(--sbb-spacing-fixed-4x);
     opacity: 0;
     height: 0;
     transition:

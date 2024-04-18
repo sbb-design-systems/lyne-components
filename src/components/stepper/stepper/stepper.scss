@@ -40,7 +40,7 @@
   &::before {
     content: '';
     position: absolute;
-    inset-inline-start: 0;
+    inset-inline-start: calc(var(--sbb-border-width-1x) * -1);
     background-color: var(--sbb-stepper-marker-color);
   }
 
@@ -50,7 +50,7 @@
     border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
 
     &::before {
-      inset-block-end: 0;
+      inset-block-end: calc(var(--sbb-border-width-1x) * -1);
       height: #{sbb.px-to-rem-build(3)};
       width: var(--sbb-stepper-marker-size);
       transition: width var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
@@ -103,6 +103,11 @@
     inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
     line-height: 1;
     z-index: 1;
+    transform: translate(
+      -50%,
+      calc(-50% + var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)}))
+    );
+    transition: transform var(--sbb-step-label-animation-duration) var(--sbb-animation-easing);
   }
 }
 
