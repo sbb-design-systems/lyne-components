@@ -6,7 +6,7 @@ import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbStepElement } from '../step/step.js';
+import type { SbbStepElement } from '../step.js';
 import type { SbbStepperElement } from '../stepper.js';
 
 import style from './step-label.scss?lit&inline';

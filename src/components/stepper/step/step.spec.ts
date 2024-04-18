@@ -3,18 +3,23 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
+import type { SbbStepElement } from './step.js';
 import './step.js';
 
 describe('sbb-step', () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-step>Step content</sbb-step>`);
+  let element: SbbStepElement;
 
-    expect(root).dom.to.be.equal(
-      `<sbb-step id="sbb-step-0" role="tabpanel" slot="step">Step content</sbb-step>`,
-    );
-
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-step>Step content</sbb-step>`);
   });
 
-  testA11yTreeSnapshot(html`<sbb-step>Step content</sbb-step>`);
+  it('renders - Dom', async () => {
+    await expect(element).dom.to.be.equalSnapshot();
+  });
+
+  it('renders - ShadowDom', async () => {
+    await expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  testA11yTreeSnapshot();
 });

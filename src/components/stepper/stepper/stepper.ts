@@ -10,7 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { breakpoints, isBreakpoint } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
-import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step.js';
+import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.js';
 
 import style from './stepper.scss?lit&inline';
 
