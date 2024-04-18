@@ -11,18 +11,16 @@ export const withBackgroundDecorator = makeDecorator({
 
     // For Chromatic we need to return html
     if (context.name === 'Chromatic Stories') {
-      if (!backgroundColor) {
+      const isChromaticStoriesMain = !(
+        getStory(context) as { strings: string[] }
+      ).strings[0].includes('outline');
+
+      if (!backgroundColor || isChromaticStoriesMain) {
         return getStory(context);
       } else {
-        const isChromaticStoriesMain = !(
-          getStory(context) as { strings: string[] }
-        ).strings[0].includes('outline');
-
-        return !isChromaticStoriesMain
-          ? html`<div style="background-color: ${backgroundColor(context)}">
-              ${getStory(context)}
-            </div>`
-          : getStory(context);
+        return html`<div style="background-color: ${backgroundColor(context)}">
+          ${getStory(context)}
+        </div>`;
       }
     } else {
       // For standard case we manipulate the body
