@@ -22,6 +22,7 @@ import {
   sizeS,
   withSlottedIcon,
   withHiddenSlottedIcon,
+  backgroundColor,
 } from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
@@ -72,6 +73,7 @@ const meta: Meta = {
   excludeStories: /.*(Active|FocusVisible)$/,
   decorators: commonDecorators,
   parameters: {
+    backgroundColor,
     actions: {
       handles: ['click'],
     },

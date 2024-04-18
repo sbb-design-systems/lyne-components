@@ -125,9 +125,7 @@ export const SlottedTitle: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div style=${styleMap({ padding: '1rem', 'max-width': '45rem', margin: 'auto' })}>
-        ${story()}
-      </div>
+      <div style=${styleMap({ 'max-width': '45rem', margin: 'auto' })}>${story()}</div>
     `,
     withActions as Decorator,
   ],

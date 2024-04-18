@@ -6,6 +6,7 @@ import {
   requestSubmit,
 } from '../common/button-common-stories.js';
 import {
+  backgroundColor,
   commonDecorators,
   fixedWidth,
   iconOnly,
@@ -63,6 +64,7 @@ const meta: Meta = {
   excludeStories: /.*(Active|FocusVisible)$/,
   decorators: commonDecorators,
   parameters: {
+    backgroundColor,
     actions: {
       handles: ['click'],
     },

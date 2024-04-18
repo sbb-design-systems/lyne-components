@@ -142,10 +142,8 @@ export const SkiplinkListWithTitle: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div style="padding: 2rem;">
-        ${story()}
-        <h2>Use TAB to see the skiplink box</h2>
-      </div>
+      ${story()}
+      <h2>Use TAB to see the skiplink box</h2>
     `,
   ],
   parameters: {
@@ -156,7 +154,6 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-skiplink-list',
 };

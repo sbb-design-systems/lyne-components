@@ -27,10 +27,7 @@ const Template = (): TemplateResult =>
 export const Default: StoryObj = { render: Template };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     backgrounds: {
       disable: true,

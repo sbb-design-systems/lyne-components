@@ -2,11 +2,11 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import '../../../components/alert.js';
 import '../../../components/action-group.js';
 import {
+  backgroundColor,
   bikeProduct,
   dailyTicketProduct,
   footer,
@@ -15,7 +15,6 @@ import {
   skiplinkList,
   teaserHero,
   timetableInput,
-  wrapperStyle,
 } from './home.common.js';
 import readme from './readme.md?raw';
 import './home.scss';
@@ -167,10 +166,8 @@ export const home: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html` <div style=${styleMap(wrapperStyle(context))}>${story()}</div> `,
-  ],
   parameters: {
+    backgroundColor,
     chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,

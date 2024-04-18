@@ -179,7 +179,7 @@ export const WithActionLink: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 2rem; height: calc(100vh - 2rem);">${story()}</div> `,
+    (story) => (isChromatic() ? html`<div style="min-height: 100vh;">${story()}</div>` : story()),
     withActions as Decorator,
   ],
   parameters: {
@@ -196,6 +196,7 @@ const meta: Meta = {
       disable: true,
     },
     docs: {
+      story: { inline: false, iframeHeight: '200px' },
       extractComponentDescription: () => readme,
     },
   },

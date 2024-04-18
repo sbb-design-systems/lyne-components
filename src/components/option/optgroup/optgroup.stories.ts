@@ -9,7 +9,6 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
 import '../../form-field.js';
@@ -17,10 +16,6 @@ import '../../autocomplete.js';
 import '../../select.js';
 import '../option.js';
 import './optgroup.js';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
 
 const label: InputType = {
   control: {
@@ -176,12 +171,9 @@ export const MultipleSelect: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-  ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
       handles: ['click'],
     },

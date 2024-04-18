@@ -10,17 +10,12 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import { SbbTabGroupElement } from './tab-group.js';
 import '../tab-title.js';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
-});
 
 const firstTabTitle = (label: string, args: Args): TemplateResult => html`
   <sbb-tab-title ${sbbSpread(args)}>${label}</sbb-tab-title>
@@ -218,13 +213,10 @@ export const tintedBackground: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
       handles: [SbbTabGroupElement.events.didChange],
     },

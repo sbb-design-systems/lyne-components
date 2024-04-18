@@ -351,8 +351,5 @@ export const footer = (args: Args): TemplateResult => html`
   </sbb-footer>
 `;
 
-export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
+export const backgroundColor = (context: StoryContext): string =>
+  context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)';

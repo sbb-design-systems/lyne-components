@@ -8,11 +8,8 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import '../../icon.js';
 
-export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
+export const backgroundColor = (context: StoryContext): string =>
+  context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)';
 
 export const paragraphStyle = (negative: boolean): Record<string, string> => ({
   color: negative ? 'var(--sbb-color-aluminium)' : 'var(--sbb-color-iron)',

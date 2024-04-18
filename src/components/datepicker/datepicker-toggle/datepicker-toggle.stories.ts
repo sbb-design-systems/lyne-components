@@ -19,15 +19,11 @@ import { waitForComponentsReady } from '../../../storybook/testing/wait-for-comp
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 import type { SbbPopoverTriggerElement } from '../../popover.js';
 
-import '../../form-field.js';
-import '../datepicker.js';
-
-import './datepicker-toggle.js';
 import readme from './readme.md?raw';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
+import '../../form-field.js';
+import '../datepicker.js';
+import './datepicker-toggle.js';
 
 const disableAnimation: InputType = {
   control: {
@@ -120,20 +116,17 @@ export const InFormFieldNegative: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          ...(isChromatic() ? { 'min-height': '100vh', 'min-width': '100vw' } : undefined),
-        })}
-      >
-        ${story()}
-      </div>
-    `,
+    (story) =>
+      isChromatic()
+        ? html`<div style="${styleMap({ 'min-height': '100vh', 'min-width': '100vw' })}">
+            ${story()}
+          </div>`
+        : story(),
     withActions as Decorator,
   ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     chromatic: { disableSnapshot: false },
     actions: {
       handles: ['click'],

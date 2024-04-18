@@ -146,7 +146,9 @@ export const LongContent: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem; height: 100vh;">${story()}</div> `],
+  decorators: [
+    (story) => (isChromatic() ? html`<div style="min-height: 100vh;">${story()}</div>` : story()),
+  ],
   parameters: {
     chromatic: { disableSnapshot: false },
     backgrounds: {
@@ -154,10 +156,8 @@ const meta: Meta = {
     },
     docs: {
       story: { inline: false, iframeHeight: '600px' },
-
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-navigation/sbb-navigation-section',
 };

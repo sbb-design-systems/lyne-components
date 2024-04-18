@@ -201,7 +201,6 @@ export const NoAnimation: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

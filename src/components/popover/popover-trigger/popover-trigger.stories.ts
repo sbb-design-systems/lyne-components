@@ -13,7 +13,6 @@ import './popover-trigger.js';
 import '../../title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   color: context.args.negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
 });
 
@@ -171,10 +170,12 @@ const meta: Meta = {
   excludeStories: /.*Active$/,
   decorators: [
     (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+      <div style=${styleMap({ ...wrapperStyle(context) })}>${story()}</div>
     `,
   ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     backgrounds: {
       disable: true,
     },

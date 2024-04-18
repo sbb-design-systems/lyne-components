@@ -197,7 +197,7 @@ export const RoundBorderRadius: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="max-width: 480px;">${story()}</div> `],
+  decorators: [(story) => html`<div style="max-width: 480px;">${story()}</div>`],
   parameters: {
     chromatic: { diffThreshold: 0.11, delay: 8000 },
     docs: {

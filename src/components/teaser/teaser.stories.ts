@@ -245,7 +245,7 @@ export const WithSlots: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 2rem; max-width: 760px;">${story()}</div> `,
+    (story) => html`<div style="max-width: 760px;">${story()}</div>`,
     withActions as Decorator,
   ],
   parameters: {

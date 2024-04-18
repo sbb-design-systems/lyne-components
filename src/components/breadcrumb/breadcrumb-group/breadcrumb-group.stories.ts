@@ -160,7 +160,7 @@ export const CollapsedState: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div style="padding: 2rem; max-width: 1000px;">
+      <div style="max-width: 1000px;">
         ${story()}
         <div>Page content</div>
       </div>

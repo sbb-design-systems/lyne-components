@@ -317,13 +317,10 @@ export const Nested: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html`
-      <div
-        style=${styleMap({ padding: '2rem', 'min-height': isChromatic() ? '100vh' : undefined })}
-      >
-        ${story()}
-      </div>
-    `,
+    (story) =>
+      isChromatic()
+        ? html` <div style=${styleMap({ 'min-height': '100vh' })}>${story()}</div> `
+        : story(),
     withActions as Decorator,
   ],
   parameters: {
@@ -344,7 +341,6 @@ const meta: Meta = {
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-overlay',
 };

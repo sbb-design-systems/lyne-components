@@ -217,9 +217,10 @@ export const ContainerScrollOriginScrollHide: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html`
-      <div style=${styleMap(isChromatic() ? { 'min-height': '100vh' } : {})}>${story()}</div>
-    `,
+    (story) =>
+      isChromatic()
+        ? html`<div style=${styleMap({ 'min-height': '100vh' })}>${story()}</div> `
+        : story(),
     withActions as Decorator,
   ],
   parameters: {

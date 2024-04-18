@@ -27,10 +27,6 @@ import '../datepicker-previous-day.js';
 import '../datepicker-toggle.js';
 import '../../form-field.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
 const value: InputType = {
   control: {
     type: 'text',
@@ -503,21 +499,16 @@ export const WithoutFormField: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          'min-height': isChromatic() ? '100vh' : undefined,
-        })}
-      >
-        ${story()}
-      </div>
-    `,
+    (story) =>
+      isChromatic()
+        ? html` <div style=${styleMap({ 'min-height': '100vh' })}>${story()}</div> `
+        : story(),
     withActions as Decorator,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
       handles: ['input', 'change', SbbDatepickerElement.events.validationChange],
     },

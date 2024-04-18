@@ -5,6 +5,7 @@ import {
   buttonLinkDefaultArgTypes,
 } from '../common/button-link-common-stories.js';
 import {
+  backgroundColor,
   commonDecorators,
   fixedWidth,
   iconOnly,
@@ -60,6 +61,7 @@ const meta: Meta = {
   excludeStories: /.*(Active|FocusVisible)$/,
   decorators: commonDecorators,
   parameters: {
+    backgroundColor,
     actions: {
       handles: ['click'],
     },

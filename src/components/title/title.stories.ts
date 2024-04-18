@@ -2,18 +2,11 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './title.js';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
 const Template = ({ text, ...args }: Args): TemplateResult =>
@@ -98,12 +91,9 @@ export const h6VisualLevel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-  ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

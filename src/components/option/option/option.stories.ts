@@ -16,13 +16,10 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import { SbbOptionElement } from './option.js';
 import readme from './readme.md?raw';
+
 import '../../form-field.js';
 import '../../select.js';
 import '../../autocomplete.js';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
 
 const preserveIconSpace: InputType = {
   control: {
@@ -138,7 +135,11 @@ const SelectTemplate = (args: Args): TemplateResult => html`
 `;
 
 const borderDecorator: Decorator = (story) => html`
-  <div style="border: 3px solid red;">${story()}</div>
+  <div
+    style="border-width: var(--sbb-spacing-fixed-2x); border-style: dashed; border-color: #ad00ff; width: 350px;"
+  >
+    ${story()}
+  </div>
 `;
 
 export const Standalone: StoryObj = {
@@ -189,14 +190,9 @@ export const Select: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem', width: '350px' })}>
-        ${story()}
-      </div>
-    `,
-  ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
       handles: [SbbOptionElement.events.selectionChange, SbbOptionElement.events.optionSelected],
     },

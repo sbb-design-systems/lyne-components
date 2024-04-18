@@ -1,8 +1,8 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { StoryContext } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 
 import {
+  backgroundColor,
   inline,
   inlineNegative,
   linkButtonDefaultArgs,
@@ -29,8 +29,7 @@ const meta: Meta = {
   args: defaultArgs,
   decorators: [withActions as Decorator],
   parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
+    backgroundColor,
     actions: {
       handles: ['click'],
     },

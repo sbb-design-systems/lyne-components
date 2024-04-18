@@ -176,7 +176,7 @@ export const DefaultOnlyPDF: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div>${story()}</div> `, withActions as Decorator],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [SbbFileSelectorElement.events.fileChangedEvent],

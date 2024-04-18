@@ -141,7 +141,6 @@ export const NoLink: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

@@ -371,10 +371,7 @@ export const indeterminateGroup: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['change', 'input'],

@@ -26,10 +26,6 @@ import { SbbSelectElement } from './select.js';
 import '../form-error.js';
 import '../form-field.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
@@ -620,20 +616,12 @@ export const KeyboardInteraction: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          height: 'calc(100vh - 2rem)',
-        })}
-      >
-        ${story()}
-      </div>
-    `,
+    (story) => (isChromatic() ? html`<div style="min-height: 100vh">${story()}</div>` : story()),
     withActions as Decorator,
   ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [

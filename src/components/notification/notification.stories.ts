@@ -235,9 +235,7 @@ export const MultipleNotifications: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story, context) =>
-      html`<div
-        style="padding: 2rem;display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;"
-      >
+      html`<div style="display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;">
         ${trigger(context.args)}
         <div
           class="notification-container"

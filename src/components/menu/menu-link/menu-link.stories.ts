@@ -180,14 +180,11 @@ export const menuLinkButtonEllipsis: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html`
-      <div style=${styleMap({ 'background-color': 'var(--sbb-color-black)', width: '320px' })}>
-        ${story()}
-      </div>
-    `,
+    (story) => html`<div style=${styleMap({ width: '320px' })}>${story()}</div>`,
     withActions as Decorator,
   ],
   parameters: {
+    backgroundColor: () => 'var(--sbb-color-black)',
     actions: {
       handles: ['click'],
     },

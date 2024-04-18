@@ -1,7 +1,6 @@
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
-import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -80,12 +79,6 @@ const Template = (args: Args): TemplateResult => html`
   <sbb-navigation-button ${sbbSpread(args)}>Label</sbb-navigation-button>
 `;
 
-const style: Readonly<StyleInfo> = {
-  'background-color': 'var(--sbb-color-midnight)',
-  width: 'max-content',
-  padding: '1rem 2rem',
-};
-
 export const SizeL: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -105,8 +98,8 @@ export const SizeS: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`<div style=${styleMap(style)}>${story()}</div>`],
   parameters: {
+    backgroundColor: () => 'var(--sbb-color-midnight)',
     backgrounds: {
       disable: true,
     },
