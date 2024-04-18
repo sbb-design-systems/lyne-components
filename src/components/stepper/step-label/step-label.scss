@@ -96,6 +96,7 @@
 sbb-icon {
   z-index: 1;
   background-color: var(--sbb-step-label-prefix-background-color);
+  border-radius: var(--sbb-border-radius-infinity);
   transform: translateY(var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
   transition: {
     duration: var(--sbb-step-label-animation-duration);
