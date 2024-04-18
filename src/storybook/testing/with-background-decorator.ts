@@ -14,9 +14,15 @@ export const withBackgroundDecorator = makeDecorator({
       if (!backgroundColor) {
         return getStory(context);
       } else {
-        return html`<div style="background-color: ${backgroundColor(context)}">
-          ${getStory(context)}
-        </div>`;
+        const isChromaticStoriesMain = !(
+          getStory(context) as { strings: string[] }
+        ).strings[0].includes('outline');
+
+        return !isChromaticStoriesMain
+          ? html`<div style="background-color: ${backgroundColor(context)}">
+              ${getStory(context)}
+            </div>`
+          : getStory(context);
       }
     } else {
       // For standard case we manipulate the body
