@@ -1,4 +1,4 @@
-name: Preview Image Cleanup
+name: Container Image Cleanup
 
 on:
   workflow_dispatch: {}
@@ -9,7 +9,7 @@ permissions:
   packages: write
 
 jobs:
-  preview-image:
+  container-image-cleanup:
     runs-on: ubuntu-latest
     env:
       CLOSED_PR_RETENTION_DAYS: 14
@@ -57,5 +57,10 @@ jobs:
       - uses: actions/delete-package-versions@v4
         with:
           package-name: lyne-components/storybook-preview
+          package-type: container
+          delete-only-untagged-versions: 'true'
+      - uses: actions/delete-package-versions@v4
+        with:
+          package-name: lyne-components/visual-regression
           package-type: container
           delete-only-untagged-versions: 'true'
