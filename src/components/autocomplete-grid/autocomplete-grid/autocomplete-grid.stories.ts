@@ -323,6 +323,7 @@ const Template = (args: Args): TemplateResult => html`
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
+        aria-label="Listed options have extra buttons, use arrow keys to reach them."
         ?disabled=${args.disabled}
         ?readonly=${args.readonly}
       />
@@ -357,6 +358,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
+        aria-label="Listed options have extra buttons, use arrow keys to reach them."
         ?disabled=${args.disabled}
         ?readonly=${args.readonly}
       />
