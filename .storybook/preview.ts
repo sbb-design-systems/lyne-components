@@ -15,6 +15,7 @@ const breakpoints = Object.entries(tokens)
   .filter(([key]) => key.startsWith('SbbBreakpoint') && key.endsWith('Min'))
   .map(([key, value]) => ({ key: getViewportName(key), value: value as number }))
   .sort((a, b) => a.value - b.value);
+
 /**
  * https://www.chromatic.com/docs/viewports/
  * CHROMATIC RESTRICTIONS:

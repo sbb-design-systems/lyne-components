@@ -105,7 +105,11 @@ const defaultArgs: Args = {
 };
 
 const borderDecorator: Decorator = (story) => html`
-  <div style="border: 3px solid red;">${story()}</div>
+  <div
+    style="border-width: var(--sbb-spacing-fixed-2x); border-style: dashed; border-color: #ad00ff;"
+  >
+    ${story()}
+  </div>
 `;
 
 const createOptions = (args: Args): TemplateResult[] =>
