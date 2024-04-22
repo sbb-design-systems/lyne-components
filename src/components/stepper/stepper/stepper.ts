@@ -40,7 +40,7 @@ export class SbbStepperElement extends LitElement {
   }
   public set horizontalFrom(value: SbbHorizontalFrom) {
     this._horizontalFrom = breakpoints.includes(value) ? value : undefined;
-    if (this._horizontalFrom) {
+    if (this._horizontalFrom && this._loaded) {
       this._checkOrientation();
     }
   }
@@ -209,6 +209,7 @@ export class SbbStepperElement extends LitElement {
       step.slot = this.orientation === 'horizontal' ? 'step' : 'step-label';
       step.setAttribute('data-orientation', this.orientation);
       step.label?.setAttribute('data-orientation', this.orientation);
+      console.log('updating labels', step.slot, this.orientation);
     });
   }
 
@@ -246,9 +247,7 @@ export class SbbStepperElement extends LitElement {
     await this.updateComplete;
     this._loaded = true;
     this.selectedIndex = !this.linear ? Number(this.getAttribute('selected-index')) || 0 : 0;
-    if (!this.horizontalFrom) {
-      this._checkOrientation();
-    }
+    this._checkOrientation();
     // Remove [data-disable-animation] after component init
     setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
   }
