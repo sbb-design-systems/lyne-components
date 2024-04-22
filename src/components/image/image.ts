@@ -465,6 +465,12 @@ export class SbbImageElement extends LitElement {
 
     const pictureSizeConfigs = this._preparePictureSizeConfigs();
 
+    /**
+     * The alt attribute should always be present for the img element.
+     * If it has an empty string as its value, it is simply ignored
+     * by assistive technologies. If we leave it out completely,
+     * they might try to interpret the img element.
+     */
     return html`
       <figure
         class=${classMap({
