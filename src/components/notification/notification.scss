@@ -86,13 +86,32 @@
 
 :host([size='s']) {
   --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxxs);
-  --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs)
+    var(--sbb-spacing-responsive-xxxs);
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xxs);
+}
 
-  @include sbb.mq($to: small) {
-    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs)
-      var(--sbb-spacing-responsive-xxxs);
+@include sbb.mq($from: small) {
+  :host {
+    --sbb-notification-icon-margin-block-start: calc(
+      ((1em * var(--sbb-typo-line-height-body-text)) - var(--sbb-size-icon-ui-small)) / 2
+    );
+  }
+
+  :host(:where([data-slot-names~='title'], [title-content])) {
+    --sbb-notification-icon-margin-block-start: calc(
+      (
+          (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
+              --sbb-size-icon-ui-small
+            )
+        ) / 2
+    );
+  }
+
+  :host([size='s']) {
+    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
+    --sbb-notification-icon-margin-block-start: 0;
   }
 }
 
@@ -160,26 +179,7 @@
 
 .sbb-notification__icon {
   color: var(--sbb-notification-icon-color);
-
-  @include sbb.mq($from: small) {
-    margin-block-start: calc(
-      ((1em * var(--sbb-typo-line-height-body-text)) - var(--sbb-size-icon-ui-small)) / 2
-    );
-
-    :host(:where([data-slot-names~='title'], [title-content])) & {
-      margin-block-start: calc(
-        (
-            (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
-                --sbb-size-icon-ui-small
-              )
-          ) / 2
-      );
-    }
-
-    :host([size='s']) & {
-      margin-block-start: 0;
-    }
-  }
+  margin-block-start: var(--sbb-notification-icon-margin-block-start, 'initial');
 }
 
 .sbb-notification__title {
