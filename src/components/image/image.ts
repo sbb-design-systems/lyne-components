@@ -275,6 +275,12 @@ export class SbbImageElement extends LitElement {
    * Set an aspect ratio
    * default is '16-9' (16/9)
    * other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
+   * If the aspectRatio value is set to 'free', the component sets the CSS declaration to
+   * aspect-ratio: var(--image-aspect-ratio, auto);. This allows you to enter the value for
+   * the CSS variable --image-aspect-ratio from outside the component. The CSS variable finds
+   * its way into the shadow DOM. If the CSS variable is not explicitly set, its value will
+   * fallback to "auto". This way you can have, for example, an image component with an aspect
+   * ratio of 4/3 in smaller viewports and 16/9 in larger viewports.
    */
   @property({ attribute: 'aspect-ratio' })
   public aspectRatio: InterfaceImageAttributes['aspectRatio'] = '16-9';
