@@ -45,6 +45,7 @@ export const parameters = {
     debounceTimeout: 10,
   },
   docs: {
+    toc: true,
     source: { format: 'html' },
   },
   viewport: { viewports: storybookViewports },
