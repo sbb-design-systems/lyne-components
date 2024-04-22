@@ -9,6 +9,7 @@
   --sbb-stepper-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-stepper-marker-color: var(--sbb-color-charcoal);
 
+  display: block;
   position: relative;
   counter-reset: step-label;
 
