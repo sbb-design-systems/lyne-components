@@ -81,7 +81,7 @@ export const parameters = {
 export const decorators: Decorator[] = [
   (story, context: StoryContext) =>
     isChromatic() && context.parameters.layout !== 'fullscreen'
-      ? html`<div style="padding: 2rem; min-height: 100vh">${story()}</div>`
+      ? html`<div style="padding: 2rem;min-height: 100vh">${story()}</div>`
       : story(),
   withBackgroundDecorator,
 ];
