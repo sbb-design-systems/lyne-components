@@ -279,7 +279,7 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
   `;
 };
 
-const Template = (args: Args): TemplateResult => html`
+const Template = ({ disabled, ...args }: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
     <sbb-step-label slot="step-label">Step 1</sbb-step-label>
     <sbb-step slot="step">
@@ -303,7 +303,9 @@ const Template = (args: Args): TemplateResult => html`
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
-    <sbb-step-label slot="step-label" icon-name="tick-small">Step 3</sbb-step-label>
+    <sbb-step-label slot="step-label" icon-name="tick-small" ?disabled=${disabled}
+      >Step 3</sbb-step-label
+    >
     <sbb-step slot="step">
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
         Third step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -393,6 +395,12 @@ export const Linear: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, linear: true },
+};
+
+export const WithDisabledStep: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
 };
 
 export const Vertical: StoryObj = {
