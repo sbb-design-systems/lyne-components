@@ -150,4 +150,4 @@ jobs:
           exitZeroOnChanges: true
           zip: true
           # onlyChanged: true
-          externals: '**/components/core/styles/**/*.scss'
+          # externals: '**/components/core/styles/**/*.scss'
