@@ -498,13 +498,7 @@ export const WithoutFormField: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) =>
-      isChromatic()
-        ? html` <div style=${styleMap({ 'min-height': '100vh' })}>${story()}</div> `
-        : story(),
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     backgroundColor: (context: StoryContext) =>

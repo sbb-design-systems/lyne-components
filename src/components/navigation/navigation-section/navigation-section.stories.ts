@@ -146,9 +146,6 @@ export const LongContent: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => (isChromatic() ? html`<div style="min-height: 100vh;">${story()}</div>` : story()),
-  ],
   parameters: {
     chromatic: { disableSnapshot: false },
     docs: {
