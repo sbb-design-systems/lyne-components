@@ -224,11 +224,20 @@ const codeStyle: Readonly<StyleInfo> = {
 };
 
 const aboveDecorator: Decorator = (story) => html`
-  <div style="height: 100%; display: flex; align-items: end;">${story()}</div>
+  <div
+    style=${styleMap({
+      'inset-block-end': '2rem',
+      'inset-inline-start': '2rem',
+      position: 'absolute',
+      'max-width': 'calc(100% - 4rem)',
+    })}
+  >
+    ${story()}
+  </div>
 `;
 
 const scrollDecorator: Decorator = (story) => html`
-  <div style="height: 175%; display: flex; align-items: center;">${story()}</div>
+  <div style="height: 175vh; display: flex; align-items: center;">${story()}</div>
 `;
 
 const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';

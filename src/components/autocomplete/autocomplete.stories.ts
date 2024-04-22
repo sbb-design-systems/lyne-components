@@ -166,9 +166,10 @@ const withGroupsDefaultArgs: Args = {
 const aboveDecorator: Decorator = (story) => html`
   <div
     style=${styleMap({
-      height: '100%',
-      display: 'flex',
-      'align-items': 'end',
+      'inset-block-end': '2rem',
+      'inset-inline-start': '2rem',
+      position: 'absolute',
+      'max-width': 'calc(100% - 4rem)',
     })}
   >
     ${story()}
@@ -178,7 +179,7 @@ const aboveDecorator: Decorator = (story) => html`
 const scrollDecorator: Decorator = (story) => html`
   <div
     style=${styleMap({
-      height: '175%',
+      height: '175vh',
       display: 'flex',
       'align-items': 'center',
     })}
