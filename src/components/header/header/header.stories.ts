@@ -236,6 +236,7 @@ const meta: Meta = {
         iframeHeight: '250px',
       },
       extractComponentDescription: () => readme,
+      source: { format: 'html' },
     },
     layout: 'fullscreen',
   },

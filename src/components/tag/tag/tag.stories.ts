@@ -169,6 +169,7 @@ const meta: Meta = {
     },
     docs: {
       extractComponentDescription: () => readme,
+      source: { format: 'html' },
     },
   },
   title: 'components/sbb-tag/sbb-tag',

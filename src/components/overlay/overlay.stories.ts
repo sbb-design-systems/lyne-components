@@ -343,6 +343,7 @@ const meta: Meta = {
     docs: {
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,
+      source: { format: 'html' },
     },
     layout: 'fullscreen',
   },

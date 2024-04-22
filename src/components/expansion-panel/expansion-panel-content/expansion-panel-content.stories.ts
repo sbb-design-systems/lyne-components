@@ -22,6 +22,7 @@ const meta: Meta = {
     chromatic: { disableSnapshot: true },
     docs: {
       extractComponentDescription: () => readme,
+      source: { format: 'html' },
     },
   },
   title: 'components/sbb-accordion/sbb-expansion-panel-content',

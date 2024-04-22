@@ -528,6 +528,7 @@ const meta: Meta = {
       story: { inline: false, iframeHeight: '600px' },
 
       extractComponentDescription: () => readme,
+      source: { format: 'html' },
     },
   },
   title: 'components/sbb-datepicker/sbb-datepicker',
