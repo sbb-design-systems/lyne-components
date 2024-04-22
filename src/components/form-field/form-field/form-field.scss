@@ -203,6 +203,15 @@
 // Should be after other definitions to override overflow
 :host([data-input-type='sbb-slider']) {
   --sbb-form-field-overflow: visible;
+  --sbb-form-field-min-height: #{sbb.px-to-rem-build(48)}; // fixme
+  --sbb-form-field-label-to-input-overlapping: 0.5; // fixme
+  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-6)}; // fixme
+
+  @include sbb.mq($from: medium) {
+    --sbb-form-field-min-height: #{sbb.px-to-rem-build(52)}; // fixme
+    --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(1)}; // fixme
+    --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-3)}; // fixme
+  }
 }
 
 :host([data-input-type='textarea']) {
