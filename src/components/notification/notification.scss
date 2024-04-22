@@ -175,6 +175,10 @@
           ) / 2
       );
     }
+
+    :host([size='s']) & {
+      margin-block-start: 0;
+    }
   }
 }
 
