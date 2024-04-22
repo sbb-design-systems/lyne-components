@@ -73,12 +73,8 @@ This ensures that users who rely on screen readers are promptly informed of any 
 
 ## Animation
 
-By default, the `sbb-notification` only runs a close animation. Use the `animation` property to enable an open animation.
-As a base rule, opening animations should be activated whenever a notification arrives after the initial page load.
-
-```html
-<sbb-notification animation="all"> Content </sbb-notification>
-```
+Set the `animation` property to manage which animations are enabled.
+As a base rule, opening animations should be active if a notification arrives after the initial page load.
 
 <!-- Auto Generated Below -->
 

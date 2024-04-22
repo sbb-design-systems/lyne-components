@@ -75,8 +75,8 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 ## Animation
 
-By default, the `sbb-alert` does not have an open animation. Set `[animation]='open'` to enable a fade-in animation.
-As a base rule, opening animations should be activated whenever an alert arrives after the initial page load.
+Set the `animation` property to manage which animations are enabled.
+As a base rule, opening animations should be active if an alert arrives after the initial page load.
 
 <!-- Auto Generated Below -->
 
