@@ -61,13 +61,6 @@ export const parameters = {
   },
   viewport: { viewports: storybookViewports },
   backgrounds: { disable: true },
-  docs: {
-    toc: {
-      ignoreSelector: '.docs-story h2',
-      headingSelector: 'h2',
-    },
-    source: { format: 'html' },
-  },
   options: {
     storySort: {
       // Story section order.
