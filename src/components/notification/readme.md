@@ -81,6 +81,7 @@ This ensures that users who rely on screen readers are promptly informed of any 
 | `titleContent`     | `title-content`     | public  | `string \| undefined`                      |          | Content of title.                                                                                       |
 | `titleLevel`       | `title-level`       | public  | `SbbTitleLevel`                            | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                      |
 | `readonly`         | `readonly`          | public  | `boolean`                                  | `false`  | Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user. |
+| `size`             | `size`              | public  | `'m' \| 's'`                               | `'m'`    | Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user. |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                                  | `false`  | Whether the animation is enabled.                                                                       |
 
 ## Methods
