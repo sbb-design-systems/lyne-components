@@ -60,6 +60,9 @@ export const parameters = {
   },
   viewport: { viewports: storybookViewports },
   backgrounds: { disable: true },
+  docs: {
+    source: { format: 'html' },
+  },
   options: {
     storySort: {
       // Story section order.
@@ -80,7 +83,7 @@ export const parameters = {
 export const decorators: Decorator[] = [
   (story, context: StoryContext) =>
     isChromatic() && context.parameters.layout !== 'fullscreen'
-      ? html`<div style="padding: 2rem">${story()}</div>`
+      ? html`<div style="padding: 2rem; min-height: 100vh">${story()}</div>`
       : story(),
   withBackgroundDecorator,
 ];
