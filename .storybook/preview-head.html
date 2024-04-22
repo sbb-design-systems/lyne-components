@@ -101,6 +101,13 @@
     };
   }
 
+  if (isChromatic()) {
+    const sheet = new CSSStyleSheet();
+    sheet.insertRule(`.sb-show-main.sb-main-padded { padding: 0rem; }`);
+
+    document.adoptedStyleSheets.push(sheet);
+  }
+
   function inIframe() {
     try {
       return windowRef.self !== windowRef.top;
