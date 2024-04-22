@@ -202,7 +202,6 @@ const meta: Meta = {
     chromatic: { diffThreshold: 0.11, delay: 8000 },
     docs: {
       extractComponentDescription: () => readme,
-      source: { format: 'html' },
     },
   },
   title: 'components/sbb-image',

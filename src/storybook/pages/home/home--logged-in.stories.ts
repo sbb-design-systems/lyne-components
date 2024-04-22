@@ -295,7 +295,6 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,
-      source: { format: 'html' },
     },
     layout: 'fullscreen',
   },

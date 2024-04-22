@@ -44,6 +44,9 @@ export const parameters = {
     breakpointNames,
     debounceTimeout: 10,
   },
+  docs: {
+    source: { format: 'html' },
+  },
   viewport: { viewports: storybookViewports },
   options: {
     storySort: {

@@ -43,7 +43,6 @@ const meta: Meta = {
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
-      source: { format: 'html' },
     },
   },
   argTypes: {

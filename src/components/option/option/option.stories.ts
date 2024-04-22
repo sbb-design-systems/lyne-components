@@ -206,7 +206,6 @@ const meta: Meta = {
     docs: {
       story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,
-      source: { format: 'html' },
     },
   },
   title: 'components/sbb-option/sbb-option',

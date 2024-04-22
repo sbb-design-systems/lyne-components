@@ -46,7 +46,6 @@ const meta: Meta = {
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
-      source: { format: 'html' },
     },
   },
   title: 'components/sbb-clock',

@@ -289,7 +289,6 @@ const meta: Meta = {
       story: { inline: false, iframeHeight: '400px' },
 
       extractComponentDescription: () => readme,
-      source: { format: 'html' },
     },
   },
   title: 'components/sbb-menu/sbb-menu',

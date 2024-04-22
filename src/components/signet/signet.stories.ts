@@ -56,7 +56,6 @@ const meta: Meta = {
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
-      source: { format: 'html' },
     },
     chromatic: {
       viewports: [320],
