@@ -67,10 +67,7 @@ export class SbbNotificationElement extends LitElement {
    */
   @property({ reflect: true, type: Boolean }) public readonly = false;
 
-  /**
-   * Whether the notification is readonly.
-   * In readonly mode, there is no dismiss button offered to the user.
-   */
+  /** Size variant, either s or m. */
   @property({ reflect: true }) public size: 'm' | 's' = 'm';
 
   /**
