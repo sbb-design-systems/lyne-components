@@ -195,7 +195,7 @@ const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
   optional: undefined,
-  size: size.options[1],
+  size: size.options![1],
 };
 
 export const sbbSlider: StoryObj = {
@@ -259,7 +259,7 @@ export const sbbSliderInFormFieldDisabled: StoryObj = {
 export const sbbSliderInFormFieldSizeS: StoryObj = {
   render: TemplateSbbSliderInFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, size: size.options[0] },
+  args: { ...formFieldBasicArgs, size: size.options![0] },
 };
 
 const meta: Meta = {
