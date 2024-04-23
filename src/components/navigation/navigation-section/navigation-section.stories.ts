@@ -45,20 +45,12 @@ const accessibilityLabel: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   'accessibility-label': accessibilityLabel,
-  'disable-animation': disableAnimation,
 };
 
 const basicArgs: Args = {
   'accessibility-label': undefined,
-  'disable-animation': isChromatic(),
 };
 
 const triggerButton = (id: string): TemplateResult => html`
@@ -90,12 +82,7 @@ const navigationList = (label: string): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('navigation-trigger-1')}
-  <sbb-navigation
-    data-testid="navigation"
-    id="navigation"
-    trigger="navigation-trigger-1"
-    ?disable-animation=${args['disable-animation']}
-  >
+  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1">
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
 
     <sbb-navigation-section
@@ -146,18 +133,13 @@ export const LongContent: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem; height: 100vh;">${story()}</div> `],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
-
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-navigation/sbb-navigation-section',
 };

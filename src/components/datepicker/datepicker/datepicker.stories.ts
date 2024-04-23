@@ -27,10 +27,6 @@ import '../datepicker-previous-day.js';
 import '../datepicker-toggle.js';
 import '../../form-field.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
 const value: InputType = {
   control: {
     type: 'text',
@@ -230,15 +226,6 @@ const dataNow: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Testing',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   value,
   form,
@@ -252,7 +239,6 @@ const basicArgTypes: ArgTypes = {
   dateHandling,
   'aria-label': ariaLabel,
   'data-now': dataNow,
-  disableAnimation,
 };
 
 const basicArgs: Args = {
@@ -264,10 +250,9 @@ const basicArgs: Args = {
   min: undefined,
   max: undefined,
   wide: false,
-  dateFilter: dateFilter.options[0],
-  dateHandling: dateHandling.options[0],
+  dateFilter: dateFilter.options![0],
+  dateHandling: dateHandling.options![0],
   'aria-label': undefined,
-  disableAnimation: isChromatic(),
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 
@@ -283,7 +268,7 @@ const formFieldBasicArgsTypes: ArgTypes = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options[0],
+  size: size.options![0],
   negative: false,
   optional: false,
   borderless: false,
@@ -332,17 +317,12 @@ const Template = ({
   wide,
   dateFilter,
   'data-now': dataNow,
-  disableAnimation,
   ...args
 }: Args): TemplateResult => {
   return html`
     <div style=${styleMap({ display: 'flex', gap: '0.25rem' })}>
       <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
-      <sbb-datepicker-toggle
-        date-picker="datepicker"
-        data-testid="toggle"
-        ?disable-animation=${disableAnimation}
-      ></sbb-datepicker-toggle>
+      <sbb-datepicker-toggle date-picker="datepicker" data-testid="toggle"></sbb-datepicker-toggle>
       <input ${sbbSpread(args)} id="datepicker-input" ${sbbSpread(getInputAttributes(min, max))} />
       <sbb-datepicker
         id="datepicker"
@@ -375,7 +355,6 @@ const TemplateFormField = ({
   dateFilter,
   dateHandling,
   'data-now': dataNow,
-  disableAnimation,
   ...args
 }: Args): TemplateResult => {
   return html`
@@ -389,10 +368,7 @@ const TemplateFormField = ({
       ${label ? html`<label>${label}</label>` : nothing}
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-datepicker-next-day></sbb-datepicker-next-day>
-      <sbb-datepicker-toggle
-        data-testid="toggle"
-        ?disable-animation=${disableAnimation}
-      ></sbb-datepicker-toggle>
+      <sbb-datepicker-toggle data-testid="toggle"></sbb-datepicker-toggle>
       <input ${sbbSpread(args)} ${sbbSpread(getInputAttributes(min, max))} />
       <sbb-datepicker
         .dateFilter=${dateFilter}
@@ -468,19 +444,19 @@ export const InFormFieldWithMinAndMax: StoryObj = {
 export const InFormFieldWithDateFilter: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] },
+  args: { ...formFieldBasicArgs, dateFilter: dateFilter.options![1] },
 };
 
 export const InFormFieldWithDateParser: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, value: '2023-02-12', dateHandling: dateHandling.options[1] },
+  args: { ...formFieldBasicArgs, value: '2023-02-12', dateHandling: dateHandling.options![1] },
 };
 
 export const InFormFieldLarge: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, size: size.options[1] },
+  args: { ...formFieldBasicArgs, size: size.options![1] },
 };
 
 export const InFormFieldOptional: StoryObj = {
@@ -502,31 +478,17 @@ export const WithoutFormField: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          'min-height': isChromatic() ? '100vh' : undefined,
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
       handles: ['input', 'change', SbbDatepickerElement.events.validationChange],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
-
       extractComponentDescription: () => readme,
     },
   },

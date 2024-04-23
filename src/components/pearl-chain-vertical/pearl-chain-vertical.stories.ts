@@ -61,12 +61,12 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  lineType: lineType.options[1],
-  lineColor: lineColor.options[0],
-  bulletType: bulletType.options[0],
+  lineType: lineType.options![1],
+  lineColor: lineColor.options![0],
+  bulletType: bulletType.options![0],
   minHeight: '100',
   hideLine: false,
-  bulletSize: bulletSize.options[0],
+  bulletSize: bulletSize.options![0],
   position: 0,
   disableAnimation: isChromatic(),
 };
@@ -621,7 +621,6 @@ export const timetableChange: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

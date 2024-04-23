@@ -1,4 +1,4 @@
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 
 import {
   buttonDefaultArgs,
@@ -62,11 +62,10 @@ const meta: Meta = {
   excludeStories: /.*(Active|FocusVisible)$/,
   decorators: commonDecorators,
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? '#484040' : 'var(--sbb-color-white)',
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

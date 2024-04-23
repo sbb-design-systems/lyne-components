@@ -59,6 +59,14 @@ const breakpointMap: Record<string, number> = {
 
 /**
  * It displays an image.
+ *
+ * @cssprop [--sbb-image-aspect-ratio=auto] - When the aspectRatio property
+ * on the component is set to 'free', the CSS declaration of the aspect
+ * ratio is set to var(--sbb-image-aspect-ratio, auto). Since CSS
+ * variables find their way into the shadow DOM, we can use the
+ * --sbb-image-aspect-ratio variable to override the aspect ratio at will.
+ * This way we can have, for example, an image component with an aspect
+ * ratio of 4/3 in smaller viewports and 16/9 in larger viewports.
  */
 @customElement('sbb-image')
 export class SbbImageElement extends LitElement {
@@ -279,10 +287,6 @@ export class SbbImageElement extends LitElement {
   @property({ attribute: 'aspect-ratio' })
   public aspectRatio: InterfaceImageAttributes['aspectRatio'] = '16-9';
 
-  /** Whether the fade animation from blurred to real image should be disabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   private _logPerformanceMarks(): void {
     if (this.performanceMark) {
       performance.clearMarks(this.performanceMark);
@@ -457,6 +461,12 @@ export class SbbImageElement extends LitElement {
 
     const pictureSizeConfigs = this._preparePictureSizeConfigs();
 
+    /**
+     * The alt attribute should always be present for the img element.
+     * If it has an empty string as its value, it is simply ignored
+     * by assistive technologies. If we leave it out completely,
+     * they might try to interpret the img element.
+     */
     return html`
       <figure
         class=${classMap({
@@ -501,7 +511,7 @@ export class SbbImageElement extends LitElement {
               ];
             })}
             <img
-              alt=${this.alt || nothing}
+              alt=${this.alt || ''}
               @load=${this._imageLoaded}
               class="image__img"
               src=${this.imageSrc!}

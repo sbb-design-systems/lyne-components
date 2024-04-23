@@ -72,18 +72,11 @@ const closeDelay: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   'hover-trigger': hoverTrigger,
   'hide-close-button': hideCloseButton,
   'open-delay': openDelay,
   'close-delay': closeDelay,
-  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
@@ -91,7 +84,6 @@ const defaultArgs: Args = {
   'hide-close-button': false,
   'open-delay': undefined,
   'close-delay': undefined,
-  'disable-animation': isChromatic(),
 };
 
 const popoverTrigger = (position: Record<string, string>): TemplateResult => html`
@@ -267,14 +259,7 @@ export const WithoutCloseButtonHover: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div style="padding: 2rem; position: relative; min-height: calc(100vh - 2rem);">
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -285,14 +270,11 @@ const meta: Meta = {
         SbbPopoverElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '250px' },
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-popover/sbb-popover',
 };

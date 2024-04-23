@@ -50,7 +50,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  variant: variant.options[1],
+  variant: variant.options![1],
   negative: false,
   expanded: false,
   'accessibility-title': 'Footer',
@@ -259,7 +259,7 @@ export const FooterDefault: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    variant: variant.options[0],
+    variant: variant.options![0],
   },
 };
 
@@ -268,7 +268,7 @@ export const FooterDefaultNegative: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    variant: variant.options[0],
+    variant: variant.options![0],
     negative: true,
   },
 };
@@ -278,7 +278,7 @@ export const FooterDefaultExpanded: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    variant: variant.options[0],
+    variant: variant.options![0],
     expanded: true,
   },
 };

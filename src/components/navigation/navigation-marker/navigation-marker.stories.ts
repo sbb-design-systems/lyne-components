@@ -2,8 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import type { StyleInfo } from 'lit/directives/style-map.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -23,13 +21,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
-};
-
-const style: Readonly<StyleInfo> = {
-  'background-color': 'var(--sbb-color-midnight)',
-  width: 'max-content',
-  padding: '2rem',
+  size: size.options![0],
 };
 
 const navigationActionsL = (active: boolean): TemplateResult => html`
@@ -75,7 +67,7 @@ export const SizeL: StoryObj = {
 export const SizeS: StoryObj = {
   render: SizeSTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const SizeLActive: StoryObj = {
@@ -87,15 +79,12 @@ export const SizeLActive: StoryObj = {
 export const SizeSActive: StoryObj = {
   render: SizeSActiveTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style=${styleMap(style)}>${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: () => 'var(--sbb-color-midnight)',
     docs: {
       extractComponentDescription: () => readme,
     },

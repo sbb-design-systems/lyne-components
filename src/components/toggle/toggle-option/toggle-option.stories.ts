@@ -91,38 +91,32 @@ export const Default: StoryObj = {
 export const IconOnly: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] },
+  args: { ...defaultArgs, label: undefined, 'icon-name': iconName.options![1] },
 };
 
 export const LabelAndIcon: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, 'icon-name': iconName.options[1] },
+  args: { ...defaultArgs, 'icon-name': iconName.options![1] },
 };
 
 export const IconOnlySlotted: StoryObj = {
   render: SlottedIconTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] },
+  args: { ...defaultArgs, label: undefined, 'icon-name': iconName.options![1] },
 };
 
 export const LabelAndIconSlotted: StoryObj = {
   render: SlottedIconTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, 'icon-name': iconName.options[1] },
+  args: { ...defaultArgs, 'icon-name': iconName.options![1] },
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['input'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

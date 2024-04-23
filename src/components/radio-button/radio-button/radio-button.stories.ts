@@ -61,7 +61,7 @@ const defaultArgs: Args = {
   value: 'First value',
   checked: false,
   disabled: false,
-  size: size.options[0],
+  size: size.options![0],
   'aria-label': undefined,
   labelBoldClass: false,
 };
@@ -86,7 +86,7 @@ export const Default: StoryObj = {
 export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const Checked: StoryObj = {
@@ -126,11 +126,7 @@ export const CheckedBold: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem; max-width: 1050px;">${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },
