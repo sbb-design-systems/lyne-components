@@ -1,16 +1,13 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
+  --sbb-dialog-title-padding-block: var(--sbb-spacing-responsive-s) 0;
 
   display: contents;
 }
 
 :host([data-overflows]) {
-  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-dialog-title-padding-block: var(--sbb-spacing-responsive-s);
 }
 
 .sbb-title {
@@ -28,7 +25,7 @@
   align-items: start;
   justify-content: space-between;
   padding-inline: var(--sbb-dialog-padding-inline);
-  padding-block: var(--sbb-dialog-header-padding-block);
+  padding-block: var(--sbb-dialog-title-padding-block);
   background-color: var(--sbb-dialog-background-color);
   border-block-end: var(--sbb-dialog-title-border);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));

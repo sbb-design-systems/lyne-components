@@ -68,10 +68,9 @@ export class SbbNotificationElement extends LitElement {
   @property({ reflect: true, type: Boolean }) public readonly = false;
 
   /**
-   * Whether the animation is enabled.
+   * The enabled animations.
    */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
+  @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
   /**
    * The state of the notification.
@@ -123,7 +122,6 @@ export class SbbNotificationElement extends LitElement {
     if (this._state === 'closed') {
       this._state = 'opening';
       this._willOpen.emit();
-      this.disableAnimation && this._handleOpening();
     }
   }
 
@@ -132,7 +130,6 @@ export class SbbNotificationElement extends LitElement {
       this._state = 'closing';
       this.style.setProperty('--sbb-notification-margin', '0');
       this._willClose.emit();
-      this.disableAnimation && this._handleClosing();
     }
   }
 
@@ -159,10 +156,10 @@ export class SbbNotificationElement extends LitElement {
   }
 
   private _setNotificationHeight(): void {
-    const notificationHeight =
-      this._notificationElement.scrollHeight && !this.disableAnimation
-        ? `${this._notificationElement.scrollHeight}px`
-        : 'auto';
+    if (!this._notificationElement?.scrollHeight) {
+      return;
+    }
+    const notificationHeight = `${this._notificationElement.scrollHeight}px`;
     this.style.setProperty('--sbb-notification-height', notificationHeight);
   }
 

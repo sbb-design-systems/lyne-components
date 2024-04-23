@@ -42,29 +42,22 @@ If a back button is displayed it emits a `requestBackAction` event on click.
 
 ## Properties
 
-| Name                      | Attribute                   | Privacy | Type                         | Default | Description                                                                                                                                                                                    |
-| ------------------------- | --------------------------- | ------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `backButton`              | `back-button`               | public  | `boolean`                    | `false` | Whether a back button is displayed next to the title.                                                                                                                                          |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                                                                                                              |
-| `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                                                                                               |
-| `hideOnScroll`            | `hide-on-scroll`            | public  | `Breakpoint \| boolean`      | `false` | Whether to hide the title up to a certain breakpoint.                                                                                                                                          |
-| `level`                   | `level`                     | public  | `SbbTitleLevel`              | `'2'`   | Title level                                                                                                                                                                                    |
-| `visualLevel`             | `visual-level`              | public  | `SbbTitleLevel \| undefined` | `'3'`   | Visual level for the title. Optional, if not set, the value of level will be used.                                                                                                             |
-| `negative`                | `negative`                  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                                                                                |
-| `visuallyHidden`          | `visually-hidden`           | public  | `boolean \| undefined`       |         | Sometimes we need a title in the markup to present a proper hierarchy to the screen readers while we do not want to let that title appear visually. In this case we set visuallyHidden to true |
+| Name                      | Attribute                   | Privacy | Type                         | Default | Description                                                                                                                                                                                     |
+| ------------------------- | --------------------------- | ------- | ---------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `backButton`              | `back-button`               | public  | `boolean`                    | `false` | Whether a back button is displayed next to the title.                                                                                                                                           |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                                                                                                               |
+| `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                                                                                                |
+| `hideOnScroll`            | `hide-on-scroll`            | public  | `Breakpoint \| boolean`      | `false` | Whether to hide the title up to a certain breakpoint.                                                                                                                                           |
+| `level`                   | `level`                     | public  | `SbbTitleLevel`              | `'2'`   | Title level                                                                                                                                                                                     |
+| `visualLevel`             | `visual-level`              | public  | `SbbTitleLevel \| undefined` | `'3'`   | Visual level for the title. Optional, if not set, the value of level will be used.                                                                                                              |
+| `negative`                | `negative`                  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                                                                                 |
+| `visuallyHidden`          | `visually-hidden`           | public  | `boolean \| undefined`       |         | Sometimes we need a title in the markup to present a proper hierarchy to the screen readers while we do not want to let that title appear visually. In this case we set visuallyHidden to true. |
 
 ## Events
 
 | Name                | Type                | Description                                | Inherited From |
 | ------------------- | ------------------- | ------------------------------------------ | -------------- |
 | `requestBackAction` | `CustomEvent<void>` | Emits whenever the back button is clicked. |                |
-
-## CSS Properties
-
-| Name                             | Default                           | Description                                                                                                 |
-| -------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `--sbb-title-margin-block-start` | `var(--sbb-spacing-responsive-m)` | This property is inherited from `SbbTitleElement` and is not relevant to dialog title margin customization. |
-| `--sbb-title-margin-block-end`   | `var(--sbb-spacing-responsive-s)` | This property is inherited from `SbbTitleElement` and is not relevant to dialog title margin customization. |
 
 ## Slots
 

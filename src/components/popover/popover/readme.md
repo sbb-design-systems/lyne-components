@@ -85,7 +85,6 @@ Overlays should always contain a heading level 2 title. It can be visually hidde
 | `hoverTrigger`            | `hover-trigger`             | public  | `boolean`                            | `false` | Whether the popover should be triggered on hover.                                                               |
 | `openDelay`               | `open-delay`                | public  | `number`                             | `0`     | Open the popover after a certain delay.                                                                         |
 | `closeDelay`              | `close-delay`               | public  | `number`                             | `0`     | Close the popover after a certain delay.                                                                        |
-| `disableAnimation`        | `disable-animation`         | public  | `boolean`                            | `false` | Whether the animation is enabled.                                                                               |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined`         |         | This will be forwarded as aria-label to the close button element.                                               |
 
 ## Methods

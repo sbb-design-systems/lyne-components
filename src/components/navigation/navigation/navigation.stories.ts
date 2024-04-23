@@ -71,22 +71,14 @@ const accessibilityCloseLabel: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   'aria-label': ariaLabel,
   'accessibility-close-label': accessibilityCloseLabel,
-  'disable-animation': disableAnimation,
 };
 
 const basicArgs: Args = {
   'aria-label': undefined,
   'accessibility-close-label': undefined,
-  'disable-animation': isChromatic(),
 };
 
 const triggerButton = (id: string): TemplateResult => html`
@@ -182,11 +174,7 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
     <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
 
-    <sbb-navigation-section
-      trigger="nav-1"
-      title-content="Title one"
-      ?disable-animation=${args['disable-animation']}
-    >
+    <sbb-navigation-section trigger="nav-1" title-content="Title one">
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
       <sbb-button size="m" style="width: fit-content"> All Tickets & Offers </sbb-button>
@@ -195,18 +183,13 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     <sbb-navigation-section
       trigger="nav-2"
       title-content="Title two"
-      ?disable-animation=${args['disable-animation']}
       data-testid="navigation-section"
     >
       ${navigationList('Label', true)} ${navigationList('Label')} ${navigationList('Label')}
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
     </sbb-navigation-section>
 
-    <sbb-navigation-section
-      trigger="nav-3"
-      title-content="Title three"
-      ?disable-animation=${args['disable-animation']}
-    >
+    <sbb-navigation-section trigger="nav-3" title-content="Title three">
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
       <sbb-secondary-button
         size="m"
@@ -237,14 +220,11 @@ export const WithNavigationSection: StoryObj = {
   render: WithNavigationSectionTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: playStoryWithSection,
+  play: isChromatic() ? playStoryWithSection : undefined,
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem; height: 100vh;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -255,15 +235,11 @@ const meta: Meta = {
         SbbNavigationElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
-
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-navigation/sbb-navigation',
 };

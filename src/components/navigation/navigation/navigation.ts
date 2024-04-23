@@ -83,12 +83,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
     | undefined;
 
   /**
-   * Whether the animation is enabled.
-   */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
-  /**
    * The state of the navigation.
    */
   private set _state(state: SbbOpenedClosedState) {

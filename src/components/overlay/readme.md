@@ -82,7 +82,6 @@ When using a button to trigger the overlay, ensure to manage the appropriate ARI
 | `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                      |
 | `negative`                | `negative`                  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                       |
 | `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the relevant nested element.                                                  |
-| `disableAnimation`        | `disable-animation`         | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                     |
 
 ## Methods
 

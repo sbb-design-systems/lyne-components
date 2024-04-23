@@ -89,14 +89,14 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
+  size: size.options![0],
   checked: false,
   disabled: false,
   label: 'Label',
   value: 'Value',
   name: 'name',
   'icon-name': undefined,
-  'label-position': labelPosition.options[1],
+  'label-position': labelPosition.options![1],
   'aria-label': undefined,
 };
 
@@ -178,7 +178,7 @@ export const SbbToggleCheckDefaultSizeM: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
@@ -206,7 +206,7 @@ export const SbbToggleCheckDefaultLongLabelSizeM: StoryObj = {
   args: {
     ...defaultArgs,
     label: longLabel,
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
@@ -288,9 +288,6 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: ['change', 'input'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

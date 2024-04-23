@@ -59,7 +59,7 @@ export const GridExpanded: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding-block: 2rem;">${story()}</div> `],
+  decorators: [(story) => html`<div style="padding-block: 2rem;">${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

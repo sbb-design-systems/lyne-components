@@ -3,7 +3,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -64,7 +63,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'accessibility-title': 'Disruptions',
-  'accessibility-title-level': accessibilityTitleLevel.options[1],
+  'accessibility-title-level': accessibilityTitleLevel.options![1],
   role: 'status',
   'aria-live': undefined,
 };
@@ -76,16 +75,10 @@ export const multipleAlerts: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [SbbAlertGroupElement.events.didDismissAlert, SbbAlertGroupElement.events.empty],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,
