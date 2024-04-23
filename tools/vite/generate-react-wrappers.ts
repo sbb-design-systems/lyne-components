@@ -121,7 +121,7 @@ function renderTemplate(
   const extensionImport = !extensions.size
     ? ''
     : `
-  
+
   import { ${Array.from(extensions.keys()).join(', ')} } from '${relativeCoreImportPath}';`;
   const extension = [...extensions.values()].reduce(
     (current, next) => (v) => current(next(v)),
@@ -141,10 +141,9 @@ function renderTemplate(
   // If a type or interface needs to be imported, the custom elements analyzer will not
   // detect/extract these and therefore we need to have a manual list of required
   // types/interfaces.
-  const interfaces = new Map<string, string>().set(
-    'SbbValidationChangeEvent',
-    'core/interfaces.js',
-  );
+  const interfaces = new Map<string, string>()
+    .set('SbbDialogCloseEventDetails', 'core/interfaces.js')
+    .set('SbbValidationChangeEvent', 'core/interfaces.js');
   for (const customEventType of customEventTypes) {
     const exportModule = exports.find((e) => e.name === customEventType);
     if (exportModule) {
@@ -173,7 +172,7 @@ function renderTemplate(
     )
     .join('\n')}
   import react from 'react';${extensionImport}
-  
+
   // eslint-disable-next-line @typescript-eslint/naming-convention
   export const ${declaration.name.replace(/Element$/, '')} = ${extension(`createComponent({
     tagName: '${declaration.tagName}',

@@ -6,18 +6,13 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { hostContext, SbbScrollHandler } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nDialog } from '../../core/i18n.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import type { SbbDialogCloseEventDetails, SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
 import { applyInertMechanism, removeInertMechanism } from '../../core/overlay.js';
 import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only.js';
 
 // A global collection of existing dialogs
 export const dialogRefs: SbbDialogBaseElement[] = [];
-
-export type SbbDialogCloseEventDetails = {
-  returnValue?: any;
-  closeTarget?: HTMLElement;
-};
 
 export abstract class SbbDialogBaseElement extends SbbNegativeMixin(LitElement) {
   public static readonly events = {
@@ -29,10 +24,6 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(LitElement) 
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
-
-  /** Whether the animation is enabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
 
   /** The state of the overlay. */
   protected set state(state: SbbOpenedClosedState) {
