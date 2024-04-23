@@ -1,8 +1,7 @@
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import '../../../components/alert.js';
 import '../../../components/action-group.js';
@@ -15,7 +14,6 @@ import {
   skiplinkList,
   teaserHero,
   timetableInput,
-  wrapperStyle,
 } from './home.common.js';
 import readme from './readme.md?raw';
 import './home.scss';
@@ -139,15 +137,15 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-card>
         </div>
         <sbb-action-group orientation="vertical" horizontal-from="small">
-          <sbb-button
+          <sbb-button-link
             href="https://github.com/lyne-design-system/lyne-components"
             icon-name="qrcode-small"
           >
             My tickets & subscriptions
-          </sbb-button>
-          <sbb-secondary-button href="https://github.com/lyne-design-system/lyne-components">
+          </sbb-button-link>
+          <sbb-secondary-button-link href="https://github.com/lyne-design-system/lyne-components">
             All Products
-          </sbb-secondary-button>
+          </sbb-secondary-button-link>
         </sbb-action-group>
       </div>
     </section>
@@ -167,10 +165,9 @@ export const home: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html` <div style=${styleMap(wrapperStyle(context))}>${story()}</div> `,
-  ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,

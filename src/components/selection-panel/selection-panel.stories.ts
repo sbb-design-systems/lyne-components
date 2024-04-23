@@ -1,7 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
@@ -45,12 +44,6 @@ const borderless: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const checkedInput: InputType = {
   control: {
     type: 'boolean',
@@ -73,16 +66,14 @@ const basicArgTypes: ArgTypes = {
   color: color,
   'force-open': forceOpen,
   borderless: borderless,
-  'disable-animation': disableAnimation,
   checkedInput,
   disabledInput,
 };
 
 const basicArgs: Args = {
-  color: color.options[0],
+  color: color.options![0],
   'force-open': false,
   borderless: false,
-  'disable-animation': isChromatic(),
   checkedInput: false,
   disabledInput: false,
 };
@@ -591,7 +582,7 @@ export const WithCheckboxGroupMilk: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
   },
@@ -602,7 +593,7 @@ export const WithRadioButtonGroupMilk: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
   },
@@ -635,7 +626,7 @@ export const WithCheckboxGroupMilkBorderless: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
     borderless: true,
@@ -647,7 +638,7 @@ export const WithRadioButtonGroupMilkBorderless: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
     borderless: true,
@@ -711,10 +702,7 @@ export const NestedCheckboxes: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { delay: 9000, fixedHeight: '14500px' },
     actions: {
@@ -724,9 +712,6 @@ const meta: Meta = {
         SbbSelectionPanelElement.events.willOpen,
         SbbSelectionPanelElement.events.willClose,
       ],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

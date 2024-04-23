@@ -1,10 +1,11 @@
+/* eslint-disable import-x/default, import-x/no-named-as-default-member */
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
 
 import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
-import * as ts from 'typescript';
+import ts from 'typescript';
 
 /*
  * Convert e2e test files to use the lit fixture, to enable ssr testing.

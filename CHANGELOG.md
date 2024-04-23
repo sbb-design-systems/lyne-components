@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.50.2](https://github.com/lyne-design-system/lyne-components/compare/v0.50.1...v0.50.2) (2024-04-16)
+
+
+### Bug Fixes
+
+* adapt lyne tokens change ([#2582](https://github.com/lyne-design-system/lyne-components/issues/2582)) ([94bf4f0](https://github.com/lyne-design-system/lyne-components/commit/94bf4f069688cc958a34beb2e4337822cf70cd9a))
+* adapt react package import paths missed during migration ([#2589](https://github.com/lyne-design-system/lyne-components/issues/2589)) ([0781c6a](https://github.com/lyne-design-system/lyne-components/commit/0781c6a3a2a69dce800a3106908b9d9c694d26df))
+* **sbb-overlay:** consider sbb-overlay as overlay in inert mechanism ([#2588](https://github.com/lyne-design-system/lyne-components/issues/2588)) ([4ecc125](https://github.com/lyne-design-system/lyne-components/commit/4ecc1254f79bfc95af2aa66c1021c507c6e7db2f))
+* **sbb-teaser-hero:** use auto hyphens for title text to avoid overflow ([#2581](https://github.com/lyne-design-system/lyne-components/issues/2581)) ([3b8844c](https://github.com/lyne-design-system/lyne-components/commit/3b8844c2311f27e238ba73812a6a3c01abb2a5a3))
+
 ## [0.50.1](https://github.com/lyne-design-system/lyne-components/compare/v0.50.0...v0.50.1) (2024-04-15)
 
 

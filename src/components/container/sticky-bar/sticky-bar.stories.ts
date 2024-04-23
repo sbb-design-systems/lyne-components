@@ -44,27 +44,16 @@ const color: InputType = {
   options: ['unset', 'white', 'milk'],
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Sticky Bar',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   expanded,
   color,
   containerColor,
-  disableAnimation,
 };
 
 const defaultArgs: Args = {
   expanded: false,
-  color: color.options[0],
-  containerColor: containerColor.options[0],
-  disableAnimation: isChromatic(),
+  color: color.options![0],
+  containerColor: containerColor.options![0],
 };
 
 const actionGroup = (): TemplateResult => html`
@@ -78,12 +67,11 @@ const actionGroup = (): TemplateResult => html`
       align-self="start"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
-      sbb-dialog-close
     >
       Link
     </sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-    <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    <sbb-secondary-button>Cancel</sbb-secondary-button>
+    <sbb-button>Confirm</sbb-button>
   </sbb-action-group>
 `;
 
@@ -110,51 +98,26 @@ const Template = (): TemplateResult =>
     <sbb-secondary-button>Example</sbb-secondary-button>
   </sbb-sticky-bar>`;
 
-const DefaultTemplate = ({
-  color,
-  containerColor,
-  disableAnimation,
-  ...args
-}: Args): TemplateResult => html`
+const DefaultTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${containerContent('Example title')} ${containerContent('Another one')}
     ${containerContent('And another one')} ${containerContent('And a last one')}
 
-    <sbb-sticky-bar
-      color=${color !== 'unset' ? color : nothing}
-      ?disable-animation=${disableAnimation}
-    >
-      ${actionGroup()}
-    </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
 
-const ShortTemplate = ({
-  color,
-  containerColor,
-  disableAnimation,
-  ...args
-}: Args): TemplateResult => html`
+const ShortTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${isChromatic()
       ? containerContentChromatic('Example title')
       : containerContent('Example title')}
 
-    <sbb-sticky-bar
-      color=${color !== 'unset' ? color : nothing}
-      ?disable-animation=${disableAnimation}
-    >
-      ${actionGroup()}
-    </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
 
-const WithContentAfterTemplate = ({
-  color,
-  containerColor,
-  disableAnimation,
-  ...args
-}: Args): TemplateResult => html`
+const WithContentAfterTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
   <sbb-container
     ${sbbSpread(args)}
     color=${containerColor}
@@ -165,7 +128,6 @@ const WithContentAfterTemplate = ({
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
-      ?disable-animation=${disableAnimation}
       style="--sbb-sticky-bar-bottom-overlapping-height: var(--sbb-spacing-responsive-l);"
     >
       ${actionGroup()}
@@ -211,13 +173,13 @@ export const Expanded: StoryObj = {
 export const White: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const Milk: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2] },
+  args: { ...defaultArgs, color: color.options![2] },
 };
 
 export const WithContentAfter: StoryObj = {
@@ -229,20 +191,17 @@ export const WithContentAfter: StoryObj = {
 export const MilkContainer: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options[2] },
+  args: { ...defaultArgs, containerColor: color.options![2] },
 };
 
 export const MilkContainerWhiteStickyBar: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options[2], color: color.options[1] },
+  args: { ...defaultArgs, containerColor: color.options![2], color: color.options![1] },
 };
 
 const meta: Meta = {
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

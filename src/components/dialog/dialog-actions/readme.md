@@ -1,4 +1,4 @@
-The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/components-sbb-action-group--docs) component. Use it in combination with the [sbb-dialog](/docs/components-sbb-dialog--docs) to display a footer with an action group.
+The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/components-sbb-action-group--docs) component. Use it in combination with the [sbb-dialog](/docs/components-sbb-dialog-sbb-dialog--docs) to display a footer with an action group.
 
 ```html
 <sbb-dialog>

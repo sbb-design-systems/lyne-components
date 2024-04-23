@@ -1,13 +1,13 @@
-@forward './core/font-face';
 @forward './core/functions';
 @forward './core/mediaqueries';
-@forward './core/variables';
 
 @forward './mixins/a11y';
+@forward './mixins/animation';
 @forward './mixins/badge';
 @forward './mixins/buttons';
 @forward './mixins/card';
 @forward './mixins/chip';
+@forward './mixins/font-face';
 @forward './mixins/helpers';
 @forward './mixins/inputs';
 @forward './mixins/layout';

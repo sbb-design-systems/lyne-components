@@ -8,7 +8,7 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import type { Breakpoint } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nCloseDialog, i18nGoBack } from '../../core/i18n.js';
-import { SbbTitleElement } from '../../title.js';
+import { SbbTitleBase } from '../../title.js';
 
 import style from './dialog-title.scss?lit&inline';
 
@@ -19,14 +19,10 @@ import '../../button/transparent-button.js';
  * It displays a title inside a dialog header.
  *
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
- * @cssprop --sbb-title-margin-block-start - This property is inherited from `SbbTitleElement`
- * and is not relevant to dialog title margin customization.
- * @cssprop --sbb-title-margin-block-end - This property is inherited from `SbbTitleElement`
- * and is not relevant to dialog title margin customization.
  */
 @customElement('sbb-dialog-title')
-export class SbbDialogTitleElement extends SbbTitleElement {
-  public static override styles: CSSResultGroup = [SbbTitleElement.styles, style];
+export class SbbDialogTitleElement extends SbbTitleBase {
+  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
   public static readonly events: Record<string, string> = {
     backClick: 'requestBackAction',
   } as const;
