@@ -86,6 +86,7 @@
 .sbb-overlay__wrapper {
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: var(--sbb-overlay-height);
   outline: none;
   position: fixed;

@@ -127,14 +127,14 @@ const basicArgTypes: ArgTypes = {
 };
 
 const basicArgs: Args = {
-  level: level.options[1],
+  level: level.options![1],
   backButton: true,
-  hideOnScroll: hideOnScroll.options[0],
+  hideOnScroll: hideOnScroll.options![0],
   accessibilityCloseLabel: 'Close dialog',
   accessibilityBackLabel: 'Go back',
   negative: false,
   'accessibility-label': undefined,
-  'backdrop-action': backdropAction.options[0],
+  'backdrop-action': backdropAction.options![0],
 };
 
 const openDialog = (_event: PointerEvent, id: string): void => {
@@ -410,7 +410,7 @@ export const Negative: StoryObj = {
 export const AllowBackdropClick: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, 'backdrop-action': backdropAction.options[1] },
+  args: { ...basicArgs, 'backdrop-action': backdropAction.options![1] },
   play: isChromatic() ? playStory : undefined,
 };
 
@@ -424,7 +424,7 @@ export const LongContent: StoryObj = {
 export const HiddenTitle: StoryObj = {
   render: LongContentTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, hideOnScroll: hideOnScroll.options[7] },
+  args: { ...basicArgs, hideOnScroll: hideOnScroll.options![7] },
 };
 
 export const Form: StoryObj = {
@@ -460,16 +460,7 @@ export const Nested: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div
-        style=${styleMap({ padding: '2rem', 'min-height': isChromatic() ? '100vh' : undefined })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -481,14 +472,11 @@ const meta: Meta = {
         SbbDialogTitleElement.events.backClick,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-dialog/sbb-dialog',
 };

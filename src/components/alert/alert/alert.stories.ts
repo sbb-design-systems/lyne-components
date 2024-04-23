@@ -3,7 +3,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -156,13 +155,13 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   'title-content': 'Interruption between Berne and Olten',
   'title-level': 3,
-  size: size.options[0],
+  size: size.options![0],
   readonly: false,
   'icon-name': 'info',
   'content-slot-text':
     "Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
   'link-content': undefined,
-  href: href.options[0],
+  href: href.options![0],
   target: undefined,
   rel: undefined,
   'accessibility-label': undefined,
@@ -178,13 +177,13 @@ export const defaultAlert: StoryObj = {
 export const sizeL: StoryObj = {
   render: Default,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const sizeS: StoryObj = {
   render: Default,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[2] },
+  args: { ...defaultArgs, size: size.options![2] },
 };
 
 export const withoutCloseButton: StoryObj = {
@@ -212,10 +211,7 @@ export const iconAndTitleAsSlot: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [
@@ -223,9 +219,6 @@ const meta: Meta = {
         SbbAlertElement.events.didOpen,
         SbbAlertElement.events.dismissalRequested,
       ],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

@@ -308,16 +308,7 @@ export const Nested: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div
-        style=${styleMap({ padding: '2rem', 'min-height': isChromatic() ? '100vh' : undefined })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -329,14 +320,11 @@ const meta: Meta = {
         SbbOverlayElement.events.backClick,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-overlay',
 };

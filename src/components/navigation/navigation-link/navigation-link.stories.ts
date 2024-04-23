@@ -2,8 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import type { StyleInfo } from 'lit/directives/style-map.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -76,8 +74,8 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
-  href: href.options[0],
+  size: size.options![0],
+  href: href.options![0],
   target: '_blank',
   rel: undefined,
   download: false,
@@ -88,12 +86,6 @@ const Template = (args: Args): TemplateResult => html`
   <sbb-navigation-link ${sbbSpread(args)}>Label</sbb-navigation-link>
 `;
 
-const style: Readonly<StyleInfo> = {
-  'background-color': 'var(--sbb-color-midnight)',
-  width: 'max-content',
-  padding: '1rem 2rem',
-};
-
 export const SizeL: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -103,21 +95,18 @@ export const SizeL: StoryObj = {
 export const SizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[2] },
+  args: { ...defaultArgs, size: size.options![2] },
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`<div style=${styleMap(style)}>${story()}</div>`],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: () => 'var(--sbb-color-midnight)',
     docs: {
       extractComponentDescription: () => readme,
     },

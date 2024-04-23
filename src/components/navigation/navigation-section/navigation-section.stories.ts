@@ -133,18 +133,13 @@ export const LongContent: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem; height: 100vh;">${story()}</div> `],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
-
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-navigation/sbb-navigation-section',
 };

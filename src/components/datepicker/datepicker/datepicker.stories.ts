@@ -27,10 +27,6 @@ import '../datepicker-previous-day.js';
 import '../datepicker-toggle.js';
 import '../../form-field.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
 const value: InputType = {
   control: {
     type: 'text',
@@ -254,8 +250,8 @@ const basicArgs: Args = {
   min: undefined,
   max: undefined,
   wide: false,
-  dateFilter: dateFilter.options[0],
-  dateHandling: dateHandling.options[0],
+  dateFilter: dateFilter.options![0],
+  dateHandling: dateHandling.options![0],
   'aria-label': undefined,
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
@@ -272,7 +268,7 @@ const formFieldBasicArgsTypes: ArgTypes = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options[0],
+  size: size.options![0],
   negative: false,
   optional: false,
   borderless: false,
@@ -448,19 +444,19 @@ export const InFormFieldWithMinAndMax: StoryObj = {
 export const InFormFieldWithDateFilter: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] },
+  args: { ...formFieldBasicArgs, dateFilter: dateFilter.options![1] },
 };
 
 export const InFormFieldWithDateParser: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, value: '2023-02-12', dateHandling: dateHandling.options[1] },
+  args: { ...formFieldBasicArgs, value: '2023-02-12', dateHandling: dateHandling.options![1] },
 };
 
 export const InFormFieldLarge: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, size: size.options[1] },
+  args: { ...formFieldBasicArgs, size: size.options![1] },
 };
 
 export const InFormFieldOptional: StoryObj = {
@@ -482,31 +478,17 @@ export const WithoutFormField: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          'min-height': isChromatic() ? '100vh' : undefined,
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
       handles: ['input', 'change', SbbDatepickerElement.events.validationChange],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
-
       extractComponentDescription: () => readme,
     },
   },

@@ -17,10 +17,6 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import '../../icon.js';
 import '../../loading-indicator.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white)',
-});
-
 const focusStyle = (context: StoryContext): Record<string, string> =>
   context.args.negative
     ? { '--sbb-focus-outline-color': 'var(--sbb-focus-outline-color-dark)' }
@@ -128,7 +124,7 @@ export const commonDefaultArgs: Args = {
   tag: 'TBD',
   text: 'Button',
   negative: false,
-  size: size.options[0],
+  size: size.options![0],
   'icon-name': 'arrow-right-small',
   'aria-label': undefined,
 };
@@ -186,14 +182,14 @@ export const noIcon: StoryObj = {
 export const sizeM: StoryObj = {
   render: Template,
   args: {
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
 export const sizeS: StoryObj = {
   render: Template,
   args: {
-    size: size.options[2],
+    size: size.options![2],
   },
 };
 
@@ -244,9 +240,7 @@ export const commonDecorators = [
   (story: () => WebComponentsRenderer['storyResult'], context: StoryContext) => html`
     <div
       style=${styleMap({
-        ...wrapperStyle(context),
         ...focusStyle(context),
-        padding: '2rem',
       })}
     >
       ${story()}

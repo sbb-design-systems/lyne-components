@@ -2,7 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
@@ -32,16 +31,12 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-    name: iconName.options[0],
+    name: iconName.options![0],
   },
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

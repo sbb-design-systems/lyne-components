@@ -26,10 +26,6 @@ import { SbbSelectElement } from './select.js';
 import '../form-error.js';
 import '../form-field.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
@@ -217,11 +213,20 @@ const codeStyle: Readonly<StyleInfo> = {
 };
 
 const aboveDecorator: Decorator = (story) => html`
-  <div style="height: 100%; display: flex; align-items: end;">${story()}</div>
+  <div
+    style=${styleMap({
+      'inset-block-end': '2rem',
+      'inset-inline-start': '2rem',
+      position: 'absolute',
+      'max-width': 'calc(100% - 4rem)',
+    })}
+  >
+    ${story()}
+  </div>
 `;
 
 const scrollDecorator: Decorator = (story) => html`
-  <div style="height: 175%; display: flex; align-items: center;">${story()}</div>
+  <div style="height: 175vh; display: flex; align-items: center;">${story()}</div>
 `;
 
 const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';
@@ -483,7 +488,7 @@ export const SingleSelectEllipsis: StoryObj = {
   render: SelectEllipsisTemplate,
   argTypes: {
     ...defaultArgTypes,
-    value: { ...value, options: [...value.options, valueEllipsis] },
+    value: { ...value, options: [...value.options!, valueEllipsis] },
   },
   args: { ...defaultArgs, value: valueEllipsis },
   play: isChromatic() ? playStory : undefined,
@@ -493,7 +498,7 @@ export const MultipleSelectEllipsis: StoryObj = {
   render: SelectEllipsisTemplate,
   argTypes: {
     ...defaultArgTypes,
-    value: { ...value, options: [...value.options, valueEllipsis] },
+    value: { ...value, options: [...value.options!, valueEllipsis] },
   },
   args: { ...defaultArgs, multiple: true, value: valueEllipsis },
   play: isChromatic() ? playStory : undefined,
@@ -608,21 +613,10 @@ export const KeyboardInteraction: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          height: 'calc(100vh - 2rem)',
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
@@ -634,10 +628,8 @@ const meta: Meta = {
         SbbOptionElement.events.optionSelected,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,
     },

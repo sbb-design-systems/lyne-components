@@ -47,7 +47,7 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   'title-content': 'Title',
-  type: type.options[0],
+  type: type.options![0],
   readonly: false,
   animation: animation.options[0],
 };
@@ -148,19 +148,19 @@ export const Info: StoryObj = {
 export const Success: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, type: type.options[1] },
+  args: { ...basicArgs, type: type.options![1] },
 };
 
 export const Warn: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, type: type.options[2] },
+  args: { ...basicArgs, type: type.options![2] },
 };
 
 export const Error: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, type: type.options[3] },
+  args: { ...basicArgs, type: type.options![3] },
 };
 
 export const Readonly: StoryObj = {
@@ -197,9 +197,7 @@ export const MultipleNotifications: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story, context) =>
-      html`<div
-        style="padding: 2rem;display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;"
-      >
+      html`<div style="display: flex; gap: var(--sbb-spacing-fixed-4x); flex-direction: column;">
         ${trigger(context.args)}
         <div
           class="notification-container"
@@ -221,9 +219,6 @@ const meta: Meta = {
         SbbNotificationElement.events.willOpen,
         SbbNotificationElement.events.willClose,
       ],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

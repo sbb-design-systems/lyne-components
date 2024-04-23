@@ -78,7 +78,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 
 :host(#{$icon-only}) {
   --sbb-button-padding-inline: 0;
-  --icon-margin-inline-end: 0;
 }
 
 :host([disabled]) {

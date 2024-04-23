@@ -39,7 +39,6 @@ export const pearlChainItem: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
