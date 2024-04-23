@@ -56,7 +56,7 @@
 
 // aspect ratios 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'
 .image__figure--ratio-free .image__wrapper {
-  aspect-ratio: auto;
+  aspect-ratio: var(--sbb-image-aspect-ratio, auto);
 }
 
 .image__figure--ratio-1-1 .image__wrapper {

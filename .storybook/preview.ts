@@ -47,6 +47,13 @@ export const parameters = {
     breakpointNames,
     debounceTimeout: 10,
   },
+  docs: {
+    toc: {
+      ignoreSelector: '.docs-story h2',
+      headingSelector: 'h2',
+    },
+    source: { format: 'html' },
+  },
   viewport: { viewports: storybookViewports },
   options: {
     storySort: {
