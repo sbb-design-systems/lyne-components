@@ -82,14 +82,14 @@ describe(`sbb-accordion ${fixture.name}`, () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H4');
+      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h4');
     expect(
-      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H4');
+      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h4');
     expect(
-      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H4');
+      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h4');
   });
 
   it('should dynamically update titleLevel prop', async () => {
@@ -98,14 +98,14 @@ describe(`sbb-accordion ${fixture.name}`, () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H6');
+      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h6');
     expect(
-      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H6');
+      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h6');
     expect(
-      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H6');
+      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h6');
   });
 
   it('should close others when expanding and multi = false', async () => {
