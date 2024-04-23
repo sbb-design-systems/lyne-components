@@ -36,7 +36,7 @@ describe('sbb-dialog', () => {
   beforeEach(async () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-1" disable-animation>
+      <sbb-dialog id="my-dialog-1">
         <sbb-dialog-title>Title</sbb-dialog-title>
         <sbb-dialog-content>Dialog content</sbb-dialog-content>
         <sbb-dialog-actions>Action group</sbb-dialog-actions>
@@ -249,13 +249,13 @@ describe('sbb-dialog', () => {
 
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-3" disable-animation>
+      <sbb-dialog id="my-dialog-3">
         <sbb-dialog-title>Title</sbb-dialog-title>
         <sbb-dialog-content>Dialog content</sbb-dialog-content>
         <sbb-dialog-actions>Action group</sbb-dialog-actions>
       </sbb-dialog>
 
-      <sbb-dialog id="stacked-dialog" disable-animation>
+      <sbb-dialog id="stacked-dialog">
         <sbb-dialog-title>Stacked title</sbb-dialog-title>
         <sbb-dialog-content>Dialog content</sbb-dialog-content>
         <sbb-dialog-actions>Action group</sbb-dialog-actions>
@@ -322,11 +322,11 @@ describe('sbb-dialog', () => {
   it('does not close the dialog on other overlay click', async () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-4" disable-animation>
+      <sbb-dialog id="my-dialog-4">
         <sbb-dialog-title>Title</sbb-dialog-title>
         <sbb-dialog-content>Dialog content</sbb-dialog-content>
 
-        <sbb-dialog id="inner-dialog" disable-animation>
+        <sbb-dialog id="inner-dialog">
           <sbb-dialog-title>Inner Dialog title</sbb-dialog-title>
           <sbb-dialog-content>Dialog content</sbb-dialog-content>
         </sbb-dialog>
@@ -411,7 +411,7 @@ describe('sbb-dialog with long content', () => {
   beforeEach(async () => {
     await setViewport({ width: 900, height: 300 });
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-1" disable-animation>
+      <sbb-dialog id="my-dialog-1">
         <sbb-dialog-title hide-on-scroll="">Title</sbb-dialog-title>
         <sbb-dialog-content>
           Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his

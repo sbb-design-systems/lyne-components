@@ -25,12 +25,6 @@ import '../../form-field.js';
 import '../datepicker.js';
 import './datepicker-toggle.js';
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -38,12 +32,10 @@ const negative: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  'disable-animation': disableAnimation,
   negative,
 };
 
 const defaultArgs: Args = {
-  'disable-animation': isChromatic(),
   negative: false,
 };
 

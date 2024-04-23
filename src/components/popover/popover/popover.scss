@@ -15,7 +15,10 @@
   --sbb-popover-padding: var(--sbb-spacing-fixed-4x);
   --sbb-popover-background: var(--sbb-color-white);
   --sbb-popover-color: var(--sbb-color-charcoal);
-  --sbb-popover-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-popover-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-popover-animation-easing: ease-out;
   --sbb-popover-transform: translateY(var(--sbb-spacing-fixed-2x));
 
@@ -24,10 +27,6 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
   display: block;
-}
-
-:host([disable-animation]) {
-  --sbb-popover-animation-duration: 0.1ms;
 }
 
 :host([data-position='above']) {

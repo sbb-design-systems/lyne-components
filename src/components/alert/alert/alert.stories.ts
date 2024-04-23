@@ -66,12 +66,6 @@ const readonly: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const iconName: InputType = {
   control: {
     type: 'text',
@@ -136,12 +130,18 @@ const accessibilityLabel: InputType = {
   },
 };
 
+const animation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['open', 'none'],
+};
+
 const defaultArgTypes: ArgTypes = {
   'title-content': titleContent,
   'title-level': titleLevel,
   size,
   readonly,
-  'disable-animation': disableAnimation,
   'icon-name': iconName,
   'content-slot-text': contentSlotText,
   'link-content': linkContent,
@@ -149,6 +149,7 @@ const defaultArgTypes: ArgTypes = {
   target,
   rel,
   'accessibility-label': accessibilityLabel,
+  animation: animation,
 };
 
 const defaultArgs: Args = {
@@ -156,7 +157,6 @@ const defaultArgs: Args = {
   'title-level': 3,
   size: size.options![0],
   readonly: false,
-  'disable-animation': false,
   'icon-name': 'info',
   'content-slot-text':
     "Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
@@ -165,6 +165,7 @@ const defaultArgs: Args = {
   target: undefined,
   rel: undefined,
   'accessibility-label': undefined,
+  animation: animation.options![0],
 };
 
 export const defaultAlert: StoryObj = {
@@ -189,12 +190,6 @@ export const withoutCloseButton: StoryObj = {
   render: Default,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
-};
-
-export const withDisabledAnimation: StoryObj = {
-  render: Default,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
 };
 
 export const withoutLink: StoryObj = {

@@ -84,4 +84,5 @@ export const decorators: Decorator[] = [
       ? html`<div style="padding: 2rem;min-height: 100vh">${story()}</div>`
       : story(),
   withBackgroundDecorator,
+  (story) => (isChromatic() ? html`<div class="sbb-disable-animation">${story()}</div>` : story()),
 ];

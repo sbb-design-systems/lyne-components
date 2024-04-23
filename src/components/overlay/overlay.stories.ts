@@ -87,12 +87,6 @@ const accessibilityBackLabel: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   expanded,
   'back-button': backButton,
@@ -100,7 +94,6 @@ const basicArgTypes: ArgTypes = {
   accessibilityBackLabel,
   negative,
   'accessibility-label': accessibilityLabel,
-  'disable-animation': disableAnimation,
 };
 
 const basicArgs: Args = {
@@ -110,7 +103,6 @@ const basicArgs: Args = {
   accessibilityBackLabel: 'Go back',
   negative: false,
   'accessibility-label': undefined,
-  'disable-animation': isChromatic(),
 };
 
 const openOverlay = (_event: PointerEvent, id: string): void => {

@@ -108,12 +108,6 @@ const accessibilityBackLabel: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const backdropAction: InputType = {
   control: {
     type: 'select',
@@ -129,7 +123,6 @@ const basicArgTypes: ArgTypes = {
   accessibilityBackLabel,
   negative,
   'accessibility-label': accessibilityLabel,
-  'disable-animation': disableAnimation,
   'backdrop-action': backdropAction,
 };
 
@@ -141,7 +134,6 @@ const basicArgs: Args = {
   accessibilityBackLabel: 'Go back',
   negative: false,
   'accessibility-label': undefined,
-  'disable-animation': isChromatic(),
   'backdrop-action': backdropAction.options![0],
 };
 
