@@ -9,7 +9,6 @@ import type {
   StoryObj,
 } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import '../../form-field.js';
@@ -17,10 +16,6 @@ import './mini-button.js';
 import { buttonDefaultArgs, buttonDefaultArgTypes } from '../common/button-common-stories.js';
 
 import readme from './readme.md?raw';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
 
 const MiniButtonCommonTemplate = ({ slot, ...args }: Args): TemplateResult => html`
   <sbb-form-field ?negative=${args.negative}>
@@ -105,18 +100,12 @@ export const SuffixSlottedIcon: StoryObj = {
 const meta: Meta = {
   argTypes: miniButtonDefaultArgTypes,
   args: miniButtonDefaultArgs,
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

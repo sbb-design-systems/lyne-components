@@ -52,7 +52,7 @@ export const IdealProtectiveRoom: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="max-width: 300px;">${story()}</div> `],
+  decorators: [(story) => html`<div style="max-width: 300px;">${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

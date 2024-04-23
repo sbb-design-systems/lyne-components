@@ -1,9 +1,8 @@
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import type { SbbDialogElement } from '../../../components/dialog.js';
 import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data.js';
@@ -17,7 +16,6 @@ import {
   skiplinkList,
   teaserHero,
   timetableInput,
-  wrapperStyle,
 } from './home.common.js';
 import readme from './readme.md?raw';
 import '../../../components/dialog.js';
@@ -288,10 +286,9 @@ export const homeLoggedIn: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html` <div style=${styleMap(wrapperStyle(context))}>${story()}</div> `,
-  ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,

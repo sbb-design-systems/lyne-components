@@ -2,8 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import type { StyleInfo } from 'lit/directives/style-map.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -24,12 +22,6 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   size: size.options![0],
-};
-
-const style: Readonly<StyleInfo> = {
-  'background-color': 'var(--sbb-color-midnight)',
-  width: 'max-content',
-  padding: '2rem',
 };
 
 const navigationActionsL = (active: boolean): TemplateResult => html`
@@ -91,11 +83,8 @@ export const SizeSActive: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style=${styleMap(style)}>${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: () => 'var(--sbb-color-midnight)',
     docs: {
       extractComponentDescription: () => readme,
     },

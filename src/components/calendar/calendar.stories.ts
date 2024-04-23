@@ -190,9 +190,6 @@ const meta: Meta = {
     actions: {
       handles: [SbbCalendarElement.events.dateSelected],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

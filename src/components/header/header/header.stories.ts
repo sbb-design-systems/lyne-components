@@ -12,7 +12,6 @@ import type {
 import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
@@ -216,23 +215,16 @@ export const ContainerScrollOriginScrollHide: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div style=${styleMap(isChromatic() ? { 'min-height': '100vh' } : {})}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     actions: {
       handles: ['click'],
     },
     docs: {
       story: {
         inline: false,
+        // Setting the iFrame height ensures that the story has enough space when used in the docs section.
         iframeHeight: '250px',
       },
       extractComponentDescription: () => readme,

@@ -621,7 +621,6 @@ export const timetableChange: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

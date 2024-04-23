@@ -237,14 +237,11 @@ export const WithNavigationSection: StoryObj = {
   render: WithNavigationSectionTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: playStoryWithSection,
+  play: isChromatic() ? playStoryWithSection : undefined,
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem; height: 100vh;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -255,15 +252,11 @@ const meta: Meta = {
         SbbNavigationElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
-
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-navigation/sbb-navigation',
 };

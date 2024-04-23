@@ -10,13 +10,6 @@ import readme from './readme.md?raw';
 
 import './chip.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color':
-    context.args.color === 'milk' || context.args.color === 'white'
-      ? 'var(--sbb-color-granite)'
-      : 'var(--sbb-color-white)',
-});
-
 const size: InputType = {
   control: {
     type: 'inline-radio',
@@ -128,17 +121,11 @@ export const FixedWidthLongLabel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem', 'font-size': '0' })}>
-        ${story()}
-      </div>
-    `,
-  ],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.color === 'milk' || context.args.color === 'white'
+        ? 'var(--sbb-color-granite)'
+        : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

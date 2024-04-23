@@ -10,7 +10,6 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
@@ -206,21 +205,13 @@ export const NoAnimation: StoryObj = {
   args: { ...defaultArgs, 'disable-animation': true },
 };
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color':
-    context.args.color === 'white' && context.args.borderless
-      ? '#bdbdbd'
-      : 'var(--sbb-color-white)',
-});
-
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.color === 'white' && context.args.borderless
+        ? 'var(--sbb-color-cement)'
+        : 'var(--sbb-color-white)',
     actions: {
       handles: [
         SbbExpansionPanelElement.events.willOpen,
@@ -229,9 +220,6 @@ const meta: Meta = {
         SbbExpansionPanelElement.events.didClose,
         SbbExpansionPanelHeaderElement.events.toggleExpanded,
       ],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,
