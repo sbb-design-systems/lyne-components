@@ -406,7 +406,7 @@ export const WithDisabledStep: StoryObj = {
 export const Vertical: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, orientation: orientation.options[1] },
+  args: { ...defaultArgs, orientation: orientation.options![1] },
 };
 
 export const HorizontalFromSmall: StoryObj = {
@@ -414,8 +414,8 @@ export const HorizontalFromSmall: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    orientation: orientation.options[1],
-    'horizontal-from': horizontalFrom.options[3],
+    orientation: orientation.options![1],
+    'horizontal-from': horizontalFrom.options![3],
   },
 };
 
@@ -428,14 +428,11 @@ export const LongLabels: StoryObj = {
 export const LongLabelsVertical: StoryObj = {
   render: LongLabelsTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, orientation: orientation.options[1] },
+  args: { ...defaultArgs, orientation: orientation.options![1] },
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [SbbStepElement.events.validate],
