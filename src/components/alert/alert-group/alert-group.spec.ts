@@ -49,18 +49,7 @@ describe(`sbb-alert-group`, () => {
       </sbb-alert-group>
     `);
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-alert-group accessibility-title-level='3' role='status'>
-          <span slot="accessibility-title">
-            Interruptions
-          </span>
-          <sbb-alert title-content='Interruption between Genève and Lausanne' href='https://www.sbb.ch' size="m" data-state="opening">
-            The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-          </sbb-alert>
-        </sbb-alert-group>
-      `,
-    );
+    await expect(root).dom.to.be.equalSnapshot();
     expect(root).shadowDom.to.be.equal(
       `
         <div class="sbb-alert-group">

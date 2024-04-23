@@ -65,7 +65,7 @@ You can file new issues by providing the above information [here](https://github
 - Create your patch, **including appropriate test cases**.
 - Follow our [Coding Rules](#rules).
 - Test your changes with our supported browsers and screen readers.
-- Run tests via `yarn test:dev` and ensure that all tests pass.
+- Run tests via `yarn test` and ensure that all tests pass.
 - Commit your changes using a descriptive commit message that follows our
   [commit message conventions](#commit). Adherence to these conventions
   is necessary because release notes are automatically generated from these messages.
@@ -106,7 +106,8 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 - All features or bug fixes **must be tested** by one or more specs (unit-tests).
 - All public API methods **must be documented**.
 - We use [prettier](https://prettier.io/) and [eslint](https://eslint.org/) rules to enforce code style.
-- Also see [CODING_STANDARDS](./CODING_STANDARDS.md)
+- Also see [CODING_STANDARDS](./CODING_STANDARDS.md).
+- Check [Review docs](./REVIEW.md) to know what is going to be reviewed.
 
 ## <a name="commit"></a> Commit Message Guidelines
 

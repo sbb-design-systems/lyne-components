@@ -73,6 +73,11 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 
 Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
 
+## Animation
+
+Set the `animation` property to manage which animations are enabled.
+As a base rule, opening animations should be active if an alert arrives after the initial page load.
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -81,7 +86,6 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | -------------------- | --------------------- | ------- | --------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `readonly`           | `readonly`            | public  | `boolean`                               | `false`  | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                 |
 | `size`               | `size`                | public  | `'s' \| 'm' \| 'l'`                     | `'m'`    | You can choose between `m` or `l` size.                                                                                                                          |
-| `disableAnimation`   | `disable-animation`   | public  | `boolean`                               | `false`  | Whether the fade in animation should be disabled.                                                                                                                |
 | `iconName`           | `icon-name`           | public  | `string \| undefined`                   | `'info'` | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
 | `titleContent`       | `title-content`       | public  | `string \| undefined`                   |          | Content of title.                                                                                                                                                |
 | `titleLevel`         | `title-level`         | public  | `SbbTitleLevel`                         | `'3'`    | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  |
@@ -90,6 +94,7 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |          | Where to display the linked URL.                                                                                                                                 |
 | `rel`                | `rel`                 | public  | `string \| undefined`                   |          | The relationship of the linked URL as space-separated link types.                                                                                                |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |          | This will be forwarded as aria-label to the relevant nested element.                                                                                             |
+| `animation`          | `animation`           | public  | `'open' \| 'none'`                      | `'open'` | The enabled animations.                                                                                                                                          |
 
 ## Methods
 
