@@ -12,7 +12,10 @@
   --sbb-overlay-padding-block: calc(
     var(--sbb-spacing-responsive-xxl) + var(--sbb-spacing-responsive-l)
   );
-  --sbb-overlay-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-overlay-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-6x)
+  );
   --sbb-overlay-animation-easing: ease;
   --sbb-overlay-pointer-events: none;
   --sbb-overlay-content-transition: transform var(--sbb-overlay-animation-duration)
@@ -38,10 +41,6 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-overlay-color: var(--sbb-color-white);
   --sbb-overlay-background-color: var(--sbb-color-midnight);
-}
-
-:host([disable-animation]) {
-  --sbb-overlay-animation-duration: 0.1ms;
 }
 
 :host(:not([data-state='closed'])) {

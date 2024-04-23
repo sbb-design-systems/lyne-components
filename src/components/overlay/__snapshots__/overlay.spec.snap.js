@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-overlay renders - Dom"] = 
-`<sbb-overlay
-  data-state="opening"
-  disable-animation=""
->
+`<sbb-overlay data-state="opening">
 </sbb-overlay>
 `;
 /* end snapshot sbb-overlay renders - Dom */
@@ -48,7 +45,7 @@ snapshots["sbb-overlay renders - ShadowDom"] =
 `;
 /* end snapshot sbb-overlay renders - ShadowDom */
 
-snapshots["sbb-overlay A11y tree Chrome"] = 
+snapshots["sbb-overlay A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
