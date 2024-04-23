@@ -6,7 +6,10 @@
 :host {
   --sbb-stepper-orientation: row;
   --sbb-stepper-marker-size: 0;
-  --sbb-stepper-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-stepper-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-6x)
+  );
   --sbb-stepper-marker-color: var(--sbb-color-charcoal);
 
   display: block;
@@ -19,7 +22,7 @@
 }
 
 :host([data-disable-animation]) {
-  --sbb-stepper-animation-duration: 0;
+  @include sbb.disable-animation;
 }
 
 :host([orientation='vertical']) {
