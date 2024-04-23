@@ -81,7 +81,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'aria-label': undefined,
-  href: href.options[0],
+  href: href.options![0],
   rel: undefined,
   target: undefined,
   'image-src': sampleImages[1],

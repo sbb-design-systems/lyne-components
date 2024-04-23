@@ -43,7 +43,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  orientation: orientation.options[0],
+  orientation: orientation.options![0],
   negative: false,
 };
 

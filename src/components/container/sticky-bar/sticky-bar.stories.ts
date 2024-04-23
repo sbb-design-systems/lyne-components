@@ -62,8 +62,8 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   expanded: false,
-  color: color.options[0],
-  containerColor: containerColor.options[0],
+  color: color.options![0],
+  containerColor: containerColor.options![0],
   disableAnimation: isChromatic(),
 };
 
@@ -210,13 +210,13 @@ export const Expanded: StoryObj = {
 export const White: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const Milk: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2] },
+  args: { ...defaultArgs, color: color.options![2] },
 };
 
 export const WithContentAfter: StoryObj = {
@@ -228,13 +228,13 @@ export const WithContentAfter: StoryObj = {
 export const MilkContainer: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options[2] },
+  args: { ...defaultArgs, containerColor: color.options![2] },
 };
 
 export const MilkContainerWhiteStickyBar: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options[2], color: color.options[1] },
+  args: { ...defaultArgs, containerColor: color.options![2], color: color.options![1] },
 };
 
 const meta: Meta = {

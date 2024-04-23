@@ -201,7 +201,7 @@ const basicArgs: Args = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options[0],
+  size: size.options![0],
   optional: false,
   borderless: false,
   iconStart: undefined,
@@ -211,7 +211,7 @@ const formFieldBasicArgs = {
 const formFieldBasicArgsWithIcons = {
   ...basicArgs,
   label: 'Label',
-  size: size.options[0],
+  size: size.options![0],
   optional: false,
   borderless: false,
   iconStart: 'clock-small',

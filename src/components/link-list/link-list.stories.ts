@@ -101,11 +101,11 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  orientation: orientation.options[0],
+  orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options[1],
+  size: size.options![1],
   negative: false,
-  'title-level': titleLevel.options[0],
+  'title-level': titleLevel.options![0],
   'title-content': 'Help & Contact',
 };
 
@@ -122,7 +122,7 @@ export const LinkListXS: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[0],
+    size: size.options![0],
   },
 };
 

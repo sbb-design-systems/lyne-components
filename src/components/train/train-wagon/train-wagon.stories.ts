@@ -76,9 +76,9 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   label: '36',
-  type: type.options[2],
-  occupancy: occupancy.options[2],
-  'wagon-class': wagonClass.options[1],
+  type: type.options![2],
+  occupancy: occupancy.options![2],
+  'wagon-class': wagonClass.options![1],
   'additional-accessibility-text': undefined,
 };
 
@@ -93,7 +93,7 @@ export const wagonMediumOccupancy: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    occupancy: occupancy.options[1],
+    occupancy: occupancy.options![1],
   },
 };
 
@@ -102,7 +102,7 @@ export const wagonHighOccupancy: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    occupancy: occupancy.options[0],
+    occupancy: occupancy.options![0],
   },
 };
 
@@ -111,7 +111,7 @@ export const wagonNoneOccupancy: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    occupancy: occupancy.options[3],
+    occupancy: occupancy.options![3],
   },
 };
 
@@ -141,7 +141,7 @@ export const wagonFirstClass: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'wagon-class': wagonClass.options[0],
+    'wagon-class': wagonClass.options![0],
   },
 };
 
@@ -159,7 +159,7 @@ export const locomotive: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    type: type.options[0],
+    type: type.options![0],
   },
 };
 
@@ -168,7 +168,7 @@ export const closed: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    type: type.options[1],
+    type: type.options![1],
   },
 };
 

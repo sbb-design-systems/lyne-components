@@ -93,7 +93,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'aria-label': undefined,
-  href: href.options[0],
+  href: href.options![0],
   rel: undefined,
   target: undefined,
   content: 'Break out and explore castles and palaces.',

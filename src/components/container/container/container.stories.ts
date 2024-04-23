@@ -44,7 +44,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   expanded: false,
-  color: color.options[0],
+  color: color.options![0],
 };
 
 const DefaultTemplate = ({ color, ...args }: Args): TemplateResult => html`
@@ -63,13 +63,13 @@ export const Default: StoryObj = {
 export const Transparent: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const Milk: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2] },
+  args: { ...defaultArgs, color: color.options![2] },
 };
 
 export const Expanded: StoryObj = {

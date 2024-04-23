@@ -144,15 +144,15 @@ const defaultArgs: Args = {
   caption: undefined,
   // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
   'border-radius': 'default',
-  'aspect-ratio': aspectRatio.options[0],
+  'aspect-ratio': aspectRatio.options![0],
   copyright: '',
-  'copyright-holder': copyrightHolder.options[0],
+  'copyright-holder': copyrightHolder.options![0],
   'custom-focal-point': false,
   'focal-point-debug': false,
   'focal-point-x': '',
   'focal-point-y': '',
-  'image-src': imageSrc.options[0],
-  loading: loading.options[1],
+  'image-src': imageSrc.options![0],
+  loading: loading.options![1],
   'skip-lqip': false,
   'performance-mark': '',
   'disable-animation': isChromatic(),
@@ -173,7 +173,7 @@ export const TransparentImage: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'image-src': imageSrc.options[9],
+    'image-src': imageSrc.options![9],
   },
 };
 
