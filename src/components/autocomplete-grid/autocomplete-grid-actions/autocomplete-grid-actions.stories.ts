@@ -10,7 +10,6 @@ import type {
 } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -18,10 +17,6 @@ import readme from './readme.md?raw';
 import '../autocomplete-grid-row.js';
 import './autocomplete-grid-actions.js';
 import '../autocomplete-grid-button.js';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
 
 const numberOfButtons: InputType = {
   control: {
@@ -118,19 +113,13 @@ export const MultipleDisabledNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['click'],
     },
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

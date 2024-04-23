@@ -10,8 +10,6 @@ import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-opti
 
 import style from './autocomplete-grid-button.scss?lit&inline';
 
-import '../../icon.js';
-
 let autocompleteButtonNextId = 0;
 
 /** Configuration for the attribute to look at if component is nested in a sbb-optgroup */
@@ -81,14 +79,15 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
 
   /**
    * Used to dispatch a click event when users interact with the button via keyboard (the component does not receive focus).
-   * @internal
    */
   public dispatchClick(event: KeyboardEvent): void {
     return this.dispatchClickEvent(event);
   }
 
-  // Event needs to be dispatched from the action element; in autocomplete-grid,
-  // the input has always the focus, so the `event.target` on parent class is the input and not the button.
+  /**
+   * Event needs to be dispatched from the action element; in autocomplete-grid,
+   * the input has always the focus, so the `event.target` on parent class is the input and not the button.
+   */
   protected override dispatchClickEvent(event: KeyboardEvent): void {
     const { altKey, ctrlKey, metaKey, shiftKey } = event;
     this.dispatchEvent(

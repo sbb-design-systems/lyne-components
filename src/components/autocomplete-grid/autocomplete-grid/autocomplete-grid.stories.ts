@@ -35,10 +35,6 @@ const getOption = (event: Event): void => {
   (event.currentTarget as HTMLElement).closest('div')!.querySelector('#container')!.prepend(div);
 };
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
 const textBlockStyle: Readonly<StyleInfo> = {
   position: 'relative',
   marginBlockStart: '1rem',
@@ -65,9 +61,10 @@ const textBlock = (): TemplateResult => html`
 const aboveDecorator: Decorator = (story) => html`
   <div
     style=${styleMap({
-      height: '100%',
-      display: 'flex',
-      'align-items': 'end',
+      'inset-block-end': '2rem',
+      'inset-inline-start': '2rem',
+      position: 'absolute',
+      'max-width': 'calc(100% - 4rem)',
     })}
   >
     ${story()}
@@ -77,7 +74,7 @@ const aboveDecorator: Decorator = (story) => html`
 const scrollDecorator: Decorator = (story) => html`
   <div
     style=${styleMap({
-      height: '175%',
+      height: '175vh',
       display: 'flex',
       'align-items': 'center',
     })}
@@ -118,15 +115,6 @@ const disabled: InputType = {
 };
 
 const readonly: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Autocomplete',
-  },
-};
-
-const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -209,7 +197,6 @@ const defaultArgTypes: ArgTypes = {
   readonly,
 
   // Autocomplete args
-  disableAnimation,
   preserveIconSpace,
 
   // Option args
@@ -238,7 +225,6 @@ const defaultArgs: Args = {
   readonly: false,
 
   // Autocomplete args
-  disableAnimation: false,
   preserveIconSpace: true,
 
   // Option args
@@ -327,10 +313,7 @@ const Template = (args: Args): TemplateResult => html`
         ?disabled=${args.disabled}
         ?readonly=${args.readonly}
       />
-      <sbb-autocomplete-grid
-        ?disable-animation=${args.disableAnimation}
-        ?preserve-icon-space=${args.preserveIconSpace}
-      >
+      <sbb-autocomplete-grid ?preserve-icon-space=${args.preserveIconSpace}>
         ${createRows1(args.optionIconName, args.buttonIconName, args.disableOption)}
         ${createRows2(args.buttonIconName, args.disableOption)}
       </sbb-autocomplete-grid>
@@ -362,10 +345,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
         ?disabled=${args.disabled}
         ?readonly=${args.readonly}
       />
-      <sbb-autocomplete-grid
-        ?disable-animation=${args.disableAnimation}
-        ?preserve-icon-space=${args.preserveIconSpace}
-      >
+      <sbb-autocomplete-grid ?preserve-icon-space=${args.preserveIconSpace}>
         <sbb-autocomplete-grid-optgroup label="Group 1" ?disabled=${args.disableGroup}>
           ${createRows1(args.optionIconName, args.buttonIconName, args.disableOption)}
           ${createRows2(args.buttonIconName, args.disableOptio1n)}
@@ -516,20 +496,7 @@ export const Scroll: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          height: 'calc(100vh - 2rem)',
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -543,10 +510,10 @@ const meta: Meta = {
         SbbAutocompleteGridOptionElement.events.optionSelected,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,
     },

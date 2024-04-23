@@ -1,15 +1,6 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 import { html, nothing, type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
 import '../../form-field.js';
@@ -19,10 +10,6 @@ import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-option.js';
 import '../autocomplete-grid-actions.js';
 import '../autocomplete-grid-button.js';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
 
 const label: InputType = {
   control: {
@@ -149,17 +136,15 @@ export const Default: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
   parameters: {
-    backgrounds: {
-      disable: true,
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+    actions: {
+      handles: ['click'],
     },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
+      story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,
     },
   },

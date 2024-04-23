@@ -12,16 +12,12 @@ import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
+import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.js';
 import readme from './readme.md?raw';
 
 import '../../form-field.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
-import './autocomplete-grid-option.js';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
 
 const preserveIconSpace: InputType = {
   control: {
@@ -178,18 +174,18 @@ export const Autocomplete: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem', width: '350px' })}>
-        ${story()}
-      </div>
-    `,
-  ],
   parameters: {
-    backgrounds: {
-      disable: true,
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+    actions: {
+      handles: [
+        SbbAutocompleteGridOptionElement.events.selectionChange,
+        SbbAutocompleteGridOptionElement.events.optionSelected,
+      ],
     },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
+      story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,
     },
   },

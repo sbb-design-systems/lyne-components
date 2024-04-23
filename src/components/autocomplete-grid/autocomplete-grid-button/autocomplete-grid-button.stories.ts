@@ -9,7 +9,6 @@ import type {
   StoryObj,
 } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -17,10 +16,6 @@ import readme from './readme.md?raw';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-actions.js';
 import './autocomplete-grid-button.js';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
 
 const type: InputType = {
   control: {
@@ -115,7 +110,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  type: type.options[0],
+  type: type.options![0],
   disabled: false,
   name: 'Button Name',
   value: undefined,
@@ -188,19 +183,13 @@ export const NegativeFocusVisible: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['click'],
     },
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

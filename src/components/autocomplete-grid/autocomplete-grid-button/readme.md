@@ -1,5 +1,5 @@
-The `sbb-autocomplete-grid-button` component provides the same functionality as a native icon-only `<button>` enhanced with the SBB Design.
-It's mainly designed to be used within the [sbb-autocomplete-grid-actions](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-actions--docs)
+The `sbb-autocomplete-grid-button` component has the same appearance of a [sbb-mini-button](/docs/components-sbb-button-sbb-mini-button--docs),
+but it's only designed to be used within the [sbb-autocomplete-grid-actions](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-actions--docs)
 inside a [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
 
 ```html
@@ -65,21 +65,33 @@ The component can be displayed in `disabled` state using the self-named property
 If the component is used within a [sbb-autocomplete-grid-optgroup](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-optgroup--docs),
 it can be disabled by disabling the optgroup.
 
-### Focus outline
-
-Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
-You can set it by re-defining the css var on `sbb-autocomplete-grid-button` or any parent element:
-
-```css
-sbb-autocomplete-grid-button {
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-}
-```
-
 ## Interactions
 
 When the button is clicked, an event is triggered; the behavior is up to the consumer.
-It's possible to fetch the button's related `sbb-autocomplete-grid-option` using the `optionOnSameRow` method.
+It's possible to fetch the button's related `sbb-autocomplete-grid-option` using the `option` property.
+
+```html
+<sbb-form-field label="Label">
+  <input />
+  <sbb-autocomplete-grid>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-button
+          id="button"
+          icon-name="pen-small"
+        ></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-row>
+  </sbb-autocomplete-grid>
+</sbb-form-field>
+
+<script>
+  const getOptionFromButton = (): SbbAutocompleteGridOptionElement => {
+    return document.getElementById('button').option;
+  };
+</script>
+```
 
 ## Accessibility
 
@@ -103,6 +115,12 @@ since the focus must always stay on the connected `<input>`.
 | `name`     | `name`      | public  | `string`                                   |            | The name of the button element.                                                                                                  |
 | `value`    | `value`     | public  | `string`                                   |            | The value of the button element.                                                                                                 |
 | `form`     | `form`      | public  | `string \| undefined`                      |            | The <form> element to associate the button with.                                                                                 |
+
+## Methods
+
+| Name            | Privacy | Description                                                                                                             | Parameters             | Return | Inherited From |
+| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------ | -------------- |
+| `dispatchClick` | public  | Used to dispatch a click event when users interact with the button via keyboard (the component does not receive focus). | `event: KeyboardEvent` | `void` |                |
 
 ## Events
 
