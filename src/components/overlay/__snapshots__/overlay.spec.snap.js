@@ -1,13 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-overlay renders - Dom"] = 
+snapshots["sbb-overlay renders - Dom"] =
 `<sbb-overlay data-state="opening">
 </sbb-overlay>
 `;
 /* end snapshot sbb-overlay renders - Dom */
 
-snapshots["sbb-overlay renders - ShadowDom"] = 
+snapshots["sbb-overlay renders - ShadowDom"] =
 `<div class="sbb-overlay__container">
   <div class="sbb-overlay">
     <div class="sbb-overlay__wrapper">
@@ -66,7 +66,7 @@ snapshots["sbb-overlay A11y tree Chrome"] =
 `;
 /* end snapshot sbb-overlay A11y tree Chrome */
 
-snapshots["sbb-overlay A11y tree Firefox"] = 
+snapshots["sbb-overlay A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
