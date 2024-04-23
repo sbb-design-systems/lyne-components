@@ -49,7 +49,7 @@ const basicArgs: Args = {
   'title-content': 'Title',
   type: type.options![0],
   readonly: false,
-  animation: animation.options[0],
+  animation: animation.options![0],
 };
 
 const appendNotification = (event: Event, args: Args): void => {

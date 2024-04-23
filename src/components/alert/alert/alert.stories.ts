@@ -165,7 +165,7 @@ const defaultArgs: Args = {
   target: undefined,
   rel: undefined,
   'accessibility-label': undefined,
-  animation: animation.options[0],
+  animation: animation.options![0],
 };
 
 export const defaultAlert: StoryObj = {
