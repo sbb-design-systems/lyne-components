@@ -224,6 +224,7 @@ const meta: Meta = {
     docs: {
       story: {
         inline: false,
+        // Setting the iFrame height ensures that the story has enough space when used in the docs section.
         iframeHeight: '250px',
       },
       extractComponentDescription: () => readme,

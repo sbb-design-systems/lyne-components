@@ -149,6 +149,7 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,
     },

@@ -507,6 +507,7 @@ const meta: Meta = {
       handles: ['input', 'change', SbbDatepickerElement.events.validationChange],
     },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,
     },
