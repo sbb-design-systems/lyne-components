@@ -2,7 +2,7 @@
 
 Basic steps to integrate the lyne components into your project.
 
-Choose your technology to receive the first steps to take.
+Select your technology to get started.
 
 <details>
   <summary>Plain Javascript</summary>
@@ -124,7 +124,6 @@ bootstrapApplication(App).catch((err) => console.error(err));
      transpilePackages: [
        '@sbb-esta/lyne-components-react',
        '@sbb-esta/lyne-components',
-       '@sbb-esta/lyne-design-tokens',
        '@lit/react',
        '@lit/reactive-element',
        'lit',
@@ -212,7 +211,7 @@ Please check `node_modules/@sbb-esta/lyne-components/typography.css` for availab
 
 #### How to work with design tokens
 
-Designers are using design tokens in Figma from where developers can get the name to be used.
+Designers are using design tokens in Figma from which developers can get the name to be used.
 Some design tokens are responsive: they change their value depending on the current breakpoint.
 
 > Whenever a design token ends with `-{breakpoint}`, e.g. `--sbb-spacing-responsive-s-zero`,
@@ -279,13 +278,13 @@ To achieve that, you can add the `sbb-disable-animation-locally` class or re-ena
 ### Units
 
 All our tokens and components use `rem` as size unit.
-We strongly recommend using the `rem` unit all over the project to guarantee consistent scaling
+We strongly recommend using the `rem` unit to guarantee consistent scaling
 when font size changes in browsers.
 
 ### Stacking
 
-As we can't use popover API so far, stacking of overlay context is done manually.
+As we can't use popover API yet, stacking of overlay context is done manually.
 However, this can interfere with the z-index of your components.
 Therefore, every overlay component provides a CSS variable to override its z-index.
 Additionally, there is the global CSS variable `--sbb-overlay-default-z-index` that has a default z-index of 1000.
-So developers have the chance to either globally or component-specifically change the z-index.
+With this, developers have the chance to change the z-index either globally or on component level.
