@@ -94,13 +94,13 @@
 
   // fixme +2px to not cut low underscore letters
   --sbb-form-field-input-size2: calc(var(--sbb-form-field-input-text-size) + 2px);
-  --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)}; // fixme
-  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-11)}; // fixme
+  --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)};
+  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-11)};
   --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.125)};
 
   @include sbb.mq($from: medium) {
-    --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)}; // fixme
-    --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)}; // fixme
+    --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
+    --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)};
     --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(6.5)};
   }
 }
@@ -203,14 +203,14 @@
 // Should be after other definitions to override overflow
 :host([data-input-type='sbb-slider']) {
   --sbb-form-field-overflow: visible;
-  --sbb-form-field-min-height: #{sbb.px-to-rem-build(48)}; // fixme
-  --sbb-form-field-label-to-input-overlapping: 0.5; // fixme
-  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-6)}; // fixme
+  --sbb-form-field-min-height: #{sbb.px-to-rem-build(48)};
+  --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(0.5)};
+  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-6)};
 
   @include sbb.mq($from: medium) {
-    --sbb-form-field-min-height: #{sbb.px-to-rem-build(52)}; // fixme
-    --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(1)}; // fixme
-    --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-3)}; // fixme
+    --sbb-form-field-min-height: #{sbb.px-to-rem-build(52)};
+    --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(1)};
+    --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-3)};
   }
 }
 
