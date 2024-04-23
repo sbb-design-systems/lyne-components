@@ -153,6 +153,7 @@ export class SbbStepperElement extends LitElement {
     current?.deselect();
     step.select();
     this._setMarkerSize();
+    this._configureLinearMode();
     if (this._loaded) {
       step.label?.focus();
     }
@@ -232,6 +233,12 @@ export class SbbStepperElement extends LitElement {
     );
   }
 
+  private _configureLinearMode(): void {
+    this.steps.forEach((step, index) => {
+      step.label?.toggleAttribute('disabled', this.linear && index - 1 > this.selectedIndex!);
+    });
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
@@ -255,6 +262,9 @@ export class SbbStepperElement extends LitElement {
     if (changedProperties.has('orientation') && !this.horizontalFrom) {
       this._updateLabels();
       this._setMarkerSize();
+    }
+    if (changedProperties.has('linear') && this._loaded) {
+      this._configureLinearMode();
     }
   }
 
