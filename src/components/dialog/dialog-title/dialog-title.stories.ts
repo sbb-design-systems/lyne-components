@@ -27,7 +27,7 @@ const hideOnScroll: InputType = {
   control: {
     type: 'select',
   },
-  options: breakpoints,
+  options: [...breakpoints],
 };
 
 const accessibilityCloseLabel: InputType = {
@@ -58,7 +58,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'back-button': true,
-  'hide-on-scroll': hideOnScroll.options[0],
+  'hide-on-scroll': hideOnScroll.options![0],
   'accessibility-close-label': 'Close dialog',
   'accessibility-back-label': 'Go back',
 };

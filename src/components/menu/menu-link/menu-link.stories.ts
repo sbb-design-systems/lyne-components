@@ -127,7 +127,7 @@ const defaultArgs: Args = {
   text: 'Details',
   amount: '99',
   'icon-name': 'tick-small',
-  href: href.options[0],
+  href: href.options![0],
   target: '_blank',
   rel: undefined,
   download: false,

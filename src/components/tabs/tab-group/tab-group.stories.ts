@@ -172,7 +172,7 @@ const basicArgs: Args = {
   label: 'Tab label one',
   'icon-name': undefined,
   amount: undefined,
-  size: size.options[0],
+  size: size.options![0],
   negative: false,
 };
 
@@ -185,31 +185,31 @@ export const defaultTabsSizeL: StoryObj = {
 export const numbersAndIconsSizeL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
 };
 
 export const defaultTabsSizeXL: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, size: size.options[1] },
+  args: { ...basicArgs, size: size.options![1] },
 };
 
 export const numbersAndIconsSizeXL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0], size: size.options[1] },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], size: size.options![1] },
 };
 
 export const nestedTabGroups: StoryObj = {
   render: NestedTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
 };
 
 export const tintedBackground: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0], negative: true },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], negative: true },
 };
 
 const meta: Meta = {

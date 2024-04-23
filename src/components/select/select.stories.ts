@@ -499,7 +499,7 @@ export const SingleSelectEllipsis: StoryObj = {
   render: SelectEllipsisTemplate,
   argTypes: {
     ...defaultArgTypes,
-    value: { ...value, options: [...value.options, valueEllipsis] },
+    value: { ...value, options: [...value.options!, valueEllipsis] },
   },
   args: { ...defaultArgs, value: valueEllipsis },
   play: isChromatic() ? playStory : undefined,
@@ -509,7 +509,7 @@ export const MultipleSelectEllipsis: StoryObj = {
   render: SelectEllipsisTemplate,
   argTypes: {
     ...defaultArgTypes,
-    value: { ...value, options: [...value.options, valueEllipsis] },
+    value: { ...value, options: [...value.options!, valueEllipsis] },
   },
   args: { ...defaultArgs, multiple: true, value: valueEllipsis },
   play: isChromatic() ? playStory : undefined,

@@ -79,7 +79,7 @@ const basicArgTypes: ArgTypes = {
 };
 
 const basicArgs: Args = {
-  color: color.options[0],
+  color: color.options![0],
   'force-open': false,
   borderless: false,
   'disable-animation': isChromatic(),
@@ -591,7 +591,7 @@ export const WithCheckboxGroupMilk: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
   },
@@ -602,7 +602,7 @@ export const WithRadioButtonGroupMilk: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
   },
@@ -635,7 +635,7 @@ export const WithCheckboxGroupMilkBorderless: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
     borderless: true,
@@ -647,7 +647,7 @@ export const WithRadioButtonGroupMilkBorderless: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
     borderless: true,

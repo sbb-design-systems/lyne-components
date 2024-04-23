@@ -31,7 +31,7 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-    name: iconName.options[0],
+    name: iconName.options![0],
   },
 };
 

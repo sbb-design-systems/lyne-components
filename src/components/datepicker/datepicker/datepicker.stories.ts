@@ -260,8 +260,8 @@ const basicArgs: Args = {
   min: undefined,
   max: undefined,
   wide: false,
-  dateFilter: dateFilter.options[0],
-  dateHandling: dateHandling.options[0],
+  dateFilter: dateFilter.options![0],
+  dateHandling: dateHandling.options![0],
   'aria-label': undefined,
   disableAnimation: isChromatic(),
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
@@ -279,7 +279,7 @@ const formFieldBasicArgsTypes: ArgTypes = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options[0],
+  size: size.options![0],
   negative: false,
   optional: false,
   borderless: false,
@@ -464,19 +464,19 @@ export const InFormFieldWithMinAndMax: StoryObj = {
 export const InFormFieldWithDateFilter: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] },
+  args: { ...formFieldBasicArgs, dateFilter: dateFilter.options![1] },
 };
 
 export const InFormFieldWithDateParser: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, value: '2023-02-12', dateHandling: dateHandling.options[1] },
+  args: { ...formFieldBasicArgs, value: '2023-02-12', dateHandling: dateHandling.options![1] },
 };
 
 export const InFormFieldLarge: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, size: size.options[1] },
+  args: { ...formFieldBasicArgs, size: size.options![1] },
 };
 
 export const InFormFieldOptional: StoryObj = {

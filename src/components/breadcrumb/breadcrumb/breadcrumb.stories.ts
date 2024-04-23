@@ -66,7 +66,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   text: 'Breadcrumb',
-  href: href.options[0],
+  href: href.options![0],
   target: '_blank',
   rel: undefined,
   download: false,

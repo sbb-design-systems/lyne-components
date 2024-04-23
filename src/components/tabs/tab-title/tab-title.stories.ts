@@ -71,7 +71,7 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   label: 'Tab title',
-  'icon-name': iconName.options[0],
+  'icon-name': iconName.options![0],
   iconSlot: undefined,
   amount: 123,
   amountSlot: undefined,

@@ -119,7 +119,7 @@ const defaultArgs: Args = {
   amount: '99',
   'icon-name': 'tick-small',
   disabled: false,
-  type: type.options[0],
+  type: type.options![0],
   name: 'detail',
   value: 'Value',
   form: 'form-name',

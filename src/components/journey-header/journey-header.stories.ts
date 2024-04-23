@@ -59,8 +59,8 @@ const defaultArgs: Args = {
   origin: 'La Chaux de Fonds',
   destination: 'Loèche-les-Bains',
   'round-trip': false,
-  level: level.options[2],
-  size: size.options[0],
+  level: level.options![2],
+  size: size.options![0],
   negative: false,
 };
 
@@ -99,7 +99,7 @@ export const SizeMRoundTripShortText: StoryObj = {
 export const SizeL: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const SizeLRoundTripShortText: StoryObj = {
@@ -110,7 +110,7 @@ export const SizeLRoundTripShortText: StoryObj = {
     origin: 'Bern',
     destination: 'Thun',
     'round-trip': true,
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 

@@ -261,9 +261,9 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   disabled: false,
   required: false,
-  orientation: orientation.options[0],
+  orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options[1],
+  size: size.options![1],
   label: 'Label',
   checked: true,
   disabledSingle: false,
@@ -273,17 +273,17 @@ const basicArgs: Args = {
 
 const basicArgsVertical = {
   ...basicArgs,
-  orientation: orientation.options[1],
+  orientation: orientation.options![1],
 };
 
 const iconStart: Args = {
   iconName: 'tickets-class-small',
-  iconPlacement: iconPlacement.options[0],
+  iconPlacement: iconPlacement.options![0],
 };
 
 const iconEnd: Args = {
   iconName: 'tickets-class-small',
-  iconPlacement: iconPlacement.options[1],
+  iconPlacement: iconPlacement.options![1],
 };
 
 export const horizontal: StoryObj = {

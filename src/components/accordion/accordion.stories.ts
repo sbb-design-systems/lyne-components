@@ -134,8 +134,8 @@ const defaultArgs: Args = {
   numberOfPanels: 3,
   multi: false,
   'disable-animation': false,
-  'title-level': titleLevel.options[2],
-  color: color.options[0],
+  'title-level': titleLevel.options![2],
+  color: color.options![0],
   expanded: false,
   borderless: false,
   disabled: false,
@@ -187,7 +187,7 @@ export const Default: StoryObj = {
 export const Milk: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const Borderless: StoryObj = {
@@ -205,7 +205,7 @@ export const Disabled: StoryObj = {
 export const MilkBorderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1], borderless: true },
+  args: { ...defaultArgs, color: color.options![1], borderless: true },
 };
 
 export const WithIcon: StoryObj = {

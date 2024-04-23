@@ -74,8 +74,8 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
-  href: href.options[0],
+  size: size.options![0],
+  href: href.options![0],
   target: '_blank',
   rel: undefined,
   download: false,
@@ -95,13 +95,13 @@ export const SizeL: StoryObj = {
 export const SizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[2] },
+  args: { ...defaultArgs, size: size.options![2] },
 };
 
 const meta: Meta = {

@@ -134,15 +134,15 @@ const basicArgTypes: ArgTypes = {
 };
 
 const basicArgs: Args = {
-  level: level.options[1],
+  level: level.options![1],
   backButton: true,
-  hideOnScroll: hideOnScroll.options[0],
+  hideOnScroll: hideOnScroll.options![0],
   accessibilityCloseLabel: 'Close dialog',
   accessibilityBackLabel: 'Go back',
   negative: false,
   'accessibility-label': undefined,
   'disable-animation': isChromatic(),
-  'backdrop-action': backdropAction.options[0],
+  'backdrop-action': backdropAction.options![0],
 };
 
 const openDialog = (_event: PointerEvent, id: string): void => {
@@ -418,7 +418,7 @@ export const Negative: StoryObj = {
 export const AllowBackdropClick: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, 'backdrop-action': backdropAction.options[1] },
+  args: { ...basicArgs, 'backdrop-action': backdropAction.options![1] },
   play: isChromatic() ? playStory : undefined,
 };
 
@@ -432,7 +432,7 @@ export const LongContent: StoryObj = {
 export const HiddenTitle: StoryObj = {
   render: LongContentTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, hideOnScroll: hideOnScroll.options[7] },
+  args: { ...basicArgs, hideOnScroll: hideOnScroll.options![7] },
 };
 
 export const Form: StoryObj = {

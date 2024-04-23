@@ -459,7 +459,7 @@ const basicArgs: Args = {
   'floating-label': false,
   optional: false,
   borderless: false,
-  size: size.options[0],
+  size: size.options![0],
   negative: false,
   cssClass: '',
   placeholder: 'Input placeholder',
@@ -467,7 +467,7 @@ const basicArgs: Args = {
   disabled: false,
   readonly: false,
   errorText: 'This is a required field.',
-  width: width.options[0],
+  width: width.options![0],
   active: false,
 };
 
@@ -706,7 +706,7 @@ export const TextareaFloatingWithIcon: StoryObj = {
 export const InputCollapsedWidth: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, width: width.options[1] },
+  args: { ...basicArgs, width: width.options![1] },
 };
 
 export const InputWithIconsDisabled: StoryObj = {
@@ -872,7 +872,7 @@ export const SelectOptionalAndIconsNegative: StoryObj = {
 export const InputCollapsedWidthNegative: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, width: width.options[1], negative: true },
+  args: { ...basicArgs, width: width.options![1], negative: true },
 };
 
 export const InputWithIconsDisabledNegative: StoryObj = {

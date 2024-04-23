@@ -101,9 +101,9 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   text: 'Menu',
-  'expand-from': expandFrom.options[0],
+  'expand-from': expandFrom.options![0],
   'icon-name': 'hamburger-menu-small',
-  href: href.options[1],
+  href: href.options![1],
   target: '_blank',
   rel: undefined,
   download: false,

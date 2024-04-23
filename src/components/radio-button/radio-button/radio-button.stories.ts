@@ -61,7 +61,7 @@ const defaultArgs: Args = {
   value: 'First value',
   checked: false,
   disabled: false,
-  size: size.options[0],
+  size: size.options![0],
   'aria-label': undefined,
   labelBoldClass: false,
 };
@@ -86,7 +86,7 @@ export const Default: StoryObj = {
 export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const Checked: StoryObj = {

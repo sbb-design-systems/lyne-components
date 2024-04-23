@@ -38,7 +38,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   negative: false,
-  'protective-room': protectiveRoom.options[0],
+  'protective-room': protectiveRoom.options![0],
   'accessibility-label': undefined,
 };
 
@@ -51,13 +51,13 @@ export const NoProtectiveRoom: StoryObj = {
 export const MinimalProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[1] },
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![1] },
 };
 
 export const IdealProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[2] },
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![2] },
 };
 
 export const Negative: StoryObj = {
@@ -66,7 +66,7 @@ export const Negative: StoryObj = {
   args: {
     ...defaultArgs,
     negative: true,
-    'protective-room': protectiveRoom.options[2],
+    'protective-room': protectiveRoom.options![2],
   },
 };
 

@@ -167,7 +167,7 @@ export const CalendarFilterFunction: StoryObj = {
     ...defaultArgs,
     // Workaround: On Chromatic mapping functions do not work, so we remove it.
     // TODO: Check if condition can be removed after refactoring Chromatic generation @kyubisation
-    dateFilter: isChromatic() ? filterFunctions[1] : dateFilter.options[2],
+    dateFilter: isChromatic() ? filterFunctions[1] : dateFilter.options![2],
   },
 };
 

@@ -67,11 +67,11 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  variant: variant.options[0],
+  variant: variant.options![0],
   disabled: false,
   'title-content': 'Title',
   multiple: false,
-  'multiple-mode': multipleMode.options[0],
+  'multiple-mode': multipleMode.options![0],
   accept: undefined,
   'accessibility-label': 'Select from hard disk',
 };
@@ -126,25 +126,25 @@ export const DefaultMulti: StoryObj = {
 export const DefaultMultiPersistent: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...multipleDefaultArgs, 'multiple-mode': multipleMode.options[1] },
+  args: { ...multipleDefaultArgs, 'multiple-mode': multipleMode.options![1] },
 };
 
 export const Dropzone: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, variant: variant.options[1] },
+  args: { ...defaultArgs, variant: variant.options![1] },
 };
 
 export const DropzoneDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, variant: variant.options[1], disabled: true },
+  args: { ...defaultArgs, variant: variant.options![1], disabled: true },
 };
 
 export const DropzoneMulti: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...multipleDefaultArgs, variant: variant.options[1] },
+  args: { ...multipleDefaultArgs, variant: variant.options![1] },
 };
 
 export const DropzoneMultiPersistent: StoryObj = {
@@ -152,8 +152,8 @@ export const DropzoneMultiPersistent: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...multipleDefaultArgs,
-    variant: variant.options[1],
-    'multiple-mode': multipleMode.options[1],
+    variant: variant.options![1],
+    'multiple-mode': multipleMode.options![1],
   },
 };
 
@@ -166,7 +166,7 @@ export const DefaultWithError: StoryObj = {
 export const DropzoneWithError: StoryObj = {
   render: TemplateWithError,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, variant: variant.options[1] },
+  args: { ...defaultArgs, variant: variant.options![1] },
 };
 
 export const DefaultOnlyPDF: StoryObj = {
