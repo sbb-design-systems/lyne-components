@@ -13,6 +13,7 @@
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-notification-color: var(--sbb-color-charcoal);
   --sbb-notification-icon-color: var(--sbb-notification-type-color);
+  --sbb-notification-icon-margin-block-start: 0;
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-border: var(--sbb-notification-border-width) solid
     var(--sbb-notification-type-color);
@@ -179,7 +180,7 @@
 
 .sbb-notification__icon {
   color: var(--sbb-notification-icon-color);
-  margin-block-start: var(--sbb-notification-icon-margin-block-start, 'initial');
+  margin-block-start: var(--sbb-notification-icon-margin-block-start);
 }
 
 .sbb-notification__title {
