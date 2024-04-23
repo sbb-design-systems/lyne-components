@@ -77,7 +77,7 @@ export const buttonDefaultArgTypes: ArgTypes = {
 
 export const buttonDefaultArgs: Args = {
   ...commonDefaultArgs,
-  type: type.options[0],
+  type: type.options![0],
   disabled: false,
   name: 'Button Name',
   value: undefined,

@@ -94,9 +94,9 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   text: 'Menu',
-  'expand-from': expandFrom.options[0],
+  'expand-from': expandFrom.options![0],
   'icon-name': 'hamburger-menu-small',
-  type: type.options[0],
+  type: type.options![0],
   name: 'header-button',
   value: 'value',
   form: 'form',

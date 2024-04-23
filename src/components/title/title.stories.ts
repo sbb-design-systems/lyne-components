@@ -39,7 +39,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  level: level.options[0],
+  level: level.options![0],
   text: 'Data without insights are trivial, and insights without action are pointless',
   negative: false,
   'visual-level': undefined,
@@ -64,37 +64,37 @@ export const h1Negative: StoryObj = {
 export const h2: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, level: level.options[1] },
+  args: { ...defaultArgs, level: level.options![1] },
 };
 
 export const h3: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, level: level.options[2] },
+  args: { ...defaultArgs, level: level.options![2] },
 };
 
 export const h4: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, level: level.options[3] },
+  args: { ...defaultArgs, level: level.options![3] },
 };
 
 export const h5: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, level: level.options[4] },
+  args: { ...defaultArgs, level: level.options![4] },
 };
 
 export const h6: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, level: level.options[5] },
+  args: { ...defaultArgs, level: level.options![5] },
 };
 
 export const h6VisualLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, level: level.options[0], 'visual-level': level.options[5] },
+  args: { ...defaultArgs, level: level.options![0], 'visual-level': level.options![5] },
 };
 
 const meta: Meta = {

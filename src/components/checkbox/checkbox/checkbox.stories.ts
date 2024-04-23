@@ -103,7 +103,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[1],
+  size: size.options![1],
   checked: false,
   indeterminate: false,
   disabled: false,
@@ -172,7 +172,7 @@ export const defaultIndeterminate: StoryObj = {
 export const sizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[0] },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 export const longLabel: StoryObj = {
   render: Template,
@@ -191,7 +191,7 @@ export const checkedWithIconStart: StoryObj = {
     ...defaultArgs,
     checked: true,
     'icon-name': 'tickets-class-small',
-    'icon-placement': iconPlacement.options[0],
+    'icon-placement': iconPlacement.options![0],
   },
 };
 export const disabledChecked: StoryObj = {

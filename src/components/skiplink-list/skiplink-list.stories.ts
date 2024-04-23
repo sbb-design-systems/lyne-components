@@ -93,9 +93,9 @@ const defaultArgs: Args = {
   'title-level': undefined,
   'title-content': undefined,
   labelFirstLink: 'To content',
-  hrefFirstLink: hrefFirstLink.options[0],
+  hrefFirstLink: hrefFirstLink.options![0],
   labelSecondLink: 'To help',
-  hrefSecondLink: hrefSecondLink.options[1],
+  hrefSecondLink: hrefSecondLink.options![1],
 };
 
 // Story interaction executed after the story renders
@@ -133,7 +133,7 @@ export const SkiplinkListWithTitle: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'title-level': titleLevel.options[0],
+    'title-level': titleLevel.options![0],
     'title-content': 'Skip',
   },
   play: isChromatic() ? playStory : undefined,

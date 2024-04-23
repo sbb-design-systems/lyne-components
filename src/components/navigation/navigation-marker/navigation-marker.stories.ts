@@ -23,7 +23,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
+  size: size.options![0],
 };
 
 const style: Readonly<StyleInfo> = {
@@ -75,7 +75,7 @@ export const SizeL: StoryObj = {
 export const SizeS: StoryObj = {
   render: SizeSTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const SizeLActive: StoryObj = {
@@ -87,7 +87,7 @@ export const SizeLActive: StoryObj = {
 export const SizeSActive: StoryObj = {
   render: SizeSActiveTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 const meta: Meta = {

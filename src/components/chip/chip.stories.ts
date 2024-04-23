@@ -44,8 +44,8 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
-  color: color.options[0],
+  size: size.options![0],
+  color: color.options![0],
   label: 'Label',
 };
 
@@ -70,7 +70,7 @@ export const MilkXS: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
@@ -79,7 +79,7 @@ export const MilkS: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[2],
+    size: size.options![2],
   },
 };
 
@@ -88,7 +88,7 @@ export const Charcoal: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[1],
+    color: color.options![1],
   },
 };
 
@@ -97,7 +97,7 @@ export const White: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[2],
+    color: color.options![2],
   },
 };
 
@@ -106,7 +106,7 @@ export const Granite: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[3],
+    color: color.options![3],
   },
 };
 

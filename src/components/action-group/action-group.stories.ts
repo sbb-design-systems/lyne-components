@@ -138,8 +138,8 @@ const basicArgs: Args = {
   'align-group': 'start',
   orientation: 'horizontal',
   'horizontal-from': 'unset',
-  'button-size': buttonSize.options[0],
-  'link-size': linkSize.options[0],
+  'button-size': buttonSize.options![0],
+  'link-size': linkSize.options![0],
 };
 
 const basicArgsVertical = {
@@ -154,14 +154,14 @@ const basicArgsVerticalFullWidth = {
 
 const basicArgsSizeS = {
   ...basicArgs,
-  'button-size': buttonSize.options[2],
-  'link-size': linkSize.options[2],
+  'button-size': buttonSize.options![2],
+  'link-size': linkSize.options![2],
 };
 
 const basicArgsVerticalSizeS = {
   ...basicArgsVertical,
-  'button-size': buttonSize.options[2],
-  'link-size': linkSize.options[2],
+  'button-size': buttonSize.options![2],
+  'link-size': linkSize.options![2],
 };
 
 export const HorizontalAllocation3_0_0: StoryObj = {

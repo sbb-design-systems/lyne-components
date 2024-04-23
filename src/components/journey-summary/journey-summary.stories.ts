@@ -78,7 +78,7 @@ const defaultArgs: Args = {
   'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   'round-trip': false,
-  'header-level': headerLevel.options[2],
+  'header-level': headerLevel.options![2],
   trip: undefined,
   tripBack: undefined,
 };
@@ -242,7 +242,7 @@ export const summaryHeaderLevel: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'header-level': headerLevel.options[4],
+    'header-level': headerLevel.options![4],
     trip: {
       legs: [pastLeg, progressLeg, futureLeg],
       origin: 'Bern',

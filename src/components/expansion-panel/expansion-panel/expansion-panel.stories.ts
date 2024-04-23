@@ -109,8 +109,8 @@ const defaultArgs: Args = {
   iconName: undefined,
   contentText: 'Content',
   expanded: false,
-  'title-level': titleLevel.options[2],
-  color: color.options[0],
+  'title-level': titleLevel.options![2],
+  color: color.options![0],
   borderless: false,
   disabled: false,
   'disable-animation': false,
@@ -149,7 +149,7 @@ export const Default: StoryObj = {
 export const Milk: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const Borderless: StoryObj = {
@@ -179,7 +179,7 @@ export const WithSlottedIcon: StoryObj = {
 export const NoHeadingTag: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'title-level': titleLevel.options[6] },
+  args: { ...defaultArgs, 'title-level': titleLevel.options![6] },
 };
 
 export const Expanded: StoryObj = {

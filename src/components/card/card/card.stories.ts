@@ -244,14 +244,14 @@ const defaultArgTypesLink: ArgTypes = {
 
 const defaultArgs: Args = {
   size: 'm',
-  color: color.options[0],
+  color: color.options![0],
 };
 
 const defaultArgsLink = {
   ...defaultArgs,
   active: false,
   label: 'Click this card to follow the action.',
-  href: href.options[1],
+  href: href.options![1],
   download: false,
   target: '_blank',
   rel: undefined,
@@ -268,7 +268,7 @@ const defaultArgsButton = {
   target: undefined,
   rel: undefined,
   name: 'Button name',
-  type: type.options[0],
+  type: type.options![0],
   form: 'form-name',
   value: 'Value',
 };
@@ -286,7 +286,7 @@ export const ColorMilk: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[1],
+    color: color.options![1],
   },
 };
 
@@ -295,7 +295,7 @@ export const ColorTransparent: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[2],
+    color: color.options![2],
   },
 };
 
@@ -304,7 +304,7 @@ export const ColorTransparentBorderedDashed: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[3],
+    color: color.options![3],
   },
 };
 
@@ -313,7 +313,7 @@ export const SizeXS: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[0],
+    size: size.options![0],
   },
 };
 
@@ -322,7 +322,7 @@ export const SizeS: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
@@ -331,7 +331,7 @@ export const SizeM: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[2],
+    size: size.options![2],
   },
 };
 
@@ -340,7 +340,7 @@ export const SizeL: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[3],
+    size: size.options![3],
   },
 };
 
@@ -349,7 +349,7 @@ export const SizeXL: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[4],
+    size: size.options![4],
   },
 };
 
@@ -358,7 +358,7 @@ export const SizeXXL: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[5],
+    size: size.options![5],
   },
 };
 
@@ -367,7 +367,7 @@ export const SizeXXXL: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[6],
+    size: size.options![6],
   },
 };
 
@@ -376,7 +376,7 @@ export const SizeMWithBadge: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[2],
+    size: size.options![2],
   },
 };
 
@@ -385,7 +385,7 @@ export const SizeLWithBadge: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[3],
+    size: size.options![3],
   },
 };
 
@@ -394,7 +394,7 @@ export const SizeXLWithBadge: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[4],
+    size: size.options![4],
   },
 };
 
@@ -403,7 +403,7 @@ export const SizeXXLWithBadge: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[5],
+    size: size.options![5],
   },
 };
 
@@ -412,7 +412,7 @@ export const SizeXXXLWithBadge: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[6],
+    size: size.options![6],
   },
 };
 
@@ -439,7 +439,7 @@ export const ButtonActiveMilk: StoryObj = {
   argTypes: defaultArgTypesButton,
   args: {
     ...defaultArgsButton,
-    color: color.options[1],
+    color: color.options![1],
     active: true,
   },
 };
@@ -449,7 +449,7 @@ export const ButtonActiveTransparentBordered: StoryObj = {
   argTypes: defaultArgTypesButton,
   args: {
     ...defaultArgsButton,
-    color: color.options[2],
+    color: color.options![2],
     active: true,
   },
 };
@@ -459,7 +459,7 @@ export const ButtonActiveTransparentBorderedDashed: StoryObj = {
   argTypes: defaultArgTypesButton,
   args: {
     ...defaultArgsButton,
-    color: color.options[3],
+    color: color.options![3],
     active: true,
   },
 };

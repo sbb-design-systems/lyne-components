@@ -35,7 +35,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'aria-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
-  color: color.options[0],
+  color: color.options![0],
 };
 
 const Template = (args: Args): TemplateResult => html`
@@ -60,7 +60,7 @@ export const White: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[1],
+    color: color.options![1],
   },
 };
 
