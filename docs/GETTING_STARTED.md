@@ -19,7 +19,8 @@ Select your technology to get started.
    yarn add @sbb-esta/lyne-components
    ```
 
-2. Including typography is required to apply all SBB styles to your application.
+2. Including global styles is strongly recommended to apply all SBB styles to your application.
+   See [styles](#styles) section if you prefer more granularity on what to import.
 
    ```css
    @import 'node_modules/@sbb-esta/lyne-components/global.css';
@@ -54,7 +55,9 @@ Select your technology to get started.
    yarn add @sbb-esta/lyne-components
    ```
 
-3. Including typography is required to apply all SBB styles to your application. That is doable by editing the `styles.(s)css`:
+3. Including global styles is strongly recommended to apply all SBB styles to your application.
+   See [styles](#styles) section if you prefer more granularity on what to import.
+   Importing stylsheets is doable by editing the `styles.(s)css`:
 
    ```css
    @import 'node_modules/@sbb-esta/lyne-components/global.css';
@@ -110,7 +113,8 @@ bootstrapApplication(App).catch((err) => console.error(err));
    yarn add @sbb-esta/lyne-components-react
    ```
 
-3. Including typography globally is required to apply all SBB styles to your application.
+3. Including global styles is strongly recommended to apply all SBB styles to your application.
+   See [styles](#styles) section if you prefer more granularity on what to import.
 
    ```css
    @import '~@sbb-esta/lyne-components/global.css';
@@ -189,10 +193,30 @@ and on [storybook](https://lyne-storybook.app.sbb.ch).
 
 ## Styles
 
+### CSS files
+
+Basically, all our styles are included in 'global.css' which should be included in your application.
+However, if you like to more specifically pick what you need, consider the following CSS files available.
+
+| File name        | Description                                                                         |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| `global.css`     | Contains normalizing, core styles and available CSS classes.                        |
+| `fullfont.css`   | Provides full character set of SBB fonts, needs larger files to fetch.              |
+|                  |                                                                                     |
+| `normalize.css`  | Contains general browser resetting styles which can be useful for your application. |
+|                  |                                                                                     |
+| `core.css`       | Contains mandatory basics to use lyne-components (including design tokens).         |
+|                  |                                                                                     |
+| `a11y.css`       | Provides accessibility related CSS classes.                                         |
+| `animation.css`  | Provides CSS classes to disable animation (e.g. for testing).                       |
+| `layout.css`     | Provides layout related CSS classes (e.g. page spacing, grid).                      |
+| `lists.css`      | Provides CSS classes to style lists.                                                |
+| `typography.css` | Provides typography related CSS classes.                                            |
+
 ### Full Font
 
-The `global.css` file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
-For including the full fontset, we provide the `fullfont.css` file which can be added after the `global.css` file.
+The `global.css` (or `core.css`) file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
+For including the full fontset, we provide the `fullfont.css` file which can be added after the `global.css` (or `core.css`) file.
 
 ```css
 @import '@sbb-esta/lyne-components/global.css';
@@ -202,7 +226,7 @@ For including the full fontset, we provide the `fullfont.css` file which can be 
 ### Design Tokens
 
 The `@sbb-esta/lyne-components` package provides the CSS variable design tokens
-from `@sbb-esta/lyne-design-tokens` in the `global.css`.
+from `@sbb-esta/lyne-design-tokens` in the `global.css` (or `core.css`).
 
 > If you have to use design tokens within a javascript context,
 > please also add `@sbb-esta/lyne-design-tokens` package to your project.

@@ -13,22 +13,25 @@ export function typography(): PluginOption {
       viteConfig = config;
     },
     generateBundle() {
-      const globalCss = sass.compile(join(viteConfig.root, 'core/styles/global.scss'), {
-        loadPaths: [root.pathname, join(root.pathname, '/node_modules/')],
-      });
-      this.emitFile({
-        type: 'asset',
-        fileName: 'global.css',
-        source: globalCss.css,
-      });
-
-      const fullFont = sass.compile(join(viteConfig.root, 'core/styles/fullfont.scss'), {
-        loadPaths: [root.pathname, join(root.pathname, '/node_modules/')],
-      });
-      this.emitFile({
-        type: 'asset',
-        fileName: 'fullfont.css',
-        source: fullFont.css,
+      [
+        { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },
+        { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
+        { inputName: 'core/styles/core.scss', outputName: 'core.css' },
+        { inputName: 'core/styles/fullfont.scss', outputName: 'fullfont.css' },
+        { inputName: 'core/styles/global.scss', outputName: 'global.css' },
+        { inputName: 'core/styles/layout.scss', outputName: 'layout.css' },
+        { inputName: 'core/styles/lists.scss', outputName: 'lists.css' },
+        { inputName: 'core/styles/normalize.scss', outputName: 'normalize.css' },
+        { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
+      ].forEach((entry) => {
+        const compiled = sass.compile(join(viteConfig.root, entry.inputName), {
+          loadPaths: [root.pathname, join(root.pathname, '/node_modules/')],
+        });
+        this.emitFile({
+          type: 'asset',
+          fileName: entry.outputName,
+          source: compiled.css,
+        });
       });
     },
   };
