@@ -19,21 +19,11 @@ import { waitForComponentsReady } from '../../../storybook/testing/wait-for-comp
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 import type { SbbPopoverTriggerElement } from '../../popover.js';
 
-import '../../form-field.js';
-import '../datepicker.js';
-
-import './datepicker-toggle.js';
 import readme from './readme.md?raw';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
+import '../../form-field.js';
+import '../datepicker.js';
+import './datepicker-toggle.js';
 
 const negative: InputType = {
   control: {
@@ -42,12 +32,10 @@ const negative: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  'disable-animation': disableAnimation,
   negative,
 };
 
 const defaultArgs: Args = {
-  'disable-animation': isChromatic(),
   negative: false,
 };
 
@@ -119,29 +107,16 @@ export const InFormFieldNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          ...(isChromatic() ? { 'min-height': '100vh', 'min-width': '100vw' } : undefined),
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     chromatic: { disableSnapshot: false },
     actions: {
       handles: ['click'],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,
     },

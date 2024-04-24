@@ -63,8 +63,8 @@ export const SbbCardActionCommonElementMixin = <
       Array.from(this._card?.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
         .filter(
           (el) =>
-            el.tagName !== 'SBB-CARD-LINK' &&
-            el.tagName !== 'SBB-CARD-BUTTON' &&
+            el.localName !== 'sbb-card-link' &&
+            el.localName !== 'sbb-card-button' &&
             !el.hasAttribute(cardFocusableAttributeName),
         )
         .forEach((el: Element) => el.setAttribute(cardFocusableAttributeName, ''));

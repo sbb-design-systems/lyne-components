@@ -94,9 +94,9 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   text: 'Menu',
-  'expand-from': expandFrom.options[0],
+  'expand-from': expandFrom.options![0],
   'icon-name': 'hamburger-menu-small',
-  type: type.options[0],
+  type: type.options![0],
   name: 'header-button',
   value: 'value',
   form: 'form',
@@ -116,16 +116,10 @@ export const sbbHeaderActionButtonMultiple: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

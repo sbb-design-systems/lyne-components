@@ -10,7 +10,7 @@ import './overlay.js';
 describe('sbb-overlay', () => {
   let root: SbbOverlayElement;
   beforeEach(async () => {
-    root = await fixture(html`<sbb-overlay disable-animation></sbb-overlay>`);
+    root = await fixture(html`<sbb-overlay></sbb-overlay>`);
     root.open();
     await waitForLitRender(root);
   });

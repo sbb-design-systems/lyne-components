@@ -14,7 +14,7 @@ describe(`sbb-dialog`, () => {
     let root: SbbDialogElement;
     beforeEach(async () => {
       root = await fixture(
-        html` <sbb-dialog disable-animation>
+        html` <sbb-dialog>
           <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>Content</sbb-dialog-content>
         </sbb-dialog>`,

@@ -65,10 +65,6 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   /** Whether the panel has no border. */
   @property({ reflect: true, type: Boolean }) public borderless = false;
 
-  /** Whether the animations should be disabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** Emits whenever the `sbb-expansion-panel` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
@@ -107,17 +103,9 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     if (this.expanded) {
       this._willOpen.emit();
       this._state = 'opening';
-      // As with 0s duration, transitionEnd will not be fired, we need to programmatically trigger didOpen event
-      if (this.disableAnimation) {
-        this._onOpened();
-      }
     } else if (this._state === 'opened') {
       this._willClose.emit();
       this._state = 'closing';
-      // As with 0s duration, transitionEnd will not be fired, we need to programmatically trigger didClose event
-      if (this.disableAnimation) {
-        this._onClosed();
-      }
     }
   }
 
@@ -149,10 +137,10 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _handleSlotchange(): void {
     const children = Array.from(this.children ?? []);
     const header = children.find(
-      (e): e is SbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
+      (e): e is SbbExpansionPanelHeaderElement => e.localName === 'sbb-expansion-panel-header',
     );
     const content = children.find(
-      (e): e is SbbExpansionPanelContentElement => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
+      (e): e is SbbExpansionPanelContentElement => e.localName === 'sbb-expansion-panel-content',
     );
     if (this._headerRef === header && this._contentRef === content) {
       return;

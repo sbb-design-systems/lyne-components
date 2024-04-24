@@ -17,8 +17,12 @@ $open-anim-opacity-to: 1;
   --sbb-alert-padding: var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xs);
   --sbb-alert-icon-size: #{sbb.px-to-rem-build(20)};
   --sbb-alert-close-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxs);
   --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
-  --sbb-alert-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-alert-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-6x)
+  );
 
   @include sbb.mq($from: medium) {
     --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
@@ -34,9 +38,13 @@ $open-anim-opacity-to: 1;
   display: block;
 }
 
-:host([disable-animation]) {
-  // To avoid flickering, we need 0 instead of 0.1ms here.
-  --sbb-alert-animation-duration: 0ms;
+:host([animation='none']) {
+  @include sbb.disable-animation;
+}
+
+:host([size='s']) {
+  --sbb-alert-gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxxs);
 }
 
 :host([size='l']) {
@@ -132,7 +140,7 @@ $open-anim-opacity-to: 1;
 
 .sbb-alert__close-button {
   @include sbb.mq($from: small) {
-    margin-inline-start: var(--sbb-spacing-responsive-xxs);
+    margin-inline-start: var(--sbb-alert-close-icon-margin);
   }
 }
 

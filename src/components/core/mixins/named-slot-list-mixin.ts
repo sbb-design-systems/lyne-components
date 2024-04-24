@@ -30,7 +30,7 @@ export type WithListChildren<
 export declare abstract class SbbNamedSlotListMixinType<
   C extends HTMLElement,
 > extends SbbHydrationMixinType {
-  protected abstract readonly listChildTagNames: string[];
+  protected abstract readonly listChildLocalNames: string[];
   @state() protected listChildren: C[];
   protected renderList(attributes?: {
     class?: string;
@@ -58,7 +58,7 @@ export const SbbNamedSlotListMixin = <
     implements Partial<SbbNamedSlotListMixinType<C>>
   {
     /** A list of upper-cased tag names to match against. (e.g. SBB-LINK) */
-    protected abstract readonly listChildTagNames: string[];
+    protected abstract readonly listChildLocalNames: string[];
 
     /**
      * A list of children with the defined tag names.
@@ -79,7 +79,7 @@ export const SbbNamedSlotListMixin = <
 
     private _handleSlotchange = (): void => {
       const listChildren = Array.from(this.children ?? []).filter((e): e is C =>
-        this.listChildTagNames.includes(e.tagName),
+        this.listChildLocalNames.includes(e.localName),
       );
       // If the slotted child instances have not changed, we can skip syncing and updating
       // the link reference list.

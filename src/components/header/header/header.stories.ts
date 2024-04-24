@@ -12,7 +12,6 @@ import type {
 import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
@@ -56,7 +55,7 @@ const HeaderBasicTemplate = (
     <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
       English
     </sbb-header-button>
-    <sbb-menu trigger="language-menu-trigger" ?disable-animation=${isChromatic()}>
+    <sbb-menu trigger="language-menu-trigger">
       <sbb-menu-button>Deutsch</sbb-menu-button>
       <sbb-menu-button>Français</sbb-menu-button>
       <sbb-menu-button>Italiano</sbb-menu-button>
@@ -89,11 +88,7 @@ const TemplateWithUserMenu = (args: Args): TemplateResult => html`
       >
         Christina Müller
       </sbb-header-button>
-      <sbb-menu
-        trigger="user-menu-trigger"
-        ?disable-animation=${isChromatic()}
-        data-testid="user-menu"
-      >
+      <sbb-menu trigger="user-menu-trigger" data-testid="user-menu">
         <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
         <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
         <sbb-menu-button icon-name="shopping-cart-small" amount="1">
@@ -216,23 +211,16 @@ export const ContainerScrollOriginScrollHide: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div style=${styleMap(isChromatic() ? { 'min-height': '100vh' } : {})}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     actions: {
       handles: ['click'],
     },
     docs: {
       story: {
         inline: false,
+        // Setting the iFrame height ensures that the story has enough space when used in the docs section.
         iframeHeight: '250px',
       },
       extractComponentDescription: () => readme,

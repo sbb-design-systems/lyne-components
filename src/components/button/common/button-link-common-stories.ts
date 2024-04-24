@@ -66,7 +66,7 @@ export const buttonLinkDefaultArgTypes: ArgTypes = {
 
 export const buttonLinkDefaultArgs: Args = {
   ...commonDefaultArgs,
-  href: href.options[0],
+  href: href.options![0],
   target: '_blank',
   rel: 'noopener',
   download: false,
