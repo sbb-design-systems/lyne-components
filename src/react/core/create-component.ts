@@ -120,7 +120,6 @@ export interface Options<I extends HTMLElement, E extends EventNames = {}> {
   elementClass: Constructor<I>;
   events?: E;
   displayName?: string;
-  renderAttributesOnCreate?: boolean;
 }
 
 type Constructor<T> = { new (): T };
