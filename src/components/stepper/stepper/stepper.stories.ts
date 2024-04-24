@@ -141,7 +141,10 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
 
-        <sbb-step-label slot="step-label" icon-name="dog-small">Step 3</sbb-step-label>
+        <sbb-step-label slot="step-label">
+          <sbb-icon slot="icon" name="dog-small"></sbb-icon>
+          Step 3
+        </sbb-step-label>
         <sbb-step slot="step">
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
             <sbb-form-field error-space="none" size="m">

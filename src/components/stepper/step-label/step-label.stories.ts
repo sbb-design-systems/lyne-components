@@ -33,6 +33,12 @@ const defaultArgs: Args = {
 const Template = (args: Args): TemplateResult =>
   html`<sbb-step-label slot="step-label" ${sbbSpread(args)}>Label</sbb-step-label>`;
 
+const SlottedIconTemplate = (args: Args): TemplateResult =>
+  html`<sbb-step-label slot="step-label" ${sbbSpread(args)}>
+    <sbb-icon slot="icon" name="pen-small"></sbb-icon>
+    Label
+  </sbb-step-label>`;
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -49,6 +55,12 @@ export const Disabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
+};
+
+export const SlottedIcon: StoryObj = {
+  render: SlottedIconTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'icon-name': undefined },
 };
 
 const meta: Meta = {
