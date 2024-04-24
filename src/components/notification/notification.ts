@@ -67,6 +67,9 @@ export class SbbNotificationElement extends LitElement {
    */
   @property({ reflect: true, type: Boolean }) public readonly = false;
 
+  /** Size variant, either s or m. */
+  @property({ reflect: true }) public size: 'm' | 's' = 'm';
+
   /**
    * The enabled animations.
    */
@@ -217,7 +220,11 @@ export class SbbNotificationElement extends LitElement {
           ></sbb-icon>
 
           <span class="sbb-notification__content">
-            <sbb-title class="sbb-notification__title" level=${this.titleLevel} visual-level="5">
+            <sbb-title
+              class="sbb-notification__title"
+              level=${this.titleLevel}
+              visual-level=${this.size === 'm' ? '5' : '6'}
+            >
               <slot name="title">${this.titleContent}</slot>
             </sbb-title>
             <slot></slot>
@@ -227,7 +234,7 @@ export class SbbNotificationElement extends LitElement {
             ? html`<span class="sbb-notification__close-wrapper">
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
                 <sbb-secondary-button
-                  size="m"
+                  size=${this.size}
                   icon-name="cross-small"
                   @click=${() => this.close()}
                   aria-label=${i18nCloseNotification[this._language.current]}

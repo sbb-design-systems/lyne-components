@@ -21,6 +21,7 @@ $open-anim-height-to: calc(
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-notification-color: var(--sbb-color-charcoal);
   --sbb-notification-icon-color: var(--sbb-notification-type-color);
+  --sbb-notification-icon-margin-block-start: 0;
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-border: var(--sbb-notification-border-width) solid
     var(--sbb-notification-type-color);
@@ -33,6 +34,8 @@ $open-anim-height-to: calc(
     var(--sbb-animation-duration-4x)
   );
   --sbb-notification-timing-function: ease-in;
+  --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
+    var(--sbb-spacing-responsive-xs);
 
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.
@@ -81,6 +84,37 @@ $open-anim-height-to: calc(
 :host([type='error']) {
   --sbb-notification-type-color: var(--sbb-color-red);
   --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red, white, 5%)};
+}
+
+:host([size='s']) {
+  --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs)
+    var(--sbb-spacing-responsive-xxxs);
+  --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
+    var(--sbb-spacing-responsive-xxs);
+}
+
+@include sbb.mq($from: small) {
+  :host {
+    --sbb-notification-icon-margin-block-start: calc(
+      ((1em * var(--sbb-typo-line-height-body-text)) - var(--sbb-size-icon-ui-small)) / 2
+    );
+  }
+
+  :host(:where([data-slot-names~='title'], [title-content])) {
+    --sbb-notification-icon-margin-block-start: calc(
+      (
+          (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
+              --sbb-size-icon-ui-small
+            )
+        ) / 2
+    );
+  }
+
+  :host([size='s']) {
+    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
+    --sbb-notification-icon-margin-block-start: 0;
+  }
 }
 
 .sbb-notification__wrapper {
@@ -158,26 +192,15 @@ $open-anim-height-to: calc(
     grid-template-columns: auto 1fr auto;
     align-items: flex-start;
   }
+
+  :host([size='s']) & {
+    @include sbb.text-xs--regular;
+  }
 }
 
 .sbb-notification__icon {
   color: var(--sbb-notification-icon-color);
-
-  @include sbb.mq($from: small) {
-    margin-block-start: calc(
-      ((1em * var(--sbb-typo-line-height-body-text)) - var(--sbb-size-icon-ui-small)) / 2
-    );
-
-    :host(:where([data-slot-names~='title'], [title-content])) & {
-      margin-block-start: calc(
-        (
-            (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
-                --sbb-size-icon-ui-small
-              )
-          ) / 2
-      );
-    }
-  }
+  margin-block-start: var(--sbb-notification-icon-margin-block-start);
 }
 
 .sbb-notification__title {
@@ -198,7 +221,7 @@ $open-anim-height-to: calc(
     order: initial;
     grid-area: initial;
     margin-block-start: 0;
-    padding-inline: var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xs);
+    padding-inline: var(--sbb-notification-content-padding-inline);
   }
 }
 

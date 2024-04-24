@@ -207,7 +207,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
 
   private _onOptionClick(event: MouseEvent): void {
     if (
-      (event.target as Element).tagName !== 'SBB-OPTION' ||
+      (event.target as Element).localName !== 'sbb-option' ||
       (event.target as SbbOptionElement).disabled
     ) {
       return;
