@@ -241,11 +241,11 @@ snapshots["sbb-notification A11y tree Firefox"] =
 
 snapshots["sbb-notification renders Dom"] = 
 `<sbb-notification
+  animation="all"
   data-slot-names="unnamed"
-  data-state="opened"
-  disable-animation=""
+  data-state="opening"
   size="m"
-  style="--sbb-notification-height: auto;"
+  style="--sbb-notification-height: 76px;"
   type="info"
 >
   The quick brown fox jumps over the lazy dog.
@@ -307,11 +307,11 @@ snapshots["sbb-notification renders ShadowDom"] =
 
 snapshots["sbb-notification renders with a title Dom"] = 
 `<sbb-notification
+  animation="all"
   data-slot-names="unnamed"
-  data-state="opened"
-  disable-animation=""
+  data-state="opening"
   size="m"
-  style="--sbb-notification-height: auto;"
+  style="--sbb-notification-height: 88px;"
   title-content="Title"
   type="info"
 >
@@ -375,11 +375,11 @@ snapshots["sbb-notification renders with a title ShadowDom"] =
 
 snapshots["sbb-notification renders with a slotted title Dom"] = 
 `<sbb-notification
+  animation="all"
   data-slot-names="title unnamed"
-  data-state="opened"
-  disable-animation=""
+  data-state="opening"
   size="m"
-  style="--sbb-notification-height: auto;"
+  style="--sbb-notification-height: 88px;"
   type="info"
 >
   <span slot="title">
@@ -444,12 +444,12 @@ snapshots["sbb-notification renders with a slotted title ShadowDom"] =
 
 snapshots["sbb-notification renders without the close button Dom"] = 
 `<sbb-notification
+  animation="all"
   data-slot-names="unnamed"
-  data-state="opened"
-  disable-animation=""
+  data-state="opening"
   readonly=""
   size="m"
-  style="--sbb-notification-height: auto;"
+  style="--sbb-notification-height: 88px;"
   title-content="Title"
   type="info"
 >
@@ -491,11 +491,11 @@ snapshots["sbb-notification renders without the close button ShadowDom"] =
 
 snapshots["sbb-notification renders size s Dom"] = 
 `<sbb-notification
+  animation="all"
   data-slot-names="unnamed"
-  data-state="opened"
-  disable-animation=""
+  data-state="opening"
   size="s"
-  style="--sbb-notification-height: auto;"
+  style="--sbb-notification-height: 70px;"
   title-content="Title"
   type="info"
 >
