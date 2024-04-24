@@ -18,7 +18,7 @@ export function typography(): PluginOption {
       });
       this.emitFile({
         type: 'asset',
-        fileName: 'typography.css',
+        fileName: 'global.css',
         source: globalCss.css,
       });
 

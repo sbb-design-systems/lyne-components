@@ -36,8 +36,8 @@ export default defineConfig((config) =>
             packageJsonTemplate({
               exports: {
                 '.': { sass: './_index.scss' },
-                './typography.css': {
-                  style: './typography.css',
+                './global.css': {
+                  style: './global.css',
                 },
                 './fullfont.css': {
                   style: './fullfont.css',

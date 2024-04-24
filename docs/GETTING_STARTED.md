@@ -22,7 +22,7 @@ Select your technology to get started.
 2. Including typography is required to apply all SBB styles to your application.
 
    ```css
-   @import 'node_modules/@sbb-esta/lyne-components/typography.css';
+   @import 'node_modules/@sbb-esta/lyne-components/global.css';
    ```
 
 3. Import the desired element and add it to globalThis:
@@ -57,7 +57,7 @@ Select your technology to get started.
 3. Including typography is required to apply all SBB styles to your application. That is doable by editing the `styles.(s)css`:
 
    ```css
-   @import 'node_modules/@sbb-esta/lyne-components/typography.css';
+   @import 'node_modules/@sbb-esta/lyne-components/global.css';
    ```
 
    or editing your `angular.json`:
@@ -66,7 +66,7 @@ Select your technology to get started.
      ...
      "styles": [
        "src/styles.scss",
-       "node_modules/@sbb-esta/lyne-components/typography.css"
+       "node_modules/@sbb-esta/lyne-components/global.css"
      ],
      ...
    ```
@@ -113,7 +113,7 @@ bootstrapApplication(App).catch((err) => console.error(err));
 3. Including typography globally is required to apply all SBB styles to your application.
 
    ```css
-   @import '~@sbb-esta/lyne-components/typography.css';
+   @import '~@sbb-esta/lyne-components/global.css';
    ```
 
 4. Enhance the `transpilePackages` array in Next.Js config.
@@ -191,23 +191,23 @@ and on [storybook](https://lyne-storybook.app.sbb.ch).
 
 ### Full Font
 
-The `typography.css` file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
-For including the full fontset, we provide the `fullfont.css` file which can be added after the `typography.css` file.
+The `global.css` file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
+For including the full fontset, we provide the `fullfont.css` file which can be added after the `global.css` file.
 
 ```css
-@import '@sbb-esta/lyne-components/typography.css';
+@import '@sbb-esta/lyne-components/global.css';
 @import '@sbb-esta/lyne-components/fullfont.css';
 ```
 
 ### Design Tokens
 
 The `@sbb-esta/lyne-components` package provides the CSS variable design tokens
-from `@sbb-esta/lyne-design-tokens` in the `typography.css`.
+from `@sbb-esta/lyne-design-tokens` in the `global.css`.
 
 > If you have to use design tokens within a javascript context,
 > please also add `@sbb-esta/lyne-design-tokens` package to your project.
 
-Please check `node_modules/@sbb-esta/lyne-components/typography.css` for available design tokens.
+Please check `node_modules/@sbb-esta/lyne-components/global.css` for available design tokens.
 
 #### How to work with design tokens
 
