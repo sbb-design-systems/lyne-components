@@ -1,0 +1,120 @@
+@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as
+  sbb-css-tokens;
+@use './core/mediaqueries';
+@use './core/functions';
+@use './mixins/font-face';
+@use './mixins/a11y';
+@use './mixins/scrollbar';
+@use './mixins/typo';
+
+// Core variables, are always needed
+:root {
+  // Grab css vars defined by `@sbb-esta/lyne-design-tokens` package
+  @include sbb-css-tokens.lyne-design-tokens-css-variables;
+
+  // Train formation
+  --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
+  --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
+  --sbb-train-formation-wagon-border-radius: #{functions.px-to-rem-build(12)};
+  --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
+
+  // Header
+  --sbb-header-height: var(--sbb-spacing-fixed-14x);
+
+  // Time Input
+  --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
+
+  // Overlay
+  --sbb-overlay-default-z-index: 1000;
+
+  // Infinity border radius, can be used to achieve rounded border on start and end
+  // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
+  --sbb-border-radius-infinity: 10000000em;
+
+  @include mediaqueries.mq($from: medium) {
+    // Header
+    --sbb-header-height: var(--sbb-spacing-fixed-24x);
+
+    // Time Input
+    --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
+  }
+}
+
+@include font-face.font-declarations;
+
+html {
+  @include typo.text;
+
+  color: var(--sbb-font-default-color);
+}
+
+// TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
+::placeholder {
+  @include typo.placeholder;
+}
+
+// TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
+sbb-form-field {
+  :where(input, textarea):disabled::placeholder {
+    color: var(--sbb-color-granite);
+    -webkit-text-fill-color: var(--sbb-color-granite);
+  }
+
+  &[floating-label] :where(input, textarea)::placeholder {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+
+    @include a11y.if-forced-colors {
+      color: Canvas;
+      -webkit-text-fill-color: Canvas;
+    }
+  }
+
+  textarea {
+    @include scrollbar.scrollbar;
+  }
+
+  &[negative] textarea {
+    @include scrollbar.scrollbar($negative: true);
+  }
+}
+
+// Hiding components until they are instantiated
+:is(
+    sbb-autocomplete,
+    sbb-dialog,
+    sbb-menu,
+    sbb-navigation,
+    sbb-navigation-section,
+    sbb-overlay,
+    sbb-select,
+    sbb-skiplink-list,
+    sbb-toast,
+    sbb-popover
+  ):not(:defined) {
+  display: none;
+}
+
+// Ensure stable breadcrumb height during hydrating
+sbb-breadcrumb-group:not(:defined) {
+  display: block;
+  height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
+  overflow: hidden;
+}
+
+// Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
+// This style enables accessing focusable elements inside an sbb-card.
+[data-card-focusable] {
+  pointer-events: all;
+}
+
+// In smaller title font-sizes, the space after the title is smaller than the default paragraph space before.
+// Due to margin collapsing, the wrong paragraph space wins.
+// To prevent the mistakenly large gap, we reset the paragraph space.
+sbb-title + p {
+  margin-block-start: 0;
+}
+
+input[data-sbb-time-input] {
+  max-width: var(--sbb-time-input-max-width);
+}
