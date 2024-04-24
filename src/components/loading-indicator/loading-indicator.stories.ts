@@ -113,24 +113,16 @@ const color: InputType = {
   options: ['default', 'smoke', 'white'],
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   variant,
   size,
   color,
-  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
-  variant: variant.options[0],
-  size: size.options[0],
-  color: color.options[0],
-  'disable-animation': isChromatic(),
+  variant: variant.options![0],
+  size: size.options![0],
+  color: color.options![0],
 };
 
 export const WindowSmallDefault: StoryObj = {
@@ -142,70 +134,60 @@ export const WindowSmallDefault: StoryObj = {
 export const WindowSmallSmoke: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const WindowSmallWhite: StoryObj = {
   render: NegativeTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2] },
+  args: { ...defaultArgs, color: color.options![2] },
 };
 
 export const WindowLargeDefault: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const WindowLargeSmoke: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1], size: size.options[1] },
+  args: { ...defaultArgs, color: color.options![1], size: size.options![1] },
 };
 
 export const WindowLargeWhite: StoryObj = {
   render: NegativeTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2], size: size.options[1] },
+  args: { ...defaultArgs, color: color.options![2], size: size.options![1] },
 };
 
 export const CircleDefault: StoryObj = {
   render: InlineTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, variant: variant.options[1] },
+  args: { ...defaultArgs, variant: variant.options![1] },
 };
 
 export const CircleSmoke: StoryObj = {
   render: InlineTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1], variant: variant.options[1] },
+  args: { ...defaultArgs, color: color.options![1], variant: variant.options![1] },
 };
 
 export const CircleWhite: StoryObj = {
   render: NegativeInlineTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2], variant: variant.options[1] },
+  args: { ...defaultArgs, color: color.options![2], variant: variant.options![1] },
 };
 
 export const Accessibility: StoryObj = {
   render: TemplateAccessibility,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
   play: isChromatic() ? playStory : undefined,
 };
 
-export const NoAnimation: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
-};
-
 const meta: Meta = {
-  decorators: [(story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

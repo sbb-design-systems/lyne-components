@@ -81,7 +81,6 @@ When using a button to trigger the overlay, ensure to manage the appropriate ARI
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                                     |
 | `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                      |
 | `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |         | This will be forwarded as aria-label adn will describe the purpose of the dialog.                                     |
-| `disableAnimation`        | `disable-animation`         | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                     |
 | `negative`                | `negative`                  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                       |
 
 ## Methods

@@ -1,5 +1,6 @@
 @use './mixins/font-face';
 @use './mixins/a11y';
+@use './mixins/animation';
 @use './mixins/layout';
 @use './mixins/lists';
 @use './mixins/scrollbar';
@@ -150,4 +151,20 @@ input[data-sbb-time-input] {
 
 .sbb-screen-reader-only {
   @include a11y.screen-reader-only;
+}
+
+.sbb-disable-animation {
+  @include animation.disable-animation;
+}
+
+.sbb-disable-animation-locally {
+  @include animation.disable-animation;
+
+  & > * {
+    @include animation.enable-animation;
+  }
+}
+
+.sbb-enable-animation {
+  @include animation.enable-animation;
 }

@@ -101,9 +101,9 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   text: 'Menu',
-  'expand-from': expandFrom.options[0],
+  'expand-from': expandFrom.options![0],
   'icon-name': 'hamburger-menu-small',
-  href: href.options[1],
+  href: href.options![1],
   target: '_blank',
   rel: undefined,
   download: false,
@@ -123,16 +123,10 @@ export const sbbHeaderActionLinkMultiple: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

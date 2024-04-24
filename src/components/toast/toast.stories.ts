@@ -80,19 +80,12 @@ const iconName: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   position,
   dismissible,
   timeout,
   politeness,
   'icon-name': iconName,
-  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
@@ -101,7 +94,6 @@ const defaultArgs: Args = {
   timeout: 6000,
   politeness: 'polite',
   'icon-name': 'circle-tick-small',
-  'disable-animation': isChromatic(),
 };
 
 const toastTemplate = (
@@ -178,10 +170,7 @@ export const WithActionLink: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem; height: calc(100vh - 2rem);">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -192,10 +181,9 @@ const meta: Meta = {
         SbbToastElement.events.didClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
+      story: { inline: false, iframeHeight: '200px' },
       extractComponentDescription: () => readme,
     },
   },

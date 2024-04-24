@@ -11,7 +11,6 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import { SbbExpansionPanelElement } from '../expansion-panel.js';
@@ -26,15 +25,6 @@ const numberOfPanels: InputType = {
 };
 
 const multi: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Accordion',
-  },
-};
-
-const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -120,7 +110,6 @@ const contentText: InputType = {
 const defaultArgTypes: ArgTypes = {
   numberOfPanels,
   multi,
-  'disable-animation': disableAnimation,
   'title-level': titleLevel,
   color,
   expanded,
@@ -134,9 +123,8 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   numberOfPanels: 3,
   multi: false,
-  'disable-animation': false,
-  'title-level': titleLevel.options[2],
-  color: color.options[0],
+  'title-level': titleLevel.options![2],
+  color: color.options![0],
   expanded: false,
   borderless: false,
   disabled: false,
@@ -188,7 +176,7 @@ export const Default: StoryObj = {
 export const Milk: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const Borderless: StoryObj = {
@@ -206,7 +194,7 @@ export const Disabled: StoryObj = {
 export const MilkBorderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1], borderless: true },
+  args: { ...defaultArgs, color: color.options![1], borderless: true },
 };
 
 export const WithIcon: StoryObj = {
@@ -227,27 +215,11 @@ export const Multi: StoryObj = {
   args: { ...defaultArgs, multi: true },
 };
 
-export const NoAnimation: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
-};
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white)',
-});
-
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.borderless ? 'var(--sbb-color-cement)' : 'var(--sbb-color-white)',
     actions: {
       handles: [
         SbbExpansionPanelElement.events.willOpen,

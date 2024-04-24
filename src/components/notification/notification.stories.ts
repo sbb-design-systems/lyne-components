@@ -1,10 +1,8 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { ref } from 'lit/directives/ref.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import type { SbbSecondaryButtonElement } from '../button.js';
@@ -40,10 +38,11 @@ const readonly: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
+const animation: InputType = {
   control: {
-    type: 'boolean',
+    type: 'inline-radio',
   },
+  options: ['all', 'close', 'open', 'none'],
 };
 
 const basicArgTypes: ArgTypes = {
@@ -51,15 +50,15 @@ const basicArgTypes: ArgTypes = {
   type: type,
   size: size,
   readonly: readonly,
-  'disable-animation': disableAnimation,
+  animation: animation,
 };
 
 const basicArgs: Args = {
   'title-content': 'Title',
-  type: type.options[0],
-  size: size.options[1],
+  type: type.options![0],
+  size: size.options![1],
   readonly: false,
-  'disable-animation': isChromatic(),
+  animation: animation.options![0],
 };
 
 const appendNotification = (event: Event, args: Args): void => {
@@ -70,9 +69,9 @@ const appendNotification = (event: Event, args: Args): void => {
   );
   newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
-  newNotification.readonly = args['readonly'];
   newNotification.size = args['size'];
-  newNotification.disableAnimation = args['disable-animation'];
+  newNotification.readonly = args['readonly'];
+  newNotification.animation = args['animation'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
   (event.target as SbbSecondaryButtonElement).parentElement
@@ -91,23 +90,11 @@ const trigger = (args: Args): TemplateResult => html`
   </sbb-secondary-button>
 `;
 
-const simpleNotification = (
-  disabelAnimation: boolean,
-  type: string,
-  title: string,
-): TemplateResult => html`
+const simpleNotification = (type: string, title: string): TemplateResult => html`
   <sbb-notification
     type="${type}"
     title-content="${title}"
-    disable-animation
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
-    ${ref((notification?: Element) =>
-      (notification as SbbNotificationElement)?.addEventListener(
-        SbbNotificationElement.events.didOpen,
-        () => ((notification as SbbNotificationElement).disableAnimation = disabelAnimation),
-        { once: true },
-      ),
-    )}
   >
     This is a ${type} notification.
   </sbb-notification>
@@ -124,16 +111,8 @@ const pageContent = (): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread({ ...args, ['disable-animation']: true })}
+    ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
-    ${ref((notification?: Element) =>
-      (notification as SbbNotificationElement)?.addEventListener(
-        SbbNotificationElement.events.didOpen,
-        () =>
-          ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
-        { once: true },
-      ),
-    )}
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
     dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
@@ -144,16 +123,8 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 
 const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread({ ...args, ['disable-animation']: true })}
+    ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
-    ${ref((notification?: Element) =>
-      (notification as SbbNotificationElement)?.addEventListener(
-        SbbNotificationElement.events.didOpen,
-        () =>
-          ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
-        { once: true },
-      ),
-    )}
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
     dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
@@ -161,23 +132,14 @@ const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
     <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
 
-  ${simpleNotification(args['disable-animation'], 'success', 'Success')}
-  ${simpleNotification(args['disable-animation'], 'warn', 'Warn')}
-  ${simpleNotification(args['disable-animation'], 'error', 'Error')}
+  ${simpleNotification('success', 'Success')} ${simpleNotification('warn', 'Warn')}
+  ${simpleNotification('error', 'Error')}
 `;
 
 const SlottedTitleTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread({ ...args, ['disable-animation']: true })}
+    ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
-    ${ref((notification?: Element) =>
-      (notification as SbbNotificationElement)?.addEventListener(
-        SbbNotificationElement.events.didOpen,
-        () =>
-          ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
-        { once: true },
-      ),
-    )}
   >
     <span slot="title">Slotted title</span>
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
@@ -196,19 +158,19 @@ export const Info: StoryObj = {
 export const Success: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, type: type.options[1] },
+  args: { ...basicArgs, type: type.options![1] },
 };
 
 export const Warn: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, type: type.options[2] },
+  args: { ...basicArgs, type: type.options![2] },
 };
 
 export const Error: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, type: type.options[3] },
+  args: { ...basicArgs, type: type.options![3] },
 };
 
 export const Readonly: StoryObj = {
@@ -251,9 +213,7 @@ export const MultipleNotifications: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story, context) =>
-      html`<div
-        style="padding: 2rem;display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;"
-      >
+      html`<div style="display: flex; gap: var(--sbb-spacing-fixed-4x); flex-direction: column;">
         ${trigger(context.args)}
         <div
           class="notification-container"
@@ -275,9 +235,6 @@ const meta: Meta = {
         SbbNotificationElement.events.willOpen,
         SbbNotificationElement.events.willClose,
       ],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

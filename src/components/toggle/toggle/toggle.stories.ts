@@ -1,7 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -42,15 +41,6 @@ const size: InputType = {
 const value: InputType = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Toggle',
-  },
-};
-
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
   },
   table: {
     category: 'Toggle',
@@ -102,19 +92,17 @@ const defaultArgTypes: ArgTypes = {
   label,
   labelTwo,
   iconName,
-  'disable-animation': disableAnimation,
   ariaLabel,
 };
 
 const defaultArgs: Args = {
   disabled: false,
   even: false,
-  size: size.options[0],
+  size: size.options![0],
   value: 'Value 1',
   label: 'Bern',
   labelTwo: 'Zürich',
   iconName: undefined,
-  'disable-animation': isChromatic(),
   ariaLabel: undefined,
 };
 
@@ -164,7 +152,7 @@ export const SizeM: StoryObj = {
 export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const Disabled: StoryObj = {
@@ -176,7 +164,7 @@ export const Disabled: StoryObj = {
 export const DisabledSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, disabled: true, size: size.options[1] },
+  args: { ...defaultArgs, disabled: true, size: size.options![1] },
 };
 
 export const Even: StoryObj = {
@@ -188,25 +176,25 @@ export const Even: StoryObj = {
 export const EvenSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, even: true, size: size.options[1] },
+  args: { ...defaultArgs, even: true, size: size.options![1] },
 };
 
 export const LabelAndIcon: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, iconName: iconName.options[0] },
+  args: { ...defaultArgs, iconName: iconName.options![0] },
 };
 
 export const LabelAndIconSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, iconName: iconName.options[0], size: size.options[1] },
+  args: { ...defaultArgs, iconName: iconName.options![0], size: size.options![1] },
 };
 
 export const LabelAndIconSlotted: StoryObj = {
   render: SlottedIconTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, iconName: iconName.options[1] },
+  args: { ...defaultArgs, iconName: iconName.options![1] },
 };
 
 export const IconsOnly: StoryObj = {
@@ -214,7 +202,7 @@ export const IconsOnly: StoryObj = {
   argTypes: { ...defaultArgTypes },
   args: {
     ...defaultArgs,
-    iconName: iconName.options[0],
+    iconName: iconName.options![0],
     label: undefined,
     labelTwo: undefined,
   },
@@ -225,8 +213,8 @@ export const IconsOnlySizeS: StoryObj = {
   argTypes: { ...defaultArgTypes },
   args: {
     ...defaultArgs,
-    iconName: iconName.options[0],
-    size: size.options[1],
+    iconName: iconName.options![0],
+    size: size.options![1],
     label: undefined,
     labelTwo: undefined,
   },
@@ -237,7 +225,7 @@ export const IconsOnlySlotted: StoryObj = {
   argTypes: { ...defaultArgTypes },
   args: {
     ...defaultArgs,
-    iconName: iconName.options[1],
+    iconName: iconName.options![1],
     label: undefined,
     labelTwo: undefined,
   },
@@ -250,7 +238,7 @@ export const DynamicWidth: StoryObj = {
     ...defaultArgs,
     label: 'Zürich',
     labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
-    iconName: iconName.options[1],
+    iconName: iconName.options![1],
   },
 };
 
@@ -259,24 +247,18 @@ export const DynamicWidthSizeS: StoryObj = {
   argTypes: { ...defaultArgTypes },
   args: {
     ...defaultArgs,
-    size: size.options[1],
+    size: size.options![1],
     label: 'Zürich',
     labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
-    iconName: iconName.options[1],
+    iconName: iconName.options![1],
   },
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['change', 'input'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

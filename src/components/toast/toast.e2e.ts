@@ -153,8 +153,8 @@ describe(`sbb-toast with ${fixture.name}`, () => {
     element = await fixture<SbbToastElement>(
       html`
         <div>
-          <sbb-toast id="toast1" disable-animation></sbb-toast>
-          <sbb-toast id="toast2" disable-animation></sbb-toast>
+          <sbb-toast id="toast1"></sbb-toast>
+          <sbb-toast id="toast2"></sbb-toast>
         </div>
       `,
       { modules: ['./toast.ts'] },

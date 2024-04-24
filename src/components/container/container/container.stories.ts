@@ -44,13 +44,25 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   expanded: false,
-  color: color.options[0],
+  color: color.options![0],
 };
 
-const DefaultTemplate = ({ color, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${color}>
+const DefaultTemplate = (args: Args): TemplateResult => html`
+  <sbb-container ${sbbSpread(args)}>
     ${containerContent('Example title')} ${containerContent('Another one')}
     ${containerContent('And another one', true)}
+  </sbb-container>
+`;
+
+// Only for visual regression
+const NestedContainerTemplate = (): TemplateResult => html`
+  <sbb-container color="white">
+    ${containerContent('Example title')}
+    <div style="background-color: var(--sbb-color-milk);">
+      <sbb-container color="transparent">
+        ${containerContent('And another one', true)}
+      </sbb-container>
+    </div>
   </sbb-container>
 `;
 
@@ -63,13 +75,13 @@ export const Default: StoryObj = {
 export const Transparent: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const Milk: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2] },
+  args: { ...defaultArgs, color: color.options![2] },
 };
 
 export const Expanded: StoryObj = {
@@ -78,11 +90,15 @@ export const Expanded: StoryObj = {
   args: { ...defaultArgs, expanded: true },
 };
 
+export const NestedContainer: StoryObj = {
+  render: NestedContainerTemplate,
+  argTypes: { defaultArgTypes },
+  args: { ...defaultArgs, expanded: true },
+};
+
 const meta: Meta = {
+  excludeStories: /^(NestedContainer)$/,
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

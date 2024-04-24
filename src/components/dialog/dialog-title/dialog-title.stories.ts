@@ -27,7 +27,7 @@ const hideOnScroll: InputType = {
   control: {
     type: 'select',
   },
-  options: breakpoints,
+  options: [...breakpoints],
 };
 
 const accessibilityCloseLabel: InputType = {
@@ -58,7 +58,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'back-button': true,
-  'hide-on-scroll': hideOnScroll.options[0],
+  'hide-on-scroll': hideOnScroll.options![0],
   'accessibility-close-label': 'Close dialog',
   'accessibility-back-label': 'Go back',
 };
@@ -79,16 +79,10 @@ export const NoBackButton: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [SbbDialogTitleElement.events.backClick],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

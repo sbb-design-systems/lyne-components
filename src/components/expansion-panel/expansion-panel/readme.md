@@ -71,14 +71,13 @@ and the `aria-hidden` attribute on the content.
 
 ## Properties
 
-| Name               | Attribute           | Privacy | Type                                 | Default   | Description                                                            |
-| ------------------ | ------------------- | ------- | ------------------------------------ | --------- | ---------------------------------------------------------------------- |
-| `titleLevel`       | `title-level`       | public  | `SbbTitleLevel \| null \| undefined` |           | Heading level; if unset, a `div` will be rendered.                     |
-| `color`            | `color`             | public  | `'white' \| 'milk'`                  | `'white'` | The background color of the panel.                                     |
-| `expanded`         | `expanded`          | public  | `boolean`                            | `false`   | Whether the panel is expanded.                                         |
-| `disabled`         | `disabled`          | public  | `boolean`                            | `false`   | Whether the panel is disabled, so its expanded state can't be changed. |
-| `borderless`       | `borderless`        | public  | `boolean`                            | `false`   | Whether the panel has no border.                                       |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                            | `false`   | Whether the animations should be disabled.                             |
+| Name         | Attribute     | Privacy | Type                                 | Default   | Description                                                            |
+| ------------ | ------------- | ------- | ------------------------------------ | --------- | ---------------------------------------------------------------------- |
+| `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null \| undefined` |           | Heading level; if unset, a `div` will be rendered.                     |
+| `color`      | `color`       | public  | `'white' \| 'milk'`                  | `'white'` | The background color of the panel.                                     |
+| `expanded`   | `expanded`    | public  | `boolean`                            | `false`   | Whether the panel is expanded.                                         |
+| `disabled`   | `disabled`    | public  | `boolean`                            | `false`   | Whether the panel is disabled, so its expanded state can't be changed. |
+| `borderless` | `borderless`  | public  | `boolean`                            | `false`   | Whether the panel has no border.                                       |
 
 ## Events
 
