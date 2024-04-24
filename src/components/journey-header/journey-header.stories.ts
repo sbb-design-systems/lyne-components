@@ -2,18 +2,11 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './journey-header';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
+import './journey-header.js';
 
 const origin: InputType = {
   control: {
@@ -66,8 +59,8 @@ const defaultArgs: Args = {
   origin: 'La Chaux de Fonds',
   destination: 'Loèche-les-Bains',
   'round-trip': false,
-  level: level.options[2],
-  size: size.options[0],
+  level: level.options![2],
+  size: size.options![0],
   negative: false,
 };
 
@@ -106,7 +99,7 @@ export const SizeMRoundTripShortText: StoryObj = {
 export const SizeL: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const SizeLRoundTripShortText: StoryObj = {
@@ -117,17 +110,14 @@ export const SizeLRoundTripShortText: StoryObj = {
     origin: 'Bern',
     destination: 'Thun',
     'round-trip': true,
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-  ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

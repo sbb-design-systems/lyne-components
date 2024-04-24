@@ -4,16 +4,15 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../../link';
-import '../popover';
-import './popover-trigger';
-import '../../title';
+import '../../link.js';
+import '../popover.js';
+import './popover-trigger.js';
+import '../../title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   color: context.args.negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
 });
 
@@ -171,13 +170,12 @@ const meta: Meta = {
   excludeStories: /.*Active$/,
   decorators: [
     (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+      <div style=${styleMap({ ...wrapperStyle(context) })}>${story()}</div>
     `,
   ],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

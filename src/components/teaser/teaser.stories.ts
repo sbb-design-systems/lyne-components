@@ -5,11 +5,11 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
+import placeholderImage from './assets/placeholder.png';
 import readme from './readme.md?raw';
-import placeholderImage from './stories/placeholder.png';
-import './teaser';
+import './teaser.js';
 
 const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
@@ -78,7 +78,7 @@ const defaultArgs: Args = {
   'title-content': 'This is a title',
   'chip-content': undefined,
   alignment: 'after-centered',
-  href: href.options[1],
+  href: href.options![1],
   description: 'This is a paragraph',
   'aria-label':
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
@@ -245,15 +245,12 @@ export const WithSlots: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 2rem; max-width: 760px;">${story()}</div> `,
+    (story) => html`<div style="max-width: 760px;">${story()}</div>`,
     withActions as Decorator,
   ],
   parameters: {
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbHeaderLinkElement } from './header-link';
-import './header-link';
+import type { SbbHeaderLinkElement } from './header-link.js';
+import './header-link.js';
 
 describe(`sbb-header-link`, () => {
   describe('renders the component as a button with icon', () => {

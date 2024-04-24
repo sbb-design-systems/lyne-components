@@ -2,13 +2,13 @@ import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTertiaryButtonElement } from '../button';
-import { waitForCondition } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import type { SbbTertiaryButtonElement } from '../button.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition } from '../core/testing.js';
 
-import { SbbMapContainerElement } from './map-container';
+import { SbbMapContainerElement } from './map-container.js';
 
-import '../title';
+import '../title.js';
 
 describe(`sbb-map-container with ${fixture.name}`, () => {
   let element: SbbMapContainerElement;
@@ -33,7 +33,7 @@ describe(`sbb-map-container with ${fixture.name}`, () => {
           <div style="height: 1200px">map</div>
         </div>
       </sbb-map-container>`,
-      { modules: ['./map-container.ts', '../title/index.ts'] },
+      { modules: ['./map-container.ts', '../title.ts'] },
     );
     assert.instanceOf(element, SbbMapContainerElement);
 

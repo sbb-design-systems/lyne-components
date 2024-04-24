@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private.js';
 
-import type { SbbMenuElement } from './menu';
+import type { SbbMenuElement } from './menu.js';
 
-import './menu';
-import '../menu-button';
-import '../../button';
-import '../../divider';
-import '../../link';
+import './menu.js';
+import '../menu-button.js';
+import '../../button.js';
+import '../../divider.js';
+import '../../link.js';
 
 describe(`sbb-menu`, () => {
   describe('renders', () => {

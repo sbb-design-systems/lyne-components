@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import './tab-title';
+import './tab-title.js';
 
 describe(`sbb-tab-title`, () => {
   it('renders', async () => {

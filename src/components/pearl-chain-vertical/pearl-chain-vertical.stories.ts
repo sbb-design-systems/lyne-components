@@ -1,13 +1,13 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import './pearl-chain-vertical';
-import '../pearl-chain-vertical-item';
-import '../icon';
+import './pearl-chain-vertical.js';
+import '../pearl-chain-vertical-item.js';
+import '../icon.js';
 
 const lineType: InputType = {
   options: ['dotted', 'standard', 'thin'],
@@ -61,12 +61,12 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  lineType: lineType.options[1],
-  lineColor: lineColor.options[0],
-  bulletType: bulletType.options[0],
+  lineType: lineType.options![1],
+  lineColor: lineColor.options![0],
+  bulletType: bulletType.options![0],
   minHeight: '100',
   hideLine: false,
-  bulletSize: bulletSize.options[0],
+  bulletSize: bulletSize.options![0],
   position: 0,
   disableAnimation: isChromatic(),
 };
@@ -621,7 +621,6 @@ export const timetableChange: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

@@ -1,8 +1,7 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
 
@@ -25,7 +24,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
   --sbb-button-border-width: var(--sbb-border-width-2x);
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-button-min-height: var(--sbb-size-button-l-min-height);
+  --sbb-button-min-height: var(--sbb-size-element-m);
   --sbb-button-transition-duration: var(
     --sbb-disable-animation-time,
     var(--sbb-animation-duration-2x)
@@ -60,7 +59,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 }
 
 :host([size='m']) {
-  --sbb-button-min-height: var(--sbb-size-button-m-min-height);
+  --sbb-button-min-height: var(--sbb-size-element-s);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
 
   @include sbb.mq($from: medium) {
@@ -68,9 +67,17 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   }
 }
 
+:host([size='s']) {
+  --sbb-button-min-height: var(--sbb-size-element-xs);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-4x);
+
+  @include sbb.mq($from: medium) {
+    --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
+  }
+}
+
 :host(#{$icon-only}) {
   --sbb-button-padding-inline: 0;
-  --icon-margin-inline-end: 0;
 }
 
 :host([disabled]) {

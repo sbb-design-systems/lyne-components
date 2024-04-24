@@ -4,10 +4,10 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './header-button';
+import './header-button.js';
 
 const TemplateSingle = (args: Args): TemplateResult => html`
   <sbb-header-button ${sbbSpread(args)}>${args.text}</sbb-header-button>
@@ -94,9 +94,9 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   text: 'Menu',
-  'expand-from': expandFrom.options[0],
+  'expand-from': expandFrom.options![0],
   'icon-name': 'hamburger-menu-small',
-  type: type.options[0],
+  type: type.options![0],
   name: 'header-button',
   value: 'value',
   form: 'form',
@@ -116,16 +116,10 @@ export const sbbHeaderActionButtonMultiple: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

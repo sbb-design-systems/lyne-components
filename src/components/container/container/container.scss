@@ -1,8 +1,11 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+}
 
 :host([color='white']) {
   --sbb-container-background-color: var(--sbb-color-white);
@@ -13,7 +16,14 @@
 }
 
 .sbb-container {
-  background-color: var(--sbb-container-background-color, transparent);
+  background-color: var(--sbb-container-background-color);
+
+  // In order to support nested sbb-containers (e.g. if used in an overlay), we need to explicitly set background color to transparent.
+  // We cannot use the --sbb-container-background-color variable because using it would
+  // destroy sbb-sticky-bar behavior when the container and the sticky bar have transparent color.
+  :host([color='transparent']) & {
+    background-color: transparent;
+  }
 
   // Placing content before and after the container stops the margin of inner elements from overflowing
   &::after,

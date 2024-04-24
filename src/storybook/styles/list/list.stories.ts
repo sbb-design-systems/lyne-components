@@ -99,13 +99,11 @@ export const DescriptionList: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="margin: 2rem;">${story()}</div> `],
   parameters: {
     chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'styles/list',
 };

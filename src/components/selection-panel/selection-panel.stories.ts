@@ -6,21 +6,24 @@ import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
-import type { SbbFormErrorElement } from '../form-error';
-import type { SbbRadioButtonGroupElement, SbbRadioButtonGroupEventDetail } from '../radio-button';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import type { SbbFormErrorElement } from '../form-error.js';
+import type {
+  SbbRadioButtonGroupElement,
+  SbbRadioButtonGroupEventDetail,
+} from '../radio-button.js';
 
 import readme from './readme.md?raw';
-import { SbbSelectionPanelElement } from './selection-panel';
-import '../card';
-import '../checkbox';
-import '../divider';
-import '../form-error';
-import '../icon';
-import '../link/block-link-button';
-import '../radio-button';
-import '../popover';
-import '../title';
+import { SbbSelectionPanelElement } from './selection-panel.js';
+import '../card.js';
+import '../checkbox.js';
+import '../divider.js';
+import '../form-error.js';
+import '../icon.js';
+import '../link/block-link-button.js';
+import '../radio-button.js';
+import '../popover.js';
+import '../title.js';
 
 const color: InputType = {
   control: {
@@ -68,7 +71,7 @@ const basicArgTypes: ArgTypes = {
 };
 
 const basicArgs: Args = {
-  color: color.options[0],
+  color: color.options![0],
   'force-open': false,
   borderless: false,
   checkedInput: false,
@@ -579,7 +582,7 @@ export const WithCheckboxGroupMilk: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
   },
@@ -590,7 +593,7 @@ export const WithRadioButtonGroupMilk: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
   },
@@ -623,7 +626,7 @@ export const WithCheckboxGroupMilkBorderless: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
     borderless: true,
@@ -635,7 +638,7 @@ export const WithRadioButtonGroupMilkBorderless: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    color: color.options[1],
+    color: color.options![1],
     checkedInput: true,
     disabledInput: true,
     borderless: true,
@@ -699,10 +702,7 @@ export const NestedCheckboxes: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { delay: 9000, fixedHeight: '14500px' },
     actions: {
@@ -712,9 +712,6 @@ const meta: Meta = {
         SbbSelectionPanelElement.events.willOpen,
         SbbSelectionPanelElement.events.willClose,
       ],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

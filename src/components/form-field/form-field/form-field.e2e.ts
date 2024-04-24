@@ -2,12 +2,12 @@ import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import { SbbOptionElement } from '../../option';
-import { SbbSelectElement } from '../../select';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { SbbOptionElement } from '../../option.js';
+import { SbbSelectElement } from '../../select.js';
 
-import { SbbFormFieldElement } from './form-field';
+import { SbbFormFieldElement } from './form-field.js';
 
 describe(`sbb-form-field with ${fixture.name}`, () => {
   describe('with input', () => {
@@ -129,6 +129,147 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
   });
 
+  describe('with textarea', () => {
+    let element: SbbFormFieldElement;
+    let textarea: HTMLTextAreaElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-form-field><textarea></textarea></sbb-form-field>`, {
+        modules: ['./form-field.ts'],
+      });
+      textarea = element.querySelector<HTMLTextAreaElement>('textarea')!;
+    });
+
+    it('renders', async () => {
+      assert.instanceOf(element, SbbFormFieldElement);
+    });
+
+    it('should set default rows', () => {
+      expect(textarea.rows).to.be.equal(3);
+    });
+
+    it('should respect user defined rows attribute', async () => {
+      element = await fixture(
+        html`<sbb-form-field><textarea rows="2"></textarea></sbb-form-field>`,
+        {
+          modules: ['./form-field.ts'],
+        },
+      );
+      expect(element.querySelector<HTMLTextAreaElement>('textarea')!.rows).to.be.equal(2);
+    });
+
+    it('should respect changing rows at a later time', async () => {
+      textarea.rows = 1;
+      expect(textarea.rows).to.be.equal(1);
+
+      textarea.setAttribute('rows', '4');
+      expect(textarea.rows).to.be.equal(4);
+    });
+
+    it('should update empty input state', async () => {
+      expect(element).to.have.attribute('data-input-empty');
+
+      textarea.focus();
+      await sendKeys({ type: 'v' });
+      await waitForLitRender(element);
+      expect(element).not.to.have.attribute('data-input-empty');
+
+      await sendKeys({ press: 'Backspace' });
+      await waitForLitRender(element);
+      expect(element).to.have.attribute('data-input-empty');
+
+      await sendKeys({ type: 'v' });
+      await waitForLitRender(element);
+      expect(element).not.to.have.attribute('data-input-empty');
+
+      // Clearing value programmatically which does not trigger input event but can be caught by blur event.
+      textarea.value = '';
+      textarea.blur();
+      await waitForLitRender(element);
+      expect(element).to.have.attribute('data-input-empty');
+    });
+
+    it('should react to focus state', async () => {
+      element = await fixture(
+        html`
+          <sbb-form-field><textarea></textarea></sbb-form-field>
+          <button></button>
+        `,
+        { modules: ['./form-field.ts'] },
+      );
+      textarea = element.querySelector<HTMLTextAreaElement>('textarea')!;
+
+      expect(element).not.to.have.attribute('data-input-focused');
+
+      textarea.focus();
+      await sendKeys({ type: 'v' });
+      await waitForLitRender(element);
+      expect(element).to.have.attribute('data-input-focused');
+
+      textarea.focus();
+      await sendKeys({ press: 'Tab' });
+      await waitForLitRender(element);
+
+      expect(element).not.to.have.attribute('data-input-focused');
+    });
+
+    it('should assign id to input and reference it in the label', async () => {
+      const newLabel = document.createElement('label');
+      newLabel.textContent = 'Example';
+      element.prepend(newLabel);
+
+      await waitForLitRender(element);
+      const label = element.querySelector('label');
+
+      expect(textarea.id).to.match(/^sbb-form-field-input-/);
+      expect(label).to.have.attribute('for', textarea.id);
+    });
+
+    it('should reference sbb-form-error', async () => {
+      // When adding a sbb-form-error
+      const formError = document.createElement('sbb-form-error');
+      element.append(formError);
+      await waitForLitRender(element);
+      await nextFrame();
+
+      // Then input should be linked and sbb-form-error configured
+      expect(textarea)
+        .to.have.attribute('aria-describedby')
+        .match(/^sbb-form-field-error-/);
+      expect(formError.id).to.be.equal(textarea.getAttribute('aria-describedby'));
+      expect(formError).to.have.attribute('role', 'status');
+
+      // When removing sbb-form-error
+      formError.remove();
+      await waitForLitRender(element);
+
+      // Then aria-describedby should be removed
+      expect(textarea).not.to.have.attribute('aria-describedby');
+    });
+
+    it('should reference sbb-form-error with original aria-describedby', async () => {
+      textarea.setAttribute('aria-describedby', 'foo');
+      // When adding a sbb-form-error
+      const formError = document.createElement('sbb-form-error');
+      element.append(formError);
+      await waitForLitRender(element);
+      await nextFrame();
+
+      // Then input should be linked and original aria-describedby preserved
+      expect(textarea)
+        .to.have.attribute('aria-describedby')
+        .match(/^foo sbb-form-field-error-/);
+
+      // When removing sbb-form-error
+
+      formError.remove();
+      await waitForLitRender(element);
+
+      // Then aria-describedby should be set to foo
+      expect(textarea).to.have.attribute('aria-describedby');
+    });
+  });
+
   describe('with sbb-select', () => {
     let element: SbbFormFieldElement;
     let select: SbbSelectElement;
@@ -141,7 +282,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
             <sbb-select><sbb-option>Test</sbb-option></sbb-select>
           </sbb-form-field>
         `,
-        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
       );
       select = element.querySelector<SbbSelectElement>('sbb-select')!;
     });
@@ -175,7 +316,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should focus select on form field click readonly', async () => {
-      select.setAttribute('readonly', '');
+      select.toggleAttribute('readonly', true);
       await waitForLitRender(element);
 
       expect(element).not.to.have.attribute('data-input-focused');
@@ -246,7 +387,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
             </sbb-select>
           </sbb-form-field>
         `,
-        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
       );
 
       expect(element).to.have.attribute('data-input-empty');
@@ -262,7 +403,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
             </sbb-select>
           </sbb-form-field>
         `,
-        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
       );
 
       expect(element).not.to.have.attribute('data-input-empty');
@@ -275,7 +416,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
             <sbb-option value="1" selected>Displayed Value</sbb-option>
           </sbb-select>
         </sbb-form-field>`,
-        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
       );
 
       element.querySelector<SbbSelectElement>('sbb-select')!.value = '';

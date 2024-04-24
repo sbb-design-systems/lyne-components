@@ -1,18 +1,18 @@
 import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
 
 import readme from './readme.md?raw';
 
-import './skiplink-list';
-import '../link/block-link';
+import './skiplink-list.js';
+import '../link/block-link.js';
 
 const titleContent: InputType = {
   control: {
@@ -93,9 +93,9 @@ const defaultArgs: Args = {
   'title-level': undefined,
   'title-content': undefined,
   labelFirstLink: 'To content',
-  hrefFirstLink: hrefFirstLink.options[0],
+  hrefFirstLink: hrefFirstLink.options![0],
   labelSecondLink: 'To help',
-  hrefSecondLink: hrefSecondLink.options[1],
+  hrefSecondLink: hrefSecondLink.options![1],
 };
 
 // Story interaction executed after the story renders
@@ -133,7 +133,7 @@ export const SkiplinkListWithTitle: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'title-level': titleLevel.options[0],
+    'title-level': titleLevel.options![0],
     'title-content': 'Skip',
   },
   play: isChromatic() ? playStory : undefined,
@@ -142,21 +142,15 @@ export const SkiplinkListWithTitle: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div style="padding: 2rem;">
-        ${story()}
-        <h2>Use TAB to see the skiplink box</h2>
-      </div>
+      ${story()}
+      <h2>Use TAB to see the skiplink box</h2>
     `,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-skiplink-list',
 };

@@ -1,25 +1,26 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { NativeDateAdapter } from '../../core/datetime';
-import { findInput } from '../../core/dom';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
-import type { SbbFormFieldElement } from '../../form-field';
-import type { SbbDatepickerNextDayElement, SbbDatepickerPreviousDayElement } from '../index';
+import { NativeDateAdapter } from '../../core/datetime.js';
+import { findInput } from '../../core/dom.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbDatepickerNextDayElement } from '../datepicker-next-day.js';
+import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day.js';
 
-import type { SbbDatepickerElement } from './datepicker';
+import type { SbbDatepickerElement } from './datepicker.js';
 import {
   getDatePicker,
   getAvailableDate,
   findPreviousAvailableDate,
   findNextAvailableDate,
   isDateAvailable,
-} from './datepicker';
+} from './datepicker.js';
 
-import '../datepicker-next-day';
-import '../datepicker-previous-day';
-import '../datepicker-toggle';
-import '../../form-field';
+import '../datepicker-next-day.js';
+import '../datepicker-previous-day.js';
+import '../datepicker-toggle.js';
+import '../../form-field.js';
 
 describe(`sbb-datepicker`, () => {
   it('renders', async () => {

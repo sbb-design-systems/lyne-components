@@ -1,26 +1,24 @@
-import type { Args, StoryContext } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import type { Args } from '@storybook/web-components';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../components/core/dom';
-import '../../../components/button/button';
-import '../../../components/button/secondary-button';
-import '../../../components/button/secondary-button-static';
-import '../../../components/card';
-import '../../../components/clock';
-import '../../../components/divider';
-import '../../../components/footer';
-import '../../../components/icon';
-import '../../../components/header';
-import '../../../components/logo';
-import '../../../components/link';
-import '../../../components/link-list';
-import '../../../components/menu';
-import '../../../components/navigation';
-import '../../../components/skiplink-list';
-import '../../../components/teaser-hero';
-import '../../../components/title';
+import '../../../components/button.js';
+import '../../../components/card.js';
+import '../../../components/clock.js';
+import '../../../components/divider.js';
+import '../../../components/footer.js';
+import '../../../components/icon.js';
+import '../../../components/header.js';
+import '../../../components/logo.js';
+import '../../../components/link.js';
+import '../../../components/link-list.js';
+import '../../../components/menu.js';
+import '../../../components/navigation.js';
+import '../../../components/skiplink-list.js';
+import '../../../components/teaser-hero.js';
+import '../../../components/title.js';
+import { sbbSpread } from '../../helpers/spread.js';
 
 export const skiplinkList = (): TemplateResult => html`
   <sbb-skiplink-list title-level="2" title-content="Skip to">
@@ -257,12 +255,12 @@ export const footer = (args: Args): TemplateResult => html`
           Report property damage
         </sbb-block-link>
       </sbb-link-list>
-      <sbb-button
+      <sbb-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         size="m"
       >
         All help topics
-      </sbb-button>
+      </sbb-button-link>
     </div>
     <sbb-link-list title-level="2" title-content="More SBB." ?negative=${args.negative}>
       <sbb-block-link
@@ -305,12 +303,12 @@ export const footer = (args: Args): TemplateResult => html`
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </p>
       </span>
-      <sbb-secondary-button
+      <sbb-secondary-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         size="m"
       >
         Subscribe
-      </sbb-secondary-button>
+      </sbb-secondary-button-link>
     </div>
     <sbb-clock
       ${sbbSpread(
@@ -352,9 +350,3 @@ export const footer = (args: Args): TemplateResult => html`
     </sbb-link-list>
   </sbb-footer>
 `;
-
-export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});

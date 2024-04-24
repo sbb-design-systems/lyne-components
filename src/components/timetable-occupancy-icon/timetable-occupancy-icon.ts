@@ -1,11 +1,12 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
-import { ConnectedAbortController } from '../core/eventing';
-import { i18nOccupancy } from '../core/i18n';
-import type { SbbOccupancy } from '../core/interfaces';
-import { SbbIconBase } from '../icon';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { setOrRemoveAttribute } from '../core/dom.js';
+import { i18nOccupancy } from '../core/i18n.js';
+import type { SbbOccupancy } from '../core/interfaces.js';
+import { SbbNegativeMixin } from '../core/mixins.js';
+import { SbbIconBase } from '../icon.js';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';
 
@@ -19,8 +20,8 @@ export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBa
   /** Wagon occupancy. */
   @property() public occupancy!: SbbOccupancy;
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
 
   private async _setNameAndAriaLabel(): Promise<void> {
     if (!this.occupancy) {
@@ -51,11 +52,7 @@ export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBa
     const label = (i18nOccupancy[this.occupancy] as Record<string, string>)?.[
       this._language.current
     ];
-    if (label) {
-      this.setAttribute('aria-label', label);
-    } else {
-      this.removeAttribute('aria-label');
-    }
+    setOrRemoveAttribute(this, 'aria-label', label);
   }
 
   public override connectedCallback(): void {

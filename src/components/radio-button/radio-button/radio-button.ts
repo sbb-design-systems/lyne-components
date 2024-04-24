@@ -1,28 +1,24 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
-  hostAttributes,
-  LanguageController,
-  NamedSlotStateController,
-  UpdateScheduler,
-} from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
-import {
-  HandlerRepository,
-  formElementHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
-import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
+  SbbConnectedAbortController,
+  SbbLanguageController,
+  SbbSlotStateController,
+} from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { EventEmitter, formElementHandlerAspect, HandlerRepository } from '../../core/eventing.js';
+import { i18nCollapsed, i18nExpanded } from '../../core/i18n.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
-} from '../../core/interfaces';
-import type { SbbSelectionPanelElement } from '../../selection-panel';
-import type { SbbRadioButtonGroupElement } from '../radio-button-group';
+} from '../../core/interfaces.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import type { SbbSelectionPanelElement } from '../../selection-panel.js';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
 
 import style from './radio-button.scss?lit&inline';
 
@@ -44,7 +40,7 @@ export type SbbRadioButtonSize = 's' | 'm';
 @hostAttributes({
   role: 'radio',
 })
-export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
+export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -132,8 +128,8 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   @state() private _selectionPanelExpandedLabel?: string;
 
   private _selectionPanelElement: SbbSelectionPanelElement | null = null;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal
@@ -158,13 +154,15 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
 
   private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
+      this.setAttribute('aria-checked', `${currentValue}`);
       this._stateChange.emit({ type: 'checked', checked: currentValue });
-      this._isSelectionPanelInput && this._updateExpandedLabel();
+      this.isSelectionPanelInput && this._updateExpandedLabel();
     }
   }
 
   private _handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
+      setOrRemoveAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
       this._stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }
@@ -190,7 +188,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {
@@ -200,6 +198,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
     this._selectionPanelElement = this.closest('sbb-selection-panel');
     this._isSelectionPanelInput =
       !!this._selectionPanelElement && !this.closest('sbb-selection-panel [slot="content"]');
+    this.toggleAttribute('data-is-selection-panel-input', this._isSelectionPanelInput);
 
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._handleClick(e), { signal });
@@ -218,13 +217,16 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
     if (changedProperties.has('disabled')) {
       this._handleDisabledChange(this.disabled, changedProperties.get('disabled')!);
     }
+    if (changedProperties.has('required')) {
+      this.setAttribute('aria-required', `${this.required}`);
+    }
   }
 
   protected override firstUpdated(): void {
     // We need to wait for the selection-panel to be fully initialized
     this.startUpdate();
     setTimeout(() => {
-      this._isSelectionPanelInput && this._updateExpandedLabel();
+      this.isSelectionPanelInput && this._updateExpandedLabel();
       this.completeUpdate();
     });
   }
@@ -252,14 +254,6 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    const attributes = {
-      'aria-checked': this.checked?.toString() ?? 'false',
-      'aria-required': this.required.toString(),
-      'aria-disabled': this.disabled.toString(),
-      'data-is-selection-panel-input': this._isSelectionPanelInput,
-    };
-    setAttributes(this, attributes);
-
     return html`
       <label class="sbb-radio-button">
         <input
@@ -277,7 +271,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
           ${this._selectionPanelElement ? html`<slot name="suffix"></slot>` : nothing}
         </span>
         ${this._selectionPanelElement ? html`<slot name="subtext"></slot>` : nothing}
-        ${this._isSelectionPanelInput && this._selectionPanelExpandedLabel
+        ${this.isSelectionPanelInput && this._selectionPanelExpandedLabel
           ? html`<span class="sbb-screen-reader-only"> ${this._selectionPanelExpandedLabel} </span>`
           : nothing}
       </label>

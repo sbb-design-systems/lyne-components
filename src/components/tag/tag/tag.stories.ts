@@ -4,10 +4,10 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './tag';
+import './tag.js';
 
 const checked: InputType = {
   control: {
@@ -159,10 +159,7 @@ export const withAmountAndIconCheckedAndDisabled: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['input', 'change'],

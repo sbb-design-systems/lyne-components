@@ -1,15 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbFormFieldElement } from '../../form-field';
-import type { SbbDatepickerElement } from '../datepicker';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbDatepickerElement } from '../datepicker.js';
 
-import { SbbDatepickerNextDayElement } from './datepicker-next-day';
+import { SbbDatepickerNextDayElement } from './datepicker-next-day.js';
 
-import '../datepicker';
-import '../../form-field/form-field';
+import '../datepicker.js';
+import '../../form-field/form-field.js';
 
 describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
   describe('standalone', () => {
@@ -32,7 +32,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
             <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
           </div>
         `,
-        { modules: ['../datepicker/index.ts', './datepicker-next-day.ts'] },
+        { modules: ['../datepicker.ts', './datepicker-next-day.ts'] },
       );
 
       const element: SbbDatepickerNextDayElement =
@@ -72,7 +72,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
       // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
       expect(nextButton).not.to.be.null;
       expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton.dataset.disabled).to.be.equal('');
+      expect(nextButton).to.have.attribute('data-disabled');
 
       const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
       picker.setAttribute('input', 'datepicker-input');
@@ -83,7 +83,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
 
       // the datepicker is connected, which triggers a 1st inputUpdated event which calls _init and a 2nd one which sets max/min/disabled
       expect(inputUpdated.count).to.be.equal(2);
-      expect(nextButton.dataset.disabled).to.be.undefined;
+      expect(nextButton).not.to.have.attribute('data-disabled');
     });
 
     it('datepicker is created after the component with different parent', async () => {
@@ -106,7 +106,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
       // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
       expect(nextButton).not.to.be.null;
       expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton.dataset.disabled).to.be.equal('');
+      expect(nextButton).to.have.attribute('data-disabled');
 
       const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
       picker.setAttribute('input', 'datepicker-input');
@@ -117,7 +117,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
 
       // the datepicker is connected on a different parent, so no changes are triggered
       expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton.dataset.disabled).to.be.equal('');
+      expect(nextButton).to.have.attribute('data-disabled');
     });
   });
 
@@ -134,11 +134,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
           </sbb-form-field>
         `,
         {
-          modules: [
-            '../../form-field/index.ts',
-            '../datepicker/index.ts',
-            './datepicker-next-day.ts',
-          ],
+          modules: ['../../form-field.ts', '../datepicker.ts', './datepicker-next-day.ts'],
         },
       );
       element = form.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
@@ -171,11 +167,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
           </sbb-form-field>
         `,
         {
-          modules: [
-            '../../form-field/index.ts',
-            './datepicker-next-day.ts',
-            '../datepicker/index.ts',
-          ],
+          modules: ['../../form-field.ts', './datepicker-next-day.ts', '../datepicker.ts'],
         },
       );
       input = form.querySelector<HTMLInputElement>('input')!;
@@ -189,7 +181,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
 
     it('disabled due disabled picker', async () => {
       expect(input.value).to.be.equal('Sa, 21.01.2023');
-      input.setAttribute('disabled', '');
+      input.toggleAttribute('disabled', true);
 
       await waitForLitRender(element);
 

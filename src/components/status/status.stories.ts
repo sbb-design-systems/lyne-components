@@ -4,11 +4,11 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './status';
+import './status.js';
 
 const type: InputType = {
   control: {
@@ -125,14 +125,8 @@ export const successWithCustomIconSlotted: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbAlertGroupElement } from './alert-group';
-import './alert-group';
-import '../alert';
+import type { SbbAlertGroupElement } from './alert-group.js';
+import './alert-group.js';
+import '../alert.js';
 
 describe(`sbb-alert-group`, () => {
   describe('should render', () => {
@@ -49,18 +49,7 @@ describe(`sbb-alert-group`, () => {
       </sbb-alert-group>
     `);
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-alert-group accessibility-title-level='3' role='status'>
-          <span slot="accessibility-title">
-            Interruptions
-          </span>
-          <sbb-alert title-content='Interruption between Genève and Lausanne' href='https://www.sbb.ch' size="m" data-state="opening">
-            The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-          </sbb-alert>
-        </sbb-alert-group>
-      `,
-    );
+    await expect(root).dom.to.be.equalSnapshot();
     expect(root).shadowDom.to.be.equal(
       `
         <div class="sbb-alert-group">

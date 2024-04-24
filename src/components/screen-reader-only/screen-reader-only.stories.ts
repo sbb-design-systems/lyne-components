@@ -6,7 +6,7 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
-import './screen-reader-only';
+import './screen-reader-only.js';
 
 const content: InputType = {
   control: {
@@ -27,9 +27,6 @@ export const Default: StoryObj = {
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

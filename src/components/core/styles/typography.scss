@@ -1,7 +1,9 @@
-@use './core/font-face';
+@use './mixins/font-face';
 @use './mixins/a11y';
+@use './mixins/animation';
 @use './mixins/layout';
 @use './mixins/lists';
+@use './mixins/scrollbar';
 @use './mixins/typo';
 
 @include font-face.font-declarations;
@@ -27,12 +29,12 @@ sup {
 
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
 sbb-form-field {
-  input:disabled::placeholder {
+  :where(input, textarea):disabled::placeholder {
     color: var(--sbb-color-granite);
     -webkit-text-fill-color: var(--sbb-color-granite);
   }
 
-  &[floating-label] input::placeholder {
+  &[floating-label] :where(input, textarea)::placeholder {
     color: transparent;
     -webkit-text-fill-color: transparent;
 
@@ -40,6 +42,14 @@ sbb-form-field {
       color: Canvas;
       -webkit-text-fill-color: Canvas;
     }
+  }
+
+  textarea {
+    @include scrollbar.scrollbar;
+  }
+
+  &[negative] textarea {
+    @include scrollbar.scrollbar($negative: true);
   }
 }
 
@@ -50,6 +60,7 @@ sbb-form-field {
     sbb-menu,
     sbb-navigation,
     sbb-navigation-section,
+    sbb-overlay,
     sbb-select,
     sbb-skiplink-list,
     sbb-toast,
@@ -143,18 +154,17 @@ input[data-sbb-time-input] {
 }
 
 .sbb-disable-animation {
-  @include a11y.disable-animation;
+  @include animation.disable-animation;
 }
 
-// TODO: help me find a better name for it :|
-.sbb-disable-animation-specific {
-  @include a11y.disable-animation;
+.sbb-disable-animation-locally {
+  @include animation.disable-animation;
 
   & > * {
-    @include a11y.enable-animation;
+    @include animation.enable-animation;
   }
 }
 
 .sbb-enable-animation {
-  @include a11y.enable-animation;
+  @include animation.enable-animation;
 }

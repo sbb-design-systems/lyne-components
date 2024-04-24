@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
-import { SbbLinkBaseElement } from '../../core/common-behaviors';
-import { SbbMenuActionCommonElementMixin } from '../common';
+import { SbbLinkBaseElement } from '../../core/base-elements.js';
+import { SbbMenuActionCommonElementMixin } from '../common.js';
 
 /**
  * It displays a link element that can be used in the `sbb-menu` component.

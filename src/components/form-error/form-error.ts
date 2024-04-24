@@ -2,9 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { assignId } from '../core/a11y';
-import { SbbNegativeMixin } from '../core/common-behaviors';
-import { isValidAttribute } from '../core/dom';
+import { SbbNegativeMixin } from '../core/mixins.js';
 
 import style from './form-error.scss?lit&inline';
 
@@ -22,15 +20,14 @@ export class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.id ||= `sbb-form-error-${nextId++}`;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
   }
 
   protected override render(): TemplateResult {
-    assignId(() => `sbb-form-error-${++nextId}`)(this);
-
     return html`
       <span class="form-error__icon">
         <slot name="icon">

@@ -2,19 +2,12 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../link/block-link';
-import './link-list';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
+import '../link/block-link.js';
+import './link-list.js';
 
 const LinkTemplate = (args: Args): TemplateResult => html`
   <sbb-block-link
@@ -101,11 +94,11 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  orientation: orientation.options[0],
+  orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options[1],
+  size: size.options![1],
   negative: false,
-  'title-level': titleLevel.options[0],
+  'title-level': titleLevel.options![0],
   'title-content': 'Help & Contact',
 };
 
@@ -122,7 +115,7 @@ export const LinkListXS: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[0],
+    size: size.options![0],
   },
 };
 
@@ -162,12 +155,9 @@ export const LinkListWithSlottedTitle: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-  ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

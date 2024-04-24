@@ -1,18 +1,18 @@
-import { LanguageController } from '../common-behaviors';
-import type { SbbDateLike } from '../interfaces';
+import { SbbLanguageController } from '../controllers.js';
+import type { SbbDateLike } from '../interfaces.js';
 
-import { DateAdapter, FORMAT_DATE } from './date-adapter';
+import { DateAdapter, FORMAT_DATE } from './date-adapter.js';
 
 /**
  * Matches strings that have the form of a valid RFC 3339 string
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
- * because the regex will match strings an with out of bounds month, date, etc.
+ * because the regex will match strings an without of bounds month, date, etc.
  */
 const ISO_8601_REGEX =
   /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 
 export class NativeDateAdapter extends DateAdapter<Date> {
-  private _cutoffYearOffset: number;
+  private readonly _cutoffYearOffset: number;
 
   public constructor(cutoffYearOffset: number = 15) {
     super();
@@ -46,7 +46,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
       month: 'long',
       day: 'numeric',
     };
-    return new Intl.DateTimeFormat(LanguageController.current, options).format(new Date(date));
+    return new Intl.DateTimeFormat(SbbLanguageController.current, options).format(new Date(date));
   }
 
   /**
@@ -55,13 +55,13 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    * E.g., with January in en-gb: `long` returns "January", `short` returns "Jan", `narrow` returns "J".
    */
   public getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
-    const formatter = new Intl.DateTimeFormat(LanguageController.current, { month: style });
+    const formatter = new Intl.DateTimeFormat(SbbLanguageController.current, { month: style });
     return this._range(12, (i) => formatter.format(new Date(2017, i, 1)));
   }
 
   /** Creates a string array with length = 31, filled with the days in a month, starting from 1. */
   public getDateNames(): string[] {
-    const formatter = new Intl.DateTimeFormat(LanguageController.current, { day: 'numeric' });
+    const formatter = new Intl.DateTimeFormat(SbbLanguageController.current, { day: 'numeric' });
     return this._range(31, (i) => formatter.format(new Date(2017, 0, i + 1)));
   }
 
@@ -71,7 +71,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    * E.g., with Monday in en-gb: `long` returns "Monday", `short` returns "Mon", `narrow` returns "M".
    */
   public getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
-    const formatter = new Intl.DateTimeFormat(LanguageController.current, { weekday: style });
+    const formatter = new Intl.DateTimeFormat(SbbLanguageController.current, { weekday: style });
     return this._range(7, (i) => formatter.format(new Date(2017, 0, i + 1)));
   }
 
@@ -205,7 +205,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     if (!value) {
       return '';
     }
-    const locale = `${LanguageController.current}-CH`;
+    const locale = `${SbbLanguageController.current}-CH`;
     const dateFormatter = new Intl.DateTimeFormat('de-CH', {
       day: '2-digit',
       month: '2-digit',

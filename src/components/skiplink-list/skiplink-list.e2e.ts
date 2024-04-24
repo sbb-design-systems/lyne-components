@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
-import type { SbbBlockLinkElement } from '../link';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
+import type { SbbBlockLinkElement } from '../link.js';
 
-import { SbbSkiplinkListElement } from './skiplink-list';
+import { SbbSkiplinkListElement } from './skiplink-list.js';
 
-import '../link/block-link';
+import '../link/block-link.js';
 
 describe(`sbb-skiplink-list with ${fixture.name}`, () => {
   let element: SbbSkiplinkListElement;
@@ -22,7 +22,7 @@ describe(`sbb-skiplink-list with ${fixture.name}`, () => {
         </sbb-skiplink-list>
         <button id="button">Focus me</button>
       `,
-      { modules: ['./skiplink-list.ts', '../link/index.ts'] },
+      { modules: ['./skiplink-list.ts', '../link.ts'] },
     );
   });
 

@@ -3,12 +3,12 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../core/dom';
-import images from '../core/images';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import images from '../core/images.js';
 
 import readme from './readme.md?raw';
 
-import './image';
+import './image.js';
 
 const Template = (args: Args): TemplateResult => html`<sbb-image ${sbbSpread(args)}></sbb-image>`;
 
@@ -136,15 +136,15 @@ const defaultArgs: Args = {
   caption: undefined,
   // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
   'border-radius': 'default',
-  'aspect-ratio': aspectRatio.options[0],
+  'aspect-ratio': aspectRatio.options![0],
   copyright: '',
-  'copyright-holder': copyrightHolder.options[0],
+  'copyright-holder': copyrightHolder.options![0],
   'custom-focal-point': false,
   'focal-point-debug': false,
   'focal-point-x': '',
   'focal-point-y': '',
-  'image-src': imageSrc.options[0],
-  loading: loading.options[1],
+  'image-src': imageSrc.options![0],
+  loading: loading.options![1],
   'skip-lqip': false,
   'performance-mark': '',
 };
@@ -164,7 +164,7 @@ export const TransparentImage: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'image-src': imageSrc.options[9],
+    'image-src': imageSrc.options![9],
   },
 };
 
@@ -188,7 +188,7 @@ export const RoundBorderRadius: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="max-width: 480px;">${story()}</div> `],
+  decorators: [(story) => html`<div style="max-width: 480px;">${story()}</div>`],
   parameters: {
     chromatic: { diffThreshold: 0.11, delay: 8000 },
     docs: {

@@ -1,6 +1,7 @@
 /**
  * Docs: https://github.com/open-wc/custom-elements-manifest/tree/master/packages/to-markdown
  */
+/* eslint-disable import-x/namespace, import-x/default, import-x/no-named-as-default, import-x/no-named-as-default-member */
 import fs from 'fs';
 
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
@@ -10,7 +11,7 @@ import * as glob from 'glob';
 import MagicString from 'magic-string';
 import { format, resolveConfig } from 'prettier';
 
-import componentAnalyzerConfig from '../config/custom-elements-manifest.config';
+import componentAnalyzerConfig from '../tools/manifest/custom-elements-manifest.config.js';
 
 const manifestFilePath = `${componentAnalyzerConfig.outdir}/custom-elements.json`;
 const tempFolderPath = './dist/docs';

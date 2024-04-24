@@ -4,11 +4,11 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './menu-button';
-import '../../icon';
+import './menu-button.js';
+import '../../icon.js';
 
 const getBasicTemplate = (
   { text, ...args }: Args,
@@ -21,14 +21,12 @@ const getBasicTemplate = (
 `;
 
 const TemplateMenuAction = (args: Args): TemplateResult => html`
-  <div>${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}</div>
+  ${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}
 `;
 
 const TemplateMenuActionCustomIcon = (args: Args): TemplateResult => html`
-  <div>
-    ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
-    ${getBasicTemplate(args, 3, true)}
-  </div>
+  ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
+  ${getBasicTemplate(args, 3, true)}
 `;
 
 const text: InputType = {
@@ -121,7 +119,7 @@ const defaultArgs: Args = {
   amount: '99',
   'icon-name': 'tick-small',
   disabled: false,
-  type: type.options[0],
+  type: type.options![0],
   name: 'detail',
   value: 'Value',
   form: 'form-name',
@@ -167,19 +165,13 @@ export const menuActionButtonEllipsis: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html`
-      <div style=${styleMap({ 'background-color': 'var(--sbb-color-black)', width: '320px' })}>
-        ${story()}
-      </div>
-    `,
+    (story) => html`<div style=${styleMap({ width: '256px' })}>${story()}</div>`,
     withActions as Decorator,
   ],
   parameters: {
+    backgroundColor: () => 'var(--sbb-color-black)',
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

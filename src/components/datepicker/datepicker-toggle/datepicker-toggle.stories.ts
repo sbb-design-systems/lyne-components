@@ -9,25 +9,21 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../../core/dom';
-import type { SbbPopoverTriggerElement } from '../../popover';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
+import type { SbbPopoverTriggerElement } from '../../popover.js';
 
-import '../../form-field';
-import '../datepicker';
-
-import './datepicker-toggle';
 import readme from './readme.md?raw';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
+import '../../form-field.js';
+import '../datepicker.js';
+import './datepicker-toggle.js';
 
 const negative: InputType = {
   control: {
@@ -111,29 +107,16 @@ export const InFormFieldNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          ...(isChromatic() ? { 'min-height': '100vh', 'min-width': '100vw' } : undefined),
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     chromatic: { disableSnapshot: false },
     actions: {
       handles: ['click'],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,
     },

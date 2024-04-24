@@ -3,7 +3,7 @@ import type { Args, ArgTypes, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories';
+import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories.js';
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
 const RequestSubmitTemplate = ({ tag, text }: Args): TemplateResult => html`
@@ -77,7 +77,7 @@ export const buttonDefaultArgTypes: ArgTypes = {
 
 export const buttonDefaultArgs: Args = {
   ...commonDefaultArgs,
-  type: type.options[0],
+  type: type.options![0],
   disabled: false,
   name: 'Button Name',
   value: undefined,

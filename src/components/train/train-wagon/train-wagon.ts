@@ -1,10 +1,15 @@
-import { type CSSResultGroup, LitElement, nothing, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController, SbbNamedSlotListMixin } from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
-import { EventEmitter } from '../../core/eventing';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -14,14 +19,15 @@ import {
   i18nSector,
   i18nWagonLabel,
   i18nWagonLabelNumber,
-} from '../../core/i18n';
-import type { SbbOccupancy } from '../../core/interfaces';
-import type { SbbIconElement } from '../../icon';
-
-import '../../icon';
-import '../../timetable-occupancy-icon';
+} from '../../core/i18n.js';
+import type { SbbOccupancy } from '../../core/interfaces.js';
+import { SbbNamedSlotListMixin } from '../../core/mixins.js';
+import type { SbbIconElement } from '../../icon.js';
 
 import style from './train-wagon.scss?lit&inline';
+
+import '../../icon.js';
+import '../../timetable-occupancy-icon.js';
 
 /**
  * It displays a train compartment within a `sbb-train` component.
@@ -69,7 +75,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   @property({ attribute: 'additional-accessibility-text' })
   public additionalAccessibilityText?: string;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * @internal
@@ -83,6 +89,21 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
       cancelable: true,
     },
   );
+
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (
+      changedProperties.has('type') ||
+      changedProperties.has('occupancy') ||
+      changedProperties.has('wagonClass')
+    ) {
+      this.toggleAttribute(
+        'data-has-visible-wagon-content',
+        Boolean((this.type === 'wagon' && this.occupancy) || this.wagonClass),
+      );
+    }
+  }
 
   private _sectorChanged(): void {
     this._sectorChange.emit();
@@ -105,16 +126,9 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           }
         </${unsafeStatic(TAG_NAME)}>
       `;
-      /* eslint-disable lit/binding-positions */
     };
 
     const sectorString = `${i18nSector[this._language.current]}, ${this.sector}`;
-
-    setAttribute(
-      this,
-      'data-has-visible-wagon-content',
-      Boolean((this.type === 'wagon' && this.occupancy) || this.wagonClass),
-    );
 
     return html`
       <div class="sbb-train-wagon">

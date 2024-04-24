@@ -3,10 +3,10 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './train';
+import './train.js';
 
 const Template = (args: Args): TemplateResult => html`<sbb-train ${sbbSpread(args)}></sbb-train>`;
 
@@ -70,8 +70,8 @@ const defaultArgs: Args = {
   'accessibility-label':
     'The top of the train is in Sector A. The train leaves the station in this direction',
   station: 'Bern',
-  direction: direction.options[0],
-  'direction-label-level': directionLabelLevel.options[4],
+  direction: direction.options![0],
+  'direction-label-level': directionLabelLevel.options![4],
 };
 
 export const train: StoryObj = {
@@ -87,11 +87,7 @@ export const trainWithoutStation: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

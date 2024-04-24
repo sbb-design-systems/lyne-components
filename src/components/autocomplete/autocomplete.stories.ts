@@ -9,25 +9,21 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import type { SbbFormErrorElement } from '../form-error';
-import { SbbOptionElement } from '../option';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
+import type { SbbFormErrorElement } from '../form-error.js';
+import { SbbOptionElement } from '../option.js';
 
-import { SbbAutocompleteElement } from './autocomplete';
+import { SbbAutocompleteElement } from './autocomplete.js';
 import readme from './readme.md?raw';
 
-import '../form-field';
-import '../form-error';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
+import '../form-field.js';
+import '../form-error.js';
 
 const negative: InputType = {
   control: {
@@ -159,9 +155,10 @@ const withGroupsDefaultArgs: Args = {
 const aboveDecorator: Decorator = (story) => html`
   <div
     style=${styleMap({
-      height: '100%',
-      display: 'flex',
-      'align-items': 'end',
+      'inset-block-end': '2rem',
+      'inset-inline-start': '2rem',
+      position: 'absolute',
+      'max-width': 'calc(100% - 4rem)',
     })}
   >
     ${story()}
@@ -171,7 +168,7 @@ const aboveDecorator: Decorator = (story) => html`
 const scrollDecorator: Decorator = (story) => html`
   <div
     style=${styleMap({
-      height: '175%',
+      height: '175vh',
       display: 'flex',
       'align-items': 'center',
     })}
@@ -485,20 +482,7 @@ export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          height: 'calc(100vh - 2rem)',
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -511,10 +495,10 @@ const meta: Meta = {
         SbbOptionElement.events.optionSelected,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,
     },

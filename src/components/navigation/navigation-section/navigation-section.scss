@@ -1,8 +1,7 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-navigation-section-display: none;
@@ -30,7 +29,7 @@
   inset-block-start: 0;
   width: var(--sbb-navigation-section-width);
   height: var(--sbb-navigation-section-height);
-  z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-z-index));
+  z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
 
   // Needed for backwards compatibility on Chromatic
   // TODO: Remove once not needed

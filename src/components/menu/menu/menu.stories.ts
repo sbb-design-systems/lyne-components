@@ -9,22 +9,22 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
-import { SbbMenuElement } from './menu';
+import { SbbMenuElement } from './menu.js';
 import readme from './readme.md?raw';
 
-import '../../button/button';
-import '../../divider';
-import '../../link';
-import '../menu-button';
-import '../menu-link';
+import '../../button/button.js';
+import '../../divider.js';
+import '../../link.js';
+import '../menu-button.js';
+import '../menu-link.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
@@ -236,16 +236,7 @@ export const Ellipsis: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div
-        style=${styleMap({ padding: '2rem', 'min-height': isChromatic() ? '100vh' : undefined })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -256,12 +247,9 @@ const meta: Meta = {
         SbbMenuElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '400px' },
-
       extractComponentDescription: () => readme,
     },
   },

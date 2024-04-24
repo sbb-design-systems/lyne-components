@@ -1,21 +1,21 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import '../clock';
-import '../button';
-import '../divider';
-import '../link';
-import '../link-list';
-import '../title';
-import './footer';
+import '../clock.js';
+import '../button.js';
+import '../divider.js';
+import '../link.js';
+import '../link-list.js';
+import '../title.js';
+import './footer.js';
 
 const variant: InputType = {
   control: {
@@ -50,7 +50,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  variant: variant.options[1],
+  variant: variant.options![1],
   negative: false,
   expanded: false,
   'accessibility-title': 'Footer',
@@ -259,7 +259,7 @@ export const FooterDefault: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    variant: variant.options[0],
+    variant: variant.options![0],
   },
 };
 
@@ -268,7 +268,7 @@ export const FooterDefaultNegative: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    variant: variant.options[0],
+    variant: variant.options![0],
     negative: true,
   },
 };
@@ -278,7 +278,7 @@ export const FooterDefaultExpanded: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    variant: variant.options[0],
+    variant: variant.options![0],
     expanded: true,
   },
 };

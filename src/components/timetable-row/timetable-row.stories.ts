@@ -1,11 +1,11 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import {
@@ -26,8 +26,8 @@ import {
   skippedArrivalStopTrip,
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
-} from './timetable-row.sample-data';
-import './timetable-row';
+} from './timetable-row.sample-data.js';
+import './timetable-row.js';
 
 const cardActionLabel: InputType = {
   control: {
@@ -367,10 +367,7 @@ export const Notices: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="background: #f6f6f6; padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['click'],

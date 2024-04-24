@@ -3,7 +3,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import '../../../components/link';
+import '../../../components/link.js';
 
 import readme from './readme.md?raw';
 import './layout.scss';
@@ -59,7 +59,7 @@ export const GridExpanded: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding-block: 2rem;">${story()}</div> `],
+  decorators: [(story) => html`<div style="padding-block: 2rem;">${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

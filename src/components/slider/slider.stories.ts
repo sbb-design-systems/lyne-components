@@ -4,13 +4,13 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import type { SbbSliderElement } from './slider';
-import './slider';
-import '../form-field';
-import '../icon';
+import type { SbbSliderElement } from './slider.js';
+import './slider.js';
+import '../form-field.js';
+import '../icon.js';
 
 const changeEventHandler = (event: Event): void => {
   const div: HTMLDivElement = document.createElement('div');
@@ -240,16 +240,10 @@ export const sbbSliderInFormFieldDisabled: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['change', 'input'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

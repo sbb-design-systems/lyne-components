@@ -3,15 +3,14 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './checkbox';
-import '../../card';
-import '../../button/button';
-import '../../button/secondary-button';
+import './checkbox.js';
+import '../../card.js';
+import '../../button/button.js';
+import '../../button/secondary-button.js';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -82,6 +81,12 @@ const ariaLabel: InputType = {
   },
 };
 
+const labelBoldClass: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   size,
   checked,
@@ -93,10 +98,11 @@ const defaultArgTypes: ArgTypes = {
   'icon-name': icon,
   'icon-placement': iconPlacement,
   'aria-label': ariaLabel,
+  labelBoldClass,
 };
 
 const defaultArgs: Args = {
-  size: size.options[1],
+  size: size.options![1],
   checked: false,
   indeterminate: false,
   disabled: false,
@@ -106,14 +112,17 @@ const defaultArgs: Args = {
   'icon-name': undefined,
   'icon-placement': undefined,
   'aria-label': undefined,
+  labelBoldClass: false,
 };
 
 // We use property and attribute for `checked` to provide consistency to storybook controls.
 // Otherwise, after first user manipulation, the storybook control gets ignored.
 // If only using property, the reset mechanism does not work as expected.
 
-const Template = ({ label, checked, ...args }: Args): TemplateResult => html`
-  <sbb-checkbox .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>${label}</sbb-checkbox>
+const Template = ({ label, checked, labelBoldClass, ...args }: Args): TemplateResult => html`
+  <sbb-checkbox .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>
+    ${labelBoldClass ? html`<span class="sbb-text--bold">${label}</span>` : label}
+  </sbb-checkbox>
 `;
 
 const TemplateWithForm = (args: Args): TemplateResult => html`
@@ -147,49 +156,32 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
 export const defaultUnchecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-  },
+  args: { ...defaultArgs },
 };
 export const defaultChecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    checked: true,
-  },
+  args: { ...defaultArgs, checked: true },
 };
 export const defaultIndeterminate: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    indeterminate: true,
-  },
+  args: { ...defaultArgs, indeterminate: true },
 };
 export const sizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options[0],
-  },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 export const longLabel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    label: longLabelText,
-  },
+  args: { ...defaultArgs, label: longLabelText },
 };
 export const withIconEnd: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'icon-name': 'tickets-class-small',
-  },
+  args: { ...defaultArgs, 'icon-name': 'tickets-class-small' },
 };
 export const checkedWithIconStart: StoryObj = {
   render: Template,
@@ -198,53 +190,54 @@ export const checkedWithIconStart: StoryObj = {
     ...defaultArgs,
     checked: true,
     'icon-name': 'tickets-class-small',
-    'icon-placement': iconPlacement.options[0],
+    'icon-placement': iconPlacement.options![0],
   },
 };
 export const disabledChecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    disabled: true,
-    checked: true,
-  },
+  args: { ...defaultArgs, disabled: true, checked: true },
 };
 export const disabledUnchecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    disabled: true,
-  },
+  args: { ...defaultArgs, disabled: true },
 };
 export const disabledIndeterminate: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    disabled: true,
-    indeterminate: true,
-  },
+  args: { ...defaultArgs, disabled: true, indeterminate: true },
 };
 
 export const withForm: StoryObj = {
   render: TemplateWithForm,
   argTypes: defaultArgTypes,
-  args: defaultArgs,
+  args: { ...defaultArgs },
+};
+
+export const defaultUncheckedBold: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, labelBoldClass: true },
+};
+
+export const defaultCheckedBold: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, checked: true, labelBoldClass: true },
+};
+
+export const defaultIndeterminateBold: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, indeterminate: true, labelBoldClass: true },
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['change', 'input'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

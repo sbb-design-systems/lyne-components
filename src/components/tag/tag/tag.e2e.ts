@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender, EventSpy } from '../../core/testing.js';
 
-import { SbbTagElement } from './tag';
+import { SbbTagElement } from './tag.js';
 
 describe(`sbb-tag with ${fixture.name}`, () => {
   let element: SbbTagElement;
@@ -33,7 +33,7 @@ describe(`sbb-tag with ${fixture.name}`, () => {
 
   it('should not be checked after click when disabled', async () => {
     expect(element).not.to.have.attribute('checked');
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await waitForLitRender(element);
 
     const changeSpy = new EventSpy('change');

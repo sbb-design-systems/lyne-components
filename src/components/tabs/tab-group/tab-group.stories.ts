@@ -10,17 +10,12 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import { SbbTabGroupElement } from './tab-group';
-import '../tab-title';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
-});
+import { SbbTabGroupElement } from './tab-group.js';
+import '../tab-title.js';
 
 const firstTabTitle = (label: string, args: Args): TemplateResult => html`
   <sbb-tab-title ${sbbSpread(args)}>${label}</sbb-tab-title>
@@ -177,7 +172,7 @@ const basicArgs: Args = {
   label: 'Tab label one',
   'icon-name': undefined,
   amount: undefined,
-  size: size.options[0],
+  size: size.options![0],
   negative: false,
 };
 
@@ -190,46 +185,40 @@ export const defaultTabsSizeL: StoryObj = {
 export const numbersAndIconsSizeL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
 };
 
 export const defaultTabsSizeXL: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, size: size.options[1] },
+  args: { ...basicArgs, size: size.options![1] },
 };
 
 export const numbersAndIconsSizeXL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0], size: size.options[1] },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], size: size.options![1] },
 };
 
 export const nestedTabGroups: StoryObj = {
   render: NestedTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
 };
 
 export const tintedBackground: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0], negative: true },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], negative: true },
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
       handles: [SbbTabGroupElement.events.didChange],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

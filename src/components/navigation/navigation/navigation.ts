@@ -1,32 +1,30 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { FocusHandler, assignId, setModalityOnNextFocus } from '../../core/a11y';
-import { hostAttributes, LanguageController, UpdateScheduler } from '../../core/common-behaviors';
+import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nCloseNavigation } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import {
-  ScrollHandler,
-  isValidAttribute,
-  findReferencedElement,
-  setAttribute,
-} from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import { i18nCloseNavigation } from '../../core/i18n';
-import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
-import type { SbbOverlayState } from '../../core/overlay';
-import {
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
-  isEventOnElement,
   applyInertMechanism,
+  isEventOnElement,
+  removeAriaOverlayTriggerAttributes,
   removeInertMechanism,
-} from '../../core/overlay';
-import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationLinkElement } from '../navigation-link';
-import '../../button/transparent-button';
+  setAriaOverlayTriggerAttributes,
+} from '../../core/overlay.js';
+import type { SbbNavigationButtonElement } from '../navigation-button.js';
+import type { SbbNavigationLinkElement } from '../navigation-link.js';
 
 import style from './navigation.scss?lit&inline';
+
+import '../../button/transparent-button.js';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
@@ -45,15 +43,15 @@ const DEBOUNCE_TIME = 150;
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-navigation` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-navigation` is closed.
- * @cssprop [--sbb-navigation-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-navigation-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-navigation')
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbNavigationElement extends UpdateScheduler(LitElement) {
+export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -87,7 +85,12 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   /**
    * The state of the navigation.
    */
-  @state() private _state: SbbOverlayState = 'closed';
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /**
    * Whether a navigation section is displayed.
@@ -127,17 +130,16 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _triggerElement: HTMLElement | null = null;
   private _navigationController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
-  private _focusHandler = new FocusHandler();
-  private _scrollHandler = new ScrollHandler();
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
+  private _focusHandler = new SbbFocusHandler();
+  private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
   private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList),
   );
   private _navigationResizeObserver = new AgnosticResizeObserver(() => this._onNavigationResize());
-  private _navigationId = `sbb-navigation-${++nextId}`;
 
   /**
    * Opens the navigation.
@@ -216,12 +218,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(
-      this._triggerElement,
-      'menu',
-      this.id || this._navigationId,
-      this._state,
-    );
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
     this._navigationController?.abort();
     this._navigationController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -291,7 +288,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _isCloseElement(element: HTMLElement): boolean {
     return (
       element.nodeName === 'A' ||
-      (element.hasAttribute('sbb-navigation-close') && !isValidAttribute(element, 'disabled'))
+      (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled'))
     );
   }
 
@@ -337,6 +334,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
         this._activeNavigationSection = this.querySelector(
           'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
         );
+        this.toggleAttribute('data-has-navigation-section', !!this._activeNavigationSection);
       }
     }
   }
@@ -354,13 +352,15 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
     // Disable the animation when resizing the navigation to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(
-      () => this.toggleAttribute('data-resize-disable-animation', false),
+      () => this.removeAttribute('data-resize-disable-animation'),
       DEBOUNCE_TIME,
     );
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.id ||= `sbb-navigation-${nextId++}`;
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });
     // Validate trigger element and attach event listeners
@@ -398,10 +398,6 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
         sbb-navigation-close
       ></sbb-transparent-button>
     `;
-
-    setAttribute(this, 'data-has-navigation-section', !!this._activeNavigationSection);
-    setAttribute(this, 'data-state', this._state);
-    assignId(() => this._navigationId)(this);
 
     return html`
       <div class="sbb-navigation__container">

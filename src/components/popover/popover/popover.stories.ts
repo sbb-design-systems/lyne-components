@@ -9,19 +9,19 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
-import { SbbPopoverElement } from './popover';
+import { SbbPopoverElement } from './popover.js';
 import readme from './readme.md?raw';
-import '../../link';
-import '../../title';
-import '../popover-trigger';
+import '../../link.js';
+import '../../title.js';
+import '../popover-trigger.js';
 
 async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
   const canvas = within(canvasElement);
@@ -259,14 +259,7 @@ export const WithoutCloseButtonHover: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div style="padding: 2rem; position: relative; min-height: calc(100vh - 2rem);">
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -277,14 +270,11 @@ const meta: Meta = {
         SbbPopoverElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '250px' },
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-popover/sbb-popover',
 };

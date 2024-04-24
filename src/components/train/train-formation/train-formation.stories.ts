@@ -3,14 +3,14 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../../icon';
-import '../train';
-import '../train-wagon';
-import '../train-blocked-passage';
-import './train-formation';
+import '../../icon.js';
+import '../train.js';
+import '../train-wagon.js';
+import '../train-blocked-passage.js';
+import './train-formation.js';
 
 const MountedFormationTemplate = (args: Args): TemplateResult => html`
   <sbb-train-formation ${sbbSpread(args)}>
@@ -365,11 +365,7 @@ export const TrainFormationHideWagonLabel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

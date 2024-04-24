@@ -1,15 +1,15 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbHydrationMixin } from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import type { SbbOverlayState } from '../../core/overlay';
-import type { SbbTitleLevel } from '../../title';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
-import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbHydrationMixin } from '../../core/mixins.js';
+import type { SbbTitleLevel } from '../../title.js';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
+import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
 import style from './expansion-panel.scss?lit&inline';
 
@@ -65,7 +65,15 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   /** Whether the panel has no border. */
   @property({ reflect: true, type: Boolean }) public borderless = false;
 
-  @state() private _state: SbbOverlayState = 'closed';
+  /**
+   * The state of the notification.
+   */
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** Emits whenever the `sbb-expansion-panel` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
@@ -95,7 +103,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _progressiveId = `-${++nextId}`;
   private _headerRef?: SbbExpansionPanelHeaderElement;
   private _contentRef?: SbbExpansionPanelContentElement;
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _initialized: boolean = false;
 
   public override connectedCallback(): void {
@@ -109,7 +117,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._transitionEventController?.abort();
-    this.toggleAttribute('data-accordion', false);
+    this.removeAttribute('data-accordion');
   }
 
   protected override firstUpdated(): void {
@@ -196,7 +204,6 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
     const TAGNAME = this.titleLevel ? `h${this.titleLevel}` : 'div';
 
     /* eslint-disable lit/binding-positions */
@@ -212,7 +219,6 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
         </div>
       </div>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

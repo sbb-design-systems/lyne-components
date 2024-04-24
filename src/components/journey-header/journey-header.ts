@@ -2,16 +2,17 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
-import { getDocumentWritingMode } from '../core/dom';
-import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n';
-import type { SbbTitleLevel } from '../title';
+import { SbbLanguageController } from '../core/controllers.js';
+import { getDocumentWritingMode } from '../core/dom.js';
+import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.js';
+import { SbbNegativeMixin } from '../core/mixins.js';
+import type { SbbTitleLevel } from '../title.js';
 
 import style from './journey-header.scss?lit&inline';
 
-import '../icon';
-import '../screen-reader-only';
-import '../title';
+import '../icon.js';
+import '../screen-reader-only.js';
+import '../title.js';
 
 export type JourneyHeaderSize = 'm' | 'l';
 
@@ -37,7 +38,7 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
   /** Journey header size. */
   @property({ reflect: true }) public size?: JourneyHeaderSize = 'm';
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
     const iconName = this.roundTrip ? 'arrows-long-right-left-small' : 'arrow-long-right-small';

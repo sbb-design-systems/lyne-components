@@ -3,10 +3,10 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './signet';
+import './signet.js';
 
 const Template = (args: Args): TemplateResult => html`<sbb-signet ${sbbSpread(args)}></sbb-signet>`;
 
@@ -29,30 +29,30 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  'protective-room': protectiveRoom.options[0],
+  'protective-room': protectiveRoom.options![0],
   'accessibility-label': undefined,
 };
 
 export const NoProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[0] },
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![0] },
 };
 
 export const MinimalProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[1] },
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![1] },
 };
 
 export const IdealProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[2] },
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![2] },
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="max-width: 300px;">${story()}</div> `],
+  decorators: [(story) => html`<div style="max-width: 300px;">${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

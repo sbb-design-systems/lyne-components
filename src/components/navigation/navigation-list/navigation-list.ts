@@ -7,12 +7,10 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  NamedSlotStateController,
-  SbbNamedSlotListMixin,
-  type WithListChildren,
-} from '../../core/common-behaviors';
-import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import type { SbbNavigationButtonElement } from '../navigation-button.js';
+import type { SbbNavigationLinkElement } from '../navigation-link.js';
 
 import style from './navigation-list.scss?lit&inline';
 
@@ -37,7 +35,7 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {

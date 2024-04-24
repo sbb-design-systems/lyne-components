@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import './teaser-paid';
+import './teaser-paid.js';
 
-import type { SbbTeaserPaidElement } from './teaser-paid';
+import type { SbbTeaserPaidElement } from './teaser-paid.js';
 
 describe(`sbb-teaser-paid`, () => {
   let element: SbbTeaserPaidElement;

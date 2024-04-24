@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../components/title';
+import '../../../components/title.js';
 
 import readme from './readme.md?raw';
 import './typo-internal.scss';
@@ -78,12 +78,10 @@ export const LinkNegative: StoryObj = {
 
 const meta: Meta = {
   excludeStories: ['Link', 'LinkNegative'],
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'styles/typography',
 };

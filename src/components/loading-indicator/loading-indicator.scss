@@ -1,8 +1,7 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-loading-indicator-color: var(--sbb-color-red);
@@ -103,7 +102,10 @@
   --sbb-loading-indicator-height: sbb.px-to-rem-build(32);
   --sbb-loading-indicator-width: sbb.px-to-rem-build(55);
   --sbb-loading-indicator-padding: 0;
-  --sbb-loading-indicator-duration: var(--sbb-disable-animation-zero-time, 0.23s);
+  --sbb-loading-indicator-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-6x)
+  );
 }
 
 :host([variant='window'][size='small']) {

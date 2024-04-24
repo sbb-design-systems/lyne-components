@@ -2,16 +2,15 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
+import type { SbbActionBaseElement } from '../../core/base-elements.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
 import {
-  type SbbActionBaseElement,
-  type AbstractConstructor,
-  type SbbNegativeMixinType,
   SbbNegativeMixin,
-  NamedSlotStateController,
-  hostAttributes,
-} from '../../core/common-behaviors';
+  type SbbNegativeMixinType,
+  type AbstractConstructor,
+} from '../../core/mixins.js';
 
-import '../../icon';
 import style from './link.scss?lit&inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
@@ -39,7 +38,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
 
     public constructor(...args: any[]) {
       super(args);
-      new NamedSlotStateController(this);
+      new SbbSlotStateController(this);
     }
 
     protected override renderTemplate(): TemplateResult {

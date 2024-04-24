@@ -1,15 +1,15 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { defaultDateAdapter } from '../core/datetime';
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { defaultDateAdapter } from '../core/datetime.js';
 
-import { SbbCalendarElement } from './calendar';
+import { SbbCalendarElement } from './calendar.js';
 import readme from './readme.md?raw';
 
 const getCalendarAttr = (min: Date | string, max: Date | string): Record<string, string> => {
@@ -167,7 +167,7 @@ export const CalendarFilterFunction: StoryObj = {
     ...defaultArgs,
     // Workaround: On Chromatic mapping functions do not work, so we remove it.
     // TODO: Check if condition can be removed after refactoring Chromatic generation @kyubisation
-    dateFilter: isChromatic() ? filterFunctions[1] : dateFilter.options[2],
+    dateFilter: isChromatic() ? filterFunctions[1] : dateFilter.options![2],
   },
 };
 
@@ -189,9 +189,6 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [SbbCalendarElement.events.dateSelected],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

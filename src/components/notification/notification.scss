@@ -2,9 +2,8 @@
 @use 'sass:color';
 @use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 // Open/Close animation vars
 $open-anim-margin-from: 0;
@@ -38,6 +37,17 @@ $open-anim-height-to: calc(
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
+  display: block;
+}
+
+// By default, the open animation is disabled
+:host([data-state='opening']:not([animation='open'], [animation='all'])) {
+  @include sbb.disable-animation;
+}
+
+:host([data-state='closing']:not([animation='close'], [animation='all'])) {
+  @include sbb.disable-animation;
 }
 
 // By default, the open animation is disabled

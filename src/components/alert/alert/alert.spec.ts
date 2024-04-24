@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbAlertElement } from './alert';
+import type { SbbAlertElement } from './alert.js';
 
-import './alert';
+import './alert.js';
 
 describe(`sbb-alert`, () => {
   let element: SbbAlertElement;
@@ -17,7 +17,7 @@ describe(`sbb-alert`, () => {
 
     expect(element).dom.to.be.equal(
       `
-        <sbb-alert title-content="Interruption" size="m" data-state="opening">
+        <sbb-alert title-content="Interruption" size="m" data-state="opening" animation="open">
            Alert content
         </sbb-alert>
       `,
@@ -53,6 +53,7 @@ describe(`sbb-alert`, () => {
           href="https://www.sbb.ch"
           rel="noopener" target="_blank"
           link-content="Show much more"
+          animation="open"
           data-state="opening"
         >
            Alert content

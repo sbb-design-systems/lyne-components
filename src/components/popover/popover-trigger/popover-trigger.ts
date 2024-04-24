@@ -1,15 +1,11 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  SbbButtonBaseElement,
-  SbbDisabledTabIndexActionMixin,
-  SbbIconNameMixin,
-  SbbNegativeMixin,
-} from '../../core/common-behaviors';
-import { hostContext, isValidAttribute } from '../../core/dom';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { hostContext } from '../../core/dom.js';
+import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
 
-import '../../icon';
 import style from './popover-trigger.scss?lit&inline';
 
 /**
@@ -29,7 +25,7 @@ export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
 
     if (formField) {
       this.toggleAttribute('data-icon-small', true);
-      this.negative = isValidAttribute(formField as HTMLElement, 'negative');
+      this.negative = (formField as HTMLElement).hasAttribute('negative');
     }
   }
 

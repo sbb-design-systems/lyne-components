@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private';
+import { fixture } from '../core/testing/private.js';
 
-import { SbbJourneySummaryElement } from './journey-summary';
+import { SbbJourneySummaryElement } from './journey-summary.js';
 
 describe(`sbb-journey-summary with ${fixture.name}`, () => {
   it('renders', async () => {

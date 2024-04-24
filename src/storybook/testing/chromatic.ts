@@ -8,7 +8,8 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import '../../components/title';
+
+import '../../components/title.js';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type StoryParameter = Record<string, StoryObj> & { __namedExportsOrder?: string[] };
@@ -20,17 +21,24 @@ export function combineStories(config: Meta, stories: StoryParameter): StoryObj[
   const decorators = (name: string, story: StoryObj): Decorator[] =>
     (
       [
-        (story) => html`
-          <div style="margin-block-end: 2rem;">
+        (story, context) =>
+          html`<div style="margin-block-end: 2rem;">
             <sbb-title
               level="5"
               style="margin-block-end: 1rem; margin-block-start: 0; text-transform: capitalize;"
             >
               ${unCamelCase(name)}
             </sbb-title>
-            <div style="outline: 1px solid #ad00ff;">${story()}</div>
-          </div>
-        `,
+            <div
+              style="outline: 1px solid #ad00ff;${context.parameters.originalLayout !== 'fullscreen'
+                ? 'padding: 2rem;'
+                : ''}${context.parameters.backgroundColor
+                ? `background-color:${context.parameters.backgroundColor(context)};`
+                : ''}"
+            >
+              ${story()}
+            </div>
+          </div> `,
       ] as Decorator[]
     )
       .concat(config.decorators || [])

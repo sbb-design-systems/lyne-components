@@ -1,21 +1,21 @@
 import { userEvent, waitFor, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
 
 import readme from './readme.md?raw';
-import '../../button';
-import '../navigation-list';
-import '../navigation-button';
-import '../navigation-link';
-import '../navigation-marker';
-import '../navigation';
-import './navigation-section';
+import '../../button.js';
+import '../navigation-list.js';
+import '../navigation-button.js';
+import '../navigation-link.js';
+import '../navigation-marker.js';
+import '../navigation.js';
+import './navigation-section.js';
 
 // Story interaction executed after the story renders
 const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<void> => {
@@ -133,18 +133,13 @@ export const LongContent: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem; height: 100vh;">${story()}</div> `],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },
-
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-navigation/sbb-navigation-section',
 };

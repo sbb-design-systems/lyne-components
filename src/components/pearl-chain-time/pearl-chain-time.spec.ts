@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
-import type { PtRideLeg } from '../core/timetable';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
+import type { PtRideLeg } from '../core/timetable.js';
 
-import type { SbbPearlChainTimeElement } from './pearl-chain-time';
+import type { SbbPearlChainTimeElement } from './pearl-chain-time.js';
 
-import './pearl-chain-time';
+import './pearl-chain-time.js';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 

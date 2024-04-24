@@ -5,14 +5,14 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
-import type { SbbCheckboxElement } from '../checkbox';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import type { SbbCheckboxElement } from '../checkbox.js';
 
 import readme from './readme.md?raw';
 
-import './checkbox-group';
-import '../checkbox';
-import '../../form-error';
+import './checkbox-group.js';
+import '../checkbox.js';
+import '../../form-error.js';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -86,12 +86,9 @@ const childCheck = (event: Event): void => {
   } else {
     selectedCheckboxes.splice(selectedCheckboxes.indexOf(target.value as string), 1);
   }
-  document
-    .getElementById('invariant-parent')
-    ?.setAttribute('indeterminate', String(selectedCheckboxes.length === 1));
-  document
-    .getElementById('invariant-parent')
-    ?.setAttribute('checked', String(selectedCheckboxes.length === 2));
+  const parent = document.getElementById('invariant-parent') as SbbCheckboxElement;
+  parent.indeterminate = selectedCheckboxes.length === 1;
+  parent.checked = selectedCheckboxes.length === 2;
 };
 
 const parentCheck = (event: Event): void => {
@@ -101,8 +98,8 @@ const parentCheck = (event: Event): void => {
   } else {
     selectedCheckboxes = [];
   }
-  document.getElementById('invariant-checkbox-1')?.setAttribute('checked', String(target.checked));
-  document.getElementById('invariant-checkbox-2')?.setAttribute('checked', String(target.checked));
+  (document.getElementById('invariant-checkbox-1') as SbbCheckboxElement).checked = target.checked;
+  (document.getElementById('invariant-checkbox-2') as SbbCheckboxElement).checked = target.checked;
 };
 
 const IndeterminateGroupTemplate = ({
@@ -264,9 +261,9 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   disabled: false,
   required: false,
-  orientation: orientation.options[0],
+  orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options[1],
+  size: size.options![1],
   label: 'Label',
   checked: true,
   disabledSingle: false,
@@ -276,17 +273,17 @@ const basicArgs: Args = {
 
 const basicArgsVertical = {
   ...basicArgs,
-  orientation: orientation.options[1],
+  orientation: orientation.options![1],
 };
 
 const iconStart: Args = {
   iconName: 'tickets-class-small',
-  iconPlacement: iconPlacement.options[0],
+  iconPlacement: iconPlacement.options![0],
 };
 
 const iconEnd: Args = {
   iconName: 'tickets-class-small',
-  iconPlacement: iconPlacement.options[1],
+  iconPlacement: iconPlacement.options![1],
 };
 
 export const horizontal: StoryObj = {
@@ -374,16 +371,10 @@ export const indeterminateGroup: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['change', 'input'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

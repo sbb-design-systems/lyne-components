@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../button';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import type { SbbTransparentButtonElement } from '../button.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
-import { SbbToastElement } from './toast';
+import { SbbToastElement } from './toast.js';
 
-import '../button/transparent-button';
-import '../link/link-button';
+import '../button/transparent-button.js';
+import '../link/link-button.js';
 
 describe(`sbb-toast with ${fixture.name}`, () => {
   let element: SbbToastElement;
@@ -63,7 +63,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
     const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
 
-    element.setAttribute('dismissible', '');
+    element.toggleAttribute('dismissible', true);
     await waitForLitRender(element);
     element.open();
     await waitForLitRender(element);
@@ -93,7 +93,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
           <sbb-transparent-button slot="action" sbb-toast-close></sbb-transparent-button>
         </sbb-toast>
       `,
-      { modules: ['./toast.ts', '../button/index.ts'] },
+      { modules: ['./toast.ts', '../button.ts'] },
     );
     const actionBtn = element.querySelector('sbb-transparent-button') as HTMLElement;
 
@@ -126,7 +126,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
           <sbb-transparent-button slot="action"></sbb-transparent-button>
         </sbb-toast>
       `,
-      { modules: ['./toast.ts', '../button/index.ts'] },
+      { modules: ['./toast.ts', '../button.ts'] },
     );
 
     const actionBtn = element.querySelector('sbb-transparent-button');
@@ -142,7 +142,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
           <sbb-link-button slot="action"></sbb-link-button>
         </sbb-toast>
       `,
-      { modules: ['./toast.ts', '../link/index.ts'] },
+      { modules: ['./toast.ts', '../link.ts'] },
     );
     const actionLink = element.querySelector('sbb-link-button');
 
@@ -150,15 +150,17 @@ describe(`sbb-toast with ${fixture.name}`, () => {
   });
 
   it('closes other toasts on open', async () => {
-    const toast1 = await fixture<SbbToastElement>(
+    element = await fixture<SbbToastElement>(
       html`
-        <sbb-toast id="toast1"></sbb-toast>
-        <sbb-toast id="toast2"></sbb-toast>
+        <div>
+          <sbb-toast id="toast1"></sbb-toast>
+          <sbb-toast id="toast2"></sbb-toast>
+        </div>
       `,
       { modules: ['./toast.ts'] },
     );
 
-    const toast2 = toast1.nextElementSibling! as SbbToastElement;
+    const [toast1, toast2] = Array.from(element.querySelectorAll('sbb-toast'));
 
     // Open the first toast
     toast1.open();
@@ -172,6 +174,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
     await waitForLitRender(element);
 
     await waitForCondition(() => toast1.getAttribute('data-state') === 'closed');
+    await waitForCondition(() => toast2.getAttribute('data-state') === 'opened');
     expect(toast1).to.have.attribute('data-state', 'closed');
     expect(toast2).to.have.attribute('data-state', 'opened');
   });

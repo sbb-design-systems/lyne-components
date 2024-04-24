@@ -4,13 +4,13 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { i18nDateChangedTo } from '../../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture, typeInElement } from '../../core/testing/private';
+import { i18nDateChangedTo } from '../../core/i18n.js';
+import { fixture, typeInElement } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import { SbbDatepickerElement } from './datepicker';
+import { SbbDatepickerElement } from './datepicker.js';
 
-import '../../form-field';
+import '../../form-field.js';
 
 describe(`sbb-datepicker with ${fixture.name}`, () => {
   it('renders', async () => {
@@ -73,7 +73,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
 
     beforeEach(async () => {
       const root = await fixture(template, {
-        modules: ['./datepicker.ts', '../../form-field/index.ts'],
+        modules: ['./datepicker.ts', '../../form-field.ts'],
       });
       element = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
       input = root.querySelector<HTMLInputElement>('input')!;

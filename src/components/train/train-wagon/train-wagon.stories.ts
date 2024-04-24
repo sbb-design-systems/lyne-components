@@ -3,10 +3,10 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './train-wagon';
+import './train-wagon.js';
 
 const Template = (args: Args): TemplateResult =>
   html`<sbb-train-wagon ${sbbSpread(args)}></sbb-train-wagon>`;
@@ -76,9 +76,9 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   label: '36',
-  type: type.options[2],
-  occupancy: occupancy.options[2],
-  'wagon-class': wagonClass.options[1],
+  type: type.options![2],
+  occupancy: occupancy.options![2],
+  'wagon-class': wagonClass.options![1],
   'additional-accessibility-text': undefined,
 };
 
@@ -93,7 +93,7 @@ export const wagonMediumOccupancy: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    occupancy: occupancy.options[1],
+    occupancy: occupancy.options![1],
   },
 };
 
@@ -102,7 +102,7 @@ export const wagonHighOccupancy: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    occupancy: occupancy.options[0],
+    occupancy: occupancy.options![0],
   },
 };
 
@@ -111,7 +111,7 @@ export const wagonNoneOccupancy: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    occupancy: occupancy.options[3],
+    occupancy: occupancy.options![3],
   },
 };
 
@@ -141,7 +141,7 @@ export const wagonFirstClass: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'wagon-class': wagonClass.options[0],
+    'wagon-class': wagonClass.options![0],
   },
 };
 
@@ -159,7 +159,7 @@ export const locomotive: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    type: type.options[0],
+    type: type.options![0],
   },
 };
 
@@ -168,16 +168,12 @@ export const closed: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    type: type.options[1],
+    type: type.options![1],
   },
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`<div style="padding: 2rem;">${story()}</div>`],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

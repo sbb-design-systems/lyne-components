@@ -1,28 +1,25 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, assignId } from '../core/a11y';
-import {
-  hostAttributes,
-  SbbDisabledMixin,
-  SbbNegativeMixin,
-  UpdateScheduler,
-} from '../core/common-behaviors';
-import {
-  isSafari,
-  isValidAttribute,
-  getDocumentWritingMode,
-  setAttribute,
-  isNextjs,
-} from '../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
-import type { SbbOverlayState } from '../core/overlay';
-import { setOverlayPosition, isEventOnElement, overlayGapFixCorners } from '../core/overlay';
-import type { SbbOptionElement, SbbOptGroupElement } from '../option';
+import { getNextElementIndex } from '../core/a11y.js';
+import { SbbConnectedAbortController } from '../core/controllers.js';
+import { hostAttributes } from '../core/decorators.js';
+import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
+import type { SbbOpenedClosedState } from '../core/interfaces.js';
+import { SbbDisabledMixin, SbbNegativeMixin, SbbUpdateSchedulerMixin } from '../core/mixins.js';
+import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
+import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
 import style from './select.scss?lit&inline';
+
+/**
+ * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
+ * On the other hand, JAWS and NVDA need the role to be an "immediate parent" to the options, or else optgroups won't work.
+ */
+const ariaRoleOnHost = isSafari();
 
 let nextId = 0;
 
@@ -42,15 +39,16 @@ export interface SelectChange {
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-select` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-select` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-select` is closed.
- * @cssprop [--sbb-select-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-select-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-select')
 @hostAttributes({
   dir: getDocumentWritingMode(),
+  role: ariaRoleOnHost ? 'listbox' : null,
 })
-export class SbbSelectElement extends UpdateScheduler(
+export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   SbbDisabledMixin(SbbNegativeMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -72,7 +70,7 @@ export class SbbSelectElement extends UpdateScheduler(
   @property() public placeholder?: string;
 
   /** Whether the select allows for multiple selection. */
-  @property({ type: Boolean }) public multiple = false;
+  @property({ type: Boolean, reflect: true }) public multiple = false;
 
   /** Whether the select is required. */
   @property({ reflect: true, type: Boolean }) public required = false;
@@ -81,7 +79,12 @@ export class SbbSelectElement extends UpdateScheduler(
   @property({ type: Boolean }) public readonly = false;
 
   /** The state of the select. */
-  @state() private _state: SbbOverlayState = 'closed';
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** The value displayed by the component. */
   @state() private _displayValue: string | null = null;
@@ -132,13 +135,7 @@ export class SbbSelectElement extends UpdateScheduler(
   private _searchString = '';
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _abort = new ConnectedAbortController(this);
-
-  /**
-   * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
-   * On the other hand, JAWS and NVDA need the role to be an "immediate parent" to the options, or else optgroups won't work.
-   */
-  private _ariaRoleOnHost = isSafari();
+  private _abort = new SbbConnectedAbortController(this);
 
   /**
    * The 'combobox' input element
@@ -155,7 +152,7 @@ export class SbbSelectElement extends UpdateScheduler(
 
   private get _filteredOptions(): SbbOptionElement[] {
     return this._options.filter(
-      (opt: SbbOptionElement) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
+      (opt: SbbOptionElement) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
   }
 
@@ -269,13 +266,20 @@ export class SbbSelectElement extends UpdateScheduler(
 
   public override connectedCallback(): void {
     super.connectedCallback();
+
+    if (ariaRoleOnHost) {
+      this.id ||= this._overlayId;
+    }
+
+    this._state ||= 'closed';
+
     const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
+      this.negative = formField.hasAttribute('negative');
     }
-    this._syncNegative();
+    this._syncProperties();
 
     if (this._didLoad) {
       this._setupOrigin();
@@ -304,8 +308,8 @@ export class SbbSelectElement extends UpdateScheduler(
     if (changedProperties.has('value')) {
       this._onValueChanged(this.value!);
     }
-    if (changedProperties.has('negative')) {
-      this._syncNegative();
+    if (changedProperties.has('negative') || changedProperties.has('multiple')) {
+      this._syncProperties();
     }
   }
 
@@ -315,14 +319,15 @@ export class SbbSelectElement extends UpdateScheduler(
     this._openPanelEventsController?.abort();
   }
 
-  private _syncNegative(): void {
+  private _syncProperties(): void {
     this.querySelectorAll?.('sbb-divider').forEach((element) => (element.negative = this.negative));
 
     this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
-    ).forEach((element: SbbOptionElement | SbbOptGroupElement) =>
-      element.toggleAttribute('data-negative', this.negative),
-    );
+    ).forEach((element: SbbOptionElement | SbbOptGroupElement) => {
+      element.toggleAttribute('data-negative', this.negative);
+      element.toggleAttribute('data-multiple', this.multiple);
+    });
   }
 
   private _setupSelect(): void {
@@ -694,11 +699,6 @@ export class SbbSelectElement extends UpdateScheduler(
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-    setAttribute(this, 'data-multiple', this.multiple);
-    setAttribute(this, 'role', this._ariaRoleOnHost ? 'listbox' : null);
-    this._ariaRoleOnHost && assignId(() => this._overlayId)(this);
-
     return html`
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
@@ -731,14 +731,13 @@ export class SbbSelectElement extends UpdateScheduler(
         <div
           @animationend=${this._onAnimationEnd}
           class="sbb-select__panel"
-          ?data-open=${this._state === 'opened' || this._state === 'opening'}
           ${ref((dialogRef) => (this._overlay = dialogRef as HTMLElement))}
         >
           <div class="sbb-select__wrapper">
             <div
-              id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
+              id=${!ariaRoleOnHost ? this._overlayId : nothing}
               class="sbb-select__options"
-              role=${!this._ariaRoleOnHost ? 'listbox' : nothing}
+              role=${!ariaRoleOnHost ? 'listbox' : nothing}
               ?aria-multiselectable=${this.multiple}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >

@@ -2,15 +2,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbCheckboxElement } from '../checkbox';
-import { NamedSlotStateController } from '../core/common-behaviors';
-import { setAttribute } from '../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../core/eventing';
-import type { SbbStateChange } from '../core/interfaces';
-import type { SbbRadioButtonElement } from '../radio-button';
+import type { SbbCheckboxElement } from '../checkbox.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers.js';
+import { EventEmitter } from '../core/eventing.js';
+import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
+import type { SbbRadioButtonElement } from '../radio-button.js';
 
 import style from './selection-panel.scss?lit&inline';
-import '../divider';
+
+import '../divider.js';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -43,13 +43,26 @@ export class SbbSelectionPanelElement extends LitElement {
   @property({ reflect: true, type: Boolean }) public borderless = false;
 
   /** The state of the selection panel. */
-  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  @state()
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** Whether the selection panel is checked. */
-  @state() private _checked = false;
+  private set _checked(checked: boolean) {
+    this.toggleAttribute('data-checked', checked);
+  }
+  private get _checked(): boolean {
+    return this.hasAttribute('data-checked');
+  }
 
   /** Whether the selection panel is disabled. */
-  @state() private _disabled = false;
+  private set _disabled(disabled: boolean) {
+    this.toggleAttribute('data-disabled', disabled);
+  }
 
   /** Emits whenever the content section starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
@@ -75,7 +88,7 @@ export class SbbSelectionPanelElement extends LitElement {
     SbbSelectionPanelElement.events.didClose,
   );
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _initialized: boolean = false;
 
   /**
@@ -89,11 +102,12 @@ export class SbbSelectionPanelElement extends LitElement {
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('stateChange', this._onInputStateChange.bind(this), { signal });
     this.addEventListener('checkboxLoaded', this._initFromInput.bind(this), { signal });
@@ -182,10 +196,6 @@ export class SbbSelectionPanelElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-state', this._state);
-    setAttribute(this, 'data-checked', this._checked);
-    setAttribute(this, 'data-disabled', this._disabled);
-
     return html`
       <div class="sbb-selection-panel">
         <div class="sbb-selection-panel__badge">

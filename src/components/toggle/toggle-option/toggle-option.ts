@@ -1,17 +1,14 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  hostAttributes,
-  NamedSlotStateController,
-  SbbIconNameMixin,
-} from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
-import type { SbbToggleElement, SbbToggleStateChange } from '../toggle';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbToggleElement, SbbToggleStateChange } from '../toggle.js';
 
-import '../../icon';
 import style from './toggle-option.scss?lit&inline';
 
 /**
@@ -34,44 +31,19 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
    * Whether the toggle-option is checked.
    */
   @property({ reflect: true, type: Boolean })
-  public set checked(value: boolean) {
-    const oldValue = this.checked;
-    if (value !== oldValue) {
-      this._checked = value;
-      this._handleCheckedChange(this.checked, oldValue);
-    }
-  }
-  public get checked(): boolean {
-    return this._checked;
-  }
-  private _checked = false;
+  public checked = false;
 
   /**
    * Whether the toggle option is disabled.
    */
   @property({ reflect: true, type: Boolean })
-  public set disabled(value: boolean) {
-    this._disabled = value;
-    this._handleDisabledChange(this._disabled);
-  }
-  public get disabled(): boolean {
-    return this._disabled;
-  }
-  private _disabled: boolean = false;
+  public disabled: boolean = false;
 
   /**
    * Value of toggle-option.
    */
   @property()
-  public set value(value: string | null) {
-    const oldValue = this._value;
-    this._value = value;
-    this._handleValueChange(this._value, oldValue);
-  }
-  public get value(): string | null {
-    return this._value;
-  }
-  private _value: string | null = null;
+  public value: string | null = null;
 
   private _toggle?: SbbToggleElement;
 
@@ -86,44 +58,11 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
     { bubbles: true },
   );
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
-  }
-
-  private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'checked', checked: currentValue });
-      this._verifyTabindex();
-    }
-  }
-
-  private _handleValueChange(currentValue: string | null, previousValue: string | null): void {
-    if (this.checked && currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'value', value: currentValue });
-    }
-  }
-
-  private _handleDisabledChange(currentValue: boolean): void {
-    // Enforce disabled state from parent.
-    if (!this._toggle) {
-      // Ignore illegal state. Our expectation  is that a sbb-toggle-option
-      // always has a parent sbb-toggle.
-    } else if (this._toggle.disabled && !currentValue) {
-      this.disabled = true;
-    } else if (!this._toggle.disabled && currentValue) {
-      this.disabled = false;
-    }
-    this._verifyTabindex();
-  }
-
-  private _handleInput(): void {
-    if (this.checked || this.disabled) {
-      return;
-    }
-    this.checked = true;
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {
@@ -134,11 +73,56 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
       signal,
     });
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
-    const toggle = this.closest?.('sbb-toggle');
-    if (toggle) {
-      this._toggle = toggle;
-    }
+    this._toggle = this.closest?.('sbb-toggle') ?? undefined;
     this._verifyTabindex();
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('checked')) {
+      this._handleCheckedChange(this.checked, changedProperties.get('checked'));
+    }
+    if (changedProperties.has('value')) {
+      this._handleValueChange(this.value, changedProperties.get('value'));
+    }
+    if (changedProperties.has('disabled')) {
+      this._handleDisabledChange();
+    }
+  }
+
+  private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.setAttribute('aria-checked', `${this.checked}`);
+      this._stateChange.emit({ type: 'checked', checked: this.checked });
+      this._verifyTabindex();
+    }
+  }
+
+  private _handleValueChange(currentValue: string | null, previousValue: string | null): void {
+    if (this.checked && currentValue !== previousValue) {
+      this._stateChange.emit({ type: 'value', value: currentValue });
+    }
+  }
+
+  private _handleDisabledChange(): void {
+    // Enforce disabled state from parent.
+    if (!this._toggle) {
+      // Ignore illegal state. Our expectation  is that a sbb-toggle-option
+      // always has a parent sbb-toggle.
+    } else if (this._toggle.disabled && !this.disabled) {
+      this.disabled = true;
+    } else if (!this._toggle.disabled && this.disabled) {
+      this.disabled = false;
+    }
+    setOrRemoveAttribute(this, 'aria-disabled', this.disabled ? `true` : null);
+    this._verifyTabindex();
+  }
+
+  private _handleInput(): void {
+    if (this.checked || this.disabled) {
+      return;
+    }
+    this.checked = true;
   }
 
   private _verifyTabindex(): void {
@@ -146,9 +130,6 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'aria-checked', (!!this.checked).toString());
-    setAttribute(this, 'aria-disabled', this.disabled);
-
     return html`
       <input
         type="radio"

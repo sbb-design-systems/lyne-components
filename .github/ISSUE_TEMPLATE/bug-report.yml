@@ -15,9 +15,9 @@ body:
     attributes:
       label: Preflight Checklist
       options:
-        - label: I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/main/CONTRIBUTING.md) for this project.
+        - label: I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/main/docs/CONTRIBUTING.md) for this project.
           required: true
-        - label: I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/main/CODE_OF_CONDUCT.md) that this project adheres to.
+        - label: I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/main/docs/CODE_OF_CONDUCT.md) that this project adheres to.
           required: true
         - label: I have searched the [issue tracker](https://github.com/orgs/lyne-design-system/projects/4) for an issue that matches the one I want to file, without success.
           required: true
@@ -30,11 +30,11 @@ body:
     attributes:
       label: Bug type
       options:
-        - 'Functionality'
-        - 'Accessibility'
-        - 'Performance'
-        - 'Security vulnerability'
-        - 'Other'
+        - Functionality
+        - Accessibility
+        - Performance
+        - Security vulnerability
+        - Other
     validations:
       required: true
   - type: dropdown
@@ -42,10 +42,10 @@ body:
     attributes:
       label: It affects the following packages
       options:
-        - 'Design Tokens'
-        - 'Components'
-        - 'Both'
-        - 'Other'
+        - Design Tokens
+        - Components
+        - Both
+        - Other
     validations:
       required: true
   - type: input
@@ -78,9 +78,9 @@ body:
     attributes:
       label: Input mode
       options:
-        - 'Mouse/Keyboard'
-        - 'Touch'
-        - 'Other'
+        - Mouse/Keyboard
+        - Touch
+        - Other
     validations:
       required: false
   - type: input

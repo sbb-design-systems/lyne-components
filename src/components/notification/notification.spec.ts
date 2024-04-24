@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition } from '../core/testing';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { waitForCondition } from '../core/testing.js';
 
-import './notification';
+import './notification.js';
 
 describe(`sbb-notification`, () => {
   it('renders', async () => {
@@ -15,7 +15,7 @@ describe(`sbb-notification`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification data-state="opened" type="info" data-slot-names="unnamed" data-resize-disable-animation>
+      <sbb-notification data-state="opened" type="info" data-slot-names="unnamed" data-resize-disable-animation animation="all">
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
       { ignoreAttributes: ['style'] },
@@ -33,7 +33,7 @@ describe(`sbb-notification`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification data-state="opened" title-content="Title" type="info" data-slot-names="unnamed" data-resize-disable-animation>
+      <sbb-notification data-state="opened" title-content="Title" type="info" data-slot-names="unnamed" animation="all" data-resize-disable-animation>
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
       { ignoreAttributes: ['style'] },
@@ -52,7 +52,7 @@ describe(`sbb-notification`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification data-state="opened" type="info" data-slot-names="title unnamed" data-resize-disable-animation>
+      <sbb-notification data-state="opened" type="info" data-slot-names="title unnamed" animation="all" data-resize-disable-animation>
         <span slot="title">
           Slotted title
         </span>
@@ -73,7 +73,7 @@ describe(`sbb-notification`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification readonly data-state="opened" title-content="Title" type="info" data-slot-names="unnamed" data-resize-disable-animation>
+      <sbb-notification readonly data-state="opened" title-content="Title" type="info" data-slot-names="unnamed" animation="all" data-resize-disable-animation>
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
       { ignoreAttributes: ['style'] },

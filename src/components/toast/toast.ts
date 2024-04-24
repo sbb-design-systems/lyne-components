@@ -1,21 +1,21 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button';
+import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import {
-  LanguageController,
-  NamedSlotStateController,
-  SbbIconNameMixin,
-} from '../core/common-behaviors';
-import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
-import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
-import { i18nCloseAlert } from '../core/i18n';
-import type { SbbOverlayState } from '../core/overlay';
-import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link';
-import '../button/transparent-button';
+  SbbConnectedAbortController,
+  SbbLanguageController,
+  SbbSlotStateController,
+} from '../core/controllers.js';
+import { isFirefox } from '../core/dom.js';
+import { composedPathHasAttribute, EventEmitter } from '../core/eventing.js';
+import { i18nCloseAlert } from '../core/i18n.js';
+import type { SbbOpenedClosedState } from '../core/interfaces.js';
+import { SbbIconNameMixin } from '../icon.js';
+import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
+import '../button/transparent-button.js';
 
-import '../icon';
 import style from './toast.scss?lit&inline';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
@@ -35,9 +35,9 @@ const toastRefs = new Set<SbbToastElement>();
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-toast` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-toast` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-toast` is closed.
- * @cssprop [--sbb-toast-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-toast-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-toast')
 export class SbbToastElement extends SbbIconNameMixin(LitElement) {
@@ -67,8 +67,13 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
    */
   @property() public politeness: 'polite' | 'assertive' | 'off' = 'polite';
 
-  /** The state of the autocomplete. */
-  @state() private _state: SbbOverlayState = 'closed';
+  /* The state of the toast. */
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   /** Emits whenever the `sbb-toast` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willOpen);
@@ -83,8 +88,8 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didClose);
 
   private _closeTimeout?: ReturnType<typeof setTimeout>;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   /**
    * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
@@ -137,18 +142,20 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   private _onClick(event: Event): void {
     const closeElement = composedPathHasAttribute(event, 'sbb-toast-close', this);
 
-    if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
+    if (closeElement && !closeElement.hasAttribute('disabled')) {
       this.close();
     }
   }
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._state ||= 'closed';
+
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
 
@@ -235,10 +242,6 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    // ## Host attributes ##
-    setAttribute(this, 'data-state', this._state);
-    // ####
-
     return html`
       <div class="sbb-toast__overlay-container">
         <div

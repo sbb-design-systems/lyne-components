@@ -2,37 +2,30 @@ import { isServer } from 'lit';
 
 /**
  * This is a custom implementation.
- * In the `web-test-runner.config` we add a meta tag with some useful meta-data
+ * In the `web-test-runner.config` we add data attributes to the body with additional information.
  */
-export const isTestEnvironment = (): boolean =>
-  !isServer && !!document.head.querySelector('meta[name="testEnvironment"]');
+export const isTestEnvironment = (): boolean => !isServer && 'testEnv' in globalThis;
 
 /**
  * This is a custom implementation.
  * True if the `testEnvironment` meta tag has the `debug` attribute
  */
 export const isDebugEnvironment = (): boolean =>
-  !isServer &&
-  isTestEnvironment() &&
-  !!document.head.querySelector('meta[name="testEnvironment"]')?.hasAttribute('debug');
+  !isServer && (globalThis as any).testEnv === 'debug';
 
 /**
  * This is a custom implementation.
  * Returns true, if this is run in the SSR with hydration test group.
  */
 export const isHydratedSsr = (): boolean =>
-  !isServer &&
-  document.head.querySelector('meta[name="testGroup"]')?.getAttribute('content') ===
-    'e2e-ssr-hydrated';
+  !isServer && (globalThis as any).testGroup === 'e2e-ssr-hydrated';
 
 /**
  * This is a custom implementation.
  * Returns true, if this is run in the SSR without hydration test group.
  */
 export const isNonHydratedSsr = (): boolean =>
-  !isServer &&
-  document.head.querySelector('meta[name="testGroup"]')?.getAttribute('content') ===
-    'e2e-ssr-non-hydrated';
+  !isServer && (globalThis as any).testGroup === 'e2e-ssr-non-hydrated';
 
 /**
  * This is a custom implementation.

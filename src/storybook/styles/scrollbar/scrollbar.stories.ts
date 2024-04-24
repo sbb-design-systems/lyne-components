@@ -58,7 +58,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
+  size: size.options![0],
   negative: false,
   trackVisible: false,
 };
@@ -90,19 +90,19 @@ export const ThinNegativeTrackVisible: StoryObj = {
 export const Thick: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const ThickTrackVisible: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1], trackVisible: true },
+  args: { ...defaultArgs, size: size.options![1], trackVisible: true },
 };
 
 export const ThickNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1], negative: true },
+  args: { ...defaultArgs, size: size.options![1], negative: true },
 };
 
 export const ThickNegativeTrackVisible: StoryObj = {
@@ -110,7 +110,7 @@ export const ThickNegativeTrackVisible: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[1],
+    size: size.options![1],
     negative: true,
     trackVisible: true,
   },

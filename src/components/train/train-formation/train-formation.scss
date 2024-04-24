@@ -1,19 +1,20 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-train-formation-inline-padding: var(--sbb-spacing-fixed-4x);
   --sbb-train-formation-background-color: var(--sbb-color-white);
   --sbb-train-formation-sector-label-color: var(--sbb-color-metal);
   --sbb-train-formation-sector-line-color: var(--sbb-color-smoke);
-  --sbb-train-formation-blocked-passage-width: var(--sbb-size-icon-timetable-attribute);
+  --sbb-train-formation-blocked-passage-width: #{sbb.px-to-rem-build(16)};
 
   @include sbb.if-forced-colors {
     --sbb-train-formation-sector-line-color: CanvasText;
   }
+
+  display: block;
 }
 
 :host([hide-wagon-label]) {

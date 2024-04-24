@@ -36,6 +36,7 @@ Add the `sbb-disable-animation` class to disable animation and transition effect
 | -------------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-sticky-bar-padding-block`             | `var(--sbb-spacing-responsive-xs)` | Block padding of the sticky bar.                                                                                                                                                                |
 | `--sbb-sticky-bar-bottom-overlapping-height` | `0px`                              | Define an additional area where the sticky bar overlaps the following content on the bottom. This area becomes visible when the sticky bar transitions from sticky to the normal document flow. |
+| `--sbb-sticky-bar-z-index`                   |                                    | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable.                                                                                                 |
 
 ## Slots
 

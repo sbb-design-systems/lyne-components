@@ -1,15 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../button';
-import { waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
-import type { SbbBlockLinkElement } from '../link';
+import type { SbbSecondaryButtonElement } from '../button.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
+import type { SbbBlockLinkElement } from '../link.js';
 
-import { SbbActionGroupElement } from './action-group';
+import { SbbActionGroupElement } from './action-group.js';
 
-import '../button/secondary-button';
-import '../link/block-link';
+import '../button/secondary-button.js';
+import '../link/block-link.js';
 
 describe(`sbb-action-group with ${fixture.name}`, () => {
   let element: SbbActionGroupElement;
@@ -28,7 +28,7 @@ describe(`sbb-action-group with ${fixture.name}`, () => {
           </sbb-block-link>
         </sbb-action-group>
       `,
-      { modules: ['./action-group.ts', '../button/index.ts', '../link/index.ts'] },
+      { modules: ['./action-group.ts', '../button.ts', '../link.ts'] },
     );
   });
 

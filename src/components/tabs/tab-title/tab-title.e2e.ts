@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private.js';
 
-import { SbbTabTitleElement } from './tab-title';
+import { SbbTabTitleElement } from './tab-title.js';
 
 describe(`sbb-tab-title with ${fixture.name}`, () => {
   let element: SbbTabTitleElement;

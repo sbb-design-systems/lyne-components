@@ -2,14 +2,12 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import type { StyleInfo } from 'lit/directives/style-map.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './navigation-list';
-import '../navigation-button';
+import './navigation-list.js';
+import '../navigation-button.js';
 
 const label: InputType = {
   control: {
@@ -31,12 +29,6 @@ const navigationActions = (): TemplateResult => html`
   <sbb-navigation-button>Travel information</sbb-navigation-button>
   <sbb-navigation-button>Help & Contact</sbb-navigation-button>
 `;
-
-const style: Readonly<StyleInfo> = {
-  'background-color': 'var(--sbb-color-midnight)',
-  width: 'max-content',
-  padding: '2rem',
-};
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-navigation-list ${sbbSpread(args)}>${navigationActions()}</sbb-navigation-list>
@@ -62,11 +54,8 @@ export const SlottedLabel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style=${styleMap(style)}>${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: () => 'var(--sbb-color-midnight)',
     docs: {
       extractComponentDescription: () => readme,
     },

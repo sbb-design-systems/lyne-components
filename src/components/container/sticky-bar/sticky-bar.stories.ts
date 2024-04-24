@@ -1,18 +1,18 @@
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../action-group';
-import '../../button/button';
-import '../../button/secondary-button';
-import '../../link';
-import '../../title';
-import '../container';
+import '../../action-group.js';
+import '../../button/button.js';
+import '../../button/secondary-button.js';
+import '../../link.js';
+import '../../title.js';
+import '../container.js';
 import readme from './readme.md?raw';
-import './sticky-bar';
+import './sticky-bar.js';
 
 const expanded: InputType = {
   control: {
@@ -52,8 +52,8 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   expanded: false,
-  color: color.options[0],
-  containerColor: containerColor.options[0],
+  color: color.options![0],
+  containerColor: containerColor.options![0],
 };
 
 const actionGroup = (): TemplateResult => html`
@@ -67,12 +67,11 @@ const actionGroup = (): TemplateResult => html`
       align-self="start"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
-      sbb-dialog-close
     >
       Link
     </sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-    <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    <sbb-secondary-button>Cancel</sbb-secondary-button>
+    <sbb-button>Confirm</sbb-button>
   </sbb-action-group>
 `;
 
@@ -174,13 +173,13 @@ export const Expanded: StoryObj = {
 export const White: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const Milk: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2] },
+  args: { ...defaultArgs, color: color.options![2] },
 };
 
 export const WithContentAfter: StoryObj = {
@@ -192,20 +191,17 @@ export const WithContentAfter: StoryObj = {
 export const MilkContainer: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options[2] },
+  args: { ...defaultArgs, containerColor: color.options![2] },
 };
 
 export const MilkContainerWhiteStickyBar: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options[2], color: color.options[1] },
+  args: { ...defaultArgs, containerColor: color.options![2], color: color.options![1] },
 };
 
 const meta: Meta = {
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

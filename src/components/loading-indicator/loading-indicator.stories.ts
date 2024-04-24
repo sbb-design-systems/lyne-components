@@ -1,17 +1,17 @@
 import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
-import type { SbbLoadingIndicatorElement } from './loading-indicator';
+import type { SbbLoadingIndicatorElement } from './loading-indicator.js';
 import readme from './readme.md?raw';
-import '../button/button';
-import './loading-indicator';
+import '../button/button.js';
+import './loading-indicator.js';
 
 const textBlockStyle: Args = {
   marginBlock: '1rem',
@@ -120,9 +120,9 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  variant: variant.options[0],
-  size: size.options[0],
-  color: color.options[0],
+  variant: variant.options![0],
+  size: size.options![0],
+  color: color.options![0],
 };
 
 export const WindowSmallDefault: StoryObj = {
@@ -134,64 +134,60 @@ export const WindowSmallDefault: StoryObj = {
 export const WindowSmallSmoke: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const WindowSmallWhite: StoryObj = {
   render: NegativeTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2] },
+  args: { ...defaultArgs, color: color.options![2] },
 };
 
 export const WindowLargeDefault: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const WindowLargeSmoke: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1], size: size.options[1] },
+  args: { ...defaultArgs, color: color.options![1], size: size.options![1] },
 };
 
 export const WindowLargeWhite: StoryObj = {
   render: NegativeTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2], size: size.options[1] },
+  args: { ...defaultArgs, color: color.options![2], size: size.options![1] },
 };
 
 export const CircleDefault: StoryObj = {
   render: InlineTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, variant: variant.options[1] },
+  args: { ...defaultArgs, variant: variant.options![1] },
 };
 
 export const CircleSmoke: StoryObj = {
   render: InlineTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1], variant: variant.options[1] },
+  args: { ...defaultArgs, color: color.options![1], variant: variant.options![1] },
 };
 
 export const CircleWhite: StoryObj = {
   render: NegativeInlineTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[2], variant: variant.options[1] },
+  args: { ...defaultArgs, color: color.options![2], variant: variant.options![1] },
 };
 
 export const Accessibility: StoryObj = {
   render: TemplateAccessibility,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
   play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

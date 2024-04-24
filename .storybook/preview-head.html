@@ -46,6 +46,10 @@
   .sbdocs-content {
     max-width: var(--sbb-breakpoint-medium-max) !important;
   }
+
+  .sb-show-main.sb-main-padded {
+    padding: 2rem;
+  }
 </style>
 
 <script>
@@ -95,6 +99,13 @@
       });
       resizeObserver.observe(document.body);
     };
+  }
+
+  if (isChromatic()) {
+    const sheet = new CSSStyleSheet();
+    sheet.insertRule(`.sb-show-main.sb-main-padded { padding: 0rem; }`);
+
+    document.adoptedStyleSheets.push(sheet);
   }
 
   function inIframe() {

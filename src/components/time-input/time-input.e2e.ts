@@ -3,14 +3,14 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { i18nTimeInputChange } from '../core/i18n';
-import type { ValidationChangeEvent } from '../core/interfaces';
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { clearElement, fixture, typeInElement } from '../core/testing/private';
+import { i18nTimeInputChange } from '../core/i18n.js';
+import type { SbbValidationChangeEvent } from '../core/interfaces.js';
+import { clearElement, fixture, typeInElement } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbTimeInputElement } from './time-input';
+import { SbbTimeInputElement } from './time-input.js';
 
-import '../form-field/form-field';
+import '../form-field/form-field.js';
 
 describe(`sbb-time-input with ${fixture.name}`, () => {
   let element: SbbTimeInputElement, input: HTMLInputElement;
@@ -52,7 +52,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
   });
 
   it('should emit validation change event', async () => {
-    const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
+    const validationChangeSpy = new EventSpy<CustomEvent<SbbValidationChangeEvent>>(
       SbbTimeInputElement.events.validationChange,
       element,
     );
@@ -93,7 +93,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
     input.blur();
     await waitForLitRender(element);
 
-    const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
+    const validationChangeSpy = new EventSpy<CustomEvent<SbbValidationChangeEvent>>(
       SbbTimeInputElement.events.validationChange,
       element,
     );
@@ -232,7 +232,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
           <input />
         </sbb-form-field>
       `,
-      { modules: ['../form-field/index.ts', './time-input.ts'] },
+      { modules: ['../form-field.ts', './time-input.ts'] },
     );
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;

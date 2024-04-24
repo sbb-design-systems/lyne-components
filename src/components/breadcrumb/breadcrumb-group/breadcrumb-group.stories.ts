@@ -3,14 +3,14 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import type { SbbBreadcrumbGroupElement } from './breadcrumb-group';
+import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
 import readme from './readme.md?raw';
 
-import '../../button/secondary-button';
-import './breadcrumb-group';
-import '../breadcrumb';
+import '../../button/secondary-button.js';
+import './breadcrumb-group.js';
+import '../breadcrumb.js';
 
 const addBreadcrumb = (event: Event): void => {
   const breadcrumbGroup = (event.target as HTMLElement)
@@ -160,16 +160,13 @@ export const CollapsedState: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div style="padding: 2rem; max-width: 1000px;">
+      <div style="max-width: 1000px;">
         ${story()}
         <div>Page content</div>
       </div>
     `,
   ],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

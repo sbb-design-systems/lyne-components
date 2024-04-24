@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbBreadcrumbElement } from './breadcrumb';
+import { SbbBreadcrumbElement } from './breadcrumb.js';
 
 describe(`sbb-breadcrumb with ${fixture.name}`, () => {
   let element: SbbBreadcrumbElement;

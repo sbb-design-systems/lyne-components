@@ -10,16 +10,15 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
-import { SbbExpansionPanelElement } from './expansion-panel';
+import { SbbExpansionPanelElement } from './expansion-panel.js';
 import readme from './readme.md?raw';
 
-import '../expansion-panel-content';
-import '../../icon';
+import '../expansion-panel-content.js';
+import '../../icon.js';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -102,8 +101,8 @@ const defaultArgs: Args = {
   iconName: undefined,
   contentText: 'Content',
   expanded: false,
-  'title-level': titleLevel.options[2],
-  color: color.options[0],
+  'title-level': titleLevel.options![2],
+  color: color.options![0],
   borderless: false,
   disabled: false,
 };
@@ -141,7 +140,7 @@ export const Default: StoryObj = {
 export const Milk: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const Borderless: StoryObj = {
@@ -171,7 +170,7 @@ export const WithSlottedIcon: StoryObj = {
 export const NoHeadingTag: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'title-level': titleLevel.options[6] },
+  args: { ...defaultArgs, 'title-level': titleLevel.options![6] },
 };
 
 export const Expanded: StoryObj = {
@@ -192,21 +191,13 @@ export const LongText: StoryObj = {
   args: { ...defaultArgs, headerText: longText, contentText: longText },
 };
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color':
-    context.args.color === 'white' && context.args.borderless
-      ? '#bdbdbd'
-      : 'var(--sbb-color-white)',
-});
-
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.color === 'white' && context.args.borderless
+        ? 'var(--sbb-color-cement)'
+        : 'var(--sbb-color-white)',
     actions: {
       handles: [
         SbbExpansionPanelElement.events.willOpen,
@@ -215,9 +206,6 @@ const meta: Meta = {
         SbbExpansionPanelElement.events.didClose,
         SbbExpansionPanelHeaderElement.events.toggleExpanded,
       ],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

@@ -1,7 +1,18 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-navigation-section renders"] = 
+snapshots["sbb-navigation-section renders DOM"] = 
+`<sbb-navigation-section
+  aria-hidden="true"
+  data-state="closed"
+  id="sbb-navigation-section-0"
+  slot="navigation-section"
+>
+</sbb-navigation-section>
+`;
+/* end snapshot sbb-navigation-section renders DOM */
+
+snapshots["sbb-navigation-section renders Shadow DOM"] = 
 `<div class="sbb-navigation-section__container">
   <nav
     aria-labelledby="title"
@@ -42,5 +53,5 @@ snapshots["sbb-navigation-section renders"] =
   </nav>
 </div>
 `;
-/* end snapshot sbb-navigation-section renders */
+/* end snapshot sbb-navigation-section renders Shadow DOM */
 

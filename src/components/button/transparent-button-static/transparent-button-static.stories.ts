@@ -1,10 +1,10 @@
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 
 import {
+  commonDecorators,
   commonDefaultArgs,
   commonDefaultArgTypes,
-  commonDecorators,
   fixedWidth,
   iconOnly,
   iconOnlyDisabled,
@@ -19,13 +19,14 @@ import {
   primaryNegativeActive,
   primaryNegativeDisabled,
   sizeM,
-  withSlottedIcon,
+  sizeS,
   withHiddenSlottedIcon,
-} from '../common/common-stories';
+  withSlottedIcon,
+} from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
-import '../../loading-indicator';
-import './transparent-button-static';
+import '../../loading-indicator.js';
+import './transparent-button-static.js';
 
 const disabled: InputType = {
   control: {
@@ -56,6 +57,7 @@ export const IconOnlyNegative: StoryObj = iconOnlyNegative;
 export const IconOnlyDisabled: StoryObj = iconOnlyDisabled;
 export const NoIcon: StoryObj = noIcon;
 export const SizeM: StoryObj = sizeM;
+export const SizeS: StoryObj = sizeS;
 export const FixedWidth: StoryObj = fixedWidth;
 export const WithSlottedIcon: StoryObj = withSlottedIcon;
 export const Active: StoryObj = primaryActive;
@@ -70,11 +72,10 @@ const meta: Meta = {
   excludeStories: /.*(Active|FocusVisible)$/,
   decorators: commonDecorators,
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? '#484040' : 'var(--sbb-color-white)',
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

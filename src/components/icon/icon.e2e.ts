@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private';
+import { fixture } from '../core/testing/private.js';
 
-import { SbbIconElement } from './icon';
+import { SbbIconElement } from './icon.js';
 
 describe(`sbb-icon with ${fixture.name}`, () => {
   let element: SbbIconElement;

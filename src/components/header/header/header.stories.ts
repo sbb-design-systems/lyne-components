@@ -9,22 +9,21 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
 import readme from './readme.md?raw';
 
-import './header';
-import '../header-button';
-import '../header-link';
-import '../../divider';
-import '../../menu';
+import './header.js';
+import '../header-button.js';
+import '../header-link.js';
+import '../../divider.js';
+import '../../menu.js';
 
 const LoremIpsumTemplate = (): TemplateResult => html`
   <div>
@@ -212,23 +211,16 @@ export const ContainerScrollOriginScrollHide: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div style=${styleMap(isChromatic() ? { 'min-height': '100vh' } : {})}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     actions: {
       handles: ['click'],
     },
     docs: {
       story: {
         inline: false,
+        // Setting the iFrame height ensures that the story has enough space when used in the docs section.
         iframeHeight: '250px',
       },
       extractComponentDescription: () => readme,

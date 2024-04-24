@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbSkiplinkListElement } from './skiplink-list';
-import './skiplink-list';
-import '../link/block-link';
+import type { SbbSkiplinkListElement } from './skiplink-list.js';
+import './skiplink-list.js';
+import '../link/block-link.js';
 
 describe(`sbb-skiplink-list`, () => {
   describe('renders', () => {

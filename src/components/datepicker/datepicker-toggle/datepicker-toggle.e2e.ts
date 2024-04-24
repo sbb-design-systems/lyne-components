@@ -1,18 +1,18 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbCalendarElement } from '../../calendar';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbFormFieldElement } from '../../form-field';
-import type { SbbPopoverTriggerElement } from '../../popover';
-import { SbbPopoverElement } from '../../popover';
-import type { SbbDatepickerElement } from '../datepicker';
+import type { SbbCalendarElement } from '../../calendar.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbPopoverTriggerElement } from '../../popover.js';
+import { SbbPopoverElement } from '../../popover.js';
+import type { SbbDatepickerElement } from '../datepicker.js';
 
-import { SbbDatepickerToggleElement } from './datepicker-toggle';
+import { SbbDatepickerToggleElement } from './datepicker-toggle.js';
 
-import '../datepicker';
-import '../../form-field/form-field';
+import '../datepicker.js';
+import '../../form-field/form-field.js';
 
 describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
   it('renders standalone', async () => {
@@ -36,7 +36,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
           <input id="datepicker-input" />
         </div>
       `,
-      { modules: ['./datepicker-toggle.ts', '../datepicker/index.ts'] },
+      { modules: ['./datepicker-toggle.ts', '../datepicker.ts'] },
     );
     const element: SbbDatepickerToggleElement =
       root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
@@ -66,7 +66,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
           <input id="datepicker-input" />
         </div>
       `,
-      { modules: ['./datepicker-toggle.ts', '../datepicker/index.ts'] },
+      { modules: ['./datepicker-toggle.ts', '../datepicker.ts'] },
     );
     const element: SbbDatepickerToggleElement =
       root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
@@ -106,7 +106,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
     // there's no datepicker, so no event and the popoverTrigger is disabled due _datePickerElement not set
     expect(toggle).not.to.be.null;
     expect(inputUpdated.count).to.be.equal(0);
-    expect(trigger.getAttribute('disabled')).to.be.equal('');
+    expect(trigger).to.have.attribute('disabled');
 
     const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
     picker.setAttribute('input', 'datepicker-input');
@@ -117,7 +117,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
 
     // the datepicker is connected, which triggers a 1st inputUpdated event which calls _init and a 2nd one which sets max/min/disabled
     expect(inputUpdated.count).to.be.equal(2);
-    expect(trigger.getAttribute('disabled')).to.be.null;
+    expect(trigger).not.to.have.attribute('disabled');
   });
 
   it('datepicker is created after the component with different parent', async () => {
@@ -142,7 +142,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
     // there's no datepicker, so no event and the popoverTrigger is disabled due _datePickerElement not set
     expect(toggle).not.to.be.null;
     expect(inputUpdated.count).to.be.equal(0);
-    expect(trigger.getAttribute('disabled')).to.be.equal('');
+    expect(trigger).to.have.attribute('disabled');
 
     const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
     picker.setAttribute('input', 'datepicker-input');
@@ -153,7 +153,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
 
     // the datepicker is connected on a different parent, so no changes are triggered
     expect(inputUpdated.count).to.be.equal(0);
-    expect(trigger.getAttribute('disabled')).to.be.equal('');
+    expect(trigger).to.have.attribute('disabled');
   });
 
   it('renders in form field, open calendar and change date', async () => {
@@ -166,7 +166,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
         </sbb-form-field>
       `,
       {
-        modules: ['../../form-field/index.ts', './datepicker-toggle.ts', '../datepicker/index.ts'],
+        modules: ['../../form-field.ts', './datepicker-toggle.ts', '../datepicker.ts'],
       },
     );
     const element: SbbDatepickerToggleElement =

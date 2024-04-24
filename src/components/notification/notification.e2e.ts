@@ -1,13 +1,13 @@
 import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../button';
-import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import type { SbbSecondaryButtonElement } from '../button.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbNotificationElement } from './notification';
+import { SbbNotificationElement } from './notification.js';
 
-import '../link/link';
+import '../link/link.js';
 
 describe(`sbb-notification with ${fixture.name}`, () => {
   let element: SbbNotificationElement;
@@ -20,7 +20,7 @@ describe(`sbb-notification with ${fixture.name}`, () => {
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
       `,
-      { modules: ['./notification.ts', '../link/index.ts'] },
+      { modules: ['./notification.ts', '../link.ts'] },
     );
   });
 

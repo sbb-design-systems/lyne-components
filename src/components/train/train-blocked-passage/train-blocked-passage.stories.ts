@@ -2,10 +2,10 @@ import type { Args, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './train-blocked-passage';
+import './train-blocked-passage.js';
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-train-blocked-passage ${sbbSpread(args)}></sbb-train-blocked-passage>
@@ -16,11 +16,7 @@ export const blockedPassage: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

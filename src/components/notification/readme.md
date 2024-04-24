@@ -73,9 +73,8 @@ This ensures that users who rely on screen readers are promptly informed of any 
 
 ## Animation
 
-By default, the `sbb-notification` does not have an open animation. Add the `.sbb-animate` class to the element to enable it.
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+Set the `animation` property to manage which animations are enabled.
+As a base rule, opening animations should be active if a notification arrives after the initial page load.
 
 <!-- Auto Generated Below -->
 
@@ -87,6 +86,7 @@ Add the `sbb-disable-animation` class to disable animation and transition effect
 | `titleContent` | `title-content` | public  | `string \| undefined`                      |          | Content of title.                                                                                       |
 | `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                            | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                      |
 | `readonly`     | `readonly`      | public  | `boolean`                                  | `false`  | Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user. |
+| `animation`    | `animation`     | public  | `'open' \| 'close' \| 'all' \| 'none'`     | `'all'`  | The enabled animations.                                                                                 |
 
 ## Methods
 

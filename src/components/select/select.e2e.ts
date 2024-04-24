@@ -2,11 +2,11 @@ import { aTimeout, assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { fixture } from '../core/testing/private';
-import { SbbOptionElement } from '../option';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
+import { SbbOptionElement } from '../option.js';
 
-import { SbbSelectElement } from './select';
+import { SbbSelectElement } from './select.js';
 
 describe(`sbb-select with ${fixture.name}`, () => {
   let element: SbbSelectElement,
@@ -28,7 +28,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
           </sbb-select>
         </div>
       `,
-      { modules: ['./select.ts', '../option/index.ts'] },
+      { modules: ['./select.ts', '../option.ts'] },
     );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
@@ -100,7 +100,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
 
   it("displays joined string if both multiple and value props are set, or placeholder if value doesn't match available options", async () => {
     expect(displayValue).to.have.trimmed.text('Placeholder');
-    element.setAttribute('multiple', '');
+    element.toggleAttribute('multiple', true);
 
     element.value = ['1', '3'];
     await waitForLitRender(element);
@@ -128,7 +128,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
           </sbb-select>
         </div>
       `,
-      { modules: ['./select.ts', '../option/index.ts'] },
+      { modules: ['./select.ts', '../option.ts'] },
     );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
@@ -155,7 +155,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
           </sbb-select>
         </div>
       `,
-      { modules: ['./select.ts', '../option/index.ts'] },
+      { modules: ['./select.ts', '../option.ts'] },
     );
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
     comboBoxElement = root.querySelector('[role="combobox"]')!;
@@ -206,7 +206,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
   });
 
   it('handles selection in multiple', async () => {
-    element.setAttribute('multiple', '');
+    element.toggleAttribute('multiple', true);
     await waitForLitRender(element);
 
     const willOpen = new EventSpy(SbbSelectElement.events.willOpen);
@@ -329,7 +329,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
   });
 
   it('handles keyboard selection in multiple', async () => {
-    element.setAttribute('multiple', '');
+    element.toggleAttribute('multiple', true);
     await waitForLitRender(element);
 
     const didOpen = new EventSpy(SbbSelectElement.events.didOpen);

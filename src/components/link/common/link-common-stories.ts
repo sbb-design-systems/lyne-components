@@ -1,18 +1,12 @@
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../icon';
-
-export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
+import '../../icon.js';
 
 export const paragraphStyle = (negative: boolean): Record<string, string> => ({
   color: negative ? 'var(--sbb-color-aluminium)' : 'var(--sbb-color-iron)',
@@ -133,9 +127,9 @@ export const blockLinkCommonDefaultArgTypes: ArgTypes = {
 };
 
 export const blockLinkCommonDefaultArgs: Args = {
-  size: size.options[1],
+  size: size.options![1],
   'icon-name': undefined,
-  'icon-placement': iconPlacement.options[0],
+  'icon-placement': iconPlacement.options![0],
 };
 
 // link params
@@ -194,7 +188,7 @@ export const linkDefaultArgTypes: ArgTypes = {
 
 export const linkDefaultArgs: Args = {
   ...linkCommonDefaultArgs,
-  href: href.options[1],
+  href: href.options![1],
   target: '_blank',
   rel: undefined,
   download: false,
@@ -251,7 +245,7 @@ export const linkButtonDefaultArgTypes: ArgTypes = {
 
 export const linkButtonDefaultArgs: Args = {
   ...linkCommonDefaultArgs,
-  type: type.options[0],
+  type: type.options![0],
   disabled: false,
   name: 'Button name',
   value: undefined,
@@ -263,48 +257,48 @@ export const linkButtonDefaultArgs: Args = {
 export const blockXS: StoryObj = {
   render: Template,
   args: {
-    size: size.options[0],
+    size: size.options![0],
   },
 };
 
 export const blockS: StoryObj = {
   render: Template,
   args: {
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
 export const blockM: StoryObj = {
   render: Template,
   args: {
-    size: size.options[2],
+    size: size.options![2],
   },
 };
 
 export const blockXSIcon: StoryObj = {
   render: Template,
   args: {
-    size: size.options[0],
+    size: size.options![0],
     'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
+    'icon-placement': iconPlacement.options![1],
   },
 };
 
 export const blockSIcon: StoryObj = {
   render: Template,
   args: {
-    size: size.options[1],
+    size: size.options![1],
     'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
+    'icon-placement': iconPlacement.options![1],
   },
 };
 
 export const blockMIcon: StoryObj = {
   render: Template,
   args: {
-    size: size.options[2],
+    size: size.options![2],
     'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
+    'icon-placement': iconPlacement.options![1],
   },
 };
 
@@ -320,7 +314,7 @@ export const blockNegative: StoryObj = {
   args: {
     negative: true,
     'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
+    'icon-placement': iconPlacement.options![1],
   },
 };
 
@@ -328,7 +322,7 @@ export const blockWithSlottedIcon: StoryObj = {
   render: IconSlotTemplate,
   args: {
     'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
+    'icon-placement': iconPlacement.options![1],
   },
 };
 

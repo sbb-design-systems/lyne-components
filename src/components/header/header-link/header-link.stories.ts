@@ -5,10 +5,10 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './header-link';
+import './header-link.js';
 
 const TemplateSingle = (args: Args): TemplateResult => html`
   <sbb-header-link ${sbbSpread(args)}>${args.text}</sbb-header-link>
@@ -101,9 +101,9 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   text: 'Menu',
-  'expand-from': expandFrom.options[0],
+  'expand-from': expandFrom.options![0],
   'icon-name': 'hamburger-menu-small',
-  href: href.options[1],
+  href: href.options![1],
   target: '_blank',
   rel: undefined,
   download: false,
@@ -123,16 +123,10 @@ export const sbbHeaderActionLinkMultiple: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

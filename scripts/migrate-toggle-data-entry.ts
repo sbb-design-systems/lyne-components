@@ -1,3 +1,4 @@
+/* eslint-disable import-x/default, import-x/no-named-as-default-member */
 import { readFileSync, writeFileSync } from 'fs';
 
 import * as glob from 'glob';

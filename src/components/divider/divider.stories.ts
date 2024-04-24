@@ -4,16 +4,10 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './divider';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
+import './divider.js';
 
 const Template = (args: Args): TemplateResult => html`
   <div style=${styleMap({ height: '340px', padding: '20px' })}>
@@ -43,7 +37,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  orientation: orientation.options[0],
+  orientation: orientation.options![0],
   negative: false,
 };
 
@@ -72,13 +66,9 @@ export const dividerNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html` <div style=${styleMap(wrapperStyle(context))}>${story()}</div> `,
-  ],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

@@ -1,15 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbTrainElement } from '../train';
-import type { SbbTrainWagonElement } from '../train-wagon';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import type { SbbTrainWagonElement } from '../train-wagon.js';
+import type { SbbTrainElement } from '../train.js';
 
-import { SbbTrainFormationElement } from './train-formation';
-import '../train';
-import '../train-wagon';
-import '../train-blocked-passage';
+import { SbbTrainFormationElement } from './train-formation.js';
+import '../train.js';
+import '../train-wagon.js';
+import '../train-blocked-passage.js';
 
 function extractAggregatedSectors(element: SbbTrainFormationElement): Record<string, string>[] {
   return Array.from(
@@ -34,9 +34,9 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
   let element: SbbTrainFormationElement;
   const ssrModules = [
     './train-formation.ts',
-    '../train/index.ts',
-    '../train-wagon/index.ts',
-    '../train-blocked-passage/index.ts',
+    '../train.ts',
+    '../train-wagon.ts',
+    '../train-blocked-passage.ts',
   ];
 
   it('should render', async () => {
@@ -191,7 +191,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
             </sbb-train>
           </sbb-train-formation>
         `,
-        { modules: ['./train-formation.ts', '../train/index.ts', '../train-wagon/index.ts'] },
+        { modules: ['./train-formation.ts', '../train.ts', '../train-wagon.ts'] },
       );
 
       expect(extractAggregatedSectors(element)).to.be.eql([
@@ -219,7 +219,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
             </sbb-train>
           </sbb-train-formation>
         `,
-        { modules: ['./train-formation.ts', '../train/index.ts', '../train-wagon/index.ts'] },
+        { modules: ['./train-formation.ts', '../train.ts', '../train-wagon.ts'] },
       );
 
       expect(extractAggregatedSectors(element)).to.be.eql([
@@ -258,7 +258,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
             </sbb-train>
           </sbb-train-formation>
         `,
-        { modules: ['./train-formation.ts', '../train/index.ts', '../train-wagon/index.ts'] },
+        { modules: ['./train-formation.ts', '../train.ts', '../train-wagon.ts'] },
       );
 
       expect(extractAggregatedSectors(element)).to.be.eql([
@@ -297,7 +297,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
             </sbb-train>
           </sbb-train-formation>
         `,
-        { modules: ['./train-formation.ts', '../train/index.ts', '../train-wagon/index.ts'] },
+        { modules: ['./train-formation.ts', '../train.ts', '../train-wagon.ts'] },
       );
 
       element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
@@ -329,7 +329,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
             </sbb-train>
           </sbb-train-formation>
         `,
-        { modules: ['./train-formation.ts', '../train/index.ts', '../train-wagon/index.ts'] },
+        { modules: ['./train-formation.ts', '../train.ts', '../train-wagon.ts'] },
       );
 
       element.querySelector<SbbTrainElement>('sbb-train')!.remove();

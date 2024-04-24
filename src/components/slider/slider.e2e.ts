@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbSliderElement } from './slider';
+import { SbbSliderElement } from './slider.js';
 
 const keyboardPressTimes = async (
   slider: SbbSliderElement,
@@ -75,7 +75,7 @@ describe(`sbb-slider with ${fixture.name}`, () => {
 
   it('should not change value on arrow keypress if disabled', async () => {
     const changeEvent = new EventSpy('change', element);
-    element.setAttribute('disabled', '');
+    element.toggleAttribute('disabled', true);
     await keyboardPressTimes(element, 'ArrowLeft');
     expect(changeEvent.count).not.to.be.greaterThan(0);
     await keyboardPressTimes(element, 'ArrowRight');

@@ -1,20 +1,27 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
-import { html, isServer, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y';
-import { LanguageController } from '../core/common-behaviors';
-import type { DateAdapter } from '../core/datetime';
+import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { type DateAdapter, readDataNow } from '../core/datetime.js';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,
   MONTHS_PER_ROW,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
-} from '../core/datetime';
-import { isBreakpoint } from '../core/dom';
-import { EventEmitter, ConnectedAbortController } from '../core/eventing';
+} from '../core/datetime.js';
+import { isBreakpoint } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
 import {
   i18nCalendarDateSelection,
   i18nNextMonth,
@@ -24,14 +31,14 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../core/i18n';
-import type { SbbDateLike } from '../core/interfaces';
+} from '../core/i18n.js';
+import type { SbbDateLike } from '../core/interfaces.js';
 
 import style from './calendar.scss?lit&inline';
 
-import '../button/secondary-button';
-import '../icon';
-import '../screen-reader-only';
+import '../button/secondary-button.js';
+import '../icon.js';
+import '../screen-reader-only.js';
 
 /**
  * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;
@@ -149,7 +156,13 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   @state() private _selected?: string;
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
-  @state() private _wide: boolean = false;
+  @state()
+  private set _wide(wide: boolean) {
+    this.toggleAttribute('data-wide', wide);
+  }
+  private get _wide(): boolean {
+    return this.hasAttribute('data-wide');
+  }
 
   @state() private _calendarView: CalendarView = 'day';
 
@@ -194,8 +207,8 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   private _initialized = false;
 
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this).withHandler(() => {
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => {
     this._monthNames = this._dateAdapter.getMonthNames('long');
     this._createMonthRows();
   });
@@ -567,9 +580,9 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   }
 
   private _nextYearRangeDisabled(): boolean {
-    const lastYear = (isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years)
-      .at(-1)!
-      .at(-1)!;
+    const years = isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years;
+    const lastYearRange = years[years.length - 1];
+    const lastYear = lastYearRange[lastYearRange.length - 1];
     const nextYear = this._dateAdapter.createDate(lastYear + 1, 1, 1);
     return this._nextDisabled(nextYear);
   }
@@ -782,7 +795,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   private _now(): T {
     if (this.hasAttribute('data-now')) {
-      const today = new Date(+this.getAttribute('data-now')!);
+      const today = new Date(readDataNow(this));
       if (defaultDateAdapter.isValid(today)) {
         return this._dateAdapter.createDate(
           today.getFullYear(),
@@ -1022,7 +1035,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
         ${this._wide
           ? html`<thead class="sbb-calendar__table-header" aria-hidden="true">
               <tr class="sbb-calendar__table-header-row">
-                <th class="sbb-calendar__table-header" .colspan=${MONTHS_PER_ROW}>${year}</th>
+                <th class="sbb-calendar__table-header" colspan=${MONTHS_PER_ROW}>${year}</th>
               </tr>
             </thead>`
           : nothing}
@@ -1240,7 +1253,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
       this._resetFocus = true;
       this._calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
-      this.toggleAttribute('data-transition', false);
+      this.removeAttribute('data-transition');
     }
   }
 
@@ -1252,7 +1265,6 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    this.toggleAttribute('data-wide', this._wide);
     return html`<div class="sbb-calendar__wrapper">${this._getView}</div>`;
   }
 }

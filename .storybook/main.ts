@@ -18,7 +18,7 @@ const config: StorybookConfig = {
         sourcemap: false,
         rollupOptions: {
           output: {
-            manualChunks(id) {
+            manualChunks(_id) {
               return 'main';
             },
           },

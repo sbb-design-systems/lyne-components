@@ -4,16 +4,10 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './logo';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
+import './logo.js';
 
 const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
@@ -44,7 +38,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   negative: false,
-  'protective-room': protectiveRoom.options[0],
+  'protective-room': protectiveRoom.options![0],
   'accessibility-label': undefined,
 };
 
@@ -57,13 +51,13 @@ export const NoProtectiveRoom: StoryObj = {
 export const MinimalProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[1] },
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![1] },
 };
 
 export const IdealProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[2] },
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![2] },
 };
 
 export const Negative: StoryObj = {
@@ -72,17 +66,15 @@ export const Negative: StoryObj = {
   args: {
     ...defaultArgs,
     negative: true,
-    'protective-room': protectiveRoom.options[2],
+    'protective-room': protectiveRoom.options![2],
   },
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), 'max-width': '300px' })}>${story()}</div>
-    `,
-  ],
+  decorators: [(story) => html`<div style=${styleMap({ 'max-width': '300px' })}>${story()}</div>`],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

@@ -2,16 +2,17 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { AbstractConstructor, SbbActionBaseElement } from '../../core/common-behaviors';
-import { ConnectedAbortController } from '../../core/eventing';
-import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationLinkElement } from '../navigation-link';
-import type { SbbNavigationMarkerElement } from '../navigation-marker';
-import type { SbbNavigationSectionElement } from '../navigation-section';
-
-import '../../icon';
+import type { SbbActionBaseElement } from '../../core/base-elements.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import type { AbstractConstructor } from '../../core/mixins.js';
+import type { SbbNavigationButtonElement } from '../navigation-button.js';
+import type { SbbNavigationLinkElement } from '../navigation-link.js';
+import type { SbbNavigationMarkerElement } from '../navigation-marker.js';
+import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
 import style from './navigation-action.scss?lit&inline';
+
+import '../../icon.js';
 
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
 
@@ -50,7 +51,7 @@ export const SbbNavigationActionCommonElementMixin = <
       return this._navigationSection;
     }
 
-    private _abort = new ConnectedAbortController(this);
+    private _abort = new SbbConnectedAbortController(this);
     private _navigationMarker: SbbNavigationMarkerElement | null = null;
     private _navigationSection: SbbNavigationSectionElement | null = null;
 

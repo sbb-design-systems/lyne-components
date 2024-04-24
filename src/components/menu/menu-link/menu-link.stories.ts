@@ -5,11 +5,11 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './menu-link';
-import '../../icon';
+import './menu-link.js';
+import '../../icon.js';
 
 const getBasicTemplate = (
   { text, ...args }: Args,
@@ -127,7 +127,7 @@ const defaultArgs: Args = {
   text: 'Details',
   amount: '99',
   'icon-name': 'tick-small',
-  href: href.options[0],
+  href: href.options![0],
   target: '_blank',
   rel: undefined,
   download: false,
@@ -180,19 +180,13 @@ export const menuLinkButtonEllipsis: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html`
-      <div style=${styleMap({ 'background-color': 'var(--sbb-color-black)', width: '320px' })}>
-        ${story()}
-      </div>
-    `,
+    (story) => html`<div style=${styleMap({ width: '256px' })}>${story()}</div>`,
     withActions as Decorator,
   ],
   parameters: {
+    backgroundColor: () => 'var(--sbb-color-black)',
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

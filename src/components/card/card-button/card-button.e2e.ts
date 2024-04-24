@@ -2,14 +2,14 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbCardElement } from '../card';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbCardElement } from '../card.js';
 
-import type { SbbCardButtonElement } from './card-button';
+import type { SbbCardButtonElement } from './card-button.js';
 
-import '../card';
-import './card-button';
+import '../card.js';
+import './card-button.js';
 
 describe(`sbb-card-button with ${fixture.name}`, () => {
   let element: SbbCardElement;
@@ -17,7 +17,7 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
   it('should render an active sbb-card-button', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-button active>Click me</sbb-card-button>Content</sbb-card>`,
-      { modules: ['../card/index.ts', './card-button.ts'] },
+      { modules: ['../card.ts', './card-button.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -47,11 +47,11 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
   it('should correctly toggle active state', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-button>Click me</sbb-card-button>Content</sbb-card>`,
-      { modules: ['../card/index.ts', './card-button.ts'] },
+      { modules: ['../card.ts', './card-button.ts'] },
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
-    element.querySelector<SbbCardButtonElement>('sbb-card-button')!.setAttribute('active', '');
+    element.querySelector<SbbCardButtonElement>('sbb-card-button')!.toggleAttribute('active', true);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-has-active-action');
@@ -65,7 +65,7 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
           <button>Content</button>
         </span>
       </sbb-card>`,
-      { modules: ['../card/index.ts', './card-button.ts'] },
+      { modules: ['../card.ts', './card-button.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -89,7 +89,7 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
           <button>Content</button>
         </span>
       </sbb-card>`,
-      { modules: ['../card/index.ts', './card-button.ts'] },
+      { modules: ['../card.ts', './card-button.ts'] },
     );
     expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
 
@@ -120,7 +120,7 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
         <sbb-card-button>Click me</sbb-card-button>
         <span id="content"></span>
       </sbb-card>`,
-      { modules: ['../card/index.ts', './card-button.ts'] },
+      { modules: ['../card.ts', './card-button.ts'] },
     );
 
     // Add a button to slot
@@ -136,7 +136,7 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
       html` <sbb-card>
         <span id="content"><button></button></span>
       </sbb-card>`,
-      { modules: ['../card/index.ts'] },
+      { modules: ['../card.ts'] },
     );
 
     // Add a sbb-card-button
@@ -153,7 +153,7 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-card><sbb-card-button id="focus-id">Card</sbb-card-button>Content</sbb-card>`,
-        { modules: ['../card/index.ts', './card-button.ts'] },
+        { modules: ['../card.ts', './card-button.ts'] },
       );
       action = element.querySelector<SbbCardButtonElement>('sbb-card-button')!;
     });

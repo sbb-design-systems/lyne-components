@@ -3,14 +3,14 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../core/dom';
-import sampleImages from '../core/images';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
 
-import '../chip';
-import '../image';
-import './teaser-paid';
+import '../chip.js';
+import '../image.js';
+import './teaser-paid.js';
 
 const ariaLabel: InputType = {
   control: {
@@ -81,7 +81,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'aria-label': undefined,
-  href: href.options[0],
+  href: href.options![0],
   rel: undefined,
   target: undefined,
   'image-src': sampleImages[1],
@@ -111,15 +111,9 @@ export const OpenInNewWindow: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { diffThreshold: 0.11, delay: 5000 },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

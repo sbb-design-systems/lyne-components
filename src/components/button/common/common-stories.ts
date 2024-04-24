@@ -12,14 +12,10 @@ import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../icon';
-import '../../loading-indicator';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white)',
-});
+import '../../icon.js';
+import '../../loading-indicator.js';
 
 const focusStyle = (context: StoryContext): Record<string, string> =>
   context.args.negative
@@ -88,7 +84,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm'],
+  options: ['l', 'm', 's'],
 };
 
 const iconName: InputType = {
@@ -128,7 +124,7 @@ export const commonDefaultArgs: Args = {
   tag: 'TBD',
   text: 'Button',
   negative: false,
-  size: size.options[0],
+  size: size.options![0],
   'icon-name': 'arrow-right-small',
   'aria-label': undefined,
 };
@@ -186,7 +182,14 @@ export const noIcon: StoryObj = {
 export const sizeM: StoryObj = {
   render: Template,
   args: {
-    size: size.options[1],
+    size: size.options![1],
+  },
+};
+
+export const sizeS: StoryObj = {
+  render: Template,
+  args: {
+    size: size.options![2],
   },
 };
 
@@ -237,9 +240,7 @@ export const commonDecorators = [
   (story: () => WebComponentsRenderer['storyResult'], context: StoryContext) => html`
     <div
       style=${styleMap({
-        ...wrapperStyle(context),
         ...focusStyle(context),
-        padding: '2rem',
       })}
     >
       ${story()}

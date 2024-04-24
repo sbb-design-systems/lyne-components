@@ -3,11 +3,11 @@ import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { isChromium, isFirefox } from '../core/dom';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { isChromium, isFirefox } from '../core/dom.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
-import { SbbToggleCheckElement } from './toggle-check';
+import { SbbToggleCheckElement } from './toggle-check.js';
 
 interface ToggleCheckAccessibilitySnapshot {
   checked: boolean;
@@ -557,7 +557,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
                 focusable: false,
               });
 
-              element.toggleAttribute('disabled', false);
+              element.removeAttribute('disabled');
               await waitForLitRender(form);
 
               await assertDisabledState({
@@ -727,7 +727,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
             });
 
             // When performing
-            element.toggleAttribute('checked', false);
+            element.removeAttribute('checked');
             await waitForLitRender(form);
 
             // Attribute should be considered
@@ -744,7 +744,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
             await waitForLitRender(form);
 
             // Attribute mutation should be blocked again
-            element.toggleAttribute('checked', false);
+            element.removeAttribute('checked');
             await waitForLitRender(form);
 
             await assertState({

@@ -1,59 +1,37 @@
-import { dirname, join } from 'path';
+import { join } from 'path';
 
-import { cli } from '@custom-elements-manifest/analyzer/cli';
-import * as sass from 'sass';
-import type { PluginOption, ResolvedConfig, UserConfig } from 'vite';
-import { defineConfig, mergeConfig } from 'vite';
-import dts from 'vite-plugin-dts';
+import { defineConfig, mergeConfig, type UserConfig } from 'vite';
 
-import rootConfig, {
+import {
   copyAssets,
-  globIndexMap,
+  copySass,
+  customElementsManifest,
+  distDir,
+  dts,
+  resolveEntryPoints,
   isProdBuild,
   packageJsonTemplate,
-  root,
-} from '../../vite.config';
+  typography,
+  verifyEntryPoints,
+} from '../../tools/vite/index.js';
+import rootConfig from '../../vite.config.js';
 
 const packageRoot = new URL('.', import.meta.url);
-const outDir = new URL('./dist/components/', root);
 // Include all directories containing an index.ts
-const entryPoints = globIndexMap(packageRoot);
-const entryPointRoots = Object.keys(entryPoints)
-  .map((e) => join(packageRoot.pathname, dirname(e)))
-  .sort();
-const barrelExports = entryPointRoots
-  .filter((v) => entryPointRoots.some((e) => e.startsWith(`${v}/`)))
-  .map((e) => `${e}/index.ts`);
+const entryPoints = resolveEntryPoints(packageRoot, ['core', 'core/styles/**/']);
+const barrelExports = Object.keys(entryPoints)
+  .map((e) => join(packageRoot.pathname, e))
+  .sort()
+  .filter((v, _i, a) => a.some((e) => e.startsWith(`${v}/`)))
+  .map((e) => `${e}.ts`);
 
-/* eslint-disable @typescript-eslint/no-use-before-define */
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
     root: packageRoot.pathname,
     plugins: [
+      ...(config.command === 'build' ? [dts()] : []),
       ...(isProdBuild(config)
         ? [
-            dts({
-              entryRoot: '.',
-              include: `**/*.ts`,
-              exclude: [
-                '**/*[.-]{stories,spec,e2e,test-utils}.ts',
-                '**/private/*',
-                'vite.config.ts',
-              ],
-
-              beforeWriteFile: (filePath, content) => {
-                if (content.includes('.scss?lit&inline') || content.includes('.scss?inline&lit')) {
-                  return {
-                    filePath,
-                    // Remove lines with scss modules
-                    content: content.replace(
-                      /export \{[^}]+\}\s+from\s+'[^']+\.scss\?(lit&inline|inline&lit)';\n?/gm,
-                      '',
-                    ),
-                  };
-                }
-              },
-            }),
             customElementsManifest(),
             packageJsonTemplate({
               exports: {
@@ -61,10 +39,15 @@ export default defineConfig((config) =>
                 './typography.css': {
                   style: './typography.css',
                 },
+                './fullfont.css': {
+                  style: './fullfont.css',
+                },
               },
             }),
-            copyAssets(['_index.scss', 'core/styles/**/*.scss', '../../README.md']),
+            copyAssets(['_index.scss', '../../README.md']),
+            copySass('core/styles'),
             typography(),
+            verifyEntryPoints(),
           ]
         : []),
     ],
@@ -74,9 +57,11 @@ export default defineConfig((config) =>
         entry: entryPoints,
         formats: ['es'],
       },
-      minify: false,
-      outDir: outDir.pathname,
+      minify: isProdBuild(config),
+      outDir: new URL(`./components/${isProdBuild(config) ? '' : 'development/'}`, distDir)
+        .pathname,
       emptyOutDir: true,
+      sourcemap: isProdBuild(config) ? false : 'inline',
       rollupOptions: {
         external: (source: string, importer: string | undefined) => {
           if (
@@ -86,7 +71,7 @@ export default defineConfig((config) =>
           ) {
             if (source.includes('.scss')) {
               throw Error(`Do not import scss from another directory.
-               Re export sass via barrel export (index.ts). See button/common/index.ts.
+               Re export sass via barrel export (index.ts). See button/common.ts.
                Source: ${source}.
                Importer: ${importer}.`);
             }
@@ -99,40 +84,3 @@ export default defineConfig((config) =>
     assetsInclude: ['_index.scss', 'core/styles/**/*.scss', 'README.md'],
   }),
 );
-
-function customElementsManifest(): PluginOption {
-  return {
-    name: 'custom-elements-definition',
-    closeBundle() {
-      this.info(`Generating custom elements manifest`);
-      return cli({
-        argv: [
-          'analyze',
-          '--config',
-          new URL('./config/custom-elements-manifest.config.js', root).pathname,
-        ],
-        cwd: root.pathname,
-      });
-    },
-  };
-}
-
-function typography(): PluginOption {
-  let viteConfig: ResolvedConfig;
-  return {
-    name: 'typography',
-    configResolved(config) {
-      viteConfig = config;
-    },
-    generateBundle() {
-      const globalCss = sass.compile(join(viteConfig.root, 'core/styles/global.scss'), {
-        loadPaths: [root.pathname, join(root.pathname, '/node_modules/')],
-      });
-      this.emitFile({
-        type: 'asset',
-        fileName: 'typography.css',
-        source: globalCss.css,
-      });
-    },
-  };
-}

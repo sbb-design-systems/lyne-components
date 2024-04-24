@@ -2,12 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { FocusVisibleWithinController } from '../../core/a11y';
-import { SbbHydrationMixin } from '../../core/common-behaviors';
-import { findReferencedElement, isBrowser } from '../../core/dom';
+import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
+import { findReferencedElement, isBrowser } from '../../core/dom.js';
+import { SbbHydrationMixin } from '../../core/mixins.js';
 
 import style from './header.scss?lit&inline';
-import '../../logo';
+
+import '../../logo.js';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
@@ -68,7 +69,7 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._setListenerOnScrollElement(this.scrollOrigin);
-    new FocusVisibleWithinController(this);
+    new SbbFocusVisibleWithinController(this);
   }
 
   /** Removes the scroll listener, if previously attached. */
@@ -132,14 +133,12 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // Scrolling down
-        this.toggleAttribute('data-shadow', false);
-        this.toggleAttribute('data-visible', false);
+        ['data-shadow', 'data-visible'].forEach((name) => this.removeAttribute(name));
       } else {
         // Scrolling up
-        this.toggleAttribute('data-fixed', true);
-        this.toggleAttribute('data-shadow', true);
-        this.toggleAttribute('data-animated', true);
-        this.toggleAttribute('data-visible', true);
+        ['data-fixed', 'data-shadow', 'data-animated', 'data-visible'].forEach((name) =>
+          this.toggleAttribute(name, true),
+        );
       }
     } else {
       // Check if header in its original position, scroll position < header height.
@@ -148,10 +147,9 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
-        this.toggleAttribute('data-shadow', false);
-        this.toggleAttribute('data-animated', false);
-        this.toggleAttribute('data-fixed', false);
-        this.toggleAttribute('data-visible', false);
+        ['data-shadow', 'data-animated', 'data-fixed', 'data-visible'].forEach((name) =>
+          this.removeAttribute(name),
+        );
       }
     }
     // `currentScroll` can be negative, e.g. on mobile; this is not allowed.

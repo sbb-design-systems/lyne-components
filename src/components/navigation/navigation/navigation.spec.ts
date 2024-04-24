@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private.js';
 
-import './navigation';
-import '../navigation-button';
-import '../navigation-marker';
-import '../../button/button';
-import type { SbbNavigationElement } from './navigation';
+import './navigation.js';
+import '../navigation-button.js';
+import '../navigation-marker.js';
+import '../../button/button.js';
+import type { SbbNavigationElement } from './navigation.js';
 
 describe(`sbb-navigation`, () => {
   describe('renders', async () => {

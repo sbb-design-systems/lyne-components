@@ -1,15 +1,17 @@
 @use '../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
-  --image-border-radius: var(--sbb-border-radius-4x);
+  --sbb-image-border-radius: var(--sbb-border-radius-4x);
+  --sbb-image-aspect-ratio: auto;
   --sbb-image-animation-duration: var(
     --sbb-disable-animation-time,
     var(--sbb-animation-duration-4x)
   );
+
+  display: block;
 }
 
 .image__figure {
@@ -50,12 +52,12 @@
   position: relative;
   overflow: hidden;
   max-width: 100%;
-  border-radius: var(--image-border-radius);
+  border-radius: var(--sbb-image-border-radius);
 }
 
 // aspect ratios 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'
 .image__figure--ratio-free .image__wrapper {
-  aspect-ratio: auto;
+  aspect-ratio: var(--sbb-image-aspect-ratio);
 }
 
 .image__figure--ratio-1-1 .image__wrapper {

@@ -10,21 +10,16 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
-import type { SbbFormErrorElement } from '../form-error';
-import type { SbbFormFieldElement } from '../form-field';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import type { SbbFormErrorElement } from '../form-error.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 
 import readme from './readme.md?raw';
-import { SbbTimeInputElement } from './time-input';
-import '../button/secondary-button';
-import '../form-field';
-import '../form-error';
-
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
+import { SbbTimeInputElement } from './time-input.js';
+import '../button/secondary-button.js';
+import '../form-field.js';
+import '../form-error.js';
 
 const updateFormError = (event: CustomEvent): void => {
   const valid = event.detail.valid;
@@ -201,7 +196,7 @@ const basicArgs: Args = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options[0],
+  size: size.options![0],
   optional: false,
   borderless: false,
   iconStart: undefined,
@@ -211,7 +206,7 @@ const formFieldBasicArgs = {
 const formFieldBasicArgsWithIcons = {
   ...basicArgs,
   label: 'Label',
-  size: size.options[0],
+  size: size.options![0],
   optional: false,
   borderless: false,
   iconStart: 'clock-small',
@@ -361,18 +356,12 @@ export const SbbTimeInputWithErrorNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
       handles: ['change', 'input', SbbTimeInputElement.events.validationChange],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

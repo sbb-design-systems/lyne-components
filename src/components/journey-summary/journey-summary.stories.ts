@@ -1,23 +1,23 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 import {
   futureLeg,
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../pearl-chain/pearl-chain.sample-data';
+} from '../pearl-chain/pearl-chain.sample-data.js';
 
 import readme from './readme.md?raw';
 
-import './journey-summary';
-import '../button/button';
-import '../button/secondary-button';
+import './journey-summary.js';
+import '../button/button.js';
+import '../button/secondary-button.js';
 
 const disableAnimation: InputType = {
   control: {
@@ -78,7 +78,7 @@ const defaultArgs: Args = {
   'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   'round-trip': false,
-  'header-level': headerLevel.options[2],
+  'header-level': headerLevel.options![2],
   trip: undefined,
   tripBack: undefined,
 };
@@ -242,7 +242,7 @@ export const summaryHeaderLevel: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'header-level': headerLevel.options[4],
+    'header-level': headerLevel.options![4],
     trip: {
       legs: [pastLeg, progressLeg, futureLeg],
       origin: 'Bern',
@@ -256,11 +256,7 @@ export const summaryHeaderLevel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`${story()}`],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

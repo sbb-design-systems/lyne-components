@@ -1,9 +1,10 @@
 import type { CSSResultGroup } from 'lit';
 
-import type { SbbActionBaseElement, AbstractConstructor } from '../../core/common-behaviors';
+import type { SbbActionBaseElement } from '../../core/base-elements.js';
+import type { AbstractConstructor } from '../../core/mixins.js';
 
-import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common';
-// eslint-disable-next-line import/order
+import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common.js';
+// eslint-disable-next-line import-x/order
 import inlineStyle from './inline-link.scss?lit&inline';
 import style from './link.scss?lit&inline';
 

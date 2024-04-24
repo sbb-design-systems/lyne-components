@@ -7,30 +7,28 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import {
-  SbbFormAssociatedCheckboxMixin,
-  LanguageController,
-  NamedSlotStateController,
-  SbbIconNameMixin,
-  UpdateScheduler,
-  SbbHydrationMixin,
-} from '../../core/common-behaviors';
-import { EventEmitter } from '../../core/eventing';
-import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import { i18nCollapsed, i18nExpanded } from '../../core/i18n.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbIconPlacement,
   SbbStateChange,
-} from '../../core/interfaces';
-import type { SbbSelectionPanelElement } from '../../selection-panel';
-import type { SbbCheckboxGroupElement } from '../checkbox-group';
+} from '../../core/interfaces.js';
+import {
+  SbbFormAssociatedCheckboxMixin,
+  SbbHydrationMixin,
+  SbbUpdateSchedulerMixin,
+} from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbSelectionPanelElement } from '../../selection-panel.js';
+import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
 
 import style from './checkbox.scss?lit&inline';
 
-import '../../icon';
-import '../../screen-reader-only';
-import '../../visual-checkbox';
+import '../../screen-reader-only.js';
+import '../../visual-checkbox.js';
 
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,
@@ -51,7 +49,7 @@ export type SbbCheckboxSize = 's' | 'm';
  * @event {InputEvent} input - Event fired on input.
  */
 @customElement('sbb-checkbox')
-export class SbbCheckboxElement extends UpdateScheduler(
+export class SbbCheckboxElement extends SbbUpdateSchedulerMixin(
   SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(SbbHydrationMixin(LitElement))),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -95,7 +93,7 @@ export class SbbCheckboxElement extends UpdateScheduler(
   /** The label describing whether the selection panel is expanded (for screen readers only). */
   @state() private _selectionPanelExpandedLabel!: string;
 
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
   private _selectionPanelElement: SbbSelectionPanelElement | null = null;
 
   /**
@@ -121,7 +119,7 @@ export class SbbCheckboxElement extends UpdateScheduler(
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

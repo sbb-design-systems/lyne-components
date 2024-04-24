@@ -4,15 +4,15 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './toggle-check';
-import '../button/button';
-import '../button/secondary-button';
-import '../card';
-import '../icon';
-import '../title';
+import './toggle-check.js';
+import '../button/button.js';
+import '../button/secondary-button.js';
+import '../card.js';
+import '../icon.js';
+import '../title.js';
 
 const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum.
@@ -89,14 +89,14 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
+  size: size.options![0],
   checked: false,
   disabled: false,
   label: 'Label',
   value: 'Value',
   name: 'name',
   'icon-name': undefined,
-  'label-position': labelPosition.options[1],
+  'label-position': labelPosition.options![1],
   'aria-label': undefined,
 };
 
@@ -178,7 +178,7 @@ export const SbbToggleCheckDefaultSizeM: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
@@ -206,7 +206,7 @@ export const SbbToggleCheckDefaultLongLabelSizeM: StoryObj = {
   args: {
     ...defaultArgs,
     label: longLabel,
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
@@ -288,9 +288,6 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: ['change', 'input'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

@@ -2,13 +2,13 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import type { SbbTabTitleElement } from '../tab-title';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition } from '../../core/testing.js';
+import type { SbbTabTitleElement } from '../tab-title.js';
 
-import { SbbTabGroupElement } from './tab-group';
+import { SbbTabGroupElement } from './tab-group.js';
 
-import '../tab-title';
+import '../tab-title.js';
 
 describe(`sbb-tab-group with ${fixture.name}`, () => {
   let element: SbbTabGroupElement;
@@ -24,7 +24,7 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
         <div>Test tab content 3</div>
         <sbb-tab-title id="sbb-tab-4">Test tab label 4</sbb-tab-title>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.ts', '../tab-title/index.ts'] },
+      { modules: ['./tab-group.ts', '../tab-title.ts'] },
     );
   });
 
@@ -114,7 +114,7 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
         <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.ts', '../tab-title/index.ts'] },
+      { modules: ['./tab-group.ts', '../tab-title.ts'] },
     );
     const tab = element.querySelector('sbb-tab-title#sbb-tab-1');
     expect(tab).to.have.attribute('active');
@@ -128,7 +128,7 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
         <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.ts', '../tab-title/index.ts'] },
+      { modules: ['./tab-group.ts', '../tab-title.ts'] },
     );
     const tab = element.querySelector('sbb-tab-title#sbb-tab-2');
     expect(tab).to.have.attribute('active');

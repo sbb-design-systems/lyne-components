@@ -2,19 +2,17 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  hostAttributes,
-  LanguageController,
-  SbbButtonBaseElement,
-  SbbNegativeMixin,
-} from '../../core/common-behaviors';
-import { hostContext, isValidAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
-import { i18nClearInput } from '../../core/i18n';
-import type { SbbFormFieldElement } from '../form-field';
-import '../../icon';
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { hostContext } from '../../core/dom.js';
+import { i18nClearInput } from '../../core/i18n.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 
 import style from './form-field-clear.scss?lit&inline';
+
+import '../../icon.js';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
@@ -27,8 +25,8 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
   public static override styles: CSSResultGroup = style;
 
   private _formField?: SbbFormFieldElement;
-  private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -39,7 +37,7 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
       (hostContext('[data-form-field]', this) as SbbFormFieldElement);
 
     if (this._formField) {
-      this.negative = isValidAttribute(this._formField, 'negative');
+      this.negative = this._formField.hasAttribute('negative');
     }
   }
 

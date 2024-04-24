@@ -1,40 +1,30 @@
-import { spread } from '@open-wc/lit-helpers';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  assignId,
   getFirstFocusableElement,
   getFocusableElements,
   setModalityOnNextFocus,
-} from '../../core/a11y';
-import {
-  hostAttributes,
-  LanguageController,
-  NamedSlotStateController,
-  UpdateScheduler,
-} from '../../core/common-behaviors';
-import {
-  findReferencedElement,
-  isBreakpoint,
-  isValidAttribute,
-  setAttribute,
-} from '../../core/dom';
-import { i18nGoBack } from '../../core/i18n';
-import type { SbbOverlayState } from '../../core/overlay';
+} from '../../core/a11y.js';
+import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { findReferencedElement, isBreakpoint, setOrRemoveAttribute } from '../../core/dom.js';
+import { i18nGoBack } from '../../core/i18n.js';
+import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay';
-import type { SbbNavigationElement } from '../navigation';
-import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationLinkElement } from '../navigation-link';
-import '../../divider';
-import '../../button/transparent-button';
+} from '../../core/overlay.js';
+import type { SbbNavigationButtonElement } from '../navigation-button.js';
+import type { SbbNavigationLinkElement } from '../navigation-link.js';
+import type { SbbNavigationElement } from '../navigation.js';
 
 import style from './navigation-section.scss?lit&inline';
+
+import '../../button/transparent-button.js';
+import '../../divider.js';
 
 let nextId = 0;
 
@@ -47,7 +37,7 @@ let nextId = 0;
 @hostAttributes({
   slot: 'navigation-section',
 })
-export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
+export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -85,7 +75,13 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   /**
    * The state of the navigation section.
    */
-  @state() private _state: SbbOverlayState = 'closed';
+  private set _state(state: SbbOpenedClosedState) {
+    this.setAttribute('data-state', state);
+    setOrRemoveAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
+  }
 
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
   private _navigationSection!: HTMLElement;
@@ -93,12 +89,11 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   private _triggerElement: SbbNavigationButtonElement | null = null;
   private _navigationSectionController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
-  private _language = new LanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
-    new NamedSlotStateController(this);
+    new SbbSlotStateController(this);
   }
 
   /**
@@ -165,12 +160,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(
-      this._triggerElement,
-      'menu',
-      this.id || this._navigationSectionId,
-      this._state,
-    );
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
     this._navigationSectionController?.abort();
     this._navigationSectionController = new AbortController();
     this._triggerElement.connectedSection = this;
@@ -221,7 +211,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     const activeActions = Array.from(
       this.querySelectorAll('[data-section-action][data-action-active]'),
     ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
-    activeActions?.forEach((action) => action.toggleAttribute('data-action-active', false));
+    activeActions?.forEach((action) => action.removeAttribute('data-action-active'));
   }
 
   private _attachWindowEvents(): void {
@@ -249,7 +239,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   private _isCloseElement(element: HTMLElement): boolean {
     return (
       element.nodeName === 'A' ||
-      (!isValidAttribute(element, 'disabled') &&
+      (!element.hasAttribute('disabled') &&
         (element.hasAttribute('sbb-navigation-close') ||
           element.hasAttribute('sbb-navigation-section-close')))
     );
@@ -325,6 +315,8 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.id ||= `sbb-navigation-section-${nextId++}`;
+    this._state ||= 'closed';
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
@@ -337,16 +329,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    // Accessibility label should win over aria-labelledby
-    let accessibilityAttributes: Record<string, string> = { 'aria-labelledby': 'title' };
-    if (this.accessibilityLabel) {
-      accessibilityAttributes = { 'aria-label': this.accessibilityLabel };
-    }
-
-    setAttribute(this, 'data-state', this._state);
-    setAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
-    assignId(() => this._navigationSectionId)(this);
-
     return html`
       <div
         class="sbb-navigation-section__container"
@@ -355,7 +337,8 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
         <nav
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
           class="sbb-navigation-section"
-          ${spread(accessibilityAttributes)}
+          aria-labelledby=${!this.accessibilityLabel ? 'title' : nothing}
+          aria-label=${this.accessibilityLabel ? this.accessibilityLabel : nothing}
           ${ref(
             (navigationSectionRef?: Element) =>
               (this._navigationSection = navigationSectionRef as HTMLElement),

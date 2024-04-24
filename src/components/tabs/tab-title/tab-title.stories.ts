@@ -3,11 +3,11 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../../icon';
-import './tab-title';
+import '../../icon.js';
+import './tab-title.js';
 
 const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`
   <sbb-tab-title ${sbbSpread(args)}>
@@ -71,7 +71,7 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   label: 'Tab title',
-  'icon-name': iconName.options[0],
+  'icon-name': iconName.options![0],
   iconSlot: undefined,
   amount: 123,
   amountSlot: undefined,
@@ -150,15 +150,11 @@ export const WithEllipsis: StoryObj = {
     ...basicArgs,
     label: `A very long label which gets ellipsis when there is no more space to display it`,
   },
-  decorators: [(story) => html` <div style="max-width: 400px;">${story()}</div> `],
+  decorators: [(story) => html`<div style="max-width: 400px;">${story()}</div>`],
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

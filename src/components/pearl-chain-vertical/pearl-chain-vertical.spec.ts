@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
-import type { SbbPearlChainVerticalElement } from './pearl-chain-vertical';
+import type { SbbPearlChainVerticalElement } from './pearl-chain-vertical.js';
 
-import './pearl-chain-vertical';
+import './pearl-chain-vertical.js';
 
 describe(`sbb-pearl-chain-vertical`, () => {
   it('renders', async () => {

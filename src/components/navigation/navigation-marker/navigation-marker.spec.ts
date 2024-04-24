@@ -1,21 +1,26 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture } from '../../core/testing/private.js';
 
-import './navigation-marker';
+import type { SbbNavigationMarkerElement } from './navigation-marker.js';
+
+import './navigation-marker.js';
 
 describe(`sbb-navigation-marker`, () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-navigation-marker></sbb-navigation-marker>`);
+  let element: SbbNavigationMarkerElement;
 
-    expect(root).dom.to.be.equal(`<sbb-navigation-marker size="l"></sbb-navigation-marker>`);
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span hidden="">
-          <slot></slot>
-        </span>
-      `,
-    );
+  describe('renders', async () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-navigation-marker size="l"></sbb-navigation-marker>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 });

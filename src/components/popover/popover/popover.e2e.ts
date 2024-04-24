@@ -2,14 +2,14 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import type { SbbButtonElement } from '../../button.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
 
-import { SbbPopoverElement } from './popover';
+import { SbbPopoverElement } from './popover.js';
 
-import '../../button/button';
-import '../../link';
+import '../../button/button.js';
+import '../../link.js';
 
 describe(`sbb-popover with ${fixture.name}`, () => {
   let element: SbbPopoverElement, trigger: SbbButtonElement;
@@ -29,7 +29,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
             >
           </span>
         `,
-        { modules: ['../../button/index.ts', './popover.ts', '../../link/index.ts'] },
+        { modules: ['../../button.ts', './popover.ts', '../../link.ts'] },
       );
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
@@ -170,7 +170,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
       expect(element).to.have.attribute('data-state', 'opened');
 
       const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
-        `--sbb-size-button-l-min-height-large`,
+        `--sbb-size-element-m`,
       );
       expect(buttonHeight.trim()).to.be.equal('3.5rem');
 
@@ -218,8 +218,8 @@ describe(`sbb-popover with ${fixture.name}`, () => {
       await sendMouse({
         type: 'click',
         position: [
-          interactiveElementPosition.x + interactiveElementPosition.width / 2,
-          interactiveElementPosition.y + interactiveElementPosition.height / 2,
+          Math.round(interactiveElementPosition.x + interactiveElementPosition.width / 2),
+          Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2),
         ],
       });
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
@@ -400,7 +400,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
             >
           </span>
         `,
-        { modules: ['../../button/index.ts', './popover.ts', '../../link/index.ts'] },
+        { modules: ['../../button.ts', './popover.ts', '../../link.ts'] },
       );
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
@@ -466,7 +466,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
           </sbb-popover>
         </div>
       `,
-      { modules: ['../../link/index.ts', '../../button/index.ts', './popover.ts'] },
+      { modules: ['../../link.ts', '../../button.ts', './popover.ts'] },
     );
     trigger = root.querySelector<SbbButtonElement>('#popover-trigger')!;
     element = root.querySelector<SbbPopoverElement>('#popover')!;

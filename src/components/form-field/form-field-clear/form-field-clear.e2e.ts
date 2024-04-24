@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
-import { SbbFormFieldElement } from '../form-field';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import { SbbFormFieldElement } from '../form-field.js';
 
-import { SbbFormFieldClearElement } from './form-field-clear';
+import { SbbFormFieldClearElement } from './form-field-clear.js';
 
 describe(`sbb-form-field-clear with ${fixture.name}`, () => {
   let element: SbbFormFieldClearElement;
@@ -19,7 +19,7 @@ describe(`sbb-form-field-clear with ${fixture.name}`, () => {
         <input id="input" type="text" placeholder="Input placeholder" value="Input value" />
         <sbb-form-field-clear></sbb-form-field-clear>
       </sbb-form-field>`,
-      { modules: ['../form-field/index.ts', './form-field-clear.ts'] },
+      { modules: ['../form-field.ts', './form-field-clear.ts'] },
     );
     element = formField.querySelector<SbbFormFieldClearElement>('sbb-form-field-clear')!;
     input = formField.querySelector<HTMLInputElement>('input')!;
@@ -42,7 +42,7 @@ describe(`sbb-form-field-clear with ${fixture.name}`, () => {
   });
 
   it('is hidden if the form field is disabled', async () => {
-    input.setAttribute('disabled', '');
+    input.toggleAttribute('disabled', true);
 
     await waitForLitRender(element);
 
@@ -50,7 +50,7 @@ describe(`sbb-form-field-clear with ${fixture.name}`, () => {
   });
 
   it('is hidden if the form field is readonly', async () => {
-    input.setAttribute('readonly', '');
+    input.toggleAttribute('readonly', true);
 
     await waitForLitRender(element);
 

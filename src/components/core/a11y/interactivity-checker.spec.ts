@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { InteractivityChecker } from './interactivity-checker';
+import { InteractivityChecker } from './interactivity-checker.js';
 
 describe('InteractivityChecker', () => {
   let testContainerElement: HTMLElement;

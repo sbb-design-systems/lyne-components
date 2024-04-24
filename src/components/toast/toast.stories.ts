@@ -9,19 +9,19 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import type { SbbButtonElement } from '../button';
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
+import type { SbbButtonElement } from '../button.js';
 
 import readme from './readme.md?raw';
-import { SbbToastElement } from './toast';
-import '../button/button';
-import '../button/transparent-button';
-import '../link/link';
+import { SbbToastElement } from './toast.js';
+import '../button/button.js';
+import '../button/transparent-button.js';
+import '../link/link.js';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
@@ -170,10 +170,7 @@ export const WithActionLink: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem; height: calc(100vh - 2rem);">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -184,10 +181,9 @@ const meta: Meta = {
         SbbToastElement.events.didClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
+      story: { inline: false, iframeHeight: '200px' },
       extractComponentDescription: () => readme,
     },
   },
