@@ -54,7 +54,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
     // event origin, which means the inner anchor element has not actually been activated/clicked.
     if (
       !this.href ||
-      !target.tagName.startsWith('SBB-') ||
+      !target.localName.startsWith('sbb-') ||
       target !== composedTarget ||
       (await isEventPrevented(event))
     ) {
