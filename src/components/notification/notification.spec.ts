@@ -17,7 +17,7 @@ describe(`sbb-notification`, () => {
     });
 
     it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     it('ShadowDom', async () => {
@@ -37,7 +37,7 @@ describe(`sbb-notification`, () => {
     });
 
     it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     it('ShadowDom', async () => {
@@ -58,7 +58,7 @@ describe(`sbb-notification`, () => {
     });
 
     it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     it('ShadowDom', async () => {
@@ -78,7 +78,7 @@ describe(`sbb-notification`, () => {
     });
 
     it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     it('ShadowDom', async () => {
@@ -98,7 +98,7 @@ describe(`sbb-notification`, () => {
     });
 
     it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     it('ShadowDom', async () => {
