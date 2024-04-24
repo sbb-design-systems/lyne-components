@@ -181,8 +181,10 @@ const setProperty = <E extends Element>(
 ) => {
   const event = events?.[name];
   // Dirty check event value.
-  if (event !== undefined && value !== old) {
-    addOrUpdateEventListener(node, event, value as (e?: Event) => void);
+  if (event !== undefined) {
+    if (value !== old) {
+      addOrUpdateEventListener(node, event, value as (e?: Event) => void);
+    }
     return;
   }
   // But don't dirty check properties; elements are assumed to do this.
@@ -253,7 +255,7 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
   type Props = ComponentProps<I, E>;
 
   const ReactComponent = React.forwardRef<I, Props>((props, ref) => {
-    const prevPropsRef = React.useRef<Props | null>(null);
+    const prevElemPropsRef = React.useRef(new Map());
     const elementRef = React.useRef<I | null>(null);
 
     // Props to be passed to React.createElement
@@ -308,20 +310,26 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
         if (elementRef.current === null) {
           return;
         }
-        for (const prop in elementProps) {
+        const newElemProps = new Map();
+        for (const key in elementProps) {
           setProperty(
             elementRef.current,
-            prop,
-            props[prop],
-            prevPropsRef.current ? prevPropsRef.current[prop] : undefined,
+            key,
+            props[key],
+            prevElemPropsRef.current.get(key),
             events,
           );
+          prevElemPropsRef.current.delete(key);
+          newElemProps.set(key, props[key]);
         }
-        // Note, the spirit of React might be to "unset" any old values that
-        // are no longer included; however, there's no reasonable value to set
-        // them to so we just leave the previous state as is.
-
-        prevPropsRef.current = props;
+        // "Unset" any props from previous render that no longer exist.
+        // Setting to `undefined` seems like the correct thing to "unset"
+        // but currently React will set it as `null`.
+        // See https://github.com/facebook/react/issues/28203
+        for (const [key, value] of prevElemPropsRef.current) {
+          setProperty(elementRef.current, key, undefined, value, events);
+        }
+        prevElemPropsRef.current = newElemProps;
       });
 
       // Empty dependency array so this will only run once after first render.
@@ -335,7 +343,8 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
       // element properties in a special bag to be set by the server-side
       // element renderer.
       if (
-        React.createElement.name === 'litPatchedCreateElement' &&
+        (React.createElement.name === 'litPatchedCreateElement' ||
+          (globalThis as unknown as { litSsrReactEnabled: boolean }).litSsrReactEnabled) &&
         Object.keys(elementProps).length
       ) {
         // This property needs to remain unminified.
