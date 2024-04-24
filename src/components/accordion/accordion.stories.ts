@@ -227,12 +227,6 @@ export const Multi: StoryObj = {
   args: { ...defaultArgs, multi: true },
 };
 
-export const NoAnimation: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
-};
-
 export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,

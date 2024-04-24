@@ -200,12 +200,6 @@ export const LongText: StoryObj = {
   args: { ...defaultArgs, headerText: longText, contentText: longText },
 };
 
-export const NoAnimation: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
-};
-
 export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
