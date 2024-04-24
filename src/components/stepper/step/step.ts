@@ -1,5 +1,6 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
@@ -142,7 +143,6 @@ export class SbbStepElement extends LitElement {
   }
 
   protected override firstUpdated(): void {
-    this._stepResizeObserver.observe(this.shadowRoot!.querySelector('.sbb-step')!);
     if (this.label) {
       this.setAttribute('aria-labelledby', this.label.id);
     }
@@ -157,7 +157,10 @@ export class SbbStepElement extends LitElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-step--wrapper">
-        <div class="sbb-step">
+        <div
+          class="sbb-step"
+          ${ref((step) => step && this._stepResizeObserver.observe(step as HTMLElement))}
+        >
           <slot></slot>
         </div>
       </div>

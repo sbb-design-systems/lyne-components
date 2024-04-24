@@ -93,6 +93,7 @@ export class SbbStepperElement extends LitElement {
       this._select(this.steps[this.selectedIndex + 1]);
     }
   }
+
   /**
    * Selects the previous step.
    */
