@@ -235,7 +235,11 @@ export class SbbStepperElement extends LitElement {
 
   private _configureLinearMode(): void {
     this.steps.forEach((step, index) => {
-      step.label?.toggleAttribute('disabled', this.linear && index - 1 > this.selectedIndex!);
+      step.label?.toggleAttribute(
+        'disabled',
+        (this.linear && index - 1 > this.selectedIndex!) ||
+          (!this.linear && step.label.hasAttribute('data-disabled')),
+      );
     });
   }
 

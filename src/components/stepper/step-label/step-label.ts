@@ -85,6 +85,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
     this._internals.ariaSelected = 'false';
     this._stepper = this.closest('sbb-stepper');
     this._step = this._getStep();
+    this.toggleAttribute('data-disabled', this.hasAttribute('disabled'));
     this.addEventListener(
       'click',
       () => {

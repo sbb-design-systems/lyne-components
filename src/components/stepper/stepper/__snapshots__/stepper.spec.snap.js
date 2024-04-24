@@ -59,6 +59,7 @@ snapshots["sbb-stepper renders - Dom"] =
     aria-disabled="true"
     data-action=""
     data-button=""
+    data-disabled=""
     data-orientation="horizontal"
     dir="ltr"
     disabled=""
