@@ -49,6 +49,7 @@ describe('sbb-step-label', () => {
             aria-disabled="true"
             data-action
             data-button
+            data-disabled
             dir="ltr"
             disabled
             id="sbb-step-label-2"
