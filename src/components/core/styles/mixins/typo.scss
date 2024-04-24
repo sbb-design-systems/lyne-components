@@ -213,6 +213,7 @@
 @mixin legend {
   @include text-xs--regular;
 
+  padding: 0;
   color: var(--sbb-color-granite);
 }
 

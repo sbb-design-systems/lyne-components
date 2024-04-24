@@ -1,17 +1,9 @@
-@use './mixins/helpers';
-
 /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
 Document
 ========
 */
-
-/**
-Use a better box model (opinionated).
-*/
-
-@include helpers.box-sizing;
 
 /**
 1. Correct the line height in all browsers. ///// Commented out since we define own line-height /////

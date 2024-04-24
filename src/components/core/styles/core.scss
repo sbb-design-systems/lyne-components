@@ -6,6 +6,9 @@
 @use './mixins/a11y';
 @use './mixins/scrollbar';
 @use './mixins/typo';
+@use './mixins/helpers';
+
+@include helpers.box-sizing;
 
 // Core variables, are always needed
 :root {

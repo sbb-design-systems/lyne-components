@@ -1,5 +1,6 @@
 @use './_index' as sbb;
-@use './normalize';
+
+// @use './normalize'; // TODO: enable again
 @use './core';
 @use './typography';
 @use './a11y';
