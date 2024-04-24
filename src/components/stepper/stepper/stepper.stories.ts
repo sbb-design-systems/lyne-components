@@ -74,6 +74,8 @@ const textBlock = (): TemplateResult => html`
 `;
 
 const WithSingleFormTemplate = (args: Args): TemplateResult => {
+  document.querySelector('sbb-stepper')?.reset();
+  document.querySelector('sbb-form-error')?.remove();
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
@@ -182,6 +184,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
 };
 
 const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
+  document.querySelector('sbb-stepper')?.reset();
+  document.querySelector('sbb-form-error')?.remove();
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
