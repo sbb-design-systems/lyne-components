@@ -98,10 +98,6 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 </sbb-toast>
 ```
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

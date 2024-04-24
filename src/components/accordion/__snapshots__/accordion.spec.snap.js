@@ -6,7 +6,6 @@ snapshots["sbb-accordion renders - Dom"] =
   <sbb-expansion-panel
     data-accordion=""
     data-accordion-first=""
-    data-state="closed"
   >
     <sbb-expansion-panel-header
       aria-controls="sbb-expansion-panel-content-1"
@@ -35,7 +34,6 @@ snapshots["sbb-accordion renders - Dom"] =
   <sbb-expansion-panel
     data-accordion=""
     data-accordion-last=""
-    data-state="closed"
   >
     <sbb-expansion-panel-header
       aria-controls="sbb-expansion-panel-content-2"

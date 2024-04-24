@@ -100,10 +100,6 @@ Opened panel:
 | <kbd>Shift</kbd><kbd>Up Arrow</kbd>     | If `multiple`, moves to the next non-disabled option and toggle its selection.                                                                    |
 | Any char or number                      | If exists, select the first non-disabled matching option after the selected value.                                                                |
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-expansion-panel renders Dom"] = 
-`<sbb-expansion-panel data-state="closed">
+`<sbb-expansion-panel>
   <sbb-expansion-panel-header
     aria-controls="sbb-expansion-panel-content-1"
     aria-expanded="false"
@@ -47,10 +47,7 @@ snapshots["sbb-expansion-panel renders ShadowDom"] =
 /* end snapshot sbb-expansion-panel renders ShadowDom */
 
 snapshots["sbb-expansion-panel renders with level set Dom"] = 
-`<sbb-expansion-panel
-  data-state="closed"
-  title-level="4"
->
+`<sbb-expansion-panel title-level="4">
   <sbb-expansion-panel-header
     aria-controls="sbb-expansion-panel-content-3"
     aria-expanded="false"

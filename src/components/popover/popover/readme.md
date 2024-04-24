@@ -74,10 +74,6 @@ If the close button is not hidden, it's the first element and therefore gets foc
 
 Overlays should always contain a heading level 2 title. It can be visually hidden if necessary.
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

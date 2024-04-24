@@ -93,10 +93,6 @@ Nesting interactive controls like this interferes with many assistive technologi
 The component preserves focus on the input trigger,
 using `aria-activedescendant` to support navigation though the autocomplete options.
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -45,10 +45,6 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 </div>
 ```
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties

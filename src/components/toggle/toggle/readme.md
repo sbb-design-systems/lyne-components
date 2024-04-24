@@ -30,10 +30,6 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 <sbb-toggle size="s" even> ... </sbb-toggle>
 ```
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties
