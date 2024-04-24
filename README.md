@@ -7,7 +7,7 @@
 
 ## 🎯 Our aim
 
-To fulfill our [Vision](./docs/VISION.md), we are building and maintaining Lyne, our Design System, which is and acts
+To fulfill our [Vision](./docs/VISION.mdx), we are building and maintaining Lyne, our Design System, which is and acts
 as our common language — our Single Source of Truth.
 For this purpose we use [Design Tokens](https://github.com/lyne-design-system/lyne-design-tokens) as our design abstractions.
 Those [Design Tokens](https://github.com/lyne-design-system/lyne-design-tokens) are consumed by Lyne Components and are integrated within our documentation.
@@ -18,7 +18,7 @@ Lyne Design Tokens and Lyne Components are available for developers and designer
 
 - General docs: [digital.sbb.ch](https://digital.sbb.ch)
 - Component docs: [Storybook](https://lyne-storybook.app.sbb.ch)
-- [Getting started guide](./docs/GETTING_STARTED.md)
+- [Getting started guide](./docs/GETTING_STARTED.mdx)
 
 ## 🔗 Packages
 
