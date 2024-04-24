@@ -54,7 +54,12 @@ const testRunnerHtml = (testFramework, _config, group) => `
 <!DOCTYPE html>
 <html>
   <head>
-    <style type="text/css">${renderStyles()}</style>
+    <style type="text/css">${renderStyles()}
+
+body {
+  margin: 0; /* Remove the margin in all browsers.     // TODO: remove again (testing) */
+}
+</style>
     <script>
       globalThis.testEnv = '${isDebugMode ? 'debug' : ''}';
       globalThis.testGroup = '${groupNameOverride ?? group?.name ?? 'default'}';
