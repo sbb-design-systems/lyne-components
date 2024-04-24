@@ -120,7 +120,7 @@ export class SbbStepperElement extends LitElement {
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
 
   private _isValidStep(step: SbbStepElement): boolean {
-    if (!step || step === this.selected || step.hasAttribute('disabled')) {
+    if (!step || step === this.selected || step.label?.hasAttribute('disabled')) {
       return false;
     }
 
@@ -190,7 +190,7 @@ export class SbbStepperElement extends LitElement {
     return (
       offset +
       this.selected!.label!.offsetHeight! +
-      parseFloat(getComputedStyle(this).getPropertyValue('--sbb-spacing-responsive-m')) *
+      parseFloat(getComputedStyle(this).getPropertyValue('--sbb-spacing-fixed-6x')) *
         16 *
         this.selectedIndex
     );

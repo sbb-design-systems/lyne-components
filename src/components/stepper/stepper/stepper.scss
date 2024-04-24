@@ -38,7 +38,7 @@
   flex-direction: var(--sbb-stepper-orientation);
   position: relative;
   justify-content: space-between;
-  margin-block-end: var(--sbb-spacing-responsive-m);
+  margin-block-end: var(--sbb-spacing-fixed-8x);
 
   &::before {
     content: '';
@@ -97,7 +97,7 @@
 
     content: counter(step-label);
     counter-increment: step-label;
-    cursor: pointer;
+    cursor: var(--sbb-step-label-cursor);
     color: var(--sbb-step-label-color);
     inset-block-start: calc(
       var(--sbb-font-size-text-l) * (var(--sbb-typo-line-height-body-text) / 2) +
@@ -124,18 +124,12 @@
   @include sbb.text-xxs--bold;
 
   :host([orientation='vertical']) & {
-    margin-block-end: var(--sbb-spacing-responsive-m);
+    margin-block-end: var(--sbb-spacing-fixed-8x);
   }
 }
 
 ::slotted(sbb-step-label:not(:first-child)) {
   :host([orientation='vertical']) & {
-    margin-block-start: var(--sbb-spacing-responsive-m);
-  }
-}
-
-::slotted(sbb-step[data-selected]:not(:last-child)) {
-  :host([orientation='vertical']) & {
-    margin-block-end: var(--sbb-spacing-fixed-8x);
+    margin-block-start: var(--sbb-spacing-fixed-6x);
   }
 }
