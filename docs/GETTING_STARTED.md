@@ -1,7 +1,3 @@
-import { Meta } from '@storybook/blocks';
-
-<Meta title="introduction/Getting Started" />
-
 # Getting Started
 
 Basic steps to integrate the lyne components into your project.

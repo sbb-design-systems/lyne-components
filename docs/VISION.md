@@ -1,7 +1,3 @@
-import { Meta } from '@storybook/blocks';
-
-<Meta title="introduction/Vision" />
-
 # Lyne Design System — Vision
 
 ## What _Lyne_ is and why we need it
