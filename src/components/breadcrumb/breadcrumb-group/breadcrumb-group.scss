@@ -44,8 +44,11 @@
   --sbb-breadcrumb-group-ellipsis-border-color: var(--sbb-color-silver);
 
   @include sbb.button-reset;
-  @include sbb.text--bold;
+  @include sbb.text-xxs--regular;
 
+  // line height and letter-spacing needed to match squares drawn in Figma.
+  line-height: 0;
+  letter-spacing: 0.01em;
   width: var(--sbb-size-icon-ui-small);
   height: var(--sbb-size-icon-ui-small);
   border: var(--sbb-breadcrumb-group-ellipsis-border-width) solid

@@ -15,7 +15,9 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import { SbbTabGroupElement } from './tab-group.js';
+
 import '../tab-title.js';
+import '../../title.js';
 
 const firstTabTitle = (label: string, args: Args): TemplateResult => html`
   <sbb-tab-title ${sbbSpread(args)}>${label}</sbb-tab-title>
@@ -27,7 +29,7 @@ const tabPanelOne = (): TemplateResult => html`
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
     turpis in eu mi bibendum neque egestas congue.
-    <h3>Content heading</h3>
+    <sbb-title level="5">Content heading</sbb-title>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec.
