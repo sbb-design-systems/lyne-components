@@ -47,7 +47,7 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   private _abort = new SbbConnectedAbortController(this);
 
   private _closePanels(e: CustomEvent): void {
-    if ((e.target as HTMLElement)?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {
+    if ((e.target as HTMLElement)?.localName !== 'sbb-expansion-panel' || this.multi) {
       return;
     }
 

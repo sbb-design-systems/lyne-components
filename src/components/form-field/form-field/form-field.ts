@@ -215,7 +215,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     this._readInputState();
     this._registerInputListener();
 
-    if (this._input.tagName === 'TEXTAREA') {
+    if (this._input.localName === 'textarea') {
       this._input.setAttribute('rows', this._input.getAttribute('rows') || '3');
     }
 

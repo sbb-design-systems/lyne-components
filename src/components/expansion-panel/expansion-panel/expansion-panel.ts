@@ -137,10 +137,10 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _handleSlotchange(): void {
     const children = Array.from(this.children ?? []);
     const header = children.find(
-      (e): e is SbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
+      (e): e is SbbExpansionPanelHeaderElement => e.localName === 'sbb-expansion-panel-header',
     );
     const content = children.find(
-      (e): e is SbbExpansionPanelContentElement => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
+      (e): e is SbbExpansionPanelContentElement => e.localName === 'sbb-expansion-panel-content',
     );
     if (this._headerRef === header && this._contentRef === content) {
       return;
