@@ -191,7 +191,7 @@ and on [storybook](https://lyne-storybook.app.sbb.ch).
 
 ### Full Font
 
-The `typography.css` file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
+The `typography.css` file only contains a subset of the `SBB` fonts that do not contain all characters (e.g. the French "œ").
 For including the full fontset, we provide the `fullfont.css` file which can be added after the `typography.css` file.
 
 ```css
