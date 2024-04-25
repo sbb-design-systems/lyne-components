@@ -85,6 +85,13 @@ const disabled: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 's'],
+};
+
 const defaultArgTypes: ArgTypes = {
   headerText,
   iconName,
@@ -94,6 +101,7 @@ const defaultArgTypes: ArgTypes = {
   color,
   borderless,
   disabled,
+  size,
 };
 
 const defaultArgs: Args = {
@@ -105,6 +113,7 @@ const defaultArgs: Args = {
   color: color.options![0],
   borderless: false,
   disabled: false,
+  size: size.options![0],
 };
 
 const Template = ({ headerText, iconName, contentText, ...args }: Args): TemplateResult => html`
@@ -189,6 +198,18 @@ export const LongText: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, headerText: longText, contentText: longText },
+};
+
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
+};
+
+export const SizeSWithIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1], iconName: 'swisspass-medium' },
 };
 
 const meta: Meta = {
