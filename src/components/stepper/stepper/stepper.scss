@@ -38,7 +38,7 @@
   flex-direction: var(--sbb-stepper-orientation);
   position: relative;
   justify-content: space-between;
-  margin-block-end: var(--sbb-spacing-fixed-8x);
+  margin-block-end: var(--sbb-spacing-responsive-m);
 
   &::before {
     content: '';
