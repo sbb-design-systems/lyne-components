@@ -1,6 +1,6 @@
 import { LitElement } from 'lit';
 
-import { EventEmitter } from '../eventing/event-emitter.js';
+import { EventEmitter } from '../eventing.js';
 import type { SbbOpenedClosedState } from '../interfaces.js';
 
 /** Base class for overlay components. */
