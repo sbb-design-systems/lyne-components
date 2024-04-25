@@ -1,12 +1,13 @@
-import { LitElement, type PropertyValues } from 'lit';
+import { type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbFocusHandler } from '../../core/a11y.js';
+import { SbbOverlayBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { hostContext, SbbScrollHandler } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nDialog } from '../../core/i18n.js';
-import type { SbbDialogCloseEventDetails, SbbOpenedClosedState } from '../../core/interfaces.js';
+import type { SbbDialogCloseEventDetails } from '../../core/interfaces.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
 import { applyInertMechanism, removeInertMechanism } from '../../core/overlay.js';
 import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only.js';
@@ -14,42 +15,12 @@ import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only.js';
 // A global collection of existing dialogs
 export const dialogRefs: SbbDialogBaseElement[] = [];
 
-export abstract class SbbDialogBaseElement extends SbbNegativeMixin(LitElement) {
-  public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
-  } as const;
-
+export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOverlayBaseElement) {
   /** This will be forwarded as aria-label to the relevant nested element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
-  /** The state of the overlay. */
-  protected set state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
-  }
-  protected get state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
-  /** Emits whenever the `sbb-dialog` starts the opening transition. */
-  protected willOpen: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbDialogBaseElement.events.willOpen,
-  );
-
-  /** Emits whenever the `sbb-dialog` is opened. */
-  protected didOpen: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbDialogBaseElement.events.didOpen,
-  );
-
-  /** Emits whenever the `sbb-dialog` begins the closing transition. */
-  protected willClose: EventEmitter = new EventEmitter(this, SbbDialogBaseElement.events.willClose);
-
   /** Emits whenever the `sbb-dialog` is closed. */
-  protected didClose: EventEmitter<SbbDialogCloseEventDetails> = new EventEmitter(
+  protected override didClose: EventEmitter<SbbDialogCloseEventDetails> = new EventEmitter(
     this,
     SbbDialogBaseElement.events.didClose,
   );
@@ -66,13 +37,11 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(LitElement) 
   protected ariaLiveRef!: SbbScreenReaderOnlyElement;
   protected language = new SbbLanguageController(this);
 
-  /** Opens the dialog element. */
-  public abstract open(): void;
   protected abstract onDialogAnimationEnd(event: AnimationEvent): void;
   protected abstract setDialogFocus(): void;
   protected abstract closeAttribute: string;
 
-  /** Closes the dialog element. */
+  /** Closes the component. */
   public close(result?: any, target?: HTMLElement): any {
     if (this.state !== 'opened') {
       return;
@@ -94,7 +63,6 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(LitElement) 
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.state ||= 'closed';
     this.dialogController?.abort();
     this.dialogController = new AbortController();
 

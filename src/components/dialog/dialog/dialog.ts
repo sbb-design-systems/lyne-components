@@ -53,7 +53,7 @@ export class SbbDialogElement extends SbbDialogBaseElement {
   private _dialogId = `sbb-dialog-${nextId++}`;
   protected closeAttribute: string = 'sbb-dialog-close';
 
-  /** Opens the dialog element. */
+  /** Opens the component. */
   public open(): void {
     if (this.state !== 'closed') {
       return;

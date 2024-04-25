@@ -69,7 +69,7 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
   );
   private _overlayContentElement: HTMLElement | null = null;
 
-  /** Opens the overlay element. */
+  /** Opens the component. */
   public open(): void {
     if (this.state !== 'closed') {
       return;

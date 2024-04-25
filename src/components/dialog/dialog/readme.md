@@ -98,10 +98,10 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 
 ## Methods
 
-| Name    | Privacy | Description                | Parameters                         | Return | Inherited From       |
-| ------- | ------- | -------------------------- | ---------------------------------- | ------ | -------------------- |
-| `open`  | public  | Opens the dialog element.  |                                    | `void` | SbbDialogBaseElement |
-| `close` | public  | Closes the dialog element. | `result: any, target: HTMLElement` | `any`  | SbbDialogBaseElement |
+| Name    | Privacy | Description           | Parameters                         | Return | Inherited From        |
+| ------- | ------- | --------------------- | ---------------------------------- | ------ | --------------------- |
+| `open`  | public  | Opens the component.  |                                    | `void` | SbbOverlayBaseElement |
+| `close` | public  | Closes the component. | `result: any, target: HTMLElement` | `any`  | SbbOverlayBaseElement |
 
 ## Events
 
