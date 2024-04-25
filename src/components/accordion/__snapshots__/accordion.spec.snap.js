@@ -2,16 +2,18 @@
 export const snapshots = {};
 
 snapshots["sbb-accordion renders - Dom"] = 
-`<sbb-accordion>
+`<sbb-accordion size="l">
   <sbb-expansion-panel
     data-accordion=""
     data-accordion-first=""
+    size="l"
   >
     <sbb-expansion-panel-header
       aria-controls="sbb-expansion-panel-content-1"
       aria-expanded="false"
       data-action=""
       data-button=""
+      data-size="l"
       data-slot-names="unnamed"
       dir="ltr"
       id="sbb-expansion-panel-header-1"
@@ -24,6 +26,7 @@ snapshots["sbb-accordion renders - Dom"] =
     <sbb-expansion-panel-content
       aria-hidden="true"
       aria-labelledby="sbb-expansion-panel-header-1"
+      data-size="l"
       id="sbb-expansion-panel-content-1"
       role="region"
       slot="content"
@@ -34,12 +37,14 @@ snapshots["sbb-accordion renders - Dom"] =
   <sbb-expansion-panel
     data-accordion=""
     data-accordion-last=""
+    size="l"
   >
     <sbb-expansion-panel-header
       aria-controls="sbb-expansion-panel-content-2"
       aria-expanded="false"
       data-action=""
       data-button=""
+      data-size="l"
       data-slot-names="unnamed"
       dir="ltr"
       id="sbb-expansion-panel-header-2"
@@ -52,6 +57,7 @@ snapshots["sbb-accordion renders - Dom"] =
     <sbb-expansion-panel-content
       aria-hidden="true"
       aria-labelledby="sbb-expansion-panel-header-2"
+      data-size="l"
       id="sbb-expansion-panel-content-2"
       role="region"
       slot="content"

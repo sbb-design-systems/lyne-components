@@ -1227,10 +1227,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-3.0.3.tgz#208a3929ee614967a1fc8cd6cb758d9fcbf0caae"
   integrity sha512-KEPNw4+WW5AVEIyzC80rTbWEUatTW2lXpN8+8ILC8PiPeWPjwUzrPZDIOZ2wwqDmeqOYTdSGyL3+vE5GC3FB3Q==
 
-"@custom-elements-manifest/analyzer@0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@custom-elements-manifest/analyzer/-/analyzer-0.9.4.tgz#ce91eeb965262999abb98bcbcf73297bb818047b"
-  integrity sha512-XPjEbfkq71oQl6tIfDy1ashdvOf42p3BtqebEaUohqTEPAyBuShGwQiB2B7xjsUwi3VfSQCnPlGwmigIDPjtWg==
+"@custom-elements-manifest/analyzer@0.9.6":
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/@custom-elements-manifest/analyzer/-/analyzer-0.9.6.tgz#6484c182a835f4cb95c67d0bae3d6364da998ee6"
+  integrity sha512-ryvrkmo02vOJikOLonMiB8z/7BQpeDnj9YC0R19Ikkd/UyWLTznfGXlCqsudGtvwb7PGJZAh1KHGFTfwjOVDWw==
   dependencies:
     "@custom-elements-manifest/find-dependencies" "^0.0.5"
     "@github/catalyst" "^1.6.0"
@@ -10745,10 +10745,10 @@ tsutils@^3.21.0:
   dependencies:
     tslib "^1.8.1"
 
-tsx@4.7.2:
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/tsx/-/tsx-4.7.2.tgz#a108b1a6e16876cd4c9a4b4ba263f2a07f9cf562"
-  integrity sha512-BCNd4kz6fz12fyrgCTEdZHGJ9fWTGeUzXmQysh0RVocDY3h4frk05ZNCXSy4kIenF7y/QnrdiVpTsyNRn6vlAw==
+tsx@4.7.3:
+  version "4.7.3"
+  resolved "https://registry.yarnpkg.com/tsx/-/tsx-4.7.3.tgz#c32f3f5cb928708a5c6becf617e432b395999242"
+  integrity sha512-+fQnMqIp/jxZEXLcj6WzYy9FhcS5/Dfk8y4AtzJ6ejKcKqmfTF8Gso/jtrzDggCF2zTU20gJa6n8XqPYwDAUYQ==
   dependencies:
     esbuild "~0.19.10"
     get-tsconfig "^4.7.2"
