@@ -18,10 +18,10 @@ export function typography(): PluginOption {
         { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
         { inputName: 'core/styles/core.scss', outputName: 'core.css' },
         { inputName: 'core/styles/fullfont.scss', outputName: 'fullfont.css' },
-        { inputName: 'core/styles/global.scss', outputName: 'global.css' },
         { inputName: 'core/styles/layout.scss', outputName: 'layout.css' },
         { inputName: 'core/styles/lists.scss', outputName: 'lists.css' },
         { inputName: 'core/styles/normalize.scss', outputName: 'normalize.css' },
+        { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
         { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
       ].forEach((entry) => {
         const compiled = sass.compile(join(viteConfig.root, entry.inputName), {

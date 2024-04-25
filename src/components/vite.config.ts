@@ -47,7 +47,7 @@ export default defineConfig((config) =>
                   'animation.css',
                   'core.css',
                   'fullfont.css',
-                  'global.css',
+                  'standard-theme.css',
                   'layout.css',
                   'lists.css',
                   'normalize.css',

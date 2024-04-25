@@ -23,7 +23,7 @@ Select your technology to get started.
    See [styles](#styles) section if you prefer more granularity on what to import.
 
    ```css
-   @import 'node_modules/@sbb-esta/lyne-components/global.css';
+   @import 'node_modules/@sbb-esta/lyne-components/standard-theme.css';
    ```
 
 3. Import the desired element and add it to globalThis:
@@ -60,7 +60,7 @@ Select your technology to get started.
    Importing stylsheets is doable by editing the `styles.(s)css`:
 
    ```css
-   @import 'node_modules/@sbb-esta/lyne-components/global.css';
+   @import 'node_modules/@sbb-esta/lyne-components/standard-theme.css';
    ```
 
    or editing your `angular.json`:
@@ -69,7 +69,7 @@ Select your technology to get started.
      ...
      "styles": [
        "src/styles.scss",
-       "node_modules/@sbb-esta/lyne-components/global.css"
+       "node_modules/@sbb-esta/lyne-components/standard-theme.css"
      ],
      ...
    ```
@@ -117,7 +117,7 @@ bootstrapApplication(App).catch((err) => console.error(err));
    See [styles](#styles) section if you prefer more granularity on what to import.
 
    ```css
-   @import '~@sbb-esta/lyne-components/global.css';
+   @import '~@sbb-esta/lyne-components/standard-theme.css';
    ```
 
 4. Enhance the `transpilePackages` array in Next.Js config.
@@ -195,43 +195,43 @@ and on [storybook](https://lyne-storybook.app.sbb.ch).
 
 ### CSS files
 
-Basically, all our styles are included in 'global.css' which should be included in your application.
+Basically, all our styles are included in 'standard-theme.css' which should be included in your application.
 However, if you like to more specifically pick what you need, consider the following CSS files available.
 
-| File name        | Description                                                                         |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| `global.css`     | Contains normalizing, core styles and available CSS classes.                        |
-| `fullfont.css`   | Provides full character set of SBB fonts, needs larger files to fetch.              |
-|                  |                                                                                     |
-| `normalize.css`  | Contains general browser resetting styles which can be useful for your application. |
-|                  |                                                                                     |
-| `core.css`       | Contains mandatory basics to use lyne-components (including design tokens).         |
-|                  |                                                                                     |
-| `a11y.css`       | Provides accessibility related CSS classes.                                         |
-| `animation.css`  | Provides CSS classes to disable animation (e.g. for testing).                       |
-| `layout.css`     | Provides layout related CSS classes (e.g. page spacing, grid).                      |
-| `lists.css`      | Provides CSS classes to style lists.                                                |
-| `typography.css` | Provides typography related CSS classes.                                            |
+| File name            | Description                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| `standard-theme.css` | Contains normalizing, core styles and available CSS classes.                        |
+| `fullfont.css`       | Provides full character set of SBB fonts, needs larger files to fetch.              |
+|                      |                                                                                     |
+| `normalize.css`      | Contains general browser resetting styles which can be useful for your application. |
+|                      |                                                                                     |
+| `core.css`           | Contains mandatory basics to use lyne-components (including design tokens).         |
+|                      |                                                                                     |
+| `a11y.css`           | Provides accessibility related CSS classes.                                         |
+| `animation.css`      | Provides CSS classes to disable animation (e.g. for testing).                       |
+| `layout.css`         | Provides layout related CSS classes (e.g. page spacing, grid).                      |
+| `lists.css`          | Provides CSS classes to style lists.                                                |
+| `typography.css`     | Provides typography related CSS classes.                                            |
 
 ### Full Font
 
-The `global.css` (or `core.css`) file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
-For including the full fontset, we provide the `fullfont.css` file which can be added after the `global.css` (or `core.css`) file.
+The `standard-theme.css` (or `core.css`) file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
+For including the full fontset, we provide the `fullfont.css` file which can be added after the `standard-theme.css` (or `core.css`) file.
 
 ```css
-@import '@sbb-esta/lyne-components/global.css';
+@import '@sbb-esta/lyne-components/standard-theme.css';
 @import '@sbb-esta/lyne-components/fullfont.css';
 ```
 
 ### Design Tokens
 
 The `@sbb-esta/lyne-components` package provides the CSS variable design tokens
-from `@sbb-esta/lyne-design-tokens` in the `global.css` (or `core.css`).
+from `@sbb-esta/lyne-design-tokens` in the `standard-theme.css` (or `core.css`).
 
 > If you have to use design tokens within a javascript context,
 > please also add `@sbb-esta/lyne-design-tokens` package to your project.
 
-Please check `node_modules/@sbb-esta/lyne-components/global.css` for available design tokens.
+Please check `node_modules/@sbb-esta/lyne-components/standard-theme.css` for available design tokens.
 
 #### How to work with design tokens
 
