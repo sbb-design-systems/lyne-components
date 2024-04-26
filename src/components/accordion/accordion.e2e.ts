@@ -19,15 +19,15 @@ describe(`sbb-accordion ${fixture.name}`, () => {
     element = await fixture(
       html`
         <sbb-accordion title-level="4">
-          <sbb-expansion-panel id="panel-1" disable-animation title-level=${ssrTitleLevel}>
+          <sbb-expansion-panel id="panel-1" title-level=${ssrTitleLevel}>
             <sbb-expansion-panel-header id="header-1">Header 1</sbb-expansion-panel-header>
             <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>
           </sbb-expansion-panel>
-          <sbb-expansion-panel id="panel-2" disable-animation title-level=${ssrTitleLevel}>
+          <sbb-expansion-panel id="panel-2" title-level=${ssrTitleLevel}>
             <sbb-expansion-panel-header id="header-2">Header 2</sbb-expansion-panel-header>
             <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
           </sbb-expansion-panel>
-          <sbb-expansion-panel id="panel-3" disable-animation title-level=${ssrTitleLevel}>
+          <sbb-expansion-panel id="panel-3" title-level=${ssrTitleLevel}>
             <sbb-expansion-panel-header id="header-3">Header 3</sbb-expansion-panel-header>
             <sbb-expansion-panel-content>Content 3</sbb-expansion-panel-content>
           </sbb-expansion-panel>
@@ -82,14 +82,14 @@ describe(`sbb-accordion ${fixture.name}`, () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H4');
+      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h4');
     expect(
-      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H4');
+      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h4');
     expect(
-      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H4');
+      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h4');
   });
 
   it('should dynamically update titleLevel prop', async () => {
@@ -98,14 +98,14 @@ describe(`sbb-accordion ${fixture.name}`, () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H6');
+      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h6');
     expect(
-      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H6');
+      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h6');
     expect(
-      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
-    ).to.be.equal('H6');
+      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+    ).to.be.equal('h6');
   });
 
   it('should close others when expanding and multi = false', async () => {

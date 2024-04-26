@@ -25,7 +25,7 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
 ) {
   public static override styles: CSSResultGroup = style;
   // DIV is added here due to special requirements from sbb.ch.
-  protected override readonly listChildTagNames = ['SBB-TAG', 'DIV'];
+  protected override readonly listChildLocalNames = ['sbb-tag', 'div'];
 
   /**
    * This will be forwarded as aria-label to the inner list.

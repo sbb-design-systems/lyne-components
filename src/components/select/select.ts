@@ -78,10 +78,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   /** Whether the select is readonly. */
   @property({ type: Boolean }) public readonly = false;
 
-  /** Whether the animation is disabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** The state of the select. */
   private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
@@ -203,7 +199,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   private _onOptionClick(event: MouseEvent): void {
     const target = event.target as SbbSelectElement | SbbOptionElement;
-    if (target.tagName !== 'SBB-OPTION' || target.disabled) {
+    if (target.localName !== 'sbb-option' || target.disabled) {
       return;
     }
 

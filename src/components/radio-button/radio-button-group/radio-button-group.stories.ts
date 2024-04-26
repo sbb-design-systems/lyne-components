@@ -80,9 +80,9 @@ const defaultArgs: Args = {
   required: false,
   disabled: false,
   'allow-empty-selection': false,
-  orientation: orientation.options[0],
+  orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options[0],
+  size: size.options![0],
   'aria-label': undefined,
 };
 
@@ -138,7 +138,7 @@ export const Horizontal: StoryObj = {
 export const Vertical: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, orientation: orientation.options[1] },
+  args: { ...defaultArgs, orientation: orientation.options![1] },
 };
 
 export const VerticalToHorizontal: StoryObj = {
@@ -146,8 +146,8 @@ export const VerticalToHorizontal: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    orientation: orientation.options[1],
-    'horizontal-from': horizontalFrom.options[4],
+    orientation: orientation.options![1],
+    'horizontal-from': horizontalFrom.options![4],
   },
 };
 
@@ -176,13 +176,13 @@ export const VerticalToHorizontalPanels: StoryObj = {
 export const HorizontalSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const VerticalSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, orientation: orientation.options[1], size: size.options[1] },
+  args: { ...defaultArgs, orientation: orientation.options![1], size: size.options![1] },
 };
 
 export const Disabled: StoryObj = {
@@ -215,22 +215,16 @@ export const ErrorMessageVertical: StoryObj = {
     ...defaultArgs,
     value: undefined,
     required: true,
-    orientation: orientation.options[1],
+    orientation: orientation.options![1],
     'allow-empty-selection': true,
   },
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['change', 'input'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

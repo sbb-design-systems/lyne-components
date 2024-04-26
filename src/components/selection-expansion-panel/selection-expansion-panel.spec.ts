@@ -17,7 +17,7 @@ describe(`sbb-selection-expansion-panel`, () => {
     // Note: for easier testing, we add the slot="badge"
     // to <sbb-card-badge> which would not be needed in real.
     element = await fixture(html`
-      <sbb-selection-expansion-panel disable-animation>
+      <sbb-selection-panel>
         <sbb-card-badge slot="badge">
           <span>%</span>
           <span>from CHF</span>

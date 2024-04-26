@@ -42,7 +42,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   public static readonly events = {
     sectorChange: 'sectorChange',
   } as const;
-  protected override readonly listChildTagNames = ['SBB-ICON'];
+  protected override readonly listChildLocalNames = ['sbb-icon'];
 
   /** Wagon type. */
   @property({ reflect: true }) public type: 'locomotive' | 'closed' | 'wagon' = 'wagon';

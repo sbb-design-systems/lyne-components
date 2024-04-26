@@ -74,12 +74,11 @@ It's also possible to display the `sbb-selection-expansion-panel` without border
 
 ## Properties
 
-| Name               | Attribute           | Privacy | Type                | Default   | Description                                    |
-| ------------------ | ------------------- | ------- | ------------------- | --------- | ---------------------------------------------- |
-| `color`            | `color`             | public  | `'white' \| 'milk'` | `'white'` | The background color of the panel.             |
-| `forceOpen`        | `force-open`        | public  | `boolean`           | `false`   | Whether the content section is always visible. |
-| `borderless`       | `borderless`        | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
-| `disableAnimation` | `disable-animation` | public  | `boolean`           | `false`   | Whether the animation is enabled.              |
+| Name         | Attribute    | Privacy | Type                | Default   | Description                                    |
+| ------------ | ------------ | ------- | ------------------- | --------- | ---------------------------------------------- |
+| `color`      | `color`      | public  | `'white' \| 'milk'` | `'white'` | The background color of the panel.             |
+| `forceOpen`  | `force-open` | public  | `boolean`           | `false`   | Whether the content section is always visible. |
+| `borderless` | `borderless` | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
 
 ## Events
 

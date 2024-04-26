@@ -1,9 +1,10 @@
+/* eslint-disable import-x/default, import-x/no-named-as-default-member */
 import { readFileSync, writeFileSync } from 'fs';
 
 import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
-import * as ts from 'typescript';
+import ts from 'typescript';
 
 function* iterate(node: ts.Node): Generator<ts.Node, void, unknown> {
   yield node;

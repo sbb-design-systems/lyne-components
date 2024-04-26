@@ -60,7 +60,7 @@ const testRunnerHtml = (testFramework, _config, group) => `
       globalThis.testGroup = '${groupNameOverride ?? group?.name ?? 'default'}';
     </script>
   </head>
-  <body>
+  <body class="sbb-disable-animation">
     <script type="module" src="/src/components/core/testing/test-setup.ts"></script>
     <script type="module" src="${testFramework}"></script>
   </body>

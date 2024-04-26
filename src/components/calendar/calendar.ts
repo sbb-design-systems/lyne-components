@@ -588,7 +588,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   }
 
   private _handleTableBlur(eventTarget: HTMLElement): void {
-    if (eventTarget?.tagName !== 'BUTTON') {
+    if (eventTarget?.localName !== 'button') {
       this._setTabIndex();
     }
   }

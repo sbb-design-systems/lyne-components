@@ -284,9 +284,9 @@ const checkboxArgTypes: ArgTypes = {
 const basicArgs: Args = {
   disabled: false,
   required: false,
-  orientation: orientation.options[0],
+  orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options[1],
+  size: size.options![1],
   label: 'Label',
   checked: true,
   disabledSingle: false,
@@ -300,17 +300,17 @@ const checkboxArgs: Args = {
 
 const checkboxArgsVertical = {
   ...checkboxArgs,
-  orientation: orientation.options[1],
+  orientation: orientation.options![1],
 };
 
 const iconStart: Args = {
   iconName: 'tickets-class-small',
-  iconPlacement: iconPlacement.options[0],
+  iconPlacement: iconPlacement.options![0],
 };
 
 const iconEnd: Args = {
   iconName: 'tickets-class-small',
-  iconPlacement: iconPlacement.options[1],
+  iconPlacement: iconPlacement.options![1],
 };
 
 export const horizontal: StoryObj = {
@@ -339,13 +339,13 @@ export const horizontalPanel: StoryObj = {
 export const verticalPanel: StoryObj = {
   render: PanelTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, orientation: orientation.options[1] },
+  args: { ...basicArgs, orientation: orientation.options![1] },
 };
 
 export const verticalToHorizontalPanel: StoryObj = {
   render: PanelTemplate,
   argTypes: checkboxArgTypes,
-  args: { ...basicArgs, orientation: orientation.options[1], 'horizontal-from': 'medium' },
+  args: { ...basicArgs, orientation: orientation.options![1], 'horizontal-from': 'medium' },
 };
 
 export const horizontalSizeM: StoryObj = {
@@ -415,16 +415,10 @@ export const indeterminateGroup: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['change', 'input'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

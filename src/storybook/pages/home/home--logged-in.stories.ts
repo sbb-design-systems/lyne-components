@@ -1,9 +1,7 @@
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import type { SbbDialogElement } from '../../../components/dialog.js';
 import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data.js';
@@ -17,7 +15,6 @@ import {
   skiplinkList,
   teaserHero,
   timetableInput,
-  wrapperStyle,
 } from './home.common.js';
 import readme from './readme.md?raw';
 import '../../../components/dialog.js';
@@ -126,7 +123,6 @@ const Template = (args: Args): TemplateResult => html`
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
                       data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
-                      ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static icon-name="qrcode-small">
@@ -174,7 +170,6 @@ const Template = (args: Args): TemplateResult => html`
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
                       data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
-                      ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static> Details </sbb-secondary-button-static>
@@ -189,7 +184,7 @@ const Template = (args: Args): TemplateResult => html`
             All purchased tickets
           </sbb-secondary-button>
 
-          <sbb-dialog id="my-dialog" title-content="My Dialog">
+          <sbb-dialog id="my-dialog">
             <sbb-dialog-title back-button>My Dialog</sbb-dialog-title>
 
             <sbb-dialog-content>
@@ -200,14 +195,13 @@ const Template = (args: Args): TemplateResult => html`
                 irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                 pariatur.
               </p>
-              <sbb-button
-                variant="secondary"
+              <sbb-secondary-button
                 size="m"
                 @click=${() =>
                   (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
               >
                 Open stacked dialog
-              </sbb-button>
+              </sbb-secondary-button>
             </sbb-dialog-content>
 
             <sbb-dialog-actions
@@ -289,10 +283,9 @@ export const homeLoggedIn: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html` <div style=${styleMap(wrapperStyle(context))}>${story()}</div> `,
-  ],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,

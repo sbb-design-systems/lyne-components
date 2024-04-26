@@ -10,13 +10,6 @@ import readme from './readme.md?raw';
 
 import './chip.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color':
-    context.args.color === 'milk' || context.args.color === 'white'
-      ? 'var(--sbb-color-granite)'
-      : 'var(--sbb-color-white)',
-});
-
 const size: InputType = {
   control: {
     type: 'inline-radio',
@@ -44,8 +37,8 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
-  color: color.options[0],
+  size: size.options![0],
+  color: color.options![0],
   label: 'Label',
 };
 
@@ -70,7 +63,7 @@ export const MilkXS: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[1],
+    size: size.options![1],
   },
 };
 
@@ -79,7 +72,7 @@ export const MilkS: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[2],
+    size: size.options![2],
   },
 };
 
@@ -88,7 +81,7 @@ export const Charcoal: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[1],
+    color: color.options![1],
   },
 };
 
@@ -97,7 +90,7 @@ export const White: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[2],
+    color: color.options![2],
   },
 };
 
@@ -106,7 +99,7 @@ export const Granite: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    color: color.options[3],
+    color: color.options![3],
   },
 };
 
@@ -128,17 +121,11 @@ export const FixedWidthLongLabel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem', 'font-size': '0' })}>
-        ${story()}
-      </div>
-    `,
-  ],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.color === 'milk' || context.args.color === 'white'
+        ? 'var(--sbb-color-granite)'
+        : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

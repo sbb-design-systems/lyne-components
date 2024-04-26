@@ -8,6 +8,7 @@ snapshots["sbb-alert-group should render Dom"] =
   role="status"
 >
   <sbb-alert
+    animation="open"
     data-state="opening"
     href="https://www.sbb.ch"
     size="m"
@@ -112,4 +113,25 @@ snapshots["sbb-alert-group should render A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-alert-group should render A11y tree Firefox */
+
+snapshots["sbb-alert-group should render with slots"] = 
+`<sbb-alert-group
+  accessibility-title-level="3"
+  role="status"
+>
+  <span slot="accessibility-title">
+    Interruptions
+  </span>
+  <sbb-alert
+    animation="open"
+    data-state="opening"
+    href="https://www.sbb.ch"
+    size="m"
+    title-content="Interruption between Genève and Lausanne"
+  >
+    The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+  </sbb-alert>
+</sbb-alert-group>
+`;
+/* end snapshot sbb-alert-group should render with slots */
 

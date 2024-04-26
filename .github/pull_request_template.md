@@ -2,8 +2,8 @@
 
 <!-- Please ensure you've completed the following steps by replacing [ ] with [x]-->
 
-- [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/main/CONTRIBUTING.md) for this project.
-- [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/main/CODE_OF_CONDUCT.md) that this project adheres to.
+- [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/main/docs/CONTRIBUTING.md) for this project.
+- [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/main/docs/CODE_OF_CONDUCT.md) that this project adheres to.
 - [ ] I have searched the [pull request tracker](https://github.com/lyne-design-system/lyne-components/pulls) for a Pull Request (PR) that matches the one I want to submit, without success.
 
 ## Issue
@@ -17,7 +17,7 @@ Please check if your PR fulfills the following requirements:
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been reviewed and added / updated if needed (for bug fixes / features)
 
-See [Review Guidelines](../REVIEW.md) for more information what is checked during review process.
+See [Review Guidelines](../docs/REVIEW.md) for more information what is checked during review process.
 
 ## Changes
 

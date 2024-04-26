@@ -3,7 +3,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
@@ -95,7 +94,7 @@ const buttonSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm'],
+  options: ['l', 'm', 's'],
 };
 
 const linkSize: InputType = {
@@ -138,8 +137,8 @@ const basicArgs: Args = {
   'align-group': 'start',
   orientation: 'horizontal',
   'horizontal-from': 'unset',
-  'button-size': buttonSize.options[0],
-  'link-size': linkSize.options[0],
+  'button-size': buttonSize.options![0],
+  'link-size': linkSize.options![0],
 };
 
 const basicArgsVertical = {
@@ -150,6 +149,18 @@ const basicArgsVertical = {
 const basicArgsVerticalFullWidth = {
   ...basicArgsVertical,
   'align-group': 'stretch',
+};
+
+const basicArgsSizeS = {
+  ...basicArgs,
+  'button-size': buttonSize.options![2],
+  'link-size': linkSize.options![2],
+};
+
+const basicArgsVerticalSizeS = {
+  ...basicArgsVertical,
+  'button-size': buttonSize.options![2],
+  'link-size': linkSize.options![2],
 };
 
 export const HorizontalAllocation3_0_0: StoryObj = {
@@ -266,17 +277,23 @@ export const VerticalToHorizontal3_0_0: StoryObj = {
   args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
 };
 
+export const HorizontalAllocationSizeS3_0_0: StoryObj = {
+  render: CommonTemplateThreeElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsSizeS },
+};
+
+export const VerticalAllocationSizeS3_0_0: StoryObj = {
+  render: CommonTemplateThreeElementsAllocation,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsVerticalSizeS, 'align-group': 'start' },
+};
+
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

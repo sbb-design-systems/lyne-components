@@ -33,7 +33,7 @@ describe('sbb-overlay', () => {
   beforeEach(async () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
-      <sbb-overlay id="my-overlay-1" accessibility-label="Label" disable-animation>
+      <sbb-overlay id="my-overlay-1" accessibility-label="Label">
         <p>Overlay content</p>
       </sbb-overlay>
     `);
@@ -153,11 +153,11 @@ describe('sbb-overlay', () => {
 
   it('closes stacked overlays one by one on ESC key pressed', async () => {
     element = await fixture(html`
-      <sbb-overlay id="my-overlay-3" disable-animation>
+      <sbb-overlay id="my-overlay-3">
         <p>Overlay content</p>
       </sbb-overlay>
 
-      <sbb-overlay id="stacked-overlay" disable-animation>
+      <sbb-overlay id="stacked-overlay">
         <p>Stacked overlay content</p>
       </sbb-overlay>
     `);

@@ -39,7 +39,7 @@ describe(`sbb-alert-group with ${fixture.name}`, () => {
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(2);
     const alertGroupTitle = element.shadowRoot!.querySelector('.sbb-alert-group__title')!;
     expect(alertGroupTitle.textContent!.trim()).to.be.equal(accessibilityTitle);
-    expect(alertGroupTitle.tagName).to.be.equal(`H${accessibilityTitleLevel}`);
+    expect(alertGroupTitle.localName).to.be.equal(`h${accessibilityTitleLevel}`);
 
     // When clicking on close button of the first alert
     const closeButton = element
