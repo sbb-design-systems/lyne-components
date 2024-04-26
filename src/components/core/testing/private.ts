@@ -4,5 +4,6 @@ export * from './private/describe-viewports.js';
 export * from './private/dispatch-events.js';
 export * from './private/event-objects.js';
 export * from './private/fixture.js';
+export * from './private/platform.js';
 export * from './private/type-in-element.js';
 export * from './private/visual-regression-snapshot.js';
