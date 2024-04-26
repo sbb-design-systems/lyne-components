@@ -32,7 +32,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
     /* eslint-disable lit/binding-positions */
     return html`
       <${tagGroupElement} ${inputType === 'radio-button' && 'value="Value one"'}>
-        <sbb-selection-expansion-panel id="sbb-selection-panel-1">
+        <sbb-selection-expansion-panel id="sbb-selection-expansion-panel-1">
           <${tagSingle} id="sbb-input-1" value="Value one" ?checked='${
             inputType === 'checkbox'
           }'>Value one</${tagSingle}>
@@ -41,21 +41,21 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-expansion-panel>
-        <sbb-selection-expansion-panel id="sbb-selection-panel-2">
+        <sbb-selection-expansion-panel id="sbb-selection-expansion-panel-2">
           <${tagSingle} id="sbb-input-2" value="Value two">Value two</${tagSingle}>
           <div id="panel-content-2" slot="content">
             Inner Content
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-expansion-panel>
-        <sbb-selection-expansion-panel id="sbb-selection-panel-3">
+        <sbb-selection-expansion-panel id="sbb-selection-expansion-panel-3">
           <${tagSingle} id="sbb-input-3" value="Value three" disabled>Value three</${tagSingle}>
           <div id="panel-content-3" slot="content">
             Inner Content
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-expansion-panel>
-        <sbb-selection-expansion-panel id="sbb-selection-panel-4">
+        <sbb-selection-expansion-panel id="sbb-selection-expansion-panel-4">
           <${tagSingle} id="sbb-input-4" value="Value four">Value four</${tagSingle}>
           <div id="panel-content-4" slot="content">
             Inner Content
@@ -290,7 +290,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           </sbb-radio-button-group>
         `,
         {
-          modules: ['../radio-button.ts', './selection-panel.ts', '../radio-button.ts'],
+          modules: ['../radio-button.ts', './selection-expansion-panel.ts', '../radio-button.ts'],
         },
       );
       const firstInputNoContent =
@@ -356,7 +356,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
         html`
           <sbb-radio-button-group orientation="vertical" horizontal-from="large">
             <sbb-selection-expansion-panel id="panel1">
-              <sbb-radio-button value="main1" checked> Main Option 1 </sbb-radio-button>
+              <sbb-radio-button-panel value="main1" checked> Main Option 1 </sbb-radio-button-panel>
               <sbb-radio-button-group orientation="vertical" slot="content">
                 <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
                 <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
@@ -364,7 +364,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
             </sbb-selection-expansion-panel>
 
             <sbb-selection-expansion-panel id="panel2">
-              <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+              <sbb-radio-button-panel value="main2"> Main Option 2 </sbb-radio-button-panel>
               <sbb-radio-button-group orientation="vertical" slot="content">
                 <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
                 <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
@@ -373,7 +373,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           </sbb-radio-button-group>
         `,
         {
-          modules: ['../radio-button.ts', './selection-panel.ts', '../radio-button.ts'],
+          modules: ['../radio-button.ts', './selection-expansion-panel.ts', '../radio-button.ts'],
         },
       );
       panel1 = nestedElement.querySelector<SbbSelectionExpansionPanelElement>('#panel1')!;
@@ -489,7 +489,9 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           <div>
             <template>
               <sbb-selection-expansion-panel>
-                <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
+                <sbb-radio-button-panel value="main1" checked="true">
+                  Main Option 1
+                </sbb-radio-button-panel>
                 <sbb-radio-button-group orientation="vertical" slot="content">
                   <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
                   <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
@@ -497,7 +499,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
               </sbb-selection-expansion-panel>
 
               <sbb-selection-expansion-panel>
-                <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+                <sbb-radio-button-panel value="main2"> Main Option 2 </sbb-radio-button-panel>
                 <sbb-radio-button-group orientation="vertical" slot="content">
                   <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
                   <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
@@ -697,7 +699,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
         html`
           <sbb-checkbox-group orientation="vertical" horizontal-from="large">
             <sbb-selection-expansion-panel>
-              <sbb-checkbox value="main1" checked> Main Option 1 </sbb-checkbox>
+              <sbb-checkbox-panel value="main1" checked> Main Option 1 </sbb-checkbox-panel>
               <sbb-checkbox-group orientation="vertical" slot="content">
                 <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
                 <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>
@@ -705,7 +707,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
             </sbb-selection-expansion-panel>
 
             <sbb-selection-expansion-panel>
-              <sbb-checkbox value="main2"> Main Option 2 </sbb-checkbox>
+              <sbb-checkbox-panel value="main2"> Main Option 2 </sbb-checkbox-panel>
               <sbb-checkbox-group orientation="vertical" slot="content">
                 <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
                 <sbb-checkbox value="sub4">Suboption 4</sbb-checkbox>
