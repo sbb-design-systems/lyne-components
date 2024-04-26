@@ -160,7 +160,7 @@ export const HorizontalPanels: StoryObj = {
 export const VerticalPanels: StoryObj = {
   render: PanelTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, orientation: orientation.options[1] },
+  args: { ...defaultArgs, orientation: orientation.options![1] },
 };
 
 export const VerticalToHorizontalPanels: StoryObj = {
@@ -168,8 +168,8 @@ export const VerticalToHorizontalPanels: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    orientation: orientation.options[1],
-    'horizontal-from': horizontalFrom.options[4],
+    orientation: orientation.options![1],
+    'horizontal-from': horizontalFrom.options![4],
   },
 };
 
