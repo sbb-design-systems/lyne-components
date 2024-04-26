@@ -1,7 +1,8 @@
 import type { TemplateResult } from 'lit';
 
-import { isHydratedSsr, isNonHydratedSsr } from '../platform.js';
 import { waitForLitRender } from '../wait-for-render.js';
+
+import { isHydratedSsr, isNonHydratedSsr } from './platform.js';
 
 // Copied from @lit-labs/testing/lib/fixtures/fixture-options.d.ts
 interface FixtureOptions {

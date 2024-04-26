@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import { existsSync, readdirSync, readFileSync } from 'fs';
 import { relative } from 'path';
 
@@ -41,86 +42,101 @@ function prepareScreenshots(): PluginOption {
     },
     load(id) {
       if (id === resolvedVirtualModuleId) {
-        const browsers = readdirSync(screenshotsDir, { withFileTypes: true })
-          .filter((d) => d.name !== '.cache')
-          .map((d) => d.name);
+        const failedScreenshotsHash = createHash('sha256');
+        const screenshotsFailures = existsSync(screenshotsDir)
+          ? readdirSync(screenshotsDir, { withFileTypes: true })
+              .map((d) => d.name)
+              .filter((browserName) =>
+                existsSync(new URL(`./${browserName}/failed/`, screenshotsDir)),
+              )
+              .flatMap((browserName) => {
+                const failedDir = new URL(`./${browserName}/failed/`, screenshotsDir);
 
-        const screenshotsMeta = browsers
-          .filter((browserName) => existsSync(new URL(`./${browserName}/failed/`, screenshotsDir)))
-          .flatMap((browserName) => {
-            const failedDir = new URL(`./${browserName}/failed/`, screenshotsDir);
+                return readdirSync(failedDir, {
+                  withFileTypes: true,
+                })
+                  .filter((d) => !d.name.endsWith('-diff.png'))
+                  .map((d) => {
+                    const failedFilePath = new URL(`./${d.name}`, failedDir);
+                    const diffFilePath = new URL(
+                      `./${d.name.replace(/.png$/, '-diff.png')}`,
+                      failedDir,
+                    );
+                    const baselineFilePath = new URL(
+                      `./${browserName}/baseline/${d.name}`,
+                      screenshotsDir,
+                    );
 
-            return readdirSync(failedDir, {
-              withFileTypes: true,
-            })
-              .filter((d) => !d.name.endsWith('-diff.png'))
-              .map((d) => {
-                const failedFilePath = new URL(`./${d.name}`, failedDir);
-                const diffFilePath = new URL(
-                  `./${d.name.replace(/.png$/, '-diff.png')}`,
-                  failedDir,
-                );
-                const baselineFilePath = new URL(
-                  `./${browserName}/baseline/${d.name}`,
-                  screenshotsDir,
-                );
-                const baselineCacheFilePath = new URL(
-                  `./.cache/${browserName}/baseline/${d.name}`,
-                  screenshotsDir,
-                );
+                    const isNew = !existsSync(diffFilePath);
 
-                const isNew = !existsSync(diffFilePath);
+                    const assetsScreenshots = 'assets/screenshots/';
+                    const failedRelativeFileName =
+                      assetsScreenshots +
+                      relative(screenshotsDir.pathname, failedFilePath.pathname);
+                    const diffRelativeFileName =
+                      assetsScreenshots + relative(screenshotsDir.pathname, diffFilePath.pathname);
+                    const baselineRelativeFileName =
+                      assetsScreenshots +
+                      relative(screenshotsDir.pathname, baselineFilePath.pathname);
 
-                const assetsScreenshots = 'assets/screenshots/';
-                const failedRelativeFileName =
-                  assetsScreenshots + relative(screenshotsDir.pathname, failedFilePath.pathname);
-                const diffRelativeFileName =
-                  assetsScreenshots + relative(screenshotsDir.pathname, diffFilePath.pathname);
-                const baselineRelativeFileName =
-                  assetsScreenshots + relative(screenshotsDir.pathname, baselineFilePath.pathname);
+                    if (viteConfig.command !== 'serve') {
+                      const failedFileContent = readFileSync(failedFilePath);
+                      // We only add the failed screenshot hashes, as the baseline and comparison (*-diff.png)
+                      // are not relevant to detect whether it is a new difference.
+                      failedScreenshotsHash.update(failedFileContent);
+                      this.emitFile({
+                        type: 'asset',
+                        fileName: failedRelativeFileName,
+                        source: failedFileContent,
+                      });
 
-                if (viteConfig.command !== 'serve') {
-                  this.emitFile({
-                    type: 'asset',
-                    fileName: failedRelativeFileName,
-                    source: readFileSync(failedFilePath),
+                      if (!isNew) {
+                        this.emitFile({
+                          type: 'asset',
+                          fileName: diffRelativeFileName,
+                          source: readFileSync(diffFilePath),
+                        });
+
+                        this.emitFile({
+                          type: 'asset',
+                          fileName: baselineRelativeFileName,
+                          source: readFileSync(baselineFilePath),
+                        });
+                      }
+                    }
+
+                    return <FailedFiles>{
+                      browserName,
+                      name: d.name,
+                      failedFile: failedRelativeFileName,
+                      diffFile: diffRelativeFileName,
+                      baselineFile: baselineRelativeFileName,
+                      isNew,
+                    };
                   });
+              })
+          : [];
 
-                  if (!isNew) {
-                    this.emitFile({
-                      type: 'asset',
-                      fileName: diffRelativeFileName,
-                      source: readFileSync(diffFilePath),
-                    });
+        const screenshotsMeta = screenshotsFailures.reduce(
+          (current, next) =>
+            current.set(
+              next.name,
+              current.has(next.name) ? current.get(next.name)!.concat(next) : [next],
+            ),
+          new Map<string, FailedFiles[]>(),
+        );
 
-                    this.emitFile({
-                      type: 'asset',
-                      fileName: baselineRelativeFileName,
-                      source: readFileSync(
-                        existsSync(baselineFilePath) ? baselineFilePath : baselineCacheFilePath,
-                      ),
-                    });
-                  }
-                }
-
-                return <FailedFiles>{
-                  browserName,
-                  name: d.name,
-                  failedFile: failedRelativeFileName,
-                  diffFile: diffRelativeFileName,
-                  baselineFile: baselineRelativeFileName,
-                  isNew,
-                };
-              });
-          })
-          .reduce(
-            (current, next) =>
-              current.set(
-                next.name,
-                current.has(next.name) ? current.get(next.name)!.concat(next) : [next],
-              ),
-            new Map<string, FailedFiles[]>(),
-          );
+        if (viteConfig.command !== 'serve') {
+          this.emitFile({
+            type: 'asset',
+            fileName: 'diff.json',
+            source: JSON.stringify({
+              changedAmount: screenshotsFailures.filter((f) => !f.isNew).length,
+              newAmount: screenshotsFailures.filter((f) => f.isNew).length,
+              hash: failedScreenshotsHash.digest('hex'),
+            }),
+          });
+        }
 
         return `export const screenshots = ${JSON.stringify(Object.fromEntries(screenshotsMeta))}`;
       }

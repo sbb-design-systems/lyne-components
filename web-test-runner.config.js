@@ -22,6 +22,11 @@ const webkit = process.argv.includes('--webkit');
 const concurrency = process.argv.includes('--parallel') ? {} : { concurrency: 1 };
 const updateBaseImages =
   process.argv.includes('--update-visual-baseline') || process.argv.includes('--uv');
+const visualRegressionRun =
+  process.argv.includes('--group=visual-regression') ||
+  (process.argv.includes('--group')
+    ? process.argv[process.argv.indexOf('--group') + 1] === 'visual-regression'
+    : false);
 
 const stylesCompiler = new sass.initCompiler();
 const renderStyles = () =>
@@ -86,15 +91,21 @@ const suppressedLogs = [
   '[vite] connecting...',
 ];
 
+const groups = [
+  // Disable ssr tests until stabilized.
+  // { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+  // { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+];
+
+// The visual regression test group is only added when expicitely set, as the tests are very expensive.
+if (visualRegressionRun) {
+  groups.push({ name: 'visual-regression', files: 'src/**/*.snapshot.spec.ts', testRunnerHtml });
+}
+
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   files: ['src/**/*.{e2e,spec,!snapshot.spec}.ts'],
-  groups: [
-    // Disable ssr tests until stabilized.
-    // { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
-    // { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
-    { name: 'visual-regression', files: 'src/**/*.snapshot.spec.ts', testRunnerHtml },
-  ],
+  groups,
   nodeResolve: true,
   concurrency: resolveConcurrency(),
   reporters:

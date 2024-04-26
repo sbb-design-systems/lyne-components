@@ -66,7 +66,7 @@ jobs:
       - name: Remove files with forbidden extensions
         run: node ./scripts/clean-storybook-files.cjs
       - name: 'Container: Login to GitHub Container Repository'
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: 'Container: Build image'
         run: docker build --tag $IMAGE_REPO_STORYBOOK:$VERSION --tag $IMAGE_REPO_STORYBOOK:latest .
         env:
@@ -116,7 +116,7 @@ jobs:
       - name: Remove files with forbidden extensions
         run: node ./scripts/clean-storybook-files.cjs
       - name: 'Container: Login to GitHub Container Repository'
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: 'Container: Build image'
         run: docker build --tag $IMAGE_REPO_STORYBOOK:dev .
         env:
