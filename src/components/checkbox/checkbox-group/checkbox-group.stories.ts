@@ -25,7 +25,7 @@ const checkboxes = (
   checked: boolean,
   disabledSingle: boolean,
   iconName: string,
-  iconPlacement: string,
+  iconPlacement: 'start' | 'end',
   label: string,
 ): TemplateResult => html`
   <sbb-checkbox
@@ -330,23 +330,6 @@ export const verticalToHorizontal: StoryObj = {
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgsVertical, 'horizontal-from': 'medium' },
 };
-export const horizontalPanel: StoryObj = {
-  render: PanelTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs },
-};
-
-export const verticalPanel: StoryObj = {
-  render: PanelTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, orientation: orientation.options![1] },
-};
-
-export const verticalToHorizontalPanel: StoryObj = {
-  render: PanelTemplate,
-  argTypes: checkboxArgTypes,
-  args: { ...basicArgs, orientation: orientation.options![1], 'horizontal-from': 'medium' },
-};
 
 export const horizontalSizeM: StoryObj = {
   render: DefaultTemplate,
@@ -412,6 +395,24 @@ export const indeterminateGroup: StoryObj = {
   render: IndeterminateGroupTemplate,
   argTypes: { ...checkboxArgTypes },
   args: { ...checkboxArgsVertical, checked: undefined },
+};
+
+export const horizontalPanel: StoryObj = {
+  render: PanelTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+export const verticalPanel: StoryObj = {
+  render: PanelTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, orientation: orientation.options![1] },
+};
+
+export const verticalToHorizontalPanel: StoryObj = {
+  render: PanelTemplate,
+  argTypes: checkboxArgTypes,
+  args: { ...basicArgs, orientation: orientation.options![1], 'horizontal-from': 'medium' },
 };
 
 const meta: Meta = {

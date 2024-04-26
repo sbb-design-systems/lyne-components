@@ -151,28 +151,6 @@ export const VerticalToHorizontal: StoryObj = {
   },
 };
 
-export const HorizontalPanels: StoryObj = {
-  render: PanelTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const VerticalPanels: StoryObj = {
-  render: PanelTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, orientation: orientation.options![1] },
-};
-
-export const VerticalToHorizontalPanels: StoryObj = {
-  render: PanelTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    orientation: orientation.options![1],
-    'horizontal-from': horizontalFrom.options![4],
-  },
-};
-
 export const HorizontalSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
@@ -217,6 +195,28 @@ export const ErrorMessageVertical: StoryObj = {
     required: true,
     orientation: orientation.options![1],
     'allow-empty-selection': true,
+  },
+};
+
+export const HorizontalPanels: StoryObj = {
+  render: PanelTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const VerticalPanels: StoryObj = {
+  render: PanelTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, orientation: orientation.options![1] },
+};
+
+export const VerticalToHorizontalPanels: StoryObj = {
+  render: PanelTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    orientation: orientation.options![1],
+    'horizontal-from': horizontalFrom.options![4],
   },
 };
 
