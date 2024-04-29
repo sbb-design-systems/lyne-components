@@ -22,14 +22,12 @@ const getBasicTemplate = (
 `;
 
 const TemplateMenuAction = (args: Args): TemplateResult => html`
-  <div>${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}</div>
+  ${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}
 `;
 
 const TemplateMenuActionCustomIcon = (args: Args): TemplateResult => html`
-  <div>
-    ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
-    ${getBasicTemplate(args, 3, true)}
-  </div>
+  ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
+  ${getBasicTemplate(args, 3, true)}
 `;
 
 const text: InputType = {

@@ -30,7 +30,7 @@ const visualRegressionRun =
 
 const stylesCompiler = new sass.initCompiler();
 const renderStyles = () =>
-  stylesCompiler.compile('./src/components/core/styles/global.scss', {
+  stylesCompiler.compile('./src/components/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
 

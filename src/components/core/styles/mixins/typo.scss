@@ -16,8 +16,8 @@
 
   margin: 0;
   margin-block: var(--sbb-title-margin-block-start) var(--sbb-title-margin-block-end);
-  font-family: var(--sbb-typo-type-face-sbb-bold);
-  font-weight: normal;
+  font-family: var(--sbb-typo-font-family);
+  font-weight: bold;
   line-height: var(--sbb-title-line-height);
   letter-spacing: var(--sbb-typo-letter-spacing-titles);
   font-size: var(--sbb-title-font-size);
@@ -89,7 +89,7 @@
 // Typo: Text Style Mixins
 // ----------------------------------------------------------------------------------------------------
 @mixin text {
-  font-family: var(--sbb-typo-type-face-sbb-roman);
+  font-family: var(--sbb-typo-font-family);
   font-weight: normal;
   line-height: var(--sbb-typo-line-height-body-text);
   letter-spacing: var(--sbb-typo-letter-spacing-body-text);
@@ -97,7 +97,7 @@
 }
 
 @mixin text--bold {
-  font-family: var(--sbb-typo-type-face-sbb-bold);
+  font-weight: bold;
 }
 
 @mixin text-xl--regular {
@@ -213,6 +213,7 @@
 @mixin legend {
   @include text-xs--regular;
 
+  padding: 0;
   color: var(--sbb-color-granite);
 }
 

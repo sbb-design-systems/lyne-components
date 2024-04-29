@@ -1,0 +1,17 @@
+@use './mixins/animation';
+
+.sbb-disable-animation {
+  @include animation.disable-animation;
+}
+
+.sbb-disable-animation-locally {
+  @include animation.disable-animation;
+
+  & > * {
+    @include animation.enable-animation;
+  }
+}
+
+.sbb-enable-animation {
+  @include animation.enable-animation;
+}
