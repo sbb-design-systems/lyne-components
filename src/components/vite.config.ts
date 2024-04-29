@@ -46,7 +46,7 @@ export default defineConfig((config) =>
                   'a11y.css',
                   'animation.css',
                   'core.css',
-                  'fullfont.css',
+                  'font-characters-extension.css',
                   'standard-theme.css',
                   'layout.css',
                   'lists.css',

@@ -198,29 +198,29 @@ and on [storybook](https://lyne-storybook.app.sbb.ch).
 Basically, all our styles are included in 'standard-theme.css' which should be included in your application.
 However, if you like to more specifically pick what you need, consider the following CSS files available.
 
-| File name            | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
-| `standard-theme.css` | Contains normalizing, core styles and available CSS classes.                        |
-| `fullfont.css`       | Provides full character set of SBB fonts, needs larger files to fetch.              |
-|                      |                                                                                     |
-| `normalize.css`      | Contains general browser resetting styles which can be useful for your application. |
-|                      |                                                                                     |
-| `core.css`           | Contains mandatory basics to use lyne-components (including design tokens).         |
-|                      |                                                                                     |
-| `a11y.css`           | Provides accessibility related CSS classes.                                         |
-| `animation.css`      | Provides CSS classes to disable animation (e.g. for testing).                       |
-| `layout.css`         | Provides layout related CSS classes (e.g. page spacing, grid).                      |
-| `lists.css`          | Provides CSS classes to style lists.                                                |
-| `typography.css`     | Provides typography related CSS classes.                                            |
+| File name                       | Description                                                                         |
+| ------------------------------- | ----------------------------------------------------------------------------------- |
+| `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                        |
+| `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to fetch.              |
+|                                 |                                                                                     |
+| `normalize.css`                 | Contains general browser resetting styles which can be useful for your application. |
+|                                 |                                                                                     |
+| `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).         |
+|                                 |                                                                                     |
+| `a11y.css`                      | Provides accessibility related CSS classes.                                         |
+| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing).                       |
+| `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                      |
+| `lists.css`                     | Provides CSS classes to style lists.                                                |
+| `typography.css`                | Provides typography related CSS classes.                                            |
 
 ### Full Font
 
 The `standard-theme.css` (or `core.css`) file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
-For including the full fontset, we provide the `fullfont.css` file which can be added after the `standard-theme.css` (or `core.css`) file.
+For including the full fontset, we provide the `font-characters-extension.css` file which can be added after the `standard-theme.css` (or `core.css`) file.
 
 ```css
 @import '@sbb-esta/lyne-components/standard-theme.css';
-@import '@sbb-esta/lyne-components/fullfont.css';
+@import '@sbb-esta/lyne-components/font-characters-extension.css';
 ```
 
 ### Design Tokens
