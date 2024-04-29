@@ -13,6 +13,7 @@ import readme from './readme.md?raw';
 
 import './skiplink-list.js';
 import '../link/block-link.js';
+import '../title.js';
 
 const titleContent: InputType = {
   control: {
@@ -143,7 +144,7 @@ const meta: Meta = {
   decorators: [
     (story) => html`
       ${story()}
-      <h2>Use TAB to see the skiplink box</h2>
+      <sbb-title level="4">Use TAB to see the skiplink box</sbb-title>
     `,
   ],
   parameters: {
