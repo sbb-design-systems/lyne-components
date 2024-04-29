@@ -67,7 +67,6 @@ const appendNotification = (event: Event, args: Args): void => {
     '--sbb-notification-margin',
     '0 0 var(--sbb-spacing-fixed-4x) 0',
   );
-  newNotification.setAttribute('class', 'sbb-animate');
   newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
   newNotification.size = args['size'];
