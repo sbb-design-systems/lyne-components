@@ -215,7 +215,7 @@ However, if you like to more specifically pick what you need, consider the follo
 
 ### Full Font
 
-The `standard-theme.css` (or `core.css`) file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
+The `standard-theme.css` (or `core.css`) file only contains a subset of the `SBB` fonts that do not contain all characters (e.g. the French "œ").
 For including the full fontset, we provide the `font-characters-extension.css` file which can be added after the `standard-theme.css` (or `core.css`) file.
 
 ```css
@@ -312,3 +312,27 @@ However, this can interfere with the z-index of your components.
 Therefore, every overlay component provides a CSS variable to override its z-index.
 Additionally, there is the global CSS variable `--sbb-overlay-default-z-index` that has a default z-index of 1000.
 With this, developers have the chance to change the z-index either globally or on component level.
+
+### Fonts
+
+SBB provides different fonts depending on the font-weight: `Roman`, `Bold` and `Light`.
+Lyne maps these fonts on the CSS `font-weight` property so that consumers
+can just set e.g. `font-weight: bold` and the correct font gets automatically selected.
+Please note, although SBB provides more fonts than `Roman`, `Bold` and `Light`,
+Lyne only intends to use these three fonts.
+To apply the SBB font family you can use the CSS var `var(--sbb-typo-font-family)`. However,
+this only includes the family but no letter spacing, so we recommend to always
+use our SASS mixins or CSS classes which contain all necessary properties.
+See [Text styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-typography--docs) for what's available.
+
+```html
+<p class="sbb-text-s sbb-text--bold"></p>
+```
+
+```scss
+@use '@sbb-esta/lyne-components' as sbb;
+
+p {
+  @include sbb.text-s--bold;
+}
+```

@@ -8,28 +8,37 @@ sup {
   @include typo.sup;
 }
 
+.sbb-text-xxs,
+.sbb-text-xs,
+.sbb-text-s,
+.sbb-text-m,
+.sbb-text-l,
+.sbb-text-xl {
+  @include typo.text;
+}
+
 .sbb-text-xxs {
-  @include typo.text-xxs--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-xxs);
 }
 
 .sbb-text-xs {
-  @include typo.text-xs--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-xs);
 }
 
 .sbb-text-s {
-  @include typo.text-s--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-s);
 }
 
 .sbb-text-m {
-  @include typo.text-m--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-m);
 }
 
 .sbb-text-l {
-  @include typo.text-l--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-l);
 }
 
 .sbb-text-xl {
-  @include typo.text-xl--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-xl);
 }
 
 .sbb-text--bold {
