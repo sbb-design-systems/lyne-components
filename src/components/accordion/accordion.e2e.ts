@@ -46,9 +46,15 @@ describe(`sbb-accordion ${fixture.name}`, () => {
 
     expect(panels[0]).to.have.attribute('data-accordion-first');
     expect(panels[0]).to.have.attribute('data-accordion');
+    expect(panels[0]).to.have.attribute('size');
+    expect(panels[0].size).to.be.equal('l');
     expect(panels[1]).to.have.attribute('data-accordion');
+    expect(panels[1]).to.have.attribute('size');
+    expect(panels[1].size).to.be.equal('l');
     expect(panels[2]).to.have.attribute('data-accordion');
     expect(panels[2]).to.have.attribute('data-accordion-last');
+    expect(panels[2]).to.have.attribute('size');
+    expect(panels[2].size).to.be.equal('l');
   });
 
   it('should set accordion context on expansion panel when removing and adding expansion-panels', async () => {
@@ -106,6 +112,16 @@ describe(`sbb-accordion ${fixture.name}`, () => {
     expect(
       panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
     ).to.be.equal('h6');
+  });
+
+  it('should dynamically update size prop', async () => {
+    element.size = 's';
+    await waitForLitRender(element);
+    const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
+    expect(panels.length).to.be.equal(3);
+    expect(panels[0].size).to.be.equal('s');
+    expect(panels[1].size).to.be.equal('s');
+    expect(panels[2].size).to.be.equal('s');
   });
 
   it('should close others when expanding and multi = false', async () => {

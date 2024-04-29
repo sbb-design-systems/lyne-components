@@ -376,7 +376,7 @@
   // To be more specific than the styles in normalize.scss we need to use !important
   // TODO: Find a better solution
   font-size: var(--sbb-font-size-text-m) !important;
-  font-family: var(--sbb-typo-type-face-sbb-roman) !important;
+  font-family: var(--sbb-typo-font-family) !important;
   line-height: var(--sbb-typo-line-height-body-text) !important;
 
   &::placeholder {
