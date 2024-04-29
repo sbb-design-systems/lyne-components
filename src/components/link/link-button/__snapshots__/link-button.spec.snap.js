@@ -54,7 +54,7 @@ snapshots["sbb-link-button A11y tree Firefox"] =
   "children": [
     {
       "role": "button",
-      "name": "Travelcards & tickets."
+      "name": "Travelcards & tickets"
     }
   ]
 }
