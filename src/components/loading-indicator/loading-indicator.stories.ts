@@ -1,7 +1,5 @@
-import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -12,6 +10,7 @@ import type { SbbLoadingIndicatorElement } from './loading-indicator.js';
 import readme from './readme.md?raw';
 import '../button/button.js';
 import './loading-indicator.js';
+import '../title.js';
 
 const textBlockStyle: Args = {
   marginBlock: '1rem',
@@ -25,6 +24,7 @@ const negativeBlockStyle: Args = {
   backgroundColor: 'var(--sbb-color-iron)',
   color: 'var(--sbb-color-white)',
   padding: '2rem',
+  '--sbb-title-text-color-normal-override': 'var(--sbb-color-white)',
 };
 
 const createLoadingIndicator = (event: Event, args: Args): void => {
@@ -42,12 +42,6 @@ const createLoadingIndicator = (event: Event, args: Args): void => {
     container.append(p);
     loader.remove();
   }, 5000);
-};
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  await userEvent.click(within(canvasElement).getByTestId('trigger'));
-  await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
 const TemplateAccessibility = (args: Args): TemplateResult => html`
@@ -75,9 +69,9 @@ const InlineTemplate = (args: Args): TemplateResult => html`
     <p>
       <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Inline loading indicator
     </p>
-    <h2>
+    <sbb-title level="4">
       <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Adaptive to font size
-    </h2>
+    </sbb-title>
   </div>
 `;
 
@@ -86,9 +80,9 @@ const NegativeInlineTemplate = (args: Args): TemplateResult => html`
     <p>
       <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Inline loading indicator
     </p>
-    <h2>
+    <sbb-title level="4">
       <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Adaptive to font size
-    </h2>
+    </sbb-title>
   </div>
 `;
 
@@ -183,7 +177,6 @@ export const Accessibility: StoryObj = {
   render: TemplateAccessibility,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {

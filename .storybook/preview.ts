@@ -6,7 +6,7 @@ import { html } from 'lit';
 
 import { withBackgroundDecorator } from '../src/storybook/testing/with-background-decorator.js';
 
-import '../src/components/core/styles/global.scss';
+import '../src/components/core/styles/standard-theme.scss';
 
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
