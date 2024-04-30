@@ -93,5 +93,6 @@ export default defineConfig((config) =>
       },
     },
     assetsInclude: ['_index.scss', 'core/styles/**/*.scss', 'README.md'],
+    esbuild: { minifyIdentifiers: false },
   }),
 );
