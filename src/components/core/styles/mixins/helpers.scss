@@ -33,6 +33,17 @@
   }
 }
 
+// Placing content before and after the container stops the margin of inner elements from overflowing
+@mixin ignore-children-margin {
+  &::after,
+  &::before {
+    content: '\a0';
+    display: block;
+    visibility: hidden;
+    height: 0;
+  }
+}
+
 @mixin invisible-container-overlay {
   position: absolute;
   opacity: 0;
