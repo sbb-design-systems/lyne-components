@@ -1,31 +1,17 @@
-import type { InputType } from '@storybook/types';
+import type { InputType, StoryContext } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import type { SbbLoadingIndicatorElement } from './loading-indicator.js';
 import readme from './readme.md?raw';
-import '../button/button.js';
+
 import './loading-indicator.js';
+import '../button/button.js';
 import '../title.js';
-
-const textBlockStyle: Args = {
-  marginBlock: '1rem',
-  padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-};
-
-const negativeBlockStyle: Args = {
-  backgroundColor: 'var(--sbb-color-iron)',
-  color: 'var(--sbb-color-white)',
-  padding: '2rem',
-  '--sbb-title-text-color-normal-override': 'var(--sbb-color-white)',
-};
+import '../card.js';
 
 const createLoadingIndicator = (event: Event, args: Args): void => {
   const loader: SbbLoadingIndicatorElement = document.createElement('sbb-loading-indicator');
@@ -38,16 +24,17 @@ const createLoadingIndicator = (event: Event, args: Args): void => {
   container.append(loader);
   setTimeout(() => {
     const p = document.createElement('p');
-    p.textContent = "Loading complete. Here's your data: . . . ";
+    p.textContent = "Loading complete. Here's your data: ...";
     container.append(p);
     loader.remove();
   }, 5000);
 };
 
 const TemplateAccessibility = (args: Args): TemplateResult => html`
-  <div style=${styleMap(textBlockStyle)}>
+  <sbb-card color="milk">
     Turn on your screen-reader and click the button to make the loading indicator appear.
-  </div>
+  </sbb-card>
+  <br />
   <sbb-button data-testid="trigger" @click=${(event: Event) => createLoadingIndicator(event, args)}>
     Show loader
   </sbb-button>
@@ -58,32 +45,11 @@ const Template = (args: Args): TemplateResult => html`
   <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator>
 `;
 
-const NegativeTemplate = (args: Args): TemplateResult => html`
-  <div style=${styleMap(negativeBlockStyle)}>
-    <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator>
-  </div>
-`;
-
-const InlineTemplate = (args: Args): TemplateResult => html`
-  <div>
-    <p>
-      <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Inline loading indicator
-    </p>
-    <sbb-title level="4">
-      <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Adaptive to font size
-    </sbb-title>
-  </div>
-`;
-
-const NegativeInlineTemplate = (args: Args): TemplateResult => html`
-  <div style=${styleMap(negativeBlockStyle)}>
-    <p>
-      <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Inline loading indicator
-    </p>
-    <sbb-title level="4">
-      <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Adaptive to font size
-    </sbb-title>
-  </div>
+const CircleTemplate = (args: Args): TemplateResult => html`
+  <p><sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Inline loading indicator</p>
+  <sbb-title level="4">
+    <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Adaptive to font size
+  </sbb-title>
 `;
 
 const variant: InputType = {
@@ -97,7 +63,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['small', 'large'],
+  options: ['s', 'l'],
 };
 
 const color: InputType = {
@@ -132,7 +98,7 @@ export const WindowSmallSmoke: StoryObj = {
 };
 
 export const WindowSmallWhite: StoryObj = {
-  render: NegativeTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![2] },
 };
@@ -150,27 +116,35 @@ export const WindowLargeSmoke: StoryObj = {
 };
 
 export const WindowLargeWhite: StoryObj = {
-  render: NegativeTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![2], size: size.options![1] },
 };
 
 export const CircleDefault: StoryObj = {
-  render: InlineTemplate,
+  render: CircleTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, variant: variant.options![1] },
 };
 
 export const CircleSmoke: StoryObj = {
-  render: InlineTemplate,
+  render: CircleTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![1], variant: variant.options![1] },
 };
 
 export const CircleWhite: StoryObj = {
-  render: NegativeInlineTemplate,
+  render: CircleTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![2], variant: variant.options![1] },
+  decorators: [
+    (story) =>
+      html`<div
+        style="color: var(--sbb-color-white); --sbb-title-text-color-normal-override: var(--sbb-color-white)"
+      >
+        ${story()}
+      </div>`,
+  ],
 };
 
 export const Accessibility: StoryObj = {
@@ -181,6 +155,8 @@ export const Accessibility: StoryObj = {
 
 const meta: Meta = {
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.color === 'white' ? 'var(--sbb-color-iron)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },
