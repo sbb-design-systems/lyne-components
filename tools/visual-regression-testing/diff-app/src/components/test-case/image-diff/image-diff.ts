@@ -50,6 +50,7 @@ export class ImageDiff extends LitElement {
     const sbbOverlayElement: SbbOverlayElement = document.createElement('sbb-overlay');
     const appFullscreenDiff = document.createElement('app-fullscreen-diff');
 
+    sbbOverlayElement.expanded = true;
     appFullscreenDiff.selectedFile = selectedFile;
     appFullscreenDiff.failedFile = this.failedFile;
 
@@ -110,29 +111,25 @@ export class ImageDiff extends LitElement {
               </sbb-status>`}
         </div>
         <div class="app-image-failed">
-          ${this._showDiff && !this.failedFile.isNew
-            ? html`<button
-                @click=${() => this._showFullscreen('diffFile')}
-                class="app-image-button"
-              >
-                <img
-                  class="app-image"
-                  .src="./${this.failedFile?.diffFile}"
-                  alt=""
-                  @load=${this._setFailedImageDimension}
-                />
-              </button>`
-            : html`<button
-                @click=${() => this._showFullscreen('failedFile')}
-                class="app-image-button"
-              >
-                <img
-                  class="app-image"
-                  .src="./${this.failedFile?.failedFile}"
-                  alt=""
-                  @load=${this._setFailedImageDimension}
-                />
-              </button>`}
+          <button
+            @click=${() => this._showFullscreen('diffFile')}
+            class="app-image-button"
+            ?hidden=${!this._showDiff || this.failedFile.isNew}
+          >
+            <img class="app-image" .src="./${this.failedFile?.diffFile}" alt="" />
+          </button>
+          <button
+            @click=${() => this._showFullscreen('failedFile')}
+            class="app-image-button"
+            ?hidden=${this._showDiff && !this.failedFile.isNew}
+          >
+            <img
+              class="app-image"
+              .src="./${this.failedFile?.failedFile}"
+              alt=""
+              @load=${this._setFailedImageDimension}
+            />
+          </button>
         </div>
       </div>
     </div>`;
