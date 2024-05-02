@@ -1,8 +1,8 @@
-import '../../../../src/components/title.js';
+import { Router } from '@vaadin/router';
 
-import '../../../../src/components/core/styles/global.scss';
+import { routes } from './routes.js';
 
-// eslint-disable-next-line import-x/no-unresolved
-import { screenshots } from 'virtual:screenshots';
+import '../../../../src/components/core/styles/standard-theme.scss';
 
-console.log(screenshots);
+export const router = new Router(document.querySelector('#outlet'));
+router.setRoutes(routes);
