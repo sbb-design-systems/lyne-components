@@ -26,4 +26,6 @@ function setupIconConfig(): void {
   });
 }
 
-setupIconConfig();
+if (!(globalThis as unknown as { isVisualRegressionRun: boolean }).isVisualRegressionRun) {
+  setupIconConfig();
+}
