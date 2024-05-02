@@ -27,7 +27,9 @@ function setupIconConfig(): void {
   mergeConfig({ icon });
 }
 
-setupIconConfig();
+if (!(globalThis as unknown as { isVisualRegressionRun: boolean }).isVisualRegressionRun) {
+  setupIconConfig();
+}
 
 if (isHydratedSsr()) {
   await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
