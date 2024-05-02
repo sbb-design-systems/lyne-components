@@ -138,7 +138,7 @@ function prepareScreenshots(): PluginOption {
           });
         }
 
-        return `export const screenshots = ${JSON.stringify(Object.fromEntries(screenshotsMeta))}`;
+        return `export const screenshotsRaw = ${JSON.stringify(Object.fromEntries(screenshotsMeta))}`;
       }
     },
     configureServer(server) {
