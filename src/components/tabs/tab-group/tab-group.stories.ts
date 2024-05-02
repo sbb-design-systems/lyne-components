@@ -16,8 +16,9 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import readme from './readme.md?raw';
 import { SbbTabGroupElement } from './tab-group.js';
 
-import '../tab-title.js';
+import '../../link.js';
 import '../../title.js';
+import '../tab-title.js';
 
 const firstTabTitle = (label: string, args: Args): TemplateResult => html`
   <sbb-tab-title ${sbbSpread(args)}>${label}</sbb-tab-title>
@@ -41,6 +42,7 @@ const tabPanelTwo = (): TemplateResult => html`
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec.
+    <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
   </section>
 `;
 
