@@ -5,12 +5,11 @@ import {
   SbbBreakpointSmallMin,
   SbbBreakpointUltraMin,
   SbbBreakpointWideMin,
-  SbbBreakpointZeroMin,
 } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 
 const viewportSizes = {
-  zero: SbbBreakpointZeroMin,
+  zero: 320,
   micro: SbbBreakpointMicroMin,
   small: SbbBreakpointSmallMin,
   medium: SbbBreakpointMediumMin,
