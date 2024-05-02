@@ -69,6 +69,7 @@ const testRunnerHtml = (testFramework, _config, group) => `
     <script>
       globalThis.testEnv = '${isDebugMode ? 'debug' : ''}';
       globalThis.testGroup = '${groupNameOverride ?? group?.name ?? 'default'}';
+      globalThis.isVisualRegressionRun = ${visualRegressionRun};
     </script>
   </head>
   <body class="sbb-disable-animation">
