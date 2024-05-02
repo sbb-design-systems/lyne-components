@@ -58,12 +58,16 @@
 .app-image-button {
   @include sbb.button-reset;
 
-  display: block;
+  display: flex;
   width: 100%;
   text-align: left;
   cursor: pointer;
 
   &:focus-visible {
     @include sbb.focus-outline;
+  }
+
+  &[hidden] {
+    display: none;
   }
 }
