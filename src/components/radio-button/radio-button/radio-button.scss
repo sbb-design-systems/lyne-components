@@ -74,23 +74,12 @@
 
   display: block;
 
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
-
   :host([size='s']) & {
     @include sbb.text-s--regular;
   }
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(
-      :focus-visible:not(
-          [data-focus-origin='mouse'],
-          [data-focus-origin='touch'],
-          [data-is-selection-panel-input]
-        )
-    )
-    & {
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));

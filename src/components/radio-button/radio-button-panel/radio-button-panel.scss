@@ -1,6 +1,12 @@
 @use '../../core/styles' as sbb;
 
+:host {
+  display: inline-block;
+}
+
 :host([data-is-selection-panel-input]) {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
   outline: none !important;
 }
 

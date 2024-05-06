@@ -3,8 +3,13 @@
 :host {
   --sbb-checkbox-suffix-color: var(--sbb-color-charcoal);
   --sbb-checkbox-subtext-color: var(--sbb-color-granite);
+  --sbb-checkbox-border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
 
   display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 }
 
 :host(:not([data-is-selection-panel-input])) {
@@ -45,13 +50,7 @@ slot[name='subtext'] {
 .sbb-checkbox__inner {
   // Change the focus outline when the input is placed inside of a selection panel
   // as the main input element.
-  :host(
-      [data-is-selection-panel-input]:focus-visible:not(
-          [data-focus-origin='mouse'],
-          [data-focus-origin='touch']
-        )
-    )
-    & {
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     &::before {
       content: '';
       position: absolute;
@@ -64,6 +63,8 @@ slot[name='subtext'] {
         (var(--sbb-spacing-responsive-xxs) * -1) + var(--sbb-focus-outline-width) -
           (var(--sbb-focus-outline-offset) * 2)
       );
+      border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
+      border-radius: var(--sbb-checkbox-border-radius);
     }
   }
 }

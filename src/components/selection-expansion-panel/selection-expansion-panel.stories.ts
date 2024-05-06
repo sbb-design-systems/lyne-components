@@ -312,8 +312,8 @@ const NestedRadioTemplate = ({
         Main Option 1
       </sbb-radio-button-panel>
       <sbb-radio-button-group orientation="vertical" value="suboption1" slot="content">
-        <sbb-radio-button-panel value="suboption1">Suboption 1</sbb-radio-button-panel>
-        <sbb-radio-button-panel value="suboption2">Suboption 2</sbb-radio-button-panel>
+        <sbb-radio-button value="suboption1">Suboption 1</sbb-radio-button>
+        <sbb-radio-button value="suboption2">Suboption 2</sbb-radio-button>
       </sbb-radio-button-group>
     </sbb-selection-expansion-panel>
 
@@ -465,9 +465,9 @@ const WithNoContentTemplate = ({
     style="display: block; margin-block-end: var(--sbb-spacing-fixed-4x);"
   >
     ${cardBadge()}
-    <sbb-checkbox ?checked=${checkedInput} ?disabled=${disabledInput}>
+    <sbb-checkbox-panel ?checked=${checkedInput} ?disabled=${disabledInput}>
       Value one ${suffixAndSubtext()}
-    </sbb-checkbox>
+    </sbb-checkbox-panel>
   </sbb-selection-expansion-panel>
   <sbb-selection-expansion-panel ${sbbSpread(args)}>
     ${cardBadge()}
