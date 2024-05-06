@@ -13,6 +13,7 @@ import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel.js';
 import { SbbCheckboxCommonElementMixin, commonStyle } from '../common.js';
 
+import '../../visual-checkbox.js';
 import '../../screen-reader-only.js';
 
 import checkboxPanelStyle from './checkbox-panel.scss?lit&inline';

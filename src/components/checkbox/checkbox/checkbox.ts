@@ -6,6 +6,8 @@ import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import { SbbCheckboxCommonElementMixin, commonStyle } from '../common.js';
 
+import '../../visual-checkbox.js';
+
 import checkboxStyle from './checkbox.scss?lit&inline';
 
 export type SbbCheckboxSize = 's' | 'm';

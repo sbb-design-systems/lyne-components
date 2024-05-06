@@ -18,8 +18,6 @@ import {
 } from '../../core/mixins.js';
 import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
 
-import '../../visual-checkbox.js';
-
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,
   SbbDisabledStateChange | SbbCheckedStateChange
