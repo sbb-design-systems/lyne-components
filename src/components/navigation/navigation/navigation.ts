@@ -1,15 +1,14 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
+import { SbbOverlayBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import {
@@ -51,14 +50,8 @@ const DEBOUNCE_TIME = 150;
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
+export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOverlayBaseElement) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
-  } as const;
 
   /**
    * The element that will trigger the navigation.
@@ -83,16 +76,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
     | undefined;
 
   /**
-   * The state of the navigation.
-   */
-  private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
-  }
-  private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
-  /**
    * Whether a navigation section is displayed.
    */
   @state() private _activeNavigationSection: HTMLElement | null = null;
@@ -100,30 +83,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   public get activeNavigationSection(): HTMLElement | null {
     return this._activeNavigationSection;
   }
-
-  /** Emits whenever the `sbb-navigation` begins the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbNavigationElement.events.willOpen,
-  );
-
-  /** Emits whenever the `sbb-navigation` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbNavigationElement.events.didOpen,
-  );
-
-  /** Emits whenever the `sbb-navigation` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbNavigationElement.events.willClose,
-  );
-
-  /** Emits whenever the `sbb-navigation` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbNavigationElement.events.didClose,
-  );
 
   private _navigation!: HTMLDivElement;
   private _navigationContentElement!: HTMLElement;
@@ -145,14 +104,14 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
    * Opens the navigation.
    */
   public open(): void {
-    if (this._state !== 'closed' || !this._navigation) {
+    if (this.state !== 'closed' || !this._navigation) {
       return;
     }
 
-    if (!this._willOpen.emit()) {
+    if (!this.willOpen.emit()) {
       return;
     }
-    this._state = 'opening';
+    this.state = 'opening';
     this._checkActiveActions();
     this._checkActiveSection();
     this.startUpdate();
@@ -180,14 +139,14 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
    * Closes the navigation.
    */
   public close(): void {
-    if (this._state !== 'opened') {
+    if (this.state !== 'opened') {
       return;
     }
 
-    if (!this._willClose.emit()) {
+    if (!this.willClose.emit()) {
       return;
     }
-    this._state = 'closing';
+    this.state = 'closing';
     this.startUpdate();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
@@ -218,7 +177,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
     this._navigationController?.abort();
     this._navigationController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -233,22 +192,22 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this._state === 'opening') {
-      this._state = 'opened';
-      this._didOpen.emit();
+    if (event.animationName === 'open' && this.state === 'opening') {
+      this.state = 'opened';
+      this.didOpen.emit();
       this._navigationResizeObserver.observe(this);
       applyInertMechanism(this);
       this._focusHandler.trap(this, { filter: this._trapFocusFilter });
       this._attachWindowEvents();
       this._setNavigationFocus();
-    } else if (event.animationName === 'close' && this._state === 'closing') {
-      this._state = 'closed';
+    } else if (event.animationName === 'close' && this.state === 'closing') {
+      this.state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
       removeInertMechanism();
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
-      this._didClose.emit();
+      this.didClose.emit();
       this._navigationResizeObserver.unobserve(this);
       this._resetMarkers();
       this._windowEventsController?.abort();
@@ -294,7 +253,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   // Closes the navigation on "Esc" key pressed.
   private _onKeydownEvent(event: KeyboardEvent): void {
-    if (this._state === 'opened' && event.key === 'Escape') {
+    if (this.state === 'opened' && event.key === 'Escape') {
       this.close();
     }
   }
@@ -340,7 +299,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   }
 
   private _onNavigationResize(): void {
-    if (this._state !== 'opened') {
+    if (this.state !== 'opened') {
       return;
     }
 
@@ -360,7 +319,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-navigation-${nextId++}`;
-    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });
     // Validate trigger element and attach event listeners
@@ -369,7 +327,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(LitElement) {
     this.addEventListener('pointerup', (event) => this._closeOnBackdropClick(event), { signal });
     this.addEventListener('pointerdown', (event) => this._pointerDownListener(event), { signal });
 
-    if (this._state === 'opened') {
+    if (this.state === 'opened') {
       applyInertMechanism(this);
     }
   }

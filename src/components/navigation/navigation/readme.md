@@ -66,10 +66,10 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 ## Methods
 
-| Name    | Privacy | Description            | Parameters | Return | Inherited From |
-| ------- | ------- | ---------------------- | ---------- | ------ | -------------- |
-| `open`  | public  | Opens the navigation.  |            | `void` |                |
-| `close` | public  | Closes the navigation. |            | `void` |                |
+| Name    | Privacy | Description            | Parameters | Return | Inherited From        |
+| ------- | ------- | ---------------------- | ---------- | ------ | --------------------- |
+| `open`  | public  | Opens the navigation.  |            | `void` | SbbOverlayBaseElement |
+| `close` | public  | Closes the navigation. |            | `void` | SbbOverlayBaseElement |
 
 ## Events
 

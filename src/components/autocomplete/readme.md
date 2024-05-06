@@ -108,10 +108,10 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Methods
 
-| Name    | Privacy | Description              | Parameters | Return | Inherited From |
-| ------- | ------- | ------------------------ | ---------- | ------ | -------------- |
-| `open`  | public  | Opens the autocomplete.  |            | `void` |                |
-| `close` | public  | Closes the autocomplete. |            | `void` |                |
+| Name    | Privacy | Description              | Parameters | Return | Inherited From        |
+| ------- | ------- | ------------------------ | ---------- | ------ | --------------------- |
+| `open`  | public  | Opens the autocomplete.  |            | `void` | SbbOverlayBaseElement |
+| `close` | public  | Closes the autocomplete. |            | `void` | SbbOverlayBaseElement |
 
 ## Events
 

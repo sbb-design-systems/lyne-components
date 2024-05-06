@@ -68,10 +68,10 @@ to identify which actions are active and which are not.
 
 ## Methods
 
-| Name    | Privacy | Description                      | Parameters | Return | Inherited From |
-| ------- | ------- | -------------------------------- | ---------- | ------ | -------------- |
-| `open`  | public  | Opens the menu on trigger click. |            | `void` |                |
-| `close` | public  | Closes the menu.                 |            | `void` |                |
+| Name    | Privacy | Description                      | Parameters | Return | Inherited From        |
+| ------- | ------- | -------------------------------- | ---------- | ------ | --------------------- |
+| `open`  | public  | Opens the menu on trigger click. |            | `void` | SbbOverlayBaseElement |
+| `close` | public  | Closes the menu.                 |            | `void` | SbbOverlayBaseElement |
 
 ## Events
 

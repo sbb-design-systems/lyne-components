@@ -89,10 +89,10 @@ Overlays should always contain a heading level 2 title. It can be visually hidde
 
 ## Methods
 
-| Name    | Privacy | Description                         | Parameters            | Return | Inherited From |
-| ------- | ------- | ----------------------------------- | --------------------- | ------ | -------------- |
-| `open`  | public  | Opens the popover on trigger click. |                       | `void` |                |
-| `close` | public  | Closes the popover.                 | `target: HTMLElement` | `void` |                |
+| Name    | Privacy | Description                         | Parameters            | Return | Inherited From        |
+| ------- | ------- | ----------------------------------- | --------------------- | ------ | --------------------- |
+| `open`  | public  | Opens the popover on trigger click. |                       | `void` | SbbOverlayBaseElement |
+| `close` | public  | Closes the popover.                 | `target: HTMLElement` | `void` | SbbOverlayBaseElement |
 
 ## Events
 

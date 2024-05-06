@@ -38,6 +38,7 @@ const DEBOUNCE_TIME = 150;
  */
 @customElement('sbb-notification')
 export class SbbNotificationElement extends LitElement {
+  // FIXME could inherit from SbbOverlayBaseElement but readme generator is flawed
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',

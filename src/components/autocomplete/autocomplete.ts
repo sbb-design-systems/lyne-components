@@ -1,14 +1,13 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
+import { SbbOverlayBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
 import { findReferencedElement, getDocumentWritingMode, isBrowser, isSafari } from '../core/dom.js';
-import { EventEmitter } from '../core/eventing.js';
-import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
@@ -46,14 +45,10 @@ const ariaRoleOnHost = isSafari();
   dir: getDocumentWritingMode(),
   role: ariaRoleOnHost ? 'listbox' : null,
 })
-export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
+export class SbbAutocompleteElement extends SbbNegativeMixin(
+  SbbHydrationMixin(SbbOverlayBaseElement),
+) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
-  } as const;
 
   /**
    * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.
@@ -71,29 +66,6 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   /** Whether the icon space is preserved when no icon is set. */
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public preserveIconSpace?: boolean;
-
-  /* The state of the autocomplete. */
-  private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
-  }
-  private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
-  /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
-  private _willOpen: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.willOpen);
-
-  /** Emits whenever the `sbb-autocomplete` is opened. */
-  private _didOpen: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.didOpen);
-
-  /** Emits whenever the `sbb-autocomplete` begins the closing transition. */
-  private _willClose: EventEmitter = new EventEmitter(
-    this,
-    SbbAutocompleteElement.events.willClose,
-  );
-
-  /** Emits whenever the `sbb-autocomplete` is closed. */
-  private _didClose: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.didClose);
 
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
@@ -132,32 +104,27 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
 
   /** Opens the autocomplete. */
   public open(): void {
-    if (
-      this._state !== 'closed' ||
-      !this._overlay ||
-      this._options.length === 0 ||
-      this._readonly
-    ) {
+    if (this.state !== 'closed' || !this._overlay || this._options.length === 0 || this._readonly) {
       return;
     }
-    if (!this._willOpen.emit()) {
+    if (!this.willOpen.emit()) {
       return;
     }
 
-    this._state = 'opening';
+    this.state = 'opening';
     this._setOverlayPosition();
   }
 
   /** Closes the autocomplete. */
   public close(): void {
-    if (this._state !== 'opened') {
+    if (this.state !== 'opened') {
       return;
     }
-    if (!this._willClose.emit()) {
+    if (!this.willClose.emit()) {
       return;
     }
 
-    this._state = 'closing';
+    this.state = 'closing';
     this._openPanelEventsController.abort();
   }
 
@@ -221,7 +188,6 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
       this.id ||= this._overlayId;
     }
 
-    this._state ||= 'closed';
     const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
@@ -388,26 +354,26 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
    *  To avoid entering a corrupt state, exit when state is not expected.
    */
   private _onAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this._state === 'opening') {
+    if (event.animationName === 'open' && this.state === 'opening') {
       this._onOpenAnimationEnd();
-    } else if (event.animationName === 'close' && this._state === 'closing') {
+    } else if (event.animationName === 'close' && this.state === 'closing') {
       this._onCloseAnimationEnd();
     }
   }
 
   private _onOpenAnimationEnd(): void {
-    this._state = 'opened';
+    this.state = 'opened';
     this._attachOpenPanelEvents();
     this.triggerElement?.setAttribute('aria-expanded', 'true');
-    this._didOpen.emit();
+    this.didOpen.emit();
   }
 
   private _onCloseAnimationEnd(): void {
-    this._state = 'closed';
+    this.state = 'closed';
     this.triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
-    this._didClose.emit();
+    this.didClose.emit();
   }
 
   private _attachOpenPanelEvents(): void {
@@ -458,7 +424,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   };
 
   private _closedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this._state !== 'closed') {
+    if (this.state !== 'closed') {
       return;
     }
 
@@ -472,7 +438,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   }
 
   private _openedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this._state !== 'opened') {
+    if (this.state !== 'opened') {
       return;
     }
 

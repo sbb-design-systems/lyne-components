@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -9,6 +9,7 @@ import {
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
+import { SbbOverlayBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { findReferencedElement } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
@@ -46,14 +47,8 @@ const popoversRef = new Set<SbbPopoverElement>();
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-popover')
-export class SbbPopoverElement extends LitElement {
+export class SbbPopoverElement extends SbbOverlayBaseElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
-  } as const;
 
   /**
    * The element that will trigger the popover overlay.
@@ -79,28 +74,14 @@ export class SbbPopoverElement extends LitElement {
     | string
     | undefined;
 
-  /** The state of the popover. */
-  private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
-  }
-  private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
-  /** Emits whenever the `sbb-popover` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbPopoverElement.events.willOpen);
-
-  /** Emits whenever the `sbb-popover` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbPopoverElement.events.didOpen);
-
   /** Emits whenever the `sbb-popover` begins the closing transition. */
-  private _willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
+  protected override willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
     SbbPopoverElement.events.willClose,
   );
 
   /** Emits whenever the `sbb-popover` is closed. */
-  private _didClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
+  protected override didClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
     SbbPopoverElement.events.didClose,
   );
@@ -122,11 +103,11 @@ export class SbbPopoverElement extends LitElement {
 
   /** Opens the popover on trigger click. */
   public open(): void {
-    if ((this._state !== 'closed' && this._state !== 'closing') || !this._overlay) {
+    if ((this.state !== 'closed' && this.state !== 'closing') || !this._overlay) {
       return;
     }
 
-    if (!this._willOpen.emit()) {
+    if (!this.willOpen.emit()) {
       return;
     }
 
@@ -138,7 +119,7 @@ export class SbbPopoverElement extends LitElement {
       }
     }
 
-    this._state = 'opening';
+    this.state = 'opening';
     this.inert = true;
     this._setPopoverPosition();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -148,23 +129,23 @@ export class SbbPopoverElement extends LitElement {
 
   /** Closes the popover. */
   public close(target?: HTMLElement): void {
-    if (this._state !== 'opened' && this._state !== 'opening') {
+    if (this.state !== 'opened' && this.state !== 'opening') {
       return;
     }
 
     this._popoverCloseElement = target;
-    if (!this._willClose.emit({ closeTarget: target })) {
+    if (!this.willClose.emit({ closeTarget: target })) {
       return;
     }
 
-    this._state = 'closing';
+    this.state = 'closing';
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   // Closes the popover on "Esc" key pressed and traps focus within the popover.
   private _onKeydownEvent(event: KeyboardEvent): void {
-    if (this._state !== 'opened') {
+    if (this.state !== 'opened') {
       return;
     }
 
@@ -194,7 +175,7 @@ export class SbbPopoverElement extends LitElement {
 
     // Validate trigger element and attach event listeners
     this._configure();
-    this._state = 'closed';
+    this.state = 'closed';
     popoversRef.add(this as SbbPopoverElement);
   }
 
@@ -237,7 +218,7 @@ export class SbbPopoverElement extends LitElement {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'dialog', this.id, this._state);
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'dialog', this.id, this.state);
 
     // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
     // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
@@ -270,7 +251,7 @@ export class SbbPopoverElement extends LitElement {
       this._triggerElement.addEventListener(
         'click',
         () => {
-          this._state === 'closed' && this.open();
+          this.state === 'closed' && this.open();
         },
         {
           signal: this._popoverController.signal,
@@ -330,7 +311,7 @@ export class SbbPopoverElement extends LitElement {
   };
 
   private _onTriggerMouseEnter = (): void => {
-    if (this._state === 'closed' || this._state === 'closing') {
+    if (this.state === 'closed' || this.state === 'closing') {
       this._openTimeout = setTimeout(() => this.open(), this.openDelay);
     } else {
       clearTimeout(this._closeTimeout);
@@ -338,7 +319,7 @@ export class SbbPopoverElement extends LitElement {
   };
 
   private _onTriggerMouseLeave = (): void => {
-    if (this._state === 'opened' || this._state === 'opening') {
+    if (this.state === 'opened' || this.state === 'opening') {
       this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
     } else {
       clearTimeout(this._openTimeout);
@@ -346,13 +327,13 @@ export class SbbPopoverElement extends LitElement {
   };
 
   private _onOverlayMouseEnter = (): void => {
-    if (this._state !== 'opening') {
+    if (this.state !== 'opening') {
       clearTimeout(this._closeTimeout);
     }
   };
 
   private _onOverlayMouseLeave = (): void => {
-    if (this._state !== 'opening') {
+    if (this.state !== 'opening') {
       this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
     }
   };
@@ -362,17 +343,17 @@ export class SbbPopoverElement extends LitElement {
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onPopoverAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this._state === 'opening') {
-      this._state = 'opened';
-      this._didOpen.emit();
+    if (event.animationName === 'open' && this.state === 'opening') {
+      this.state = 'opened';
+      this.didOpen.emit();
       this.inert = false;
       this._attachWindowEvents();
       this._setPopoverFocus();
       this._focusHandler.trap(this, {
         postFilter: (el) => el !== this._overlay,
       });
-    } else if (event.animationName === 'close' && this._state === 'closing') {
-      this._state = 'closed';
+    } else if (event.animationName === 'close' && this.state === 'closing') {
+      this.state = 'closed';
       this._overlay?.firstElementChild?.scrollTo(0, 0);
       this._overlay?.removeAttribute('tabindex');
 
@@ -384,7 +365,7 @@ export class SbbPopoverElement extends LitElement {
         elementToFocus?.focus();
       }
 
-      this._didClose.emit({ closeTarget: this._popoverCloseElement });
+      this.didClose.emit({ closeTarget: this._popoverCloseElement });
       this._openStateController?.abort();
       this._focusHandler.disconnect();
     }
@@ -418,7 +399,7 @@ export class SbbPopoverElement extends LitElement {
           setTimeout(() => {
             if (document.visibilityState !== 'hidden') {
               this._overlay?.removeAttribute('tabindex');
-              if (this._state === 'opened' || this._state === 'opening') {
+              if (this.state === 'opened' || this.state === 'opening') {
                 this._skipCloseFocus = true;
               }
               this.close();

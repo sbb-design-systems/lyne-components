@@ -116,11 +116,11 @@ Opened panel:
 
 ## Methods
 
-| Name              | Privacy | Description                       | Parameters | Return   | Inherited From |
-| ----------------- | ------- | --------------------------------- | ---------- | -------- | -------------- |
-| `open`            | public  | Opens the selection panel.        |            | `void`   |                |
-| `close`           | public  | Closes the selection panel.       |            | `void`   |                |
-| `getDisplayValue` | public  | Gets the current displayed value. |            | `string` |                |
+| Name              | Privacy | Description                       | Parameters | Return   | Inherited From        |
+| ----------------- | ------- | --------------------------------- | ---------- | -------- | --------------------- |
+| `open`            | public  | Opens the selection panel.        |            | `void`   | SbbOverlayBaseElement |
+| `close`           | public  | Closes the selection panel.       |            | `void`   | SbbOverlayBaseElement |
+| `getDisplayValue` | public  | Gets the current displayed value. |            | `string` |                       |
 
 ## Events
 

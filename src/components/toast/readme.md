@@ -112,10 +112,10 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Methods
 
-| Name    | Privacy | Description                                                                     | Parameters | Return | Inherited From |
-| ------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
-| `open`  | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` |                |
-| `close` | public  | Close the toast.                                                                |            | `void` |                |
+| Name    | Privacy | Description                                                                     | Parameters | Return | Inherited From        |
+| ------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | --------------------- |
+| `open`  | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` | SbbOverlayBaseElement |
+| `close` | public  | Close the toast.                                                                |            | `void` | SbbOverlayBaseElement |
 
 ## Events
 
