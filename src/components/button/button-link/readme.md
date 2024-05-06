@@ -82,7 +82,7 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                 |
 | `rel`                | `rel`                 | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
 | `download`           | `download`            | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                      |
-| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the relevant nested element.                                                             |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the inner anchor element.                                                                |
 
 ## Slots
 

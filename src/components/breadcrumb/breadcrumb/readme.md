@@ -46,7 +46,7 @@ By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on t
 | `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                 |
 | `rel`                | `rel`                 | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
 | `download`           | `download`            | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                      |
-| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the relevant nested element.                                                             |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the inner anchor element.                                                                |
 
 ## Slots
 
