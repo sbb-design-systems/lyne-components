@@ -174,45 +174,4 @@ export class Screenshots {
   }
 }
 
-export class ScreenshotService {
-  public readonly screenshots;
-  private _currentIndex: number = -1;
-
-  public get progressFraction(): number {
-    return (this._currentIndex + 1) / this.screenshots.testCaseCount;
-  }
-
-  public get current(): ScreenshotTestCase | undefined {
-    return this._current;
-  }
-  private _current?: ScreenshotTestCase;
-
-  public constructor(screenshots: Screenshots) {
-    this.screenshots = screenshots;
-    this._currentIndex = 0;
-    this._current = screenshots.getByTestCaseIndex(this._currentIndex);
-  }
-
-  public get next(): ScreenshotTestCase | undefined {
-    return this.screenshots.getByTestCaseIndex(this._currentIndex + 1);
-  }
-
-  public get previous(): ScreenshotTestCase | undefined {
-    return this.screenshots.getByTestCaseIndex(this._currentIndex - 1);
-  }
-
-  public setCurrentTestCase(
-    componentName: string,
-    testCaseName: string,
-  ): ScreenshotTestCase | undefined {
-    const testCaseIndex = this.screenshots.indexOfTestCase(componentName, testCaseName);
-
-    this._currentIndex = testCaseIndex;
-    if (testCaseIndex >= 0) {
-      this._current = this.screenshots.getByTestCaseIndex(testCaseIndex);
-      return this._current;
-    }
-  }
-}
-
-export const screenshotService = new ScreenshotService(new Screenshots(screenshotsRaw));
+export const screenshots = new Screenshots(screenshotsRaw);
