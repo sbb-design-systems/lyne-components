@@ -305,6 +305,28 @@ All our tokens and components use `rem` as size unit.
 We strongly recommend using the `rem` unit to guarantee consistent scaling
 when font size changes in browsers.
 
+### Focus outline
+
+Focus outlines should only be displayed when users are navigation by keyboard.
+Lyne components use the CSS selector `:focus-visible`, to achieve that. Whenever you have custom interactive elements,
+you should use the `:focus-visible` selector as well and include our SASS mixin `focus-outline`.
+
+```scss
+@use '../../core/styles' as sbb;
+
+button:focus-visible {
+  @include sbb.focus-outline;
+}
+```
+
+#### Dark background
+
+If a container element has a dark background color, all containing interactive elements should get a white outline.
+By setting `--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);` all descendants elements using the
+Lyne focus outline mixin (Lyne components included) receive the white outline because the variable gets inherited.
+Note: If a Lyne component has a `negative` property, the correct focus outline color gets automatically applied  
+to all contained interactive elements.
+
 ### Stacking
 
 As we can't use popover API yet, stacking of overlay context is done manually.
