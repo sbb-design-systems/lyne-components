@@ -31,6 +31,27 @@ describe(`sbb-expansion-panel`, () => {
     });
   });
 
+  describe('renders size s', () => {
+    let element: SbbExpansionPanelElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-expansion-panel size="s">
+          <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+        </sbb-expansion-panel>
+      `);
+    });
+
+    it('Dom', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
   describe('renders with level set', () => {
     let element: SbbExpansionPanelElement;
 

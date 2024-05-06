@@ -2,12 +2,13 @@
 export const snapshots = {};
 
 snapshots["sbb-expansion-panel renders Dom"] = 
-`<sbb-expansion-panel>
+`<sbb-expansion-panel size="l">
   <sbb-expansion-panel-header
     aria-controls="sbb-expansion-panel-content-1"
     aria-expanded="false"
     data-action=""
     data-button=""
+    data-size="l"
     data-slot-names="unnamed"
     dir="ltr"
     id="sbb-expansion-panel-header-1"
@@ -20,6 +21,7 @@ snapshots["sbb-expansion-panel renders Dom"] =
   <sbb-expansion-panel-content
     aria-hidden="true"
     aria-labelledby="sbb-expansion-panel-header-1"
+    data-size="l"
     id="sbb-expansion-panel-content-1"
     role="region"
     slot="content"
@@ -47,15 +49,19 @@ snapshots["sbb-expansion-panel renders ShadowDom"] =
 /* end snapshot sbb-expansion-panel renders ShadowDom */
 
 snapshots["sbb-expansion-panel renders with level set Dom"] = 
-`<sbb-expansion-panel title-level="4">
+`<sbb-expansion-panel
+  size="l"
+  title-level="4"
+>
   <sbb-expansion-panel-header
-    aria-controls="sbb-expansion-panel-content-3"
+    aria-controls="sbb-expansion-panel-content-5"
     aria-expanded="false"
     data-action=""
     data-button=""
+    data-size="l"
     data-slot-names="unnamed"
     dir="ltr"
-    id="sbb-expansion-panel-header-3"
+    id="sbb-expansion-panel-header-5"
     role="button"
     slot="header"
     tabindex="0"
@@ -64,8 +70,9 @@ snapshots["sbb-expansion-panel renders with level set Dom"] =
   </sbb-expansion-panel-header>
   <sbb-expansion-panel-content
     aria-hidden="true"
-    aria-labelledby="sbb-expansion-panel-header-3"
-    id="sbb-expansion-panel-content-3"
+    aria-labelledby="sbb-expansion-panel-header-5"
+    data-size="l"
+    id="sbb-expansion-panel-content-5"
     role="region"
     slot="content"
   >
@@ -122,4 +129,51 @@ snapshots["sbb-expansion-panel renders with level set A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-expansion-panel renders with level set A11y tree Chrome */
+
+snapshots["sbb-expansion-panel renders size s Dom"] = 
+`<sbb-expansion-panel size="s">
+  <sbb-expansion-panel-header
+    aria-controls="sbb-expansion-panel-content-3"
+    aria-expanded="false"
+    data-action=""
+    data-button=""
+    data-size="s"
+    data-slot-names="unnamed"
+    dir="ltr"
+    id="sbb-expansion-panel-header-3"
+    role="button"
+    slot="header"
+    tabindex="0"
+  >
+    Header
+  </sbb-expansion-panel-header>
+  <sbb-expansion-panel-content
+    aria-hidden="true"
+    aria-labelledby="sbb-expansion-panel-header-3"
+    data-size="s"
+    id="sbb-expansion-panel-content-3"
+    role="region"
+    slot="content"
+  >
+    Content
+  </sbb-expansion-panel-content>
+</sbb-expansion-panel>
+`;
+/* end snapshot sbb-expansion-panel renders size s Dom */
+
+snapshots["sbb-expansion-panel renders size s ShadowDom"] = 
+`<div class="sbb-expansion-panel">
+  <div class="sbb-expansion-panel__header">
+    <slot name="header">
+    </slot>
+  </div>
+  <div class="sbb-expansion-panel__content-wrapper">
+    <span class="sbb-expansion-panel__content">
+      <slot name="content">
+      </slot>
+    </span>
+  </div>
+</div>
+`;
+/* end snapshot sbb-expansion-panel renders size s ShadowDom */
 

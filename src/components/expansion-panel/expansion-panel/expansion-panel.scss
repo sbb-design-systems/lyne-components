@@ -33,6 +33,10 @@
   display: block;
 }
 
+:host([size='s']) {
+  --sbb-expansion-panel-title-gap: var(--sbb-spacing-fixed-2x);
+}
+
 :host([disabled]) {
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-border-color: GrayText;

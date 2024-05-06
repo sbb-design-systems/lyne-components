@@ -19,10 +19,11 @@ Select your technology to get started.
    yarn add @sbb-esta/lyne-components
    ```
 
-2. Including typography is required to apply all SBB styles to your application.
+2. Including global styles is strongly recommended to apply all SBB styles to your application.
+   See [styles](#styles) section if you prefer more granularity on what to import.
 
    ```css
-   @import 'node_modules/@sbb-esta/lyne-components/typography.css';
+   @import 'node_modules/@sbb-esta/lyne-components/standard-theme.css';
    ```
 
 3. Import the desired element and add it to globalThis:
@@ -54,10 +55,12 @@ Select your technology to get started.
    yarn add @sbb-esta/lyne-components
    ```
 
-3. Including typography is required to apply all SBB styles to your application. That is doable by editing the `styles.(s)css`:
+3. Including global styles is strongly recommended to apply all SBB styles to your application.
+   See [styles](#styles) section if you prefer more granularity on what to import.
+   Importing stylsheets is doable by editing the `styles.(s)css`:
 
    ```css
-   @import 'node_modules/@sbb-esta/lyne-components/typography.css';
+   @import 'node_modules/@sbb-esta/lyne-components/standard-theme.css';
    ```
 
    or editing your `angular.json`:
@@ -66,7 +69,7 @@ Select your technology to get started.
      ...
      "styles": [
        "src/styles.scss",
-       "node_modules/@sbb-esta/lyne-components/typography.css"
+       "node_modules/@sbb-esta/lyne-components/standard-theme.css"
      ],
      ...
    ```
@@ -110,10 +113,11 @@ bootstrapApplication(App).catch((err) => console.error(err));
    yarn add @sbb-esta/lyne-components-react
    ```
 
-3. Including typography globally is required to apply all SBB styles to your application.
+3. Including global styles is strongly recommended to apply all SBB styles to your application.
+   See [styles](#styles) section if you prefer more granularity on what to import.
 
    ```css
-   @import '~@sbb-esta/lyne-components/typography.css';
+   @import '~@sbb-esta/lyne-components/standard-theme.css';
    ```
 
 4. Enhance the `transpilePackages` array in Next.Js config.
@@ -189,25 +193,45 @@ and on [storybook](https://lyne-storybook.app.sbb.ch).
 
 ## Styles
 
+### CSS files
+
+Basically, all our styles are included in 'standard-theme.css' which should be included in your application.
+However, if you like to more specifically pick what you need, consider the following CSS files available.
+
+| File name                       | Description                                                                         |
+| ------------------------------- | ----------------------------------------------------------------------------------- |
+| `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                        |
+| `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to fetch.              |
+|                                 |                                                                                     |
+| `normalize.css`                 | Contains general browser resetting styles which can be useful for your application. |
+|                                 |                                                                                     |
+| `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).         |
+|                                 |                                                                                     |
+| `a11y.css`                      | Provides accessibility related CSS classes.                                         |
+| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing).                       |
+| `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                      |
+| `lists.css`                     | Provides CSS classes to style lists.                                                |
+| `typography.css`                | Provides typography related CSS classes.                                            |
+
 ### Full Font
 
-The `typography.css` file only contains a subset of the `SBBWeb` fonts that do not contain all characters (e.g. the French "œ").
-For including the full fontset, we provide the `fullfont.css` file which can be added after the `typography.css` file.
+The `standard-theme.css` (or `core.css`) file only contains a subset of the `SBB` fonts that do not contain all characters (e.g. the French "œ").
+For including the full fontset, we provide the `font-characters-extension.css` file which can be added after the `standard-theme.css` (or `core.css`) file.
 
 ```css
-@import '@sbb-esta/lyne-components/typography.css';
-@import '@sbb-esta/lyne-components/fullfont.css';
+@import '@sbb-esta/lyne-components/standard-theme.css';
+@import '@sbb-esta/lyne-components/font-characters-extension.css';
 ```
 
 ### Design Tokens
 
 The `@sbb-esta/lyne-components` package provides the CSS variable design tokens
-from `@sbb-esta/lyne-design-tokens` in the `typography.css`.
+from `@sbb-esta/lyne-design-tokens` in the `standard-theme.css` (or `core.css`).
 
 > If you have to use design tokens within a javascript context,
 > please also add `@sbb-esta/lyne-design-tokens` package to your project.
 
-Please check `node_modules/@sbb-esta/lyne-components/typography.css` for available design tokens.
+Please check `node_modules/@sbb-esta/lyne-components/standard-theme.css` for available design tokens.
 
 #### How to work with design tokens
 
@@ -288,3 +312,27 @@ However, this can interfere with the z-index of your components.
 Therefore, every overlay component provides a CSS variable to override its z-index.
 Additionally, there is the global CSS variable `--sbb-overlay-default-z-index` that has a default z-index of 1000.
 With this, developers have the chance to change the z-index either globally or on component level.
+
+### Fonts
+
+SBB provides different fonts depending on the font-weight: `Roman`, `Bold` and `Light`.
+Lyne maps these fonts on the CSS `font-weight` property so that consumers
+can just set e.g. `font-weight: bold` and the correct font gets automatically selected.
+Please note, although SBB provides more fonts than `Roman`, `Bold` and `Light`,
+Lyne only intends to use these three fonts.
+To apply the SBB font family you can use the CSS var `var(--sbb-typo-font-family)`. However,
+this only includes the family but no letter spacing, so we recommend to always
+use our SASS mixins or CSS classes which contain all necessary properties.
+See [Text styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-typography--docs) for what's available.
+
+```html
+<p class="sbb-text-s sbb-text--bold"></p>
+```
+
+```scss
+@use '@sbb-esta/lyne-components' as sbb;
+
+p {
+  @include sbb.text-s--bold;
+}
+```
