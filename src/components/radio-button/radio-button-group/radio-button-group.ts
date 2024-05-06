@@ -148,7 +148,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     );
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this._hasSelectionPanel = !!this.querySelector?.('sbb-selection-expansion-panel');
-    this.toggleAttribute('data-has-selection-panel', this._hasSelectionPanel);
+    this.toggleAttribute('data-has-selection-expansion-panel', this._hasSelectionPanel);
     this._updateRadios(this.value);
   }
 

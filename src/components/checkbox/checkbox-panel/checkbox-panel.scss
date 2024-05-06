@@ -85,7 +85,7 @@ slot[name='subtext'] {
 }
 
 .sbb-checkbox__expanded-label {
-  :host(:not([data-is-selection-panel-input][data-has-selection-panel-label])) & {
+  :host(:not([data-is-selection-panel-input][data-has-selection-expansion-panel-label])) & {
     display: none;
   }
 }

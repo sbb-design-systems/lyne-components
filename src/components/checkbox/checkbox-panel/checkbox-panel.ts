@@ -99,14 +99,14 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
     await this.hydrationComplete;
     if (!this._selectionPanelElement?.hasContent) {
       this._selectionPanelExpandedLabel = '';
-      this.removeAttribute('data-has-selection-panel-label');
+      this.removeAttribute('data-has-selection-expansion-panel-label');
       return;
     }
 
     this._selectionPanelExpandedLabel = this.checked
       ? ', ' + i18nExpanded[this._language.current]
       : ', ' + i18nCollapsed[this._language.current];
-    this.toggleAttribute('data-has-selection-panel-label', true);
+    this.toggleAttribute('data-has-selection-expansion-panel-label', true);
   }
 
   protected override render(): TemplateResult {

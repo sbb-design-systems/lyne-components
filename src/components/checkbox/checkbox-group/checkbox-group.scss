@@ -25,11 +25,11 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-checkbox-group-checkbox-width: 100%;
 }
 
-:host([data-has-selection-panel]) {
+:host([data-has-selection-expansion-panel]) {
   --sbb-checkbox-group-width: 100%;
 }
 
-:host([data-has-selection-panel][orientation='vertical']) {
+:host([data-has-selection-expansion-panel][orientation='vertical']) {
   --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
 }
 
@@ -41,7 +41,9 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
     }
 
     :host(
-        [orientation='vertical'][horizontal-from='#{$breakpoint}']:not([data-has-selection-panel])
+        [orientation='vertical'][horizontal-from='#{$breakpoint}']:not(
+            [data-has-selection-expansion-panel]
+          )
       ) {
       --sbb-checkbox-group-width: max-content;
     }
