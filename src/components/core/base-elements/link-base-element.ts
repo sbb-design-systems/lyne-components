@@ -30,7 +30,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
 
-  /** This will be forwarded as aria-label to the relevant nested element. */
+  /** This will be forwarded as aria-label to the inner anchor element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   protected language = new SbbLanguageController(this);

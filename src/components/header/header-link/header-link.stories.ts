@@ -84,7 +84,7 @@ const download: InputType = {
   },
 };
 
-const ariaLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: { type: 'text' },
 };
 
@@ -96,7 +96,7 @@ const basicArgTypes: ArgTypes = {
   target,
   rel,
   download,
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
 };
 
 const basicArgs: Args = {
@@ -107,7 +107,7 @@ const basicArgs: Args = {
   target: '_blank',
   rel: undefined,
   download: false,
-  'aria-label': undefined,
+  'accessibility-label': undefined,
 };
 
 export const sbbHeaderActionLink: StoryObj = {
