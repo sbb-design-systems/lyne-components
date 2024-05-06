@@ -348,12 +348,16 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
         ?readonly=${args.readonly}
       />
       <sbb-autocomplete-grid ?preserve-icon-space=${args.preserveIconSpace}>
+        <sbb-autocomplete-grid-row>
+          <sbb-autocomplete-grid-option value="Current location" icon-name="gps-small"
+            >Current location</sbb-autocomplete-grid-option
+          >
+        </sbb-autocomplete-grid-row>
         <sbb-autocomplete-grid-optgroup label="Group 1" ?disabled=${args.disableGroup}>
           ${createRows1(args.optionIconName, args.buttonIconName, args.disableOption)}
-          ${createRows2(args.buttonIconName, args.disableOptio1n)}
         </sbb-autocomplete-grid-optgroup>
         <sbb-autocomplete-grid-optgroup label="Group 2">
-          ${createRows1(args.optionIconName, args.buttonIconName, args.disableOption)}
+          ${createRows2(args.buttonIconName, args.disableOptio1n)}
         </sbb-autocomplete-grid-optgroup>
       </sbb-autocomplete-grid>
     </sbb-form-field>
