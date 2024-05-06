@@ -91,7 +91,7 @@
     "@web/test-runner-playwright": "0.11.0",
     "@web/test-runner-puppeteer": "0.16.0",
     "chromatic": "11.3.0",
-    "custom-elements-manifest": "2.0.0",
+    "custom-elements-manifest": "2.1.0",
     "date-fns": "3.6.0",
     "esbuild-sass-plugin": "3.2.0",
     "eslint": "9.2.0",
