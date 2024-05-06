@@ -75,6 +75,8 @@ jobs:
         if: env.PR_NUMBER != ''
         # This label is used for filtering deployments in ArgoCD
         run: gh issue edit ${{ env.PR_NUMBER }} --repo ${{ github.repository }} --add-label "preview-available"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   codecov:
     runs-on: ubuntu-latest
@@ -175,6 +177,8 @@ jobs:
       - name: Remove labels when no failed screenshots exist
         if: steps.screenshot-check.outputs.result == 'empty'
         run: gh issue edit $PR_NUMBER --remove-label "$VISUAL_REQUIRED"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add label and create container
         if: steps.screenshot-check.outputs.result == 'changed'
@@ -188,3 +192,4 @@ jobs:
           gh issue edit $PR_NUMBER --add-label "visual-regression-diff-available"
         env:
           DOCKER_BUILDKIT: 1
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
