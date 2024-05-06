@@ -1,7 +1,7 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { screenshotService } from '../../screenshots.js';
+import { screenshots } from '../../screenshots.js';
 
 import style from './overview.scss?lit&inline';
 
@@ -27,20 +27,18 @@ export class Overview extends LitElement {
         <sbb-title level="3">Lyne visual regression comparison</sbb-title>
         <div class="app-overview">
           <sbb-card color="milk">
-            ${screenshotService.screenshots.stats}
+            ${screenshots.stats}
             <sbb-secondary-button-link
-              href="/compare/${screenshotService.screenshots.flatTestCases[0].path}"
+              href="/compare/${screenshots.flatTestCases[0].path}"
               size="s"
             >
               Start comparing
             </sbb-secondary-button-link>
           </sbb-card>
           <sbb-accordion>
-            ${screenshotService.screenshots.components.map(
+            ${screenshots.components.map(
               (screenshotComponent) => html`
-                <sbb-expansion-panel
-                  ?expanded=${screenshotService.screenshots!.components.length === 1}
-                >
+                <sbb-expansion-panel ?expanded=${screenshots!.components.length === 1}>
                   <sbb-expansion-panel-header>
                     ${screenshotComponent.name} (${screenshotComponent.stats})
                   </sbb-expansion-panel-header>
