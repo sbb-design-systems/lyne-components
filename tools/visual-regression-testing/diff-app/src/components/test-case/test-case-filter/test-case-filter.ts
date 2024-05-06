@@ -17,6 +17,15 @@ export class TestCaseFilter extends LitElement {
 
   @property() public testCase?: ScreenshotTestCase;
 
+  /**
+   * Activate `all`-tag of viewports and browsers.
+   */
+  public reset(): void {
+    this.shadowRoot!.querySelectorAll<SbbTagElement>(`sbb-tag[value='all']`).forEach(
+      (tag) => (tag.checked = true),
+    );
+  }
+
   private _handleViewportChange(event: CustomEvent): void {
     this.dispatchEvent(
       new CustomEvent('viewportFilterChange', {

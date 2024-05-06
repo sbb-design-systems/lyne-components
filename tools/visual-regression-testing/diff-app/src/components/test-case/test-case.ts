@@ -1,6 +1,11 @@
-import type { BeforeEnterObserver, RouterLocation } from '@vaadin/router';
-import { LitElement, html, type TemplateResult, type CSSResultGroup } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import {
+  LitElement,
+  html,
+  type TemplateResult,
+  type CSSResultGroup,
+  type PropertyValues,
+} from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 
 import { screenshotService, type ScreenshotTestCase } from '../../screenshots.js';
 
@@ -11,6 +16,7 @@ import '../../../../../../src/components/header.js';
 import '../../../../../../src/components/notification.js';
 import '../../../../../../src/components/title.js';
 
+import type { TestCaseFilter } from './test-case-filter/test-case-filter.js';
 import style from './test-case.scss?lit&inline';
 
 import './test-case-filter/test-case-filter.js';
@@ -26,20 +32,25 @@ interface Filter {
  * Provides filtering functions.
  */
 @customElement('app-test-case')
-export class TestCase extends LitElement implements BeforeEnterObserver {
+export class TestCase extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @state() private _testCaseName?: string;
-  @state() private _componentName?: string;
+  @property() public params?: { componentName: string; testCaseName: string };
+
   @state() private _testCase?: ScreenshotTestCase;
   @state() private _filter: Filter = {};
 
-  // Called by router
-  public onBeforeEnter(location: RouterLocation): void {
-    this._testCaseName = location.params.testcase as string;
-    this._componentName = location.params.component as string;
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
 
-    this._testCase = screenshotService.setCurrentTestCase(this._componentName, this._testCaseName);
+    if (changedProperties.has('params')) {
+      this._filter = {};
+      this.shadowRoot!.querySelector<TestCaseFilter>('app-test-case-filter')?.reset();
+      this._testCase = screenshotService.setCurrentTestCase(
+        this.params!.componentName!,
+        this.params!.testCaseName!,
+      );
+    }
   }
 
   private _viewportFilterChanged(event: CustomEvent<string>): void {
@@ -64,9 +75,9 @@ export class TestCase extends LitElement implements BeforeEnterObserver {
           style="--app-progress: ${screenshotService.progressFraction}"
         ></div>
         <div class="app-file-name-box sbb-header-shrinkable">
-          <sbb-chip color="charcoal">${this._componentName}</sbb-chip>
+          <sbb-chip color="charcoal">${this.params?.componentName}</sbb-chip>
           <sbb-title level="2" visual-level="6">
-            <span class="app-file-name-ellipsis">${this._testCaseName}</span>
+            <span class="app-file-name-ellipsis">${this.params?.testCaseName}</span>
           </sbb-title>
         </div>
         <div class="sbb-header-spacer"></div>
