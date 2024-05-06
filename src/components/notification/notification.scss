@@ -53,11 +53,6 @@ $open-anim-height-to: calc(
   @include sbb.disable-animation;
 }
 
-// By default, the open animation is disabled
-:host([data-state='opening']:not(.sbb-animate)) {
-  @include sbb.disable-animation;
-}
-
 :host([data-resize-disable-animation]) {
   @include sbb.disable-animation;
 }
