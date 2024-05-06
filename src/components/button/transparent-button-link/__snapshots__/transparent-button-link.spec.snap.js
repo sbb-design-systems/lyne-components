@@ -82,6 +82,7 @@ snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button
 
 snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button-link with slotted icon ShadowDom"] = 
 `<a
+  aria-disabled="true"
   class="sbb-action-base sbb-transparent-button-link"
   href="https://www.sbb.ch"
   tabindex="-1"

@@ -82,6 +82,7 @@ snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-lin
 
 snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-link with slotted icon ShadowDom"] = 
 `<a
+  aria-disabled="true"
   class="sbb-action-base sbb-secondary-button-link"
   href="https://www.sbb.ch"
   tabindex="-1"
