@@ -2,7 +2,7 @@ import { sbbInputModalityDetector } from '../a11y.js';
 import type { SbbIconConfig } from '../config.js';
 import { mergeConfig } from '../config.js';
 
-import { isHydratedSsr } from './private.js';
+import { isHydratedSsr, isVisualRegressionRun } from './private.js';
 
 function setupIconConfig(): void {
   const testNamespaces = ['default', 'picto'];
@@ -27,7 +27,7 @@ function setupIconConfig(): void {
   mergeConfig({ icon });
 }
 
-if (!(globalThis as unknown as { isVisualRegressionRun: boolean }).isVisualRegressionRun) {
+if (!isVisualRegressionRun()) {
   setupIconConfig();
 }
 
