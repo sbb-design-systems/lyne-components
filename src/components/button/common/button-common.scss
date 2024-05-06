@@ -140,6 +140,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   color: var(--sbb-button-color-default-text);
   cursor: pointer;
   user-select: none;
+  outline: none;
 
   // Renders background and border in the background absolute to enable the hover animation
   &::before {
@@ -157,17 +158,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     :host([disabled]) & {
       background-color: var(--sbb-button-color-disabled-background);
       border-color: var(--sbb-button-color-disabled-border);
-    }
-
-    // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-    :host(
-        :is(
-            [data-focus-visible],
-            :focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
-          )
-      )
-      & {
-      @include sbb.focus-outline;
     }
 
     :host(:not([disabled], :active, [data-active]):hover) & {
@@ -202,6 +192,19 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
       color: var(--sbb-button-color-hover-text);
     }
   }
+
+  /* stylelint-disable no-descending-specificity */
+  :host([data-focus-visible]) &,
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  // Handle focus on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    &::before {
+      @include sbb.focus-outline;
+    }
+  }
+  /* stylelint-enable no-descending-specificity */
 }
 
 .sbb-button__label,

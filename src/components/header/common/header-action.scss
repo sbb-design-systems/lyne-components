@@ -91,15 +91,14 @@
     @include sbb.if-forced-colors {
       border-width: var(--sbb-border-width-2x);
     }
+  }
 
-    // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-    // Handle focus when on the host (button variant)
-    :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-      @include sbb.focus-outline;
-    }
-
-    // Handle focus on the action (link variant)
-    :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) :focus-visible & {
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  // Handle focus on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    &::before {
       @include sbb.focus-outline;
     }
   }
