@@ -8,7 +8,7 @@ import type { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.js';
 import '../autocomplete-grid.js';
 import './autocomplete-grid-row.js';
 import '../autocomplete-grid-option.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
 describe('sbb-autocomplete-grid-row', () => {
@@ -16,9 +16,9 @@ describe('sbb-autocomplete-grid-row', () => {
   const row: TemplateResult = html`
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-      <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
-      </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-cell>
     </sbb-autocomplete-grid-row>
   `;
   beforeEach(async () => {

@@ -7,7 +7,7 @@ import type { SbbAutocompleteGridOptionElement } from './autocomplete-grid-optio
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
 import './autocomplete-grid-option.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
 describe('sbb-autocomplete-grid-option', () => {

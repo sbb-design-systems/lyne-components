@@ -15,7 +15,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import '../autocomplete-grid-row.js';
-import './autocomplete-grid-actions.js';
+import './autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
 const numberOfButtons: InputType = {
@@ -50,17 +50,17 @@ const defaultArgs: Args = {
 
 const Template = ({ numberOfButtons, ...args }: Args): TemplateResult => html`
   <sbb-autocomplete-grid-row ?data-negative=${args.negative}>
-    <sbb-autocomplete-grid-actions>
-      ${repeat(
-        new Array(numberOfButtons),
-        (_, i) => html`
+    ${repeat(
+      new Array(numberOfButtons),
+      (_, i) => html`
+        <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button
             ${sbbSpread(args)}
             icon-name=${i === 0 ? 'star-small' : i === 1 ? 'pen-small' : 'trash-small'}
           ></sbb-autocomplete-grid-button>
-        `,
-      )}
-    </sbb-autocomplete-grid-actions>
+        </sbb-autocomplete-grid-cell>
+      `,
+    )}
   </sbb-autocomplete-grid-row>
 `;
 
@@ -124,7 +124,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-autocomplete-grid/sbb-autocomplete-grid-actions',
+  title: 'components/sbb-autocomplete-grid/sbb-autocomplete-grid-cell',
 };
 
 export default meta;

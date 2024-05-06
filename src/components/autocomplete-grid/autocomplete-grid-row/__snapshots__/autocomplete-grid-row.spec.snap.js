@@ -15,7 +15,7 @@ snapshots["sbb-autocomplete-grid-row Dom"] =
   >
     Option 1
   </sbb-autocomplete-grid-option>
-  <sbb-autocomplete-grid-actions role="gridcell">
+  <sbb-autocomplete-grid-cell role="gridcell">
     <sbb-autocomplete-grid-button
       aria-disabled="false"
       data-action=""
@@ -26,7 +26,7 @@ snapshots["sbb-autocomplete-grid-row Dom"] =
       role="button"
     >
     </sbb-autocomplete-grid-button>
-  </sbb-autocomplete-grid-actions>
+  </sbb-autocomplete-grid-cell>
 </sbb-autocomplete-grid-row>
 `;
 /* end snapshot sbb-autocomplete-grid-row Dom */
@@ -39,7 +39,7 @@ snapshots["sbb-autocomplete-grid-row ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid-row ShadowDom */
 
-snapshots["sbb-autocomplete-grid-row A11y tree Chrome"] = 
+snapshots["sbb-autocomplete-grid-row A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

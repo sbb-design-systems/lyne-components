@@ -13,7 +13,7 @@ import '../../form-field.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-optgroup.js';
 import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
 describe(`sbb-autocomplete-grid-option with ${fixture.name}`, () => {
@@ -27,15 +27,15 @@ describe(`sbb-autocomplete-grid-option with ${fixture.name}`, () => {
           <sbb-autocomplete-grid>
             <sbb-autocomplete-grid-row>
               <sbb-autocomplete-grid-option>Option 1</sbb-autocomplete-grid-option>
-              <sbb-autocomplete-grid-actions>
+              <sbb-autocomplete-grid-cell>
                 <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
-              </sbb-autocomplete-grid-actions>
+              </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
             <sbb-autocomplete-grid-row>
               <sbb-autocomplete-grid-option>Option 2</sbb-autocomplete-grid-option>
-              <sbb-autocomplete-grid-actions>
+              <sbb-autocomplete-grid-cell>
                 <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
-              </sbb-autocomplete-grid-actions>
+              </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
           </sbb-autocomplete-grid>
         </sbb-form-field>
@@ -181,11 +181,11 @@ describe(`sbb-autocomplete-grid-option with ${fixture.name}`, () => {
             <sbb-autocomplete-grid-optgroup>
               <sbb-autocomplete-grid-row>
                 <sbb-autocomplete-grid-option>Option 1</sbb-autocomplete-grid-option>
-                <sbb-autocomplete-grid-actions>
+                <sbb-autocomplete-grid-cell>
                   <sbb-autocomplete-grid-button
                     icon-name="pie-small"
                   ></sbb-autocomplete-grid-button>
-                </sbb-autocomplete-grid-actions>
+                </sbb-autocomplete-grid-cell>
               </sbb-autocomplete-grid-row>
             </sbb-autocomplete-grid-optgroup>
           </sbb-autocomplete-grid>

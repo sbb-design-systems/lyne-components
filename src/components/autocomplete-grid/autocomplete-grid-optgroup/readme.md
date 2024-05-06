@@ -10,15 +10,15 @@ A [sbb-divider](/docs/components-sbb-divider--docs) is displayed at the bottom o
     <sbb-autocomplete-grid-optgroup>
       <sbb-autocomplete-grid-row>
         <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-        <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
-        </sbb-autocomplete-grid-actions>
+        </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-row>
         <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
-        <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
-        </sbb-autocomplete-grid-actions>
+        </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
     </sbb-autocomplete-grid-optgroup>
   </sbb-autocomplete-grid>

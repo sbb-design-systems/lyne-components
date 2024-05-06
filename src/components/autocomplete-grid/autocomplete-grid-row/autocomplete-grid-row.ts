@@ -10,7 +10,7 @@ let autocompleteRowNextId = 0;
 /**
  * The component is used as a wrapper for options and action buttons.
  *
- * @slot - Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-actions` with one or more `sbb-autocomplete-grid-button`.
+ * @slot - Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-cell` with one or more `sbb-autocomplete-grid-button`.
  */
 @customElement('sbb-autocomplete-grid-row')
 @hostAttributes({

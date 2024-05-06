@@ -11,7 +11,7 @@ import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js
 
 import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
 describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
@@ -29,27 +29,29 @@ describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
               <sbb-autocomplete-grid-option value="1" id="option-1"
                 >Option 1</sbb-autocomplete-grid-option
               >
-              <sbb-autocomplete-grid-actions>
+              <sbb-autocomplete-grid-cell>
                 <sbb-autocomplete-grid-button
                   id="button-1"
                   icon-name="pen-small"
                 ></sbb-autocomplete-grid-button>
-              </sbb-autocomplete-grid-actions>
+              </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
             <sbb-autocomplete-grid-row>
               <sbb-autocomplete-grid-option value="2" id="option-2"
                 >Option 2</sbb-autocomplete-grid-option
               >
-              <sbb-autocomplete-grid-actions>
+              <sbb-autocomplete-grid-cell>
                 <sbb-autocomplete-grid-button
                   id="button-2"
                   icon-name="pen-small"
                 ></sbb-autocomplete-grid-button>
+              </sbb-autocomplete-grid-cell>
+              <sbb-autocomplete-grid-cell>
                 <sbb-autocomplete-grid-button
                   id="button-3"
                   icon-name="trash-small"
                 ></sbb-autocomplete-grid-button>
-              </sbb-autocomplete-grid-actions>
+              </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
           </sbb-autocomplete-grid>
         </sbb-form-field>

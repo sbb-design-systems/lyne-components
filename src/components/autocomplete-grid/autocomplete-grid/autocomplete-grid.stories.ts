@@ -24,7 +24,7 @@ import readme from './readme.md?raw';
 
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-optgroup.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 import '../../form-field.js';
 
@@ -257,14 +257,14 @@ const createRows1 = (
           ?disabled=${disableOption && i === 1}
           >${`Option 1-${i + 1}`}</sbb-autocomplete-grid-option
         >
-        <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button
             icon-name=${buttonIconName}
             aria-label=${buttonIconName}
             ?disabled=${disableOption && i === 1}
             @click=${(event: Event) => getOption(event)}
           ></sbb-autocomplete-grid-button>
-        </sbb-autocomplete-grid-actions>
+        </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
     `,
   )}
@@ -278,20 +278,22 @@ const createRows2 = (buttonIconName: string, disableOption: boolean): TemplateRe
         <sbb-autocomplete-grid-option value=${`2-${i + 1}`} ?disabled=${disableOption && i === 1}
           >${`Option 2-${i + 1}`}</sbb-autocomplete-grid-option
         >
-        <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button
             icon-name=${buttonIconName}
             aria-label=${buttonIconName}
             ?disabled=${disableOption && i === 1}
             @click=${(event: Event) => getOption(event)}
           ></sbb-autocomplete-grid-button>
+        </sbb-autocomplete-grid-cell>
+        <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button
             icon-name="trash-small"
             aria-label="trash-small"
             ?disabled=${disableOption && i === 1}
             @click=${(event: Event) => getOption(event)}
           ></sbb-autocomplete-grid-button>
-        </sbb-autocomplete-grid-actions>
+        </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
     `,
   )}

@@ -13,7 +13,7 @@ import { html, type TemplateResult } from 'lit';
 import readme from './readme.md?raw';
 
 import './autocomplete-grid-row.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-option.js';
 import '../autocomplete-grid-button.js';
 
@@ -34,21 +34,21 @@ const defaultArgs: Args = {
 const Template = ({ negative }: Args): TemplateResult => html`
   <sbb-autocomplete-grid-row ?data-negative=${negative}>
     <sbb-autocomplete-grid-option>Opt 1</sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions>
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         icon-name="pie-small"
         ?negative=${negative}
       ></sbb-autocomplete-grid-button>
-    </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
   <sbb-autocomplete-grid-row ?data-negative=${negative}>
     <sbb-autocomplete-grid-option>Opt 2</sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions>
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         icon-name="dog-small"
         ?negative=${negative}
       ></sbb-autocomplete-grid-button>
-    </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
 `;
 

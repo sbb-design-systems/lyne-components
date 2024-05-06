@@ -18,7 +18,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] =
     >
       Option 1
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions role="gridcell">
+    <sbb-autocomplete-grid-cell role="gridcell">
       <sbb-autocomplete-grid-button
         aria-disabled="false"
         data-action=""
@@ -29,7 +29,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] =
         role="button"
       >
       </sbb-autocomplete-grid-button>
-    </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
   <sbb-autocomplete-grid-row
     id="sbb-autocomplete-grid-row-2"
@@ -43,7 +43,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] =
     >
       Option 2
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions role="gridcell">
+    <sbb-autocomplete-grid-cell role="gridcell">
       <sbb-autocomplete-grid-button
         aria-disabled="false"
         data-action=""
@@ -54,7 +54,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] =
         role="button"
       >
       </sbb-autocomplete-grid-button>
-    </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
 </sbb-autocomplete-grid>
 `;
@@ -118,7 +118,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] =
 `;
 /* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox */
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
+snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -159,7 +159,7 @@ snapshots["sbb-autocomplete-grid Safari Dom"] =
     >
       Option 1
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions role="gridcell">
+    <sbb-autocomplete-grid-cell role="gridcell">
       <sbb-autocomplete-grid-button
         aria-disabled="false"
         data-action=""
@@ -170,7 +170,7 @@ snapshots["sbb-autocomplete-grid Safari Dom"] =
         role="button"
       >
       </sbb-autocomplete-grid-button>
-    </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
   <sbb-autocomplete-grid-row
     id="sbb-autocomplete-grid-row-2"
@@ -184,7 +184,7 @@ snapshots["sbb-autocomplete-grid Safari Dom"] =
     >
       Option 2
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-actions role="gridcell">
+    <sbb-autocomplete-grid-cell role="gridcell">
       <sbb-autocomplete-grid-button
         aria-disabled="false"
         data-action=""
@@ -195,7 +195,7 @@ snapshots["sbb-autocomplete-grid Safari Dom"] =
         role="button"
       >
       </sbb-autocomplete-grid-button>
-    </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
 </sbb-autocomplete-grid>
 `;

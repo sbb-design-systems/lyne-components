@@ -8,7 +8,7 @@ import './autocomplete-grid-optgroup.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-option.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
 const label: InputType = {
@@ -101,12 +101,12 @@ const createOptions = (args: Args): TemplateResult[] =>
           icon-name=${args['icon-name'] || nothing}
           >${`${args.value} ${i + 1}`}</sbb-autocomplete-grid-option
         >
-        <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button
             icon-name="pie-small"
             ?disabled=${args.disabledSingle && i === 0}
           ></sbb-autocomplete-grid-button>
-        </sbb-autocomplete-grid-actions>
+        </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
     `;
   });

@@ -14,7 +14,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import './autocomplete-grid-button.js';
 
 const type: InputType = {
@@ -124,13 +124,13 @@ const defaultArgs: Args = {
 
 const Template = ({ active, focusVisible, ...args }: Args): TemplateResult => html`
   <sbb-autocomplete-grid-row ?data-negative=${args.negative}>
-    <sbb-autocomplete-grid-actions>
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         ${sbbSpread(args)}
         ?data-active=${active}
         ?data-focus-visible=${focusVisible}
       ></sbb-autocomplete-grid-button>
-    </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
 `;
 

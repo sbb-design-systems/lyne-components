@@ -3,23 +3,23 @@ import { customElement } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
 
-import style from './autocomplete-grid-actions.scss?lit&inline';
+import style from './autocomplete-grid-cell.scss?lit&inline';
 
 /**
- * A wrapper component for autocomplete-grid action buttons.
+ * A wrapper component for autocomplete-grid action button.
  *
- * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-button` elements.
+ * @slot - Use the unnamed slot to add a `sbb-autocomplete-grid-button` element.
  */
-@customElement('sbb-autocomplete-grid-actions')
+@customElement('sbb-autocomplete-grid-cell')
 @hostAttributes({
   role: 'gridcell',
 })
-export class SbbAutocompleteGridActionsElement extends LitElement {
+export class SbbAutocompleteGridCellElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-autocomplete-grid-action">
+      <span class="sbb-autocomplete-grid-cell">
         <slot></slot>
       </span>
     `;
@@ -29,6 +29,6 @@ export class SbbAutocompleteGridActionsElement extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-autocomplete-grid-actions': SbbAutocompleteGridActionsElement;
+    'sbb-autocomplete-grid-cell': SbbAutocompleteGridCellElement;
   }
 }

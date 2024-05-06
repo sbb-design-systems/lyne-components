@@ -1,5 +1,5 @@
 The `sbb-autocomplete-grid-row` is a wrapper for both [sbb-autocomplete-grid-option](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs)
-and [sbb-autocomplete-grid-actions](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-actions--docs) within the
+and [sbb-autocomplete-grid-cell](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-cell--docs) within the
 [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-sbb-autocomplete-grid--docs) component.
 
 ```html
@@ -8,15 +8,15 @@ and [sbb-autocomplete-grid-actions](/docs/components-sbb-autocomplete-grid-sbb-a
   <sbb-autocomplete-grid>
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-      <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
-      </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-cell>
     </sbb-autocomplete-grid-row>
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
-      <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
-      </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-cell>
     </sbb-autocomplete-grid-row>
   </sbb-autocomplete-grid>
 </sbb-form-field>
@@ -24,7 +24,7 @@ and [sbb-autocomplete-grid-actions](/docs/components-sbb-autocomplete-grid-sbb-a
 
 ## Slots
 
-The component has an unnamed slot which is used to project `sbb-autocomplete-grid-option` and `sbb-autocomplete-grid-actions`.
+The component has an unnamed slot which is used to project `sbb-autocomplete-grid-option` and `sbb-autocomplete-grid-cell`.
 
 ## Accessibility
 
@@ -35,6 +35,6 @@ this means that the `sbb-autocomplete-grid-row` has a `row` role and its child w
 
 ## Slots
 
-| Name | Description                                                                                                                                         |
-| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-actions` with one or more `sbb-autocomplete-grid-button`. |
+| Name | Description                                                                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-cell` with one or more `sbb-autocomplete-grid-button`. |

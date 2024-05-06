@@ -8,7 +8,7 @@ import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-butto
 import '../../form-field.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import './autocomplete-grid-button.js';
 
 describe('sbb-autocomplete-grid-button', () => {
@@ -19,9 +19,9 @@ describe('sbb-autocomplete-grid-button', () => {
         await fixture(html`
           <sbb-autocomplete-grid origin="anchor">
             <sbb-autocomplete-grid-row>
-              <sbb-autocomplete-grid-actions>
+              <sbb-autocomplete-grid-cell>
                 <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
-              </sbb-autocomplete-grid-actions>
+              </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
           </sbb-autocomplete-grid>
           <div id="anchor"></div>
@@ -46,12 +46,12 @@ describe('sbb-autocomplete-grid-button', () => {
         await fixture(html`
           <sbb-autocomplete-grid origin="anchor">
             <sbb-autocomplete-grid-row>
-              <sbb-autocomplete-grid-actions>
+              <sbb-autocomplete-grid-cell>
                 <sbb-autocomplete-grid-button
                   disabled
                   icon-name="pie-small"
                 ></sbb-autocomplete-grid-button>
-              </sbb-autocomplete-grid-actions>
+              </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
           </sbb-autocomplete-grid>
           <div id="anchor"></div>
@@ -78,9 +78,9 @@ describe('sbb-autocomplete-grid-button', () => {
             <input />
             <sbb-autocomplete-grid>
               <sbb-autocomplete-grid-row>
-                <sbb-autocomplete-grid-actions>
+                <sbb-autocomplete-grid-cell>
                   <sbb-autocomplete-grid-button></sbb-autocomplete-grid-button>
-                </sbb-autocomplete-grid-actions>
+                </sbb-autocomplete-grid-cell>
               </sbb-autocomplete-grid-row>
             </sbb-autocomplete-grid>
           </sbb-form-field>

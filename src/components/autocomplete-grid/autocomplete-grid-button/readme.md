@@ -1,5 +1,5 @@
 The `sbb-autocomplete-grid-button` component has the same appearance of a [sbb-mini-button](/docs/components-sbb-button-sbb-mini-button--docs),
-but it's only designed to be used within the [sbb-autocomplete-grid-actions](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-actions--docs)
+but it's only designed to be used within the [sbb-autocomplete-grid-cell](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-cell--docs)
 inside a [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
 
 ```html
@@ -8,15 +8,15 @@ inside a [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-grid-sbb-auto
   <sbb-autocomplete-grid>
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-      <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
-      </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-cell>
     </sbb-autocomplete-grid-row>
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
-      <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
-      </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-cell>
     </sbb-autocomplete-grid-row>
   </sbb-autocomplete-grid>
 </sbb-form-field>
@@ -76,12 +76,12 @@ It's possible to fetch the button's related `sbb-autocomplete-grid-option` using
   <sbb-autocomplete-grid>
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-      <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-button
           id="button"
           icon-name="pen-small"
         ></sbb-autocomplete-grid-button>
-      </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-cell>
     </sbb-autocomplete-grid-row>
   </sbb-autocomplete-grid>
 </sbb-form-field>
@@ -96,7 +96,7 @@ It's possible to fetch the button's related `sbb-autocomplete-grid-option` using
 ## Accessibility
 
 The `sbb-autocomplete-grid` follows the combobox `grid` pattern;
-this means that the `sbb-autocomplete-grid-button` has a `button` role and its `id` is set based on the `sbb-autocomplete-grid-actions`'s `id`,
+this means that the `sbb-autocomplete-grid-button` has a `button` role and its `id` is set based on the `sbb-autocomplete-grid-cell`'s `id`,
 which is needed to correctly set the `aria-activedescendant` on the related `input`.
 Moreover, the `sbb-autocomplete-grid-button` can't be focused via <kbd>Tab</kbd> due to the used pattern,
 since the focus must always stay on the connected `<input>`.

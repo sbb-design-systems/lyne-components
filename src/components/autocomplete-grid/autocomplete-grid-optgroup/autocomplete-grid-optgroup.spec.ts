@@ -10,7 +10,7 @@ import './autocomplete-grid-optgroup.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-option.js';
-import '../autocomplete-grid-actions.js';
+import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.js';
 
