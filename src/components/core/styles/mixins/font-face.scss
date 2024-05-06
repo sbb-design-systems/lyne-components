@@ -1,51 +1,57 @@
 @mixin font-declarations {
   @font-face {
-    font-family: 'SBBWeb Roman';
+    font-family: SBB;
     src:
       url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff2') format('woff2'),
       url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff') format('woff');
     font-display: fallback;
+    font-weight: 400;
   }
 
   @font-face {
-    font-family: 'SBBWeb Bold';
+    font-family: SBB;
     src:
       url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff2') format('woff2'),
       url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff') format('woff');
     font-display: swap;
+    font-weight: 700;
   }
 
   @font-face {
-    font-family: 'SBBWeb Light';
+    font-family: SBB;
     src:
       url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Light.woff2') format('woff2'),
       url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Light.woff') format('woff');
     font-display: swap;
+    font-weight: 300;
   }
 }
 
 @mixin font-declarations-full {
   @font-face {
-    font-family: 'SBBWeb Roman';
+    font-family: SBB;
     src:
       url('https://cdn.app.sbb.ch/fonts/v1/SBBWeb-Roman.woff2') format('woff2'),
       url('https://cdn.app.sbb.ch/fonts/v1/SBBWeb-Roman.woff') format('woff');
     font-display: fallback;
+    font-weight: 400;
   }
 
   @font-face {
-    font-family: 'SBBWeb Bold';
+    font-family: SBB;
     src:
       url('https://cdn.app.sbb.ch/fonts/v1/SBBWeb-Bold.woff2') format('woff2'),
       url('https://cdn.app.sbb.ch/fonts/v1/SBBWeb-Bold.woff') format('woff');
     font-display: swap;
+    font-weight: 700;
   }
 
   @font-face {
-    font-family: 'SBBWeb Light';
+    font-family: SBB;
     src:
       url('https://cdn.app.sbb.ch/fonts/v1/SBBWeb-Light.woff2') format('woff2'),
       url('https://cdn.app.sbb.ch/fonts/v1/SBBWeb-Light.woff') format('woff');
     font-display: swap;
+    font-weight: 300;
   }
 }

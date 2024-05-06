@@ -31,7 +31,8 @@
     {
       "groupName": "esta",
       "matchPackagePrefixes": ["@sbb-esta/"],
-      "prPriority": 10
+      "prPriority": 10,
+      "automerge": false
     },
     {
       "groupName": "eslint",
