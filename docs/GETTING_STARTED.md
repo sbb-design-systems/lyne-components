@@ -307,7 +307,11 @@ when font size changes in browsers.
 
 ### Focus outline
 
-Focus outlines should only be displayed when users are navigation by keyboard.
+Focus outlines should only be displayed when users are navigating by keyboard.
+
+Or
+
+Focus outlines should only be displayed when users navigate by keyboard.
 Lyne components use the CSS selector `:focus-visible`, to achieve that. Whenever you have custom interactive elements,
 you should use the `:focus-visible` selector as well and include our SASS mixin `focus-outline`.
 
