@@ -37,6 +37,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('size') || changedProperties.has('listChildren')) {
       this._updateMarkerActions();
     }

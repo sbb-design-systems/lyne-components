@@ -247,7 +247,7 @@ export class SbbTimetableRowElement extends LitElement {
 
   private _language = new SbbLanguageController(this);
 
-  protected override willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('loadingTrip')) {

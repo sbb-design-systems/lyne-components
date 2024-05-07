@@ -2,7 +2,7 @@ import {
   type CSSResultGroup,
   LitElement,
   nothing,
-  type PropertyValueMap,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -86,8 +86,9 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
     return `${textParts.join(', ')}.`;
   }
 
-  protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('listChildren')) {
       this._trainSlotChange.emit();
     }

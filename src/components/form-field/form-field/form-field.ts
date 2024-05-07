@@ -140,6 +140,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('negative')) {
       this._syncNegative();
     }

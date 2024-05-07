@@ -107,14 +107,15 @@ export const SbbHydrationMixin = <T extends AbstractConstructor<LitElement>>(
       return super.createRenderRoot();
     }
 
-    protected override willUpdate(changedProperties: PropertyValues): void {
+    protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
+
       if (isServer) {
         this.recoverSsrState?.();
       }
     }
 
-    protected override update(changedProperties: PropertyValues): void {
+    protected override update(changedProperties: PropertyValues<this>): void {
       // When hydration is needed, we wait the hydration process to finish, which is patched
       // into the update method of the LitElement base class.
       super.update(changedProperties);

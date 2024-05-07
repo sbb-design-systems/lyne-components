@@ -46,6 +46,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('listChildren')) {
       for (const child of this.listChildren) {
         child.size = 'm';

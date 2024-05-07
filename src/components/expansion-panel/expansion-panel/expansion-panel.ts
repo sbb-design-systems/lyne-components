@@ -131,6 +131,8 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('size')) {
       this._headerRef?.setAttribute('data-size', String(this.size));
       this._contentRef?.setAttribute('data-size', String(this.size));

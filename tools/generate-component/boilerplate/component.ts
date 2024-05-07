@@ -42,6 +42,8 @@ export class __nameUpperCase__ extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('myProp')) {
       // do stuff
     }
