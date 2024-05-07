@@ -19,7 +19,10 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-NAVIGATION-BUTTON', 'SBB-NAVIGATION-LINK'];
+  protected override readonly listChildLocalNames = [
+    'sbb-navigation-button',
+    'sbb-navigation-link',
+  ];
 
   /**
    * Marker size variant.

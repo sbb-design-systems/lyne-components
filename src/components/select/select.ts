@@ -178,7 +178,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   private _onOptionClick(event: MouseEvent): void {
     const target = event.target as SbbSelectElement | SbbOptionElement;
-    if (target.tagName !== 'SBB-OPTION' || target.disabled) {
+    if (target.localName !== 'sbb-option' || target.disabled) {
       return;
     }
 

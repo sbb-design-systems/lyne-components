@@ -59,7 +59,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   typeof SbbOverlayBaseElement
 >(SbbOverlayBaseElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-MENU-BUTTON', 'SBB-MENU-LINK'];
+  protected override readonly listChildLocalNames = ['sbb-menu-button', 'sbb-menu-link'];
 
   /**
    * The element that will trigger the menu overlay.
@@ -134,7 +134,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
    */
   private _onClick(event: Event): void {
     const target = event.target as HTMLElement | undefined;
-    if (target?.tagName === 'SBB-MENU-BUTTON' || target?.tagName === 'SBB-MENU-LINK') {
+    if (target?.localName === 'sbb-menu-button' || target?.localName === 'sbb-menu-link') {
       this.close();
     }
   }
@@ -214,7 +214,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     if (
       this.children?.length &&
       Array.from(this.children ?? []).every(
-        (c) => c.tagName === 'SBB-MENU-BUTTON' || c.tagName === 'SBB-MENU-LINK',
+        (c) => c.localName === 'sbb-menu-button' || c.localName === 'sbb-menu-link',
       )
     ) {
       return;
@@ -314,8 +314,8 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
       this._triggerElement?.focus({
         // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
         preventScroll:
-          this._triggerElement.tagName === 'SBB-HEADER-BUTTON' ||
-          this._triggerElement.tagName === 'SBB-HEADER-LINK',
+          this._triggerElement.localName === 'sbb-header-button' ||
+          this._triggerElement.localName === 'sbb-header-link',
       });
       this.didClose.emit();
       this._windowEventsController?.abort();

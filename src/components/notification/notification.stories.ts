@@ -25,6 +25,13 @@ const type: InputType = {
   options: ['info', 'success', 'warn', 'error'],
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm'],
+};
+
 const readonly: InputType = {
   control: {
     type: 'boolean',
@@ -41,6 +48,7 @@ const animation: InputType = {
 const basicArgTypes: ArgTypes = {
   'title-content': titleContent,
   type: type,
+  size: size,
   readonly: readonly,
   animation: animation,
 };
@@ -48,6 +56,7 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   'title-content': 'Title',
   type: type.options![0],
+  size: size.options![1],
   readonly: false,
   animation: animation.options![0],
 };
@@ -60,6 +69,7 @@ const appendNotification = (event: Event, args: Args): void => {
   );
   newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
+  newNotification.size = args['size'];
   newNotification.readonly = args['readonly'];
   newNotification.animation = args['animation'];
   newNotification.innerHTML =
@@ -167,6 +177,12 @@ export const Readonly: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, readonly: true },
+};
+
+export const SizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, size: 's' },
 };
 
 export const NoTitle: StoryObj = {

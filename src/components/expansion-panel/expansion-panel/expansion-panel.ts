@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -65,6 +65,9 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   /** Whether the panel has no border. */
   @property({ reflect: true, type: Boolean }) public borderless = false;
 
+  /** Size variant, either l or s. */
+  @property({ reflect: true }) public size: 's' | 'l' = 'l';
+
   /** Emits whenever the `sbb-expansion-panel` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
@@ -124,8 +127,14 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('toggleExpanded', () => this._toggleExpanded(), { signal });
-    const accordion = this.closest?.('sbb-accordion');
-    this.toggleAttribute('data-accordion', !!accordion);
+    this.toggleAttribute('data-accordion', !!this.closest?.('sbb-accordion'));
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('size')) {
+      this._headerRef?.setAttribute('data-size', String(this.size));
+      this._contentRef?.setAttribute('data-size', String(this.size));
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -137,10 +146,10 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _handleSlotchange(): void {
     const children = Array.from(this.children ?? []);
     const header = children.find(
-      (e): e is SbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
+      (e): e is SbbExpansionPanelHeaderElement => e.localName === 'sbb-expansion-panel-header',
     );
     const content = children.find(
-      (e): e is SbbExpansionPanelContentElement => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
+      (e): e is SbbExpansionPanelContentElement => e.localName === 'sbb-expansion-panel-content',
     );
     if (this._headerRef === header && this._contentRef === content) {
       return;
@@ -149,10 +158,12 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
       header.id ||= `sbb-expansion-panel-header${this._progressiveId}`;
       header.setAttribute('aria-expanded', String(this.expanded));
       header.toggleAttribute('disabled', this.disabled);
+      header.setAttribute('data-size', String(this.size));
     }
     if (content && this._contentRef !== content) {
       content.id ||= `sbb-expansion-panel-content${this._progressiveId}`;
       content.setAttribute('aria-hidden', String(!this.expanded));
+      content.setAttribute('data-size', String(this.size));
     }
 
     this._headerRef = header;
@@ -206,6 +217,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
         </div>
       </div>
     `;
+    /* eslint-enable lit/binding-positions */
   }
 }
 

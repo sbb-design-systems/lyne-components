@@ -175,7 +175,10 @@ function renderTemplate(
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   export const ${declaration.name.replace(/Element$/, '')} = ${extension(`createComponent({
-    tagName: '${declaration.tagName}',
+    tagName: '${
+      // eslint-disable-next-line lyne/local-name-rule
+      declaration.tagName
+    }',
     elementClass: ${declaration.name},
     react,${
       declaration.events
@@ -246,7 +249,7 @@ function namedSlotListElements(declaration: ClassDeclaration): string[] {
     declaration.members
       ?.find(
         (m): m is ClassField =>
-          m.inheritedFrom?.name === 'NamedSlotListElement' && m.name === 'listChildTagNames',
+          m.inheritedFrom?.name === 'NamedSlotListElement' && m.name === 'listChildLocalNames',
       )
       ?.default?.match(/([\w-]+)/g)
       ?.map((m) =>
