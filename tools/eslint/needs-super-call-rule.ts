@@ -8,19 +8,15 @@ const createRule = ESLintUtils.RuleCreator(
 
 type MessageIds = 'needsSuperCall' | 'needsSuperCallSuggestion';
 
+const hasChangedProperties = ['shouldUpdate', 'willUpdate', 'update', 'firstUpdated', 'updated'];
+
 const methodsToCheckForSuperCall = [
   'connectedCallback',
   'disconnectedCallback',
   'requestUpdate',
   'performUpdate',
-  'shouldUpdate',
-  'willUpdate',
-  'update',
-  'firstUpdated',
-  'updated',
+  ...hasChangedProperties,
 ];
-
-const hasChangedProperties = ['shouldUpdate', 'willUpdate', 'update', 'firstUpdated', 'updated'];
 
 export const name = 'needs-super-call-rule';
 export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[], MessageIds>({
