@@ -71,11 +71,11 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOverlayBa
     }
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues<this>): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     this.ariaLiveRef =
       this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
 
-    super.firstUpdated(_changedProperties);
+    super.firstUpdated(changedProperties);
   }
 
   public override disconnectedCallback(): void {
@@ -92,9 +92,9 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOverlayBa
     // Remove overlay label as soon as it is not needed any more to prevent accessing it with browse mode.
     window.addEventListener(
       'keydown',
-      async (event: KeyboardEvent) => {
+      (event: KeyboardEvent) => {
         this.removeAriaLiveRefContent();
-        await this.onKeydownEvent(event);
+        this.onKeydownEvent(event);
       },
       {
         signal: this.openDialogController.signal,
