@@ -129,6 +129,8 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     }
 
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
+      super.willUpdate(changedProperties);
+
       if (changedProperties.has('checked')) {
         this.handleCheckedChange(this.checked, changedProperties.get('checked')!);
       }

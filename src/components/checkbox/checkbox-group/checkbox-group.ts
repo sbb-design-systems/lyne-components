@@ -62,6 +62,8 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('disabled')) {
       this.checkboxes.forEach((c) => c.requestUpdate?.('disabled'));
     }

@@ -15,6 +15,10 @@
   --sbb-container-background-color: var(--sbb-color-milk);
 }
 
+:host(:not([expanded])[background-expanded]) {
+  background-color: var(--sbb-container-background-color);
+}
+
 .sbb-container {
   @include sbb.ignore-children-margin;
 

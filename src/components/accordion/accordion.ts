@@ -91,6 +91,8 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('size')) {
       this._expansionPanels.forEach((panel: SbbExpansionPanelElement) => (panel.size = this.size));
     }

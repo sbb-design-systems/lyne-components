@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.50.2",
+  "version": "0.51.0",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -81,7 +81,7 @@
     "@storybook/web-components-vite": "8.0.10",
     "@types/glob": "8.1.0",
     "@types/mocha": "10.0.6",
-    "@types/node": "20.12.8",
+    "@types/node": "20.12.10",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "7.8.0",
@@ -90,8 +90,8 @@
     "@web/test-runner-commands": "0.9.0",
     "@web/test-runner-playwright": "0.11.0",
     "@web/test-runner-puppeteer": "0.16.0",
-    "chromatic": "11.3.0",
-    "custom-elements-manifest": "2.0.0",
+    "chromatic": "11.3.1",
+    "custom-elements-manifest": "2.1.0",
     "date-fns": "3.6.0",
     "esbuild-sass-plugin": "3.2.0",
     "eslint": "9.2.0",
@@ -109,13 +109,13 @@
     "lit-analyzer": "2.0.3",
     "madge": "7.0.0",
     "npm-run-all2": "6.1.2",
-    "playwright": "1.43.1",
+    "playwright": "1.44.0",
     "postcss": "8.4.38",
     "prettier": "3.2.5",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "rollup-plugin-postcss-lit": "2.1.0",
-    "sass": "1.76.0",
+    "sass": "1.77.0",
     "sinon": "17.0.1",
     "storybook": "8.0.10",
     "stylelint": "16.5.0",
@@ -130,7 +130,7 @@
     "vite-plugin-dts": "3.9.1"
   },
   "resolutions": {
-    "@types/node": "20.12.8",
+    "@types/node": "20.12.10",
     "@webcomponents/template-shadowroot": "0.2.1",
     "jackspeak": "2.1.1",
     "lit": "3.1.3"
