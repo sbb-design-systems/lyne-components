@@ -10,10 +10,7 @@
   --sbb-autocomplete-grid-row-background-color-active: var(--sbb-color-cloud);
   --sbb-autocomplete-grid-row-disabled-border-color: var(--sbb-color-graphite);
   --sbb-autocomplete-grid-row-disabled-background-color: var(--sbb-color-milk);
-  --sbb-autocomplete-grid-row-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-autocomplete-grid-row-padding-block: calc(
-    var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x)
-  );
+  --sbb-autocomplete-grid-row-padding-inline-end: var(--sbb-spacing-responsive-xxxs);
   --sbb-autocomplete-grid-row-justify-content: space-between;
   --sbb-autocomplete-grid-row-min-height: var(--sbb-size-button-m-min-height);
   --sbb-autocomplete-grid-row-cursor: pointer;
@@ -33,22 +30,12 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-:host([data-active]) {
-  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
-}
-
 :host(:hover:not([data-disabled])) {
   @include sbb.hover-mq($hover: true) {
     --sbb-autocomplete-grid-row-background-color: var(
       --sbb-autocomplete-grid-row-background-color-hover
     );
   }
-}
-
-:host([data-active]):not([data-disabled]) {
-  --sbb-autocomplete-grid-row-background-color: var(
-    --sbb-autocomplete-grid-row-background-color-active
-  );
 }
 
 :host([data-disabled]) {
@@ -61,26 +48,20 @@
 
 ::slotted(sbb-autocomplete-grid-option) {
   flex: 1 1 auto;
+  margin-right: calc(-1 * var(--sbb-spacing-fixed-2x));
 }
 
 .sbb-autocomplete-grid-row {
   display: flex;
   align-items: center;
-  padding-inline: var(--sbb-autocomplete-grid-row-padding-inline);
-  padding-block: var(--sbb-autocomplete-grid-row-padding-block);
+  padding-inline-end: var(--sbb-autocomplete-grid-row-padding-inline-end);
   justify-content: var(--sbb-autocomplete-grid-row-justify-content);
-  gap: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-spacing-fixed-6x);
   color: var(--sbb-autocomplete-grid-row-color);
   background-color: var(--sbb-autocomplete-grid-row-background-color);
   cursor: var(--sbb-autocomplete-grid-row-cursor);
   -webkit-tap-highlight-color: transparent;
   -webkit-text-fill-color: var(--sbb-autocomplete-grid-row-color);
-
-  :host([data-active]) & {
-    @include sbb.focus-outline;
-
-    border-radius: var(--sbb-autocomplete-grid-row-border-radius);
-  }
 
   // Add inner border and background for disabled option when it's not multiple
   :host([data-disabled]) & {

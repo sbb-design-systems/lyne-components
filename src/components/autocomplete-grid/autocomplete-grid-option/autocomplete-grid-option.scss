@@ -7,8 +7,15 @@
   --sbb-option-color: var(--sbb-color-charcoal);
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-icon-color: var(--sbb-color-metal);
+  --sbb-option-border-radius: var(--sbb-border-radius-4x);
+  --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
 
   display: block;
+}
+
+:host([active]) {
+  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
 }
 
 :host([data-negative]) {
@@ -30,7 +37,15 @@
   align-items: center;
   column-gap: var(--sbb-option-column-gap);
   justify-content: start;
+  padding-block: var(--sbb-option-padding-block);
+  padding-inline: var(--sbb-option-padding-inline);
   color: var(--sbb-option-color);
+
+  :host([active]) & {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-option-border-radius);
+  }
 }
 
 .sbb-option__label--highlight {
