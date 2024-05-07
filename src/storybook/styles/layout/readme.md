@@ -53,22 +53,22 @@ Two items placed on grid using each 2 of 4 columns.
 
 Using columns in the middle of the grid (e.g. alerts in home stories).
 
-```sass
-  @use '@sbb-esta/lyne-components' as sbb;
+```scss
+@use '@sbb-esta/lyne-components' as sbb;
 
-  .grid-reduced-width {
-    grid-column: 1/-1;
+.grid-reduced-width {
+  grid-column: 1/-1;
 
-    @include sbb.mq($from: large) {
-      grid-column: 2/-2;
-    }
-    @include sbb.mq($from: wide) {
-      grid-column: 3/-3;
-    }
-    @include sbb.mq($from: ultra) {
-      grid-column: 4/-4;
-    }
+  @include sbb.mq($from: large) {
+    grid-column: 2/-2;
   }
+  @include sbb.mq($from: wide) {
+    grid-column: 3/-3;
+  }
+  @include sbb.mq($from: ultra) {
+    grid-column: 4/-4;
+  }
+}
 ```
 
 ```html
