@@ -13,6 +13,7 @@ import {
   packageJsonTemplate,
   typography,
   verifyEntryPoints,
+  generateRootEntryPoint,
 } from '../../tools/vite/index.js';
 import rootConfig from '../../vite.config.js';
 
@@ -39,9 +40,14 @@ export default defineConfig((config) =>
       ...(isProdBuild(config)
         ? [
             customElementsManifest(),
+            generateRootEntryPoint(),
             packageJsonTemplate({
               exports: {
-                '.': { sass: './_index.scss' },
+                '.': {
+                  types: './index.d.ts',
+                  sass: './_index.scss',
+                  default: './index.js',
+                },
                 ...buildStyleExports([
                   'a11y.css',
                   'animation.css',
