@@ -17,7 +17,7 @@
 }
 
 :host(:focus-visible:not([data-is-selection-panel-input])) {
-  @include sbb.selection-panel-focus-visible;
+  @include sbb.focus-outline;
 }
 
 // Change the focus outline when the input is placed inside of a selection panel
@@ -41,9 +41,9 @@
 }
 
 :host([checked]:not(:disabled)) {
-  @include sbb.selection-panel-checked;
+  @include sbb.selection-panel-checked-variables;
 }
 
 :host([disabled]) {
-  @include sbb.selection-panel-disabled;
+  @include sbb.selection-panel-disabled-variables;
 }

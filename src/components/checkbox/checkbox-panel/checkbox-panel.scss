@@ -12,6 +12,8 @@
   outline: none !important;
 }
 
+// Style the panel only when is standalone
+// leave styling to the selection-expansion-panel otherwise
 :host(:not([data-is-selection-panel-input])) {
   @include sbb.selection-panel-variables;
   @include sbb.selection-panel;
@@ -22,15 +24,15 @@
 }
 
 :host([data-checked]:not(:disabled)) {
-  @include sbb.selection-panel-checked;
+  @include sbb.selection-panel-checked-variables;
 }
 
 :host(:focus-visible:not([data-is-selection-panel-input])) {
-  @include sbb.selection-panel-focus-visible;
+  @include sbb.focus-outline;
 }
 
-:host([disabled]) {
-  @include sbb.selection-panel-disabled;
+:host(:disabled) {
+  @include sbb.selection-panel-disabled-variables;
 }
 
 slot[name='suffix'] {

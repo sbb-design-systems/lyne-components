@@ -41,15 +41,11 @@
   }
 }
 
-@mixin selection-panel-checked {
+@mixin selection-panel-checked-variables {
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-charcoal);
   --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-2x);
 }
 
-@mixin selection-panel-focus-visible {
-  @include a11y.focus-outline;
-}
-
-@mixin selection-panel-disabled {
+@mixin selection-panel-disabled-variables {
   --sbb-selection-expansion-panel-cursor: default;
 }
