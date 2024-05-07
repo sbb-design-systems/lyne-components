@@ -172,7 +172,9 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     this._didLoad = true;
     this._updateRadios(this.value);
   }
