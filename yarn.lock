@@ -5467,10 +5467,10 @@ eslint-plugin-import-x@0.5.0:
     minimatch "^9.0.3"
     semver "^7.6.0"
 
-eslint-plugin-lit@1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-lit/-/eslint-plugin-lit-1.11.0.tgz#32fc1c58b476e5b9aa1c7b6ba9de295641bd4e9b"
-  integrity sha512-jVqy2juQTAtOzj1ILf+ZW5GpDobXlSw0kvpP2zu2r8ZbW7KISt7ikj1Gw9DhNeirEU1UlSJR0VIWpdr4lzjayw==
+eslint-plugin-lit@1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-lit/-/eslint-plugin-lit-1.12.0.tgz#94f09cdf21a24cfbf65abacbd04b48e93ea9ed0c"
+  integrity sha512-wADj+b6ZksWs1qqASYBYzi4U6k0Tvhtp4GJupveZ7Z5IfVHMixxFueSSwIl/4ksov4jsahWbyHnhOpvJ5Z8M7w==
   dependencies:
     parse5 "^6.0.1"
     parse5-htmlparser2-tree-adapter "^6.0.1"
