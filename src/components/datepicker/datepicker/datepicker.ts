@@ -375,7 +375,7 @@ export class SbbDatepickerElement extends LitElement {
     this._datePickerController?.abort();
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
     this._setAriaLiveMessage(this.getValueAsDate());
   }

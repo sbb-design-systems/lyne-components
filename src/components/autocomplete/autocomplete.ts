@@ -255,7 +255,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
     }
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
     this._componentSetup();
     this._didLoad = true;

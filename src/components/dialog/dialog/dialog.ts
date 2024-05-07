@@ -239,7 +239,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
+  protected override firstUpdated(_changedProperties: PropertyValues<this>): void {
     this._ariaLiveRef =
       this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
 

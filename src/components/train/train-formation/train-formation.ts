@@ -2,7 +2,7 @@ import {
   type CSSResultGroup,
   html,
   LitElement,
-  type PropertyValueMap,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -126,7 +126,7 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
     this._applyCssWidth();
   }
 
-  protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('listChildren')) {
       this._readSectors();

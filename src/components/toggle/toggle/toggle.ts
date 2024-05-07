@@ -210,7 +210,7 @@ export class SbbToggleElement extends LitElement {
     }
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues): Promise<void> {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changedProperties);
     await this.updateComplete;
     this._loaded = true;
