@@ -1,9 +1,9 @@
 import type { InputType } from '@storybook/types';
-import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import readme from './readme.md?raw';
 
 import '../../action-group.js';
 import '../../button/button.js';
@@ -11,17 +11,7 @@ import '../../button/secondary-button.js';
 import '../../link.js';
 import '../../title.js';
 import '../container.js';
-import readme from './readme.md?raw';
 import './sticky-bar.js';
-
-const expanded: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Container',
-  },
-};
 
 const containerColor: InputType = {
   name: 'color',
@@ -32,6 +22,24 @@ const containerColor: InputType = {
     category: 'Container',
   },
   options: ['transparent', 'white', 'milk'],
+};
+
+const containerExpanded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Container',
+  },
+};
+
+const containerBackgroundExpanded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Container',
+  },
 };
 
 const color: InputType = {
@@ -45,15 +53,17 @@ const color: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  expanded,
-  color,
   containerColor,
+  containerExpanded,
+  containerBackgroundExpanded,
+  color,
 };
 
 const defaultArgs: Args = {
-  expanded: false,
-  color: color.options![0],
   containerColor: containerColor.options![0],
+  containerExpanded: false,
+  containerBackgroundExpanded: false,
+  color: color.options![0],
 };
 
 const actionGroup = (): TemplateResult => html`
@@ -98,8 +108,17 @@ const Template = (): TemplateResult =>
     <sbb-secondary-button>Example</sbb-secondary-button>
   </sbb-sticky-bar>`;
 
-const DefaultTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${containerColor}>
+const DefaultTemplate = ({
+  color,
+  containerExpanded,
+  containerColor,
+  containerBackgroundExpanded,
+}: Args): TemplateResult => html`
+  <sbb-container
+    color=${containerColor}
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
+  >
     ${containerContent('Example title')} ${containerContent('Another one')}
     ${containerContent('And another one')} ${containerContent('And a last one')}
 
@@ -107,8 +126,17 @@ const DefaultTemplate = ({ color, containerColor, ...args }: Args): TemplateResu
   </sbb-container>
 `;
 
-const ShortTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${containerColor}>
+const ShortTemplate = ({
+  color,
+  containerExpanded,
+  containerColor,
+  containerBackgroundExpanded,
+}: Args): TemplateResult => html`
+  <sbb-container
+    color=${containerColor}
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
+  >
     ${isChromatic()
       ? containerContentChromatic('Example title')
       : containerContent('Example title')}
@@ -117,10 +145,16 @@ const ShortTemplate = ({ color, containerColor, ...args }: Args): TemplateResult
   </sbb-container>
 `;
 
-const WithContentAfterTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
+const WithContentAfterTemplate = ({
+  color,
+  containerExpanded,
+  containerColor,
+  containerBackgroundExpanded,
+}: Args): TemplateResult => html`
   <sbb-container
-    ${sbbSpread(args)}
     color=${containerColor}
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
     style=${isChromatic() ? 'max-height: 400px; overflow-y: scroll;' : nothing}
   >
     ${containerContent('Example title')} ${containerContent('Another one')}
@@ -133,10 +167,19 @@ const WithContentAfterTemplate = ({ color, containerColor, ...args }: Args): Tem
       ${actionGroup()}
     </sbb-sticky-bar>
   </sbb-container>
-  <sbb-container color=${containerColor} aria-hidden="true">
+  <sbb-container
+    color=${containerColor}
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
+    aria-hidden="true"
+  >
     <div style="height: var(--sbb-spacing-responsive-l);"></div>
   </sbb-container>
-  <sbb-container color="white">
+  <sbb-container
+    color="white"
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
+  >
     <div style="padding-block: 4rem;">
       ${containerContent('Content after first container')} ${containerContent('Another one')}
     </div>
@@ -198,6 +241,12 @@ export const MilkContainerWhiteStickyBar: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, containerColor: color.options![2], color: color.options![1] },
+};
+
+export const MilkContainerBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![2], containerBackgroundExpanded: true },
 };
 
 const meta: Meta = {

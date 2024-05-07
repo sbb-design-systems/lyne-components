@@ -1,5 +1,16 @@
 @use '../../core/styles' as sbb;
 
+@mixin container-background-color {
+  background-color: var(--sbb-container-background-color);
+
+  // In order to support nested sbb-containers (e.g. if used in an overlay), we need to explicitly set background color to transparent.
+  // We cannot use the --sbb-container-background-color variable because using it would
+  // destroy sbb-sticky-bar behavior when the container and the sticky bar have transparent color.
+  :host([color='transparent']) & {
+    background-color: transparent;
+  }
+}
+
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
@@ -15,17 +26,13 @@
   --sbb-container-background-color: var(--sbb-color-milk);
 }
 
+:host(:not([expanded])[background-expanded]) {
+  @include container-background-color;
+}
+
 .sbb-container {
   @include sbb.ignore-children-margin;
-
-  background-color: var(--sbb-container-background-color);
-
-  // In order to support nested sbb-containers (e.g. if used in an overlay), we need to explicitly set background color to transparent.
-  // We cannot use the --sbb-container-background-color variable because using it would
-  // destroy sbb-sticky-bar behavior when the container and the sticky bar have transparent color.
-  :host([color='transparent']) & {
-    background-color: transparent;
-  }
+  @include container-background-color;
 
   :host(:not([expanded])) & {
     @include sbb.page-spacing;
