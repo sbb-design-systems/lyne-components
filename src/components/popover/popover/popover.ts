@@ -180,6 +180,8 @@ export class SbbPopoverElement extends SbbOverlayBaseElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('trigger')) {
       this._removeTriggerClickListener(this.trigger, changedProperties.get('trigger'));
     }

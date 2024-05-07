@@ -71,7 +71,7 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOverlayBa
     }
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
+  protected override firstUpdated(_changedProperties: PropertyValues<this>): void {
     this.ariaLiveRef =
       this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
 

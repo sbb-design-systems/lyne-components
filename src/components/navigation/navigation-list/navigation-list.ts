@@ -43,6 +43,7 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('listChildren')) {
       this.listChildren.forEach((c) => (c.size = 'm'));
     }

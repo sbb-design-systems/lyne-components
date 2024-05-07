@@ -77,13 +77,14 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
     this._verifyTabindex();
   }
 
-  protected override willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('checked')) {
-      this._handleCheckedChange(this.checked, changedProperties.get('checked'));
+      this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
     }
     if (changedProperties.has('value')) {
-      this._handleValueChange(this.value, changedProperties.get('value'));
+      this._handleValueChange(this.value, changedProperties.get('value')!);
     }
     if (changedProperties.has('disabled')) {
       this._handleDisabledChange();

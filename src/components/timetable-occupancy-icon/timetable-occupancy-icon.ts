@@ -72,6 +72,7 @@ export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBa
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('occupancy') || changedProperties.has('negative')) {
       this._setNameAndAriaLabel();
     }

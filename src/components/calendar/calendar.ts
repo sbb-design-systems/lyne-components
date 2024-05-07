@@ -251,6 +251,8 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (!this._initialized) {
       return;
     }
