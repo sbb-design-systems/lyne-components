@@ -2,7 +2,7 @@ import {
   type CSSResultGroup,
   html,
   LitElement,
-  type PropertyValueMap,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -22,23 +22,18 @@ export class SbbContainerElement extends LitElement {
   /** Whether the container is expanded. */
   @property({ type: Boolean, reflect: true }) public expanded = false;
 
+  /** Whether the background color is shown on full container width on large screens. */
+  @property({ type: Boolean, reflect: true, attribute: 'background-expanded' })
+  public backgroundExpanded = false;
+
   /** Color of the container, like transparent, white etc. */
   @property({ reflect: true }) public color: 'transparent' | 'white' | 'milk' = 'white';
 
-  private _updateStickyBar(): void {
-    const stickyBar = this.querySelector?.('sbb-sticky-bar');
-    if (stickyBar) {
-      stickyBar.toggleAttribute('data-expanded', this.expanded);
-    }
-  }
-
-  protected override willUpdate(
-    changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
-  ): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('expanded') || changedProperties.has('color')) {
-      this._updateStickyBar();
+    if (changedProperties.has('expanded')) {
+      this.querySelector?.('sbb-sticky-bar')?.toggleAttribute('data-expanded', this.expanded);
     }
   }
 
