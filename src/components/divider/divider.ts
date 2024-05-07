@@ -21,7 +21,7 @@ export class SbbDividerElement extends SbbNegativeMixin(LitElement) {
   /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */
   @property({ reflect: true }) public orientation: SbbOrientation = 'horizontal';
 
-  protected override willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('orientation')) {

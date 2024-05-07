@@ -56,6 +56,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('disabled')) {
       if (!inertAriaGroups) {
         this.setAttribute('aria-disabled', this.disabled.toString());

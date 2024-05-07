@@ -90,7 +90,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
     },
   );
 
-  protected override willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (

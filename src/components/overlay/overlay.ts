@@ -208,7 +208,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
     removeInertMechanism();
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     this._ariaLiveRef =
       this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
     super.firstUpdated(changedProperties);

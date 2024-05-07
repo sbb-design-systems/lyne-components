@@ -155,6 +155,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('origin')) {
       this._resetOriginClickListener(this.origin, changedProperties.get('origin'));
     }
@@ -166,8 +167,9 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     }
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+
     this._componentSetup();
     this._didLoad = true;
   }

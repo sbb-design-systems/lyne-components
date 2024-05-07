@@ -16,7 +16,7 @@ const SLOTNAME_PREFIX = 'li';
  * Allows the usage of the string literal 'listChildren'.
  *
  * @example
- * protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+ * protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
  *   if (changedProperties.has('listChildren')) {
  *     ...
  *   }
