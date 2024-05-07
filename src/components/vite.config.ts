@@ -28,7 +28,13 @@ const barrelExports = Object.keys(entryPoints)
 
 const buildStyleExports = (fileNames: string[]): Record<string, { style: string }> =>
   fileNames.reduce(
-    (obj, fileName) => ({ ...obj, [`./${fileName}`]: { style: `./${fileName}` } }),
+    (obj, fileName) => ({
+      ...obj,
+      [`./${fileName}`]: {
+        style: `./${fileName}`,
+        default: `./${fileName}`,
+      },
+    }),
     {},
   );
 
@@ -47,6 +53,10 @@ export default defineConfig((config) =>
                   types: './index.d.ts',
                   sass: './_index.scss',
                   default: './index.js',
+                },
+                './_index.scss': {
+                  sass: './_index.scss',
+                  default: './_index.scss',
                 },
                 ...buildStyleExports([
                   'a11y.css',
