@@ -128,6 +128,7 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('listChildren')) {
       this._readSectors();
     }

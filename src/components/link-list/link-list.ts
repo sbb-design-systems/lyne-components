@@ -63,6 +63,7 @@ export class SbbLinkListElement extends SbbNegativeMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (
       changedProperties.has('size') ||
       changedProperties.has('negative') ||

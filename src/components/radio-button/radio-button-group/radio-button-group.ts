@@ -152,6 +152,8 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('value')) {
       this._valueChanged(this.value);
     }

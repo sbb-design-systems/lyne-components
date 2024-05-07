@@ -88,6 +88,7 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (
       (changedProperties.has('listChildren') || changedProperties.has('multiple')) &&
       !this.multiple

@@ -211,6 +211,8 @@ export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('checked')) {
       this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
     }

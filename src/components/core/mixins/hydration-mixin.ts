@@ -109,6 +109,7 @@ export const SbbHydrationMixin = <T extends AbstractConstructor<LitElement>>(
 
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
+
       if (isServer) {
         this.recoverSsrState?.();
       }

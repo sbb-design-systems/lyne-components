@@ -361,6 +361,8 @@ export class SbbDatepickerElement extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('input')) {
       this._findInput(this.input!, changedProperties.get('input')!);
     }

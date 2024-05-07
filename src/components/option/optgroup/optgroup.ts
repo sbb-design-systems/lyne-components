@@ -61,6 +61,7 @@ export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitEl
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('disabled')) {
       if (!inertAriaGroups) {
         this.setAttribute('aria-disabled', this.disabled.toString());
