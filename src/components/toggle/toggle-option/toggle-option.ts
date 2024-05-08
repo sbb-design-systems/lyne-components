@@ -71,7 +71,7 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
       this.setAttribute('aria-checked', `${this.checked}`);
       this._verifyTabindex();
       if (this.checked) {
-        this._syncOptions();
+        this._uncheckOtherOptions();
       }
     }
     if (changedProperties.has('disabled')) {
@@ -79,7 +79,7 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
     }
   }
 
-  private _syncOptions(): void {
+  private _uncheckOtherOptions(): void {
     this._toggle?.options.filter((o) => o !== this).forEach((o) => (o.checked = false));
   }
 
@@ -102,7 +102,7 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
       return;
     }
     this.checked = true;
-    this._syncOptions();
+    this._uncheckOtherOptions();
   }
 
   private _verifyTabindex(): void {
