@@ -83,7 +83,7 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
 
   /** The child instances of sbb-tag as an array. */
   public get tags(): SbbTagElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-tag') ?? []) as SbbTagElement[];
+    return Array.from(this.querySelectorAll?.('sbb-tag') ?? []);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
