@@ -122,7 +122,9 @@ export class SbbSelectionExpansionPanelElement extends LitElement {
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     this._initialized = true;
   }
 

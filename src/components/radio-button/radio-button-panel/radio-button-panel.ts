@@ -1,4 +1,11 @@
-import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } from 'lit';
+import {
+  LitElement,
+  html,
+  nothing,
+  type CSSResultGroup,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
@@ -108,7 +115,9 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
     ['disabled', 'required'].forEach((p) => this.requestUpdate(p));
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     // We need to wait for the selection-panel to be fully initialized
     this.startUpdate();
     setTimeout(() => {
