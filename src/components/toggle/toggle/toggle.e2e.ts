@@ -133,9 +133,7 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
 
       expect(secondOption).to.have.attribute('checked');
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy.count).to.be.equal(1);
       await waitForCondition(() => inputSpy.events.length === 1);
-      expect(inputSpy.count).to.be.equal(1);
 
       firstOption.click();
       await waitForLitRender(firstOption);
@@ -154,9 +152,7 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
 
       expect(secondOption).to.have.attribute('checked');
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy.count).to.be.equal(1);
       await waitForCondition(() => inputSpy.events.length === 1);
-      expect(inputSpy.count).to.be.equal(1);
 
       firstOption.click();
       await waitForLitRender(firstOption);
