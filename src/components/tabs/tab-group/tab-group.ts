@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -143,7 +143,9 @@ export class SbbTabGroupElement extends LitElement {
     this.toggleAttribute('data-nested', !!this.parentElement?.closest('sbb-tab-group'));
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     this._tabs = this._getTabs();
     this._tabs.forEach((tab) => this._configure(tab));
     this._initSelection();

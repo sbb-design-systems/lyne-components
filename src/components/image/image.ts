@@ -15,7 +15,7 @@ import {
   SbbBreakpointUltraMax,
   SbbTypoScaleDefault,
 } from '@sbb-esta/lyne-design-tokens';
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, eventOptions, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -539,7 +539,9 @@ export class SbbImageElement extends LitElement {
     `;
   }
 
-  protected override updated(): void {
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
     if (!this._captionElement) {
       return;
     }
