@@ -5,20 +5,10 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
-import type {
-  SbbCheckedStateChange,
-  SbbStateChange,
-  SbbValueStateChange,
-} from '../../core/interfaces.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './tag.scss?lit&inline';
-
-export type SbbTagStateChange = Extract<
-  SbbStateChange,
-  SbbValueStateChange | SbbCheckedStateChange
->;
 
 /**
  * It displays a selectable element which can be used as a filter.

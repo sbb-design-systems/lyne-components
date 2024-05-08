@@ -35,7 +35,7 @@ The component can be displayed in `checked` or `disabled` states using the self-
 | ---------- | ----------- | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `checked`  | `checked`   | public  | `boolean`             | `false` | Whether the toggle-option is checked.                                                                                            |
 | `disabled` | `disabled`  | public  | `boolean`             | `false` | Whether the toggle option is disabled.                                                                                           |
-| `value`    | `value`     | public  | `string \| null`      | `null`  | Value of toggle-option.                                                                                                          |
+| `value`    | `value`     | public  | `string`              | `''`    | Value of toggle-option.                                                                                                          |
 | `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 
 ## Slots

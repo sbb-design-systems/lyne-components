@@ -1,27 +1,22 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y.js';
+import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { isBrowser } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
-import type {
-  SbbCheckedStateChange,
-  SbbStateChange,
-  SbbValueStateChange,
-} from '../../core/interfaces.js';
 import { AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbToggleOptionElement } from '../toggle-option.js';
 
 import style from './toggle.scss?lit&inline';
-
-export type SbbToggleStateChange = Extract<
-  SbbStateChange,
-  SbbValueStateChange | SbbCheckedStateChange
->;
 
 /**
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
@@ -41,9 +36,7 @@ export class SbbToggleElement extends LitElement {
     change: 'change',
   } as const;
 
-  /**
-   * Whether the toggle is disabled.
-   */
+  /** Whether the toggle is disabled. */
   @property({ reflect: true, type: Boolean })
   public set disabled(value: boolean) {
     this._disabled = value;
@@ -55,13 +48,12 @@ export class SbbToggleElement extends LitElement {
   private _disabled: boolean = false;
 
   /**
-   * If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.
+   * If true, set the width of the component fixed; if false,
+   * the width is dynamic based on the label of the sbb-toggle-option.
    */
   @property({ reflect: true, type: Boolean }) public even: boolean = false;
 
-  /**
-   * Size variant, either m or s.
-   */
+  /** Size variant, either m or s. */
   @property({ reflect: true }) public size?: 's' | 'm' = 'm';
 
   /**
@@ -69,16 +61,32 @@ export class SbbToggleElement extends LitElement {
    * a new option is selected (see the `onToggleOptionSelect()` method).
    */
   @property()
-  public value: any | null;
+  public set value(value: string) {
+    if (isServer) {
+      this._value = value;
+    } else {
+      this._valueChanged(value);
+    }
+  }
+  public get value(): string {
+    return isServer
+      ? this._value ?? ''
+      : this.options.find((o) => o.checked)?.value ?? this.options[0]?.value ?? '';
+  }
+  private _value: string | null = null;
+
+  /** The child instances of sbb-toggle-option as an array. */
+  public get options(): SbbToggleOptionElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-toggle-option') ?? []);
+  }
 
   private _loaded: boolean = false;
-  private _toggleElement!: HTMLElement;
   private _toggleResizeObserver = new AgnosticResizeObserver(() =>
     this._setCheckedPillPosition(true),
   );
 
   private _valueChanged(value: any | undefined): void {
-    const options = this._options;
+    const options = this.options;
     // If options are not yet defined web components, we can check if attribute is already set as a fallback.
     // We do this by checking whether value property is available (defined component).
     const selectedOption =
@@ -97,12 +105,11 @@ export class SbbToggleElement extends LitElement {
     if (!selectedOption.checked) {
       selectedOption.checked = true;
     }
-    options.filter((o) => o !== selectedOption && o.checked).forEach((o) => (o.checked = false));
     this._setCheckedPillPosition(false);
   }
 
   private _updateDisabled(): void {
-    for (const toggleOption of this._options) {
+    for (const toggleOption of this.options) {
       toggleOption.disabled = this.disabled;
     }
   }
@@ -122,53 +129,20 @@ export class SbbToggleElement extends LitElement {
     composed: true,
   });
 
-  private get _options(): SbbToggleOptionElement[] {
-    return Array.from(
-      this.querySelectorAll?.('sbb-toggle-option') ?? [],
-    ) as SbbToggleOptionElement[];
-  }
-
-  private _handleInput(): void {
-    this._emitChange();
-  }
   private _abort = new SbbConnectedAbortController(this);
-
-  private _handleStateChange(event: CustomEvent<SbbToggleStateChange>): void {
-    const target: SbbToggleOptionElement = event.target as SbbToggleOptionElement;
-    event.stopPropagation();
-    if (event.detail.type === 'value') {
-      this.value = event.detail.value;
-      // We emit in this case, as when the value of an option changes
-      // also the value of the toggle itself changes.
-      // This is an exception, as we don't normally emit on programmatic changes.
-      this._emitChange();
-      return;
-    } else if (event.detail.type !== 'checked') {
-      return;
-    }
-
-    if (event.detail.checked) {
-      this.value = target.value;
-    } else if (this._options.every((o) => !o.checked)) {
-      // If no option is currently checked, we select the first option, as per requirement
-      // there must always be a checked option. We also need to emit in order for listeners
-      // to register the change.
-      this.value = this._options[0].value;
-      this._emitChange();
-    }
-  }
 
   private _setCheckedPillPosition(resizing: boolean): void {
     if (!this._loaded) {
       return;
     }
 
-    const options = this._options;
+    const options = this.options;
+    const toggleElement = this.shadowRoot!.querySelector<HTMLDivElement>('.sbb-toggle');
 
     if (
       options.every((o) => !o.checked) ||
       options.every((o) => !o.clientWidth) ||
-      !this._toggleElement
+      !toggleElement
     ) {
       return;
     }
@@ -179,7 +153,7 @@ export class SbbToggleElement extends LitElement {
     const isFirstChecked = firstOption.checked;
     const pillLeft = firstOption.checked ? '0px' : `${firstOption.clientWidth}px`;
     const pillRight = isFirstChecked
-      ? `${this._toggleElement.clientWidth - firstOption.clientWidth}px`
+      ? `${toggleElement.clientWidth - firstOption.clientWidth}px`
       : '0px';
 
     this.style?.setProperty('--sbb-toggle-option-left', pillLeft);
@@ -190,30 +164,14 @@ export class SbbToggleElement extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('input', () => this._handleInput(), { signal, passive: true });
-    this.addEventListener(
-      'stateChange',
-      (e: CustomEvent<SbbStateChange>) =>
-        this._handleStateChange(e as CustomEvent<SbbToggleStateChange>),
-      {
-        signal,
-        passive: true,
-      },
-    );
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._options.forEach((option) => this._toggleResizeObserver.observe(option));
+    this.options.forEach((option) => this._toggleResizeObserver.observe(option));
     this._updateToggle();
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('value')) {
-      this._valueChanged(this.value);
-    }
   }
 
   protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changedProperties);
+
     await this.updateComplete;
     this._loaded = true;
   }
@@ -228,13 +186,14 @@ export class SbbToggleElement extends LitElement {
     this._updateDisabled();
   }
 
-  private _emitChange(): void {
+  private _handleInput(): void {
+    this._setCheckedPillPosition(false);
     this._change.emit();
     this._didChange.emit();
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    const enabledToggleOptions = this._options?.filter(
+    const enabledToggleOptions = this.options.filter(
       (t) => !t.disabled && interactivityChecker.isVisible(t),
     );
 
@@ -264,8 +223,8 @@ export class SbbToggleElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-toggle" ${ref((toggle) => (this._toggleElement = toggle as HTMLElement))}>
-        <slot @slotchange=${() => this._updateToggle()}></slot>
+      <div class="sbb-toggle">
+        <slot @slotchange=${this._updateToggle}></slot>
       </div>
     `;
   }
