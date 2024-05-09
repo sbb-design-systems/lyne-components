@@ -10,17 +10,15 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import { SbbTabGroupElement } from './tab-group.js';
-import '../tab-title.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
-});
+import '../../link.js';
+import '../../title.js';
+import '../tab-title.js';
 
 const firstTabTitle = (label: string, args: Args): TemplateResult => html`
   <sbb-tab-title ${sbbSpread(args)}>${label}</sbb-tab-title>
@@ -32,7 +30,7 @@ const tabPanelOne = (): TemplateResult => html`
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
     turpis in eu mi bibendum neque egestas congue.
-    <h3>Content heading</h3>
+    <sbb-title level="5">Content heading</sbb-title>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec.
@@ -44,6 +42,7 @@ const tabPanelTwo = (): TemplateResult => html`
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec.
+    <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
   </section>
 `;
 
@@ -218,18 +217,12 @@ export const tintedBackground: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
       handles: [SbbTabGroupElement.events.didChange],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

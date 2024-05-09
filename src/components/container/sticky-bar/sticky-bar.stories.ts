@@ -1,9 +1,9 @@
 import type { InputType } from '@storybook/types';
-import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import readme from './readme.md?raw';
 
 import '../../action-group.js';
 import '../../button/button.js';
@@ -11,17 +11,7 @@ import '../../button/secondary-button.js';
 import '../../link.js';
 import '../../title.js';
 import '../container.js';
-import readme from './readme.md?raw';
 import './sticky-bar.js';
-
-const expanded: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Container',
-  },
-};
 
 const containerColor: InputType = {
   name: 'color',
@@ -34,6 +24,24 @@ const containerColor: InputType = {
   options: ['transparent', 'white', 'milk'],
 };
 
+const containerExpanded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Container',
+  },
+};
+
+const containerBackgroundExpanded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Container',
+  },
+};
+
 const color: InputType = {
   control: {
     type: 'select',
@@ -44,27 +52,18 @@ const color: InputType = {
   options: ['unset', 'white', 'milk'],
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Sticky Bar',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
-  expanded,
-  color,
   containerColor,
-  disableAnimation,
+  containerExpanded,
+  containerBackgroundExpanded,
+  color,
 };
 
 const defaultArgs: Args = {
-  expanded: false,
-  color: color.options![0],
   containerColor: containerColor.options![0],
-  disableAnimation: isChromatic(),
+  containerExpanded: false,
+  containerBackgroundExpanded: false,
+  color: color.options![0],
 };
 
 const actionGroup = (): TemplateResult => html`
@@ -111,52 +110,51 @@ const Template = (): TemplateResult =>
 
 const DefaultTemplate = ({
   color,
+  containerExpanded,
   containerColor,
-  disableAnimation,
-  ...args
+  containerBackgroundExpanded,
 }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${containerColor}>
+  <sbb-container
+    color=${containerColor}
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
+  >
     ${containerContent('Example title')} ${containerContent('Another one')}
     ${containerContent('And another one')} ${containerContent('And a last one')}
 
-    <sbb-sticky-bar
-      color=${color !== 'unset' ? color : nothing}
-      ?disable-animation=${disableAnimation}
-    >
-      ${actionGroup()}
-    </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
 
 const ShortTemplate = ({
   color,
+  containerExpanded,
   containerColor,
-  disableAnimation,
-  ...args
+  containerBackgroundExpanded,
 }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${containerColor}>
+  <sbb-container
+    color=${containerColor}
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
+  >
     ${isChromatic()
       ? containerContentChromatic('Example title')
       : containerContent('Example title')}
 
-    <sbb-sticky-bar
-      color=${color !== 'unset' ? color : nothing}
-      ?disable-animation=${disableAnimation}
-    >
-      ${actionGroup()}
-    </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
 
 const WithContentAfterTemplate = ({
   color,
+  containerExpanded,
   containerColor,
-  disableAnimation,
-  ...args
+  containerBackgroundExpanded,
 }: Args): TemplateResult => html`
   <sbb-container
-    ${sbbSpread(args)}
     color=${containerColor}
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
     style=${isChromatic() ? 'max-height: 400px; overflow-y: scroll;' : nothing}
   >
     ${containerContent('Example title')} ${containerContent('Another one')}
@@ -164,16 +162,24 @@ const WithContentAfterTemplate = ({
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
-      ?disable-animation=${disableAnimation}
       style="--sbb-sticky-bar-bottom-overlapping-height: var(--sbb-spacing-responsive-l);"
     >
       ${actionGroup()}
     </sbb-sticky-bar>
   </sbb-container>
-  <sbb-container color=${containerColor} aria-hidden="true">
+  <sbb-container
+    color=${containerColor}
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
+    aria-hidden="true"
+  >
     <div style="height: var(--sbb-spacing-responsive-l);"></div>
   </sbb-container>
-  <sbb-container color="white">
+  <sbb-container
+    color="white"
+    ?expanded=${containerExpanded}
+    ?background-expanded=${containerBackgroundExpanded}
+  >
     <div style="padding-block: 4rem;">
       ${containerContent('Content after first container')} ${containerContent('Another one')}
     </div>
@@ -237,11 +243,14 @@ export const MilkContainerWhiteStickyBar: StoryObj = {
   args: { ...defaultArgs, containerColor: color.options![2], color: color.options![1] },
 };
 
+export const MilkContainerBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![2], containerBackgroundExpanded: true },
+};
+
 const meta: Meta = {
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

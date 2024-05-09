@@ -9,12 +9,6 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 import readme from './readme.md?raw';
 import './logo.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
-
 const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
 const negative: InputType = {
@@ -77,12 +71,10 @@ export const Negative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), 'max-width': '300px' })}>${story()}</div>
-    `,
-  ],
+  decorators: [(story) => html`<div style=${styleMap({ 'max-width': '300px' })}>${story()}</div>`],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

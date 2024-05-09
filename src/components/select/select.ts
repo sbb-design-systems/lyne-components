@@ -78,10 +78,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   /** Whether the select is readonly. */
   @property({ type: Boolean }) public readonly = false;
 
-  /** Whether the animation is disabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** The state of the select. */
   private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
@@ -203,7 +199,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   private _onOptionClick(event: MouseEvent): void {
     const target = event.target as SbbSelectElement | SbbOptionElement;
-    if (target.tagName !== 'SBB-OPTION' || target.disabled) {
+    if (target.localName !== 'sbb-option' || target.disabled) {
       return;
     }
 
@@ -237,7 +233,9 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this._stateChange.emit({ type: 'value', value: newValue });
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     // Override the default focus behavior
     this.focus = () => this._triggerElement.focus();
     this.blur = () => this._triggerElement.blur();
@@ -309,6 +307,8 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('value')) {
       this._onValueChanged(this.value!);
     }

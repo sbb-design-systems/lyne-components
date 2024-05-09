@@ -36,7 +36,7 @@ export abstract class SbbTitleBase extends SbbNegativeMixin(LitElement) {
   @property({ attribute: 'visually-hidden', reflect: true, type: Boolean })
   public visuallyHidden?: boolean;
 
-  protected override willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('level')) {

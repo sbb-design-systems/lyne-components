@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { LinkTargetType } from '../../core/base-elements.js';
@@ -46,9 +53,6 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   /** You can choose between `m` or `l` size. */
   @property({ reflect: true }) public size: 's' | 'm' | 'l' = 'm';
 
-  /** Whether the fade in animation should be disabled. */
-  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation = false;
-
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
    * Choose the icons from https://icons.app.sbb.ch.
@@ -77,6 +81,9 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   /** This will be forwarded as aria-label to the relevant nested element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
+  /** The enabled animations. */
+  @property({ reflect: true }) public animation: 'open' | 'none' = 'open';
+
   /** The state of the alert. */
   private get _state(): SbbAlertState {
     return (this.getAttribute('data-state') as SbbAlertState | null) ?? 'closed';
@@ -99,7 +106,9 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
 
   private _language = new SbbLanguageController(this);
 
-  protected override async firstUpdated(): Promise<void> {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
     this._open();
   }
 

@@ -320,7 +320,7 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult
           slot="left"
           style="--sbb-pearl-chain-vertical-left-item-block-start: -10px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
-          <div style="font-weight: bold;">19:00</div>
+          <div class="sbb-text--bold">19:00</div>
           <div style="margin-top: 40px;">10:31</div>
         </div>
       </sbb-pearl-chain-vertical-item>
@@ -356,7 +356,7 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult
           slot="left"
           style="--sbb-pearl-chain-vertical-left-item-block-start: -10px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
-          <div style="font-weight: bold;">19:00</div>
+          <div class="sbb-text--bold">19:00</div>
           <div style="margin-top: 40px;">10:31</div>
         </div>
       </sbb-pearl-chain-vertical-item>
@@ -385,7 +385,7 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult
           slot="left"
           style="--sbb-pearl-chain-vertical-left-item-block-start: -10px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
-          <div style="font-weight: bold;">19:00</div>
+          <div class="sbb-text--bold">19:00</div>
           <div style="margin-top: 40px;">10:31</div>
         </div>
       </sbb-pearl-chain-vertical-item>
@@ -413,7 +413,7 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult
           slot="left"
           style="--sbb-pearl-chain-vertical-left-item-block-start: -10px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
-          <div style="font-weight: bold;">19:00</div>
+          <div class="sbb-text--bold">19:00</div>
         </div>
       </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
@@ -481,7 +481,7 @@ const TimetableChange = (): TemplateResult => {
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
-          <div style="display: flex; flex-direction: row; gap: 100px; font-weight: bold;">
+          <div style="display: flex; flex-direction: row; gap: 100px;" class="sbb-text--bold">
             <div>09:45</div>
             <div>Pl. 12</div>
           </div>
@@ -621,7 +621,6 @@ export const timetableChange: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

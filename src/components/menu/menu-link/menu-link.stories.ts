@@ -22,14 +22,12 @@ const getBasicTemplate = (
 `;
 
 const TemplateMenuAction = (args: Args): TemplateResult => html`
-  <div>${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}</div>
+  ${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}
 `;
 
 const TemplateMenuActionCustomIcon = (args: Args): TemplateResult => html`
-  <div>
-    ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
-    ${getBasicTemplate(args, 3, true)}
-  </div>
+  ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
+  ${getBasicTemplate(args, 3, true)}
 `;
 
 const text: InputType = {
@@ -180,19 +178,13 @@ export const menuLinkButtonEllipsis: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html`
-      <div style=${styleMap({ 'background-color': 'var(--sbb-color-black)', width: '320px' })}>
-        ${story()}
-      </div>
-    `,
+    (story) => html`<div style=${styleMap({ width: '256px' })}>${story()}</div>`,
     withActions as Decorator,
   ],
   parameters: {
+    backgroundColor: () => 'var(--sbb-color-black)',
     actions: {
       handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

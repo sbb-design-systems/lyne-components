@@ -3,7 +3,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -62,12 +61,6 @@ const size: InputType = {
 };
 
 const readonly: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -137,12 +130,18 @@ const accessibilityLabel: InputType = {
   },
 };
 
+const animation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['open', 'none'],
+};
+
 const defaultArgTypes: ArgTypes = {
   'title-content': titleContent,
   'title-level': titleLevel,
   size,
   readonly,
-  'disable-animation': disableAnimation,
   'icon-name': iconName,
   'content-slot-text': contentSlotText,
   'link-content': linkContent,
@@ -150,6 +149,7 @@ const defaultArgTypes: ArgTypes = {
   target,
   rel,
   'accessibility-label': accessibilityLabel,
+  animation: animation,
 };
 
 const defaultArgs: Args = {
@@ -157,7 +157,6 @@ const defaultArgs: Args = {
   'title-level': 3,
   size: size.options![0],
   readonly: false,
-  'disable-animation': false,
   'icon-name': 'info',
   'content-slot-text':
     "Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
@@ -166,6 +165,7 @@ const defaultArgs: Args = {
   target: undefined,
   rel: undefined,
   'accessibility-label': undefined,
+  animation: animation.options![0],
 };
 
 export const defaultAlert: StoryObj = {
@@ -192,12 +192,6 @@ export const withoutCloseButton: StoryObj = {
   args: { ...defaultArgs, readonly: true },
 };
 
-export const withDisabledAnimation: StoryObj = {
-  render: Default,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
-};
-
 export const withoutLink: StoryObj = {
   render: Default,
   argTypes: defaultArgTypes,
@@ -217,10 +211,7 @@ export const iconAndTitleAsSlot: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [
@@ -228,9 +219,6 @@ const meta: Meta = {
         SbbAlertElement.events.didOpen,
         SbbAlertElement.events.dismissalRequested,
       ],
-    },
-    backgrounds: {
-      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,

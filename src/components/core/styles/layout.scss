@@ -1,0 +1,16 @@
+@use './mixins/layout';
+
+.sbb-grid,
+.sbb-page-spacing {
+  @include layout.page-spacing;
+}
+
+.sbb-grid-expanded,
+.sbb-page-spacing-expanded {
+  @include layout.page-spacing-expanded;
+}
+
+.sbb-grid,
+.sbb-grid-expanded {
+  @include layout.grid-base;
+}

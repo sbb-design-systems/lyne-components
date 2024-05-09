@@ -13,6 +13,7 @@ import readme from './readme.md?raw';
 
 import './skiplink-list.js';
 import '../link/block-link.js';
+import '../title.js';
 
 const titleContent: InputType = {
   control: {
@@ -142,21 +143,15 @@ export const SkiplinkListWithTitle: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div style="padding: 2rem;">
-        ${story()}
-        <h2>Use TAB to see the skiplink box</h2>
-      </div>
+      ${story()}
+      <sbb-title level="4">Use TAB to see the skiplink box</sbb-title>
     `,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-skiplink-list',
 };

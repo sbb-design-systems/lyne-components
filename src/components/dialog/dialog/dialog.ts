@@ -65,12 +65,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
    */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
-  /**
-   * Whether the animation is enabled.
-   */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /*
    * The state of the dialog.
    */
@@ -245,7 +239,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
+  protected override firstUpdated(_changedProperties: PropertyValues<this>): void {
     this._ariaLiveRef =
       this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
 
@@ -256,6 +250,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('negative')) {
       this._syncNegative();
     }

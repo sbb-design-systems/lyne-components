@@ -1,5 +1,5 @@
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -7,12 +7,6 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import '../../icon.js';
-
-export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
 
 export const paragraphStyle = (negative: boolean): Record<string, string> => ({
   color: negative ? 'var(--sbb-color-aluminium)' : 'var(--sbb-color-iron)',

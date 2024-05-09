@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
@@ -27,10 +33,6 @@ export class SbbStickyBarElement extends LitElement {
   /** Color of the container, like transparent, white etc. */
   @property({ reflect: true }) public color?: 'white' | 'milk';
 
-  /** Whether the animation is enabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   private _intersector?: HTMLSpanElement;
   private _observer = new AgnosticIntersectionObserver((entries) =>
     this._toggleShadowVisibility(entries[0]),
@@ -48,7 +50,9 @@ export class SbbStickyBarElement extends LitElement {
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     if (!this._intersector) {
       this._intersector = this.shadowRoot!.querySelector('.sbb-sticky-bar__intersector')!;
       this._observer.observe(this._intersector);

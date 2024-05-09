@@ -20,7 +20,7 @@ const concurrency = process.argv.includes('--parallel') ? {} : { concurrency: 1 
 
 const stylesCompiler = new sass.initCompiler();
 const renderStyles = () =>
-  stylesCompiler.compile('./src/components/core/styles/global.scss', {
+  stylesCompiler.compile('./src/components/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
 
@@ -60,7 +60,7 @@ const testRunnerHtml = (testFramework, _config, group) => `
       globalThis.testGroup = '${groupNameOverride ?? group?.name ?? 'default'}';
     </script>
   </head>
-  <body>
+  <body class="sbb-disable-animation">
     <script type="module" src="/src/components/core/testing/test-setup.ts"></script>
     <script type="module" src="${testFramework}"></script>
   </body>

@@ -28,10 +28,11 @@ The component has also four color variants that can be set using the `color` pro
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type                                 | Default   | Description                                          |
-| ---------- | ---------- | ------- | ------------------------------------ | --------- | ---------------------------------------------------- |
-| `expanded` | `expanded` | public  | `boolean`                            | `false`   | Whether the container is expanded.                   |
-| `color`    | `color`    | public  | `'transparent' \| 'white' \| 'milk'` | `'white'` | Color of the container, like transparent, white etc. |
+| Name                 | Attribute             | Privacy | Type                                 | Default   | Description                                                                     |
+| -------------------- | --------------------- | ------- | ------------------------------------ | --------- | ------------------------------------------------------------------------------- |
+| `expanded`           | `expanded`            | public  | `boolean`                            | `false`   | Whether the container is expanded.                                              |
+| `backgroundExpanded` | `background-expanded` | public  | `boolean`                            | `false`   | Whether the background color is shown on full container width on large screens. |
+| `color`              | `color`               | public  | `'transparent' \| 'white' \| 'milk'` | `'white'` | Color of the container, like transparent, white etc.                            |
 
 ## Slots
 

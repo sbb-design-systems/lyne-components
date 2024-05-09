@@ -1,5 +1,12 @@
 import * as tokens from '@sbb-esta/lyne-design-tokens';
-import '../src/components/core/styles/global.scss';
+import type { StoryContext } from '@storybook/types';
+import type { Decorator } from '@storybook/web-components';
+import isChromatic from 'chromatic/isChromatic';
+import { html } from 'lit';
+
+import { withBackgroundDecorator } from '../src/storybook/testing/with-background-decorator.js';
+
+import '../src/components/core/styles/standard-theme.scss';
 
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
@@ -8,6 +15,7 @@ const breakpoints = Object.entries(tokens)
   .filter(([key]) => key.startsWith('SbbBreakpoint') && key.endsWith('Min'))
   .map(([key, value]) => ({ key: getViewportName(key), value: value as number }))
   .sort((a, b) => a.value - b.value);
+
 /**
  * https://www.chromatic.com/docs/viewports/
  * CHROMATIC RESTRICTIONS:
@@ -52,19 +60,21 @@ export const parameters = {
     source: { format: 'html' },
   },
   viewport: { viewports: storybookViewports },
+  backgrounds: { disable: true },
   options: {
     storySort: {
       // Story section order.
       // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-      order: [
-        'pages',
-        ['home', 'home personalized'],
-        'components',
-        ['*', 'form elements', 'cards', 'layout'],
-        'styles',
-        'timetable',
-        'internals',
-      ],
+      order: ['introduction', 'pages', 'components', 'styles', 'timetable', 'internals'],
     },
   },
 };
+
+export const decorators: Decorator[] = [
+  (story, context: StoryContext) =>
+    isChromatic() && context.parameters.layout !== 'fullscreen'
+      ? html`<div style="padding: 2rem;min-height: 100vh">${story()}</div>`
+      : story(),
+  withBackgroundDecorator,
+  (story) => (isChromatic() ? html`<div class="sbb-disable-animation">${story()}</div>` : story()),
+];

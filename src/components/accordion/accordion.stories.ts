@@ -11,7 +11,6 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import { SbbExpansionPanelElement } from '../expansion-panel.js';
@@ -34,20 +33,21 @@ const multi: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Accordion',
-  },
-};
-
 const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: [1, 2, 3, 4, 5, 6, null],
+  table: {
+    category: 'Accordion',
+  },
+};
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 's'],
   table: {
     category: 'Accordion',
   },
@@ -120,8 +120,8 @@ const contentText: InputType = {
 const defaultArgTypes: ArgTypes = {
   numberOfPanels,
   multi,
-  'disable-animation': disableAnimation,
   'title-level': titleLevel,
+  size,
   color,
   expanded,
   borderless,
@@ -134,8 +134,8 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   numberOfPanels: 3,
   multi: false,
-  'disable-animation': false,
   'title-level': titleLevel.options![2],
+  size: size.options![0],
   color: color.options![0],
   expanded: false,
   borderless: false,
@@ -227,27 +227,23 @@ export const Multi: StoryObj = {
   args: { ...defaultArgs, multi: true },
 };
 
-export const NoAnimation: StoryObj = {
+export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white)',
-});
+export const SizeSWithIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1], iconName: 'swisspass-medium' },
+};
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.borderless ? 'var(--sbb-color-cement)' : 'var(--sbb-color-white)',
     actions: {
       handles: [
         SbbExpansionPanelElement.events.willOpen,

@@ -35,6 +35,8 @@ export class SbbIconElement extends SbbIconBase {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('name')) {
       this.loadSvgIcon(this.name);
     }

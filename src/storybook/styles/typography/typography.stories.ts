@@ -78,12 +78,10 @@ export const LinkNegative: StoryObj = {
 
 const meta: Meta = {
   excludeStories: ['Link', 'LinkNegative'],
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'styles/typography',
 };

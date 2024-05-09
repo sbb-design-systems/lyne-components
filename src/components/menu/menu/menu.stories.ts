@@ -67,33 +67,26 @@ const disabled: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: { type: 'boolean' },
-};
-
 const defaultArgTypes: ArgTypes = {
   'icon-name': iconName,
   amount,
   disabled,
-  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
   'icon-name': 'link-small',
   amount: '123',
   disabled: false,
-  'disable-animation': isChromatic(),
 };
 
 const userNameStyle: Args = {
-  fontFamily: 'var(--sbb-typo-type-face-sbb-bold)',
+  fontWeight: 'bold',
   fontSize: 'var(--sbb-font-size-text-xs)',
   marginTop: 'var(--sbb-spacing-fixed-1x)',
 };
 
 const userInfoStyle: Args = {
   color: 'var(--sbb-color-graphite)',
-  fontFamily: 'var(--sbb-typo-type-face-sbb-regular)',
   fontSize: 'var(--sbb-font-size-text-xxs)',
 };
 
@@ -103,11 +96,7 @@ const triggerButton = (id: string): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
-  <sbb-menu
-    trigger="menu-trigger-1"
-    data-testid="menu"
-    ?disable-animation=${args['disable-animation']}
-  >
+  <sbb-menu trigger="menu-trigger-1" data-testid="menu">
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
@@ -122,11 +111,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 
 const ListTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
-  <sbb-menu
-    trigger="menu-trigger-1"
-    data-testid="menu"
-    ?disable-animation=${args['disable-animation']}
-  >
+  <sbb-menu trigger="menu-trigger-1" data-testid="menu">
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
@@ -140,11 +125,7 @@ const ListTemplate = (args: Args): TemplateResult => html`
 
 const CustomContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-2')}
-  <sbb-menu
-    trigger="menu-trigger-2"
-    data-testid="menu"
-    ?disable-animation=${args['disable-animation']}
-  >
+  <sbb-menu trigger="menu-trigger-2" data-testid="menu">
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
     <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
@@ -163,11 +144,7 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
 
 const LongContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-3')}
-  <sbb-menu
-    trigger="menu-trigger-3"
-    data-testid="menu"
-    ?disable-animation=${args['disable-animation']}
-  >
+  <sbb-menu trigger="menu-trigger-3" data-testid="menu">
     <sbb-menu-button
       icon-name=${args['icon-name']}
       ?disabled=${args.disabled}
@@ -204,11 +181,7 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
 
 const EllipsisTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-4')}
-  <sbb-menu
-    trigger="menu-trigger-4"
-    data-testid="menu"
-    ?disable-animation=${args['disable-animation']}
-  >
+  <sbb-menu trigger="menu-trigger-4" data-testid="menu">
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
     <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
@@ -262,16 +235,7 @@ export const Ellipsis: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div
-        style=${styleMap({ padding: '2rem', 'min-height': isChromatic() ? '100vh' : undefined })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -282,12 +246,9 @@ const meta: Meta = {
         SbbMenuElement.events.willClose,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '400px' },
-
       extractComponentDescription: () => readme,
     },
   },

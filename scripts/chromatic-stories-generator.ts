@@ -45,7 +45,10 @@ function extractParameters(sourceFile: ts.SourceFile): {
 
         return {
           parameters: Function(
-            `return ${parameters.initializer.getText().replace(/\w*\.events\.\w*/gm, '"dummy"')}`,
+            `return ${parameters.initializer
+              .getText()
+              .replace(': StoryContext', '')
+              .replace(/\w*\.events\.\w*/gm, '"dummy"')}`,
           )() as Record<string, any>,
           title: title.initializer.getText().replaceAll("'", ''),
         };
@@ -102,13 +105,16 @@ import { html } from 'lit';
 
 const meta: Meta = {
   decorators: [
-    (story) => html\` <div ${fixedHeightStyle}>\${story()}</div> \`,
+    (story) => html\`<div ${fixedHeightStyle}>\${story()}</div>\`,
   ],
   parameters: {
+    ${parameters.backgroundColor ? `backgroundColor: ${parameters.backgroundColor.toString()}, ` : ''}
+    ${parameters.layout ? `originalLayout: '${parameters.layout}', ` : ''}
     backgrounds: {
       disable: true,
     },
     chromatic: { ${chromaticConfig}disableSnapshot: false },
+    layout: 'fullscreen',
   },
   title: 'chromatic-only/${title}',
 };

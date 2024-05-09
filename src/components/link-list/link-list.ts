@@ -31,10 +31,10 @@ export class SbbLinkListElement extends SbbNegativeMixin(
   >(LitElement),
 ) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = [
-    'SBB-BLOCK-LINK',
-    'SBB-BLOCK-LINK-BUTTON',
-    'SBB-BLOCK-LINK-STATIC',
+  protected override readonly listChildLocalNames = [
+    'sbb-block-link',
+    'sbb-block-link-button',
+    'sbb-block-link-static',
   ];
 
   /** The title text we want to show before the list. */
@@ -63,6 +63,7 @@ export class SbbLinkListElement extends SbbNegativeMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (
       changedProperties.has('size') ||
       changedProperties.has('negative') ||

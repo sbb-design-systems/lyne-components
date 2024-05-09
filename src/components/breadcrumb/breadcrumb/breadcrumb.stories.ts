@@ -131,7 +131,7 @@ export const LongContent: StoryObj = {
     'icon-name': 'house-small',
     text: 'This label name is so long that it needs ellipsis to fit.',
   },
-  decorators: [(story) => html` <div style="max-width: 200px;">${story()}</div> `],
+  decorators: [(story) => html`<div style="max-width: 200px;">${story()}</div>`],
 };
 
 export const NoLink: StoryObj = {
@@ -141,11 +141,7 @@ export const NoLink: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

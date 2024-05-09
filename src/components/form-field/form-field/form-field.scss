@@ -106,7 +106,7 @@
 }
 
 :host([error-space='reserve']) {
-  --form-field-error-min-height: calc(
+  --sbb-form-field-error-min-height: calc(
     var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs)
   );
   --sbb-form-field-error-padding-block-start-override: var(--sbb-form-field-error-divider-width);
@@ -365,7 +365,7 @@
     will-change: transform, font-size;
 
     transition: {
-      duration: var(--sbb-animation-duration-2x);
+      duration: var(--sbb-disable-animation-time, var(--sbb-animation-duration-2x));
       timing-function: var(--sbb-animation-easing);
       property: transform, font-size;
     }
@@ -419,7 +419,7 @@
   // To be more specific than the styles in normalize.scss we need to use !important
   // TODO: Find a better solution
   font-size: var(--sbb-form-field-input-text-size) !important;
-  font-family: var(--sbb-typo-type-face-sbb-roman) !important;
+  font-family: var(--sbb-typo-font-family) !important;
   line-height: var(--sbb-typo-line-height-body-text) !important;
   height: var(--sbb-form-field-input-size2);
 
@@ -470,7 +470,7 @@
 
 .sbb-form-field__error {
   display: flex;
-  min-height: var(--form-field-error-min-height);
+  min-height: var(--sbb-form-field-error-min-height);
   margin-block-start: var(
     --sbb-form-field-error-padding-block-start-override,
     var(--sbb-form-field-error-padding-block-start)

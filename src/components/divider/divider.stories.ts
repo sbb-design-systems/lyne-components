@@ -9,12 +9,6 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 import readme from './readme.md?raw';
 import './divider.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal)'
-    : 'var(--sbb-color-white)',
-});
-
 const Template = (args: Args): TemplateResult => html`
   <div style=${styleMap({ height: '340px', padding: '20px' })}>
     <sbb-divider ${sbbSpread(args)}></sbb-divider>
@@ -72,13 +66,9 @@ export const dividerNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html` <div style=${styleMap(wrapperStyle(context))}>${story()}</div> `,
-  ],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

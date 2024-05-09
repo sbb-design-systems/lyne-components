@@ -150,15 +150,11 @@ export const WithEllipsis: StoryObj = {
     ...basicArgs,
     label: `A very long label which gets ellipsis when there is no more space to display it`,
   },
-  decorators: [(story) => html` <div style="max-width: 400px;">${story()}</div> `],
+  decorators: [(story) => html`<div style="max-width: 400px;">${story()}</div>`],
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

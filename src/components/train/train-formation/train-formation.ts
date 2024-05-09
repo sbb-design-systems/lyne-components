@@ -2,7 +2,7 @@ import {
   type CSSResultGroup,
   html,
   LitElement,
-  type PropertyValueMap,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -35,7 +35,7 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-TRAIN'];
+  protected override readonly listChildLocalNames = ['sbb-train'];
 
   /** Option to hide all wagon labels. */
   @property({ attribute: 'hide-wagon-label', reflect: true, type: Boolean }) public hideWagonLabel =
@@ -85,7 +85,7 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
       ) => {
         const currentAggregatedSector = aggregatedSectors[aggregatedSectors.length - 1];
 
-        if (item.tagName === 'SBB-TRAIN-WAGON') {
+        if (item.localName === 'sbb-train-wagon') {
           const sectorAttribute =
             (item as SbbTrainWagonElement).sector ?? item.getAttribute('sector');
 
@@ -102,7 +102,7 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
               blockedPassageCount: 0,
             });
           }
-        } else if (item.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE') {
+        } else if (item.localName === 'sbb-train-blocked-passage') {
           currentAggregatedSector.blockedPassageCount++;
         }
 
@@ -126,8 +126,9 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
     this._applyCssWidth();
   }
 
-  protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('listChildren')) {
       this._readSectors();
     }

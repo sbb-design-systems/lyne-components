@@ -32,9 +32,6 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   /** Datepicker reference. */
   @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
 
-  /** Whether the animation is disabled. */
-  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation = false;
-
   @state() private _disabled = false;
 
   @state() private _min: string | number | null | undefined = null;
@@ -76,6 +73,8 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('datePicker')) {
       this._init(this.datePicker);
     }
@@ -166,7 +165,9 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
     return undefined;
   }
 
-  protected override updated(): void {
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
     this._popoverElement.trigger = this._triggerElement;
   }
 
@@ -187,7 +188,6 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
             this._calendarElement.focus();
         }}
         .trigger=${this._triggerElement}
-        ?disable-animation=${this.disableAnimation}
         hide-close-button
         ${ref((el?: Element) => (this._popoverElement = el as SbbPopoverElement))}
       >

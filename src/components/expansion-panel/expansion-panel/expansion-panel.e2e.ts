@@ -15,7 +15,7 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`
-        <sbb-expansion-panel disable-animation>
+        <sbb-expansion-panel>
           <sbb-expansion-panel-header icon-name="dog-medium">Header</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
         </sbb-expansion-panel>
@@ -39,17 +39,19 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
     expect(header).to.have.attribute('id', 'sbb-expansion-panel-header-2');
     expect(header).to.have.attribute('aria-controls', 'sbb-expansion-panel-content-2');
     expect(header).to.have.attribute('data-icon');
+    expect(header).to.have.attribute('data-size', 'l');
 
     const content = element.querySelector('sbb-expansion-panel-content');
     expect(content).to.have.attribute('id', 'sbb-expansion-panel-content-2');
     expect(content).to.have.attribute('aria-labelledby', `sbb-expansion-panel-header-2`);
     expect(content).to.have.attribute('data-icon-space');
+    expect(content).to.have.attribute('data-size', 'l');
   });
 
   it('has slotted elements with the correct properties when id are set', async () => {
     element = await fixture(
       html`
-        <sbb-expansion-panel disable-animation>
+        <sbb-expansion-panel>
           <sbb-expansion-panel-header id="header">Header</sbb-expansion-panel-header>
           <sbb-expansion-panel-content id="content">Content</sbb-expansion-panel-content>
         </sbb-expansion-panel>
@@ -85,6 +87,8 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
     const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose);
     const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose);
+
+    await waitForLitRender(element);
 
     header.click();
     await waitForCondition(() => toggleExpandedEventSpy.events.length === 1);
@@ -126,5 +130,24 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
     await waitForLitRender(element);
     expect(header.disabled).to.be.equal(false);
     expect(header).not.to.have.attribute('aria-disabled');
+  });
+
+  it('size property is proxied to children', async () => {
+    const header: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('sbb-expansion-panel-header')!;
+    const content: SbbExpansionPanelContentElement =
+      element.querySelector<SbbExpansionPanelContentElement>('sbb-expansion-panel-content')!;
+    expect(header).to.have.attribute('data-size', 'l');
+    expect(content).to.have.attribute('data-size', 'l');
+
+    element.size = 's';
+    await waitForLitRender(element);
+    expect(header).to.have.attribute('data-size', 's');
+    expect(content).to.have.attribute('data-size', 's');
+
+    element.size = 'l';
+    await waitForLitRender(element);
+    expect(header).to.have.attribute('data-size', 'l');
+    expect(content).to.have.attribute('data-size', 'l');
   });
 });

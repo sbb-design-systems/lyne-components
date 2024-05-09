@@ -34,6 +34,7 @@ export const SbbRequiredMixin = <
 
     protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
       super.willUpdate(changedProperties);
+
       if (changedProperties.has('required')) {
         // Firefox needs explicitly set aria-required value.
         this.internals.ariaRequired = `${this.required}`;

@@ -76,6 +76,8 @@ export class SbbDialogTitleElement extends SbbTitleBase {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('backButton') || changedProperties.has('accessibilityBackLabel')) {
       this.backButton = !this.backButton && !!this.accessibilityBackLabel ? true : this.backButton;
     }

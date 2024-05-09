@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -67,11 +67,13 @@ export class SbbNotificationElement extends LitElement {
    */
   @property({ reflect: true, type: Boolean }) public readonly = false;
 
+  /** Size variant, either s or m. */
+  @property({ reflect: true }) public size: 'm' | 's' = 'm';
+
   /**
-   * Whether the animation is enabled.
+   * The enabled animations.
    */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
+  @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
   /**
    * The state of the notification.
@@ -123,16 +125,13 @@ export class SbbNotificationElement extends LitElement {
     if (this._state === 'closed') {
       this._state = 'opening';
       this._willOpen.emit();
-      this.disableAnimation && this._handleOpening();
     }
   }
 
   public close(): void {
     if (this._state === 'opened') {
       this._state = 'closing';
-      this.style.setProperty('--sbb-notification-margin', '0');
       this._willClose.emit();
-      this.disableAnimation && this._handleClosing();
     }
   }
 
@@ -142,7 +141,9 @@ export class SbbNotificationElement extends LitElement {
     super.connectedCallback();
   }
 
-  protected override async firstUpdated(): Promise<void> {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
     this._notificationElement = this.shadowRoot?.querySelector(
       '.sbb-notification__wrapper',
     ) as HTMLElement;
@@ -159,10 +160,10 @@ export class SbbNotificationElement extends LitElement {
   }
 
   private _setNotificationHeight(): void {
-    const notificationHeight =
-      this._notificationElement.scrollHeight && !this.disableAnimation
-        ? `${this._notificationElement.scrollHeight}px`
-        : 'auto';
+    if (!this._notificationElement?.scrollHeight) {
+      return;
+    }
+    const notificationHeight = `${this._notificationElement.scrollHeight}px`;
     this.style.setProperty('--sbb-notification-height', notificationHeight);
   }
 
@@ -185,15 +186,13 @@ export class SbbNotificationElement extends LitElement {
     );
   }
 
-  private _onNotificationTransitionEnd(event: TransitionEvent): void {
-    if (this._state === 'closing' && event.propertyName === 'max-height') {
-      this._handleClosing();
-    }
-  }
-
   private _onNotificationAnimationEnd(event: AnimationEvent): void {
     if (this._state === 'opening' && event.animationName === 'open') {
       this._handleOpening();
+    }
+
+    if (this._state === 'closing' && event.animationName === 'close-height') {
+      this._handleClosing();
     }
   }
 
@@ -214,7 +213,6 @@ export class SbbNotificationElement extends LitElement {
     return html`
       <div
         class="sbb-notification__wrapper"
-        @transitionend=${(event: TransitionEvent) => this._onNotificationTransitionEnd(event)}
         @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
       >
         <div class="sbb-notification">
@@ -224,7 +222,11 @@ export class SbbNotificationElement extends LitElement {
           ></sbb-icon>
 
           <span class="sbb-notification__content">
-            <sbb-title class="sbb-notification__title" level=${this.titleLevel} visual-level="5">
+            <sbb-title
+              class="sbb-notification__title"
+              level=${this.titleLevel}
+              visual-level=${this.size === 'm' ? '5' : '6'}
+            >
               <slot name="title">${this.titleContent}</slot>
             </sbb-title>
             <slot></slot>
@@ -234,7 +236,7 @@ export class SbbNotificationElement extends LitElement {
             ? html`<span class="sbb-notification__close-wrapper">
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
                 <sbb-secondary-button
-                  size="m"
+                  size=${this.size}
                   icon-name="cross-small"
                   @click=${() => this.close()}
                   aria-label=${i18nCloseNotification[this._language.current]}

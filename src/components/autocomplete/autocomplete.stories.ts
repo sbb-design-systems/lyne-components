@@ -25,10 +25,6 @@ import readme from './readme.md?raw';
 import '../form-field.js';
 import '../form-error.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -48,15 +44,6 @@ const disabled: InputType = {
 };
 
 const readonly: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Autocomplete',
-  },
-};
-
-const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -124,7 +111,6 @@ const defaultArgTypes: ArgTypes = {
   negative,
   disabled,
   readonly,
-  disableAnimation,
   preserveIconSpace,
 
   // Option args
@@ -148,7 +134,6 @@ const defaultArgs: Args = {
   negative: false,
   disabled: false,
   readonly: false,
-  disableAnimation: isChromatic(),
 
   // Option args
   iconName: 'clock-small',
@@ -170,9 +155,10 @@ const withGroupsDefaultArgs: Args = {
 const aboveDecorator: Decorator = (story) => html`
   <div
     style=${styleMap({
-      height: '100%',
-      display: 'flex',
-      'align-items': 'end',
+      'inset-block-end': '2rem',
+      'inset-inline-start': '2rem',
+      position: 'absolute',
+      'max-width': 'calc(100% - 4rem)',
     })}
   >
     ${story()}
@@ -182,7 +168,7 @@ const aboveDecorator: Decorator = (story) => html`
 const scrollDecorator: Decorator = (story) => html`
   <div
     style=${styleMap({
-      height: '175%',
+      height: '175vh',
       display: 'flex',
       'align-items': 'center',
     })}
@@ -262,10 +248,7 @@ const Template = (args: Args): TemplateResult => html`
         ?readonly=${args.readonly}
       />
 
-      <sbb-autocomplete
-        ?disable-animation=${args.disableAnimation}
-        ?preserve-icon-space=${args.preserveIconSpace}
-      >
+      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
         ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
       </sbb-autocomplete>
     </sbb-form-field>
@@ -289,10 +272,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
         ?readonly=${args.readonly}
       />
 
-      <sbb-autocomplete
-        ?disable-animation=${args.disableAnimation}
-        ?preserve-icon-space=${args.preserveIconSpace}
-      >
+      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
         <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
           ${createOptionGroup1(args.iconName, args.disableOption)}
         </sbb-optgroup>
@@ -319,10 +299,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
         ?readonly=${args.readonly}
       />
 
-      <sbb-autocomplete
-        ?disable-animation=${args.disableAnimation}
-        ?preserve-icon-space=${args.preserveIconSpace}
-      >
+      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
         <sbb-option value="Option 1">
           <sbb-icon
             slot="icon"
@@ -374,10 +351,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
           }}
         />
 
-        <sbb-autocomplete
-          ?disable-animation=${args.disableAnimation}
-          ?preserve-icon-space=${args.preserveIconSpace}
-        >
+        <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
           <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
             ${createOptionGroup1(args.iconName, args.disableOption)}
           </sbb-optgroup>
@@ -508,20 +482,7 @@ export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          padding: '2rem',
-          height: 'calc(100vh - 2rem)',
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -534,10 +495,10 @@ const meta: Meta = {
         SbbOptionElement.events.optionSelected,
       ],
     },
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
+      // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,
     },

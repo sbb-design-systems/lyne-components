@@ -12,6 +12,10 @@
   display: block;
 }
 
+:host([data-size='s']) {
+  --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-5x);
+}
+
 :host([data-icon-space]) {
   @include sbb.mq($from: micro) {
     // The space taken by the icon in the sbb-expansion-panel-header must be considered here to correctly calculate the padding value;

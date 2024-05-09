@@ -15,10 +15,6 @@ import '../../link.js';
 import '../../popover.js';
 import '../../title.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-});
-
 const formField = (
   {
     'error-space': errorSpace,
@@ -1030,15 +1026,9 @@ export const TextareaFloatingWithIconNegative: StoryObj = {
 
 const meta: Meta = {
   excludeStories: /.*(Active|ActiveNegative)$/,
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-  ],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

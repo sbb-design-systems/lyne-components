@@ -4,6 +4,11 @@
 @include sbb.box-sizing;
 
 :host {
+  --sbb-tab-group-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
+
   display: block;
 }
 
@@ -13,14 +18,20 @@
 }
 
 .tab-content {
+  @include sbb.ignore-children-margin;
+
   margin-block-start: var(--sbb-spacing-responsive-m);
-  transition: height var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
 
   ::slotted(*) {
     visibility: hidden;
     opacity: 0;
     height: 0;
     overflow: hidden;
+
+    // If e.g. a block link with an absolute positioned element is slotted, there would be an visible space
+    // below the tab content. Setting position:relative removes the unwanted whitespace.
+    position: relative;
   }
 
   ::slotted(*[active]) {
@@ -29,8 +40,8 @@
     height: fit-content;
     overflow: unset;
     transition: {
-      duration: var(--sbb-animation-duration-4x);
-      delay: var(--sbb-animation-duration-4x);
+      duration: var(--sbb-tab-group-animation-duration);
+      delay: var(--sbb-tab-group-animation-duration);
       timing-function: var(--sbb-animation-easing);
       property: opacity, visibility;
     }

@@ -24,12 +24,6 @@ const containerContent = (title: string, last = false): TemplateResult => html`
   >
 `;
 
-const expanded: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const color: InputType = {
   control: {
     type: 'select',
@@ -37,20 +31,46 @@ const color: InputType = {
   options: ['white', 'transparent', 'milk'],
 };
 
+const expanded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const backgroundExpanded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
-  expanded,
   color,
+  expanded,
+  'background-expanded': backgroundExpanded,
 };
 
 const defaultArgs: Args = {
-  expanded: false,
   color: color.options![0],
+  expanded: false,
+  'background-expanded': false,
 };
 
-const DefaultTemplate = ({ color, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${color}>
+const DefaultTemplate = (args: Args): TemplateResult => html`
+  <sbb-container ${sbbSpread(args)}>
     ${containerContent('Example title')} ${containerContent('Another one')}
     ${containerContent('And another one', true)}
+  </sbb-container>
+`;
+
+// Only for visual regression
+const NestedContainerTemplate = (): TemplateResult => html`
+  <sbb-container color="white">
+    ${containerContent('Example title')}
+    <div style="background-color: var(--sbb-color-milk);">
+      <sbb-container color="transparent">
+        ${containerContent('And another one', true)}
+      </sbb-container>
+    </div>
   </sbb-container>
 `;
 
@@ -78,11 +98,21 @@ export const Expanded: StoryObj = {
   args: { ...defaultArgs, expanded: true },
 };
 
+export const NestedContainer: StoryObj = {
+  render: NestedContainerTemplate,
+  argTypes: { defaultArgTypes },
+  args: { ...defaultArgs, expanded: true },
+};
+
+export const MilkBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![2], 'background-expanded': true },
+};
+
 const meta: Meta = {
+  excludeStories: /^(NestedContainer)$/,
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

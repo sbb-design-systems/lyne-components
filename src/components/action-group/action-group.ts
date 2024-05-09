@@ -61,6 +61,8 @@ export class SbbActionGroupElement extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('buttonSize')) {
       this._syncButtons();
     }

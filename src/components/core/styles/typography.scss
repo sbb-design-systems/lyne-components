@@ -1,17 +1,4 @@
-@use './mixins/font-face';
-@use './mixins/a11y';
-@use './mixins/layout';
-@use './mixins/lists';
-@use './mixins/scrollbar';
 @use './mixins/typo';
-
-@include font-face.font-declarations;
-
-html {
-  @include typo.text;
-
-  color: var(--sbb-font-default-color);
-}
 
 sub {
   @include typo.sub;
@@ -21,133 +8,43 @@ sup {
   @include typo.sup;
 }
 
-// TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
-::placeholder {
-  @include typo.placeholder;
-}
-
-// TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
-sbb-form-field {
-  :where(input, textarea):disabled::placeholder {
-    color: var(--sbb-color-granite);
-    -webkit-text-fill-color: var(--sbb-color-granite);
-  }
-
-  &[floating-label] :where(input, textarea)::placeholder {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-
-    @include a11y.if-forced-colors {
-      color: Canvas;
-      -webkit-text-fill-color: Canvas;
-    }
-  }
-
-  textarea {
-    @include scrollbar.scrollbar;
-  }
-
-  &[negative] textarea {
-    @include scrollbar.scrollbar($negative: true);
-  }
-}
-
-// Hiding components until they are instantiated
-:is(
-    sbb-autocomplete,
-    sbb-dialog,
-    sbb-menu,
-    sbb-navigation,
-    sbb-navigation-section,
-    sbb-overlay,
-    sbb-select,
-    sbb-skiplink-list,
-    sbb-toast,
-    sbb-popover
-  ):not(:defined) {
-  display: none;
-}
-
-// Ensure stable breadcrumb height during hydrating
-sbb-breadcrumb-group:not(:defined) {
-  display: block;
-  height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
-  overflow: hidden;
-}
-
-// Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
-// This style enables accessing focusable elements inside an sbb-card.
-[data-card-focusable] {
-  pointer-events: all;
+.sbb-text-xxs,
+.sbb-text-xs,
+.sbb-text-s,
+.sbb-text-m,
+.sbb-text-l,
+.sbb-text-xl {
+  @include typo.text;
 }
 
 .sbb-text-xxs {
-  @include typo.text-xxs--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-xxs);
 }
 
 .sbb-text-xs {
-  @include typo.text-xs--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-xs);
 }
 
 .sbb-text-s {
-  @include typo.text-s--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-s);
 }
 
 .sbb-text-m {
-  @include typo.text-m--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-m);
 }
 
 .sbb-text-l {
-  @include typo.text-l--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-l);
 }
 
 .sbb-text-xl {
-  @include typo.text-xl--regular;
+  --sbb-text-font-size: var(--sbb-font-size-text-xl);
 }
 
 .sbb-text--bold {
   @include typo.text--bold;
 }
 
-.sbb-list {
-  @include lists.list;
-  @include lists.description-list;
-}
-
-.sbb-step-list {
-  @include lists.step-list;
-}
-
-.sbb-grid,
-.sbb-page-spacing {
-  @include layout.page-spacing;
-}
-
-.sbb-grid-expanded,
-.sbb-page-spacing-expanded {
-  @include layout.page-spacing-expanded;
-}
-
-.sbb-grid,
-.sbb-grid-expanded {
-  @include layout.grid-base;
-}
-
 .sbb-legend {
   @include typo.legend;
-}
-
-// In smaller title font-sizes, the space after the title is smaller than the default paragraph space before.
-// Due to margin collapsing, the wrong paragraph space wins.
-// To prevent the mistakenly large gap, we reset the paragraph space.
-sbb-title + p {
-  margin-block-start: 0;
-}
-
-input[data-sbb-time-input] {
-  max-width: var(--sbb-time-input-max-width);
-}
-
-.sbb-screen-reader-only {
-  @include a11y.screen-reader-only;
 }

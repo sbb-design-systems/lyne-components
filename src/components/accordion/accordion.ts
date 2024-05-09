@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -32,13 +32,6 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
   private _titleLevel: SbbTitleLevel | null = null;
 
-  /**
-   * Whether the animation should be disabled.
-   * @controls SbbExpansionPanelElement.disableAnimation
-   */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @property({ type: Boolean })
   public set multi(value: boolean) {
@@ -51,10 +44,13 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
   private _multi: boolean = false;
 
+  /** Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. `*/
+  @property({ reflect: true }) public size: 's' | 'l' = 'l';
+
   private _abort = new SbbConnectedAbortController(this);
 
   private _closePanels(e: CustomEvent): void {
-    if ((e.target as HTMLElement)?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {
+    if ((e.target as HTMLElement)?.localName !== 'sbb-expansion-panel' || this.multi) {
       return;
     }
 
@@ -94,11 +90,19 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
     );
   }
 
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('size')) {
+      this._expansionPanels.forEach((panel: SbbExpansionPanelElement) => (panel.size = this.size));
+    }
+  }
+
   private _handleSlotchange(): void {
     this._expansionPanels.forEach(
       (panel: SbbExpansionPanelElement, index: number, array: SbbExpansionPanelElement[]) => {
         panel.titleLevel = this.titleLevel;
-        panel.disableAnimation = this.disableAnimation;
+        panel.size = this.size;
         panel.toggleAttribute('data-accordion-first', index === 0);
         panel.toggleAttribute('data-accordion-last', index === array.length - 1);
       },

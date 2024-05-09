@@ -21,15 +21,6 @@ import '../card-button.js';
 import '../card-link.js';
 import '../../title.js';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color':
-    context.args.color === 'white' || context.args.color === 'transparent-bordered-dashed'
-      ? 'var(--sbb-color-milk)'
-      : context.args.color === 'milk'
-        ? 'var(--sbb-color-white)'
-        : '--sbb-color-platinum',
-});
-
 const ContentText = (): TemplateResult => html`
   <span class="sbb-text-m">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut
@@ -495,13 +486,14 @@ export const Multiple: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.color === 'white' || context.args.color === 'transparent-bordered-dashed'
+        ? 'var(--sbb-color-milk)'
+        : context.args.color === 'milk'
+          ? 'var(--sbb-color-white)'
+          : '--sbb-color-platinum',
     actions: {
       handles: ['click'],
     },

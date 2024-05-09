@@ -158,7 +158,9 @@ export class SbbCheckboxElement extends SbbUpdateSchedulerMixin(
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     // We need to wait for the selection-panel to be fully initialized
     this.startUpdate();
     setTimeout(() => {

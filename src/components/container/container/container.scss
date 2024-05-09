@@ -15,16 +15,20 @@
   --sbb-container-background-color: var(--sbb-color-milk);
 }
 
-.sbb-container {
-  background-color: var(--sbb-container-background-color, transparent);
+:host(:not([expanded])[background-expanded]) {
+  background-color: var(--sbb-container-background-color);
+}
 
-  // Placing content before and after the container stops the margin of inner elements from overflowing
-  &::after,
-  &::before {
-    content: '\a0';
-    display: block;
-    visibility: hidden;
-    height: 0;
+.sbb-container {
+  @include sbb.ignore-children-margin;
+
+  background-color: var(--sbb-container-background-color);
+
+  // In order to support nested sbb-containers (e.g. if used in an overlay), we need to explicitly set background color to transparent.
+  // We cannot use the --sbb-container-background-color variable because using it would
+  // destroy sbb-sticky-bar behavior when the container and the sticky bar have transparent color.
+  :host([color='transparent']) & {
+    background-color: transparent;
   }
 
   :host(:not([expanded])) & {

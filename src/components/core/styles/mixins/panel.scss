@@ -11,8 +11,6 @@
   --sbb-panel-inner-height: #{functions.px-to-rem-build(167)};
   --sbb-panel-triangle-height: #{functions.px-to-rem-build(33)};
   --sbb-panel-height: calc(var(--sbb-panel-inner-height) + 2 * var(--sbb-panel-triangle-height));
-  --sbb-panel-font-family: var(--sbb-typo-type-face-sbb-light);
-  --sbb-panel-letter-spacing: var(--sbb-typo-letter-spacing-titles);
   --sbb-panel-line-height: var(--sbb-typo-line-height-titles);
   --sbb-panel-font-size: var(--sbb-typo-scale-1-5x);
   --sbb-panel-color: var(--sbb-color-white);
@@ -20,7 +18,10 @@
   --sbb-panel-background-color-hover: var(--sbb-color-red);
   --sbb-panel-padding-inline: var(--sbb-spacing-responsive-m);
   --sbb-panel-gap: var(--sbb-spacing-responsive-xs);
-  --sbb-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-panel-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-panel-animation-easing: var(--sbb-animation-easing);
 
   @include mediaqueries.mq($from: medium) {
@@ -68,10 +69,10 @@
 @mixin panel-text {
   @include typo.font-smoothing;
 
-  font-family: var(--sbb-panel-font-family);
+  font-family: var(--sbb-typo-font-family);
   font-size: var(--sbb-panel-font-size);
-  font-weight: normal;
+  font-weight: 300;
   line-height: var(--sbb-panel-line-height);
-  letter-spacing: var(--sbb-panel-letter-spacing);
+  letter-spacing: var(--sbb-typo-letter-spacing-titles);
   color: var(--sbb-panel-color);
 }
