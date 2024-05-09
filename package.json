@@ -103,7 +103,7 @@
     "eslint-plugin-storybook": "0.8.0",
     "eslint-plugin-yml": "1.14.0",
     "glob": "10.3.12",
-    "globals": "15.1.0",
+    "globals": "15.2.0",
     "husky": "9.0.11",
     "lint-staged": "15.2.2",
     "lit-analyzer": "2.0.3",
