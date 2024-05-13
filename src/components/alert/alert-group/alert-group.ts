@@ -5,6 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
+import { SbbHydrationMixin } from '../../core/mixins/hydration-mixin.js';
 import type { SbbTitleLevel } from '../../title.js';
 import { SbbAlertElement } from '../alert.js';
 
@@ -19,7 +20,7 @@ import style from './alert-group.scss?lit&inline';
  * @event {CustomEvent<void>} empty - Emits when `sbb-alert-group` becomes empty.
  */
 @customElement('sbb-alert-group')
-export class SbbAlertGroupElement extends LitElement {
+export class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didDismissAlert: 'didDismissAlert',
