@@ -58,8 +58,9 @@
   --sbb-button-color-active-border: var(--sbb-color-cloud);
   --sbb-button-color-active-text: var(--sbb-color-charcoal);
   --sbb-button-color-disabled-background: var(--sbb-color-milk);
-  --sbb-button-color-disabled-border: var(--sbb-color-milk);
+  --sbb-button-color-disabled-border: var(--sbb-color-smoke);
   --sbb-button-color-disabled-text: var(--sbb-color-granite);
+  --sbb-button-border-style: solid;
   --sbb-button-border-width: #{functions.px-to-rem-build(0)};
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-transition-duration: var(
@@ -90,7 +91,7 @@
   --sbb-button-color-active-border: var(--sbb-color-iron);
   --sbb-button-color-active-text: var(--sbb-color-milk);
   --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-0);
-  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-disabled-border: var(--sbb-color-smoke);
   --sbb-button-color-disabled-text: var(--sbb-color-smoke);
 }
 
@@ -123,7 +124,8 @@
         position: absolute;
         content: '';
         inset: var(--sbb-button-inset);
-        border: var(--sbb-button-border-width) solid var(--sbb-button-color-default-border);
+        border: var(--sbb-button-border-width) var(--sbb-button-border-style)
+          var(--sbb-button-color-default-border);
         border-radius: var(--sbb-button-border-radius);
         background-color: var(--sbb-button-color-default-background);
         transition-duration: var(--sbb-button-transition-duration);
@@ -145,6 +147,9 @@
 
 // Disabled state for icon-button in form-field
 @mixin icon-button-disabled($button-selector) {
+  --sbb-button-border-width: #{functions.px-to-rem-build(1)};
+  --sbb-button-border-style: dashed;
+
   @include a11y.if-forced-colors {
     --sbb-button-color-disabled-text: GrayText !important;
   }

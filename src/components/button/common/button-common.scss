@@ -22,6 +22,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
   --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-20);
   --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
+  --sbb-button-border-style: solid;
   --sbb-button-border-width: var(--sbb-border-width-2x);
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-min-height: var(--sbb-size-element-m);
@@ -81,6 +82,8 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 }
 
 :host([disabled]) {
+  --sbb-button-border-style: dashed;
+
   @include sbb.if-forced-colors {
     --sbb-button-color-disabled-text: GrayText !important;
   }
@@ -146,7 +149,8 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     position: absolute;
     content: '';
     inset: var(--sbb-button-inset);
-    border: var(--sbb-button-border-width) solid var(--sbb-button-color-default-border);
+    border: var(--sbb-button-border-width) var(--sbb-button-border-style)
+      var(--sbb-button-color-default-border);
     border-radius: var(--sbb-button-border-radius);
     background-color: var(--sbb-button-color-default-background);
     transition-duration: var(--sbb-button-transition-duration);
@@ -194,7 +198,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     color: var(--sbb-button-color-disabled-text);
     cursor: default;
     pointer-events: none;
-    text-decoration: line-through;
   }
 
   :host(:not([disabled], :active, [data-active]):hover) & {
