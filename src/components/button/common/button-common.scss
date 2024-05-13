@@ -22,6 +22,8 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
   --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-20);
   --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
+
+  // chromatic trigger
   --sbb-button-border-style: solid;
   --sbb-button-border-width: var(--sbb-border-width-2x);
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
