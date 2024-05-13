@@ -3,10 +3,9 @@ export const snapshots = {};
 
 snapshots["sbb-teaser-hero should render with slots"] = 
 `<a
+  aria-label="label"
   class="sbb-action-base sbb-teaser-hero"
   href="https://www.sbb.ch"
-  role="presentation"
-  tabindex="-1"
 >
   <span class="sbb-teaser-hero__panel">
     <p class="sbb-teaser-hero__panel-text">
@@ -36,7 +35,7 @@ snapshots["sbb-teaser-hero should render with slots"] =
 
 snapshots["sbb-teaser-hero should render all properties Dom"] = 
 `<sbb-teaser-hero
-  aria-label="label"
+  accessibility-label="label"
   data-action=""
   data-link=""
   dir="ltr"
@@ -45,8 +44,6 @@ snapshots["sbb-teaser-hero should render all properties Dom"] =
   image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
   link-content="Find out more"
   rel="external"
-  role="link"
-  tabindex="0"
   target="_blank"
 >
   Break out and explore castles and palaces.
@@ -56,11 +53,10 @@ snapshots["sbb-teaser-hero should render all properties Dom"] =
 
 snapshots["sbb-teaser-hero should render all properties ShadowDom"] = 
 `<a
+  aria-label="label"
   class="sbb-action-base sbb-teaser-hero"
   href="https://www.sbb.ch"
   rel="external"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <span class="sbb-teaser-hero__panel">
@@ -106,13 +102,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "label",
-      "children": [
-        {
-          "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more . Link target opens in a new window."
-        }
-      ]
+      "name": "label"
     }
   ]
 }
@@ -129,13 +119,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Firefox"] =
     {
       "role": "link",
       "name": "label",
-      "children": [
-        {
-          "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more . Link target opens in a new window.",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     }
   ]
 }

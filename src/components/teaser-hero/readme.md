@@ -34,15 +34,16 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 
 ## Properties
 
-| Name          | Attribute      | Privacy | Type                                    | Default | Description                                                       |
-| ------------- | -------------- | ------- | --------------------------------------- | ------- | ----------------------------------------------------------------- |
-| `linkContent` | `link-content` | public  | `string \| undefined`                   |         | Panel link text.                                                  |
-| `imageSrc`    | `image-src`    | public  | `string \| undefined`                   |         | Image src will be passed to `sbb-image`.                          |
-| `imageAlt`    | `image-alt`    | public  | `string \| undefined`                   |         | Image alt text will be passed to `sbb-image`.                     |
-| `href`        | `href`         | public  | `string \| undefined`                   |         | The href value you want to link to.                               |
-| `target`      | `target`       | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                  |
-| `rel`         | `rel`          | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
-| `download`    | `download`     | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.       |
+| Name                 | Attribute             | Privacy | Type                                    | Default | Description                                                       |
+| -------------------- | --------------------- | ------- | --------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `linkContent`        | `link-content`        | public  | `string \| undefined`                   |         | Panel link text.                                                  |
+| `imageSrc`           | `image-src`           | public  | `string \| undefined`                   |         | Image src will be passed to `sbb-image`.                          |
+| `imageAlt`           | `image-alt`           | public  | `string \| undefined`                   |         | Image alt text will be passed to `sbb-image`.                     |
+| `href`               | `href`                | public  | `string \| undefined`                   |         | The href value you want to link to.                               |
+| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                  |
+| `rel`                | `rel`                 | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
+| `download`           | `download`            | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.       |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the inner anchor element. |
 
 ## Slots
 

@@ -24,7 +24,7 @@ At least one is mandatory, so you can have a `sbb-secondary-button-link` with ic
 <sbb-secondary-button-link
   href="https://www.sbb.ch"
   icon-name="info"
-  aria-label="Click for more information."
+  accessibility-label="Click for more information."
 ></sbb-secondary-button-link>
 ```
 
@@ -77,16 +77,17 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                                    | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `size`     | `size`      | public  | `SbbButtonSize \| undefined`            | `'l'`   | Size variant, either l or m.                                                                                                     |
-| `negative` | `negative`  | public  | `boolean`                               | `false` | Negative coloring variant flag.                                                                                                  |
-| `iconName` | `icon-name` | public  | `string \| undefined`                   |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled` | `disabled`  | public  | `boolean`                               | `false` | Whether the component is disabled.                                                                                               |
-| `href`     | `href`      | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                              |
-| `target`   | `target`    | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                 |
-| `rel`      | `rel`       | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
-| `download` | `download`  | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                      |
+| Name                 | Attribute             | Privacy | Type                                    | Default | Description                                                                                                                      |
+| -------------------- | --------------------- | ------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `size`               | `size`                | public  | `SbbButtonSize \| undefined`            | `'l'`   | Size variant, either l or m.                                                                                                     |
+| `negative`           | `negative`            | public  | `boolean`                               | `false` | Negative coloring variant flag.                                                                                                  |
+| `iconName`           | `icon-name`           | public  | `string \| undefined`                   |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `disabled`           | `disabled`            | public  | `boolean`                               | `false` | Whether the component is disabled.                                                                                               |
+| `href`               | `href`                | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                              |
+| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                 |
+| `rel`                | `rel`                 | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
+| `download`           | `download`            | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                      |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the inner anchor element.                                                                |
 
 ## Slots
 

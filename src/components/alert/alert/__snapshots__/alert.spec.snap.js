@@ -97,7 +97,7 @@ snapshots["sbb-alert should render customized properties"] =
           </slot>
         </p>
         <sbb-link
-          aria-label="label"
+          accessibility-label="label"
           data-action=""
           data-link=""
           data-sbb-link=""
@@ -106,9 +106,7 @@ snapshots["sbb-alert should render customized properties"] =
           href="https://www.sbb.ch"
           negative=""
           rel="noopener"
-          role="link"
           size="s"
-          tabindex="0"
           target="_blank"
         >
           Show much more
@@ -161,13 +159,7 @@ snapshots["sbb-alert A11y tree Chrome"] =
     },
     {
       "role": "link",
-      "name": "test-a11y-label",
-      "children": [
-        {
-          "role": "link",
-          "name": "Find out more"
-        }
-      ]
+      "name": "test-a11y-label"
     },
     {
       "role": "button",
@@ -197,13 +189,7 @@ snapshots["sbb-alert A11y tree Firefox"] =
     {
       "role": "link",
       "name": "test-a11y-label",
-      "children": [
-        {
-          "role": "link",
-          "name": "Find out more",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     },
     {
       "role": "button",
