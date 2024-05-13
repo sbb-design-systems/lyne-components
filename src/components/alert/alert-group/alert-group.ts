@@ -5,7 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { SbbHydrationMixin } from '../../core/mixins/hydration-mixin.js';
+import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTitleLevel } from '../../title.js';
 import { SbbAlertElement } from '../alert.js';
 
