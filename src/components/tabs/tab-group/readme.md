@@ -42,16 +42,16 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 | Name                   | Attribute                | Privacy | Type                              | Default | Description                                                                                                                        |
 | ---------------------- | ------------------------ | ------- | --------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `size`                 | `size`                   | public  | `InterfaceSbbTabGroupTab['size']` | `'l'`   | Size variant, either l or xl.                                                                                                      |
 | `initialSelectedIndex` | `initial-selected-index` | public  | `number`                          | `0`     | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected. |
+| `size`                 | `size`                   | public  | `InterfaceSbbTabGroupTab['size']` | `'l'`   | Size variant, either l or xl.                                                                                                      |
 
 ## Methods
 
 | Name          | Privacy | Description               | Parameters         | Return | Inherited From |
 | ------------- | ------- | ------------------------- | ------------------ | ------ | -------------- |
+| `activateTab` | public  | Activates a tab by index. | `tabIndex: number` | `void` |                |
 | `disableTab`  | public  | Disables a tab by index.  | `tabIndex: number` | `void` |                |
 | `enableTab`   | public  | Enables a tab by index.   | `tabIndex: number` | `void` |                |
-| `activateTab` | public  | Activates a tab by index. | `tabIndex: number` | `void` |                |
 
 ## Events
 

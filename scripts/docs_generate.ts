@@ -5,7 +5,12 @@
 import fs from 'fs';
 
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
-import type { Attribute, CustomElement, Package } from 'custom-elements-manifest/schema';
+import type {
+  Attribute,
+  ClassDeclaration,
+  CustomElement,
+  Package,
+} from 'custom-elements-manifest/schema';
 import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
@@ -125,6 +130,26 @@ async function updateComponentReadme(
 }
 
 const manifest: Package = JSON.parse(fs.readFileSync(manifestFilePath, 'utf-8'));
+
+type ExtendedClassDeclaration = ClassDeclaration & {
+  cssProperties: { name: string }[];
+  events: { name: string }[];
+  members: { name: string }[];
+  slots: { name: string }[];
+};
+
+manifest.modules.forEach((module) => {
+  module.declarations
+    ?.filter((declaration): declaration is ExtendedClassDeclaration => declaration.kind === 'class')
+    .forEach((declaration) =>
+      ['members', 'slots', 'cssProperties', 'events'].forEach((type) =>
+        (declaration[type as keyof ExtendedClassDeclaration] as { name: string }[])?.sort((a, b) =>
+          a.name.localeCompare(b.name),
+        ),
+      ),
+    );
+});
+
 const markdown: string = customElementsManifestToMarkdown(manifest, {
   headingOffset: -1, // Default heading is '###'
   private: 'details', // We use 'details' because it's the only way to remove 'protected' members from the tables. We remove details section later.

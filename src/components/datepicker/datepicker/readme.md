@@ -106,11 +106,11 @@ This is helpful if you need a specific state of the component.
 
 | Name         | Attribute     | Privacy | Type                                                | Default | Description                                                       |
 | ------------ | ------------- | ------- | --------------------------------------------------- | ------- | ----------------------------------------------------------------- |
-| `wide`       | `wide`        | public  | `boolean`                                           | `false` | If set to true, two months are displayed.                         |
 | `dateFilter` | `date-filter` | public  | `(date: Date \| null) => boolean`                   |         | A function used to filter out dates.                              |
 | `dateParser` | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |         | A function used to parse string value into dates.                 |
 | `format`     | `format`      | public  | `(date: Date) => string \| undefined`               |         | A function used to format dates into the preferred string format. |
 | `input`      | `input`       | public  | `string \| HTMLElement \| undefined`                |         | Reference of the native input connected to the datepicker.        |
+| `wide`       | `wide`        | public  | `boolean`                                           | `false` | If set to true, two months are displayed.                         |
 
 ## Methods
 
@@ -123,8 +123,8 @@ This is helpful if you need a specific state of the component.
 
 | Name                | Type                                    | Description                                                                         | Inherited From |
 | ------------------- | --------------------------------------- | ----------------------------------------------------------------------------------- | -------------- |
-| `didChange`         | `CustomEvent<void>`                     | Deprecated. used for React. Will probably be removed once React 19 is available.    |                |
 | `change`            | `CustomEvent<void>`                     | Notifies that the connected input has changes.                                      |                |
-| `inputUpdated`      | `CustomEvent<SbbInputUpdateEvent>`      | Notifies that the attributes of the input connected to the datepicker have changes. |                |
 | `datePickerUpdated` | `CustomEvent<void>`                     | Notifies that the attributes of the datepicker have changes.                        |                |
+| `didChange`         | `CustomEvent<void>`                     | Deprecated. used for React. Will probably be removed once React 19 is available.    |                |
+| `inputUpdated`      | `CustomEvent<SbbInputUpdateEvent>`      | Notifies that the attributes of the input connected to the datepicker have changes. |                |
 | `validationChange`  | `CustomEvent<SbbValidationChangeEvent>` | Emits whenever the internal validation state changes.                               |                |

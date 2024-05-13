@@ -53,12 +53,12 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 | Name                  | Attribute               | Privacy | Type                                 | Default | Description                                    |
 | --------------------- | ----------------------- | ------- | ------------------------------------ | ------- | ---------------------------------------------- |
 | `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                            | `false` | Whether the radio can be deselected.           |
-| `value`               | `value`                 | public  | `string \| undefined`                |         | Value of radio button.                         |
-| `disabled`            | `disabled`              | public  | `boolean`                            | `false` | Whether the radio button is disabled.          |
-| `required`            | `required`              | public  | `boolean`                            | `false` | Whether the radio button is required.          |
-| `group`               | -                       | public  | `SbbRadioButtonGroupElement \| null` | `null`  | Reference to the connected radio button group. |
 | `checked`             | `checked`               | public  | `boolean`                            | `false` | Whether the radio button is checked.           |
+| `disabled`            | `disabled`              | public  | `boolean`                            | `false` | Whether the radio button is disabled.          |
+| `group`               | -                       | public  | `SbbRadioButtonGroupElement \| null` | `null`  | Reference to the connected radio button group. |
+| `required`            | `required`              | public  | `boolean`                            | `false` | Whether the radio button is required.          |
 | `size`                | `size`                  | public  | `SbbRadioButtonSize`                 | `'m'`   | Label size variant, either m or s.             |
+| `value`               | `value`                 | public  | `string \| undefined`                |         | Value of radio button.                         |
 
 ## Methods
 
