@@ -81,10 +81,6 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 | Name            | Attribute        | Privacy | Type                              | Default | Description                                                                                                                      |
 | --------------- | ---------------- | ------- | --------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `size`          | `size`           | public  | `SbbCheckboxSize`                 | `'m'`   | Label size variant, either m or s.                                                                                               |
-| `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement`                | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                    |
-| `indeterminate` | `indeterminate`  | public  | `boolean`                         | `false` | Whether the checkbox is indeterminate.                                                                                           |
-| `group`         | -                | public  | `SbbCheckboxGroupElement \| null` | `null`  | Reference to the connected checkbox group.                                                                                       |
 | `checked`       | `checked`        | public  | `boolean`                         | `false` | Whether the checkbox is checked.                                                                                                 |
 | `disabled`      | `disabled`       | public  | `boolean`                         | `false` | Whether the component is disabled.                                                                                               |
 | `form`          | -                | public  | `HTMLFormElement \| null`         |         | Returns the form owner of internals target element.                                                                              |
