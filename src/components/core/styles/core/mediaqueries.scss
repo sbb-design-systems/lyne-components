@@ -1,6 +1,8 @@
 // Inspired by: https://github.com/sass-mq/sass-mq
 
+@use 'sass:map';
 @use 'sass:math';
+@use 'sass:meta';
 @use 'sass:string';
 @use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 
@@ -31,8 +33,8 @@ $mq-media-type: all !default;
 }
 
 @function mq-get-breakpoint-width($name, $breakpoints: $mq-breakpoints) {
-  @if map-has-key($breakpoints, $name) {
-    @return map-get($breakpoints, $name);
+  @if map.has-key($breakpoints, $name) {
+    @return map.get($breakpoints, $name);
   } @else {
     @warn "Breakpoint #{$name} wasn't found in $breakpoints.";
   }
@@ -51,7 +53,7 @@ $mq-media-type: all !default;
 
   // From: this breakpoint (inclusive)
   @if $from {
-    @if type-of($from) == number {
+    @if meta.type-of($from) == number {
       $min-width: mq-px2rem($from);
     } @else {
       $min-width: mq-px2rem(mq-get-breakpoint-width($from, $breakpoints), 0);
@@ -60,7 +62,7 @@ $mq-media-type: all !default;
 
   // Until: that breakpoint (exclusive)
   @if $to {
-    @if type-of($to) == number {
+    @if meta.type-of($to) == number {
       $max-width: mq-px2rem($to);
     } @else {
       $max-width: mq-px2rem(mq-get-breakpoint-width($to, $breakpoints), -1);

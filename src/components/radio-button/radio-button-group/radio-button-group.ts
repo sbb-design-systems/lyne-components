@@ -152,6 +152,8 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('value')) {
       this._valueChanged(this.value);
     }
@@ -170,7 +172,9 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     this._didLoad = true;
     this._updateRadios(this.value);
   }

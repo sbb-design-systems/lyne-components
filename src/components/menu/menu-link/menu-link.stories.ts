@@ -22,14 +22,12 @@ const getBasicTemplate = (
 `;
 
 const TemplateMenuAction = (args: Args): TemplateResult => html`
-  <div>${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}</div>
+  ${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}
 `;
 
 const TemplateMenuActionCustomIcon = (args: Args): TemplateResult => html`
-  <div>
-    ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
-    ${getBasicTemplate(args, 3, true)}
-  </div>
+  ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
+  ${getBasicTemplate(args, 3, true)}
 `;
 
 const text: InputType = {
@@ -105,7 +103,7 @@ const disabled: InputType = {
   },
 };
 
-const ariaLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -120,7 +118,7 @@ const defaultArgTypes: ArgTypes = {
   rel,
   download,
   disabled,
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs: Args = {
@@ -132,7 +130,7 @@ const defaultArgs: Args = {
   rel: undefined,
   download: false,
   disabled: false,
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
 };
 
 export const menuLink: StoryObj = {

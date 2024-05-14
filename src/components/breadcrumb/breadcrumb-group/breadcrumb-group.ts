@@ -3,7 +3,6 @@ import {
   html,
   nothing,
   LitElement,
-  type PropertyValueMap,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
@@ -40,7 +39,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-BREADCRUMB'];
+  protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /* The state of the breadcrumb group. */
   @state()
@@ -79,7 +78,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
     this._resizeObserver.observe(this);
     this.toggleAttribute('data-loaded', true);
@@ -90,14 +89,15 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
     this._resizeObserver.disconnect();
   }
 
-  protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('listChildren')) {
       this._syncBreadcrumbs();
     }
   }
 
-  protected override updated(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+  protected override updated(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.updated(changedProperties);
     if (changedProperties.has('listChildren')) {
       Promise.resolve().then(() => this._evaluateCollapsedState());

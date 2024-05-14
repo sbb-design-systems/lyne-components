@@ -2,7 +2,7 @@ import type { StorybookConfig } from '@storybook/web-components-vite';
 import { type BuildOptions, type UserConfig, mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.ts'],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.ts'],
   addons: ['@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-interactions'],
   framework: {
     name: '@storybook/web-components-vite',

@@ -154,14 +154,14 @@ describe(`sbb-breadcrumb-group with ${fixture.name}`, () => {
       (document.activeElement as HTMLElement).blur();
 
       // Then the body should be focused
-      expect(document.activeElement!.tagName).to.be.equal('BODY');
+      expect(document.activeElement!.localName).to.be.equal('body');
 
       // When triggering a slotChange by removing a breadcrumb
       element.querySelector('#breadcrumb-6')!.remove();
       await waitForLitRender(element);
 
       // Then the body should still be focused
-      expect(document.activeElement!.tagName).to.be.equal('BODY');
+      expect(document.activeElement!.localName).to.be.equal('body');
     });
 
     it('should remove expand button when too less breadcrumbs available', async () => {

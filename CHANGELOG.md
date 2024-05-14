@@ -2,6 +2,80 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.51.1](https://github.com/lyne-design-system/lyne-components/compare/v0.51.0...v0.51.1) (2024-05-08)
+
+
+### Bug Fixes
+
+* **sbb-toggle:** fix event timing ([#2646](https://github.com/lyne-design-system/lyne-components/issues/2646)) ([6da2d26](https://github.com/lyne-design-system/lyne-components/commit/6da2d2684c962422339e643531a8f01915f8787b))
+
+## [0.51.0](https://github.com/lyne-design-system/lyne-components/compare/v0.50.2...v0.51.0) (2024-05-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* As we split up the former `typography.css` into smaller consumable modules, we had to change the names of some files.
+    - Renamed `typography.css` to `standard-theme.css`. Notice: there is still a file called `typography.css` that contains only a few typography-related outputs. Therefore, **import adaption from `typography.css` to `standard-theme.css` is mandatory**.
+    - Changed the name of `fullfont.css` to `font-characters-extension.css`.
+* Replaced `Roman`, `Bold`, and `Light` font-face variants with the single `SBB` font. Using CSS `font-weight` property automatically selects the correct font family. Migration guide:
+    - Replace `font-family: "SBBWeb Roman", ...` with `font-family: "SBB", ...`  and use `font-weight: normal` (potentially not necessary as `normal` is the default).
+    - Replace `font-family: "SBBWeb Bold", ...` with `font-family: "SBB", ...` and use `font-weight: bold` or CSS class `sbb-text--bold`.
+    - Replace `font-family: "SBBWeb Light", ...` with `font-family: "SBB", ...` and use `font-weight: 300`.
+    - Replace CSS variable `--sbb-typo-type-face-sbb-roman` with `--sbb-typo-font-family` and use `font-weight: normal` (potentially not necessary as `normal` is the default).
+    - Replace CSS variable `--sbb-typo-type-face-sbb-bold` with `--sbb-typo-font-family` and use `font-weight: bold`.
+    - Replace CSS variable `--sbb-typo-type-face-sbb-light` with `--sbb-typo-font-family` and use `font-weight: 300`.
+* **alert:** Removed `disable-animation` property. Use `animation='none'` instead.
+* **notification:** Removed `disable-animation` property. Use `animation='none'` instead or depending on the case 'open' or 'close'.
+* **disable-animation:** Add the `sbb-disable-animation` CSS class to disable animations for the element and all its children. Consequently, all `disable-animation` properties of the following components have been removed.
+    - Removed `disable-animation` property from `sbb-accordion`
+    - Removed `disable-animation` property from `sbb-alert`
+    - Removed `disable-animation` property from `sbb-autocomplete`
+    - Removed `disable-animation` property from `sbb-datepicker-toggle`
+    - Removed `disable-animation` property from `sbb-dialog`
+    - Removed `disable-animation` property from `sbb-expansion-panel`
+    - Removed `disable-animation` property from `sbb-image`
+    - Removed `disable-animation` property from `sbb-loading-indicator`
+    - Removed `disable-animation` property from `sbb-menu`
+    - Removed `disable-animation` property from `sbb-navigation`
+    - Removed `disable-animation` property from `sbb-navigation-section`
+    - Removed `disable-animation` property from `sbb-notification`
+    - Removed `disable-animation` property from `sbb-overlay`
+    - Removed `disable-animation` property from `sbb-popover`
+    - Removed `disable-animation` property from `sbb-select`
+    - Removed `disable-animation` property from `sbb-selection-panel`
+    - Removed `disable-animation` property from `sbb-sticky-bar`
+    - Removed `disable-animation` property from `sbb-toast`
+    - Removed `disable-animation` property from `sbb-toggle`
+
+### Features
+
+* add default entries for style exports in package.json ([#2643](https://github.com/lyne-design-system/lyne-components/issues/2643)) ([73271e2](https://github.com/lyne-design-system/lyne-components/commit/73271e25c057b7229e3f245a73d8b1e831fc72dc))
+* add root entry point with global component registration ([#2641](https://github.com/lyne-design-system/lyne-components/issues/2641)) ([3572fa9](https://github.com/lyne-design-system/lyne-components/commit/3572fa9657b8f44873caf341d126fb563e69b09e))
+* **alert:** add `animation` property ([#2507](https://github.com/lyne-design-system/lyne-components/issues/2507)) ([8b91eb8](https://github.com/lyne-design-system/lyne-components/commit/8b91eb8c0046e330bcfb7b7c880e71a531ee44a5))
+* **notification:** add `animation` property ([#2507](https://github.com/lyne-design-system/lyne-components/issues/2507)) ([8b91eb8](https://github.com/lyne-design-system/lyne-components/commit/8b91eb8c0046e330bcfb7b7c880e71a531ee44a5))
+* **notification:** add size 's' ([#2606](https://github.com/lyne-design-system/lyne-components/issues/2606)) ([cf97ecd](https://github.com/lyne-design-system/lyne-components/commit/cf97ecd290dbaf97e650aab1f23cc96cb5b5d8ee))
+* reduce font-faces to the single SBB variant ([#2618](https://github.com/lyne-design-system/lyne-components/issues/2618)) ([679d9e9](https://github.com/lyne-design-system/lyne-components/commit/679d9e9339df501aca0a9eb22ae52a10adbfeeab))
+* **sbb-accordion, sbb-expansion-panel:** add size s ([#2603](https://github.com/lyne-design-system/lyne-components/issues/2603)) ([015201d](https://github.com/lyne-design-system/lyne-components/commit/015201d3c5592bdc4f73d18ccea57e559e33d6fa))
+* **sbb-alert:** add size s ([#2591](https://github.com/lyne-design-system/lyne-components/issues/2591)) ([3a82c67](https://github.com/lyne-design-system/lyne-components/commit/3a82c6733f8c78180cbf236dea1362aa623faddb))
+* **sbb-container:** allow expanded background color ([#2640](https://github.com/lyne-design-system/lyne-components/issues/2640)) ([2854e8e](https://github.com/lyne-design-system/lyne-components/commit/2854e8ef955f2860a7706f5ba1a2c2ff92cbf2e2))
+* split CSS outputs into smaller modules ([#2615](https://github.com/lyne-design-system/lyne-components/issues/2615)) ([646e5a4](https://github.com/lyne-design-system/lyne-components/commit/646e5a498e6ba725574416a0f507f9a301af2460))
+
+
+### Bug Fixes
+
+* enable next.js 14 support and add some upstream fixes ([#2613](https://github.com/lyne-design-system/lyne-components/issues/2613)) ([341b7ce](https://github.com/lyne-design-system/lyne-components/commit/341b7ce4ed10bdb1d8dc1b9c17b7bf6a7ea6c1a1))
+* prefix all css variable names ([#2609](https://github.com/lyne-design-system/lyne-components/issues/2609)) ([788cef7](https://github.com/lyne-design-system/lyne-components/commit/788cef734c28615d0fbbb7be66e547664ba504e7))
+* **sbb-container:** fix background color for nested containers ([#2611](https://github.com/lyne-design-system/lyne-components/issues/2611)) ([c9f0e0e](https://github.com/lyne-design-system/lyne-components/commit/c9f0e0ea992c3e61ec5be0579f9dbe5a9bc057a2))
+* **sbb-dialog:** show all content if header is always present ([#2637](https://github.com/lyne-design-system/lyne-components/issues/2637)) ([924fa37](https://github.com/lyne-design-system/lyne-components/commit/924fa3768b6275390db9b6641e3b73e89a016cab)), closes [#2635](https://github.com/lyne-design-system/lyne-components/issues/2635)
+* **sbb-image:** fix alt attribute and provide css var for aspect-ratio ([#2607](https://github.com/lyne-design-system/lyne-components/issues/2607)) ([54d3192](https://github.com/lyne-design-system/lyne-components/commit/54d31922525677e1401d315154499fe308326148))
+* **sbb-loading-indicator:** fix sizes of loading indicator ([#2630](https://github.com/lyne-design-system/lyne-components/issues/2630)) ([a1270b2](https://github.com/lyne-design-system/lyne-components/commit/a1270b2b96d9c515e8245c35a7918ce7c7432227))
+* **sbb-tab-group:** avoid unwanted margin block spaces ([#2628](https://github.com/lyne-design-system/lyne-components/issues/2628)) ([87d10d8](https://github.com/lyne-design-system/lyne-components/commit/87d10d8baec6e63873e5ebb2f36f21c25b04ba50))
+
+
+### Code Refactoring
+
+* **disable-animation:** migrate disable-animation mechanism ([#2507](https://github.com/lyne-design-system/lyne-components/issues/2507)) ([8b91eb8](https://github.com/lyne-design-system/lyne-components/commit/8b91eb8c0046e330bcfb7b7c880e71a531ee44a5))
+
 ## [0.50.2](https://github.com/lyne-design-system/lyne-components/compare/v0.50.1...v0.50.2) (2024-04-16)
 
 

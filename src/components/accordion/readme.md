@@ -24,6 +24,13 @@ The `multi` property, if set, allows having more than one `sbb-expansion-panel` 
 
 ## Style
 
+The component has two different sizes, `l` (default) and `s`, which can be changed using the `size` property.
+The property overrides the `size` value of any inner `sbb-expansion-panel`.
+
+```html
+<sbb-accordion size="s"> ... </sbb-accordion>
+```
+
 The component has a `titleLevel` property, which is proxied to each inner `sbb-expansion-panel-header`, and can be used
 to wrap the header of each `sbb-expansion-panel` in a heading tag; if the property is unset, a `div` is used.
 
@@ -43,10 +50,11 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 
 ## Properties
 
-| Name         | Attribute     | Privacy | Type                    | Default | Description                                                                 |
-| ------------ | ------------- | ------- | ----------------------- | ------- | --------------------------------------------------------------------------- |
-| `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null` | `null`  | The heading level for the sbb-expansion-panel-headers within the component. |
-| `multi`      | `multi`       | public  | `boolean`               | `false` | Whether more than one sbb-expansion-panel can be open at the same time.     |
+| Name         | Attribute     | Privacy | Type                    | Default | Description                                                                               |
+| ------------ | ------------- | ------- | ----------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| `multi`      | `multi`       | public  | `boolean`               | `false` | Whether more than one sbb-expansion-panel can be open at the same time.                   |
+| `size`       | `size`        | public  | `'s' \| 'l'`            | `'l'`   | Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. ` |
+| `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null` | `null`  | The heading level for the sbb-expansion-panel-headers within the component.               |
 
 ## Slots
 

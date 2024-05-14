@@ -15,6 +15,7 @@ import '../../screen-reader-only.js';
 
 export declare class SbbCardActionCommonElementMixinType {
   public active: boolean;
+  protected actionRole: 'link' | 'button';
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -43,6 +44,8 @@ export const SbbCardActionCommonElementMixin = <
     }
     private _active: boolean = false;
 
+    protected abstract actionRole: 'link' | 'button';
+
     private _card: SbbCardElement | null = null;
     private _cardMutationObserver = new AgnosticMutationObserver(() =>
       this._checkForSlottedActions(),
@@ -60,8 +63,8 @@ export const SbbCardActionCommonElementMixin = <
       Array.from(this._card?.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
         .filter(
           (el) =>
-            el.tagName !== 'SBB-CARD-LINK' &&
-            el.tagName !== 'SBB-CARD-BUTTON' &&
+            el.localName !== 'sbb-card-link' &&
+            el.localName !== 'sbb-card-button' &&
             !el.hasAttribute(cardFocusableAttributeName),
         )
         .forEach((el: Element) => el.setAttribute(cardFocusableAttributeName, ''));
@@ -73,7 +76,7 @@ export const SbbCardActionCommonElementMixin = <
       if (this._card) {
         this._card.toggleAttribute('data-has-action', true);
         this._card.toggleAttribute('data-has-active-action', this.active);
-        this._card.setAttribute('data-action-role', this.getAttribute('role')!);
+        this._card.setAttribute('data-action-role', this.actionRole);
 
         this._checkForSlottedActions();
         this._cardMutationObserver.observe(this._card, {

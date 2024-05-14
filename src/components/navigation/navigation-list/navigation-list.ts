@@ -26,7 +26,10 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-NAVIGATION-BUTTON', 'SBB-NAVIGATION-LINK'];
+  protected override readonly listChildLocalNames = [
+    'sbb-navigation-button',
+    'sbb-navigation-link',
+  ];
 
   /**
    * The label to be shown before the action list.
@@ -40,6 +43,7 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('listChildren')) {
       this.listChildren.forEach((c) => (c.size = 'm'));
     }

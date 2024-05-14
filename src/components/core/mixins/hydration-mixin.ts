@@ -65,6 +65,7 @@ export const SbbHydrationMixin = <T extends AbstractConstructor<LitElement>>(
      * and `false` if not.
      *
      * @return A promise of a boolean that resolves to true once the hydration completed.
+     * @internal
      */
     public get hydrationComplete(): Promise<boolean> {
       return this._hydrationComplete;
@@ -107,17 +108,19 @@ export const SbbHydrationMixin = <T extends AbstractConstructor<LitElement>>(
       return super.createRenderRoot();
     }
 
-    protected override willUpdate(changedProperties: PropertyValues): void {
+    protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
+
       if (isServer) {
         this.recoverSsrState?.();
       }
     }
 
-    protected override update(changedProperties: PropertyValues): void {
+    protected override update(changedProperties: PropertyValues<this>): void {
       // When hydration is needed, we wait the hydration process to finish, which is patched
       // into the update method of the LitElement base class.
       super.update(changedProperties);
+
       if (this._hydrationRequired) {
         this._hydrationRequired = false;
         this._resolveHydration(true);

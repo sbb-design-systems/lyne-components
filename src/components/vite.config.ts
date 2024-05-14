@@ -13,6 +13,7 @@ import {
   packageJsonTemplate,
   typography,
   verifyEntryPoints,
+  generateRootEntryPoint,
 } from '../../tools/vite/index.js';
 import rootConfig from '../../vite.config.js';
 
@@ -25,6 +26,18 @@ const barrelExports = Object.keys(entryPoints)
   .filter((v, _i, a) => a.some((e) => e.startsWith(`${v}/`)))
   .map((e) => `${e}.ts`);
 
+const buildStyleExports = (fileNames: string[]): Record<string, { style: string }> =>
+  fileNames.reduce(
+    (obj, fileName) => ({
+      ...obj,
+      [`./${fileName}`]: {
+        style: `./${fileName}`,
+        default: `./${fileName}`,
+      },
+    }),
+    {},
+  );
+
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
     root: packageRoot.pathname,
@@ -33,15 +46,29 @@ export default defineConfig((config) =>
       ...(isProdBuild(config)
         ? [
             customElementsManifest(),
+            generateRootEntryPoint(),
             packageJsonTemplate({
               exports: {
-                '.': { sass: './_index.scss' },
-                './typography.css': {
-                  style: './typography.css',
+                '.': {
+                  types: './index.d.ts',
+                  sass: './_index.scss',
+                  default: './index.js',
                 },
-                './fullfont.css': {
-                  style: './fullfont.css',
+                './_index.scss': {
+                  sass: './_index.scss',
+                  default: './_index.scss',
                 },
+                ...buildStyleExports([
+                  'a11y.css',
+                  'animation.css',
+                  'core.css',
+                  'font-characters-extension.css',
+                  'standard-theme.css',
+                  'layout.css',
+                  'lists.css',
+                  'normalize.css',
+                  'typography.css',
+                ]),
               },
             }),
             copyAssets(['_index.scss', '../../README.md']),

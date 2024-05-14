@@ -40,6 +40,13 @@ The component has two background options (`milk` and `white`, which is the defau
 <sbb-expansion-panel color="milk"> ... </sbb-expansion-panel>
 ```
 
+The component has two different sizes, `l` (default) and `s`, which can be changed using the `size` property.
+The property is overridden when the component is used within a `sbb-accordion`.
+
+```html
+<sbb-expansion-panel size="s"> ... </sbb-expansion-panel>
+```
+
 It's also possible to display the `sbb-expansion-panel` without border by setting the `borderless` variable.
 
 ```html
@@ -73,20 +80,21 @@ and the `aria-hidden` attribute on the content.
 
 | Name         | Attribute     | Privacy | Type                                 | Default   | Description                                                            |
 | ------------ | ------------- | ------- | ------------------------------------ | --------- | ---------------------------------------------------------------------- |
-| `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null \| undefined` |           | Heading level; if unset, a `div` will be rendered.                     |
-| `color`      | `color`       | public  | `'white' \| 'milk'`                  | `'white'` | The background color of the panel.                                     |
-| `expanded`   | `expanded`    | public  | `boolean`                            | `false`   | Whether the panel is expanded.                                         |
-| `disabled`   | `disabled`    | public  | `boolean`                            | `false`   | Whether the panel is disabled, so its expanded state can't be changed. |
 | `borderless` | `borderless`  | public  | `boolean`                            | `false`   | Whether the panel has no border.                                       |
+| `color`      | `color`       | public  | `'white' \| 'milk'`                  | `'white'` | The background color of the panel.                                     |
+| `disabled`   | `disabled`    | public  | `boolean`                            | `false`   | Whether the panel is disabled, so its expanded state can't be changed. |
+| `expanded`   | `expanded`    | public  | `boolean`                            | `false`   | Whether the panel is expanded.                                         |
+| `size`       | `size`        | public  | `'s' \| 'l'`                         | `'l'`     | Size variant, either l or s.                                           |
+| `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null \| undefined` |           | Heading level; if unset, a `div` will be rendered.                     |
 
 ## Events
 
 | Name        | Type                | Description                                                             | Inherited From |
 | ----------- | ------------------- | ----------------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` starts the opening transition. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is closed.                     |                |
 | `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is opened.                     |                |
 | `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` begins the closing transition. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is closed.                     |                |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` starts the opening transition. |                |
 
 ## Slots
 

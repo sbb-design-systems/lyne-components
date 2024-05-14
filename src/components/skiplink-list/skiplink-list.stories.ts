@@ -1,4 +1,4 @@
-import { userEvent, within } from '@storybook/test';
+import { within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
@@ -13,6 +13,7 @@ import readme from './readme.md?raw';
 
 import './skiplink-list.js';
 import '../link/block-link.js';
+import '../title.js';
 
 const titleContent: InputType = {
   control: {
@@ -105,7 +106,7 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
     canvas.getByTestId('skiplink')?.shadowRoot?.querySelectorAll('.sbb-skiplink-list__wrapper'),
   );
   await waitForStablePosition(() => canvas.getByTestId('skiplink'));
-  userEvent.tab();
+  document.querySelector('sbb-block-link')?.focus();
 };
 
 const Template = ({
@@ -143,7 +144,7 @@ const meta: Meta = {
   decorators: [
     (story) => html`
       ${story()}
-      <h2>Use TAB to see the skiplink box</h2>
+      <sbb-title level="4">Use TAB to see the skiplink box</sbb-title>
     `,
   ],
   parameters: {

@@ -4,6 +4,8 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
+import '../../../components/title.js';
+
 const ListContent = (): TemplateResult => html`
   <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>
   <li>
@@ -16,7 +18,7 @@ const ListContent = (): TemplateResult => html`
 const UnorderedListTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
-      <h3>Text size ${textSize}</h3>
+      <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ul class=${`sbb-list sbb-text-${textSize}`}>
         ${ListContent()}
         <li>
@@ -33,7 +35,7 @@ const UnorderedListTemplate = (): TemplateResult => html`
 const OrderedListTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
-      <h3>Text size ${textSize}</h3>
+      <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol class=${`sbb-list sbb-text-${textSize}`}>
         ${ListContent()}
         <li>
@@ -50,7 +52,7 @@ const OrderedListTemplate = (): TemplateResult => html`
 const StepsTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
-      <h3>Text size ${textSize}</h3>
+      <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol class=${`sbb-step-list sbb-text-${textSize}`}>
         ${ListContent()}
         <li>

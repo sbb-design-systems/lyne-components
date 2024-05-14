@@ -115,12 +115,16 @@ export class SbbSelectionPanelElement extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('forceOpen')) {
       this._updateState();
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     this._initialized = true;
   }
 

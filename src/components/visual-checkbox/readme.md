@@ -19,6 +19,6 @@ It has four different states related to the properties `checked`, `indeterminate
 | Name            | Attribute       | Privacy | Type      | Default | Description                        |
 | --------------- | --------------- | ------- | --------- | ------- | ---------------------------------- |
 | `checked`       | `checked`       | public  | `boolean` | `false` | Checked state.                     |
-| `indeterminate` | `indeterminate` | public  | `boolean` | `false` | Indeterminate state.               |
 | `disabled`      | `disabled`      | public  | `boolean` | `false` | Whether the component is disabled. |
+| `indeterminate` | `indeterminate` | public  | `boolean` | `false` | Indeterminate state.               |
 | `negative`      | `negative`      | public  | `boolean` | `false` | Negative coloring variant flag.    |

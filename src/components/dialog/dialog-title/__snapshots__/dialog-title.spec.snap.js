@@ -1,7 +1,19 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-dialog-title renders"] = 
+snapshots["sbb-dialog-title renders Light DOM"] = 
+`<sbb-dialog-title
+  aria-level="2"
+  level="2"
+  role="heading"
+  visual-level="3"
+>
+  Title
+</sbb-dialog-title>
+`;
+/* end snapshot sbb-dialog-title renders Light DOM */
+
+snapshots["sbb-dialog-title renders Shadow DOM"] = 
 `<div class="sbb-dialog__header">
   <h2
     class="sbb-title"
@@ -27,9 +39,9 @@ snapshots["sbb-dialog-title renders"] =
   </sbb-secondary-button>
 </div>
 `;
-/* end snapshot sbb-dialog-title renders */
+/* end snapshot sbb-dialog-title renders Shadow DOM */
 
-snapshots["sbb-dialog-title A11y tree Chrome"] = 
+snapshots["sbb-dialog-title renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -47,9 +59,9 @@ snapshots["sbb-dialog-title A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-dialog-title A11y tree Chrome */
+/* end snapshot sbb-dialog-title renders A11y tree Chrome */
 
-snapshots["sbb-dialog-title A11y tree Firefox"] = 
+snapshots["sbb-dialog-title renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -67,25 +79,5 @@ snapshots["sbb-dialog-title A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-dialog-title A11y tree Firefox */
-
-snapshots["sbb-dialog-title A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Title"
-    },
-    {
-      "role": "button",
-      "name": "Close secondary window"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-dialog-title A11y tree Safari */
+/* end snapshot sbb-dialog-title renders A11y tree Firefox */
 

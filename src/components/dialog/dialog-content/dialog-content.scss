@@ -14,7 +14,7 @@
   padding-block: var(--sbb-dialog-padding-block);
   overflow: auto;
   transform: translateY(var(--sbb-dialog-header-margin-block-start));
-  margin-block: 0 calc(var(--sbb-dialog-header-height) * -1);
+  margin-block: 0 var(--sbb-dialog-header-margin-block-start);
   transition: var(--sbb-dialog-content-transition);
   z-index: -1;
 

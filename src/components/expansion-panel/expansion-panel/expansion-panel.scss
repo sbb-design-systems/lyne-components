@@ -3,6 +3,12 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
+// Open/Close animation vars
+$open-anim-rows-from: 0fr;
+$open-anim-rows-to: 1fr;
+$open-anim-opacity-from: 0;
+$open-anim-opacity-to: 1;
+
 :host {
   --sbb-expansion-panel-animation-duration: var(
     --sbb-disable-animation-time,
@@ -10,12 +16,6 @@
   );
   --sbb-expansion-panel-background-color: var(--sbb-color-white);
   --sbb-expansion-panel-content-visibility: hidden;
-  --sbb-expansion-panel-grid-template-rows: 0fr;
-  --sbb-expansion-panel-content-opacity: 0;
-  --sbb-expansion-panel-content-transition: grid-template-rows
-      var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
-    padding var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
-    opacity var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
   --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
   --sbb-expansion-panel-border-color: var(--sbb-color-cloud);
   --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
@@ -33,6 +33,10 @@
   display: block;
 }
 
+:host([size='s']) {
+  --sbb-expansion-panel-title-gap: var(--sbb-spacing-fixed-2x);
+}
+
 :host([disabled]) {
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-border-color: GrayText;
@@ -42,13 +46,6 @@
 
 :host([expanded]) {
   --sbb-expansion-panel-content-visibility: visible;
-  --sbb-expansion-panel-grid-template-rows: 1fr;
-  --sbb-expansion-panel-content-opacity: 1;
-  --sbb-expansion-panel-content-transition: grid-template-rows
-      var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
-    padding var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
-    opacity var(--sbb-expansion-panel-animation-duration)
-      var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
 }
 
 :host([data-accordion][data-accordion-first]) {
@@ -124,12 +121,62 @@
 
 .sbb-expansion-panel__content-wrapper {
   display: grid;
-  grid-template-rows: var(--sbb-expansion-panel-grid-template-rows);
   visibility: var(--sbb-expansion-panel-content-visibility);
-  opacity: var(--sbb-expansion-panel-content-opacity);
-  transition: var(--sbb-expansion-panel-content-transition);
+  grid-template-rows: #{$open-anim-rows-from};
+  opacity: #{$open-anim-opacity-from};
+
+  :host([data-state='opened']) & {
+    grid-template-rows: #{$open-anim-rows-to};
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  :host([data-state='opening']) & {
+    animation-name: open, open-opacity;
+    animation-fill-mode: forwards;
+    animation-duration: var(--sbb-expansion-panel-animation-duration);
+    animation-timing-function: var(--sbb-animation-easing);
+    animation-delay: 0s, var(--sbb-expansion-panel-animation-duration);
+  }
+
+  :host([data-state='closing']) & {
+    animation-name: close;
+    animation-duration: var(--sbb-expansion-panel-animation-duration);
+    animation-timing-function: var(--sbb-animation-easing);
+  }
 }
 
 .sbb-expansion-panel__content {
   overflow: hidden;
+}
+
+@keyframes open {
+  from {
+    grid-template-rows: #{$open-anim-rows-from};
+  }
+
+  to {
+    grid-template-rows: #{$open-anim-rows-to};
+  }
+}
+
+@keyframes open-opacity {
+  from {
+    opacity: #{$open-anim-opacity-from};
+  }
+
+  to {
+    opacity: #{$open-anim-opacity-to};
+  }
+}
+
+@keyframes close {
+  from {
+    grid-template-rows: #{$open-anim-rows-to};
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  to {
+    grid-template-rows: #{$open-anim-rows-from};
+    opacity: #{$open-anim-opacity-from};
+  }
 }

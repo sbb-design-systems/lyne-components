@@ -73,6 +73,8 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('datePicker')) {
       this._init(this.datePicker);
     }
@@ -163,7 +165,9 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
     return undefined;
   }
 
-  protected override updated(): void {
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
     this._popoverElement.trigger = this._triggerElement;
   }
 

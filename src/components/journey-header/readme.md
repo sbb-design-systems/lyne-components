@@ -48,9 +48,9 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 
 | Name          | Attribute     | Privacy | Type                             | Default | Description                                                                       |
 | ------------- | ------------- | ------- | -------------------------------- | ------- | --------------------------------------------------------------------------------- |
-| `origin`      | `origin`      | public  | `string`                         |         | Origin location for the journey header.                                           |
 | `destination` | `destination` | public  | `string`                         |         | Destination location for the journey header.                                      |
-| `roundTrip`   | `round-trip`  | public  | `boolean \| undefined`           |         | Whether the journey is a round trip. If so, the icon changes to a round-trip one. |
 | `level`       | `level`       | public  | `SbbTitleLevel`                  | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                         |
-| `size`        | `size`        | public  | `JourneyHeaderSize \| undefined` | `'m'`   | Journey header size.                                                              |
 | `negative`    | `negative`    | public  | `boolean`                        | `false` | Negative coloring variant flag.                                                   |
+| `origin`      | `origin`      | public  | `string`                         |         | Origin location for the journey header.                                           |
+| `roundTrip`   | `round-trip`  | public  | `boolean \| undefined`           |         | Whether the journey is a round trip. If so, the icon changes to a round-trip one. |
+| `size`        | `size`        | public  | `JourneyHeaderSize \| undefined` | `'m'`   | Journey header size.                                                              |

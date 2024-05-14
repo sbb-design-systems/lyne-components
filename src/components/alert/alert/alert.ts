@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { LinkTargetType } from '../../core/base-elements.js';
@@ -99,7 +106,9 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
 
   private _language = new SbbLanguageController(this);
 
-  protected override async firstUpdated(): Promise<void> {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
     this._open();
   }
 
@@ -142,7 +151,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
               </p>
               ${this.href
                 ? html` <sbb-link
-                    aria-label=${this.accessibilityLabel ?? nothing}
+                    accessibility-label=${this.accessibilityLabel ?? nothing}
                     href=${this.href ?? nothing}
                     target=${this.target ?? nothing}
                     rel=${this.rel ?? nothing}

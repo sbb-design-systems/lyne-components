@@ -51,6 +51,6 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 
 | Name      | Attribute | Privacy | Type                                | Default     | Description                                                                                       |
 | --------- | --------- | ------- | ----------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |
-| `variant` | `variant` | public  | `'window' \| 'circle' \| undefined` |             | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. |
-| `size`    | `size`    | public  | `'s' \| 'l'`                        | `'s'`       | Size variant, either s or m.                                                                      |
 | `color`   | `color`   | public  | `'default' \| 'smoke' \| 'white'`   | `'default'` | Color variant.                                                                                    |
+| `size`    | `size`    | public  | `'s' \| 'l'`                        | `'s'`       | Size variant, either s or m.                                                                      |
+| `variant` | `variant` | public  | `'window' \| 'circle' \| undefined` |             | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. |
