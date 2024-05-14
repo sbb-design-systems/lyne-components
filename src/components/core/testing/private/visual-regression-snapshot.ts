@@ -1,41 +1,67 @@
-import { sendKeys, sendMouse } from '@web/test-runner-commands';
+import { resetMouse, sendKeys, sendMouse } from '@web/test-runner-commands';
 import { visualDiff } from '@web/test-runner-visual-regression';
 
 export function imageName(test: Mocha.Runnable): string {
   return test!.fullTitle().replaceAll(', ', '-').replaceAll(' ', '_');
 }
 
-export function visualRegressionSnapshot(snapshotElement: () => HTMLElement): void {
+function findElementCenter(snapshotElement: () => HTMLElement): [number, number] {
+  const element = snapshotElement();
+  // Look for the first sbb-* element and get center of the element to
+  // move the mouse cursor over it.
+  const positionElement = element.localName.startsWith('sbb-')
+    ? element
+    : element.firstElementChild!;
+  const position = positionElement.getBoundingClientRect();
+  return [
+    Math.round(position.x + position.width / 2),
+    Math.round(position.y + position.height / 2),
+  ];
+}
+
+export function testVisualDiff(snapshotElement: () => HTMLElement): void {
   it('default', async function () {
     await visualDiff(snapshotElement(), imageName(this.test!));
   });
+}
 
+export function testVisualDiffFocus(snapshotElement: () => HTMLElement): void {
   it('focus', async function () {
     await sendKeys({ press: 'Tab' });
     await visualDiff(snapshotElement(), imageName(this.test!));
   });
+}
 
+export function testVisualDiffHover(snapshotElement: () => HTMLElement): void {
   it('hover', async function () {
-    const element = snapshotElement();
-    const positionElement = element.localName.startsWith('sbb-')
-      ? element
-      : element.firstElementChild!;
-    const position = positionElement.getBoundingClientRect();
-    await sendMouse({
-      type: 'move',
-      position: [
-        Math.round(position.x + position.width / 2),
-        Math.round(position.y + position.height / 2),
-      ],
-    });
+    const position = findElementCenter(snapshotElement);
 
     try {
-      await visualDiff(element, imageName(this.test!));
+      await sendMouse({ type: 'move', position });
+      await visualDiff(snapshotElement(), imageName(this.test!));
     } finally {
-      await sendMouse({
-        type: 'move',
-        position: [0, 0],
-      });
+      await resetMouse();
     }
   });
+}
+
+export function testVisualDiffActive(snapshotElement: () => HTMLElement): void {
+  it('active', async function () {
+    const position = findElementCenter(snapshotElement);
+
+    try {
+      await sendMouse({ type: 'move', position });
+      await sendMouse({ type: 'down' });
+      await visualDiff(snapshotElement(), imageName(this.test!));
+    } finally {
+      await resetMouse();
+    }
+  });
+}
+
+export function visualRegressionSnapshot(snapshotElement: () => HTMLElement): void {
+  testVisualDiff(snapshotElement);
+  testVisualDiffFocus(snapshotElement);
+  testVisualDiffHover(snapshotElement);
+  testVisualDiffActive(snapshotElement);
 }
