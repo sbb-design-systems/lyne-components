@@ -220,7 +220,7 @@ const meta: Meta = {
     },
     chromatic: { disableSnapshot: true },
   },
-  title: 'timetable/sbb-timetable-occupancy',
+  title: 'components/timetable/sbb-timetable-occupancy',
 };
 
 export default meta;

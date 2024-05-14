@@ -4,7 +4,10 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import type { SbbDialogElement } from '../../../components/dialog.js';
-import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data.js';
+import {
+  futureLeg,
+  pastLeg,
+} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.js';
 
 import {
   bikeProduct,
@@ -17,9 +20,10 @@ import {
   timetableInput,
 } from './home.common.js';
 import readme from './readme.md?raw';
+
 import '../../../components/dialog.js';
 import '../../../components/journey-header.js';
-import '../../../components/pearl-chain.js';
+import '../../../elements-experimental/pearl-chain.js';
 import './home.scss';
 
 const negative: InputType = {

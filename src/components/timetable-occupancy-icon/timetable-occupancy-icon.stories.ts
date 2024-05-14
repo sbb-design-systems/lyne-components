@@ -93,7 +93,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'timetable/sbb-timetable-occupancy-icon',
+  title: 'components/timetable/sbb-timetable-occupancy-icon',
 };
 
 export default meta;

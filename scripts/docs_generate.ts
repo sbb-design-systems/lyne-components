@@ -26,7 +26,7 @@ const propertyColumnIndex = 1;
 const attributeColumnIndex = 2;
 
 function getAttributeName(propertyName: string, attributes: Attribute[]): string {
-  const name = propertyName.replace(/'|`/g, '').trim();
+  const name = propertyName.replace(/['`]/g, '').trim();
   const attr = attributes.find((a) => a.fieldName === name)?.name;
   return attr ? `\`${attr}\`` : '-';
 }

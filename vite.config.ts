@@ -13,6 +13,10 @@ export default defineConfig({
     // Alias used for test and storybook environments
     alias: [
       { find: '@sbb-esta/lyne-components', replacement: resolve(__dirname, 'src/components') },
+      {
+        find: '@sbb-esta/lyne-elements-experimental',
+        replacement: resolve(__dirname, 'src/elements-experimental'),
+      },
     ],
   },
 });
