@@ -43,5 +43,5 @@ In thinking about accessibility, it is useful to place icon use into one of thre
 
 | Name                    | Default | Description                         |
 | ----------------------- | ------- | ----------------------------------- |
-| `--sbb-icon-svg-width`  | `auto`  | Can be used to set a custom width.  |
 | `--sbb-icon-svg-height` | `auto`  | Can be used to set a custom height. |
+| `--sbb-icon-svg-width`  | `auto`  | Can be used to set a custom width.  |

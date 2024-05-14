@@ -39,16 +39,16 @@ It is possible to display the component in `disabled` state by using the self-na
 
 | Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                                                   |
 | ---------- | ----------- | ------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `level`    | `level`     | public  | `SbbTitleLevel`        | `'1'`   | The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration. |
 | `active`   | `active`    | public  | `boolean \| undefined` |         | Active tab state                                                                                                                                              |
 | `amount`   | `amount`    | public  | `string \| undefined`  |         | Amount displayed inside the tab.                                                                                                                              |
 | `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                                                            |
 | `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                              |
+| `level`    | `level`     | public  | `SbbTitleLevel`        | `'1'`   | The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration. |
 
 ## Slots
 
 | Name     | Description                                                                                       |
 | -------- | ------------------------------------------------------------------------------------------------- |
 |          | Use the unnamed slot to add content to the tab title.                                             |
-| `icon`   | Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component. |
 | `amount` | Provide a number to show an amount to the right of the title.                                     |
+| `icon`   | Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component. |
