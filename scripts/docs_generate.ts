@@ -34,7 +34,7 @@ function getAttributeName(propertyName: string, attributes: Attribute[]): string
 function updateFieldsTable(
   newDocs: MagicString,
   sections: RegExpMatchArray[],
-  attributes: Attribute[],
+  attributes?: Attribute[],
 ): void {
   const fieldsSectionIndex = sections.findIndex((sect) => sect.groups!.name === 'Fields');
   const startIndex = sections[fieldsSectionIndex]?.index;
@@ -56,7 +56,9 @@ function updateFieldsTable(
   const attributeColumn = [
     tableRows[0][propertyColumnIndex].replace('Name', 'Attribute').trim(),
     tableRows[1][propertyColumnIndex],
-    ...tableRows.slice(2).map((entry) => getAttributeName(entry[propertyColumnIndex], attributes)),
+    ...tableRows
+      .slice(2)
+      .map((entry) => getAttributeName(entry[propertyColumnIndex], attributes || [])),
   ];
 
   // Insert the attribute column in the table

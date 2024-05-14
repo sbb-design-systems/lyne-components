@@ -3,6 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-header-button renders the component as a button with icon Light DOM"] = 
 `<sbb-header-button
+  aria-label="a11y label"
   data-action=""
   data-button=""
   dir="ltr"
@@ -50,7 +51,7 @@ snapshots["sbb-header-button renders the component as a button with icon A11y tr
   "children": [
     {
       "role": "button",
-      "name": "Action"
+      "name": "a11y label"
     }
   ]
 }
@@ -66,7 +67,7 @@ snapshots["sbb-header-button renders the component as a button with icon A11y tr
   "children": [
     {
       "role": "button",
-      "name": "Action"
+      "name": "a11y label"
     }
   ]
 }

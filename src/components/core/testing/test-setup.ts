@@ -1,10 +1,23 @@
+import { getSvgContent } from '../../icon.js';
 import { sbbInputModalityDetector } from '../a11y.js';
 import type { SbbIconConfig } from '../config.js';
 import { mergeConfig } from '../config.js';
 
 import { isHydratedSsr, isVisualRegressionRun } from './private.js';
 
-function setupIconConfig(): void {
+if (isVisualRegressionRun()) {
+  const preloadedIcons = ['arrow-right-small'];
+  await Promise.all(preloadedIcons.map((icon) => getSvgContent('default', icon, true)));
+
+  mergeConfig({
+    icon: {
+      interceptor({ namespace, name }) {
+        throw new Error(`Icon ${namespace}:${name} must be preloaded in test-setup.ts!`);
+      },
+    },
+  });
+} else {
+  // Setup mock configuration for icons
   const testNamespaces = ['default', 'picto'];
   const icon: SbbIconConfig = {
     interceptor: ({ namespace, name, request }) => {
@@ -25,10 +38,6 @@ function setupIconConfig(): void {
   };
 
   mergeConfig({ icon });
-}
-
-if (!isVisualRegressionRun()) {
-  setupIconConfig();
 }
 
 if (isHydratedSsr()) {

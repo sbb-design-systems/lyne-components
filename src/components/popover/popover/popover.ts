@@ -199,6 +199,8 @@ export class SbbPopoverElement extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('trigger')) {
       this._removeTriggerClickListener(this.trigger, changedProperties.get('trigger'));
     }
@@ -208,7 +210,9 @@ export class SbbPopoverElement extends LitElement {
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     if (this._hoverTrigger) {
       this._overlay.addEventListener('mouseenter', () => this._onOverlayMouseEnter());
       this._overlay.addEventListener('mouseleave', () => this._onOverlayMouseLeave());

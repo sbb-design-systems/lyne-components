@@ -103,7 +103,7 @@ const disabled: InputType = {
   },
 };
 
-const ariaLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -118,7 +118,7 @@ const defaultArgTypes: ArgTypes = {
   rel,
   download,
   disabled,
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs: Args = {
@@ -130,7 +130,7 @@ const defaultArgs: Args = {
   rel: undefined,
   download: false,
   disabled: false,
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
 };
 
 export const menuLink: StoryObj = {

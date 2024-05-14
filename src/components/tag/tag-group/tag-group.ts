@@ -3,7 +3,7 @@ import {
   html,
   isServer,
   LitElement,
-  type PropertyValueMap,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -83,11 +83,12 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
 
   /** The child instances of sbb-tag as an array. */
   public get tags(): SbbTagElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-tag') ?? []) as SbbTagElement[];
+    return Array.from(this.querySelectorAll?.('sbb-tag') ?? []);
   }
 
-  protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
     if (
       (changedProperties.has('listChildren') || changedProperties.has('multiple')) &&
       !this.multiple

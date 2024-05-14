@@ -233,7 +233,9 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this._stateChange.emit({ type: 'value', value: newValue });
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     // Override the default focus behavior
     this.focus = () => this._triggerElement.focus();
     this.blur = () => this._triggerElement.blur();
@@ -305,6 +307,8 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('value')) {
       this._onValueChanged(this.value!);
     }

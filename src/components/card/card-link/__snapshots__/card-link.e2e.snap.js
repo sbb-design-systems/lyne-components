@@ -6,8 +6,6 @@ snapshots["sbb-card-link with csrFixture should render an sbb-card-link as a lin
   class="sbb-action-base sbb-card-link"
   href="https://github.com/lyne-design-system/lyne-components"
   rel="external noopener nofollow"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <sbb-screen-reader-only>

@@ -55,6 +55,12 @@ const disabled: InputType = {
   },
 };
 
+const accessibilityLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 export const buttonLinkDefaultArgTypes: ArgTypes = {
   ...commonDefaultArgTypes,
   href,
@@ -62,6 +68,7 @@ export const buttonLinkDefaultArgTypes: ArgTypes = {
   rel,
   download,
   disabled,
+  'accessibility-label': accessibilityLabel,
 };
 
 export const buttonLinkDefaultArgs: Args = {
@@ -71,4 +78,5 @@ export const buttonLinkDefaultArgs: Args = {
   rel: 'noopener',
   download: false,
   disabled: false,
+  'accessibility-label': undefined,
 };

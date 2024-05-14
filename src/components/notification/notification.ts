@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -131,7 +131,6 @@ export class SbbNotificationElement extends LitElement {
   public close(): void {
     if (this._state === 'opened') {
       this._state = 'closing';
-      this.style.setProperty('--sbb-notification-margin', '0');
       this._willClose.emit();
     }
   }
@@ -142,7 +141,9 @@ export class SbbNotificationElement extends LitElement {
     super.connectedCallback();
   }
 
-  protected override async firstUpdated(): Promise<void> {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
     this._notificationElement = this.shadowRoot?.querySelector(
       '.sbb-notification__wrapper',
     ) as HTMLElement;
@@ -185,15 +186,13 @@ export class SbbNotificationElement extends LitElement {
     );
   }
 
-  private _onNotificationTransitionEnd(event: TransitionEvent): void {
-    if (this._state === 'closing' && event.propertyName === 'max-height') {
-      this._handleClosing();
-    }
-  }
-
   private _onNotificationAnimationEnd(event: AnimationEvent): void {
     if (this._state === 'opening' && event.animationName === 'open') {
       this._handleOpening();
+    }
+
+    if (this._state === 'closing' && event.animationName === 'close-height') {
+      this._handleClosing();
     }
   }
 
@@ -214,7 +213,6 @@ export class SbbNotificationElement extends LitElement {
     return html`
       <div
         class="sbb-notification__wrapper"
-        @transitionend=${(event: TransitionEvent) => this._onNotificationTransitionEnd(event)}
         @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
       >
         <div class="sbb-notification">

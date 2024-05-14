@@ -96,12 +96,6 @@ const iconName: InputType = {
   },
 };
 
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const tag: InputType = {
   control: {
     type: 'text',
@@ -117,7 +111,6 @@ export const commonDefaultArgTypes: ArgTypes = {
   negative,
   size,
   'icon-name': iconName,
-  'aria-label': ariaLabel,
 };
 
 export const commonDefaultArgs: Args = {
@@ -126,7 +119,6 @@ export const commonDefaultArgs: Args = {
   negative: false,
   size: size.options![0],
   'icon-name': 'arrow-right-small',
-  'aria-label': undefined,
 };
 
 export const primary: StoryObj = {

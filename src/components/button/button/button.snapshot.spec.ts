@@ -7,7 +7,6 @@ import {
   isVisualRegressionRun,
   visualRegressionSnapshot,
 } from '../../core/testing/private.js';
-import type { SbbButtonSize } from '../common.js';
 
 import './button.js';
 
@@ -15,14 +14,17 @@ describe(`sbb-button`, () => {
   if (isVisualRegressionRun()) {
     describe('visual-regression', () => {
       const cases = {
-        size: ['s', 'm', 'l'] as SbbButtonSize[],
         disabled: [false, true],
         negative: [false, true],
-        iconName: [undefined, 'arrow-right-small'],
+        state: [
+          { icon: undefined, text: 'Button' },
+          { icon: 'arrow-right-small', text: 'Button' },
+          { icon: 'arrow-right-small', text: '' },
+        ],
       };
 
-      describeViewports(() => {
-        describeEach(cases, ({ size, disabled, negative, iconName }) => {
+      describeViewports({ viewports: ['zero', 'medium'] }, () => {
+        describeEach(cases, ({ disabled, negative, state }) => {
           let root: HTMLElement;
           beforeEach(async () => {
             root = await fixture(html`
@@ -33,11 +35,10 @@ describe(`sbb-button`, () => {
               >
                 <sbb-button
                   style="--sbb-button-transition-duration:0s;--sbb-button-transition-easing-function:0s;"
-                  size=${size}
                   ?disabled=${disabled}
                   ?negative=${negative}
-                  .iconName=${iconName}
-                  >Button</sbb-button
+                  .iconName=${state.icon}
+                  >${state.text}</sbb-button
                 >
               </div>
             `);

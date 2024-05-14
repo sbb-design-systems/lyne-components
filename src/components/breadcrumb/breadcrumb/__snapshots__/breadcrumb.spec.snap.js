@@ -7,8 +7,6 @@ snapshots["sbb-breadcrumb renders with text"] =
   download=""
   href="https://example.com/test"
   rel="subsection"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <slot name="icon">
@@ -28,8 +26,6 @@ snapshots["sbb-breadcrumb renders with icon"] =
 `<a
   class="sbb-action-base sbb-breadcrumb"
   href="/"
-  role="presentation"
-  tabindex="-1"
 >
   <slot name="icon">
     <sbb-icon
@@ -56,8 +52,6 @@ snapshots["sbb-breadcrumb renders with icon and text"] =
 `<a
   class="sbb-action-base sbb-breadcrumb"
   href="/"
-  role="presentation"
-  tabindex="-1"
 >
   <slot name="icon">
     <sbb-icon
@@ -85,13 +79,7 @@ snapshots["sbb-breadcrumb A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "Breadcrumb",
-      "children": [
-        {
-          "role": "link",
-          "name": "Breadcrumb"
-        }
-      ]
+      "name": "Breadcrumb"
     }
   ]
 }
@@ -108,13 +96,7 @@ snapshots["sbb-breadcrumb A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Breadcrumb",
-      "children": [
-        {
-          "role": "link",
-          "name": "Breadcrumb",
-          "value": "https://example.com/test"
-        }
-      ]
+      "value": "https://example.com/test"
     }
   ]
 }

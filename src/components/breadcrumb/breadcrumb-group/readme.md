@@ -25,11 +25,6 @@ the last element of the list receives the attribute `aria-current="page"`.
 
 <!-- Auto Generated Below -->
 
-## Properties
-
-| Name | Attribute | Privacy | Type | Default | Description |
-| ---- | --------- | ------- | ---- | ------- | ----------- |
-
 ## Slots
 
 | Name | Description                                            |
