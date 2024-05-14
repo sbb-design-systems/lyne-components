@@ -18,10 +18,10 @@ import {
 
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
 
-import '../link/block-link-button.js';
-import '../selection-expansion-panel.js';
 import '../checkbox.js';
+import '../link/block-link-button.js';
 import '../radio-button.js';
+import '../selection-expansion-panel.js';
 
 describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
   let elements: SbbSelectionExpansionPanelElement[];
@@ -381,18 +381,14 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
     });
 
     it('should display expanded label correctly', async () => {
-      const mainRadioButton1: SbbRadioButtonPanelElement =
-        nestedElement.querySelector<SbbRadioButtonPanelElement>(
-          "sbb-radio-button-panel[value='main1']",
-        )!;
-      const mainRadioButton1Label = mainRadioButton1.shadowRoot!.querySelector(
+      const mainRadioButton1Label = panel1.shadowRoot!.querySelector(
         'sbb-screen-reader-only:not(input)',
       )!;
       const mainRadioButton2: SbbRadioButtonPanelElement =
         nestedElement.querySelector<SbbRadioButtonPanelElement>(
           "sbb-radio-button-panel[value='main2']",
         )!;
-      const mainRadioButton2Label = mainRadioButton2.shadowRoot!.querySelector(
+      const mainRadioButton2Label = panel2.shadowRoot!.querySelector(
         'sbb-screen-reader-only:not(input)',
       )!;
       const subRadioButton1 = nestedElement
@@ -698,7 +694,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
       nestedElement = await fixture(
         html`
           <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-            <sbb-selection-expansion-panel>
+            <sbb-selection-expansion-panel id="panel1">
               <sbb-checkbox-panel value="main1" checked> Main Option 1 </sbb-checkbox-panel>
               <sbb-checkbox-group orientation="vertical" slot="content">
                 <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
@@ -706,7 +702,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
               </sbb-checkbox-group>
             </sbb-selection-expansion-panel>
 
-            <sbb-selection-expansion-panel>
+            <sbb-selection-expansion-panel id="panel2">
               <sbb-checkbox-panel value="main2"> Main Option 2 </sbb-checkbox-panel>
               <sbb-checkbox-group orientation="vertical" slot="content">
                 <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
@@ -722,14 +718,20 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
     it('should display expanded label correctly', async () => {
       const mainCheckbox1: SbbCheckboxPanelElement =
         nestedElement.querySelector<SbbCheckboxPanelElement>("sbb-checkbox-panel[value='main1']")!;
-      const mainCheckbox1Label = mainCheckbox1.shadowRoot!.querySelector(
-        '.sbb-checkbox__expanded-label',
-      )!;
+      const selectionPanel1: SbbSelectionExpansionPanelElement =
+        nestedElement.querySelector<SbbSelectionExpansionPanelElement>(
+          'sbb-selection-expansion-panel#panel1',
+        )!;
+      const mainCheckbox1Label =
+        selectionPanel1.shadowRoot!.querySelector('sbb-screen-reader-only')!;
+      const selectionPanel2: SbbSelectionExpansionPanelElement =
+        nestedElement.querySelector<SbbSelectionExpansionPanelElement>(
+          'sbb-selection-expansion-panel#panel2',
+        )!;
       const mainCheckbox2: SbbCheckboxPanelElement =
         nestedElement.querySelector<SbbCheckboxPanelElement>("sbb-checkbox-panel[value='main2']")!;
-      const mainCheckbox2Label = mainCheckbox2.shadowRoot!.querySelector(
-        '.sbb-checkbox__expanded-label',
-      )!;
+      const mainCheckbox2Label =
+        selectionPanel2.shadowRoot!.querySelector('sbb-screen-reader-only')!;
 
       expect(mainCheckbox1Label.textContent!.trim()).to.be.equal(', expanded');
       expect(mainCheckbox2Label.textContent!.trim()).to.be.equal(', collapsed');

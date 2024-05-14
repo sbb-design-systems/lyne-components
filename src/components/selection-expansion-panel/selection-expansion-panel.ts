@@ -3,14 +3,21 @@ import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxPanelElement } from '../checkbox.js';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers.js';
+import {
+  SbbConnectedAbortController,
+  SbbLanguageController,
+  SbbSlotStateController,
+} from '../core/controllers.js';
 import { EventEmitter } from '../core/eventing.js';
+import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
+import { SbbHydrationMixin } from '../core/mixins.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button.js';
 
-import style from './selection-expansion-panel.scss?lit&inline';
-
+import '../screen-reader-only.js';
 import '../divider.js';
+
+import style from './selection-expansion-panel.scss?lit&inline';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -24,7 +31,7 @@ import '../divider.js';
  * @event {CustomEvent<void>} didClose - Emits whenever the content section is closed.
  */
 @customElement('sbb-selection-expansion-panel')
-export class SbbSelectionExpansionPanelElement extends LitElement {
+export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     willOpen: 'willOpen',
@@ -51,9 +58,13 @@ export class SbbSelectionExpansionPanelElement extends LitElement {
     return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
+  /** The label describing whether the selection panel is expanded (for screen readers only). */
+  @state() private _selectionPanelExpandedLabel!: string;
+
   /** Whether the selection panel is checked. */
   private set _checked(checked: boolean) {
     this.toggleAttribute('data-checked', checked);
+    this._updateExpandedLabel(checked);
   }
   private get _checked(): boolean {
     return this.hasAttribute('data-checked');
@@ -89,6 +100,7 @@ export class SbbSelectionExpansionPanelElement extends LitElement {
   );
 
   private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
   private _initialized: boolean = false;
 
   /**
@@ -199,6 +211,20 @@ export class SbbSelectionExpansionPanelElement extends LitElement {
     }
   }
 
+  private async _updateExpandedLabel(checked: boolean): Promise<void> {
+    await this.hydrationComplete;
+    if (!(this.querySelectorAll?.('[slot="content"]').length > 0)) {
+      this._selectionPanelExpandedLabel = '';
+      this.removeAttribute('data-has-selection-expansion-panel-label');
+      return;
+    }
+
+    this._selectionPanelExpandedLabel = checked
+      ? ', ' + i18nExpanded[this._language.current]
+      : ', ' + i18nCollapsed[this._language.current];
+    this.toggleAttribute('data-has-selection-expansion-panel-label', true);
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-selection-expansion-panel">
@@ -208,6 +234,7 @@ export class SbbSelectionExpansionPanelElement extends LitElement {
 
         <div class="sbb-selection-expansion-panel__input">
           <slot></slot>
+          <sbb-screen-reader-only> ${this._selectionPanelExpandedLabel} </sbb-screen-reader-only>
         </div>
         <div
           class="sbb-selection-expansion-panel__content--wrapper"

@@ -48,6 +48,19 @@ const name: InputType = {
   },
 };
 
+const color: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['white', 'milk'],
+};
+
+const borderless: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const ariaLabel: InputType = {
   control: {
     type: 'text',
@@ -62,6 +75,8 @@ const defaultArgTypes: ArgTypes = {
   value,
   name,
   'aria-label': ariaLabel,
+  color,
+  borderless,
 };
 
 const defaultArgs: Args = {
@@ -72,6 +87,8 @@ const defaultArgs: Args = {
   value: 'Value',
   name: 'name',
   'aria-label': undefined,
+  color: color.options![0],
+  borderless: false,
 };
 
 const Template = ({ label, checked, ...args }: Args): TemplateResult =>

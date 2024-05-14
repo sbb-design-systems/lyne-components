@@ -14,12 +14,20 @@
 
 // Style the panel only when is standalone
 // leave styling to the selection-expansion-panel otherwise
-:host(:not([data-is-selection-panel-input])) {
+:host(:not([data-is-selection-expansion-panel-input])) {
   @include sbb.selection-panel-variables;
   @include sbb.selection-panel;
 }
 
-:host([data-is-selection-panel-input]) {
+:host([color='milk']:not([data-is-selection-expansion-panel-input])) {
+  @include sbb.selection-panel-milk-variables;
+}
+
+:host(:not([data-is-selection-expansion-panel-input])[borderless]:not([data-checked])) {
+  @include sbb.selection-panel-borderless-variables;
+}
+
+:host([data-is-selection-expansion-panel-input]) {
   --sbb-checkbox-label-gap: 0;
 }
 
@@ -27,7 +35,7 @@
   @include sbb.selection-panel-checked-variables;
 }
 
-:host(:focus-visible:not([data-is-selection-panel-input])) {
+:host(:focus-visible:not([data-is-selection-expansion-panel-input])) {
   @include sbb.focus-outline;
 }
 
@@ -87,7 +95,8 @@ slot[name='subtext'] {
 }
 
 .sbb-checkbox__expanded-label {
-  :host(:not([data-is-selection-panel-input][data-has-selection-expansion-panel-label])) & {
+  :host(:not([data-is-selection-expansion-panel-input][data-has-selection-expansion-panel-label]))
+    & {
     display: none;
   }
 }

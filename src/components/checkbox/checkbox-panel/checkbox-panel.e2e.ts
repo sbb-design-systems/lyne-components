@@ -34,14 +34,6 @@ describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
       assert.instanceOf(element, SbbCheckboxPanelElement);
     });
 
-    it('should not render accessibility label containing expanded state', async () => {
-      expect(
-        getComputedStyle(
-          element.shadowRoot!.querySelector('.sbb-checkbox__expanded-label')!,
-        ).getPropertyValue('display'),
-      ).to.be.equal('none');
-    });
-
     describe('events', () => {
       it('emit event on click', async () => {
         expect(element).not.to.have.attribute('checked');

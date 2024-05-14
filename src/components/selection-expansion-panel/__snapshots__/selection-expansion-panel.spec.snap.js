@@ -4,6 +4,7 @@ export const snapshots = {};
 snapshots["sbb-selection-expansion-panel renders - Dom"] = 
 `<sbb-selection-expansion-panel
   data-has-card-badge=""
+  data-has-selection-expansion-panel-label=""
   data-slot-names="badge content unnamed"
   data-state="closed"
 >
@@ -24,9 +25,8 @@ snapshots["sbb-selection-expansion-panel renders - Dom"] =
     </span>
   </sbb-card-badge>
   <sbb-checkbox-panel
-    data-has-selection-expansion-panel-label=""
-    data-is-inside-selection-panel=""
-    data-is-selection-panel-input=""
+    data-is-inside-selection-expansion-panel=""
+    data-is-selection-expansion-panel-input=""
     data-slot-names="subtext suffix unnamed"
     tabindex="0"
   >
@@ -54,6 +54,9 @@ snapshots["sbb-selection-expansion-panel renders - ShadowDom"] =
   <div class="sbb-selection-expansion-panel__input">
     <slot>
     </slot>
+    <sbb-screen-reader-only>
+      , collapsed
+    </sbb-screen-reader-only>
   </div>
   <div
     class="sbb-selection-expansion-panel__content--wrapper"
@@ -94,8 +97,12 @@ snapshots["sbb-selection-expansion-panel A11y tree Chrome"] =
     },
     {
       "role": "checkbox",
-      "name": "​ Value one Suffix Subtext , collapsed",
+      "name": "​ Value one Suffix Subtext",
       "checked": false
+    },
+    {
+      "role": "text",
+      "name": ", collapsed"
     }
   ]
 }
@@ -123,7 +130,11 @@ snapshots["sbb-selection-expansion-panel A11y tree Firefox"] =
     },
     {
       "role": "checkbox",
-      "name": "​ Value one Suffix Subtext , collapsed"
+      "name": "​ Value one Suffix Subtext"
+    },
+    {
+      "role": "text leaf",
+      "name": ", collapsed"
     }
   ]
 }

@@ -63,11 +63,18 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 ## Properties
 
-| Name            | Attribute       | Privacy | Type                              | Default | Description                                |
-| --------------- | --------------- | ------- | --------------------------------- | ------- | ------------------------------------------ |
-| `indeterminate` | `indeterminate` | public  | `boolean`                         | `false` | Whether the checkbox is indeterminate.     |
-| `group`         | -               | public  | `SbbCheckboxGroupElement \| null` | `null`  | Reference to the connected checkbox group. |
-| `checked`       | `checked`       | public  | `boolean`                         | `false` | Whether the checkbox is checked.           |
+| Name            | Attribute       | Privacy | Type                              | Default   | Description                                                 |
+| --------------- | --------------- | ------- | --------------------------------- | --------- | ----------------------------------------------------------- |
+| `color`         | `color`         | public  | `'white' \| 'milk'`               | `'white'` | The background color of the panel.                          |
+| `borderless`    | `borderless`    | public  | `boolean`                         | `false`   | Whether the unselected panel has a border.                  |
+| `indeterminate` | `indeterminate` | public  | `boolean`                         | `false`   | Whether the checkbox is indeterminate.                      |
+| `group`         | -               | public  | `SbbCheckboxGroupElement \| null` | `null`    | Reference to the connected checkbox group.                  |
+| `checked`       | `checked`       | public  | `boolean`                         | `false`   | Whether the checkbox is checked.                            |
+| `disabled`      | `disabled`      | public  | `boolean`                         | `false`   | Whether the component is disabled.                          |
+| `required`      | `required`      | public  | `boolean`                         | `false`   | Whether the component is required.                          |
+| `form`          | -               | public  | `HTMLFormElement \| null`         |           | Returns the form owner of internals target element.         |
+| `name`          | `name`          | public  | `string`                          |           | Name of the form element. Will be read from name attribute. |
+| `value`         | `value`         | public  | `string \| null`                  | `null`    | Value of the form element.                                  |
 
 ## Events
 

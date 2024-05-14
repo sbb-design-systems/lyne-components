@@ -4,25 +4,33 @@
   display: inline-block;
 }
 
-:host([data-is-selection-panel-input]) {
+:host([data-is-selection-expansion-panel-input]) {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
 }
 
-:host(:not([data-is-selection-panel-input])) {
+:host(:not([data-is-selection-expansion-panel-input])) {
   @include sbb.selection-panel-variables;
 
   @include sbb.selection-panel;
 }
 
-:host(:focus-visible:not([data-is-selection-panel-input])) {
+:host([color='milk']:not([data-is-selection-expansion-panel-input])) {
+  @include sbb.selection-panel-milk-variables;
+}
+
+:host(:not([data-is-selection-expansion-panel-input])[borderless]:not([checked])) {
+  @include sbb.selection-panel-borderless-variables;
+}
+
+:host(:focus-visible:not([data-is-selection-expansion-panel-input])) {
   @include sbb.focus-outline;
 }
 
 // Change the focus outline when the input is placed inside of a selection panel
 // as the main input element.
-:host(:focus-visible[data-is-selection-panel-input]) {
+:host(:focus-visible[data-is-selection-expansion-panel-input]) {
   .sbb-radio-button::after {
     content: '';
     position: absolute;

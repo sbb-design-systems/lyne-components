@@ -38,12 +38,27 @@ const labelBoldClass: InputType = {
   },
 };
 
+const color: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['white', 'milk'],
+};
+
+const borderless: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   value,
   checked,
   disabled,
   'aria-label': ariaLabel,
   labelBoldClass,
+  color,
+  borderless,
 };
 
 const defaultArgs: Args = {
@@ -52,6 +67,8 @@ const defaultArgs: Args = {
   disabled: false,
   'aria-label': undefined,
   labelBoldClass: false,
+  color: color.options![0],
+  borderless: false,
 };
 
 const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>

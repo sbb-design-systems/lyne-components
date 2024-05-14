@@ -1,26 +1,16 @@
-import {
-  LitElement,
-  html,
-  nothing,
-  type CSSResultGroup,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { i18nCollapsed, i18nExpanded } from '../../core/i18n.js';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel.js';
+import { SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import {
   SbbRadioButtonCommonElementMixin,
   commonStyle,
   type SbbRadioButtonStateChange,
 } from '../common.js';
 
-import '../../screen-reader-only.js';
 import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
 
 /**
@@ -32,31 +22,14 @@ import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
  * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-expansion-panel`).
  */
 @customElement('sbb-radio-button-panel')
-export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin(
-  SbbUpdateSchedulerMixin(LitElement),
+export class SbbRadioButtonPanelElement extends SbbPanelMixin(
+  SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = [commonStyle, radioButtonPanelStyle];
   public static readonly events = {
     stateChange: 'stateChange',
     radioButtonLoaded: 'radioButtonLoaded',
   } as const;
-
-  /**
-   * Whether the input is the main input of a selection panel.
-   * @internal
-   */
-  public get isSelectionPanelInput(): boolean {
-    return this._isSelectionPanelInput;
-  }
-  @state() private _isSelectionPanelInput = false;
-
-  /**
-   * The label describing whether the selection panel is expanded (for screen readers only).
-   */
-  @state() private _selectionPanelExpandedLabel?: string;
-
-  private _selectionPanelElement: SbbSelectionExpansionPanelElement | null = null;
-  private _language = new SbbLanguageController(this);
 
   /**
    * @internal
@@ -83,7 +56,6 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
     if (currentValue !== previousValue) {
       this.setAttribute('aria-checked', `${currentValue}`);
       this._stateChange.emit({ type: 'checked', checked: currentValue });
-      this._isSelectionPanelInput && this._updateExpandedLabel();
     }
   }
 
@@ -101,40 +73,11 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    // We can use closest here, as we expect the parent sbb-selection-expansion-panel to be in light DOM.
-    this._selectionPanelElement = this.closest('sbb-selection-expansion-panel');
-    this._isSelectionPanelInput =
-      !!this._selectionPanelElement &&
-      !this.closest('sbb-selection-expansion-panel [slot="content"]');
-
-    this.toggleAttribute('data-is-selection-panel-input', this._isSelectionPanelInput);
 
     this._radioButtonLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required'].forEach((p) => this.requestUpdate(p));
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    // We need to wait for the selection-panel to be fully initialized
-    this.startUpdate();
-    setTimeout(() => {
-      this._isSelectionPanelInput && this._updateExpandedLabel();
-      this.completeUpdate();
-    });
-  }
-
-  private _updateExpandedLabel(): void {
-    if (!this._selectionPanelElement?.hasContent) {
-      this._selectionPanelExpandedLabel = '';
-      return;
-    }
-
-    this._selectionPanelExpandedLabel = this.checked
-      ? ', ' + i18nExpanded[this._language.current]
-      : ', ' + i18nCollapsed[this._language.current];
   }
 
   protected override render(): TemplateResult {
@@ -155,11 +98,6 @@ export class SbbRadioButtonPanelElement extends SbbRadioButtonCommonElementMixin
           <slot name="suffix"></slot>
         </span>
         <slot name="subtext"></slot>
-        ${this._selectionPanelExpandedLabel
-          ? html`<sbb-screen-reader-only>
-              ${this._selectionPanelExpandedLabel}
-            </sbb-screen-reader-only>`
-          : nothing}
       </label>
     `;
   }

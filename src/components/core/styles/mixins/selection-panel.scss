@@ -1,6 +1,7 @@
 @use './a11y';
 
 @mixin selection-panel-variables {
+  --sbb-selection-expansion-panel-background: var(--sbb-color-white);
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
   --sbb-selection-expansion-panel-border-radius: var(--sbb-border-radius-4x);
   --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-1x);
@@ -8,6 +9,14 @@
     var(--sbb-spacing-responsive-xxs);
   --sbb-selection-expansion-panel-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-selection-expansion-panel-cursor: pointer;
+}
+
+@mixin selection-panel-milk-variables {
+  --sbb-selection-expansion-panel-background: var(--sbb-color-milk);
+}
+
+@mixin selection-panel-borderless-variables {
+  --sbb-selection-expansion-panel-border-color: transparent;
 }
 
 @mixin selection-panel {
@@ -19,6 +28,7 @@
   box-shadow: inset 0 0 0 var(--sbb-selection-expansion-panel-border-width)
     var(--sbb-selection-expansion-panel-border-color);
   padding: var(--sbb-selection-expansion-panel-input-padding);
+  background-color: var(--sbb-selection-expansion-panel-background);
 
   transition: {
     duration: var(--sbb-selection-expansion-panel-animation-duration);

@@ -34,8 +34,6 @@ snapshots["sbb-checkbox-panel should render unchecked Shadow DOM"] =
     </span>
     <slot name="subtext">
     </slot>
-    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
-    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -76,8 +74,6 @@ snapshots["sbb-checkbox-panel should render checked Shadow DOM"] =
     </span>
     <slot name="subtext">
     </slot>
-    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
-    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -117,8 +113,6 @@ snapshots["sbb-checkbox-panel should render indeterminate Shadow DOM"] =
     </span>
     <slot name="subtext">
     </slot>
-    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
-    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -158,8 +152,6 @@ snapshots["sbb-checkbox-panel should render unchecked disabled Shadow DOM"] =
     </span>
     <slot name="subtext">
     </slot>
-    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
-    </sbb-screen-reader-only>
   </span>
 </span>
 `;

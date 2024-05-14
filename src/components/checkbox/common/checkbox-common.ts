@@ -9,11 +9,9 @@ import type {
 } from '../../core/interfaces.js';
 import {
   SbbFormAssociatedCheckboxMixin,
-  SbbHydrationMixin,
   type Constructor,
   type SbbDisabledMixinType,
   type SbbFormAssociatedCheckboxMixinType,
-  type SbbHydrationMixinType,
   type SbbRequiredMixinType,
 } from '../../core/mixins.js';
 import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
@@ -25,19 +23,11 @@ export type SbbCheckboxStateChange = Extract<
 
 export declare class SbbCheckboxCommonElementMixinType
   extends SbbFormAssociatedCheckboxMixinType
-  implements
-    Partial<SbbDisabledMixinType>,
-    Partial<SbbRequiredMixinType>,
-    Partial<SbbHydrationMixinType>
+  implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
   public indeterminate: boolean;
 
   public get group(): SbbCheckboxGroupElement | null;
-
-  public get hydrationComplete(): Promise<boolean>;
-
-  protected recoverSsrState?(): void;
-  protected getAndRemoveAttribute(name: string): string | null;
 
   protected stateChange: EventEmitter<SbbCheckboxStateChange>;
   protected checkboxLoaded: EventEmitter<void>;
@@ -48,7 +38,7 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
   superClass: T,
 ): Constructor<SbbCheckboxCommonElementMixinType> & T => {
   abstract class SbbCheckboxCommonElement
-    extends SbbFormAssociatedCheckboxMixin(SbbHydrationMixin(superClass))
+    extends SbbFormAssociatedCheckboxMixin(superClass)
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
     public static readonly events = {

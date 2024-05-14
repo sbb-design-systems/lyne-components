@@ -5,12 +5,10 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
-import { i18nCollapsed, i18nExpanded } from '../../core/i18n.js';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { SbbCheckboxCommonElementMixin, commonStyle } from '../common.js';
 
 import '../../screen-reader-only.js';
@@ -29,24 +27,10 @@ import checkboxPanelStyle from './checkbox-panel.scss?lit&inline';
  * @event {InputEvent} input - Event fired on input.
  */
 @customElement('sbb-checkbox-panel')
-export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
-  SbbUpdateSchedulerMixin(LitElement),
+export class SbbCheckboxPanelElement extends SbbPanelMixin(
+  SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = [commonStyle, checkboxPanelStyle];
-
-  /**
-   * Whether the input is the main input of a selection panel.
-   * @internal
-   */
-  public get isSelectionPanelInput(): boolean {
-    return this.hasAttribute('data-is-selection-panel-input');
-  }
-
-  /** The label describing whether the selection panel is expanded (for screen readers only). */
-  @state() private _selectionPanelExpandedLabel!: string;
-
-  private _selectionPanelElement: SbbSelectionExpansionPanelElement | null = null;
-  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
@@ -56,39 +40,20 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    // We can use closest here, as we expect the parent sbb-selection-expansion-panel to be in light DOM.
-    this._selectionPanelElement = this.closest?.('sbb-selection-expansion-panel');
-    this.toggleAttribute('data-is-inside-selection-panel', !!this._selectionPanelElement);
-    this.toggleAttribute(
-      'data-is-selection-panel-input',
-      !!this._selectionPanelElement &&
-        !this.closest?.('sbb-selection-expansion-panel [slot="content"]'),
-    );
-
     this.checkboxLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required'].forEach((p) => this.requestUpdate(p));
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    // We need to wait for the selection-panel to be fully initialized
-    this.startUpdate();
-    setTimeout(() => {
-      this.isSelectionPanelInput && this._updateExpandedLabel();
-      this.completeUpdate();
-    });
-  }
-
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
+      this.toggleAttribute('data-checked', this.checked);
+
       if (this.isSelectionPanelInput && this.checked !== changedProperties.get('checked')!) {
         this.stateChange.emit({ type: 'checked', checked: this.checked });
-        this._updateExpandedLabel();
       }
     }
     if (changedProperties.has('disabled')) {
@@ -96,20 +61,6 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
         this.stateChange.emit({ type: 'disabled', disabled: this.disabled });
       }
     }
-  }
-
-  private async _updateExpandedLabel(): Promise<void> {
-    await this.hydrationComplete;
-    if (!this._selectionPanelElement?.hasContent) {
-      this._selectionPanelExpandedLabel = '';
-      this.removeAttribute('data-has-selection-expansion-panel-label');
-      return;
-    }
-
-    this._selectionPanelExpandedLabel = this.checked
-      ? ', ' + i18nExpanded[this._language.current]
-      : ', ' + i18nCollapsed[this._language.current];
-    this.toggleAttribute('data-has-selection-expansion-panel-label', true);
   }
 
   protected override render(): TemplateResult {
@@ -130,9 +81,6 @@ export class SbbCheckboxPanelElement extends SbbCheckboxCommonElementMixin(
             </span>
           </span>
           <slot name="subtext"></slot>
-          <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
-            ${this._selectionPanelExpandedLabel}
-          </sbb-screen-reader-only>
         </span>
       </span>
     `;
