@@ -63,24 +63,24 @@ to identify which actions are active and which are not.
 
 | Name                     | Attribute                  | Privacy | Type                            | Default | Description                                                                                                                       |
 | ------------------------ | -------------------------- | ------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `trigger`                | `trigger`                  | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.                      |
 | `listAccessibilityLabel` | `list-accessibility-label` | public  | `string \| undefined`           |         | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
+| `trigger`                | `trigger`                  | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.                      |
 
 ## Methods
 
 | Name    | Privacy | Description                      | Parameters | Return | Inherited From        |
 | ------- | ------- | -------------------------------- | ---------- | ------ | --------------------- |
-| `open`  | public  | Opens the menu on trigger click. |            | `void` | SbbOverlayBaseElement |
 | `close` | public  | Closes the menu.                 |            | `void` | SbbOverlayBaseElement |
+| `open`  | public  | Opens the menu on trigger click. |            | `void` | SbbOverlayBaseElement |
 
 ## Events
 
 | Name        | Type                | Description                                                                   | Inherited From |
 | ----------- | ------------------- | ----------------------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` starts the opening transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                                      |                |
 | `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-menu` is opened.                                      |                |
 | `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-menu` begins the closing transition. Can be canceled. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                                      |                |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` starts the opening transition. Can be canceled. |                |
 
 ## CSS Properties
 

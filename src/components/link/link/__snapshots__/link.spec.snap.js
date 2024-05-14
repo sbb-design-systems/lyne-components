@@ -9,9 +9,7 @@ snapshots["sbb-link renders - DOM"] =
   data-slot-names="unnamed"
   dir="ltr"
   href="https://sbb.ch"
-  role="link"
   size="m"
-  tabindex="0"
   target="_blank"
 >
   Travelcards & tickets.
@@ -24,8 +22,6 @@ snapshots["sbb-link renders - ShadowDOM"] =
   class="sbb-action-base sbb-link"
   href="https://sbb.ch"
   rel="external noopener nofollow"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <slot>
@@ -45,13 +41,7 @@ snapshots["sbb-link A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "Travelcards & tickets. . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Travelcards & tickets. . Link target opens in a new window."
-        }
-      ]
+      "name": "Travelcards & tickets. . Link target opens in a new window."
     }
   ]
 }
@@ -68,13 +58,7 @@ snapshots["sbb-link A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Travelcards & tickets. . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Travelcards & tickets. . Link target opens in a new window.",
-          "value": "https://sbb.ch/"
-        }
-      ]
+      "value": "https://sbb.ch/"
     }
   ]
 }

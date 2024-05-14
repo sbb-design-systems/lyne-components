@@ -13,7 +13,10 @@ describe(`sbb-navigation-link`, () => {
   describe('renders', async () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-navigation-link href="https://www.sbb.ch" target="_blank"
+        html`<sbb-navigation-link
+          href="https://www.sbb.ch"
+          target="_blank"
+          accessibility-label="a11y label"
           >This is a link</sbb-navigation-link
         >`,
       );

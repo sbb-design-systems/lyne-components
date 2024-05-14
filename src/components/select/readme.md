@@ -106,33 +106,33 @@ Opened panel:
 
 | Name          | Attribute     | Privacy | Type                              | Default | Description                                                              |
 | ------------- | ------------- | ------- | --------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `value`       | `value`       | public  | `string \| string[] \| undefined` |         | The value of the select component. If `multiple` is true, it's an array. |
-| `placeholder` | `placeholder` | public  | `string \| undefined`             |         | The placeholder used if no value has been selected.                      |
-| `multiple`    | `multiple`    | public  | `boolean`                         | `false` | Whether the select allows for multiple selection.                        |
-| `required`    | `required`    | public  | `boolean`                         | `false` | Whether the select is required.                                          |
-| `readonly`    | `readonly`    | public  | `boolean`                         | `false` | Whether the select is readonly.                                          |
 | `disabled`    | `disabled`    | public  | `boolean`                         | `false` | Whether the component is disabled.                                       |
+| `multiple`    | `multiple`    | public  | `boolean`                         | `false` | Whether the select allows for multiple selection.                        |
 | `negative`    | `negative`    | public  | `boolean`                         | `false` | Negative coloring variant flag.                                          |
+| `placeholder` | `placeholder` | public  | `string \| undefined`             |         | The placeholder used if no value has been selected.                      |
+| `readonly`    | `readonly`    | public  | `boolean`                         | `false` | Whether the select is readonly.                                          |
+| `required`    | `required`    | public  | `boolean`                         | `false` | Whether the select is required.                                          |
+| `value`       | `value`       | public  | `string \| string[] \| undefined` |         | The value of the select component. If `multiple` is true, it's an array. |
 
 ## Methods
 
 | Name              | Privacy | Description                       | Parameters | Return   | Inherited From        |
 | ----------------- | ------- | --------------------------------- | ---------- | -------- | --------------------- |
-| `open`            | public  | Opens the selection panel.        |            | `void`   | SbbOverlayBaseElement |
 | `close`           | public  | Closes the selection panel.       |            | `void`   | SbbOverlayBaseElement |
 | `getDisplayValue` | public  | Gets the current displayed value. |            | `string` |                       |
+| `open`            | public  | Opens the selection panel.        |            | `void`   | SbbOverlayBaseElement |
 
 ## Events
 
 | Name        | Type                | Description                                                                      | Inherited From |
 | ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
 | `change`    | `CustomEvent<void>` | Notifies that the component's value has changed.                                 |                |
-| `input`     | `CustomEvent<void>` | Notifies that an option value has been selected.                                 |                |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition. Can be canceled.  |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-select` is opened.                                       |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition. Can be canceled.  |                |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
 | `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-select` is closed.                                       |                |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-select` is opened.                                       |                |
+| `input`     | `CustomEvent<void>` | Notifies that an option value has been selected.                                 |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition. Can be canceled.  |                |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition. Can be canceled.  |                |
 
 ## CSS Properties
 

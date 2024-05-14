@@ -40,9 +40,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
       <sbb-card-link
         href="https://github.com/lyne-design-system/lyne-components"
         target="_blank"
-        role="link"
         dir="ltr"
-        tabindex="0"
         data-action
         data-link
         slot="action">

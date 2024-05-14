@@ -131,7 +131,9 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     this.removeAttribute('data-accordion');
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
     this._initialized = true;
   }
 

@@ -65,6 +65,7 @@ export const SbbHydrationMixin = <T extends AbstractConstructor<LitElement>>(
      * and `false` if not.
      *
      * @return A promise of a boolean that resolves to true once the hydration completed.
+     * @internal
      */
     public get hydrationComplete(): Promise<boolean> {
       return this._hydrationComplete;

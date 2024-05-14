@@ -10,7 +10,7 @@ import sampleImages from '../core/images.js';
 import readme from './readme.md?raw';
 import './teaser-hero.js';
 
-const ariaLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -81,7 +81,7 @@ const imageAlt: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
   href,
   rel,
   target,
@@ -92,7 +92,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  'aria-label': undefined,
+  'accessibility-label': undefined,
   href: href.options![0],
   rel: undefined,
   target: undefined,

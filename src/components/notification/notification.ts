@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -142,7 +142,9 @@ export class SbbNotificationElement extends LitElement {
     super.connectedCallback();
   }
 
-  protected override async firstUpdated(): Promise<void> {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
     this._notificationElement = this.shadowRoot?.querySelector(
       '.sbb-notification__wrapper',
     ) as HTMLElement;

@@ -88,13 +88,13 @@ To improve coloring, it's needed to manually define styles for Window high contr
 
 | Name    | Attribute | Privacy | Type                                                                                          | Default   | Description                                        |
 | ------- | --------- | ------- | --------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------- |
-| `size`  | `size`    | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl'`                                        | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
 | `color` | `color`   | public  | `\| 'white'     \| 'milk'     \| 'transparent-bordered'     \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color.    |
+| `size`  | `size`    | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl'`                                        | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
 
 ## Slots
 
 | Name     | Description                                                                 |
 | -------- | --------------------------------------------------------------------------- |
 |          | Use the unnamed slot to add content to the card.                            |
-| `badge`  | Use this slot to render a `sbb-card-badge` component.                       |
 | `action` | Use this slot to render a `sbb-card-button` or a `sbb-card-link` component. |
+| `badge`  | Use this slot to render a `sbb-card-badge` component.                       |
