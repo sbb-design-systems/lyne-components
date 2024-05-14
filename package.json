@@ -21,9 +21,11 @@
   "private": true,
   "scripts": {
     "postinstall": "yarn playwright install",
-    "build:components": "npm-run-all --sequential build:components:*",
+    "build:components": "npm-run-all --sequential build:components:* build:components-experimental:*",
     "build:components:production": "vite build --config src/components/vite.config.ts",
     "build:components:development": "NODE_ENV=development vite build --mode development --config src/components/vite.config.ts",
+    "build:components-experimental:production": "vite build --config src/elements-experimental/vite.config.ts",
+    "build:components-experimental:development": "NODE_ENV=development vite build --mode development --config src/elements-experimental/vite.config.ts",
     "build:react": "npm-run-all --sequential build:react:*",
     "build:react:production": "vite build --config src/react/vite.config.ts",
     "build:react:development": "NODE_ENV=development vite build --mode development --config src/react/vite.config.ts",

@@ -3,7 +3,7 @@
  */
 export default {
   litelement: true,
-  globs: ['src/components/**/*.ts'],
+  globs: ['src/components/**/*.ts', 'src/elements-experimental/**/*.ts'],
   exclude: [
     '**/*[.-]{stories,spec,e2e,test-utils}.ts',
     '**/private/*',

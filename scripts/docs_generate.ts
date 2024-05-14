@@ -20,7 +20,7 @@ import componentAnalyzerConfig from '../tools/manifest/custom-elements-manifest.
 
 const manifestFilePath = `${componentAnalyzerConfig.outdir}/custom-elements.json`;
 const tempFolderPath = './dist/docs';
-const componentsFolder = './src/components';
+const componentsFolder = './src';
 const inheritedFromColumnIndex = 6;
 const propertyColumnIndex = 1;
 const attributeColumnIndex = 2;

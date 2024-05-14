@@ -19,6 +19,8 @@
     "paths": {
       "@sbb-esta/lyne-components": ["src/components"],
       "@sbb-esta/lyne-components/*": ["src/components/*"],
+      "@sbb-esta/lyne-elements-experimental": ["src/elements-experimental"],
+      "@sbb-esta/lyne-elements-experimental/*": ["src/elements-experimental/*"],
       "@sbb-esta/lyne-components-react": ["src/react"],
       "@sbb-esta/lyne-components-react/*": ["src/react/*"]
     },
