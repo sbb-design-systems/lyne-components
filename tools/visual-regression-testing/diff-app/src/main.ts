@@ -24,7 +24,6 @@ export class Main extends LitElement {
         html`<app-test-case
           .params=${{ componentName: component, testCaseName: testcase }}
         ></app-test-case>`,
-
       enter: async () => {
         await import('./components/test-case/test-case.js');
         return true;

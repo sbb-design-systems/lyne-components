@@ -13,17 +13,40 @@ import {
 import rootConfig from '../../../vite.config.js';
 import { distDir } from '../../vite/index.js';
 
+import type { FailedFiles } from './interfaces.js';
+
 const packageRoot = new URL('.', import.meta.url);
 const screenshotsDir = new URL(`./screenshots/`, distDir);
 
-export interface FailedFiles {
-  browserName: string;
-  name: string;
-  failedFile: string;
-  diffFile: string;
-  baselineFile: string;
-  isNew: boolean;
-}
+const extractHierarchicalMap = (
+  screenshots: Map<string, FailedFiles[]>,
+): Map<string, Map<string, Map<string, FailedFiles[]>>> => {
+  const map = new Map<string, Map<string, Map<string, FailedFiles[]>>>();
+
+  screenshots.forEach((failedFiles, fileName) => {
+    const component = fileName.match(/^(.*?)_/)![1];
+    const name = fileName.match(/_viewport=.*?_(.*?).png$/)![1];
+    const viewport = fileName.match(/viewport=(.*?)_/)![1];
+
+    if (!map.has(component)) {
+      map.set(component, new Map());
+    }
+
+    const componentsMap = map.get(component)!;
+
+    if (!componentsMap.has(name)) {
+      componentsMap.set(name, new Map());
+    }
+
+    const testCaseMap = componentsMap.get(name)!;
+
+    testCaseMap.set(
+      viewport,
+      failedFiles.map((failedFile) => ({ ...failedFile, viewport })),
+    );
+  });
+  return map;
+};
 
 function prepareScreenshots(): PluginOption {
   let viteConfig: ResolvedConfig;
@@ -138,7 +161,16 @@ function prepareScreenshots(): PluginOption {
           });
         }
 
-        return `export const screenshotsRaw = ${JSON.stringify(Object.fromEntries(screenshotsMeta))}`;
+        return `export const screenshotsRaw = ${JSON.stringify(
+          extractHierarchicalMap(screenshotsMeta),
+          (_key, value) => {
+            if (value instanceof Map) {
+              return Object.fromEntries(Array.from(value));
+            } else {
+              return value;
+            }
+          },
+        )}`;
       }
     },
     configureServer(server) {

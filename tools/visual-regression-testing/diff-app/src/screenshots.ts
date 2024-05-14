@@ -1,47 +1,12 @@
 // eslint-disable-next-line import-x/no-unresolved
 import { screenshotsRaw } from 'virtual:screenshots';
 
-import type { FailedFiles } from '../vite.config.js';
+import type { FailedFiles, ScreenshotMap } from '../interfaces.js';
 
 const viewportOrder = ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'];
 
-// TODO: discuss whether to include it in creation of screenshotsRaw
-const extractHierarchicalMap = (
-  screenshots: Record<string, FailedFiles[]>,
-): Map<string, Map<string, Map<string, ScreenshotFailedFiles[]>>> => {
-  const map = new Map<string, Map<string, Map<string, ScreenshotFailedFiles[]>>>();
-
-  Object.entries(screenshots).forEach(([fileName, failedFiles]) => {
-    const component = fileName.match(/^(.*?)_/)![1];
-    const name = fileName.match(/_viewport=.*?_(.*?).png$/)![1];
-    const viewport = fileName.match(/viewport=(.*?)_/)![1];
-
-    if (!map.has(component)) {
-      map.set(component, new Map());
-    }
-
-    const componentsMap = map.get(component)!;
-
-    if (!componentsMap.has(name)) {
-      componentsMap.set(name, new Map());
-    }
-
-    const testCaseMap = componentsMap.get(name)!;
-
-    testCaseMap.set(
-      viewport,
-      failedFiles.map((failedFile) => ({ ...failedFile, viewport })),
-    );
-  });
-  return map;
-};
-
-export interface ScreenshotFailedFiles extends FailedFiles {
-  viewport: string;
-}
-
 export class ScreenshotStatistics {
-  public static fromFailedFiles(failedFiles: ScreenshotFailedFiles[]): ScreenshotStatistics {
+  public static fromFailedFiles(failedFiles: FailedFiles[]): ScreenshotStatistics {
     return failedFiles.reduce(
       (current, next) =>
         current.sum(new ScreenshotStatistics(next.isNew ? 0 : 1, next.isNew ? 1 : 0)),
@@ -76,7 +41,7 @@ export class ScreenshotViewport {
 
   public constructor(
     public readonly name: string,
-    public readonly browsers: ScreenshotFailedFiles[],
+    public readonly browsers: FailedFiles[],
   ) {
     this.stats = ScreenshotStatistics.fromFailedFiles(this.browsers);
 
@@ -110,7 +75,7 @@ export class ScreenshotTestCase {
     );
   }
 
-  public filter(viewport?: string, browser?: string): ScreenshotFailedFiles[] {
+  public filter(viewport?: string, browser?: string): FailedFiles[] {
     return this.viewports
       .filter((entry) => !viewport || entry.name === viewport)
       .flatMap((entry) =>
@@ -136,19 +101,19 @@ export class Screenshots {
   public readonly testCaseCount: number;
   public readonly flatTestCases: ScreenshotTestCase[];
 
-  public constructor(screenshots: Record<string, FailedFiles[]>) {
+  public constructor(screenshotsRaw: ScreenshotMap) {
     const flatTestCases: ScreenshotTestCase[] = [];
 
     // Convert hierarchical screenshot map to classes
-    this.components = Array.from(extractHierarchicalMap(screenshots).entries()).map(
+    this.components = Object.entries(screenshotsRaw).map(
       ([componentName, testCases]) =>
         new ScreenshotComponent(
           componentName,
-          Array.from(testCases.entries()).map(([testCase, viewports]) => {
+          Object.entries(testCases).map(([testCase, viewports]) => {
             const screenshotTestCase = new ScreenshotTestCase(
               componentName,
               testCase,
-              Array.from(viewports.entries())
+              Object.entries(viewports)
                 .map(([viewport, entries]) => new ScreenshotViewport(viewport, entries))
                 .sort((a: ScreenshotViewport, b: ScreenshotViewport) => a.compare(b)),
             );

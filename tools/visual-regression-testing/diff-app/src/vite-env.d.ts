@@ -2,7 +2,7 @@
 
 declare module 'virtual:screenshots' {
   // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  export const screenshotsRaw: Record<string, import('../vite.config.ts').FailedFiles[]>;
+  export const screenshotsRaw: import('../interfaces.js').ScreenshotMap;
 }
 
 declare module '*?lit&inline' {

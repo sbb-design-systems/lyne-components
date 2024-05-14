@@ -29,7 +29,7 @@ export class Overview extends LitElement {
           <sbb-card color="milk">
             ${screenshots.stats}
             <sbb-secondary-button-link
-              href="/compare/${screenshots.flatTestCases[0].path}"
+              href="/compare/${screenshots.flatTestCases[0]?.path}"
               size="s"
             >
               Start comparing
