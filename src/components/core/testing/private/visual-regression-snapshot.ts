@@ -1,3 +1,4 @@
+import { aTimeout } from '@open-wc/testing';
 import { resetMouse, sendKeys, sendMouse } from '@web/test-runner-commands';
 import { visualDiff } from '@web/test-runner-visual-regression';
 
@@ -38,6 +39,7 @@ export function testVisualDiffHover(snapshotElement: () => HTMLElement): void {
 
     try {
       await sendMouse({ type: 'move', position });
+      await aTimeout(5);
       await visualDiff(snapshotElement(), imageName(this.test!));
     } finally {
       await resetMouse();
@@ -52,6 +54,7 @@ export function testVisualDiffActive(snapshotElement: () => HTMLElement): void {
     try {
       await sendMouse({ type: 'move', position });
       await sendMouse({ type: 'down' });
+      await aTimeout(5);
       await visualDiff(snapshotElement(), imageName(this.test!));
     } finally {
       await resetMouse();
