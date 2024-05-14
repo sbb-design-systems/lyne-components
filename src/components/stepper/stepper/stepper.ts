@@ -254,7 +254,8 @@ export class SbbStepperElement extends LitElement {
     this.toggleAttribute('data-disable-animation', !this._loaded);
   }
 
-  protected override async firstUpdated(): Promise<void> {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
     await this.updateComplete;
     this._loaded = true;
     this.selectedIndex = !this.linear ? Number(this.getAttribute('selected-index')) || 0 : 0;
@@ -264,6 +265,7 @@ export class SbbStepperElement extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('orientation') && !this.horizontalFrom) {
       this._updateLabels();
       this._setMarkerSize();

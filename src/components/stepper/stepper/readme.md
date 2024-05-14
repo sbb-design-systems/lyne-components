@@ -87,8 +87,8 @@ Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-s
 
 | Name             | Attribute         | Privacy | Type                             | Default        | Description                                                                       |
 | ---------------- | ----------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------------------------------- |
-| `linear`         | `linear`          | public  | `boolean`                        | `false`        | If set to true, only the current and previous labels can be clicked and selected. |
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of `orientation` property.                                |
+| `linear`         | `linear`          | public  | `boolean`                        | `false`        | If set to true, only the current and previous labels can be clicked and selected. |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'horizontal'` | Steps orientation, either horizontal or vertical.                                 |
 | `selected`       | -                 | public  | `SbbStepElement \| undefined`    |                | The currently selected step.                                                      |
 | `selectedIndex`  | `selected-index`  | public  | `number \| undefined`            |                | The currently selected step index.                                                |
@@ -106,5 +106,5 @@ Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-s
 
 | Name         | Description                                   |
 | ------------ | --------------------------------------------- |
-| `step-label` | Use this slot to provide an `sbb-step-label`. |
 | `step`       | Use this slot to provide an `sbb-step`.       |
+| `step-label` | Use this slot to provide an `sbb-step-label`. |

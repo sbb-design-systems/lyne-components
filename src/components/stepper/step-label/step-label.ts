@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, type PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
@@ -97,7 +97,8 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
     );
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
     if (this.step) {
       this.setAttribute('aria-controls', this.step.id);
     }

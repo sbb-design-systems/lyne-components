@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type TemplateResult,
+  type PropertyValues,
+} from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -142,7 +148,8 @@ export class SbbStepElement extends LitElement {
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
     if (this.label) {
       this.setAttribute('aria-labelledby', this.label.id);
     }
