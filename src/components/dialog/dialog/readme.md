@@ -90,11 +90,11 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                  | Default   | Description                                                          |
-| -------------------- | --------------------- | ------- | --------------------- | --------- | -------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined` |           | This will be forwarded as aria-label to the relevant nested element. |
-| `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`   | `'close'` | Backdrop click action.                                               |
-| `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                      |
+| Name                 | Attribute             | Privacy | Type                  | Default   | Description                                                                                                |
+| -------------------- | --------------------- | ------- | --------------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined` |           | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the dialog. |
+| `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`   | `'close'` | Backdrop click action.                                                                                     |
+| `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                                                            |
 
 ## Methods
 

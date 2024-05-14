@@ -16,7 +16,7 @@ import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only.js';
 export const dialogRefs: SbbDialogBaseElement[] = [];
 
 export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOverlayBaseElement) {
-  /** This will be forwarded as aria-label to the relevant nested element. */
+  /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the dialog. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /** Emits whenever the `sbb-dialog` is closed. */
