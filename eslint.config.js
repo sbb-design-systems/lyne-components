@@ -48,7 +48,7 @@ export default [
   ),
   eslintPluginLyne.default.configs.recommended,
   {
-    files: ['tools/visual-regression-testing/diff-app/**/*.ts'],
+    files: ['src/visual-regression-app/**/*.ts'],
     rules: {
       'lyne/custom-element-class-name-rule': 'off',
       'import-x/namespace': 'off',

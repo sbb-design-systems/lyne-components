@@ -5,7 +5,7 @@ export interface FailedFiles {
   diffFile: string;
   baselineFile: string;
   isNew: boolean;
-  vierports: string;
+  viewport: string;
 }
 
 export type ScreenshotMap = Record<string, Record<string, Record<string, FailedFiles[]>>>;

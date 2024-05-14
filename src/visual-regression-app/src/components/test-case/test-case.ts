@@ -9,12 +9,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { screenshots, type ScreenshotTestCase } from '../../screenshots.js';
 
-import '../../../../../../src/components/button/secondary-button-link.js';
-import '../../../../../../src/components/chip.js';
-import '../../../../../../src/components/container.js';
-import '../../../../../../src/components/header.js';
-import '../../../../../../src/components/notification.js';
-import '../../../../../../src/components/title.js';
+import '../../../../components/button/secondary-button-link.js';
+import '../../../../components/chip.js';
+import '../../../../components/container.js';
+import '../../../../components/header.js';
+import '../../../../components/notification.js';
+import '../../../../components/title.js';
 
 import type { TestCaseFilter } from './test-case-filter/test-case-filter.js';
 import style from './test-case.scss?lit&inline';

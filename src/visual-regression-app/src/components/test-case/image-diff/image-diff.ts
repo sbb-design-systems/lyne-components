@@ -1,16 +1,16 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbOverlayElement } from '../../../../../../../src/components/overlay/overlay.js';
-import type { SbbToggleCheckElement } from '../../../../../../../src/components/toggle-check/toggle-check.js';
-import type { ScreenshotFailedFiles } from '../../../screenshots.js';
+import { SbbOverlayElement } from '../../../../../components/overlay/overlay.js';
+import type { SbbToggleCheckElement } from '../../../../../components/toggle-check/toggle-check.js';
+import type { FailedFiles } from '../../../../interfaces.js';
 
 import style from './image-diff.scss?lit&inline';
 
-import '../../../../../../../src/components/chip.js';
-import '../../../../../../../src/components/status.js';
-import '../../../../../../../src/components/overlay.js';
-import '../../../../../../../src/components/toggle-check.js';
+import '../../../../../components/chip.js';
+import '../../../../../components/status.js';
+import '../../../../../components/overlay.js';
+import '../../../../../components/toggle-check.js';
 
 import './fullscreen-diff/fullscreen-diff.js';
 
@@ -24,7 +24,7 @@ const getImageDimension = (img: HTMLImageElement): string =>
 export class ImageDiff extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public failedFile?: ScreenshotFailedFiles;
+  @property() public failedFile?: FailedFiles;
 
   @state() private _baselineDimension?: string;
   @state() private _failedDimension?: string;

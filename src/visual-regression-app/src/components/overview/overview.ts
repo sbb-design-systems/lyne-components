@@ -5,14 +5,14 @@ import { screenshots } from '../../screenshots.js';
 
 import style from './overview.scss?lit&inline';
 
-import '../../../../../../src/components/accordion.js';
-import '../../../../../../src/components/button/secondary-button-link.js';
-import '../../../../../../src/components/card.js';
-import '../../../../../../src/components/container.js';
-import '../../../../../../src/components/expansion-panel.js';
-import '../../../../../../src/components/link-list.js';
-import '../../../../../../src/components/link/block-link.js';
-import '../../../../../../src/components/title.js';
+import '../../../../components/accordion.js';
+import '../../../../components/button/secondary-button-link.js';
+import '../../../../components/card.js';
+import '../../../../components/container.js';
+import '../../../../components/expansion-panel.js';
+import '../../../../components/link-list.js';
+import '../../../../components/link/block-link.js';
+import '../../../../components/title.js';
 
 /**
  * Overview over all failed or new tests

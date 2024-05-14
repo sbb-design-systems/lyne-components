@@ -10,8 +10,8 @@ import {
   type UserConfig,
 } from 'vite';
 
-import rootConfig from '../../../vite.config.js';
-import { distDir } from '../../vite/index.js';
+import { distDir } from '../../tools/vite/index.js';
+import rootConfig from '../../vite.config.js';
 
 import type { FailedFiles } from './interfaces.js';
 
@@ -19,7 +19,7 @@ const packageRoot = new URL('.', import.meta.url);
 const screenshotsDir = new URL(`./screenshots/`, distDir);
 
 const extractHierarchicalMap = (
-  screenshots: Map<string, FailedFiles[]>,
+  screenshots: Map<string, Omit<FailedFiles, 'viewport'>[]>,
 ): Map<string, Map<string, Map<string, FailedFiles[]>>> => {
   const map = new Map<string, Map<string, Map<string, FailedFiles[]>>>();
 
@@ -42,9 +42,10 @@ const extractHierarchicalMap = (
 
     testCaseMap.set(
       viewport,
-      failedFiles.map((failedFile) => ({ ...failedFile, viewport })),
+      failedFiles.map((failedFile) => ({ ...failedFile, viewport }) satisfies FailedFiles),
     );
   });
+
   return map;
 };
 
@@ -191,7 +192,7 @@ export default defineConfig(() =>
     root: packageRoot.pathname,
     plugins: [prepareScreenshots()],
     build: {
-      outDir: new URL(`./diff-app/`, distDir).pathname,
+      outDir: new URL(`./visual-regression-app/`, distDir).pathname,
       emptyOutDir: true,
     },
   }),

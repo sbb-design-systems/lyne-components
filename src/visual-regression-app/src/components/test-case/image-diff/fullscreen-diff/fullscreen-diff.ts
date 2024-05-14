@@ -1,13 +1,13 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbRadioButtonGroupElement } from '../../../../../../../../src/components/radio-button/radio-button-group/radio-button-group.js';
-import type { ScreenshotFailedFiles } from '../../../../screenshots.js';
+import type { SbbRadioButtonGroupElement } from '../../../../../../components/radio-button/radio-button-group/radio-button-group.js';
+import type { FailedFiles } from '../../../../../interfaces.js';
 
 import style from './fullscreen-diff.scss?lit&inline';
 
-import '../../../../../../../../src/components/chip.js';
-import '../../../../../../../../src/components/radio-button.js';
+import '../../../../../../components/chip.js';
+import '../../../../../../components/radio-button.js';
 
 /**
  * Displays two images in fullscreen to overlay them.
@@ -16,7 +16,7 @@ import '../../../../../../../../src/components/radio-button.js';
 export class FullscreenDiff extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public failedFile?: ScreenshotFailedFiles;
+  @property() public failedFile?: FailedFiles;
 
   @property() public selectedFile: 'baselineFile' | 'failedFile' | 'diffFile' = 'failedFile';
 
