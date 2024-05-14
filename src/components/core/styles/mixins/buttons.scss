@@ -147,7 +147,7 @@
 
 // Disabled state for icon-button in form-field
 @mixin icon-button-disabled($button-selector) {
-  --sbb-button-border-width: #{functions.px-to-rem-build(1)};
+  --sbb-button-border-width: var(--sbb-border-width-1x);
   --sbb-button-border-style: dashed;
 
   @include a11y.if-forced-colors {
