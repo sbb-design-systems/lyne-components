@@ -16,9 +16,11 @@ the icon is an arrow pointing to the `destination`, otherwise it is a double arr
 The component has a `level` property, which is passed to its inner `sbb-title` component;
 it is rendered as a heading from `h1` to `h6`. Default `level` is `3`.
 
-The component also has two sizes, named `m` (default) and `l`, and a `negative` background variant.
+The component also has three sizes, named `s`, `m` (default) and `l`, and a `negative` background variant.
 
 ```html
+<sbb-journey-header origin="Point A" destination="Point B" size="s"></sbb-journey-header>
+
 <sbb-journey-header origin="Point A" destination="Point B" size="l"></sbb-journey-header>
 
 <sbb-journey-header origin="Point A" destination="Point B" level="5"></sbb-journey-header>

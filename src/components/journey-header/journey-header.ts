@@ -14,7 +14,7 @@ import '../icon.js';
 import '../screen-reader-only.js';
 import '../title.js';
 
-export type JourneyHeaderSize = 'm' | 'l';
+export type JourneyHeaderSize = 's' | 'm' | 'l';
 
 /**
  * Combined with the `sbb-journey-summary`, it displays the journey's detail.
@@ -47,7 +47,7 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
       <sbb-title
         level=${this.level || nothing}
         ?negative=${this.negative}
-        visual-level=${this.size === 'l' ? '4' : '5'}
+        visual-level=${this.size === 'l' ? '4' : this.size === 'm' ? '5' : '6'}
       >
         <span class="sbb-journey-header" dir=${getDocumentWritingMode()}>
           <span class="sbb-journey-header__origin">
