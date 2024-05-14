@@ -45,7 +45,7 @@ export default defineConfig((config) =>
       ...(config.command === 'build' ? [dts()] : []),
       ...(isProdBuild(config)
         ? [
-            customElementsManifest(),
+            customElementsManifest('components'),
             generateRootEntryPoint(),
             packageJsonTemplate({
               exports: {
