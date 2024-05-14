@@ -3,14 +3,12 @@ export const snapshots = {};
 
 snapshots["sbb-teaser-paid Dom"] = 
 `<sbb-teaser-paid
-  aria-label="label"
+  accessibility-label="label"
   data-action=""
   data-link=""
   dir="ltr"
   href="https://www.sbb.ch"
   rel="external"
-  role="link"
-  tabindex="0"
   target="_blank"
 >
 </sbb-teaser-paid>
@@ -19,11 +17,10 @@ snapshots["sbb-teaser-paid Dom"] =
 
 snapshots["sbb-teaser-paid ShadowDom"] = 
 `<a
+  aria-label="label"
   class="sbb-action-base sbb-teaser-paid"
   href="https://www.sbb.ch"
   rel="external"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <slot name="chip">
@@ -45,13 +42,7 @@ snapshots["sbb-teaser-paid A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "label",
-      "children": [
-        {
-          "role": "link",
-          "name": ". Link target opens in a new window."
-        }
-      ]
+      "name": "label"
     }
   ]
 }
@@ -68,13 +59,7 @@ snapshots["sbb-teaser-paid A11y tree Firefox"] =
     {
       "role": "link",
       "name": "label",
-      "children": [
-        {
-          "role": "link",
-          "name": ". Link target opens in a new window.",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     }
   ]
 }

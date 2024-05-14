@@ -66,6 +66,12 @@ const form: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 export const buttonDefaultArgTypes: ArgTypes = {
   ...commonDefaultArgTypes,
   type,
@@ -73,6 +79,7 @@ export const buttonDefaultArgTypes: ArgTypes = {
   name,
   value,
   form,
+  'aria-label': ariaLabel,
 };
 
 export const buttonDefaultArgs: Args = {
@@ -82,6 +89,7 @@ export const buttonDefaultArgs: Args = {
   name: 'Button Name',
   value: undefined,
   form: undefined,
+  'aria-label': undefined,
 };
 
 export const requestSubmit: StoryObj = {

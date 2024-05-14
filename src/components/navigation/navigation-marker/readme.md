@@ -35,8 +35,8 @@ Possible values are `l` (default) and `s`.
 
 | Name     | Privacy | Description | Parameters                                                       | Return | Inherited From |
 | -------- | ------- | ----------- | ---------------------------------------------------------------- | ------ | -------------- |
-| `select` | public  |             | `action: SbbNavigationButtonElement \| SbbNavigationLinkElement` | `void` |                |
 | `reset`  | public  |             |                                                                  | `void` |                |
+| `select` | public  |             | `action: SbbNavigationButtonElement \| SbbNavigationLinkElement` | `void` |                |
 
 ## Slots
 

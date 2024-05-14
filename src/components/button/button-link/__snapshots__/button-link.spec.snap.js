@@ -11,9 +11,7 @@ snapshots["sbb-button-link renders a sbb-button-link without icon Dom"] =
   download=""
   href="https://www.sbb.ch"
   rel="noopener"
-  role="link"
   size="m"
-  tabindex="0"
   target="_blank"
 >
   Label Text
@@ -27,8 +25,6 @@ snapshots["sbb-button-link renders a sbb-button-link without icon ShadowDom"] =
   download=""
   href="https://www.sbb.ch"
   rel="noopener"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <slot name="icon">
@@ -52,13 +48,7 @@ snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Chro
   "children": [
     {
       "role": "link",
-      "name": "Label Text . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Label Text . Link target opens in a new window."
-        }
-      ]
+      "name": "Label Text . Link target opens in a new window."
     }
   ]
 }
@@ -68,7 +58,6 @@ snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Chro
 
 snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon Dom"] = 
 `<sbb-button-link
-  aria-disabled="true"
   data-action=""
   data-link=""
   data-sbb-button=""
@@ -76,7 +65,6 @@ snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon 
   dir="ltr"
   disabled=""
   href="https://www.sbb.ch"
-  role="link"
   size="l"
 >
   <sbb-icon
@@ -94,9 +82,9 @@ snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon 
 
 snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon ShadowDom"] = 
 `<a
+  aria-disabled="true"
   class="sbb-action-base sbb-button-link"
   href="https://www.sbb.ch"
-  role="presentation"
   tabindex="-1"
 >
   <slot name="icon">
@@ -118,13 +106,7 @@ snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Fire
     {
       "role": "link",
       "name": "Label Text . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Label Text . Link target opens in a new window.",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     }
   ]
 }

@@ -76,18 +76,18 @@ It's also possible to display the `sbb-selection-expansion-panel` without border
 
 | Name         | Attribute    | Privacy | Type                | Default   | Description                                    |
 | ------------ | ------------ | ------- | ------------------- | --------- | ---------------------------------------------- |
+| `borderless` | `borderless` | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
 | `color`      | `color`      | public  | `'white' \| 'milk'` | `'white'` | The background color of the panel.             |
 | `forceOpen`  | `force-open` | public  | `boolean`           | `false`   | Whether the content section is always visible. |
-| `borderless` | `borderless` | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
 
 ## Events
 
 | Name        | Type                | Description                                                       | Inherited From |
 | ----------- | ------------------- | ----------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the content section starts the opening transition. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the content section is closed.                     |                |
 | `didOpen`   | `CustomEvent<void>` | Emits whenever the content section is opened.                     |                |
 | `willClose` | `CustomEvent<void>` | Emits whenever the content section begins the closing transition. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the content section is closed.                     |                |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the content section starts the opening transition. |                |
 
 ## Slots
 

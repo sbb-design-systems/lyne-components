@@ -84,8 +84,8 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 
 | Name        | Type                                          | Description                                                                                                                               | Inherited From |
 | ----------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `didChange` | `CustomEvent<SbbRadioButtonGroupEventDetail>` | Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes. |                |
 | `change`    | `CustomEvent<SbbRadioButtonGroupEventDetail>` | Emits whenever the `sbb-radio-group` value changes.                                                                                       |                |
+| `didChange` | `CustomEvent<SbbRadioButtonGroupEventDetail>` | Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes. |                |
 | `input`     | `CustomEvent<SbbRadioButtonGroupEventDetail>` | Emits whenever the `sbb-radio-group` value changes.                                                                                       |                |
 
 ## Slots

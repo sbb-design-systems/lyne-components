@@ -76,29 +76,29 @@ When using a button to trigger the overlay, ensure to manage the appropriate ARI
 
 | Name                      | Attribute                   | Privacy | Type                         | Default | Description                                                                                                           |
 | ------------------------- | --------------------------- | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
-| `expanded`                | `expanded`                  | public  | `boolean`                    | `false` | Whether to allow the overlay content to stretch to full width. By default, the content has the appropriate page size. |
-| `backButton`              | `back-button`               | public  | `boolean`                    | `false` | Whether a back button is displayed next to the title.                                                                 |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                                     |
 | `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                      |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                                     |
 | `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |         | This will be forwarded as aria-label adn will describe the purpose of the dialog.                                     |
+| `backButton`              | `back-button`               | public  | `boolean`                    | `false` | Whether a back button is displayed next to the title.                                                                 |
+| `expanded`                | `expanded`                  | public  | `boolean`                    | `false` | Whether to allow the overlay content to stretch to full width. By default, the content has the appropriate page size. |
 | `negative`                | `negative`                  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                       |
 
 ## Methods
 
 | Name    | Privacy | Description                 | Parameters                         | Return | Inherited From |
 | ------- | ------- | --------------------------- | ---------------------------------- | ------ | -------------- |
-| `open`  | public  | Opens the overlay element.  |                                    | `void` |                |
 | `close` | public  | Closes the overlay element. | `result: any, target: HTMLElement` | `any`  |                |
+| `open`  | public  | Opens the overlay element.  |                                    | `void` |                |
 
 ## Events
 
 | Name                | Type                                       | Description                                                                      | Inherited From |
 | ------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- | -------------- |
-| `willOpen`          | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. |                |
-| `didOpen`           | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` is opened.                                      |                |
-| `willClose`         | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. |                |
 | `didClose`          | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-overlay` is closed.                                      |                |
+| `didOpen`           | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` is opened.                                      |                |
 | `requestBackAction` | `CustomEvent<void>`                        | Emits whenever the back button is clicked.                                       |                |
+| `willClose`         | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. |                |
+| `willOpen`          | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. |                |
 
 ## CSS Properties
 

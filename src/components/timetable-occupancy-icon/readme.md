@@ -24,13 +24,13 @@ In high contrast mode, in both light and dark variant, the rendered icon changes
 
 | Name         | Attribute     | Privacy | Type           | Default | Description                                                                                                                                                                                  |
 | ------------ | ------------- | ------- | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `occupancy`  | `occupancy`   | public  | `SbbOccupancy` |         | Wagon occupancy.                                                                                                                                                                             |
 | `negative`   | `negative`    | public  | `boolean`      | `false` | Negative coloring variant flag.                                                                                                                                                              |
 | `noSanitize` | `no-sanitize` | public  | `boolean`      | `false` | When set to `true`, SVG content that is HTTP fetched will not be checked if the response SVG content has any `<script>` elements, or any attributes that start with `on`, such as `onclick`. |
+| `occupancy`  | `occupancy`   | public  | `SbbOccupancy` |         | Wagon occupancy.                                                                                                                                                                             |
 
 ## CSS Properties
 
 | Name                    | Default | Description                         |
 | ----------------------- | ------- | ----------------------------------- |
-| `--sbb-icon-svg-width`  | `auto`  | Can be used to set a custom width.  |
 | `--sbb-icon-svg-height` | `auto`  | Can be used to set a custom height. |
+| `--sbb-icon-svg-width`  | `auto`  | Can be used to set a custom width.  |
