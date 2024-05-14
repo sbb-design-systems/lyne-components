@@ -65,7 +65,7 @@ const testRunnerHtml = (testFramework, _config, group) => `
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-  <link
+    <link
       rel="preload"
       href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff2"
       as="font"
