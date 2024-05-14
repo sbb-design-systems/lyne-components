@@ -1,4 +1,4 @@
-@use '../core/styles' as sbb;
+@use '@sbb-esta/lyne-components/core/styles' as sbb;
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;

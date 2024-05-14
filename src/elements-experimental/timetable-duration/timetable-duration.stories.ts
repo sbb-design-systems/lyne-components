@@ -49,9 +49,8 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: { disableSnapshot: true },
   },
-  title: 'internals/sbb-timetable-duration',
+  title: 'experimental/sbb-timetable-duration',
 };
 
 export default meta;

@@ -1,9 +1,8 @@
+import { SbbLanguageController } from '@sbb-esta/lyne-components/core/controllers/language-controller.js';
+import { i18nDurationHour, i18nDurationMinute } from '@sbb-esta/lyne-components/core/i18n/i18n.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-
-import { SbbLanguageController } from '../core/controllers.js';
-import { i18nDurationHour, i18nDurationMinute } from '../core/i18n.js';
 
 import style from './timetable-duration.scss?lit&inline';
 

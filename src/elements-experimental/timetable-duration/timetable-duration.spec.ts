@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
+import { fixture } from '@sbb-esta/lyne-components/core/testing/private/fixture';
 import { html } from 'lit/static-html.js';
-
-import { fixture } from '../core/testing/private.js';
 
 import sampleData from './timetable-duration.sample-data.js';
 
