@@ -84,17 +84,17 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 | Name                 | Attribute             | Privacy | Type                                    | Default  | Description                                                                                                                                                      |
 | -------------------- | --------------------- | ------- | --------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `readonly`           | `readonly`            | public  | `boolean`                               | `false`  | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                 |
-| `size`               | `size`                | public  | `'s' \| 'm' \| 'l'`                     | `'m'`    | You can choose between `m` or `l` size.                                                                                                                          |
-| `iconName`           | `icon-name`           | public  | `string \| undefined`                   | `'info'` | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
-| `titleContent`       | `title-content`       | public  | `string \| undefined`                   |          | Content of title.                                                                                                                                                |
-| `titleLevel`         | `title-level`         | public  | `SbbTitleLevel`                         | `'3'`    | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  |
-| `linkContent`        | `link-content`        | public  | `string \| undefined`                   |          | Content of the link.                                                                                                                                             |
-| `href`               | `href`                | public  | `string \| undefined`                   |          | The href value you want to link to.                                                                                                                              |
-| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |          | Where to display the linked URL.                                                                                                                                 |
-| `rel`                | `rel`                 | public  | `string \| undefined`                   |          | The relationship of the linked URL as space-separated link types.                                                                                                |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |          | This will be forwarded as aria-label to the relevant nested element.                                                                                             |
 | `animation`          | `animation`           | public  | `'open' \| 'none'`                      | `'open'` | The enabled animations.                                                                                                                                          |
+| `href`               | `href`                | public  | `string \| undefined`                   |          | The href value you want to link to.                                                                                                                              |
+| `iconName`           | `icon-name`           | public  | `string \| undefined`                   | `'info'` | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
+| `linkContent`        | `link-content`        | public  | `string \| undefined`                   |          | Content of the link.                                                                                                                                             |
+| `readonly`           | `readonly`            | public  | `boolean`                               | `false`  | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                 |
+| `rel`                | `rel`                 | public  | `string \| undefined`                   |          | The relationship of the linked URL as space-separated link types.                                                                                                |
+| `size`               | `size`                | public  | `'s' \| 'm' \| 'l'`                     | `'m'`    | You can choose between `m` or `l` size.                                                                                                                          |
+| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |          | Where to display the linked URL.                                                                                                                                 |
+| `titleContent`       | `title-content`       | public  | `string \| undefined`                   |          | Content of title.                                                                                                                                                |
+| `titleLevel`         | `title-level`         | public  | `SbbTitleLevel`                         | `'3'`    | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  |
 
 ## Methods
 
@@ -106,9 +106,9 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 | Name                 | Type                | Description                                                        | Inherited From |
 | -------------------- | ------------------- | ------------------------------------------------------------------ | -------------- |
-| `willOpen`           | `CustomEvent<void>` | Emits when the fade in animation starts.                           |                |
 | `didOpen`            | `CustomEvent<void>` | Emits when the fade in animation ends and the button is displayed. |                |
 | `dismissalRequested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.                    |                |
+| `willOpen`           | `CustomEvent<void>` | Emits when the fade in animation starts.                           |                |
 
 ## Slots
 

@@ -72,12 +72,12 @@ The title will not be displayed in the horizontal orientation.
 
 | Name             | Attribute         | Privacy | Type                             | Default      | Description                                                                                                                  |
 | ---------------- | ----------------- | ------- | -------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                            |
+| `negative`       | `negative`        | public  | `boolean`                        | `false`      | Negative coloring variant flag.                                                                                              |
+| `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                      |
+| `size`           | `size`            | public  | `SbbLinkSize`                    | `'s'`        | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
 | `titleContent`   | `title-content`   | public  | `string \| undefined`            |              | The title text we want to show before the list.                                                                              |
 | `titleLevel`     | `title-level`     | public  | `SbbTitleLevel`                  | `'2'`        | The semantic level of the title, e.g. 2 = h2.                                                                                |
-| `size`           | `size`            | public  | `SbbLinkSize`                    | `'s'`        | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                            |
-| `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                      |
-| `negative`       | `negative`        | public  | `boolean`                        | `false`      | Negative coloring variant flag.                                                                                              |
 
 ## Slots
 
