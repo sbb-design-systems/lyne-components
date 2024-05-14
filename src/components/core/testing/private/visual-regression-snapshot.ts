@@ -29,13 +29,17 @@ export function testVisualDiff(snapshotElement: () => HTMLElement): void {
 export function testVisualDiffFocus(snapshotElement: () => HTMLElement): void {
   it('focus', async function () {
     await sendKeys({ press: 'Tab' });
+    await aTimeout(50);
     await visualDiff(snapshotElement(), imageName(this.test!));
   });
 }
 
-export function testVisualDiffHover(snapshotElement: () => HTMLElement): void {
+export function testVisualDiffHover(
+  snapshotElement: () => HTMLElement,
+  stateElement?: (() => HTMLElement) | undefined,
+): void {
   it('hover', async function () {
-    const position = findElementCenter(snapshotElement);
+    const position = findElementCenter(stateElement ?? snapshotElement);
 
     try {
       await sendMouse({ type: 'move', position });
@@ -47,9 +51,12 @@ export function testVisualDiffHover(snapshotElement: () => HTMLElement): void {
   });
 }
 
-export function testVisualDiffActive(snapshotElement: () => HTMLElement): void {
+export function testVisualDiffActive(
+  snapshotElement: () => HTMLElement,
+  stateElement?: (() => HTMLElement) | undefined,
+): void {
   it('active', async function () {
-    const position = findElementCenter(snapshotElement);
+    const position = findElementCenter(stateElement ?? snapshotElement);
 
     try {
       await sendMouse({ type: 'move', position });
@@ -62,9 +69,26 @@ export function testVisualDiffActive(snapshotElement: () => HTMLElement): void {
   });
 }
 
-export function visualRegressionSnapshot(snapshotElement: () => HTMLElement): void {
+export function visualRegressionSnapshot(
+  snapshotElement: () => HTMLElement,
+  stateElement?: () => HTMLElement,
+): void {
   testVisualDiff(snapshotElement);
   testVisualDiffFocus(snapshotElement);
-  testVisualDiffHover(snapshotElement);
-  testVisualDiffActive(snapshotElement);
+  testVisualDiffHover(snapshotElement, stateElement);
+  testVisualDiffActive(snapshotElement, stateElement);
+}
+
+/**
+ * Generates styles for the wrapper element in visual regression testing.
+ * @param options.padding Defaults to 2rem to include shadows and similar styles.
+ * @param options.backgroundColor Defaults to white.
+ */
+export function visualRegressionWrapperStyles(
+  options: {
+    padding?: string;
+    backgroundColor?: string;
+  } = {},
+): string {
+  return `padding: ${options.padding ?? '2rem'};background-color: ${options.backgroundColor ?? 'var(--sbb-color-white)'};`;
 }
