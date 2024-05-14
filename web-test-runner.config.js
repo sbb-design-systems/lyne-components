@@ -63,8 +63,29 @@ const groupNameOverride = process.argv.includes('--ssr-hydrated')
 
 const testRunnerHtml = (testFramework, _config, group) => `
 <!DOCTYPE html>
-<html>
+<html lang='en'>
   <head>
+  <link
+      rel="preload"
+      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Light.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
     <style type="text/css">${renderStyles()}</style>
     <script>
       globalThis.testEnv = '${isDebugMode ? 'debug' : ''}';
@@ -97,7 +118,7 @@ const groups = [
   // { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
 ];
 
-// The visual regression test group is only added when expicitely set, as the tests are very expensive.
+// The visual regression test group is only added when explicitly set, as the tests are very expensive.
 if (visualRegressionRun) {
   groups.push({ name: 'visual-regression', files: 'src/**/*.snapshot.spec.ts', testRunnerHtml });
 }
