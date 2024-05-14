@@ -19,9 +19,13 @@
   inset: 0;
   border-radius: var(--sbb-card-border-radius);
   cursor: pointer;
+  outline: none;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  // Handle focus on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
     @include sbb.focus-outline;
   }
 }

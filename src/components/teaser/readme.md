@@ -52,22 +52,23 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type                                     | Default            | Description                                                               |
-| -------------- | --------------- | ------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
-| `alignment`    | `alignment`     | public  | `'after-centered' \| 'after' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
-| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                          | `'5'`              | Heading level of the sbb-title element (e.g. h1-h6).                      |
-| `titleContent` | `title-content` | public  | `string \| undefined`                    |                    | Content of title.                                                         |
-| `chipContent`  | `chip-content`  | public  | `string \| undefined`                    |                    | Content of chip.                                                          |
-| `href`         | `href`          | public  | `string \| undefined`                    |                    | The href value you want to link to.                                       |
-| `target`       | `target`        | public  | `LinkTargetType \| string \| undefined`  |                    | Where to display the linked URL.                                          |
-| `rel`          | `rel`           | public  | `string \| undefined`                    |                    | The relationship of the linked URL as space-separated link types.         |
-| `download`     | `download`      | public  | `boolean \| undefined`                   |                    | Whether the browser will show the download dialog on click.               |
+| Name                 | Attribute             | Privacy | Type                                     | Default            | Description                                                               |
+| -------------------- | --------------------- | ------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                    |                    | This will be forwarded as aria-label to the inner anchor element.         |
+| `alignment`          | `alignment`           | public  | `'after-centered' \| 'after' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
+| `chipContent`        | `chip-content`        | public  | `string \| undefined`                    |                    | Content of chip.                                                          |
+| `download`           | `download`            | public  | `boolean \| undefined`                   |                    | Whether the browser will show the download dialog on click.               |
+| `href`               | `href`                | public  | `string \| undefined`                    |                    | The href value you want to link to.                                       |
+| `rel`                | `rel`                 | public  | `string \| undefined`                    |                    | The relationship of the linked URL as space-separated link types.         |
+| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined`  |                    | Where to display the linked URL.                                          |
+| `titleContent`       | `title-content`       | public  | `string \| undefined`                    |                    | Content of title.                                                         |
+| `titleLevel`         | `title-level`         | public  | `SbbTitleLevel`                          | `'5'`              | Heading level of the sbb-title element (e.g. h1-h6).                      |
 
 ## Slots
 
 | Name    | Description                                     |
 | ------- | ----------------------------------------------- |
-| `image` | Slot used to render the image.                  |
-| `chip`  | Slot used to render the sbb-chip label.         |
-| `title` | Slot used to render the title.                  |
 |         | Use the unnamed slot to render the description. |
+| `chip`  | Slot used to render the sbb-chip label.         |
+| `image` | Slot used to render the image.                  |
+| `title` | Slot used to render the title.                  |

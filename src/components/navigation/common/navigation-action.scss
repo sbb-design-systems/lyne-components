@@ -59,6 +59,7 @@ sbb-icon {
   hyphens: auto;
   text-align: left;
   color: var(--sbb-navigation-action-color);
+  outline: none;
 
   @include sbb.if-forced-colors {
     transition: none;
@@ -73,7 +74,10 @@ sbb-icon {
   }
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  // Handle focus on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));

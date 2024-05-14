@@ -1,45 +1,50 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-header-link renders the component as a button with icon Light DOM"] = 
-`<sbb-header-link
+snapshots["sbb-menu-link renders component with icon and amount Light DOM"] = 
+`<sbb-menu-link
   accessibility-label="a11y label"
+  amount="123456"
   data-action=""
   data-link=""
   dir="ltr"
-  expand-from="small"
   href="https://github.com/lyne-design-system/lyne-components"
-  icon-name="pie-small"
+  icon-name="menu-small"
   target="_blank"
 >
-  Action
-</sbb-header-link>
+  <span>
+    Action
+  </span>
+</sbb-menu-link>
 `;
-/* end snapshot sbb-header-link renders the component as a button with icon Light DOM */
+/* end snapshot sbb-menu-link renders component with icon and amount Light DOM */
 
-snapshots["sbb-header-link renders the component as a button with icon Shadow DOM"] = 
+snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] = 
 `<a
   aria-label="a11y label"
-  class="sbb-action-base sbb-header-link"
+  class="sbb-action-base sbb-menu-link"
   href="https://github.com/lyne-design-system/lyne-components"
   rel="external noopener nofollow"
   target="_blank"
 >
-  <span class="sbb-header-action__wrapper">
-    <span class="sbb-header-action__icon">
+  <span class="sbb-menu-action__content">
+    <span class="sbb-menu-action__icon">
       <slot name="icon">
         <sbb-icon
           aria-hidden="true"
           data-namespace="default"
-          name="pie-small"
+          name="menu-small"
           role="img"
         >
         </sbb-icon>
       </slot>
     </span>
-    <span class="sbb-header-action__text">
+    <span class="sbb-menu-action__label">
       <slot>
       </slot>
+    </span>
+    <span class="sbb-menu-action__amount">
+      123456
     </span>
   </span>
   <sbb-screen-reader-only>
@@ -47,9 +52,9 @@ snapshots["sbb-header-link renders the component as a button with icon Shadow DO
   </sbb-screen-reader-only>
 </a>
 `;
-/* end snapshot sbb-header-link renders the component as a button with icon Shadow DOM */
+/* end snapshot sbb-menu-link renders component with icon and amount Shadow DOM */
 
-snapshots["sbb-header-link renders the component as a button with icon A11y tree Chrome"] = 
+snapshots["sbb-menu-link renders component with icon and amount A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -63,9 +68,9 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
 }
 </p>
 `;
-/* end snapshot sbb-header-link renders the component as a button with icon A11y tree Chrome */
+/* end snapshot sbb-menu-link renders component with icon and amount A11y tree Chrome */
 
-snapshots["sbb-header-link renders the component as a button with icon A11y tree Firefox"] = 
+snapshots["sbb-menu-link renders component with icon and amount A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -80,5 +85,5 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
 }
 </p>
 `;
-/* end snapshot sbb-header-link renders the component as a button with icon A11y tree Firefox */
+/* end snapshot sbb-menu-link renders component with icon and amount A11y tree Firefox */
 

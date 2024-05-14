@@ -17,6 +17,7 @@ describe(`sbb-header-link`, () => {
           href="https://github.com/lyne-design-system/lyne-components"
           target="_blank"
           icon-name="pie-small"
+          accessibility-label="a11y label"
           >Action</sbb-header-link
         >`,
       );
