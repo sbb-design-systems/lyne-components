@@ -144,8 +144,6 @@ jobs:
           result-encoding: string
       - name: Create versioned storybook for chromatic
         run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.result }} yarn build:storybook
-        env:
-          CHROMATIC: true
       - name: Publish to Chromatic
         id: chromatic-publish
         uses: chromaui/action@v1
@@ -192,7 +190,7 @@ jobs:
     permissions:
       packages: write
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: test
+    needs: lint
     services:
       visual-regression:
         image: ghcr.io/${{ github.repository }}/visual-regression:baseline
