@@ -8,9 +8,6 @@ const config: StorybookConfig = {
     name: '@storybook/web-components-vite',
     options: {},
   },
-  docs: {
-    autodocs: true,
-  },
   async viteFinal(config) {
     return mergeConfig(config, <UserConfig>{
       assetsInclude: ['src/**/*.md'],
