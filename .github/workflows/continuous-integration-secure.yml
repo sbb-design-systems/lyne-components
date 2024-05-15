@@ -126,6 +126,8 @@ jobs:
           path: dist/screenshots/
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
+      - name: Remove .keep file
+        run: rm dist/screenshots/.keep
 
       - name: Build visual-regression-app
         run: yarn build:visual-regression-app
