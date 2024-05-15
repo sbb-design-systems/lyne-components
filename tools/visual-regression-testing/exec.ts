@@ -2,7 +2,7 @@
 // and if it is not Linux, runs it in a container.
 
 import { execSync, type ExecSyncOptionsWithStringEncoding } from 'child_process';
-import { cpSync, existsSync, mkdirSync } from 'fs';
+import { cpSync, existsSync, mkdirSync, writeFileSync } from 'fs';
 import { platform } from 'os';
 
 import { startTestRunner } from '@web/test-runner';
@@ -24,6 +24,7 @@ if (process.env.GITHUB_ACTIONS) {
   const screenshotDir = new URL('../../dist/screenshots/', import.meta.url);
   const artifactDir = new URL('../../dist/screenshots-artifact/', import.meta.url);
   mkdirSync(artifactDir, { recursive: true });
+  writeFileSync(new URL('./.keep', artifactDir), '', 'utf8');
 
   if (runner.passed) {
     // Tests passed. Do nothing.
