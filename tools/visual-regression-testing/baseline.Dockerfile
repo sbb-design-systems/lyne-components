@@ -1,6 +1,6 @@
 FROM ghcr.io/nginxinc/nginx-unprivileged:stable
 
-LABEL org.opencontainers.image.source=https://github.com/lyne-design-system/lyne-components
+LABEL org.opencontainers.image.source=https://github.com/sbb-design-systems/lyne-components
 
 # Copy screenshots
 COPY ./dist/screenshots/Chromium/baseline/ /usr/share/nginx/html/Chromium/baseline/

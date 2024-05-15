@@ -1,6 +1,6 @@
 FROM ghcr.io/nginxinc/nginx-unprivileged:stable
 
-LABEL org.opencontainers.image.source=https://github.com/lyne-design-system/lyne-components
+LABEL org.opencontainers.image.source=https://github.com/sbb-design-systems/lyne-components
 
 # Copy nginx configuration
 COPY ./.github/default.conf /etc/nginx/conf.d/default.conf

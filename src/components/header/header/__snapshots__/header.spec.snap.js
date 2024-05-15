@@ -24,7 +24,7 @@ snapshots["sbb-header renders actions and logo Dom"] =
     data-link=""
     dir="ltr"
     expand-from="medium"
-    href="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="hamburger-menu-small"
   >
     Menu
@@ -82,7 +82,7 @@ snapshots["sbb-header renders actions and logo A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Menu",
-      "value": "https://github.com/lyne-design-system/lyne-components"
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }
