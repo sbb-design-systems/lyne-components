@@ -35,7 +35,7 @@ accepting its associated properties (`href`, `target`, `rel` and `download`).
 
 ```html
 <sbb-transparent-button-link
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   target="_blank"
 >
   Go to site
