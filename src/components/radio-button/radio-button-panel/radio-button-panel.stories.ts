@@ -51,6 +51,13 @@ const borderless: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+};
+
 const defaultArgTypes: ArgTypes = {
   value,
   checked,
@@ -59,6 +66,7 @@ const defaultArgTypes: ArgTypes = {
   labelBoldClass,
   color,
   borderless,
+  size,
 };
 
 const defaultArgs: Args = {
@@ -69,6 +77,7 @@ const defaultArgs: Args = {
   labelBoldClass: false,
   color: color.options![0],
   borderless: false,
+  size: size.options![0],
 };
 
 const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>

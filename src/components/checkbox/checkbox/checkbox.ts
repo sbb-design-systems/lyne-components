@@ -10,8 +10,6 @@ import '../../visual-checkbox.js';
 
 import checkboxStyle from './checkbox.scss?lit&inline';
 
-export type SbbCheckboxSize = 's' | 'm';
-
 /**
  * It displays a checkbox enhanced with the SBB Design.
  *
@@ -27,16 +25,6 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
 ) {
   public static override styles: CSSResultGroup = [commonStyle, checkboxStyle];
 
-  /** Label size variant, either m or s. */
-  @property({ reflect: true })
-  public set size(value: SbbCheckboxSize) {
-    this._size = value;
-  }
-  public get size(): SbbCheckboxSize {
-    return this.group?.size ?? this._size;
-  }
-  private _size: SbbCheckboxSize = 'm';
-
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
   public iconPlacement: SbbIconPlacement = 'end';
@@ -44,15 +32,6 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
   public constructor() {
     super();
     new SbbSlotStateController(this);
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.checkboxLoaded.emit();
-
-    // We need to call requestUpdate to update the reflected attributes
-    ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
   }
 
   protected override render(): TemplateResult {

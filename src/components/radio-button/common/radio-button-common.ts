@@ -12,6 +12,8 @@ import type {
 import type { AbstractConstructor } from '../../core/mixins.js';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
 
+export type SbbRadioButtonSize = 's' | 'm';
+
 export type SbbRadioButtonStateChange = Extract<
   SbbStateChange,
   SbbDisabledStateChange | SbbCheckedStateChange
@@ -95,6 +97,18 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
      */
     @property({ reflect: true, type: Boolean }) public checked = false;
 
+    /**
+     * Label size variant, either m or s.
+     */
+    @property({ reflect: true })
+    public set size(value: SbbRadioButtonSize) {
+      this._size = value;
+    }
+    public get size(): SbbRadioButtonSize {
+      return this.group?.size ?? this._size;
+    }
+    private _size: SbbRadioButtonSize = 'm';
+
     private _abort = new SbbConnectedAbortController(this);
     private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
 
@@ -121,6 +135,9 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
       this.addEventListener('click', (e) => this._handleClick(e), { signal });
       this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
       this._handlerRepository.connect();
+
+      // We need to call requestUpdate to update the reflected attributes
+      ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
     }
 
     public override disconnectedCallback(): void {

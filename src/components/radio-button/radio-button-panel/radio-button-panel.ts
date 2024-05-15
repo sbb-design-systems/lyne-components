@@ -75,9 +75,6 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
     super.connectedCallback();
 
     this._radioButtonLoaded.emit();
-
-    // We need to call requestUpdate to update the reflected attributes
-    ['disabled', 'required'].forEach((p) => this.requestUpdate(p));
   }
 
   protected override render(): TemplateResult {

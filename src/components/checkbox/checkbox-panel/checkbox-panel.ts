@@ -37,15 +37,6 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
     new SbbSlotStateController(this);
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.checkboxLoaded.emit();
-
-    // We need to call requestUpdate to update the reflected attributes
-    ['disabled', 'required'].forEach((p) => this.requestUpdate(p));
-  }
-
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);
 

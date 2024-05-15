@@ -39,11 +39,7 @@
 }
 
 .sbb-checkbox {
-  @include sbb.text-s--regular;
-
-  :host([size='m']) & {
-    @include sbb.text-m--regular;
-  }
+  @include sbb.text-m--regular;
 }
 
 .sbb-checkbox__label {

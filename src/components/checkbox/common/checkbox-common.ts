@@ -16,6 +16,8 @@ import {
 } from '../../core/mixins.js';
 import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
 
+export type SbbCheckboxSize = 's' | 'm';
+
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,
   SbbDisabledStateChange | SbbCheckedStateChange
@@ -50,6 +52,16 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
     /** Whether the checkbox is indeterminate. */
     @property({ type: Boolean }) public indeterminate = false;
 
+    /** Label size variant, either m or s. */
+    @property({ reflect: true })
+    public set size(value: SbbCheckboxSize) {
+      this._size = value;
+    }
+    public get size(): SbbCheckboxSize {
+      return this.group?.size ?? this._size;
+    }
+    private _size: SbbCheckboxSize = 'm';
+
     /** Reference to the connected checkbox group. */
     public get group(): SbbCheckboxGroupElement | null {
       return this._group;
@@ -71,7 +83,7 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
      * @internal
      * Internal event that emits when the checkbox is loaded.
      */
-    protected checkboxLoaded: EventEmitter<void> = new EventEmitter(
+    private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
       this,
       SbbCheckboxCommonElement.events.checkboxLoaded,
       { bubbles: true },
@@ -80,6 +92,11 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
     public override connectedCallback(): void {
       super.connectedCallback();
       this._group = this.closest('sbb-checkbox-group') as SbbCheckboxGroupElement;
+
+      this._checkboxLoaded.emit();
+
+      // We need to call requestUpdate to update the reflected attributes
+      ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
     }
 
     protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {

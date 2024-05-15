@@ -29,6 +29,10 @@
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+
+  :host([size='s']:not([data-is-selection-expansion-panel-input])) & {
+    @include sbb.text-s--regular;
+  }
 }
 
 .sbb-checkbox__inner {
