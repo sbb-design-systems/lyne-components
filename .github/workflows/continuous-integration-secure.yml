@@ -157,7 +157,7 @@ jobs:
               return 'no-change';
             }
 
-            const { data: deployment } = await github.rest.checks.create(({
+            const { data: deployment } = await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               name: 'Visual Regression Check',
