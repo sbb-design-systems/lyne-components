@@ -177,7 +177,7 @@ jobs:
 
       - name: Install browser dependencies
         run: yarn playwright install-deps
-      - name: Run visual regression baseline generation
+      - name: Run visual regression tests
         run: yarn test:visual-regression
         env:
           NODE_ENV: production

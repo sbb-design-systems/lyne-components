@@ -184,7 +184,10 @@ jobs:
         if: steps.screenshot-check.outputs.result == 'changed'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER .
+          docker build \
+            --file tools/visual-regression-testing/visual-regression-app.Dockerfile \
+            --tag $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER \
+            .
           docker push $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER
 
           gh issue edit $PR_NUMBER --remove-label "$VISUAL_APPROVED"
