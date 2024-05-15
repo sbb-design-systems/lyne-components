@@ -2,7 +2,7 @@ import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } f
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbRadioButtonGroupElement } from '../../../../../../components/radio-button/radio-button-group/radio-button-group.js';
-import type { FailedFiles } from '../../../../../interfaces.js';
+import type { FailedFiles } from '../../../../interfaces.js';
 
 import style from './fullscreen-diff.scss?lit&inline';
 

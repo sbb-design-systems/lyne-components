@@ -1,7 +1,7 @@
 // eslint-disable-next-line import-x/no-unresolved
 import { screenshotsRaw } from 'virtual:screenshots';
 
-import type { FailedFiles, ScreenshotMap } from '../interfaces.js';
+import type { FailedFiles, ScreenshotMap } from './interfaces.js';
 
 const viewportOrder = ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'];
 

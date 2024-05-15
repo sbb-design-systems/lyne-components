@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbOverlayElement } from '../../../../../components/overlay/overlay.js';
 import type { SbbToggleCheckElement } from '../../../../../components/toggle-check/toggle-check.js';
-import type { FailedFiles } from '../../../../interfaces.js';
+import type { FailedFiles } from '../../../interfaces.js';
 
 import style from './image-diff.scss?lit&inline';
 

@@ -13,7 +13,7 @@ import {
 import { distDir } from '../../tools/vite/index.js';
 import rootConfig from '../../vite.config.js';
 
-import type { FailedFiles } from './interfaces.js';
+import type { FailedFiles } from './src/interfaces.js';
 
 const packageRoot = new URL('.', import.meta.url);
 const screenshotsDir = new URL(`./screenshots/`, distDir);
