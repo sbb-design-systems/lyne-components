@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-header renders"] =
+snapshots["sbb-header renders"] = 
 `<header class="sbb-header">
   <div class="sbb-header__wrapper">
     <slot>
@@ -17,7 +17,7 @@ snapshots["sbb-header renders"] =
 `;
 /* end snapshot sbb-header renders */
 
-snapshots["sbb-header renders actions and logo Dom"] =
+snapshots["sbb-header renders actions and logo Dom"] = 
 `<sbb-header>
   <sbb-header-link
     data-action=""
@@ -41,7 +41,7 @@ snapshots["sbb-header renders actions and logo Dom"] =
 `;
 /* end snapshot sbb-header renders actions and logo Dom */
 
-snapshots["sbb-header renders actions and logo ShadowDom"] =
+snapshots["sbb-header renders actions and logo ShadowDom"] = 
 `<header class="sbb-header">
   <div class="sbb-header__wrapper">
     <slot>
@@ -57,7 +57,7 @@ snapshots["sbb-header renders actions and logo ShadowDom"] =
 `;
 /* end snapshot sbb-header renders actions and logo ShadowDom */
 
-snapshots["sbb-header renders actions and logo A11y tree Chrome"] =
+snapshots["sbb-header renders actions and logo A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -73,7 +73,7 @@ snapshots["sbb-header renders actions and logo A11y tree Chrome"] =
 `;
 /* end snapshot sbb-header renders actions and logo A11y tree Chrome */
 
-snapshots["sbb-header renders actions and logo A11y tree Firefox"] =
+snapshots["sbb-header renders actions and logo A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser renders after centered DOM"] =
+snapshots["sbb-teaser renders after centered DOM"] = 
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="after-centered"
@@ -14,7 +14,7 @@ snapshots["sbb-teaser renders after centered DOM"] =
 `;
 /* end snapshot sbb-teaser renders after centered DOM */
 
-snapshots["sbb-teaser renders after centered Shadow DOM"] =
+snapshots["sbb-teaser renders after centered Shadow DOM"] = 
 `<a
   aria-label="SBB teaser"
   class="sbb-action-base sbb-teaser"
@@ -54,7 +54,7 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser renders after centered Shadow DOM */
 
-snapshots["sbb-teaser renders after centered A11y tree Firefox"] =
+snapshots["sbb-teaser renders after centered A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -71,7 +71,7 @@ snapshots["sbb-teaser renders after centered A11y tree Firefox"] =
 `;
 /* end snapshot sbb-teaser renders after centered A11y tree Firefox */
 
-snapshots["sbb-teaser renders after with title level set DOM"] =
+snapshots["sbb-teaser renders after with title level set DOM"] = 
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="after"
@@ -85,7 +85,7 @@ snapshots["sbb-teaser renders after with title level set DOM"] =
 `;
 /* end snapshot sbb-teaser renders after with title level set DOM */
 
-snapshots["sbb-teaser renders after with title level set Shadow DOM"] =
+snapshots["sbb-teaser renders after with title level set Shadow DOM"] = 
 `<a
   aria-label="SBB teaser"
   class="sbb-action-base sbb-teaser"
@@ -125,7 +125,7 @@ snapshots["sbb-teaser renders after with title level set Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser renders after with title level set Shadow DOM */
 
-snapshots["sbb-teaser renders below with projected content DOM"] =
+snapshots["sbb-teaser renders below with projected content DOM"] = 
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="below"
@@ -151,7 +151,7 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
 `;
 /* end snapshot sbb-teaser renders below with projected content DOM */
 
-snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
+snapshots["sbb-teaser renders below with projected content Shadow DOM"] = 
 `<a
   aria-label="SBB teaser"
   class="sbb-action-base sbb-teaser"
@@ -191,7 +191,7 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser renders below with projected content Shadow DOM */
 
-snapshots["sbb-teaser renders after centered A11y tree Chrome"] =
+snapshots["sbb-teaser renders after centered A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",

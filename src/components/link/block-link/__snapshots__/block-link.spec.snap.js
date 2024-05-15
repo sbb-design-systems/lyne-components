@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-block-link renders - DOM"] =
+snapshots["sbb-block-link renders - DOM"] = 
 `<sbb-block-link
   accessibility-label="Travelcards &amp; tickets"
   data-action=""
@@ -19,7 +19,7 @@ snapshots["sbb-block-link renders - DOM"] =
 `;
 /* end snapshot sbb-block-link renders - DOM */
 
-snapshots["sbb-block-link renders - ShadowDOM"] =
+snapshots["sbb-block-link renders - ShadowDOM"] = 
 `<a
   aria-label="Travelcards &amp; tickets"
   class="sbb-action-base sbb-block-link"
@@ -36,7 +36,7 @@ snapshots["sbb-block-link renders - ShadowDOM"] =
 `;
 /* end snapshot sbb-block-link renders - ShadowDOM */
 
-snapshots["sbb-block-link A11y tree Chrome"] =
+snapshots["sbb-block-link A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -52,7 +52,7 @@ snapshots["sbb-block-link A11y tree Chrome"] =
 `;
 /* end snapshot sbb-block-link A11y tree Chrome */
 
-snapshots["sbb-block-link A11y tree Firefox"] =
+snapshots["sbb-block-link A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-menu-link renders component with icon and amount Light DOM"] =
+snapshots["sbb-menu-link renders component with icon and amount Light DOM"] = 
 `<sbb-menu-link
   accessibility-label="a11y label"
   amount="123456"
@@ -19,7 +19,7 @@ snapshots["sbb-menu-link renders component with icon and amount Light DOM"] =
 `;
 /* end snapshot sbb-menu-link renders component with icon and amount Light DOM */
 
-snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] =
+snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] = 
 `<a
   aria-label="a11y label"
   class="sbb-action-base sbb-menu-link"
@@ -54,7 +54,7 @@ snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] =
 `;
 /* end snapshot sbb-menu-link renders component with icon and amount Shadow DOM */
 
-snapshots["sbb-menu-link renders component with icon and amount A11y tree Chrome"] =
+snapshots["sbb-menu-link renders component with icon and amount A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -70,7 +70,7 @@ snapshots["sbb-menu-link renders component with icon and amount A11y tree Chrome
 `;
 /* end snapshot sbb-menu-link renders component with icon and amount A11y tree Chrome */
 
-snapshots["sbb-menu-link renders component with icon and amount A11y tree Firefox"] =
+snapshots["sbb-menu-link renders component with icon and amount A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
