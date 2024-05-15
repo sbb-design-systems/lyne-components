@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-block-link renders - DOM"] = 
+snapshots["sbb-block-link renders - DOM"] =
 `<sbb-block-link
   accessibility-label="Travelcards &amp; tickets"
   data-action=""
@@ -10,7 +10,7 @@ snapshots["sbb-block-link renders - DOM"] =
   data-slot-names="unnamed"
   dir="ltr"
   download=""
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   icon-placement="start"
   size="m"
 >
@@ -19,12 +19,12 @@ snapshots["sbb-block-link renders - DOM"] =
 `;
 /* end snapshot sbb-block-link renders - DOM */
 
-snapshots["sbb-block-link renders - ShadowDOM"] = 
+snapshots["sbb-block-link renders - ShadowDOM"] =
 `<a
   aria-label="Travelcards &amp; tickets"
   class="sbb-action-base sbb-block-link"
   download=""
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
 >
   <span class="sbb-link__icon">
     <slot name="icon">
@@ -36,7 +36,7 @@ snapshots["sbb-block-link renders - ShadowDOM"] =
 `;
 /* end snapshot sbb-block-link renders - ShadowDOM */
 
-snapshots["sbb-block-link A11y tree Chrome"] = 
+snapshots["sbb-block-link A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -52,7 +52,7 @@ snapshots["sbb-block-link A11y tree Chrome"] =
 `;
 /* end snapshot sbb-block-link A11y tree Chrome */
 
-snapshots["sbb-block-link A11y tree Firefox"] = 
+snapshots["sbb-block-link A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -61,7 +61,7 @@ snapshots["sbb-block-link A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Travelcards & tickets",
-      "value": "https://github.com/lyne-design-system/lyne-components"
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }

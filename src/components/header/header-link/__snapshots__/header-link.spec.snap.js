@@ -1,14 +1,14 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-header-link renders the component as a button with icon Light DOM"] = 
+snapshots["sbb-header-link renders the component as a button with icon Light DOM"] =
 `<sbb-header-link
   accessibility-label="a11y label"
   data-action=""
   data-link=""
   dir="ltr"
   expand-from="small"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="pie-small"
   target="_blank"
 >
@@ -17,11 +17,11 @@ snapshots["sbb-header-link renders the component as a button with icon Light DOM
 `;
 /* end snapshot sbb-header-link renders the component as a button with icon Light DOM */
 
-snapshots["sbb-header-link renders the component as a button with icon Shadow DOM"] = 
+snapshots["sbb-header-link renders the component as a button with icon Shadow DOM"] =
 `<a
   aria-label="a11y label"
   class="sbb-action-base sbb-header-link"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   rel="external noopener nofollow"
   target="_blank"
 >
@@ -49,7 +49,7 @@ snapshots["sbb-header-link renders the component as a button with icon Shadow DO
 `;
 /* end snapshot sbb-header-link renders the component as a button with icon Shadow DOM */
 
-snapshots["sbb-header-link renders the component as a button with icon A11y tree Chrome"] = 
+snapshots["sbb-header-link renders the component as a button with icon A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -65,7 +65,7 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
 `;
 /* end snapshot sbb-header-link renders the component as a button with icon A11y tree Chrome */
 
-snapshots["sbb-header-link renders the component as a button with icon A11y tree Firefox"] = 
+snapshots["sbb-header-link renders the component as a button with icon A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -74,7 +74,7 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
     {
       "role": "link",
       "name": "a11y label",
-      "value": "https://github.com/lyne-design-system/lyne-components"
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }

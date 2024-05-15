@@ -1,6 +1,6 @@
 FROM ghcr.io/nginxinc/nginx-unprivileged:stable
 
-LABEL org.opencontainers.image.source=https://github.com/lyne-design-system/lyne-components
+LABEL org.opencontainers.image.source=https://github.com/sbb-design-systems/lyne-components
 
 # This is currently the same config file as for baseline. Separate into separate configs, if this changes.
 COPY ./tools/visual-regression-testing/baseline.nginx.conf /etc/nginx/conf.d/default.conf

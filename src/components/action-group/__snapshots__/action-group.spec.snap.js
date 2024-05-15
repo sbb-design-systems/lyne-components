@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-action-group renders renders - Dom"] = 
+snapshots["sbb-action-group renders renders - Dom"] =
 `<sbb-action-group
   align-group="start"
   button-size="l"
@@ -27,7 +27,7 @@ snapshots["sbb-action-group renders renders - Dom"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="chevron-small-left-small"
     icon-placement="start"
     size="m"
@@ -38,7 +38,7 @@ snapshots["sbb-action-group renders renders - Dom"] =
 `;
 /* end snapshot sbb-action-group renders renders - Dom */
 
-snapshots["sbb-action-group renders renders - ShadowDom"] = 
+snapshots["sbb-action-group renders renders - ShadowDom"] =
 `<div class="sbb-action-group">
   <slot>
   </slot>
@@ -46,7 +46,7 @@ snapshots["sbb-action-group renders renders - ShadowDom"] =
 `;
 /* end snapshot sbb-action-group renders renders - ShadowDom */
 
-snapshots["sbb-action-group renders A11y tree Chrome"] = 
+snapshots["sbb-action-group renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -66,7 +66,7 @@ snapshots["sbb-action-group renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-action-group renders A11y tree Chrome */
 
-snapshots["sbb-action-group renders A11y tree Firefox"] = 
+snapshots["sbb-action-group renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -79,7 +79,7 @@ snapshots["sbb-action-group renders A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Link",
-      "value": "https://github.com/lyne-design-system/lyne-components"
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }
