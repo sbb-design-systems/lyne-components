@@ -143,7 +143,7 @@ jobs:
             }
 
             const diffUrl = process.env.DIFF_URL.replace('{}', process.env.PR_NUMBER);
-            const diffInfo = JSON.parse(readFileSync('dist/diff.json', 'utf8'));
+            const diffInfo = JSON.parse(readFileSync('dist/visual-regression-app/diff.json', 'utf8'));
             let previousDiffInfo = {};
             try {
               const response = await fetch(diffUrl + 'diff.json');
