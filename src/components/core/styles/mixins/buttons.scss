@@ -69,7 +69,7 @@
     var(--sbb-animation-duration-2x)
   );
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);
-  --sbb-button-inset: #{functions.px-to-rem-build(1)};
+  --sbb-button-inset: 0;
 
   @include a11y.if-forced-colors {
     --sbb-button-color-default-text: ButtonText !important;
