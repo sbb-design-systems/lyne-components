@@ -14,7 +14,7 @@ describe(`sbb-tag`, () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-tag aria-label="Check to remove filters" aria-pressed="false" role="button" tabindex="0" value="all" dir="ltr" data-slot-names="unnamed" data-action data-button>
+        <sbb-tag aria-label="Check to remove filters" aria-pressed="false" role="button" size="m" tabindex="0" value="all" dir="ltr" data-slot-names="unnamed" data-action data-button>
           All
         </sbb-tag>
       `,
@@ -27,7 +27,7 @@ describe(`sbb-tag`, () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-tag aria-pressed="true" checked role="button" tabindex="0" value="info" dir="ltr" data-slot-names="unnamed" data-action data-button>
+      <sbb-tag aria-pressed="true" checked role="button" size="m" tabindex="0" value="info" dir="ltr" data-slot-names="unnamed" data-action data-button>
         Info
       </sbb-tag>
     `,
@@ -44,7 +44,7 @@ describe(`sbb-tag`, () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-tag amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" value="information" dir="ltr" data-slot-names="unnamed" data-action data-button>
+        <sbb-tag amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" size="m" value="information" dir="ltr" data-slot-names="unnamed" data-action data-button>
           Info
         </sbb-tag>
       `,
@@ -70,7 +70,7 @@ describe(`sbb-tag`, () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-tag value="foo" aria-pressed="false" role="button" tabindex="0" dir="ltr" data-slot-names="amount icon unnamed" data-action data-button>
+        <sbb-tag value="foo" aria-pressed="false" role="button" size="m" tabindex="0" dir="ltr" data-slot-names="amount icon unnamed" data-action data-button>
           <sbb-icon
             aria-hidden="true"
             data-namespace="default"
