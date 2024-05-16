@@ -10,7 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
-import type { SbbTagElement } from '../tag.js';
+import type { SbbTagElement, SbbTagSize } from '../tag.js';
 
 import style from './tag-group.scss?lit&inline';
 
@@ -41,7 +41,7 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
   @property({ type: Boolean }) public multiple = false;
 
   /** Tag group size. */
-  @property({ reflect: true }) public size: 's' | 'm' = 'm';
+  @property({ reflect: true }) public size: SbbTagSize = 'm';
 
   /**
    * Value of the sbb-tag-group.
@@ -93,7 +93,7 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('size')) {
-      this.tags.forEach((tag) => (tag.size = this.size));
+      this.tags.forEach((t) => t.requestUpdate?.('size'));
     }
 
     if (
