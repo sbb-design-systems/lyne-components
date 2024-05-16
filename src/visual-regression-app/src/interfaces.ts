@@ -1,11 +1,11 @@
-export interface FailedFiles {
+export interface ScreenshotFiles {
   browserName: string;
   name: string;
-  failedFile: string;
-  diffFile: string;
-  baselineFile: string;
+  failedFile?: string;
+  diffFile?: string;
+  baselineFile?: string;
   isNew: boolean;
   viewport: string;
 }
 
-export type ScreenshotMap = Record<string, Record<string, Record<string, FailedFiles[]>>>;
+export type ScreenshotMap = Record<string, Record<string, Record<string, ScreenshotFiles[]>>>;
