@@ -22,7 +22,7 @@ describe(`sbb-action-group with ${fixture.name}`, () => {
           <sbb-block-link
             icon-name="chevron-small-left-small"
             icon-placement="start"
-            href="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/sbb-design-systems/lyne-components"
           >
             Link
           </sbb-block-link>
