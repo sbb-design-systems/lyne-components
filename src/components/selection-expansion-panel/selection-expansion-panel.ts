@@ -64,7 +64,6 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   /** Whether the selection panel is checked. */
   private set _checked(checked: boolean) {
     this.toggleAttribute('data-checked', checked);
-    this._updateExpandedLabel(checked);
   }
   private get _checked(): boolean {
     return this.hasAttribute('data-checked');
@@ -146,6 +145,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
     }
 
     this.forceOpen || this._checked ? this._open(!this._initialized) : this._close();
+    this._updateExpandedLabel(this.forceOpen || this._checked);
   }
 
   private _open(skipAnimation = false): void {
@@ -211,7 +211,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
     }
   }
 
-  private async _updateExpandedLabel(checked: boolean): Promise<void> {
+  private async _updateExpandedLabel(open: boolean): Promise<void> {
     await this.hydrationComplete;
     if (!(this.querySelectorAll?.('[slot="content"]').length > 0)) {
       this._selectionPanelExpandedLabel = '';
@@ -219,7 +219,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
       return;
     }
 
-    this._selectionPanelExpandedLabel = checked
+    this._selectionPanelExpandedLabel = open
       ? ', ' + i18nExpanded[this._language.current]
       : ', ' + i18nCollapsed[this._language.current];
     this.toggleAttribute('data-has-selection-expansion-panel-label', true);

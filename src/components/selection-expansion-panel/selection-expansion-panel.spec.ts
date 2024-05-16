@@ -6,7 +6,6 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
 
 import '../card/card-badge.js';
-import '../checkbox.js';
 import '../checkbox/checkbox-panel.js';
 import './selection-expansion-panel.js';
 

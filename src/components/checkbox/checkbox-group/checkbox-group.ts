@@ -7,7 +7,8 @@ import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.js';
-import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox.js';
+import type { SbbCheckboxElement } from '../checkbox.js';
+import type { SbbCheckboxSize } from '../common.js';
 
 import style from './checkbox-group.scss?lit&inline';
 

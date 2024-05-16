@@ -18,9 +18,7 @@ import {
 
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
 
-import '../checkbox.js';
 import '../link/block-link-button.js';
-import '../radio-button.js';
 import '../selection-expansion-panel.js';
 
 describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
@@ -272,25 +270,29 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
         html`
           <sbb-radio-button-group id="group-no-content" value="Value 2">
             <sbb-selection-expansion-panel id="no-content-1">
-              <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
+              <sbb-radio-button-panel id="input-no-content-1" value="Value 1"
+                >Value one</sbb-radio-button-panel
+              >
             </sbb-selection-expansion-panel>
             <sbb-selection-expansion-panel id="no-content-2">
-              <sbb-radio-button id="input-no-content-2" value="Value 2">Value two</sbb-radio-button>
+              <sbb-radio-button-panel id="input-no-content-2" value="Value 2"
+                >Value two</sbb-radio-button-panel
+              >
             </sbb-selection-expansion-panel>
             <sbb-selection-expansion-panel id="no-content-3">
-              <sbb-radio-button id="input-no-content-3" value="Value 3" disabled
-                >Value three</sbb-radio-button
+              <sbb-radio-button-panel id="input-no-content-3" value="Value 3" disabled
+                >Value three</sbb-radio-button-panel
               >
             </sbb-selection-expansion-panel>
             <sbb-selection-expansion-panel id="no-content-4">
-              <sbb-radio-button id="input-no-content-4" value="Value 4"
-                >Value four</sbb-radio-button
+              <sbb-radio-button-panel id="input-no-content-4" value="Value 4"
+                >Value four</sbb-radio-button-panel
               >
             </sbb-selection-expansion-panel>
           </sbb-radio-button-group>
         `,
         {
-          modules: ['../radio-button.ts', './selection-expansion-panel.ts', '../radio-button.ts'],
+          modules: ['./selection-expansion-panel.ts', '../radio-button.ts'],
         },
       );
       const firstInputNoContent =
@@ -373,7 +375,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           </sbb-radio-button-group>
         `,
         {
-          modules: ['../radio-button.ts', './selection-expansion-panel.ts', '../radio-button.ts'],
+          modules: ['./selection-expansion-panel.ts', '../radio-button.ts'],
         },
       );
       panel1 = nestedElement.querySelector<SbbSelectionExpansionPanelElement>('#panel1')!;
@@ -507,7 +509,7 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
           </div>
         `,
         {
-          modules: ['./selection-expansion-panel.ts', '../radio-button.ts', '../radio-button.ts'],
+          modules: ['./selection-expansion-panel.ts', '../radio-button.ts'],
         },
       );
 
@@ -711,25 +713,27 @@ describe(`sbb-selection-expansion-panel with ${fixture.name}`, () => {
             </sbb-selection-expansion-panel>
           </sbb-checkbox-group>
         `,
-        { modules: ['../checkbox.ts', './selection-expansion-panel.ts', '../checkbox.ts'] },
+        { modules: ['../checkbox.ts', './selection-expansion-panel.ts'] },
       );
     });
 
     it('should display expanded label correctly', async () => {
       const mainCheckbox1: SbbCheckboxPanelElement =
         nestedElement.querySelector<SbbCheckboxPanelElement>("sbb-checkbox-panel[value='main1']")!;
+      const mainCheckbox2: SbbCheckboxPanelElement =
+        nestedElement.querySelector<SbbCheckboxPanelElement>("sbb-checkbox-panel[value='main2']")!;
+
       const selectionPanel1: SbbSelectionExpansionPanelElement =
         nestedElement.querySelector<SbbSelectionExpansionPanelElement>(
           'sbb-selection-expansion-panel#panel1',
         )!;
-      const mainCheckbox1Label =
-        selectionPanel1.shadowRoot!.querySelector('sbb-screen-reader-only')!;
       const selectionPanel2: SbbSelectionExpansionPanelElement =
         nestedElement.querySelector<SbbSelectionExpansionPanelElement>(
           'sbb-selection-expansion-panel#panel2',
         )!;
-      const mainCheckbox2: SbbCheckboxPanelElement =
-        nestedElement.querySelector<SbbCheckboxPanelElement>("sbb-checkbox-panel[value='main2']")!;
+
+      const mainCheckbox1Label =
+        selectionPanel1.shadowRoot!.querySelector('sbb-screen-reader-only')!;
       const mainCheckbox2Label =
         selectionPanel2.shadowRoot!.querySelector('sbb-screen-reader-only')!;
 

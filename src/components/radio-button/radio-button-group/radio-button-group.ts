@@ -9,9 +9,9 @@ import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel.js';
-import type { SbbRadioButtonStateChange } from '../common.js';
+import type { SbbRadioButtonSize, SbbRadioButtonStateChange } from '../common.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
-import type { SbbRadioButtonElement, SbbRadioButtonSize } from '../radio-button.js';
+import type { SbbRadioButtonElement } from '../radio-button.js';
 
 import style from './radio-button-group.scss?lit&inline';
 

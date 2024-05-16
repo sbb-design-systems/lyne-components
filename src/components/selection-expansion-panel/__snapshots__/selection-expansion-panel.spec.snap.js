@@ -28,6 +28,7 @@ snapshots["sbb-selection-expansion-panel renders - Dom"] =
     data-is-inside-selection-expansion-panel=""
     data-is-selection-expansion-panel-input=""
     data-slot-names="subtext suffix unnamed"
+    size="m"
     tabindex="0"
   >
     Value one
