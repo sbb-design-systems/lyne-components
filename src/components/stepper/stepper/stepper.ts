@@ -121,7 +121,7 @@ export class SbbStepperElement extends LitElement {
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
 
   private _isValidStep(step: SbbStepElement): boolean {
-    if (!step || step === this.selected || step.label?.hasAttribute('disabled')) {
+    if (!step || step === this.selected || (!this.linear && step.label?.hasAttribute('disabled'))) {
       return false;
     }
 
@@ -238,7 +238,7 @@ export class SbbStepperElement extends LitElement {
     this.steps.forEach((step, index) => {
       step.label?.toggleAttribute(
         'disabled',
-        (this.linear && index - 1 > this.selectedIndex!) ||
+        (this.linear && index > this.selectedIndex!) ||
           (!this.linear && step.label.hasAttribute('data-disabled')),
       );
     });
