@@ -13,6 +13,25 @@ See [its documentation](/docs/components-sbb-tag-sbb-tag--docs) for more details
 </sbb-tag-group>
 ```
 
+## Style
+
+The component has a `size` property which can be used to change the size of all the inner `sbb-tag`.
+Two values are available, `s` and `m`, which is the default.
+
+```html
+<sbb-tag-group size="m">
+  <sbb-tag value="all">All</sbb-tag>
+  <sbb-tag value="phones">Phones</sbb-tag>
+  <sbb-tag value="computer">Computer</sbb-tag>
+</sbb-tag-group>
+
+<sbb-tag-group size="s">
+  <sbb-tag value="all">All</sbb-tag>
+  <sbb-tag value="phones">Phones</sbb-tag>
+  <sbb-tag value="computer">Computer</sbb-tag>
+</sbb-tag-group>
+```
+
 ## Interactions
 
 ### Exclusive selection vs. multiple selection
@@ -88,6 +107,7 @@ that communicates the collective meaning of all `sbb-tag`s.
 | ------------------------ | -------------------------- | ------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `listAccessibilityLabel` | `list-accessibility-label` | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the inner list.                                                                                                                                                                                        |
 | `multiple`               | `multiple`                 | public  | `boolean`                    | `false` | If set multiple to false, the selection is exclusive and the value is a string (or null). If set multiple to true, the selection can have multiple values and therefore value is an array. Changing multiple during run time is not supported. |
+| `size`                   | `size`                     | public  | `'s' \| 'm'`                 | `'m'`   | Tag group size.                                                                                                                                                                                                                                |
 | `tags`                   | -                          | public  | `SbbTagElement[]`            |         | The child instances of sbb-tag as an array.                                                                                                                                                                                                    |
 | `value`                  | `value`                    | public  | `string \| string[] \| null` | `null`  | Value of the sbb-tag-group. If set multiple to false, the value is a string (or null). If set multiple to true, the value is an array.                                                                                                         |
 

@@ -92,6 +92,11 @@
   }
 }
 
+:host([size='s']) {
+  --sbb-tag-height: #{sbb.px-to-rem-build(28)};
+  --sbb-tag-padding-inline: var(--sbb-spacing-fixed-3x);
+}
+
 .sbb-tag {
   @include sbb.text-xs--bold;
 

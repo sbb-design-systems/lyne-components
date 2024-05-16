@@ -51,6 +51,13 @@ const ariaLabel: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm'],
+};
+
 const defaultArgTypes: ArgTypes = {
   checked,
   disabled,
@@ -59,6 +66,7 @@ const defaultArgTypes: ArgTypes = {
   'icon-name': icon,
   amount,
   'aria-label': ariaLabel,
+  size,
 };
 
 const defaultArgs: Args = {
@@ -69,6 +77,7 @@ const defaultArgs: Args = {
   'icon-name': undefined,
   amount: undefined,
   'aria-label': undefined,
+  size: size.options![1],
 };
 
 const defaultArgsIconAndAmount: Args = {
@@ -110,6 +119,12 @@ export const checkedAndDisabledTag: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, checked: true, disabled: true },
+};
+
+export const basicTagSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const withAmount: StoryObj = {

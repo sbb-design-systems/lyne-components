@@ -37,6 +37,9 @@ export class SbbTagElement extends SbbIconNameMixin(
   /** Whether the tag is checked. */
   @property({ reflect: true, type: Boolean }) public checked = false;
 
+  /** Tag size. */
+  @property({ reflect: true }) public size: 's' | 'm' = 'm';
+
   /** Input event emitter */
   private _input: EventEmitter = new EventEmitter(this, SbbTagElement.events.input, {
     bubbles: true,

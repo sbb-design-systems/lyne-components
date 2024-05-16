@@ -32,6 +32,16 @@ The component can be displayed in `checked` or `disabled` state using the self-n
 <sbb-tag disabled value="All" icon-name="circle-information-small">All</sbb-tag>
 ```
 
+## Style
+
+The component has two sizes, named `m` (default) and `s`.
+
+```html
+<sbb-tag value="All" size="m">All</sbb-tag>
+
+<sbb-tag value="All" size="s">All</sbb-tag>
+```
+
 ## Events
 
 Consumers can listen to the native `change` and `input` events on the `sbb-tag`.
@@ -55,6 +65,7 @@ The state is reflected via `aria-pressed` attribute.
 | `form`     | `form`      | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                                 |
 | `iconName` | `icon-name` | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `name`     | `name`      | public  | `string`              |            | The name of the button element.                                                                                                  |
+| `size`     | `size`      | public  | `'s' \| 'm'`          | `'m'`      | Tag size.                                                                                                                        |
 | `type`     | `type`      | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                        |
 | `value`    | `value`     | public  | `string`              |            | The value of the button element.                                                                                                 |
 

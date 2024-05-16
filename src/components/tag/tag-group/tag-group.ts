@@ -40,6 +40,9 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
    */
   @property({ type: Boolean }) public multiple = false;
 
+  /** Tag group size. */
+  @property({ reflect: true }) public size: 's' | 'm' = 'm';
+
   /**
    * Value of the sbb-tag-group.
    * If set multiple to false, the value is a string (or null).
@@ -88,6 +91,10 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
+    if (changedProperties.has('size')) {
+      this.tags.forEach((tag) => (tag.size = this.size));
+    }
 
     if (
       (changedProperties.has('listChildren') || changedProperties.has('multiple')) &&

@@ -61,12 +61,20 @@ const numberOfTagsInGroup: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm'],
+};
+
 const defaultArgTypes: ArgTypes = {
   multiple,
   value,
   'list-accessibility-label': listAccessibilityLabel,
   'aria-label': ariaLabel,
   numberOfTagsInGroup,
+  size,
 };
 
 const defaultArgs: Args = {
@@ -75,6 +83,7 @@ const defaultArgs: Args = {
   'list-accessibility-label': 'Select your desired filter',
   'aria-label': undefined,
   numberOfTagsInGroup: 8,
+  size: size.options![1],
 };
 
 const tagTemplate = (label: string, checked = false): TemplateResult => html`
@@ -130,6 +139,12 @@ export const tagGroup: StoryObj = {
   render: TagGroupTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const tagGroupSizeS: StoryObj = {
+  render: TagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const ellipsisLabel: StoryObj = {
