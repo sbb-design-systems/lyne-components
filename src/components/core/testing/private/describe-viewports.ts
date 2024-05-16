@@ -43,11 +43,14 @@ export function describeViewports(
 
   for (const [size, value] of viewportSizeTests) {
     describe(`viewport=${size}`, function () {
-      before(async () => {
-        await setViewport({ width: value, height: options.viewportHeight ?? 400 });
-      });
-
+      this.ctx['requestViewport'] = { width: value, height: options.viewportHeight ?? 400 };
       fn.call(this);
     });
+  }
+}
+
+export async function applyViewport(context: Mocha.Context): Promise<void> {
+  if (context.requestViewport) {
+    await setViewport(context.requestViewport);
   }
 }
