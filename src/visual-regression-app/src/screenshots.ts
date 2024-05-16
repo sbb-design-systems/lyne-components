@@ -1,37 +1,49 @@
 // eslint-disable-next-line import-x/no-unresolved
 import { screenshotsRaw } from 'virtual:screenshots';
 
-import type { FailedFiles, ScreenshotMap } from './interfaces.js';
+import type { ScreenshotFiles, ScreenshotMap } from './interfaces.js';
 
 const viewportOrder = ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'];
 
 export class ScreenshotStatistics {
-  public static fromFailedFiles(failedFiles: FailedFiles[]): ScreenshotStatistics {
-    return failedFiles.reduce(
+  public static readonly empty = new ScreenshotStatistics(0, 0, 0);
+
+  public static fromScreenshotFiles(screenshotsFiles: ScreenshotFiles[]): ScreenshotStatistics {
+    return screenshotsFiles.reduce(
       (current, next) =>
-        current.sum(new ScreenshotStatistics(next.isNew ? 0 : 1, next.isNew ? 1 : 0)),
-      new ScreenshotStatistics(0, 0),
+        current.sum(
+          new ScreenshotStatistics(
+            !next.isNew && next.failedFile ? 1 : 0,
+            next.isNew ? 1 : 0,
+            next.isNew ? 0 : 1,
+          ),
+        ),
+      ScreenshotStatistics.empty,
     );
   }
 
   public static fromList(list: { stats: ScreenshotStatistics }[]): ScreenshotStatistics {
-    return list.reduce((current, next) => current.sum(next.stats), new ScreenshotStatistics(0, 0));
+    return list.reduce((current, next) => current.sum(next.stats), ScreenshotStatistics.empty);
   }
 
   public constructor(
     public readonly failedTests: number,
     public readonly newTests: number,
+    public readonly baselines: number,
   ) {}
 
   public sum(other: ScreenshotStatistics): ScreenshotStatistics {
     return new ScreenshotStatistics(
       this.failedTests + other.failedTests,
       this.newTests + other.newTests,
+      this.baselines + other.baselines,
     );
   }
 
   public toString(): string {
-    return `${this.failedTests} failed, ${this.newTests} new`;
+    return this.failedTests > 0 || this.newTests > 0
+      ? `${this.failedTests} failed, ${this.newTests} new`
+      : `${this.baselines} baselines`;
   }
 }
 
@@ -41,9 +53,9 @@ export class ScreenshotViewport {
 
   public constructor(
     public readonly name: string,
-    public readonly browsers: FailedFiles[],
+    public readonly browsers: ScreenshotFiles[],
   ) {
-    this.stats = ScreenshotStatistics.fromFailedFiles(this.browsers);
+    this.stats = ScreenshotStatistics.fromScreenshotFiles(this.browsers);
 
     this.browserNames = this.browsers.map((browser) => browser.browserName);
   }
@@ -75,11 +87,13 @@ export class ScreenshotTestCase {
     );
   }
 
-  public filter(viewport?: string, browser?: string): FailedFiles[] {
+  public filter(viewport?: string, browser?: string): ScreenshotFiles[] {
     return this.viewports
       .filter((entry) => !viewport || entry.name === viewport)
       .flatMap((entry) =>
-        entry.browsers.filter((failedFiles) => !browser || failedFiles.browserName === browser),
+        entry.browsers.filter(
+          (screenshotFiles) => !browser || screenshotFiles.browserName === browser,
+        ),
       );
   }
 }
@@ -100,6 +114,7 @@ export class Screenshots {
   public readonly stats: ScreenshotStatistics;
   public readonly testCaseCount: number;
   public readonly flatTestCases: ScreenshotTestCase[];
+  public readonly baselineOnly: boolean;
 
   public constructor(screenshotsRaw: ScreenshotMap) {
     const flatTestCases: ScreenshotTestCase[] = [];
@@ -126,6 +141,7 @@ export class Screenshots {
     this.flatTestCases = flatTestCases;
     this.testCaseCount = this.flatTestCases.length;
     this.stats = ScreenshotStatistics.fromList(this.components);
+    this.baselineOnly = this.stats.failedTests === 0 && this.stats.newTests === 0;
   }
 
   public indexOfTestCase(componentName: string, testCaseName: string): number {

@@ -1,4 +1,4 @@
-import { LitElement, html, type TemplateResult, type CSSResultGroup } from 'lit';
+import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { screenshots } from '../../screenshots.js';
@@ -15,7 +15,7 @@ import '../../../../components/link/block-link.js';
 import '../../../../components/title.js';
 
 /**
- * Overview over all failed or new tests
+ * Overview over all tests
  */
 @customElement('app-overview')
 export class Overview extends LitElement {
@@ -24,7 +24,9 @@ export class Overview extends LitElement {
   public override render(): TemplateResult {
     return html`
       <sbb-container expanded>
-        <sbb-title level="3">Lyne visual regression comparison</sbb-title>
+        <sbb-title level="3">
+          Lyne visual regression comparison${screenshots.baselineOnly ? ' baseline' : nothing}
+        </sbb-title>
         <div class="app-overview">
           <sbb-card color="milk">
             ${screenshots.stats}
@@ -32,7 +34,7 @@ export class Overview extends LitElement {
               href="/compare/${screenshots.flatTestCases[0]?.path}"
               size="s"
             >
-              Start comparing
+              ${!screenshots.baselineOnly ? `Start comparing` : `Check baselines`}
             </sbb-secondary-button-link>
           </sbb-card>
           <sbb-accordion>

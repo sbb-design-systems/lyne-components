@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbOverlayElement } from '../../../../../components/overlay/overlay.js';
 import type { SbbToggleCheckElement } from '../../../../../components/toggle-check/toggle-check.js';
-import type { FailedFiles } from '../../../interfaces.js';
+import type { ScreenshotFiles } from '../../../interfaces.js';
 
 import style from './image-diff.scss?lit&inline';
 
@@ -24,7 +24,7 @@ const getImageDimension = (img: HTMLImageElement): string =>
 export class ImageDiff extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public failedFile?: FailedFiles;
+  @property() public screenshotFiles?: ScreenshotFiles;
 
   @state() private _baselineDimension?: string;
   @state() private _failedDimension?: string;
@@ -52,7 +52,7 @@ export class ImageDiff extends LitElement {
 
     sbbOverlayElement.expanded = true;
     appFullscreenDiff.selectedFile = selectedFile;
-    appFullscreenDiff.failedFile = this.failedFile;
+    appFullscreenDiff.screenshotFiles = this.screenshotFiles;
 
     sbbOverlayElement.appendChild(appFullscreenDiff);
     document.body.appendChild(sbbOverlayElement);
@@ -64,24 +64,26 @@ export class ImageDiff extends LitElement {
   }
 
   public override render(): TemplateResult {
-    if (!this.failedFile) {
+    if (!this.screenshotFiles) {
       return html``;
     }
     return html`<div class="app-container">
       <div class="app-info-bar">
         <div class="app-labels">
-          <sbb-chip size="xxs" color="white">${this.failedFile.browserName}</sbb-chip>
-          <sbb-chip size="xxs" color="white">${this.failedFile.viewport}</sbb-chip>
+          <sbb-chip size="xxs" color="white">${this.screenshotFiles.browserName}</sbb-chip>
+          <sbb-chip size="xxs" color="white">${this.screenshotFiles.viewport}</sbb-chip>
           ${this._baselineDimension
             ? html`<sbb-chip size="xxs" color="white">
                 Baseline: ${this._baselineDimension}
               </sbb-chip>`
             : nothing}
-          <sbb-chip size="xxs" color="white">
-            ${this.failedFile.isNew ? 'New' : 'Failed'}: ${this._failedDimension}
-          </sbb-chip>
+          ${this._failedDimension
+            ? html`<sbb-chip size="xxs" color="white">
+                ${this.screenshotFiles.isNew ? 'New' : 'Failed'}: ${this._failedDimension}
+              </sbb-chip>`
+            : nothing}
         </div>
-        ${!this.failedFile.isNew
+        ${!this.screenshotFiles.isNew && this.screenshotFiles.diffFile
           ? html`<sbb-toggle-check
               checked
               size="s"
@@ -94,14 +96,14 @@ export class ImageDiff extends LitElement {
       </div>
       <div class="app-image-container">
         <div class="app-image-baseline">
-          ${!this.failedFile.isNew
+          ${!this.screenshotFiles.isNew
             ? html`<button
                 @click=${() => this._showFullscreen('baselineFile')}
                 class="app-image-button"
               >
                 <img
                   class="app-image"
-                  .src="./${this.failedFile?.baselineFile}"
+                  .src="./${this.screenshotFiles?.baselineFile}"
                   alt=""
                   @load=${this._setBaselineImageDimension}
                 />
@@ -110,27 +112,29 @@ export class ImageDiff extends LitElement {
                 New test case
               </sbb-status>`}
         </div>
-        <div class="app-image-failed">
-          <button
-            @click=${() => this._showFullscreen('diffFile')}
-            class="app-image-button"
-            ?hidden=${!this._showDiff || this.failedFile.isNew}
-          >
-            <img class="app-image" .src="./${this.failedFile?.diffFile}" alt="" />
-          </button>
-          <button
-            @click=${() => this._showFullscreen('failedFile')}
-            class="app-image-button"
-            ?hidden=${this._showDiff && !this.failedFile.isNew}
-          >
-            <img
-              class="app-image"
-              .src="./${this.failedFile?.failedFile}"
-              alt=""
-              @load=${this._setFailedImageDimension}
-            />
-          </button>
-        </div>
+        ${this.screenshotFiles.failedFile
+          ? html`<div class="app-image-failed">
+              <button
+                @click=${() => this._showFullscreen('diffFile')}
+                class="app-image-button"
+                ?hidden=${!this._showDiff || this.screenshotFiles.isNew}
+              >
+                <img class="app-image" .src="./${this.screenshotFiles?.diffFile}" alt="" />
+              </button>
+              <button
+                @click=${() => this._showFullscreen('failedFile')}
+                class="app-image-button"
+                ?hidden=${this._showDiff && !this.screenshotFiles.isNew}
+              >
+                <img
+                  class="app-image"
+                  .src="./${this.screenshotFiles?.failedFile}"
+                  alt=""
+                  @load=${this._setFailedImageDimension}
+                />
+              </button>
+            </div>`
+          : nothing}
       </div>
     </div>`;
   }
