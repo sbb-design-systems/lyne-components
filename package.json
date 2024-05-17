@@ -114,7 +114,7 @@
     "lint-staged": "15.2.2",
     "lit-analyzer": "2.0.3",
     "madge": "7.0.0",
-    "npm-run-all2": "6.1.2",
+    "npm-run-all2": "6.2.0",
     "playwright": "1.44.0",
     "postcss": "8.4.38",
     "prettier": "3.2.5",
