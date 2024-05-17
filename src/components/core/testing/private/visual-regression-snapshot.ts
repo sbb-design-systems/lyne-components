@@ -2,6 +2,8 @@ import { aTimeout } from '@open-wc/testing';
 import { resetMouse, sendKeys, sendMouse } from '@web/test-runner-commands';
 import { visualDiff } from '@web/test-runner-visual-regression';
 
+import { waitForCondition } from '../wait-for-condition.js';
+
 export function imageName(test: Mocha.Runnable): string {
   return test!.fullTitle().replaceAll(', ', '-').replaceAll(' ', '_');
 }
@@ -28,9 +30,12 @@ export function testVisualDiff(snapshotElement: () => HTMLElement): void {
 
 export function testVisualDiffFocus(snapshotElement: () => HTMLElement): void {
   it('focus', async function () {
-    snapshotElement().focus();
+    await waitForCondition(() => {
+      snapshotElement().focus();
+      return document.activeElement === snapshotElement();
+    });
     await sendKeys({ press: 'Tab' });
-    await aTimeout(50);
+    await aTimeout(60);
     await visualDiff(snapshotElement(), imageName(this.test!));
   });
 }
