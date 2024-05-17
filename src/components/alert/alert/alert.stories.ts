@@ -87,7 +87,7 @@ const linkContent: InputType = {
   },
 };
 
-const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
+const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
 const href: InputType = {
   options: Object.keys(hrefs),
   mapping: hrefs,

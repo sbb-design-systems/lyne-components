@@ -10,7 +10,7 @@ snapshots["sbb-block-link renders - DOM"] =
   data-slot-names="unnamed"
   dir="ltr"
   download=""
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   icon-placement="start"
   size="m"
 >
@@ -24,7 +24,7 @@ snapshots["sbb-block-link renders - ShadowDOM"] =
   aria-label="Travelcards &amp; tickets"
   class="sbb-action-base sbb-block-link"
   download=""
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
 >
   <span class="sbb-link__icon">
     <slot name="icon">
@@ -61,7 +61,7 @@ snapshots["sbb-block-link A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Travelcards & tickets",
-      "value": "https://github.com/lyne-design-system/lyne-components"
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }
