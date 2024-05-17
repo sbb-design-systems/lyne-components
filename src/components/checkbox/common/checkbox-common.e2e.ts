@@ -70,7 +70,7 @@ describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
           </div>`,
           { modules: ['../checkbox.ts', '../checkbox-panel.ts'] },
         );
-        element = root.querySelector<SbbCheckboxPanelElement>('sbb-checkbox-panel')!;
+        element = root.querySelector(selector)!;
 
         expect(element.checked).to.be.false;
         expect(root.scrollTop).to.be.equal(0);
