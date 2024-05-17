@@ -190,7 +190,7 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
     </div>
     <sbb-clock
       ${sbbSpread({
-        ...(isChromatic() ? { 'data-now': new Date('2023-01-24T02:59:27+01:00').valueOf() } : {}),
+        ...(isChromatic() ? { now: new Date('2023-01-24T02:59:27+01:00').valueOf() } : {}),
       })}
     ></sbb-clock>
     <sbb-divider ?negative=${args.negative}></sbb-divider>

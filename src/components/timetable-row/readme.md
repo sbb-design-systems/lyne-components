@@ -39,9 +39,7 @@ _`tripProp` property_
 <sbb-timetable-row price="{priceProp}" trip="{tripProp}"></sbb-timetable-row>
 ```
 
-## Testing
-
-To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
+To specify a specific date for the current datetime, you can use the `now` property (timestamp in milliseconds).
 This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
@@ -54,6 +52,7 @@ This is helpful if you need a specific state of the component.
 | `active`                | `active`                 | public  | `boolean \| undefined`  |         | When this prop is true the sbb-card will be in the active state.                                                                                                                              |
 | `boarding`              | `boarding`               | public  | `Boarding \| undefined` |         | This will be forwarded to the notices section                                                                                                                                                 |
 | `cardActionLabel`       | `card-action-label`      | public  | `string \| undefined`   |         | Hidden label for the card action. It overrides the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component. |
+| `dataNow`               | `now`                    | public  | `number \| undefined`   |         | A specific date for the current datetime (timestamp in milliseconds).                                                                                                                         |
 | `disableAnimation`      | `disable-animation`      | public  | `boolean \| undefined`  |         | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.                                                                                             |
 | `loadingPrice`          | `loading-price`          | public  | `boolean`               | `false` | The loading state - when this is true it will be render skeleton with an idling animation                                                                                                     |
 | `loadingTrip`           | `loading-trip`           | public  | `boolean`               | `false` | The loading state - when this is true it will be render skeleton with an idling animation                                                                                                     |

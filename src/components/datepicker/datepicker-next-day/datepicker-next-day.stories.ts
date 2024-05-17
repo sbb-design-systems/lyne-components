@@ -44,7 +44,7 @@ const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
     <sbb-datepicker
       id="datepicker"
       input="datepicker-input"
-      data-now=${new Date(2023, 0, 12, 0, 0, 0).valueOf()}
+      now=${new Date(2023, 0, 12, 0, 0, 0).valueOf()}
     ></sbb-datepicker>
     <input value="15.02.2023" id="datepicker-input" />
     ${BaseTemplate(args, 'datepicker')}

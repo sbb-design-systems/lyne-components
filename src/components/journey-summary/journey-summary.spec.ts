@@ -40,35 +40,35 @@ const dataWithoutVia: InterfaceSbbJourneySummaryAttributes = {
 describe(`sbb-journey-summary`, () => {
   it('renders', async () => {
     const root = (await fixture(
-      html` <sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
+      html` <sbb-journey-summary now="${now}"></sbb-journey-summary>`,
     )) as SbbJourneySummaryElement;
     root.trip = data;
 
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-journey-summary data-now="1661806800000">
+      <sbb-journey-summary now="1661806800000">
       </sbb-journey-summary>`);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders without vias', async () => {
     const root = (await fixture(
-      html` <sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
+      html` <sbb-journey-summary now="${now}"></sbb-journey-summary>`,
     )) as SbbJourneySummaryElement;
     root.trip = dataWithoutVia;
 
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-journey-summary data-now="1661806800000">
+      <sbb-journey-summary now="1661806800000">
       </sbb-journey-summary>`);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with second journey', async () => {
     const root = (await fixture(
-      html` <sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
+      html` <sbb-journey-summary now="${now}"></sbb-journey-summary>`,
     )) as SbbJourneySummaryElement;
     root.trip = dataWithoutVia;
     root.tripBack = data;
@@ -77,7 +77,7 @@ describe(`sbb-journey-summary`, () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-journey-summary data-now="1661806800000">
+      <sbb-journey-summary now="1661806800000">
       </sbb-journey-summary>`);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });

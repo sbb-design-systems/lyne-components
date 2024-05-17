@@ -84,7 +84,7 @@ const max: InputType = {
   },
 };
 
-const dataNow: InputType = {
+const now: InputType = {
   control: {
     type: 'date',
   },
@@ -124,7 +124,7 @@ const defaultArgTypes: ArgTypes = {
   min,
   max,
   dateFilter,
-  'data-now': dataNow,
+  now,
 };
 
 const today = new Date();

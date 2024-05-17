@@ -4,7 +4,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { readDataNow, removeTimezoneFromISOTimeString } from '../core/datetime.js';
+import { removeTimezoneFromISOTimeString } from '../core/datetime.js';
 import { i18nArrival, i18nDeparture, i18nTransferProcedures } from '../core/i18n.js';
 import type { Leg, PtRideLeg } from '../core/timetable.js';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
@@ -48,11 +48,13 @@ export class SbbPearlChainTimeElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
+  /** A specific date for the current datetime (timestamp in milliseconds). */
+  @property({ attribute: 'now' }) public dataNow?: number;
+
   private _language = new SbbLanguageController(this);
 
   private _now(): number {
-    const dataNow = readDataNow(this);
-    return isNaN(dataNow) ? Date.now() : dataNow;
+    return this.dataNow ?? Date.now();
   }
 
   protected override render(): TemplateResult {
@@ -92,7 +94,7 @@ export class SbbPearlChainTimeElement extends LitElement {
           class="sbb-pearl-chain__time-chain"
           .legs=${this.legs}
           .disableAnimation=${this.disableAnimation}
-          data-now=${this._now()}
+          now=${this._now()}
         ></sbb-pearl-chain>
         ${arrival
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>

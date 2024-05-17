@@ -217,7 +217,7 @@ const borderless: InputType = {
   },
 };
 
-const dataNow: InputType = {
+const now: InputType = {
   control: {
     type: 'date',
   },
@@ -237,8 +237,8 @@ const basicArgTypes: ArgTypes = {
   wide,
   dateFilter,
   dateHandling,
+  now,
   'aria-label': ariaLabel,
-  'data-now': dataNow,
 };
 
 const basicArgs: Args = {
@@ -252,8 +252,8 @@ const basicArgs: Args = {
   wide: false,
   dateFilter: dateFilter.options![0],
   dateHandling: dateHandling.options![0],
+  now: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
   'aria-label': undefined,
-  dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 
 const formFieldBasicArgsTypes: ArgTypes = {
@@ -311,14 +311,7 @@ const changeEventHandler = async (event: Event): Promise<void> => {
   document.getElementById('container-value')?.append(div);
 };
 
-const Template = ({
-  min,
-  max,
-  wide,
-  dateFilter,
-  'data-now': dataNow,
-  ...args
-}: Args): TemplateResult => {
+const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateResult => {
   return html`
     <div style=${styleMap({ display: 'flex', gap: '0.25rem' })}>
       <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
@@ -330,7 +323,7 @@ const Template = ({
         .dateFilter=${dateFilter}
         ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        data-now=${dataNow}
+        now=${now}
       ></sbb-datepicker>
       <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
     </div>
@@ -354,7 +347,7 @@ const TemplateFormField = ({
   wide,
   dateFilter,
   dateHandling,
-  'data-now': dataNow,
+  now,
   ...args
 }: Args): TemplateResult => {
   return html`
@@ -376,7 +369,7 @@ const TemplateFormField = ({
         .format=${dateHandling.format}
         ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        data-now=${dataNow}
+        now=${now}
       ></sbb-datepicker>
     </sbb-form-field>
     <div

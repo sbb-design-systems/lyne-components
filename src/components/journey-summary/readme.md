@@ -16,12 +16,16 @@ If the tripBack prop is passed to the component a second journey-summary, withou
 <sbb-journey-summary trip="{trip}"><sbb-button></sbb-button></sbb-journey-summary>
 ```
 
+To specify a specific date for the current datetime, you can use the `now` property (timestamp in milliseconds).
+This is helpful if you need a specific state of the component.
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
 | Name               | Attribute           | Privacy | Type                                                | Default | Description                                                                                                    |
 | ------------------ | ------------------- | ------- | --------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- |
+| `dataNow`          | `now`               | public  | `number \| undefined`                               |         | A specific date for the current datetime (timestamp in milliseconds).                                          |
 | `disableAnimation` | `disable-animation` | public  | `boolean \| undefined`                              |         | Per default, the current location has a pulsating animation. You can disable the animation with this property. |
 | `headerLevel`      | `header-level`      | public  | `SbbTitleLevel`                                     | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                                                      |
 | `roundTrip`        | `round-trip`        | public  | `boolean \| undefined`                              |         | The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.                       |

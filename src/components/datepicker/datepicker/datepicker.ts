@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { readConfig } from '../../core/config.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
-import { type DateAdapter, readDataNow } from '../../core/datetime.js';
+import { type DateAdapter } from '../../core/datetime.js';
 import { defaultDateAdapter } from '../../core/datetime.js';
 import { findInput, findReferencedElement } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -190,6 +190,9 @@ export class SbbDatepickerElement extends LitElement {
 
   /** Reference of the native input connected to the datepicker. */
   @property() public input?: string | HTMLElement;
+
+  /** A specific date for the current datetime (timestamp in milliseconds). */
+  @property({ attribute: 'now' }) public dataNow?: number;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -460,16 +463,12 @@ export class SbbDatepickerElement extends LitElement {
    * Returns current date or configured date.
    */
   public now(): Date {
-    if (this._hasDataNow()) {
-      const today = new Date(readDataNow(this));
+    if (this.dataNow) {
+      const today = new Date(+this.dataNow);
       today.setHours(0, 0, 0, 0);
       return today;
     }
     return this._dateAdapter.today();
-  }
-
-  private _hasDataNow(): boolean {
-    return this.hasAttribute('data-now');
   }
 
   private _parse(value: string): Date | undefined {

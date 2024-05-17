@@ -311,9 +311,7 @@ export const footer = (args: Args): TemplateResult => html`
       </sbb-secondary-button-link>
     </div>
     <sbb-clock
-      ${sbbSpread(
-        isChromatic() ? { 'data-now': new Date('2023-01-24T02:59:27+01:00').valueOf() } : {},
-      )}
+      ${sbbSpread(isChromatic() ? { now: new Date('2023-01-24T02:59:27+01:00').valueOf() } : {})}
     ></sbb-clock>
     <sbb-divider ?negative=${args.negative}></sbb-divider>
     <sbb-link-list horizontal-from="large" ?negative=${args.negative}>

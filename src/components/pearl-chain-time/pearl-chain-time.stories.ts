@@ -52,7 +52,7 @@ const defaultArgTypes: ArgTypes = {
   'arrival-time': arrivalTime,
   'departure-time': departureTime,
   'disable-animation': disableAnimation,
-  'data-now': now,
+  now,
 };
 
 const defaultArgs: Args = {
@@ -60,7 +60,7 @@ const defaultArgs: Args = {
   'arrival-time': '2022-12-11T14:11:00',
   'departure-time': '2022-12-11T12:11:00',
   'disable-animation': isChromatic(),
-  'data-now': new Date('2022-12-01T12:11:00').valueOf(),
+  now: new Date('2022-12-01T12:11:00').valueOf(),
 };
 
 const Template = ({ legs, ...args }: Args): TemplateResult =>
@@ -99,7 +99,7 @@ export const mixed: StoryObj = {
     ...defaultArgs,
     'departure-walk': '0',
     'arrival-walk': '5',
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
     legs: [progressLeg],
   },
 };
@@ -111,7 +111,7 @@ export const extendedEnter: StoryObj = {
     ...defaultArgs,
     'departure-walk': '10',
     'arrival-walk': '5',
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
     legs: [extendedLeg],
   },
 };

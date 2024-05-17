@@ -57,6 +57,9 @@ a `blur` event is fired on the input to ensure compatibility with any framework 
 
 ## Custom date formats
 
+To specify a specific date for the current datetime, you can use the `now` property (timestamp in milliseconds).
+This is helpful if you need a specific state of the component.
+
 Using a combination of the `dateParser` and `format` properties, it's possible to configure the datepicker
 to accept date formats other than the default `EE, dd.mm.yyyy`.
 In the following example the datepicker is set to accept dates in the format `yyyy-mm-dd`.
@@ -95,22 +98,18 @@ For custom `format` functions is recommended to use the `Intl.DateTimeFormat` AP
 
 Whenever the validation state changes (e.g., a valid value becomes invalid or vice-versa), the `validationChange` event is emitted.
 
-## Testing
-
-To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
-This is helpful if you need a specific state of the component.
-
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name         | Attribute     | Privacy | Type                                                | Default | Description                                                       |
-| ------------ | ------------- | ------- | --------------------------------------------------- | ------- | ----------------------------------------------------------------- |
-| `dateFilter` | `date-filter` | public  | `(date: Date \| null) => boolean`                   |         | A function used to filter out dates.                              |
-| `dateParser` | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |         | A function used to parse string value into dates.                 |
-| `format`     | `format`      | public  | `(date: Date) => string \| undefined`               |         | A function used to format dates into the preferred string format. |
-| `input`      | `input`       | public  | `string \| HTMLElement \| undefined`                |         | Reference of the native input connected to the datepicker.        |
-| `wide`       | `wide`        | public  | `boolean`                                           | `false` | If set to true, two months are displayed.                         |
+| Name         | Attribute     | Privacy | Type                                                | Default | Description                                                           |
+| ------------ | ------------- | ------- | --------------------------------------------------- | ------- | --------------------------------------------------------------------- |
+| `dataNow`    | `now`         | public  | `number \| undefined`                               |         | A specific date for the current datetime (timestamp in milliseconds). |
+| `dateFilter` | `date-filter` | public  | `(date: Date \| null) => boolean`                   |         | A function used to filter out dates.                                  |
+| `dateParser` | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |         | A function used to parse string value into dates.                     |
+| `format`     | `format`      | public  | `(date: Date) => string \| undefined`               |         | A function used to format dates into the preferred string format.     |
+| `input`      | `input`       | public  | `string \| HTMLElement \| undefined`                |         | Reference of the native input connected to the datepicker.            |
+| `wide`       | `wide`        | public  | `boolean`                                           | `false` | If set to true, two months are displayed.                             |
 
 ## Methods
 

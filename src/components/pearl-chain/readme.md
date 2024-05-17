@@ -46,9 +46,7 @@ The `legs` property is mandatory.
 <sbb-pearl-chain legs="{legs}"></sbb-pearl-chain>
 ```
 
-## Testing
-
-To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
+To specify a specific date for the current datetime, you can use the `now` property (timestamp in milliseconds).
 This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
@@ -57,5 +55,6 @@ This is helpful if you need a specific state of the component.
 
 | Name               | Attribute           | Privacy | Type                                | Default | Description                                                                                                                                                                                                                                                                    |
 | ------------------ | ------------------- | ------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `dataNow`          | `now`               | public  | `number \| undefined`               |         | A specific date for the current datetime (timestamp in milliseconds).                                                                                                                                                                                                          |
 | `disableAnimation` | `disable-animation` | public  | `boolean \| undefined`              |         | Per default, the current location has a pulsating animation. You can disable the animation with this property.                                                                                                                                                                 |
 | `legs`             | `legs`              | public  | `(Leg \| PtRideLeg)[] \| undefined` |         | Define the legs of the pearl-chain. Format: `{"legs": \[{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. |

@@ -67,18 +67,18 @@ const tripBack: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
-  'data-now': now,
   'round-trip': roundTrip,
   'header-level': headerLevel,
+  now,
   trip,
   tripBack,
 };
 
 const defaultArgs: Args = {
   'disable-animation': isChromatic(),
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   'round-trip': false,
   'header-level': headerLevel.options![2],
+  now: new Date('2022-12-05T12:11:00').valueOf(),
   trip: undefined,
   tripBack: undefined,
 };

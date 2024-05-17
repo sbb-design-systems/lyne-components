@@ -4,7 +4,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { readDataNow, removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime.js';
+import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime.js';
 import { setOrRemoveAttribute } from '../core/dom.js';
 import {
   i18nArrival,
@@ -245,6 +245,9 @@ export class SbbTimetableRowElement extends LitElement {
   /** When this prop is true the sbb-card will be in the active state. */
   @property({ type: Boolean }) public active?: boolean;
 
+  /** A specific date for the current datetime (timestamp in milliseconds). */
+  @property({ attribute: 'now' }) public dataNow?: number;
+
   private _language = new SbbLanguageController(this);
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -256,8 +259,7 @@ export class SbbTimetableRowElement extends LitElement {
   }
 
   private _now(): number {
-    const dataNow = readDataNow(this);
-    return isNaN(dataNow) ? Date.now() : dataNow;
+    return this.dataNow ?? Date.now();
   }
 
   /** The skeleton render function for the loading state */
@@ -545,7 +547,7 @@ export class SbbTimetableRowElement extends LitElement {
             .departureWalk=${departureWalk}
             .arrivalWalk=${arrivalWalk}
             ?disable-animation=${this.disableAnimation}
-            data-now=${this._now()}
+            now=${this._now()}
           ></sbb-pearl-chain-time>
           <div class="sbb-timetable__row-footer" role="gridcell">
             ${product && this._getQuayType(product.vehicleMode) && departure?.quayFormatted

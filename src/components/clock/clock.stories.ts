@@ -21,14 +21,14 @@ const Template = (args: Args): TemplateResult => html`<sbb-clock ${sbbSpread(arg
 
 export const Default: StoryObj = {
   render: Template,
-  argTypes: { 'data-now': dataNow },
-  args: { 'data-now': undefined },
+  argTypes: { now: dataNow },
+  args: { now: undefined },
 };
 
 export const Paused: StoryObj = {
   render: Template,
-  argTypes: { 'data-now': dataNow },
-  args: { 'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf() },
+  argTypes: { now: dataNow },
+  args: { now: new Date('2023-01-24T10:10:30+01:00').valueOf() },
 };
 
 /**
@@ -37,7 +37,7 @@ export const Paused: StoryObj = {
  */
 if (isChromatic()) {
   Default.args = {
-    'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf(),
+    now: new Date('2023-01-24T10:10:30+01:00').valueOf(),
   };
 }
 

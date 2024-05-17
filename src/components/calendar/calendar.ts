@@ -12,7 +12,7 @@ import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
-import { type DateAdapter, readDataNow } from '../core/datetime.js';
+import { type DateAdapter } from '../core/datetime.js';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,
@@ -140,6 +140,9 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   /** A function used to filter out dates. */
   @property({ attribute: 'date-filter' }) public dateFilter?: (date: T | null) => boolean;
+
+  /** A specific date for the current datetime (timestamp in milliseconds). */
+  @property({ attribute: 'now' }) public dataNow?: number;
 
   private _dateAdapter: DateAdapter<T> = defaultDateAdapter as unknown as DateAdapter<T>;
 
@@ -796,8 +799,8 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   }
 
   private _now(): T {
-    if (this.hasAttribute('data-now')) {
-      const today = new Date(readDataNow(this));
+    if (this.dataNow) {
+      const today = new Date(+this.dataNow);
       if (defaultDateAdapter.isValid(today)) {
         return this._dateAdapter.createDate(
           today.getFullYear(),

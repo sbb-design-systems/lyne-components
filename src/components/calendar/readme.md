@@ -20,6 +20,9 @@ It's recommended to set the time to 00:00:00.
 <sbb-calendar min="1600000000" max="1700000000" selected="1650000000"></sbb-calendar>
 ```
 
+To specify a specific date for the current datetime, you can use the `now` property (timestamp in milliseconds).
+This is helpful if you need a specific state of the component.
+
 ## Style
 
 The component displays one month by default; two months can be displayed setting the `wide` property to `true`.
@@ -55,17 +58,13 @@ It's possible to move within the component using the keyboard.
 
 For accessibility purposes, the component is rendered as a native table element and each day is a button.
 
-## Testing
-
-To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
-This is helpful if you need a specific state of the component.
-
 <!-- Auto Generated Below -->
 
 ## Properties
 
 | Name         | Attribute     | Privacy | Type                                        | Default | Description                                                                                                  |
 | ------------ | ------------- | ------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| `dataNow`    | `now`         | public  | `number \| undefined`                       |         | A specific date for the current datetime (timestamp in milliseconds).                                        |
 | `dateFilter` | `date-filter` | public  | `(date: T \| null) => boolean \| undefined` |         | A function used to filter out dates.                                                                         |
 | `max`        | `max`         | public  | `T \| null`                                 |         | The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
 | `min`        | `min`         | public  | `T \| null`                                 |         | The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |

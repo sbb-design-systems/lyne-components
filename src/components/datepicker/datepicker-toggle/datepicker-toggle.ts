@@ -6,7 +6,6 @@ import { ref } from 'lit/directives/ref.js';
 import type { SbbCalendarElement } from '../../calendar.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { readDataNow } from '../../core/datetime.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
@@ -157,8 +156,8 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _now(): Date | undefined {
-    if (this._datePickerElement?.hasAttribute('data-now')) {
-      const today = new Date(readDataNow(this._datePickerElement));
+    if (this._datePickerElement?.dataNow) {
+      const today = new Date(+this._datePickerElement?.dataNow);
       today.setHours(0, 0, 0, 0);
       return today;
     }
@@ -192,7 +191,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
         ${ref((el?: Element) => (this._popoverElement = el as SbbPopoverElement))}
       >
         <sbb-calendar
-          data-now=${this._now()?.valueOf() || nothing}
+          now=${this._now()?.valueOf() || nothing}
           .min=${this._min}
           .max=${this._max}
           ?wide=${this._datePickerElement?.wide}

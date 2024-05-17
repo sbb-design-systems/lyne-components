@@ -1,9 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-
-import { readDataNow } from '../core/datetime.js';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
@@ -53,6 +51,9 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 export class SbbClockElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
+  /** A specific date for the current datetime (timestamp in milliseconds). */
+  @property({ attribute: 'now' }) public dataNow?: number;
+
   /** Reference to the hour hand. */
   private _clockHandHours!: HTMLElement;
 
@@ -83,7 +84,7 @@ export class SbbClockElement extends LitElement {
   private async _handlePageVisibilityChange(): Promise<void> {
     if (document.visibilityState === 'hidden') {
       this._stopClock();
-    } else if (!this._hasDataNow()) {
+    } else if (!this.dataNow) {
       await this._startClock();
     }
   }
@@ -218,7 +219,7 @@ export class SbbClockElement extends LitElement {
   private _stopClock(): void {
     clearInterval(this._handMovement);
 
-    if (this._hasDataNow()) {
+    if (this.dataNow) {
       this._setHandsStartingPosition();
       this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
       this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
@@ -253,13 +254,9 @@ export class SbbClockElement extends LitElement {
     );
   }
 
-  private _hasDataNow(): boolean {
-    return this.hasAttribute('data-now');
-  }
-
   private _now(): Date {
-    if (this._hasDataNow()) {
-      return new Date(readDataNow(this));
+    if (this.dataNow) {
+      return new Date(+this.dataNow);
     }
     return new Date();
   }
@@ -269,7 +266,7 @@ export class SbbClockElement extends LitElement {
 
     this._addEventListeners();
 
-    if (this._hasDataNow()) {
+    if (this.dataNow) {
       this._stopClock();
     } else {
       await this._startClock();

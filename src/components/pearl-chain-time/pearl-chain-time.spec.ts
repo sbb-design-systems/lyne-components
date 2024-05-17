@@ -17,7 +17,7 @@ describe(`sbb-pearl-chain-time`, () => {
       <sbb-pearl-chain-time
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"
-        data-now="${now}"
+        now="${now}"
       >
       </sbb-pearl-chain-time>
     `);
@@ -28,7 +28,7 @@ describe(`sbb-pearl-chain-time`, () => {
     ];
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" data-now="1660662000000">
+      <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" now="1660662000000">
       </sbb-pearl-chain-time>
     `);
     expect(element).shadowDom.to.be.equal(`
@@ -39,7 +39,7 @@ describe(`sbb-pearl-chain-time`, () => {
           </span>
           12:00
         </time>
-        <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
+        <sbb-pearl-chain class="sbb-pearl-chain__time-chain" now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
           <span class="sbb-screen-reader-only">
             Arrival:
@@ -56,7 +56,7 @@ describe(`sbb-pearl-chain-time`, () => {
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"
         departure-walk="10"
-        data-now="${now}"
+        now="${now}"
       >
       </sbb-pearl-chain-time>
     `);
@@ -67,7 +67,7 @@ describe(`sbb-pearl-chain-time`, () => {
     ];
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10" data-now="1660662000000">
+      <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10" now="1660662000000">
       </sbb-pearl-chain-time>
     `);
     expect(element).shadowDom.to.be.equal(`
@@ -95,7 +95,7 @@ describe(`sbb-pearl-chain-time`, () => {
           </span>
           12:00
         </time>
-        <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
+        <sbb-pearl-chain class="sbb-pearl-chain__time-chain" now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
           <span class="sbb-screen-reader-only">
             Arrival:
@@ -112,7 +112,7 @@ describe(`sbb-pearl-chain-time`, () => {
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"
         arrival-walk="10"
-        data-now="${now}"
+        now="${now}"
       >
       </sbb-pearl-chain-time>
     `);
@@ -123,7 +123,7 @@ describe(`sbb-pearl-chain-time`, () => {
     ];
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" arrival-walk="10" data-now="1660662000000">
+      <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" arrival-walk="10" now="1660662000000">
       </sbb-pearl-chain-time>
     `);
     expect(element).shadowDom.to.be.equal(`
@@ -134,7 +134,7 @@ describe(`sbb-pearl-chain-time`, () => {
           </span>
           12:00
         </time>
-        <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
+        <sbb-pearl-chain class="sbb-pearl-chain__time-chain" now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
           <span class="sbb-screen-reader-only">
             Arrival:
@@ -169,7 +169,7 @@ describe(`sbb-pearl-chain-time`, () => {
         arrival-time="2022-08-16T15:00:00"
         departure-walk="20"
         arrival-walk="10"
-        data-now="${now}"
+        now="${now}"
       >
       </sbb-pearl-chain-time>
     `);
@@ -180,7 +180,7 @@ describe(`sbb-pearl-chain-time`, () => {
     ];
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10" data-now="1660662000000">
+      <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10" now="1660662000000">
       </sbb-pearl-chain-time>
     `);
     expect(element).shadowDom.to.be.equal(`
@@ -208,7 +208,7 @@ describe(`sbb-pearl-chain-time`, () => {
           </span>
           12:00
         </time>
-        <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
+        <sbb-pearl-chain class="sbb-pearl-chain__time-chain" now="1660662000000"></sbb-pearl-chain>
         <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
           <span class="sbb-screen-reader-only">
             Arrival:

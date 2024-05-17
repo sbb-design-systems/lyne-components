@@ -122,7 +122,7 @@ const Template = (args: Args): TemplateResult => html`
                     </span>
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
-                      data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
+                      now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
                     ></sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static icon-name="qrcode-small">
@@ -169,7 +169,7 @@ const Template = (args: Args): TemplateResult => html`
                     </span>
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
-                      data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
+                      now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
                     ></sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static> Details </sbb-secondary-button-static>

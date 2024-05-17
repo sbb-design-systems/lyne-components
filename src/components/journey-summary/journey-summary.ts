@@ -8,7 +8,6 @@ import {
   defaultDateAdapter,
   durationToTime,
   removeTimezoneFromISOTimeString,
-  readDataNow,
 } from '../core/datetime.js';
 import { i18nTripDuration } from '../core/i18n.js';
 import type { Leg } from '../core/timetable.js';
@@ -63,6 +62,9 @@ export class SbbJourneySummaryElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
+  /** A specific date for the current datetime (timestamp in milliseconds). */
+  @property({ attribute: 'now' }) public dataNow?: number;
+
   private _hasContentSlot: boolean = false;
   private _language = new SbbLanguageController(this);
 
@@ -72,8 +74,7 @@ export class SbbJourneySummaryElement extends LitElement {
   }
 
   private _now(): number {
-    const dataNow = readDataNow(this);
-    return isNaN(dataNow) ? Date.now() : dataNow;
+    return this.dataNow ?? Date.now();
   }
 
   /**  renders the date of the journey or if it is the current or next day */
@@ -136,7 +137,7 @@ export class SbbJourneySummaryElement extends LitElement {
           .arrivalWalk=${arrivalWalk}
           .legs=${legs}
           .disableAnimation=${this.disableAnimation}
-          data-now=${this._now()}
+          now=${this._now()}
         ></sbb-pearl-chain-time>
       </div>
     `;
