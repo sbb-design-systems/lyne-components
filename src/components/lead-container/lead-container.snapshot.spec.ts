@@ -10,7 +10,6 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import placeholderImage from './assets/lucerne.png';
 import type { SbbLeadContainerElement } from './lead-container.js';
 
 import '../breadcrumb.js';
@@ -20,25 +19,27 @@ import '../title.js';
 import './lead-container.js';
 
 describe(`sbb-lead-container`, () => {
-  let element: SbbLeadContainerElement;
+  if (!isVisualRegressionRun()) {
+    let element: SbbLeadContainerElement;
 
-  beforeEach(async () => {
-    element = await fixture(
-      html`<sbb-lead-container><sbb-image slot="image"></sbb-image></sbb-lead-container>`,
-    );
-  });
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-lead-container>
+          <sbb-image slot="image"></sbb-image>
+        </sbb-lead-container>`,
+      );
+    });
 
-  it('DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-  it('Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
-
-  if (isVisualRegressionRun()) {
+    testA11yTreeSnapshot();
+  } else {
     describe('visual-regression', () => {
       let root: HTMLElement;
 
@@ -65,7 +66,11 @@ describe(`sbb-lead-container`, () => {
                       margin-block-end: 0;
                     }
                   </style>
-                  <img slot="image" src=${placeholderImage} alt="" />
+                  <img
+                    slot="image"
+                    src=${new URL('./assets/lucerne.png', import.meta.url).href}
+                    alt=""
+                  />
                   <div class="inner-container">
                     <sbb-breadcrumb-group>
                       <sbb-breadcrumb
