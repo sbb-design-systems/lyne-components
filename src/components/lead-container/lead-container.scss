@@ -1,0 +1,96 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-lead-container-background-color: var(--sbb-color-white);
+  --sbb-lead-container-image-ratio: 2/1;
+
+  // TODO: Check if token needed
+  --sbb-lead-container-image-overlap: -6rem;
+  --sbb-lead-container-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-lead-container-padding-inline: var(--sbb-layout-base-offset-responsive);
+
+  // TODO: Check if new border-radius token needed
+  --sbb-lead-container-border-radius: var(--sbb-spacing-fixed-3x);
+
+  @include sbb.mq($from: wide) {
+    --sbb-lead-container-image-ratio: 21/9;
+  }
+}
+
+.sbb-lead-container {
+  padding-block-end: var(--sbb-spacing-responsive-l);
+}
+
+// TODO: Check if default aspect ratio should be `free` of sbb-image
+::slotted(sbb-image[slot='image']) {
+  --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
+  --sbb-image-border-radius: 0;
+
+  @include sbb.mq($from: ultra) {
+    --sbb-image-border-radius: var(--sbb-lead-container-border-radius);
+  }
+}
+
+::slotted(:is(img[slot='image'], picture[slot='image'])) {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: var(--sbb-lead-container-image-ratio);
+
+  @include sbb.mq($from: ultra) {
+    border-radius: var(--sbb-lead-container-border-radius);
+  }
+}
+
+.sbb-lead-container-image {
+  @include sbb.mq($from: ultra) {
+    max-width: calc(
+      var(--sbb-layout-base-page-max-width) + 2 * var(--sbb-layout-base-offset-responsive)
+    );
+    margin-inline: auto;
+  }
+}
+
+.sbb-lead-container-content-wrapper {
+  @include sbb.grid;
+
+  // In case there is a global background color set, use full width with white color until large breakpoint
+  background-color: var(--sbb-lead-container-background-color);
+  @include sbb.mq($from: large) {
+    background-color: transparent;
+  }
+}
+
+.sbb-lead-container-content {
+  position: relative;
+  z-index: 1;
+  border-radius: var(--sbb-lead-container-border-radius);
+  padding-block: var(--sbb-lead-container-padding-block);
+  background-color: var(--sbb-lead-container-background-color);
+  grid-column: 1/-1;
+
+  @include sbb.mq($from: medium) {
+    grid-column: 2/-2;
+  }
+
+  @include sbb.mq($from: large) {
+    margin-block-start: var(--sbb-lead-container-image-overlap);
+    padding-inline: var(--sbb-lead-container-padding-inline);
+
+    // As the content should be aligned to the grid, we have to stretch the container by padding
+    margin-inline: calc(-1 * var(--sbb-lead-container-padding-inline));
+  }
+
+  @include sbb.mq($from: wide) {
+    grid-column: 3/-3;
+  }
+
+  @include sbb.mq($from: ultra) {
+    grid-column: 4/-4;
+  }
+}
