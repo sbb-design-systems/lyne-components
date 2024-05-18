@@ -140,8 +140,8 @@ function prepareScreenshots(): PluginOption {
                   browserName,
                   name: d.name,
                   failedFile: failedRelativeFileName,
-                  diffFile: diffRelativeFileName,
-                  baselineFile: baselineRelativeFileName,
+                  diffFile: !isNew ? diffRelativeFileName : undefined,
+                  baselineFile: !isNew ? baselineRelativeFileName : undefined,
                   isNew,
                 };
               });
