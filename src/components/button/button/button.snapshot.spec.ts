@@ -3,12 +3,11 @@ import { html } from 'lit';
 import {
   describeEach,
   describeViewports,
-  fixture,
   isVisualRegressionRun,
   testVisualDiff,
   testVisualDiffHover,
+  visualRegressionFixture,
   visualRegressionSnapshot,
-  visualRegressionWrapperStyles,
 } from '../../core/testing/private.js';
 
 import './button.js';
@@ -33,17 +32,18 @@ describe(`sbb-button`, () => {
 
       describeViewports({ viewports: ['zero', 'medium'] }, () => {
         describeEach(cases, ({ disabled, negative, state }) => {
-          beforeEach(async () => {
-            root = await fixture(
-              html`<div
-                style=${visualRegressionWrapperStyles({
-                  backgroundColor: negative ? '#484040' : undefined,
-                })}
-              >
+          beforeEach(async function () {
+            root = await visualRegressionFixture(
+              html`
                 <sbb-button ?disabled=${disabled} ?negative=${negative} .iconName=${state.icon}>
                   ${state.text}
                 </sbb-button>
-              </div>`,
+              `,
+              this,
+              {
+                backgroundColor: negative ? '#484040' : undefined,
+                focusOutlineDark: negative,
+              },
             );
           });
 
@@ -51,11 +51,10 @@ describe(`sbb-button`, () => {
         });
 
         describeEach(sizeCases, ({ size }) => {
-          beforeEach(async () => {
-            root = await fixture(
-              html`<div style=${visualRegressionWrapperStyles()}>
-                <sbb-button size=${size}>Button</sbb-button>
-              </div>`,
+          beforeEach(async function () {
+            root = await visualRegressionFixture(
+              html`<sbb-button size=${size}>Button</sbb-button>`,
+              this,
             );
           });
 
@@ -63,13 +62,14 @@ describe(`sbb-button`, () => {
         });
 
         describe('with ellipsis', () => {
-          beforeEach(async () => {
-            root = await fixture(
-              html`<div style=${visualRegressionWrapperStyles()}>
+          beforeEach(async function () {
+            root = await visualRegressionFixture(
+              html`
                 <sbb-button style="width: 200px;" icon-name="arrow-right-small">
                   Button with long text
                 </sbb-button>
-              </div>`,
+              `,
+              this,
             );
           });
 
@@ -77,13 +77,14 @@ describe(`sbb-button`, () => {
         });
 
         describe('wide width', () => {
-          beforeEach(async () => {
-            root = await fixture(
-              html`<div style=${visualRegressionWrapperStyles()}>
+          beforeEach(async function () {
+            root = await visualRegressionFixture(
+              html`
                 <sbb-button style="max-width: 100%; width: 600px;" icon-name="arrow-right-small">
                   Wide Button
                 </sbb-button>
-              </div>`,
+              `,
+              this,
             );
           });
 
@@ -91,14 +92,15 @@ describe(`sbb-button`, () => {
         });
 
         describe('slotted icon', () => {
-          beforeEach(async () => {
-            root = await fixture(
-              html`<div style=${visualRegressionWrapperStyles()}>
+          beforeEach(async function () {
+            root = await visualRegressionFixture(
+              html`
                 <sbb-button>
                   Button
                   <sbb-icon slot="icon" name="chevron-small-right-small"></sbb-icon>
                 </sbb-button>
-              </div>`,
+              `,
+              this,
             );
           });
 
@@ -107,9 +109,9 @@ describe(`sbb-button`, () => {
         });
 
         describe('with hidden slot', () => {
-          beforeEach(async () => {
-            root = await fixture(
-              html`<div style=${visualRegressionWrapperStyles()}>
+          beforeEach(async function () {
+            root = await visualRegressionFixture(
+              html`
                 <sbb-button>
                   Button
                   <sbb-icon
@@ -118,7 +120,8 @@ describe(`sbb-button`, () => {
                     style="display: none;"
                   ></sbb-icon>
                 </sbb-button>
-              </div>`,
+              `,
+              this,
             );
           });
 
