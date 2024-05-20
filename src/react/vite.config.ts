@@ -13,7 +13,7 @@ export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
     root: new URL('.', import.meta.url).pathname,
     plugins: [
-      generateReactWrappers(),
+      generateReactWrappers('@sbb-esta/lyne-components', './components/custom-elements.json'),
       ...(config.command === 'build' ? [dts()] : []),
       ...(isProdBuild(config) ? [packageJsonTemplate({ exportsExtensions: ['', '.js'] })] : []),
     ],
