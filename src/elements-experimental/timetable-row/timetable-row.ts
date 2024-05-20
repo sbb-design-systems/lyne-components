@@ -1,10 +1,10 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-components/core/controllers.js';
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import {
   readDataNow,
   removeTimezoneFromISOTimeString,
   durationToTime,
-} from '@sbb-esta/lyne-components/core/datetime.js';
-import { setOrRemoveAttribute } from '@sbb-esta/lyne-components/core/dom.js';
+} from '@sbb-esta/lyne-elements/core/datetime.js';
+import { setOrRemoveAttribute } from '@sbb-esta/lyne-elements/core/dom.js';
 import {
   i18nArrival,
   i18nClass,
@@ -22,8 +22,8 @@ import {
   i18nTravelhints,
   i18nTripDuration,
   i18nTripQuayChange,
-} from '@sbb-esta/lyne-components/core/i18n.js';
-import type { SbbOccupancy } from '@sbb-esta/lyne-components/core/interfaces.js';
+} from '@sbb-esta/lyne-elements/core/i18n.js';
+import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { format } from 'date-fns';
 import { html, LitElement, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
@@ -34,9 +34,9 @@ import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetabl
 
 import style from './timetable-row.scss?lit&inline';
 
-import '@sbb-esta/lyne-components/card.js';
-import '@sbb-esta/lyne-components/icon.js';
-import '@sbb-esta/lyne-components/timetable-occupancy.js';
+import '@sbb-esta/lyne-elements/card.js';
+import '@sbb-esta/lyne-elements/icon.js';
+import '@sbb-esta/lyne-elements/timetable-occupancy.js';
 import '../pearl-chain-time.js';
 
 /** HimCus interface for mapped icon name and text */

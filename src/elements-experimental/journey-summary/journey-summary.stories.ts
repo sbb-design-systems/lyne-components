@@ -16,8 +16,8 @@ import {
 import readme from './readme.md?raw';
 
 import './journey-summary.js';
-import '@sbb-esta/lyne-components/button/button.js';
-import '@sbb-esta/lyne-components/button/secondary-button.js';
+import '@sbb-esta/lyne-elements/button/button.js';
+import '@sbb-esta/lyne-elements/button/secondary-button.js';
 
 const disableAnimation: InputType = {
   control: {

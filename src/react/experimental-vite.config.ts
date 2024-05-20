@@ -38,7 +38,7 @@ export default defineConfig((config) =>
       rollupOptions: {
         external: [
           /^@sbb-esta\/lyne-elements-experimental\/?/,
-          /^@sbb-esta\/lyne-components\/?/,
+          /^@sbb-esta\/lyne-elements\/?/,
           /^@lit\/react\/?/,
           /^lit\/?/,
           /^react/,

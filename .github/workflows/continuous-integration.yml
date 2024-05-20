@@ -154,7 +154,7 @@ jobs:
           exitZeroOnChanges: true
           zip: true
           onlyChanged: true
-          externals: '**/components/core/styles/**/*.scss'
+          externals: '**/elements/core/styles/**/*.scss'
 
   visual-regression:
     runs-on: ubuntu-latest

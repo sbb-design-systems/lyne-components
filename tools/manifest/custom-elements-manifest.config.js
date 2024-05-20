@@ -112,14 +112,14 @@ export function createManifestConfig(library = '') {
 // TODO generate a single custom element manifest for both libraries. Only used by the docs command for now
 export default {
   litelement: true,
-  globs: ['src/components/**/*.ts', 'src/elements-experimental/**/*.ts'],
+  globs: ['src/elements/**/*.ts', 'src/elements-experimental/**/*.ts'],
   exclude: [
     '**/*[.-]{stories,spec,e2e,test-utils}.ts',
     '**/private/*',
     '**/private.ts',
     'vite.config.ts',
   ],
-  outdir: 'dist/components',
+  outdir: 'dist/elements',
   dependencies: false,
   packagejson: false,
   /** @type {import('@custom-elements-manifest/analyzer').Plugin[]} */
@@ -153,7 +153,7 @@ export default {
           }
         }
         const fixTsPaths = (value) =>
-          value.replace(/^\/?src\/components\//, '').replace(/.ts$/, '.js');
+          value.replace(/^\/?src\/elements\//, '').replace(/.ts$/, '.js');
         for (const module of customElementsManifest.modules) {
           fixModulePaths(module, fixTsPaths);
           for (const declaration of module.declarations.filter((d) => d.kind === 'class')) {

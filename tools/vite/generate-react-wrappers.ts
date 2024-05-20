@@ -31,7 +31,7 @@ export function generateReactWrappers(library: string, manifestPath: string): Pl
     manifest = JSON.parse(readFileSync(fullManifestPath, 'utf8'));
   } catch (e) {
     console.error(
-      `Failed to read manifest at ${fullManifestPath}. Please run 'yarn build:components' or 'yarn docs:manifest' first!`,
+      `Failed to read manifest at ${fullManifestPath}. Please run 'yarn build:elements' or 'yarn docs:manifest' first!`,
     );
     process.exit(1);
   }

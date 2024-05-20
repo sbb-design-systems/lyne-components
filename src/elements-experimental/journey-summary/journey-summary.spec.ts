@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixture } from '@sbb-esta/lyne-components/core/testing/private.js';
-import { waitForLitRender } from '@sbb-esta/lyne-components/core/testing.js';
+import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
 import type {

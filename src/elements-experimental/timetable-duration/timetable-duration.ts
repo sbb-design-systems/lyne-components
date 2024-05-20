@@ -1,5 +1,5 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-components/core/controllers/language-controller.js';
-import { i18nDurationHour, i18nDurationMinute } from '@sbb-esta/lyne-components/core/i18n/i18n.js';
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller.js';
+import { i18nDurationHour, i18nDurationMinute } from '@sbb-esta/lyne-elements/core/i18n/i18n.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';

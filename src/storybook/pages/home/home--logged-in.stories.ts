@@ -3,7 +3,7 @@ import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/we
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import type { SbbDialogElement } from '../../../components/dialog.js';
+import type { SbbDialogElement } from '../../../elements/dialog.js';
 import {
   futureLeg,
   pastLeg,
@@ -20,9 +20,8 @@ import {
   timetableInput,
 } from './home.common.js';
 import readme from './readme.md?raw';
-
-import '../../../components/dialog.js';
-import '../../../components/journey-header.js';
+import '../../../elements/dialog.js';
+import '../../../elements/journey-header.js';
 import '../../../elements-experimental/pearl-chain.js';
 import './home.scss';
 

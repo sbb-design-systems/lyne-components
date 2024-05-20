@@ -1,5 +1,5 @@
 import { assert } from '@open-wc/testing';
-import { fixture } from '@sbb-esta/lyne-components/core/testing/private/fixture';
+import { fixture } from '@sbb-esta/lyne-elements/core/testing/private/fixture';
 import { html } from 'lit/static-html.js';
 
 import { SbbTimetableDurationElement } from './timetable-duration.js';

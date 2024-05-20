@@ -7,7 +7,7 @@ import { html } from 'lit';
 import readme from './readme.md?raw';
 import './pearl-chain-vertical.js';
 import '../pearl-chain-vertical-item.js';
-import '@sbb-esta/lyne-components/icon.js';
+import '@sbb-esta/lyne-elements/icon.js';
 
 const lineType: InputType = {
   options: ['dotted', 'standard', 'thin'],

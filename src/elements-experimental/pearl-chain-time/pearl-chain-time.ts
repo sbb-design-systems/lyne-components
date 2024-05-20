@@ -1,13 +1,13 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-components/core/controllers.js';
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import {
   readDataNow,
   removeTimezoneFromISOTimeString,
-} from '@sbb-esta/lyne-components/core/datetime.js';
+} from '@sbb-esta/lyne-elements/core/datetime.js';
 import {
   i18nArrival,
   i18nDeparture,
   i18nTransferProcedures,
-} from '@sbb-esta/lyne-components/core/i18n.js';
+} from '@sbb-esta/lyne-elements/core/i18n.js';
 import { format } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';

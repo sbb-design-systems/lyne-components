@@ -1,12 +1,12 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-components/core/controllers.js';
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import {
   defaultDateAdapter,
   durationToTime,
   removeTimezoneFromISOTimeString,
   readDataNow,
-} from '@sbb-esta/lyne-components/core/datetime.js';
-import { i18nTripDuration } from '@sbb-esta/lyne-components/core/i18n.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-components/title.js';
+} from '@sbb-esta/lyne-elements/core/datetime.js';
+import { i18nTripDuration } from '@sbb-esta/lyne-elements/core/i18n.js';
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { format, isValid } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -16,9 +16,9 @@ import type { Leg } from '../core/timetable.js';
 
 import style from './journey-summary.scss?lit&inline';
 
-import '@sbb-esta/lyne-components/divider.js';
-import '@sbb-esta/lyne-components/screen-reader-only.js';
-import '@sbb-esta/lyne-components/journey-header.js';
+import '@sbb-esta/lyne-elements/divider.js';
+import '@sbb-esta/lyne-elements/screen-reader-only.js';
+import '@sbb-esta/lyne-elements/journey-header.js';
 import '../pearl-chain-time.js';
 
 export interface InterfaceSbbJourneySummaryAttributes {

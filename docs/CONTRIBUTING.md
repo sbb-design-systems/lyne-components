@@ -39,12 +39,12 @@ Providing the following information will increase the
 chances of your issue being dealt with quickly:
 
 - **Overview of the Issue** - if an error is being thrown a non-minified stack trace helps
-- **@sbb-esta/lyne-components Version** - which version is affected
+- **@sbb-esta/lyne-elements Version** - which version is affected
 - **Motivation for or Use Case** - explain what are you trying to do and why the current behavior
   is a bug for you
 - **Browsers and Operating System** - is this a problem with all browsers?
 - **Reproduce the Error** - provide a live example (using StackBlitz or similar) or an unambiguous set of steps
-- **Screenshots** - Due to the visual nature of @sbb-esta/lyne-components, screenshots can help the team
+- **Screenshots** - Due to the visual nature of @sbb-esta/lyne-elements, screenshots can help the team
   triage issues far more quickly than a text description.
 - **Related Issues** - has a similar issue been reported before?
 - **Suggest a Fix** - if you can't fix the bug yourself, perhaps you can point to what might be
@@ -172,7 +172,7 @@ The rest of the commit message is then used for this.
 
 This project publishes the following package:
 
-- @sbb-esta/lyne-components
+- @sbb-esta/lyne-elements
 
 ### Styling
 

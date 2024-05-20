@@ -1,7 +1,7 @@
 import {
   readDataNow,
   removeTimezoneFromISOTimeString,
-} from '@sbb-esta/lyne-components/core/datetime.js';
+} from '@sbb-esta/lyne-elements/core/datetime.js';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';

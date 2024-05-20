@@ -3,7 +3,7 @@
 import {
   i18nWalkingDistanceArrival,
   i18nWalkingDistanceDeparture,
-} from '@sbb-esta/lyne-components/core/i18n.js';
+} from '@sbb-esta/lyne-elements/core/i18n.js';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
@@ -14,7 +14,7 @@ import {
 } from './timetable-helper.js';
 import type { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties.js';
 
-import '@sbb-esta/lyne-components/icon.js';
+import '@sbb-esta/lyne-elements/icon.js';
 
 interface IAccessAttribute {
   duration: number;

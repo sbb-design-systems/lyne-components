@@ -4,7 +4,7 @@
     "rootDir": "../..",
     "baseUrl": ".",
     "paths": {
-      "@sbb-esta/lyne-components/*": ["../components/*"],
+      "@sbb-esta/lyne-elements/*": ["../elements/*"],
       "@sbb-esta/lyne-elements-experimental/*": ["./*"]
     }
   },

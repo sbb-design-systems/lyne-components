@@ -41,7 +41,7 @@ export default defineConfig((config) =>
               },
             }),
             copyAssets(['../../README.md']),
-            // verifyEntryPoints(), // TODO Must exclude @sbb-esta/lyne-components imports. Not sure it's possible
+            // verifyEntryPoints(), // TODO Must exclude @sbb-esta/lyne-elements imports. Not sure it's possible
           ]
         : []),
     ],
@@ -62,7 +62,7 @@ export default defineConfig((config) =>
         external: (source: string, importer: string | undefined) => {
           if (
             source.match(/(^lit$|^lit\/|^@lit\/|^@lit-labs\/)/) ||
-            source.match(/^@sbb-esta\/lyne-components\/?/) ||
+            source.match(/^@sbb-esta\/lyne-elements\/?/) ||
             (!!importer && source.startsWith('../') && !importer.includes('/node_modules/')) ||
             (!!importer && barrelExports.includes(importer) && source.match(/\.\/[a-z-]+/))
           ) {

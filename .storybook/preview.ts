@@ -6,7 +6,7 @@ import { html } from 'lit';
 
 import { withBackgroundDecorator } from '../src/storybook/testing/with-background-decorator.js';
 
-import '../src/components/core/styles/standard-theme.scss';
+import '../src/elements/core/styles/standard-theme.scss';
 
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
@@ -66,7 +66,7 @@ const parameters: Parameters = {
     storySort: {
       // Story section order.
       // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-      order: ['introduction', 'pages', 'components', 'experimental', 'styles', 'internals'],
+      order: ['introduction', 'pages', 'elements', 'experimental', 'styles', 'internals'],
     },
   },
 };

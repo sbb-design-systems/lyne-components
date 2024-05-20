@@ -17,8 +17,8 @@
     "isolatedModules": true,
     "noUnusedLocals": true,
     "paths": {
-      "@sbb-esta/lyne-components": ["src/components"],
-      "@sbb-esta/lyne-components/*": ["src/components/*"],
+      "@sbb-esta/lyne-elements": ["src/elements"],
+      "@sbb-esta/lyne-elements/*": ["src/elements/*"],
       "@sbb-esta/lyne-elements-experimental": ["src/elements-experimental"],
       "@sbb-esta/lyne-elements-experimental/*": ["src/elements-experimental/*"],
       "@sbb-esta/lyne-react": ["src/react"],

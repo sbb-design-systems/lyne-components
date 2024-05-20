@@ -1,7 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
-import { EventSpy, waitForCondition } from '@sbb-esta/lyne-components//core/testing.js';
-import type { SbbCardElement } from '@sbb-esta/lyne-components/card.js';
-import { fixture } from '@sbb-esta/lyne-components/core/testing/private.js';
+import type { SbbCardElement } from '@sbb-esta/lyne-elements/card.js';
+import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { EventSpy, waitForCondition } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbTimetableRowElement } from './timetable-row.js';

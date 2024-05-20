@@ -10,7 +10,7 @@
   ],
   "type": "module",
   "peerDependencies": {
-    "@sbb-esta/lyne-components": "0.0.0-PLACEHOLDER"
+    "@sbb-esta/lyne-elements": "0.0.0-PLACEHOLDER"
   },
   "dependencies": {
     "@lit/react": "0.0.0-LITREACT",
