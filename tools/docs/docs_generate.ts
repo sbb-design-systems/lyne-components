@@ -16,11 +16,15 @@ import * as glob from 'glob';
 import MagicString from 'magic-string';
 import { format, resolveConfig } from 'prettier';
 
-import componentAnalyzerConfig from '../tools/manifest/custom-elements-manifest.config.js';
+import elementsManifestConfig from '../manifest/elements-custom-elements-manifest.config.js';
+import elementsExperimentalManifestConfig from '../manifest/elements-experimental-custom-elements-manifest.config.js';
 
-const manifestFilePath = `${componentAnalyzerConfig.outdir}/custom-elements.json`;
+const manifestFilePaths = [
+  `${elementsManifestConfig.outdir}/custom-elements.json`,
+  `${elementsExperimentalManifestConfig.outdir}/custom-elements.json`,
+];
 const tempFolderPath = './dist/docs';
-const componentsFolder = './src/elements';
+const componentsFolder = './src';
 const inheritedFromColumnIndex = 6;
 const propertyColumnIndex = 1;
 const attributeColumnIndex = 2;
@@ -129,8 +133,6 @@ async function updateComponentReadme(
   fs.writeFileSync(path, await format(newReadme.toString(), { ...options, filepath: path }));
 }
 
-const manifest: Package = JSON.parse(fs.readFileSync(manifestFilePath, 'utf-8'));
-
 type ExtendedClassDeclaration = ClassDeclaration & {
   cssProperties: { name: string }[];
   events: { name: string }[];
@@ -138,57 +140,61 @@ type ExtendedClassDeclaration = ClassDeclaration & {
   slots: { name: string }[];
 };
 
-manifest.modules.forEach((module) => {
-  module.declarations
-    ?.filter((declaration): declaration is ExtendedClassDeclaration => declaration.kind === 'class')
-    .forEach((declaration) =>
-      ['members', 'slots', 'cssProperties', 'events'].forEach((type) =>
-        (declaration[type as keyof ExtendedClassDeclaration] as { name: string }[])?.sort((a, b) =>
-          a.name.localeCompare(b.name),
+for (const manifestPath of manifestFilePaths) {
+  const manifest: Package = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+
+  manifest.modules.forEach((module) => {
+    module.declarations
+      ?.filter((declaration): declaration is ExtendedClassDeclaration => declaration.kind === 'class')
+      .forEach((declaration) =>
+        ['members', 'slots', 'cssProperties', 'events'].forEach((type) =>
+          (declaration[type as keyof ExtendedClassDeclaration] as { name: string }[])?.sort((a, b) =>
+            a.name.localeCompare(b.name),
+          ),
         ),
-      ),
-    );
-});
+      );
+  });
 
-const markdown: string = customElementsManifestToMarkdown(manifest, {
-  headingOffset: -1, // Default heading is '###'
-  private: 'details', // We use 'details' because it's the only way to remove 'protected' members from the tables. We remove details section later.
-  omitDeclarations: ['exports'],
-  omitSections: [
-    'super-class',
-    'css-parts',
-    'main-heading',
-    'static-fields',
-    'attributes',
-    'mixins',
-  ],
-});
-const manifestDeclarations = manifest.modules.flatMap((m) => m.declarations);
+  const markdown: string = customElementsManifestToMarkdown(manifest, {
+    headingOffset: -1, // Default heading is '###'
+    private: 'details', // We use 'details' because it's the only way to remove 'protected' members from the tables. We remove details section later.
+    omitDeclarations: ['exports'],
+    omitSections: [
+      'super-class',
+      'css-parts',
+      'main-heading',
+      'static-fields',
+      'attributes',
+      'mixins',
+    ],
+  });
+  const manifestDeclarations = manifest.modules.flatMap((m) => m.declarations);
 
-if (!fs.existsSync(tempFolderPath)) {
-  fs.mkdirSync(tempFolderPath, { recursive: true });
+  if (!fs.existsSync(tempFolderPath)) {
+    fs.mkdirSync(tempFolderPath, { recursive: true });
+  }
+  fs.writeFileSync(`${tempFolderPath}/components.md`, markdown);
+
+  // Split the generated file into the single readme of each component
+  const matches = Array.from(markdown.matchAll(/^# class: `(?<name>.*)`, `(?<tag>.*)`$/gm));
+
+  for (let i = 0; i < matches.length; i++) {
+    const startIndex = matches[i].index!;
+    const endIndex = matches[i + 1]?.index ?? markdown.length;
+    const compName = matches[i].groups!.name;
+    const compTag = matches[i].groups!.tag;
+
+    const componentMarkdown = markdown.substring(startIndex, endIndex);
+
+    // If there is a `<hr/>` it indicates corrupted data respect. mixed data over different components.
+    // If we just stop before occurrence of `<hr/>` we are not including the corrupted data.
+    const hrIndex = componentMarkdown.indexOf('<hr/>');
+    const markdownDoc = componentMarkdown.substring(0, hrIndex);
+    const compManifest = manifestDeclarations.find(
+      (c) => c?.kind === 'class' && c.name === compName,
+    ) as CustomElement;
+
+    await updateComponentReadme(compName, compTag, markdownDoc, compManifest);
+  }
+  console.log(`Docs generated successfully from ${manifestPath}`);
 }
-fs.writeFileSync(`${tempFolderPath}/components.md`, markdown);
-
-// Split the generated file into the single readme of each component
-const matches = Array.from(markdown.matchAll(/^# class: `(?<name>.*)`, `(?<tag>.*)`$/gm));
-
-for (let i = 0; i < matches.length; i++) {
-  const startIndex = matches[i].index!;
-  const endIndex = matches[i + 1]?.index ?? markdown.length;
-  const compName = matches[i].groups!.name;
-  const compTag = matches[i].groups!.tag;
-
-  const componentMarkdown = markdown.substring(startIndex, endIndex);
-
-  // If there is a `<hr/>` it indicates corrupted data respect. mixed data over different components.
-  // If we just stop before occurrence of `<hr/>` we are not including the corrupted data.
-  const hrIndex = componentMarkdown.indexOf('<hr/>');
-  const markdownDoc = componentMarkdown.substring(0, hrIndex);
-  const compManifest = manifestDeclarations.find(
-    (c) => c?.kind === 'class' && c.name === compName,
-  ) as CustomElement;
-
-  await updateComponentReadme(compName, compTag, markdownDoc, compManifest);
-}
-console.log('Docs generated successfully');
