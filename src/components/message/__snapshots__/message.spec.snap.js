@@ -28,7 +28,11 @@ snapshots["sbb-message renders without optional slots"] =
 
 snapshots["sbb-message renders Dom"] = 
 `<sbb-message title-content="Title.">
-  <sbb-image slot="image">
+  <sbb-image
+    aspect-ratio="16-9"
+    border-radius="default"
+    slot="image"
+  >
   </sbb-image>
   <p slot="subtitle">
     Subtitle.
