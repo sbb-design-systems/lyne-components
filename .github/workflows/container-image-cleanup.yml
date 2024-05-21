@@ -37,7 +37,7 @@ jobs:
             for (const packageName of packageNames) {
               const params = {
                 package_type: 'container',
-                package_name: `${repo}/${packageNames}`,
+                package_name: `${repo}/${packageName}`,
                 username: owner
               };
               const { data: versions } = await github.rest.packages.getAllPackageVersionsForPackageOwnedByUser(params);
