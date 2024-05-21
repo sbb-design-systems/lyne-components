@@ -32,3 +32,10 @@ export const isNonHydratedSsr = (): boolean =>
  * Returns true, if this is run in an SSR test group.
  */
 export const isSsr = (): boolean => isHydratedSsr() || isNonHydratedSsr();
+
+/**
+ * This is a custom implementation.
+ * Returns true, if this is run in the visual regression test group.
+ */
+export const isVisualRegressionRun = (): boolean =>
+  !isServer && (globalThis as any).testGroup === 'visual-regression';

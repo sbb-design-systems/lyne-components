@@ -22,7 +22,7 @@ The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
 ```html
-<sbb-link href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+<sbb-link href="https://github.com/sbb-design-systems/lyne-components" target="_blank">
   Travel-cards and tickets
 </sbb-link>
 ```

@@ -31,7 +31,7 @@ const titleLevel: InputType = {
 const hrefs: string[] = [
   'https://www.sbb.ch',
   'https://www.sbb.ch/en/help-and-contact.html',
-  'https://github.com/lyne-design-system/lyne-components',
+  'https://github.com/sbb-design-systems/lyne-components',
 ];
 const labelFirstLink: InputType = {
   control: {
