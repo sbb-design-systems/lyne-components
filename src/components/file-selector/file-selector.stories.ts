@@ -19,6 +19,13 @@ const variant: InputType = {
   options: ['default', 'dropzone'],
 };
 
+const size: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['m', 's'],
+};
+
 const disabled: InputType = {
   control: {
     type: 'boolean',
@@ -58,6 +65,7 @@ const accessibilityLabel: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   variant,
+  size,
   disabled,
   'title-content': titleContent,
   multiple,
@@ -68,6 +76,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   variant: variant.options![0],
+  size: size.options![0],
   disabled: false,
   'title-content': 'Title',
   multiple: false,
@@ -76,10 +85,20 @@ const defaultArgs: Args = {
   'accessibility-label': 'Select from hard disk',
 };
 
+const defaultArgsSizeS: Args = {
+  ...defaultArgs,
+  size: size.options![1],
+};
+
 const multipleDefaultArgs: Args = {
   ...defaultArgs,
   multiple: true,
   'accessibility-label': 'Select from hard disk - multiple files allowed',
+};
+
+const multipleDefaultArgsSizeS: Args = {
+  ...multipleDefaultArgs,
+  size: size.options![1],
 };
 
 const Template = (args: Args): TemplateResult =>
@@ -173,6 +192,42 @@ export const DefaultOnlyPDF: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, accept: '.pdf' },
+};
+
+export const DefaultMultiSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...multipleDefaultArgsSizeS },
+};
+
+export const DefaultDisabledSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgsSizeS, disabled: true },
+};
+
+export const DropzoneMultiSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...multipleDefaultArgsSizeS, variant: variant.options![1] },
+};
+
+export const DropzoneDisabledSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgsSizeS, variant: variant.options![1], disabled: true },
+};
+
+export const DefaultWithErrorSizeS: StoryObj = {
+  render: TemplateWithError,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgsSizeS },
+};
+
+export const DropzoneWithErrorSizeS: StoryObj = {
+  render: TemplateWithError,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgsSizeS, variant: variant.options![1] },
 };
 
 const meta: Meta = {
