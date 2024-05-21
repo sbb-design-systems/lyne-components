@@ -18,7 +18,11 @@ const DefaultTemplate = (): TemplateResult => html`
         margin-block-end: 0;
       }
     </style>
-    <sbb-image slot="image" image-src=${images[6]}></sbb-image>
+    <sbb-image
+      slot="image"
+      image-src=${images[6]}
+      alt="Station of Lucerne from outside"
+    ></sbb-image>
     <sbb-breadcrumb-group class="sbb-lead-container-spacing">
       <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
       <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>

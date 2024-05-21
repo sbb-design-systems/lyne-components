@@ -93,7 +93,11 @@ describe(`sbb-lead-container`, () => {
           beforeEach(async function () {
             root = await visualRegressionFixture(
               leadContainerTemplate(
-                html`<sbb-image slot="image" image-src=${leadImageUrl}></sbb-image>`,
+                html`<sbb-image
+                  slot="image"
+                  image-src=${leadImageUrl}
+                  alt="Station of Lucerne from outside"
+                ></sbb-image>`,
               ),
               this,
               { backgroundColor: `var(--sbb-color-milk)` },
@@ -109,7 +113,13 @@ describe(`sbb-lead-container`, () => {
         describe('with img tag', () => {
           beforeEach(async function () {
             root = await visualRegressionFixture(
-              leadContainerTemplate(html`<img slot="image" src=${leadImageBase64} alt="" />`),
+              leadContainerTemplate(
+                html`<img
+                  slot="image"
+                  src=${leadImageBase64}
+                  alt="Station of Lucerne from outside"
+                />`,
+              ),
               this,
               { backgroundColor: `var(--sbb-color-milk)` },
             );

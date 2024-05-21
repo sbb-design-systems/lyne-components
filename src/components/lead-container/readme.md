@@ -31,6 +31,7 @@ Full example with applied spacings (CSS classes) in content:
   <sbb-image
     slot="image"
     image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Bahnhof-Luzern.jpg"
+    alt="Station of Lucerne from outside"
   ></sbb-image>
   <sbb-breadcrumb-group class="sbb-lead-container-spacing">
     <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
@@ -50,6 +51,11 @@ Full example with applied spacings (CSS classes) in content:
   <p class="sbb-text-m other-content">Other content.</p>
 </sbb-lead-container>
 ```
+
+## Accessibility
+
+Please either define the `alt` attribute of your image or set `aria-hidden="true"` to the image
+to hide it from the accessibility tree.
 
 <!-- Auto Generated Below -->
 
