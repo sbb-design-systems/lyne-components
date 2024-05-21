@@ -186,7 +186,9 @@ function prepareScreenshots(): PluginOption {
                   };
                 });
             });
-        } else if (viteConfig.command !== 'serve') {
+        }
+
+        if (viteConfig.command !== 'serve') {
           this.emitFile({
             type: 'asset',
             fileName: 'diff.json',
