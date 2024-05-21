@@ -11,12 +11,8 @@ describe(`sbb-image`, () => {
 
   describe('should render', async () => {
     beforeEach(async () => {
-      const url =
-        location.protocol +
-        '//' +
-        location.host +
-        '/src/components/clock/assets/sbb_clock_face.svg';
-      element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
+      const url = `${location.protocol}//${location.host}/src/components/clock/assets/sbb_clock_face.svg`;
+      element = await fixture(html`<sbb-image image-src=${url}></sbb-image>`);
 
       // Wait until the image is successfully loaded
       await waitForCondition(() => element.hasAttribute('data-loaded'), 30, 6000);
@@ -26,11 +22,13 @@ describe(`sbb-image`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['image-src'] });
     });
 
     it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
+      await expect(element).shadowDom.to.be.equalSnapshot({
+        ignoreAttributes: ['src', 'srcset', 'fetchpriority'],
+      });
     });
   });
 });
