@@ -145,11 +145,13 @@ for (const manifestPath of manifestFilePaths) {
 
   manifest.modules.forEach((module) => {
     module.declarations
-      ?.filter((declaration): declaration is ExtendedClassDeclaration => declaration.kind === 'class')
+      ?.filter(
+        (declaration): declaration is ExtendedClassDeclaration => declaration.kind === 'class',
+      )
       .forEach((declaration) =>
         ['members', 'slots', 'cssProperties', 'events'].forEach((type) =>
-          (declaration[type as keyof ExtendedClassDeclaration] as { name: string }[])?.sort((a, b) =>
-            a.name.localeCompare(b.name),
+          (declaration[type as keyof ExtendedClassDeclaration] as { name: string }[])?.sort(
+            (a, b) => a.name.localeCompare(b.name),
           ),
         ),
       );
