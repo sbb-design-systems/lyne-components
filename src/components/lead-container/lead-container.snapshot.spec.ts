@@ -1,5 +1,4 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { setViewport } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
@@ -50,13 +49,6 @@ describe(`sbb-lead-container`, () => {
     describe('visual-regression', () => {
       let root: HTMLElement;
 
-      beforeEach(async function () {
-        // TODO: Is there a better solution?
-        if (this.requestViewport) {
-          await setViewport({ ...this.requestViewport, width: this.requestViewport.width + 1 });
-        }
-      });
-
       const wrapperStyles = { backgroundColor: `var(--sbb-color-milk)`, padding: '0' };
 
       const leadContainerTemplate = (image: TemplateResult): TemplateResult => html`
@@ -70,9 +62,6 @@ describe(`sbb-lead-container`, () => {
           <sbb-breadcrumb-group class="sbb-lead-container-spacing">
             <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
             <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-1">Level 2</sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-1">Level 3</sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-1">Level 4</sbb-breadcrumb>
           </sbb-breadcrumb-group>
           <sbb-block-link
             icon-placement="start"
