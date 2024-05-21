@@ -1,10 +1,10 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbTagElement } from '../../../../../components/tag/tag/tag.js';
+import type { SbbTagElement } from '../../../../../elements/tag/tag/tag.js';
 import { type ScreenshotTestCase } from '../../../screenshots.js';
-import '../../../../../components/title.js';
-import '../../../../../components/tag.js';
+import '../../../../../elements/title.js';
+import '../../../../../elements/tag.js';
 
 import style from './test-case-filter.scss?lit&inline';
 

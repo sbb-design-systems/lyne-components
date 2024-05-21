@@ -1,13 +1,13 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbRadioButtonGroupElement } from '../../../../../../components/radio-button/radio-button-group/radio-button-group.js';
+import type { SbbRadioButtonGroupElement } from '../../../../../../elements/radio-button/radio-button-group/radio-button-group.js';
 import type { ScreenshotFiles } from '../../../../interfaces.js';
 
 import style from './fullscreen-diff.scss?lit&inline';
 
-import '../../../../../../components/chip.js';
-import '../../../../../../components/radio-button.js';
+import '../../../../../../elements/chip.js';
+import '../../../../../../elements/radio-button.js';
 
 /**
  * Displays two images in fullscreen to overlay them.

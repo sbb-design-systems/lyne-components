@@ -5,14 +5,14 @@ import { screenshots } from '../../screenshots.js';
 
 import style from './overview.scss?lit&inline';
 
-import '../../../../components/accordion.js';
-import '../../../../components/button/secondary-button-link.js';
-import '../../../../components/card.js';
-import '../../../../components/container.js';
-import '../../../../components/expansion-panel.js';
-import '../../../../components/link-list.js';
-import '../../../../components/link/block-link.js';
-import '../../../../components/title.js';
+import '../../../../elements/accordion.js';
+import '../../../../elements/button/secondary-button-link.js';
+import '../../../../elements/card.js';
+import '../../../../elements/container.js';
+import '../../../../elements/expansion-panel.js';
+import '../../../../elements/link-list.js';
+import '../../../../elements/link/block-link.js';
+import '../../../../elements/title.js';
 
 /**
  * Overview over all tests
