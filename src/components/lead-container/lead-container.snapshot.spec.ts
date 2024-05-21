@@ -1,4 +1,5 @@
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
+import { setViewport } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
@@ -48,6 +49,15 @@ describe(`sbb-lead-container`, () => {
   } else {
     describe('visual-regression', () => {
       let root: HTMLElement;
+
+      beforeEach(async function () {
+        // TODO: Is there a better solution?
+        if (this.requestViewport) {
+          await setViewport({ ...this.requestViewport, width: this.requestViewport.width + 1 });
+        }
+      });
+
+      const wrapperStyles = { backgroundColor: `var(--sbb-color-milk)`, padding: '0' };
 
       const leadContainerTemplate = (image: TemplateResult): TemplateResult => html`
         <sbb-lead-container>
@@ -100,11 +110,12 @@ describe(`sbb-lead-container`, () => {
                 ></sbb-image>`,
               ),
               this,
-              { backgroundColor: `var(--sbb-color-milk)` },
+              wrapperStyles,
             );
             await waitForCondition(() =>
               root.querySelector('sbb-image')!.hasAttribute('data-loaded'),
             );
+            await aTimeout(20);
           });
 
           testVisualDiff(() => root);
@@ -121,7 +132,7 @@ describe(`sbb-lead-container`, () => {
                 />`,
               ),
               this,
-              { backgroundColor: `var(--sbb-color-milk)` },
+              wrapperStyles,
             );
           });
 
