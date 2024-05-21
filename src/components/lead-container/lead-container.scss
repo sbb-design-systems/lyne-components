@@ -7,7 +7,7 @@
   display: block;
 
   --sbb-lead-container-background-color: var(--sbb-color-white);
-  --sbb-lead-container-image-ratio: 2/1;
+  --sbb-lead-container-image-ratio: 2 / 1;
 
   // TODO: Check if token needed
   --sbb-lead-container-image-overlap: -6rem;
@@ -16,9 +16,14 @@
 
   // TODO: Check if new border-radius token needed
   --sbb-lead-container-border-radius: var(--sbb-spacing-fixed-3x);
+  --sbb-lead-container-image-border-radius: 0;
 
   @include sbb.mq($from: wide) {
-    --sbb-lead-container-image-ratio: 21/9;
+    --sbb-lead-container-image-ratio: 21 / 9;
+  }
+
+  @include sbb.mq($from: ultra) {
+    --sbb-lead-container-image-border-radius: var(--sbb-lead-container-border-radius);
   }
 }
 
@@ -26,14 +31,9 @@
   padding-block-end: var(--sbb-spacing-responsive-l);
 }
 
-// TODO: Check if default aspect ratio should be `free` of sbb-image
 ::slotted(sbb-image[slot='image']) {
   --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
-  --sbb-image-border-radius: 0;
-
-  @include sbb.mq($from: ultra) {
-    --sbb-image-border-radius: var(--sbb-lead-container-border-radius);
-  }
+  --sbb-image-border-radius: var(--sbb-lead-container-image-border-radius);
 }
 
 ::slotted(:is(img[slot='image'], picture[slot='image'])) {
@@ -41,10 +41,19 @@
   width: 100%;
   object-fit: cover;
   aspect-ratio: var(--sbb-lead-container-image-ratio);
+  border-radius: var(--sbb-lead-container-image-border-radius);
+}
 
-  @include sbb.mq($from: ultra) {
-    border-radius: var(--sbb-lead-container-border-radius);
-  }
+::slotted(:is(sbb-breadcrumb-group, sbb-block-link).sbb-lead-container-spacing) {
+  margin-block-end: var(--sbb-spacing-fixed-4x);
+}
+
+::slotted(sbb-title.sbb-lead-container-spacing) {
+  margin-block-start: 0;
+}
+
+::slotted(.sbb-lead-container-lead-text) {
+  margin-block: 0 var(--sbb-spacing-responsive-s);
 }
 
 .sbb-lead-container-image {
@@ -72,10 +81,10 @@
   border-radius: var(--sbb-lead-container-border-radius);
   padding-block: var(--sbb-lead-container-padding-block);
   background-color: var(--sbb-lead-container-background-color);
-  grid-column: 1/-1;
+  grid-column: 1 / -1;
 
   @include sbb.mq($from: medium) {
-    grid-column: 2/-2;
+    grid-column: 2 / -2;
   }
 
   @include sbb.mq($from: large) {
@@ -87,10 +96,10 @@
   }
 
   @include sbb.mq($from: wide) {
-    grid-column: 3/-3;
+    grid-column: 3 / -3;
   }
 
   @include sbb.mq($from: ultra) {
-    grid-column: 4/-4;
+    grid-column: 4 / -4;
   }
 }

@@ -1,15 +1,19 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-lead-container DOM"] = 
+snapshots["sbb-lead-container DOM"] =
 `<sbb-lead-container>
-  <sbb-image slot="image">
+  <sbb-image
+    aspect-ratio="16-9"
+    border-radius="default"
+    slot="image"
+  >
   </sbb-image>
 </sbb-lead-container>
 `;
 /* end snapshot sbb-lead-container DOM */
 
-snapshots["sbb-lead-container Shadow DOM"] = 
+snapshots["sbb-lead-container Shadow DOM"] =
 `<div class="sbb-lead-container">
   <div class="sbb-lead-container-image">
     <slot name="image">
@@ -25,7 +29,7 @@ snapshots["sbb-lead-container Shadow DOM"] =
 `;
 /* end snapshot sbb-lead-container Shadow DOM */
 
-snapshots["sbb-lead-container A11y tree Chrome"] = 
+snapshots["sbb-lead-container A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -35,7 +39,7 @@ snapshots["sbb-lead-container A11y tree Chrome"] =
 `;
 /* end snapshot sbb-lead-container A11y tree Chrome */
 
-snapshots["sbb-lead-container A11y tree Firefox"] = 
+snapshots["sbb-lead-container A11y tree Firefox"] =
 `<p>
   {
   "role": "document",

@@ -1,6 +1,9 @@
 The `sbb-lead-container` can be used for product pages to display a lead image and following content.
 
 Please note that the gaps between elements inside the unnamed slot (main content) need to be controlled by the consumer.
+However, consumers can use the predefined classes
+(`sbb-lead-container-lead-spacing` and `sbb-lead-container-lead-text`) to achieve a correct spacing.
+
 As per design rules, the spacings are defined as following:
 
 ```html
@@ -13,50 +16,37 @@ As per design rules, the spacings are defined as following:
 <p></p>
 <!-- var(--sbb-spacing-responsive-s) -->
 ...
+<!-- The last element should have zero block-end spacing to the container -->
 ```
 
-Full example with applied spacings in content:
+Full example with applied spacings (CSS classes) in content:
 
 ```html
 <sbb-lead-container>
   <style>
-    .inner-container {
-      display: flex;
-      flex-direction: column;
-      gap: var(--sbb-spacing-fixed-4x);
-    }
-    sbb-title {
-      margin-block-start: 0;
-    }
-    p.lead-text {
-      margin-block: 0;
-    }
     p.other-content {
-      margin-block-start: var(--sbb-spacing-responsive-s);
       margin-block-end: 0;
     }
   </style>
   <sbb-image
     slot="image"
     image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Bahnhof-Luzern.jpg"
-    aspect-ratio="free"
   ></sbb-image>
-  <div class="inner-container">
-    <sbb-breadcrumb-group>
-      <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
-      <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
-    </sbb-breadcrumb-group>
-    <sbb-block-link
-      icon-placement="start"
-      icon-name="chevron-small-left-small"
-      size="xs"
-      href="https://www.sbb.ch"
-    >
-      Link
-    </sbb-block-link>
-    <sbb-title>Title</sbb-title>
-  </div>
-  <p class="sbb-text-xl lead-text">Lead text.</p>
+  <sbb-breadcrumb-group class="sbb-lead-container-spacing">
+    <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+    <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
+  </sbb-breadcrumb-group>
+  <sbb-block-link
+    icon-placement="start"
+    icon-name="chevron-small-left-small"
+    size="xs"
+    href="https://www.sbb.ch"
+    class="sbb-lead-container-spacing"
+  >
+    Link
+  </sbb-block-link>
+  <sbb-title class="sbb-lead-container-spacing">Title</sbb-title>
+  <p class="sbb-text-xl sbb-lead-container-lead-text">Lead text.</p>
   <p class="sbb-text-m other-content">Other content.</p>
 </sbb-lead-container>
 ```

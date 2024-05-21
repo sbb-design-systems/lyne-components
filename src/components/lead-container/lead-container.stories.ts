@@ -14,42 +14,29 @@ import readme from './readme.md?raw';
 const DefaultTemplate = (): TemplateResult => html`
   <sbb-lead-container>
     <style>
-      .inner-container {
-        display: flex;
-        flex-direction: column;
-        gap: var(--sbb-spacing-fixed-4x);
-      }
-      sbb-title {
-        margin-block-start: 0;
-      }
-      p.lead-text {
-        margin-block: 0;
-      }
       p.other-content {
-        margin-block-start: var(--sbb-spacing-responsive-s);
         margin-block-end: 0;
       }
     </style>
-    <sbb-image slot="image" image-src=${images[6]} aspect-ratio="free"></sbb-image>
-    <div class="inner-container">
-      <sbb-breadcrumb-group>
-        <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
-        <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
-        <sbb-breadcrumb href="#" id="breadcrumb-1">Level 2</sbb-breadcrumb>
-        <sbb-breadcrumb href="#" id="breadcrumb-1">Level 3</sbb-breadcrumb>
-        <sbb-breadcrumb href="#" id="breadcrumb-1">Level 4</sbb-breadcrumb>
-      </sbb-breadcrumb-group>
-      <sbb-block-link
-        icon-placement="start"
-        icon-name="chevron-small-left-small"
-        size="xs"
-        href="https://www.sbb.ch"
-      >
-        Link
-      </sbb-block-link>
-      <sbb-title>Title</sbb-title>
-    </div>
-    <p class="sbb-text-xl lead-text">
+    <sbb-image slot="image" image-src=${images[6]}></sbb-image>
+    <sbb-breadcrumb-group class="sbb-lead-container-spacing">
+      <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+      <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
+      <sbb-breadcrumb href="#" id="breadcrumb-1">Level 2</sbb-breadcrumb>
+      <sbb-breadcrumb href="#" id="breadcrumb-1">Level 3</sbb-breadcrumb>
+      <sbb-breadcrumb href="#" id="breadcrumb-1">Level 4</sbb-breadcrumb>
+    </sbb-breadcrumb-group>
+    <sbb-block-link
+      icon-placement="start"
+      icon-name="chevron-small-left-small"
+      size="xs"
+      href="https://www.sbb.ch"
+      class="sbb-lead-container-spacing"
+    >
+      Link
+    </sbb-block-link>
+    <sbb-title class="sbb-lead-container-spacing">Title</sbb-title>
+    <p class="sbb-text-xl sbb-lead-container-lead-text">
       Lead text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit,
       ultricies in tincidunt quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut,
       hendrerit risus.

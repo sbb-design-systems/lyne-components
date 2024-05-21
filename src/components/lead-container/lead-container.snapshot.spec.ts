@@ -5,6 +5,7 @@ import {
   describeViewports,
   fixture,
   isVisualRegressionRun,
+  loadAssetAsBase64,
   testA11yTreeSnapshot,
   testVisualDiff,
   visualRegressionFixture,
@@ -17,6 +18,8 @@ import '../image.js';
 import '../link/block-link/block-link.js';
 import '../title.js';
 import './lead-container.js';
+
+const leadImage = await loadAssetAsBase64(import.meta.resolve('./assets/lucerne.png'));
 
 describe(`sbb-lead-container`, () => {
   if (!isVisualRegressionRun()) {
@@ -50,50 +53,33 @@ describe(`sbb-lead-container`, () => {
               html`
                 <sbb-lead-container>
                   <style>
-                    .inner-container {
-                      display: flex;
-                      flex-direction: column;
-                      gap: var(--sbb-spacing-fixed-4x);
-                    }
-                    sbb-title {
-                      margin-block-start: 0;
-                    }
-                    p.lead-text {
-                      margin-block: 0;
-                    }
                     p.other-content {
-                      margin-block-start: var(--sbb-spacing-responsive-s);
                       margin-block-end: 0;
                     }
                   </style>
-                  <img
-                    slot="image"
-                    src=${new URL('./assets/lucerne.png', import.meta.url).href}
-                    alt=""
-                  />
-                  <div class="inner-container">
-                    <sbb-breadcrumb-group>
-                      <sbb-breadcrumb
-                        href="#"
-                        icon-name="house-small"
-                        id="breadcrumb-0"
-                      ></sbb-breadcrumb>
-                      <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
-                      <sbb-breadcrumb href="#" id="breadcrumb-1">Level 2</sbb-breadcrumb>
-                      <sbb-breadcrumb href="#" id="breadcrumb-1">Level 3</sbb-breadcrumb>
-                      <sbb-breadcrumb href="#" id="breadcrumb-1">Level 4</sbb-breadcrumb>
-                    </sbb-breadcrumb-group>
-                    <sbb-block-link
-                      icon-placement="start"
-                      icon-name="chevron-small-left-small"
-                      size="xs"
-                      href="https://www.sbb.ch"
-                    >
-                      Link
-                    </sbb-block-link>
-                    <sbb-title>Title</sbb-title>
-                  </div>
-                  <p class="sbb-text-xl lead-text">
+                  <img slot="image" src=${leadImage} alt="" />
+                  <sbb-breadcrumb-group class="sbb-lead-container-spacing">
+                    <sbb-breadcrumb
+                      href="#"
+                      icon-name="house-small"
+                      id="breadcrumb-0"
+                    ></sbb-breadcrumb>
+                    <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
+                    <sbb-breadcrumb href="#" id="breadcrumb-1">Level 2</sbb-breadcrumb>
+                    <sbb-breadcrumb href="#" id="breadcrumb-1">Level 3</sbb-breadcrumb>
+                    <sbb-breadcrumb href="#" id="breadcrumb-1">Level 4</sbb-breadcrumb>
+                  </sbb-breadcrumb-group>
+                  <sbb-block-link
+                    icon-placement="start"
+                    icon-name="chevron-small-left-small"
+                    size="xs"
+                    href="https://www.sbb.ch"
+                    class="sbb-lead-container-spacing"
+                  >
+                    Link
+                  </sbb-block-link>
+                  <sbb-title class="sbb-lead-container-spacing">Title</sbb-title>
+                  <p class="sbb-text-xl sbb-lead-container-lead-text">
                     Lead text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim
                     elit, ultricies in tincidunt quis, mattis eu quam. Nulla sit amet lorem
                     fermentum, molestie nunc ut, hendrerit risus.
