@@ -1,16 +1,17 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbOverlayElement } from '../../../../../elements/overlay/overlay.js';
-import type { SbbToggleCheckElement } from '../../../../../elements/toggle-check/toggle-check.js';
 import type { ScreenshotFiles } from '../../../interfaces.js';
 
 import style from './image-diff.scss?lit&inline';
 
-import '../../../../../elements/chip.js';
-import '../../../../../elements/status.js';
-import '../../../../../elements/overlay.js';
-import '../../../../../elements/toggle-check.js';
+import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.js';
+import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.js';
+
+import '@sbb-esta/lyne-elements/chip.js';
+import '@sbb-esta/lyne-elements/status.js';
+import '@sbb-esta/lyne-elements/overlay.js';
+import '@sbb-esta/lyne-elements/toggle-check.js';
 
 import './fullscreen-diff/fullscreen-diff.js';
 

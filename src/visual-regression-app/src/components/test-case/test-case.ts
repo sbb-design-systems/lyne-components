@@ -9,12 +9,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { screenshots, type ScreenshotTestCase } from '../../screenshots.js';
 
-import '../../../../elements/button/secondary-button-link.js';
-import '../../../../elements/chip.js';
-import '../../../../elements/container.js';
-import '../../../../elements/header.js';
-import '../../../../elements/notification.js';
-import '../../../../elements/title.js';
+import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
+import '@sbb-esta/lyne-elements/chip.js';
+import '@sbb-esta/lyne-elements/container.js';
+import '@sbb-esta/lyne-elements/header.js';
+import '@sbb-esta/lyne-elements/notification.js';
+import '@sbb-esta/lyne-elements/title.js';
 
 import type { TestCaseFilter } from './test-case-filter/test-case-filter.js';
 import style from './test-case.scss?lit&inline';
