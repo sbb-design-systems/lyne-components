@@ -50,7 +50,7 @@ chances of your issue being dealt with quickly:
 - **Suggest a Fix** - if you can't fix the bug yourself, perhaps you can point to what might be
   causing the problem (line of code or commit)
 
-You can file new issues by providing the above information [here](https://github.com/lyne-design-system/lyne-components/issues/new/choose).
+You can file new issues by providing the above information [here](https://github.com/sbb-design-systems/lyne-components/issues/new/choose).
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
 
@@ -182,4 +182,4 @@ This project uses [SASS](https://sass-lang.com/) for styling the components.
 
 We recommend using US English in all docs or examples.
 
-[github]: https://github.com/lyne-design-system/lyne-components
+[github]: https://github.com/sbb-design-systems/lyne-components

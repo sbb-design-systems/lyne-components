@@ -8,7 +8,7 @@ snapshots["sbb-menu-link renders component with icon and amount Light DOM"] =
   data-action=""
   data-link=""
   dir="ltr"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="menu-small"
   target="_blank"
 >
@@ -23,7 +23,7 @@ snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] =
 `<a
   aria-label="a11y label"
   class="sbb-action-base sbb-menu-link"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   rel="external noopener nofollow"
   target="_blank"
 >
@@ -79,7 +79,7 @@ snapshots["sbb-menu-link renders component with icon and amount A11y tree Firefo
     {
       "role": "link",
       "name": "a11y label",
-      "value": "https://github.com/lyne-design-system/lyne-components"
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }

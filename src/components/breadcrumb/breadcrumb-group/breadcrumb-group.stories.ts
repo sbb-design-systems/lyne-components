@@ -46,7 +46,7 @@ const text: InputType = {
   },
 };
 
-const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
+const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
 const href: InputType = {
   options: Object.keys(hrefs),
   mapping: hrefs,
@@ -111,7 +111,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   numberOfBreadcrumbs: 3,
   text: 'Link',
-  href: 'https://github.com/lyne-design-system/lyne-components',
+  href: 'https://github.com/sbb-design-systems/lyne-components',
   target: '_blank',
   rel: undefined,
   download: false,

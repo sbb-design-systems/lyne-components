@@ -9,18 +9,12 @@ import type {
   WebComponentsRenderer,
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import '../../icon.js';
 import '../../loading-indicator.js';
-
-const focusStyle = (context: StoryContext): Record<string, string> =>
-  context.args.negative
-    ? { '--sbb-focus-outline-color': 'var(--sbb-focus-outline-color-dark)' }
-    : {};
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
 const Template = ({ tag, text, active, focusVisible, ...args }: Args): TemplateResult => html`
@@ -229,14 +223,13 @@ export const withHiddenSlottedIcon: StoryObj = {
 };
 
 export const commonDecorators = [
-  (story: () => WebComponentsRenderer['storyResult'], context: StoryContext) => html`
-    <div
-      style=${styleMap({
-        ...focusStyle(context),
-      })}
-    >
-      ${story()}
-    </div>
-  `,
+  (story: () => WebComponentsRenderer['storyResult'], context: StoryContext) =>
+    context.args.negative
+      ? html`
+          <div style="--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark)">
+            ${story()}
+          </div>
+        `
+      : story(),
   withActions as Decorator,
 ];
