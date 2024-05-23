@@ -25,6 +25,7 @@ import {
   i18nTripQuayChange,
 } from '../core/i18n.js';
 import type { SbbOccupancy } from '../core/interfaces.js';
+import { SbbNowMixin } from '../core/mixins.js';
 import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.js';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 
@@ -205,7 +206,7 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
  * It displays information about the trip, acting as a container for all the `sbb-timetable-*` components.
  * */
 @customElement('sbb-timetable-row')
-export class SbbTimetableRowElement extends LitElement {
+export class SbbTimetableRowElement extends SbbNowMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The trip Prop. */
@@ -245,9 +246,6 @@ export class SbbTimetableRowElement extends LitElement {
   /** When this prop is true the sbb-card will be in the active state. */
   @property({ type: Boolean }) public active?: boolean;
 
-  /** A specific date for the current datetime (timestamp in milliseconds). */
-  @property({ attribute: 'now' }) public dataNow?: number;
-
   private _language = new SbbLanguageController(this);
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -256,10 +254,6 @@ export class SbbTimetableRowElement extends LitElement {
     if (changedProperties.has('loadingTrip')) {
       setOrRemoveAttribute(this, 'role', !this.loadingTrip ? 'rowgroup' : null);
     }
-  }
-
-  private _now(): number {
-    return this.dataNow ?? Date.now();
   }
 
   /** The skeleton render function for the loading state */
@@ -547,7 +541,7 @@ export class SbbTimetableRowElement extends LitElement {
             .departureWalk=${departureWalk}
             .arrivalWalk=${arrivalWalk}
             ?disable-animation=${this.disableAnimation}
-            now=${this._now()}
+            now=${this.dateNow}
           ></sbb-pearl-chain-time>
           <div class="sbb-timetable__row-footer" role="gridcell">
             ${product && this._getQuayType(product.vehicleMode) && departure?.quayFormatted

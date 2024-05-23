@@ -33,6 +33,7 @@ import {
   i18nYearMonthSelection,
 } from '../core/i18n.js';
 import type { SbbDateLike } from '../core/interfaces.js';
+import { SbbNowMixin } from '../core/mixins.js';
 
 import style from './calendar.scss?lit&inline';
 
@@ -90,7 +91,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
 @customElement('sbb-calendar')
-export class SbbCalendarElement<T = Date> extends LitElement {
+export class SbbCalendarElement<T = Date> extends SbbNowMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     dateSelected: 'dateSelected',
@@ -141,9 +142,6 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   /** A function used to filter out dates. */
   @property({ attribute: 'date-filter' }) public dateFilter?: (date: T | null) => boolean;
 
-  /** A specific date for the current datetime (timestamp in milliseconds). */
-  @property({ attribute: 'now' }) public dataNow?: number;
-
   private _dateAdapter: DateAdapter<T> = defaultDateAdapter as unknown as DateAdapter<T>;
 
   /** Event emitted on date selection. */
@@ -153,7 +151,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   );
 
   /** The currently active date. */
-  @state() private _activeDate: T = this._now();
+  @state() private _activeDate: T = this._getNow();
 
   /** The selected date as ISOString. */
   @state() private _selected?: string;
@@ -237,7 +235,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
     if (this._calendarView !== 'day') {
       this._resetToDayView();
     }
-    this._activeDate = this.selected ?? this._now();
+    this._activeDate = this.selected ?? this._getNow();
     this._init();
   }
 
@@ -609,7 +607,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   }
 
   private _getFirstFocusable(): HTMLButtonElement {
-    const active = this._selected ? this._dateAdapter.deserialize(this._selected)! : this._now();
+    const active = this._selected ? this._dateAdapter.deserialize(this._selected)! : this._getNow();
     let firstFocusable =
       this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
       this.shadowRoot!.querySelector(
@@ -798,9 +796,9 @@ export class SbbCalendarElement<T = Date> extends LitElement {
       : this._findNext(days, nextIndex, -verticalOffset);
   }
 
-  private _now(): T {
-    if (this.dataNow) {
-      const today = new Date(+this.dataNow);
+  private _getNow(): T {
+    if (this.now) {
+      const today = new Date(+this.now);
       if (defaultDateAdapter.isValid(today)) {
         return this._dateAdapter.createDate(
           today.getFullYear(),
@@ -814,7 +812,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   private _resetToDayView(): void {
     this._resetFocus = true;
-    this._activeDate = this.selected ?? this._now();
+    this._activeDate = this.selected ?? this._getNow();
     this._chosenYear = undefined;
     this._chosenMonth = undefined;
     this._nextCalendarView = 'day';
@@ -926,7 +924,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   /** Creates the table body with the day cells. For the first row, it also considers the possible day's offset. */
   private _createDayTableBody(weeks: Day[][]): TemplateResult[] {
-    const today: string = this._dateAdapter.toIso8601(this._now());
+    const today: string = this._dateAdapter.toIso8601(this._getNow());
     return weeks.map((week: Day[], rowIndex: number) => {
       const firstRowOffset: number = DAYS_PER_ROW - week.length;
       if (rowIndex === 0 && firstRowOffset) {
@@ -1061,8 +1059,8 @@ export class SbbCalendarElement<T = Date> extends LitElement {
                     !!this._selected && year === selectedYear && month.monthValue === selectedMonth;
 
                   const isCurrentMonth =
-                    year === this._dateAdapter.getYear(this._now()) &&
-                    this._dateAdapter.getMonth(this._now()) === month.monthValue;
+                    year === this._dateAdapter.getYear(this._getNow()) &&
+                    this._dateAdapter.getMonth(this._getNow()) === month.monthValue;
 
                   return html` <td
                     class=${classMap({
@@ -1180,7 +1178,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   /** Creates the table for the year selection view. */
   private _createYearTable(years: number[][], shiftRight = false): TemplateResult {
-    const now = this._now();
+    const now = this._getNow();
     return html` <table
       class="sbb-calendar__table"
       @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}

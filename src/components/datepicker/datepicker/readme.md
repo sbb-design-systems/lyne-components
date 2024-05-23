@@ -57,7 +57,7 @@ a `blur` event is fired on the input to ensure compatibility with any framework 
 
 ## Custom date formats
 
-To specify a specific date for the current datetime, you can use the `now` property (timestamp in milliseconds).
+To simulate the current datetime, you can use the `now` property (timestamp in milliseconds).
 This is helpful if you need a specific state of the component.
 
 Using a combination of the `dateParser` and `format` properties, it's possible to configure the datepicker
@@ -104,11 +104,11 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 
 | Name         | Attribute     | Privacy | Type                                                | Default | Description                                                           |
 | ------------ | ------------- | ------- | --------------------------------------------------- | ------- | --------------------------------------------------------------------- |
-| `dataNow`    | `now`         | public  | `number \| undefined`                               |         | A specific date for the current datetime (timestamp in milliseconds). |
 | `dateFilter` | `date-filter` | public  | `(date: Date \| null) => boolean`                   |         | A function used to filter out dates.                                  |
 | `dateParser` | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |         | A function used to parse string value into dates.                     |
 | `format`     | `format`      | public  | `(date: Date) => string \| undefined`               |         | A function used to format dates into the preferred string format.     |
 | `input`      | `input`       | public  | `string \| HTMLElement \| undefined`                |         | Reference of the native input connected to the datepicker.            |
+| `now`        | `now`         | public  | `number \| undefined`                               |         | A specific date for the current datetime (timestamp in milliseconds). |
 | `wide`       | `wide`        | public  | `boolean`                                           | `false` | If set to true, two months are displayed.                             |
 
 ## Methods

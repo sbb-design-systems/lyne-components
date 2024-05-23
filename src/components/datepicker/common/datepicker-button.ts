@@ -90,7 +90,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
       return;
     }
     const startingDate: Date =
-      this.datePickerElement.getValueAsDate() ?? this.datePickerElement.now();
+      this.datePickerElement.getValueAsDate() ?? this.datePickerElement.getNow();
     const date: Date = this.findAvailableDate(
       startingDate,
       this.datePickerElement.dateFilter,
@@ -175,7 +175,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
     }
 
     const currentDateString =
-      this.datePickerElement?.now().toDateString() === currentDate.toDateString()
+      this.datePickerElement?.getNow().toDateString() === currentDate.toDateString()
         ? i18nToday[this._language.current].toLowerCase()
         : this._dateAdapter.getAccessibilityFormatDate(currentDate);
 

@@ -10,6 +10,7 @@ import { findInput, findReferencedElement } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
+import { SbbNowMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
 import type { SbbDatepickerButton } from '../common.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
@@ -165,7 +166,7 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
  * @event {CustomEvent<SbbValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
 @customElement('sbb-datepicker')
-export class SbbDatepickerElement extends LitElement {
+export class SbbDatepickerElement extends SbbNowMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -190,9 +191,6 @@ export class SbbDatepickerElement extends LitElement {
 
   /** Reference of the native input connected to the datepicker. */
   @property() public input?: string | HTMLElement;
-
-  /** A specific date for the current datetime (timestamp in milliseconds). */
-  @property({ attribute: 'now' }) public dataNow?: number;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -462,17 +460,14 @@ export class SbbDatepickerElement extends LitElement {
    * @internal
    * Returns current date or configured date.
    */
-  public now(): Date {
-    if (this.dataNow) {
-      const today = new Date(+this.dataNow);
-      today.setHours(0, 0, 0, 0);
-      return today;
-    }
-    return this._dateAdapter.today();
+  public getNow(): Date {
+    const today = new Date(this.dateNow);
+    today.setHours(0, 0, 0, 0);
+    return today;
   }
 
   private _parse(value: string): Date | undefined {
-    return this.dateParser ? this.dateParser(value) : this._dateAdapter.parse(value, this.now());
+    return this.dateParser ? this.dateParser(value) : this._dateAdapter.parse(value, this.getNow());
   }
 
   private _format(date: Date): string {

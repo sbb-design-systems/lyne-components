@@ -156,8 +156,8 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _now(): Date | undefined {
-    if (this._datePickerElement?.dataNow) {
-      const today = new Date(+this._datePickerElement?.dataNow);
+    if (this._datePickerElement?.now) {
+      const today = new Date(+this._datePickerElement?.now);
       today.setHours(0, 0, 0, 0);
       return today;
     }

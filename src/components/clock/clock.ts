@@ -1,7 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
+
+import { SbbNowMixin } from '../core/mixins.js';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
@@ -48,11 +50,8 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
  * It displays an analog clock with the classic SBB face.
  */
 @customElement('sbb-clock')
-export class SbbClockElement extends LitElement {
+export class SbbClockElement extends SbbNowMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-
-  /** A specific date for the current datetime (timestamp in milliseconds). */
-  @property({ attribute: 'now' }) public dataNow?: number;
 
   /** Reference to the hour hand. */
   private _clockHandHours!: HTMLElement;
@@ -84,7 +83,7 @@ export class SbbClockElement extends LitElement {
   private async _handlePageVisibilityChange(): Promise<void> {
     if (document.visibilityState === 'hidden') {
       this._stopClock();
-    } else if (!this.dataNow) {
+    } else if (!this.now) {
       await this._startClock();
     }
   }
@@ -119,7 +118,7 @@ export class SbbClockElement extends LitElement {
 
   /** Given the current date, calculates the hh/mm/ss values and the hh/mm/ss left to the next midnight. */
   private _assignCurrentTime(): void {
-    const date = this._now();
+    const date = new Date(this.dateNow);
     this._hours = date.getHours() % 12;
     this._minutes = date.getMinutes();
     this._seconds = date.getSeconds();
@@ -219,7 +218,7 @@ export class SbbClockElement extends LitElement {
   private _stopClock(): void {
     clearInterval(this._handMovement);
 
-    if (this.dataNow) {
+    if (this.now) {
       this._setHandsStartingPosition();
       this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
       this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
@@ -254,19 +253,12 @@ export class SbbClockElement extends LitElement {
     );
   }
 
-  private _now(): Date {
-    if (this.dataNow) {
-      return new Date(+this.dataNow);
-    }
-    return new Date();
-  }
-
   protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changedProperties);
 
     this._addEventListeners();
 
-    if (this.dataNow) {
+    if (this.now) {
       this._stopClock();
     } else {
       await this._startClock();

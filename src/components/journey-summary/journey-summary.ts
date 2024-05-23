@@ -10,6 +10,7 @@ import {
   removeTimezoneFromISOTimeString,
 } from '../core/datetime.js';
 import { i18nTripDuration } from '../core/i18n.js';
+import { SbbNowMixin } from '../core/mixins.js';
 import type { Leg } from '../core/timetable.js';
 import type { SbbTitleLevel } from '../title.js';
 
@@ -38,7 +39,7 @@ export interface InterfaceSbbJourneySummaryAttributes {
  * @slot content - Use this slot to add `sbb-button`s or other interactive elements.
  */
 @customElement('sbb-journey-summary')
-export class SbbJourneySummaryElement extends LitElement {
+export class SbbJourneySummaryElement extends SbbNowMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**  The trip prop */
@@ -62,19 +63,12 @@ export class SbbJourneySummaryElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  /** A specific date for the current datetime (timestamp in milliseconds). */
-  @property({ attribute: 'now' }) public dataNow?: number;
-
   private _hasContentSlot: boolean = false;
   private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this._hasContentSlot = Boolean(this.querySelector?.('[slot="content"]'));
-  }
-
-  private _now(): number {
-    return this.dataNow ?? Date.now();
   }
 
   /**  renders the date of the journey or if it is the current or next day */
@@ -137,7 +131,7 @@ export class SbbJourneySummaryElement extends LitElement {
           .arrivalWalk=${arrivalWalk}
           .legs=${legs}
           .disableAnimation=${this.disableAnimation}
-          now=${this._now()}
+          now=${this.dateNow}
         ></sbb-pearl-chain-time>
       </div>
     `;

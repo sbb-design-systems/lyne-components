@@ -11,7 +11,7 @@ import readme from './readme.md?raw';
 
 import './clock.js';
 
-const dataNow: InputType = {
+const now: InputType = {
   control: {
     type: 'date',
   },
@@ -21,13 +21,13 @@ const Template = (args: Args): TemplateResult => html`<sbb-clock ${sbbSpread(arg
 
 export const Default: StoryObj = {
   render: Template,
-  argTypes: { now: dataNow },
+  argTypes: { ...now },
   args: { now: undefined },
 };
 
 export const Paused: StoryObj = {
   render: Template,
-  argTypes: { now: dataNow },
+  argTypes: { ...now },
   args: { now: new Date('2023-01-24T10:10:30+01:00').valueOf() },
 };
 

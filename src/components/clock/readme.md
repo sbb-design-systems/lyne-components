@@ -7,7 +7,7 @@ then it briefly pauses at the clock top before starting a new rotation.
 <sbb-clock></sbb-clock>
 ```
 
-To specify a specific date for the current datetime, you can use the `now` property (timestamp in milliseconds).
+To simulate the current datetime, you can use the `now` property (timestamp in milliseconds).
 This is helpful if you need a specific state of the component.
 
 ```html
@@ -18,6 +18,6 @@ This is helpful if you need a specific state of the component.
 
 ## Properties
 
-| Name      | Attribute | Privacy | Type                  | Default | Description                                                           |
-| --------- | --------- | ------- | --------------------- | ------- | --------------------------------------------------------------------- |
-| `dataNow` | `now`     | public  | `number \| undefined` |         | A specific date for the current datetime (timestamp in milliseconds). |
+| Name  | Attribute | Privacy | Type                  | Default | Description                                                           |
+| ----- | --------- | ------- | --------------------- | ------- | --------------------------------------------------------------------- |
+| `now` | `now`     | public  | `number \| undefined` |         | A specific date for the current datetime (timestamp in milliseconds). |

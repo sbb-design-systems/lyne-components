@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { removeTimezoneFromISOTimeString } from '../core/datetime.js';
+import { SbbNowMixin } from '../core/mixins.js';
 import type { Leg, PtRideLeg } from '../core/timetable.js';
 import { isRideLeg } from '../core/timetable.js';
 
@@ -16,7 +17,7 @@ type Status = 'progress' | 'future' | 'past';
  * It visually displays journey information.
  */
 @customElement('sbb-pearl-chain')
-export class SbbPearlChainElement extends LitElement {
+export class SbbPearlChainElement extends SbbNowMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -34,13 +35,6 @@ export class SbbPearlChainElement extends LitElement {
    * disable the animation with this property.
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
-
-  /** A specific date for the current datetime (timestamp in milliseconds). */
-  @property({ attribute: 'now' }) public dataNow?: number;
-
-  private _now(): number {
-    return this.dataNow ?? Date.now();
-  }
 
   private _getAllDuration(legs: PtRideLeg[]): number {
     return legs?.reduce((sum: number, leg) => {
@@ -85,15 +79,15 @@ export class SbbPearlChainElement extends LitElement {
       return 0;
     }
     const total = differenceInMinutes(end, start);
-    const progress = differenceInMinutes(this._now(), start);
+    const progress = differenceInMinutes(this.dateNow, start);
 
     return total && (progress / total) * 100;
   }
 
   private _getStatus(end?: Date, start?: Date): Status {
-    if (start && end && isBefore(start, this._now()) && isAfter(end, this._now())) {
+    if (start && end && isBefore(start, this.dateNow) && isAfter(end, this.dateNow)) {
       return 'progress';
-    } else if (end && isBefore(end, this._now())) {
+    } else if (end && isBefore(end, this.dateNow)) {
       return 'past';
     }
     return 'future';

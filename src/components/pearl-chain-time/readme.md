@@ -45,7 +45,7 @@ The `legs` property is mandatory.
 ></sbb-pearl-chain-time>
 ```
 
-To specify a specific date for the current datetime, you can use the `now` property (timestamp in milliseconds).
+To simulate the current datetime, you can use the `now` property (timestamp in milliseconds).
 This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
@@ -56,8 +56,8 @@ This is helpful if you need a specific state of the component.
 | ------------------ | ------------------- | ------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `arrivalTime`      | `arrival-time`      | public  | `string \| undefined`  |         | Prop to render the arrival time - will be formatted as "H:mm"                                                                                                                                                                                                                  |
 | `arrivalWalk`      | `arrival-walk`      | public  | `number \| undefined`  |         | Optional prop to render the walk time (in minutes) after arrival                                                                                                                                                                                                               |
-| `dataNow`          | `now`               | public  | `number \| undefined`  |         | A specific date for the current datetime (timestamp in milliseconds).                                                                                                                                                                                                          |
 | `departureTime`    | `departure-time`    | public  | `string \| undefined`  |         | Prop to render the departure time - will be formatted as "H:mm"                                                                                                                                                                                                                |
 | `departureWalk`    | `departure-walk`    | public  | `number \| undefined`  |         | Optional prop to render the walk time (in minutes) before departure                                                                                                                                                                                                            |
 | `disableAnimation` | `disable-animation` | public  | `boolean \| undefined` |         | Per default, the current location has a pulsating animation. You can disable the animation with this property.                                                                                                                                                                 |
 | `legs`             | `legs`              | public  | `(Leg \| PtRideLeg)[]` |         | define the legs of the pearl-chain. Format: `{"legs": \[{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. |
+| `now`              | `now`               | public  | `number \| undefined`  |         | A specific date for the current datetime (timestamp in milliseconds).                                                                                                                                                                                                          |

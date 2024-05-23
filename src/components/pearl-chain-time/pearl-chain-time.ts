@@ -6,6 +6,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import { removeTimezoneFromISOTimeString } from '../core/datetime.js';
 import { i18nArrival, i18nDeparture, i18nTransferProcedures } from '../core/i18n.js';
+import { SbbNowMixin } from '../core/mixins.js';
 import type { Leg, PtRideLeg } from '../core/timetable.js';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 
@@ -17,7 +18,7 @@ import '../pearl-chain.js';
  * Combined with `sbb-pearl-chain`, it displays walk time information.
  */
 @customElement('sbb-pearl-chain-time')
-export class SbbPearlChainTimeElement extends LitElement {
+export class SbbPearlChainTimeElement extends SbbNowMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -48,14 +49,7 @@ export class SbbPearlChainTimeElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  /** A specific date for the current datetime (timestamp in milliseconds). */
-  @property({ attribute: 'now' }) public dataNow?: number;
-
   private _language = new SbbLanguageController(this);
-
-  private _now(): number {
-    return this.dataNow ?? Date.now();
-  }
 
   protected override render(): TemplateResult {
     const departure: Date | undefined = this.departureTime
@@ -94,7 +88,7 @@ export class SbbPearlChainTimeElement extends LitElement {
           class="sbb-pearl-chain__time-chain"
           .legs=${this.legs}
           .disableAnimation=${this.disableAnimation}
-          now=${this._now()}
+          now=${this.dateNow}
         ></sbb-pearl-chain>
         ${arrival
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
