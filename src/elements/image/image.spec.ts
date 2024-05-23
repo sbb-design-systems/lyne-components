@@ -11,7 +11,7 @@ describe(`sbb-image`, () => {
 
   describe('should render', async () => {
     beforeEach(async () => {
-      const url = `${location.protocol}//${location.host}/src/components/clock/assets/sbb_clock_face.svg`;
+      const url = `${location.protocol}//${location.host}/src/elements/clock/assets/sbb_clock_face.svg`;
       element = await fixture(html`<sbb-image image-src=${url}></sbb-image>`);
 
       // Wait until the image is successfully loaded
