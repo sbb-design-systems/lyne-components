@@ -28,7 +28,7 @@ describe(`sbb-button`, () => {
       };
 
       // 'l' as default is covered by other cases.
-      const sizeCases = { size: ['s', 'm'] };
+      const sizeCases = { size: ['s', 'm'], icon: [undefined, 'arrow-right-small'] };
 
       describeViewports({ viewports: ['zero', 'medium'] }, () => {
         describeEach(cases, ({ disabled, negative, state }) => {
@@ -50,10 +50,10 @@ describe(`sbb-button`, () => {
           visualRegressionSnapshot(() => root);
         });
 
-        describeEach(sizeCases, ({ size }) => {
+        describeEach(sizeCases, ({ size, icon }) => {
           beforeEach(async function () {
             root = await visualRegressionFixture(
-              html`<sbb-button size=${size}>Button</sbb-button>`,
+              html`<sbb-button size=${size} .iconName=${icon}>Button</sbb-button>`,
               this,
             );
           });
