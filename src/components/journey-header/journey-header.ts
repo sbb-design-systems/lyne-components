@@ -16,6 +16,12 @@ import '../title.js';
 
 export type JourneyHeaderSize = 's' | 'm' | 'l';
 
+const sizeToLevel: Map<JourneyHeaderSize, string> = new Map<JourneyHeaderSize, string>([
+  ['s', '6'],
+  ['m', '5'],
+  ['l', '4'],
+]);
+
 /**
  * Combined with the `sbb-journey-summary`, it displays the journey's detail.
  */
@@ -36,7 +42,7 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
   @property() public level: SbbTitleLevel = '3';
 
   /** Journey header size. */
-  @property({ reflect: true }) public size?: JourneyHeaderSize = 'm';
+  @property({ reflect: true }) public size: JourneyHeaderSize = 'm';
 
   private _language = new SbbLanguageController(this);
 
@@ -47,7 +53,7 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
       <sbb-title
         level=${this.level || nothing}
         ?negative=${this.negative}
-        visual-level=${this.size === 'l' ? '4' : this.size === 'm' ? '5' : '6'}
+        visual-level=${sizeToLevel.get(this.size)!}
       >
         <span class="sbb-journey-header" dir=${getDocumentWritingMode()}>
           <span class="sbb-journey-header__origin">
