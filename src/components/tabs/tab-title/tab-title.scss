@@ -40,6 +40,14 @@
   }
 }
 
+:host([data-size='s']) {
+  --sbb-tab-title-height: var(--sbb-spacing-fixed-9x);
+
+  @include sbb.mq($from: medium) {
+    --sbb-tab-title-height: var(--sbb-spacing-fixed-10x);
+  }
+}
+
 :host([disabled]) {
   --sbb-tab-title-icon-color: var(--sbb-color-granite);
   --sbb-tab-title-background-color: var(--sbb-color-milk);
@@ -164,6 +172,10 @@
   @include sbb.font-smoothing;
   @include sbb.ellipsis;
 
+  :host([data-size='s']) & {
+    @include sbb.text-s--bold;
+  }
+
   :host([data-size='xl']) & {
     @include sbb.text-xl--bold;
   }
@@ -178,6 +190,10 @@
 
   :host(:not([data-slot-names~='amount'], [amount])) & {
     display: none;
+  }
+
+  :host([data-size='s']) & {
+    @include sbb.text-s--regular;
   }
 
   :host([data-size='xl']) & {
