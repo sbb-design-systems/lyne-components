@@ -51,25 +51,25 @@ The state is reflected via `aria-pressed` attribute.
 | ---------- | ----------- | ------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `amount`   | `amount`    | public  | `string \| undefined` |            | Amount displayed inside the tag.                                                                                                 |
 | `checked`  | `checked`   | public  | `boolean`             | `false`    | Whether the tag is checked.                                                                                                      |
-| `iconName` | `icon-name` | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `disabled` | `disabled`  | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                               |
-| `type`     | `type`      | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                        |
-| `name`     | `name`      | public  | `string`              |            | The name of the button element.                                                                                                  |
-| `value`    | `value`     | public  | `string`              |            | The value of the button element.                                                                                                 |
 | `form`     | `form`      | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                                 |
+| `iconName` | `icon-name` | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `name`     | `name`      | public  | `string`              |            | The name of the button element.                                                                                                  |
+| `type`     | `type`      | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                        |
+| `value`    | `value`     | public  | `string`              |            | The value of the button element.                                                                                                 |
 
 ## Events
 
 | Name        | Type                | Description                                                                      | Inherited From |
 | ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `input`     | `CustomEvent<void>` | Input event emitter                                                              |                |
-| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
 | `change`    | `CustomEvent<void>` | Change event emitter                                                             |                |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| `input`     | `CustomEvent<void>` | Input event emitter                                                              |                |
 
 ## Slots
 
 | Name     | Description                                                                                   |
 | -------- | --------------------------------------------------------------------------------------------- |
 |          | Use the unnamed slot to add content to the tag label.                                         |
-| `icon`   | Use this slot to display an icon at the component start, by providing a `sbb-icon` component. |
 | `amount` | Provide an amount to show it at the component end.                                            |
+| `icon`   | Use this slot to display an icon at the component start, by providing a `sbb-icon` component. |

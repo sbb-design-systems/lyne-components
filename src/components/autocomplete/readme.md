@@ -99,28 +99,28 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 | Name                | Attribute             | Privacy | Type                                      | Default | Description                                                                                                                                                                                                                                                                                                       |
 | ------------------- | --------------------- | ------- | ----------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `origin`            | `origin`              | public  | `string \| HTMLElement \| undefined`      |         | The element where the autocomplete will attach; accepts both an element's id or an HTMLElement. If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                                                                  |
-| `trigger`           | `trigger`             | public  | `string \| HTMLInputElement \| undefined` |         | The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. |
-| `preserveIconSpace` | `preserve-icon-space` | public  | `boolean \| undefined`                    |         | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                                                          |
-| `originElement`     | -                     | public  | `HTMLElement`                             |         | Returns the element where autocomplete overlay is attached to.                                                                                                                                                                                                                                                    |
-| `triggerElement`    | -                     | public  | `HTMLInputElement \| undefined`           |         | Returns the trigger element.                                                                                                                                                                                                                                                                                      |
 | `negative`          | `negative`            | public  | `boolean`                                 | `false` | Negative coloring variant flag.                                                                                                                                                                                                                                                                                   |
+| `origin`            | `origin`              | public  | `string \| HTMLElement \| undefined`      |         | The element where the autocomplete will attach; accepts both an element's id or an HTMLElement. If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                                                                  |
+| `originElement`     | -                     | public  | `HTMLElement`                             |         | Returns the element where autocomplete overlay is attached to.                                                                                                                                                                                                                                                    |
+| `preserveIconSpace` | `preserve-icon-space` | public  | `boolean \| undefined`                    |         | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                                                          |
+| `trigger`           | `trigger`             | public  | `string \| HTMLInputElement \| undefined` |         | The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. |
+| `triggerElement`    | -                     | public  | `HTMLInputElement \| undefined`           |         | Returns the trigger element.                                                                                                                                                                                                                                                                                      |
 
 ## Methods
 
 | Name    | Privacy | Description              | Parameters | Return | Inherited From |
 | ------- | ------- | ------------------------ | ---------- | ------ | -------------- |
-| `open`  | public  | Opens the autocomplete.  |            | `void` |                |
 | `close` | public  | Closes the autocomplete. |            | `void` |                |
+| `open`  | public  | Opens the autocomplete.  |            | `void` |                |
 
 ## Events
 
 | Name        | Type                | Description                                                                           | Inherited From |
 | ----------- | ------------------- | ------------------------------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                                      |                |
 | `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                                      |                |
 | `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                                      |                |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled. |                |
 
 ## CSS Properties
 

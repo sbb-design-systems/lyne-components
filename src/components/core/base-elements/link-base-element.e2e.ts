@@ -21,7 +21,7 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
     let element: GenericLink;
 
     beforeEach(async () => {
-      element = await fixture(html`<generic-link></generic-link>`);
+      element = await fixture(html`<generic-link href="#"></generic-link>`);
     });
 
     it('renders', async () => {
@@ -30,8 +30,6 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
 
     it('check host attributes and content', () => {
       expect(element.getAttribute('dir')).to.be.equal('ltr');
-      expect(element.getAttribute('role')).to.be.equal('link');
-      expect(element.getAttribute('tabindex')).to.be.equal('0');
       expect(element.shadowRoot!.firstElementChild!.classList.contains('generic-link')).to.be.true;
       expect(element.shadowRoot!.textContent!.trim()).to.be.equal('Link');
     });
@@ -41,7 +39,7 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
     let element: GenericLink;
 
     beforeEach(async () => {
-      element = await fixture(html` <generic-link></generic-link> `);
+      element = await fixture(html`<generic-link href="#"></generic-link>`);
     });
 
     it('no click dispatch if disabled', async () => {
@@ -54,8 +52,6 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
     });
 
     it('dispatch event', async () => {
-      element.href = '#';
-      await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
       element.click();
       await waitForLitRender(element);
@@ -63,9 +59,8 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
     });
 
     it('enter keydown', async () => {
-      element.focus();
-      await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
+      element.focus();
 
       await sendKeys({ down: 'Enter' });
       await waitForLitRender(element);

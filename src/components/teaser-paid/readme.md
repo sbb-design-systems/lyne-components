@@ -15,12 +15,13 @@ The `sbb-teaser-paid` component has two slots: the `image` slot, used to slot an
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type                                    | Default | Description                                                       |
-| ---------- | ---------- | ------- | --------------------------------------- | ------- | ----------------------------------------------------------------- |
-| `href`     | `href`     | public  | `string \| undefined`                   |         | The href value you want to link to.                               |
-| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                  |
-| `rel`      | `rel`      | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
-| `download` | `download` | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.       |
+| Name                 | Attribute             | Privacy | Type                                    | Default | Description                                                       |
+| -------------------- | --------------------- | ------- | --------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the inner anchor element. |
+| `download`           | `download`            | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.       |
+| `href`               | `href`                | public  | `string \| undefined`                   |         | The href value you want to link to.                               |
+| `rel`                | `rel`                 | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
+| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                  |
 
 ## Slots
 

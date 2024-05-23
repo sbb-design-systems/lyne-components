@@ -52,7 +52,12 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
       return this.internals.form;
     }
 
-    /** Name of the form element. Will be read from name attribute. */
+    /**
+     * Name of the form element. Will be read from name attribute.
+     *
+     * @description Developer note: In this case updating the attribute must be synchronous.
+     * Due to this it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
+     */
     @property()
     public set name(name: string) {
       this.setAttribute('name', `${name}`);
@@ -111,6 +116,16 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
 
     /** Whenever a surrounding form or fieldset is changing its disabled state. */
     @state() protected formDisabled: boolean = false;
+
+    public override attributeChangedCallback(
+      name: string,
+      old: string | null,
+      value: string | null,
+    ): void {
+      if (name !== 'name' || old !== value) {
+        super.attributeChangedCallback(name, old, value);
+      }
+    }
 
     /**
      * Returns true if internals target element has no validity problems; false otherwise.

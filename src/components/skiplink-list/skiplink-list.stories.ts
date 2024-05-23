@@ -1,4 +1,4 @@
-import { userEvent, within } from '@storybook/test';
+import { within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
@@ -31,7 +31,7 @@ const titleLevel: InputType = {
 const hrefs: string[] = [
   'https://www.sbb.ch',
   'https://www.sbb.ch/en/help-and-contact.html',
-  'https://github.com/lyne-design-system/lyne-components',
+  'https://github.com/sbb-design-systems/lyne-components',
 ];
 const labelFirstLink: InputType = {
   control: {
@@ -106,7 +106,7 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
     canvas.getByTestId('skiplink')?.shadowRoot?.querySelectorAll('.sbb-skiplink-list__wrapper'),
   );
   await waitForStablePosition(() => canvas.getByTestId('skiplink'));
-  userEvent.tab();
+  document.querySelector('sbb-block-link')?.focus();
 };
 
 const Template = ({

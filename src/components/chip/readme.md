@@ -23,8 +23,8 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 
 | Name    | Attribute | Privacy | Type                                           | Default  | Description        |
 | ------- | --------- | ------- | ---------------------------------------------- | -------- | ------------------ |
-| `size`  | `size`    | public  | `'xxs' \| 'xs' \| 's'`                         | `'xxs'`  | Size of the chip.  |
 | `color` | `color`   | public  | `'milk' \| 'charcoal' \| 'white' \| 'granite'` | `'milk'` | Color of the chip. |
+| `size`  | `size`    | public  | `'xxs' \| 'xs' \| 's'`                         | `'xxs'`  | Size of the chip.  |
 
 ## Slots
 

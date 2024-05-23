@@ -4,10 +4,8 @@ export const snapshots = {};
 snapshots["sbb-card-link with csrFixture should render an sbb-card-link as a link opening in a new window"] = 
 `<a
   class="sbb-action-base sbb-card-link"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   rel="external noopener nofollow"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <sbb-screen-reader-only>

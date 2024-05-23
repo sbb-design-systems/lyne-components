@@ -13,10 +13,10 @@ describe(`sbb-block-link`, () => {
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-block-link
-        href="https://github.com/lyne-design-system/lyne-components"
+        href="https://github.com/sbb-design-systems/lyne-components"
         size="m"
         download
-        aria-label="Travelcards &amp; tickets"
+        accessibility-label="Travelcards &amp; tickets"
       >
         Travelcards &amp; tickets.
       </sbb-block-link>

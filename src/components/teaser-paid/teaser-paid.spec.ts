@@ -13,7 +13,7 @@ describe(`sbb-teaser-paid`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-teaser-paid
-        aria-label="label"
+        accessibility-label="label"
         href="https://www.sbb.ch"
         rel="external"
         target="_blank"

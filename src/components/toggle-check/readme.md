@@ -55,22 +55,22 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 
 | Name            | Attribute        | Privacy | Type                               | Default        | Description                                                    |
 | --------------- | ---------------- | ------- | ---------------------------------- | -------------- | -------------------------------------------------------------- |
-| `size`          | `size`           | public  | `'s' \| 'm'`                       | `'s'`          | Size variant, either m or s.                                   |
-| `iconName`      | `icon-name`      | public  | `string \| undefined`              | `'tick-small'` | The svg name for the true state - default -> 'tick-small'      |
-| `labelPosition` | `label-position` | public  | `'before' \| 'after' \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |
 | `checked`       | `checked`        | public  | `boolean`                          | `false`        | Whether the checkbox is checked.                               |
 | `disabled`      | `disabled`       | public  | `boolean`                          | `false`        | Whether the component is disabled.                             |
-| `required`      | `required`       | public  | `boolean`                          | `false`        | Whether the component is required.                             |
 | `form`          | -                | public  | `HTMLFormElement \| null`          |                | Returns the form owner of internals target element.            |
+| `iconName`      | `icon-name`      | public  | `string \| undefined`              | `'tick-small'` | The svg name for the true state - default -> 'tick-small'      |
+| `labelPosition` | `label-position` | public  | `'before' \| 'after' \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |
 | `name`          | `name`           | public  | `string`                           |                | Name of the form element. Will be read from name attribute.    |
+| `required`      | `required`       | public  | `boolean`                          | `false`        | Whether the component is required.                             |
+| `size`          | `size`           | public  | `'s' \| 'm'`                       | `'s'`          | Size variant, either m or s.                                   |
 | `value`         | `value`          | public  | `string \| null`                   | `null`         | Value of the form element.                                     |
 
 ## Events
 
 | Name        | Type                | Description                                                                      | Inherited From |
 | ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
 | `change`    | `Event`             | Event fired on change.                                                           |                |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
 | `input`     | `InputEvent`        | Event fired on input.                                                            |                |
 
 ## Slots

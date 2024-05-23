@@ -55,13 +55,7 @@ snapshots["sbb-alert-group should render A11y tree Chrome"] =
     },
     {
       "role": "link",
-      "name": "Find out more",
-      "children": [
-        {
-          "role": "link",
-          "name": "Find out more"
-        }
-      ]
+      "name": "Find out more"
     },
     {
       "role": "button",
@@ -96,13 +90,7 @@ snapshots["sbb-alert-group should render A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Find out more",
-      "children": [
-        {
-          "role": "link",
-          "name": "Find out more",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "value": "https://www.sbb.ch/"
     },
     {
       "role": "button",

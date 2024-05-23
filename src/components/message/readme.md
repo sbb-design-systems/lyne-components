@@ -38,8 +38,8 @@ by the used components (e.g. `alt-text` and `aria-label`).
 
 | Name       | Description                                               |
 | ---------- | --------------------------------------------------------- |
-| `image`    | Use this slot to provide a sbb-image component.           |
-| `title`    | Use this slot to provide title text for the component.    |
-| `subtitle` | Use this slot to provide a subtitle, must be a paragraph. |
-| `legend`   | Use this slot to provide a legend, must be a paragraph.   |
 | `action`   | Use this slot to provide a sbb-button.                    |
+| `image`    | Use this slot to provide a sbb-image component.           |
+| `legend`   | Use this slot to provide a legend, must be a paragraph.   |
+| `subtitle` | Use this slot to provide a subtitle, must be a paragraph. |
+| `title`    | Use this slot to provide title text for the component.    |

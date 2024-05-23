@@ -19,7 +19,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
       html`
         <sbb-card>
           <sbb-card-link
-            href="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/sbb-design-systems/lyne-components"
             target="_blank"
             >Follow me</sbb-card-link
           >
@@ -38,11 +38,9 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
     expect(cardAction).dom.to.be.equal(
       `
       <sbb-card-link
-        href="https://github.com/lyne-design-system/lyne-components"
+        href="https://github.com/sbb-design-systems/lyne-components"
         target="_blank"
-        role="link"
         dir="ltr"
-        tabindex="0"
         data-action
         data-link
         slot="action">

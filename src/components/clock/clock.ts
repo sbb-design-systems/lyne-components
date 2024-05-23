@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -264,7 +264,9 @@ export class SbbClockElement extends LitElement {
     return new Date();
   }
 
-  protected override async firstUpdated(): Promise<void> {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
     this._addEventListeners();
 
     if (this._hasDataNow()) {

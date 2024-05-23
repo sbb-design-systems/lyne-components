@@ -1,4 +1,5 @@
 import { existsSync } from 'fs';
+import { Readable } from 'stream';
 import { createServer } from 'vite';
 
 // Reference: https://github.com/remcovaes/web-test-runner-vite-plugin
@@ -52,8 +53,8 @@ export function vitePlugin() {
         // Retry once on failure.
         // This can happen when too many http requests are being handled by the operating system.
         const response = await fetch(url).catch(() => Promise.resolve().then(() => fetch(url)));
+        ctx.body = Readable.fromWeb(response.body);
         ctx.set(Object.fromEntries(response.headers));
-        ctx.body = await response.text();
         ctx.status = response.status;
       });
     },

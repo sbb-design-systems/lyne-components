@@ -5,9 +5,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbToggleElement, SbbToggleStateChange } from '../toggle.js';
+import type { SbbToggleElement } from '../toggle.js';
 
 import style from './toggle-option.scss?lit&inline';
 
@@ -23,41 +22,26 @@ import style from './toggle-option.scss?lit&inline';
 })
 export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    stateChange: 'stateChange',
-  } as const;
 
-  /**
-   * Whether the toggle-option is checked.
-   */
+  /** Whether the toggle-option is checked. */
   @property({ reflect: true, type: Boolean })
   public checked = false;
 
-  /**
-   * Whether the toggle option is disabled.
-   */
+  /** Whether the toggle option is disabled. */
   @property({ reflect: true, type: Boolean })
   public disabled: boolean = false;
 
-  /**
-   * Value of toggle-option.
-   */
+  /** Value of toggle-option. */
   @property()
-  public value: string | null = null;
+  public set value(value: string) {
+    this._value = `${value}`;
+  }
+  public get value(): string {
+    return this._value;
+  }
+  private _value: string = '';
 
   private _toggle?: SbbToggleElement;
-
-  /**
-   * @internal
-   * Internal event that emits whenever the state of the toggle option
-   * in relation to the parent toggle changes.
-   */
-  private _stateChange: EventEmitter<SbbToggleStateChange> = new EventEmitter(
-    this,
-    SbbToggleOptionElement.events.stateChange,
-    { bubbles: true },
-  );
-
   private _abort = new SbbConnectedAbortController(this);
 
   public constructor() {
@@ -68,6 +52,9 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
+
+    // We need to listen input event on host as with keyboard navigation
+    // the Input Event is triggered from sbb-toggle.
     this.addEventListener('input', () => this._handleInput(), { signal });
     this.addEventListener('click', () => this.shadowRoot!.querySelector('label')?.click(), {
       signal,
@@ -81,28 +68,19 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
-      this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
-    }
-    if (changedProperties.has('value')) {
-      this._handleValueChange(this.value, changedProperties.get('value')!);
+      this.setAttribute('aria-checked', `${this.checked}`);
+      this._verifyTabindex();
+      if (this.checked) {
+        this._uncheckOtherOptions();
+      }
     }
     if (changedProperties.has('disabled')) {
       this._handleDisabledChange();
     }
   }
 
-  private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this.setAttribute('aria-checked', `${this.checked}`);
-      this._stateChange.emit({ type: 'checked', checked: this.checked });
-      this._verifyTabindex();
-    }
-  }
-
-  private _handleValueChange(currentValue: string | null, previousValue: string | null): void {
-    if (this.checked && currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'value', value: currentValue });
-    }
+  private _uncheckOtherOptions(): void {
+    this._toggle?.options.filter((o) => o !== this).forEach((o) => (o.checked = false));
   }
 
   private _handleDisabledChange(): void {
@@ -120,10 +98,11 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   }
 
   private _handleInput(): void {
-    if (this.checked || this.disabled) {
+    if (this.disabled) {
       return;
     }
     this.checked = true;
+    this._uncheckOtherOptions();
   }
 
   private _verifyTabindex(): void {
