@@ -34,7 +34,7 @@ snapshots["sbb-file-selector renders default"] =
 `;
 /* end snapshot sbb-file-selector renders default */
 
-snapshots["sbb-file-selector renders with dropzone area"] = 
+snapshots["sbb-file-selector renders with dropzone area and size s"] = 
 `<div class="sbb-file-selector">
   <div class="sbb-file-selector__input-container">
     <label>
@@ -43,7 +43,7 @@ snapshots["sbb-file-selector renders with dropzone area"] =
           <sbb-icon
             aria-hidden="true"
             data-namespace="default"
-            name="folder-open-medium"
+            name="folder-open-small"
             role="img"
           >
           </sbb-icon>
@@ -59,7 +59,7 @@ snapshots["sbb-file-selector renders with dropzone area"] =
             data-sbb-button=""
             data-slot-names="unnamed"
             dir="ltr"
-            size="m"
+            size="s"
           >
             Choose a file
           </sbb-secondary-button-static>
@@ -82,7 +82,7 @@ snapshots["sbb-file-selector renders with dropzone area"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-file-selector renders with dropzone area */
+/* end snapshot sbb-file-selector renders with dropzone area and size s */
 
 snapshots["sbb-file-selector A11y tree Chrome"] = 
 `<p>

@@ -11,19 +11,21 @@ describe(`sbb-file-selector`, () => {
     const root = await fixture(html`<sbb-file-selector></sbb-file-selector>`);
 
     expect(root).dom.to.be.equal(`
-      <sbb-file-selector>
+      <sbb-file-selector size='m'>
       </sbb-file-selector>
     `);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  it('renders with dropzone area', async () => {
-    const root = await fixture(html`<sbb-file-selector variant="dropzone"></sbb-file-selector>`);
+  it('renders with dropzone area and size s', async () => {
+    const root = await fixture(
+      html`<sbb-file-selector variant="dropzone" size="s"></sbb-file-selector>`,
+    );
 
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-file-selector variant='dropzone'>
+      <sbb-file-selector variant='dropzone' size='s'>
       </sbb-file-selector>
     `);
     await expect(root).shadowDom.to.be.equalSnapshot();
