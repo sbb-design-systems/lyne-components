@@ -90,6 +90,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         }
       }}
       @reset=${() => {
+        // This is needed to focus and trigger again the error on the first field
+        // when getting back to it after resetting the stepper.
         setTimeout(() =>
           document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
         );
@@ -207,6 +209,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
           <form
             @reset=${() => {
+              // This is needed to focus and trigger again the error on the first field
+              // when getting back to it after resetting the stepper.
               setTimeout(() =>
                 document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
               );

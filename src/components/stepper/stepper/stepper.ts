@@ -219,6 +219,7 @@ export class SbbStepperElement extends LitElement {
       this.orientation = isBreakpoint(this.horizontalFrom) ? 'horizontal' : 'vertical';
       this._updateLabels();
     }
+    // The timeout is needed to make sure that the marker takes the correct step-label size.
     setTimeout(() => this._setMarkerSize(), 0);
   }
 

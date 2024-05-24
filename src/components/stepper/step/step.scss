@@ -11,6 +11,7 @@
   --sbb-step-height: 0;
   --sbb-step-animation-duration: var(--sbb-animation-duration-2x);
   --sbb-step-animation-delay: 0;
+  --sbb-step-color: var(--sbb-color-iron);
 
   display: contents;
   position: relative;
@@ -57,7 +58,7 @@
   opacity: var(--sbb-step-opacity);
   visibility: var(--sbb-step-visibility);
   height: var(--sbb-step-height);
-  color: var(--sbb-color-iron);
+  color: var(--sbb-step-color);
   transition: {
     property: opacity, visibility;
     duration: var(--sbb-step-animation-duration);
