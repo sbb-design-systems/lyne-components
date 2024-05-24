@@ -421,7 +421,7 @@
   font-size: var(--sbb-form-field-input-text-size) !important;
   font-family: var(--sbb-typo-font-family) !important;
   line-height: var(--sbb-typo-line-height-body-text) !important;
-  height: var(--sbb-form-field-input-size);
+  height: var(--sbb-form-field-text-size);
 
   &::placeholder {
     @include sbb.placeholder;
