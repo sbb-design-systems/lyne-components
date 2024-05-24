@@ -12,7 +12,7 @@ import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
-import { type DateAdapter } from '../core/datetime.js';
+import type { DateAdapter } from '../core/datetime.js';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,

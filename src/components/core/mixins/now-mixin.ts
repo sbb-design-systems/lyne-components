@@ -11,6 +11,8 @@ export declare class SbbNowMixinType {
 
 /**
  * Enhance your component with a `now` property.
+ *
+ * Aside from the standard get method, the mixin also has a `dateNow` getter which returns the current datetime as a fallback.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbNowMixin = <T extends AbstractConstructor<LitElement>>(
