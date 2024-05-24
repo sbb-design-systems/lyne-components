@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-tag-group renders - Dom"] =
+snapshots["sbb-tag-group renders - Dom"] = 
 `<sbb-tag-group
   role="group"
   size="m"
@@ -54,7 +54,7 @@ snapshots["sbb-tag-group renders - Dom"] =
 `;
 /* end snapshot sbb-tag-group renders - Dom */
 
-snapshots["sbb-tag-group renders - ShadowDom"] =
+snapshots["sbb-tag-group renders - ShadowDom"] = 
 `<div class="sbb-tag-group">
   <ul class="sbb-tag-group__list">
     <li>
@@ -82,7 +82,7 @@ snapshots["sbb-tag-group renders - ShadowDom"] =
 `;
 /* end snapshot sbb-tag-group renders - ShadowDom */
 
-snapshots["sbb-tag-group A11y tree Chrome"] =
+snapshots["sbb-tag-group A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -109,7 +109,7 @@ snapshots["sbb-tag-group A11y tree Chrome"] =
 `;
 /* end snapshot sbb-tag-group A11y tree Chrome */
 
-snapshots["sbb-tag-group A11y tree Firefox"] =
+snapshots["sbb-tag-group A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",

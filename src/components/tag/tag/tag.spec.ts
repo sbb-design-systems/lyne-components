@@ -7,52 +7,49 @@ import './tag.js';
 import '../../icon.js';
 
 describe(`sbb-tag`, () => {
-  it('renders unchecked', async () => {
+  it('renders unchecked - Dom', async () => {
     const root = await fixture(
       html`<sbb-tag value="all" aria-label="Check to remove filters">All</sbb-tag>`,
     );
+    await expect(root).dom.to.be.equalSnapshot();
+  });
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-tag aria-label="Check to remove filters" aria-pressed="false" role="button" size="m" tabindex="0" value="all" dir="ltr" data-slot-names="unnamed" data-action data-button>
-          All
-        </sbb-tag>
-      `,
+  it('renders unchecked - ShadowDom', async () => {
+    const root = await fixture(
+      html`<sbb-tag value="all" aria-label="Check to remove filters">All</sbb-tag>`,
     );
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  it('renders checked', async () => {
+  it('renders checked - Dom', async () => {
     const root = await fixture(html`<sbb-tag checked value="info">Info</sbb-tag>`);
+    await expect(root).dom.to.be.equalSnapshot();
+  });
 
-    expect(root).dom.to.be.equal(
-      `
-      <sbb-tag aria-pressed="true" checked role="button" size="m" tabindex="0" value="info" dir="ltr" data-slot-names="unnamed" data-action data-button>
-        Info
-      </sbb-tag>
-    `,
-    );
+  it('renders checked - ShadowDom', async () => {
+    const root = await fixture(html`<sbb-tag checked value="info">Info</sbb-tag>`);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  it('renders disabled with icon and amount', async () => {
+  it('renders disabled with icon and amount - Dom', async () => {
     const root = await fixture(html`
       <sbb-tag disabled amount="123" icon-name="circle-information-small" value="information">
         Info
       </sbb-tag>
     `);
+    await expect(root).dom.to.be.equalSnapshot();
+  });
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-tag amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" size="m" value="information" dir="ltr" data-slot-names="unnamed" data-action data-button>
-          Info
-        </sbb-tag>
-      `,
-    );
+  it('renders disabled with icon and amount - ShadowDom', async () => {
+    const root = await fixture(html`
+      <sbb-tag disabled amount="123" icon-name="circle-information-small" value="information">
+        Info
+      </sbb-tag>
+    `);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  it('renders slotted icon and amount', async () => {
+  it('renders slotted icon and amount - Dom', async () => {
     const root = await fixture(html`
       <sbb-tag value="foo">
         <sbb-icon
@@ -67,23 +64,24 @@ describe(`sbb-tag`, () => {
         <span slot="amount">123</span>
       </sbb-tag>
     `);
+    await expect(root).dom.to.be.equalSnapshot();
+  });
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-tag value="foo" aria-pressed="false" role="button" size="m" tabindex="0" dir="ltr" data-slot-names="amount icon unnamed" data-action data-button>
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            name="cross-small"
-            role="img"
-            slot="icon"
-          >
-          </sbb-icon>
-          Info
-          <span slot="amount">123</span>
-        </sbb-tag>
-      `,
-    );
+  it('renders slotted icon and amount - ShadowDom', async () => {
+    const root = await fixture(html`
+      <sbb-tag value="foo">
+        <sbb-icon
+          aria-hidden="true"
+          data-namespace="default"
+          name="cross-small"
+          role="img"
+          slot="icon"
+        >
+        </sbb-icon>
+        Info
+        <span slot="amount">123</span>
+      </sbb-tag>
+    `);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
