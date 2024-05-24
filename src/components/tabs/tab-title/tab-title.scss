@@ -11,6 +11,7 @@
   --sbb-tab-title-cursor: pointer;
   --sbb-tab-title-pointer-events: unset;
   --sbb-tab-title-inset: 0;
+  --sbb-tab-title-inline-padding: var(--sbb-spacing-responsive-xs);
   --sbb-tab-title-marker-transform: scale(0);
   --sbb-tab-title-text-decoration: none;
   --sbb-tab-title-animation-duration: var(
@@ -42,6 +43,7 @@
 
 :host([data-size='s']) {
   --sbb-tab-title-height: var(--sbb-spacing-fixed-9x);
+  --sbb-tab-title-inline-padding: var(--sbb-spacing-responsive-xxxs);
 
   @include sbb.mq($from: medium) {
     --sbb-tab-title-height: var(--sbb-spacing-fixed-10x);
@@ -112,7 +114,7 @@
   min-height: var(--sbb-tab-title-height);
   display: flex;
   align-items: center;
-  padding-inline: var(--sbb-spacing-responsive-xs);
+  padding-inline: var(--sbb-tab-title-inline-padding);
   gap: var(--sbb-spacing-fixed-2x);
   user-select: none;
   cursor: var(--sbb-tab-title-cursor);
