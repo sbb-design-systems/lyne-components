@@ -444,9 +444,6 @@ const meta: Meta = {
     actions: {
       handles: [SbbStepElement.events.validate],
     },
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },
