@@ -34,7 +34,7 @@ The component can be displayed in `checked` or `disabled` state using the self-n
 
 ## Style
 
-The component has two sizes, named `m` (default) and `s`.
+The component has two sizes, named `m` (default) and `s`. The `size` property can also be set on the `sbb-tag-group` where it will be applied to all tags inside the group.
 
 ```html
 <sbb-tag value="All" size="m">All</sbb-tag>
@@ -57,18 +57,17 @@ The state is reflected via `aria-pressed` attribute.
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                         | Default    | Description                                                                                                                      |
-| ---------- | ----------- | ------- | ---------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `amount`   | `amount`    | public  | `string \| undefined`        |            | Amount displayed inside the tag.                                                                                                 |
-| `checked`  | `checked`   | public  | `boolean`                    | `false`    | Whether the tag is checked.                                                                                                      |
-| `disabled` | `disabled`  | public  | `boolean`                    | `false`    | Whether the component is disabled.                                                                                               |
-| `form`     | `form`      | public  | `string \| undefined`        |            | The <form> element to associate the button with.                                                                                 |
-| `group`    | -           | public  | `SbbTagGroupElement \| null` | `null`     | Reference to the connected checkbox group.                                                                                       |
-| `iconName` | `icon-name` | public  | `string \| undefined`        |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `name`     | `name`      | public  | `string`                     |            | The name of the button element.                                                                                                  |
-| `size`     | `size`      | public  | `SbbTagSize`                 | `'m'`      | Tag size.                                                                                                                        |
-| `type`     | `type`      | public  | `SbbButtonType`              | `'button'` | The type attribute to use for the button.                                                                                        |
-| `value`    | `value`     | public  | `string`                     |            | The value of the button element.                                                                                                 |
+| Name       | Attribute   | Privacy | Type                  | Default    | Description                                                                                                                      |
+| ---------- | ----------- | ------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `amount`   | `amount`    | public  | `string \| undefined` |            | Amount displayed inside the tag.                                                                                                 |
+| `checked`  | `checked`   | public  | `boolean`             | `false`    | Whether the tag is checked.                                                                                                      |
+| `disabled` | `disabled`  | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                               |
+| `form`     | `form`      | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                                 |
+| `iconName` | `icon-name` | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `name`     | `name`      | public  | `string`              |            | The name of the button element.                                                                                                  |
+| `size`     | `size`      | public  | `SbbTagSize`          | `'m'`      | Tag size.                                                                                                                        |
+| `type`     | `type`      | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                        |
+| `value`    | `value`     | public  | `string`              |            | The value of the button element.                                                                                                 |
 
 ## Events
 
