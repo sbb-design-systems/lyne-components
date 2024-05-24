@@ -32,12 +32,12 @@ jobs:
               return !!prNumber && pr?.state === 'closed' && olderThanTwoWeeks(pr.closed_at);
             };
 
-            const packageNames = process.env.PACKAGE_NAME.split(',').map((n) => n.trim());
+            const packageNames = process.env.PACKAGE_NAMES.split(',').map((n) => n.trim());
             let packageDeletionFailed = false;
             for (const packageName of packageNames) {
               const params = {
                 package_type: 'container',
-                package_name: `${repo}/${packageNames}`,
+                package_name: `${repo}/${packageName}`,
                 username: owner
               };
               const { data: versions } = await github.rest.packages.getAllPackageVersionsForPackageOwnedByUser(params);

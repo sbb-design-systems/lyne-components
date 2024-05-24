@@ -2,7 +2,7 @@ import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } f
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbRadioButtonGroupElement } from '../../../../../../components/radio-button/radio-button-group/radio-button-group.js';
-import type { FailedFiles } from '../../../../interfaces.js';
+import type { ScreenshotFiles } from '../../../../interfaces.js';
 
 import style from './fullscreen-diff.scss?lit&inline';
 
@@ -16,17 +16,17 @@ import '../../../../../../components/radio-button.js';
 export class FullscreenDiff extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public failedFile?: FailedFiles;
+  @property() public screenshotFiles?: ScreenshotFiles;
 
   @property() public selectedFile: 'baselineFile' | 'failedFile' | 'diffFile' = 'failedFile';
 
   public override render(): TemplateResult {
-    if (!this.failedFile) {
+    if (!this.screenshotFiles) {
       return html``;
     }
     return html`<div class="app-labels">
-        <sbb-chip size="xxs" color="white">${this.failedFile.browserName}</sbb-chip>
-        <sbb-chip size="xxs" color="white">${this.failedFile.viewport}</sbb-chip>
+        <sbb-chip size="xxs" color="white">${this.screenshotFiles.browserName}</sbb-chip>
+        <sbb-chip size="xxs" color="white">${this.screenshotFiles.viewport}</sbb-chip>
       </div>
       <sbb-radio-button-group
         class="app-radio-button-group"
@@ -34,18 +34,20 @@ export class FullscreenDiff extends LitElement {
         @change=${(event: Event) =>
           (this.selectedFile = (event.target as SbbRadioButtonGroupElement).value)}
       >
-        ${!this.failedFile.isNew
+        ${!this.screenshotFiles.isNew
           ? html`<sbb-radio-button value="baselineFile">Baseline</sbb-radio-button>`
           : nothing}
-        <sbb-radio-button value="failedFile"
-          >${this.failedFile.isNew ? 'New' : 'Failed'}</sbb-radio-button
-        >
-        ${this.failedFile.diffFile
+        ${this.screenshotFiles.failedFile
+          ? html`<sbb-radio-button value="failedFile">
+              ${this.screenshotFiles.isNew ? 'New' : 'Failed'}
+            </sbb-radio-button>`
+          : nothing}
+        ${this.screenshotFiles.diffFile
           ? html`<sbb-radio-button value="diffFile">Diff</sbb-radio-button>`
           : nothing}
       </sbb-radio-button-group>
       <div class="app-scroll-container">
-        <img class="app-image" .src="./${this.failedFile?.[this.selectedFile]}" alt="" />
+        <img class="app-image" .src="./${this.screenshotFiles?.[this.selectedFile]}" alt="" />
       </div>`;
   }
 }

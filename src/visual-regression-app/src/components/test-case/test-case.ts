@@ -127,8 +127,8 @@ export class TestCase extends LitElement {
                 ${this._testCase
                   ?.filter(this._filter.viewport, this._filter.browser)
                   .map(
-                    (failedFile) =>
-                      html`<app-image-diff .failedFile=${failedFile}></app-image-diff>`,
+                    (screenshotFiles) =>
+                      html`<app-image-diff .screenshotFiles=${screenshotFiles}></app-image-diff>`,
                   )}
               </div>
             </sbb-container>
