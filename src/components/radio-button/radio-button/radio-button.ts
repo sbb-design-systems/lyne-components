@@ -8,7 +8,7 @@ import { EventEmitter } from '../../core/eventing.js';
 import {
   SbbRadioButtonCommonElementMixin,
   type SbbRadioButtonStateChange,
-  commonStyle,
+  radioButtonCommonStyle,
 } from '../common.js';
 
 import radioButtonStyle from './radio-button.scss?lit&inline';
@@ -20,7 +20,7 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  */
 @customElement('sbb-radio-button')
 export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = [commonStyle, radioButtonStyle];
+  public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonStyle];
   public static readonly events = {
     stateChange: 'stateChange',
   } as const;

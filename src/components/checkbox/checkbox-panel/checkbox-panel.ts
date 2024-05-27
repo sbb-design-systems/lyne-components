@@ -9,7 +9,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers.js';
 import { SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import { SbbCheckboxCommonElementMixin, commonStyle } from '../common.js';
+import { SbbCheckboxCommonElementMixin, checkboxCommonStyle } from '../common.js';
 
 import '../../visual-checkbox.js';
 
@@ -29,7 +29,7 @@ import checkboxPanelStyle from './checkbox-panel.scss?lit&inline';
 export class SbbCheckboxPanelElement extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [commonStyle, checkboxPanelStyle];
+  public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxPanelStyle];
 
   public constructor() {
     super();

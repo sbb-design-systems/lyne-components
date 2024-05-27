@@ -7,7 +7,7 @@ import { EventEmitter } from '../../core/eventing.js';
 import { SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import {
   SbbRadioButtonCommonElementMixin,
-  commonStyle,
+  radioButtonCommonStyle,
   type SbbRadioButtonStateChange,
 } from '../common.js';
 
@@ -25,7 +25,7 @@ import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
 export class SbbRadioButtonPanelElement extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [commonStyle, radioButtonPanelStyle];
+  public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonPanelStyle];
   public static readonly events = {
     stateChange: 'stateChange',
     radioButtonLoaded: 'radioButtonLoaded',

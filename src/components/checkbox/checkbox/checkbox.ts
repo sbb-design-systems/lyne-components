@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbSlotStateController } from '../../core/controllers.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
-import { SbbCheckboxCommonElementMixin, commonStyle } from '../common.js';
+import { SbbCheckboxCommonElementMixin, checkboxCommonStyle } from '../common.js';
 
 import '../../visual-checkbox.js';
 
@@ -23,7 +23,7 @@ import checkboxStyle from './checkbox.scss?lit&inline';
 export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
   SbbIconNameMixin(LitElement),
 ) {
-  public static override styles: CSSResultGroup = [commonStyle, checkboxStyle];
+  public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxStyle];
 
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })

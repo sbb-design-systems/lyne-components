@@ -20,10 +20,13 @@ export type SbbRadioButtonStateChange = Extract<
 >;
 
 export declare class SbbRadioButtonCommonElementMixinType {
-  public allowEmptySelection: boolean;
+  public get allowEmptySelection(): boolean;
+  public set allowEmptySelection(boolean);
   public value?: string;
-  public disabled: boolean;
-  public required: boolean;
+  public get disabled(): boolean;
+  public set disabled(boolean);
+  public get required(): boolean;
+  public set required(boolean);
   public get group(): SbbRadioButtonGroupElement | null;
   public checked: boolean;
   public select(): void;

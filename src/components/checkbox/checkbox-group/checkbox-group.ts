@@ -88,7 +88,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this &&
         (evt.target as HTMLElement).parentElement !== this &&
-        (evt.target as HTMLElement).parentElement!.nodeName !== 'SBB-SELECTION-EXPANSION-PANEL')
+        (evt.target as HTMLElement).parentElement!.localName !== 'sbb-selection-expansion-panel')
     ) {
       return;
     }
