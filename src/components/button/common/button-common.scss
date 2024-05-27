@@ -70,6 +70,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 :host([size='s']) {
   --sbb-button-min-height: var(--sbb-size-element-xs);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-button-gap: var(--sbb-spacing-fixed-1x);
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
