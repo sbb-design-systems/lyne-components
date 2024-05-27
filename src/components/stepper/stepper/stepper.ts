@@ -7,6 +7,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { breakpoints, isBreakpoint } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
@@ -85,6 +86,10 @@ export class SbbStepperElement extends LitElement {
     return Array.from(this.querySelectorAll('sbb-step'));
   }
 
+  private get _enabledSteps(): SbbStepElement[] {
+    return this.steps.filter((s) => !s.label?.hasAttribute('disabled'));
+  }
+
   /**
    * Selects the next step.
    */
@@ -155,9 +160,6 @@ export class SbbStepperElement extends LitElement {
     step.select();
     this._setMarkerSize();
     this._configureLinearMode();
-    if (this._loaded) {
-      step.label?.focus();
-    }
   }
 
   private _setMarkerSize(): void {
@@ -248,6 +250,7 @@ export class SbbStepperElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
+    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     window.addEventListener('resize', () => this._onStepperResize(), {
       signal,
       passive: true,
@@ -273,6 +276,26 @@ export class SbbStepperElement extends LitElement {
     }
     if (changedProperties.has('linear') && this._loaded) {
       this._configureLinearMode();
+    }
+  }
+
+  private _handleKeyDown(evt: KeyboardEvent): void {
+    const enabledSteps: SbbStepElement[] = this._enabledSteps;
+
+    if (
+      !enabledSteps ||
+      // don't trap nested handling
+      ((evt.target as HTMLElement) !== this && (evt.target as HTMLElement).parentElement !== this)
+    ) {
+      return;
+    }
+
+    if (isArrowKeyPressed(evt)) {
+      const current: number = enabledSteps.indexOf(this.selected!);
+      const nextIndex: number = getNextElementIndex(evt, current, enabledSteps.length);
+      this._select(enabledSteps[nextIndex]);
+      enabledSteps[nextIndex]?.label?.focus();
+      evt.preventDefault();
     }
   }
 

@@ -4,7 +4,6 @@ import { customElement } from 'lit/decorators.js';
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbStepElement } from '../step.js';
 import type { SbbStepperElement } from '../stepper.js';
@@ -22,11 +21,10 @@ let nextId = 0;
 @customElement('sbb-step-label')
 @hostAttributes({
   slot: 'step-label',
+  tabindex: '-1',
   role: 'tab',
 })
-export class SbbStepLabelElement extends SbbIconNameMixin(
-  SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
-) {
+export class SbbStepLabelElement extends SbbIconNameMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /** @internal */
@@ -44,6 +42,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
    * @internal
    */
   public select(): void {
+    this.tabIndex = 0;
     this._internals.ariaSelected = 'true';
     this.toggleAttribute('data-selected', true);
   }
@@ -53,6 +52,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
    * @internal
    */
   public deselect(): void {
+    this.tabIndex = -1;
     this._internals.ariaSelected = 'false';
     this.toggleAttribute('data-selected', false);
   }
