@@ -21,7 +21,7 @@ const variant: InputType = {
 
 const size: InputType = {
   control: {
-    type: 'select',
+    type: 'inline-radio',
   },
   options: ['m', 's'],
 };
