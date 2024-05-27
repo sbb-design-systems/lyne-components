@@ -91,7 +91,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
   const fix = await fixture<T>(
     html`<div
       style=${`padding: ${wrapperStyles?.padding ?? '2rem'};background-color: ${wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)'};${wrapperStyles?.focusOutlineDark ? ' --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);' : ''}`}
-      tabindex="1"
+      tabindex="0"
     >
       ${template}
     </div>`,
