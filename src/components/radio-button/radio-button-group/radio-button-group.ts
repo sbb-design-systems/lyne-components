@@ -215,7 +215,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
 
     const radioButtons = this.radioButtons;
 
-    this.value = initValue ?? radioButtons.find((radio) => radio.checked)?.value;
+    this.value = initValue ?? radioButtons.find((radio) => radio.checked)?.value ?? this.value;
 
     for (const radio of radioButtons) {
       radio.checked = radio.value === this.value;
