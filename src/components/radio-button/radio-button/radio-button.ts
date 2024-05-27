@@ -99,7 +99,14 @@ export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
   /**
    * Whether the radio button is checked.
    */
-  @property({ reflect: true, type: Boolean }) public checked = false;
+  @property({ reflect: true, type: Boolean })
+  public set checked(value: boolean) {
+    this._checked = Boolean(value);
+  }
+  public get checked(): boolean {
+    return this._checked;
+  }
+  private _checked = false;
 
   /**
    * Label size variant, either m or s.

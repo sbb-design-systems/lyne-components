@@ -9,12 +9,12 @@ import '../radio-button.js';
 
 import { SbbRadioButtonGroupElement } from './radio-button-group.js';
 
-describe(`sbb-radio-button-group with ${fixture.name}`, () => {
+describe(`sbb-radio-button-group`, () => {
   let element: SbbRadioButtonGroupElement;
 
-  beforeEach(async () => {
-    element = await fixture(
-      html`
+  describe('events', () => {
+    beforeEach(async () => {
+      element = await fixture(html`
         <sbb-radio-button-group value="Value one">
           <sbb-radio-button id="sbb-radio-1" value="Value one">Value one</sbb-radio-button>
           <sbb-radio-button id="sbb-radio-2" value="Value two">Value two</sbb-radio-button>
@@ -23,16 +23,13 @@ describe(`sbb-radio-button-group with ${fixture.name}`, () => {
           >
           <sbb-radio-button id="sbb-radio-4" value="Value four">Value four</sbb-radio-button>
         </sbb-radio-button-group>
-      `,
-      { modules: ['./radio-button-group.ts', '../radio-button.ts'] },
-    );
-  });
+      `);
+    });
 
-  it('renders', () => {
-    assert.instanceOf(element, SbbRadioButtonGroupElement);
-  });
+    it('renders', () => {
+      assert.instanceOf(element, SbbRadioButtonGroupElement);
+    });
 
-  describe('events', () => {
     it('selects radio on click', async () => {
       const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButtonElement;
       const radio = element.querySelector('#sbb-radio-2') as SbbRadioButtonElement;
@@ -159,6 +156,36 @@ describe(`sbb-radio-button-group with ${fixture.name}`, () => {
       await waitForLitRender(element);
 
       expect(firstRadio).to.have.attribute('checked');
+    });
+  });
+
+  describe('initialization', () => {
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-radio-button-group value="Value one">
+          <p>Other content</p>
+        </sbb-radio-button-group>
+      `);
+    });
+
+    it('should preserve value when no radios were slotted but slotchange was triggered', () => {
+      expect(element.value).to.equal('Value one');
+    });
+
+    it('should restore value when radios are slotted', async () => {
+      const radioOne = document.createElement('sbb-radio-button');
+      radioOne.value = 'Value one';
+
+      const radioTwo = document.createElement('sbb-radio-button');
+      radioTwo.value = 'Value two';
+
+      element.appendChild(radioTwo);
+      element.appendChild(radioOne);
+
+      await waitForLitRender(element);
+
+      expect(element.value).to.equal('Value one');
+      expect(radioOne).to.have.attribute('checked');
     });
   });
 });

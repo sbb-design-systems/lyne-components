@@ -6,13 +6,11 @@ import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing
 
 import { SbbRadioButtonElement } from './radio-button.js';
 
-describe(`sbb-radio-button with ${fixture.name}`, () => {
+describe(`sbb-radio-button`, () => {
   let element: SbbRadioButtonElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-radio-button value="Value">Value label</sbb-radio-button>`, {
-      modules: ['./radio-button.ts'],
-    });
+    element = await fixture(html`<sbb-radio-button value="Value">Value label</sbb-radio-button>`);
   });
 
   it('renders', async () => {
@@ -66,5 +64,17 @@ describe(`sbb-radio-button with ${fixture.name}`, () => {
     expect(element).not.to.have.attribute('checked');
     await waitForCondition(() => stateChange.events.length === 2);
     expect(stateChange.count).to.be.equal(2);
+  });
+
+  it('should convert falsy checked to false', async () => {
+    element.checked = true;
+    (element.checked as any) = undefined;
+    expect(element.checked).to.equal(false);
+  });
+
+  it('should convert truthy checked to true', async () => {
+    element.checked = true;
+    (element.checked as any) = 2;
+    expect(element.checked).to.equal(true);
   });
 });
