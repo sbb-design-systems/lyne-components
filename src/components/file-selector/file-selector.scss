@@ -36,7 +36,8 @@
 
 .sbb-file-selector__input-container {
   -webkit-tap-highlight-color: transparent;
-  line-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .sbb-file-selector__visually-hidden {
