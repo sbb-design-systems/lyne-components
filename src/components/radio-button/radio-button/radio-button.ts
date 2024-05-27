@@ -52,7 +52,7 @@ export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
    */
   @property({ attribute: 'allow-empty-selection', type: Boolean })
   public set allowEmptySelection(value: boolean) {
-    this._allowEmptySelection = value;
+    this._allowEmptySelection = Boolean(value);
   }
   public get allowEmptySelection(): boolean {
     return this._allowEmptySelection || (this.group?.allowEmptySelection ?? false);
@@ -69,7 +69,7 @@ export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
    */
   @property({ reflect: true, type: Boolean })
   public set disabled(value: boolean) {
-    this._disabled = value;
+    this._disabled = Boolean(value);
   }
   public get disabled(): boolean {
     return this._disabled || (this.group?.disabled ?? false);
@@ -81,7 +81,7 @@ export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
    */
   @property({ reflect: true, type: Boolean })
   public set required(value: boolean) {
-    this._required = value;
+    this._required = Boolean(value);
   }
   public get required(): boolean {
     return this._required || (this.group?.required ?? false);
@@ -158,22 +158,6 @@ export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
     SbbRadioButtonElement.events.radioButtonLoaded,
     { bubbles: true },
   );
-
-  private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this.setAttribute('aria-checked', `${currentValue}`);
-      this._stateChange.emit({ type: 'checked', checked: currentValue });
-      this.isSelectionPanelInput && this._updateExpandedLabel();
-    }
-  }
-
-  private _handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      setOrRemoveAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
-      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
-    }
-  }
-
   private _handleClick(event: Event): void {
     event.preventDefault();
     this.select();
@@ -221,10 +205,17 @@ export class SbbRadioButtonElement extends SbbUpdateSchedulerMixin(LitElement) {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
-      this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
+      this.setAttribute('aria-checked', `${this.checked}`);
+      if (this.checked !== changedProperties.get('checked')!) {
+        this._stateChange.emit({ type: 'checked', checked: this.checked });
+        this.isSelectionPanelInput && this._updateExpandedLabel();
+      }
     }
     if (changedProperties.has('disabled')) {
-      this._handleDisabledChange(this.disabled, changedProperties.get('disabled')!);
+      setOrRemoveAttribute(this, 'aria-disabled', this.disabled ? 'true' : null);
+      if (this.disabled !== changedProperties.get('disabled')!) {
+        this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
+      }
     }
     if (changedProperties.has('required')) {
       this.setAttribute('aria-required', `${this.required}`);
