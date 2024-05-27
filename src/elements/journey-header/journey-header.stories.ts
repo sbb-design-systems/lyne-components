@@ -37,7 +37,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 'l'],
+  options: ['s', 'm', 'l'],
 };
 
 const negative: InputType = {
@@ -60,7 +60,7 @@ const defaultArgs: Args = {
   destination: 'Loèche-les-Bains',
   'round-trip': false,
   level: level.options![2],
-  size: size.options![0],
+  size: size.options![1],
   negative: false,
 };
 
@@ -99,7 +99,7 @@ export const SizeMRoundTripShortText: StoryObj = {
 export const SizeL: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1] },
+  args: { ...defaultArgs, size: size.options![2] },
 };
 
 export const SizeLRoundTripShortText: StoryObj = {
@@ -110,7 +110,25 @@ export const SizeLRoundTripShortText: StoryObj = {
     origin: 'Bern',
     destination: 'Thun',
     'round-trip': true,
-    size: size.options![1],
+    size: size.options![2],
+  },
+};
+
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const SizeSRoundTripShortText: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    origin: 'Bern',
+    destination: 'Thun',
+    'round-trip': true,
+    size: size.options![0],
   },
 };
 
