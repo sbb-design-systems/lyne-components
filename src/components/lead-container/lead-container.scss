@@ -8,14 +8,10 @@
 
   --sbb-lead-container-background-color: var(--sbb-color-white);
   --sbb-lead-container-image-ratio: 2 / 1;
-
-  // TODO: Check if token needed
-  --sbb-lead-container-image-overlap: -6rem;
+  --sbb-lead-container-image-overlap: var(--sbb-spacing-fixed-24x);
   --sbb-lead-container-padding-block: var(--sbb-spacing-responsive-l);
   --sbb-lead-container-padding-inline: var(--sbb-layout-base-offset-responsive);
-
-  // TODO: Check if new border-radius token needed
-  --sbb-lead-container-border-radius: var(--sbb-spacing-fixed-3x);
+  --sbb-lead-container-border-radius: var(--sbb-border-radius-6x);
   --sbb-lead-container-image-border-radius: 0;
 
   @include sbb.mq($from: wide) {
@@ -76,7 +72,6 @@
 }
 
 .sbb-lead-container-content {
-  position: relative;
   z-index: 1;
   border-radius: var(--sbb-lead-container-border-radius);
   padding-block: var(--sbb-lead-container-padding-block);
@@ -88,7 +83,7 @@
   }
 
   @include sbb.mq($from: large) {
-    margin-block-start: var(--sbb-lead-container-image-overlap);
+    margin-block-start: calc(-1 * var(--sbb-lead-container-image-overlap));
     padding-inline: var(--sbb-lead-container-padding-inline);
 
     // As the content should be aligned to the grid, we have to stretch the container by padding
