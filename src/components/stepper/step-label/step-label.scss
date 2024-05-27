@@ -49,11 +49,19 @@
   @include sbb.text-xxs--bold;
 
   --sbb-step-label-color: var(--sbb-color-charcoal);
+
+  @include sbb.if-forced-colors {
+    --sbb-step-label-color: Highlight !important;
+  }
 }
 
 :host([disabled]) {
   --sbb-step-label-color: var(--sbb-color-granite);
   --sbb-step-label-prefix-border-style: dashed;
+
+  @include sbb.if-forced-colors {
+    --sbb-step-label-color: GrayText !important;
+  }
 }
 
 :host(:hover:not([disabled])) {
