@@ -19,7 +19,12 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   /** The type attribute to use for the button. */
   @property() public type: SbbButtonType = 'button';
 
-  /** The name of the button element. */
+  /**
+   * The name of the button element.
+   *
+   * @description Developer note: In this case updating the attribute must be synchronous.
+   * Due to this it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
+   */
   @property()
   public set name(name: string) {
     this.setAttribute('name', `${name}`);
@@ -28,7 +33,12 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
     return this.getAttribute('name') ?? '';
   }
 
-  /** The value of the button element. */
+  /**
+   * The value of the button element.
+   *
+   * @description Developer note: In this case updating the attribute must be synchronous.
+   * Due to this it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
+   */
   @property()
   public set value(value: string) {
     this.setAttribute('value', `${value}`);
@@ -90,6 +100,23 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
     }
   };
 
+  protected dispatchClickEvent = (event: KeyboardEvent): void => {
+    const { altKey, ctrlKey, metaKey, shiftKey } = event;
+    (event.target as Element).dispatchEvent(
+      new PointerEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        pointerId: -1,
+        pointerType: '',
+        altKey,
+        ctrlKey,
+        metaKey,
+        shiftKey,
+      }),
+    );
+  };
+
   public constructor() {
     super();
     if (!isServer) {
@@ -100,6 +127,25 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
       this.addEventListener('keydown', this._preventScrollOnSpaceKeydown);
       this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
       this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
+      this.addEventListener(
+        'keypress',
+        (event: KeyboardEvent): void => {
+          if (event.key === 'Enter' || event.key === '\n') {
+            this.dispatchClickEvent(event);
+          }
+        },
+        passiveOptions,
+      );
+    }
+  }
+
+  public override attributeChangedCallback(
+    name: string,
+    old: string | null,
+    value: string | null,
+  ): void {
+    if (!['name', 'value'].includes(name) || old !== value) {
+      super.attributeChangedCallback(name, old, value);
     }
   }
 }

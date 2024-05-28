@@ -36,7 +36,7 @@ const alignment: InputType = {
 
 const hrefs: string[] = [
   'https://www.sbb.ch',
-  'https://github.com/lyne-design-system/lyne-components',
+  'https://github.com/sbb-design-systems/lyne-components',
 ];
 const href: InputType = {
   options: Object.keys(hrefs),
@@ -59,7 +59,7 @@ const description: InputType = {
   },
 };
 
-const ariaLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -71,7 +71,7 @@ const defaultArgTypes: ArgTypes = {
   alignment,
   href,
   description,
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs: Args = {
@@ -80,7 +80,7 @@ const defaultArgs: Args = {
   alignment: 'after-centered',
   href: href.options![1],
   description: 'This is a paragraph',
-  'aria-label':
+  'accessibility-label':
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
 };
 

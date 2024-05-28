@@ -88,18 +88,18 @@ which is needed to correctly set the `aria-activedescendant` on the related `inp
 
 | Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                      |
 | ---------- | ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `active`   | `active`    | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                          |
 | `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                               |
 | `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `value`    | `value`     | public  | `string`               |         | Value of the option.                                                                                                             |
-| `active`   | `active`    | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                          |
 | `selected` | `selected`  | public  | `boolean`              |         | Whether the option is selected.                                                                                                  |
+| `value`    | `value`     | public  | `string`               |         | Value of the option.                                                                                                             |
 
 ## Events
 
 | Name                                | Type                | Description                                     | Inherited From |
 | ----------------------------------- | ------------------- | ----------------------------------------------- | -------------- |
-| `autocompleteOptionSelectionChange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
 | `autocompleteOptionSelected`        | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
+| `autocompleteOptionSelectionChange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
 
 ## CSS Properties
 

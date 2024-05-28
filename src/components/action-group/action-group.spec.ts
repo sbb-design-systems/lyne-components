@@ -19,7 +19,7 @@ describe(`sbb-action-group`, () => {
           <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
-            href="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/sbb-design-systems/lyne-components"
           >
             Link
           </sbb-block-link>
@@ -50,7 +50,7 @@ describe(`sbb-action-group`, () => {
           <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
-            href="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/sbb-design-systems/lyne-components"
           >
             Link </sbb-block-link
           >˙
@@ -65,7 +65,7 @@ describe(`sbb-action-group`, () => {
           <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
-            href="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/sbb-design-systems/lyne-components"
           >
             Link
           </sbb-block-link>
@@ -80,7 +80,7 @@ describe(`sbb-action-group`, () => {
           <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
-            href="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/sbb-design-systems/lyne-components"
           >
             Link
           </sbb-block-link>
@@ -95,7 +95,7 @@ describe(`sbb-action-group`, () => {
           <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
-            href="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/sbb-design-systems/lyne-components"
           >
             Link
           </sbb-block-link>

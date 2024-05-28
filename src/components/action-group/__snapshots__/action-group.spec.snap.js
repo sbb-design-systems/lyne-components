@@ -27,12 +27,10 @@ snapshots["sbb-action-group renders renders - Dom"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="chevron-small-left-small"
     icon-placement="start"
-    role="link"
     size="m"
-    tabindex="0"
   >
     Link
   </sbb-block-link>
@@ -60,13 +58,7 @@ snapshots["sbb-action-group renders A11y tree Chrome"] =
     },
     {
       "role": "link",
-      "name": "Link",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link"
-        }
-      ]
+      "name": "Link"
     }
   ]
 }
@@ -87,13 +79,7 @@ snapshots["sbb-action-group renders A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Link",
-      "children": [
-        {
-          "role": "link",
-          "name": "Link",
-          "value": "https://github.com/lyne-design-system/lyne-components"
-        }
-      ]
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }

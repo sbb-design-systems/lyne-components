@@ -37,8 +37,8 @@ If the title is needed, but it must to not be displayed, it's possible to use th
 
 | Name             | Attribute         | Privacy | Type                         | Default | Description                                                                                                                                                                                     |
 | ---------------- | ----------------- | ------- | ---------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `negative`       | `negative`        | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                                                                                 |
 | `level`          | `level`           | public  | `SbbTitleLevel`              | `'1'`   | Title level                                                                                                                                                                                     |
+| `negative`       | `negative`        | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                                                                                 |
 | `visualLevel`    | `visual-level`    | public  | `SbbTitleLevel \| undefined` |         | Visual level for the title. Optional, if not set, the value of level will be used.                                                                                                              |
 | `visuallyHidden` | `visually-hidden` | public  | `boolean \| undefined`       |         | Sometimes we need a title in the markup to present a proper hierarchy to the screen readers while we do not want to let that title appear visually. In this case we set visuallyHidden to true. |
 
@@ -46,8 +46,8 @@ If the title is needed, but it must to not be displayed, it's possible to use th
 
 | Name                             | Default                           | Description                      |
 | -------------------------------- | --------------------------------- | -------------------------------- |
-| `--sbb-title-margin-block-start` | `var(--sbb-spacing-responsive-m)` | Margin block start of the title. |
 | `--sbb-title-margin-block-end`   | `var(--sbb-spacing-responsive-s)` | Margin block end of the title.   |
+| `--sbb-title-margin-block-start` | `var(--sbb-spacing-responsive-m)` | Margin block start of the title. |
 
 ## Slots
 

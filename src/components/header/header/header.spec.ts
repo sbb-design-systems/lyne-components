@@ -23,7 +23,7 @@ describe(`sbb-header`, () => {
         <sbb-header>
           <sbb-header-link
             icon-name="hamburger-menu-small"
-            href="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/sbb-design-systems/lyne-components"
             >Menu</sbb-header-link
           >
           <div slot="logo">

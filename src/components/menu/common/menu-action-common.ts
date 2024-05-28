@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import {
-  SbbDisabledTabIndexActionMixin,
+  SbbDisabledMixin,
   type AbstractConstructor,
   type SbbDisabledMixinType,
 } from '../../core/mixins.js';
@@ -27,7 +27,7 @@ export const SbbMenuActionCommonElementMixin = <
   superClass: T,
 ): AbstractConstructor<SbbMenuActionCommonElementMixinType> & T => {
   abstract class SbbMenuActionCommonElement
-    extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(superClass))
+    extends SbbIconNameMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbMenuActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;

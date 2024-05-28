@@ -45,6 +45,7 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
   );
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
       this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
         'data-disabled',

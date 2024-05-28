@@ -107,26 +107,20 @@ since the focus must always stay on the connected `<input>`.
 
 | Name       | Attribute   | Privacy | Type                                       | Default    | Description                                                                                                                      |
 | ---------- | ----------- | ------- | ------------------------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `option`   | -           | public  | `SbbAutocompleteGridOptionElement \| null` |            | Gets the SbbAutocompleteGridOptionElement on the same row of the button.                                                         |
 | `disabled` | `disabled`  | public  | `boolean`                                  | `false`    | Whether the component is disabled.                                                                                               |
-| `negative` | `negative`  | public  | `boolean`                                  | `false`    | Negative coloring variant flag.                                                                                                  |
-| `iconName` | `icon-name` | public  | `string \| undefined`                      |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `type`     | `type`      | public  | `SbbButtonType`                            | `'button'` | The type attribute to use for the button.                                                                                        |
-| `name`     | `name`      | public  | `string`                                   |            | The name of the button element.                                                                                                  |
-| `value`    | `value`     | public  | `string`                                   |            | The value of the button element.                                                                                                 |
 | `form`     | `form`      | public  | `string \| undefined`                      |            | The <form> element to associate the button with.                                                                                 |
+| `iconName` | `icon-name` | public  | `string \| undefined`                      |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `name`     | `name`      | public  | `string`                                   |            | The name of the button element.                                                                                                  |
+| `negative` | `negative`  | public  | `boolean`                                  | `false`    | Negative coloring variant flag.                                                                                                  |
+| `option`   | -           | public  | `SbbAutocompleteGridOptionElement \| null` |            | Gets the SbbAutocompleteGridOptionElement on the same row of the button.                                                         |
+| `type`     | `type`      | public  | `SbbButtonType`                            | `'button'` | The type attribute to use for the button.                                                                                        |
+| `value`    | `value`     | public  | `string`                                   |            | The value of the button element.                                                                                                 |
 
 ## Methods
 
 | Name            | Privacy | Description                                                                                                             | Parameters             | Return | Inherited From |
 | --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------ | -------------- |
 | `dispatchClick` | public  | Used to dispatch a click event when users interact with the button via keyboard (the component does not receive focus). | `event: KeyboardEvent` | `void` |                |
-
-## Events
-
-| Name    | Type           | Description | Inherited From |
-| ------- | -------------- | ----------- | -------------- |
-| `click` | `PointerEvent` |             |                |
 
 ## Slots
 

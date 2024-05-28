@@ -18,6 +18,7 @@ describe(`sbb-header-button`, () => {
           type="reset"
           value="value"
           expand-from="zero"
+          aria-label="a11y label"
         >
           Action
         </sbb-header-button>

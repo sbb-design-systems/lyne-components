@@ -26,7 +26,12 @@ const optionObserverConfig: MutationObserverInit = {
 export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   protected abstract optionId: string;
 
-  /** Value of the option. */
+  /**
+   * Value of the option.
+   *
+   * @description Developer note: In this case updating the attribute must be synchronous.
+   * Due to this, it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
+   */
   @property()
   public set value(value: string) {
     this.setAttribute('value', `${value}`);
@@ -85,6 +90,16 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
   public constructor() {
     super();
     new SbbSlotStateController(this);
+  }
+
+  public override attributeChangedCallback(
+    name: string,
+    old: string | null,
+    value: string | null,
+  ): void {
+    if (name !== 'value' || old !== value) {
+      super.attributeChangedCallback(name, old, value);
+    }
   }
 
   /**

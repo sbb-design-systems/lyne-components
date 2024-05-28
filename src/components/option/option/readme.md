@@ -60,18 +60,18 @@ If the label slot contains only a **text node**, it is possible to search for te
 
 | Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                      |
 | ---------- | ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `active`   | `active`    | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                          |
 | `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                               |
 | `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `value`    | `value`     | public  | `string`               |         | Value of the option.                                                                                                             |
-| `active`   | `active`    | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                          |
 | `selected` | `selected`  | public  | `boolean`              |         | Whether the option is selected.                                                                                                  |
+| `value`    | `value`     | public  | `string`               |         | Value of the option.                                                                                                             |
 
 ## Events
 
 | Name                    | Type                | Description                                     | Inherited From |
 | ----------------------- | ------------------- | ----------------------------------------------- | -------------- |
-| `optionSelectionChange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
 | `optionSelected`        | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
+| `optionSelectionChange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
 
 ## CSS Properties
 

@@ -67,6 +67,7 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
       setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
     }
@@ -88,7 +89,7 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
    * Event needs to be dispatched from the action element; in autocomplete-grid,
    * the input has always the focus, so the `event.target` on parent class is the input and not the button.
    */
-  protected override dispatchClickEvent(event: KeyboardEvent): void {
+  protected override dispatchClickEvent = (event: KeyboardEvent): void => {
     const { altKey, ctrlKey, metaKey, shiftKey } = event;
     this.dispatchEvent(
       new PointerEvent('click', {
@@ -103,7 +104,7 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
         shiftKey,
       }),
     );
-  }
+  };
 }
 
 declare global {

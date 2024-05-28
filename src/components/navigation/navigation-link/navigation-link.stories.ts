@@ -15,13 +15,13 @@ const size: InputType = {
   options: ['l', 'm', 's'],
 };
 
-const ariaLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
+const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
 const href: InputType = {
   options: Object.keys(hrefs),
   mapping: hrefs,
@@ -70,7 +70,7 @@ const defaultArgTypes: ArgTypes = {
   target,
   rel,
   download,
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs: Args = {
@@ -79,7 +79,7 @@ const defaultArgs: Args = {
   target: '_blank',
   rel: undefined,
   download: false,
-  'aria-label': undefined,
+  'accessibility-label': undefined,
 };
 
 const Template = (args: Args): TemplateResult => html`

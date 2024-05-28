@@ -3,13 +3,12 @@ export const snapshots = {};
 
 snapshots["sbb-navigation-link renders DOM"] = 
 `<sbb-navigation-link
+  accessibility-label="a11y label"
   data-action=""
   data-link=""
   dir="ltr"
   href="https://www.sbb.ch"
-  role="link"
   size="l"
-  tabindex="0"
   target="_blank"
 >
   This is a link
@@ -19,11 +18,10 @@ snapshots["sbb-navigation-link renders DOM"] =
 
 snapshots["sbb-navigation-link renders Shadow DOM"] = 
 `<a
+  aria-label="a11y label"
   class="sbb-action-base sbb-navigation-link"
   href="https://www.sbb.ch"
   rel="external noopener nofollow"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <sbb-icon
@@ -50,13 +48,7 @@ snapshots["sbb-navigation-link renders A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "This is a link . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "This is a link . Link target opens in a new window."
-        }
-      ]
+      "name": "a11y label"
     }
   ]
 }
@@ -72,14 +64,8 @@ snapshots["sbb-navigation-link renders A11y tree Firefox"] =
   "children": [
     {
       "role": "link",
-      "name": "This is a link . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "This is a link . Link target opens in a new window.",
-          "value": "https://www.sbb.ch/"
-        }
-      ]
+      "name": "a11y label",
+      "value": "https://www.sbb.ch/"
     }
   ]
 }

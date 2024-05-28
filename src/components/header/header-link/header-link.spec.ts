@@ -14,9 +14,10 @@ describe(`sbb-header-link`, () => {
       element = await fixture(
         html`<sbb-header-link
           expand-from="small"
-          href="https://github.com/lyne-design-system/lyne-components"
+          href="https://github.com/sbb-design-systems/lyne-components"
           target="_blank"
           icon-name="pie-small"
+          accessibility-label="a11y label"
           >Action</sbb-header-link
         >`,
       );

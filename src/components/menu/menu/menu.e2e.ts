@@ -240,8 +240,7 @@ describe(`sbb-menu with ${fixture.name}`, () => {
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
 
-    await sendKeys({ down: 'Tab' });
-    await waitForLitRender(element);
+    trigger.focus();
 
     await sendKeys({ down: 'Enter' });
     await waitForLitRender(element);

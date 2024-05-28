@@ -3,18 +3,16 @@ export const snapshots = {};
 
 snapshots["sbb-block-link renders - DOM"] = 
 `<sbb-block-link
-  aria-label="Travelcards &amp; tickets"
+  accessibility-label="Travelcards &amp; tickets"
   data-action=""
   data-link=""
   data-sbb-link=""
   data-slot-names="unnamed"
   dir="ltr"
   download=""
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   icon-placement="start"
-  role="link"
   size="m"
-  tabindex="0"
 >
   Travelcards & tickets.
 </sbb-block-link>
@@ -23,11 +21,10 @@ snapshots["sbb-block-link renders - DOM"] =
 
 snapshots["sbb-block-link renders - ShadowDOM"] = 
 `<a
+  aria-label="Travelcards &amp; tickets"
   class="sbb-action-base sbb-block-link"
   download=""
-  href="https://github.com/lyne-design-system/lyne-components"
-  role="presentation"
-  tabindex="-1"
+  href="https://github.com/sbb-design-systems/lyne-components"
 >
   <span class="sbb-link__icon">
     <slot name="icon">
@@ -47,13 +44,7 @@ snapshots["sbb-block-link A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "Travelcards & tickets",
-      "children": [
-        {
-          "role": "link",
-          "name": "Travelcards & tickets."
-        }
-      ]
+      "name": "Travelcards & tickets"
     }
   ]
 }
@@ -70,13 +61,7 @@ snapshots["sbb-block-link A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Travelcards & tickets",
-      "children": [
-        {
-          "role": "link",
-          "name": "Travelcards & tickets.",
-          "value": "https://github.com/lyne-design-system/lyne-components"
-        }
-      ]
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }

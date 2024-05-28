@@ -66,11 +66,11 @@ This is helpful if you need a specific state of the component.
 
 | Name         | Attribute     | Privacy | Type                                        | Default | Description                                                                                                  |
 | ------------ | ------------- | ------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| `wide`       | `wide`        | public  | `boolean`                                   | `false` | If set to true, two months are displayed                                                                     |
-| `min`        | `min`         | public  | `T \| null`                                 |         | The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
-| `max`        | `max`         | public  | `T \| null`                                 |         | The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
-| `selected`   | `selected`    | public  | `T \| null`                                 |         | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |
 | `dateFilter` | `date-filter` | public  | `(date: T \| null) => boolean \| undefined` |         | A function used to filter out dates.                                                                         |
+| `max`        | `max`         | public  | `T \| null`                                 |         | The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
+| `min`        | `min`         | public  | `T \| null`                                 |         | The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
+| `selected`   | `selected`    | public  | `T \| null`                                 |         | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |
+| `wide`       | `wide`        | public  | `boolean`                                   | `false` | If set to true, two months are displayed                                                                     |
 
 ## Methods
 

@@ -51,15 +51,15 @@ If needed, the `role="status"` attribute can be added on the component's tag.
 
 | Name           | Attribute       | Privacy | Type                  | Default  | Description                                                                                                                      |
 | -------------- | --------------- | ------- | --------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `type`         | `type`          | public  | `SbbStatusType`       | `'info'` | The type of the status.                                                                                                          |
+| `iconName`     | `icon-name`     | public  | `string \| undefined` |          | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `titleContent` | `title-content` | public  | `string \| undefined` |          | Content of title.                                                                                                                |
 | `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`       | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                                               |
-| `iconName`     | `icon-name`     | public  | `string \| undefined` |          | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `type`         | `type`          | public  | `SbbStatusType`       | `'info'` | The type of the status.                                                                                                          |
 
 ## Slots
 
 | Name    | Description                                                |
 | ------- | ---------------------------------------------------------- |
 |         | Use the unnamed slot to add content to the status message. |
-| `title` | Use this to provide a title for the status (optional).     |
 | `icon`  | Use this slot to override the default status icon.         |
+| `title` | Use this to provide a title for the status (optional).     |
