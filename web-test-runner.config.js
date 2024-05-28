@@ -4,7 +4,6 @@ import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 import * as sass from 'sass';
-import { cpus } from 'node:os';
 
 import {
   minimalReporter,
@@ -99,13 +98,6 @@ const testRunnerHtml = (testFramework, _config, group) => `
 </html>
 `;
 
-// Slow down fast cpus to not run into too much fetches
-function resolveConcurrency() {
-  const localCpus = cpus();
-  const factor = localCpus.some((el) => el.model.includes('Apple M')) ? 4 : 2;
-  return Math.floor(localCpus.length / factor);
-}
-
 // A list of log messages, that should not be printed to the test console.
 const suppressedLogs = [
   'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.',
@@ -128,7 +120,6 @@ export default {
   files: ['src/**/*.{e2e,spec,!snapshot.spec}.ts'],
   groups,
   nodeResolve: true,
-  concurrency: resolveConcurrency(),
   reporters:
     isDebugMode || !isCIEnvironment
       ? [defaultReporter(), patchedSummaryReporter()]
@@ -148,7 +139,7 @@ export default {
     },
   },
   coverageConfig: {
-    exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/*.scss'],
+    exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/assets/*.png', '**/*.scss'],
   },
   filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),
   testRunnerHtml,

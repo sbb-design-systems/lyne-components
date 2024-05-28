@@ -470,7 +470,7 @@ export class SbbPopoverElement extends LitElement {
       <span class="sbb-popover__close">
         <sbb-secondary-button
           aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}
-          size="m"
+          size="s"
           type="button"
           icon-name="cross-small"
           sbb-popover-close
