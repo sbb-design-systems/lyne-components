@@ -120,6 +120,7 @@ export const SbbHydrationMixin = <T extends AbstractConstructor<LitElement>>(
       // When hydration is needed, we wait the hydration process to finish, which is patched
       // into the update method of the LitElement base class.
       super.update(changedProperties);
+
       if (this._hydrationRequired) {
         this._hydrationRequired = false;
         this._resolveHydration(true);

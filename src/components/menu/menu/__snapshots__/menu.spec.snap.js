@@ -15,9 +15,7 @@ snapshots["sbb-menu renders DOM"] =
     dir="ltr"
     href="https://www.sbb.ch/en"
     icon-placement="start"
-    role="link"
     size="s"
-    tabindex="0"
   >
     Profile
   </sbb-block-link>

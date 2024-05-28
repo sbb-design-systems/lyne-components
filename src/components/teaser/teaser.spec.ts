@@ -15,9 +15,9 @@ describe(`sbb-teaser`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-teaser
-          href="https://github.com/lyne-design-system/lyne-components"
+          href="https://github.com/sbb-design-systems/lyne-components"
           alignment="after-centered"
-          aria-label="SBB teaser"
+          accessibility-label="SBB teaser"
         ></sbb-teaser>`,
       );
     });
@@ -37,9 +37,9 @@ describe(`sbb-teaser`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-teaser
-          href="https://github.com/lyne-design-system/lyne-components"
+          href="https://github.com/sbb-design-systems/lyne-components"
           alignment="after"
-          aria-label="SBB teaser"
+          accessibility-label="SBB teaser"
           title-level="2"
         ></sbb-teaser>`,
       );
@@ -58,8 +58,8 @@ describe(`sbb-teaser`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-teaser
-          href="https://github.com/lyne-design-system/lyne-components"
-          aria-label="SBB teaser"
+          href="https://github.com/sbb-design-systems/lyne-components"
+          accessibility-label="SBB teaser"
           alignment="below"
         >
           <img slot="image" src=${images[0]} alt="400x300" />

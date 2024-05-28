@@ -3,14 +3,13 @@ export const snapshots = {};
 
 snapshots["sbb-header-link renders the component as a button with icon Light DOM"] = 
 `<sbb-header-link
+  accessibility-label="a11y label"
   data-action=""
   data-link=""
   dir="ltr"
   expand-from="small"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="pie-small"
-  role="link"
-  tabindex="0"
   target="_blank"
 >
   Action
@@ -20,11 +19,10 @@ snapshots["sbb-header-link renders the component as a button with icon Light DOM
 
 snapshots["sbb-header-link renders the component as a button with icon Shadow DOM"] = 
 `<a
+  aria-label="a11y label"
   class="sbb-action-base sbb-header-link"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   rel="external noopener nofollow"
-  role="presentation"
-  tabindex="-1"
   target="_blank"
 >
   <span class="sbb-header-action__wrapper">
@@ -59,13 +57,7 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
   "children": [
     {
       "role": "link",
-      "name": "Action . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Action . Link target opens in a new window."
-        }
-      ]
+      "name": "a11y label"
     }
   ]
 }
@@ -81,14 +73,8 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
   "children": [
     {
       "role": "link",
-      "name": "Action . Link target opens in a new window.",
-      "children": [
-        {
-          "role": "link",
-          "name": "Action . Link target opens in a new window.",
-          "value": "https://github.com/lyne-design-system/lyne-components"
-        }
-      ]
+      "name": "a11y label",
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }

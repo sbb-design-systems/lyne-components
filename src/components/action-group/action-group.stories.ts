@@ -23,7 +23,7 @@ const linkTemplate = (alignSelf?: string): TemplateResult => html`
   <sbb-block-link
     align-self=${alignSelf || nothing}
     icon-name="chevron-small-left-small"
-    href="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/sbb-design-systems/lyne-components"
   >
     Link
   </sbb-block-link>

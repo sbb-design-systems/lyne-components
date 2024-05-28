@@ -31,11 +31,11 @@ It should refer to the section where the locomotive is placed.
 
 | Name                  | Attribute               | Privacy | Type                  | Default  | Description                                                                                  |
 | --------------------- | ----------------------- | ------- | --------------------- | -------- | -------------------------------------------------------------------------------------------- |
+| `accessibilityLabel`  | `accessibility-label`   | public  | `string \| undefined` |          | Accessibility label for additional information regarding the leaving direction of the train. |
+| `direction`           | `direction`             | public  | `'left' \| 'right'`   | `'left'` | Controls the direction indicator to show the arrow left or right. Default is left.           |
 | `directionLabel`      | `direction-label`       | public  | `string`              |          | General label for "driving direction".                                                       |
 | `directionLabelLevel` | `direction-label-level` | public  | `SbbTitleLevel`       | `'6'`    | Heading level of the direction label, used for screen readers.                               |
 | `station`             | `station`               | public  | `string \| undefined` |          | Label for the destination station of the train.                                              |
-| `accessibilityLabel`  | `accessibility-label`   | public  | `string \| undefined` |          | Accessibility label for additional information regarding the leaving direction of the train. |
-| `direction`           | `direction`             | public  | `'left' \| 'right'`   | `'left'` | Controls the direction indicator to show the arrow left or right. Default is left.           |
 
 ## Slots
 

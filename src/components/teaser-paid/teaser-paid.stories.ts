@@ -12,7 +12,7 @@ import '../chip.js';
 import '../image.js';
 import './teaser-paid.js';
 
-const ariaLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -23,7 +23,7 @@ const ariaLabel: InputType = {
 
 const hrefs: string[] = [
   'https://www.sbb.ch',
-  'https://github.com/lyne-design-system/lyne-components',
+  'https://github.com/sbb-design-systems/lyne-components',
 ];
 const href: InputType = {
   options: Object.keys(hrefs),
@@ -71,7 +71,7 @@ const imageAlt: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
   href,
   rel,
   target,
@@ -80,7 +80,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  'aria-label': undefined,
+  'accessibility-label': undefined,
   href: href.options![0],
   rel: undefined,
   target: undefined,

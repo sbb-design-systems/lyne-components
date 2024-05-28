@@ -104,27 +104,27 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 | Name          | Attribute     | Privacy | Type                               | Default           | Description                                                                                                                                         |
 | ------------- | ------------- | ------- | ---------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`     | `timeout`     | public  | `number`                           | `6000`            | The length of time in milliseconds to wait before automatically dismissing the toast. If 0, it stays open indefinitely.                             |
-| `position`    | `position`    | public  | `SbbToastPosition`                 | `'bottom-center'` | The position where to place the toast.                                                                                                              |
 | `dismissible` | `dismissible` | public  | `boolean`                          | `false`           | Whether the toast has a close button.                                                                                                               |
-| `politeness`  | `politeness`  | public  | `'polite' \| 'assertive' \| 'off'` | `'polite'`        | The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info |
 | `iconName`    | `icon-name`   | public  | `string \| undefined`              |                   | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                    |
+| `politeness`  | `politeness`  | public  | `'polite' \| 'assertive' \| 'off'` | `'polite'`        | The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info |
+| `position`    | `position`    | public  | `SbbToastPosition`                 | `'bottom-center'` | The position where to place the toast.                                                                                                              |
+| `timeout`     | `timeout`     | public  | `number`                           | `6000`            | The length of time in milliseconds to wait before automatically dismissing the toast. If 0, it stays open indefinitely.                             |
 
 ## Methods
 
 | Name    | Privacy | Description                                                                     | Parameters | Return | Inherited From |
 | ------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
-| `open`  | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` |                |
 | `close` | public  | Close the toast.                                                                |            | `void` |                |
+| `open`  | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` |                |
 
 ## Events
 
 | Name        | Type                | Description                                                                    | Inherited From |
 | ----------- | ------------------- | ------------------------------------------------------------------------------ | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      |                |
 | `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      |                |
 | `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. Can be canceled. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      |                |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. |                |
 
 ## CSS Properties
 
@@ -137,5 +137,5 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | Name     | Description                                             |
 | -------- | ------------------------------------------------------- |
 |          | Use the unnamed slot to add content to the `sbb-toast`. |
-| `icon`   | Assign a custom icon via slot.                          |
 | `action` | Provide a custom action for this toast.                 |
+| `icon`   | Assign a custom icon via slot.                          |

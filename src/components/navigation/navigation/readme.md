@@ -60,25 +60,25 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 | Name                      | Attribute                   | Privacy | Type                            | Default | Description                                                                                                |
 | ------------------------- | --------------------------- | ------- | ------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `trigger`                 | `trigger`                   | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined`    |         | This will be forwarded as aria-label to the close button element.                                          |
 | `activeNavigationSection` | -                           | public  | `HTMLElement \| null`           | `null`  |                                                                                                            |
+| `trigger`                 | `trigger`                   | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. |
 
 ## Methods
 
 | Name    | Privacy | Description            | Parameters | Return | Inherited From |
 | ------- | ------- | ---------------------- | ---------- | ------ | -------------- |
-| `open`  | public  | Opens the navigation.  |            | `void` |                |
 | `close` | public  | Closes the navigation. |            | `void` |                |
+| `open`  | public  | Opens the navigation.  |            | `void` |                |
 
 ## Events
 
 | Name        | Type                | Description                                                                         | Inherited From |
 | ----------- | ------------------- | ----------------------------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is closed.                                      |                |
 | `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is opened.                                      |                |
 | `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is closed.                                      |                |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled. |                |
 
 ## CSS Properties
 

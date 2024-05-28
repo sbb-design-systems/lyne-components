@@ -105,15 +105,15 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 | Name           | Attribute        | Privacy | Type                                | Default | Description                                                                                                          |
 | -------------- | ---------------- | ------- | ----------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
 | `expanded`     | `expanded`       | public  | `boolean`                           | `false` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. |
-| `scrollOrigin` | `scroll-origin`  | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                            |
 | `hideOnScroll` | `hide-on-scroll` | public  | `boolean`                           | `false` | Whether the header should hide and show on scroll.                                                                   |
+| `scrollOrigin` | `scroll-origin`  | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                            |
 
 ## CSS Properties
 
 | Name                   | Default                                                                             | Description                                      |
 | ---------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `--sbb-header-z-index` | `10`                                                                                | Can be used to modify the z-index of the header. |
 | `--sbb-header-height`  | `zero-small:var(--sbb-spacing-fixed-14x);medium-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.      |
+| `--sbb-header-z-index` | `10`                                                                                | Can be used to modify the z-index of the header. |
 
 ## Slots
 

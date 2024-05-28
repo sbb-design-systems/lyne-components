@@ -54,12 +54,6 @@ const negative: InputType = {
   },
 };
 
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const disabled: InputType = {
   control: {
     type: 'boolean',
@@ -81,14 +75,12 @@ const tag: InputType = {
 export const linkCommonDefaultArgTypes: ArgTypes = {
   text,
   negative,
-  'aria-label': ariaLabel,
   tag,
 };
 
 export const linkCommonDefaultArgs: Args = {
   text: 'Travelcards & tickets',
   negative: false,
-  'aria-label': undefined,
   tag: 'TBD',
 };
 
@@ -134,7 +126,7 @@ export const blockLinkCommonDefaultArgs: Args = {
 
 // link params
 
-const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
+const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
 const href: InputType = {
   options: Object.keys(hrefs),
   mapping: hrefs,
@@ -177,6 +169,12 @@ const download: InputType = {
   },
 };
 
+const accessibilityLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 export const linkDefaultArgTypes: ArgTypes = {
   ...linkCommonDefaultArgTypes,
   href,
@@ -184,6 +182,7 @@ export const linkDefaultArgTypes: ArgTypes = {
   rel,
   download,
   disabled,
+  'accessibility-label': accessibilityLabel,
 };
 
 export const linkDefaultArgs: Args = {
@@ -193,6 +192,7 @@ export const linkDefaultArgs: Args = {
   rel: undefined,
   download: false,
   disabled: false,
+  'accessibility-label': undefined,
 };
 
 // link-button params
@@ -234,6 +234,12 @@ const form: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 export const linkButtonDefaultArgTypes: ArgTypes = {
   ...linkCommonDefaultArgTypes,
   type,
@@ -241,6 +247,7 @@ export const linkButtonDefaultArgTypes: ArgTypes = {
   name,
   value,
   form,
+  'aria-label': ariaLabel,
 };
 
 export const linkButtonDefaultArgs: Args = {
@@ -250,6 +257,7 @@ export const linkButtonDefaultArgs: Args = {
   name: 'Button name',
   value: undefined,
   form: undefined,
+  'aria-label': undefined,
 };
 
 // Stories
