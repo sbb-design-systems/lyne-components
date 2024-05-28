@@ -19,7 +19,7 @@ describe(`sbb-toast`, () => {
       `);
     });
 
-    describeIf(!isFirefox(), 'Chrome-Safari', async () => {
+    describeIf(!isFirefox, 'Chrome-Safari', async () => {
       it('Dom', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });
@@ -29,7 +29,7 @@ describe(`sbb-toast`, () => {
       });
     });
 
-    describeIf(isFirefox(), 'Firefox', async () => {
+    describeIf(isFirefox, 'Firefox', async () => {
       it('Dom', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });

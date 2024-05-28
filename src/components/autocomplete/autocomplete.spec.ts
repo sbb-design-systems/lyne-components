@@ -29,7 +29,7 @@ describe(`sbb-autocomplete`, () => {
       element = testFixture.querySelector('sbb-autocomplete')!;
     });
 
-    describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+    describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('Dom', async () => {
         await expect(element).dom.to.be.equalSnapshot();
       });
@@ -39,7 +39,7 @@ describe(`sbb-autocomplete`, () => {
       });
     });
 
-    describeIf(isSafari(), 'Safari', async () => {
+    describeIf(isSafari, 'Safari', async () => {
       it('Dom', async () => {
         await expect(element).dom.to.be.equalSnapshot();
       });
@@ -65,7 +65,7 @@ describe(`sbb-autocomplete`, () => {
       `);
     });
 
-    describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+    describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('Dom', async () => {
         await expect(root).dom.to.be.equalSnapshot();
       });
@@ -75,7 +75,7 @@ describe(`sbb-autocomplete`, () => {
       });
     });
 
-    describeIf(isSafari(), 'Safari', async () => {
+    describeIf(isSafari, 'Safari', async () => {
       it('Dom', async () => {
         await expect(root).dom.to.be.equalSnapshot();
       });

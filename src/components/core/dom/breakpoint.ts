@@ -1,4 +1,4 @@
-import { isBrowser } from './platform.js';
+import { isServer } from 'lit';
 
 export const breakpoints = ['zero', 'micro', 'small', 'medium', 'wide', 'large', 'ultra'] as const;
 export type Breakpoint = (typeof breakpoints)[number];
@@ -16,7 +16,7 @@ export function isBreakpoint(
   to?: Breakpoint,
   properties?: { includeMaxBreakpoint: boolean },
 ): boolean {
-  if (!isBrowser()) {
+  if (isServer) {
     // TODO: Remove and decide case by case what should be done on consuming end
     return false;
   }
