@@ -32,7 +32,7 @@ The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
 ```html
-<sbb-button-link href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+<sbb-button-link href="https://github.com/sbb-design-systems/lyne-components" target="_blank">
   Go to site
 </sbb-button-link>
 ```

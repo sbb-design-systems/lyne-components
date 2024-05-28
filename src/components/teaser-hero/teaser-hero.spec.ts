@@ -10,9 +10,9 @@ import './teaser-hero.js';
 import '../image.js';
 
 describe(`sbb-teaser-hero`, () => {
-  describe('should render all properties', () => {
-    let element: SbbTeaserHeroElement;
+  let element: SbbTeaserHeroElement;
 
+  describe('should render all properties', () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-teaser-hero
@@ -23,8 +23,9 @@ describe(`sbb-teaser-hero`, () => {
           link-content="Find out more"
           image-src="${sampleImages[1]}"
           image-alt="SBB CFF FFS Employee"
-          >Break out and explore castles and palaces.</sbb-teaser-hero
-        >`,
+        >
+          Break out and explore castles and palaces.
+        </sbb-teaser-hero>`,
       );
     });
 
@@ -39,27 +40,24 @@ describe(`sbb-teaser-hero`, () => {
     testA11yTreeSnapshot();
   });
 
-  it('should render with slots', async () => {
-    const root = await fixture(
-      html`<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch"
-        >Break out and explore castles and palaces.<span slot="link-content">Find out more</span
-        ><sbb-image
-          slot="image"
-          image-src="${sampleImages[1]}"
-          alt="SBB CFF FFS Employee"
-        ></sbb-image
-      ></sbb-teaser-hero>`,
-    );
-
-    expect(root).dom.to.be.equal(
-      `
-      <sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch" dir="ltr" data-action data-link>
+  describe('should render with slots', async () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">
           Break out and explore castles and palaces.
           <span slot="link-content">Find out more</span>
-          <sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>
-        </sbb-teaser-hero>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+          <sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee">
+          </sbb-image>
+        </sbb-teaser-hero>`,
+      );
+    });
+
+    it('Dom', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 });

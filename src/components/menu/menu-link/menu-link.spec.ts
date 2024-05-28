@@ -16,7 +16,7 @@ describe(`sbb-menu-link`, () => {
         <sbb-menu-link
           icon-name="menu-small"
           amount="123456"
-          href="https://github.com/lyne-design-system/lyne-components"
+          href="https://github.com/sbb-design-systems/lyne-components"
           target="_blank"
           accessibility-label="a11y label"
         >

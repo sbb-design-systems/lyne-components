@@ -101,7 +101,7 @@ const Template = (args: Args): TemplateResult => html`
                   <span> on <time datetime="2021-11-25">Black Friday</time> </span>
                 </sbb-card-badge>
 
-                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                   View Ticket
                 </sbb-card-link>
 
@@ -133,7 +133,7 @@ const Template = (args: Args): TemplateResult => html`
             </li>
             <li>
               <sbb-card>
-                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                   Buy saver ticket
                 </sbb-card-link>
 
@@ -152,7 +152,7 @@ const Template = (args: Args): TemplateResult => html`
             </li>
             <li>
               <sbb-card>
-                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                   Check details of the journey
                 </sbb-card-link>
 
@@ -250,7 +250,7 @@ const Template = (args: Args): TemplateResult => html`
               Your subscriptions.
             </sbb-title>
             <sbb-card color="milk" size="s">
-              <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+              <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                 Edit subscription
               </sbb-card-link>
 
