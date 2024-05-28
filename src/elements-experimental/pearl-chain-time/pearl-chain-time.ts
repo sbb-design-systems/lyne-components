@@ -1,8 +1,5 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import {
-  readDataNow,
-  removeTimezoneFromISOTimeString,
-} from '@sbb-esta/lyne-elements/core/datetime.js';
+import { readDataNow } from '@sbb-esta/lyne-elements/core/datetime.js';
 import {
   i18nArrival,
   i18nDeparture,
@@ -13,6 +10,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { removeTimezoneFromISOTimeString } from '../core/datetime/date-helper.js';
 import type { Leg, PtRideLeg } from '../core/timetable.js';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 

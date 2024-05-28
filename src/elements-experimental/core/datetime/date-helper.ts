@@ -1,4 +1,9 @@
 import {
+  i18nDurationHour,
+  i18nDurationMinute,
+  i18nDurationDay,
+} from '@sbb-esta/lyne-elements/core/i18n.js';
+import {
   isValid,
   parseISO,
   differenceInDays,
@@ -8,8 +13,6 @@ import {
   subHours,
   subDays,
 } from 'date-fns';
-
-import { i18nDurationHour, i18nDurationMinute, i18nDurationDay } from '../i18n.js';
 
 /**
  * This function removes the offset of a ISO date string. This needs to be done to make sure that the offset is ignored.

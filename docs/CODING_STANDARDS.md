@@ -443,7 +443,7 @@ For this purpose we provide the `hostContext(selector: string, base: Element): E
 function, which returns the closest match or null, if no match is found.
 
 This can be used in the `connectedCallback()` (see
-[Lit Lifecycle](https://lit.dev/docs/elements/lifecycle/)) method of a component,
+[Lit Lifecycle](https://lit.dev/docs/components/lifecycle/)) method of a component,
 which should minimize the performance impact of this detection.
 
 **Usages of this functionality should be carefully considered. If a component has too many variants

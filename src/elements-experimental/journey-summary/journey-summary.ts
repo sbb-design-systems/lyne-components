@@ -1,10 +1,5 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import {
-  defaultDateAdapter,
-  durationToTime,
-  removeTimezoneFromISOTimeString,
-  readDataNow,
-} from '@sbb-esta/lyne-elements/core/datetime.js';
+import { defaultDateAdapter, readDataNow } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { i18nTripDuration } from '@sbb-esta/lyne-elements/core/i18n.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { format, isValid } from 'date-fns';
@@ -12,6 +7,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime/date-helper.js';
 import type { Leg } from '../core/timetable.js';
 
 import style from './journey-summary.scss?lit&inline';

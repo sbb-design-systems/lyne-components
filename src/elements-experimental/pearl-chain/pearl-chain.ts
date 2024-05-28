@@ -1,13 +1,11 @@
-import {
-  readDataNow,
-  removeTimezoneFromISOTimeString,
-} from '@sbb-esta/lyne-elements/core/datetime.js';
+import { readDataNow } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { removeTimezoneFromISOTimeString } from '../core/datetime/date-helper.js';
 import type { Leg, PtRideLeg } from '../core/timetable.js';
 import { isRideLeg } from '../core/timetable.js';
 

@@ -173,6 +173,9 @@ The rest of the commit message is then used for this.
 This project publishes the following package:
 
 - @sbb-esta/lyne-elements
+- @sbb-esta/lyne-elements-experimental
+- @sbb-esta/lyne-react
+- @sbb-esta/lyne-react-experimental
 
 ### Styling
 
