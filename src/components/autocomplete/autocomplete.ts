@@ -1,12 +1,19 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
-import { findReferencedElement, getDocumentWritingMode, isBrowser, isSafari } from '../core/dom.js';
+import { findReferencedElement, getDocumentWritingMode, isSafari } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
@@ -277,7 +284,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   }
 
   private _componentSetup(): void {
-    if (!isBrowser()) {
+    if (isServer) {
       return;
     }
     this._triggerEventsController?.abort();

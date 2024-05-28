@@ -11,7 +11,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
-import { isBrowser } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbToggleOptionElement } from '../toggle-option.js';
@@ -97,7 +96,7 @@ export class SbbToggleElement extends LitElement {
       options[0];
 
     if (!selectedOption) {
-      if (import.meta.env.DEV && isBrowser()) {
+      if (import.meta.env.DEV && !isServer) {
         console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
       }
       return;
