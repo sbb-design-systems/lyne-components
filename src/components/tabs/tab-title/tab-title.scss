@@ -4,7 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-tab-title-height: var(--sbb-spacing-fixed-12x);
+  --sbb-tab-title-height: var(--sbb-size-element-m);
   --sbb-tab-title-color: var(--sbb-color-granite);
   --sbb-tab-title-icon-color: var(--sbb-color-black);
   --sbb-tab-title-background-color: var(--sbb-color-white);
@@ -30,10 +30,6 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  @include sbb.mq($from: medium) {
-    --sbb-tab-title-height: var(--sbb-spacing-fixed-14x);
-  }
-
   @include sbb.if-forced-colors {
     --sbb-tab-title-color: ButtonText;
     --sbb-tab-title-icon-color: ButtonText;
@@ -42,12 +38,8 @@
 }
 
 :host([data-size='s']) {
-  --sbb-tab-title-height: var(--sbb-spacing-fixed-9x);
+  --sbb-tab-title-height: var(--sbb-size-element-xs);
   --sbb-tab-title-inline-padding: var(--sbb-spacing-responsive-xxxs);
-
-  @include sbb.mq($from: medium) {
-    --sbb-tab-title-height: var(--sbb-spacing-fixed-10x);
-  }
 }
 
 :host([disabled]) {
