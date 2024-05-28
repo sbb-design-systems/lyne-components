@@ -18,7 +18,7 @@ snapshots["sbb-popover renders"] =
           icon-name="cross-small"
           role="button"
           sbb-popover-close=""
-          size="m"
+          size="s"
           tabindex="0"
           type="button"
         >

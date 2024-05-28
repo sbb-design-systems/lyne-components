@@ -13,7 +13,7 @@ import {
 import './button.js';
 
 describe(`sbb-button`, () => {
-  if (isVisualRegressionRun()) {
+  if (isVisualRegressionRun) {
     describe('visual-regression', () => {
       let root: HTMLElement;
 

@@ -1,4 +1,4 @@
-import { isBrowser } from './platform.js';
+import { isServer } from 'lit';
 
 /**
  *  Check whether it's a string or an HTMLElement, if it's a string queries the element with the
@@ -8,7 +8,7 @@ import { isBrowser } from './platform.js';
 export function findReferencedElement<T extends HTMLElement = HTMLElement>(
   reference: string | HTMLElement,
 ): T | null {
-  if (!isBrowser()) {
+  if (isServer) {
     return null;
   } else if (typeof reference === 'string') {
     return document.getElementById(reference) as T;

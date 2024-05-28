@@ -1,12 +1,19 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
-import { findReferencedElement, getDocumentWritingMode, isBrowser, isSafari } from '../core/dom.js';
+import { findReferencedElement, getDocumentWritingMode, isSafari } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
@@ -27,7 +34,7 @@ let nextId = 0;
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
  * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
  */
-const ariaRoleOnHost = isSafari();
+const ariaRoleOnHost = isSafari;
 
 /**
  * Combined with a native input, it displays a panel with a list of available options.
@@ -277,7 +284,7 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
   }
 
   private _componentSetup(): void {
-    if (!isBrowser()) {
+    if (isServer) {
       return;
     }
     this._triggerEventsController?.abort();

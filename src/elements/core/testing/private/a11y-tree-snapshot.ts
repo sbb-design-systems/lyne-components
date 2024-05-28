@@ -42,16 +42,16 @@ export function testA11yTreeSnapshot(
       await waitForLitRender(document);
     });
 
-    testIf(isChromium() && !exclude.chrome, 'Chrome', async () => {
+    testIf(isChromium && !exclude.chrome, 'Chrome', async () => {
       await a11yTreeEqualSnapshot();
     });
 
     // TODO: Try if tests on CI are no longer flaky
-    // testIf(isSafari() && !exclude.safari, 'Safari', async () => {
+    // testIf(isSafari && !exclude.safari, 'Safari', async () => {
     //   await a11yTreeEqualSnapshot();
     // });
 
-    testIf(isFirefox() && !exclude.firefox, 'Firefox', async () => {
+    testIf(isFirefox && !exclude.firefox, 'Firefox', async () => {
       await a11yTreeEqualSnapshot();
     });
   });
