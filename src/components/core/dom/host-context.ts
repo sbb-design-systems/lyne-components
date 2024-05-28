@@ -1,4 +1,4 @@
-import { isBrowser } from './platform.js';
+import { isServer } from 'lit';
 
 /**
  * Looks for the closest element matching the given selector starting from the given element.
@@ -9,7 +9,7 @@ import { isBrowser } from './platform.js';
  * @returns The closest element matching the selector or null if none is found.
  */
 export function hostContext(selector: string, element: Element): Element | null {
-  if (!isBrowser()) {
+  if (isServer) {
     return null;
   }
   // Start with parent element in order to avoid finding element itself

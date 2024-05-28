@@ -96,7 +96,7 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
    * JAWS does not read out aria-live message.
    */
   private get _role(): 'status' | 'alert' | undefined {
-    if (!isFirefox()) {
+    if (!isFirefox) {
       return;
     }
 

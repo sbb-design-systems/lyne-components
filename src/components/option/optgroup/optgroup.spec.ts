@@ -35,7 +35,7 @@ describe(`sbb-optgroup`, () => {
         testFixture.querySelector<HTMLInputElement>('input')!.focus();
       });
 
-      describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+      describeIf(!isSafari, 'Chrome-Firefox', async () => {
         it('Dom', async () => {
           await expect(element).dom.to.be.equalSnapshot();
         });
@@ -45,7 +45,7 @@ describe(`sbb-optgroup`, () => {
         });
       });
 
-      describeIf(isSafari(), 'Safari', async () => {
+      describeIf(isSafari, 'Safari', async () => {
         it('Dom', async () => {
           await expect(element).dom.to.be.equalSnapshot();
         });
@@ -76,7 +76,7 @@ describe(`sbb-optgroup`, () => {
         elem = testFixture.querySelector('sbb-optgroup')!;
       });
 
-      describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+      describeIf(!isSafari, 'Chrome-Firefox', async () => {
         it('Dom', async () => {
           await expect(elem).dom.to.be.equalSnapshot();
         });
@@ -86,7 +86,7 @@ describe(`sbb-optgroup`, () => {
         });
       });
 
-      describeIf(isSafari(), 'Safari', async () => {
+      describeIf(isSafari, 'Safari', async () => {
         it('Dom', async () => {
           await expect(elem).dom.to.be.equalSnapshot();
         });

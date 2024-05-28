@@ -103,7 +103,7 @@ describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
         })) as unknown as CheckboxAccessibilitySnapshot;
 
         // TODO: Recheck if it is working in Chromium
-        if (!isChromium()) {
+        if (!isChromium) {
           expect(snapshot.required).to.be.true;
         }
       });
@@ -137,7 +137,7 @@ describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
         })) as unknown as CheckboxAccessibilitySnapshot;
 
         // TODO: Recheck if it is working in Chromium
-        if (!isChromium()) {
+        if (!isChromium) {
           expect(snapshot.required).to.be.true;
         }
       });
@@ -224,7 +224,7 @@ describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
       expect(snapshot.role).to.equal('checkbox');
 
       expect(snapshot.checked, `ariaChecked in ${JSON.stringify(snapshot)}`).to.be.equal(
-        isFirefox() && assertions.ariaChecked === false ? undefined : assertions.ariaChecked,
+        isFirefox && assertions.ariaChecked === false ? undefined : assertions.ariaChecked,
       );
 
       expect(inputSpy.count, `'input' event`).to.be.equal(assertions.inputEventCount);

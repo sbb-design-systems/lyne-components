@@ -1,7 +1,6 @@
-import type { ReactiveController, ReactiveControllerHost } from 'lit';
+import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
 import { readConfig } from '../config.js';
-import { isBrowser } from '../dom.js';
 import { AgnosticMutationObserver } from '../observers.js';
 
 /**
@@ -34,9 +33,9 @@ export class SbbLanguageController implements ReactiveController {
   public static get current(): string {
     const language =
       (readConfig().language ??
-        (isBrowser()
-          ? document.documentElement.getAttribute('lang')
-          : SbbLanguageController._defaultLanguage)) ||
+        (isServer
+          ? SbbLanguageController._defaultLanguage
+          : document.documentElement.getAttribute('lang'))) ||
       SbbLanguageController._defaultLanguage;
 
     // Support e.g. cases like `de-ch`.

@@ -17,7 +17,7 @@ import '../../divider.js';
  * To solve the problem, we remove the role="group" and add a hidden span containing the group name
  * TODO: We should periodically check if it has been solved and, if so, remove the property.
  */
-const inertAriaGroups = isSafari();
+const inertAriaGroups = isSafari;
 
 /**
  * It can be used as a container for one or more `sbb-option`.
