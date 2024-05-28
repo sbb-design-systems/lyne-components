@@ -218,7 +218,7 @@ export class SbbClockElement extends SbbNowMixin(LitElement) {
   private _stopClock(): void {
     clearInterval(this._handMovement);
 
-    if (this.now) {
+    if (this.now !== undefined) {
       this._setHandsStartingPosition();
       this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
       this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
@@ -258,7 +258,7 @@ export class SbbClockElement extends SbbNowMixin(LitElement) {
 
     this._addEventListeners();
 
-    if (this.now) {
+    if (this.now !== undefined) {
       this._stopClock();
     } else {
       await this._startClock();

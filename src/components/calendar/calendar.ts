@@ -797,7 +797,7 @@ export class SbbCalendarElement<T = Date> extends SbbNowMixin(LitElement) {
   }
 
   private _getNow(): T {
-    if (this.now) {
+    if (this.now !== undefined) {
       const today = new Date(this.now);
       if (defaultDateAdapter.isValid(today)) {
         return this._dateAdapter.createDate(

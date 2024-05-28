@@ -1,11 +1,13 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import type { SbbDateLike } from '../interfaces.js';
+
 import type { AbstractConstructor } from './constructor.js';
 
 export declare class SbbNowMixinType {
-  public set now(value: number | string);
-  public get now(): number;
+  public set now(value: SbbDateLike);
+  public get now(): number | undefined;
   protected get dateNow(): number;
 }
 
@@ -24,10 +26,11 @@ export const SbbNowMixin = <T extends AbstractConstructor<LitElement>>(
     public get now(): number | undefined {
       return this._now;
     }
-    public set now(value: number | string) {
-      this._now = +value;
+    public set now(value: SbbDateLike) {
+      this._now =
+        value instanceof Date ? value.valueOf() : !isNaN(Number(value)) ? Number(value) : undefined;
     }
-    private _now?: number;
+    private _now: number | undefined;
 
     /** Returns the `_now` value if available, otherwise the current datetime (as timestamp in millisecond). */
     protected get dateNow(): number {

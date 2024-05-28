@@ -7,7 +7,8 @@ then it briefly pauses at the clock top before starting a new rotation.
 <sbb-clock></sbb-clock>
 ```
 
-To simulate the current datetime, you can use the `now` property (timestamp in milliseconds).
+To simulate the current datetime, you can use the `now` property,
+which accepts a `Date` or a timestamp in milliseconds (as number or string).
 This is helpful if you need a specific state of the component.
 
 ```html

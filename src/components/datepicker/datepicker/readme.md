@@ -57,7 +57,8 @@ a `blur` event is fired on the input to ensure compatibility with any framework 
 
 ## Custom date formats
 
-To simulate the current datetime, you can use the `now` property (timestamp in milliseconds).
+To simulate the current datetime, you can use the `now` property,
+which accepts a `Date` or a timestamp in milliseconds (as number or string).
 This is helpful if you need a specific state of the component.
 
 Using a combination of the `dateParser` and `format` properties, it's possible to configure the datepicker

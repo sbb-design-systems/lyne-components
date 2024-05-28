@@ -46,7 +46,8 @@ The `legs` property is mandatory.
 <sbb-pearl-chain legs="{legs}"></sbb-pearl-chain>
 ```
 
-To simulate the current datetime, you can use the `now` property (timestamp in milliseconds).
+To simulate the current datetime, you can use the `now` property,
+which accepts a `Date` or a timestamp in milliseconds (as number or string).
 This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
