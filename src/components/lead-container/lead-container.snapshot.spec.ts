@@ -25,7 +25,7 @@ const leadImageUrl = import.meta.resolve('./assets/lucerne.png');
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);
 
 describe(`sbb-lead-container`, () => {
-  if (!isVisualRegressionRun()) {
+  if (!isVisualRegressionRun) {
     let element: SbbLeadContainerElement;
 
     beforeEach(async () => {

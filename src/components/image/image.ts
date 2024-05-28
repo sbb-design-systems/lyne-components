@@ -15,12 +15,19 @@ import {
   SbbBreakpointUltraMax,
   SbbTypoScaleDefault,
 } from '@sbb-esta/lyne-design-tokens';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { hostContext, isBrowser } from '../core/dom.js';
+import { hostContext } from '../core/dom.js';
 
 import type {
   InterfaceImageAttributesSizesConfigBreakpoint,
@@ -313,7 +320,7 @@ export class SbbImageElement extends LitElement {
   }
 
   private _prepareImageUrl(baseUrl: string | undefined, lquip = false): string {
-    if (!baseUrl || baseUrl === '' || !isBrowser()) {
+    if (!baseUrl || baseUrl === '' || isServer) {
       return '';
     }
 

@@ -45,13 +45,13 @@ export const fixture = Object.defineProperty(
     options.modules.unshift('/src/components/core/testing/test-setup-ssr.ts');
     const fixtures = await import('@lit-labs/testing/fixtures.js');
     let result: T;
-    if (isHydratedSsr()) {
+    if (isHydratedSsr) {
       result = await fixtures.ssrHydratedFixture<T>(template, options);
       result
         .parentElement!.querySelectorAll('[defer-hydration]')
         .forEach((e) => e.removeAttribute('defer-hydration'));
       return result;
-    } else if (isNonHydratedSsr()) {
+    } else if (isNonHydratedSsr) {
       result = await fixtures.ssrNonHydratedFixture<T>(template, options);
     } else {
       result = await fixtures.csrFixture<T>(template, options);
@@ -62,9 +62,9 @@ export const fixture = Object.defineProperty(
   'name',
   {
     get() {
-      if (isHydratedSsr()) {
+      if (isHydratedSsr) {
         return 'ssrHydratedFixture';
-      } else if (isNonHydratedSsr()) {
+      } else if (isNonHydratedSsr) {
         return 'ssrNonHydratedFixture';
       } else {
         return 'csrFixture';
