@@ -1,4 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
@@ -19,13 +20,13 @@ describe('sbb-stepper', () => {
         <sbb-step-label>Step 1</sbb-step-label>
         <sbb-step>
           Step one content.
-          <span sbb-stepper-next>Next</span>
+          <button sbb-stepper-next id="next-button-1">Next</button>
         </sbb-step>
 
         <sbb-step-label>Step 2</sbb-step-label>
         <sbb-step>
           Step two content.
-          <span sbb-stepper-next>Next</span>
+          <button sbb-stepper-next>Next</button>
           <span sbb-stepper-previous>Back</span>
         </sbb-step>
 
@@ -34,6 +35,9 @@ describe('sbb-stepper', () => {
           Step three content.
           <span sbb-stepper-previous>Back</span>
         </sbb-step>
+
+        <sbb-step-label disabled>Step 4</sbb-step-label>
+        <sbb-step> Step four content. </sbb-step>
       </sbb-stepper>
     `);
   });
@@ -138,6 +142,42 @@ describe('sbb-stepper', () => {
     expect(stepLabelOne.step).to.have.attribute('data-selected');
   });
 
+  it('selects only the next step via [sbb-stepper-next] click in linear mode and emits validate event', async () => {
+    const stepperNext = element.querySelector<HTMLElement>('[sbb-stepper-next]')!;
+    const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(1)',
+    )!;
+    const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(2)',
+    )!;
+    const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(3)',
+    )!;
+    const validate = new EventSpy(SbbStepElement.events.validate);
+
+    element.linear = true;
+
+    stepLabelThree.click();
+    await waitForLitRender(element);
+
+    expect(stepLabelOne).to.have.attribute('data-selected');
+    expect(stepLabelOne.step).to.have.attribute('data-selected');
+
+    stepLabelTwo.click();
+    await waitForLitRender(element);
+
+    expect(stepLabelOne).to.have.attribute('data-selected');
+    expect(stepLabelOne.step).to.have.attribute('data-selected');
+
+    stepperNext.click();
+    await waitForLitRender(element);
+
+    await waitForCondition(() => validate.events.length === 1);
+    expect(validate.count).to.be.equal(1);
+    expect(stepLabelTwo).to.have.attribute('data-selected');
+    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+  });
+
   it('does not switch to the next step if the validate is prevented', async () => {
     const stepLabelThree = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(3)',
@@ -198,7 +238,7 @@ describe('sbb-stepper', () => {
     expect(stepLabelOne.step).to.have.attribute('data-selected');
   });
 
-  it('resets the form for each and returns to the first step', async () => {
+  it('resets the form for each step and returns to the first step', async () => {
     element = await fixture(html`
       <sbb-stepper selected-index="0">
         <sbb-step-label>Step 1</sbb-step-label>
@@ -241,5 +281,89 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelOne).to.have.attribute('data-selected');
     expect(stepLabelOne.step).to.have.attribute('data-selected');
+  });
+
+  it('focuses the correct element in the step cntent', async () => {
+    const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(1)',
+    )!;
+
+    await sendKeys({ down: 'Tab' });
+    expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
+
+    await sendKeys({ down: 'Tab' });
+    expect(document.activeElement!.id).to.be.equal('next-button-1');
+  });
+
+  it('selects tab on right arrow key pressed', async () => {
+    const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(2)',
+    )!;
+
+    await sendKeys({ down: 'Tab' });
+    await sendKeys({ down: 'ArrowRight' });
+
+    expect(stepLabelTwo).to.have.attribute('data-selected');
+    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+  });
+
+  it('selects tab on left arrow key pressed', async () => {
+    const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(1)',
+    )!;
+    const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(2)',
+    )!;
+
+    await sendKeys({ down: 'Tab' });
+    await sendKeys({ down: 'ArrowRight' });
+
+    expect(stepLabelTwo).to.have.attribute('data-selected');
+    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+
+    await sendKeys({ down: 'ArrowLeft' });
+
+    expect(stepLabelOne).to.have.attribute('data-selected');
+    expect(stepLabelOne.step).to.have.attribute('data-selected');
+  });
+
+  it('wraps around on arrow key navigation', async () => {
+    const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(1)',
+    )!;
+    const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(2)',
+    )!;
+    const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(3)',
+    )!;
+
+    await sendKeys({ down: 'Tab' });
+    await sendKeys({ down: 'ArrowRight' });
+
+    expect(stepLabelTwo).to.have.attribute('data-selected');
+    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+
+    await sendKeys({ down: 'ArrowRight' });
+
+    expect(stepLabelThree).to.have.attribute('data-selected');
+    expect(stepLabelThree.step).to.have.attribute('data-selected');
+
+    await sendKeys({ down: 'ArrowRight' });
+
+    expect(stepLabelOne).to.have.attribute('data-selected');
+    expect(stepLabelOne.step).to.have.attribute('data-selected');
+  });
+
+  it('wraps around on arrow left arrow key navigation', async () => {
+    const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(3)',
+    )!;
+
+    await sendKeys({ down: 'Tab' });
+    await sendKeys({ down: 'ArrowLeft' });
+
+    expect(stepLabelThree).to.have.attribute('data-selected');
+    expect(stepLabelThree.step).to.have.attribute('data-selected');
   });
 });

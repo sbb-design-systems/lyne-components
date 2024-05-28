@@ -9,7 +9,7 @@
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(32)};
+  --sbb-step-label-prefix-size: var(--sbb-size-element-xxs);
   --sbb-step-label-prefix-border-style: solid;
   --sbb-step-label-prefix-border-color: var(--sbb-color-cloud);
   --sbb-step-label-prefix-background-color: var(--sbb-color-white);
