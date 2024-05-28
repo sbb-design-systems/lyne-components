@@ -34,7 +34,7 @@ let nextId = 0;
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
  * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
  */
-const ariaRoleOnHost = isSafari();
+const ariaRoleOnHost = isSafari;
 
 /**
  * Combined with a native input, it displays a panel with a list of available options.

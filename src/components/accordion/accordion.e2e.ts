@@ -15,7 +15,7 @@ describe(`sbb-accordion ${fixture.name}`, () => {
   let element: SbbAccordionElement;
 
   beforeEach(async function () {
-    const ssrTitleLevel = isSsr() ? '4' : nothing;
+    const ssrTitleLevel = isSsr ? '4' : nothing;
     element = await fixture(
       html`
         <sbb-accordion title-level="4">

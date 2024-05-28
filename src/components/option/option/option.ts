@@ -26,7 +26,7 @@ import '../../visual-checkbox.js';
  * To solve the problem, we remove the role="group" and add an hidden span containing the group name
  * TODO: We should periodically check if it has been solved and, if so, remove the property.
  */
-const inertAriaGroups = isSafari();
+const inertAriaGroups = isSafari;
 
 let nextId = 0;
 
@@ -224,7 +224,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('disabled')) {
-      setOrRemoveAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
+      setOrRemoveAttribute(this, 'tabindex', isAndroid && !this.disabled && 0);
       this._updateAriaDisabled();
     }
   }

@@ -23,7 +23,7 @@ describe(`sbb-select`, () => {
       `);
     });
 
-    describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+    describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('Dom', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });
@@ -33,7 +33,7 @@ describe(`sbb-select`, () => {
       });
     });
 
-    describeIf(isSafari(), 'Safari', async () => {
+    describeIf(isSafari, 'Safari', async () => {
       it('Dom', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });
@@ -59,7 +59,7 @@ describe(`sbb-select`, () => {
       `);
     });
 
-    describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+    describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('Dom', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });
@@ -69,7 +69,7 @@ describe(`sbb-select`, () => {
       });
     });
 
-    describeIf(isSafari(), 'Safari', async () => {
+    describeIf(isSafari, 'Safari', async () => {
       it('Dom', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });

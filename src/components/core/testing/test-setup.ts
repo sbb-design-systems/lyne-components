@@ -5,7 +5,7 @@ import { mergeConfig } from '../config.js';
 
 import { isHydratedSsr, isVisualRegressionRun } from './private.js';
 
-if (isVisualRegressionRun()) {
+if (isVisualRegressionRun) {
   const preloadedIcons = [
     'add-stop',
     'alternative',
@@ -133,7 +133,7 @@ if (isVisualRegressionRun()) {
   mergeConfig({ icon });
 }
 
-if (isHydratedSsr()) {
+if (isHydratedSsr) {
   await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
 }
 
