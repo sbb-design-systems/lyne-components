@@ -126,7 +126,7 @@ export class SbbStepperElement extends LitElement {
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
 
   private _isValidStep(step: SbbStepElement): boolean {
-    if (!step || step === this.selected || (!this.linear && step.label?.hasAttribute('disabled'))) {
+    if (!step || (!this.linear && step.label?.hasAttribute('disabled'))) {
       return false;
     }
 
@@ -200,12 +200,15 @@ export class SbbStepperElement extends LitElement {
   }
 
   private _configure(): void {
-    this.steps
+    const steps = this.steps;
+    steps.forEach((s) => s.configure(this._loaded));
+    steps
       .filter((s) => s.label)
       .map((s) => s.label!)
       .forEach((label, i, array) => {
-        label.configure(i + 1, array.length);
+        label.configure(i + 1, array.length, this._loaded);
       });
+    this._select(this.selected || this._enabledSteps[0]);
   }
 
   private _updateLabels(): void {
@@ -306,7 +309,7 @@ export class SbbStepperElement extends LitElement {
           <slot name="step-label" @slotchange=${this._configure}></slot>
         </div>
         <div class="sbb-stepper__steps">
-          <slot name="step"></slot>
+          <slot name="step" @slotchange=${this._configure}></slot>
         </div>
       </div>
     `;

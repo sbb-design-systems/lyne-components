@@ -32,6 +32,6 @@ The aria attribute `aria-labelledby` is set automatically.
 
 ## Slots
 
-| Name | Description                                |
-| ---- | ------------------------------------------ |
-|      | Use the unnamed slot to provide a content. |
+| Name | Description                              |
+| ---- | ---------------------------------------- |
+|      | Use the unnamed slot to provide content. |

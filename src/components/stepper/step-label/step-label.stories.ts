@@ -33,6 +33,12 @@ const defaultArgs: Args = {
 const Template = (args: Args): TemplateResult =>
   html`<sbb-step-label slot="step-label" ${sbbSpread(args)}>Label</sbb-step-label>`;
 
+const LongLabelTemplate = (args: Args): TemplateResult =>
+  html`<sbb-step-label slot="step-label" ${sbbSpread(args)}
+    >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+    ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
+  >`;
+
 const SlottedIconTemplate = (args: Args): TemplateResult =>
   html`<sbb-step-label slot="step-label" ${sbbSpread(args)}>
     <sbb-icon slot="icon" name="pen-small"></sbb-icon>
@@ -49,6 +55,18 @@ export const Selected: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'data-selected': true },
+};
+
+export const LongLabelVertical: StoryObj = {
+  render: LongLabelTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'data-selected': true },
+};
+
+export const LongLabelHorizontal: StoryObj = {
+  render: LongLabelTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'data-selected': true, 'data-orientation': 'horizontal' },
 };
 
 export const Disabled: StoryObj = {

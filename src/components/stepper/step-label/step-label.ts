@@ -62,7 +62,10 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
    * Configures the step label.
    * @internal
    */
-  public configure(posInSet: number, setSize: number): void {
+  public configure(posInSet: number, setSize: number, stepperLoaded: boolean): void {
+    if (stepperLoaded) {
+      this._step = this._getStep();
+    }
     this._internals.ariaPosInSet = `${posInSet}`;
     this._internals.ariaSetSize = `${setSize}`;
   }
@@ -86,6 +89,8 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
     this._internals.ariaSelected = 'false';
     this._stepper = this.closest('sbb-stepper');
     this._step = this._getStep();
+    // The `data-disabled` attribute is used to preserve the initial disabled state of
+    // step labels in case of switching from linear to non-linear mode.
     this.toggleAttribute('data-disabled', this.hasAttribute('disabled'));
     this.addEventListener(
       'click',

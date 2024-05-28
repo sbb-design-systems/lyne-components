@@ -29,7 +29,7 @@ export type SbbStepValidateEventDetails = {
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.
  *
- * @slot - Use the unnamed slot to provide a content.
+ * @slot - Use the unnamed slot to provide content.
  * @event {CustomEvent<SbbStepValidateEventDetails>} validate - Emits whenever step switch is triggered. Can be canceled.
  */
 @customElement('sbb-step')
@@ -99,6 +99,19 @@ export class SbbStepElement extends LitElement {
   }
 
   /**
+   * Configures the step.
+   * @internal
+   */
+  public configure(stepperLoaded: boolean): void {
+    if (stepperLoaded) {
+      this._label = this._getStepLabel();
+    }
+    if (this.label) {
+      this.setAttribute('aria-labelledby', this.label.id);
+    }
+  }
+
+  /**
    * Watches for clicked elements with `sbb-stepper-next` or `sbb-stepper-previous` attributes.
    */
   private _handleClick(event: Event): void {
@@ -129,6 +142,8 @@ export class SbbStepElement extends LitElement {
   }
 
   private _getStepLabel(): SbbStepLabelElement | null {
+    console.log('getting step label');
+
     let previousSibling = this.previousElementSibling;
     while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
       previousSibling = previousSibling.previousElementSibling;
@@ -143,16 +158,10 @@ export class SbbStepElement extends LitElement {
     this.addEventListener('click', (e) => this._handleClick(e), { signal });
     this._stepper = this.closest('sbb-stepper');
     this._label = this._getStepLabel();
-    if (this._loaded && this.label) {
-      this.setAttribute('aria-labelledby', this.label.id);
-    }
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-    if (this.label) {
-      this.setAttribute('aria-labelledby', this.label.id);
-    }
     this._loaded = true;
   }
 
