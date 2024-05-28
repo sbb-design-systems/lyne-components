@@ -1,9 +1,8 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
-import { findReferencedElement, isBrowser } from '../../core/dom.js';
+import { findReferencedElement } from '../../core/dom.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 
 import style from './header.scss?lit&inline';
@@ -40,7 +39,7 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   public get scrollOrigin(): string | HTMLElement | Document {
     return this._scrollOrigin;
   }
-  private _scrollOrigin: string | HTMLElement | Document = isBrowser() ? document : null!;
+  private _scrollOrigin: string | HTMLElement | Document = !isServer ? document : null!;
 
   /** Whether the header should hide and show on scroll. */
   @property({ attribute: 'hide-on-scroll', reflect: true, type: Boolean }) public hideOnScroll =
@@ -83,8 +82,7 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
     this._scrollEventsController?.abort();
     this._scrollEventsController = new AbortController();
     this._scrollElement =
-      findReferencedElement(scrollOrigin as string | HTMLElement) ||
-      (isBrowser() ? document : null);
+      findReferencedElement(scrollOrigin as string | HTMLElement) || (!isServer ? document : null);
     this._scrollFunction = this._getScrollFunction.bind(this);
     this._scrollElement?.addEventListener('scroll', this._scrollFunction, {
       passive: true,

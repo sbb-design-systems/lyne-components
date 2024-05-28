@@ -385,7 +385,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
         // Instead of defining a container with an aria-live region as expected, we had to change
         // setting it for every slotted element to properly work in all browsers and screen reader combinations.
         el.role = 'status';
-        if (isFirefox()) {
+        if (isFirefox) {
           el.setAttribute('role', 'status');
         }
       }
