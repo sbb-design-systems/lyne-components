@@ -21,6 +21,9 @@
 
     cursor: var(--sbb-step-label-cursor);
     color: var(--sbb-step-label-color);
+
+    // The `--sbb-font-size-text-l` is beign used here to align the bubble's inner text to
+    // the label text which includes the `sbb.text-l--bold` mixin.
     inset-block-start: calc(
       var(--sbb-font-size-text-l) * (var(--sbb-typo-line-height-body-text) / 2) +
         (var(--sbb-border-width-1x) / 2)
@@ -84,7 +87,7 @@
   transition: margin var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
 }
 
-:host([data-orientation='vertical']:not(:first-child)) {
+:host([data-orientation='vertical']:not(:first-of-type)) {
   margin-block-start: var(--sbb-spacing-fixed-6x);
 }
 

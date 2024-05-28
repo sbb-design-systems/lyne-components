@@ -38,6 +38,7 @@ The aria values `aria-controls`, `aria-setsize`, `aria-posinset` are set automat
 
 | Name       | Attribute   | Privacy | Type                     | Default    | Description                                                                                                                      |
 | ---------- | ----------- | ------- | ------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`                | `false`    | Whether the component is disabled.                                                                                               |
 | `form`     | `form`      | public  | `string \| undefined`    |            | The <form> element to associate the button with.                                                                                 |
 | `iconName` | `icon-name` | public  | `string \| undefined`    |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `name`     | `name`      | public  | `string`                 |            | The name of the button element.                                                                                                  |

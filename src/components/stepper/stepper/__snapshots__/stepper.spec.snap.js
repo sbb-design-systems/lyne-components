@@ -41,7 +41,7 @@ snapshots["sbb-stepper renders - Dom"] =
     id="sbb-step-label-1"
     role="tab"
     slot="step-label"
-    tabindex="0"
+    tabindex="-1"
   >
     Test step label 2
   </sbb-step-label>
@@ -56,7 +56,6 @@ snapshots["sbb-stepper renders - Dom"] =
   </sbb-step>
   <sbb-step-label
     aria-controls="sbb-step-2"
-    aria-disabled="true"
     data-action=""
     data-button=""
     data-disabled=""
@@ -66,6 +65,7 @@ snapshots["sbb-stepper renders - Dom"] =
     id="sbb-step-label-2"
     role="tab"
     slot="step-label"
+    tabindex="-1"
   >
     Test step label 3
   </sbb-step-label>
@@ -85,7 +85,7 @@ snapshots["sbb-stepper renders - Dom"] =
     id="sbb-step-label-3"
     role="tab"
     slot="step-label"
-    tabindex="0"
+    tabindex="-1"
   >
     Test step label 4
   </sbb-step-label>
@@ -119,7 +119,6 @@ snapshots["sbb-stepper A11y tree Chrome"] =
     {
       "role": "tab",
       "name": "Test step label 1",
-      "focused": true,
       "selected": true
     },
     {
@@ -128,8 +127,7 @@ snapshots["sbb-stepper A11y tree Chrome"] =
     },
     {
       "role": "tab",
-      "name": "Test step label 3",
-      "disabled": true
+      "name": "Test step label 3"
     },
     {
       "role": "tab",
@@ -154,7 +152,6 @@ snapshots["sbb-stepper A11y tree Firefox"] =
     {
       "role": "tab",
       "name": "1 Test step label 1",
-      "focused": true,
       "selected": true
     },
     {
@@ -163,8 +160,7 @@ snapshots["sbb-stepper A11y tree Firefox"] =
     },
     {
       "role": "tab",
-      "name": "3 Test step label 3",
-      "disabled": true
+      "name": "3 Test step label 3"
     },
     {
       "role": "tab",
@@ -187,47 +183,4 @@ snapshots["sbb-stepper A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-stepper A11y tree Firefox */
-
-snapshots["sbb-stepper A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "tabpanel",
-      "name": "3 Test step label 3"
-    },
-    {
-      "role": "tabpanel",
-      "name": "2 Test step label 2"
-    },
-    {
-      "role": "text",
-      "name": "Test step content 1"
-    },
-    {
-      "role": "tab",
-      "name": "1 Test step label 1",
-      "focused": true,
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "2 Test step label 2"
-    },
-    {
-      "role": "tab",
-      "name": "3 Test step label 3",
-      "disabled": true
-    },
-    {
-      "role": "tab",
-      "name": "4 Test step label 4"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-stepper A11y tree Safari */
 

@@ -4,6 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbStepElement } from '../step.js';
 import type { SbbStepperElement } from '../stepper.js';
@@ -24,7 +25,7 @@ let nextId = 0;
   tabindex: '-1',
   role: 'tab',
 })
-export class SbbStepLabelElement extends SbbIconNameMixin(SbbButtonBaseElement) {
+export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** @internal */

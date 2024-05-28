@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-step-label renders - Dom"] = 
+snapshots["sbb-step-label renders Dom"] = 
 `<sbb-step-label
   data-action=""
   data-button=""
@@ -9,14 +9,14 @@ snapshots["sbb-step-label renders - Dom"] =
   id="sbb-step-label-0"
   role="tab"
   slot="step-label"
-  tabindex="0"
+  tabindex="-1"
 >
   Label
 </sbb-step-label>
 `;
-/* end snapshot sbb-step-label renders - Dom */
+/* end snapshot sbb-step-label renders Dom */
 
-snapshots["sbb-step-label renders - ShadomDom"] = 
+snapshots["sbb-step-label renders ShadowDom"] = 
 `<div class="sbb-step-label">
   <span class="sbb-step-label__prefix">
     <slot name="icon">
@@ -28,9 +28,9 @@ snapshots["sbb-step-label renders - ShadomDom"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-step-label renders - ShadomDom */
+/* end snapshot sbb-step-label renders ShadowDom */
 
-snapshots["sbb-step-label renders with icon - Dom"] = 
+snapshots["sbb-step-label renders with icon Dom"] = 
 `<sbb-step-label
   data-action=""
   data-button=""
@@ -39,14 +39,14 @@ snapshots["sbb-step-label renders with icon - Dom"] =
   id="sbb-step-label-2"
   role="tab"
   slot="step-label"
-  tabindex="0"
+  tabindex="-1"
 >
   Label
 </sbb-step-label>
 `;
-/* end snapshot sbb-step-label renders with icon - Dom */
+/* end snapshot sbb-step-label renders with icon Dom */
 
-snapshots["sbb-step-label renders with icon - ShadowDom"] = 
+snapshots["sbb-step-label renders with icon ShadowDom"] = 
 `<div class="sbb-step-label">
   <span class="sbb-step-label__prefix">
     <slot name="icon">
@@ -65,11 +65,10 @@ snapshots["sbb-step-label renders with icon - ShadowDom"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-step-label renders with icon - ShadowDom */
+/* end snapshot sbb-step-label renders with icon ShadowDom */
 
-snapshots["sbb-step-label renders disabled - Dom"] = 
+snapshots["sbb-step-label renders disabled Dom"] = 
 `<sbb-step-label
-  aria-disabled="true"
   data-action=""
   data-button=""
   data-disabled=""
@@ -78,13 +77,14 @@ snapshots["sbb-step-label renders disabled - Dom"] =
   id="sbb-step-label-4"
   role="tab"
   slot="step-label"
+  tabindex="-1"
 >
   Label
 </sbb-step-label>
 `;
-/* end snapshot sbb-step-label renders disabled - Dom */
+/* end snapshot sbb-step-label renders disabled Dom */
 
-snapshots["sbb-step-label renders disabled - ShadowDom"] = 
+snapshots["sbb-step-label renders disabled ShadowDom"] = 
 `<div class="sbb-step-label">
   <span class="sbb-step-label__prefix">
     <slot name="icon">
@@ -96,7 +96,7 @@ snapshots["sbb-step-label renders disabled - ShadowDom"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-step-label renders disabled - ShadowDom */
+/* end snapshot sbb-step-label renders disabled ShadowDom */
 
 snapshots["sbb-step-label A11y tree Chrome"] = 
 `<p>
