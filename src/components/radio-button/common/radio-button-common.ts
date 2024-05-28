@@ -3,7 +3,8 @@ import { property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
-import { HandlerRepository, formElementHandlerAspect } from '../../core/eventing.js';
+import { setOrRemoveAttribute } from '../../core/dom.js';
+import { EventEmitter, HandlerRepository, formElementHandlerAspect } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
@@ -28,11 +29,9 @@ export declare class SbbRadioButtonCommonElementMixinType {
   public get required(): boolean;
   public set required(boolean);
   public get group(): SbbRadioButtonGroupElement | null;
-  public checked: boolean;
+  public get checked(): boolean;
+  public set checked(boolean);
   public select(): void;
-
-  protected handleCheckedChange(currentValue: boolean, previousValue: boolean): void;
-  protected handleDisabledChange(currentValue: boolean, previousValue: boolean): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -46,12 +45,16 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     extends superClass
     implements Partial<SbbRadioButtonCommonElementMixinType>
   {
+    public static readonly events = {
+      stateChange: 'stateChange',
+    } as const;
+
     /**
      * Whether the radio can be deselected.
      */
     @property({ attribute: 'allow-empty-selection', type: Boolean })
     public set allowEmptySelection(value: boolean) {
-      this._allowEmptySelection = value;
+      this._allowEmptySelection = Boolean(value);
     }
     public get allowEmptySelection(): boolean {
       return this._allowEmptySelection || (this.group?.allowEmptySelection ?? false);
@@ -68,7 +71,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
      */
     @property({ reflect: true, type: Boolean })
     public set disabled(value: boolean) {
-      this._disabled = value;
+      this._disabled = Boolean(value);
     }
     public get disabled(): boolean {
       return this._disabled || (this.group?.disabled ?? false);
@@ -80,7 +83,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
      */
     @property({ reflect: true, type: Boolean })
     public set required(value: boolean) {
-      this._required = value;
+      this._required = Boolean(value);
     }
     public get required(): boolean {
       return this._required || (this.group?.required ?? false);
@@ -98,7 +101,14 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     /**
      * Whether the radio button is checked.
      */
-    @property({ reflect: true, type: Boolean }) public checked = false;
+    @property({ reflect: true, type: Boolean })
+    public set checked(value: boolean) {
+      this._checked = Boolean(value);
+    }
+    public get checked(): boolean {
+      return this._checked;
+    }
+    private _checked = false;
 
     /**
      * Label size variant, either m or s.
@@ -115,8 +125,16 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     private _abort = new SbbConnectedAbortController(this);
     private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
 
-    protected abstract handleCheckedChange(currentValue: boolean, previousValue: boolean): void;
-    protected abstract handleDisabledChange(currentValue: boolean, previousValue: boolean): void;
+    /**
+     * @internal
+     * Internal event that emits whenever the state of the radio option
+     * in relation to the parent selection panel changes.
+     */
+    private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
+      this,
+      SbbRadioButtonCommonElement.events.stateChange,
+      { bubbles: true },
+    );
 
     public select(): void {
       if (this.disabled) {
@@ -152,10 +170,16 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
       super.willUpdate(changedProperties);
 
       if (changedProperties.has('checked')) {
-        this.handleCheckedChange(this.checked, changedProperties.get('checked')!);
+        this.setAttribute('aria-checked', `${this.checked}`);
+        if (this.checked !== changedProperties.get('checked')!) {
+          this._stateChange.emit({ type: 'checked', checked: this.checked });
+        }
       }
       if (changedProperties.has('disabled')) {
-        this.handleDisabledChange(this.disabled, changedProperties.get('disabled')!);
+        setOrRemoveAttribute(this, 'aria-disabled', this.disabled ? 'true' : null);
+        if (this.disabled !== changedProperties.get('disabled')!) {
+          this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
+        }
       }
       if (changedProperties.has('required')) {
         this.setAttribute('aria-required', `${this.required}`);

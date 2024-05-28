@@ -3,13 +3,7 @@ import { LitElement, html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers.js';
-import { setOrRemoveAttribute } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
-import {
-  SbbRadioButtonCommonElementMixin,
-  type SbbRadioButtonStateChange,
-  radioButtonCommonStyle,
-} from '../common.js';
+import { SbbRadioButtonCommonElementMixin, radioButtonCommonStyle } from '../common.js';
 
 import radioButtonStyle from './radio-button.scss?lit&inline';
 
@@ -24,31 +18,6 @@ export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitE
   public static readonly events = {
     stateChange: 'stateChange',
   } as const;
-
-  /**
-   * @internal
-   * Internal event that emits whenever the state of the radio option
-   * in relation to the parent selection panel changes.
-   */
-  private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
-    this,
-    SbbRadioButtonElement.events.stateChange,
-    { bubbles: true },
-  );
-
-  protected override handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this.setAttribute('aria-checked', `${currentValue}`);
-      this._stateChange.emit({ type: 'checked', checked: currentValue });
-    }
-  }
-
-  protected override handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      setOrRemoveAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
-      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
-    }
-  }
 
   public constructor() {
     super();

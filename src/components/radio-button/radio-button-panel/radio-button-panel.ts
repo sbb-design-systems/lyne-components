@@ -2,14 +2,9 @@ import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } f
 import { customElement } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers.js';
-import { setOrRemoveAttribute } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import {
-  SbbRadioButtonCommonElementMixin,
-  radioButtonCommonStyle,
-  type SbbRadioButtonStateChange,
-} from '../common.js';
+import { SbbRadioButtonCommonElementMixin, radioButtonCommonStyle } from '../common.js';
 
 import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
 
@@ -33,17 +28,6 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
 
   /**
    * @internal
-   * Internal event that emits whenever the state of the radio option
-   * in relation to the parent selection panel changes.
-   */
-  private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
-    this,
-    SbbRadioButtonPanelElement.events.stateChange,
-    { bubbles: true },
-  );
-
-  /**
-   * @internal
    * Internal event that emits when the radio button is loaded.
    */
   private _radioButtonLoaded: EventEmitter<void> = new EventEmitter(
@@ -51,20 +35,6 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
     SbbRadioButtonPanelElement.events.radioButtonLoaded,
     { bubbles: true },
   );
-
-  protected override handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this.setAttribute('aria-checked', `${currentValue}`);
-      this._stateChange.emit({ type: 'checked', checked: currentValue });
-    }
-  }
-
-  protected override handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      setOrRemoveAttribute(this, 'aria-disabled', currentValue ? 'true' : null);
-      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
-    }
-  }
 
   public constructor() {
     super();

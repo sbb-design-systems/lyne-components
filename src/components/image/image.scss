@@ -14,116 +14,107 @@
   display: block;
 }
 
-.image__figure {
+:host([aspect-ratio='1-1']) {
+  --sbb-image-aspect-ratio: 1 / 1;
+}
+
+:host([aspect-ratio='1-2']) {
+  --sbb-image-aspect-ratio: 1 / 2;
+}
+
+:host([aspect-ratio='2-1']) {
+  --sbb-image-aspect-ratio: 2 / 1;
+}
+
+:host([aspect-ratio='2-3']) {
+  --sbb-image-aspect-ratio: 2 / 3;
+}
+
+:host([aspect-ratio='3-2']) {
+  --sbb-image-aspect-ratio: 3 / 2;
+}
+
+:host([aspect-ratio='3-4']) {
+  --sbb-image-aspect-ratio: 3 / 4;
+}
+
+:host([aspect-ratio='4-3']) {
+  --sbb-image-aspect-ratio: 4 / 3;
+}
+
+:host([aspect-ratio='4-5']) {
+  --sbb-image-aspect-ratio: 4 / 5;
+}
+
+:host([aspect-ratio='5-4']) {
+  --sbb-image-aspect-ratio: 5 / 4;
+}
+
+:host([aspect-ratio='16-9']) {
+  --sbb-image-aspect-ratio: 16 / 9;
+}
+
+:host([aspect-ratio='9-16']) {
+  --sbb-image-aspect-ratio: 9 / 16;
+}
+
+// Variant: Hero Teaser and Paid Teaser
+:host([data-teaser]) {
+  --sbb-image-aspect-ratio: 1 / 1;
+
+  @include sbb.mq($from: small) {
+    --sbb-image-aspect-ratio: 16 / 9;
+  }
+}
+
+:host(:is([border-radius='none'], [data-teaser])) {
+  --sbb-image-border-radius: 0;
+}
+
+:host([border-radius='round']:not([data-teaser])) {
+  --sbb-image-border-radius: var(--sbb-border-radius-infinity);
+}
+
+.sbb-image__figure {
   margin: 0;
 }
 
-.image__figure img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.image__img {
+.sbb-image__img {
   position: absolute;
   inset: 0;
+  opacity: 0.000001;
+
+  :host([data-loaded]) & {
+    opacity: 0.999999;
+  }
+}
+
+.sbb-image__blurred {
+  :host([data-loaded]) & {
+    opacity: 0;
+  }
 }
 
 // After successful loading an image, the loaded image is faded in over the blurred lqip image with a short transition.
 // To support transparent images, we need also to fade out the blurred lqip image.
 // This is not perfect in the case of a non transparent image, but does not look that bad.
-.image__figure :is(.image__img, .image__blur-hash) {
+:is(.sbb-image__img, .sbb-image__blurred) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: opacity var(--sbb-image-animation-duration) var(--sbb-animation-easing);
 }
 
-.image__figure .image__img {
-  opacity: 0.000001;
-}
-
-.image__figure--loaded .image__img {
-  opacity: 0.999999;
-}
-
-.image__figure--loaded .image__blur-hash {
-  opacity: 0;
-}
-
-.image__wrapper {
+.sbb-image__wrapper {
   position: relative;
   overflow: hidden;
   max-width: 100%;
   border-radius: var(--sbb-image-border-radius);
-}
-
-// aspect ratios 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'
-.image__figure--ratio-free .image__wrapper {
   aspect-ratio: var(--sbb-image-aspect-ratio);
 }
 
-.image__figure--ratio-1-1 .image__wrapper {
-  aspect-ratio: 1 / 1;
-}
-
-.image__figure--ratio-1-2 .image__wrapper {
-  aspect-ratio: 1 / 2;
-}
-
-.image__figure--ratio-2-1 .image__wrapper {
-  aspect-ratio: 2 / 1;
-}
-
-.image__figure--ratio-2-3 .image__wrapper {
-  aspect-ratio: 2 / 3;
-}
-
-.image__figure--ratio-3-2 .image__wrapper {
-  aspect-ratio: 3 / 2;
-}
-
-.image__figure--ratio-3-4 .image__wrapper {
-  aspect-ratio: 3 / 4;
-}
-
-.image__figure--ratio-4-3 .image__wrapper {
-  aspect-ratio: 4 / 3;
-}
-
-.image__figure--ratio-4-5 .image__wrapper {
-  aspect-ratio: 4 / 5;
-}
-
-.image__figure--ratio-5-4 .image__wrapper {
-  aspect-ratio: 5 / 4;
-}
-
-.image__figure--ratio-16-9 .image__wrapper {
-  aspect-ratio: 16 / 9;
-}
-
-.image__figure--ratio-9-16 .image__wrapper {
-  aspect-ratio: 9 / 16;
-}
-
-.image__caption {
-  margin-block-start: var(--sbb-spacing-fixed-4x);
+.sbb-image__caption {
   @include sbb.text-xs--regular;
-}
 
-// no radius
-.image__figure--no-radius .image__wrapper {
-  border-radius: 0;
-}
-
-// full radius
-.image__figure--round .image__wrapper {
-  border-radius: var(--sbb-border-radius-infinity);
-}
-
-// Variant: Hero Teaser and Paid Teaser
-.image__figure--teaser .image__wrapper {
-  aspect-ratio: 1 / 1;
-
-  @include sbb.mq($from: small) {
-    aspect-ratio: 16 / 9;
-  }
+  margin-block-start: var(--sbb-spacing-fixed-4x);
 }

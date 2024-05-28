@@ -140,8 +140,8 @@ function prepareScreenshots(): PluginOption {
                   browserName,
                   name: d.name,
                   failedFile: failedRelativeFileName,
-                  diffFile: diffRelativeFileName,
-                  baselineFile: baselineRelativeFileName,
+                  diffFile: !isNew ? diffRelativeFileName : undefined,
+                  baselineFile: !isNew ? baselineRelativeFileName : undefined,
                   isNew,
                 };
               });
@@ -186,7 +186,9 @@ function prepareScreenshots(): PluginOption {
                   };
                 });
             });
-        } else if (viteConfig.command !== 'serve') {
+        }
+
+        if (viteConfig.command !== 'serve') {
           this.emitFile({
             type: 'asset',
             fileName: 'diff.json',
