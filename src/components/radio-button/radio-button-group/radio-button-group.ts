@@ -238,7 +238,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   private _getRadioTabIndex(radio: SbbRadioButtonElement | SbbRadioButtonPanelElement): number {
     const isSelected: boolean = radio.checked && !radio.disabled && !this.disabled;
     const isParentPanelWithContent: boolean =
-      radio.parentElement?.nodeName === 'sbb-selection-expansion-panel' &&
+      radio.parentElement?.localName === 'sbb-selection-expansion-panel' &&
       (radio.parentElement as SbbSelectionExpansionPanelElement).hasContent;
 
     return isSelected || (this._hasSelectionPanel && isParentPanelWithContent) ? 0 : -1;
@@ -253,7 +253,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this &&
         (evt.target as HTMLElement).parentElement !== this &&
-        (evt.target as HTMLElement).parentElement?.nodeName !== 'SBB-SELECTION-EXPANSION-PANEL')
+        (evt.target as HTMLElement).parentElement?.localName !== 'sbb-selection-expansion-panel')
     ) {
       return;
     }
