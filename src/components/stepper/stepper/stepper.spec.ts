@@ -15,13 +15,13 @@ describe('sbb-stepper', () => {
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-stepper selected-index="0">
-        <sbb-step-label slot="step-label">Test step label 1</sbb-step-label>
-        <sbb-step slot="step">Test step content 1</sbb-step>
-        <sbb-step-label slot="step-label">Test step label 2</sbb-step-label>
-        <sbb-step slot="step">Test step content 2</sbb-step>
-        <sbb-step-label slot="step-label" disabled>Test step label 3</sbb-step-label>
-        <sbb-step slot="step">Test step content 3</sbb-step>
-        <sbb-step-label slot="step-label">Test step label 4</sbb-step-label>
+        <sbb-step-label>Test step label 1</sbb-step-label>
+        <sbb-step>Test step content 1</sbb-step>
+        <sbb-step-label>Test step label 2</sbb-step-label>
+        <sbb-step>Test step content 2</sbb-step>
+        <sbb-step-label disabled>Test step label 3</sbb-step-label>
+        <sbb-step>Test step content 3</sbb-step>
+        <sbb-step-label>Test step label 4</sbb-step-label>
       </sbb-stepper>
     `);
     await waitForLitRender(element);

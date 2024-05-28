@@ -9,7 +9,10 @@
   --sbb-step-opacity: 0;
   --sbb-step-visibility: hidden;
   --sbb-step-height: 0;
-  --sbb-step-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-step-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-step-animation-delay: 0;
   --sbb-step-color: var(--sbb-color-iron);
 

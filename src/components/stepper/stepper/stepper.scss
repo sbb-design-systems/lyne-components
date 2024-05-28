@@ -5,6 +5,7 @@
 
 :host {
   --sbb-stepper-orientation: row;
+  --sbb-stepper-border-width: var(--sbb-border-width-1x);
   --sbb-stepper-marker-size: 0;
   --sbb-stepper-marker-width: var(--sbb-border-width-3x);
   --sbb-stepper-animation-duration: var(
@@ -44,17 +45,17 @@
   &::before {
     content: '';
     position: absolute;
-    inset-inline-start: calc(var(--sbb-border-width-1x) * -1);
+    inset-inline-start: calc(var(--sbb-stepper-border-width) * -1);
     background-color: var(--sbb-stepper-marker-color);
   }
 
   :host([orientation='horizontal']) & {
     gap: var(--sbb-spacing-fixed-4x);
     padding-block-end: var(--sbb-spacing-fixed-4x);
-    border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+    border-block-end: var(--sbb-stepper-border-width) solid var(--sbb-color-cloud);
 
     &::before {
-      inset-block-end: calc(var(--sbb-border-width-1x) * -1);
+      inset-block-end: calc(var(--sbb-stepper-border-width) * -1);
       height: var(--sbb-stepper-marker-width);
       width: var(--sbb-stepper-marker-size);
       transition: width var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
@@ -63,7 +64,7 @@
 
   :host([orientation='vertical']) & {
     padding-inline-start: var(--sbb-spacing-fixed-4x);
-    border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+    border-inline-start: var(--sbb-stepper-border-width) solid var(--sbb-color-cloud);
 
     &::before {
       inset-block-start: 0;

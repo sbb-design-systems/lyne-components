@@ -142,8 +142,6 @@ export class SbbStepElement extends LitElement {
   }
 
   private _getStepLabel(): SbbStepLabelElement | null {
-    console.log('getting step label');
-
     let previousSibling = this.previousElementSibling;
     while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
       previousSibling = previousSibling.previousElementSibling;

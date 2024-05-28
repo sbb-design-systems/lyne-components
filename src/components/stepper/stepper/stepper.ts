@@ -19,7 +19,7 @@ const DEBOUNCE_TIME = 150;
 
 /**
  * Provides a structured, step-by-step workflow for user interactions.
- *
+ * @slot - Provide a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` to the stepper.
  * @slot step-label - Use this slot to provide an `sbb-step-label`.
  * @slot step - Use this slot to provide an `sbb-step`.
  */
@@ -63,7 +63,7 @@ export class SbbStepperElement extends LitElement {
     }
   }
   public get selected(): SbbStepElement | undefined {
-    return this.querySelector<SbbStepElement>('sbb-step[data-selected]') ?? undefined;
+    return this.querySelector?.<SbbStepElement>('sbb-step[data-selected]') ?? undefined;
   }
 
   /**
@@ -83,7 +83,7 @@ export class SbbStepperElement extends LitElement {
    * The steps of the stepper.
    */
   public get steps(): SbbStepElement[] {
-    return Array.from(this.querySelectorAll('sbb-step'));
+    return Array.from(this.querySelectorAll?.('sbb-step') ?? []);
   }
 
   private get _enabledSteps(): SbbStepElement[] {

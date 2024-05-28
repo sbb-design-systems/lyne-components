@@ -16,21 +16,21 @@ describe('sbb-stepper', () => {
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-stepper>
-        <sbb-step-label slot="step-label">Step 1</sbb-step-label>
-        <sbb-step slot="step">
+        <sbb-step-label>Step 1</sbb-step-label>
+        <sbb-step>
           Step one content.
           <span sbb-stepper-next>Next</span>
         </sbb-step>
 
-        <sbb-step-label slot="step-label">Step 2</sbb-step-label>
-        <sbb-step slot="step">
+        <sbb-step-label>Step 2</sbb-step-label>
+        <sbb-step>
           Step two content.
           <span sbb-stepper-next>Next</span>
           <span sbb-stepper-previous>Back</span>
         </sbb-step>
 
-        <sbb-step-label slot="step-label">Step 3</sbb-step-label>
-        <sbb-step slot="step">
+        <sbb-step-label>Step 3</sbb-step-label>
+        <sbb-step>
           Step three content.
           <span sbb-stepper-previous>Back</span>
         </sbb-step>
@@ -159,17 +159,17 @@ describe('sbb-stepper', () => {
     element = await fixture(html`
       <form>
         <sbb-stepper selected-index="0">
-          <sbb-step-label slot="step-label">Step 1</sbb-step-label>
-          <sbb-step slot="step">
+          <sbb-step-label>Step 1</sbb-step-label>
+          <sbb-step>
             Step one content.
             <input name="first-input" />
           </sbb-step>
 
-          <sbb-step-label slot="step-label">Step 2</sbb-step-label>
-          <sbb-step slot="step">Step two content.</sbb-step>
+          <sbb-step-label>Step 2</sbb-step-label>
+          <sbb-step>Step two content.</sbb-step>
 
-          <sbb-step-label slot="step-label">Step 3</sbb-step-label>
-          <sbb-step slot="step">
+          <sbb-step-label>Step 3</sbb-step-label>
+          <sbb-step>
             Step three content.
             <input name="second-input" />
           </sbb-step>
@@ -201,19 +201,19 @@ describe('sbb-stepper', () => {
   it('resets the form for each and returns to the first step', async () => {
     element = await fixture(html`
       <sbb-stepper selected-index="0">
-        <sbb-step-label slot="step-label">Step 1</sbb-step-label>
-        <sbb-step slot="step">
+        <sbb-step-label>Step 1</sbb-step-label>
+        <sbb-step>
           Step one content.
           <form>
             <input name="first-input" />
           </form>
         </sbb-step>
 
-        <sbb-step-label slot="step-label">Step 2</sbb-step-label>
-        <sbb-step slot="step">Step two content.</sbb-step>
+        <sbb-step-label>Step 2</sbb-step-label>
+        <sbb-step>Step two content.</sbb-step>
 
-        <sbb-step-label slot="step-label">Step 3</sbb-step-label>
-        <sbb-step slot="step">
+        <sbb-step-label>Step 3</sbb-step-label>
+        <sbb-step>
           Step three content.
           <form>
             <input name="second-input" />

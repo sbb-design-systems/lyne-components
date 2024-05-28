@@ -5,7 +5,10 @@
 
 :host {
   --sbb-step-label-color: var(--sbb-color-iron);
-  --sbb-step-label-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-step-label-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(32)};
   --sbb-step-label-prefix-border-style: solid;
   --sbb-step-label-prefix-border-color: var(--sbb-color-cloud);

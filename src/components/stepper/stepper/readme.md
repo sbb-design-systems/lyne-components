@@ -75,7 +75,7 @@ Calling the `reset()` method on the `sbb-stepper`, will reset the wrapping form 
 
 ## Events
 
-See the `validate` event of the [sbb-step](/docs/components-sbb-stepper-sbb-step--docs).
+Whenever a step switch is triggered, a `validate` event is emitted and can be canceled to prevent the step change.
 
 ## Accessibility
 
@@ -104,7 +104,8 @@ Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-s
 
 ## Slots
 
-| Name         | Description                                   |
-| ------------ | --------------------------------------------- |
-| `step`       | Use this slot to provide an `sbb-step`.       |
-| `step-label` | Use this slot to provide an `sbb-step-label`. |
+| Name         | Description                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------ |
+|              | Provide a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` to the stepper. |
+| `step`       | Use this slot to provide an `sbb-step`.                                                    |
+| `step-label` | Use this slot to provide an `sbb-step-label`.                                              |
