@@ -66,6 +66,7 @@
 
   // In case there is a global background color set, use full width with white color until large breakpoint
   background-color: var(--sbb-lead-container-background-color);
+
   @include sbb.mq($from: large) {
     background-color: transparent;
   }
