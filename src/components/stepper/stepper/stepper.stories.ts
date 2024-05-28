@@ -17,6 +17,7 @@ import '../../button/button.js';
 import '../../button/secondary-button.js';
 import '../../form-field.js';
 import '../../form-error.js';
+import '../../card.js';
 
 const linear: InputType = {
   control: {
@@ -50,16 +51,6 @@ const defaultArgs: Args = {
   'horizontal-from': 'unset',
 };
 
-const textBlockStyle: Args = {
-  position: 'relative',
-  marginBlockStart: 'var(--sbb-spacing-fixed-8x)',
-  padding: 'var(--sbb-spacing-fixed-4x)',
-  backgroundColor: 'var(--sbb-color-milk)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-  zIndex: '100',
-};
-
 const codeStyle: Args = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
@@ -67,10 +58,10 @@ const codeStyle: Args = {
 };
 
 const textBlock = (): TemplateResult => html`
-  <div style=${styleMap(textBlockStyle)}>
+  <sbb-card color="milk">
     Page content: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
     tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-  </div>
+  </sbb-card>
 `;
 
 const WithSingleFormTemplate = (args: Args): TemplateResult => {
@@ -166,7 +157,6 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         <sbb-step>
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">You are now done.</div>
           <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-          <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
           <sbb-button type="submit" size="m" sbb-stepper-next>Submit</sbb-button>
           <sbb-block-link-button
             type="reset"
@@ -178,13 +168,13 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         </sbb-step>
       </sbb-stepper>
     </form>
-    <div style=${styleMap(textBlockStyle)}>
+    <sbb-card color="milk" style="margin-block-start: var(--sbb-spacing-fixed-8x)">
       Hi <code style=${styleMap(codeStyle)} class="text-block-name">&nbsp; &nbsp;</code>! 👋 Your
       lucky number is
       <code style=${styleMap(codeStyle)} class="text-block-number">&nbsp; &nbsp;</code> 🍀 and your
       favourite animal is
       <code style=${styleMap(codeStyle)} class="text-block-animal">&nbsp; &nbsp;</code>.
-    </div>
+    </sbb-card>
   `;
 };
 
