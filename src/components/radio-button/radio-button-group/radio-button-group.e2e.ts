@@ -7,17 +7,21 @@ import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
 
+import '../radio-button.js';
+import '../radio-button-panel.js';
+
 import { SbbRadioButtonGroupElement } from './radio-button-group.js';
 
 ['sbb-radio-button', 'sbb-radio-button-panel'].forEach((selector) => {
   const tagSingle = unsafeStatic(selector);
-  describe(`sbb-radio-button-group`, () => {
+  describe(`sbb-radio-button-group with ${selector}`, () => {
     let element: SbbRadioButtonGroupElement;
 
     describe('events', () => {
       beforeEach(async () => {
         /* eslint-disable lit/binding-positions */
-        element = await fixture(html`
+        element = await fixture(
+          html`
         <sbb-radio-button-group value="Value one">
           <${tagSingle} id="sbb-radio-1" value="Value one">Value one</${tagSingle}>
           <${tagSingle} id="sbb-radio-2" value="Value two">Value two</${tagSingle}>
@@ -26,7 +30,8 @@ import { SbbRadioButtonGroupElement } from './radio-button-group.js';
           >
           <${tagSingle} id="sbb-radio-4" value="Value four">Value four</${tagSingle}>
         </sbb-radio-button-group>
-      `);
+      `,
+        );
       });
 
       it('renders', () => {
