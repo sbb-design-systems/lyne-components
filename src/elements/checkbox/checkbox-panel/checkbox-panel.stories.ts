@@ -200,7 +200,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-checkbox/sbb-checkbox-panel',
+  title: 'elements/sbb-checkbox/sbb-checkbox-panel',
 };
 
 export default meta;

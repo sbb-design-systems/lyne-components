@@ -146,7 +146,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-radio-button/sbb-radio-button-panel',
+  title: 'elements/sbb-radio-button/sbb-radio-button-panel',
 };
 
 export default meta;
