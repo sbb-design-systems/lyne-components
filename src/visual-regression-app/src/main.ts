@@ -2,7 +2,7 @@ import { Router } from '@lit-labs/router';
 import { html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import '../../components/core/styles/standard-theme.scss';
+import '@sbb-esta/lyne-elements/core/styles/standard-theme.scss';
 
 /**
  * Main app containing the router outlet.

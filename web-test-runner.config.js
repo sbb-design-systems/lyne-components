@@ -29,7 +29,7 @@ const visualRegressionRun =
 
 const stylesCompiler = new sass.initCompiler();
 const renderStyles = () =>
-  stylesCompiler.compile('./src/components/core/styles/standard-theme.scss', {
+  stylesCompiler.compile('./src/elements/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
 
@@ -92,7 +92,7 @@ const testRunnerHtml = (testFramework, _config, group) => `
     </script>
   </head>
   <body class="sbb-disable-animation">
-    <script type="module" src="/src/components/core/testing/test-setup.ts"></script>
+    <script type="module" src="/src/elements/core/testing/test-setup.ts"></script>
     <script type="module" src="${testFramework}"></script>
   </body>
 </html>

@@ -22,11 +22,11 @@ function* iterate(node: ts.Node): Generator<ts.Node, void, unknown> {
   }
 }
 
-const testingDir = new URL('../src/components/core/testing', import.meta.url).pathname;
+const testingDir = new URL('../src/elements/core/testing', import.meta.url).pathname;
 const e2eFiles = glob.sync('**/*.e2e.ts', { cwd: new URL('..', import.meta.url), absolute: true });
 const componentIndexes = glob
-  .sync('src/components/**/index.ts', { cwd: new URL('..', import.meta.url), absolute: true })
-  .filter((f) => !f.includes('/components/core/'))
+  .sync('src/elements/**/index.ts', { cwd: new URL('..', import.meta.url), absolute: true })
+  .filter((f) => !f.includes('/elements/core/'))
   .sort()
   .sort((a, b) => b.length - a.length);
 for (const file of e2eFiles) {
