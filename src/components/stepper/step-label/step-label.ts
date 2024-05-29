@@ -31,9 +31,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
   /** @internal */
   private readonly _internals: ElementInternals = this.attachInternals();
 
-  /**
-   * The step controlled by the label.
-   */
+  /** The step controlled by the label. */
   public get step(): SbbStepElement | null {
     return this._step;
   }

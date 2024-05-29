@@ -283,7 +283,7 @@ describe('sbb-stepper', () => {
     expect(stepLabelOne.step).to.have.attribute('data-selected');
   });
 
-  it('focuses the correct element in the step cntent', async () => {
+  it('focuses the correct element in the step content', async () => {
     const stepLabelOne = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(1)',
     )!;
@@ -295,7 +295,16 @@ describe('sbb-stepper', () => {
     expect(document.activeElement!.id).to.be.equal('next-button-1');
   });
 
-  it('selects tab on right arrow key pressed', async () => {
+  it('sets the correct aria-labelledby attributes', async () => {
+    const steps: SbbStepElement[] = Array.from(
+      element.querySelectorAll<SbbStepElement>('sbb-step'),
+    );
+    steps.forEach((step: SbbStepElement) =>
+      expect(step).to.have.attribute('aria-labelledby', step.label!.id),
+    );
+  });
+
+  it('selects step on right arrow key pressed', async () => {
     const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(2)',
     )!;
@@ -307,7 +316,7 @@ describe('sbb-stepper', () => {
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
   });
 
-  it('selects tab on left arrow key pressed', async () => {
+  it('selects step on left arrow key pressed', async () => {
     const stepLabelOne = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(1)',
     )!;

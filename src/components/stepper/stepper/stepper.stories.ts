@@ -58,7 +58,7 @@ const codeStyle: Args = {
 };
 
 const textBlock = (): TemplateResult => html`
-  <sbb-card color="milk">
+  <sbb-card color="milk" style="margin-block-start: var(--sbb-spacing-fixed-8x)">
     Page content: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
     tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
   </sbb-card>

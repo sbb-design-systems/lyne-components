@@ -41,10 +41,6 @@
     transition: transform var(--sbb-step-label-animation-duration) var(--sbb-animation-easing);
   }
 
-  @include sbb.mq($from: medium) {
-    --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(36)};
-  }
-
   @include sbb.if-forced-colors {
     --sbb-step-label-color: ButtonText;
     --sbb-step-label-prefix-border-color: ButtonText;

@@ -27,14 +27,10 @@ const DEBOUNCE_TIME = 150;
 export class SbbStepperElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /**
-   * If set to true, only the current and previous labels can be clicked and selected.
-   */
+  /** If set to true, only the current and previous labels can be clicked and selected. */
   @property({ type: Boolean }) public linear = false;
 
-  /**
-   * Overrides the behaviour of `orientation` property.
-   */
+  /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
   public get horizontalFrom(): SbbHorizontalFrom | undefined {
     return this._horizontalFrom;
@@ -47,15 +43,11 @@ export class SbbStepperElement extends LitElement {
   }
   private _horizontalFrom?: SbbHorizontalFrom | undefined;
 
-  /**
-   * Steps orientation, either horizontal or vertical.
-   */
+  /** Steps orientation, either horizontal or vertical. */
   @property({ reflect: true })
   public orientation: SbbOrientation = 'horizontal';
 
-  /**
-   * The currently selected step.
-   */
+  /** The currently selected step. */
   @property({ attribute: false })
   public set selected(step: SbbStepElement) {
     if (this._loaded) {
@@ -66,9 +58,7 @@ export class SbbStepperElement extends LitElement {
     return this.querySelector?.<SbbStepElement>('sbb-step[data-selected]') ?? undefined;
   }
 
-  /**
-   * The currently selected step index.
-   */
+  /** The currently selected step index. */
   @property({ attribute: 'selected-index', type: Number })
   public set selectedIndex(index: number) {
     if (this._loaded) {
@@ -79,9 +69,7 @@ export class SbbStepperElement extends LitElement {
     return this.selected ? this.steps.indexOf(this.selected) : undefined;
   }
 
-  /**
-   * The steps of the stepper.
-   */
+  /** The steps of the stepper. */
   public get steps(): SbbStepElement[] {
     return Array.from(this.querySelectorAll?.('sbb-step') ?? []);
   }
@@ -90,27 +78,21 @@ export class SbbStepperElement extends LitElement {
     return this.steps.filter((s) => !s.label?.hasAttribute('disabled'));
   }
 
-  /**
-   * Selects the next step.
-   */
+  /** Selects the next step. */
   public next(): void {
     if (this.selectedIndex !== undefined) {
       this._select(this.steps[this.selectedIndex + 1]);
     }
   }
 
-  /**
-   * Selects the previous step.
-   */
+  /** Selects the previous step. */
   public previous(): void {
     if (this.selectedIndex !== undefined) {
       this._select(this.steps[this.selectedIndex - 1]);
     }
   }
 
-  /**
-   * Resets the form in which the stepper is nested or every form of each step, if any.
-   */
+  /** Resets the form in which the stepper is nested or every form of each step, if any. */
   public reset(): void {
     const closestForm = this.closest('form');
     if (closestForm) {

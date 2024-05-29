@@ -43,9 +43,7 @@ export class SbbStepElement extends LitElement {
     validate: 'validate',
   } as const;
 
-  /**
-   * Emits whenever step switch is triggered.
-   */
+  /** Emits whenever step switch is triggered. */
   private _validate: EventEmitter<SbbStepValidateEventDetails> = new EventEmitter(
     this,
     SbbStepElement.events.validate,
@@ -59,9 +57,7 @@ export class SbbStepElement extends LitElement {
     this._onStepElementResize(entries),
   );
 
-  /**
-   * The label of the step.
-   */
+  /** The label of the step. */
   public get label(): SbbStepLabelElement | null {
     return this._label;
   }
@@ -111,9 +107,7 @@ export class SbbStepElement extends LitElement {
     }
   }
 
-  /**
-   * Watches for clicked elements with `sbb-stepper-next` or `sbb-stepper-previous` attributes.
-   */
+  /** Watches for clicked elements with `sbb-stepper-next` or `sbb-stepper-previous` attributes. */
   private _handleClick(event: Event): void {
     const composedPathElements = event
       .composedPath()
