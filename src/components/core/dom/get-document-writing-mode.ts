@@ -1,4 +1,4 @@
-import { isBrowser } from './platform.js';
+import { isServer } from 'lit';
 
 export const getDocumentWritingMode = (): string =>
-  (isBrowser() && document.documentElement.getAttribute('dir')) || 'ltr';
+  (!isServer && document.documentElement.getAttribute('dir')) || 'ltr';

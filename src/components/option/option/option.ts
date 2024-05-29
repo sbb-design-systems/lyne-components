@@ -26,7 +26,7 @@ import '../../visual-checkbox.js';
  * To solve the problem, we remove the role="group" and add an hidden span containing the group name
  * TODO: We should periodically check if it has been solved and, if so, remove the property.
  */
-const inertAriaGroups = isSafari();
+const inertAriaGroups = isSafari;
 
 let nextId = 0;
 
@@ -58,7 +58,12 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     optionSelected: 'optionSelected',
   } as const;
 
-  /** Value of the option. */
+  /**
+   * Value of the option.
+   *
+   * @description Developer note: In this case updating the attribute must be synchronous.
+   * Due to this it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
+   */
   @property()
   public set value(value: string) {
     this.setAttribute('value', `${value}`);
@@ -92,7 +97,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     SbbOptionElement.events.optionSelected,
   );
 
-  /** Wheter to apply the negative styling */
+  /** Whether to apply the negative styling */
   @state() private _negative = false;
 
   /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
@@ -135,6 +140,16 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   public constructor() {
     super();
     new SbbSlotStateController(this);
+  }
+
+  public override attributeChangedCallback(
+    name: string,
+    old: string | null,
+    value: string | null,
+  ): void {
+    if (name !== 'value' || old !== value) {
+      super.attributeChangedCallback(name, old, value);
+    }
   }
 
   /**
@@ -209,7 +224,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('disabled')) {
-      setOrRemoveAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
+      setOrRemoveAttribute(this, 'tabindex', isAndroid && !this.disabled && 0);
       this._updateAriaDisabled();
     }
   }

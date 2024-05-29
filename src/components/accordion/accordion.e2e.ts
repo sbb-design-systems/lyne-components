@@ -2,8 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
-import { waitForCondition, waitForLitRender, EventSpy, isSsr } from '../core/testing.js';
+import { fixture, isSsr } from '../core/testing/private.js';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
 import {
   SbbExpansionPanelElement,
   type SbbExpansionPanelHeaderElement,
@@ -15,7 +15,7 @@ describe(`sbb-accordion ${fixture.name}`, () => {
   let element: SbbAccordionElement;
 
   beforeEach(async function () {
-    const ssrTitleLevel = isSsr() ? '4' : nothing;
+    const ssrTitleLevel = isSsr ? '4' : nothing;
     element = await fixture(
       html`
         <sbb-accordion title-level="4">

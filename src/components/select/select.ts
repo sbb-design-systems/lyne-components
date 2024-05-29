@@ -19,7 +19,7 @@ import style from './select.scss?lit&inline';
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
  * On the other hand, JAWS and NVDA need the role to be an "immediate parent" to the options, or else optgroups won't work.
  */
-const ariaRoleOnHost = isSafari();
+const ariaRoleOnHost = isSafari;
 
 let nextId = 0;
 

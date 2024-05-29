@@ -19,7 +19,7 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
   <sbb-block-link
     align-self="end"
     icon-name="chevron-small-left-small"
-    href="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/sbb-design-systems/lyne-components"
   >
     Action 3
   </sbb-block-link>
@@ -36,7 +36,7 @@ The accepted values are `s`, `m` and `l` (default) for `sbb-button` and `xs`, `s
   <sbb-secondary-button>Action 1</sbb-secondary-button>
   <sbb-block-link
     icon-name="chevron-small-left-small"
-    href="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/sbb-design-systems/lyne-components"
   >
     Action 3
   </sbb-block-link>
@@ -76,7 +76,7 @@ and we consider a template like the following one (possibly removing the link fo
   <sbb-button>Button 2</sbb-button>
   <sbb-block-link
     icon-name="chevron-small-left-small"
-    href="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/sbb-design-systems/lyne-components"
   >
     Link
   </sbb-block-link>

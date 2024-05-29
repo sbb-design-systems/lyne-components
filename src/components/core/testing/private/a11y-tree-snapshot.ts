@@ -1,4 +1,4 @@
-import { aTimeout, expect, fixture } from '@open-wc/testing';
+import { aTimeout, expect, fixture, fixtureCleanup } from '@open-wc/testing';
 import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
@@ -18,6 +18,7 @@ async function a11yTreeEqualSnapshot(): Promise<void> {
 
   const htmlWrapper = await fixture(html`<p>${JSON.stringify(snapshot, null, 2)}</p>`);
   await expect(htmlWrapper).to.be.equalSnapshot();
+  fixtureCleanup();
 }
 
 /**
@@ -41,16 +42,16 @@ export function testA11yTreeSnapshot(
       await waitForLitRender(document);
     });
 
-    testIf(isChromium() && !exclude.chrome, 'Chrome', async () => {
+    testIf(isChromium && !exclude.chrome, 'Chrome', async () => {
       await a11yTreeEqualSnapshot();
     });
 
     // TODO: Try if tests on CI are no longer flaky
-    // testIf(isSafari() && !exclude.safari, 'Safari', async () => {
+    // testIf(isSafari && !exclude.safari, 'Safari', async () => {
     //   await a11yTreeEqualSnapshot();
     // });
 
-    testIf(isFirefox() && !exclude.firefox, 'Firefox', async () => {
+    testIf(isFirefox && !exclude.firefox, 'Firefox', async () => {
       await a11yTreeEqualSnapshot();
     });
   });

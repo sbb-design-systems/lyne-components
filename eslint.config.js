@@ -48,6 +48,13 @@ export default [
   ),
   eslintPluginLyne.default.configs.recommended,
   {
+    files: ['src/visual-regression-app/**/*.ts'],
+    rules: {
+      'lyne/custom-element-class-name-rule': 'off',
+      'import-x/namespace': 'off',
+    },
+  },
+  {
     files: ['**/*.ts'],
     rules: {
       '@typescript-eslint/array-type': 'error',

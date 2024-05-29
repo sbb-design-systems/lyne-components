@@ -1,7 +1,9 @@
-import type { TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 
-import { isHydratedSsr, isNonHydratedSsr } from '../platform.js';
 import { waitForLitRender } from '../wait-for-render.js';
+
+import { applyViewport } from './describe-viewports.js';
+import { isHydratedSsr, isNonHydratedSsr } from './platform.js';
 
 // Copied from @lit-labs/testing/lib/fixtures/fixture-options.d.ts
 interface FixtureOptions {
@@ -43,13 +45,13 @@ export const fixture = Object.defineProperty(
     options.modules.unshift('/src/components/core/testing/test-setup-ssr.ts');
     const fixtures = await import('@lit-labs/testing/fixtures.js');
     let result: T;
-    if (isHydratedSsr()) {
+    if (isHydratedSsr) {
       result = await fixtures.ssrHydratedFixture<T>(template, options);
       result
         .parentElement!.querySelectorAll('[defer-hydration]')
         .forEach((e) => e.removeAttribute('defer-hydration'));
       return result;
-    } else if (isNonHydratedSsr()) {
+    } else if (isNonHydratedSsr) {
       result = await fixtures.ssrNonHydratedFixture<T>(template, options);
     } else {
       result = await fixtures.csrFixture<T>(template, options);
@@ -60,9 +62,9 @@ export const fixture = Object.defineProperty(
   'name',
   {
     get() {
-      if (isHydratedSsr()) {
+      if (isHydratedSsr) {
         return 'ssrHydratedFixture';
-      } else if (isNonHydratedSsr()) {
+      } else if (isNonHydratedSsr) {
         return 'ssrNonHydratedFixture';
       } else {
         return 'csrFixture';
@@ -70,3 +72,32 @@ export const fixture = Object.defineProperty(
     },
   },
 );
+
+/**
+ * Fixture which provide a div container for test cases.
+ *
+ * @param wrapperStyles.padding Defaults to 2rem to include shadows and similar styles.
+ * @param wrapperStyles.backgroundColor Defaults to white.
+ */
+export async function visualRegressionFixture<T extends HTMLElement>(
+  template: TemplateResult,
+  context: Mocha.Context,
+  wrapperStyles?: {
+    padding?: string;
+    backgroundColor?: string;
+    focusOutlineDark?: boolean;
+  },
+): Promise<T> {
+  const fix = await fixture<T>(
+    html`<div
+      style=${`padding: ${wrapperStyles?.padding ?? '2rem'};background-color: ${wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)'};${wrapperStyles?.focusOutlineDark ? ' --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);' : ''}`}
+      tabindex="0"
+    >
+      ${template}
+    </div>`,
+  );
+
+  // Due to Webkit rendering issues, the viewport has to be set after fixture creation.
+  await applyViewport(context);
+  return fix;
+}

@@ -14,7 +14,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-button-color-disabled-background: var(--sbb-color-milk);
-  --sbb-button-color-disabled-border: var(--sbb-color-cloud);
+  --sbb-button-color-disabled-border: var(--sbb-color-smoke);
   --sbb-button-color-disabled-text: var(--sbb-color-granite);
   --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
   --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
@@ -22,11 +22,14 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
   --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-20);
   --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
+  --sbb-button-border-style: solid;
+  --sbb-button-border-disabled-style: dashed;
   --sbb-button-border-width: var(--sbb-border-width-2x);
+  --sbb-button-border-disabled-width: var(--sbb-border-width-1x);
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-min-height: var(--sbb-size-element-m);
   --sbb-button-transition-duration: var(
-    --sbb-disable-animation-time,
+    --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-2x)
   );
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);
@@ -54,7 +57,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 
 :host([negative]) {
   --sbb-button-color-disabled-background: var(--sbb-color-anthracite);
-  --sbb-button-color-disabled-border: var(--sbb-color-granite);
   --sbb-button-color-disabled-text: var(--sbb-color-aluminium);
 }
 
@@ -70,6 +72,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 :host([size='s']) {
   --sbb-button-min-height: var(--sbb-size-element-xs);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-button-gap: var(--sbb-spacing-fixed-1x);
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
@@ -147,7 +150,8 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     position: absolute;
     content: '';
     inset: var(--sbb-button-inset);
-    border: var(--sbb-button-border-width) solid var(--sbb-button-color-default-border);
+    border: var(--sbb-button-border-width) var(--sbb-button-border-style)
+      var(--sbb-button-color-default-border);
     border-radius: var(--sbb-button-border-radius);
     background-color: var(--sbb-button-color-default-background);
     transition-duration: var(--sbb-button-transition-duration);
@@ -157,7 +161,9 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 
     :host([disabled]) & {
       background-color: var(--sbb-button-color-disabled-background);
+      border-width: var(--sbb-button-border-disabled-width);
       border-color: var(--sbb-button-color-disabled-border);
+      border-style: var(--sbb-button-border-disabled-style);
     }
 
     :host(:not([disabled], :active, [data-active]):hover) & {
@@ -184,7 +190,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     color: var(--sbb-button-color-disabled-text);
     cursor: default;
     pointer-events: none;
-    text-decoration: line-through;
   }
 
   :host(:not([disabled], :active, [data-active]):hover) & {

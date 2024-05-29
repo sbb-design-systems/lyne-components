@@ -8,7 +8,7 @@ snapshots["sbb-teaser renders after centered DOM"] =
   data-action=""
   data-link=""
   dir="ltr"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
 >
 </sbb-teaser>
 `;
@@ -18,7 +18,7 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
 `<a
   aria-label="SBB teaser"
   class="sbb-action-base sbb-teaser"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
 >
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
@@ -63,7 +63,7 @@ snapshots["sbb-teaser renders after centered A11y tree Firefox"] =
     {
       "role": "link",
       "name": "SBB teaser",
-      "value": "https://github.com/lyne-design-system/lyne-components"
+      "value": "https://github.com/sbb-design-systems/lyne-components"
     }
   ]
 }
@@ -78,7 +78,7 @@ snapshots["sbb-teaser renders after with title level set DOM"] =
   data-action=""
   data-link=""
   dir="ltr"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
   title-level="2"
 >
 </sbb-teaser>
@@ -89,7 +89,7 @@ snapshots["sbb-teaser renders after with title level set Shadow DOM"] =
 `<a
   aria-label="SBB teaser"
   class="sbb-action-base sbb-teaser"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
 >
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
@@ -133,7 +133,7 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
   data-link=""
   data-slot-names="chip image title unnamed"
   dir="ltr"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
 >
   <img
     alt="400x300"
@@ -155,7 +155,7 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
 `<a
   aria-label="SBB teaser"
   class="sbb-action-base sbb-teaser"
-  href="https://github.com/lyne-design-system/lyne-components"
+  href="https://github.com/sbb-design-systems/lyne-components"
 >
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">

@@ -15,16 +15,21 @@ import {
   SbbBreakpointUltraMax,
   SbbTypoScaleDefault,
 } from '@sbb-esta/lyne-design-tokens';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
-import { customElement, eventOptions, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
+import { customElement, eventOptions, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { hostContext, isBrowser } from '../core/dom.js';
+import { hostContext } from '../core/dom.js';
 
 import type {
-  InterfaceImageAttributes,
   InterfaceImageAttributesSizesConfigBreakpoint,
   InterfaceImageAttributesSizesConfigMediaQuery,
 } from './image.helper.js';
@@ -60,13 +65,11 @@ const breakpointMap: Record<string, number> = {
 /**
  * It displays an image.
  *
- * @cssprop [--sbb-image-aspect-ratio=auto] - When the aspectRatio property
- * on the component is set to 'free', the CSS declaration of the aspect
- * ratio is set to var(--sbb-image-aspect-ratio, auto). Since CSS
- * variables find their way into the shadow DOM, we can use the
- * --sbb-image-aspect-ratio variable to override the aspect ratio at will.
+ * @cssprop [--sbb-image-aspect-ratio=auto] - Can be used to override `aspectRatio` property.
  * This way we can have, for example, an image component with an aspect
  * ratio of 4/3 in smaller viewports and 16/9 in larger viewports.
+ * @cssprop [--sbb-image-border-radius=var(--sbb-border-radius-4x)] - Can be used to override the
+ * `borderRadius` property in case of different values for different viewports.
  */
 @customElement('sbb-image')
 export class SbbImageElement extends LitElement {
@@ -78,9 +81,6 @@ export class SbbImageElement extends LitElement {
     nonRetinaQuality: '45',
     retinaQuality: '20',
   };
-  private _variantTeaser = false;
-
-  @state() private _loaded = false;
 
   /**
    * An alt text is not always necessary (e.g. in teaser cards when
@@ -119,7 +119,7 @@ export class SbbImageElement extends LitElement {
    * Copyright holder can either be an Organization or a Person
    */
   @property({ attribute: 'copyright-holder' })
-  public copyrightHolder: InterfaceImageAttributes['copyrightHolder'] = 'Organization';
+  public copyrightHolder: 'Organization' | 'Person' = 'Organization';
 
   /**
    * Set this to true, if you want to pass a custom focal point
@@ -135,7 +135,7 @@ export class SbbImageElement extends LitElement {
    * decoding attribute here:
    * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
    */
-  @property() public decoding: InterfaceImageAttributes['decoding'] = 'auto';
+  @property() public decoding: 'sync' | 'async' | 'auto' = 'auto';
 
   /**
    * Set this to true, to receive visual guidance where the custom focal
@@ -174,7 +174,7 @@ export class SbbImageElement extends LitElement {
    * attribute value to 'high'. 'lazy', which we use for images below
    * the fold, will set the attribute value to 'low'.
    */
-  @property() public importance: InterfaceImageAttributes['importance'] = 'high';
+  @property() public importance: 'auto' | 'high' | 'low' = 'high';
 
   /**
    * With the support of native image lazy loading, we can now
@@ -186,7 +186,7 @@ export class SbbImageElement extends LitElement {
    * which are further down the page or invisible during the loading
    * of the initial viewport.
    */
-  @property() public loading: InterfaceImageAttributes['loading'] = 'eager';
+  @property() public loading: 'eager' | 'lazy' = 'eager';
 
   /**
    * With performance.mark you can log a timestamp associated with
@@ -276,16 +276,30 @@ export class SbbImageElement extends LitElement {
   /**
    * Border radius of the image. Choose between a default radius, no radius and a completely round image.
    */
-  @property({ attribute: 'border-radius' }) public borderRadius: 'default' | 'none' | 'round' =
-    'default';
+  @property({ attribute: 'border-radius', reflect: true }) public borderRadius:
+    | 'default'
+    | 'none'
+    | 'round' = 'default';
 
   /**
    * Set an aspect ratio
    * default is '16-9' (16/9)
    * other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
    */
-  @property({ attribute: 'aspect-ratio' })
-  public aspectRatio: InterfaceImageAttributes['aspectRatio'] = '16-9';
+  @property({ attribute: 'aspect-ratio', reflect: true })
+  public aspectRatio:
+    | 'free'
+    | '1-1'
+    | '1-2'
+    | '2-1'
+    | '2-3'
+    | '3-2'
+    | '3-4'
+    | '4-3'
+    | '4-5'
+    | '5-4'
+    | '9-16'
+    | '16-9' = '16-9';
 
   private _logPerformanceMarks(): void {
     if (this.performanceMark) {
@@ -306,7 +320,7 @@ export class SbbImageElement extends LitElement {
   }
 
   private _prepareImageUrl(baseUrl: string | undefined, lquip = false): string {
-    if (!baseUrl || baseUrl === '' || !isBrowser()) {
+    if (!baseUrl || baseUrl === '' || isServer) {
       return '';
     }
 
@@ -430,8 +444,10 @@ export class SbbImageElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     // Check if the current element is nested in an `<sbb-teaser-hero>` element on in an `<sbb-teaser-paid>` element.
-    this._variantTeaser =
-      !!hostContext('sbb-teaser-hero', this) || !!this.closest('sbb-teaser-paid');
+    this.toggleAttribute(
+      'data-teaser',
+      !!hostContext('sbb-teaser-hero', this) || !!this.closest('sbb-teaser-paid'),
+    );
   }
 
   protected override render(): TemplateResult {
@@ -468,21 +484,12 @@ export class SbbImageElement extends LitElement {
      * they might try to interpret the img element.
      */
     return html`
-      <figure
-        class=${classMap({
-          image__figure: true,
-          [`image__figure--teaser`]: this._variantTeaser,
-          [`image__figure--no-radius`]: this.borderRadius === 'none' || this._variantTeaser,
-          [`image__figure--round`]: this.borderRadius === 'round' && !this._variantTeaser,
-          [`image__figure--ratio-${this.aspectRatio}`]: true,
-          [`image__figure--loaded`]: this._loaded,
-        })}
-      >
-        <div class="image__wrapper">
+      <figure class="sbb-image__figure">
+        <div class="sbb-image__wrapper">
           ${!this.skipLqip
             ? html`<img
                 alt=""
-                class="image__blur-hash"
+                class="sbb-image__blurred"
                 src=${imageUrlLQIP}
                 width="1000"
                 height="562"
@@ -513,7 +520,7 @@ export class SbbImageElement extends LitElement {
             <img
               alt=${this.alt || ''}
               @load=${this._imageLoaded}
-              class="image__img"
+              class="sbb-image__img"
               src=${this.imageSrc!}
               width="1000"
               height="562"
@@ -525,7 +532,7 @@ export class SbbImageElement extends LitElement {
         </div>
         ${caption
           ? html`<figcaption
-              class="image__caption"
+              class="sbb-image__caption"
               .innerHTML=${caption}
               ${ref((el): void => {
                 this._captionElement = el as HTMLElement;
@@ -558,7 +565,7 @@ export class SbbImageElement extends LitElement {
   @eventOptions(eventListenerOptions)
   private _imageLoaded(): void {
     this._logPerformanceMarks();
-    this._loaded = true;
+    this.toggleAttribute('data-loaded', true);
   }
 }
 
