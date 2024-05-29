@@ -7,7 +7,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime/date-helper.js';
+import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.js';
 import type { Leg } from '../core/timetable.js';
 
 import style from './journey-summary.scss?lit&inline';

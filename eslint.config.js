@@ -1,5 +1,5 @@
 // @ts-check
-import 'tsx';
+import './tools/node-esm-hook/register-hooks.js';
 
 import { FlatCompat } from '@eslint/eslintrc';
 

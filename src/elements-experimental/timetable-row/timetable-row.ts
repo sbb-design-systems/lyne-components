@@ -25,7 +25,7 @@ import { html, LitElement, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime/date-helper.js';
+import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.js';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.js';
 
