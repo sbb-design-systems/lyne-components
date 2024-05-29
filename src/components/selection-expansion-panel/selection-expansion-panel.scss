@@ -13,6 +13,8 @@ $open-anim-opacity-to: 1;
   --sbb-selection-expansion-panel-cursor: pointer;
   --sbb-selection-expansion-panel-background: var(--sbb-color-white);
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
+  --sbb-selection-expansion-panel-inner-background: transparent;
+  --sbb-selection-expansion-panel-inner-border-width: 0px;
   --sbb-selection-expansion-panel-animation-duration: var(
     --sbb-disable-animation-time,
     var(--sbb-animation-duration-4x)
@@ -153,19 +155,6 @@ $open-anim-opacity-to: 1;
 
 sbb-divider {
   margin-block-end: var(--sbb-spacing-responsive-xxs);
-}
-
-::slotted(sbb-radio-button-panel),
-::slotted(sbb-checkbox-panel) {
-  cursor: var(--sbb-selection-expansion-panel-cursor);
-  pointer-events: var(--sbb-selection-expansion-panel-input-pointer-events);
-  display: block;
-  padding: var(--sbb-selection-expansion-panel-input-padding);
-  transition: {
-    duration: var(--sbb-selection-expansion-panel-animation-duration);
-    timing-function: var(--sbb-animation-easing);
-    property: padding;
-  }
 }
 
 @keyframes open {

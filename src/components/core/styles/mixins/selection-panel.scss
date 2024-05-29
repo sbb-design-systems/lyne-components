@@ -1,37 +1,46 @@
 @use './a11y';
 
 @mixin selection-panel-variables {
-  --sbb-selection-expansion-panel-background: var(--sbb-color-white);
-  --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
-  --sbb-selection-expansion-panel-border-radius: var(--sbb-border-radius-4x);
-  --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-1x);
-  --sbb-selection-expansion-panel-input-padding: var(--sbb-spacing-responsive-xs)
+  --sbb-selection-panel-background: var(
+    --sbb-selection-expansion-panel-inner-background,
+    --sbb-color-white
+  );
+  --sbb-selection-panel-border-color: var(--sbb-color-cloud);
+  --sbb-selection-panel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-selection-panel-border-width: var(
+    --sbb-selection-expansion-panel-inner-border-width,
+    var(--sbb-border-width-1x)
+  );
+  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
     var(--sbb-spacing-responsive-xxs);
-  --sbb-selection-expansion-panel-animation-duration: var(--sbb-animation-duration-4x);
-  --sbb-selection-expansion-panel-cursor: pointer;
+  --sbb-selection-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-selection-panel-cursor: pointer;
 }
 
 @mixin selection-panel-milk-variables {
-  --sbb-selection-expansion-panel-background: var(--sbb-color-milk);
+  --sbb-selection-panel-background: var(
+    --sbb-selection-expansion-panel-inner-background,
+    --sbb-color-milk
+  );
 }
 
 @mixin selection-panel-borderless-variables {
-  --sbb-selection-expansion-panel-border-color: transparent;
+  --sbb-selection-panel-border-color: transparent;
 }
 
 @mixin selection-panel {
-  cursor: var(--sbb-selection-expansion-panel-cursor);
+  cursor: var(--sbb-selection-panel-cursor);
   flex: auto;
   position: relative;
   width: 100%;
-  border-radius: var(--sbb-selection-expansion-panel-border-radius);
-  box-shadow: inset 0 0 0 var(--sbb-selection-expansion-panel-border-width)
-    var(--sbb-selection-expansion-panel-border-color);
-  padding: var(--sbb-selection-expansion-panel-input-padding);
-  background-color: var(--sbb-selection-expansion-panel-background);
+  border-radius: var(--sbb-selection-panel-border-radius);
+  box-shadow: inset 0 0 0 var(--sbb-selection-panel-border-width)
+    var(--sbb-selection-panel-border-color);
+  padding: var(--sbb-selection-panel-input-padding);
+  background-color: var(--sbb-selection-panel-background);
 
   transition: {
-    duration: var(--sbb-selection-expansion-panel-animation-duration);
+    duration: var(--sbb-selection-panel-animation-duration);
     timing-function: var(--sbb-animation-easing);
     property: box-shadow;
   }
@@ -44,18 +53,20 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      border: var(--sbb-selection-expansion-panel-border-width) solid
-        var(--sbb-selection-expansion-panel-border-color);
-      border-radius: var(--sbb-selection-expansion-panel-border-radius);
+      border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
+      border-radius: var(--sbb-selection-panel-border-radius);
     }
   }
 }
 
 @mixin selection-panel-checked-variables {
-  --sbb-selection-expansion-panel-border-color: var(--sbb-color-charcoal);
-  --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-2x);
+  --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
+  --sbb-selection-panel-border-width: var(
+    --sbb-selection-expansion-panel-inner-border-width,
+    var(--sbb-border-width-2x)
+  );
 }
 
 @mixin selection-panel-disabled-variables {
-  --sbb-selection-expansion-panel-cursor: default;
+  --sbb-selection-panel-cursor: default;
 }
