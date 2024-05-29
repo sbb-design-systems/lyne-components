@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.52.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.51.1...v0.52.0) (2024-05-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **link:** Due to screen reader limitations, we had to move the `link` role inside the Shadow DOM. Therefore, for the following components, replace the `[aria-label]` attribute with `[accessibility-label]` attribute or `accessibilityLabel` property:
+    - `sbb-breadcrumb`
+    - `sbb-button-link`, `sbb-secondary-button-link`, `sbb-tertiary-button-link`, `sbb-transparent-button-link`
+    - `sbb-card-link`
+    - `sbb-header-link`
+    - `sbb-link`, `sbb-block-link`
+    - `sbb-menu-link`
+    - `sbb-navigation-link`
+    - `sbb-teaser`, `sbb-teaser-hero`, `sbb-teaser-paid`
+
+### Features
+
+* **journey-header:** add size s ([#2656](https://github.com/sbb-design-systems/lyne-components/issues/2656)) ([610ef3a](https://github.com/sbb-design-systems/lyne-components/commit/610ef3af31a161fadbc7202f54dc49a95c1fd3f4))
+* **sbb-lead-container:** initial implementation ([#2672](https://github.com/sbb-design-systems/lyne-components/issues/2672)) ([bb1f3a8](https://github.com/sbb-design-systems/lyne-components/commit/bb1f3a850291b533491563feca207cadcbd08a9d))
+* **sbb-popover:** change close button size ([#2688](https://github.com/sbb-design-systems/lyne-components/issues/2688)) ([1f259be](https://github.com/sbb-design-systems/lyne-components/commit/1f259beb31d09a185803f3b24e418489376c3bce))
+* **sbb-tab-group:** add size s variant ([#2683](https://github.com/sbb-design-systems/lyne-components/issues/2683)) ([c00aa58](https://github.com/sbb-design-systems/lyne-components/commit/c00aa58add944e30ad74a99e5058860b9d263251))
+
+
+### Bug Fixes
+
+* **link:** fix accessibility by inlining link functionality into Shadow DOM ([#2571](https://github.com/sbb-design-systems/lyne-components/issues/2571)) ([52344e9](https://github.com/sbb-design-systems/lyne-components/commit/52344e95138a622b2fa3012b7f13963002fde0de))
+* prevent stack overflow with attribute changes ([#2661](https://github.com/sbb-design-systems/lyne-components/issues/2661)) ([4b382ed](https://github.com/sbb-design-systems/lyne-components/commit/4b382ede1942ecf09fce323e2a57b7fac437d064))
+* **sbb-alert:** improve SSR hydration support ([#2650](https://github.com/sbb-design-systems/lyne-components/issues/2650)) ([1b09429](https://github.com/sbb-design-systems/lyne-components/commit/1b094291be6e03516bd4e41555c05fe2c6fa46c3))
+* **sbb-button:** fix gap between icon and text for size s ([#2678](https://github.com/sbb-design-systems/lyne-components/issues/2678)) ([38efbd8](https://github.com/sbb-design-systems/lyne-components/commit/38efbd86161f1bb59a66512c054543bfcf62bac2))
+* **sbb-radio-button:** fix checked initialization ([#2692](https://github.com/sbb-design-systems/lyne-components/issues/2692)) ([abdaf43](https://github.com/sbb-design-systems/lyne-components/commit/abdaf43389ac19f590b5b0326cc8783166bc243d))
+
 ## [0.51.1](https://github.com/sbb-design-systems/lyne-components/compare/v0.51.0...v0.51.1) (2024-05-08)
 
 
