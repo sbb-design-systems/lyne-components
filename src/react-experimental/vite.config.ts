@@ -16,12 +16,13 @@ export default defineConfig((config) =>
       generateReactWrappers(
         '@sbb-esta/lyne-elements-experimental',
         './elements-experimental/custom-elements.json',
+        false,
       ),
       ...(config.command === 'build' ? [dts()] : []),
       ...(isProdBuild(config)
         ? [
             packageJsonTemplate({
-              templatePath: './experimental.package.json',
+              templatePath: './package.json',
               exportsExtensions: ['', '.js'],
             }),
           ]
@@ -37,8 +38,9 @@ export default defineConfig((config) =>
       emptyOutDir: true,
       rollupOptions: {
         external: [
-          /^@sbb-esta\/lyne-elements-experimental\/?/,
           /^@sbb-esta\/lyne-elements\/?/,
+          /^@sbb-esta\/lyne-elements-experimental\/?/,
+          /^@sbb-esta\/lyne-react\/?/,
           /^@lit\/react\/?/,
           /^lit\/?/,
           /^react/,
