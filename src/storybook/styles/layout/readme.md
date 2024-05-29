@@ -8,7 +8,7 @@ The `expanded`-variant has a smaller inline spacing and no max-width.
 | `sbb-page-spacing`          | `page-spacing`          |
 | `sbb-page-spacing-expanded` | `page-spacing-expanded` |
 
-Alternatively the [sbb-container](/docs/components-sbb-container-sbb-container--docs) component can be used to achieve the same result.
+Alternatively the [sbb-container](/docs/elements-sbb-container-sbb-container--docs) component can be used to achieve the same result.
 
 ### Usage
 
@@ -54,7 +54,7 @@ Two items placed on grid using each 2 of 4 columns.
 Using columns in the middle of the grid (e.g. alerts in home stories).
 
 ```scss
-@use '@sbb-esta/lyne-components' as sbb;
+@use '@sbb-esta/lyne-elements' as sbb;
 
 .grid-reduced-width {
   grid-column: 1/-1;

@@ -13,7 +13,7 @@ export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
     root: new URL('.', import.meta.url).pathname,
     plugins: [
-      generateReactWrappers(),
+      generateReactWrappers('@sbb-esta/lyne-elements', './elements/custom-elements.json'),
       ...(config.command === 'build' ? [dts()] : []),
       ...(isProdBuild(config) ? [packageJsonTemplate({ exportsExtensions: ['', '.js'] })] : []),
     ],
@@ -25,7 +25,7 @@ export default defineConfig((config) =>
       outDir: new URL(`./react/${isProdBuild(config) ? '' : 'development/'}`, distDir).pathname,
       emptyOutDir: true,
       rollupOptions: {
-        external: [/^@sbb-esta\/lyne-components\/?/, /^@lit\/react\/?/, /^lit\/?/, /^react/],
+        external: [/^@sbb-esta\/lyne-elements\/?/, /^@lit\/react\/?/, /^lit\/?/, /^react/],
       },
     },
   }),
