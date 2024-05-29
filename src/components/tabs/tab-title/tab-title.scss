@@ -4,13 +4,14 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-tab-title-height: var(--sbb-spacing-fixed-12x);
+  --sbb-tab-title-height: var(--sbb-size-element-m);
   --sbb-tab-title-color: var(--sbb-color-granite);
   --sbb-tab-title-icon-color: var(--sbb-color-black);
   --sbb-tab-title-background-color: var(--sbb-color-white);
   --sbb-tab-title-cursor: pointer;
   --sbb-tab-title-pointer-events: unset;
   --sbb-tab-title-inset: 0;
+  --sbb-tab-title-inline-padding: var(--sbb-spacing-responsive-xs);
   --sbb-tab-title-marker-transform: scale(0);
   --sbb-tab-title-text-decoration: none;
   --sbb-tab-title-animation-duration: var(
@@ -29,15 +30,16 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  @include sbb.mq($from: medium) {
-    --sbb-tab-title-height: var(--sbb-spacing-fixed-14x);
-  }
-
   @include sbb.if-forced-colors {
     --sbb-tab-title-color: ButtonText;
     --sbb-tab-title-icon-color: ButtonText;
     --sbb-tab-title-amount-color: ButtonText;
   }
+}
+
+:host([data-size='s']) {
+  --sbb-tab-title-height: var(--sbb-size-element-xs);
+  --sbb-tab-title-inline-padding: var(--sbb-spacing-responsive-xxxs);
 }
 
 :host([disabled]) {
@@ -104,7 +106,7 @@
   min-height: var(--sbb-tab-title-height);
   display: flex;
   align-items: center;
-  padding-inline: var(--sbb-spacing-responsive-xs);
+  padding-inline: var(--sbb-tab-title-inline-padding);
   gap: var(--sbb-spacing-fixed-2x);
   user-select: none;
   cursor: var(--sbb-tab-title-cursor);
@@ -164,6 +166,10 @@
   @include sbb.font-smoothing;
   @include sbb.ellipsis;
 
+  :host([data-size='s']) & {
+    @include sbb.text-s--bold;
+  }
+
   :host([data-size='xl']) & {
     @include sbb.text-xl--bold;
   }
@@ -178,6 +184,10 @@
 
   :host(:not([data-slot-names~='amount'], [amount])) & {
     display: none;
+  }
+
+  :host([data-size='s']) & {
+    @include sbb.text-s--regular;
   }
 
   :host([data-size='xl']) & {

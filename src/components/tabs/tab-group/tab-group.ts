@@ -25,7 +25,7 @@ export interface InterfaceSbbTabGroupTab extends HTMLElement {
   relatedContent?: HTMLElement;
   index?: number;
   tabGroupActions?: InterfaceSbbTabGroupActions;
-  size: 'l' | 'xl';
+  size: 's' | 'l' | 'xl';
 }
 
 const tabObserverConfig: MutationObserverInit = {
@@ -70,7 +70,7 @@ export class SbbTabGroupElement extends LitElement {
   );
 
   /**
-   * Size variant, either l or xl.
+   * Size variant, either s, l or xl.
    */
   @property()
   public set size(value: InterfaceSbbTabGroupTab['size']) {
