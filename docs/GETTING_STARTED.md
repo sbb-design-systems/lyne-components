@@ -7,16 +7,16 @@ Select your technology to get started.
 <details>
   <summary>Plain Javascript</summary>
 
-1. Install the `@sbb-esta/lyne-elements` package:
+1. Install the `@sbb-esta/lyne-elements` and `@sbb-esta/lyne-elements-experimental` package:
 
    ```sh
-   npm install --save @sbb-esta/lyne-elements
+   npm install --save @sbb-esta/lyne-elements @sbb-esta/lyne-elements-experimental
    ```
 
    or, if using yarn:
 
    ```sh
-   yarn add @sbb-esta/lyne-elements
+   yarn add @sbb-esta/lyne-elements @sbb-esta/lyne-elements-experimental
    ```
 
 2. Including global styles is strongly recommended to apply all SBB styles to your application.
