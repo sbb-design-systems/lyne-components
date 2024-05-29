@@ -152,7 +152,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'xl'],
+  options: ['s', 'l', 'xl'],
 };
 
 const negative: InputType = {
@@ -176,7 +176,7 @@ const basicArgs: Args = {
   label: 'Tab label one',
   'icon-name': undefined,
   amount: undefined,
-  size: size.options![0],
+  size: size.options![1],
   negative: false,
 };
 
@@ -189,25 +189,36 @@ export const defaultTabsSizeL: StoryObj = {
 export const numbersAndIconsSizeL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![1] },
 };
 
 export const defaultTabsSizeXL: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, size: size.options![1] },
+  args: { ...basicArgs, size: size.options![2] },
 };
 
 export const numbersAndIconsSizeXL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], size: size.options![1] },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], size: size.options![2] },
+};
+export const defaultTabsSizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, size: size.options![0] },
+};
+
+export const numbersAndIconsSizeS: StoryObj = {
+  render: IconsAndNumbersTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], size: size.options![0] },
 };
 
 export const nestedTabGroups: StoryObj = {
   render: NestedTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![1] },
 };
 
 export const tintedBackground: StoryObj = {
