@@ -29,7 +29,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-min-height: var(--sbb-size-element-m);
   --sbb-button-transition-duration: var(
-    --sbb-disable-animation-time,
+    --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-2x)
   );
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);

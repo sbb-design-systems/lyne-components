@@ -20,7 +20,7 @@ $open-anim-opacity-to: 1;
   --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxs);
   --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
   --sbb-alert-animation-duration: var(
-    --sbb-disable-animation-time,
+    --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-6x)
   );
 
