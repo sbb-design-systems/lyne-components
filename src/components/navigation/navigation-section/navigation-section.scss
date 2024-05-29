@@ -9,7 +9,7 @@
   --sbb-navigation-section-position: fixed;
   --sbb-navigation-section-pointer-events: none;
   --sbb-navigation-section-animation-duration: var(
-    --sbb-disable-animation-time,
+    --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-3x)
   );
   --sbb-navigation-section-animation-easing: ease-out;
@@ -46,7 +46,7 @@
   @include sbb.mq($from: large) {
     --sbb-navigation-section-column: 5 / 9;
     --sbb-navigation-section-animation-duration: var(
-      --sbb-disable-animation-time,
+      --sbb-disable-animation-zero-time,
       var(--sbb-animation-duration-4x)
     );
     --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xl);
