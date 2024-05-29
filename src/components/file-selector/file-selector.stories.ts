@@ -1,16 +1,42 @@
 import { withActions } from '@storybook/addon-actions/decorator';
+import { within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
 import type { SbbFormErrorElement } from '../form-error.js';
 
 import { SbbFileSelectorElement } from './file-selector.js';
 import readme from './readme.md?raw';
-
 import '../form-error.js';
+
+function addFilesToComponentInput(elem: SbbFileSelectorElement, numberOfFiles: number): void {
+  const dataTransfer: DataTransfer = new DataTransfer();
+  for (let i: number = 0; i < numberOfFiles; i++) {
+    dataTransfer.items.add(
+      new File([`Hello world - ${i}`], `hello${i}.txt`, {
+        type: 'text/plain',
+        lastModified: new Date(i).getMilliseconds(),
+      }),
+    );
+  }
+  const input: HTMLInputElement = elem.shadowRoot!.querySelector<HTMLInputElement>('input')!;
+  input.files = dataTransfer.files;
+  input.dispatchEvent(new Event('change'));
+}
+
+// Story interaction executed after the story renders
+const playStory = async (canvasElement: HTMLElement, filesToAdd: number = 1): Promise<void> => {
+  const canvas = within(canvasElement);
+  await waitForComponentsReady(() => canvas.getByTestId('sbb-file-selector'));
+  const fs = canvas.getByTestId('sbb-file-selector') as SbbFileSelectorElement;
+  addFilesToComponentInput(fs, filesToAdd);
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+};
 
 const variant: InputType = {
   control: {
@@ -102,7 +128,7 @@ const multipleDefaultArgsSizeS: Args = {
 };
 
 const Template = (args: Args): TemplateResult =>
-  html`<sbb-file-selector ${sbbSpread(args)}></sbb-file-selector>`;
+  html`<sbb-file-selector ${sbbSpread(args)} data-testid="sbb-file-selector"></sbb-file-selector>`;
 
 const TemplateWithError = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -113,6 +139,7 @@ const TemplateWithError = (args: Args): TemplateResult => {
     <sbb-file-selector
       ${sbbSpread(args)}
       id="sbb-file-selector"
+      data-testid="sbb-file-selector"
       @fileChanged=${(event: CustomEvent<File[]>) => {
         if (event.detail && event.detail.length > 0) {
           (event.target as SbbFileSelectorElement)!.append(sbbFormError);
@@ -128,6 +155,7 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement) : undefined,
 };
 
 export const DefaultDisabled: StoryObj = {
@@ -140,18 +168,21 @@ export const DefaultMulti: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...multipleDefaultArgs },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement, 3) : undefined,
 };
 
 export const DefaultMultiPersistent: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...multipleDefaultArgs, 'multiple-mode': multipleMode.options![1] },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement, 3) : undefined,
 };
 
 export const Dropzone: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, variant: variant.options![1] },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement) : undefined,
 };
 
 export const DropzoneDisabled: StoryObj = {
@@ -164,6 +195,7 @@ export const DropzoneMulti: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...multipleDefaultArgs, variant: variant.options![1] },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement, 3) : undefined,
 };
 
 export const DropzoneMultiPersistent: StoryObj = {
@@ -174,18 +206,21 @@ export const DropzoneMultiPersistent: StoryObj = {
     variant: variant.options![1],
     'multiple-mode': multipleMode.options![1],
   },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement, 3) : undefined,
 };
 
 export const DefaultWithError: StoryObj = {
   render: TemplateWithError,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement) : undefined,
 };
 
 export const DropzoneWithError: StoryObj = {
   render: TemplateWithError,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, variant: variant.options![1] },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement) : undefined,
 };
 
 export const DefaultOnlyPDF: StoryObj = {
@@ -198,6 +233,7 @@ export const DefaultMultiSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...multipleDefaultArgsSizeS },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement, 3) : undefined,
 };
 
 export const DefaultDisabledSizeS: StoryObj = {
@@ -210,6 +246,7 @@ export const DropzoneMultiSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...multipleDefaultArgsSizeS, variant: variant.options![1] },
+  play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement, 3) : undefined,
 };
 
 export const DropzoneDisabledSizeS: StoryObj = {
@@ -218,24 +255,13 @@ export const DropzoneDisabledSizeS: StoryObj = {
   args: { ...defaultArgsSizeS, variant: variant.options![1], disabled: true },
 };
 
-export const DefaultWithErrorSizeS: StoryObj = {
-  render: TemplateWithError,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgsSizeS },
-};
-
-export const DropzoneWithErrorSizeS: StoryObj = {
-  render: TemplateWithError,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgsSizeS, variant: variant.options![1] },
-};
-
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [SbbFileSelectorElement.events.fileChangedEvent],
     },
+    chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,
     },
