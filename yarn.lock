@@ -6044,6 +6044,13 @@ file-entry-cache@^8.0.0:
   dependencies:
     flat-cache "^4.0.0"
 
+file-entry-cache@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/file-entry-cache/-/file-entry-cache-9.0.0.tgz#4478e7ceaa5191fa9676a2daa7030211c31b1e7e"
+  integrity sha512-6MgEugi8p2tiUhqO7GnPsmbCCzj0YRCwwaTbpGRyKZesjRSzkqkAE9fPp7V2yMs5hwfgbQLgdvSSkGNg1s5Uvw==
+  dependencies:
+    flat-cache "^5.0.0"
+
 file-system-cache@2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/file-system-cache/-/file-system-cache-2.3.0.tgz#201feaf4c8cd97b9d0d608e96861bb6005f46fe6"
@@ -6162,7 +6169,15 @@ flat-cache@^4.0.0:
     flatted "^3.2.9"
     keyv "^4.5.4"
 
-flatted@^3.2.9:
+flat-cache@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-5.0.0.tgz#26c4da7b0f288b408bb2b506b2cb66c240ddf062"
+  integrity sha512-JrqFmyUl2PnPi1OvLyTVHnQvwQ0S+e6lGSwu8OkAZlSaNIZciTY2H/cOOROxsBA1m/LZNHDsqAgDZt6akWcjsQ==
+  dependencies:
+    flatted "^3.3.1"
+    keyv "^4.5.4"
+
+flatted@^3.2.9, flatted@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.3.1.tgz#21db470729a6734d4997002f439cb308987f567a"
   integrity sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==
@@ -8424,7 +8439,7 @@ micromark@^3.0.0:
     micromark-util-types "^1.0.1"
     uvu "^0.5.0"
 
-micromatch@^4.0.4, micromatch@^4.0.5, micromatch@~4.0.7:
+micromatch@^4.0.4, micromatch@^4.0.7, micromatch@~4.0.7:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.7.tgz#33e8190d9fe474a9895525f5618eee136d46c2e5"
   integrity sha512-LPP/3KorzCwBxfeUuZmaR6bG2kdeHSbe0P2tY3FLRU4vYrjYz5hI4QZwV0njUx3jeuKe67YukQ1LSPZBKDqO/Q==
@@ -10532,10 +10547,10 @@ stylelint-scss@6.3.0, stylelint-scss@^6.0.0:
     postcss-selector-parser "^6.0.15"
     postcss-value-parser "^4.2.0"
 
-stylelint@16.6.0:
-  version "16.6.0"
-  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-16.6.0.tgz#14d0006aa04b2636a6cda505b6a06d8d3910824c"
-  integrity sha512-vjWYlDEgOS3Z/IcXagQwi8PFJyPro1DxBYOnTML1PAqnrYUHs8owleGStv20sgt0OhW8r9zZm6MK7IT2+l2B6A==
+stylelint@16.6.1:
+  version "16.6.1"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-16.6.1.tgz#84735aca2bb5cde535572b7a9b878d2ec983a570"
+  integrity sha512-yNgz2PqWLkhH2hw6X9AweV9YvoafbAD5ZsFdKN9BvSDVwGvPh+AUIrn7lYwy1S7IHmtFin75LLfX1m0D2tHu8Q==
   dependencies:
     "@csstools/css-parser-algorithms" "^2.6.3"
     "@csstools/css-tokenizer" "^2.3.1"
@@ -10550,7 +10565,7 @@ stylelint@16.6.0:
     debug "^4.3.4"
     fast-glob "^3.3.2"
     fastest-levenshtein "^1.0.16"
-    file-entry-cache "^8.0.0"
+    file-entry-cache "^9.0.0"
     global-modules "^2.0.0"
     globby "^11.1.0"
     globjoin "^0.1.4"
@@ -10561,7 +10576,7 @@ stylelint@16.6.0:
     known-css-properties "^0.31.0"
     mathml-tag-names "^2.1.3"
     meow "^13.2.0"
-    micromatch "^4.0.5"
+    micromatch "^4.0.7"
     normalize-path "^3.0.0"
     picocolors "^1.0.1"
     postcss "^8.4.38"
@@ -11331,10 +11346,10 @@ vite-plugin-dts@3.9.1:
     magic-string "^0.30.8"
     vue-tsc "^1.8.27"
 
-vite@5.2.11:
-  version "5.2.11"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-5.2.11.tgz#726ec05555431735853417c3c0bfb36003ca0cbd"
-  integrity sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==
+vite@5.2.12:
+  version "5.2.12"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-5.2.12.tgz#3536c93c58ba18edea4915a2ac573e6537409d97"
+  integrity sha512-/gC8GxzxMK5ntBwb48pR32GGhENnjtY30G4A0jemunsBkiEZFw60s8InGpN8gkhHEkjnRK1aSAxeQgwvFhUHAA==
   dependencies:
     esbuild "^0.20.1"
     postcss "^8.4.38"
