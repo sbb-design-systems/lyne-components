@@ -6,7 +6,7 @@
   --sbb-link-color-normal: var(--sbb-color-granite);
   --sbb-link-color-hover: var(--sbb-color-red125);
   --sbb-link-color-active: var(--sbb-color-red150);
-  --sbb-link-text-decoration: none;
+  --sbb-link-text-decoration: var(--sbb-block-link-text-decoration, underline);
 
   @include a11y.if-forced-colors {
     --sbb-link-text-decoration: underline;
