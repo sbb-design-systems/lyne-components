@@ -11,6 +11,7 @@ import {
   isProdBuild,
   packageJsonTemplate,
   generateRootEntryPoint,
+  verifyEntryPoints,
 } from '../../tools/vite/index.js';
 import rootConfig from '../../vite.config.js';
 
@@ -41,7 +42,7 @@ export default defineConfig((config) =>
               },
             }),
             copyAssets(['../../README.md']),
-            // verifyEntryPoints(), // TODO Must exclude @sbb-esta/lyne-elements imports. Not sure it's possible
+            verifyEntryPoints(),
           ]
         : []),
     ],

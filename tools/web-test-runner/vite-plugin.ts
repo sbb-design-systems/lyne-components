@@ -1,10 +1,13 @@
-import { existsSync } from 'fs';
-import { Readable } from 'stream';
-import { createServer } from 'vite';
+import { existsSync } from 'node:fs';
+import { Readable } from 'node:stream';
+import type * as streamWeb from 'node:stream/web';
+
+import type { TestRunnerPlugin } from '@web/test-runner';
+import { createServer, type ViteDevServer } from 'vite';
 
 // Reference: https://github.com/remcovaes/web-test-runner-vite-plugin
-export function vitePlugin() {
-  let viteServer;
+export function vitePlugin(): TestRunnerPlugin {
+  let viteServer: ViteDevServer;
 
   return {
     name: 'vite-plugin',
@@ -53,7 +56,7 @@ export function vitePlugin() {
         // Retry once on failure.
         // This can happen when too many http requests are being handled by the operating system.
         const response = await fetch(url).catch(() => Promise.resolve().then(() => fetch(url)));
-        ctx.body = Readable.fromWeb(response.body);
+        ctx.body = Readable.fromWeb(response.body as streamWeb.ReadableStream);
         ctx.set(Object.fromEntries(response.headers));
         ctx.status = response.status;
       });

@@ -6,6 +6,7 @@ import {
   generateReactWrappers,
   isProdBuild,
   packageJsonTemplate,
+  verifyEntryPoints,
 } from '../../tools/vite/index.js';
 import rootConfig from '../../vite.config.js';
 
@@ -25,6 +26,7 @@ export default defineConfig((config) =>
               templatePath: './package.json',
               exportsExtensions: ['', '.js'],
             }),
+            verifyEntryPoints(),
           ]
         : []),
     ],
