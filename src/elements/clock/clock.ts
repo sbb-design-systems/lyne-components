@@ -1,9 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbNowMixin } from '../core/mixins.js';
+import type { SbbTime } from '../core/interfaces.js';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
@@ -50,8 +50,14 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
  * It displays an analog clock with the classic SBB face.
  */
 @customElement('sbb-clock')
-export class SbbClockElement extends SbbNowMixin(LitElement) {
+export class SbbClockElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+
+  /**
+   * Define a specific time which the clock should show statically.
+   * @param value HH:MM:ss
+   */
+  @property() public now: SbbTime | null = null;
 
   /** Reference to the hour hand. */
   private _clockHandHours!: HTMLElement;
@@ -80,9 +86,23 @@ export class SbbClockElement extends SbbNowMixin(LitElement) {
   /** Move the minutes hand every minute. */
   private _handMovement?: ReturnType<typeof setInterval>;
 
+  protected override willUpdate(changedProperties: PropertyValues) {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('now')) {
+      if (this.now) {
+        this._removeSecondsAnimationStyles();
+        this._removeHoursAnimationStyles();
+        this._stopClock();
+      } else {
+        this._startClock();
+      }
+    }
+  }
+
   private async _handlePageVisibilityChange(): Promise<void> {
     if (document.visibilityState === 'hidden') {
-      this._stopClock();
+      await this._stopClock();
     } else if (!this.now) {
       await this._startClock();
     }
@@ -118,10 +138,14 @@ export class SbbClockElement extends SbbNowMixin(LitElement) {
 
   /** Given the current date, calculates the hh/mm/ss values and the hh/mm/ss left to the next midnight. */
   private _assignCurrentTime(): void {
-    const date = new Date(this.dateNow);
-    this._hours = date.getHours() % 12;
-    this._minutes = date.getMinutes();
-    this._seconds = date.getSeconds();
+    const date = this.now ? null : new Date();
+    const [hours, minutes, seconds] = date
+      ? [date.getHours(), date.getMinutes(), date.getSeconds()]
+      : this.now!.split(':').map((p) => +p);
+
+    this._hours = hours % 12;
+    this._minutes = minutes;
+    this._seconds = seconds;
   }
 
   /** Set the starting position for the three hands on the clock face. */
@@ -148,10 +172,6 @@ export class SbbClockElement extends SbbNowMixin(LitElement) {
     if (remainingHours > 0) {
       hoursAnimationDuration +=
         (remainingHours - hasRemainingMinutesOrSeconds) * SECONDS_IN_AN_HOUR;
-    }
-
-    if (this._clockHandSeconds) {
-      this._clockHandSeconds.style.animation = '';
     }
 
     this.style.setProperty(
@@ -215,11 +235,16 @@ export class SbbClockElement extends SbbNowMixin(LitElement) {
   }
 
   /** Stops the clock by removing all the animations. */
-  private _stopClock(): void {
+  private async _stopClock(): Promise<void> {
     clearInterval(this._handMovement);
 
-    if (this.now !== undefined) {
+    if (this.now) {
       this._setHandsStartingPosition();
+
+      // Wait a tick to before animation is added. Otherwise, the animation gets not completely
+      // removed which can lead to a mispositioned seconds hand.
+      await new Promise((resolve) => setTimeout(resolve));
+
       this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
       this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
     } else {
@@ -258,8 +283,8 @@ export class SbbClockElement extends SbbNowMixin(LitElement) {
 
     this._addEventListeners();
 
-    if (this.now !== undefined) {
-      this._stopClock();
+    if (this.now) {
+      await this._stopClock();
     } else {
       await this._startClock();
     }

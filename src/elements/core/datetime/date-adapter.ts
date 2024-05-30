@@ -88,7 +88,7 @@ export abstract class DateAdapter<T = any> {
    * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
    * string). The default implementation does not allow any deserialization, it simply checks that
    * the given value is already a valid date object or null.
-   * @param date Either Date, ISOString, Unix Timestamp (number of seconds since Jan 1, 1970).
+   * @param value Either Date, ISOString, Unix Timestamp (number of seconds since Jan 1, 1970).
    * @returns The date if the input is valid, `null` otherwise.
    * */
   public deserialize(value: T | string | number | null | undefined): T | null {
@@ -136,7 +136,7 @@ export abstract class DateAdapter<T = any> {
   public abstract parse(value: string | null | undefined, now: Date): T | undefined;
 
   /** Format the given Date as string.
-   * @param value The date to format.
+   * @param date The date to format.
    */
   public abstract format(date: T | null | undefined): string;
 

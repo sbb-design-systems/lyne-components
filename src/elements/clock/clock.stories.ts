@@ -1,34 +1,48 @@
 import type { InputType } from '@storybook/types';
-import type { Args, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
+import type { SbbTime } from '../core/interfaces/types.js';
+
 
 import readme from './readme.md?raw';
 
 import './clock.js';
 
-const now: InputType = {
-  control: {
-    type: 'date',
-  },
+const hours: InputType = { control: { type: 'number', min: 0, max: 23 } };
+const minutes: InputType = { control: { type: 'number', min: 0, max: 59 } };
+// Note: SBB Clock doesn't have the second 59, this is awaited in still position always
+const seconds: InputType = { control: { type: 'number', min: 0, max: 58 } };
+
+const Template = ({ hours, minutes, seconds, ...args }: Args): TemplateResult => {
+  const timeString: SbbTime = `${hours}:${minutes}:${seconds}`;
+  const hasCustomTime = hours !== undefined && minutes !== undefined && seconds !== undefined;
+  return html`<sbb-clock
+    now=${hasCustomTime ? timeString : nothing}
+    ${sbbSpread(args)}
+  ></sbb-clock>`;
 };
 
-const Template = (args: Args): TemplateResult => html`<sbb-clock ${sbbSpread(args)}></sbb-clock>`;
+const defaultArgTypes: ArgTypes = {
+  hours,
+  minutes,
+  seconds,
+};
 
 export const Default: StoryObj = {
   render: Template,
-  argTypes: { ...now },
-  args: { now: undefined },
+  argTypes: defaultArgTypes,
+  args: { hours: undefined, minutes: undefined, seconds: undefined },
 };
 
 export const Paused: StoryObj = {
   render: Template,
-  argTypes: { ...now },
-  args: { now: new Date('2023-01-24T10:10:30+01:00').valueOf() },
+  argTypes: defaultArgTypes,
+  args: { hours: 10, minutes: 10, seconds: 30 },
 };
 
 /**
@@ -37,7 +51,7 @@ export const Paused: StoryObj = {
  */
 if (isChromatic()) {
   Default.args = {
-    now: new Date('2023-01-24T10:10:30+01:00').valueOf(),
+    now: { hours: 10, minutes: 10, seconds: 30 },
   };
 }
 
