@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-tag renders unchecked - Dom"] = 
+snapshots["sbb-tag renders unchecked Dom"] = 
 `<sbb-tag
   aria-label="Check to remove filters"
   aria-pressed="false"
@@ -17,9 +17,9 @@ snapshots["sbb-tag renders unchecked - Dom"] =
   All
 </sbb-tag>
 `;
-/* end snapshot sbb-tag renders unchecked - Dom */
+/* end snapshot sbb-tag renders unchecked Dom */
 
-snapshots["sbb-tag renders unchecked - ShadowDom"] = 
+snapshots["sbb-tag renders unchecked ShadowDom"] = 
 `<span class="sbb-action-base sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
@@ -35,9 +35,9 @@ snapshots["sbb-tag renders unchecked - ShadowDom"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-tag renders unchecked - ShadowDom */
+/* end snapshot sbb-tag renders unchecked ShadowDom */
 
-snapshots["sbb-tag renders checked - Dom"] = 
+snapshots["sbb-tag renders checked Dom"] = 
 `<sbb-tag
   aria-pressed="true"
   checked=""
@@ -53,9 +53,9 @@ snapshots["sbb-tag renders checked - Dom"] =
   Info
 </sbb-tag>
 `;
-/* end snapshot sbb-tag renders checked - Dom */
+/* end snapshot sbb-tag renders checked Dom */
 
-snapshots["sbb-tag renders checked - ShadowDom"] = 
+snapshots["sbb-tag renders checked ShadowDom"] = 
 `<span class="sbb-action-base sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
@@ -71,9 +71,9 @@ snapshots["sbb-tag renders checked - ShadowDom"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-tag renders checked - ShadowDom */
+/* end snapshot sbb-tag renders checked ShadowDom */
 
-snapshots["sbb-tag renders disabled with icon and amount - Dom"] = 
+snapshots["sbb-tag renders disabled with icon and amount Dom"] = 
 `<sbb-tag
   amount="123"
   aria-disabled="true"
@@ -91,9 +91,9 @@ snapshots["sbb-tag renders disabled with icon and amount - Dom"] =
   Info
 </sbb-tag>
 `;
-/* end snapshot sbb-tag renders disabled with icon and amount - Dom */
+/* end snapshot sbb-tag renders disabled with icon and amount Dom */
 
-snapshots["sbb-tag renders disabled with icon and amount - ShadowDom"] = 
+snapshots["sbb-tag renders disabled with icon and amount ShadowDom"] = 
 `<span class="sbb-action-base sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
@@ -117,9 +117,9 @@ snapshots["sbb-tag renders disabled with icon and amount - ShadowDom"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-tag renders disabled with icon and amount - ShadowDom */
+/* end snapshot sbb-tag renders disabled with icon and amount ShadowDom */
 
-snapshots["sbb-tag renders slotted icon and amount - Dom"] = 
+snapshots["sbb-tag renders slotted icon and amount Dom"] = 
 `<sbb-tag
   aria-pressed="false"
   data-action=""
@@ -145,9 +145,9 @@ snapshots["sbb-tag renders slotted icon and amount - Dom"] =
   </span>
 </sbb-tag>
 `;
-/* end snapshot sbb-tag renders slotted icon and amount - Dom */
+/* end snapshot sbb-tag renders slotted icon and amount Dom */
 
-snapshots["sbb-tag renders slotted icon and amount - ShadowDom"] = 
+snapshots["sbb-tag renders slotted icon and amount ShadowDom"] = 
 `<span class="sbb-action-base sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
@@ -163,7 +163,7 @@ snapshots["sbb-tag renders slotted icon and amount - ShadowDom"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-tag renders slotted icon and amount - ShadowDom */
+/* end snapshot sbb-tag renders slotted icon and amount ShadowDom */
 
 snapshots["sbb-tag A11y tree Chrome"] = 
 `<p>
