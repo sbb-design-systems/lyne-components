@@ -14,7 +14,10 @@ snapshots["sbb-step renders - Dom"] =
 
 snapshots["sbb-step renders - ShadowDom"] = 
 `<div class="sbb-step--wrapper">
-  <div class="sbb-step">
+  <div
+    class="sbb-step"
+    tabindex="0"
+  >
     <slot>
     </slot>
   </div>

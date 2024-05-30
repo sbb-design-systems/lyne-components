@@ -292,7 +292,7 @@ describe('sbb-stepper', () => {
     expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
 
     await sendKeys({ down: 'Tab' });
-    expect(document.activeElement!.id).to.be.equal('next-button-1');
+    expect(document.activeElement!.id).to.be.equal(stepLabelOne.step!.id);
   });
 
   it('sets the correct aria-labelledby attributes', async () => {

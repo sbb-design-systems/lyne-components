@@ -111,11 +111,11 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
                     input.classList.add('sbb-invalid');
                   }
                 }}
+                required
                 placeholder="Your name"
                 name="name"
-                class="sbb-invalid"
+                value="Christina Müller"
               />
-              ${sbbFormError}
             </sbb-form-field>
           </div>
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
@@ -155,7 +155,9 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
 
         <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
         <sbb-step>
-          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">You are now done.</div>
+          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)" aria-live="polite">
+            You are now done.
+          </div>
           <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
           <sbb-button type="submit" size="m" sbb-stepper-next>Submit</sbb-button>
           <sbb-block-link-button
@@ -218,9 +220,10 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
                     input.classList.add('sbb-invalid');
                   }
                 }}
+                required
                 placeholder="Your name"
                 name="name"
-                class="sbb-invalid"
+                value="Christina Müller"
               />
               ${sbbFormError}
             </sbb-form-field>
@@ -264,7 +267,9 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
 
       <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
       <sbb-step>
-        <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">You are now done.</div>
+        <div style="margin-block-end: var(--sbb-spacing-fixed-4x)" aria-live="polite">
+          You are now done.
+        </div>
         <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
         <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
         <sbb-block-link-button

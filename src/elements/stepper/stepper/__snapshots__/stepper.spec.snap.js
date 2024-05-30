@@ -134,7 +134,7 @@ snapshots["sbb-stepper A11y tree Chrome"] =
       "name": "Test step label 4"
     },
     {
-      "role": "text",
+      "role": "generic",
       "name": "Test step content 1"
     }
   ]

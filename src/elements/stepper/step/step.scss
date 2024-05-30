@@ -56,6 +56,7 @@
   @include sbb.text-m--regular;
 
   position: var(--sbb-step-position);
+  width: 100%;
   inset-block-start: var(--sbb-step-inset-block-start);
   opacity: var(--sbb-step-opacity);
   visibility: var(--sbb-step-visibility);
@@ -66,5 +67,11 @@
     duration: var(--sbb-step-animation-duration);
     delay: var(--sbb-step-animation-delay);
     timing-function: var(--sbb-animation-easing);
+  }
+
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-border-radius-1x);
   }
 }

@@ -101,6 +101,7 @@ export class SbbStepperElement extends LitElement {
       this.querySelectorAll('form').forEach((form) => form.reset());
     }
     this.selectedIndex = 0;
+    this.selected?.label?.focus();
   }
 
   private _loaded: boolean = false;

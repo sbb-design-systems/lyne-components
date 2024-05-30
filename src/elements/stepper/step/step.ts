@@ -167,6 +167,7 @@ export class SbbStepElement extends LitElement {
       <div class="sbb-step--wrapper">
         <div
           class="sbb-step"
+          tabindex="0"
           ${ref((step) => step && this._stepResizeObserver.observe(step as HTMLElement))}
         >
           <slot></slot>
