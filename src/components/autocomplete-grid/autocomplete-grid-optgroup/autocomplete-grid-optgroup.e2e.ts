@@ -24,7 +24,10 @@ describe(`sbb-autocomplete-grid-optgroup with ${fixture.name}`, () => {
               >Option 1</sbb-autocomplete-grid-option
             >
             <sbb-autocomplete-grid-cell>
-              <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+              <sbb-autocomplete-grid-button
+                icon-name="pen-small"
+                id="button-1"
+              ></sbb-autocomplete-grid-button>
             </sbb-autocomplete-grid-cell>
           </sbb-autocomplete-grid-row>
           <sbb-autocomplete-grid-row>
@@ -55,6 +58,7 @@ describe(`sbb-autocomplete-grid-optgroup with ${fixture.name}`, () => {
 
   it('disabled status is inherited', async () => {
     const optionOne = element.querySelector('sbb-autocomplete-grid-option#option-1');
+    const buttonOne = element.querySelector('sbb-autocomplete-grid-button#button-1');
     const optionTwo = element.querySelector('sbb-autocomplete-grid-option#option-2');
     const optionThree = element.querySelector('sbb-autocomplete-grid-option#option-3');
     element.setAttribute('disabled', '');
@@ -62,12 +66,14 @@ describe(`sbb-autocomplete-grid-optgroup with ${fixture.name}`, () => {
 
     expect(element).to.have.attribute('disabled');
     expect(optionOne).to.have.attribute('data-group-disabled');
+    expect(buttonOne).to.have.attribute('data-group-disabled');
     expect(optionTwo).to.have.attribute('data-group-disabled');
     expect(optionTwo).to.have.attribute('disabled');
     expect(optionThree).to.have.attribute('data-group-disabled');
 
     element.removeAttribute('disabled');
     await waitForLitRender(element);
+    expect(buttonOne).not.to.have.attribute('data-group-disabled');
     expect(optionTwo).not.to.have.attribute('data-group-disabled');
     expect(optionTwo).to.have.attribute('disabled');
   });

@@ -84,7 +84,7 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
 
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
-    this._onOptionAttributesChange(mutationsList),
+    this.onOptionAttributesChange(mutationsList),
   );
 
   public constructor() {
@@ -168,7 +168,7 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
   }
 
   /** Observe changes on data attributes and set the appropriate values. */
-  private _onOptionAttributesChange(mutationsList: MutationRecord[]): void {
+  protected onOptionAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
         this.disabledFromGroup = this.hasAttribute('data-group-disabled');

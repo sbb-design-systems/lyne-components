@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 
 import { SbbMiniButtonBaseElement } from '../../core/base-elements.js';
 import { hostAttributes } from '../../core/decorators.js';
@@ -38,7 +38,11 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
   }
 
   /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
-  @state() private _disabledFromGroup = false;
+  private _disabledFromGroup = false;
+
+  protected override isDisabledExternally(): boolean {
+    return this._disabledFromGroup ?? false;
+  }
 
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>

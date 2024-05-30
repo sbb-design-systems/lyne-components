@@ -44,6 +44,14 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     SbbAutocompleteGridOptionElement.events.optionSelected,
   );
 
+  protected override onOptionAttributesChange(mutationsList: MutationRecord[]): void {
+    super.onOptionAttributesChange(mutationsList);
+    this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
+      'data-disabled',
+      this.disabled || this.disabledFromGroup,
+    );
+  }
+
   public override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
@@ -66,10 +74,7 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
       this.disabled || this.disabledFromGroup,
     );
 
-    this.negative = !!this.closest(
-      // :is() selector not possible due to test environment
-      `sbb-autocomplete-grid[negative],sbb-form-field[negative]`,
-    );
+    this.negative = !!this.closest(`:is(sbb-autocomplete-grid[negative],sbb-form-field[negative])`);
     this.toggleAttribute('data-negative', this.negative);
   }
 
