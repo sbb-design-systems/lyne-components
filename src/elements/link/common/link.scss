@@ -7,6 +7,10 @@
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
+
+  @include sbb.if-forced-colors {
+    text-decoration: underline;
+  }
 }
 
 :host([role='button']) {
