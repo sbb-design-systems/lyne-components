@@ -132,7 +132,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "rollup-plugin-postcss-lit": "2.1.0",
-    "sass": "1.77.2",
+    "sass": "1.77.3",
     "sinon": "18.0.0",
     "storybook": "8.1.4",
     "stylelint": "16.6.1",
