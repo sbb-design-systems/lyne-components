@@ -59,10 +59,3 @@ slot[name='subtext'] {
   // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
   line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
 }
-
-.sbb-checkbox__expanded-label {
-  :host(:not([data-is-selection-expansion-panel-input][data-has-selection-expansion-panel-label]))
-    & {
-    display: none;
-  }
-}
