@@ -19,7 +19,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-stepper/sbb-step',
+  title: 'elements/sbb-stepper/sbb-step',
 };
 
 export default meta;
