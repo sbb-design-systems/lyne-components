@@ -1,5 +1,5 @@
 The `sbb-autocomplete-grid-option` is a component which can be used to display items in the
-[sbb-autocomplete-grid](/docs/components-sbb-autocomplete-sbb-autocomplete-grid--docs).
+[sbb-autocomplete-grid](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid--docs).
 
 ```html
 <sbb-form-field label="Label">

@@ -1,7 +1,7 @@
-The `sbb-optgroup` is a component used to group more [sbb-autocomplete-grid-option](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs)
-within a [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
+The `sbb-optgroup` is a component used to group more [sbb-autocomplete-grid-option](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs)
+within a [sbb-autocomplete-grid](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
 
-A [sbb-divider](/docs/components-sbb-divider--docs) is displayed at the bottom of the component.
+A [sbb-divider](/docs/elements-sbb-divider--docs) is displayed at the bottom of the component.
 
 ```html
 <sbb-form-field label="Label">

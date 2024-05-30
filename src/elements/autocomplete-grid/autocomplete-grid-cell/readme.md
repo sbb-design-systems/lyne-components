@@ -1,6 +1,6 @@
-The `sbb-autocomplete-grid-cell` component wraps one [sbb-autocomplete-grid-button](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-button--docs)
-inside a [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
-To properly work, it must be used within a [sbb-autocomplete-grid-row](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-row--docs).
+The `sbb-autocomplete-grid-cell` component wraps one [sbb-autocomplete-grid-button](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-button--docs)
+inside a [sbb-autocomplete-grid](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
+To properly work, it must be used within a [sbb-autocomplete-grid-row](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-row--docs).
 
 ```html
 <sbb-form-field label="Label">

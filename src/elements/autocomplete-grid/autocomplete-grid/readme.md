@@ -1,15 +1,15 @@
 The `sbb-autocomplete-grid` is a component that can be used to display a panel of suggested options connected to a text input,
 with each option connected to one or more buttons.
 Use it when you need an autocomplete in which every selectable option in the panel needs one or more related button.
-If you don't need actions, use the [sbb-autocomplete](/docs/components-sbb-autocomplete---docs).
+If you don't need actions, use the [sbb-autocomplete](/docs/elements-sbb-autocomplete---docs).
 
 The component is strictly connected to:
 
-- the [sbb-autocomplete-grid-row](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-row--docs), which is a wrapper for both option and buttons;
-- the [sbb-autocomplete-grid-option](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-option--docs), which displays a selectable option within a panel;
-- the [sbb-autocomplete-grid-cell](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-cell--docs), which is a wrapper a for button element;
-- the [sbb-autocomplete-grid-button](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-button--docs), which displays a button within a row;
-- the [sbb-autocomplete-grid-optgroup](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-optgroup--docs), which can be used to group more row within a group.
+- the [sbb-autocomplete-grid-row](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-row--docs), which is a wrapper for both option and buttons;
+- the [sbb-autocomplete-grid-option](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-option--docs), which displays a selectable option within a panel;
+- the [sbb-autocomplete-grid-cell](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-cell--docs), which is a wrapper a for button element;
+- the [sbb-autocomplete-grid-button](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-button--docs), which displays a button within a row;
+- the [sbb-autocomplete-grid-optgroup](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-optgroup--docs), which can be used to group more row within a group.
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
 and the input which will work as a trigger using the `trigger` prop.
@@ -40,7 +40,7 @@ Both accept an id or an element reference.
 
 ## In `sbb-form-field`
 
-If the component is used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs),
+If the component is used within a [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs),
 it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `sbb-form-field`.
 
 ```html
@@ -72,7 +72,7 @@ it will automatically connect to the native `<input>` as trigger and will displa
 
 By default, the `sbb-autocomplete-grid` will highlight the label of the `sbb-autocomplete-grid-option` in the panel,
 if it matches the typed text.
-See the [sbb-autocomplete-grid-option](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs) for more details.
+See the [sbb-autocomplete-grid-option](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs) for more details.
 
 ### Option grouping
 

@@ -1,6 +1,6 @@
-The `sbb-autocomplete-grid-button` component has the same appearance of a [sbb-mini-button](/docs/components-sbb-button-sbb-mini-button--docs),
-but it's only designed to be used within the [sbb-autocomplete-grid-cell](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-cell--docs)
-inside a [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
+The `sbb-autocomplete-grid-button` component has the same appearance of a [sbb-mini-button](/docs/elements-sbb-button-sbb-mini-button--docs),
+but it's only designed to be used within the [sbb-autocomplete-grid-cell](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-cell--docs)
+inside a [sbb-autocomplete-grid](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
 
 ```html
 <sbb-form-field label="Label">
@@ -62,7 +62,7 @@ The component can be displayed in `disabled` state using the self-named property
 <sbb-autocomplete-grid-button icon-name="pen-small" disabled></sbb-autocomplete-grid-button>
 ```
 
-If the component is used within a [sbb-autocomplete-grid-optgroup](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-optgroup--docs),
+If the component is used within a [sbb-autocomplete-grid-optgroup](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-optgroup--docs),
 it can be disabled by disabling the optgroup.
 
 ## Interactions

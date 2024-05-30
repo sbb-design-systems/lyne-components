@@ -67,7 +67,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-autocomplete-grid/sbb-autocomplete-grid-row',
+  title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid-row',
 };
 
 export default meta;

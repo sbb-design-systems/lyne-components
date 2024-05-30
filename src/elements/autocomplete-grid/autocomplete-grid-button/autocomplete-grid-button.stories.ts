@@ -194,7 +194,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-autocomplete-grid/sbb-autocomplete-grid-button',
+  title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid-button',
 };
 
 export default meta;

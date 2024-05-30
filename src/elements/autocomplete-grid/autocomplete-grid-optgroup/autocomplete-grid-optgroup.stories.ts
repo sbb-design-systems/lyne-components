@@ -148,7 +148,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-autocomplete-grid/sbb-autocomplete-grid-optgroup',
+  title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid-optgroup',
 };
 
 export default meta;

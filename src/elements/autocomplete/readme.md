@@ -1,6 +1,6 @@
 The `sbb-autocomplete` is a component that can be used to display a panel of suggested options connected to a text input.
 Use it when you need a basic autocomplete: a panel with a list of selectable and possibly grouped options.
-If you need buttons connected to the options, use the [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
+If you need buttons connected to the options, use the [sbb-autocomplete-grid](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
 and the input which will work as a trigger using the `trigger` prop.

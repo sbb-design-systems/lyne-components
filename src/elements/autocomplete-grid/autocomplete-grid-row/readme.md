@@ -1,6 +1,6 @@
-The `sbb-autocomplete-grid-row` is a wrapper for both [sbb-autocomplete-grid-option](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs)
-and [sbb-autocomplete-grid-cell](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-cell--docs) within the
-[sbb-autocomplete-grid](/docs/components-sbb-autocomplete-sbb-autocomplete-grid--docs) component.
+The `sbb-autocomplete-grid-row` is a wrapper for both [sbb-autocomplete-grid-option](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs)
+and [sbb-autocomplete-grid-cell](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-cell--docs) within the
+[sbb-autocomplete-grid](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid--docs) component.
 
 ```html
 <sbb-form-field label="Label">
