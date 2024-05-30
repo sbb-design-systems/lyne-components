@@ -40,7 +40,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/__name__',
+  title: 'elements/__name__',
 };
 
 export default meta;

@@ -5,14 +5,14 @@ import { screenshots } from '../../screenshots.js';
 
 import style from './overview.scss?lit&inline';
 
-import '../../../../components/accordion.js';
-import '../../../../components/button/secondary-button-link.js';
-import '../../../../components/card.js';
-import '../../../../components/container.js';
-import '../../../../components/expansion-panel.js';
-import '../../../../components/link-list.js';
-import '../../../../components/link/block-link.js';
-import '../../../../components/title.js';
+import '@sbb-esta/lyne-elements/accordion.js';
+import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
+import '@sbb-esta/lyne-elements/card.js';
+import '@sbb-esta/lyne-elements/container.js';
+import '@sbb-esta/lyne-elements/expansion-panel.js';
+import '@sbb-esta/lyne-elements/link-list.js';
+import '@sbb-esta/lyne-elements/link/block-link.js';
+import '@sbb-esta/lyne-elements/title.js';
 
 /**
  * Overview over all tests

@@ -2,9 +2,9 @@ import { join, relative } from 'path';
 import { existsSync, mkdirSync, promises, readFileSync, Stats, writeFileSync } from 'fs';
 
 const config = {
-  boilerplateComponentName: 'component',
+  boilerplateComponentName: 'elements',
   boilerplateDirectory: 'tools/generate-component/boilerplate',
-  sourceDirectory: 'src/components',
+  sourceDirectory: 'src/elements',
 };
 
 function convertKebabCaseToPascalCase(componentName: string): string {
