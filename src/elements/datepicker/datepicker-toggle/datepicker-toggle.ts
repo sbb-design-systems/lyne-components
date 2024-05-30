@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -129,8 +129,9 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
     if (!calendar || !datepicker) {
       return;
     }
-    calendar.wide = datepicker?.wide;
-    calendar.dateFilter = datepicker?.dateFilter;
+    calendar.wide = datepicker.wide;
+    calendar.now = this._nowOrUndefined();
+    calendar.dateFilter = datepicker.dateFilter;
   }
 
   private _datePickerChanged(event: Event): void {
@@ -155,19 +156,14 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
     this._calendarElement.resetPosition();
   }
 
-  private _now(): Date | undefined {
-    if (this._datePickerElement?.now) {
-      const today = new Date(this._datePickerElement.now);
-      today.setHours(0, 0, 0, 0);
-      return today;
-    }
-    return undefined;
-  }
-
   protected override updated(changedProperties: PropertyValues<this>): void {
     super.updated(changedProperties);
 
     this._popoverElement.trigger = this._triggerElement;
+  }
+
+  private _nowOrUndefined(): Date | undefined {
+    return this._datePickerElement?.hasCustomNow ? this._datePickerElement.now : undefined;
   }
 
   protected override render(): TemplateResult {
@@ -191,9 +187,9 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
         ${ref((el?: Element) => (this._popoverElement = el as SbbPopoverElement))}
       >
         <sbb-calendar
-          now=${this._now()?.valueOf() || nothing}
           .min=${this._min}
           .max=${this._max}
+          .now=${this._nowOrUndefined()}
           ?wide=${this._datePickerElement?.wide}
           .dateFilter=${this._datePickerElement?.dateFilter}
           @dateSelected=${(d: CustomEvent<Date>) => {

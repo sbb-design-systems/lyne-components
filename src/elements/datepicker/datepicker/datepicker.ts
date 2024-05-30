@@ -4,13 +4,11 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { readConfig } from '../../core/config.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
-import { type DateAdapter } from '../../core/datetime.js';
-import { defaultDateAdapter } from '../../core/datetime.js';
+import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { findInput, findReferencedElement } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
-import { SbbNowMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
 import type { SbbDatepickerButton } from '../common.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
@@ -166,7 +164,7 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
  * @event {CustomEvent<SbbValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
 @customElement('sbb-datepicker')
-export class SbbDatepickerElement extends SbbNowMixin(LitElement) {
+export class SbbDatepickerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -191,6 +189,17 @@ export class SbbDatepickerElement extends SbbNowMixin(LitElement) {
 
   /** Reference of the native input connected to the datepicker. */
   @property() public input?: string | HTMLElement;
+
+  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  @property()
+  public set now(value: SbbDateLike<T> | undefined) {
+    const date = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+    this._now = date ? new Date(date.setHours(0, 0, 0, 0)) : null;
+  }
+  public get now(): T {
+    return this._now ?? this._dateAdapter.today();
+  }
+  private _now?: T | null;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -245,13 +254,6 @@ export class SbbDatepickerElement extends SbbNowMixin(LitElement) {
       this._inputElement = findInput(this, this.input);
     }
   }
-
-  private _datepickerPropChanged(newValue: any, oldValue: any): void {
-    if (newValue !== oldValue) {
-      this._datePickerUpdated.emit();
-    }
-  }
-
   private _registerInputElement(
     newValue: HTMLInputElement | null,
     oldValue: HTMLInputElement | null,
@@ -306,6 +308,14 @@ export class SbbDatepickerElement extends SbbNowMixin(LitElement) {
       frameworks that rely on that event to update form status. */
       this._inputElement.dispatchEvent(new Event('blur', { composed: true }));
     }
+  }
+
+  /**
+   * @internal
+   * Whether a custom now is configured.
+   */
+  public hasCustomNow(): boolean {
+    return !!this._now;
   }
 
   private _onInputPropertiesChange(mutationsList?: MutationRecord[]): void {
@@ -367,8 +377,12 @@ export class SbbDatepickerElement extends SbbNowMixin(LitElement) {
     if (changedProperties.has('input')) {
       this._findInput(this.input!, changedProperties.get('input')!);
     }
-    if (changedProperties.has('wide') || changedProperties.has('dateFilter')) {
-      this._datepickerPropChanged(this.wide, changedProperties.get('wide'));
+    if (
+      changedProperties.has('wide') ||
+      changedProperties.has('dateFilter') ||
+      changedProperties.has('now')
+    ) {
+      this._datePickerUpdated.emit();
     }
   }
 
@@ -456,18 +470,8 @@ export class SbbDatepickerElement extends SbbNowMixin(LitElement) {
     return value;
   }
 
-  /**
-   * @internal
-   * Returns current date or configured date.
-   */
-  public getNow(): Date {
-    const today = new Date(this.dateNow);
-    today.setHours(0, 0, 0, 0);
-    return today;
-  }
-
   private _parse(value: string): Date | undefined {
-    return this.dateParser ? this.dateParser(value) : this._dateAdapter.parse(value, this.getNow());
+    return this.dateParser ? this.dateParser(value) : this._dateAdapter.parse(value, this.now);
   }
 
   private _format(date: Date): string {

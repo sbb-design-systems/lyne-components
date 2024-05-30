@@ -8,7 +8,6 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import type { SbbTime } from '../core/interfaces/types.js';
 
-
 import readme from './readme.md?raw';
 
 import './clock.js';

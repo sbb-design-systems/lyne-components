@@ -21,7 +21,7 @@ It's recommended to set the time to 00:00:00.
 ```
 
 To simulate the current datetime, you can use the `now` property,
-which accepts a `Date` or a timestamp in milliseconds (as number or string).
+which accepts a `Date` or a timestamp in seconds (as number or string).
 This is helpful if you need a specific state of the component.
 
 ## Style
@@ -63,14 +63,14 @@ For accessibility purposes, the component is rendered as a native table element 
 
 ## Properties
 
-| Name         | Attribute     | Privacy | Type                                        | Default | Description                                                                                                  |
-| ------------ | ------------- | ------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| `dateFilter` | `date-filter` | public  | `(date: T \| null) => boolean \| undefined` |         | A function used to filter out dates.                                                                         |
-| `max`        | `max`         | public  | `T \| null`                                 |         | The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
-| `min`        | `min`         | public  | `T \| null`                                 |         | The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
-| `now`        | `now`         | public  | `number \| undefined`                       |         | A specific date for the current datetime (timestamp in milliseconds).                                        |
-| `selected`   | `selected`    | public  | `T \| null`                                 |         | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |
-| `wide`       | `wide`        | public  | `boolean`                                   | `false` | If set to true, two months are displayed                                                                     |
+| Name         | Attribute     | Privacy | Type                                        | Default | Description                                                                                                          |
+| ------------ | ------------- | ------- | ------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
+| `dateFilter` | `date-filter` | public  | `(date: T \| null) => boolean \| undefined` |         | A function used to filter out dates.                                                                                 |
+| `max`        | `max`         | public  | `T \| null`                                 |         | The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).         |
+| `min`        | `min`         | public  | `T \| null`                                 |         | The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).         |
+| `now`        | `now`         | public  | `T`                                         |         | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. |
+| `selected`   | `selected`    | public  | `T \| null`                                 |         | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).              |
+| `wide`       | `wide`        | public  | `boolean`                                   | `false` | If set to true, two months are displayed                                                                             |
 
 ## Methods
 

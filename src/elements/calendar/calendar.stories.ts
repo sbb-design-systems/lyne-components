@@ -12,7 +12,7 @@ import { defaultDateAdapter } from '../core/datetime.js';
 import { SbbCalendarElement } from './calendar.js';
 import readme from './readme.md?raw';
 
-const getCalendarAttr = (min: Date | string, max: Date | string): Record<string, string> => {
+const getCalendarAttr = (min: number | string, max: number | string): Record<string, string> => {
   const attr: Record<string, string> = {};
   if (min) {
     attr.min = defaultDateAdapter.toIso8601(new Date(min));
@@ -23,9 +23,10 @@ const getCalendarAttr = (min: Date | string, max: Date | string): Record<string,
   return attr;
 };
 
-const Template = ({ min, max, selected, dateFilter, ...args }: Args): TemplateResult => html`
+const Template = ({ min, max, selected, dateFilter, now, ...args }: Args): TemplateResult => html`
   <sbb-calendar
     .selected=${new Date(selected)}
+    .now=${new Date(now)}
     .dateFilter=${dateFilter}
     ${sbbSpread(getCalendarAttr(min, max))}
     ${sbbSpread(args)}
@@ -37,11 +38,13 @@ const TemplateDynamicWidth = ({
   max,
   selected,
   dateFilter,
+  now,
   ...args
 }: Args): TemplateResult => html`
   <sbb-calendar
     style=${styleMap({ width: '900px' })}
     .selected=${new Date(selected)}
+    .now=${new Date(now)}
     .dateFilter=${dateFilter}
     ${sbbSpread(getCalendarAttr(min, max))}
     ${sbbSpread(args)}
@@ -133,7 +136,7 @@ today.setDate(today.getDate() >= 15 ? 8 : 18);
 const defaultArgs: Args = {
   wide: false,
   selected: isChromatic() ? new Date(2023, 0, 20) : today,
-  dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
+  now: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 
 export const Calendar: StoryObj = {

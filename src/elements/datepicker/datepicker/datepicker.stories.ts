@@ -274,15 +274,8 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const getInputAttributes = (min?: Date | string, max?: Date | string): Record<string, number> => {
-  const attr: Record<string, number> = {};
-  if (min) {
-    attr.min = new Date(min).getTime() / 1000;
-  }
-  if (max) {
-    attr.max = new Date(max).getTime() / 1000;
-  }
-  return attr;
+const convertMillisecondsToSeconds = (milliseconds: number): number | nothing => {
+  return milliseconds ? milliseconds / 1000 : nothing;
 };
 
 // Story interaction executed after the story renders
@@ -316,14 +309,19 @@ const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateR
     <div style=${styleMap({ display: 'flex', gap: '0.25rem' })}>
       <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
       <sbb-datepicker-toggle date-picker="datepicker" data-testid="toggle"></sbb-datepicker-toggle>
-      <input ${sbbSpread(args)} id="datepicker-input" ${sbbSpread(getInputAttributes(min, max))} />
+      <input
+        ${sbbSpread(args)}
+        id="datepicker-input"
+        min=${convertMillisecondsToSeconds(min)}
+        max=${convertMillisecondsToSeconds(max)}
+      />
       <sbb-datepicker
         id="datepicker"
         input="datepicker-input"
         .dateFilter=${dateFilter}
         ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        now=${now}
+        now=${convertMillisecondsToSeconds(now)}
       ></sbb-datepicker>
       <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
     </div>
@@ -362,14 +360,18 @@ const TemplateFormField = ({
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-datepicker-next-day></sbb-datepicker-next-day>
       <sbb-datepicker-toggle data-testid="toggle"></sbb-datepicker-toggle>
-      <input ${sbbSpread(args)} ${sbbSpread(getInputAttributes(min, max))} />
+      <input
+        ${sbbSpread(args)}
+        min=${convertMillisecondsToSeconds(min)}
+        max=${convertMillisecondsToSeconds(max)}
+      />
       <sbb-datepicker
         .dateFilter=${dateFilter}
         .dateParser=${dateHandling.dateParser}
         .format=${dateHandling.format}
         ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        now=${now}
+        now=${convertMillisecondsToSeconds(now)}
       ></sbb-datepicker>
     </sbb-form-field>
     <div

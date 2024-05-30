@@ -86,7 +86,7 @@ export class SbbClockElement extends LitElement {
   /** Move the minutes hand every minute. */
   private _handMovement?: ReturnType<typeof setInterval>;
 
-  protected override willUpdate(changedProperties: PropertyValues) {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('now')) {
