@@ -3,21 +3,21 @@ import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../components/button.js';
-import '../../../components/card.js';
-import '../../../components/clock.js';
-import '../../../components/divider.js';
-import '../../../components/footer.js';
-import '../../../components/icon.js';
-import '../../../components/header.js';
-import '../../../components/logo.js';
-import '../../../components/link.js';
-import '../../../components/link-list.js';
-import '../../../components/menu.js';
-import '../../../components/navigation.js';
-import '../../../components/skiplink-list.js';
-import '../../../components/teaser-hero.js';
-import '../../../components/title.js';
+import '../../../elements/button.js';
+import '../../../elements/card.js';
+import '../../../elements/clock.js';
+import '../../../elements/divider.js';
+import '../../../elements/footer.js';
+import '../../../elements/icon.js';
+import '../../../elements/header.js';
+import '../../../elements/logo.js';
+import '../../../elements/link.js';
+import '../../../elements/link-list.js';
+import '../../../elements/menu.js';
+import '../../../elements/navigation.js';
+import '../../../elements/skiplink-list.js';
+import '../../../elements/teaser-hero.js';
+import '../../../elements/title.js';
 import { sbbSpread } from '../../helpers/spread.js';
 
 export const skiplinkList = (): TemplateResult => html`
