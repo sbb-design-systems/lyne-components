@@ -103,6 +103,18 @@ export const Checked: StoryObj = {
   args: { ...defaultArgs, checked: true },
 };
 
+export const SizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
+};
+
+export const Milk: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![1] },
+};
+
 export const Disabled: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,

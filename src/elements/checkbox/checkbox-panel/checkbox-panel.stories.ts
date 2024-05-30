@@ -165,6 +165,18 @@ export const DefaultIndeterminate: StoryObj = {
   args: { ...defaultArgs, indeterminate: true },
 };
 
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
+};
+
+export const Milk: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![1] },
+};
+
 export const disabledChecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,

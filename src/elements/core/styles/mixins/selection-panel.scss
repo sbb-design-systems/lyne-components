@@ -3,7 +3,7 @@
 @mixin selection-panel-variables {
   --sbb-selection-panel-background: var(
     --sbb-selection-expansion-panel-inner-background,
-    --sbb-color-white
+    var(--sbb-color-white)
   );
   --sbb-selection-panel-border-color: var(--sbb-color-cloud);
   --sbb-selection-panel-border-radius: var(--sbb-border-radius-4x);
@@ -20,7 +20,7 @@
 @mixin selection-panel-milk-variables {
   --sbb-selection-panel-background: var(
     --sbb-selection-expansion-panel-inner-background,
-    --sbb-color-milk
+    var(--sbb-color-milk)
   );
 }
 
