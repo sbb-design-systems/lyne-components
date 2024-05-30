@@ -2,6 +2,7 @@ import type { Args } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { nothing } from 'lit/html.js';
 
 import '../../../elements/button.js';
 import '../../../elements/card.js';
@@ -18,7 +19,6 @@ import '../../../elements/navigation.js';
 import '../../../elements/skiplink-list.js';
 import '../../../elements/teaser-hero.js';
 import '../../../elements/title.js';
-import { sbbSpread } from '../../helpers/spread.js';
 
 export const skiplinkList = (): TemplateResult => html`
   <sbb-skiplink-list title-level="2" title-content="Skip to">
@@ -310,9 +310,7 @@ export const footer = (args: Args): TemplateResult => html`
         Subscribe
       </sbb-secondary-button-link>
     </div>
-    <sbb-clock
-      ${sbbSpread(isChromatic() ? { now: new Date('2023-01-24T02:59:27+01:00').valueOf() } : {})}
-    ></sbb-clock>
+    <sbb-clock now=${isChromatic() ? '02:59:27' : nothing}></sbb-clock>
     <sbb-divider ?negative=${args.negative}></sbb-divider>
     <sbb-link-list horizontal-from="large" ?negative=${args.negative}>
       <sbb-block-link
