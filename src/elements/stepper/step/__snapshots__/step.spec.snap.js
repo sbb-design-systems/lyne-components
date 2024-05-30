@@ -45,13 +45,3 @@ snapshots["sbb-step A11y tree Firefox"] =
 `;
 /* end snapshot sbb-step A11y tree Firefox */
 
-snapshots["sbb-step A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-step A11y tree Safari */
-
