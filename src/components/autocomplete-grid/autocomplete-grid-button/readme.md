@@ -87,9 +87,15 @@ It's possible to fetch the button's related `sbb-autocomplete-grid-option` using
 </sbb-form-field>
 
 <script>
-  const getOptionFromButton = (): SbbAutocompleteGridOptionElement => {
+  // get option
+  const getOptionFromButton: () => SbbAutocompleteGridOptionElement = () => {
     return document.getElementById('button').option;
-  };
+  }
+  // get option from click event
+  document.getElementById('button').addEventListener('click', (evt) => {
+    const btn = evt.target as SbbAutocompleteGridButtonElement;
+    console.log(`Button clicked on row ${btn.option.textContent} with value: '${btn.option.value}'`);
+  });
 </script>
 ```
 
