@@ -1,6 +1,6 @@
-The `sbb-checkbox-group` component is used as a container for one or multiple
-[sbb-checkbox](/docs/components-sbb-checkbox-sbb-checkbox--docs) components,
-or, alternatively, for a collection of [sbb-selection-expansion-panel](/docs/components-sbb-selection-expansion-panel--docs).
+The `sbb-checkbox-group` component is used as a container for a collection of either
+[sbb-checkbox](/docs/elements-sbb-checkbox-sbb-checkbox--docs)s, [sbb-checkbox-panel](/docs/elements-sbb-checkbox-sbb-checkbox-panel--docs)s,
+or [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel--docs).
 
 ```html
 <sbb-checkbox-group>
