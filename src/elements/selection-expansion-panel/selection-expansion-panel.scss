@@ -16,7 +16,7 @@ $open-anim-opacity-to: 1;
   --sbb-selection-expansion-panel-inner-background: transparent;
   --sbb-selection-expansion-panel-inner-border-width: 0px;
   --sbb-selection-expansion-panel-animation-duration: var(
-    --sbb-disable-animation-time,
+    --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-4x)
   );
   --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-1x);

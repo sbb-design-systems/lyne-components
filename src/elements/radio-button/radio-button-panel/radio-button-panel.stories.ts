@@ -5,8 +5,10 @@ import { html, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbRadioButtonPanelElement } from './radio-button-panel.js';
 import readme from './readme.md?raw';
+
+import '../../icon.js';
+import '../radio-button-panel.js';
 
 const value: InputType = {
   control: {
@@ -86,7 +88,16 @@ const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>
     <span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto;">
       <span style="display:flex;align-items:center;">
-        <span class="sbb-text-m sbb-text--bold"> Suffix </span>
+        <sbb-icon
+          name="diamond-small"
+          style="margin-inline: var(--sbb-spacing-fixed-2x);"
+          data-namespace="default"
+          role="img"
+          aria-hidden="true"
+        ></sbb-icon>
+        <span class="sbb-text-m sbb-text--bold">
+          <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
+        </span>
       </span>
     </span>
   </sbb-radio-button-panel>`;
@@ -145,12 +156,6 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    actions: {
-      handles: [
-        SbbRadioButtonPanelElement.events.radioButtonLoaded,
-        SbbRadioButtonPanelElement.events.stateChange,
-      ],
-    },
     backgrounds: {
       disable: true,
     },

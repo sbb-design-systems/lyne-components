@@ -16,7 +16,6 @@ import { SbbSelectionExpansionPanelElement } from '../selection-expansion-panel.
 
 import '../card.js';
 import '../checkbox.js';
-import '../checkbox/checkbox-panel.js';
 import '../divider.js';
 import '../form-error.js';
 import '../icon.js';

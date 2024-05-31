@@ -22,4 +22,6 @@ describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
       assert.instanceOf(element, SbbCheckboxPanelElement);
     });
   });
+
+  // All the functionalities of sbb-checkbox-panel are tested in checkbox-common.e2e.ts file
 });

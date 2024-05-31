@@ -10,11 +10,11 @@ import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
 
 /**
  /**
- * It displays a radio button enhanced with the selection panel design.
+ * It displays a radio button enhanced with the panel design.
  *
  * @slot - Use the unnamed slot to add content to the radio label.
- * @slot subtext - Slot used to render a subtext under the label (only visible within a `sbb-selection-expansion-panel`).
- * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-expansion-panel`).
+ * @slot subtext - Slot used to render a subtext under the label.
+ * @slot suffix - Slot used to render additional content after the label.
  */
 @customElement('sbb-radio-button-panel')
 export class SbbRadioButtonPanelElement extends SbbPanelMixin(

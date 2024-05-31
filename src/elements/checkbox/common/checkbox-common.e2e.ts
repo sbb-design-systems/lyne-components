@@ -20,21 +20,16 @@ interface CheckboxAccessibilitySnapshot {
   required: boolean;
 }
 
-describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
+describe(`sbb-checkbox-panel`, () => {
   ['sbb-checkbox', 'sbb-checkbox-panel'].forEach((selector) => {
     const tagSingle = unsafeStatic(selector);
 
     describe('general', () => {
-      let element: SbbCheckboxPanelElement;
+      let element: SbbCheckboxElement | SbbCheckboxPanelElement;
 
       beforeEach(async () => {
         /* eslint-disable lit/binding-positions */
-        element = await fixture(
-          html`<${tagSingle} name="name" value="value">Label</${tagSingle}>`,
-          {
-            modules: ['../checkbox.ts', '../checkbox-panel.ts'],
-          },
-        );
+        element = await fixture(html`<${tagSingle} name="name" value="value">Label</${tagSingle}>`);
       });
 
       describe('events', () => {
@@ -68,7 +63,6 @@ describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
               <${tagSingle}></${tagSingle}>
             </div>
           </div>`,
-          { modules: ['../checkbox.ts', '../checkbox-panel.ts'] },
         );
         element = root.querySelector(selector)!;
 
@@ -252,7 +246,6 @@ describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
-              { modules: ['../checkbox-panel.ts', '../checkbox.ts'] },
             );
 
             element = form.querySelector(selector)!;
@@ -735,7 +728,6 @@ describe(`sbb-checkbox-panel with ${fixture.name}`, () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
-              { modules: ['../checkbox-panel.ts', '../checkbox.ts'] },
             );
 
             element = form.querySelector(selector)!;
