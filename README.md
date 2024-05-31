@@ -22,6 +22,13 @@ Lyne Design Tokens and Lyne Components are available for developers and designer
 
 ## 🔗 Packages
 
+| Package                            | Description                                                                 |
+| ---------------------------------- | --------------------------------------------------------------------------- |
+| `@lyne-esta/elements`              | Web components built on top of the Lyne Design System                       |
+| `@lyne-esta/elements-experimental` | Web components that do not yet align with our architecture or testing goals |
+| `@lyne-esta/react`                 | React wrappers for `@lyne-esta/elements`                                    |
+| `@lyne-esta/react-experimental`    | React wrappers for `@lyne-esta/elements-experimental`                       |
+
 - [NPM Packages](https://www.npmjs.com/search?q=%40sbb-esta%2Flyne-)
 
 ## 🖥 Browser and screen reader support

@@ -3,8 +3,8 @@ import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/we
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../components/alert.js';
-import '../../../components/action-group.js';
+import '../../../elements/alert.js';
+import '../../../elements/action-group.js';
 import {
   bikeProduct,
   dailyTicketProduct,

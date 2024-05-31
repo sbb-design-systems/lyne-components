@@ -54,12 +54,20 @@ jobs:
       - name: 'Release: Determine npm tag'
         id: npm_tag
         run: echo "npm_tag=$([[ "$VERSION" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
-      - name: 'Release: Publish @sbb-esta/lyne-components'
-        run: yarn publish dist/components --tag ${{ steps.npm_tag.outputs.npm_tag }}
+      - name: 'Release: Publish @sbb-esta/lyne-elements'
+        run: yarn publish dist/elements --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: 'Release: Publish @sbb-esta/lyne-components-react'
+      - name: 'Release: Publish @sbb-esta/lyne-elements-experimental'
+        run: yarn publish dist/elements-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Release: Publish @sbb-esta/lyne-react'
         run: yarn publish dist/react --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Release: Publish @sbb-esta/lyne-react-experimental'
+        run: yarn publish dist/react-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
