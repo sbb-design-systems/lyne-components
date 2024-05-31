@@ -33,7 +33,7 @@ export default [
       '**/*.chromatic.stories.*',
       'dist/**/*',
       'coverage/**/*',
-      'tools/generate-component/boilerplate/**/*',
+      'tools/generate-component/**/*',
       '**/__snapshots__/**/*',
     ],
   },

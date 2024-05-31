@@ -40,7 +40,7 @@
     "docs:manifest:elements-experimental": "custom-elements-manifest analyze --config tools/manifest/elements-experimental-custom-elements-manifest.config.js",
     "docs:to-md": "yarn -s ts-hooks tools/docs/docs_generate.ts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
-    "generate": "yarn -s ts-hooks tools/generate-component/index.mts",
+    "generate": "yarn -s ts-hooks tools/generate-component/index.ts",
     "generate:chromatic-stories": "yarn -s ts-hooks scripts/chromatic-stories-generator.ts",
     "remove:chromatic-stories": "find . -name '*.chromatic.stories.ts' -delete",
     "integrity": "npm-run-all format docs",
