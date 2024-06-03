@@ -32,27 +32,23 @@ const defaultArgTypes: ArgTypes = {
   seconds,
 };
 
+const defaultArgs: Args = {
+  hours: isChromatic() ? 9 : undefined,
+  minutes: isChromatic() ? 10 : undefined,
+  seconds: isChromatic() ? 30 : undefined,
+};
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { hours: undefined, minutes: undefined, seconds: undefined },
+  args: { ...defaultArgs },
 };
 
 export const Paused: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { hours: 10, minutes: 10, seconds: 30 },
+  args: { ...defaultArgs, hours: 9, minutes: 10, seconds: 30 },
 };
-
-/**
- * Stop the clock for Chromatic visual regression tests
- * and set time to given time
- */
-if (isChromatic()) {
-  Default.args = {
-    now: { hours: 10, minutes: 10, seconds: 30 },
-  };
-}
 
 const meta: Meta = {
   decorators: [(story) => html`<div style=${styleMap({ 'max-width': '600px' })}>${story()}</div>`],

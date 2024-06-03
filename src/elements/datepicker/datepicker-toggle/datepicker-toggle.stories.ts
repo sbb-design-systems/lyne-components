@@ -69,7 +69,7 @@ const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
     <sbb-datepicker
       id="datepicker"
       input="datepicker-input"
-      now=${isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : nothing}
+      now=${isChromatic() ? '2023-01-12T00:00:00Z' : nothing}
     ></sbb-datepicker>
     <input id="datepicker-input" />
   </div>
@@ -78,9 +78,7 @@ const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
 const FormFieldTemplate = ({ negative, ...args }: Args): TemplateResult => html`
   <sbb-form-field ?negative=${negative}>
     <input />
-    <sbb-datepicker
-      now=${isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : nothing}
-    ></sbb-datepicker>
+    <sbb-datepicker now=${isChromatic() ? '2023-01-12T00:00:00Z' : nothing}></sbb-datepicker>
     ${StandaloneTemplate(args)}
   </sbb-form-field>
 `;
