@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbTabTitleElement } from '../tab-title.js';
 
 import { SbbTabGroupElement } from './tab-group.js';
@@ -15,7 +15,7 @@ describe(`sbb-tab-group`, () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html` <sbb-tab-group initial-selected-index="1">
+      html`<sbb-tab-group initial-selected-index="1">
         <sbb-tab-title id="sbb-tab-1">Test tab label 1</sbb-tab-title>
         <div>Test tab content 1</div>
         <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
@@ -51,6 +51,45 @@ describe(`sbb-tab-group`, () => {
     const initialSelectedTab = element.querySelector(':scope > sbb-tab-title#sbb-tab-2');
 
     expect(initialSelectedTab).to.have.attribute('active');
+  });
+
+  it('activates tab by index', async () => {
+    element.activateTab(1);
+    await waitForLitRender(element);
+    const tab = element.querySelectorAll('sbb-tab-title')[1];
+
+    expect(tab).to.have.attribute('active');
+  });
+
+  it('disables tab by index', async () => {
+    element.disableTab(0);
+    await waitForLitRender(element);
+    const tab = element.querySelectorAll('sbb-tab-title')[0];
+
+    expect(tab).to.have.attribute('disabled');
+  });
+
+  it('enables tab by index', async () => {
+    element.enableTab(2);
+    await waitForLitRender(element);
+    const tab = element.querySelectorAll('sbb-tab-title')[2];
+
+    expect(tab).not.to.have.attribute('disabled');
+  });
+
+  it('does not activate a disabled tab', async () => {
+    const tab = element.querySelectorAll('sbb-tab-title')[2];
+
+    tab.disabled = true;
+    element.activateTab(2);
+    await waitForLitRender(element);
+    expect(tab).not.to.have.attribute('active');
+  });
+
+  it('activates the first tab', () => {
+    const tab = element.querySelectorAll('sbb-tab-title')[1];
+
+    expect(tab).to.have.attribute('active');
   });
 
   describe('events', () => {
