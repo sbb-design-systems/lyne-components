@@ -14,7 +14,10 @@
   --sbb-tag-height: var(--sbb-size-element-xs);
   --sbb-tag-inset: 0;
   --sbb-tag-content-shift: translateY(0);
-  --sbb-tag-animation-duration: var(--sbb-disable-animation-time, var(--sbb-animation-duration-2x));
+  --sbb-tag-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-tag-animation-easing: var(--sbb-animation-easing);
   --sbb-tag-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-tag-gap: var(--sbb-spacing-fixed-2x);
