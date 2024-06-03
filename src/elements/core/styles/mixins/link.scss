@@ -41,6 +41,10 @@
   color: var(--sbb-link-color-normal);
   text-decoration: var(--sbb-link-text-decoration);
   user-select: none;
+
+  @include sbb.if-forced-colors {
+    text-decoration: underline;
+  }
 }
 
 @mixin link-focus-visible {
