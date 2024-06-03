@@ -13,8 +13,15 @@ import { fileURLToPath } from 'node:url';
 
 import { transform } from 'esbuild';
 
-const root = new URL('../../', import.meta.url).href;
-const tsconfigRaw = readFileSync(new URL('./tsconfig.json', root), 'utf8');
+import { createAliasResolver, root, tsconfigRaw } from './tsconfig-utility.js';
+
+const aliasResolver = createAliasResolver();
+const assertTypeScriptFilePath = (/** @type {string?} */ url) => {
+  const tsUrl = url?.replace(/.js$/, '.ts');
+  return tsUrl && url && !existsSync(fileURLToPath(url)) && existsSync(fileURLToPath(tsUrl))
+    ? tsUrl
+    : null;
+};
 
 /**
  * @param {string} specifier - The specifier of the resource to resolve.
@@ -24,18 +31,17 @@ const tsconfigRaw = readFileSync(new URL('./tsconfig.json', root), 'utf8');
  * or rejects with an error.
  */
 export async function resolve(specifier, context, nextResolve) {
+  let url = null;
   if (
     (specifier.startsWith('.') || specifier.startsWith(root)) &&
     !specifier.includes('/node_modules/') &&
     context.parentURL?.startsWith(root)
   ) {
-    const originalUrl = new URL(specifier, context.parentURL).href;
-    const url = originalUrl.replace(/.js$/, '.ts');
-    if (!existsSync(fileURLToPath(originalUrl)) && existsSync(fileURLToPath(url))) {
-      return { format: 'module', shortCircuit: true, url };
-    }
+    url = assertTypeScriptFilePath(new URL(specifier, context.parentURL).href);
+  } else {
+    url = assertTypeScriptFilePath(aliasResolver(specifier));
   }
-  return nextResolve(specifier, context);
+  return url ? { format: 'module', shortCircuit: true, url } : nextResolve(specifier, context);
 }
 
 /**
@@ -49,8 +55,13 @@ export async function load(url, context, nextLoad) {
   if (url.startsWith(root) && !url.includes('/node_modules/') && url.endsWith('.ts')) {
     const sourcefile = fileURLToPath(url);
     const content = readFileSync(sourcefile, 'utf8');
+
     const result = await transform(content, {
       loader: 'ts',
+      define: {
+        'import.meta.env.DEV': 'true',
+        'import.meta.env.PROD': 'false',
+      },
       tsconfigRaw,
       sourcefile: fileURLToPath(url),
       sourcemap: 'inline',

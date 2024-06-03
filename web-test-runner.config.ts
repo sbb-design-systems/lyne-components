@@ -64,9 +64,9 @@ const browsers =
           : [playwrightLauncher({ product: 'chromium' })];
 
 const groupNameOverride = cliArgs['ssr-hydrated']
-  ? 'e2e-ssr-hydrated'
+  ? 'ssr-hydrated'
   : cliArgs['ssr-non-hydrated']
-    ? 'e2e-ssr-non-hydrated'
+    ? 'ssr-non-hydrated'
     : null;
 
 const testRunnerHtml = (
@@ -119,8 +119,8 @@ const suppressedLogs = [
 
 const groups: TestRunnerGroupConfig[] = [
   // Disable ssr tests until stabilized.
-  // { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
-  // { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+  { name: 'ssr-hydrated', files: 'src/**/*.ssr.spec.ts', testRunnerHtml },
+  // { name: 'ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
 ];
 
 // The visual regression test group is only added when explicitly set, as the tests are very expensive.
