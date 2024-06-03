@@ -129,7 +129,7 @@ if (cliArgs.group === 'visual-regression') {
 }
 
 export default {
-  files: ['src/**/*.{spec,!visual.spec}.ts'],
+  files: ['src/**/*.spec.ts', '!**/*.{visual,ssr}.spec.ts'],
   groups,
   nodeResolve: true,
   reporters:
