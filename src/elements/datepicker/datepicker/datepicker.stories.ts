@@ -274,7 +274,7 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const convertMillisecondsToSeconds = (milliseconds: number): number | nothing => {
+const convertMillisecondsToSeconds = (milliseconds: number): number | typeof nothing => {
   return milliseconds ? milliseconds / 1000 : nothing;
 };
 
