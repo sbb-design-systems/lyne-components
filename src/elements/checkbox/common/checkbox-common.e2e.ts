@@ -20,11 +20,11 @@ interface CheckboxAccessibilitySnapshot {
   required: boolean;
 }
 
-describe(`sbb-checkbox-panel`, () => {
+describe(`checkbox common behaviors`, () => {
   ['sbb-checkbox', 'sbb-checkbox-panel'].forEach((selector) => {
     const tagSingle = unsafeStatic(selector);
 
-    describe('general', () => {
+    describe(`${selector} general`, () => {
       let element: SbbCheckboxElement | SbbCheckboxPanelElement;
 
       beforeEach(async () => {
