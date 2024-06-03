@@ -1,25 +1,26 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import type { __nameUpperCase__ } from './__noPrefixName__.js';
-import './__noPrefixName__.js';
+import { __nameUpperCase__ } from './__noPrefixName__.js';
 
-describe(`__name__`, () => {
+describe('__name__', () => {
   let element: __nameUpperCase__;
 
   beforeEach(async () => {
-    element = await fixture(html`<__name__ my-prop="Label"></__name__>`);
+    element = await fixture(html`<__name__></__name__>`);
   });
 
-  it('renders - Dom', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
+  it('renders', async () => {
+    assert.instanceOf(element, __nameUpperCase__);
   });
 
-  it('renders - ShadowDom', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
+  it('emits on click', async () => {
+    const myEventNameSpy = new EventSpy(__nameUpperCase__.events.myEventName);
+    element.click();
+    await waitForLitRender(element);
+    expect(myEventNameSpy.count).to.be.equal(1);
   });
-
-  testA11yTreeSnapshot();
 });
