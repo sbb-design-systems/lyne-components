@@ -10,7 +10,7 @@ It has an implicit slot name: `step-label`.
 
 ## States
 
-It can be `disabled`.
+The component can be displayed in `disabled` state using the self-named property.
 
 ```html
 <sbb-step-label disabled>Step label</sbb-step-label>
@@ -30,7 +30,7 @@ If it is used in an `sbb-stepper` and no `icon-name` is specified, it displays a
 
 ## Accessibility
 
-The aria values `aria-controls`, `aria-setsize`, `aria-posinset` are set automatically.
+The accessibility properties `aria-controls`, `aria-setsize`, `aria-posinset` are set automatically.
 
 <!-- Auto Generated Below -->
 

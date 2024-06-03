@@ -71,7 +71,7 @@ There are two possible approaches. One is using a single form for the stepper, a
 </sbb-stepper>
 ```
 
-Calling the `reset()` method on the `sbb-stepper`, will reset the wrapping form or every form of each step and select the first step.
+Calling the `reset()` method on the `sbb-stepper` will reset the wrapping `form` or, if they are present, every `form` in each step; then it will select the first step.
 
 ## Events
 
@@ -79,7 +79,7 @@ Whenever a step switch is triggered, a `validate` event is emitted and can be ca
 
 ## Accessibility
 
-Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-stepper` also sets other attributes on the steps and the step labels like `aria-setsize`, `aria-posinset`, `aria-controls`, `aria-labelledby`.
+Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-stepper` also sets other attributes on the steps and the step labels like `aria-setsize`, `aria-posinset`, `aria-controls`, `aria-labelledby`. If important content needs to be announced when a step is changed, use the `aria-live=‘polite’` attribute.
 
 <!-- Auto Generated Below -->
 
