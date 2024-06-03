@@ -163,7 +163,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _nowOrUndefined(): Date | undefined {
-    return this._datePickerElement?.hasCustomNow ? this._datePickerElement.now : undefined;
+    return this._datePickerElement?.hasCustomNow() ? this._datePickerElement.now : undefined;
   }
 
   protected override render(): TemplateResult {
