@@ -1,7 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
@@ -63,8 +63,12 @@ const defaultArgs: Args = {
   now: new Date('2022-12-01T12:11:00').valueOf(),
 };
 
-const Template = ({ legs, ...args }: Args): TemplateResult =>
-  html`<sbb-pearl-chain-time .legs=${legs} ${sbbSpread(args)}></sbb-pearl-chain-time>`;
+const Template = ({ legs, now, ...args }: Args): TemplateResult =>
+  html`<sbb-pearl-chain-time
+    .legs=${legs}
+    now=${now ? now / 1000 : nothing}
+    ${sbbSpread(args)}
+  ></sbb-pearl-chain-time>`;
 
 export const minimal: StoryObj = {
   render: Template,

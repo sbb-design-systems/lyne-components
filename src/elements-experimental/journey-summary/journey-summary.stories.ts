@@ -1,7 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -83,8 +83,13 @@ const defaultArgs: Args = {
   tripBack: undefined,
 };
 
-const Template = ({ trip, tripBack, ...args }: Args): TemplateResult => html`
-  <sbb-journey-summary .trip=${trip} .tripBack=${tripBack} ${sbbSpread(args)}>
+const Template = ({ trip, tripBack, now, ...args }: Args): TemplateResult => html`
+  <sbb-journey-summary
+    .trip=${trip}
+    .tripBack=${tripBack}
+    now=${now ? now / 1000 : nothing}
+    ${sbbSpread(args)}
+  >
     <div
       style=${styleMap({
         display: 'flex',
@@ -99,10 +104,11 @@ const Template = ({ trip, tripBack, ...args }: Args): TemplateResult => html`
   </sbb-journey-summary>
 `;
 
-const TemplateNoSlot = ({ trip, tripBack, ...args }: Args): TemplateResult =>
+const TemplateNoSlot = ({ trip, tripBack, now, ...args }: Args): TemplateResult =>
   html`<sbb-journey-summary
     .trip=${trip}
     .tripBack=${tripBack}
+    now=${now ? now / 1000 : nothing}
     ${sbbSpread(args)}
   ></sbb-journey-summary>`;
 

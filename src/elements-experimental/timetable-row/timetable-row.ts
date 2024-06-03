@@ -1,4 +1,5 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime/native-date-adapter';
 import { setOrRemoveAttribute } from '@sbb-esta/lyne-elements/core/dom.js';
 import {
   i18nArrival,
@@ -18,16 +19,15 @@ import {
   i18nTripDuration,
   i18nTripQuayChange,
 } from '@sbb-esta/lyne-elements/core/i18n.js';
-import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { SbbNowMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
+import type { SbbDateLike, SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { format } from 'date-fns';
-import { html, LitElement, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.js';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.js';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
 
 import style from './timetable-row.scss?lit&inline';
 
@@ -206,7 +206,7 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
  * It displays information about the trip, acting as a container for all the `sbb-timetable-*` components.
  * */
 @customElement('sbb-timetable-row')
-export class SbbTimetableRowElement extends SbbNowMixin(LitElement) {
+export class SbbTimetableRowElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The trip Prop. */
@@ -245,6 +245,16 @@ export class SbbTimetableRowElement extends SbbNowMixin(LitElement) {
 
   /** When this prop is true the sbb-card will be in the active state. */
   @property({ type: Boolean }) public active?: boolean;
+
+  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  @property()
+  public set now(value: SbbDateLike | undefined) {
+    this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
+  }
+  public get now(): Date | null {
+    return this._now;
+  }
+  private _now: Date | null = null;
 
   private _language = new SbbLanguageController(this);
 
@@ -541,7 +551,7 @@ export class SbbTimetableRowElement extends SbbNowMixin(LitElement) {
             .departureWalk=${departureWalk}
             .arrivalWalk=${arrivalWalk}
             ?disable-animation=${this.disableAnimation}
-            now=${this.dateNow}
+            .now=${this.now}
           ></sbb-pearl-chain-time>
           <div class="sbb-timetable__row-footer" role="gridcell">
             ${product && this._getQuayType(product.vehicleMode) && departure?.quayFormatted

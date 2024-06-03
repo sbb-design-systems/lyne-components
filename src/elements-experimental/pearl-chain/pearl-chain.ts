@@ -1,4 +1,5 @@
-import { SbbNowMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime/native-date-adapter';
+import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces/types';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -17,7 +18,7 @@ type Status = 'progress' | 'future' | 'past';
  * It visually displays journey information.
  */
 @customElement('sbb-pearl-chain')
-export class SbbPearlChainElement extends SbbNowMixin(LitElement) {
+export class SbbPearlChainElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -35,6 +36,16 @@ export class SbbPearlChainElement extends SbbNowMixin(LitElement) {
    * disable the animation with this property.
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
+
+  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  @property()
+  public set now(value: SbbDateLike | undefined) {
+    this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
+  }
+  public get now(): Date | null {
+    return this._now;
+  }
+  private _now: Date | null = null;
 
   private _getAllDuration(legs: PtRideLeg[]): number {
     return legs?.reduce((sum: number, leg) => {
@@ -67,34 +78,36 @@ export class SbbPearlChainElement extends SbbNowMixin(LitElement) {
       );
       const allDurations = this._getAllDuration(legs);
 
-      if (allDurations === 0) return 100;
+      if (allDurations === 0) {
+        return 100;
+      }
 
       return (duration / allDurations) * 100;
     }
     return 0;
   }
 
-  private _getProgress(start?: Date, end?: Date): number {
+  private _getProgress(now: Date, start?: Date, end?: Date): number {
     if (!start || !end) {
       return 0;
     }
     const total = differenceInMinutes(end, start);
-    const progress = differenceInMinutes(this.dateNow, start);
+    const progress = differenceInMinutes(now, start);
 
     return total && (progress / total) * 100;
   }
 
-  private _getStatus(end?: Date, start?: Date): Status {
-    if (start && end && isBefore(start, this.dateNow) && isAfter(end, this.dateNow)) {
+  private _getStatus(now: Date, end?: Date, start?: Date): Status {
+    if (start && end && isBefore(start, now) && isAfter(end, now)) {
       return 'progress';
-    } else if (end && isBefore(end, this.dateNow)) {
+    } else if (end && isBefore(end, now)) {
       return 'past';
     }
     return 'future';
   }
 
-  private _renderPosition(start?: Date, end?: Date): TemplateResult | undefined {
-    const currentPosition = this._getProgress(start, end);
+  private _renderPosition(now: Date, start?: Date, end?: Date): TemplateResult | undefined {
+    const currentPosition = this._getProgress(now, start, end);
     if (currentPosition < 0 && currentPosition > 100) return undefined;
 
     const statusStyle = (): Record<string, string> => {
@@ -113,6 +126,8 @@ export class SbbPearlChainElement extends SbbNowMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
+    const now = this.now ?? new Date();
+
     const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
 
     const departureTime =
@@ -152,12 +167,12 @@ export class SbbPearlChainElement extends SbbNowMixin(LitElement) {
 
     const statusClassDeparture =
       rideLegs && departureTime && arrivalTime && !departureCancelClass
-        ? 'sbb-pearl-chain__bullet--' + this._getStatus(arrivalTime, departureTime)
+        ? 'sbb-pearl-chain__bullet--' + this._getStatus(now, arrivalTime, departureTime)
         : '';
 
     const statusClassArrival =
       rideLegs && arrivalTime && !arrivalCancelClass
-        ? 'sbb-pearl-chain__bullet--' + this._getStatus(arrivalTime)
+        ? 'sbb-pearl-chain__bullet--' + this._getStatus(now, arrivalTime)
         : '';
 
     if (this._isAllCancelled(rideLegs)) {
@@ -206,14 +221,16 @@ export class SbbPearlChainElement extends SbbNowMixin(LitElement) {
 
           const legStatus =
             !cancelled &&
-            this._getStatus(departure, arrival) &&
-            'sbb-pearl-chain__leg--' + this._getStatus(arrival, departure);
+            this._getStatus(now, departure, arrival) &&
+            'sbb-pearl-chain__leg--' + this._getStatus(now, arrival, departure);
 
           const legStyle = (): Record<string, string> => {
             return {
               '--sbb-pearl-chain-leg-width': `${duration}%`,
-              ...(this._getStatus(arrival, departure) === 'progress' && !cancelled
-                ? { '--sbb-pearl-chain-leg-status': `${this._getProgress(departure, arrival)}%` }
+              ...(this._getStatus(now, arrival, departure) === 'progress' && !cancelled
+                ? {
+                    '--sbb-pearl-chain-leg-status': `${this._getProgress(now, departure, arrival)}%`,
+                  }
                 : {}),
             };
           };
@@ -225,8 +242,8 @@ export class SbbPearlChainElement extends SbbNowMixin(LitElement) {
             ${index > 0 && index < rideLegs.length
               ? html`<span class="sbb-pearl-chain__stop ${departureSkippedBullet}"></span>`
               : nothing}
-            ${this._getStatus(arrival, departure) === 'progress' && !cancelled
-              ? this._renderPosition(departure, arrival)
+            ${this._getStatus(now, arrival, departure) === 'progress' && !cancelled
+              ? this._renderPosition(now, departure, arrival)
               : nothing}
           </div>`;
         })}

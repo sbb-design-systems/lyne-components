@@ -1,10 +1,11 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime/native-date-adapter';
 import {
   i18nArrival,
   i18nDeparture,
   i18nTransferProcedures,
 } from '@sbb-esta/lyne-elements/core/i18n.js';
-import { SbbNowMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
+import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces/types';
 import { format } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -22,7 +23,7 @@ import '../pearl-chain.js';
  * Combined with `sbb-pearl-chain`, it displays walk time information.
  */
 @customElement('sbb-pearl-chain-time')
-export class SbbPearlChainTimeElement extends SbbNowMixin(LitElement) {
+export class SbbPearlChainTimeElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -52,6 +53,16 @@ export class SbbPearlChainTimeElement extends SbbNowMixin(LitElement) {
    * disable the animation with this property.
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
+
+  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  @property()
+  public set now(value: SbbDateLike | undefined) {
+    this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
+  }
+  public get now(): Date | null {
+    return this._now;
+  }
+  private _now: Date | null = null;
 
   private _language = new SbbLanguageController(this);
 
@@ -92,7 +103,7 @@ export class SbbPearlChainTimeElement extends SbbNowMixin(LitElement) {
           class="sbb-pearl-chain__time-chain"
           .legs=${this.legs}
           .disableAnimation=${this.disableAnimation}
-          now=${this.dateNow}
+          .now=${this.now}
         ></sbb-pearl-chain>
         ${arrival
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>

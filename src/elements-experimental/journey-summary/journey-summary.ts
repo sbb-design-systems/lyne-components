@@ -1,7 +1,7 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { i18nTripDuration } from '@sbb-esta/lyne-elements/core/i18n.js';
-import { SbbNowMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
+import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces/types';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { format, isValid } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
@@ -36,7 +36,7 @@ export interface InterfaceSbbJourneySummaryAttributes {
  * @slot content - Use this slot to add `sbb-button`s or other interactive elements.
  */
 @customElement('sbb-journey-summary')
-export class SbbJourneySummaryElement extends SbbNowMixin(LitElement) {
+export class SbbJourneySummaryElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**  The trip prop */
@@ -59,6 +59,16 @@ export class SbbJourneySummaryElement extends SbbNowMixin(LitElement) {
    * disable the animation with this property.
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
+
+  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  @property()
+  public set now(value: SbbDateLike | undefined) {
+    this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
+  }
+  public get now(): Date | null {
+    return this._now;
+  }
+  private _now: Date | null = null;
 
   private _hasContentSlot: boolean = false;
   private _language = new SbbLanguageController(this);
@@ -128,7 +138,7 @@ export class SbbJourneySummaryElement extends SbbNowMixin(LitElement) {
           .arrivalWalk=${arrivalWalk}
           .legs=${legs}
           .disableAnimation=${this.disableAnimation}
-          now=${this.dateNow}
+          .now=${this.now}
         ></sbb-pearl-chain-time>
       </div>
     `;

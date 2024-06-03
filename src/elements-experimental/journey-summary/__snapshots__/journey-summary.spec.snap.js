@@ -31,7 +31,7 @@ snapshots["sbb-journey-summary renders"] =
         </span>
       </time>
     </div>
-    <sbb-pearl-chain-time now="1661806800000">
+    <sbb-pearl-chain-time>
     </sbb-pearl-chain-time>
   </div>
 </div>
@@ -55,7 +55,7 @@ snapshots["sbb-journey-summary renders without vias"] =
         </span>
       </time>
     </div>
-    <sbb-pearl-chain-time now="1661806800000">
+    <sbb-pearl-chain-time>
     </sbb-pearl-chain-time>
   </div>
 </div>
@@ -79,7 +79,7 @@ snapshots["sbb-journey-summary renders with second journey"] =
         </span>
       </time>
     </div>
-    <sbb-pearl-chain-time now="1661806800000">
+    <sbb-pearl-chain-time>
     </sbb-pearl-chain-time>
   </div>
   <div>
@@ -118,7 +118,7 @@ snapshots["sbb-journey-summary renders with second journey"] =
           </span>
         </time>
       </div>
-      <sbb-pearl-chain-time now="1661806800000">
+      <sbb-pearl-chain-time>
       </sbb-pearl-chain-time>
     </div>
   </div>

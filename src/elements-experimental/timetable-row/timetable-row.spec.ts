@@ -14,20 +14,20 @@ import {
   walkTimeTrip,
 } from './timetable-row.sample-data.js';
 
-const now = new Date('2022-08-16T15:00:00Z').valueOf();
+const now = '2022-08-16T15:00:00Z';
 
 describe(`sbb-timetable-row`, () => {
   let element: SbbTimetableRowElement;
 
   describe('sbb-timetable-row with defaultTrip', () => {
     it('renders component with config', async () => {
-      element = await fixture(html`<sbb-timetable-row now="${now}"></sbb-timetable-row>`);
+      element = await fixture(html`<sbb-timetable-row .now="${now}"></sbb-timetable-row>`);
 
       element.trip = defaultTrip as ITripItem;
       await waitForLitRender(element);
 
       expect(element).dom.to.be.equal(`
-        <sbb-timetable-row now="1660662000000" role="rowgroup">
+        <sbb-timetable-row role="rowgroup">
         </sbb-timetable-row>
       `);
 
@@ -87,7 +87,6 @@ describe(`sbb-timetable-row`, () => {
               </p>
             </div>
             <sbb-pearl-chain-time
-              now="1660662000000"
               role="gridcell"
             >
             </sbb-pearl-chain-time>
@@ -112,13 +111,13 @@ describe(`sbb-timetable-row`, () => {
 
   describe('sbb-timetable-row with BusTrip', () => {
     it('renders component with config', async () => {
-      element = await fixture(html`<sbb-timetable-row now="${now}"></sbb-timetable-row>`);
+      element = await fixture(html`<sbb-timetable-row .now="${now}"></sbb-timetable-row>`);
 
       element.trip = busTrip as ITripItem;
       await waitForLitRender(element);
 
       expect(element).dom.to.be.equal(`
-        <sbb-timetable-row now="1660662000000" role="rowgroup">
+        <sbb-timetable-row role="rowgroup">
         </sbb-timetable-row>
       `);
 
@@ -144,7 +143,7 @@ describe(`sbb-timetable-row`, () => {
                 Direction Spiegel, Blinzern
               </p>
             </div>
-            <sbb-pearl-chain-time now="1660662000000" role="gridcell"></sbb-pearl-chain-time>
+            <sbb-pearl-chain-time role="gridcell"></sbb-pearl-chain-time>
             <div class="sbb-timetable__row-footer" role="gridcell">
               <span>
                 <span class="sbb-screen-reader-only">
@@ -179,14 +178,14 @@ describe(`sbb-timetable-row`, () => {
   describe('sbb-timetable-row loading state', () => {
     it('renders loading state', async () => {
       element = await fixture(
-        html`<sbb-timetable-row loading-trip loading-price now="${now}"></sbb-timetable-row>`,
+        html`<sbb-timetable-row loading-trip loading-price .now="${now}"></sbb-timetable-row>`,
       );
 
       element.loadingTrip = true;
       await waitForLitRender(element);
 
       expect(element).dom.to.be.equal(`
-        <sbb-timetable-row loading-trip="" loading-price="" now="1660662000000">
+        <sbb-timetable-row loading-trip="" loading-price="">
         </sbb-timetable-row>
       `);
 
