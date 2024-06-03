@@ -13,6 +13,7 @@ import '../link/block-link.js';
 
 describe(`sbb-action-group`, () => {
   let element: SbbActionGroupElement;
+  let button: SbbSecondaryButtonElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -27,6 +28,8 @@ describe(`sbb-action-group`, () => {
         </sbb-block-link>
       </sbb-action-group>
     `);
+
+    button = element.querySelector<SbbSecondaryButtonElement>('sbb-secondary-button')!;
   });
 
   it('renders', async () => {
@@ -34,30 +37,21 @@ describe(`sbb-action-group`, () => {
   });
 
   describe('property sync', () => {
-    it('should sync default size with sbb-button', async () => {
-      const buttons = Array.from(
-        element.querySelectorAll('sbb-secondary-button'),
-      ) as SbbSecondaryButtonElement[];
-      expect(buttons.length).to.be.greaterThan(0);
-      expect(buttons.every((l) => l.size === 'l')).to.be.ok;
+    it('should sync default size with sbb-secondary-button', async () => {
+      expect(button.size).to.equal('l');
     });
 
     it('should update attributes with button-size="m"', async () => {
       element.setAttribute('button-size', 'm');
       await waitForLitRender(element);
-      const buttons = Array.from(
-        element.querySelectorAll('sbb-secondary-button'),
-      ) as SbbSecondaryButtonElement[];
-      expect(buttons.length).to.be.greaterThan(0);
-      expect(buttons.every((l) => l.size === 'm')).to.be.ok;
+      expect(button.size).to.equal('m');
     });
 
     it('should update attributes with link-size="s"', async () => {
       element.setAttribute('link-size', 's');
       await waitForLitRender(element);
-      const links = Array.from(element.querySelectorAll('sbb-block-link')) as SbbBlockLinkElement[];
-      expect(links.length).to.be.greaterThan(0);
-      expect(links.every((l) => l.size === 's')).to.be.ok;
+      const link = element.querySelector<SbbBlockLinkElement>('sbb-block-link')!;
+      expect(link.size).to.equal('s');
     });
   });
 });
