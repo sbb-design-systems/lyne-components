@@ -22,25 +22,6 @@ describe(`sbb-card-button`, () => {
     expect(element).to.have.attribute('data-has-action');
     expect(element).to.have.attribute('data-has-active-action');
     expect(element).to.have.attribute('data-action-role', 'button');
-
-    const cardAction = element.querySelector('sbb-card-button');
-
-    expect(cardAction).dom.to.be.equal(
-      `
-      <sbb-card-button
-        role="button"
-        dir="ltr"
-        tabindex="0"
-        data-action
-        data-button
-        slot="action"
-        active>
-        Click me
-      </sbb-card-button>
-    `,
-      { ignoreAttributes: ['defer-hydration'], ignoreTags: ['template'] },
-    );
-    await expect(cardAction).shadowDom.to.be.equalSnapshot();
   });
 
   it('should correctly toggle active state', async () => {

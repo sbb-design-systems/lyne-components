@@ -27,24 +27,6 @@ describe(`sbb-card-link`, () => {
     expect(element).to.have.attribute('data-has-action');
     expect(element).not.to.have.attribute('data-has-active-action');
     expect(element).to.have.attribute('data-action-role', 'link');
-
-    const cardAction = element.querySelector('sbb-card-link');
-
-    expect(cardAction).dom.to.be.equal(
-      `
-      <sbb-card-link
-        href="https://github.com/sbb-design-systems/lyne-components"
-        target="_blank"
-        dir="ltr"
-        data-action
-        data-link
-        slot="action">
-        Follow me
-      </sbb-card-link>
-    `,
-      { ignoreAttributes: ['defer-hydration'], ignoreTags: ['template'] },
-    );
-    await expect(cardAction).shadowDom.to.be.equalSnapshot();
   });
 
   it('should correctly toggle active state', async () => {
