@@ -174,6 +174,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
       return;
     }
 
+    // TODO: use toIsoString() instead of toDateString()
     const currentDateString =
       this.datePickerElement?.now.toDateString() === currentDate.toDateString()
         ? i18nToday[this._language.current].toLowerCase()

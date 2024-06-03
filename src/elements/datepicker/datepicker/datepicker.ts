@@ -192,14 +192,13 @@ export class SbbDatepickerElement extends LitElement {
 
   /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
   @property()
-  public set now(value: SbbDateLike<T> | undefined) {
-    const date = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-    this._now = date ? new Date(date.setHours(0, 0, 0, 0)) : null;
+  public set now(value: SbbDateLike | undefined) {
+    this._now = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  public get now(): T {
+  public get now(): Date {
     return this._now ?? this._dateAdapter.today();
   }
-  private _now?: T | null;
+  private _now: Date | null = null;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
