@@ -65,7 +65,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-lead-container',
+  title: 'elements/sbb-lead-container',
 };
 
 export default meta;
