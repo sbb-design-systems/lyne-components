@@ -2,7 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-tag-group renders - Dom"] = 
-`<sbb-tag-group role="group">
+`<sbb-tag-group
+  role="group"
+  size="m"
+>
   <sbb-tag
     aria-pressed="false"
     data-action=""
@@ -10,6 +13,7 @@ snapshots["sbb-tag-group renders - Dom"] =
     data-slot-names="unnamed"
     dir="ltr"
     role="button"
+    size="m"
     slot="li-0"
     tabindex="0"
     value="tag-1"
@@ -23,6 +27,7 @@ snapshots["sbb-tag-group renders - Dom"] =
     data-slot-names="unnamed"
     dir="ltr"
     role="button"
+    size="m"
     slot="li-1"
     tabindex="0"
     value="tag-2"
@@ -38,6 +43,7 @@ snapshots["sbb-tag-group renders - Dom"] =
     data-slot-names="unnamed"
     dir="ltr"
     role="button"
+    size="m"
     slot="li-3"
     tabindex="0"
     value="tag-3"
