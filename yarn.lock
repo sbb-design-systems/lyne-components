@@ -1660,10 +1660,10 @@
     node-fetch "^3.2.8"
     parse5 "^7.1.1"
 
-"@lit-labs/testing@0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@lit-labs/testing/-/testing-0.2.3.tgz#15e9c3a9e2967ce9b90abfe1c69b89539c316a16"
-  integrity sha512-UVXQf8GoovKYAsMyVP/X7UlI449lR961asXmNrpoCwh6ac7ErqlNDaHBAmJ8Ya+iMgLWkCAOu2UfBmsKXqXM0A==
+"@lit-labs/testing@0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@lit-labs/testing/-/testing-0.2.4.tgz#941071637b3dc3aff52d1d04262a45f0e6d6c044"
+  integrity sha512-NasNKbELasyfA1vIcfMwM0H/2mE98uFsyf/yDWtcl9fAEsTpRRWrmPdQDrHDyim5LKnsQutCzBP3Fof83hSCIA==
   dependencies:
     "@lit-labs/ssr" "^3.1.8"
     "@lit-labs/ssr-client" "^1.1.4"
