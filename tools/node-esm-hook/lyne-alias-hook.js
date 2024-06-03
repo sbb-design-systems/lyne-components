@@ -7,7 +7,10 @@
  * not normally resolve and crash.
  */
 
+import { createAliasResolver } from './tsconfig-utility.js';
+
 const dist = new URL('../../dist/', import.meta.url).href;
+const aliasResolver = createAliasResolver('dist');
 
 /**
  * @param {string} specifier - The specifier of the resource to resolve.
@@ -17,9 +20,6 @@ const dist = new URL('../../dist/', import.meta.url).href;
  * or rejects with an error.
  */
 export async function resolve(specifier, context, nextResolve) {
-  if (specifier.startsWith('@sbb-esta/lyne-') && context.parentURL?.startsWith(dist)) {
-    const aliasUrl = new URL(specifier.replace(/^@sbb-esta\/lyne-/, './'), dist).href;
-    return { format: 'module', shortCircuit: true, url: aliasUrl };
-  }
-  return nextResolve(specifier, context);
+  const url = context.parentURL?.startsWith(dist) ? aliasResolver(specifier) : null;
+  return url ? { format: 'module', shortCircuit: true, url } : nextResolve(specifier, context);
 }
