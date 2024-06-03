@@ -60,7 +60,4 @@ export const visualRegressionConfig = (update) =>
         'utf8',
       );
     },
-    diffOptions: {
-      includeAA: false,
-    },
   });
