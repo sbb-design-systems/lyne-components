@@ -1,16 +1,23 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import type { SbbTagElement } from './tag.js';
-import './tag.js';
+import { SbbTagElement } from './tag.js';
 import '../../icon.js';
 
 describe(`sbb-tag`, () => {
   let element: SbbTagElement;
+
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-tag value="tag">Tag</sbb-tag>`);
+  });
+
+  it('renders', async () => {
+    assert.instanceOf(element, SbbTagElement);
+  });
 
   it('should be checked after click', async () => {
     expect(element).not.to.have.attribute('checked');
