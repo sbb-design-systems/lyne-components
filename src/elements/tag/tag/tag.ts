@@ -7,8 +7,11 @@ import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbTagGroupElement } from '../tag-group.js';
 
 import style from './tag.scss?lit&inline';
+
+export type SbbTagSize = 's' | 'm';
 
 /**
  * It displays a selectable element which can be used as a filter.
@@ -37,6 +40,19 @@ export class SbbTagElement extends SbbIconNameMixin(
   /** Whether the tag is checked. */
   @property({ reflect: true, type: Boolean }) public checked = false;
 
+  /** Tag size. */
+  @property({ reflect: true })
+  public set size(value: SbbTagSize) {
+    this._size = value;
+  }
+  public get size(): SbbTagSize {
+    return this._group?.size ?? this._size;
+  }
+  private _size: SbbTagSize = 'm';
+
+  /** Reference to the connected tag group. */
+  private _group: SbbTagGroupElement | null = null;
+
   /** Input event emitter */
   private _input: EventEmitter = new EventEmitter(this, SbbTagElement.events.input, {
     bubbles: true,
@@ -62,6 +78,7 @@ export class SbbTagElement extends SbbIconNameMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._group = this.closest('sbb-tag-group') as SbbTagGroupElement;
     this.addEventListener('click', () => this._handleClick(), { signal: this._abort.signal });
   }
 
