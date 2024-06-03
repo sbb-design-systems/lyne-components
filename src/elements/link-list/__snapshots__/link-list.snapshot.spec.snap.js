@@ -39,7 +39,7 @@ snapshots["sbb-link-list should render named slots if data-ssr-child-count attri
 `;
 /* end snapshot sbb-link-list should render named slots if data-ssr-child-count attribute is set */
 
-snapshots["sbb-link-list rendered with a slotted title in light DOM"] = 
+snapshots["sbb-link-list rendered with a slotted title DOM"] = 
 `<sbb-link-list
   data-slot-names="li-0 li-1 li-2 li-3 li-4 title"
   orientation="vertical"
@@ -116,9 +116,9 @@ snapshots["sbb-link-list rendered with a slotted title in light DOM"] =
   </sbb-block-link>
 </sbb-link-list>
 `;
-/* end snapshot sbb-link-list rendered with a slotted title in light DOM */
+/* end snapshot sbb-link-list rendered with a slotted title DOM */
 
-snapshots["sbb-link-list rendered with a slotted title in shadow DOM"] = 
+snapshots["sbb-link-list rendered with a slotted title Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
     aria-level="2"
@@ -162,7 +162,7 @@ snapshots["sbb-link-list rendered with a slotted title in shadow DOM"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-link-list rendered with a slotted title in shadow DOM */
+/* end snapshot sbb-link-list rendered with a slotted title Shadow DOM */
 
 snapshots["sbb-link-list rendered with a slotted title A11y tree Chrome"] = 
 `<p>
@@ -174,7 +174,7 @@ snapshots["sbb-link-list rendered with a slotted title A11y tree Chrome"] =
 `;
 /* end snapshot sbb-link-list rendered with a slotted title A11y tree Chrome */
 
-snapshots["sbb-link-list rendered with a title from properties in light DOM"] = 
+snapshots["sbb-link-list rendered with a title from properties DOM"] = 
 `<sbb-link-list
   data-slot-names="li-0 li-1 li-2 li-3 li-4"
   orientation="vertical"
@@ -249,9 +249,9 @@ snapshots["sbb-link-list rendered with a title from properties in light DOM"] =
   </sbb-block-link>
 </sbb-link-list>
 `;
-/* end snapshot sbb-link-list rendered with a title from properties in light DOM */
+/* end snapshot sbb-link-list rendered with a title from properties DOM */
 
-snapshots["sbb-link-list rendered with a title from properties in shadow DOM"] = 
+snapshots["sbb-link-list rendered with a title from properties Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
     aria-level="2"
@@ -296,9 +296,9 @@ snapshots["sbb-link-list rendered with a title from properties in shadow DOM"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-link-list rendered with a title from properties in shadow DOM */
+/* end snapshot sbb-link-list rendered with a title from properties Shadow DOM */
 
-snapshots["sbb-link-list rendered without a title in light DOM"] = 
+snapshots["sbb-link-list rendered without a title DOM"] = 
 `<sbb-link-list
   data-slot-names="li-0 li-1 li-2 li-3 li-4"
   orientation="vertical"
@@ -371,9 +371,9 @@ snapshots["sbb-link-list rendered without a title in light DOM"] =
   </sbb-block-link>
 </sbb-link-list>
 `;
-/* end snapshot sbb-link-list rendered without a title in light DOM */
+/* end snapshot sbb-link-list rendered without a title DOM */
 
-snapshots["sbb-link-list rendered without a title in shadow DOM"] = 
+snapshots["sbb-link-list rendered without a title Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
     aria-level="2"
@@ -417,7 +417,7 @@ snapshots["sbb-link-list rendered without a title in shadow DOM"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-link-list rendered without a title in shadow DOM */
+/* end snapshot sbb-link-list rendered without a title Shadow DOM */
 
 snapshots["sbb-link-list rendered with a slotted title A11y tree Firefox"] = 
 `<p>

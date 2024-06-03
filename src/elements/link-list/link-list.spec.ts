@@ -45,7 +45,7 @@ describe(`sbb-link-list`, () => {
   describe('property sync', () => {
     it('should sync properties/attributes with sbb-link', async () => {
       const links = Array.from(element.querySelectorAll('sbb-block-link'));
-      expect(links.every((l) => l.size === 's' && l.negative === false)).to.be.true;
+      expect(links.every((l) => l.size === 's' && !l.negative)).to.be.true;
     });
 
     it('should update attributes with size m', async () => {
