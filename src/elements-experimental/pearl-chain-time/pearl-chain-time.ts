@@ -1,5 +1,5 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime/native-date-adapter';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import {
   i18nArrival,
   i18nDeparture,

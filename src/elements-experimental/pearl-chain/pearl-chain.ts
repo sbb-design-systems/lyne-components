@@ -1,4 +1,4 @@
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime/native-date-adapter';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces/types';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
