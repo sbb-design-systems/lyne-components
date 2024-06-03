@@ -59,8 +59,8 @@ export class SbbPearlChainTimeElement extends LitElement {
   public set now(value: SbbDateLike | undefined) {
     this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
   }
-  public get now(): Date | null {
-    return this._now;
+  public get now(): Date {
+    return this._now ?? new Date();
   }
   private _now: Date | null = null;
 
