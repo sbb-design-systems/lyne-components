@@ -57,7 +57,7 @@ a `blur` event is fired on the input to ensure compatibility with any framework 
 
 ## Custom date formats
 
-To simulate the current datetime, you can use the `now` property,
+To simulate the current date, you can use the `now` property,
 which accepts a `Date` or a timestamp in seconds (as number or string).
 This is helpful if you need a specific state of the component.
 

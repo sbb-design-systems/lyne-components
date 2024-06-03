@@ -20,7 +20,7 @@ It's recommended to set the time to 00:00:00.
 <sbb-calendar min="1600000000" max="1700000000" selected="1650000000"></sbb-calendar>
 ```
 
-To simulate the current datetime, you can use the `now` property,
+To simulate the current date, you can use the `now` property,
 which accepts a `Date` or a timestamp in seconds (as number or string).
 This is helpful if you need a specific state of the component.
 
