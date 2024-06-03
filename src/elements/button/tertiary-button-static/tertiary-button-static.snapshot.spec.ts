@@ -19,11 +19,11 @@ describe(`sbb-tertiary-button-static`, () => {
       root = await fixture(buttonTestTemplate('sbb-tertiary-button-static', true));
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
@@ -35,11 +35,11 @@ describe(`sbb-tertiary-button-static`, () => {
       root = await fixture(buttonSlottedIconTestTemplate('sbb-tertiary-button-static'));
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
 

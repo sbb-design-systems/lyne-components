@@ -21,11 +21,11 @@ describe(`sbb-breadcrumb-group`, () => {
     `);
   });
 
-  it('renders - Dom', async () => {
+  it('renders - DOM', async () => {
     await expect(root).dom.to.be.equalSnapshot();
   });
 
-  it('renders - ShadowDom', async () => {
+  it('renders - Shadow DOM', async () => {
     await expect(root).shadowDom.to.equalSnapshot();
   });
 

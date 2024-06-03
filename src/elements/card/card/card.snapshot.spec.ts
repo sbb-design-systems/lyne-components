@@ -27,11 +27,11 @@ describe(`sbb-card`, () => {
     `);
   });
 
-  it('should render with sbb-card-badge - Dom', async () => {
+  it('should render with sbb-card-badge - DOM', async () => {
     await expect(element).dom.to.be.equalSnapshot();
   });
 
-  it('should render with sbb-card-badge - ShadowDom', async () => {
+  it('should render with sbb-card-badge - Shadow DOM', async () => {
     await expect(element).shadowDom.to.be.equalSnapshot();
   });
 

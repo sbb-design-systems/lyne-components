@@ -22,7 +22,7 @@ describe(`sbb-link`, () => {
     await expect(element).dom.to.be.equalSnapshot();
   });
 
-  it('renders - ShadowDOM', async () => {
+  it('renders - Shadow DOM', async () => {
     await expect(element).shadowDom.to.be.equalSnapshot();
   });
 

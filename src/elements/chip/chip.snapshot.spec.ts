@@ -14,11 +14,11 @@ describe(`sbb-chip`, () => {
     element = await fixture(html`<sbb-chip>Label</sbb-chip>`);
   });
 
-  it('renders - Dom', async () => {
+  it('renders - DOM', async () => {
     await expect(element).dom.to.be.equalSnapshot();
   });
 
-  it('renders - ShadowDom', async () => {
+  it('renders - Shadow DOM', async () => {
     await expect(element).shadowDom.to.be.equalSnapshot();
   });
 

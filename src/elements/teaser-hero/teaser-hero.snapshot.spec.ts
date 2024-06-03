@@ -29,11 +29,11 @@ describe(`sbb-teaser-hero`, () => {
       );
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
@@ -52,11 +52,11 @@ describe(`sbb-teaser-hero`, () => {
       );
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
   });

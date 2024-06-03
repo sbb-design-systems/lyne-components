@@ -24,21 +24,21 @@ describe(`sbb-select`, () => {
     });
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
-      it('Dom', async () => {
+      it('DOM', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });
 
-      it('ShadowDom', async () => {
+      it('Shadow DOM', async () => {
         await expect(elem).shadowDom.to.be.equalSnapshot();
       });
     });
 
     describeIf(isSafari, 'Safari', async () => {
-      it('Dom', async () => {
+      it('DOM', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });
 
-      it('ShadowDom', async () => {
+      it('Shadow DOM', async () => {
         await expect(elem).shadowDom.to.be.equalSnapshot();
       });
     });
@@ -60,21 +60,21 @@ describe(`sbb-select`, () => {
     });
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
-      it('Dom', async () => {
+      it('DOM', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });
 
-      it('ShadowDom', async () => {
+      it('Shadow DOM', async () => {
         await expect(elem).shadowDom.to.be.equalSnapshot();
       });
     });
 
     describeIf(isSafari, 'Safari', async () => {
-      it('Dom', async () => {
+      it('DOM', async () => {
         await expect(elem).dom.to.be.equalSnapshot();
       });
 
-      it('ShadowDom', async () => {
+      it('Shadow DOM', async () => {
         await expect(elem).shadowDom.to.be.equalSnapshot();
       });
     });

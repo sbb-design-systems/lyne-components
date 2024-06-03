@@ -14,11 +14,11 @@ describe(`sbb-tertiary-button-link`, () => {
       root = await fixture(buttonLinkTestTemplate('sbb-tertiary-button-link'));
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
 
@@ -32,11 +32,11 @@ describe(`sbb-tertiary-button-link`, () => {
       root = await fixture(buttonLinkIconTestTemplate('sbb-tertiary-button-link'));
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
