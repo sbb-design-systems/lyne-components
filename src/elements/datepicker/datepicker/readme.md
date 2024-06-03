@@ -109,7 +109,7 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 | `dateParser` | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |         | A function used to parse string value into dates.                                                                    |
 | `format`     | `format`      | public  | `(date: Date) => string \| undefined`               |         | A function used to format dates into the preferred string format.                                                    |
 | `input`      | `input`       | public  | `string \| HTMLElement \| undefined`                |         | Reference of the native input connected to the datepicker.                                                           |
-| `now`        | `now`         | public  | `T`                                                 |         | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. |
+| `now`        | `now`         | public  | `Date`                                              | `null`  | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. |
 | `wide`       | `wide`        | public  | `boolean`                                           | `false` | If set to true, two months are displayed.                                                                            |
 
 ## Methods
