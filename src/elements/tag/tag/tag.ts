@@ -50,7 +50,7 @@ export class SbbTagElement extends SbbIconNameMixin(
   }
   private _size: SbbTagSize = 'm';
 
-  /** Reference to the connected checkbox group. */
+  /** Reference to the connected tag group. */
   private _group: SbbTagGroupElement | null = null;
 
   /** Input event emitter */
