@@ -9,7 +9,7 @@
   --sbb-footer-background-color: var(--sbb-color-milk);
   --sbb-footer-clock-width: #{sbb.px-to-rem-build(76)};
   --sbb-footer-color: var(--sbb-color-granite);
-  --sbb-link-text-decoration-none: none;
+  --sbb-link-text-decoration: none;
 
   @include sbb.mq($from: small) {
     --sbb-footer-clock-width: #{sbb.px-to-rem-build(112)};

@@ -6,7 +6,6 @@
   --sbb-link-color-normal: var(--sbb-color-granite);
   --sbb-link-color-hover: var(--sbb-color-red125);
   --sbb-link-color-active: var(--sbb-color-red150);
-  --sbb-link-text-decoration: var(--sbb-link-text-decoration-none, underline);
 }
 
 @mixin block-link-variables--negative {
@@ -20,7 +19,6 @@
   --sbb-link-color-normal: inherit;
   --sbb-link-color-hover: var(--sbb-color-red125);
   --sbb-link-color-active: var(--sbb-color-red150);
-  --sbb-link-text-decoration: var(--sbb-link-text-decoration-none, underline);
 }
 
 @mixin link-variables--negative {
@@ -39,7 +37,7 @@
 
 @mixin link-base {
   color: var(--sbb-link-color-normal);
-  text-decoration: var(--sbb-link-text-decoration);
+  text-decoration: var(--sbb-link-text-decoration, underline);
   user-select: none;
 
   @include a11y.if-forced-colors {
