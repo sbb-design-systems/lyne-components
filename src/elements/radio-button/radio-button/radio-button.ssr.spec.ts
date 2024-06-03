@@ -9,7 +9,9 @@ describe(`sbb-radio-button ${fixture.name}`, () => {
   let root: SbbRadioButtonElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-radio-button value="Value">Value label</sbb-radio-button>`);
+    root = await fixture(html`<sbb-radio-button value="Value">Value label</sbb-radio-button>`, {
+      modules: ['./radio-button.js'],
+    });
   });
 
   it('renders', () => {

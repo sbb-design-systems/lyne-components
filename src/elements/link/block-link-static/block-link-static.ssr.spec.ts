@@ -20,6 +20,7 @@ describe(`sbb-block-link-static ${fixture.name}`, () => {
         ></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-block-link-static>`,
+      { modules: ['./block-link-static.js'] },
     );
   });
 

@@ -21,6 +21,7 @@ describe(`sbb-block-link-button ${fixture.name}`, () => {
         <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-block-link-button>`,
+      { modules: ['./block-link-button.js'] },
     );
   });
 

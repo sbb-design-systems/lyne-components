@@ -9,7 +9,9 @@ describe(`sbb-dialog-content ${fixture.name}`, () => {
   let root: SbbDialogContentElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-dialog-content>Content</sbb-dialog-content>`);
+    root = await fixture(html`<sbb-dialog-content>Content</sbb-dialog-content>`, {
+      modules: ['./dialog-content.js'],
+    });
   });
 
   it('renders', () => {

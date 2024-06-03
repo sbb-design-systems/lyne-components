@@ -9,7 +9,9 @@ describe(`sbb-dialog-title ${fixture.name}`, () => {
   let root: SbbDialogTitleElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-dialog-title back-button>Title</sbb-dialog-title>`);
+    root = await fixture(html`<sbb-dialog-title back-button>Title</sbb-dialog-title>`, {
+      modules: ['./dialog-title.js'],
+    });
   });
 
   it('renders', () => {

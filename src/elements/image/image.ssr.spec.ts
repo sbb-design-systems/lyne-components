@@ -10,7 +10,9 @@ describe(`sbb-image ${fixture.name}`, () => {
 
   beforeEach(async () => {
     const url = `${location.protocol}//${location.host}/src/elements/clock/assets/sbb_clock_face.svg`;
-    root = await fixture(html`<sbb-image image-src=${url}></sbb-image>`);
+    root = await fixture(html`<sbb-image image-src=${url}></sbb-image>`, {
+      modules: ['./image.js'],
+    });
   });
 
   it('renders', () => {

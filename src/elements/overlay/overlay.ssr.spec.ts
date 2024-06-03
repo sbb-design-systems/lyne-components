@@ -9,11 +9,14 @@ describe(`sbb-overlay ${fixture.name}`, () => {
   let root: SbbOverlayElement;
 
   beforeEach(async () => {
-    root = await fixture(html`
-      <sbb-overlay id="my-overlay-1" accessibility-label="Label">
-        <p>Overlay content</p>
-      </sbb-overlay>
-    `);
+    root = await fixture(
+      html`
+        <sbb-overlay id="my-overlay-1" accessibility-label="Label">
+          <p>Overlay content</p>
+        </sbb-overlay>
+      `,
+      { modules: ['./overlay.js'] },
+    );
   });
 
   it('renders', () => {

@@ -9,7 +9,9 @@ describe(`sbb-dialog-actions ${fixture.name}`, () => {
   let root: SbbDialogActionsElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-dialog-actions></sbb-dialog-actions>`);
+    root = await fixture(html`<sbb-dialog-actions></sbb-dialog-actions>`, {
+      modules: ['./dialog-actions.js'],
+    });
   });
 
   it('renders', () => {
