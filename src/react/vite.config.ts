@@ -6,6 +6,7 @@ import {
   generateReactWrappers,
   isProdBuild,
   packageJsonTemplate,
+  verifyEntryPoints,
 } from '../../tools/vite/index.js';
 import rootConfig from '../../vite.config.js';
 
@@ -15,7 +16,9 @@ export default defineConfig((config) =>
     plugins: [
       generateReactWrappers('@sbb-esta/lyne-elements', './elements/custom-elements.json'),
       ...(config.command === 'build' ? [dts()] : []),
-      ...(isProdBuild(config) ? [packageJsonTemplate({ exportsExtensions: ['', '.js'] })] : []),
+      ...(isProdBuild(config)
+        ? [packageJsonTemplate({ exportsExtensions: ['', '.js'] }), verifyEntryPoints()]
+        : []),
     ],
     build: {
       lib: {

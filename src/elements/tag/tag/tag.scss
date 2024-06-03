@@ -11,7 +11,7 @@
   --sbb-tag-border-width: var(--sbb-border-width-1x);
   --sbb-tag-text-color: var(--sbb-color-charcoal);
   --sbb-tag-amount-color: var(--sbb-color-metal);
-  --sbb-tag-height: #{sbb.px-to-rem-build(36)};
+  --sbb-tag-height: var(--sbb-size-element-xs);
   --sbb-tag-inset: 0;
   --sbb-tag-content-shift: translateY(0);
   --sbb-tag-animation-duration: var(
@@ -21,10 +21,6 @@
   --sbb-tag-animation-easing: var(--sbb-animation-easing);
   --sbb-tag-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-tag-gap: var(--sbb-spacing-fixed-2x);
-
-  @include sbb.mq($from: medium) {
-    --sbb-tag-height: #{sbb.px-to-rem-build(40)};
-  }
 
   @include sbb.if-forced-colors {
     --sbb-tag-background-color: Canvas !important;
@@ -93,6 +89,11 @@
     --sbb-tag-border-color: Highlight;
     --sbb-tag-text-color: ButtonText;
   }
+}
+
+:host([size='s']) {
+  --sbb-tag-height: var(--sbb-size-element-xxxs);
+  --sbb-tag-padding-inline: var(--sbb-spacing-fixed-3x);
 }
 
 .sbb-tag {

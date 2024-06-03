@@ -1,28 +1,35 @@
-import { dotReporter } from '@web/test-runner';
+import {
+  dotReporter,
+  type Reporter,
+  type TestResult,
+  type TestSession,
+  type TestSuiteResult,
+} from '@web/test-runner';
 
-/** @type {import('@web/test-runner-core').Reporter} */
-export function minimalReporter() {
+export function minimalReporter(): Reporter {
   const base = dotReporter();
-  const log = (result) =>
+  const log = (result: TestResult): boolean =>
     process.stdout.write(result.passed ? '.' : result.skipped ? '~' : '\x1b[31mx\x1b[0m');
-  function logResults(results) {
+  function logResults(results: TestSuiteResult | undefined): void {
     results?.tests?.forEach(log);
     results?.suites?.forEach(logResults);
   }
   const collectorBase = { suites: 0, tests: 0, passed: 0, failed: 0, skipped: 0 };
-  /** @param {import('@web/test-runner-core').TestSession[]} sessions */
-  function aggregateSessions(sessions) {
-    const browserResults = new Map();
+  function aggregateSessions(sessions: TestSession[]): [string, typeof collectorBase][] {
+    const browserResults = new Map<string, typeof collectorBase>();
     for (const session of sessions) {
       if (!browserResults.has(session.browser.name)) {
         browserResults.set(session.browser.name, { ...collectorBase });
       }
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       aggregateSuites(session.testResults, browserResults.get(session.browser.name));
     }
     return Array.from(browserResults).sort((a, b) => a[0].localeCompare(b[0]));
   }
-  /** @param {import('@web/test-runner-core').TestSuiteResult} results */
-  function aggregateSuites(results, collector = { ...collectorBase }) {
+  function aggregateSuites(
+    results: TestSuiteResult | undefined,
+    collector = { ...collectorBase },
+  ): typeof collectorBase {
     collector.suites += 1;
     results?.tests?.forEach((result) => {
       collector.tests += 1;
@@ -37,7 +44,7 @@ export function minimalReporter() {
     results?.suites?.forEach((s) => aggregateSuites(s, collector));
     return collector;
   }
-  const p = (v) => v.toString().padStart(6, ' ');
+  const p = (v: number): string => v.toString().padStart(6, ' ');
 
   return {
     ...base,
@@ -61,7 +68,7 @@ export function minimalReporter() {
         console.groupEnd();
       }
       console.groupEnd();
-      base.onTestRunFinished(args);
+      base.onTestRunFinished!(args);
     },
   };
 }

@@ -10,7 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
-import type { SbbTagElement } from '../tag.js';
+import type { SbbTagElement, SbbTagSize } from '../tag.js';
 
 import style from './tag-group.scss?lit&inline';
 
@@ -39,6 +39,9 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
    * Changing multiple during run time is not supported.
    */
   @property({ type: Boolean }) public multiple = false;
+
+  /** Tag group size. */
+  @property({ reflect: true }) public size: SbbTagSize = 'm';
 
   /**
    * Value of the sbb-tag-group.
@@ -88,6 +91,10 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
+    if (changedProperties.has('size')) {
+      this.tags.forEach((t) => t.requestUpdate?.('size'));
+    }
 
     if (
       (changedProperties.has('listChildren') || changedProperties.has('multiple')) &&
