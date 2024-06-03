@@ -13,7 +13,7 @@ import { SbbRadioButtonElement } from '../radio-button.js';
 import { SbbSelectionPanelElement } from './selection-panel.js';
 import '../link/block-link-button.js';
 
-describe(`sbb-selection-panel with ${fixture.name}`, () => {
+describe(`sbb-selection-panel`, () => {
   let elements: SbbSelectionPanelElement[];
 
   const getPageContent = (inputType: string): TemplateResult => {
@@ -133,9 +133,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
       willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
       didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
 
-      wrapper = await fixture(getPageContent('radio-button'), {
-        modules: ['./selection-panel.ts', '../button.ts', '../radio-button.ts'],
-      });
+      wrapper = await fixture(getPageContent('radio-button'));
       elements = Array.from(wrapper.querySelectorAll('sbb-selection-panel'));
       firstPanel = wrapper.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
       firstInput = wrapper.querySelector<SbbRadioButtonElement>('#sbb-input-1')!;
@@ -254,31 +252,24 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
 
   describe('with radio group with no slotted content', () => {
     it('focus selected, the focus and select on keyboard navigation', async () => {
-      const wrapperNoContent = await fixture(
-        html`
-          <sbb-radio-button-group id="group-no-content" value="Value 2">
-            <sbb-selection-panel id="no-content-1">
-              <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
-            </sbb-selection-panel>
-            <sbb-selection-panel id="no-content-2">
-              <sbb-radio-button id="input-no-content-2" value="Value 2">Value two</sbb-radio-button>
-            </sbb-selection-panel>
-            <sbb-selection-panel id="no-content-3">
-              <sbb-radio-button id="input-no-content-3" value="Value 3" disabled
-                >Value three</sbb-radio-button
-              >
-            </sbb-selection-panel>
-            <sbb-selection-panel id="no-content-4">
-              <sbb-radio-button id="input-no-content-4" value="Value 4"
-                >Value four</sbb-radio-button
-              >
-            </sbb-selection-panel>
-          </sbb-radio-button-group>
-        `,
-        {
-          modules: ['../radio-button.ts', './selection-panel.ts', '../radio-button.ts'],
-        },
-      );
+      const wrapperNoContent = await fixture(html`
+        <sbb-radio-button-group id="group-no-content" value="Value 2">
+          <sbb-selection-panel id="no-content-1">
+            <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
+          </sbb-selection-panel>
+          <sbb-selection-panel id="no-content-2">
+            <sbb-radio-button id="input-no-content-2" value="Value 2">Value two</sbb-radio-button>
+          </sbb-selection-panel>
+          <sbb-selection-panel id="no-content-3">
+            <sbb-radio-button id="input-no-content-3" value="Value 3" disabled
+              >Value three</sbb-radio-button
+            >
+          </sbb-selection-panel>
+          <sbb-selection-panel id="no-content-4">
+            <sbb-radio-button id="input-no-content-4" value="Value 4">Value four</sbb-radio-button>
+          </sbb-selection-panel>
+        </sbb-radio-button-group>
+      `);
       const firstInputNoContent =
         wrapperNoContent.querySelector<SbbRadioButtonElement>('#input-no-content-1')!;
       const secondInputNoContent =
@@ -337,30 +328,25 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
       willCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.willClose);
       didCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.didClose);
 
-      nestedElement = await fixture(
-        html`
-          <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-            <sbb-selection-panel id="panel1">
-              <sbb-radio-button value="main1" checked> Main Option 1 </sbb-radio-button>
-              <sbb-radio-button-group orientation="vertical" slot="content">
-                <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
-                <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
-              </sbb-radio-button-group>
-            </sbb-selection-panel>
+      nestedElement = await fixture(html`
+        <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+          <sbb-selection-panel id="panel1">
+            <sbb-radio-button value="main1" checked> Main Option 1 </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
+              <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
 
-            <sbb-selection-panel id="panel2">
-              <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
-              <sbb-radio-button-group orientation="vertical" slot="content">
-                <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
-                <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
-              </sbb-radio-button-group>
-            </sbb-selection-panel>
-          </sbb-radio-button-group>
-        `,
-        {
-          modules: ['../radio-button.ts', './selection-panel.ts', '../radio-button.ts'],
-        },
-      );
+          <sbb-selection-panel id="panel2">
+            <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
+              <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
+        </sbb-radio-button-group>
+      `);
       panel1 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel1')!;
       panel2 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel2')!;
     });
@@ -463,34 +449,29 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
 
   describe('with template tag manipulation', () => {
     it('should initialize the group correctly after append', async () => {
-      const root = await fixture(
-        html`
-          <div>
-            <template>
-              <sbb-selection-panel>
-                <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
-                <sbb-radio-button-group orientation="vertical" slot="content">
-                  <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
-                  <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
-                </sbb-radio-button-group>
-              </sbb-selection-panel>
+      const root = await fixture(html`
+        <div>
+          <template>
+            <sbb-selection-panel>
+              <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
+              <sbb-radio-button-group orientation="vertical" slot="content">
+                <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
+                <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
+              </sbb-radio-button-group>
+            </sbb-selection-panel>
 
-              <sbb-selection-panel>
-                <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
-                <sbb-radio-button-group orientation="vertical" slot="content">
-                  <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
-                  <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
-                </sbb-radio-button-group>
-              </sbb-selection-panel>
-            </template>
+            <sbb-selection-panel>
+              <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+              <sbb-radio-button-group orientation="vertical" slot="content">
+                <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
+                <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
+              </sbb-radio-button-group>
+            </sbb-selection-panel>
+          </template>
 
-            <sbb-radio-button-group value="main1"></sbb-radio-button-group>
-          </div>
-        `,
-        {
-          modules: ['./selection-panel.ts', '../radio-button.ts', '../radio-button.ts'],
-        },
-      );
+          <sbb-radio-button-group value="main1"></sbb-radio-button-group>
+        </div>
+      `);
 
       const radioGroup = root.querySelector<SbbRadioButtonGroupElement>('sbb-radio-button-group')!;
       const selectionPanels = Array.from(
@@ -532,9 +513,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
       willCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.willClose);
       didCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.didClose);
 
-      wrapper = await fixture(getPageContent('checkbox'), {
-        modules: ['./selection-panel.ts', '../button.ts', '../checkbox.ts'],
-      });
+      wrapper = await fixture(getPageContent('checkbox'));
       elements = Array.from(wrapper.querySelectorAll('sbb-selection-panel'));
       firstPanel = wrapper.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
       firstInput = wrapper.querySelector<SbbCheckboxElement>('#sbb-input-1')!;
@@ -666,28 +645,25 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
     let nestedElement: SbbCheckboxGroupElement;
 
     beforeEach(async () => {
-      nestedElement = await fixture(
-        html`
-          <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-            <sbb-selection-panel>
-              <sbb-checkbox value="main1" checked> Main Option 1 </sbb-checkbox>
-              <sbb-checkbox-group orientation="vertical" slot="content">
-                <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
-                <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>
-              </sbb-checkbox-group>
-            </sbb-selection-panel>
+      nestedElement = await fixture(html`
+        <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+          <sbb-selection-panel>
+            <sbb-checkbox value="main1" checked> Main Option 1 </sbb-checkbox>
+            <sbb-checkbox-group orientation="vertical" slot="content">
+              <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
+              <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>
+            </sbb-checkbox-group>
+          </sbb-selection-panel>
 
-            <sbb-selection-panel>
-              <sbb-checkbox value="main2"> Main Option 2 </sbb-checkbox>
-              <sbb-checkbox-group orientation="vertical" slot="content">
-                <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
-                <sbb-checkbox value="sub4">Suboption 4</sbb-checkbox>
-              </sbb-checkbox-group>
-            </sbb-selection-panel>
-          </sbb-checkbox-group>
-        `,
-        { modules: ['../checkbox.ts', './selection-panel.ts', '../checkbox.ts'] },
-      );
+          <sbb-selection-panel>
+            <sbb-checkbox value="main2"> Main Option 2 </sbb-checkbox>
+            <sbb-checkbox-group orientation="vertical" slot="content">
+              <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
+              <sbb-checkbox value="sub4">Suboption 4</sbb-checkbox>
+            </sbb-checkbox-group>
+          </sbb-selection-panel>
+        </sbb-checkbox-group>
+      `);
     });
 
     it('should display expanded label correctly', async () => {

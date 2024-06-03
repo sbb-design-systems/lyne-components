@@ -5,11 +5,11 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbIconElement } from './icon.js';
 
-describe(`sbb-icon with ${fixture.name}`, () => {
+describe(`sbb-icon`, () => {
   let element: SbbIconElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-icon></sbb-icon>`, { modules: ['./icon.ts'] });
+    element = await fixture(html`<sbb-icon></sbb-icon>`);
 
     assert.instanceOf(element, SbbIconElement);
   });

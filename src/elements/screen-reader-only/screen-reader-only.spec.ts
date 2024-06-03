@@ -5,13 +5,11 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbScreenReaderOnlyElement } from './screen-reader-only.js';
 
-describe(`sbb-screen-reader-only with ${fixture.name}`, () => {
+describe(`sbb-screen-reader-only`, () => {
   let element: SbbScreenReaderOnlyElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-screen-reader-only>Hidden text.</sbb-screen-reader-only>`, {
-      modules: ['./screen-reader-only.ts'],
-    });
+    element = await fixture(html`<sbb-screen-reader-only>Hidden text.</sbb-screen-reader-only>`);
   });
 
   it('renders', async () => {

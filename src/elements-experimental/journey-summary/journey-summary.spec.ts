@@ -4,11 +4,9 @@ import { html } from 'lit/static-html.js';
 
 import { SbbJourneySummaryElement } from './journey-summary.js';
 
-describe(`sbb-journey-summary with ${fixture.name}`, () => {
+describe(`sbb-journey-summary`, () => {
   it('renders', async () => {
-    const element = await fixture(html`<sbb-journey-summary></sbb-journey-summary>`, {
-      modules: ['./journey-summary.ts'],
-    });
+    const element = await fixture(html`<sbb-journey-summary></sbb-journey-summary>`);
     assert.instanceOf(element, SbbJourneySummaryElement);
   });
 });

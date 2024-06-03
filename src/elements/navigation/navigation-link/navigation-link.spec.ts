@@ -7,13 +7,12 @@ import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing
 
 import { SbbNavigationLinkElement } from './navigation-link.js';
 
-describe(`sbb-navigation-link with ${fixture.name}`, () => {
+describe(`sbb-navigation-link`, () => {
   let element: SbbNavigationLinkElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-navigation-link href="#" id="focus-id">Navigation Action</sbb-navigation-link>`,
-      { modules: ['./navigation-link.ts'] },
     );
   });
 

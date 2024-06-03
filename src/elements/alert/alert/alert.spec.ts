@@ -6,11 +6,11 @@ import { waitForCondition, EventSpy } from '../../core/testing.js';
 
 import { SbbAlertElement } from './alert.js';
 
-describe(`sbb-alert with ${fixture.name}`, () => {
+describe(`sbb-alert`, () => {
   let alert: SbbAlertElement;
 
   it('renders', async () => {
-    alert = await fixture(html`<sbb-alert></sbb-alert>`, { modules: ['./alert.ts'] });
+    alert = await fixture(html`<sbb-alert></sbb-alert>`);
     assert.instanceOf(alert, SbbAlertElement);
   });
 
@@ -18,9 +18,7 @@ describe(`sbb-alert with ${fixture.name}`, () => {
     const willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen);
     const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen);
 
-    await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`, {
-      modules: ['./alert.ts'],
-    });
+    await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
 
     await waitForCondition(() => willOpenSpy.events.length === 1);
     expect(willOpenSpy.count).to.be.equal(1);
@@ -31,7 +29,6 @@ describe(`sbb-alert with ${fixture.name}`, () => {
   it('should hide close button in readonly mode', async () => {
     alert = await fixture(
       html`<sbb-alert title-content="Interruption" readonly>Alert content</sbb-alert>`,
-      { modules: ['./alert.ts'] },
     );
 
     expect(alert.shadowRoot!.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;

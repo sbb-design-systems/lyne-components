@@ -8,23 +8,20 @@ import { SbbCheckboxElement } from '../checkbox.js';
 
 import { SbbCheckboxGroupElement } from './checkbox-group.js';
 
-describe(`sbb-checkbox-group with ${fixture.name}`, () => {
+describe(`sbb-checkbox-group`, () => {
   let element: SbbCheckboxGroupElement;
   let checkboxOne: SbbCheckboxElement,
     checkboxTwo: SbbCheckboxElement,
     checkboxThree: SbbCheckboxElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-checkbox-group>
-          <sbb-checkbox id="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
-          <sbb-checkbox id="checkbox-2" disabled value="checkbox-2">Label 2</sbb-checkbox>
-          <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
-        </sbb-checkbox-group>
-      `,
-      { modules: ['./checkbox-group.ts', '../checkbox.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-checkbox-group>
+        <sbb-checkbox id="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
+        <sbb-checkbox id="checkbox-2" disabled value="checkbox-2">Label 2</sbb-checkbox>
+        <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
+      </sbb-checkbox-group>
+    `);
     checkboxOne = element.querySelector<SbbCheckboxElement>('#checkbox-1')!;
     checkboxTwo = element.querySelector<SbbCheckboxElement>('#checkbox-2')!;
     checkboxThree = element.querySelector<SbbCheckboxElement>('#checkbox-3')!;

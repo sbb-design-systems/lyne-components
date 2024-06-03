@@ -14,39 +14,29 @@ import '../navigation-button.js';
 import '../navigation-marker.js';
 import '../navigation-section.js';
 
-describe(`sbb-navigation with ${fixture.name}`, () => {
+describe(`sbb-navigation`, () => {
   let element: SbbNavigationElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-navigation id="navigation">
-          <sbb-navigation-marker>
-            <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
-            <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
-            <sbb-navigation-button>Travel information</sbb-navigation-button>
-            <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
-          </sbb-navigation-marker>
+    element = await fixture(html`
+      <sbb-navigation id="navigation">
+        <sbb-navigation-marker>
+          <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
+          <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
+          <sbb-navigation-button>Travel information</sbb-navigation-button>
+          <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
+        </sbb-navigation-marker>
 
-          <sbb-navigation-section trigger="action-1" id="first-section">
-            <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
-            <sbb-navigation-button>Label</sbb-navigation-button>
-          </sbb-navigation-section>
-          <sbb-navigation-section trigger="action-2" id="second-section">
-            <sbb-navigation-button>Label</sbb-navigation-button>
-            <sbb-navigation-button>Label</sbb-navigation-button>
-          </sbb-navigation-section>
-        </sbb-navigation>
-      `,
-      {
-        modules: [
-          './navigation.ts',
-          '../navigation-marker.ts',
-          '../navigation-button.ts',
-          '../navigation-section.ts',
-        ],
-      },
-    );
+        <sbb-navigation-section trigger="action-1" id="first-section">
+          <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
+          <sbb-navigation-button>Label</sbb-navigation-button>
+        </sbb-navigation-section>
+        <sbb-navigation-section trigger="action-2" id="second-section">
+          <sbb-navigation-button>Label</sbb-navigation-button>
+          <sbb-navigation-button>Label</sbb-navigation-button>
+        </sbb-navigation-section>
+      </sbb-navigation>
+    `);
   });
 
   it('renders', () => {
@@ -67,28 +57,23 @@ describe(`sbb-navigation with ${fixture.name}`, () => {
   });
 
   it('sets the initial active actions and focuses on the close button', async () => {
-    element = await fixture(
-      html`
-        <sbb-navigation id="navigation">
-          <sbb-navigation-marker>
-            <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-            <sbb-navigation-button id="action-active-1" class="sbb-active"
-              >Vacations & Recreation</sbb-navigation-button
-            >
-          </sbb-navigation-marker>
+    element = await fixture(html`
+      <sbb-navigation id="navigation">
+        <sbb-navigation-marker>
+          <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
+          <sbb-navigation-button id="action-active-1" class="sbb-active"
+            >Vacations & Recreation</sbb-navigation-button
+          >
+        </sbb-navigation-marker>
 
-          <sbb-navigation-marker>
-            <sbb-navigation-button id="action-active-2" class="sbb-active"
-              >English</sbb-navigation-button
-            >
-            <sbb-navigation-button>German</sbb-navigation-button>
-          </sbb-navigation-marker>
-        </sbb-navigation>
-      `,
-      {
-        modules: ['./navigation.ts', '../navigation-marker.ts', '../navigation-button.ts'],
-      },
-    );
+        <sbb-navigation-marker>
+          <sbb-navigation-button id="action-active-2" class="sbb-active"
+            >English</sbb-navigation-button
+          >
+          <sbb-navigation-button>German</sbb-navigation-button>
+        </sbb-navigation-marker>
+      </sbb-navigation>
+    `);
 
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
     const action2 = element.querySelector<SbbNavigationButtonElement>(
@@ -115,33 +100,23 @@ describe(`sbb-navigation with ${fixture.name}`, () => {
   });
 
   it('sets the initial active action and opens the connected section', async () => {
-    element = await fixture(
-      html`
-        <sbb-navigation id="navigation">
-          <sbb-navigation-marker>
-            <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-            <sbb-navigation-button id="action-active" class="sbb-active"
-              >Vacations & Recreation</sbb-navigation-button
-            >
-          </sbb-navigation-marker>
+    element = await fixture(html`
+      <sbb-navigation id="navigation">
+        <sbb-navigation-marker>
+          <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
+          <sbb-navigation-button id="action-active" class="sbb-active"
+            >Vacations & Recreation</sbb-navigation-button
+          >
+        </sbb-navigation-marker>
 
-          <sbb-navigation-section trigger="action-active" id="active-section">
-            <sbb-navigation-button>Label</sbb-navigation-button>
-            <sbb-navigation-button id="section-action-active" class="sbb-active"
-              >Label</sbb-navigation-button
-            >
-          </sbb-navigation-section>
-        </sbb-navigation>
-      `,
-      {
-        modules: [
-          './navigation.ts',
-          '../navigation-marker.ts',
-          '../navigation-button.ts',
-          '../navigation-section.ts',
-        ],
-      },
-    );
+        <sbb-navigation-section trigger="action-active" id="active-section">
+          <sbb-navigation-button>Label</sbb-navigation-button>
+          <sbb-navigation-button id="section-action-active" class="sbb-active"
+            >Label</sbb-navigation-button
+          >
+        </sbb-navigation-section>
+      </sbb-navigation>
+    `);
 
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
     const actionActive = element.querySelector<SbbNavigationButtonElement>(
@@ -171,28 +146,23 @@ describe(`sbb-navigation with ${fixture.name}`, () => {
   });
 
   it('resets the markers on navigation close', async () => {
-    element = await fixture(
-      html`
-        <sbb-navigation id="navigation">
-          <sbb-navigation-marker>
-            <sbb-navigation-button id="first-action">Tickets & Offers</sbb-navigation-button>
-            <sbb-navigation-button id="second-action" class="sbb-active"
-              >Vacations & Recreation</sbb-navigation-button
-            >
-          </sbb-navigation-marker>
+    element = await fixture(html`
+      <sbb-navigation id="navigation">
+        <sbb-navigation-marker>
+          <sbb-navigation-button id="first-action">Tickets & Offers</sbb-navigation-button>
+          <sbb-navigation-button id="second-action" class="sbb-active"
+            >Vacations & Recreation</sbb-navigation-button
+          >
+        </sbb-navigation-marker>
 
-          <sbb-navigation-marker>
-            <sbb-navigation-button id="third-action" class="sbb-active"
-              >English</sbb-navigation-button
-            >
-            <sbb-navigation-button id="forth-action">German</sbb-navigation-button>
-          </sbb-navigation-marker>
-        </sbb-navigation>
-      `,
-      {
-        modules: ['./navigation.ts', '../navigation-marker.ts', '../navigation-button.ts'],
-      },
-    );
+        <sbb-navigation-marker>
+          <sbb-navigation-button id="third-action" class="sbb-active"
+            >English</sbb-navigation-button
+          >
+          <sbb-navigation-button id="forth-action">German</sbb-navigation-button>
+        </sbb-navigation-marker>
+      </sbb-navigation>
+    `);
 
     const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);

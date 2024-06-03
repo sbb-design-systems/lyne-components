@@ -7,14 +7,11 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbHeaderLinkElement } from './header-link.js';
 
-describe(`sbb-header-link with ${fixture.name}`, () => {
+describe(`sbb-header-link`, () => {
   let element: SbbHeaderLinkElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`<sbb-header-link id="focus-id" href="#">Action</sbb-header-link>`,
-      { modules: ['./header-link.ts'] },
-    );
+    element = await fixture(html`<sbb-header-link id="focus-id" href="#">Action</sbb-header-link>`);
   });
 
   it('renders', async () => {

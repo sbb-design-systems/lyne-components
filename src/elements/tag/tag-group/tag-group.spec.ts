@@ -9,22 +9,19 @@ import { SbbTagGroupElement } from './tag-group.js';
 
 import '../tag.js';
 
-describe(`sbb-tag-group with ${fixture.name}`, () => {
+describe(`sbb-tag-group`, () => {
   let element: SbbTagGroupElement;
 
   describe('multiple mode', () => {
     describe('no initialized checked tag', () => {
       beforeEach(async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group multiple>
-              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group multiple>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
       });
 
       it('renders', async () => {
@@ -87,16 +84,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
 
     describe('one initialized checked tag', () => {
       beforeEach(async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group multiple>
-              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group multiple>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
       });
 
       it('should have one activated tag', async () => {
@@ -155,24 +149,19 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
 
     describe('initialization', () => {
       it('should read empty array as value [template attribute]', async () => {
-        element = await fixture(html` <sbb-tag-group multiple value="[]"></sbb-tag-group> `, {
-          modules: ['./tag-group.ts'],
-        });
+        element = await fixture(html` <sbb-tag-group multiple value="[]"></sbb-tag-group> `);
 
         expect(element.value).to.be.an('array').that.is.empty;
       });
 
       it('should read array as value [template attribute]', async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group multiple value='["tag1", "tag3"]'>
-              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group multiple value='["tag1", "tag3"]'>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
 
         expect(element.value).to.be.eql(['tag1', 'tag3']);
         expect(element.querySelector('sbb-tag#sbb-tag-1')).to.have.attribute('checked');
@@ -181,9 +170,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       });
 
       it('should read empty array as value [prop]', async () => {
-        element = await fixture(html` <sbb-tag-group multiple></sbb-tag-group> `, {
-          modules: ['./tag-group.ts'],
-        });
+        element = await fixture(html` <sbb-tag-group multiple></sbb-tag-group> `);
         element.value = [];
         await waitForLitRender(element);
 
@@ -191,16 +178,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       });
 
       it('should read array as value [prop]', async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group multiple>
-              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group multiple>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
         element.value = ['tag1', 'tag3'];
         await waitForLitRender(element);
 
@@ -211,16 +195,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       });
 
       it('should coerce non-array value to array value', async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group multiple>
-              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group multiple>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
         element.value = 'tag1';
         await waitForLitRender(element);
 
@@ -233,16 +214,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
 
     describe('value change', () => {
       beforeEach(async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group multiple>
-              <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3" checked>Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group multiple>
+            <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3" checked>Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
       });
 
       it('should update group value if single value changes [prop]', async () => {
@@ -270,16 +248,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
   describe('exclusive mode', () => {
     describe('no initialized checked tag', () => {
       beforeEach(async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group>
-              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
       });
 
       it('renders', async () => {
@@ -342,16 +317,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
 
     describe('one initialized checked tag', () => {
       beforeEach(async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group>
-              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
       });
 
       it('should have one activated tag', async () => {
@@ -482,16 +454,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
 
     describe('initialization', () => {
       it('should read value [template attribute]', async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group value="tag2">
-              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group value="tag2">
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
 
         expect(element.value).to.be.equal('tag2');
         expect(element.querySelector('sbb-tag#sbb-tag-1')).not.to.have.attribute('checked');
@@ -500,16 +469,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       });
 
       it('should read value [prop]', async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group>
-              <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
 
         element.value = 'tag2';
         await waitForLitRender(element);
@@ -521,9 +487,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       });
 
       it('should ignore because value is an array', async () => {
-        element = await fixture(html` <sbb-tag-group></sbb-tag-group> `, {
-          modules: ['./tag-group.ts'],
-        });
+        element = await fixture(html` <sbb-tag-group></sbb-tag-group> `);
         element.value = [];
         await waitForLitRender(element);
 
@@ -531,16 +495,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       });
 
       it('should ensure only first option selected', async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group>
-              <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group>
+            <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
         expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
         expect(element.value).to.be.equal('tag1');
       });
@@ -548,16 +509,13 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
 
     describe('value change', () => {
       beforeEach(async () => {
-        element = await fixture(
-          html`
-            <sbb-tag-group>
-              <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
-              <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
-              <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
-            </sbb-tag-group>
-          `,
-          { modules: ['./tag-group.ts', '../tag.ts'] },
-        );
+        element = await fixture(html`
+          <sbb-tag-group>
+            <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
       });
 
       it('should update group value if single value changes [prop]', async () => {

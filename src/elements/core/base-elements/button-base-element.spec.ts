@@ -16,12 +16,12 @@ class GenericButton extends SbbButtonBaseElement {
 }
 customElements.define('generic-button', GenericButton);
 
-describe(`SbbButtonBaseElement with ${fixture.name}`, () => {
+describe(`SbbButtonBaseElement`, () => {
   describe('template', () => {
     let element: GenericButton;
 
     beforeEach(async () => {
-      element = await fixture(html`<generic-button></generic-button>`, { modules: [] });
+      element = await fixture(html`<generic-button></generic-button>`);
     });
 
     it('renders', async () => {
@@ -42,7 +42,7 @@ describe(`SbbButtonBaseElement with ${fixture.name}`, () => {
     let element: GenericButton;
 
     beforeEach(async () => {
-      element = await fixture(html` <generic-button></generic-button> `, { modules: [] });
+      element = await fixture(html` <generic-button></generic-button> `);
     });
 
     it('no click dispatch if disabled', async () => {

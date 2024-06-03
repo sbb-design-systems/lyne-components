@@ -6,13 +6,11 @@ import { EventSpy, waitForLitRender } from '../core/testing.js';
 
 import { SbbTeaserElement } from './teaser.js';
 
-describe(`sbb-teaser with ${fixture.name}`, () => {
+describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`, {
-      modules: ['./teaser.ts'],
-    });
+    element = await fixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`);
   });
 
   it('should render', async () => {

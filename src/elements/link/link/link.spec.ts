@@ -7,13 +7,11 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbLinkElement } from './link.js';
 
-describe(`sbb-link with ${fixture.name}`, () => {
+describe(`sbb-link`, () => {
   let element: SbbLinkElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-link href="#" id="focus-id">Inline link</sbb-link>`, {
-      modules: ['./link.ts'],
-    });
+    element = await fixture(html`<sbb-link href="#" id="focus-id">Inline link</sbb-link>`);
   });
 
   it('renders', async () => {

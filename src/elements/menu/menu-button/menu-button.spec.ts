@@ -7,13 +7,11 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbMenuButtonElement } from './menu-button.js';
 
-describe(`sbb-menu-button with ${fixture.name}`, () => {
+describe(`sbb-menu-button`, () => {
   let element: SbbMenuButtonElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-menu-button id="focus-id">Menu Action</sbb-menu-button>`, {
-      modules: ['./menu-button.ts'],
-    });
+    element = await fixture(html`<sbb-menu-button id="focus-id">Menu Action</sbb-menu-button>`);
   });
 
   it('renders', async () => {

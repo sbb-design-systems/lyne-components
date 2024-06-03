@@ -6,13 +6,11 @@ import { html } from 'lit/static-html.js';
 
 import { SbbTimetableRowElement } from './timetable-row.js';
 
-describe(`sbb-timetable-row with ${fixture.name}`, () => {
+describe(`sbb-timetable-row`, () => {
   let element: SbbTimetableRowElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-timetable-row></sbb-timetable-row>`, {
-      modules: ['./timetable-row.ts'],
-    });
+    element = await fixture(html`<sbb-timetable-row></sbb-timetable-row>`);
   });
 
   it('renders', () => {

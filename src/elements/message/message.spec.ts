@@ -5,11 +5,11 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbMessageElement } from './message.js';
 
-describe(`sbb-message with ${fixture.name}`, () => {
+describe(`sbb-message`, () => {
   let element: SbbMessageElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-message></sbb-message>`, { modules: ['./message.ts'] });
+    element = await fixture(html`<sbb-message></sbb-message>`);
     assert.instanceOf(element, SbbMessageElement);
   });
 });

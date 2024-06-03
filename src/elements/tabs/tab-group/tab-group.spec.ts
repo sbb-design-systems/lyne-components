@@ -10,7 +10,7 @@ import { SbbTabGroupElement } from './tab-group.js';
 
 import '../tab-title.js';
 
-describe(`sbb-tab-group with ${fixture.name}`, () => {
+describe(`sbb-tab-group`, () => {
   let element: SbbTabGroupElement;
 
   beforeEach(async () => {
@@ -24,7 +24,6 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
         <div>Test tab content 3</div>
         <sbb-tab-title id="sbb-tab-4">Test tab label 4</sbb-tab-title>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.ts', '../tab-title.ts'] },
     );
   });
 
@@ -114,7 +113,6 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
         <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.ts', '../tab-title.ts'] },
     );
     const tab = element.querySelector('sbb-tab-title#sbb-tab-1');
     expect(tab).to.have.attribute('active');
@@ -128,7 +126,6 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
         <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.ts', '../tab-title.ts'] },
     );
     const tab = element.querySelector('sbb-tab-title#sbb-tab-2');
     expect(tab).to.have.attribute('active');

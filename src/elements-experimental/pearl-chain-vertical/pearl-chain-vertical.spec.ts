@@ -4,13 +4,11 @@ import { html } from 'lit/static-html.js';
 
 import { SbbPearlChainVerticalElement } from './pearl-chain-vertical.js';
 
-describe(`sbb-pearl-chain with ${fixture.name}`, () => {
+describe(`sbb-pearl-chain`, () => {
   let element: SbbPearlChainVerticalElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-pearl-chain-vertical></sbb-pearl-chain-vertical>`, {
-      modules: ['./pearl-chain-vertical.ts'],
-    });
+    element = await fixture(html`<sbb-pearl-chain-vertical></sbb-pearl-chain-vertical>`);
     assert.instanceOf(element, SbbPearlChainVerticalElement);
   });
 });

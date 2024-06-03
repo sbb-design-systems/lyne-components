@@ -9,25 +9,16 @@ import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
 import { SbbExpansionPanelElement } from './expansion-panel.js';
 
-describe(`sbb-expansion-panel with ${fixture.name}`, () => {
+describe(`sbb-expansion-panel`, () => {
   let element: SbbExpansionPanelElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-expansion-panel>
-          <sbb-expansion-panel-header icon-name="dog-medium">Header</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
-        </sbb-expansion-panel>
-      `,
-      {
-        modules: [
-          './expansion-panel.ts',
-          '../expansion-panel-header.ts',
-          '../expansion-panel-content.ts',
-        ],
-      },
-    );
+    element = await fixture(html`
+      <sbb-expansion-panel>
+        <sbb-expansion-panel-header icon-name="dog-medium">Header</sbb-expansion-panel-header>
+        <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+      </sbb-expansion-panel>
+    `);
   });
 
   it('renders', async () => {
@@ -49,21 +40,12 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
   });
 
   it('has slotted elements with the correct properties when id are set', async () => {
-    element = await fixture(
-      html`
-        <sbb-expansion-panel>
-          <sbb-expansion-panel-header id="header">Header</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content id="content">Content</sbb-expansion-panel-content>
-        </sbb-expansion-panel>
-      `,
-      {
-        modules: [
-          './expansion-panel.ts',
-          '../expansion-panel-header.ts',
-          '../expansion-panel-content.ts',
-        ],
-      },
-    );
+    element = await fixture(html`
+      <sbb-expansion-panel>
+        <sbb-expansion-panel-header id="header">Header</sbb-expansion-panel-header>
+        <sbb-expansion-panel-content id="content">Content</sbb-expansion-panel-content>
+      </sbb-expansion-panel>
+    `);
 
     const header = element.querySelector('sbb-expansion-panel-header');
     expect(header).to.have.attribute('aria-controls', 'content');

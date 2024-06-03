@@ -6,13 +6,11 @@ import { EventSpy } from '../../core/testing.js';
 
 import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.js';
 
-describe(`sbb-expansion-panel-header with ${fixture.name}`, () => {
+describe(`sbb-expansion-panel-header`, () => {
   let element: SbbExpansionPanelHeaderElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`, {
-      modules: ['./expansion-panel-header.ts'],
-    });
+    element = await fixture(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`);
   });
 
   it('renders', async () => {
@@ -28,7 +26,6 @@ describe(`sbb-expansion-panel-header with ${fixture.name}`, () => {
   it('should not emit event on click if disabled', async () => {
     element = await fixture(
       html`<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`,
-      { modules: ['./expansion-panel-header.ts'] },
     );
     const spy = new EventSpy(SbbExpansionPanelHeaderElement.events.toggleExpanded);
     element.click();

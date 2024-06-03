@@ -7,11 +7,11 @@ import { waitForLitRender, EventSpy } from '../../core/testing.js';
 
 import { SbbTagElement } from './tag.js';
 
-describe(`sbb-tag with ${fixture.name}`, () => {
+describe(`sbb-tag`, () => {
   let element: SbbTagElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-tag value="tag">Tag</sbb-tag>`, { modules: ['./tag.ts'] });
+    element = await fixture(html`<sbb-tag value="tag">Tag</sbb-tag>`);
   });
 
   it('renders', async () => {
@@ -62,9 +62,7 @@ describe(`sbb-tag with ${fixture.name}`, () => {
   });
 
   it('should be unchecked after "Space" keypress', async () => {
-    element = await fixture(html`<sbb-tag value="tag" checked>Tag</sbb-tag>`, {
-      modules: ['./tag.ts'],
-    });
+    element = await fixture(html`<sbb-tag value="tag" checked>Tag</sbb-tag>`);
 
     const changeSpy = new EventSpy('change');
     const inputSpy = new EventSpy('input');

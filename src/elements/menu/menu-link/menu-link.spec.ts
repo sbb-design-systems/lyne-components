@@ -7,13 +7,12 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbMenuLinkElement } from './menu-link.js';
 
-describe(`sbb-menu-link with ${fixture.name}`, () => {
+describe(`sbb-menu-link`, () => {
   let element: SbbMenuLinkElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-menu-link href="#" id="focus-id">Menu Action</sbb-menu-link>`,
-      { modules: ['./menu-link.ts'] },
     );
   });
 

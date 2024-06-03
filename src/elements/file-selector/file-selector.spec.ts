@@ -28,13 +28,11 @@ function addFilesToComponentInput(
   input.dispatchEvent(new Event('change'));
 }
 
-describe(`sbb-file-selector with ${fixture.name}`, () => {
+describe(`sbb-file-selector`, () => {
   let element: SbbFileSelectorElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-file-selector></sbb-file-selector>`, {
-      modules: ['./file-selector.ts'],
-    });
+    element = await fixture(html`<sbb-file-selector></sbb-file-selector>`);
   });
 
   it('renders', () => {

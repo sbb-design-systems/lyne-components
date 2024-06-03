@@ -12,17 +12,14 @@ import { SbbTimeInputElement } from './time-input.js';
 
 import '../form-field/form-field.js';
 
-describe(`sbb-time-input with ${fixture.name}`, () => {
+describe(`sbb-time-input`, () => {
   let element: SbbTimeInputElement, input: HTMLInputElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-time-input input="input-1"></sbb-time-input>
-        <input id="input-1" />
-      `,
-      { modules: ['./time-input.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-time-input input="input-1"></sbb-time-input>
+      <input id="input-1" />
+    `);
 
     input = element.nextElementSibling! as HTMLInputElement;
   });
@@ -225,15 +222,12 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
   });
 
   it('should work with sbb-form-field', async () => {
-    const root = await fixture(
-      html`
-        <sbb-form-field>
-          <sbb-time-input></sbb-time-input>
-          <input />
-        </sbb-form-field>
-      `,
-      { modules: ['../form-field.ts', './time-input.ts'] },
-    );
+    const root = await fixture(html`
+      <sbb-form-field>
+        <sbb-time-input></sbb-time-input>
+        <input />
+      </sbb-form-field>
+    `);
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
 
@@ -243,15 +237,12 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
   });
 
   it('should support asynchronously adding input by element reference', async () => {
-    const root = await fixture(
-      html`
-        <div>
-          <sbb-time-input id="time-input"></sbb-time-input>
-          <input id="input" />
-        </div>
-      `,
-      { modules: ['./time-input.ts'] },
-    );
+    const root = await fixture(html`
+      <div>
+        <sbb-time-input id="time-input"></sbb-time-input>
+        <input id="input" />
+      </div>
+    `);
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
     element.input = input;
@@ -262,15 +253,12 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
   });
 
   it('should support asynchronously adding input by id', async () => {
-    const root = await fixture(
-      html`
-        <div>
-          <sbb-time-input id="time-input"></sbb-time-input>
-          <input id="input-2" />
-        </div>
-      `,
-      { modules: ['./time-input.ts'] },
-    );
+    const root = await fixture(html`
+      <div>
+        <sbb-time-input id="time-input"></sbb-time-input>
+        <input id="input-2" />
+      </div>
+    `);
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
 

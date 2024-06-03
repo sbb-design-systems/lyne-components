@@ -11,12 +11,11 @@ import { SbbDatepickerNextDayElement } from './datepicker-next-day.js';
 import '../datepicker.js';
 import '../../form-field/form-field.js';
 
-describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
+describe(`sbb-datepicker-next-day`, () => {
   describe('standalone', () => {
     it('renders', async () => {
       const element: SbbDatepickerNextDayElement = await fixture(
         html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`,
-        { modules: ['./datepicker-next-day.ts'] },
       );
       assert.instanceOf(element, SbbDatepickerNextDayElement);
     });
@@ -24,16 +23,13 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
 
   describe('with picker', () => {
     it('renders and click', async () => {
-      const page = await fixture(
-        html`
-          <div>
-            <input id="datepicker-input" value="31-12-2022" />
-            <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-            <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
-          </div>
-        `,
-        { modules: ['../datepicker.ts', './datepicker-next-day.ts'] },
-      );
+      const page = await fixture(html`
+        <div>
+          <input id="datepicker-input" value="31-12-2022" />
+          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+          <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+        </div>
+      `);
 
       const element: SbbDatepickerNextDayElement =
         page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
@@ -56,15 +52,12 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
     });
 
     it('datepicker is created after the component', async () => {
-      const element = await fixture(
-        html`
-          <div>
-            <input id="datepicker-input" value="01-01-2023" />
-            <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
-          </div>
-        `,
-        { modules: ['./datepicker-next-day.ts'] },
-      );
+      const element = await fixture(html`
+        <div>
+          <input id="datepicker-input" value="01-01-2023" />
+          <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+        </div>
+      `);
 
       const nextButton: SbbDatepickerNextDayElement =
         element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
@@ -87,18 +80,15 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
     });
 
     it('datepicker is created after the component with different parent', async () => {
-      const element = await fixture(
-        html`
-          <div>
-            <div id="parent">
-              <input id="datepicker-input" value="01-01-2023" />
-              <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
-            </div>
-            <div id="other"></div>
+      const element = await fixture(html`
+        <div>
+          <div id="parent">
+            <input id="datepicker-input" value="01-01-2023" />
+            <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
           </div>
-        `,
-        { modules: ['./datepicker-next-day.ts'] },
-      );
+          <div id="other"></div>
+        </div>
+      `);
 
       const nextButton: SbbDatepickerNextDayElement =
         element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
@@ -125,18 +115,13 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
     let element: SbbDatepickerNextDayElement, input: HTMLInputElement;
 
     beforeEach(async () => {
-      const form = await fixture<SbbFormFieldElement>(
-        html`
-          <sbb-form-field>
-            <input value="21-01-2023" />
-            <sbb-datepicker></sbb-datepicker>
-            <sbb-datepicker-next-day></sbb-datepicker-next-day>
-          </sbb-form-field>
-        `,
-        {
-          modules: ['../../form-field.ts', '../datepicker.ts', './datepicker-next-day.ts'],
-        },
-      );
+      const form = await fixture<SbbFormFieldElement>(html`
+        <sbb-form-field>
+          <input value="21-01-2023" />
+          <sbb-datepicker></sbb-datepicker>
+          <sbb-datepicker-next-day></sbb-datepicker-next-day>
+        </sbb-form-field>
+      `);
       element = form.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
       input = form.querySelector<HTMLInputElement>('input')!;
       await waitForLitRender(element);
@@ -158,18 +143,13 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
     });
 
     it('disabled due max value equals to value', async () => {
-      const form: SbbFormFieldElement = await fixture(
-        html`
-          <sbb-form-field>
-            <input value="21-01-2023" max="1674255600" />
-            <sbb-datepicker-next-day></sbb-datepicker-next-day>
-            <sbb-datepicker></sbb-datepicker>
-          </sbb-form-field>
-        `,
-        {
-          modules: ['../../form-field.ts', './datepicker-next-day.ts', '../datepicker.ts'],
-        },
-      );
+      const form: SbbFormFieldElement = await fixture(html`
+        <sbb-form-field>
+          <input value="21-01-2023" max="1674255600" />
+          <sbb-datepicker-next-day></sbb-datepicker-next-day>
+          <sbb-datepicker></sbb-datepicker>
+        </sbb-form-field>
+      `);
       input = form.querySelector<HTMLInputElement>('input')!;
       expect(input.value).to.be.equal('Sa, 21.01.2023');
       expect(form.querySelector('sbb-datepicker-next-day')).to.have.attribute('data-disabled');

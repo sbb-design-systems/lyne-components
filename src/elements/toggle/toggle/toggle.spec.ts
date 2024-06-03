@@ -10,25 +10,22 @@ import { SbbToggleElement } from './toggle.js';
 
 import '../toggle-option.js';
 
-describe(`sbb-toggle with ${fixture.name}`, () => {
+describe(`sbb-toggle`, () => {
   let element: SbbToggleElement,
     firstOption: SbbToggleOptionElement,
     secondOption: SbbToggleOptionElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-toggle value="Value one">
-          <sbb-toggle-option id="sbb-toggle-option-1" value="Value one">
-            Value one
-          </sbb-toggle-option>
-          <sbb-toggle-option id="sbb-toggle-option-2" value="Value two">
-            Value two
-          </sbb-toggle-option>
-        </sbb-toggle>
-      `,
-      { modules: ['./toggle.ts', '../toggle-option.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-toggle value="Value one">
+        <sbb-toggle-option id="sbb-toggle-option-1" value="Value one">
+          Value one
+        </sbb-toggle-option>
+        <sbb-toggle-option id="sbb-toggle-option-2" value="Value two">
+          Value two
+        </sbb-toggle-option>
+      </sbb-toggle>
+    `);
     firstOption = element.querySelector<SbbToggleOptionElement>('#sbb-toggle-option-1')!;
     secondOption = element.querySelector<SbbToggleOptionElement>('#sbb-toggle-option-2')!;
   });

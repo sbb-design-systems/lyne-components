@@ -7,19 +7,16 @@ import { SbbNavigationListElement } from './navigation-list.js';
 
 import '../navigation-button.js';
 
-describe(`sbb-navigation-list with ${fixture.name}`, () => {
+describe(`sbb-navigation-list`, () => {
   let element: SbbNavigationListElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-navigation-list>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-          <sbb-navigation-button>Label 2</sbb-navigation-button>
-        </sbb-navigation-list>
-      `,
-      { modules: ['./navigation-list.ts', '../navigation-button.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-navigation-list>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label 2</sbb-navigation-button>
+      </sbb-navigation-list>
+    `);
   });
 
   it('renders', () => {

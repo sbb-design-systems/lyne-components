@@ -16,7 +16,7 @@ class GenericLink extends SbbLinkBaseElement {
 }
 customElements.define('generic-link', GenericLink);
 
-describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
+describe(`SbbLinkBaseElement`, () => {
   describe('template', () => {
     let element: GenericLink;
 

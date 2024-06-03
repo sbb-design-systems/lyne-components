@@ -13,38 +13,27 @@ import '../../link.js';
 import '../../divider.js';
 import '../menu-button.js';
 
-describe(`sbb-menu with ${fixture.name}`, () => {
+describe(`sbb-menu`, () => {
   let element: SbbMenuElement, trigger: SbbButtonElement;
 
   beforeEach(async () => {
-    const root = await fixture(
-      html`
-        <div>
-          <sbb-button id="menu-trigger">Menu trigger</sbb-button>
-          <sbb-menu id="menu" trigger="menu-trigger">
-            <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
-            <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
-            <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled
-              >Edit</sbb-menu-button
-            >
-            <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" amount="2"
-              >Details</sbb-menu-button
-            >
-            <sbb-divider id="menu-divider"></sbb-divider>
-            <sbb-menu-button id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-button>
-          </sbb-menu>
-        </div>
-      `,
-      {
-        modules: [
-          './menu.ts',
-          '../../button.ts',
-          '../../divider.ts',
-          '../../link.ts',
-          '../menu-button.ts',
-        ],
-      },
-    );
+    const root = await fixture(html`
+      <div>
+        <sbb-button id="menu-trigger">Menu trigger</sbb-button>
+        <sbb-menu id="menu" trigger="menu-trigger">
+          <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
+          <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
+          <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled
+            >Edit</sbb-menu-button
+          >
+          <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" amount="2"
+            >Details</sbb-menu-button
+          >
+          <sbb-divider id="menu-divider"></sbb-divider>
+          <sbb-menu-button id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-button>
+        </sbb-menu>
+      </div>
+    `);
     trigger = root.querySelector<SbbButtonElement>('sbb-button')!;
     element = root.querySelector<SbbMenuElement>('sbb-menu')!;
   });

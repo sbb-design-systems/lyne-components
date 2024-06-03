@@ -5,13 +5,12 @@ import { fixture } from '../../core/testing/private.js';
 
 import { SbbExpansionPanelContentElement } from './expansion-panel-content.js';
 
-describe(`sbb-expansion-panel-content with ${fixture.name}`, () => {
+describe(`sbb-expansion-panel-content`, () => {
   let element: SbbExpansionPanelContentElement;
 
   it('renders', async () => {
     element = await fixture(
       html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`,
-      { modules: ['./expansion-panel-content.ts'] },
     );
     assert.instanceOf(element, SbbExpansionPanelContentElement);
   });

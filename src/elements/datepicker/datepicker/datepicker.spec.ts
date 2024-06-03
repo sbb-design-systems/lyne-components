@@ -12,24 +12,19 @@ import { SbbDatepickerElement } from './datepicker.js';
 
 import '../../form-field.js';
 
-describe(`sbb-datepicker with ${fixture.name}`, () => {
+describe(`sbb-datepicker`, () => {
   it('renders', async () => {
-    const element = await fixture(html`<sbb-datepicker></sbb-datepicker>`, {
-      modules: ['./datepicker.ts'],
-    });
+    const element = await fixture(html`<sbb-datepicker></sbb-datepicker>`);
     assert.instanceOf(element, SbbDatepickerElement);
   });
 
   it('renders and formats date', async () => {
-    const element = await fixture(
-      html`
-        <div>
-          <input id="datepicker-input" value="01-01-2023" />
-          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-        </div>
-      `,
-      { modules: ['./datepicker.ts'] },
-    );
+    const element = await fixture(html`
+      <div>
+        <input id="datepicker-input" value="01-01-2023" />
+        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+      </div>
+    `);
 
     const input: HTMLInputElement = element.querySelector<HTMLInputElement>('input')!;
 
@@ -37,15 +32,12 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
   });
 
   it('renders and interprets iso string date', async () => {
-    const element = await fixture(
-      html`
-        <div>
-          <input id="datepicker-input" value="2021-12-20" />
-          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-        </div>
-      `,
-      { modules: ['./datepicker.ts'] },
-    );
+    const element = await fixture(html`
+      <div>
+        <input id="datepicker-input" value="2021-12-20" />
+        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+      </div>
+    `);
 
     const input: HTMLInputElement = element.querySelector<HTMLInputElement>('input')!;
 
@@ -53,15 +45,12 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
   });
 
   it('renders and interprets timestamp', async () => {
-    const element = await fixture(
-      html`
-        <div>
-          <input id="datepicker-input" value="1594512000000" />
-          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-        </div>
-      `,
-      { modules: ['./datepicker.ts'] },
-    );
+    const element = await fixture(html`
+      <div>
+        <input id="datepicker-input" value="1594512000000" />
+        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+      </div>
+    `);
 
     const input: HTMLInputElement = element.querySelector<HTMLInputElement>('input')!;
 
@@ -72,9 +61,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
     let element: SbbDatepickerElement, input: HTMLInputElement, button: HTMLButtonElement;
 
     beforeEach(async () => {
-      const root = await fixture(template, {
-        modules: ['./datepicker.ts', '../../form-field.ts'],
-      });
+      const root = await fixture(template);
       element = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
       input = root.querySelector<HTMLInputElement>('input')!;
       button = root.querySelector<HTMLButtonElement>('button')!;

@@ -16,16 +16,13 @@ interface ToggleCheckAccessibilitySnapshot {
   required: boolean;
 }
 
-describe(`sbb-toggle-check with ${fixture.name}`, () => {
+describe(`sbb-toggle-check`, () => {
   describe('general', () => {
     let element: SbbToggleCheckElement;
 
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-toggle-check id="focus-id" name="name" value="value"></sbb-toggle-check>`,
-        {
-          modules: ['./toggle-check.ts'],
-        },
       );
     });
 
@@ -64,7 +61,6 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
             <sbb-toggle-check></sbb-toggle-check>
           </div>
         </div>`,
-        { modules: ['./toggle-check.ts'] },
       );
       element = root.querySelector<SbbToggleCheckElement>('sbb-toggle-check')!;
 
@@ -249,7 +245,6 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
-              { modules: ['./toggle-check.ts'] },
             );
 
             element = form.querySelector(selector)!;
@@ -623,7 +618,6 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
-              { modules: ['./toggle-check.ts'] },
             );
 
             element = form.querySelector(selector)!;

@@ -6,13 +6,11 @@ import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing
 
 import { SbbBreadcrumbElement } from './breadcrumb.js';
 
-describe(`sbb-breadcrumb with ${fixture.name}`, () => {
+describe(`sbb-breadcrumb`, () => {
   let element: SbbBreadcrumbElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-breadcrumb id="focus-id" href="#">Test</sbb-breadcrumb>`, {
-      modules: ['./breadcrumb.ts'],
-    });
+    element = await fixture(html`<sbb-breadcrumb id="focus-id" href="#">Test</sbb-breadcrumb>`);
   });
 
   it('renders', async () => {

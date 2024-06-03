@@ -7,13 +7,12 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbButtonLinkElement } from './button-link.js';
 
-describe(`sbb-button-link with ${fixture.name}`, () => {
+describe(`sbb-button-link`, () => {
   let element: SbbButtonLinkElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-button-link id="focus-id" href="#">I am a link</sbb-button-link>`,
-      { modules: ['./button-link.ts'] },
     );
   });
 

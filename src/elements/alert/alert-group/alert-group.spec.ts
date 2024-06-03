@@ -10,7 +10,7 @@ import { SbbAlertGroupElement } from './alert-group.js';
 
 import '../alert.js';
 
-describe(`sbb-alert-group with ${fixture.name}`, () => {
+describe(`sbb-alert-group`, () => {
   let element: SbbAlertGroupElement;
 
   it('should handle events ond states on interacting with alerts', async () => {
@@ -19,19 +19,16 @@ describe(`sbb-alert-group with ${fixture.name}`, () => {
     const accessibilityTitleLevel = '3';
 
     // Given sbb-alert-group with two alerts
-    element = await fixture(
-      html`
-        <sbb-alert-group
-          id="${alertGroupId}"
-          accessibility-title="${accessibilityTitle}"
-          accessibility-title-level="${accessibilityTitleLevel}"
-        >
-          <sbb-alert title-content="Interruption" href="www.sbb.ch">First</sbb-alert>
-          <sbb-alert title-content="Interruption" href="www.sbb.ch">Second</sbb-alert>
-        </sbb-alert-group>
-      `,
-      { modules: ['./alert-group.ts', '../alert.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-alert-group
+        id="${alertGroupId}"
+        accessibility-title="${accessibilityTitle}"
+        accessibility-title-level="${accessibilityTitleLevel}"
+      >
+        <sbb-alert title-content="Interruption" href="www.sbb.ch">First</sbb-alert>
+        <sbb-alert title-content="Interruption" href="www.sbb.ch">Second</sbb-alert>
+      </sbb-alert-group>
+    `);
     const didDismissAlertSpy = new EventSpy(SbbAlertGroupElement.events.didDismissAlert);
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
 
@@ -98,7 +95,6 @@ describe(`sbb-alert-group with ${fixture.name}`, () => {
     // Given empty sbb-alert-group
     element = await fixture(
       html`<sbb-alert-group accessibility-title="Disruptions"></sbb-alert-group>`,
-      { modules: ['./alert-group.ts'] },
     );
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
 

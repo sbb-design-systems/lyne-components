@@ -5,11 +5,11 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbTitleElement } from './title.js';
 
-describe(`sbb-title with ${fixture.name}`, () => {
+describe(`sbb-title`, () => {
   let element: SbbTitleElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-title></sbb-title>`, { modules: ['./title.ts'] });
+    element = await fixture(html`<sbb-title></sbb-title>`);
     assert.instanceOf(element, SbbTitleElement);
   });
 });

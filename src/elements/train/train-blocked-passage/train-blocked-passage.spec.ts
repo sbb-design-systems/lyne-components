@@ -5,13 +5,11 @@ import { fixture } from '../../core/testing/private.js';
 
 import { SbbTrainBlockedPassageElement } from './train-blocked-passage.js';
 
-describe(`sbb-train-blocked-passage with ${fixture.name}`, () => {
+describe(`sbb-train-blocked-passage`, () => {
   let element: SbbTrainBlockedPassageElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`, {
-      modules: ['./train-blocked-passage.ts'],
-    });
+    element = await fixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`);
     assert.instanceOf(element, SbbTrainBlockedPassageElement);
   });
 });

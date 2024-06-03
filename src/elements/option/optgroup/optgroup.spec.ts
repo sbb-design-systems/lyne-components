@@ -8,20 +8,17 @@ import '../option.js';
 
 import { SbbOptGroupElement } from './optgroup.js';
 
-describe(`sbb-optgroup with ${fixture.name}`, () => {
+describe(`sbb-optgroup`, () => {
   let element: SbbOptGroupElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-optgroup label="Group 1">
-          <sbb-option id="option-1" value="option-1">Label 1</sbb-option>
-          <sbb-option id="option-2" disabled value="option-2">Label 2</sbb-option>
-          <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
-        </sbb-optgroup>
-      `,
-      { modules: ['./optgroup.ts', '../option.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-optgroup label="Group 1">
+        <sbb-option id="option-1" value="option-1">Label 1</sbb-option>
+        <sbb-option id="option-2" disabled value="option-2">Label 2</sbb-option>
+        <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
+      </sbb-optgroup>
+    `);
   });
 
   it('renders', async () => {

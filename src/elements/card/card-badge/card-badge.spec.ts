@@ -5,13 +5,11 @@ import { fixture } from '../../core/testing/private.js';
 
 import { SbbCardBadgeElement } from './card-badge.js';
 
-describe(`sbb-card-badge with ${fixture.name}`, () => {
+describe(`sbb-card-badge`, () => {
   let element: SbbCardBadgeElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-card-badge></sbb-card-badge>`, {
-      modules: ['./card-badge.ts'],
-    });
+    element = await fixture(html`<sbb-card-badge></sbb-card-badge>`);
     assert.instanceOf(element, SbbCardBadgeElement);
   });
 });

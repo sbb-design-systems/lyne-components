@@ -11,22 +11,19 @@ import { SbbPopoverTriggerElement } from './popover-trigger.js';
 import '../../icon.js';
 import '../../link/link.js';
 
-describe(`sbb-popover-trigger with ${fixture.name}`, () => {
+describe(`sbb-popover-trigger`, () => {
   let element: SbbPopoverTriggerElement, popover: SbbPopoverElement;
 
   beforeEach(async () => {
-    const root = await fixture(
-      html`
-        <div>
-          <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
-          <sbb-popover id="popover" trigger="popover-trigger">
-            Popover content.
-            <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
-          </sbb-popover>
-        </div>
-      `,
-      { modules: ['./popover-trigger.ts', '../popover.ts', '../../link.ts'] },
-    );
+    const root = await fixture(html`
+      <div>
+        <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+        <sbb-popover id="popover" trigger="popover-trigger">
+          Popover content.
+          <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
+        </sbb-popover>
+      </div>
+    `);
     element = root.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
     popover = root.querySelector<SbbPopoverElement>('sbb-popover')!;
   });

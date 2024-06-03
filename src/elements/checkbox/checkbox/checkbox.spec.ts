@@ -17,14 +17,12 @@ interface CheckboxAccessibilitySnapshot {
   required: boolean;
 }
 
-describe(`sbb-checkbox with ${fixture.name}`, () => {
+describe(`sbb-checkbox`, () => {
   describe('general', () => {
     let element: SbbCheckboxElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`, {
-        modules: ['./checkbox.ts'],
-      });
+      element = await fixture(html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`);
     });
 
     it('should render', async () => {
@@ -70,7 +68,6 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
             <sbb-checkbox></sbb-checkbox>
           </div>
         </div>`,
-        { modules: ['./checkbox.ts'] },
       );
       element = root.querySelector<SbbCheckboxElement>('sbb-checkbox')!;
 
@@ -250,7 +247,6 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
-              { modules: ['./checkbox.ts'] },
             );
 
             element = form.querySelector(selector)!;
@@ -730,7 +726,6 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
-              { modules: ['./checkbox.ts'] },
             );
 
             element = form.querySelector(selector)!;

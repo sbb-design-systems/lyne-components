@@ -10,7 +10,7 @@ import { SbbMapContainerElement } from './map-container.js';
 
 import '../title.js';
 
-describe(`sbb-map-container with ${fixture.name}`, () => {
+describe(`sbb-map-container`, () => {
   let element: SbbMapContainerElement;
 
   it('should react to scrolling', async () => {
@@ -33,7 +33,6 @@ describe(`sbb-map-container with ${fixture.name}`, () => {
           <div style="height: 1200px">map</div>
         </div>
       </sbb-map-container>`,
-      { modules: ['./map-container.ts', '../title.ts'] },
     );
     assert.instanceOf(element, SbbMapContainerElement);
 

@@ -7,13 +7,11 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbHeaderButtonElement } from './header-button.js';
 
-describe(`sbb-header-button with ${fixture.name}`, () => {
+describe(`sbb-header-button`, () => {
   let element: SbbHeaderButtonElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-header-button id="focus-id">Action</sbb-header-button>`, {
-      modules: ['./header-button.ts'],
-    });
+    element = await fixture(html`<sbb-header-button id="focus-id">Action</sbb-header-button>`);
   });
 
   it('renders', async () => {

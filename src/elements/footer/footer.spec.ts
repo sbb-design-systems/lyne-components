@@ -5,11 +5,11 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbFooterElement } from './footer.js';
 
-describe(`sbb-footer with ${fixture.name}`, () => {
+describe(`sbb-footer`, () => {
   let element: SbbFooterElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-footer></sbb-footer>`, { modules: ['./footer.ts'] });
+    element = await fixture(html`<sbb-footer></sbb-footer>`);
     assert.instanceOf(element, SbbFooterElement);
   });
 });

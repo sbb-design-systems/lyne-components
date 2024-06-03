@@ -6,11 +6,11 @@ import { fixture } from '../core/testing/private';
 
 import { __nameUpperCase__ } from './__noPrefixName__';
 
-describe(`__name__ with ${fixture.name}`, () => {
+describe(`__name__`, () => {
   let element: __nameUpperCase__;
 
   beforeEach(async () => {
-    element = await fixture(html`<__name__></__name__>`, { modules: [] });
+    element = await fixture(html`<__name__></__name__>`);
   });
 
   it('renders', async () => {

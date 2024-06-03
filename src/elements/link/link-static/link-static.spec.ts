@@ -7,13 +7,11 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbLinkStaticElement } from './link-static.js';
 
-describe(`sbb-link-static with ${fixture.name}`, () => {
+describe(`sbb-link-static`, () => {
   let element: SbbLinkStaticElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-link-static id="focus-id">Link static</sbb-link-static>`, {
-      modules: ['./link-static.ts'],
-    });
+    element = await fixture(html`<sbb-link-static id="focus-id">Link static</sbb-link-static>`);
   });
 
   it('renders', async () => {

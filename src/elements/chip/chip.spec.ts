@@ -5,11 +5,9 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbChipElement } from './chip.js';
 
-describe(`sbb-chip with ${fixture.name}`, () => {
+describe(`sbb-chip`, () => {
   it('renders', async () => {
-    const element: SbbChipElement = await fixture(html`<sbb-chip>Label</sbb-chip>`, {
-      modules: ['./chip.ts'],
-    });
+    const element: SbbChipElement = await fixture(html`<sbb-chip>Label</sbb-chip>`);
     assert.instanceOf(element, SbbChipElement);
   });
 });

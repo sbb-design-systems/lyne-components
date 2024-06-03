@@ -11,26 +11,23 @@ import { SbbPopoverElement } from './popover.js';
 import '../../button/button.js';
 import '../../link.js';
 
-describe(`sbb-popover with ${fixture.name}`, () => {
+describe(`sbb-popover`, () => {
   let element: SbbPopoverElement, trigger: SbbButtonElement;
 
   describe('with interactive content', () => {
     beforeEach(async () => {
-      const content = await fixture(
-        html`
-          <span>
-            <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-            <sbb-popover id="popover" trigger="popover-trigger">
-              Popover content.
-              <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
-            </sbb-popover>
-            <sbb-block-link href="#" id="interactive-background-element"
-              >Other interactive element</sbb-block-link
-            >
-          </span>
-        `,
-        { modules: ['../../button.ts', './popover.ts', '../../link.ts'] },
-      );
+      const content = await fixture(html`
+        <span>
+          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+          <sbb-popover id="popover" trigger="popover-trigger">
+            Popover content.
+            <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
+          </sbb-popover>
+          <sbb-block-link href="#" id="interactive-background-element"
+            >Other interactive element</sbb-block-link
+          >
+        </span>
+      `);
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
     });
@@ -388,20 +385,17 @@ describe(`sbb-popover with ${fixture.name}`, () => {
     let content: HTMLElement;
 
     beforeEach(async () => {
-      content = await fixture(
-        html`
-          <span>
-            <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-            <sbb-popover id="popover" trigger="popover-trigger" hide-close-button>
-              Popover content.
-            </sbb-popover>
-            <sbb-block-link href="#" id="interactive-background-element"
-              >Other interactive element</sbb-block-link
-            >
-          </span>
-        `,
-        { modules: ['../../button.ts', './popover.ts', '../../link.ts'] },
-      );
+      content = await fixture(html`
+        <span>
+          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+          <sbb-popover id="popover" trigger="popover-trigger" hide-close-button>
+            Popover content.
+          </sbb-popover>
+          <sbb-block-link href="#" id="interactive-background-element"
+            >Other interactive element</sbb-block-link
+          >
+        </span>
+      `);
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
     });
@@ -452,22 +446,19 @@ describe(`sbb-popover with ${fixture.name}`, () => {
   });
 
   it('should close an open popover when another one is opened', async () => {
-    const root = await fixture(
-      html`
-        <div>
-          <sbb-block-link href="#somewhere" id="interactive-background-element"
-            >Other interactive element</sbb-block-link
-          >
-          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-          <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
-          <sbb-popover id="popover" trigger="popover-trigger"> Popover content. </sbb-popover>
-          <sbb-popover id="another-popover" trigger="another-popover-trigger">
-            Another popover content.
-          </sbb-popover>
-        </div>
-      `,
-      { modules: ['../../link.ts', '../../button.ts', './popover.ts'] },
-    );
+    const root = await fixture(html`
+      <div>
+        <sbb-block-link href="#somewhere" id="interactive-background-element"
+          >Other interactive element</sbb-block-link
+        >
+        <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+        <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
+        <sbb-popover id="popover" trigger="popover-trigger"> Popover content. </sbb-popover>
+        <sbb-popover id="another-popover" trigger="another-popover-trigger">
+          Another popover content.
+        </sbb-popover>
+      </div>
+    `);
     trigger = root.querySelector<SbbButtonElement>('#popover-trigger')!;
     element = root.querySelector<SbbPopoverElement>('#popover')!;
     const secondTrigger = root.querySelector<SbbButtonElement>('#another-popover-trigger');

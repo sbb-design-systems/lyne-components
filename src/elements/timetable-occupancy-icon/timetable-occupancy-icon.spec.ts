@@ -9,7 +9,7 @@ import { waitForLitRender } from '../core/testing.js';
 
 import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.js';
 
-describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
+describe(`sbb-timetable-occupancy-icon`, () => {
   let matchMediaStub: SinonStub<[query: string], MediaQueryList>;
   const mediaQueryListArgs: MediaQueryList = {
     matches: false,
@@ -43,7 +43,6 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     });
     const element: SbbTimetableOccupancyIconElement = await fixture(
       html` <sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
-      { modules: ['./timetable-occupancy-icon.ts'] },
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.low.en);
@@ -67,7 +66,6 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     });
     const element: SbbTimetableOccupancyIconElement = await fixture(
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
-      { modules: ['./timetable-occupancy-icon.ts'] },
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
@@ -91,7 +89,6 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     });
     const element: SbbTimetableOccupancyIconElement = await fixture(
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
-      { modules: ['./timetable-occupancy-icon.ts'] },
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);

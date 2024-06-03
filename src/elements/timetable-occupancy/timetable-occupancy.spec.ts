@@ -5,14 +5,13 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbTimetableOccupancyElement } from './timetable-occupancy.js';
 
-describe(`sbb-timetable-occupancy with ${fixture.name}`, () => {
+describe(`sbb-timetable-occupancy`, () => {
   let element: SbbTimetableOccupancyElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <sbb-timetable-occupancy first-class-occupancy="high"></sbb-timetable-occupancy> `,
-      { modules: ['./timetable-occupancy.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-timetable-occupancy first-class-occupancy="high"></sbb-timetable-occupancy>
+    `);
   });
 
   it('renders', async () => {

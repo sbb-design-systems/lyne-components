@@ -10,21 +10,18 @@ import { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
 
 import '../breadcrumb.js';
 
-describe(`sbb-breadcrumb-group with ${fixture.name}`, () => {
+describe(`sbb-breadcrumb-group`, () => {
   describe('without ellipsis', () => {
     let element: SbbBreadcrumbGroupElement;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`
-          <sbb-breadcrumb-group>
-            <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-1">One</sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
-          </sbb-breadcrumb-group>
-        `,
-        { modules: ['./breadcrumb-group.ts', '../breadcrumb.ts'] },
-      );
+      element = await fixture(html`
+        <sbb-breadcrumb-group>
+          <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-1">One</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
+        </sbb-breadcrumb-group>
+      `);
     });
 
     it('renders', async () => {
@@ -54,20 +51,17 @@ describe(`sbb-breadcrumb-group with ${fixture.name}`, () => {
 
     beforeEach(async () => {
       await setViewport({ width: 160, height: 320 });
-      element = await fixture(
-        html`
-          <sbb-breadcrumb-group id="sbb-breadcrumb-group">
-            <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-1">First</sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-2">Second</sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-3">Third</sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-4">Fourth</sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-5">Fifth</sbb-breadcrumb>
-            <sbb-breadcrumb href="#" id="breadcrumb-6">Sixth</sbb-breadcrumb>
-          </sbb-breadcrumb-group>
-        `,
-        { modules: ['./breadcrumb-group.ts', '../breadcrumb.ts'] },
-      );
+      element = await fixture(html`
+        <sbb-breadcrumb-group id="sbb-breadcrumb-group">
+          <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-1">First</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-2">Second</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-3">Third</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-4">Fourth</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-5">Fifth</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-6">Sixth</sbb-breadcrumb>
+        </sbb-breadcrumb-group>
+      `);
 
       ellipsisListItemElement = element.shadowRoot!.querySelector<HTMLLIElement>(
         '#sbb-breadcrumb-group-ellipsis',

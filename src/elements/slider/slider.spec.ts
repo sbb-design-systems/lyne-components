@@ -19,22 +19,19 @@ const keyboardPressTimes = async (
   await waitForLitRender(slider);
 };
 
-describe(`sbb-slider with ${fixture.name}`, () => {
+describe(`sbb-slider`, () => {
   let element: SbbSliderElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-slider
-          start-icon="walk-slow-small"
-          end-icon="walk-fast-small"
-          max="500"
-          min="100"
-          value="400"
-        ></sbb-slider>
-      `,
-      { modules: ['./slider.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-slider
+        start-icon="walk-slow-small"
+        end-icon="walk-fast-small"
+        max="500"
+        min="100"
+        value="400"
+      ></sbb-slider>
+    `);
   });
 
   it('renders', async () => {

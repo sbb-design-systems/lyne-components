@@ -7,7 +7,7 @@ import { SbbFormFieldElement } from '../form-field.js';
 
 import { SbbFormFieldClearElement } from './form-field-clear.js';
 
-describe(`sbb-form-field-clear with ${fixture.name}`, () => {
+describe(`sbb-form-field-clear`, () => {
   let element: SbbFormFieldClearElement;
   let formField: SbbFormFieldElement;
   let input: HTMLInputElement;
@@ -19,7 +19,6 @@ describe(`sbb-form-field-clear with ${fixture.name}`, () => {
         <input id="input" type="text" placeholder="Input placeholder" value="Input value" />
         <sbb-form-field-clear></sbb-form-field-clear>
       </sbb-form-field>`,
-      { modules: ['../form-field.ts', './form-field-clear.ts'] },
     );
     element = formField.querySelector<SbbFormFieldClearElement>('sbb-form-field-clear')!;
     input = formField.querySelector<HTMLInputElement>('input')!;

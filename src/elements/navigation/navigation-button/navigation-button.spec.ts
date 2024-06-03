@@ -7,13 +7,12 @@ import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing
 
 import { SbbNavigationButtonElement } from './navigation-button.js';
 
-describe(`sbb-navigation-button with ${fixture.name}`, () => {
+describe(`sbb-navigation-button`, () => {
   let element: SbbNavigationButtonElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-navigation-button id="focus-id">Navigation Action</sbb-navigation-button>`,
-      { modules: ['./navigation-button.ts'] },
     );
   });
 

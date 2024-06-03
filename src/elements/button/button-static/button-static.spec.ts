@@ -7,13 +7,12 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbButtonStaticElement } from './button-static.js';
 
-describe(`sbb-button-static with ${fixture.name}`, () => {
+describe(`sbb-button-static`, () => {
   let element: SbbButtonStaticElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-button-static id="focus-id">I am a static button</sbb-button-static>`,
-      { modules: ['./button-static.ts'] },
     );
   });
 

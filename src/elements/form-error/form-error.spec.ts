@@ -5,13 +5,11 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbFormErrorElement } from './form-error.js';
 
-describe(`sbb-form-error with ${fixture.name}`, () => {
+describe(`sbb-form-error`, () => {
   let element: SbbFormErrorElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-form-error></sbb-form-error>`, {
-      modules: ['./form-error.ts'],
-    });
+    element = await fixture(html`<sbb-form-error></sbb-form-error>`);
     assert.instanceOf(element, SbbFormErrorElement);
   });
 });

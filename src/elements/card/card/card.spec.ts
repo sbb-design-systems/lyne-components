@@ -7,31 +7,26 @@ import { SbbCardElement } from './card.js';
 
 import '../card-badge.js';
 
-describe(`sbb-card with ${fixture.name}`, () => {
+describe(`sbb-card`, () => {
   let element: SbbCardElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-card size="l" color="transparent-bordered"></sbb-card>`, {
-      modules: ['./card.ts'],
-    });
+    element = await fixture(html`<sbb-card size="l" color="transparent-bordered"></sbb-card>`);
     assert.instanceOf(element, SbbCardElement);
   });
 
   it('should render with sbb-card-badge', async () => {
-    element = await fixture(
-      html`
-        <sbb-card size="xl">
-          <h2>Title</h2>
-          Content text
-          <sbb-card-badge>
-            <span>%</span>
-            <span>from CHF</span>
-            <span>19.99</span>
-          </sbb-card-badge>
-        </sbb-card>
-      `,
-      { modules: ['./card.ts', '../card-badge.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-card size="xl">
+        <h2>Title</h2>
+        Content text
+        <sbb-card-badge>
+          <span>%</span>
+          <span>from CHF</span>
+          <span>19.99</span>
+        </sbb-card-badge>
+      </sbb-card>
+    `);
 
     expect(
       getComputedStyle(
@@ -47,7 +42,6 @@ describe(`sbb-card with ${fixture.name}`, () => {
         <h2>Title</h2>
         Content text
       </sbb-card>`,
-      { modules: ['./card.ts'] },
     );
 
     expect(
@@ -69,7 +63,6 @@ describe(`sbb-card with ${fixture.name}`, () => {
           <span>19.99</span>
         </sbb-card-badge>
       </sbb-card>`,
-      { modules: ['./card.ts', '../card-badge.ts'] },
     );
 
     expect(root.shadowRoot!.querySelector('.sbb-card__badge-wrapper')).not.to.be.ok;

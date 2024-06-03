@@ -12,12 +12,12 @@ class GenericAction extends SbbActionBaseElement {
 }
 customElements.define('generic-action', GenericAction);
 
-describe(`SbbActionBaseElement with ${fixture.name}`, () => {
+describe(`SbbActionBaseElement`, () => {
   describe('template', () => {
     let element: GenericAction;
 
     beforeEach(async () => {
-      element = await fixture(html`<generic-action></generic-action>`, { modules: [] });
+      element = await fixture(html`<generic-action></generic-action>`);
     });
 
     it('renders', async () => {

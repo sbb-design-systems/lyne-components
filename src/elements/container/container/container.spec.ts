@@ -5,11 +5,11 @@ import { fixture } from '../../core/testing/private.js';
 
 import { SbbContainerElement } from './container.js';
 
-describe(`sbb-container with ${fixture.name}`, () => {
+describe(`sbb-container`, () => {
   let element: SbbContainerElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-container></sbb-container>`, { modules: ['./container.ts'] });
+    element = await fixture(html`<sbb-container></sbb-container>`);
   });
 
   it('renders', async () => {

@@ -9,19 +9,16 @@ import { SbbNotificationElement } from './notification.js';
 
 import '../link/link.js';
 
-describe(`sbb-notification with ${fixture.name}`, () => {
+describe(`sbb-notification`, () => {
   let element: SbbNotificationElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-notification id="notification">
-          The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-          <sbb-link href="/">Link one</sbb-link>
-        </sbb-notification>
-      `,
-      { modules: ['./notification.ts', '../link.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-notification id="notification">
+        The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+        <sbb-link href="/">Link one</sbb-link>
+      </sbb-notification>
+    `);
   });
 
   it('renders', async () => {

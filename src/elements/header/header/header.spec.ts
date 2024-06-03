@@ -10,7 +10,7 @@ import type { SbbHeaderButtonElement } from '../header-button.js';
 import { SbbHeaderElement } from './header.js';
 import '../header-button.js';
 
-describe(`sbb-header with ${fixture.name}`, () => {
+describe(`sbb-header`, () => {
   let element: SbbHeaderElement;
 
   beforeEach(async () => {
@@ -18,20 +18,17 @@ describe(`sbb-header with ${fixture.name}`, () => {
   });
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-header></sbb-header>`, { modules: ['./header.ts'] });
+    element = await fixture(html`<sbb-header></sbb-header>`);
     assert.instanceOf(element, SbbHeaderElement);
   });
 
   it('should be fixed on scroll', async () => {
-    const root = await fixture(
-      html`
-        <div>
-          <sbb-header></sbb-header>
-          <div style="height: 2000px;"></div>
-        </div>
-      `,
-      { modules: ['./header.ts'] },
-    );
+    const root = await fixture(html`
+      <div>
+        <sbb-header></sbb-header>
+        <div style="height: 2000px;"></div>
+      </div>
+    `);
     element = root.querySelector<SbbHeaderElement>('sbb-header')!;
 
     mockScrollTo({ top: 200 });
@@ -40,15 +37,12 @@ describe(`sbb-header with ${fixture.name}`, () => {
   });
 
   it('should hide/show on scroll', async () => {
-    const root = await fixture(
-      html`
-        <div>
-          <sbb-header hide-on-scroll></sbb-header>
-          <div style="height: 2000px;"></div>
-        </div>
-      `,
-      { modules: ['./header.ts'] },
-    );
+    const root = await fixture(html`
+      <div>
+        <sbb-header hide-on-scroll></sbb-header>
+        <div style="height: 2000px;"></div>
+      </div>
+    `);
 
     element = root.querySelector<SbbHeaderElement>('sbb-header')!;
     expect(element.scrollOrigin).not.to.be.undefined;
@@ -81,18 +75,15 @@ describe(`sbb-header with ${fixture.name}`, () => {
   });
 
   it('should hide/show on scroll', async () => {
-    const root = await fixture(
-      html`
-        <div>
-          <sbb-header hide-on-scroll>
-            <sbb-header-button id="action-1">Action 1</sbb-header-button>
-            <sbb-header-button id="action-2">Action 2</sbb-header-button>
-          </sbb-header>
-          <div style="height: 2000px;"></div>
-        </div>
-      `,
-      { modules: ['./header.ts', '../header-button.ts'] },
-    );
+    const root = await fixture(html`
+      <div>
+        <sbb-header hide-on-scroll>
+          <sbb-header-button id="action-1">Action 1</sbb-header-button>
+          <sbb-header-button id="action-2">Action 2</sbb-header-button>
+        </sbb-header>
+        <div style="height: 2000px;"></div>
+      </div>
+    `);
 
     element = root.querySelector('sbb-header')!;
     expect(element.scrollOrigin).not.to.be.undefined;
@@ -145,23 +136,18 @@ describe(`sbb-header with ${fixture.name}`, () => {
   });
 
   it('should close menu on scroll', async () => {
-    const root = await fixture(
-      html`
-        <div>
-          <sbb-header hide-on-scroll>
-            <sbb-header-button id="language-menu-trigger">English</sbb-header-button>
-            <sbb-menu trigger="language-menu-trigger">
-              <sbb-menu-button>Deutsch</sbb-menu-button>
-              <sbb-menu-button>Français</sbb-menu-button>
-            </sbb-menu>
-          </sbb-header>
-          <div style="height: 2000px;"></div>
-        </div>
-      `,
-      {
-        modules: ['./header.ts', '../header-button.ts', '../../menu.ts', '../../menu.ts'],
-      },
-    );
+    const root = await fixture(html`
+      <div>
+        <sbb-header hide-on-scroll>
+          <sbb-header-button id="language-menu-trigger">English</sbb-header-button>
+          <sbb-menu trigger="language-menu-trigger">
+            <sbb-menu-button>Deutsch</sbb-menu-button>
+            <sbb-menu-button>Français</sbb-menu-button>
+          </sbb-menu>
+        </sbb-header>
+        <div style="height: 2000px;"></div>
+      </div>
+    `);
 
     element = root.querySelector<SbbHeaderElement>('sbb-header')!;
 

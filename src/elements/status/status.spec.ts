@@ -5,13 +5,11 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbStatusElement } from './status.js';
 
-describe(`sbb-status with ${fixture.name}`, () => {
+describe(`sbb-status`, () => {
   let element: SbbStatusElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-status> Status info text </sbb-status>`, {
-      modules: ['./status.ts'],
-    });
+    element = await fixture(html`<sbb-status> Status info text </sbb-status>`);
   });
 
   it('renders', async () => {

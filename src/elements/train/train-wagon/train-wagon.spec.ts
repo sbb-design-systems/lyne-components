@@ -7,20 +7,16 @@ import type { SbbIconElement } from '../../icon.js';
 
 import { SbbTrainWagonElement } from './train-wagon.js';
 
-describe(`sbb-train-wagon with ${fixture.name}`, () => {
+describe(`sbb-train-wagon`, () => {
   let element: SbbTrainWagonElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`, {
-      modules: ['./train-wagon.ts'],
-    });
+    element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
     assert.instanceOf(element, SbbTrainWagonElement);
   });
 
   it('should emit sectorChange', async () => {
-    element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`, {
-      modules: ['./train-wagon.ts'],
-    });
+    element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`);
     const sectorChangeSpy = new EventSpy(SbbTrainWagonElement.events.sectorChange);
     element.sector = 'B';
 
@@ -34,7 +30,6 @@ describe(`sbb-train-wagon with ${fixture.name}`, () => {
         <sbb-icon name="sa-rs"></sbb-icon>
         <sbb-icon name="sa-rs"></sbb-icon>
       </sbb-train-wagon>`,
-      { modules: ['./train-wagon.ts', '../../icon.ts'] },
     );
 
     Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {

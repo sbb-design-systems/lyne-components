@@ -9,21 +9,18 @@ import { SbbSkiplinkListElement } from './skiplink-list.js';
 
 import '../link/block-link.js';
 
-describe(`sbb-skiplink-list with ${fixture.name}`, () => {
+describe(`sbb-skiplink-list`, () => {
   let element: SbbSkiplinkListElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-skiplink-list>
-          <sbb-block-link href="#" id="link-1">Link 1</sbb-block-link>
-          <sbb-block-link href="#" id="link-2">Link 2</sbb-block-link>
-          <sbb-block-link href="#" id="link-3">Link 3</sbb-block-link>
-        </sbb-skiplink-list>
-        <button id="button">Focus me</button>
-      `,
-      { modules: ['./skiplink-list.ts', '../link.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-skiplink-list>
+        <sbb-block-link href="#" id="link-1">Link 1</sbb-block-link>
+        <sbb-block-link href="#" id="link-2">Link 2</sbb-block-link>
+        <sbb-block-link href="#" id="link-3">Link 3</sbb-block-link>
+      </sbb-skiplink-list>
+      <button id="button">Focus me</button>
+    `);
   });
 
   it('renders', async () => {
@@ -51,9 +48,7 @@ describe(`sbb-skiplink-list with ${fixture.name}`, () => {
   });
 
   it('should detected later added links', async () => {
-    element = await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`, {
-      modules: ['./skiplink-list.ts'],
-    });
+    element = await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`);
 
     element.innerHTML = `
         <sbb-block-link href='1'>Link 1</sbb-block-link>

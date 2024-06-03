@@ -10,32 +10,22 @@ import '../navigation.js';
 import '../navigation-list.js';
 import '../navigation-button.js';
 
-describe(`sbb-navigation-section with ${fixture.name}`, () => {
+describe(`sbb-navigation-section`, () => {
   let element: SbbNavigationSectionElement;
 
   beforeEach(async () => {
-    const root = await fixture(
-      html`
-        <sbb-navigation>
-          <sbb-navigation-section>
-            <sbb-navigation-list>
-              <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-              <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>
-              <sbb-navigation-button>Travel information</sbb-navigation-button>
-              <sbb-navigation-button>Help & Contact</sbb-navigation-button>
-            </sbb-navigation-list>
-          </sbb-navigation-section>
-        </sbb-navigation>
-      `,
-      {
-        modules: [
-          '../navigation.ts',
-          './navigation-section.ts',
-          '../navigation-list.ts',
-          '../navigation-button.ts',
-        ],
-      },
-    );
+    const root = await fixture(html`
+      <sbb-navigation>
+        <sbb-navigation-section>
+          <sbb-navigation-list>
+            <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
+            <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>
+            <sbb-navigation-button>Travel information</sbb-navigation-button>
+            <sbb-navigation-button>Help & Contact</sbb-navigation-button>
+          </sbb-navigation-list>
+        </sbb-navigation-section>
+      </sbb-navigation>
+    `);
     element = root.querySelector<SbbNavigationSectionElement>('sbb-navigation-section')!;
   });
 

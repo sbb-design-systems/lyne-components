@@ -9,7 +9,7 @@ import { SbbCalendarElement } from './calendar.js';
 
 import '../button.js';
 
-describe(`sbb-calendar with ${fixture.name}`, () => {
+describe(`sbb-calendar`, () => {
   let element: SbbCalendarElement;
   const waitForTransition = async (): Promise<void> => {
     await waitForLitRender(element);
@@ -19,7 +19,6 @@ describe(`sbb-calendar with ${fixture.name}`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
-      { modules: ['./calendar.ts'] },
     );
   });
 
@@ -327,7 +326,6 @@ describe(`sbb-calendar with ${fixture.name}`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
-        { modules: ['./calendar.ts'] },
       );
 
       const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(

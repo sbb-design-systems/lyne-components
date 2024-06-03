@@ -6,14 +6,11 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbToggleOptionElement } from './toggle-option.js';
 
-describe(`sbb-toggle-option with ${fixture.name}`, () => {
+describe(`sbb-toggle-option`, () => {
   let element: SbbToggleOptionElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`,
-      { modules: ['./toggle-option.ts'] },
-    );
+    element = await fixture(html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`);
   });
 
   it('renders', async () => {

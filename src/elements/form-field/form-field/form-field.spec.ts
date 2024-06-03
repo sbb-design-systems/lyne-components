@@ -9,15 +9,13 @@ import { SbbSelectElement } from '../../select.js';
 
 import { SbbFormFieldElement } from './form-field.js';
 
-describe(`sbb-form-field with ${fixture.name}`, () => {
+describe(`sbb-form-field`, () => {
   describe('with input', () => {
     let element: SbbFormFieldElement;
     let input: HTMLInputElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-form-field><input /></sbb-form-field>`, {
-        modules: ['./form-field.ts'],
-      });
+      element = await fixture(html`<sbb-form-field><input /></sbb-form-field>`);
       input = element.querySelector<HTMLInputElement>('input')!;
     });
 
@@ -49,13 +47,10 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should react to focus state', async () => {
-      element = await fixture(
-        html`
-          <sbb-form-field><input /></sbb-form-field>
-          <button></button>
-        `,
-        { modules: ['./form-field.ts'] },
-      );
+      element = await fixture(html`
+        <sbb-form-field><input /></sbb-form-field>
+        <button></button>
+      `);
       input = element.querySelector<HTMLInputElement>('input')!;
 
       expect(element).not.to.have.attribute('data-input-focused');
@@ -134,9 +129,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     let textarea: HTMLTextAreaElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-form-field><textarea></textarea></sbb-form-field>`, {
-        modules: ['./form-field.ts'],
-      });
+      element = await fixture(html`<sbb-form-field><textarea></textarea></sbb-form-field>`);
       textarea = element.querySelector<HTMLTextAreaElement>('textarea')!;
     });
 
@@ -151,9 +144,6 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     it('should respect user defined rows attribute', async () => {
       element = await fixture(
         html`<sbb-form-field><textarea rows="2"></textarea></sbb-form-field>`,
-        {
-          modules: ['./form-field.ts'],
-        },
       );
       expect(element.querySelector<HTMLTextAreaElement>('textarea')!.rows).to.be.equal(2);
     });
@@ -190,13 +180,10 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should react to focus state', async () => {
-      element = await fixture(
-        html`
-          <sbb-form-field><textarea></textarea></sbb-form-field>
-          <button></button>
-        `,
-        { modules: ['./form-field.ts'] },
-      );
+      element = await fixture(html`
+        <sbb-form-field><textarea></textarea></sbb-form-field>
+        <button></button>
+      `);
       textarea = element.querySelector<HTMLTextAreaElement>('textarea')!;
 
       expect(element).not.to.have.attribute('data-input-focused');
@@ -275,15 +262,12 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     let select: SbbSelectElement;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`
-          <sbb-form-field>
-            <label>Example</label>
-            <sbb-select><sbb-option>Test</sbb-option></sbb-select>
-          </sbb-form-field>
-        `,
-        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
-      );
+      element = await fixture(html`
+        <sbb-form-field>
+          <label>Example</label>
+          <sbb-select><sbb-option>Test</sbb-option></sbb-select>
+        </sbb-form-field>
+      `);
       select = element.querySelector<SbbSelectElement>('sbb-select')!;
     });
 
@@ -338,73 +322,60 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
 
   describe('with floating label', () => {
     it('should read native empty select state', async () => {
-      const element = await fixture(
-        html`
-          <sbb-form-field floating-label>
-            <select>
-              <option value="0"></option>
-              <option value="1">Displayed Value</option>
-            </select>
-          </sbb-form-field>
-        `,
-        { modules: ['./form-field.ts'] },
-      );
+      const element = await fixture(html`
+        <sbb-form-field floating-label>
+          <select>
+            <option value="0"></option>
+            <option value="1">Displayed Value</option>
+          </select>
+        </sbb-form-field>
+      `);
 
       expect(element).to.have.attribute('data-input-empty');
     });
 
     it('should not read native empty select state', async () => {
-      const element = await fixture(
-        html`
-          <sbb-form-field floating-label>
-            <select>
-              <option value="" selected>Empty Value</option>
-              <option value="1">Displayed Value</option>
-            </select>
-          </sbb-form-field>
-        `,
-        { modules: ['./form-field.ts'] },
-      );
+      const element = await fixture(html`
+        <sbb-form-field floating-label>
+          <select>
+            <option value="" selected>Empty Value</option>
+            <option value="1">Displayed Value</option>
+          </select>
+        </sbb-form-field>
+      `);
       expect(element).not.to.have.attribute('data-input-empty');
     });
 
     it('should never be empty if input type is date', async () => {
       const element: SbbFormFieldElement = await fixture(
         html`<sbb-form-field floating-label><input type="date" /></sbb-form-field>`,
-        { modules: ['./form-field.ts'] },
       );
 
       expect(element).not.to.have.attribute('data-input-empty');
     });
 
     it('should read sbb-select empty state', async () => {
-      const element: SbbFormFieldElement = await fixture(
-        html`
-          <sbb-form-field floating-label>
-            <sbb-select value="0">
-              <sbb-option value="0"></sbb-option>
-              <sbb-option value="1">Displayed Value</sbb-option>
-            </sbb-select>
-          </sbb-form-field>
-        `,
-        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
-      );
+      const element: SbbFormFieldElement = await fixture(html`
+        <sbb-form-field floating-label>
+          <sbb-select value="0">
+            <sbb-option value="0"></sbb-option>
+            <sbb-option value="1">Displayed Value</sbb-option>
+          </sbb-select>
+        </sbb-form-field>
+      `);
 
       expect(element).to.have.attribute('data-input-empty');
     });
 
     it('should not read sbb-select empty state', async () => {
-      const element = await fixture(
-        html`
-          <sbb-form-field floating-label>
-            <sbb-select>
-              <sbb-option value="" selected>Empty Value</sbb-option>
-              <sbb-option value="1">Displayed Value</sbb-option>
-            </sbb-select>
-          </sbb-form-field>
-        `,
-        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
-      );
+      const element = await fixture(html`
+        <sbb-form-field floating-label>
+          <sbb-select>
+            <sbb-option value="" selected>Empty Value</sbb-option>
+            <sbb-option value="1">Displayed Value</sbb-option>
+          </sbb-select>
+        </sbb-form-field>
+      `);
 
       expect(element).not.to.have.attribute('data-input-empty');
     });
@@ -416,7 +387,6 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
             <sbb-option value="1" selected>Displayed Value</sbb-option>
           </sbb-select>
         </sbb-form-field>`,
-        { modules: ['./form-field.ts', '../../select.ts', '../../option.ts'] },
       );
 
       element.querySelector<SbbSelectElement>('sbb-select')!.value = '';
@@ -426,16 +396,13 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should update floating label when resetting form', async () => {
-      const form = (await fixture(
-        html`
-          <form>
-            <sbb-form-field floating-label>
-              <input />
-            </sbb-form-field>
-          </form>
-        `,
-        { modules: ['./form-field.ts'] },
-      )) as HTMLFormElement;
+      const form = (await fixture(html`
+        <form>
+          <sbb-form-field floating-label>
+            <input />
+          </sbb-form-field>
+        </form>
+      `)) as HTMLFormElement;
       const element = form.querySelector<SbbFormFieldElement>('sbb-form-field')!;
       form.querySelector('input')!.focus();
       await sendKeys({ type: 'test' });
@@ -450,14 +417,11 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should reset floating label when calling reset of sbb-form-field', async () => {
-      const element: SbbFormFieldElement = await fixture(
-        html`
-          <sbb-form-field floating-label>
-            <input />
-          </sbb-form-field>
-        `,
-        { modules: ['./form-field.ts'] },
-      );
+      const element: SbbFormFieldElement = await fixture(html`
+        <sbb-form-field floating-label>
+          <input />
+        </sbb-form-field>
+      `);
       const input = element.querySelector<HTMLInputElement>('input')!;
 
       input.focus();

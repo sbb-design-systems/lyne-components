@@ -14,24 +14,21 @@ import '../../autocomplete.js';
 import '../../form-field.js';
 import '../optgroup.js';
 
-describe(`sbb-option with ${fixture.name}`, () => {
+describe(`sbb-option`, () => {
   describe('autocomplete', () => {
     let element: SbbFormFieldElement;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`
-          <sbb-form-field>
-            <input />
-            <sbb-autocomplete>
-              <sbb-option id="option-1" value="1">Option 1</sbb-option>
-              <sbb-option id="option-2" value="2">Option 2</sbb-option>
-              <sbb-option id="option-3" value="3">Option 3</sbb-option>
-            </sbb-autocomplete>
-          </sbb-form-field>
-        `,
-        { modules: ['../../form-field.ts', '../../autocomplete.ts', './option.ts'] },
-      );
+      element = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-option id="option-1" value="1">Option 1</sbb-option>
+            <sbb-option id="option-2" value="2">Option 2</sbb-option>
+            <sbb-option id="option-3" value="3">Option 3</sbb-option>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
     });
 
     it('renders', async () => {
@@ -163,26 +160,16 @@ describe(`sbb-option with ${fixture.name}`, () => {
     });
 
     it('highlight later added options in sbb-optgroup', async () => {
-      element = await fixture(
-        html`
-          <sbb-form-field>
-            <input />
-            <sbb-autocomplete>
-              <sbb-optgroup>
-                <sbb-option id="option-1" value="1">Option 1</sbb-option>
-              </sbb-optgroup>
-            </sbb-autocomplete>
-          </sbb-form-field>
-        `,
-        {
-          modules: [
-            '../../form-field.ts',
-            '../../autocomplete.ts',
-            '../optgroup.ts',
-            './option.ts',
-          ],
-        },
-      );
+      element = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-optgroup>
+              <sbb-option id="option-1" value="1">Option 1</sbb-option>
+            </sbb-optgroup>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
 
       const input = element.querySelector<HTMLInputElement>('input')!;
       const optgroup = element.querySelector<SbbOptGroupElement>('sbb-optgroup')!;

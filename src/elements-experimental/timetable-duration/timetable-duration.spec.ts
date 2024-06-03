@@ -7,13 +7,12 @@ import sampleData from './timetable-duration.sample-data.js';
 
 const config = JSON.stringify(sampleData[0]);
 
-describe(`sbb-timetable-duration with ${fixture.name}`, () => {
+describe(`sbb-timetable-duration`, () => {
   let element: SbbTimetableDurationElement;
 
   it('renders', async () => {
     element = await fixture(
       html`<sbb-timetable-duration config="${config}"></sbb-timetable-duration>`,
-      { modules: ['./timetable-duration.ts'] },
     );
     assert.instanceOf(element, SbbTimetableDurationElement);
   });

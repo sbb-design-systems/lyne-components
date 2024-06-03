@@ -11,25 +11,22 @@ import { SbbActionGroupElement } from './action-group.js';
 import '../button/secondary-button.js';
 import '../link/block-link.js';
 
-describe(`sbb-action-group with ${fixture.name}`, () => {
+describe(`sbb-action-group`, () => {
   let element: SbbActionGroupElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-action-group align-group="start" orientation="horizontal">
-          <sbb-secondary-button>Button</sbb-secondary-button>
-          <sbb-block-link
-            icon-name="chevron-small-left-small"
-            icon-placement="start"
-            href="https://github.com/sbb-design-systems/lyne-components"
-          >
-            Link
-          </sbb-block-link>
-        </sbb-action-group>
-      `,
-      { modules: ['./action-group.ts', '../button.ts', '../link.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-action-group align-group="start" orientation="horizontal">
+        <sbb-secondary-button>Button</sbb-secondary-button>
+        <sbb-block-link
+          icon-name="chevron-small-left-small"
+          icon-placement="start"
+          href="https://github.com/sbb-design-systems/lyne-components"
+        >
+          Link
+        </sbb-block-link>
+      </sbb-action-group>
+    `);
   });
 
   it('renders', async () => {

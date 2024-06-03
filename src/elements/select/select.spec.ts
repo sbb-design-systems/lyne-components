@@ -8,7 +8,7 @@ import { SbbOptionElement } from '../option.js';
 
 import { SbbSelectElement } from './select.js';
 
-describe(`sbb-select with ${fixture.name}`, () => {
+describe(`sbb-select`, () => {
   let element: SbbSelectElement,
     focusableElement: HTMLElement,
     firstOption: SbbOptionElement,
@@ -18,18 +18,15 @@ describe(`sbb-select with ${fixture.name}`, () => {
     comboBoxElement: HTMLElement;
 
   beforeEach(async () => {
-    const root = await fixture(
-      html`
-        <div id="parent">
-          <sbb-select placeholder="Placeholder">
-            <sbb-option id="option-1" value="1">First</sbb-option>
-            <sbb-option id="option-2" value="2">Second</sbb-option>
-            <sbb-option id="option-3" value="3">Third</sbb-option>
-          </sbb-select>
-        </div>
-      `,
-      { modules: ['./select.ts', '../option.ts'] },
-    );
+    const root = await fixture(html`
+      <div id="parent">
+        <sbb-select placeholder="Placeholder">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+          <sbb-option id="option-2" value="2">Second</sbb-option>
+          <sbb-option id="option-3" value="3">Third</sbb-option>
+        </sbb-select>
+      </div>
+    `);
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
     comboBoxElement = root.querySelector('[role="combobox"]')!;
@@ -118,18 +115,15 @@ describe(`sbb-select with ${fixture.name}`, () => {
   });
 
   it("displays value if it's set with 'wrong' selected attributes on sbb-options", async () => {
-    const root = await fixture(
-      html`
-        <div id="parent">
-          <sbb-select value="2">
-            <sbb-option id="option-1" value="1" selected>First</sbb-option>
-            <sbb-option id="option-2" value="2">Second</sbb-option>
-            <sbb-option id="option-3" value="3" selected>Third</sbb-option>
-          </sbb-select>
-        </div>
-      `,
-      { modules: ['./select.ts', '../option.ts'] },
-    );
+    const root = await fixture(html`
+      <div id="parent">
+        <sbb-select value="2">
+          <sbb-option id="option-1" value="1" selected>First</sbb-option>
+          <sbb-option id="option-2" value="2">Second</sbb-option>
+          <sbb-option id="option-3" value="3" selected>Third</sbb-option>
+        </sbb-select>
+      </div>
+    `);
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
     const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
@@ -145,18 +139,15 @@ describe(`sbb-select with ${fixture.name}`, () => {
   });
 
   it('display selected sbb-option if no value is set, then handles selection', async () => {
-    const root = await fixture(
-      html`
-        <div id="parent">
-          <sbb-select>
-            <sbb-option id="option-1" value="1" selected>First</sbb-option>
-            <sbb-option id="option-2" value="2">Second</sbb-option>
-            <sbb-option id="option-3" value="3">Third</sbb-option>
-          </sbb-select>
-        </div>
-      `,
-      { modules: ['./select.ts', '../option.ts'] },
-    );
+    const root = await fixture(html`
+      <div id="parent">
+        <sbb-select>
+          <sbb-option id="option-1" value="1" selected>First</sbb-option>
+          <sbb-option id="option-2" value="2">Second</sbb-option>
+          <sbb-option id="option-3" value="3">Third</sbb-option>
+        </sbb-select>
+      </div>
+    `);
     element = root.querySelector<SbbSelectElement>('sbb-select')!;
     comboBoxElement = root.querySelector('[role="combobox"]')!;
     focusableElement = comboBoxElement;

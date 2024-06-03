@@ -7,38 +7,35 @@ import { waitForLitRender } from '../core/testing.js';
 import { SbbLinkListElement } from './link-list.js';
 import '../link/block-link.js';
 
-describe(`sbb-link-list with ${fixture.name}`, () => {
+describe(`sbb-link-list`, () => {
   let element: SbbLinkListElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <sbb-link-list title-level="2">
-          <span slot="title">Help &amp; Contact</span>
-          <sbb-block-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            >Rückerstattungen</sbb-block-link
-          >
-          <sbb-block-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            >Fundbüro</sbb-block-link
-          >
-          <sbb-block-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            >Beschwerden</sbb-block-link
-          >
-          <sbb-block-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            >Lob aussprechen</sbb-block-link
-          >
-          <sbb-block-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            >Sachbeschädigung melden</sbb-block-link
-          >
-        </sbb-link-list>
-      `,
-      { modules: ['./link-list.ts', '../link.ts'] },
-    );
+    element = await fixture(html`
+      <sbb-link-list title-level="2">
+        <span slot="title">Help &amp; Contact</span>
+        <sbb-block-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Rückerstattungen</sbb-block-link
+        >
+        <sbb-block-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Fundbüro</sbb-block-link
+        >
+        <sbb-block-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Beschwerden</sbb-block-link
+        >
+        <sbb-block-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Lob aussprechen</sbb-block-link
+        >
+        <sbb-block-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Sachbeschädigung melden</sbb-block-link
+        >
+      </sbb-link-list>
+    `);
   });
 
   it('renders', async () => {
