@@ -111,11 +111,6 @@ const defaultArgs: Args = {
   'accessibility-label': 'Select from hard disk',
 };
 
-const defaultArgsSizeS: Args = {
-  ...defaultArgs,
-  size: size.options![1],
-};
-
 const multipleDefaultArgs: Args = {
   ...defaultArgs,
   multiple: true,
@@ -236,23 +231,11 @@ export const DefaultMultiSizeS: StoryObj = {
   play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement, 3) : undefined,
 };
 
-export const DefaultDisabledSizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgsSizeS, disabled: true },
-};
-
 export const DropzoneMultiSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...multipleDefaultArgsSizeS, variant: variant.options![1] },
   play: isChromatic() ? ({ canvasElement }) => playStory(canvasElement, 3) : undefined,
-};
-
-export const DropzoneDisabledSizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgsSizeS, variant: variant.options![1], disabled: true },
 };
 
 const meta: Meta = {
