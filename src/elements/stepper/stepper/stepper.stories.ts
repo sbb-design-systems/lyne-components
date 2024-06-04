@@ -225,7 +225,6 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
                 name="name"
                 value="Christina Müller"
               />
-              ${sbbFormError}
             </sbb-form-field>
           </form>
         </div>
