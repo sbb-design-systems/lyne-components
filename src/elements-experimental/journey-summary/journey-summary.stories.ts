@@ -1,7 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -67,24 +67,29 @@ const tripBack: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
-  'data-now': now,
   'round-trip': roundTrip,
   'header-level': headerLevel,
+  now,
   trip,
   tripBack,
 };
 
 const defaultArgs: Args = {
   'disable-animation': isChromatic(),
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   'round-trip': false,
   'header-level': headerLevel.options![2],
+  now: new Date('2022-12-05T12:11:00').valueOf(),
   trip: undefined,
   tripBack: undefined,
 };
 
-const Template = ({ trip, tripBack, ...args }: Args): TemplateResult => html`
-  <sbb-journey-summary .trip=${trip} .tripBack=${tripBack} ${sbbSpread(args)}>
+const Template = ({ trip, tripBack, now, ...args }: Args): TemplateResult => html`
+  <sbb-journey-summary
+    .trip=${trip}
+    .tripBack=${tripBack}
+    now=${now ? now / 1000 : nothing}
+    ${sbbSpread(args)}
+  >
     <div
       style=${styleMap({
         display: 'flex',
@@ -99,10 +104,11 @@ const Template = ({ trip, tripBack, ...args }: Args): TemplateResult => html`
   </sbb-journey-summary>
 `;
 
-const TemplateNoSlot = ({ trip, tripBack, ...args }: Args): TemplateResult =>
+const TemplateNoSlot = ({ trip, tripBack, now, ...args }: Args): TemplateResult =>
   html`<sbb-journey-summary
     .trip=${trip}
     .tripBack=${tripBack}
+    now=${now ? now / 1000 : nothing}
     ${sbbSpread(args)}
   ></sbb-journey-summary>`;
 

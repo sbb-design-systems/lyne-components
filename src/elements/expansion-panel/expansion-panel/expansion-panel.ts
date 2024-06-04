@@ -102,7 +102,6 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     SbbExpansionPanelElement.events.didClose,
   );
 
-  private _transitionEventController!: AbortController;
   private _progressiveId = `-${++nextId}`;
   private _headerRef?: SbbExpansionPanelHeaderElement;
   private _contentRef?: SbbExpansionPanelContentElement;
@@ -127,7 +126,6 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._transitionEventController?.abort();
     this.removeAttribute('data-accordion');
   }
 

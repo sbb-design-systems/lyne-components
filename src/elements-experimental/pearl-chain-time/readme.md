@@ -45,9 +45,8 @@ The `legs` property is mandatory.
 ></sbb-pearl-chain-time>
 ```
 
-## Testing
-
-To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
+To simulate the current datetime, you can use the `now` property,
+which accepts a `Date` or a timestamp in milliseconds (as number or string).
 This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
@@ -62,3 +61,4 @@ This is helpful if you need a specific state of the component.
 | `departureWalk`    | `departure-walk`    | public  | `number \| undefined`  |         | Optional prop to render the walk time (in minutes) before departure                                                                                                                                                                                                            |
 | `disableAnimation` | `disable-animation` | public  | `boolean \| undefined` |         | Per default, the current location has a pulsating animation. You can disable the animation with this property.                                                                                                                                                                 |
 | `legs`             | `legs`              | public  | `(Leg \| PtRideLeg)[]` |         | define the legs of the pearl-chain. Format: `{"legs": \[{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. |
+| `now`              | `now`               | public  | `Date`                 | `null`  | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes.                                                                                                                                                           |

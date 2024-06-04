@@ -5,7 +5,7 @@
 
 :host {
   --sbb-tab-group-animation-duration: var(
-    --sbb-disable-animation-time,
+    --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-4x)
   );
 

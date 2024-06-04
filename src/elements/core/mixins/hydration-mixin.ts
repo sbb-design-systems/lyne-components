@@ -39,7 +39,7 @@ const litElementHydrateSupport = 'litElementHydrateSupport';
  * a production module.
  * TODO: Should this be solved in a different way or removed in a production build?
  */
-const hydrationSuppressed = isServer || (globalThis as any).testGroup === 'e2e-ssr-non-hydrated';
+const hydrationSuppressed = isServer || (globalThis as any).testGroup === 'ssr-non-hydrated';
 
 /**
  * This mixin extends a base class with functionality to check if hydration is completed.

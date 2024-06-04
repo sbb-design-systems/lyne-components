@@ -16,14 +16,13 @@ export const isDebugEnvironment = !isServer && (globalThis as any).testEnv === '
  * This is a custom implementation.
  * Returns true, if this is run in the SSR with hydration test group.
  */
-export const isHydratedSsr = !isServer && (globalThis as any).testGroup === 'e2e-ssr-hydrated';
+export const isHydratedSsr = !isServer && (globalThis as any).testGroup === 'ssr-hydrated';
 
 /**
  * This is a custom implementation.
  * Returns true, if this is run in the SSR without hydration test group.
  */
-export const isNonHydratedSsr =
-  !isServer && (globalThis as any).testGroup === 'e2e-ssr-non-hydrated';
+export const isNonHydratedSsr = !isServer && (globalThis as any).testGroup === 'ssr-non-hydrated';
 
 /**
  * This is a custom implementation.

@@ -110,7 +110,7 @@ describe(`sbb-lead-container`, () => {
           testVisualDiff(() => root);
         });
 
-        describe('with img tag', () => {
+        describe('with img tag', async () => {
           beforeEach(async function () {
             root = await visualRegressionFixture(
               leadContainerTemplate(
@@ -124,6 +124,8 @@ describe(`sbb-lead-container`, () => {
               wrapperStyles,
             );
           });
+
+          await waitForCondition(() => root.querySelector('img')!.complete);
 
           testVisualDiff(() => root);
         });
