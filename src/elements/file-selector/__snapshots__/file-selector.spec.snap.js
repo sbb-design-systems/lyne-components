@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-file-selector renders default"] =
+snapshots["sbb-file-selector renders default"] = 
 `<div class="sbb-file-selector">
   <div class="sbb-file-selector__input-container">
     <label>
@@ -34,7 +34,7 @@ snapshots["sbb-file-selector renders default"] =
 `;
 /* end snapshot sbb-file-selector renders default */
 
-snapshots["sbb-file-selector renders with dropzone area and size s"] =
+snapshots["sbb-file-selector renders with dropzone area and size s"] = 
 `<div class="sbb-file-selector">
   <div class="sbb-file-selector__input-container">
     <label>
@@ -84,7 +84,7 @@ snapshots["sbb-file-selector renders with dropzone area and size s"] =
 `;
 /* end snapshot sbb-file-selector renders with dropzone area and size s */
 
-snapshots["sbb-file-selector A11y tree Chrome"] =
+snapshots["sbb-file-selector A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -105,7 +105,7 @@ snapshots["sbb-file-selector A11y tree Chrome"] =
 `;
 /* end snapshot sbb-file-selector A11y tree Chrome */
 
-snapshots["sbb-file-selector A11y tree Firefox"] =
+snapshots["sbb-file-selector A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
