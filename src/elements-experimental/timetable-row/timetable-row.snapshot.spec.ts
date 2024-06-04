@@ -3,16 +3,12 @@ import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
-import type { ITripItem, Notice, PtSituation } from '../core/timetable.js';
+import type { ITripItem } from '../core/timetable.js';
 
 import type { SbbTimetableRowElement } from './timetable-row.js';
-import { filterNotices, getCus, getHimIcon, sortSituation } from './timetable-row.js';
-import {
-  defaultTrip,
-  busTrip,
-  partiallyCancelled,
-  walkTimeTrip,
-} from './timetable-row.sample-data.js';
+import { busTrip, defaultTrip } from './timetable-row.sample-data.js';
+
+import './timetable-row.js';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 
@@ -112,9 +108,10 @@ describe(`sbb-timetable-row`, () => {
 
   describe('sbb-timetable-row with BusTrip', () => {
     it('renders component with config', async () => {
-      element = await fixture(html`<sbb-timetable-row data-now="${now}"></sbb-timetable-row>`);
+      element = await fixture(
+        html`<sbb-timetable-row data-now="${now}" .trip=${busTrip}></sbb-timetable-row>`,
+      );
 
-      element.trip = busTrip as ITripItem;
       await waitForLitRender(element);
 
       expect(element).dom.to.be.equal(`
@@ -182,9 +179,6 @@ describe(`sbb-timetable-row`, () => {
         html`<sbb-timetable-row loading-trip loading-price data-now="${now}"></sbb-timetable-row>`,
       );
 
-      element.loadingTrip = true;
-      await waitForLitRender(element);
-
       expect(element).dom.to.be.equal(`
         <sbb-timetable-row loading-trip="" loading-price="" data-now="1660662000000">
         </sbb-timetable-row>
@@ -206,67 +200,5 @@ describe(`sbb-timetable-row`, () => {
         </sbb-card>
       `);
     });
-  });
-});
-
-describe('sortSituation', () => {
-  it('should return sorted array', () => {
-    expect(
-      sortSituation([
-        { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
-        { cause: 'DISTURBANCE', broadcastMessages: [] },
-      ]),
-    ).to.be.eql([
-      { cause: 'DISTURBANCE', broadcastMessages: [] },
-      { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
-    ]);
-  });
-
-  it('should return sorted array even with double causes', () => {
-    expect(
-      sortSituation([
-        { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
-        { cause: 'DISTURBANCE', broadcastMessages: [] },
-        { cause: 'DISTURBANCE', broadcastMessages: [] },
-      ]),
-    ).to.be.eql([
-      { cause: 'DISTURBANCE', broadcastMessages: [] },
-      { cause: 'DISTURBANCE', broadcastMessages: [] },
-      { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
-    ]);
-  });
-});
-
-describe(`getHimIcon`, () => {
-  it('should return replacementbus', () => {
-    const situation: PtSituation = {
-      cause: 'TRAIN_REPLACEMENT_BY_BUS',
-      broadcastMessages: [],
-    };
-    expect(getHimIcon(situation).name).to.be.equal('replacementbus');
-    expect(getHimIcon(situation).text).to.be.equal('');
-  });
-
-  it('should return info', () => {
-    const situation: PtSituation = {
-      cause: null,
-      broadcastMessages: [],
-    };
-    expect(getHimIcon(situation).name).to.be.equal('info');
-  });
-});
-
-describe(`getCus`, () => {
-  it('should return cancellation', () => {
-    expect(getCus(partiallyCancelled as ITripItem, 'en')).to.be.eql({
-      name: 'cancellation',
-      text: undefined,
-    });
-  });
-});
-
-describe(`filterNotices`, () => {
-  it('should return sa-rr', () => {
-    expect(filterNotices(walkTimeTrip?.notices as Notice[])).to.be.eql([]);
   });
 });
