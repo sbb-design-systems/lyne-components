@@ -53,7 +53,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 ) {
   public static override styles: CSSResultGroup = style;
 
-  // FIXME using { ...super.events, backClick: 'requestBackAction' } breaks the eslint missing-component-documentation-rule
+  // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
     didChange: 'didChange',
     change: 'change',

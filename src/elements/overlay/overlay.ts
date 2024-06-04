@@ -32,7 +32,7 @@ import '../screen-reader-only.js';
 export class SbbOverlayElement extends SbbOverlayBaseElement {
   public static override styles: CSSResultGroup = style;
 
-  // FIXME using { ...super.events, backClick: 'requestBackAction' } breaks the eslint missing-component-documentation-rule
+  // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
     willOpen: 'willOpen',
     didOpen: 'didOpen',
