@@ -17,46 +17,9 @@ import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-cell.js';
 import './autocomplete-grid-button.js';
 
-const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
-  table: {
-    category: 'Button',
-  },
-};
-
 const disabled: InputType = {
   control: {
     type: 'boolean',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const name: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const value: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const form: InputType = {
-  control: {
-    type: 'text',
   },
   table: {
     category: 'Button',
@@ -97,11 +60,7 @@ const focusVisible: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  type,
   disabled,
-  name,
-  value,
-  form,
   negative,
   'icon-name': iconName,
   'aria-label': ariaLabel,
@@ -110,11 +69,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  type: type.options![0],
   disabled: false,
-  name: 'Button Name',
-  value: undefined,
-  form: undefined,
   negative: false,
   'icon-name': 'arrow-right-small',
   'aria-label': 'arrow-right-small',

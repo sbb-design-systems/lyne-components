@@ -1,11 +1,14 @@
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbMiniButtonBaseElement } from '../../core/base-elements.js';
+import { SbbActionBaseElement } from '../../core/base-elements.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { isEventPrevented } from '../../core/eventing.js';
+import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
+import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
 import style from './autocomplete-grid-button.scss?lit&inline';
@@ -24,9 +27,13 @@ const buttonObserverConfig: MutationObserverInit = {
  */
 @customElement('sbb-autocomplete-grid-button')
 @hostAttributes({
+  role: 'button',
   tabindex: null,
+  'data-button': '',
 })
-export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniButtonBaseElement) {
+export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
+  SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
+) {
   public static override styles: CSSResultGroup = style;
 
   /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
@@ -57,6 +64,19 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
         setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
       }
     }
+  }
+
+  public constructor() {
+    super();
+    new SbbSlotStateController(this);
+    if (!isServer) {
+      this.setupBaseEventHandlers();
+      this.addEventListener('click', this._handleButtonClick);
+    }
+  }
+
+  protected override renderTemplate(): TemplateResult {
+    return super.renderIconSlot();
   }
 
   public override connectedCallback(): void {
@@ -93,7 +113,7 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
    * Event needs to be dispatched from the action element; in autocomplete-grid,
    * the input has always the focus, so the `event.target` on parent class is the input and not the button.
    */
-  protected override dispatchClickEvent = (event: KeyboardEvent): void => {
+  protected dispatchClickEvent = (event: KeyboardEvent): void => {
     const { altKey, ctrlKey, metaKey, shiftKey } = event;
     this.dispatchEvent(
       new PointerEvent('click', {
@@ -108,6 +128,12 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
         shiftKey,
       }),
     );
+  };
+
+  private _handleButtonClick = async (event: MouseEvent): Promise<void> => {
+    if ((await isEventPrevented(event)) || !this.closest('form')) {
+      return;
+    }
   };
 }
 
