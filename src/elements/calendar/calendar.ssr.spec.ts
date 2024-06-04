@@ -10,7 +10,7 @@ describe(`sbb-calendar ${fixture.name}`, () => {
 
   beforeEach(async () => {
     root = await fixture(
-      html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
+      html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
       { modules: ['./calendar.js'] },
     );
   });
