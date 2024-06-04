@@ -1,7 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
@@ -32,16 +32,20 @@ const now: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
-  'data-now': now,
+  now,
 };
 
 const defaultArgs: Args = {
   'disable-animation': isChromatic(),
-  'data-now': new Date('2022-12-01T12:11:00').valueOf(),
+  now: new Date('2022-12-01T12:11:00').valueOf(),
 };
 
-const Template = ({ legs, ...args }: Args): TemplateResult => {
-  return html`<sbb-pearl-chain .legs=${legs} ${sbbSpread(args)}></sbb-pearl-chain>`;
+const Template = ({ legs, now, ...args }: Args): TemplateResult => {
+  return html`<sbb-pearl-chain
+    .legs=${legs}
+    ${sbbSpread(args)}
+    now=${now ? now / 1000 : nothing}
+  ></sbb-pearl-chain>`;
 };
 
 export const NoStops: StoryObj = {
@@ -86,7 +90,7 @@ export const withPosition: StoryObj = {
   args: {
     ...defaultArgs,
     legs: [progressLeg],
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -96,7 +100,7 @@ export const Past: StoryObj = {
   args: {
     ...defaultArgs,
     legs: [pastLeg, pastLeg],
-    'data-now': new Date('2023-11-01T12:11:00').valueOf(),
+    now: new Date('2023-11-01T12:11:00').valueOf(),
   },
 };
 
@@ -106,7 +110,7 @@ export const DepartureStopSkipped: StoryObj = {
   args: {
     ...defaultArgs,
     legs: [pastLeg, progressLeg, longFutureLeg, redirectedOnDepartureLeg, futureLeg],
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -116,7 +120,7 @@ export const ArrivalStopSkipped: StoryObj = {
   args: {
     ...defaultArgs,
     legs: [pastLeg, progressLeg, longFutureLeg, redirectedOnArrivalLeg, futureLeg],
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -126,7 +130,7 @@ export const FirstStopSkipped: StoryObj = {
   args: {
     ...defaultArgs,
     legs: [redirectedOnDepartureLeg, futureLeg, longFutureLeg],
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -136,7 +140,7 @@ export const LastStopSkipped: StoryObj = {
   args: {
     ...defaultArgs,
     legs: [futureLeg, longFutureLeg, redirectedOnArrivalLeg],
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -146,7 +150,7 @@ export const Mixed: StoryObj = {
   args: {
     ...defaultArgs,
     legs: [pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg],
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 

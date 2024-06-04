@@ -7,9 +7,18 @@ then it briefly pauses at the clock top before starting a new rotation.
 <sbb-clock></sbb-clock>
 ```
 
-## Testing
-
-To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
+To simulate the current time, you can use the `now` property
+which accepts a time string like `HH:MM:SS`.
 This is helpful if you need a specific state of the component.
 
+```html
+<sbb-clock now="23:23:00"></sbb-clock>
+```
+
 <!-- Auto Generated Below -->
+
+## Properties
+
+| Name  | Attribute | Privacy | Type              | Default | Description                                                    |
+| ----- | --------- | ------- | ----------------- | ------- | -------------------------------------------------------------- |
+| `now` | `now`     | public  | `SbbTime \| null` | `null`  | Define a specific time which the clock should show statically. |

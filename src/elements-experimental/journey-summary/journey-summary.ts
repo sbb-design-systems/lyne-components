@@ -1,6 +1,7 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { defaultDateAdapter, readDataNow } from '@sbb-esta/lyne-elements/core/datetime.js';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { i18nTripDuration } from '@sbb-esta/lyne-elements/core/i18n.js';
+import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces/types';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { format, isValid } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
@@ -59,17 +60,22 @@ export class SbbJourneySummaryElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
+  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  @property()
+  public set now(value: SbbDateLike | undefined) {
+    this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
+  }
+  public get now(): Date {
+    return this._now ?? new Date();
+  }
+  private _now: Date | null = null;
+
   private _hasContentSlot: boolean = false;
   private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this._hasContentSlot = Boolean(this.querySelector?.('[slot="content"]'));
-  }
-
-  private _now(): number {
-    const dataNow = readDataNow(this);
-    return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
   /**  renders the date of the journey or if it is the current or next day */
@@ -132,7 +138,7 @@ export class SbbJourneySummaryElement extends LitElement {
           .arrivalWalk=${arrivalWalk}
           .legs=${legs}
           .disableAnimation=${this.disableAnimation}
-          data-now=${this._now()}
+          .now=${this.now}
         ></sbb-pearl-chain-time>
       </div>
     `;

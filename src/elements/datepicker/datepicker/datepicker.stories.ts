@@ -217,7 +217,7 @@ const borderless: InputType = {
   },
 };
 
-const dataNow: InputType = {
+const now: InputType = {
   control: {
     type: 'date',
   },
@@ -237,8 +237,8 @@ const basicArgTypes: ArgTypes = {
   wide,
   dateFilter,
   dateHandling,
+  now,
   'aria-label': ariaLabel,
-  'data-now': dataNow,
 };
 
 const basicArgs: Args = {
@@ -252,8 +252,8 @@ const basicArgs: Args = {
   wide: false,
   dateFilter: dateFilter.options![0],
   dateHandling: dateHandling.options![0],
+  now: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
   'aria-label': undefined,
-  dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 
 const formFieldBasicArgsTypes: ArgTypes = {
@@ -274,15 +274,8 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const getInputAttributes = (min?: Date | string, max?: Date | string): Record<string, number> => {
-  const attr: Record<string, number> = {};
-  if (min) {
-    attr.min = new Date(min).getTime() / 1000;
-  }
-  if (max) {
-    attr.max = new Date(max).getTime() / 1000;
-  }
-  return attr;
+const convertMillisecondsToSeconds = (milliseconds: number): number | typeof nothing => {
+  return milliseconds ? milliseconds / 1000 : nothing;
 };
 
 // Story interaction executed after the story renders
@@ -311,26 +304,24 @@ const changeEventHandler = async (event: Event): Promise<void> => {
   document.getElementById('container-value')?.append(div);
 };
 
-const Template = ({
-  min,
-  max,
-  wide,
-  dateFilter,
-  'data-now': dataNow,
-  ...args
-}: Args): TemplateResult => {
+const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateResult => {
   return html`
     <div style=${styleMap({ display: 'flex', gap: '0.25rem' })}>
       <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
       <sbb-datepicker-toggle date-picker="datepicker" data-testid="toggle"></sbb-datepicker-toggle>
-      <input ${sbbSpread(args)} id="datepicker-input" ${sbbSpread(getInputAttributes(min, max))} />
+      <input
+        ${sbbSpread(args)}
+        id="datepicker-input"
+        min=${convertMillisecondsToSeconds(min)}
+        max=${convertMillisecondsToSeconds(max)}
+      />
       <sbb-datepicker
         id="datepicker"
         input="datepicker-input"
         .dateFilter=${dateFilter}
         ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        data-now=${dataNow}
+        now=${convertMillisecondsToSeconds(now)}
       ></sbb-datepicker>
       <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
     </div>
@@ -354,7 +345,7 @@ const TemplateFormField = ({
   wide,
   dateFilter,
   dateHandling,
-  'data-now': dataNow,
+  now,
   ...args
 }: Args): TemplateResult => {
   return html`
@@ -369,14 +360,18 @@ const TemplateFormField = ({
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-datepicker-next-day></sbb-datepicker-next-day>
       <sbb-datepicker-toggle data-testid="toggle"></sbb-datepicker-toggle>
-      <input ${sbbSpread(args)} ${sbbSpread(getInputAttributes(min, max))} />
+      <input
+        ${sbbSpread(args)}
+        min=${convertMillisecondsToSeconds(min)}
+        max=${convertMillisecondsToSeconds(max)}
+      />
       <sbb-datepicker
         .dateFilter=${dateFilter}
         .dateParser=${dateHandling.dateParser}
         .format=${dateHandling.format}
         ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        data-now=${dataNow}
+        now=${convertMillisecondsToSeconds(now)}
       ></sbb-datepicker>
     </sbb-form-field>
     <div
