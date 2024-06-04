@@ -7,37 +7,35 @@ import type { SbbButtonLinkElement } from './button-link.js';
 import './button-link.js';
 
 describe(`sbb-button-link`, () => {
-  describe('renders a sbb-button-link without icon', async () => {
-    let root: SbbButtonLinkElement;
+  let element: SbbButtonLinkElement;
 
+  describe('renders a sbb-button-link without icon', async () => {
     beforeEach(async () => {
-      root = await fixture(buttonLinkTestTemplate('sbb-button-link'));
+      element = await fixture(buttonLinkTestTemplate('sbb-button-link'));
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
     testA11yTreeSnapshot();
   });
 
   describe('renders a disabled sbb-button-link with slotted icon', async () => {
-    let root: SbbButtonLinkElement;
-
     beforeEach(async () => {
-      root = await fixture(buttonLinkIconTestTemplate('sbb-button-link'));
+      element = await fixture(buttonLinkIconTestTemplate('sbb-button-link'));
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
   });
 });

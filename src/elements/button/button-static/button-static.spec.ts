@@ -4,23 +4,28 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import {
+  buttonIconTestTemplate,
+  buttonSpaceIconTestTemplate,
+} from '../common/button-test-utils.js';
 
 import { SbbButtonStaticElement } from './button-static.js';
 
 describe(`sbb-button-static`, () => {
   let element: SbbButtonStaticElement;
 
-  beforeEach(async () => {
-    element = await fixture(
-      html`<sbb-button-static id="focus-id">I am a static button</sbb-button-static>`,
-    );
-  });
-
   it('renders', async () => {
+    element = await fixture(html`<sbb-button-static>I am a static button</sbb-button-static>`);
     assert.instanceOf(element, SbbButtonStaticElement);
   });
 
   describe('events', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-button-static id="focus-id">I am a static button</sbb-button-static>`,
+      );
+    });
+
     it('dispatches event on click', async () => {
       const clickSpy = new EventSpy('click');
 
@@ -64,5 +69,19 @@ describe(`sbb-button-static`, () => {
       await sendKeys({ press: ' ' });
       expect(changeSpy.count).not.to.be.greaterThan(0);
     });
+  });
+
+  it('should detect icon in sbb-button-static', async () => {
+    const root = await fixture(buttonIconTestTemplate('sbb-button-static'));
+    const dataSlots = root.getAttribute('data-slot-names');
+    expect(dataSlots).to.contain('icon');
+    expect(dataSlots).not.to.contain('unnamed');
+  });
+
+  it('should detect icon in sbb-button-static when there is space around icon', async () => {
+    const root = await fixture(buttonSpaceIconTestTemplate('sbb-button-static'));
+    const dataSlots = root.getAttribute('data-slot-names');
+    expect(dataSlots).to.contain('icon');
+    expect(dataSlots).not.to.contain('unnamed');
   });
 });
