@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
-import { SbbOverlayBaseElement } from '../../core/base-elements.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
@@ -50,7 +50,7 @@ const DEBOUNCE_TIME = 150;
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOverlayBaseElement) {
+export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /**

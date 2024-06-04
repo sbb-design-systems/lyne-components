@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
-import { SbbOverlayBaseElement } from '../core/base-elements.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
 import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom.js';
@@ -49,7 +49,7 @@ export interface SelectChange {
   role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbSelectElement extends SbbUpdateSchedulerMixin(
-  SbbDisabledMixin(SbbNegativeMixin(SbbOverlayBaseElement)),
+  SbbDisabledMixin(SbbNegativeMixin(SbbOpenCloseBaseElement)),
 ) {
   public static override styles: CSSResultGroup = style;
 

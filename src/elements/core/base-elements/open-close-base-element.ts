@@ -4,7 +4,7 @@ import { EventEmitter } from '../eventing.js';
 import type { SbbOpenedClosedState } from '../interfaces.js';
 
 /** Base class for overlay components. */
-export abstract class SbbOverlayBaseElement extends LitElement {
+export abstract class SbbOpenCloseBaseElement extends LitElement {
   public static readonly events = {
     willOpen: 'willOpen',
     didOpen: 'didOpen',
@@ -21,19 +21,25 @@ export abstract class SbbOverlayBaseElement extends LitElement {
   }
 
   /** Emits whenever the component starts the opening transition. */
-  protected willOpen: EventEmitter = new EventEmitter(this, SbbOverlayBaseElement.events.willOpen);
+  protected willOpen: EventEmitter = new EventEmitter(
+    this,
+    SbbOpenCloseBaseElement.events.willOpen,
+  );
 
   /** Emits whenever the component is opened. */
-  protected didOpen: EventEmitter = new EventEmitter(this, SbbOverlayBaseElement.events.didOpen);
+  protected didOpen: EventEmitter = new EventEmitter(this, SbbOpenCloseBaseElement.events.didOpen);
 
   /** Emits whenever the component begins the closing transition. */
   protected willClose: EventEmitter = new EventEmitter(
     this,
-    SbbOverlayBaseElement.events.willClose,
+    SbbOpenCloseBaseElement.events.willClose,
   );
 
   /** Emits whenever the component is closed. */
-  protected didClose: EventEmitter = new EventEmitter(this, SbbOverlayBaseElement.events.didClose);
+  protected didClose: EventEmitter = new EventEmitter(
+    this,
+    SbbOpenCloseBaseElement.events.didClose,
+  );
 
   /** Opens the component. */
   public abstract open(): void;

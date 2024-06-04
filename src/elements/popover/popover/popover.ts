@@ -9,7 +9,7 @@ import {
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
-import { SbbOverlayBaseElement } from '../../core/base-elements.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { findReferencedElement } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
@@ -47,7 +47,7 @@ const popoversRef = new Set<SbbPopoverElement>();
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-popover')
-export class SbbPopoverElement extends SbbOverlayBaseElement {
+export class SbbPopoverElement extends SbbOpenCloseBaseElement {
   public static override styles: CSSResultGroup = style;
 
   /**

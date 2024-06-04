@@ -2,7 +2,7 @@ import { type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbFocusHandler } from '../../core/a11y.js';
-import { SbbOverlayBaseElement } from '../../core/base-elements.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { hostContext, SbbScrollHandler } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -15,7 +15,7 @@ import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only.js';
 // A global collection of existing dialogs
 export const dialogRefs: SbbDialogBaseElement[] = [];
 
-export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOverlayBaseElement) {
+export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
   /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the dialog. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 

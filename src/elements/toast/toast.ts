@@ -3,7 +3,7 @@ import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
-import { SbbOverlayBaseElement } from '../core/base-elements.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import {
   SbbConnectedAbortController,
   SbbLanguageController,
@@ -40,7 +40,7 @@ const toastRefs = new Set<SbbToastElement>();
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-toast')
-export class SbbToastElement extends SbbIconNameMixin(SbbOverlayBaseElement) {
+export class SbbToastElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /**

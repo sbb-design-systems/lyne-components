@@ -10,7 +10,7 @@ import {
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
-import { SbbOverlayBaseElement } from '../../core/base-elements.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
@@ -56,8 +56,8 @@ let nextId = 0;
 @customElement('sbb-menu')
 export class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
-  typeof SbbOverlayBaseElement
->(SbbOverlayBaseElement) {
+  typeof SbbOpenCloseBaseElement
+>(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-menu-button', 'sbb-menu-link'];
 
