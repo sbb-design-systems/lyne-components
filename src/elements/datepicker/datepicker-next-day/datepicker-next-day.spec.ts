@@ -171,4 +171,32 @@ describe(`sbb-datepicker-next-day`, () => {
       expect(input.value).to.be.equal('Sa, 21.01.2023');
     });
   });
+
+  it('renders with datepicker and input disabled', async () => {
+    const page: SbbFormFieldElement = await fixture(html`
+      <sbb-form-field>
+        <input disabled="" />
+        <sbb-datepicker></sbb-datepicker>
+        <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      </sbb-form-field>
+    `);
+
+    const element: SbbDatepickerNextDayElement =
+      page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
+    expect(element).to.have.attribute('data-disabled');
+  });
+
+  it('renders with datepicker and input readonly', async () => {
+    const page: SbbFormFieldElement = await fixture(html`
+      <sbb-form-field>
+        <input readonly="" />
+        <sbb-datepicker></sbb-datepicker>
+        <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      </sbb-form-field>
+    `);
+
+    const element: SbbDatepickerNextDayElement =
+      page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
+    expect(element).to.have.attribute('data-disabled');
+  });
 });
