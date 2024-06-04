@@ -45,6 +45,9 @@
           // In the calendar we have properties, that support Date/string/number values
           // TODO: Maybe change the signature to only accept a date object.
           "no-incompatible-property-type": "off",
+          // In the calendar component it claims about `now` property, although it's correct.
+          // TODO: Maybe reactivate if possible
+          "no-complex-attribute-binding": "off",
           "no-unknown-tag-name": "error",
           "no-missing-import": "error",
           "no-missing-element-type-definition": "error",
