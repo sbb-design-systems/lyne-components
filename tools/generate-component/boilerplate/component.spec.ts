@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { __nameUpperCase__ } from './__noPrefixName__';
+import { __nameUpperCase__ } from './__noPrefixName__.js';
 
-describe(`__name__`, () => {
+describe('__name__', () => {
   let element: __nameUpperCase__;
 
   beforeEach(async () => {

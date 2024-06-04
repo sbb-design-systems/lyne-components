@@ -1,18 +1,27 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './__noPrefixName__';
-import { fixture } from '../../../src/elements/core/testing';
+
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+
+import type { __nameUpperCase__ } from './__noPrefixName__.js';
+import './__noPrefixName__.js';
 
 describe(`__name__`, () => {
-  it('renders', async () => {
-    const root = await fixture(html`<__name__ my-prop="Label"></__name__>`);
+  it('renders', () => {
+    let element: __nameUpperCase__;
 
-    expect(root).dom.to.be.equal(`<__name__ my-prop="Label"></__name__>`);
+    beforeEach(async () => {
+      element = await fixture(html`<__name__ my-prop="Label"></__name__>`);
+    });
 
-    expect(root).shadowDom.to.be.equal(`
-      <div class="__name__">
-        Label
-      </div>
-    `);
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 });
