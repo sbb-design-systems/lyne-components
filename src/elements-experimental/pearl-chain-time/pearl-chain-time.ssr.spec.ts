@@ -4,7 +4,7 @@ import { html } from 'lit';
 
 import { SbbPearlChainTimeElement } from './pearl-chain-time.js';
 
-const now = new Date('2022-08-16T15:00:00Z').valueOf();
+const now = '2022-08-16T15:00:00Z';
 
 describe(`sbb-pearl-chain-time ${fixture.name}`, () => {
   let root: SbbPearlChainTimeElement;
@@ -15,7 +15,7 @@ describe(`sbb-pearl-chain-time ${fixture.name}`, () => {
         <sbb-pearl-chain-time
           departure-time="2022-08-16T12:00:00"
           arrival-time="2022-08-16T15:00:00"
-          data-now="${now}"
+          now=${now}
         >
         </sbb-pearl-chain-time>
       `,
