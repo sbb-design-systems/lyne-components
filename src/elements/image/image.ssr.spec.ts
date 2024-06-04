@@ -5,17 +5,18 @@ import { fixture } from '../core/testing/private.js';
 
 import { SbbImageElement } from './image.js';
 
+const imageUrl = import.meta.resolve('../clock/assets/sbb_clock_face.svg');
+
 describe(`sbb-image ${fixture.name}`, () => {
-  let root: SbbImageElement;
+  let element: SbbImageElement;
 
   beforeEach(async () => {
-    const url = `${location.protocol}//${location.host}/src/elements/clock/assets/sbb_clock_face.svg`;
-    root = await fixture(html`<sbb-image image-src=${url}></sbb-image>`, {
+    element = await fixture(html`<sbb-image image-src=${imageUrl}></sbb-image>`, {
       modules: ['./image.js'],
     });
   });
 
   it('renders', () => {
-    assert.instanceOf(root, SbbImageElement);
+    assert.instanceOf(element, SbbImageElement);
   });
 });
