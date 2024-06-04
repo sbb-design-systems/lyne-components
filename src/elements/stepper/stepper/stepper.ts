@@ -101,7 +101,10 @@ export class SbbStepperElement extends LitElement {
       this.querySelectorAll('form').forEach((form) => form.reset());
     }
     this.selectedIndex = 0;
-    this.selected?.label?.focus();
+    // In case the focus is currently inside the stepper, we reset the focus to the first/selected step label.
+    if (document.activeElement?.closest('sbb-stepper') === this) {
+      this.selected?.label?.focus();
+    }
   }
 
   private _loaded: boolean = false;
