@@ -6,10 +6,10 @@ import { getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11
 import { isBreakpoint } from '../../core/dom.js';
 import { AgnosticResizeObserver } from '../../core/observers.js';
 import { applyInertMechanism, removeInertMechanism } from '../../core/overlay.js';
+import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
 import type { SbbDialogActionsElement } from '../dialog-actions.js';
 import type { SbbDialogTitleElement } from '../dialog-title.js';
 
-import { dialogRefs, SbbDialogBaseElement } from './dialog-base-element.js';
 import style from './dialog.scss?lit&inline';
 
 import '../../screen-reader-only.js';
@@ -23,13 +23,13 @@ let nextId = 0;
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
- * @event {CustomEvent<SbbDialogCloseEventDetails>} didClose - Emits whenever the `sbb-dialog` is closed.
+ * @event {CustomEvent<SbbOverlayCloseEventDetails>} didClose - Emits whenever the `sbb-dialog` is closed.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-dialog')
-export class SbbDialogElement extends SbbDialogBaseElement {
+export class SbbDialogElement extends SbbOverlayBaseElement {
   public static override styles: CSSResultGroup = style;
 
   /** Backdrop click action. */
@@ -74,7 +74,7 @@ export class SbbDialogElement extends SbbDialogBaseElement {
     this.state = 'opening';
 
     // Add this dialog to the global collection
-    dialogRefs.push(this as SbbDialogElement);
+    overlayRefs.push(this as SbbDialogElement);
     this._dialogContentResizeObserver.observe(this._dialogContentElement);
 
     // Disable scrolling for content below the dialog
@@ -86,10 +86,10 @@ export class SbbDialogElement extends SbbDialogBaseElement {
 
     // Close dialog on backdrop click
     this.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this.dialogController.signal,
+      signal: this.overlayController.signal,
     });
     this.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this.dialogController.signal,
+      signal: this.overlayController.signal,
     });
   }
 
@@ -113,29 +113,29 @@ export class SbbDialogElement extends SbbDialogBaseElement {
     this._dialogContentResizeObserver.disconnect();
   }
 
-  protected override attachOpenDialogEvents(): void {
-    super.attachOpenDialogEvents();
+  protected override attachOpenOverlayEvents(): void {
+    super.attachOpenOverlayEvents();
 
     // If the content overflows, show/hide the dialog header on scroll.
     this._dialogContentElement?.addEventListener('scroll', () => this._onContentScroll(), {
       passive: true,
-      signal: this.openDialogController.signal,
+      signal: this.openOverlayController.signal,
     });
     window.addEventListener('resize', () => this._setHideHeaderDataAttribute(false), {
-      signal: this.openDialogController.signal,
+      signal: this.openOverlayController.signal,
     });
   }
 
   // Wait for dialog transition to complete.
   // In rare cases, it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
-  protected onDialogAnimationEnd(event: AnimationEvent): void {
+  protected onOverlayAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
       this.state = 'opened';
       this.didOpen.emit();
       applyInertMechanism(this);
-      this.attachOpenDialogEvents();
-      this.setDialogFocus();
+      this.attachOpenOverlayEvents();
+      this.setOverlayFocus();
       // Use timeout to read label after focused element
       setTimeout(() =>
         this.setAriaLiveRefContent(
@@ -151,21 +151,21 @@ export class SbbDialogElement extends SbbDialogBaseElement {
       setModalityOnNextFocus(this.lastFocusedElement);
       // Manually focus last focused element
       this.lastFocusedElement?.focus();
-      this.openDialogController?.abort();
+      this.openOverlayController?.abort();
       this.focusHandler.disconnect();
       this._dialogContentResizeObserver.disconnect();
       this.removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the dialog if no dialog is open
-      !dialogRefs.length && this.scrollHandler.enableScroll();
+      !overlayRefs.length && this.scrollHandler.enableScroll();
       this.didClose.emit({
         returnValue: this.returnValue,
-        closeTarget: this.dialogCloseElement,
+        closeTarget: this.overlayCloseElement,
       });
     }
   }
 
   // Set focus on the first focusable element.
-  protected setDialogFocus(): void {
+  protected setOverlayFocus(): void {
     const firstFocusable = getFirstFocusableElement(
       Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
     );
@@ -283,12 +283,12 @@ export class SbbDialogElement extends SbbDialogBaseElement {
     return html`
       <div class="sbb-dialog__container">
         <div
-          @animationend=${(event: AnimationEvent) => this.onDialogAnimationEnd(event)}
+          @animationend=${(event: AnimationEvent) => this.onOverlayAnimationEnd(event)}
           class="sbb-dialog"
           id=${this._dialogId}
         >
           <div
-            @click=${(event: Event) => this.closeOnSbbDialogCloseClick(event)}
+            @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
             class="sbb-dialog__wrapper"
           >
             <slot></slot>

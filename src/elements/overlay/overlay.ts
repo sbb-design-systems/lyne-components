@@ -7,8 +7,8 @@ import { getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y.j
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseDialog, i18nGoBack } from '../core/i18n.js';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay.js';
-import { dialogRefs, SbbDialogBaseElement } from '../dialog.js';
 
+import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.js';
 import style from './overlay.scss?lit&inline';
 import '../button/secondary-button.js';
 import '../button/transparent-button.js';
@@ -22,14 +22,14 @@ import '../screen-reader-only.js';
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-overlay` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled.
- * @event {CustomEvent<SbbDialogCloseEventDetails>} didClose - Emits whenever the `sbb-overlay` is closed.
+ * @event {CustomEvent<SbbOverlayCloseEventDetails>} didClose - Emits whenever the `sbb-overlay` is closed.
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  * @cssprop [--sbb-overlay-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-overlay')
-export class SbbOverlayElement extends SbbDialogBaseElement {
+export class SbbOverlayElement extends SbbOverlayBaseElement {
   public static override styles: CSSResultGroup = style;
 
   // FIXME using { ...super.events, backClick: 'requestBackAction' } breaks the eslint missing-component-documentation-rule
@@ -86,7 +86,7 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
     this.state = 'opening';
 
     // Add this overlay to the global collection
-    dialogRefs.push(this as SbbOverlayElement);
+    overlayRefs.push(this as SbbOverlayElement);
 
     // Disable scrolling for content below the overlay
     this.scrollHandler.disableScroll();
@@ -95,13 +95,13 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
   // Wait for overlay transition to complete.
   // In rare cases, it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
-  protected onDialogAnimationEnd(event: AnimationEvent): void {
+  protected onOverlayAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
       this.state = 'opened';
       this.didOpen.emit();
       applyInertMechanism(this);
-      this.attachOpenDialogEvents();
-      this.setDialogFocus();
+      this.attachOpenOverlayEvents();
+      this.setOverlayFocus();
       // Use timeout to read label after focused element
       setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
       this.focusHandler.trap(this);
@@ -112,20 +112,20 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
       setModalityOnNextFocus(this.lastFocusedElement);
       // Manually focus last focused element
       this.lastFocusedElement?.focus();
-      this.openDialogController?.abort();
+      this.openOverlayController?.abort();
       this.focusHandler.disconnect();
       this.removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the overlay if no overlay is open
-      !dialogRefs.length && this.scrollHandler.enableScroll();
+      !overlayRefs.length && this.scrollHandler.enableScroll();
       this.didClose.emit({
         returnValue: this.returnValue,
-        closeTarget: this.dialogCloseElement,
+        closeTarget: this.overlayCloseElement,
       });
     }
   }
 
   // Set focus on the first focusable element.
-  protected setDialogFocus(): void {
+  protected setOverlayFocus(): void {
     const firstFocusable = getFirstFocusableElement(
       Array.from(this.shadowRoot!.children).filter(
         (e): e is HTMLElement => e instanceof window.HTMLElement,
@@ -167,11 +167,11 @@ export class SbbOverlayElement extends SbbDialogBaseElement {
     return html`
       <div class="sbb-overlay__container">
         <div
-          @animationend=${(event: AnimationEvent) => this.onDialogAnimationEnd(event)}
+          @animationend=${(event: AnimationEvent) => this.onOverlayAnimationEnd(event)}
           class="sbb-overlay"
         >
           <div
-            @click=${(event: Event) => this.closeOnSbbDialogCloseClick(event)}
+            @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
             class="sbb-overlay__wrapper"
           >
             <div class="sbb-overlay__header">

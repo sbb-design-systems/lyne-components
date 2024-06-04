@@ -68,19 +68,19 @@ to identify which actions are active and which are not.
 
 ## Methods
 
-| Name    | Privacy | Description                      | Parameters | Return | Inherited From        |
-| ------- | ------- | -------------------------------- | ---------- | ------ | --------------------- |
-| `close` | public  | Closes the menu.                 |            | `void` | SbbOverlayBaseElement |
-| `open`  | public  | Opens the menu on trigger click. |            | `void` | SbbOverlayBaseElement |
+| Name    | Privacy | Description                      | Parameters | Return | Inherited From          |
+| ------- | ------- | -------------------------------- | ---------- | ------ | ----------------------- |
+| `close` | public  | Closes the menu.                 |            | `void` | SbbOpenCloseBaseElement |
+| `open`  | public  | Opens the menu on trigger click. |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                | Description                                                                   | Inherited From |
-| ----------- | ------------------- | ----------------------------------------------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                                      |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-menu` is opened.                                      |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-menu` begins the closing transition. Can be canceled. |                |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` starts the opening transition. Can be canceled. |                |
+| Name        | Type                | Description                                                                   | Inherited From          |
+| ----------- | ------------------- | ----------------------------------------------------------------------------- | ----------------------- |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-menu` is opened.                                      | SbbOpenCloseBaseElement |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-menu` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

@@ -1,35 +1,35 @@
 import { type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbFocusHandler } from '../../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { hostContext, SbbScrollHandler } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
-import { i18nDialog } from '../../core/i18n.js';
-import type { SbbDialogCloseEventDetails } from '../../core/interfaces.js';
-import { SbbNegativeMixin } from '../../core/mixins.js';
-import { applyInertMechanism, removeInertMechanism } from '../../core/overlay.js';
-import type { SbbScreenReaderOnlyElement } from '../../screen-reader-only.js';
+import { SbbFocusHandler } from '../core/a11y.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
+import { SbbLanguageController } from '../core/controllers.js';
+import { hostContext, SbbScrollHandler } from '../core/dom.js';
+import { EventEmitter } from '../core/eventing.js';
+import { i18nDialog } from '../core/i18n.js';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
+import { SbbNegativeMixin } from '../core/mixins.js';
+import { applyInertMechanism, removeInertMechanism } from '../core/overlay.js';
+import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
 
-// A global collection of existing dialogs
-export const dialogRefs: SbbDialogBaseElement[] = [];
+// A global collection of existing overlays.
+export const overlayRefs: SbbOverlayBaseElement[] = [];
 
-export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
-  /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the dialog. */
+export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
+  /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
-  /** Emits whenever the `sbb-dialog` is closed. */
-  protected override didClose: EventEmitter<SbbDialogCloseEventDetails> = new EventEmitter(
+  /** Emits whenever the component is closed. */
+  protected override didClose: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
     this,
-    SbbDialogBaseElement.events.didClose,
+    SbbOverlayBaseElement.events.didClose,
   );
 
-  // The last element which had focus before the dialog was opened.
+  // The last element which had focus before the component was opened.
   protected lastFocusedElement?: HTMLElement;
-  protected dialogCloseElement?: HTMLElement;
-  protected dialogController!: AbortController;
-  protected openDialogController!: AbortController;
+  protected overlayCloseElement?: HTMLElement;
+  protected overlayController!: AbortController;
+  protected openOverlayController!: AbortController;
   protected focusHandler = new SbbFocusHandler();
   protected scrollHandler = new SbbScrollHandler();
   protected returnValue: any;
@@ -37,8 +37,8 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOpenClose
   protected ariaLiveRef!: SbbScreenReaderOnlyElement;
   protected language = new SbbLanguageController(this);
 
-  protected abstract onDialogAnimationEnd(event: AnimationEvent): void;
-  protected abstract setDialogFocus(): void;
+  protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
+  protected abstract setOverlayFocus(): void;
   protected abstract closeAttribute: string;
 
   /** Closes the component. */
@@ -48,10 +48,10 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOpenClose
     }
 
     this.returnValue = result;
-    this.dialogCloseElement = target;
-    const eventData: SbbDialogCloseEventDetails = {
+    this.overlayCloseElement = target;
+    const eventData: SbbOverlayCloseEventDetails = {
       returnValue: this.returnValue,
-      closeTarget: this.dialogCloseElement,
+      closeTarget: this.overlayCloseElement,
     };
 
     if (!this.willClose.emit(eventData)) {
@@ -63,8 +63,8 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOpenClose
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.dialogController?.abort();
-    this.dialogController = new AbortController();
+    this.overlayController?.abort();
+    this.overlayController = new AbortController();
 
     if (this.state === 'opened') {
       applyInertMechanism(this);
@@ -80,15 +80,15 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOpenClose
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.dialogController?.abort();
-    this.openDialogController?.abort();
+    this.overlayController?.abort();
+    this.openOverlayController?.abort();
     this.focusHandler.disconnect();
     this.removeInstanceFromGlobalCollection();
     removeInertMechanism();
   }
 
-  protected attachOpenDialogEvents(): void {
-    this.openDialogController = new AbortController();
+  protected attachOpenOverlayEvents(): void {
+    this.openOverlayController = new AbortController();
     // Remove overlay label as soon as it is not needed any more to prevent accessing it with browse mode.
     window.addEventListener(
       'keydown',
@@ -97,11 +97,11 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOpenClose
         this.onKeydownEvent(event);
       },
       {
-        signal: this.openDialogController.signal,
+        signal: this.openOverlayController.signal,
       },
     );
     window.addEventListener('click', () => this.removeAriaLiveRefContent(), {
-      signal: this.openDialogController.signal,
+      signal: this.openOverlayController.signal,
     });
   }
 
@@ -111,34 +111,34 @@ export abstract class SbbDialogBaseElement extends SbbNegativeMixin(SbbOpenClose
     }
 
     if (event.key === 'Escape') {
-      dialogRefs[dialogRefs.length - 1].close();
+      overlayRefs[overlayRefs.length - 1].close();
       return;
     }
   }
 
   protected removeInstanceFromGlobalCollection(): void {
-    dialogRefs.splice(dialogRefs.indexOf(this as SbbDialogBaseElement), 1);
+    overlayRefs.splice(overlayRefs.indexOf(this as SbbOverlayBaseElement), 1);
   }
 
-  // Close the dialog on click of any element that has the 'sbb-dialog-close' attribute.
-  protected closeOnSbbDialogCloseClick(event: Event): void {
-    const dialogCloseElement = event
+  // Close the component on click of any element that has the `closeAttribute` attribute.
+  protected closeOnSbbOverlayCloseClick(event: Event): void {
+    const overlayCloseElement = event
       .composedPath()
       .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
       .find(
         (target) => target.hasAttribute(this.closeAttribute) && !target.hasAttribute('disabled'),
       );
 
-    if (!dialogCloseElement) {
+    if (!overlayCloseElement) {
       return;
     }
 
     // Check if the target is a submission element within a form and return the form, if present
     const closestForm =
-      dialogCloseElement.getAttribute('type') === 'submit'
-        ? (hostContext('form', dialogCloseElement) as HTMLFormElement)
+      overlayCloseElement.getAttribute('type') === 'submit'
+        ? (hostContext('form', overlayCloseElement) as HTMLFormElement)
         : undefined;
-    dialogRefs[dialogRefs.length - 1].close(closestForm, dialogCloseElement);
+    overlayRefs[overlayRefs.length - 1].close(closestForm, overlayCloseElement);
   }
 
   protected removeAriaLiveRefContent(): void {

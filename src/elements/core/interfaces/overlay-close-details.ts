@@ -1,4 +1,4 @@
-export type SbbDialogCloseEventDetails = {
+export type SbbOverlayCloseEventDetails = {
   returnValue?: any;
   closeTarget?: HTMLElement;
 };

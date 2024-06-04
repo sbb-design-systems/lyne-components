@@ -112,19 +112,19 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Methods
 
-| Name    | Privacy | Description                                                                     | Parameters | Return | Inherited From        |
-| ------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | --------------------- |
-| `close` | public  | Close the toast.                                                                |            | `void` | SbbOverlayBaseElement |
-| `open`  | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` | SbbOverlayBaseElement |
+| Name    | Privacy | Description                                                                     | Parameters | Return | Inherited From          |
+| ------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close` | public  | Close the toast.                                                                |            | `void` | SbbOpenCloseBaseElement |
+| `open`  | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                | Description                                                                    | Inherited From |
-| ----------- | ------------------- | ------------------------------------------------------------------------------ | -------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. Can be canceled. |                |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. |                |
+| Name        | Type                | Description                                                                    | Inherited From          |
+| ----------- | ------------------- | ------------------------------------------------------------------------------ | ----------------------- |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      | SbbOpenCloseBaseElement |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

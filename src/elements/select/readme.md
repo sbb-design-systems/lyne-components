@@ -116,23 +116,23 @@ Opened panel:
 
 ## Methods
 
-| Name              | Privacy | Description                       | Parameters | Return   | Inherited From        |
-| ----------------- | ------- | --------------------------------- | ---------- | -------- | --------------------- |
-| `close`           | public  | Closes the selection panel.       |            | `void`   | SbbOverlayBaseElement |
-| `getDisplayValue` | public  | Gets the current displayed value. |            | `string` |                       |
-| `open`            | public  | Opens the selection panel.        |            | `void`   | SbbOverlayBaseElement |
+| Name              | Privacy | Description                       | Parameters | Return   | Inherited From          |
+| ----------------- | ------- | --------------------------------- | ---------- | -------- | ----------------------- |
+| `close`           | public  | Closes the selection panel.       |            | `void`   | SbbOpenCloseBaseElement |
+| `getDisplayValue` | public  | Gets the current displayed value. |            | `string` |                         |
+| `open`            | public  | Opens the selection panel.        |            | `void`   | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                | Description                                                                      | Inherited From |
-| ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `change`    | `CustomEvent<void>` | Notifies that the component's value has changed.                                 |                |
-| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-select` is closed.                                       |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-select` is opened.                                       |                |
-| `input`     | `CustomEvent<void>` | Notifies that an option value has been selected.                                 |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition. Can be canceled.  |                |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition. Can be canceled.  |                |
+| Name        | Type                | Description                                                                      | Inherited From          |
+| ----------- | ------------------- | -------------------------------------------------------------------------------- | ----------------------- |
+| `change`    | `CustomEvent<void>` | Notifies that the component's value has changed.                                 |                         |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                         |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-select` is closed.                                       | SbbOpenCloseBaseElement |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-select` is opened.                                       | SbbOpenCloseBaseElement |
+| `input`     | `CustomEvent<void>` | Notifies that an option value has been selected.                                 |                         |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition. Can be canceled.  | SbbOpenCloseBaseElement |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition. Can be canceled.  | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

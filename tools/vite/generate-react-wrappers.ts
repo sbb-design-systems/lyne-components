@@ -157,7 +157,7 @@ function renderTemplate(
   // detect/extract these and therefore we need to have a manual list of required
   // types/interfaces.
   const interfaces = new Map<string, string>()
-    .set('SbbDialogCloseEventDetails', 'core/interfaces.js')
+    .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
     .set('SbbValidationChangeEvent', 'core/interfaces.js');
   for (const customEventType of customEventTypes) {
     const exportModule = exports.find((e) => e.name === customEventType);

@@ -78,27 +78,27 @@ When using a button to trigger the overlay, ensure to manage the appropriate ARI
 | ------------------------- | --------------------------- | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
 | `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                      |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                                     |
-| `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the dialog.            |
+| `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay.           |
 | `backButton`              | `back-button`               | public  | `boolean`                    | `false` | Whether a back button is displayed next to the title.                                                                 |
 | `expanded`                | `expanded`                  | public  | `boolean`                    | `false` | Whether to allow the overlay content to stretch to full width. By default, the content has the appropriate page size. |
 | `negative`                | `negative`                  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                       |
 
 ## Methods
 
-| Name    | Privacy | Description           | Parameters                         | Return | Inherited From        |
-| ------- | ------- | --------------------- | ---------------------------------- | ------ | --------------------- |
-| `close` | public  | Closes the component. | `result: any, target: HTMLElement` | `any`  | SbbOverlayBaseElement |
-| `open`  | public  | Opens the component.  |                                    | `void` | SbbOverlayBaseElement |
+| Name    | Privacy | Description           | Parameters                         | Return | Inherited From          |
+| ------- | ------- | --------------------- | ---------------------------------- | ------ | ----------------------- |
+| `close` | public  | Closes the component. | `result: any, target: HTMLElement` | `any`  | SbbOpenCloseBaseElement |
+| `open`  | public  | Opens the component.  |                                    | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name                | Type                                      | Description                                                                      | Inherited From |
-| ------------------- | ----------------------------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `didClose`          | `CustomEvent<SbbDialogCloseEventDetails>` | Emits whenever the `sbb-overlay` is closed.                                      |                |
-| `didOpen`           | `CustomEvent<void>`                       | Emits whenever the `sbb-overlay` is opened.                                      |                |
-| `requestBackAction` | `CustomEvent<void>`                       | Emits whenever the back button is clicked.                                       |                |
-| `willClose`         | `CustomEvent<void>`                       | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. |                |
-| `willOpen`          | `CustomEvent<void>`                       | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. |                |
+| Name                | Type                                       | Description                                                                      | Inherited From          |
+| ------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- | ----------------------- |
+| `didClose`          | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-overlay` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`           | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` is opened.                                      | SbbOpenCloseBaseElement |
+| `requestBackAction` | `CustomEvent<void>`                        | Emits whenever the back button is clicked.                                       |                         |
+| `willClose`         | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`          | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

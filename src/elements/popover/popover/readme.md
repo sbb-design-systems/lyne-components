@@ -89,19 +89,19 @@ Overlays should always contain a heading level 2 title. It can be visually hidde
 
 ## Methods
 
-| Name    | Privacy | Description                         | Parameters            | Return | Inherited From        |
-| ------- | ------- | ----------------------------------- | --------------------- | ------ | --------------------- |
-| `close` | public  | Closes the popover.                 | `target: HTMLElement` | `void` | SbbOverlayBaseElement |
-| `open`  | public  | Opens the popover on trigger click. |                       | `void` | SbbOverlayBaseElement |
+| Name    | Privacy | Description                         | Parameters            | Return | Inherited From          |
+| ------- | ------- | ----------------------------------- | --------------------- | ------ | ----------------------- |
+| `close` | public  | Closes the popover.                 | `target: HTMLElement` | `void` | SbbOpenCloseBaseElement |
+| `open`  | public  | Opens the popover on trigger click. |                       | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                                        | Description                                                                      | Inherited From |
-| ----------- | ------------------------------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` is closed.                                      |                |
-| `didOpen`   | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` is opened.                                      |                |
-| `willClose` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` begins the closing transition. Can be canceled. |                |
-| `willOpen`  | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` starts the opening transition. Can be canceled. |                |
+| Name        | Type                                        | Description                                                                      | Inherited From          |
+| ----------- | ------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------- |
+| `didClose`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`   | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` is opened.                                      | SbbOpenCloseBaseElement |
+| `willClose` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`  | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 
