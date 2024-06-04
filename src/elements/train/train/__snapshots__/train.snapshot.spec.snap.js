@@ -1,7 +1,17 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-train should render"] = 
+snapshots["sbb-train renders DOM"] = 
+`<sbb-train
+  direction="left"
+  direction-label="Driving direction"
+  station="Bern"
+>
+</sbb-train>
+`;
+/* end snapshot sbb-train renders DOM */
+
+snapshots["sbb-train renders Shadow DOM"] = 
 `<div class="sbb-train">
   <h6 class="sbb-train__direction-label-sr">
     Train, Driving direction Bern.
@@ -37,5 +47,5 @@ snapshots["sbb-train should render"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-train should render */
+/* end snapshot sbb-train renders Shadow DOM */
 
