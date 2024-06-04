@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-tag-group renders - Dom"] = 
+snapshots["sbb-tag-group renders - DOM"] = 
 `<sbb-tag-group
   role="group"
   size="m"
