@@ -1,7 +1,20 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-train-wagon render should render as type wagon"] = 
+snapshots["sbb-train-wagon should render as type wagon DOM"] = 
+`<sbb-train-wagon
+  blocked-passage="previous"
+  data-has-visible-wagon-content=""
+  label="38"
+  occupancy="none"
+  type="wagon"
+  wagon-class="1"
+>
+</sbb-train-wagon>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon DOM */
+
+snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] = 
 `<div class="sbb-train-wagon">
   <ul
     aria-label="Train coach"
@@ -46,9 +59,58 @@ snapshots["sbb-train-wagon render should render as type wagon"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-train-wagon render should render as type wagon */
+/* end snapshot sbb-train-wagon should render as type wagon Shadow DOM */
 
-snapshots["sbb-train-wagon render should render as type wagon with one icon"] = 
+snapshots["sbb-train-wagon should render as type wagon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Number,"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "38"
+    },
+    {
+      "role": "text",
+      "name": "First Class"
+    },
+    {
+      "role": "text",
+      "name": "No passage to the previous train coach"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon A11y tree Chrome */
+
+snapshots["sbb-train-wagon should render as type wagon with one icon DOM"] = 
+`<sbb-train-wagon
+  data-has-visible-wagon-content=""
+  type="wagon"
+>
+  <sbb-icon
+    aria-hidden="true"
+    data-namespace="default"
+    name="sa-rs"
+    role="img"
+    slot="li-0"
+  >
+  </sbb-icon>
+</sbb-train-wagon>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon with one icon DOM */
+
+snapshots["sbb-train-wagon should render as type wagon with one icon Shadow DOM"] = 
 `<div class="sbb-train-wagon">
   <ul
     aria-label="Train coach"
@@ -84,9 +146,34 @@ snapshots["sbb-train-wagon render should render as type wagon with one icon"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-train-wagon render should render as type wagon with one icon */
+/* end snapshot sbb-train-wagon should render as type wagon with one icon Shadow DOM */
 
-snapshots["sbb-train-wagon render should render as type wagon with multiple icons"] = 
+snapshots["sbb-train-wagon should render as type wagon with multiple icons DOM"] = 
+`<sbb-train-wagon
+  data-has-visible-wagon-content=""
+  type="wagon"
+>
+  <sbb-icon
+    aria-hidden="true"
+    data-namespace="default"
+    name="sa-rs"
+    role="img"
+    slot="li-0"
+  >
+  </sbb-icon>
+  <sbb-icon
+    aria-hidden="true"
+    data-namespace="default"
+    name="sa-rs"
+    role="img"
+    slot="li-1"
+  >
+  </sbb-icon>
+</sbb-train-wagon>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon with multiple icons DOM */
+
+snapshots["sbb-train-wagon should render as type wagon with multiple icons Shadow DOM"] = 
 `<div class="sbb-train-wagon">
   <ul
     aria-label="Train coach"
@@ -126,9 +213,18 @@ snapshots["sbb-train-wagon render should render as type wagon with multiple icon
   </span>
 </div>
 `;
-/* end snapshot sbb-train-wagon render should render as type wagon with multiple icons */
+/* end snapshot sbb-train-wagon should render as type wagon with multiple icons Shadow DOM */
 
-snapshots["sbb-train-wagon render should render as type locomotive"] = 
+snapshots["sbb-train-wagon should render as type locomotive DOM"] = 
+`<sbb-train-wagon
+  additional-accessibility-text="Top of the train"
+  type="locomotive"
+>
+</sbb-train-wagon>
+`;
+/* end snapshot sbb-train-wagon should render as type locomotive DOM */
+
+snapshots["sbb-train-wagon should render as type locomotive Shadow DOM"] = 
 `<div class="sbb-train-wagon">
   <span class="sbb-train-wagon__compartment">
     <span class="sbb-screen-reader-only">
@@ -145,9 +241,15 @@ snapshots["sbb-train-wagon render should render as type locomotive"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-train-wagon render should render as type locomotive */
+/* end snapshot sbb-train-wagon should render as type locomotive Shadow DOM */
 
-snapshots["sbb-train-wagon render should render as type closed wagon without number"] = 
+snapshots["sbb-train-wagon should render as type closed wagon without number DOM"] = 
+`<sbb-train-wagon type="closed">
+</sbb-train-wagon>
+`;
+/* end snapshot sbb-train-wagon should render as type closed wagon without number DOM */
+
+snapshots["sbb-train-wagon should render as type closed wagon without number Shadow DOM"] = 
 `<div class="sbb-train-wagon">
   <span class="sbb-train-wagon__compartment">
     <span class="sbb-screen-reader-only">
@@ -161,5 +263,33 @@ snapshots["sbb-train-wagon render should render as type closed wagon without num
   </span>
 </div>
 `;
-/* end snapshot sbb-train-wagon render should render as type closed wagon without number */
+/* end snapshot sbb-train-wagon should render as type closed wagon without number Shadow DOM */
+
+snapshots["sbb-train-wagon should render as type wagon A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Number,"
+    },
+    {
+      "role": "text leaf",
+      "name": "38"
+    },
+    {
+      "role": "text leaf",
+      "name": "First Class"
+    },
+    {
+      "role": "text leaf",
+      "name": "No passage to the previous train coach"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon A11y tree Firefox */
 
