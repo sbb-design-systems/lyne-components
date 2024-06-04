@@ -1,14 +1,17 @@
+import type { Stats } from 'fs';
+import { existsSync, mkdirSync, promises, readFileSync, writeFileSync } from 'fs';
 import { join, relative } from 'path';
-import { existsSync, mkdirSync, promises, readFileSync, Stats, writeFileSync } from 'fs';
 
 const config = {
-  boilerplateComponentName: 'elements',
+  boilerplateComponentName: 'component',
   boilerplateDirectory: 'tools/generate-component/boilerplate',
+  boilerplateIndexDirectory: 'tools/generate-component/index',
   sourceDirectory: 'src/elements',
 };
 
 function convertKebabCaseToPascalCase(componentName: string): string {
-  const capitalize = (_string): string => _string.charAt(0).toUpperCase() + _string.slice(1);
+  const capitalize = (_string: string): string =>
+    _string.charAt(0).toUpperCase() + _string.slice(1);
 
   const words = componentName.split('-');
   const capitalized = words.map((word) => capitalize(word));
@@ -18,13 +21,13 @@ function convertKebabCaseToPascalCase(componentName: string): string {
 
 async function getBoilerplateFiles(
   _sourceFiles?: string,
-  _foundFiles?: Array<string>,
-): Promise<Array<string>> {
+  _foundFiles?: string[],
+): Promise<string[]> {
   try {
-    const sourceFiles: Array<string> = await promises.readdir(
+    const sourceFiles: string[] = await promises.readdir(
       _sourceFiles || config.boilerplateDirectory,
     );
-    const foundFiles: Array<string> = _foundFiles || [];
+    const foundFiles: string[] = _foundFiles || [];
 
     for await (const file of sourceFiles) {
       const fromPath: string = join(_sourceFiles || config.boilerplateDirectory, file);
@@ -50,9 +53,10 @@ function createDirectories(targetDirectory: string): void {
 }
 
 function copyFiles(
-  foundFiles: Array<string>,
+  foundFiles: string[],
   componentName: string,
   targetDirectory: string,
+  sourceDirectory: string,
 ): void {
   const componentFileName: string = componentName.replace('sbb-', '');
   foundFiles.forEach((file) => {
@@ -65,7 +69,7 @@ function copyFiles(
         .replace(/__nameUpperCase__/gu, `${convertKebabCaseToPascalCase(componentName)}Element`);
 
       try {
-        const relativePath: string = relative(config.boilerplateDirectory, file);
+        const relativePath: string = relative(sourceDirectory, file);
         const fileName: string = relativePath.replace(
           `${config.boilerplateComponentName}.`,
           `${componentFileName}.`,
@@ -82,7 +86,7 @@ function copyFiles(
   });
 }
 
-async function createComponent(componentName): Promise<void> {
+async function createComponent(componentName: string): Promise<void> {
   if (!componentName) {
     console.log(`
       Please pass a component name like so: yarn generate my-component-name
@@ -107,15 +111,20 @@ async function createComponent(componentName): Promise<void> {
     return;
   }
 
-  const foundFiles: Array<string> = await getBoilerplateFiles();
-
+  const foundFiles: string[] = await getBoilerplateFiles();
   if (foundFiles.length < 1) {
     console.log('Could not find boilerplate files');
     return;
   }
 
   createDirectories(targetDirectory);
-  copyFiles(foundFiles, componentName, targetDirectory);
+  copyFiles(foundFiles, componentName, targetDirectory, config.boilerplateDirectory);
+  copyFiles(
+    await getBoilerplateFiles(config.boilerplateIndexDirectory),
+    componentName,
+    config.sourceDirectory,
+    config.boilerplateIndexDirectory,
+  );
 }
 
 await createComponent(process.argv[2]);
