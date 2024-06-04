@@ -1,5 +1,5 @@
 // @ts-check
-import 'tsx';
+import './tools/node-esm-hook/register-hooks.js';
 
 import { FlatCompat } from '@eslint/eslintrc';
 
@@ -146,6 +146,13 @@ export default [
   {
     files: ['**/*.js'],
     rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+        },
+      ],
       'import-x/namespace': 'off',
       'import-x/default': 'off',
       'import-x/no-named-as-default': 'off',

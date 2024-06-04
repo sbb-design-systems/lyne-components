@@ -39,9 +39,8 @@ _`tripProp` property_
 <sbb-timetable-row price="{priceProp}" trip="{tripProp}"></sbb-timetable-row>
 ```
 
-## Testing
-
-To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
+To simulate the current datetime, you can use the `now` property,
+which accepts a `Date` or a timestamp in milliseconds (as number or string).
 This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
@@ -57,5 +56,6 @@ This is helpful if you need a specific state of the component.
 | `disableAnimation`      | `disable-animation`      | public  | `boolean \| undefined`  |         | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.                                                                                             |
 | `loadingPrice`          | `loading-price`          | public  | `boolean`               | `false` | The loading state - when this is true it will be render skeleton with an idling animation                                                                                                     |
 | `loadingTrip`           | `loading-trip`           | public  | `boolean`               | `false` | The loading state - when this is true it will be render skeleton with an idling animation                                                                                                     |
+| `now`                   | `now`                    | public  | `Date`                  | `null`  | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes.                                                                          |
 | `price`                 | `price`                  | public  | `Price \| undefined`    |         | The price Prop, which consists of the data for the badge.                                                                                                                                     |
 | `trip`                  | `trip`                   | public  | `ITripItem`             |         | The trip Prop.                                                                                                                                                                                |

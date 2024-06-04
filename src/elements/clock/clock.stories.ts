@@ -1,45 +1,54 @@
 import type { InputType } from '@storybook/types';
-import type { Args, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
+import type { SbbTime } from '../core/interfaces/types.js';
 
 import readme from './readme.md?raw';
 
 import './clock.js';
 
-const dataNow: InputType = {
-  control: {
-    type: 'date',
-  },
+const hours: InputType = { control: { type: 'number', min: 0, max: 23 } };
+const minutes: InputType = { control: { type: 'number', min: 0, max: 59 } };
+// Note: SBB Clock doesn't have the second 59, this is awaited in still position always
+const seconds: InputType = { control: { type: 'number', min: 0, max: 58 } };
+
+const Template = ({ hours, minutes, seconds, ...args }: Args): TemplateResult => {
+  const timeString: SbbTime = `${hours}:${minutes}:${seconds}`;
+  const hasCustomTime = hours !== undefined && minutes !== undefined && seconds !== undefined;
+  return html`<sbb-clock
+    now=${hasCustomTime ? timeString : nothing}
+    ${sbbSpread(args)}
+  ></sbb-clock>`;
 };
 
-const Template = (args: Args): TemplateResult => html`<sbb-clock ${sbbSpread(args)}></sbb-clock>`;
+const defaultArgTypes: ArgTypes = {
+  hours,
+  minutes,
+  seconds,
+};
+
+const defaultArgs: Args = {
+  hours: isChromatic() ? 9 : undefined,
+  minutes: isChromatic() ? 10 : undefined,
+  seconds: isChromatic() ? 30 : undefined,
+};
 
 export const Default: StoryObj = {
   render: Template,
-  argTypes: { 'data-now': dataNow },
-  args: { 'data-now': undefined },
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 export const Paused: StoryObj = {
   render: Template,
-  argTypes: { 'data-now': dataNow },
-  args: { 'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf() },
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, hours: 9, minutes: 10, seconds: 30 },
 };
-
-/**
- * Stop the clock for Chromatic visual regression tests
- * and set time to given time
- */
-if (isChromatic()) {
-  Default.args = {
-    'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf(),
-  };
-}
 
 const meta: Meta = {
   decorators: [(story) => html`<div style=${styleMap({ 'max-width': '600px' })}>${story()}</div>`],

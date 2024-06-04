@@ -9,7 +9,7 @@ import type { SbbPearlChainElement } from './pearl-chain.js';
 
 import './pearl-chain.js';
 
-const now = new Date('2022-08-16T15:00:00Z').valueOf();
+const now = '2022-08-16T15:00:00Z';
 
 describe(`sbb-pearl-chain`, () => {
   describe('sbb-pearl-chain with one leg', () => {
@@ -179,7 +179,7 @@ describe(`sbb-pearl-chain`, () => {
   describe('sbb-pearl-chain with cancelled legs', () => {
     it('renders component with progress leg', async () => {
       const element = await fixture<SbbPearlChainElement>(
-        html`<sbb-pearl-chain data-now="${now}"></sbb-pearl-chain>`,
+        html`<sbb-pearl-chain .now=${now}></sbb-pearl-chain>`,
       );
       element.legs = [
         {
@@ -205,9 +205,7 @@ describe(`sbb-pearl-chain`, () => {
       ];
 
       await waitForLitRender(element);
-      expect(element).dom.to.be.equal(
-        `<sbb-pearl-chain data-now="1660662000000"></sbb-pearl-chain>`,
-      );
+      expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
       expect(element).shadowDom.to.be.equal(`
         <div class="sbb-pearl-chain">
           <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--progress">
@@ -237,7 +235,7 @@ describe(`sbb-pearl-chain`, () => {
 
     it('renders component with cancelled instead of progress leg', async () => {
       const element = await fixture<SbbPearlChainElement>(
-        html`<sbb-pearl-chain data-now="${now}"></sbb-pearl-chain>`,
+        html`<sbb-pearl-chain .now=${now}></sbb-pearl-chain>`,
       );
       element.legs = [
         {
@@ -271,9 +269,7 @@ describe(`sbb-pearl-chain`, () => {
       ];
 
       await waitForLitRender(element);
-      expect(element).dom.to.be.equal(
-        `<sbb-pearl-chain data-now="1660662000000"></sbb-pearl-chain>`,
-      );
+      expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
       expect(element).shadowDom.to.be.equal(`
         <div class="sbb-pearl-chain">
           <span class="sbb-pearl-chain--departure-skipped sbb-pearl-chain__bullet sbb-pearl-chain__bullet--progress"></span>

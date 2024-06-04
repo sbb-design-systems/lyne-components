@@ -2,6 +2,8 @@ export type SbbLanguage = 'de' | 'en' | 'fr' | 'it';
 
 export type SbbDateLike<T = Date> = T | string | number;
 
+export type SbbTime = `${number}:${number}:${number}`;
+
 export type SbbHorizontalFrom = 'zero' | 'micro' | 'small' | 'medium' | 'large' | 'wide' | 'ultra';
 
 export type SbbIconPlacement = 'start' | 'end';
