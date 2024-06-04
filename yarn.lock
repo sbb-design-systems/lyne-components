@@ -3117,10 +3117,10 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.34.tgz#10964ba0dee6ac4cd462e2795b6bebd407303433"
   integrity sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==
 
-"@types/node@*", "@types/node@20.14.0", "@types/node@^16.0.0", "@types/node@^18.0.0":
-  version "20.14.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.0.tgz#49ceec7b34f8621470cff44677fa9d461a477f17"
-  integrity sha512-5cHBxFGJx6L4s56Bubp4fglrEpmyJypsqI6RgzMfBHWUJQGWAAi8cWcgetEbZXHYXo9C2Fa4EEds/uSyS4cxmA==
+"@types/node@*", "@types/node@20.14.1", "@types/node@^16.0.0", "@types/node@^18.0.0":
+  version "20.14.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.1.tgz#2434dbcb1f039e31f2c0e9969da93f52cf6348f3"
+  integrity sha512-T2MzSGEu+ysB/FkWfqmhV3PLyQlowdptmmgD20C6QxsS8Fmv5SjpZ1ayXaEC0S21/h5UJ9iA6W/5vSNU5l00OA==
   dependencies:
     undici-types "~5.26.4"
 
@@ -4596,10 +4596,10 @@ chownr@^2.0.0:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-2.0.0.tgz#15bfbe53d2eab4cf70f18a8cd68ebe5b3cb1dece"
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
 
-chromatic@11.5.0:
-  version "11.5.0"
-  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.5.0.tgz#6951aa80f49e5fb63e31d549566c8843d8dc4469"
-  integrity sha512-mugneDXjkLIrAR+884EXz3lF443nG70XqzCj+6D95h9zFSq5pAEAUOeMeh5V2hUAh8qVar4+US2lsacEYugPnw==
+chromatic@11.5.1:
+  version "11.5.1"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.5.1.tgz#1f9df5078c6725a449eb6890cf07dbdb2c8cf35b"
+  integrity sha512-JMLih17sOwdD8h1w7XRTrs0g1DUicJxWkHzq0/nGB0CMIgfoylHq7uXpPEByu7l78lZLqcgneCPUuVEEfEWJDg==
 
 chrome-launcher@^0.15.0:
   version "0.15.2"
@@ -10599,7 +10599,18 @@ stylelint-config-standard@^36.0.0:
   dependencies:
     stylelint-config-recommended "^14.0.0"
 
-stylelint-scss@6.3.0, stylelint-scss@^6.0.0:
+stylelint-scss@6.3.1:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-6.3.1.tgz#eb56f23f4d3e0896647365ab1681653a00bdbc2b"
+  integrity sha512-w/czBoWUZxJNk5fBRPODcXSN4qcPv3WHjTSSpFovVY+TE3MZTMR0yRlbmaDYrm8tTWHvpwQAuEBZ0lk2wwkboQ==
+  dependencies:
+    known-css-properties "^0.31.0"
+    postcss-media-query-parser "^0.2.3"
+    postcss-resolve-nested-selector "^0.1.1"
+    postcss-selector-parser "^6.1.0"
+    postcss-value-parser "^4.2.0"
+
+stylelint-scss@^6.0.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-6.3.0.tgz#2020d0f0d21b8b4151f523e303ae8966728a6e54"
   integrity sha512-8OSpiuf1xC7f8kllJsBOFAOYp/mR/C1FXMVeOFjtJPw+AFvEmC93FaklHt7MlOqU4poxuQ1TkYMyfI0V+1SxjA==
