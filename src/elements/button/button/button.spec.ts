@@ -4,21 +4,27 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import {
+  buttonIconTestTemplate,
+  buttonSpaceIconTestTemplate,
+} from '../common/button-test-utils.js';
 
 import { SbbButtonElement } from './button.js';
 
-describe(`sbb-button with`, () => {
+describe(`sbb-button`, () => {
   let element: SbbButtonElement;
 
-  beforeEach(async () => {
-    element = await fixture(html`<sbb-button id="focus-id">I am a button</sbb-button>`);
-  });
-
   it('renders', async () => {
+    element = await fixture(html`<sbb-button id="focus-id">I am a button</sbb-button>`);
+
     assert.instanceOf(element, SbbButtonElement);
   });
 
   describe('events', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-button id="focus-id">I am a button</sbb-button>`);
+    });
+
     it('dispatches event on click', async () => {
       const clickSpy = new EventSpy('click');
 
@@ -69,5 +75,19 @@ describe(`sbb-button with`, () => {
 
       expect(document.activeElement!.id).to.be.equal('focus-id');
     });
+  });
+
+  it('should detect icon in sbb-button', async () => {
+    const root = await fixture(buttonIconTestTemplate('sbb-button'));
+    const dataSlots = root.getAttribute('data-slot-names');
+    expect(dataSlots).to.contain('icon');
+    expect(dataSlots).not.to.contain('unnamed');
+  });
+
+  it('should detect icon in sbb-button when there is space around icon', async () => {
+    const root = await fixture(buttonSpaceIconTestTemplate('sbb-button'));
+    const dataSlots = root.getAttribute('data-slot-names');
+    expect(dataSlots).to.contain('icon');
+    expect(dataSlots).not.to.contain('unnamed');
   });
 });
