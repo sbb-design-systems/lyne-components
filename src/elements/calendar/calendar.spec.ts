@@ -19,7 +19,7 @@ describe(`sbb-calendar`, () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
+      html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
     );
   });
 
@@ -362,7 +362,7 @@ describe(`sbb-calendar`, () => {
   describe('navigation for year view', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
+        html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
       );
 
       const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
