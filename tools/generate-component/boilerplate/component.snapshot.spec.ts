@@ -14,11 +14,11 @@ describe(`__name__`, () => {
       element = await fixture(html`<__name__ my-prop="Label"></__name__>`);
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
