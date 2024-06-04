@@ -2,12 +2,11 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import type { SbbSecondaryButtonElement } from '../button/secondary-button.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
 
 import { SbbCalendarElement } from './calendar.js';
-
-import type { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button/secondary-button/secondary-button';
 
 import '../button.js';
 

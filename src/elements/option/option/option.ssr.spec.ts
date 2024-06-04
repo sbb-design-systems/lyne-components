@@ -2,10 +2,10 @@ import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
 import { fixture } from '../../core/testing/private.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
 
 import { SbbOptionElement } from './option.js';
 
-import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import '../../form-field.js';
 import '../../autocomplete.js';
 

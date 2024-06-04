@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbTrainWagonElement } from '@sbb-esta/lyne-elements/train/train-wagon/train-wagon';
+import type { SbbTrainWagonElement } from './train-wagon.js';
 
 import './train-wagon.js';
 import '../../icon.js';
