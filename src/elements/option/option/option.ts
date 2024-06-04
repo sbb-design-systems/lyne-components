@@ -211,6 +211,10 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     this.toggleAttribute('data-negative', this._negative);
 
     this._setVariantByContext();
+    // We need to check highlight state both on slot change, but also when connecting
+    // the element to the DOM. The slot change events might be swallowed when using declarative
+    // shadow DOM with SSR or if the DOM is changed when disconnected.
+    this._handleHighlightState();
 
     this.toggleAttribute('data-multiple', this._isMultiple);
 
@@ -273,13 +277,13 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     }
   }
 
-  private _setupHighlightHandler(event: Event): void {
+  private _handleHighlightState(): void {
     if (!this._isAutocomplete) {
       this._updateDisableHighlight(true);
       return;
     }
 
-    const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
+    const slotNodes = Array.from(this.childNodes ?? []);
     const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
     // Disable the highlight if the slot contain more than just text nodes
@@ -343,7 +347,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
           <!-- Label -->
           <span class="sbb-option__label">
-            <slot @slotchange=${this._setupHighlightHandler}></slot>
+            <slot @slotchange=${this._handleHighlightState}></slot>
 
             <!-- Search highlight -->
             ${this._isAutocomplete && this._label && !this._disableLabelHighlight
