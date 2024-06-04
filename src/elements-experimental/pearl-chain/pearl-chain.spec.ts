@@ -9,7 +9,7 @@ import type { SbbPearlChainElement } from './pearl-chain.js';
 
 import './pearl-chain.js';
 
-const now = '2022-08-16T15:00:00Z';
+const now = '2022-08-16T15:00:00';
 
 describe(`sbb-pearl-chain`, () => {
   describe('sbb-pearl-chain with one leg', () => {
@@ -184,8 +184,8 @@ describe(`sbb-pearl-chain`, () => {
       element.legs = [
         {
           __typename: 'PTRideLeg',
-          arrival: { time: '2022-08-17T16:00:00Z' },
-          departure: { time: '2022-08-14T14:00:00Z' },
+          arrival: { time: '2022-08-17T16:00:00' },
+          departure: { time: '2022-08-14T14:00:00' },
           serviceJourney: {
             serviceAlteration: {
               cancelled: false,
@@ -194,8 +194,8 @@ describe(`sbb-pearl-chain`, () => {
         } as PtRideLeg,
         {
           __typename: 'PTRideLeg',
-          arrival: { time: '2022-08-17T20:00:00Z' },
-          departure: { time: '2022-08-17T18:00:00Z' },
+          arrival: { time: '2022-08-17T20:00:00' },
+          departure: { time: '2022-08-17T18:00:00' },
           serviceJourney: {
             serviceAlteration: {
               cancelled: false,
@@ -212,11 +212,11 @@ describe(`sbb-pearl-chain`, () => {
           </span>
           <div
             class="sbb-pearl-chain__leg sbb-pearl-chain__leg--progress"
-            style="--sbb-pearl-chain-leg-width:97.36842105263158%;--sbb-pearl-chain-leg-status:68.91891891891892%;"
+            style="--sbb-pearl-chain-leg-width:97.36842105263158%;--sbb-pearl-chain-leg-status:66.21621621621621%;"
           >
             <span
               class="sbb-pearl-chain__position"
-              style="--sbb-pearl-chain-status-position:68.91891891891892%;transform:translateX(-100%);"
+              style="--sbb-pearl-chain-status-position:66.21621621621621%;transform:translateX(-100%);"
             >
             </span>
           </div>
@@ -240,8 +240,8 @@ describe(`sbb-pearl-chain`, () => {
       element.legs = [
         {
           __typename: 'PTRideLeg',
-          arrival: { time: '2022-08-16T16:00:00Z' },
-          departure: { time: '2022-08-16T14:00:00Z' },
+          arrival: { time: '2022-08-16T16:00:00' },
+          departure: { time: '2022-08-16T14:00:00' },
           serviceJourney: {
             serviceAlteration: {
               cancelled: false,
@@ -258,8 +258,8 @@ describe(`sbb-pearl-chain`, () => {
         } as PtRideLeg,
         {
           __typename: 'PTRideLeg',
-          arrival: { time: '2022-08-16T18:00:00Z' },
-          departure: { time: '2022-08-16T17:00:00Z' },
+          arrival: { time: '2022-08-16T18:00:00' },
+          departure: { time: '2022-08-16T17:00:00' },
           serviceJourney: {
             serviceAlteration: {
               cancelled: false,
