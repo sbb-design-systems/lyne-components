@@ -10,12 +10,30 @@ import { fileURLToPath } from 'node:url';
 
 import { initCompiler } from 'sass';
 
+import { createAliasResolver } from './tsconfig-utility.js';
+
 const root = new URL('../../', import.meta.url).href;
+const aliasResolver = createAliasResolver();
 const sassCompiler = initCompiler();
 const compileSass = (/** @type {string} */ fileUrl) =>
-  sassCompiler.compile(fileURLToPath(fileUrl), {
-    loadPaths: ['.', './node_modules/'],
-  }).css;
+  sassCompiler
+    .compile(fileURLToPath(fileUrl), {
+      loadPaths: ['.', './node_modules/'],
+      importers: [
+        {
+          findFileUrl(url, _context) {
+            if (!url.includes('node_modules')) {
+              const resolvedUrl = aliasResolver(url);
+              return resolvedUrl ? new URL(resolvedUrl) : null;
+            }
+
+            return null;
+          },
+        },
+      ],
+    })
+    .css.replace(/`/g, '\\`')
+    .replace(/\\(?!`)/g, '\\\\');
 
 /**
  * @param {string} url - The URL of the resource to load as a string.
