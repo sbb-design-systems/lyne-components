@@ -18,7 +18,7 @@ describe(`sbb-calendar with ${fixture.name}`, () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
+      html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
       { modules: ['./calendar.ts'] },
     );
   });
@@ -326,7 +326,7 @@ describe(`sbb-calendar with ${fixture.name}`, () => {
   describe('navigation for year view', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
+        html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
         { modules: ['./calendar.ts'] },
       );
 

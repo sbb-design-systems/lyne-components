@@ -2,7 +2,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
@@ -93,7 +93,7 @@ const defaultArgTypes: ArgTypes = {
   'loading-price': loadingPrice,
   'accessibility-expanded': accessibilityExpanded,
   active,
-  'data-now': now,
+  now,
   boarding,
   price,
 };
@@ -105,17 +105,18 @@ const defaultArgs: Args = {
   'loading-price': false,
   'accessibility-expanded': false,
   active: false,
-  'data-now': new Date('2022-12-01T12:11:00').valueOf(),
+  now: new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
   boarding: undefined,
   price: undefined,
 };
 
-const Template = ({ trip, price, boarding, ...args }: Args): TemplateResult =>
+const Template = ({ trip, price, boarding, now, ...args }: Args): TemplateResult =>
   html`<sbb-timetable-row
     .trip=${trip}
     .price=${price}
     .boarding=${boarding}
+    now=${now ? now / 1000 : nothing}
     ${sbbSpread(args)}
   ></sbb-timetable-row>`;
 
@@ -208,7 +209,7 @@ export const Position: StoryObj = {
   args: {
     ...defaultArgs,
     trip: progressTrip,
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -219,7 +220,7 @@ export const PositionDisabledAnimation: StoryObj = {
     ...defaultArgs,
     'disable-animation': true,
     trip: progressTrip,
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -247,7 +248,7 @@ export const Past: StoryObj = {
   args: {
     ...defaultArgs,
     trip: pastTrip,
-    'data-now': new Date('2023-12-01T12:11:00').valueOf(),
+    now: new Date('2023-12-01T12:11:00').valueOf(),
   },
 };
 
@@ -257,7 +258,7 @@ export const Disturbance: StoryObj = {
   args: {
     ...defaultArgs,
     trip: disturbanceTrip,
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -267,7 +268,7 @@ export const SkippedDepartureStop: StoryObj = {
   args: {
     ...defaultArgs,
     trip: skippedDepartureStopTrip,
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -277,7 +278,7 @@ export const SkippedArrivalStop: StoryObj = {
   args: {
     ...defaultArgs,
     trip: skippedArrivalStopTrip,
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -287,7 +288,7 @@ export const SkippedLastArrivalStop: StoryObj = {
   args: {
     ...defaultArgs,
     trip: skippedLastArrivalStopTrip,
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -297,7 +298,7 @@ export const SkippedFirstDepartureStop: StoryObj = {
   args: {
     ...defaultArgs,
     trip: skippedFirstDepartureStopTrip,
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 
@@ -307,7 +308,7 @@ export const QuayChanged: StoryObj = {
   args: {
     ...defaultArgs,
     trip: quayChangeTrip,
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00').valueOf(),
   },
 };
 

@@ -14,7 +14,7 @@ $open-anim-opacity-to: 1;
   --sbb-selection-panel-background: var(--sbb-color-white);
   --sbb-selection-panel-border-color: var(--sbb-color-cloud);
   --sbb-selection-panel-animation-duration: var(
-    --sbb-disable-animation-time,
+    --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-4x)
   );
   --sbb-selection-panel-border-width: var(--sbb-border-width-1x);

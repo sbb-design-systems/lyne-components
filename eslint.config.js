@@ -33,7 +33,7 @@ export default [
       '**/*.chromatic.stories.*',
       'dist/**/*',
       'coverage/**/*',
-      'tools/generate-component/boilerplate/**/*',
+      'tools/generate-component/**/*',
       '**/__snapshots__/**/*',
     ],
   },
@@ -146,6 +146,13 @@ export default [
   {
     files: ['**/*.js'],
     rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+        },
+      ],
       'import-x/namespace': 'off',
       'import-x/default': 'off',
       'import-x/no-named-as-default': 'off',

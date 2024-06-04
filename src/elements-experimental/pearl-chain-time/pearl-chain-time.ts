@@ -1,10 +1,11 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { readDataNow } from '@sbb-esta/lyne-elements/core/datetime.js';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import {
   i18nArrival,
   i18nDeparture,
   i18nTransferProcedures,
 } from '@sbb-esta/lyne-elements/core/i18n.js';
+import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces/types';
 import { format } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -53,12 +54,17 @@ export class SbbPearlChainTimeElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  private _language = new SbbLanguageController(this);
-
-  private _now(): number {
-    const dataNow = readDataNow(this);
-    return isNaN(dataNow) ? Date.now() : dataNow;
+  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  @property()
+  public set now(value: SbbDateLike | undefined) {
+    this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
   }
+  public get now(): Date {
+    return this._now ?? new Date();
+  }
+  private _now: Date | null = null;
+
+  private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
     const departure: Date | undefined = this.departureTime
@@ -97,7 +103,7 @@ export class SbbPearlChainTimeElement extends LitElement {
           class="sbb-pearl-chain__time-chain"
           .legs=${this.legs}
           .disableAnimation=${this.disableAnimation}
-          data-now=${this._now()}
+          .now=${this.now}
         ></sbb-pearl-chain>
         ${arrival
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>

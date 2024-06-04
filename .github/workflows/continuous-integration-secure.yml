@@ -154,7 +154,7 @@ jobs:
               ...(success ? { status: 'completed', conclusion: 'success' } : { status: 'in_progress' }),
             });
 
-            // If we have no screenshots, we do not need to create a check or containers.
+            // If we have no screenshots, we do not need to create a check.
             if (!readdirSync('dist/screenshots').length) {
               await createCheck(true);
               return 'empty';
@@ -181,7 +181,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add label and create container
-        if: steps.screenshot-check.outputs.result == 'changed'
+        if: steps.screenshot-check.outputs.result == 'changed' || steps.screenshot-check.outputs.result == 'empty'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
           docker build \
