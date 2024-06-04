@@ -217,18 +217,25 @@ describe('sbb-stepper', () => {
       </form>
     `);
 
+    const stepper = element.querySelector<SbbStepperElement>('sbb-stepper')!;
     const stepLabelOne = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(1)',
+    )!;
+    const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(2)',
     )!;
     const stepInputOne = element.querySelector<HTMLInputElement>('input[name="first-input"]')!;
     const stepInputTwo = element.querySelector<HTMLInputElement>('input[name="second-input"]')!;
 
     element.selectedIndex = 2;
 
+    // If the focus is inside the stepper, the focus is set to the first step label after the reset.
+    stepLabelTwo.focus();
+
     stepInputOne.value = 'First value';
     stepInputTwo.value = 'Second value';
 
-    element.reset();
+    stepper.reset();
     await waitForLitRender(element);
 
     expect(stepInputOne.value).to.be.equal('');
@@ -236,6 +243,7 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelOne).to.have.attribute('data-selected');
     expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
   });
 
   it('resets the form for each step and returns to the first step', async () => {
@@ -270,6 +278,9 @@ describe('sbb-stepper', () => {
 
     element.selectedIndex = 2;
 
+    // If the focus is not inside the stepper, the focus is not set to the first step label after the reset.
+    document.body.focus();
+
     stepInputOne.value = 'First value';
     stepInputTwo.value = 'Second value';
 
@@ -281,6 +292,7 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelOne).to.have.attribute('data-selected');
     expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(document.activeElement!.id).not.to.be.equal(stepLabelOne.id);
   });
 
   it('focuses the correct element in the step content', async () => {
