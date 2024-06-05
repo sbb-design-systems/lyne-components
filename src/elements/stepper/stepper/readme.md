@@ -79,6 +79,24 @@ Whenever a step switch is triggered, a `validate` event is emitted and can be ca
 
 ## Accessibility
 
+Whenever textual content is provided, please also set the attribute `tabindex=‘0’` on the text tag, so that it can be reached and announced by screen-readers. Also remember to use the classes `.sbb-focus-outline` and `.sbb-focus-outline-dark` to correctly style the outline.
+
+```html
+<sbb-stepper aria-label="Purpose of this flow">
+  <sbb-step-label>Step label 1</sbb-step-label>
+  <sbb-step>
+    <p tabindex="0" class="sbb-focus-outline">Step content 1</p>
+    <sbb-button>Button<sbb-button>
+  </sbb-step>
+
+  <sbb-step-label>Step label 2</sbb-step-label>
+  <sbb-step>
+    <p tabindex="0" class="sbb-focus-outline">Step content 2</p>
+    <sbb-button>Button<sbb-button>
+  </sbb-step>
+</sbb-stepper>
+```
+
 Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-stepper` also sets other attributes on the steps and the step labels like `aria-setsize`, `aria-posinset`, `aria-controls`, `aria-labelledby`. If important content needs to be announced when a step is changed, use the `aria-live=‘polite’` attribute.
 
 <!-- Auto Generated Below -->

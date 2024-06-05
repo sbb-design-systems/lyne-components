@@ -155,7 +155,12 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
 
         <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
         <sbb-step>
-          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)" aria-live="polite">
+          <div
+            tabindex="0"
+            class="sbb-focus-outline"
+            style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+            aria-live="polite"
+          >
             You are now done.
           </div>
           <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
@@ -266,7 +271,12 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
 
       <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
       <sbb-step>
-        <div style="margin-block-end: var(--sbb-spacing-fixed-4x)" aria-live="polite">
+        <div
+          tabindex="0"
+          class="sbb-focus-outline"
+          style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+          aria-live="polite"
+        >
           You are now done.
         </div>
         <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
@@ -287,7 +297,11 @@ const Template = ({ disabled, ...args }: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
     <sbb-step-label>Step 1</sbb-step-label>
     <sbb-step>
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+      <div
+        tabindex="0"
+        class="sbb-focus-outline-dark"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
         First step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
         eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
@@ -298,7 +312,11 @@ const Template = ({ disabled, ...args }: Args): TemplateResult => html`
 
     <sbb-step-label>Step 2</sbb-step-label>
     <sbb-step>
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+      <div
+        tabindex="0"
+        class="sbb-focus-outline"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
         Second step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
         nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
         vero eos et accusam et justo duo dolores et ea rebum.
@@ -309,7 +327,11 @@ const Template = ({ disabled, ...args }: Args): TemplateResult => html`
 
     <sbb-step-label icon-name="tick-small" ?disabled=${disabled}>Step 3</sbb-step-label>
     <sbb-step>
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+      <div
+        tabindex="0"
+        class="sbb-focus-outline"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
         Third step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
       </div>
@@ -319,7 +341,11 @@ const Template = ({ disabled, ...args }: Args): TemplateResult => html`
 
     <sbb-step-label>Step 4</sbb-step-label>
     <sbb-step>
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+      <div
+        tabindex="0"
+        class="sbb-focus-outline"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
         Forth step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
         eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
@@ -341,7 +367,13 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
       invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
     >
     <sbb-step>
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">First step content.</div>
+      <div
+        tabindex="0"
+        class="sbb-focus-outline"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
+        First step content.
+      </div>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
     <sbb-step-label
@@ -349,7 +381,13 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
       tempor.</sbb-step-label
     >
     <sbb-step>
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Second step content.</div>
+      <div
+        tabindex="0"
+        class="sbb-focus-outline"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
+        Second step content.
+      </div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
@@ -358,7 +396,13 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
       invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
     >
     <sbb-step>
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Third step content.</div>
+      <div
+        tabindex="0"
+        class="sbb-focus-outline"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
+        Third step content.
+      </div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
@@ -367,7 +411,13 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
       tempor.</sbb-step-label
     >
     <sbb-step>
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Forth step content.</div>
+      <div
+        tabindex="0"
+        class="sbb-focus-outline"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
+        Forth step content.
+      </div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
     </sbb-step>

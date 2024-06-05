@@ -14,6 +14,15 @@ Whenever a step switch is triggered, a `validate` event is emitted and can be ca
 
 ## Accessibility
 
+Whenever textual content is provided, please also set the attribute `tabindex=‘0’` on the text tag, so that it can be reached and announced by screen-readers. Also remember to use the classes `.sbb-focus-outline` and `.sbb-focus-outline-dark` to correctly style the outline.
+
+```html
+<sbb-step>
+    <p tabindex="0" class="sbb-focus-outline">Step content</p>
+    <sbb-button>Button<sbb-button>
+</sbb-step>
+```
+
 The aria attribute `aria-labelledby` is set automatically.
 
 <!-- Auto Generated Below -->

@@ -68,10 +68,4 @@
     delay: var(--sbb-step-animation-delay);
     timing-function: var(--sbb-animation-easing);
   }
-
-  &:focus-visible {
-    @include sbb.focus-outline;
-
-    border-radius: var(--sbb-border-radius-1x);
-  }
 }
