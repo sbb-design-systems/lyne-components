@@ -114,13 +114,13 @@ export class SbbOptionElement extends SbbOptionBaseElement {
     }
   }
 
-  protected override handleHighlightState(event: Event): void {
+  protected override handleHighlightState(): void {
     if (!this._isAutocomplete) {
       this.updateDisableHighlight(true);
       return;
     }
 
-    super.handleHighlightState(event);
+    super.handleHighlightState();
   }
 
   protected override renderIcon(): TemplateResult {
