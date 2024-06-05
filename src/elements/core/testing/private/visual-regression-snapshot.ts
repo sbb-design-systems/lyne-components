@@ -87,7 +87,7 @@ export const visualDiffDefault: VisualDiffState = {
   name: 'default',
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
-      const builder = await runSetupWithViewport(setup, this.ctx['requestViewport']);
+      const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       await visualDiff(builder.snapshotElement, imageName(this.test!));
     };
   },
@@ -97,7 +97,7 @@ export const visualDiffFocus: VisualDiffState = {
   name: 'focus',
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
-      const builder = await runSetupWithViewport(setup, this.ctx['requestViewport']);
+      const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       builder.snapshotElement.focus();
       await sendKeys({ press: 'Tab' });
       await visualDiff(builder.snapshotElement, imageName(this.test!));
@@ -109,7 +109,7 @@ export const visualDiffHover: VisualDiffState = {
   name: 'hover',
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
-      const builder = await runSetupWithViewport(setup, this.ctx['requestViewport']);
+      const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       try {
         await sendMouse({ type: 'move', position: builder.stateElementCenter });
         await aTimeout(5);
@@ -125,7 +125,7 @@ export const visualDiffActive: VisualDiffState = {
   name: 'active',
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
-      const builder = await runSetupWithViewport(setup, this.ctx['requestViewport']);
+      const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       try {
         await sendMouse({ type: 'move', position: builder.stateElementCenter });
         await sendMouse({ type: 'down' });
