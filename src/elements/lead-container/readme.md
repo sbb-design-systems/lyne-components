@@ -33,11 +33,7 @@ Full example with applied spacings (CSS classes) in content:
     image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Bahnhof-Luzern.jpg"
     alt="Station of Lucerne from outside"
   ></sbb-image>
-  <sbb-alert-group
-    accessibility-title="Disruptions"
-    accessibility-level="2"
-    class="sbb-lead-container-spacing"
-  >
+  <sbb-alert-group class="sbb-lead-container-spacing">
     <sbb-alert
       title-content="Interruption between Genève and Lausanne"
       href="https://www.sbb.ch"
