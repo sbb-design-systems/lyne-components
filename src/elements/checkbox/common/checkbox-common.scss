@@ -25,7 +25,7 @@
 }
 
 .sbb-checkbox {
-  @include sbb.text-s--regular;
+  @include sbb.text-m--regular;
 
   position: relative;
   display: block;
@@ -34,8 +34,8 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
-  :host([size='m']) & {
-    @include sbb.text-m--regular;
+  :host([size='s']) & {
+    @include sbb.text-s--regular;
   }
 }
 
