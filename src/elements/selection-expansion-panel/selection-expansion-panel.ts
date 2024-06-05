@@ -19,6 +19,10 @@ import '../divider.js';
 
 import style from './selection-expansion-panel.scss?lit&inline';
 
+const isSelectionPanelInput = (input: HTMLElement): boolean =>
+  !!input.closest('sbb-selection-expansion-panel') &&
+  !input.closest?.('sbb-selection-expansion-panel [slot="content"]');
+
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
  *
@@ -174,7 +178,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   private _initFromInput(event: Event): void {
     const input = event.target as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
 
-    if (!input.isSelectionPanelInput) {
+    if (!isSelectionPanelInput(input)) {
       return;
     }
 
@@ -186,7 +190,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   private _onInputStateChange(event: CustomEvent<SbbStateChange>): void {
     const input = event.target as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
 
-    if (!input.isSelectionPanelInput) {
+    if (!isSelectionPanelInput(input)) {
       return;
     }
 

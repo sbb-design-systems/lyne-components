@@ -8,12 +8,23 @@ import {
 import { customElement } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type {
+  SbbCheckedStateChange,
+  SbbDisabledStateChange,
+  SbbStateChange,
+} from '../../core/interfaces/types.js';
 import { SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { SbbCheckboxCommonElementMixin, checkboxCommonStyle } from '../common.js';
 
+import checkboxPanelStyle from './checkbox-panel.scss?lit&inline';
+
 import '../../visual-checkbox.js';
 
-import checkboxPanelStyle from './checkbox-panel.scss?lit&inline';
+export type SbbCheckboxStateChange = Extract<
+  SbbStateChange,
+  SbbDisabledStateChange | SbbCheckedStateChange
+>;
 
 /**
  * It displays a checkbox enhanced with selection panel design.
@@ -31,23 +42,56 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxPanelStyle];
 
+  public static readonly events = {
+    didChange: 'didChange',
+    stateChange: 'stateChange',
+    checkboxLoaded: 'checkboxLoaded',
+  } as const;
+
+  /**
+   * @internal
+   * Internal event that emits whenever the state of the checkbox
+   * in relation to the parent selection panel changes.
+   */
+  protected stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
+    this,
+    SbbCheckboxPanelElement.events.stateChange,
+    { bubbles: true },
+  );
+
+  /**
+   * @internal
+   * Internal event that emits when the checkbox is loaded.
+   */
+  private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbCheckboxPanelElement.events.checkboxLoaded,
+    { bubbles: true },
+  );
+
   public constructor() {
     super();
     new SbbSlotStateController(this);
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._checkboxLoaded.emit();
   }
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
+      // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a data-checked.
       this.toggleAttribute('data-checked', this.checked);
 
-      if (this.isSelectionPanelInput && this.checked !== changedProperties.get('checked')!) {
+      if (this.checked !== changedProperties.get('checked')!) {
         this.stateChange.emit({ type: 'checked', checked: this.checked });
       }
     }
     if (changedProperties.has('disabled')) {
-      if (this.isSelectionPanelInput && this.disabled !== changedProperties.get('disabled')!) {
+      if (this.disabled !== changedProperties.get('disabled')!) {
         this.stateChange.emit({ type: 'disabled', disabled: this.disabled });
       }
     }

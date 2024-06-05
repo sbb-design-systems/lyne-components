@@ -10,19 +10,19 @@ $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
 
 :host {
-  --sbb-selection-expansion-panel-cursor: pointer;
   --sbb-selection-expansion-panel-background: var(--sbb-color-white);
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
+
+  // Variable used to override background color of selection panels.
   --sbb-selection-expansion-panel-inner-background: transparent;
+
+  // Variable used to override border width of selection panels.
   --sbb-selection-expansion-panel-inner-border-width: 0px;
   --sbb-selection-expansion-panel-animation-duration: var(
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-4x)
   );
   --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-1x);
-  --sbb-selection-expansion-panel-input-pointer-events: all;
-  --sbb-selection-expansion-panel-input-padding: var(--sbb-spacing-responsive-xs)
-    var(--sbb-spacing-responsive-xxs);
   --sbb-selection-expansion-panel-content-visibility: hidden;
   --sbb-selection-expansion-panel-content-padding-inline: var(--sbb-spacing-responsive-xxs);
   --sbb-selection-expansion-panel-border-radius: var(--sbb-border-radius-4x);
@@ -44,12 +44,7 @@ $open-anim-opacity-to: 1;
 }
 
 :host([data-slot-names~='content'][data-disabled]) {
-  --sbb-selection-expansion-panel-input-pointer-events: none;
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
-}
-
-:host([data-disabled]) {
-  --sbb-selection-expansion-panel-cursor: default;
 }
 
 :host([borderless]:not([data-checked])) {
@@ -61,17 +56,8 @@ $open-anim-opacity-to: 1;
 }
 
 :host([data-slot-names~='content']:where([data-state='opening'], [data-state='opened'])) {
-  --sbb-selection-expansion-panel-input-padding: var(--sbb-spacing-responsive-xs)
-    var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxs)
-    var(--sbb-spacing-responsive-xxs);
   --sbb-selection-expansion-panel-content-visibility: visible;
-  --sbb-selection-expansion-panel-content-grid-template-rows: 1fr;
-  --sbb-selection-expansion-panel-content-opacity: 1;
   --sbb-selection-expansion-panel-content-padding-block-end: var(--sbb-spacing-responsive-xs);
-  --sbb-selection-expansion-panel-content-transition: grid-template-rows
-      var(--sbb-selection-expansion-panel-animation-duration) var(--sbb-animation-easing),
-    opacity var(--sbb-selection-expansion-panel-animation-duration)
-      var(--sbb-selection-expansion-panel-animation-duration) var(--sbb-animation-easing);
 }
 
 .sbb-selection-expansion-panel {

@@ -25,8 +25,6 @@ snapshots["sbb-selection-expansion-panel renders - Dom"] =
     </span>
   </sbb-card-badge>
   <sbb-checkbox-panel
-    data-is-inside-selection-expansion-panel=""
-    data-is-selection-expansion-panel-input=""
     data-slot-names="subtext suffix unnamed"
     size="m"
     tabindex="0"

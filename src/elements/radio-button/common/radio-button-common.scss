@@ -63,11 +63,10 @@
   @include sbb.screen-reader-only;
 }
 
-// One radio button per line
 .sbb-radio-button {
   @include sbb.text-m--regular;
 
-  :host([size='s']:not([data-is-selection-expansion-panel-input])) & {
+  :host([size='s']) & {
     @include sbb.text-s--regular;
   }
 
