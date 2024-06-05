@@ -52,7 +52,9 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
             </span>
             <span class="sbb-checkbox__label">
               <slot></slot>
-              <span class="sbb-checkbox__label--icon">${this.renderIconSlot()}</span>
+              <span class="sbb-checkbox__label--icon sbb-checkbox__aligner"
+                >${this.renderIconSlot()}</span
+              >
             </span>
           </span>
         </span>

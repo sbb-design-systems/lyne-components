@@ -4,11 +4,8 @@
   @include sbb.selection-panel-variables;
   @include sbb.selection-panel;
 
-  --sbb-checkbox-suffix-color: var(--sbb-color-charcoal);
-  --sbb-checkbox-subtext-color: var(--sbb-color-granite);
-  --sbb-checkbox-border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
-
-  display: inline-block;
+  --sbb-checkbox-panel-suffix-color: var(--sbb-color-charcoal);
+  --sbb-checkbox-panel-subtext-color: var(--sbb-color-granite);
 }
 
 :host([color='milk']) {
@@ -32,34 +29,11 @@
 }
 
 slot[name='suffix'] {
-  color: var(--sbb-checkbox-suffix-color);
+  color: var(--sbb-checkbox-panel-suffix-color);
 }
 
 slot[name='subtext'] {
   display: block;
-  color: var(--sbb-checkbox-subtext-color);
+  color: var(--sbb-checkbox-panel-subtext-color);
   padding-inline-start: var(--sbb-spacing-fixed-8x);
-}
-
-.sbb-checkbox {
-  @include sbb.text-s--regular;
-
-  :host([size='m']) & {
-    @include sbb.text-m--regular;
-  }
-}
-
-.sbb-checkbox__aligner {
-  display: flex;
-  align-items: center;
-  height: calc(1em * var(--sbb-typo-line-height-body-text));
-}
-
-.sbb-checkbox__label {
-  display: flex;
-  gap: var(--sbb-checkbox-label-gap);
-  color: var(--sbb-checkbox-label-color);
-
-  // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
-  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
 }

@@ -1,18 +1,9 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: inline-block;
-
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
-}
-
-.sbb-checkbox__aligner,
-.sbb-checkbox__label--icon {
-  display: flex;
-  align-items: center;
-  height: calc(1em * var(--sbb-typo-line-height-body-text));
 }
 
 .sbb-checkbox__label--icon {
@@ -38,19 +29,7 @@
   }
 }
 
-.sbb-checkbox {
-  @include sbb.text-s--regular;
-
-  :host([size='m']) & {
-    @include sbb.text-m--regular;
-  }
-}
-
 .sbb-checkbox__label {
-  display: flex;
-  gap: var(--sbb-checkbox-label-gap);
-  line-height: max(1em * var(--sbb-typo-line-height-body-text), var(--sbb-checkbox-dimension));
-
   :host([icon-placement='start']) & {
     flex-direction: row-reverse;
     justify-content: flex-end;
