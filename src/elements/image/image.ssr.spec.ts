@@ -7,7 +7,7 @@ import { SbbImageElement } from './image.js';
 
 describe(`sbb-image ${fixture.name}`, () => {
   let root: SbbImageElement;
-  const url = `${location.protocol}//${location.host}/src/elements/clock/assets/sbb_clock_face.svg`;
+  const url = import.meta.resolve('../clock/assets/sbb_clock_face.svg');
 
   it('renders', async () => {
     root = await fixture(html`<sbb-image image-src=${url}></sbb-image>`, {
