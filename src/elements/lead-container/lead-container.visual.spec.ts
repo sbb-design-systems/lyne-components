@@ -9,6 +9,7 @@ import {
 } from '../core/testing/private.js';
 import { waitForCondition } from '../core/testing/wait-for-condition.js';
 
+import '../alert.js';
 import '../breadcrumb.js';
 import '../image.js';
 import '../link/block-link/block-link.js';
