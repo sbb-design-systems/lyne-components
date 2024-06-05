@@ -9,8 +9,6 @@
   --sbb-checkbox-label-icon-color: var(--sbb-color-charcoal);
   --sbb-checkbox-cursor: pointer;
   --sbb-checkbox-label-gap: var(--sbb-spacing-fixed-2x);
-
-  display: inline-block;
 }
 
 :host(:disabled) {

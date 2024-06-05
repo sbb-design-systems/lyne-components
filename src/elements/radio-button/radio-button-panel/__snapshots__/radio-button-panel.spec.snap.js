@@ -22,22 +22,24 @@ snapshots["sbb-radio-button-panel should render unchecked DOM"] =
 /* end snapshot sbb-radio-button-panel should render unchecked DOM */
 
 snapshots["sbb-radio-button-panel should render unchecked Shadow DOM"] = 
-`<label class="sbb-radio-button">
-  <input
-    aria-hidden="true"
-    class="sbb-screen-reader-only"
-    tabindex="-1"
-    type="radio"
-    value="radio-value"
-  >
-  <span class="sbb-radio-button__label-slot">
-    <slot>
-    </slot>
-    <slot name="suffix">
+`<label class="sbb-selection-panel">
+  <span class="sbb-radio-button">
+    <input
+      aria-hidden="true"
+      class="sbb-screen-reader-only"
+      tabindex="-1"
+      type="radio"
+      value="radio-value"
+    >
+    <span class="sbb-radio-button__label-slot">
+      <slot>
+      </slot>
+      <slot name="suffix">
+      </slot>
+    </span>
+    <slot name="subtext">
     </slot>
   </span>
-  <slot name="subtext">
-  </slot>
 </label>
 `;
 /* end snapshot sbb-radio-button-panel should render unchecked Shadow DOM */
@@ -64,23 +66,25 @@ snapshots["sbb-radio-button-panel should render checked renders - Dom"] =
 /* end snapshot sbb-radio-button-panel should render checked renders - Dom */
 
 snapshots["sbb-radio-button-panel should render checked renders - ShadowDom"] = 
-`<label class="sbb-radio-button">
-  <input
-    aria-hidden="true"
-    checked=""
-    class="sbb-screen-reader-only"
-    tabindex="-1"
-    type="radio"
-    value="radio-value"
-  >
-  <span class="sbb-radio-button__label-slot">
-    <slot>
-    </slot>
-    <slot name="suffix">
+`<label class="sbb-selection-panel">
+  <span class="sbb-radio-button">
+    <input
+      aria-hidden="true"
+      checked=""
+      class="sbb-screen-reader-only"
+      tabindex="-1"
+      type="radio"
+      value="radio-value"
+    >
+    <span class="sbb-radio-button__label-slot">
+      <slot>
+      </slot>
+      <slot name="suffix">
+      </slot>
+    </span>
+    <slot name="subtext">
     </slot>
   </span>
-  <slot name="subtext">
-  </slot>
 </label>
 `;
 /* end snapshot sbb-radio-button-panel should render checked renders - ShadowDom */

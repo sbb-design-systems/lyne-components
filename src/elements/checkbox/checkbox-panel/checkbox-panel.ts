@@ -14,14 +14,12 @@ import type {
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces/types.js';
-import { SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import { SbbPanelMixin, SbbUpdateSchedulerMixin, panelCommonStyle } from '../../core/mixins.js';
 import { SbbCheckboxCommonElementMixin, checkboxCommonStyle } from '../common.js';
-
-import checkboxPanelStyle from './checkbox-panel.scss?lit&inline';
 
 import '../../visual-checkbox.js';
 
-export type SbbCheckboxStateChange = Extract<
+export type SbbCheckboxPanelStateChange = Extract<
   SbbStateChange,
   SbbDisabledStateChange | SbbCheckedStateChange
 >;
@@ -40,7 +38,7 @@ export type SbbCheckboxStateChange = Extract<
 export class SbbCheckboxPanelElement extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxPanelStyle];
+  public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
 
   public static readonly events = {
     didChange: 'didChange',
@@ -53,7 +51,7 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
    * Internal event that emits whenever the state of the checkbox
    * in relation to the parent selection panel changes.
    */
-  protected stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
+  protected stateChange: EventEmitter<SbbCheckboxPanelStateChange> = new EventEmitter(
     this,
     SbbCheckboxPanelElement.events.stateChange,
     { bubbles: true },
@@ -99,22 +97,24 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-checkbox-wrapper">
-        <span class="sbb-checkbox">
-          <span class="sbb-checkbox__inner">
-            <span class="sbb-checkbox__aligner">
-              <sbb-visual-checkbox
-                ?checked=${this.checked}
-                ?indeterminate=${this.indeterminate}
-                ?disabled=${this.disabled || this.formDisabled}
-              ></sbb-visual-checkbox>
+      <span class="sbb-selection-panel">
+        <span class="sbb-checkbox-wrapper">
+          <span class="sbb-checkbox">
+            <span class="sbb-checkbox__inner">
+              <span class="sbb-checkbox__aligner">
+                <sbb-visual-checkbox
+                  ?checked=${this.checked}
+                  ?indeterminate=${this.indeterminate}
+                  ?disabled=${this.disabled || this.formDisabled}
+                ></sbb-visual-checkbox>
+              </span>
+              <span class="sbb-checkbox__label">
+                <slot></slot>
+                <slot name="suffix"></slot>
+              </span>
             </span>
-            <span class="sbb-checkbox__label">
-              <slot></slot>
-              <slot name="suffix"></slot>
-            </span>
+            <slot name="subtext"></slot>
           </span>
-          <slot name="subtext"></slot>
         </span>
       </span>
     `;
