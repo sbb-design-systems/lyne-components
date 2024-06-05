@@ -1,0 +1,37 @@
+@use './mixins/table' as t;
+
+.sbb-table {
+  @include t.table;
+}
+
+.sbb-table-m {
+  @include t.table-m;
+}
+
+.sbb-table-s {
+  @include t.table-s;
+}
+
+.sbb-table-negative {
+  @include t.table-negative;
+}
+
+.sbb-table-unstriped {
+  @include t.table-unstriped;
+}
+
+.sbb-table-header-cell {
+  @include t.table-header-cell;
+}
+
+.sbb-table-data-row {
+  @include t.table-data-row;
+}
+
+.sbb-table-row-striped {
+  @include t.table-row-striped;
+}
+
+.sbb-table-data-cell {
+  @include t.table-data-cell;
+}

@@ -1,0 +1,134 @@
+@use './typo' as t;
+
+/*
+ * SBB table mixin
+ * Notes:
+ * We cannot use `border-collapse` because it is not compatible with the `border-radius` property
+ */
+@mixin table {
+  @include table-striped;
+  @include table-m;
+
+  --sbb-table-border: 1px solid var(--sbb-table-border-color);
+  --sbb-table-border-color: var(--sbb-color-cloud);
+  --sbb-table-border-radius: var(--sbb-border-radius-4x);
+  --sbb-table-background-color: var(--sbb-color-white);
+  --sbb-table-row-striped-color: var(--sbb-color-milk);
+  --sbb-table-color: inherit;
+  --sbb-table-caption-color: var(--sbb-color-granite);
+  --sbb-table-caption-margin-block-start: var(--sbb-spacing-fixed-4x);
+
+  background-color: var(--sbb-table-background-color);
+  border: var(--sbb-table-border);
+  border-radius: var(--sbb-table-border-radius);
+  border-spacing: 0;
+  caption-side: bottom;
+  color: var(--sbb-table-color);
+  table-layout: auto;
+
+  thead {
+    & > tr > th {
+      @include table-header-cell;
+    }
+  }
+
+  tbody {
+    & > tr {
+      @include table-data-row;
+
+      & > td {
+        @include table-data-cell;
+      }
+    }
+  }
+
+  tfoot {
+    // TBD
+  }
+
+  caption {
+    @include table-caption;
+  }
+}
+
+@mixin table-header-cell {
+  @include t.text-xs--bold;
+
+  border-bottom: var(--sbb-table-border);
+  border-right: var(--sbb-table-border);
+  padding-block: var(--sbb-table-header-padding-block);
+  padding-inline: var(--sbb-table-header-padding-inline);
+  text-align: left;
+
+  // To avoid double border
+  &:last-of-type {
+    border-right: none;
+  }
+}
+
+@mixin table-data-row {
+  // To avoid double border
+  &:first-of-type td {
+    border-top: none;
+  }
+}
+
+@mixin table-data-cell {
+  @include t.text-s--regular;
+
+  border-top: var(--sbb-table-border);
+  border-right: var(--sbb-table-border);
+  padding-block: var(--sbb-table-cell-padding-block);
+  padding-inline: var(--sbb-table-cell-padding-inline);
+
+  // To avoid double border
+  &:last-of-type {
+    border-right: none;
+  }
+}
+
+@mixin table-caption {
+  @include t.text-xs--regular;
+
+  color: var(--sbb-table-caption-color);
+  margin-block-start: var(--sbb-table-caption-margin-block-start);
+  text-align: left;
+}
+
+@mixin table-striped {
+  tbody tr:nth-child(odd) {
+    @include table-row-striped;
+  }
+}
+
+@mixin table-unstriped {
+  tbody tr:nth-child(odd) {
+    background-color: unset;
+  }
+}
+
+@mixin table-row-striped {
+  background-color: var(--sbb-table-row-striped-color);
+}
+
+@mixin table-negative {
+  --sbb-table-border-color: var(--sbb-color-anthracite);
+  --sbb-table-background-color: var(--sbb-color-midnight);
+  --sbb-table-color: var(--sbb-color-white);
+  --sbb-table-row-striped-color: var(--sbb-color-charcoal);
+  --sbb-table-caption-color: var(--sbb-color-cement);
+}
+
+@mixin table-m {
+  --sbb-table-header-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxs);
+  --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-4x);
+}
+
+@mixin table-s {
+  --sbb-table-header-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-table-cell-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-2x);
+}
