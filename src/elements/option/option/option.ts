@@ -98,6 +98,11 @@ export class SbbOptionElement extends SbbOptionBaseElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._setVariantByContext();
+    // We need to check highlight state both on slot change, but also when connecting
+    // the element to the DOM. The slot change events might be swallowed when using declarative
+    // shadow DOM with SSR or if the DOM is changed when disconnected.
+    this.handleHighlightState();
+
     this.toggleAttribute('data-multiple', this._isMultiple);
   }
 
@@ -109,13 +114,13 @@ export class SbbOptionElement extends SbbOptionBaseElement {
     }
   }
 
-  protected override setupHighlightHandler(event: Event): void {
+  protected override handleHighlightState(event: Event): void {
     if (!this._isAutocomplete) {
       this.updateDisableHighlight(true);
       return;
     }
 
-    super.setupHighlightHandler(event);
+    super.handleHighlightState(event);
   }
 
   protected override renderIcon(): TemplateResult {

@@ -125,11 +125,11 @@ const groups: TestRunnerGroupConfig[] = [
 
 // The visual regression test group is only added when explicitly set, as the tests are very expensive.
 if (cliArgs.group === 'visual-regression') {
-  groups.push({ name: 'visual-regression', files: 'src/**/*.snapshot.spec.ts', testRunnerHtml });
+  groups.push({ name: 'visual-regression', files: 'src/**/*.visual.spec.ts', testRunnerHtml });
 }
 
 export default {
-  files: ['src/**/*.{e2e,spec}.ts', '!**/*.{snapshot,ssr}.spec.ts'],
+  files: ['src/**/*.{e2e,spec}.ts', '!**/*.{snapshot,visual,ssr}.spec.ts'],
   groups,
   nodeResolve: true,
   reporters:

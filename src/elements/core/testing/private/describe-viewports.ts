@@ -6,7 +6,6 @@ import {
   SbbBreakpointUltraMin,
   SbbBreakpointWideMin,
 } from '@sbb-esta/lyne-design-tokens';
-import { setViewport } from '@web/test-runner-commands';
 
 const viewportSizes = {
   zero: 320,
@@ -46,11 +45,5 @@ export function describeViewports(
       this.ctx['requestViewport'] = { width: value, height: options.viewportHeight ?? 400 };
       fn.call(this);
     });
-  }
-}
-
-export async function applyViewport(context: Mocha.Context): Promise<void> {
-  if (context.requestViewport) {
-    await setViewport(context.requestViewport);
   }
 }
