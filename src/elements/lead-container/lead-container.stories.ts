@@ -24,11 +24,7 @@ const DefaultTemplate = (): TemplateResult => html`
       image-src=${images[6]}
       alt="Station of Lucerne from outside"
     ></sbb-image>
-    <sbb-alert-group
-      accessibility-title="Disruptions"
-      accessibility-level="2"
-      class="sbb-lead-container-spacing"
-    >
+    <sbb-alert-group class="sbb-lead-container-spacing">
       <sbb-alert
         title-content="Interruption between Genève and Lausanne"
         href="https://www.sbb.ch"

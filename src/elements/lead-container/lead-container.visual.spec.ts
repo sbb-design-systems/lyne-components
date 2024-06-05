@@ -31,6 +31,15 @@ describe(`sbb-lead-container`, () => {
         }
       </style>
       ${image}
+      <sbb-alert-group class="sbb-lead-container-spacing">
+        <sbb-alert
+          title-content="Interruption between Genève and Lausanne"
+          href="https://www.sbb.ch"
+          size="m"
+        >
+          The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+        </sbb-alert>
+      </sbb-alert-group>
       <sbb-breadcrumb-group class="sbb-lead-container-spacing">
         <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
         <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
