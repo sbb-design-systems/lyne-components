@@ -61,6 +61,7 @@ describe('sbb-stepper', () => {
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
 
+    stepLabelThree.focus();
     stepLabelThree.click();
     await waitForLitRender(element);
 
@@ -68,6 +69,7 @@ describe('sbb-stepper', () => {
     expect(validate.count).to.be.equal(1);
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(document.activeElement!.id).to.be.equal(stepLabelThree.id);
   });
 
   it('selects the correct step via `selected` and emits validate event', async () => {
@@ -83,6 +85,7 @@ describe('sbb-stepper', () => {
     expect(validate.count).to.be.equal(1);
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
   });
 
   it('selects the correct step via `selectedIndex` and emits validate event', async () => {
@@ -98,6 +101,7 @@ describe('sbb-stepper', () => {
     expect(validate.count).to.be.equal(1);
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
   });
 
   it('selects the next step on [sbb-stepper-next] click and emits validate event', async () => {
@@ -107,6 +111,7 @@ describe('sbb-stepper', () => {
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
 
+    stepperNext.focus();
     stepperNext.click();
     await waitForLitRender(element);
 
@@ -114,6 +119,7 @@ describe('sbb-stepper', () => {
     expect(validate.count).to.be.equal(1);
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
   });
 
   it('selects the previous step on [sbb-stepper-previous] click', async () => {
@@ -127,6 +133,7 @@ describe('sbb-stepper', () => {
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
 
+    stepperNext.focus();
     stepperNext.click();
     await waitForLitRender(element);
 
@@ -134,12 +141,14 @@ describe('sbb-stepper', () => {
     expect(validate.count).to.be.equal(1);
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
 
     stepperPrevious.click();
     await waitForLitRender(element);
 
     expect(stepLabelOne).to.have.attribute('data-selected');
     expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
   });
 
   it('selects only the next step via [sbb-stepper-next] click in linear mode and emits validate event', async () => {
