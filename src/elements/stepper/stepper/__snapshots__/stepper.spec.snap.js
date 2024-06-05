@@ -167,14 +167,8 @@ snapshots["sbb-stepper A11y tree Firefox"] =
       "name": "4 Test step label 4"
     },
     {
-      "role": "section",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Test step content 1"
-        }
-      ]
+      "role": "text leaf",
+      "name": "Test step content 1"
     },
     {
       "role": "tabpanel",
