@@ -2,7 +2,6 @@ import { html, type TemplateResult } from 'lit';
 
 import { waitForLitRender } from '../wait-for-render.js';
 
-import { applyViewport } from './describe-viewports.js';
 import { isHydratedSsr, isNonHydratedSsr } from './platform.js';
 
 // Copied from @lit-labs/testing/lib/fixtures/fixture-options.d.ts
@@ -74,30 +73,26 @@ export const fixture = Object.defineProperty(
 );
 
 /**
- * Fixture which provide a div container for test cases.
+ * Fixture which provides a div container for visual test cases.
  *
  * @param wrapperStyles.padding Defaults to 2rem to include shadows and similar styles.
  * @param wrapperStyles.backgroundColor Defaults to white.
  */
 export async function visualRegressionFixture<T extends HTMLElement>(
   template: TemplateResult,
-  context: Mocha.Context,
   wrapperStyles?: {
     padding?: string;
     backgroundColor?: string;
     focusOutlineDark?: boolean;
   },
 ): Promise<T> {
-  const fix = await fixture<T>(
+  return await fixture<T>(
     html`<div
+      id="visual-regression-fixture-wrapper"
       style=${`padding: ${wrapperStyles?.padding ?? '2rem'};background-color: ${wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)'};${wrapperStyles?.focusOutlineDark ? ' --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);' : ''}`}
       tabindex="0"
     >
       ${template}
     </div>`,
   );
-
-  // Due to Webkit rendering issues, the viewport has to be set after fixture creation.
-  await applyViewport(context);
-  return fix;
 }
