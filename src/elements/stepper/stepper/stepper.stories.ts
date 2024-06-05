@@ -299,7 +299,7 @@ const Template = ({ disabled, ...args }: Args): TemplateResult => html`
     <sbb-step>
       <div
         tabindex="0"
-        class="sbb-focus-outline-dark"
+        class="sbb-focus-outline"
         style="margin-block-end: var(--sbb-spacing-fixed-4x)"
       >
         First step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
