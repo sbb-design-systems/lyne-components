@@ -439,6 +439,8 @@ export class SbbImageElement extends LitElement {
       imageUrlObj.searchParams.append('fp-debug', 'true');
     }
 
+    // In case of "noop" host, we don't return the host and must remove the
+    // starting `/` of the pathname.
     return isFullyQualifiedUrl
       ? imageUrlObj.href
       : imageUrlObj.pathname.substring(1) + imageUrlObj.search;
