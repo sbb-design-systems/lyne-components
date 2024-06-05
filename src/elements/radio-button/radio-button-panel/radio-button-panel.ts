@@ -58,7 +58,7 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
           ?required=${this.required}
           ?checked=${this.checked}
           value=${this.value || nothing}
-          class="sbb-radio-button__input"
+          class="sbb-screen-reader-only"
         />
         <span class="sbb-radio-button__label-slot">
           <slot></slot>

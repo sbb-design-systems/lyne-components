@@ -16,12 +16,12 @@
   @include sbb.selection-panel-borderless-variables;
 }
 
-:host([data-checked]:not(:disabled)) {
-  @include sbb.selection-panel-checked-variables;
-}
-
 :host(:focus-visible) {
   @include sbb.focus-outline;
+}
+
+:host([data-checked]:not(:disabled)) {
+  @include sbb.selection-panel-checked-variables;
 }
 
 :host(:disabled) {
@@ -36,4 +36,8 @@ slot[name='subtext'] {
   display: block;
   color: var(--sbb-checkbox-panel-subtext-color);
   padding-inline-start: var(--sbb-spacing-fixed-8x);
+
+  :host(:not([data-slot-names~='subtext'])) & {
+    display: none;
+  }
 }

@@ -9,45 +9,9 @@
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
-
-  @include sbb.if-forced-colors {
-    --sbb-radio-button-background-color: Canvas !important;
-    --sbb-radio-button-border-width: var(--sbb-border-width-2x);
-    --sbb-radio-button-border-color: ButtonBorder;
-  }
 }
 
-:host([checked]) {
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-red);
-  --sbb-radio-button-background-fake-border-width: calc(
-    (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
-  );
-
-  @include sbb.if-forced-colors {
-    --sbb-radio-button-inner-circle-color: Highlight;
-    --sbb-radio-button-border-color: Highlight;
-  }
-}
-
-// Disabled definitions have to be after checked definitions
-:host(:disabled) {
-  --sbb-radio-button-label-color: var(--sbb-color-granite);
-  --sbb-radio-button-background-color: var(--sbb-color-milk);
-  --sbb-radio-button-border-style: dashed;
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal);
-  --sbb-radio-button-cursor: default;
-
-  @include sbb.if-forced-colors {
-    --sbb-radio-button-inner-circle-color: GrayText;
-    --sbb-radio-button-border-color: GrayText;
-    --sbb-radio-button-border-style: solid;
-  }
-}
-
-// One radio button per line
 .sbb-radio-button {
-  @include sbb.text-m--regular;
-
   display: block;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
@@ -56,8 +20,4 @@
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
-}
-
-.sbb-screen-reader-only {
-  @include sbb.screen-reader-only;
 }
