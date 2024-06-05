@@ -283,10 +283,14 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
       return;
     }
 
-    const slotNodes = Array.from(this.childNodes ?? []);
+    const slotNodes = Array.from(this.childNodes ?? []).filter(
+      (n) => !(n instanceof Element) || n.slot !== 'icon',
+    );
     const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
-    // Disable the highlight if the slot contain more than just text nodes
+    // Disable the highlight if the slot contain more than just text nodes.
+    // We need to ignore template elements, as SSR adds a declarative shadow DOM
+    // in the form of a template element.
     if (
       labelNodes.length === 0 ||
       slotNodes.filter((n) => !(n instanceof Element) || n.localName !== 'template').length !==
