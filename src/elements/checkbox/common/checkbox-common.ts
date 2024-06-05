@@ -18,6 +18,9 @@ export declare class SbbCheckboxCommonElementMixinType
 {
   public indeterminate: boolean;
 
+  public set size(value: SbbCheckboxSize);
+  public get size(): SbbCheckboxSize;
+
   public get group(): SbbCheckboxGroupElement | null;
 }
 
