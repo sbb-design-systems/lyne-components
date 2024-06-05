@@ -4,9 +4,6 @@
   @include sbb.selection-panel-variables;
   @include sbb.selection-panel;
 
-  --sbb-radio-button-panel-suffix-color: var(--sbb-color-charcoal);
-  --sbb-radio-button-panel-subtext-color: var(--sbb-color-granite);
-
   display: inline-block;
 }
 
@@ -30,16 +27,6 @@
   @include sbb.selection-panel-disabled-variables;
 }
 
-slot[name='suffix'] {
-  color: var(--sbb-radio-button-panel-suffix-color);
-}
+@include sbb.selection-panel-suffix;
 
-slot[name='subtext'] {
-  display: block;
-  color: var(--sbb-radio-button-panel-subtext-color);
-  padding-inline-start: var(--sbb-spacing-fixed-8x);
-
-  :host(:not([data-slot-names~='subtext'])) & {
-    display: none;
-  }
-}
+@include sbb.selection-panel-subtext;

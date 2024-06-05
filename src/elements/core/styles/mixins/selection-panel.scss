@@ -18,6 +18,8 @@
     var(--sbb-animation-duration-4x)
   );
   --sbb-selection-panel-cursor: pointer;
+  --sbb-selection-panel-suffix-color: var(--sbb-color-charcoal);
+  --sbb-selection-panel-subtext-color: var(--sbb-color-granite);
 }
 
 @mixin selection-panel-milk-variables {
@@ -72,4 +74,22 @@
 
 @mixin selection-panel-disabled-variables {
   --sbb-selection-panel-cursor: default;
+}
+
+@mixin selection-panel-suffix {
+  slot[name='suffix'] {
+    color: var(--sbb-selection-panel-suffix-color);
+  }
+}
+
+@mixin selection-panel-subtext {
+  slot[name='subtext'] {
+    display: block;
+    color: var(--sbb-selection-panel-subtext-color);
+    padding-inline-start: var(--sbb-spacing-fixed-8x);
+
+    :host(:not([data-slot-names~='subtext'])) & {
+      display: none;
+    }
+  }
 }

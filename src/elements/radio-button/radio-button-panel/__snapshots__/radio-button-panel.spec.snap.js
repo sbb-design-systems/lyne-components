@@ -25,6 +25,7 @@ snapshots["sbb-radio-button-panel should render unchecked Shadow DOM"] =
 `<label class="sbb-radio-button">
   <input
     aria-hidden="true"
+    class="sbb-screen-reader-only"
     tabindex="-1"
     type="radio"
     value="radio-value"
@@ -67,6 +68,7 @@ snapshots["sbb-radio-button-panel should render checked renders - ShadowDom"] =
   <input
     aria-hidden="true"
     checked=""
+    class="sbb-screen-reader-only"
     tabindex="-1"
     type="radio"
     value="radio-value"

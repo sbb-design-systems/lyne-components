@@ -91,9 +91,7 @@ const suffixAndSubtext = (): TemplateResult => html`
   <span slot="suffix" style="margin-inline-start: auto;">
     <span style=${styleMap(suffixStyle)}>
       <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-      <span class="sbb-text-m sbb-text--bold">
-        <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
-      </span>
+      <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
     </span>
   </span>
 `;
@@ -220,7 +218,7 @@ const TicketsOptionsExampleTemplate = ({
             <span slot="subtext">No refund possible</span>
             <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
               <span style=${styleMap(suffixStyle)}>
-                <span class="sbb-text-m"> <span class="sbb-text-xxs">CHF</span> 0.00 </span>
+                <span class="sbb-text-m">CHF 0.00</span>
               </span>
             </span>
           </sbb-radio-button-panel>
@@ -229,7 +227,7 @@ const TicketsOptionsExampleTemplate = ({
             <span slot="subtext">Partial refund possible</span>
             <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
               <span style=${styleMap(suffixStyle)}>
-                <span class="sbb-text-m"> <span class="sbb-text-xxs">+ CHF</span> 5.00 </span>
+                <span class="sbb-text-m">+ CHF 5.00</span>
               </span>
             </span>
           </sbb-radio-button-panel>
@@ -265,7 +263,7 @@ const TicketsOptionsExampleTemplate = ({
             Option one
             <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
               <span style=${styleMap(suffixStyle)}>
-                <span class="sbb-text-m"> <span class="sbb-text-xxs">CHF</span> 0.00 </span>
+                <span class="sbb-text-m">CHF 0.00</span>
               </span>
             </span>
           </sbb-checkbox-panel>
@@ -273,7 +271,7 @@ const TicketsOptionsExampleTemplate = ({
             Option two
             <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
               <span style=${styleMap(suffixStyle)}>
-                <span class="sbb-text-m"> <span class="sbb-text-xxs">+ CHF</span> 5.00 </span>
+                <span class="sbb-text-m">+ CHF 5.00</span>
               </span>
             </span>
           </sbb-checkbox-panel>

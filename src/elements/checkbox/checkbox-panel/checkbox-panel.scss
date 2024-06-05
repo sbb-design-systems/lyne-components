@@ -3,9 +3,6 @@
 :host {
   @include sbb.selection-panel-variables;
   @include sbb.selection-panel;
-
-  --sbb-checkbox-panel-suffix-color: var(--sbb-color-charcoal);
-  --sbb-checkbox-panel-subtext-color: var(--sbb-color-granite);
 }
 
 :host([color='milk']) {
@@ -28,16 +25,6 @@
   @include sbb.selection-panel-disabled-variables;
 }
 
-slot[name='suffix'] {
-  color: var(--sbb-checkbox-panel-suffix-color);
-}
+@include sbb.selection-panel-suffix;
 
-slot[name='subtext'] {
-  display: block;
-  color: var(--sbb-checkbox-panel-subtext-color);
-  padding-inline-start: var(--sbb-spacing-fixed-8x);
-
-  :host(:not([data-slot-names~='subtext'])) & {
-    display: none;
-  }
-}
+@include sbb.selection-panel-subtext;
