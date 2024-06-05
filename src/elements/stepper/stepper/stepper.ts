@@ -146,6 +146,10 @@ export class SbbStepperElement extends LitElement {
     step.select();
     this._setMarkerSize();
     this._configureLinearMode();
+    // In case the focus is currently inside the stepper, we focus the selected step label.
+    if (document.activeElement?.closest('sbb-stepper') === this) {
+      this.selected?.label?.focus();
+    }
   }
 
   private _setMarkerSize(): void {
