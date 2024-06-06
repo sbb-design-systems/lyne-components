@@ -40,6 +40,9 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   /** Whether the component has a dropzone area or not. */
   @property() public variant: 'default' | 'dropzone' = 'default';
 
+  /** Size variant, either s or m. */
+  @property({ reflect: true }) public size: 's' | 'm' = 'm';
+
   /** Whether more than one file can be selected. */
   @property({ type: Boolean }) public multiple: boolean = false;
 
@@ -206,7 +209,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   private _renderDefaultMode(): TemplateResult {
     return html`
       <sbb-secondary-button-static
-        size="m"
+        size=${this.size}
         icon-name="folder-open-small"
         ?disabled=${this.disabled}
         ${ref((el?: Element): void => {
@@ -222,7 +225,9 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
     return html`
       <span class="sbb-file-selector__dropzone-area">
         <span class="sbb-file-selector__dropzone-area--icon">
-          <sbb-icon name="folder-open-medium"></sbb-icon>
+          <sbb-icon
+            name=${this.size === 'm' ? 'folder-open-medium' : 'folder-open-small'}
+          ></sbb-icon>
         </span>
         <span class="sbb-file-selector__dropzone-area--title">${this.titleContent}</span>
         <span class="sbb-file-selector__dropzone-area--subtitle">
@@ -230,7 +235,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
           <sbb-secondary-button-static
-            size="m"
+            size=${this.size}
             ?disabled=${this.disabled}
             ${ref((el?: Element): void => {
               this._loadButton = el as SbbSecondaryButtonStaticElement;
@@ -260,7 +265,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
               <span class="sbb-file-selector__file-size">${this._formatFileSize(file.size)}</span>
             </span>
             <sbb-secondary-button
-              size="m"
+              size=${this.size}
               icon-name="trash-small"
               @click=${() => this._removeFile(file)}
               aria-label=${`${i18nFileSelectorDeleteFile[this._language.current]} - ${file.name}`}
