@@ -3,10 +3,6 @@
 @mixin horizontal-orientation {
   --sbb-checkbox-group-orientation: row;
   --sbb-checkbox-group-checkbox-width: auto;
-
-  ::slotted(sbb-checkbox-panel) {
-    width: unset;
-  }
 }
 
 $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
@@ -46,6 +42,11 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
     // horizontal-from overrides orientation vertical
     :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
       @include horizontal-orientation;
+
+      // We need to unset the 100% width of the vertical mode if it starts to be horizontal
+      ::slotted(sbb-checkbox-panel) {
+        width: initial;
+      }
     }
 
     :host(

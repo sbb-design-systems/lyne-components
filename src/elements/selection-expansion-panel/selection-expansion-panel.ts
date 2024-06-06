@@ -1,13 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxPanelElement } from '../checkbox.js';
-import {
-  SbbConnectedAbortController,
-  SbbLanguageController,
-  SbbSlotStateController,
-} from '../core/controllers.js';
+import { SbbLanguageController, SbbSlotStateController } from '../core/controllers.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
@@ -18,10 +14,6 @@ import '../screen-reader-only.js';
 import '../divider.js';
 
 import style from './selection-expansion-panel.scss?lit&inline';
-
-const isSelectionPanelInput = (input: HTMLElement): boolean =>
-  !!input.closest('sbb-selection-expansion-panel') &&
-  !input.closest?.('sbb-selection-expansion-panel [slot="content"]');
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -102,7 +94,6 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
     SbbSelectionExpansionPanelElement.events.didClose,
   );
 
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
   private _initialized: boolean = false;
 
@@ -123,10 +114,6 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   public override connectedCallback(): void {
     super.connectedCallback();
     this._state ||= 'closed';
-    const signal = this._abort.signal;
-    this.addEventListener('stateChange', this._onInputStateChange.bind(this), { signal });
-    this.addEventListener('checkboxLoaded', this._initFromInput.bind(this), { signal });
-    this.addEventListener('radioButtonLoaded', this._initFromInput.bind(this), { signal });
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -178,22 +165,12 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   private _initFromInput(event: Event): void {
     const input = event.target as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
 
-    if (!isSelectionPanelInput(input)) {
-      return;
-    }
-
     this._checked = input.checked;
     this._disabled = input.disabled;
     this._updateState();
   }
 
   private _onInputStateChange(event: CustomEvent<SbbStateChange>): void {
-    const input = event.target as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
-
-    if (!isSelectionPanelInput(input)) {
-      return;
-    }
-
     if (event.detail.type === 'disabled') {
       this._disabled = event.detail.disabled;
       return;
@@ -236,7 +213,12 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
           <slot name="badge"></slot>
         </div>
 
-        <div class="sbb-selection-expansion-panel__input">
+        <div
+          class="sbb-selection-expansion-panel__input"
+          @stateChange=${this._onInputStateChange}
+          @checkboxLoaded=${this._initFromInput}
+          @radioButtonLoaded=${this._initFromInput}
+        >
           <slot></slot>
           <sbb-screen-reader-only> ${this._selectionPanelExpandedLabel} </sbb-screen-reader-only>
         </div>
