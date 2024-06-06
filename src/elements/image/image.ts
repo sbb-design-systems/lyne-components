@@ -150,6 +150,8 @@ const breakpointMap: Record<string, number> = {
 /**
  * It displays an image.
  *
+ * @event {Event} load - Emits when the image has been loaded.
+ * @event {Event} error - Emits when the image loading ended in an error.
  * @cssprop [--sbb-image-aspect-ratio=auto] - Can be used to override `aspectRatio` property.
  * This way we can have, for example, an image component with an aspect
  * ratio of 4/3 in smaller viewports and 16/9 in larger viewports.
@@ -159,6 +161,10 @@ const breakpointMap: Record<string, number> = {
 @customElement('sbb-image')
 export class SbbImageElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+  public static readonly events = {
+    error: 'error',
+    load: 'load',
+  } as const;
 
   private _captionElement?: HTMLElement;
   private _linksInCaption?: NodeListOf<HTMLLinkElement>;
@@ -386,6 +392,46 @@ export class SbbImageElement extends LitElement {
     | '9-16'
     | '16-9' = '16-9';
 
+  /** Whether the image is finished loading or failed to load. */
+  public get complete(): boolean {
+    return this.shadowRoot?.querySelector?.<HTMLImageElement>('.sbb-image__img')?.complete ?? false;
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    // Check if the current element is nested in an `<sbb-teaser-hero>` element on in an `<sbb-teaser-paid>` element.
+    this.toggleAttribute(
+      'data-teaser',
+      !!hostContext('sbb-teaser-hero', this) || !!this.closest('sbb-teaser-paid'),
+    );
+  }
+
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
+    if (!this._captionElement) {
+      return;
+    }
+
+    this._linksInCaption = this._captionElement.querySelectorAll<HTMLLinkElement>('a');
+
+    if (!this._linksInCaption) {
+      return;
+    }
+
+    this._addFocusAbilityToLinksInCaption();
+  }
+
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
+    // We need to wait until the update is complete to check whether the image has already been completely loaded.
+    await this.updateComplete;
+    if (this.complete) {
+      this.toggleAttribute('data-loaded', true);
+    }
+  }
+
   private _logPerformanceMarks(): void {
     if (this.performanceMark) {
       performance.clearMarks(this.performanceMark);
@@ -533,13 +579,11 @@ export class SbbImageElement extends LitElement {
     return mediaQuery;
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    // Check if the current element is nested in an `<sbb-teaser-hero>` element on in an `<sbb-teaser-paid>` element.
-    this.toggleAttribute(
-      'data-teaser',
-      !!hostContext('sbb-teaser-hero', this) || !!this.closest('sbb-teaser-paid'),
-    );
+  @eventOptions(eventListenerOptions)
+  private _imageLoaded(): void {
+    this._logPerformanceMarks();
+    this.toggleAttribute('data-loaded', true);
+    this.dispatchEvent(new Event('load'));
   }
 
   protected override render(): TemplateResult {
@@ -612,6 +656,7 @@ export class SbbImageElement extends LitElement {
             <img
               alt=${this.alt || ''}
               @load=${this._imageLoaded}
+              @error=${() => this.dispatchEvent(new Event('error'))}
               class="sbb-image__img"
               src=${this.imageSrc!}
               width="1000"
@@ -636,28 +681,6 @@ export class SbbImageElement extends LitElement {
           : nothing}
       </figure>
     `;
-  }
-
-  protected override updated(changedProperties: PropertyValues<this>): void {
-    super.updated(changedProperties);
-
-    if (!this._captionElement) {
-      return;
-    }
-
-    this._linksInCaption = this._captionElement.querySelectorAll<HTMLLinkElement>('a');
-
-    if (!this._linksInCaption) {
-      return;
-    }
-
-    this._addFocusAbilityToLinksInCaption();
-  }
-
-  @eventOptions(eventListenerOptions)
-  private _imageLoaded(): void {
-    this._logPerformanceMarks();
-    this.toggleAttribute('data-loaded', true);
   }
 }
 
