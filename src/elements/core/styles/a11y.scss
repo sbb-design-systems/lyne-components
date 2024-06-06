@@ -6,14 +6,10 @@
 
 .sbb-focus-outline:focus-visible {
   @include a11y.focus-outline;
-
-  border-radius: var(--sbb-border-radius-1x);
 }
 
 .sbb-focus-outline-dark:focus-visible {
   @include a11y.focus-outline;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-
-  border-radius: var(--sbb-border-radius-1x);
 }

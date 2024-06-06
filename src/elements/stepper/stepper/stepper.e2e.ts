@@ -19,25 +19,25 @@ describe('sbb-stepper', () => {
       <sbb-stepper>
         <sbb-step-label>Step 1</sbb-step-label>
         <sbb-step>
-          <div tabindex="0" id="step-one-content"></div>Step one content.</div>
+          <div tabindex="0" id="step-one-content">Step one content.</div>
           <button sbb-stepper-next id="next-button-1">Next</button>
         </sbb-step>
 
         <sbb-step-label>Step 2</sbb-step-label>
         <sbb-step>
-          <div tabindex="0"></div>Step two content.</div>
+          <div tabindex="0">Step two content.</div>
           <button sbb-stepper-next>Next</button>
           <span sbb-stepper-previous>Back</span>
         </sbb-step>
 
         <sbb-step-label>Step 3</sbb-step-label>
         <sbb-step>
-          <div tabindex="0"></div>Step three content.</div>
+          <div tabindex="0">Step three content.</div>
           <span sbb-stepper-previous>Back</span>
         </sbb-step>
 
         <sbb-step-label disabled>Step 4</sbb-step-label>
-        <sbb-step> <div tabindex="0"></div>Step four content.</div> </sbb-step>
+        <sbb-step> <div tabindex="0">Step four content.</div> </sbb-step>
       </sbb-stepper>
     `);
   });
