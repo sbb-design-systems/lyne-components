@@ -6,7 +6,7 @@ Use the `sbb-step-label` with the `sbb-stepper` to display a step label.
 
 ## Slots
 
-It has an implicit slot name: `step-label`.
+It has an implicit slot named `step-label`.
 
 ## States
 
