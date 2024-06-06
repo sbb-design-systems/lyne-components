@@ -34,7 +34,7 @@ describe(`sbb-image`, () => {
 
     await fixture(
       html`<sbb-image
-        image-src="http://localhost/er.png"
+        image-src="http://localhost/dummy.png"
         @load=${(e: Event) => loadSpy(e)}
         @error=${(e: Event) => errorSpy(e)}
       ></sbb-image>`,
