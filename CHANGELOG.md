@@ -2,6 +2,69 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.52.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.51.1...v0.52.0) (2024-06-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* type 'SbbDialogCloseEventDetails' has been renamed to 'SbbOverlayCloseEventDetails'
+* The half-public data-now attribute has become a public `now` property that can be used to set time or date-based components into a specific state, especially for testing purposes.
+    - `sbb-calendar`, `sbb-datepicker`, `sbb-timetable-row`, `sbb-journey-summary`, `sbb-pearl-chain`, `sbb-pearl-chain-time`: change the attribute `data-now` to `now`. The property `now` can be a Date or Unix timestamp. If you had a timestamp in milliseconds before, please divide by 1000 to get seconds.
+    - `sbb-clock`: change the attribute `data-now` to `now`. The property `now` has to be in the format "HH:MM:SS".
+* `Lyne components` and `Lyne components react` libraries have been renamed, please update imports accordingly.
+    - `@sbb-esta/lyne-components` => `@sbb-esta/lyne-elements`
+    - `@sbb-esta/lyne-components-react` => `@sbb-esta/lyne-react`
+    The following components, and their react wrappers, have been moved into `@sbb-esta/lyne-elements-experimental` and `@sbb-esta/lyne-react-experimental` respectively:
+    - sbb-journey-summary
+    - sbb-pearl-chain
+    - sbb-pearl-chain-time
+    - sbb-pearl-chain-vertical
+    - sbb-pearl-chain-vertical-item
+    - sbb-timetable-duration
+    - sbb-timetable-row
+* **sbb-link:** Due to screen reader limitations, we had to move the `link` role inside the Shadow DOM. Therefore, for the following components, replace the `[aria-label]` usages with `[accessibility-label]` attribute or `accessibilityLabel` property:
+    - `sbb-breadcrumb`
+    - `sbb-button-link`, `sbb-secondary-button-link`, `sbb-tertiary-button-link`, `sbb-transparent-button-link`
+    - `sbb-card-link`
+    - `sbb-header-link`
+    - `sbb-link`, `sbb-block-link`
+    - `sbb-menu-link`
+    - `sbb-navigation-link`
+    - `sbb-teaser`, `sbb-teaser-hero`, `sbb-teaser-paid`
+
+### Features
+
+* add 'now' property instead of data-now attribute ([#2674](https://github.com/sbb-design-systems/lyne-components/issues/2674)) ([94c25b1](https://github.com/sbb-design-systems/lyne-components/commit/94c25b1b84250ea39f07ea3c6efa38a1c9c74e39))
+* **file-selector:** add size s ([#2685](https://github.com/sbb-design-systems/lyne-components/issues/2685)) ([6783621](https://github.com/sbb-design-systems/lyne-components/commit/67836212fe5f8c5acc2f227933ba69490cdace54))
+* **journey-header:** add size s ([#2656](https://github.com/sbb-design-systems/lyne-components/issues/2656)) ([610ef3a](https://github.com/sbb-design-systems/lyne-components/commit/610ef3af31a161fadbc7202f54dc49a95c1fd3f4))
+* **sbb-lead-container:** add support for sbb-alert-group ([#2719](https://github.com/sbb-design-systems/lyne-components/issues/2719)) ([3d556f9](https://github.com/sbb-design-systems/lyne-components/commit/3d556f94eee2bc5326bd70112f143df4870ae19e)), closes [#2714](https://github.com/sbb-design-systems/lyne-components/issues/2714)
+* **sbb-lead-container:** initial implementation ([#2672](https://github.com/sbb-design-systems/lyne-components/issues/2672)) ([bb1f3a8](https://github.com/sbb-design-systems/lyne-components/commit/bb1f3a850291b533491563feca207cadcbd08a9d))
+* **sbb-popover:** change close button size ([#2688](https://github.com/sbb-design-systems/lyne-components/issues/2688)) ([1f259be](https://github.com/sbb-design-systems/lyne-components/commit/1f259beb31d09a185803f3b24e418489376c3bce))
+* **sbb-stepper:** introduce `sbb-stepper` component ([#2491](https://github.com/sbb-design-systems/lyne-components/issues/2491)) ([d389572](https://github.com/sbb-design-systems/lyne-components/commit/d389572284afad476961e996756adfa925e9cb1b))
+* **sbb-tab-group:** add size s variant ([#2683](https://github.com/sbb-design-systems/lyne-components/issues/2683)) ([c00aa58](https://github.com/sbb-design-systems/lyne-components/commit/c00aa58add944e30ad74a99e5058860b9d263251))
+* **sbb-tag, sbb-tag-group:** add size s variant ([#2664](https://github.com/sbb-design-systems/lyne-components/issues/2664)) ([6291bdc](https://github.com/sbb-design-systems/lyne-components/commit/6291bdcf62c7b5cecbd60296841a4dbd2e1b852b))
+
+
+### Bug Fixes
+
+* fix lead container tests ([d6355dd](https://github.com/sbb-design-systems/lyne-components/commit/d6355dd44f18b2b561e2ae91a055054b3944cc3e))
+* prevent stack overflow with attribute changes ([#2661](https://github.com/sbb-design-systems/lyne-components/issues/2661)) ([4b382ed](https://github.com/sbb-design-systems/lyne-components/commit/4b382ede1942ecf09fce323e2a57b7fac437d064))
+* **sbb-alert:** improve SSR hydration support ([#2650](https://github.com/sbb-design-systems/lyne-components/issues/2650)) ([1b09429](https://github.com/sbb-design-systems/lyne-components/commit/1b094291be6e03516bd4e41555c05fe2c6fa46c3))
+* **sbb-block-link:** always show underline except for footer links ([#2705](https://github.com/sbb-design-systems/lyne-components/issues/2705)) ([5fbedd2](https://github.com/sbb-design-systems/lyne-components/commit/5fbedd2b05a0b88e05e156b168409f8a741860f5))
+* **sbb-button:** fix gap between icon and text for size s ([#2678](https://github.com/sbb-design-systems/lyne-components/issues/2678)) ([38efbd8](https://github.com/sbb-design-systems/lyne-components/commit/38efbd86161f1bb59a66512c054543bfcf62bac2))
+* **sbb-datepicker:** handle hydration correctly ([#2721](https://github.com/sbb-design-systems/lyne-components/issues/2721)) ([058489a](https://github.com/sbb-design-systems/lyne-components/commit/058489a1323935a1142e5fa43ae5211f19d013f1)), closes [#2691](https://github.com/sbb-design-systems/lyne-components/issues/2691)
+* **sbb-dialog:** fix dialog-content z-index ([#2722](https://github.com/sbb-design-systems/lyne-components/issues/2722)) ([55b3446](https://github.com/sbb-design-systems/lyne-components/commit/55b34467bb0e734eb92466b94c7ab1ee3e0e9fc0))
+* **sbb-image:** render URL correctly with SSR ([#2712](https://github.com/sbb-design-systems/lyne-components/issues/2712)) ([fde1700](https://github.com/sbb-design-systems/lyne-components/commit/fde17007f0391fdf7cd6f1512477a8a67b65a1b6))
+* **sbb-link:** fix accessibility by inlining link functionality into Shadow DOM ([52344e9](https://github.com/sbb-design-systems/lyne-components/commit/52344e95138a622b2fa3012b7f13963002fde0de))
+* **sbb-option:** correctly determine highlight state with SSR ([#2713](https://github.com/sbb-design-systems/lyne-components/issues/2713)) ([d2d253c](https://github.com/sbb-design-systems/lyne-components/commit/d2d253c29faff01a3545fb759773449e7e75bd89)), closes [#2689](https://github.com/sbb-design-systems/lyne-components/issues/2689)
+* **sbb-radio-button:** fix checked initialization ([#2692](https://github.com/sbb-design-systems/lyne-components/issues/2692)) ([abdaf43](https://github.com/sbb-design-systems/lyne-components/commit/abdaf43389ac19f590b5b0326cc8783166bc243d))
+
+
+### Code Refactoring
+
+* create base class for overlay functionality ([#2599](https://github.com/sbb-design-systems/lyne-components/issues/2599)) ([2059719](https://github.com/sbb-design-systems/lyne-components/commit/20597192f0ca6a1cfbcfd229110574a35e1e9520))
+* rename `lyne-components` into `lyne-elements` and create `lyne-elements-experimental` ([edd3a73](https://github.com/sbb-design-systems/lyne-components/commit/edd3a730ee09d2ca3e54f77c6e1510ff83789ec9))
+
 ## [0.51.1](https://github.com/sbb-design-systems/lyne-components/compare/v0.51.0...v0.51.1) (2024-05-08)
 
 
