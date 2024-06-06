@@ -9,6 +9,7 @@ import {
 } from '../core/testing/private.js';
 import { waitForCondition } from '../core/testing/wait-for-condition.js';
 
+import '../alert.js';
 import '../breadcrumb.js';
 import '../image.js';
 import '../link/block-link/block-link.js';
@@ -31,6 +32,15 @@ describe(`sbb-lead-container`, () => {
         }
       </style>
       ${image}
+      <sbb-alert-group class="sbb-lead-container-spacing">
+        <sbb-alert
+          title-content="Interruption between Genève and Lausanne"
+          href="https://www.sbb.ch"
+          size="m"
+        >
+          The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+        </sbb-alert>
+      </sbb-alert-group>
       <sbb-breadcrumb-group class="sbb-lead-container-spacing">
         <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
         <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
@@ -46,9 +56,9 @@ describe(`sbb-lead-container`, () => {
       </sbb-block-link>
       <sbb-title class="sbb-lead-container-spacing">Title</sbb-title>
       <p class="sbb-text-xl sbb-lead-container-lead-text">
-        Lead text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit,
-        ultricies in tincidunt quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc
-        ut, hendrerit risus.
+        Lead text. Lorem ipsum dolor sit amet, adipiscing elit. Integer enim elit, ultricies in
+        tincidunt quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit
+        risus.
       </p>
       <p class="sbb-text-m other-content">
         Other content. Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula.
@@ -63,29 +73,39 @@ describe(`sbb-lead-container`, () => {
     it(
       'with sbb-image',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          leadContainerTemplate(
-            html`<sbb-image
-              slot="image"
-              image-src=${leadImageUrl}
-              alt="Station of Lucerne from outside"
-            ></sbb-image>`,
-          ),
-        );
+        root = (
+          await setup.withFixture(
+            leadContainerTemplate(
+              html`<sbb-image
+                slot="image"
+                image-src=${leadImageUrl}
+                alt="Station of Lucerne from outside"
+              ></sbb-image>`,
+            ),
+            wrapperStyles,
+          )
+        ).snapshotElement;
+
         await waitForCondition(() => root.querySelector('sbb-image')!.hasAttribute('data-loaded'));
-        await aTimeout(20);
+        await aTimeout(100);
       }),
     );
 
     it(
       'with img tag',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          leadContainerTemplate(
-            html`<img slot="image" src=${leadImageBase64} alt="Station of Lucerne from outside" />`,
-          ),
-          wrapperStyles,
-        );
+        root = (
+          await setup.withFixture(
+            leadContainerTemplate(
+              html`<img
+                slot="image"
+                src=${leadImageBase64}
+                alt="Station of Lucerne from outside"
+              />`,
+            ),
+            wrapperStyles,
+          )
+        ).snapshotElement;
         await waitForCondition(() => root.querySelector('img')!.complete);
       }),
     );
