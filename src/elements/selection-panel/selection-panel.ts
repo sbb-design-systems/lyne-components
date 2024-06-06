@@ -25,6 +25,7 @@ import '../divider.js';
  */
 @customElement('sbb-selection-panel')
 export class SbbSelectionPanelElement extends LitElement {
+  // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     willOpen: 'willOpen',

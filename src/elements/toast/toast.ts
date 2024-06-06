@@ -1,17 +1,17 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import {
   SbbConnectedAbortController,
   SbbLanguageController,
   SbbSlotStateController,
 } from '../core/controllers.js';
 import { isFirefox } from '../core/dom.js';
-import { composedPathHasAttribute, EventEmitter } from '../core/eventing.js';
+import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
-import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
 import '../button/transparent-button.js';
@@ -40,14 +40,8 @@ const toastRefs = new Set<SbbToastElement>();
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-toast')
-export class SbbToastElement extends SbbIconNameMixin(LitElement) {
+export class SbbToastElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
-  } as const;
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
@@ -66,26 +60,6 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
    * Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
    */
   @property() public politeness: 'polite' | 'assertive' | 'off' = 'polite';
-
-  /* The state of the toast. */
-  private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
-  }
-  private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
-  /** Emits whenever the `sbb-toast` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willOpen);
-
-  /** Emits whenever the `sbb-toast` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didOpen);
-
-  /** Emits whenever the `sbb-toast` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willClose);
-
-  /** Emits whenever the `sbb-toast` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didClose);
 
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _abort = new SbbConnectedAbortController(this);
@@ -112,14 +86,14 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
    * If there are other opened toasts in the page, close them first.
    */
   public open(): void {
-    if (this._state !== 'closed') {
+    if (this.state !== 'closed') {
       return;
     }
 
-    if (!this._willOpen.emit()) {
+    if (!this.willOpen.emit()) {
       return;
     }
-    this._state = 'opening';
+    this.state = 'opening';
     this._closeOtherToasts();
   }
 
@@ -127,15 +101,15 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
    * Close the toast.
    */
   public close(): void {
-    if (this._state !== 'opened') {
+    if (this.state !== 'opened') {
       return;
     }
 
-    if (!this._willClose.emit()) {
+    if (!this.willClose.emit()) {
       return;
     }
     clearTimeout(this._closeTimeout);
-    this._state = 'closing';
+    this.state = 'closing';
   }
 
   // Close the toast on click of any element that has the 'sbb-toast-close' attribute.
@@ -154,7 +128,6 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._state ||= 'closed';
 
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
@@ -213,9 +186,9 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onToastAnimationEnd(event: AnimationEvent): void {
     // On toast opened
-    if (event.animationName === 'open' && this._state === 'opening') {
-      this._state = 'opened';
-      this._didOpen.emit();
+    if (event.animationName === 'open' && this.state === 'opening') {
+      this.state = 'opened';
+      this.didOpen.emit();
 
       // Start the countdown to close it
       if (this.timeout) {
@@ -224,9 +197,9 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
     }
 
     // On toast closed
-    if (event.animationName === 'close' && this._state === 'closing') {
-      this._state = 'closed';
-      this._didClose.emit();
+    if (event.animationName === 'close' && this.state === 'closing') {
+      this.state = 'closed';
+      this.didClose.emit();
     }
   }
 
