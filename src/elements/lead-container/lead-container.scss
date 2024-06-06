@@ -44,6 +44,10 @@
   margin-block-end: var(--sbb-spacing-fixed-4x);
 }
 
+::slotted(:is(sbb-alert, sbb-alert-group).sbb-lead-container-spacing) {
+  margin-block-end: var(--sbb-spacing-responsive-m);
+}
+
 ::slotted(sbb-title.sbb-lead-container-spacing) {
   margin-block-start: 0;
 }
