@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html, isServer, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -8,7 +8,7 @@ import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
-import { SbbNegativeMixin } from '../../core/mixins.js';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover.js';
 import type { SbbDatepickerElement, SbbInputUpdateEvent } from '../datepicker.js';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker.js';
@@ -25,7 +25,7 @@ import '../../popover.js';
 @hostAttributes({
   slot: 'prefix',
 })
-export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
+export class SbbDatepickerToggleElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** Datepicker reference. */
@@ -36,6 +36,8 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   @state() private _min: string | number | null | undefined = null;
 
   @state() private _max: string | number | null | undefined = null;
+
+  @state() private _renderCalendar = false;
 
   private _datePickerElement: SbbDatepickerElement | null | undefined;
 
@@ -48,6 +50,13 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   private _datePickerController!: AbortController;
 
   private _language = new SbbLanguageController(this);
+
+  public constructor() {
+    super();
+    if (!isServer) {
+      this.hydrationComplete.then(() => (this._renderCalendar = true));
+    }
+  }
 
   /**
    * Opens the calendar.
@@ -171,7 +180,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
       <sbb-popover-trigger
         icon-name="calendar-small"
         aria-label=${i18nShowCalendar[this._language.current]}
-        ?disabled=${!this._datePickerElement || this._disabled}
+        ?disabled=${!isServer && (!this._datePickerElement || this._disabled)}
         ?negative=${this.negative}
         data-icon-small
         ${ref((el?: Element) => (this._triggerElement = el as SbbPopoverTriggerElement))}
@@ -186,19 +195,21 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
         hide-close-button
         ${ref((el?: Element) => (this._popoverElement = el as SbbPopoverElement))}
       >
-        <sbb-calendar
-          .min=${this._min}
-          .max=${this._max}
-          .now=${this._nowOrUndefined()}
-          ?wide=${this._datePickerElement?.wide}
-          .dateFilter=${this._datePickerElement?.dateFilter}
-          @dateSelected=${(d: CustomEvent<Date>) => {
-            const newDate = new Date(d.detail);
-            this._calendarElement.selected = newDate;
-            this._datePickerElement?.setValueAsDate(newDate);
-          }}
-          ${ref((calendar?: Element) => this._assignCalendar(calendar as SbbCalendarElement))}
-        ></sbb-calendar>
+        ${this._renderCalendar
+          ? html`<sbb-calendar
+              .min=${this._min}
+              .max=${this._max}
+              .now=${this._nowOrUndefined()}
+              ?wide=${this._datePickerElement?.wide}
+              .dateFilter=${this._datePickerElement?.dateFilter}
+              @dateSelected=${(d: CustomEvent<Date>) => {
+                const newDate = new Date(d.detail);
+                this._calendarElement.selected = newDate;
+                this._datePickerElement?.setValueAsDate(newDate);
+              }}
+              ${ref((calendar?: Element) => this._assignCalendar(calendar as SbbCalendarElement))}
+            ></sbb-calendar>`
+          : nothing}
       </sbb-popover>
     `;
   }

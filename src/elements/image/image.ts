@@ -18,7 +18,6 @@ import {
 import {
   type CSSResultGroup,
   html,
-  isServer,
   LitElement,
   nothing,
   type PropertyValues,
@@ -406,11 +405,14 @@ export class SbbImageElement extends LitElement {
   }
 
   private _prepareImageUrl(baseUrl: string | undefined, lquip = false): string {
-    if (!baseUrl || baseUrl === '' || isServer) {
+    if (!baseUrl || baseUrl === '') {
       return '';
     }
 
-    const imageUrlObj = new URL(baseUrl);
+    // Creating an URL without a schema will fail, but is a valid input for baseUrl.
+    // e.g. image-src can be https://example.com/my-image.png or /my-image.png
+    const isFullyQualifiedUrl = !!baseUrl.match(/^\w+:\/\//);
+    const imageUrlObj = isFullyQualifiedUrl ? new URL(baseUrl) : new URL(`http://noop/${baseUrl}`);
 
     if (lquip) {
       // blur and size: ?blur=100&w=100&h=56
@@ -437,7 +439,11 @@ export class SbbImageElement extends LitElement {
       imageUrlObj.searchParams.append('fp-debug', 'true');
     }
 
-    return imageUrlObj.href;
+    // In case of "noop" host, we don't return the host and must remove the
+    // starting `/` of the pathname.
+    return isFullyQualifiedUrl
+      ? imageUrlObj.href
+      : imageUrlObj.pathname.substring(1) + imageUrlObj.search;
   }
 
   private _preparePictureSizeConfigs(): InterfaceImageAttributesSizesConfigBreakpoint[] {
