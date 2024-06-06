@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-stepper renders - Dom"] = 
+snapshots["sbb-stepper renders - DOM"] = 
 `<sbb-stepper
   data-disable-animation=""
   orientation="horizontal"
@@ -91,9 +91,9 @@ snapshots["sbb-stepper renders - Dom"] =
   </sbb-step-label>
 </sbb-stepper>
 `;
-/* end snapshot sbb-stepper renders - Dom */
+/* end snapshot sbb-stepper renders - DOM */
 
-snapshots["sbb-stepper renders - ShadowDom"] = 
+snapshots["sbb-stepper renders - Shadow DOM"] = 
 `<div class="sbb-stepper">
   <div
     class="sbb-stepper__labels"
@@ -108,7 +108,7 @@ snapshots["sbb-stepper renders - ShadowDom"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-stepper renders - ShadowDom */
+/* end snapshot sbb-stepper renders - Shadow DOM */
 
 snapshots["sbb-stepper A11y tree Chrome"] = 
 `<p>

@@ -15,11 +15,11 @@ describe('sbb-step-label', () => {
       root = await fixture(html`<sbb-step-label>Label</sbb-step-label>`);
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
@@ -29,11 +29,11 @@ describe('sbb-step-label', () => {
       root = await fixture(html`<sbb-step-label icon-name="tick-small">Label</sbb-step-label>`);
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
@@ -43,11 +43,11 @@ describe('sbb-step-label', () => {
       root = await fixture(html`<sbb-step-label disabled>Label</sbb-step-label>`);
     });
 
-    it('Dom', async () => {
+    it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('ShadowDom', async () => {
+    it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });

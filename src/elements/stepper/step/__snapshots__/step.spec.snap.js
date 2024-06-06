@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-step renders - Dom"] = 
+snapshots["sbb-step renders - DOM"] = 
 `<sbb-step
   id="sbb-step-0"
   role="tabpanel"
@@ -10,9 +10,9 @@ snapshots["sbb-step renders - Dom"] =
   Step content
 </sbb-step>
 `;
-/* end snapshot sbb-step renders - Dom */
+/* end snapshot sbb-step renders - DOM */
 
-snapshots["sbb-step renders - ShadowDom"] = 
+snapshots["sbb-step renders - Shadow DOM"] = 
 `<div class="sbb-step--wrapper">
   <div class="sbb-step">
     <slot>
@@ -20,7 +20,7 @@ snapshots["sbb-step renders - ShadowDom"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-step renders - ShadowDom */
+/* end snapshot sbb-step renders - Shadow DOM */
 
 snapshots["sbb-step A11y tree Chrome"] = 
 `<p>
