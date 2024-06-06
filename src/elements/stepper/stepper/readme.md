@@ -1,6 +1,6 @@
 The `sbb-stepper` is a component that visually guides a user through a sequential, multi-step process. It breaks down complex forms, flows, or other linear interactions into smaller, easier-to-follow steps. The current step is highlighted, and a progress bar connects the steps to visually represent progress.
 
-Use it with [sbb-step-label](/docs/components-sbb-stepper-sbb-step-label--docs) and [sbb-step](/docs/components-sbb-stepper-sbb-step--docs).
+Use it with [sbb-step-label](/docs/elements-sbb-stepper-sbb-step-label--docs) and [sbb-step](/docs/elements-sbb-stepper-sbb-step--docs).
 
 ```html
 <sbb-stepper aria-label="Purpose of this flow">
