@@ -287,7 +287,6 @@ export class SbbStepperElement extends LitElement {
       const current: number = enabledSteps.indexOf(this.selected!);
       const nextIndex: number = getNextElementIndex(evt, current, enabledSteps.length);
       this._select(enabledSteps[nextIndex]);
-      enabledSteps[nextIndex]?.label?.focus();
       evt.preventDefault();
     }
   }
