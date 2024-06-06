@@ -6,7 +6,7 @@ Use the `sbb-step` with the `sbb-stepper` to display a step content.
 
 ## Slots
 
-It has an implicit slot name: `step`.
+It has an implicit slot named `step`.
 
 ## Events
 
