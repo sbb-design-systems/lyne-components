@@ -12,8 +12,6 @@
   --sbb-radio-button-border-color: var(--sbb-color-smoke);
   --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
   --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
-  --sbb-radio-button-suffix-color: var(--sbb-color-charcoal);
-  --sbb-radio-button-subtext-color: var(--sbb-color-granite);
   --sbb-radio-button-cursor: pointer;
 
   // The border in unchecked state should fill the circle.
@@ -59,15 +57,14 @@
   }
 }
 
-.sbb-radio-button__input {
+.sbb-screen-reader-only {
   @include sbb.screen-reader-only;
 }
 
-// One radio button per line
 .sbb-radio-button {
   @include sbb.text-m--regular;
 
-  :host([size='s']:not([data-is-selection-expansion-panel-input])) & {
+  :host([size='s']) & {
     @include sbb.text-s--regular;
   }
 
@@ -77,20 +74,6 @@
   position: relative;
   color: var(--sbb-radio-button-label-color);
   -webkit-tap-highlight-color: transparent;
-}
-
-slot[name='suffix'] {
-  color: var(--sbb-radio-button-suffix-color);
-}
-
-slot[name='subtext'] {
-  display: block;
-  color: var(--sbb-radio-button-subtext-color);
-  padding-inline-start: var(--sbb-spacing-fixed-8x);
-
-  :host(:not([data-slot-names~='subtext'])) & {
-    display: none;
-  }
 }
 
 .sbb-radio-button__label-slot {

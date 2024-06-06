@@ -3,10 +3,8 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import { SbbPanelMixin, SbbUpdateSchedulerMixin, panelCommonStyle } from '../../core/mixins.js';
 import { SbbRadioButtonCommonElementMixin, radioButtonCommonStyle } from '../common.js';
-
-import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
 
 /**
  /**
@@ -20,7 +18,7 @@ import radioButtonPanelStyle from './radio-button-panel.scss?lit&inline';
 export class SbbRadioButtonPanelElement extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonPanelStyle];
+  public static override styles: CSSResultGroup = [radioButtonCommonStyle, panelCommonStyle];
   public static readonly events = {
     stateChange: 'stateChange',
     radioButtonLoaded: 'radioButtonLoaded',
@@ -49,22 +47,24 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <label class="sbb-radio-button">
-        <input
-          type="radio"
-          aria-hidden="true"
-          tabindex="-1"
-          ?disabled=${this.disabled}
-          ?required=${this.required}
-          ?checked=${this.checked}
-          value=${this.value || nothing}
-          class="sbb-radio-button__input"
-        />
-        <span class="sbb-radio-button__label-slot">
-          <slot></slot>
-          <slot name="suffix"></slot>
+      <label class="sbb-selection-panel">
+        <span class="sbb-radio-button">
+          <input
+            type="radio"
+            aria-hidden="true"
+            tabindex="-1"
+            ?disabled=${this.disabled}
+            ?required=${this.required}
+            ?checked=${this.checked}
+            value=${this.value || nothing}
+            class="sbb-screen-reader-only"
+          />
+          <span class="sbb-radio-button__label-slot">
+            <slot></slot>
+            <slot name="suffix"></slot>
+          </span>
+          <slot name="subtext"></slot>
         </span>
-        <slot name="subtext"></slot>
       </label>
     `;
   }

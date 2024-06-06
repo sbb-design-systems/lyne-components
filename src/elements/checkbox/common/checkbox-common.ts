@@ -1,16 +1,10 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { EventEmitter } from '../../core/eventing.js';
-import type {
-  SbbCheckedStateChange,
-  SbbDisabledStateChange,
-  SbbStateChange,
-} from '../../core/interfaces.js';
 import {
-  SbbFormAssociatedCheckboxMixin,
   type Constructor,
   type SbbDisabledMixinType,
+  SbbFormAssociatedCheckboxMixin,
   type SbbFormAssociatedCheckboxMixinType,
   type SbbRequiredMixinType,
 } from '../../core/mixins.js';
@@ -18,21 +12,16 @@ import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
 
 export type SbbCheckboxSize = 's' | 'm';
 
-export type SbbCheckboxStateChange = Extract<
-  SbbStateChange,
-  SbbDisabledStateChange | SbbCheckedStateChange
->;
-
 export declare class SbbCheckboxCommonElementMixinType
   extends SbbFormAssociatedCheckboxMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
   public indeterminate: boolean;
 
-  public get group(): SbbCheckboxGroupElement | null;
+  public set size(value: SbbCheckboxSize);
+  public get size(): SbbCheckboxSize;
 
-  protected stateChange: EventEmitter<SbbCheckboxStateChange>;
-  protected checkboxLoaded: EventEmitter<void>;
+  public get group(): SbbCheckboxGroupElement | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -43,12 +32,6 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
     extends SbbFormAssociatedCheckboxMixin(superClass)
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
-    public static readonly events = {
-      didChange: 'didChange',
-      stateChange: 'stateChange',
-      checkboxLoaded: 'checkboxLoaded',
-    } as const;
-
     /** Whether the checkbox is indeterminate. */
     @property({ type: Boolean }) public indeterminate = false;
 
@@ -68,32 +51,9 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
     }
     private _group: SbbCheckboxGroupElement | null = null;
 
-    /**
-     * @internal
-     * Internal event that emits whenever the state of the checkbox
-     * in relation to the parent selection panel changes.
-     */
-    protected stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
-      this,
-      SbbCheckboxCommonElement.events.stateChange,
-      { bubbles: true },
-    );
-
-    /**
-     * @internal
-     * Internal event that emits when the checkbox is loaded.
-     */
-    private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
-      this,
-      SbbCheckboxCommonElement.events.checkboxLoaded,
-      { bubbles: true },
-    );
-
     public override connectedCallback(): void {
       super.connectedCallback();
       this._group = this.closest('sbb-checkbox-group') as SbbCheckboxGroupElement;
-
-      this._checkboxLoaded.emit();
 
       // We need to call requestUpdate to update the reflected attributes
       ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));

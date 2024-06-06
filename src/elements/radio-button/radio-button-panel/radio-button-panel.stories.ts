@@ -95,8 +95,8 @@ const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>
           role="img"
           aria-hidden="true"
         ></sbb-icon>
-        <span class="sbb-text-m sbb-text--bold">
-          <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
+        <span class="${args['size'] ? `sbb-text-${args['size']}` : 'sbb-text-m'} sbb-text--bold">
+          CHF 40.00
         </span>
       </span>
     </span>
@@ -151,14 +151,8 @@ export const CheckedBold: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [withActions as Decorator],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

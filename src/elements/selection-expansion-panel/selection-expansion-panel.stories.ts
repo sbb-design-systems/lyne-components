@@ -91,9 +91,7 @@ const suffixAndSubtext = (): TemplateResult => html`
   <span slot="suffix" style="margin-inline-start: auto;">
     <span style=${styleMap(suffixStyle)}>
       <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-      <span class="sbb-text-m sbb-text--bold">
-        <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
-      </span>
+      <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
     </span>
   </span>
 `;
@@ -215,28 +213,24 @@ const TicketsOptionsExampleTemplate = ({
       </sbb-checkbox-panel>
       <div slot="content">
         <sbb-radio-button-group orientation="vertical" value="non-flex">
-          <sbb-radio-button-panel value="non-flex" style="width: 100%;">
+          <sbb-radio-button value="non-flex" style="width: 100%;">
             Non-Flex
-            <span slot="subtext">No refund possible</span>
-            <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
-              <span style=${styleMap(suffixStyle)}>
-                <span class="sbb-text-m"> <span class="sbb-text-xxs">CHF</span> 0.00 </span>
-              </span>
+            <span style="margin-inline-start: auto; color: var(--sbb-color-granite);">
+              <span class="sbb-text-m">CHF 0.00</span>
             </span>
-          </sbb-radio-button-panel>
-          <sbb-radio-button-panel value="semi-flex" style="width: 100%;">
+          </sbb-radio-button>
+          <sbb-radio-button value="semi-flex" style="width: 100%;">
             Semi-Flex
-            <span slot="subtext">Partial refund possible</span>
-            <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
-              <span style=${styleMap(suffixStyle)}>
-                <span class="sbb-text-m"> <span class="sbb-text-xxs">+ CHF</span> 5.00 </span>
-              </span>
+            <span style="margin-inline-start: auto; color: var(--sbb-color-granite);">
+              <span class="sbb-text-m">+ CHF 5.00</span>
             </span>
-          </sbb-radio-button-panel>
+          </sbb-radio-button>
         </sbb-radio-button-group>
         <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs);"></sbb-divider>
         <span style="color: var(--sbb-color-granite);">
-          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x);">
+          <div
+            style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); color:var(--sbb-color-charcoal);"
+          >
             1 x 0 x Supersaver ticket, Half-Fare Card${' '}
             <sbb-popover-trigger
               id="popover-trigger-1"
@@ -261,26 +255,24 @@ const TicketsOptionsExampleTemplate = ({
       </sbb-checkbox-panel>
       <div slot="content">
         <sbb-checkbox-group orientation="vertical">
-          <sbb-checkbox-panel value="option-1" style="width: 100%;">
+          <sbb-checkbox value="option-1" style="width: 100%;">
             Option one
-            <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
-              <span style=${styleMap(suffixStyle)}>
-                <span class="sbb-text-m"> <span class="sbb-text-xxs">CHF</span> 0.00 </span>
-              </span>
+            <span style="margin-inline-start: auto; color: var(--sbb-color-granite);">
+              <span class="sbb-text-m">CHF 0.00</span>
             </span>
-          </sbb-checkbox-panel>
-          <sbb-checkbox-panel value="option-2" style="width: 100%;">
+          </sbb-checkbox>
+          <sbb-checkbox value="option-2" style="width: 100%;">
             Option two
-            <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
-              <span style=${styleMap(suffixStyle)}>
-                <span class="sbb-text-m"> <span class="sbb-text-xxs">+ CHF</span> 5.00 </span>
-              </span>
+            <span style="margin-inline-start: auto; color: var(--sbb-color-granite);">
+              <span class="sbb-text-m">+ CHF 5.00</span>
             </span>
-          </sbb-checkbox-panel>
+          </sbb-checkbox>
         </sbb-checkbox-group>
         <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs);"></sbb-divider>
         <span style="color: var(--sbb-color-granite);">
-          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x);">
+          <div
+            style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); color: var(--sbb-color-charcoal);"
+          >
             1 x 0 x City Ticket incl. City Supplement City, Half-Fare Card${' '}
             <sbb-popover-trigger
               id="popover-trigger-2"
@@ -383,19 +375,23 @@ const WithCheckboxesErrorMessageTemplate = ({
     >
       <sbb-selection-expansion-panel ${sbbSpread(args)}>
         ${cardBadge()}
-        <sbb-checkbox ?checked=${checkedInput}> Value one ${suffixAndSubtext()} </sbb-checkbox>
+        <sbb-checkbox-panel ?checked=${checkedInput}>
+          Value one ${suffixAndSubtext()}
+        </sbb-checkbox-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
 
       <sbb-selection-expansion-panel ${sbbSpread(args)}>
         ${cardBadge()}
-        <sbb-checkbox ?disabled=${disabledInput}> Value two ${suffixAndSubtext()} </sbb-checkbox>
+        <sbb-checkbox-panel ?disabled=${disabledInput}>
+          Value two ${suffixAndSubtext()}
+        </sbb-checkbox-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
 
       <sbb-selection-expansion-panel ${sbbSpread(args)}>
         ${cardBadge()}
-        <sbb-checkbox> Value three ${suffixAndSubtext()} </sbb-checkbox>
+        <sbb-checkbox-panel> Value three ${suffixAndSubtext()} </sbb-checkbox-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
       ${sbbFormError}

@@ -1,6 +1,6 @@
-@use './a11y';
+@use '../styles' as sbb;
 
-@mixin selection-panel-variables {
+:host {
   --sbb-selection-panel-background: var(
     --sbb-selection-expansion-panel-inner-background,
     var(--sbb-color-white)
@@ -18,24 +18,43 @@
     var(--sbb-animation-duration-4x)
   );
   --sbb-selection-panel-cursor: pointer;
+  --sbb-selection-panel-suffix-color: var(--sbb-color-charcoal);
+  --sbb-selection-panel-subtext-color: var(--sbb-color-granite);
+
+  display: block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 }
 
-@mixin selection-panel-milk-variables {
+:host([color='milk']) {
   --sbb-selection-panel-background: var(
     --sbb-selection-expansion-panel-inner-background,
     var(--sbb-color-milk)
   );
 }
 
-@mixin selection-panel-borderless-variables {
+:host([borderless]:not([checked], [data-checked])) {
   --sbb-selection-panel-border-color: transparent;
 }
 
-@mixin selection-panel {
+:host(:is([checked], [data-checked]):not(:disabled, [disabled])) {
+  --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
+  --sbb-selection-panel-border-width: var(
+    --sbb-selection-expansion-panel-inner-border-width,
+    var(--sbb-border-width-2x)
+  );
+}
+
+:host(:is(:disabled, [disabled])) {
+  --sbb-selection-panel-cursor: default;
+}
+
+.sbb-selection-panel {
+  display: block;
   cursor: var(--sbb-selection-panel-cursor);
-  flex: auto;
   position: relative;
-  width: 100%;
   border-radius: var(--sbb-selection-panel-border-radius);
   box-shadow: inset 0 0 0 var(--sbb-selection-panel-border-width)
     var(--sbb-selection-panel-border-color);
@@ -49,7 +68,7 @@
   }
 
   // For high contrast mode we need a real border
-  @include a11y.if-forced-colors {
+  @include sbb.if-forced-colors {
     &::after {
       content: '';
       display: block;
@@ -60,16 +79,22 @@
       border-radius: var(--sbb-selection-panel-border-radius);
     }
   }
+
+  :host(:focus-visible) & {
+    @include sbb.focus-outline;
+  }
 }
 
-@mixin selection-panel-checked-variables {
-  --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
-  --sbb-selection-panel-border-width: var(
-    --sbb-selection-expansion-panel-inner-border-width,
-    var(--sbb-border-width-2x)
-  );
+slot[name='suffix'] {
+  color: var(--sbb-selection-panel-suffix-color);
 }
 
-@mixin selection-panel-disabled-variables {
-  --sbb-selection-panel-cursor: default;
+slot[name='subtext'] {
+  display: block;
+  color: var(--sbb-selection-panel-subtext-color);
+  padding-inline-start: var(--sbb-spacing-fixed-8x);
+
+  :host(:not([data-slot-names~='subtext'])) & {
+    display: none;
+  }
 }

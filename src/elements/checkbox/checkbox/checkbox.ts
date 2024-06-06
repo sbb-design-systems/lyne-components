@@ -25,6 +25,10 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxStyle];
 
+  public static readonly events = {
+    didChange: 'didChange',
+  } as const;
+
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
   public iconPlacement: SbbIconPlacement = 'end';
@@ -48,7 +52,9 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
             </span>
             <span class="sbb-checkbox__label">
               <slot></slot>
-              <span class="sbb-checkbox__label--icon">${this.renderIconSlot()}</span>
+              <span class="sbb-checkbox__label--icon sbb-checkbox__aligner"
+                >${this.renderIconSlot()}</span
+              >
             </span>
           </span>
         </span>
