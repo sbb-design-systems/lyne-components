@@ -20,13 +20,13 @@ const size: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  negative: negative,
-  size: size,
+  negative,
+  size,
 };
 
 const defaultArgs: Args = {
   negative: false,
-  size: 'm',
+  size: size.options![1],
 };
 
 const caption: () => TemplateResult = () => html`
@@ -70,16 +70,6 @@ const body: () => TemplateResult = () => html`
   </tbody>
 `;
 
-const footer: () => TemplateResult = () => html`
-  <!-- TODO -->
-  <!--  <tfoot>-->
-  <!--    <tr>-->
-  <!--      <th scope="row" colspan="2">Average age</th>-->
-  <!--      <td>33</td>-->
-  <!--    </tr>-->
-  <!--  </tfoot>-->
-`;
-
 const Template = (args: Args): TemplateResult => html`
   <sbb-table-wrapper>
     <table
@@ -90,7 +80,7 @@ const Template = (args: Args): TemplateResult => html`
         'sbb-table-m': args.size === 'm',
       })}
     >
-      ${caption()} ${header()} ${body()} ${footer()}
+      ${caption()} ${header()} ${body()}
     </table>
   </sbb-table-wrapper>
 `;

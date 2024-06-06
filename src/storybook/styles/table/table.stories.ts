@@ -26,13 +26,13 @@ const striped: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  size: size,
-  negative: negative,
-  striped: striped,
+  size,
+  negative,
+  striped,
 };
 
 const defaultArgs: Args = {
-  size: 'm',
+  size: size.options![1],
   negative: false,
   striped: true,
 };

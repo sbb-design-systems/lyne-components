@@ -1,6 +1,6 @@
-The `sbb-table-wrapper` is a wrapper for a table. Its aim is to enhance/automate tha native table capabilities.
+The `sbb-table-wrapper` is a wrapper for a table. Its goal is to enhance/automate the native table capabilities.
 
-As of now, it only handles overflow (vertical and horizontal).
+Currently, it only handles overflow (vertical and horizontal).
 
 ```html
 <sbb-table-wrapper>
