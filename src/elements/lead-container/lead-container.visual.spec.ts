@@ -72,6 +72,7 @@ describe(`sbb-lead-container`, () => {
                 alt="Station of Lucerne from outside"
               ></sbb-image>`,
             ),
+            wrapperStyles,
           )
         ).snapshotElement;
 
