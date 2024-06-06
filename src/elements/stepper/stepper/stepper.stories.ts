@@ -1,7 +1,7 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
@@ -18,6 +18,13 @@ import '../../button/secondary-button.js';
 import '../../form-field.js';
 import '../../form-error.js';
 import '../../card.js';
+
+const loremIpsum = `
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+  eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
+  eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+  sanctus est Lorem ipsum dolor sit amet.
+`;
 
 const linear: InputType = {
   control: {
@@ -64,6 +71,74 @@ const textBlock = (): TemplateResult => html`
   </sbb-card>
 `;
 
+const firstFormElement = (sbbFormError: SbbFormErrorElement): TemplateResult => html`
+  <sbb-form-field error-space="reserve" size="m">
+    <label>Name</label>
+    <input
+      @input=${(event: KeyboardEvent) => {
+        const input = event.currentTarget as HTMLInputElement;
+        if (input.value !== '') {
+          sbbFormError.remove();
+          input.classList.remove('sbb-invalid');
+        } else {
+          input.closest('sbb-form-field')!.append(sbbFormError);
+          input.classList.add('sbb-invalid');
+        }
+      }}
+      required
+      placeholder="Your name"
+      name="name"
+      value="Christina Müller"
+    />
+  </sbb-form-field>
+`;
+
+const secondFormElement = (): TemplateResult => html`
+  <sbb-form-field error-space="none" size="m">
+    <label>Favorite number</label>
+    <input type="number" placeholder="Your lucky number" name="number" value="75" />
+  </sbb-form-field>
+`;
+
+const thirdFormElement = (): TemplateResult => html`
+  <sbb-form-field error-space="none" size="m">
+    <label>Favorite animal</label>
+    <select name="animal">
+      <option>Panda 🐼</option>
+      <option>Jellyfish 🪼</option>
+      <option>Fox 🦊</option>
+      <option>Dragon 🐲</option>
+    </select>
+  </sbb-form-field>
+`;
+
+const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[] =>
+  ['First', 'Second', 'Third', 'Fourth'].map(
+    (element, index, arr) => html`
+      <sbb-step-label ?disabled=${disabled && index === 2}
+        >${longLabel ? loremIpsum : `${element} step`}</sbb-step-label
+      >
+      <sbb-step>
+        <div
+          tabindex="0"
+          class="sbb-focus-outline"
+          style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+        >
+          ${element} step content${longLabel ? '.' : `: ${loremIpsum}`}
+        </div>
+        ${index !== 0
+          ? html`<sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>`
+          : nothing}
+        ${index !== arr.length - 1
+          ? html`<sbb-button size="m" sbb-stepper-next>Next</sbb-button>`
+          : nothing}
+        ${index === arr.length - 1
+          ? html`<sbb-button size="m" sbb-stepper-next>Submit</sbb-button>`
+          : nothing}
+      </sbb-step>
+    `,
+  );
+
 const WithSingleFormTemplate = (args: Args): TemplateResult => {
   document.querySelector('sbb-stepper')?.reset();
   document.querySelector('sbb-form-error')?.remove();
@@ -98,37 +173,14 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           }}
         >
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-            <sbb-form-field error-space="reserve" size="m">
-              <label>Name</label>
-              <input
-                @input=${(event: KeyboardEvent) => {
-                  const input = event.currentTarget as HTMLInputElement;
-                  if (input.value !== '') {
-                    sbbFormError.remove();
-                    input.classList.remove('sbb-invalid');
-                  } else {
-                    input.closest('sbb-form-field')!.append(sbbFormError);
-                    input.classList.add('sbb-invalid');
-                  }
-                }}
-                required
-                placeholder="Your name"
-                name="name"
-                value="Christina Müller"
-              />
-            </sbb-form-field>
+            ${firstFormElement(sbbFormError)}
           </div>
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
 
         <sbb-step-label>Step 2</sbb-step-label>
         <sbb-step>
-          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-            <sbb-form-field error-space="none" size="m">
-              <label>Favorite number</label>
-              <input type="number" placeholder="Your lucky number" name="number" value="75" />
-            </sbb-form-field>
-          </div>
+          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">${secondFormElement()}</div>
           <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
@@ -138,17 +190,7 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           Step 3
         </sbb-step-label>
         <sbb-step>
-          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-            <sbb-form-field error-space="none" size="m">
-              <label>Favorite animal</label>
-              <select name="animal">
-                <option>Panda 🐼</option>
-                <option>Jellyfish 🪼</option>
-                <option>Fox 🦊</option>
-                <option>Dragon 🐲</option>
-              </select>
-            </sbb-form-field>
-          </div>
+          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">${thirdFormElement()}</div>
           <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
@@ -212,25 +254,7 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
               );
             }}
           >
-            <sbb-form-field error-space="reserve" size="m">
-              <label>Name</label>
-              <input
-                @input=${(event: KeyboardEvent) => {
-                  const input = event.currentTarget as HTMLInputElement;
-                  if (input.value !== '') {
-                    sbbFormError.remove();
-                    input.classList.remove('sbb-invalid');
-                  } else {
-                    input.closest('sbb-form-field')!.append(sbbFormError);
-                    input.classList.add('sbb-invalid');
-                  }
-                }}
-                required
-                placeholder="Your name"
-                name="name"
-                value="Christina Müller"
-              />
-            </sbb-form-field>
+            ${firstFormElement(sbbFormError)}
           </form>
         </div>
         <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
@@ -239,12 +263,7 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
       <sbb-step-label>Step 2</sbb-step-label>
       <sbb-step>
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-          <form>
-            <sbb-form-field error-space="none" size="m">
-              <label>Favorite number</label>
-              <input type="number" placeholder="Your lucky number" name="number" value="75" />
-            </sbb-form-field>
-          </form>
+          <form>${secondFormElement()}</form>
         </div>
         <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
         <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
@@ -253,17 +272,7 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
       <sbb-step-label icon-name="dog-small">Step 3</sbb-step-label>
       <sbb-step>
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-          <form>
-            <sbb-form-field error-space="none" size="m">
-              <label>Favorite animal</label>
-              <select name="animal">
-                <option>Panda 🐼</option>
-                <option>Jellyfish 🪼</option>
-                <option>Fox 🦊</option>
-                <option>Dragon 🐲</option>
-              </select>
-            </sbb-form-field>
-          </form>
+          <form>${thirdFormElement()}</form>
         </div>
         <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
         <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
@@ -295,132 +304,14 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
 
 const Template = ({ disabled, ...args }: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
-    <sbb-step-label>Step 1</sbb-step-label>
-    <sbb-step>
-      <div
-        tabindex="0"
-        class="sbb-focus-outline"
-        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
-      >
-        First step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-        eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-        sanctus est Lorem ipsum dolor sit amet.
-      </div>
-      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
-    </sbb-step>
-
-    <sbb-step-label>Step 2</sbb-step-label>
-    <sbb-step>
-      <div
-        tabindex="0"
-        class="sbb-focus-outline"
-        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
-      >
-        Second step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-        nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-        vero eos et accusam et justo duo dolores et ea rebum.
-      </div>
-      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
-    </sbb-step>
-
-    <sbb-step-label icon-name="tick-small" ?disabled=${disabled}>Step 3</sbb-step-label>
-    <sbb-step>
-      <div
-        tabindex="0"
-        class="sbb-focus-outline"
-        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
-      >
-        Third step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-      </div>
-      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
-    </sbb-step>
-
-    <sbb-step-label>Step 4</sbb-step-label>
-    <sbb-step>
-      <div
-        tabindex="0"
-        class="sbb-focus-outline"
-        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
-      >
-        Forth step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-        eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-        elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-        diam voluptua.
-      </div>
-      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-      <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
-    </sbb-step>
+    ${stepperContent(disabled, false)}
   </sbb-stepper>
   ${textBlock()}
 `;
 
 const LongLabelsTemplate = (args: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
-    <sbb-step-label
-      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
-    >
-    <sbb-step>
-      <div
-        tabindex="0"
-        class="sbb-focus-outline"
-        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
-      >
-        First step content.
-      </div>
-      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
-    </sbb-step>
-    <sbb-step-label
-      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-      tempor.</sbb-step-label
-    >
-    <sbb-step>
-      <div
-        tabindex="0"
-        class="sbb-focus-outline"
-        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
-      >
-        Second step content.
-      </div>
-      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
-    </sbb-step>
-    <sbb-step-label
-      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
-    >
-    <sbb-step>
-      <div
-        tabindex="0"
-        class="sbb-focus-outline"
-        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
-      >
-        Third step content.
-      </div>
-      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
-    </sbb-step>
-    <sbb-step-label
-      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-      tempor.</sbb-step-label
-    >
-    <sbb-step>
-      <div
-        tabindex="0"
-        class="sbb-focus-outline"
-        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
-      >
-        Forth step content.
-      </div>
-      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-      <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
-    </sbb-step>
+    ${stepperContent(false, true)}
   </sbb-stepper>
   ${textBlock()}
 `;
