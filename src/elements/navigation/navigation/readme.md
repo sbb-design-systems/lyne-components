@@ -66,19 +66,19 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 ## Methods
 
-| Name    | Privacy | Description            | Parameters | Return | Inherited From |
-| ------- | ------- | ---------------------- | ---------- | ------ | -------------- |
-| `close` | public  | Closes the navigation. |            | `void` |                |
-| `open`  | public  | Opens the navigation.  |            | `void` |                |
+| Name    | Privacy | Description            | Parameters | Return | Inherited From          |
+| ------- | ------- | ---------------------- | ---------- | ------ | ----------------------- |
+| `close` | public  | Closes the navigation. |            | `void` | SbbOpenCloseBaseElement |
+| `open`  | public  | Opens the navigation.  |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                | Description                                                                         | Inherited From |
-| ----------- | ------------------- | ----------------------------------------------------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is closed.                                      |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is opened.                                      |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled. |                |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled. |                |
+| Name        | Type                | Description                                                                         | Inherited From          |
+| ----------- | ------------------- | ----------------------------------------------------------------------------------- | ----------------------- |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is opened.                                      | SbbOpenCloseBaseElement |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 
