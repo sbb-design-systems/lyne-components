@@ -4,11 +4,11 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition } from '../../core/testing.js';
-import type { SbbTabTitleElement } from '../tab-title.js';
+import type { SbbTabLabelElement } from '../tab-label.js';
 
 import { SbbTabGroupElement } from './tab-group.js';
 
-import '../tab-title.js';
+import '../tab-label.js';
 
 describe(`sbb-tab-group with ${fixture.name}`, () => {
   let element: SbbTabGroupElement;
@@ -16,15 +16,15 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
   beforeEach(async () => {
     element = await fixture(
       html` <sbb-tab-group initial-selected-index="1">
-        <sbb-tab-title id="sbb-tab-1">Test tab label 1</sbb-tab-title>
+        <sbb-tab-label id="sbb-tab-1">Test tab label 1</sbb-tab-label>
         <div>Test tab content 1</div>
-        <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
+        <sbb-tab-label id="sbb-tab-2">Test tab label 2</sbb-tab-label>
         <div>Test tab content 2</div>
-        <sbb-tab-title id="sbb-tab-3" disabled>Test tab label 3</sbb-tab-title>
+        <sbb-tab-label id="sbb-tab-3" disabled>Test tab label 3</sbb-tab-label>
         <div>Test tab content 3</div>
-        <sbb-tab-title id="sbb-tab-4">Test tab label 4</sbb-tab-title>
+        <sbb-tab-label id="sbb-tab-4">Test tab label 4</sbb-tab-label>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.ts', '../tab-title.ts'] },
+      { modules: ['./tab-group.ts', '../tab-label.ts'] },
     );
   });
 
@@ -34,7 +34,7 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
 
   it('renders tab content', async () => {
     const content = element.querySelector<HTMLDivElement>(
-      ':scope > sbb-tab-title:first-of-type + div',
+      ':scope > sbb-tab-label:first-of-type + div',
     )!;
 
     expect(content.textContent).to.be.equal('Test tab content 1');
@@ -42,28 +42,28 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
 
   it('renders no content tab panel', async () => {
     const content = element.querySelector<HTMLDivElement>(
-      ':scope > sbb-tab-title#sbb-tab-4 + div',
+      ':scope > sbb-tab-label#sbb-tab-4 + div',
     )!;
 
     expect(content.textContent).to.be.equal('No content.');
   });
 
   it('renders initial selected index', async () => {
-    const initialSelectedTab = element.querySelector(':scope > sbb-tab-title#sbb-tab-2');
+    const initialSelectedTab = element.querySelector(':scope > sbb-tab-label#sbb-tab-2');
 
     expect(initialSelectedTab).to.have.attribute('active');
   });
 
   describe('events', () => {
     it('selects tab on click', async () => {
-      const tab = element.querySelector<SbbTabTitleElement>(':scope > sbb-tab-title#sbb-tab-1')!;
+      const tab = element.querySelector<SbbTabLabelElement>(':scope > sbb-tab-label#sbb-tab-1')!;
 
       tab.click();
       expect(tab).to.have.attribute('active');
     });
 
     it('dispatches event on tab change', async () => {
-      const tab = element.querySelector<SbbTabTitleElement>(':scope > sbb-tab-title#sbb-tab-1')!;
+      const tab = element.querySelector<SbbTabLabelElement>(':scope > sbb-tab-label#sbb-tab-1')!;
       const changeSpy = new EventSpy(SbbTabGroupElement.events.didChange);
 
       tab.click();
@@ -74,7 +74,7 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
     it('selects tab on left arrow key pressed', async () => {
       await sendKeys({ down: 'Tab' });
       await sendKeys({ down: 'ArrowLeft' });
-      const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-1');
+      const tab = element.querySelector(':scope > sbb-tab-label#sbb-tab-1');
 
       expect(tab).to.have.attribute('active');
     });
@@ -82,7 +82,7 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
     it('selects tab on right arrow key pressed', async () => {
       await sendKeys({ down: 'Tab' });
       await sendKeys({ down: 'ArrowRight' });
-      const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-4');
+      const tab = element.querySelector(':scope > sbb-tab-label#sbb-tab-4');
 
       expect(tab).to.have.attribute('active');
     });
@@ -91,7 +91,7 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
       await sendKeys({ down: 'Tab' });
       await sendKeys({ down: 'ArrowRight' });
       await sendKeys({ down: 'ArrowRight' });
-      const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-1');
+      const tab = element.querySelector(':scope > sbb-tab-label#sbb-tab-1');
 
       expect(tab).to.have.attribute('active');
     });
@@ -100,7 +100,7 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
       await sendKeys({ down: 'Tab' });
       await sendKeys({ down: 'ArrowLeft' });
       await sendKeys({ down: 'ArrowLeft' });
-      const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-4');
+      const tab = element.querySelector(':scope > sbb-tab-label#sbb-tab-4');
 
       expect(tab).to.have.attribute('active');
     });
@@ -109,28 +109,28 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
   it('activates the first enabled tab if exceeds the length of the tab group', async () => {
     element = await fixture(
       html` <sbb-tab-group initial-selected-index="2">
-        <sbb-tab-title id="sbb-tab-1">Test tab label 1</sbb-tab-title>
+        <sbb-tab-label id="sbb-tab-1">Test tab label 1</sbb-tab-label>
         <div>Test tab content 1</div>
-        <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
+        <sbb-tab-label id="sbb-tab-2">Test tab label 2</sbb-tab-label>
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.ts', '../tab-title.ts'] },
+      { modules: ['./tab-group.ts', '../tab-label.ts'] },
     );
-    const tab = element.querySelector('sbb-tab-title#sbb-tab-1');
+    const tab = element.querySelector('sbb-tab-label#sbb-tab-1');
     expect(tab).to.have.attribute('active');
   });
 
   it('activates the first enabled tab if targets a disabled tab', async () => {
     element = await fixture(
       html` <sbb-tab-group initial-selected-index="0">
-        <sbb-tab-title disabled>Test tab label 1</sbb-tab-title>
+        <sbb-tab-label disabled>Test tab label 1</sbb-tab-label>
         <div>Test tab content 1</div>
-        <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
+        <sbb-tab-label id="sbb-tab-2">Test tab label 2</sbb-tab-label>
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.ts', '../tab-title.ts'] },
+      { modules: ['./tab-group.ts', '../tab-label.ts'] },
     );
-    const tab = element.querySelector('sbb-tab-title#sbb-tab-2');
+    const tab = element.querySelector('sbb-tab-label#sbb-tab-2');
     expect(tab).to.have.attribute('active');
   });
 });

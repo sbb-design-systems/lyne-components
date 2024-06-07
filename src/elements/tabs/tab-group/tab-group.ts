@@ -7,7 +7,7 @@ import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { EventEmitter, throttle } from '../../core/eventing.js';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
-import type { SbbTabTitleElement } from '../tab-title.js';
+import type { SbbTabLabelElement } from '../tab-label.js';
 
 import style from './tab-group.scss?lit&inline';
 
@@ -43,7 +43,7 @@ let nextId = 0;
  * Wrap the content in a `div`, a `section`, an `article` or provide a nested `sbb-tab-group`:
  * This is correct: `<div>Some text <p>Some other text</p></div>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
- * @slot tab-bar - When you provide the `sbb-tab-title` tag through the unnamed slot,
+ * @slot tab-bar - When you provide the `sbb-tab-label` tag through the unnamed slot,
  * it will be automatically moved to this slot. You do not need to use it directly.
  * @event {CustomEvent<void>} didChange - Emits an event on selected tab change
  */
@@ -128,7 +128,7 @@ export class SbbTabGroupElement extends LitElement {
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
     return Array.from(this.children ?? []).filter((child) =>
-      /^sbb-tab-title$/u.test(child.localName),
+      /^sbb-tab-label$/u.test(child.localName),
     ) as InterfaceSbbTabGroupTab[];
   }
 
@@ -229,7 +229,7 @@ export class SbbTabGroupElement extends LitElement {
     for (const entry of entries) {
       const tabTitles = (
         entry.target.firstElementChild as HTMLSlotElement
-      ).assignedElements() as SbbTabTitleElement[];
+      ).assignedElements() as SbbTabLabelElement[];
 
       for (const tab of tabTitles) {
         tab.toggleAttribute(

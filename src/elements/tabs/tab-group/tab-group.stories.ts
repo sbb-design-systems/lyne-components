@@ -18,10 +18,10 @@ import { SbbTabGroupElement } from './tab-group.js';
 
 import '../../link.js';
 import '../../title.js';
-import '../tab-title.js';
+import '../tab-label.js';
 
 const firstTabTitle = (label: string, args: Args): TemplateResult => html`
-  <sbb-tab-title ${sbbSpread(args)}>${label}</sbb-tab-title>
+  <sbb-tab-label ${sbbSpread(args)}>${label}</sbb-tab-label>
 `;
 
 const tabPanelOne = (): TemplateResult => html`
@@ -59,13 +59,13 @@ const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html
   <sbb-tab-group size=${size} initial-selected-index="0">
     ${firstTabTitle(label, args)} ${tabPanelOne()}
 
-    <sbb-tab-title>Tab title two</sbb-tab-title>
+    <sbb-tab-label>Tab title two</sbb-tab-label>
     ${tabPanelTwo()}
 
-    <sbb-tab-title ?disabled=${true}>Tab title three</sbb-tab-title>
+    <sbb-tab-label ?disabled=${true}>Tab title three</sbb-tab-label>
     <div>I was disabled.</div>
 
-    <sbb-tab-title>Tab title four</sbb-tab-title>
+    <sbb-tab-label>Tab title four</sbb-tab-label>
     ${tabPanelFour()}
   </sbb-tab-group>
 `;
@@ -74,15 +74,15 @@ const IconsAndNumbersTemplate = ({ size, label, ...args }: Args): TemplateResult
   <sbb-tab-group size=${size} initial-selected-index="0">
     ${firstTabTitle(label, args)} ${tabPanelOne()}
 
-    <sbb-tab-title amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-title>
+    <sbb-tab-label amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-label>
     ${tabPanelTwo()}
 
-    <sbb-tab-title ?disabled=${true} amount=${args.amount} icon-name="train-small">
+    <sbb-tab-label ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
-    </sbb-tab-title>
+    </sbb-tab-label>
     <div>I was disabled.</div>
 
-    <sbb-tab-title amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-title>
+    <sbb-tab-label amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-label>
     ${tabPanelFour()}
   </sbb-tab-group>
 `;
@@ -91,7 +91,7 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   <sbb-tab-group size=${size} initial-selected-index="0">
     ${firstTabTitle(label, args)}
     <sbb-tab-group size=${size} initial-selected-index="1">
-      <sbb-tab-title level="2">Nested tab</sbb-tab-title>
+      <sbb-tab-label level="2">Nested tab</sbb-tab-label>
       <div>
         Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
         elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
@@ -99,7 +99,7 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
         faucibus turpis in eu mi bibendum neque egestas congue.
       </div>
 
-      <sbb-tab-title level="2">Nested tab</sbb-tab-title>
+      <sbb-tab-label level="2">Nested tab</sbb-tab-label>
       <section>
         Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
         elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
@@ -107,15 +107,15 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
       </section>
     </sbb-tab-group>
 
-    <sbb-tab-title amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-title>
+    <sbb-tab-label amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-label>
     ${tabPanelTwo()}
 
-    <sbb-tab-title ?disabled=${true} amount=${args.amount} icon-name="train-small">
+    <sbb-tab-label ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
-    </sbb-tab-title>
+    </sbb-tab-label>
     <div>I was disabled.</div>
 
-    <sbb-tab-title amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-title>
+    <sbb-tab-label amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-label>
     ${tabPanelFour()}
   </sbb-tab-group>
 `;

@@ -6,7 +6,7 @@ import { waitForLitRender } from '../../core/testing.js';
 
 import type { SbbTabGroupElement } from './tab-group.js';
 import './tab-group.js';
-import '../tab-title.js';
+import '../tab-label.js';
 
 describe(`sbb-tab-group`, () => {
   let element: SbbTabGroupElement;
@@ -14,13 +14,13 @@ describe(`sbb-tab-group`, () => {
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-tab-group initial-selected-index="0">
-        <sbb-tab-title>Test tab label 1</sbb-tab-title>
+        <sbb-tab-label>Test tab label 1</sbb-tab-label>
         <div>Test tab content 1</div>
-        <sbb-tab-title>Test tab label 2</sbb-tab-title>
+        <sbb-tab-label>Test tab label 2</sbb-tab-label>
         <div>Test tab content 2</div>
-        <sbb-tab-title disabled>Test tab label 3</sbb-tab-title>
+        <sbb-tab-label disabled>Test tab label 3</sbb-tab-label>
         <div>Test tab content 3</div>
-        <sbb-tab-title>Test tab label 4</sbb-tab-title>
+        <sbb-tab-label>Test tab label 4</sbb-tab-label>
       </sbb-tab-group>
     `);
   });
@@ -35,7 +35,7 @@ describe(`sbb-tab-group`, () => {
   it('activates tab by index', async () => {
     element.activateTab(1);
     await waitForLitRender(element);
-    const tab = element.querySelectorAll('sbb-tab-title')[1];
+    const tab = element.querySelectorAll('sbb-tab-label')[1];
 
     expect(tab).to.have.attribute('active');
   });
@@ -43,7 +43,7 @@ describe(`sbb-tab-group`, () => {
   it('disables tab by index', async () => {
     element.disableTab(0);
     await waitForLitRender(element);
-    const tab = element.querySelectorAll('sbb-tab-title')[0];
+    const tab = element.querySelectorAll('sbb-tab-label')[0];
 
     expect(tab).to.have.attribute('disabled');
   });
@@ -51,13 +51,13 @@ describe(`sbb-tab-group`, () => {
   it('enables tab by index', async () => {
     element.enableTab(2);
     await waitForLitRender(element);
-    const tab = element.querySelectorAll('sbb-tab-title')[2];
+    const tab = element.querySelectorAll('sbb-tab-label')[2];
 
     expect(tab).not.to.have.attribute('disabled');
   });
 
   it('does not activate a disabled tab', async () => {
-    const tab = element.querySelectorAll('sbb-tab-title')[2];
+    const tab = element.querySelectorAll('sbb-tab-label')[2];
 
     tab.disabled = true;
     element.activateTab(2);
@@ -67,7 +67,7 @@ describe(`sbb-tab-group`, () => {
 
   describe('initial tab', () => {
     it('activates the first tab', () => {
-      const tab = element.querySelectorAll('sbb-tab-title')[0];
+      const tab = element.querySelectorAll('sbb-tab-label')[0];
 
       expect(tab).to.have.attribute('active');
     });

@@ -7,13 +7,13 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import '../../icon.js';
-import './tab-title.js';
+import './tab-label.js';
 
 const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`
-  <sbb-tab-title ${sbbSpread(args)}>
+  <sbb-tab-label ${sbbSpread(args)}>
     ${iconSlot ? html`<sbb-icon slot="icon" name=${iconSlot}></sbb-icon>` : nothing} ${label}
     ${amountSlot ? html`<span slot="amount">${amountSlot}</span>` : nothing}
-  </sbb-tab-title>
+  </sbb-tab-label>
 `;
 
 const label: InputType = {
@@ -159,7 +159,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-tab/sbb-tab-title',
+  title: 'elements/sbb-tab/sbb-tab-label',
 };
 
 export default meta;

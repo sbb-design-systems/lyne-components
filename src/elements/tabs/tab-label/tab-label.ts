@@ -8,7 +8,7 @@ import { SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
 
-import style from './tab-title.scss?lit&inline';
+import style from './tab-label.scss?lit&inline';
 
 /**
  * Combined with a `sbb-tab-group`, it displays a tab's title.
@@ -17,8 +17,8 @@ import style from './tab-title.scss?lit&inline';
  * @slot icon - Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component.
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
-@customElement('sbb-tab-title')
-export class SbbTabTitleElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
+@customElement('sbb-tab-label')
+export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -43,15 +43,15 @@ export class SbbTabTitleElement extends SbbDisabledMixin(SbbIconNameMixin(LitEle
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-tab-title__wrapper">
-        <${unsafeStatic(TAGNAME)} class="sbb-tab-title">
-          <span class="sbb-tab-title__icon">
+      <div class="sbb-tab-label__wrapper">
+        <${unsafeStatic(TAGNAME)} class="sbb-tab-label">
+          <span class="sbb-tab-label__icon">
             ${this.renderIconSlot()}
           </span>
-          <span class="sbb-tab-title__text">
+          <span class="sbb-tab-label__text">
             <slot></slot>
           </span>
-          <span class="sbb-tab-title__amount">
+          <span class="sbb-tab-label__amount">
             <slot name="amount">${this.amount}</slot>
           </span>
         </${unsafeStatic(TAGNAME)}>
@@ -63,6 +63,6 @@ export class SbbTabTitleElement extends SbbDisabledMixin(SbbIconNameMixin(LitEle
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tab-title': SbbTabTitleElement;
+    'sbb-tab-label': SbbTabLabelElement;
   }
 }
