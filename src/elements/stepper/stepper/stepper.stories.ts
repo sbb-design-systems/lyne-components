@@ -20,9 +20,12 @@ import '../../form-error.js';
 import '../../card.js';
 
 const loremIpsum = `
-  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-  magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+  eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
+  eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+  sanctus est Lorem ipsum dolor sit amet.
 `;
+const loremIpsumSubstring = [219, 58, 160, 304];
 
 const linear: InputType = {
   control: {
@@ -114,7 +117,9 @@ const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[]
   ['First', 'Second', 'Third', 'Fourth'].map(
     (element, index, arr) => html`
       <sbb-step-label ?disabled=${disabled && index === 2}
-        >${longLabel ? loremIpsum : `${element} step`}</sbb-step-label
+        >${longLabel
+          ? loremIpsum.substring(0, loremIpsumSubstring[index])
+          : `${element} step`}</sbb-step-label
       >
       <sbb-step>
         <div
@@ -122,7 +127,8 @@ const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[]
           class="sbb-focus-outline"
           style="margin-block-end: var(--sbb-spacing-fixed-4x)"
         >
-          ${element} step content${longLabel ? '.' : `: ${loremIpsum}`}
+          ${element} step
+          content${longLabel ? '.' : `: ${loremIpsum.substring(0, loremIpsumSubstring[index])}`}
         </div>
         ${index !== 0
           ? html`<sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>`
