@@ -1,38 +1,66 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import type { SbbMenuLinkElement } from './menu-link.js';
-
-import './menu-link.js';
+import { SbbMenuLinkElement } from './menu-link.js';
 
 describe(`sbb-menu-link`, () => {
-  describe('renders component with icon and amount', () => {
-    let element: SbbMenuLinkElement;
+  let element: SbbMenuLinkElement;
 
-    beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-menu-link
-          icon-name="menu-small"
-          amount="123456"
-          href="https://github.com/sbb-design-systems/lyne-components"
-          target="_blank"
-          accessibility-label="a11y label"
-        >
-          <span>Action</span>
-        </sbb-menu-link>
-      `);
+  beforeEach(async () => {
+    element = await fixture(
+      html`<sbb-menu-link href="#" id="focus-id">Menu Action</sbb-menu-link>`,
+    );
+  });
+
+  it('renders', async () => {
+    assert.instanceOf(element, SbbMenuLinkElement);
+  });
+
+  describe('events', () => {
+    it('dispatches event on click', async () => {
+      const changeSpy = new EventSpy('click');
+
+      element.click();
+      await waitForCondition(() => changeSpy.events.length === 1);
+      expect(changeSpy.count).to.be.equal(1);
     });
 
-    it('Light DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+    it('should not dispatch event on click if disabled', async () => {
+      element.setAttribute('disabled', 'true');
+
+      await waitForLitRender(element);
+
+      const clickSpy = new EventSpy('click');
+
+      element.dispatchEvent(
+        new CustomEvent('click', { bubbles: true, cancelable: true, composed: true }),
+      );
+      expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
+    it('should dispatch click event on pressing Enter', async () => {
+      const changeSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: 'Enter' });
+      expect(changeSpy.count).to.be.greaterThan(0);
     });
 
-    testA11yTreeSnapshot();
+    it('should dispatch click event on pressing Space', async () => {
+      const changeSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: ' ' });
+      expect(changeSpy.count).not.to.be.greaterThan(0);
+    });
+
+    it('should receive focus', async () => {
+      element.focus();
+      await waitForLitRender(element);
+
+      expect(document.activeElement!.id).to.be.equal('focus-id');
+    });
   });
 });

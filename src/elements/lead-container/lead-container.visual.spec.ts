@@ -1,4 +1,3 @@
-import { aTimeout } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
@@ -7,7 +6,7 @@ import {
   loadAssetAsBase64,
   visualDiffDefault,
 } from '../core/testing/private.js';
-import { waitForCondition } from '../core/testing/wait-for-condition.js';
+import { waitForImageReady } from '../core/testing.js';
 
 import '../alert.js';
 import '../breadcrumb.js';
@@ -20,8 +19,6 @@ const leadImageUrl = import.meta.resolve('./assets/lucerne.png');
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);
 
 describe(`sbb-lead-container`, () => {
-  let root: HTMLElement;
-
   const wrapperStyles = { backgroundColor: `var(--sbb-color-milk)`, padding: '0' };
 
   const leadContainerTemplate = (image: TemplateResult): TemplateResult => html`
@@ -73,40 +70,32 @@ describe(`sbb-lead-container`, () => {
     it(
       'with sbb-image',
       visualDiffDefault.with(async (setup) => {
-        root = (
-          await setup.withFixture(
-            leadContainerTemplate(
-              html`<sbb-image
-                slot="image"
-                image-src=${leadImageUrl}
-                alt="Station of Lucerne from outside"
-              ></sbb-image>`,
-            ),
-            wrapperStyles,
-          )
-        ).snapshotElement;
+        await setup.withFixture(
+          leadContainerTemplate(
+            html`<sbb-image
+              slot="image"
+              image-src=${leadImageUrl}
+              alt="Station of Lucerne from outside"
+            ></sbb-image>`,
+          ),
+          wrapperStyles,
+        );
 
-        await waitForCondition(() => root.querySelector('sbb-image')!.hasAttribute('data-loaded'));
-        await aTimeout(100);
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
     it(
       'with img tag',
       visualDiffDefault.with(async (setup) => {
-        root = (
-          await setup.withFixture(
-            leadContainerTemplate(
-              html`<img
-                slot="image"
-                src=${leadImageBase64}
-                alt="Station of Lucerne from outside"
-              />`,
-            ),
-            wrapperStyles,
-          )
-        ).snapshotElement;
-        await waitForCondition(() => root.querySelector('img')!.complete);
+        await setup.withFixture(
+          leadContainerTemplate(
+            html`<img slot="image" src=${leadImageBase64} alt="Station of Lucerne from outside" />`,
+          ),
+          wrapperStyles,
+        );
+
+        await waitForImageReady(setup.snapshotElement.querySelector('img')!);
       }),
     );
   });

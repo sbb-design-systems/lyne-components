@@ -78,6 +78,7 @@ export default defineConfig((config) =>
           ]
         : []),
     ],
+    esbuild: isProdBuild(config) ? { mangleProps: /^_/ } : {},
     build: {
       cssMinify: isProdBuild(config),
       lib: {

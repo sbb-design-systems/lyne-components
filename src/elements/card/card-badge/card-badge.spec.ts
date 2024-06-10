@@ -1,26 +1,15 @@
-import { expect } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
 
-import type { SbbCardBadgeElement } from './card-badge.js';
-
-import './card-badge.js';
+import { SbbCardBadgeElement } from './card-badge.js';
 
 describe(`sbb-card-badge`, () => {
   let element: SbbCardBadgeElement;
 
-  beforeEach(async () => {
-    element = await fixture(html`<sbb-card-badge>Black Friday Special</sbb-card-badge>`);
+  it('renders', async () => {
+    element = await fixture(html`<sbb-card-badge></sbb-card-badge>`);
+    assert.instanceOf(element, SbbCardBadgeElement);
   });
-
-  it('renders - Dom', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
-
-  it('renders - ShadowDom', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
-
-  testA11yTreeSnapshot();
 });

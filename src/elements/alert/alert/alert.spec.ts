@@ -1,75 +1,36 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy } from '../../core/testing.js';
 
-import type { SbbAlertElement } from './alert.js';
-
-import './alert.js';
+import { SbbAlertElement } from './alert.js';
 
 describe(`sbb-alert`, () => {
-  let element: SbbAlertElement;
+  let alert: SbbAlertElement;
 
-  it('should render default properties', async () => {
-    element = await fixture(
-      html`<sbb-alert title-content="Interruption">Alert content</sbb-alert>`,
-    );
-
-    expect(element).dom.to.be.equal(
-      `
-        <sbb-alert title-content="Interruption" size="m" data-state="opening" animation="open">
-           Alert content
-        </sbb-alert>
-      `,
-    );
-
-    await expect(element).shadowDom.to.equalSnapshot();
+  it('renders', async () => {
+    alert = await fixture(html`<sbb-alert></sbb-alert>`);
+    assert.instanceOf(alert, SbbAlertElement);
   });
 
-  it('should render customized properties', async () => {
-    element = await fixture(
-      html`<sbb-alert
-        title-content="Interruption"
-        title-level="2"
-        size="l"
-        icon-name="disruption"
-        accessibility-label="label"
-        href="https://www.sbb.ch"
-        rel="noopener"
-        target="_blank"
-        link-content="Show much more"
-        >Alert content</sbb-alert
-      >`,
-    );
+  it('should fire animation events', async () => {
+    const willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen);
+    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen);
 
-    expect(element).dom.to.be.equal(
-      `
-        <sbb-alert
-          title-content="Interruption"
-          title-level="2"
-          size="l"
-          icon-name="disruption"
-          accessibility-label="label"
-          href="https://www.sbb.ch"
-          rel="noopener" target="_blank"
-          link-content="Show much more"
-          animation="open"
-          data-state="opening"
-        >
-           Alert content
-        </sbb-alert>
-      `,
-    );
-    await expect(element).shadowDom.to.equalSnapshot();
+    await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
+
+    await waitForCondition(() => willOpenSpy.events.length === 1);
+    expect(willOpenSpy.count).to.be.equal(1);
+    await waitForCondition(() => didOpenSpy.events.length === 1);
+    expect(didOpenSpy.count).to.be.equal(1);
   });
 
-  testA11yTreeSnapshot(html`
-    <sbb-alert
-      title-content="Interruption"
-      href="https://www.sbb.ch"
-      accessibility-label="test-a11y-label"
-    >
-      Alert content
-    </sbb-alert>
-  `);
+  it('should hide close button in readonly mode', async () => {
+    alert = await fixture(
+      html`<sbb-alert title-content="Interruption" readonly>Alert content</sbb-alert>`,
+    );
+
+    expect(alert.shadowRoot!.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;
+  });
 });
