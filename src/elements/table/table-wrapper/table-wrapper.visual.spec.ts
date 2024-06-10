@@ -17,6 +17,7 @@ describe(`sbb-table-wrapper`, () => {
     size: ['m', 's'],
     negative: [false, true],
     striped: [false, true],
+    // TODO add scrollbar cases
   };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
@@ -33,9 +34,6 @@ describe(`sbb-table-wrapper`, () => {
                   'sbb-table-unstriped': !striped,
                 })}
               >
-                <caption>
-                  Table caption
-                </caption>
                 <thead>
                   <tr>
                     <th>Person</th>
@@ -57,6 +55,7 @@ describe(`sbb-table-wrapper`, () => {
                 </tbody>
               </table>
             </sbb-table-wrapper>
+            <p class="sbb-table-caption">Table caption</p>
           `,
           {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
@@ -66,7 +65,7 @@ describe(`sbb-table-wrapper`, () => {
       });
 
       it(
-        'default',
+        visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           setup.withSnapshotElement(root);
         }),
