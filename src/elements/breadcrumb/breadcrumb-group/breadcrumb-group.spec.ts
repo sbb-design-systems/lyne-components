@@ -1,9 +1,9 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
 import { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
@@ -14,33 +14,59 @@ describe(`sbb-breadcrumb-group`, () => {
   describe('without ellipsis', () => {
     let element: SbbBreadcrumbGroupElement;
 
-    beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-breadcrumb-group>
-          <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
-          <sbb-breadcrumb href="#" id="breadcrumb-1">One</sbb-breadcrumb>
-          <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
-        </sbb-breadcrumb-group>
-      `);
+    describe('with three breadcrumbs', () => {
+      beforeEach(async () => {
+        element = await fixture(html`
+          <sbb-breadcrumb-group>
+            <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+            <sbb-breadcrumb href="#" id="breadcrumb-1">One</sbb-breadcrumb>
+            <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
+          </sbb-breadcrumb-group>
+        `);
+      });
+
+      it('renders', async () => {
+        assert.instanceOf(element, SbbBreadcrumbGroupElement);
+      });
+
+      it('keyboard navigation', async () => {
+        const first: SbbBreadcrumbElement =
+          element.querySelector<SbbBreadcrumbElement>('#breadcrumb-0')!;
+        const second: SbbBreadcrumbElement =
+          element.querySelector<SbbBreadcrumbElement>('#breadcrumb-1')!;
+        const third: SbbBreadcrumbElement =
+          element.querySelector<SbbBreadcrumbElement>('#breadcrumb-2')!;
+
+        first.focus();
+        await sendKeys({ down: 'ArrowRight' });
+        expect(document.activeElement!.id).to.be.equal(second.id);
+        await sendKeys({ down: 'ArrowRight' });
+        expect(document.activeElement!.id).to.be.equal(third.id);
+      });
     });
 
-    it('renders', async () => {
-      assert.instanceOf(element, SbbBreadcrumbGroupElement);
-    });
+    describe('with two breadcrumns', () => {
+      beforeEach(async () => {
+        element = await fixture(html`
+          <sbb-breadcrumb-group>
+            <sbb-breadcrumb href="#" id="breadcrumb-0">Level 0</sbb-breadcrumb>
+            <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
+          </sbb-breadcrumb-group>
+        `);
+      });
 
-    it('keyboard navigation', async () => {
-      const first: SbbBreadcrumbElement =
-        element.querySelector<SbbBreadcrumbElement>('#breadcrumb-0')!;
-      const second: SbbBreadcrumbElement =
-        element.querySelector<SbbBreadcrumbElement>('#breadcrumb-1')!;
-      const third: SbbBreadcrumbElement =
-        element.querySelector<SbbBreadcrumbElement>('#breadcrumb-2')!;
+      it('should not collapse', async () => {
+        await setViewport({ width: 80, height: 1000 });
+        await waitForLitRender(element);
+        // We need to ensure that the collapsed state is really rendered
+        await aTimeout(20);
 
-      first.focus();
-      await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement!.id).to.be.equal(second.id);
-      await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement!.id).to.be.equal(third.id);
+        const ellipsisButton = element.shadowRoot!.querySelector<HTMLButtonElement>(
+          '#sbb-breadcrumb-ellipsis',
+        )!;
+
+        expect(ellipsisButton).to.be.null;
+      });
     });
   });
 
