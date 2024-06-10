@@ -5,5 +5,13 @@
 
 :host {
   display: block;
+}
+
+.sbb-table-wrapper {
   overflow: auto;
+  @include sbb.scrollbar($track-visible: true);
+
+  &::-webkit-scrollbar {
+    border-radius: 0 0 var(--sbb-border-radius-4x) var(--sbb-border-radius-4x);
+  }
 }

@@ -13,7 +13,9 @@ export class SbbTableWrapperElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<div class="sbb-table-wrapper">
+      <slot></slot>
+    </div>`;
   }
 }
 

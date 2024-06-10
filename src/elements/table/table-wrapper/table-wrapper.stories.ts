@@ -29,18 +29,18 @@ const defaultArgs: Args = {
   size: size.options![1],
 };
 
-const caption: () => TemplateResult = () => html`
-  <caption>
-    Front-end web developer course 2021
-  </caption>
-`;
-
 const header: () => TemplateResult = () => html`
   <thead>
     <tr>
-      <th scope="col">Person</th>
-      <th scope="col">Most interest in</th>
-      <th scope="col">Age</th>
+      <th scope="col">Line</th>
+      <th scope="col">From</th>
+      <th scope="col">To</th>
+      <th scope="col">Provider</th>
+      <th scope="col">Year</th>
+      <th scope="col">Trains count</th>
+      <th scope="col">Tons</th>
+      <th scope="col">Timestamp</th>
+      <th scope="col">Record ID</th>
     </tr>
   </thead>
 `;
@@ -48,24 +48,48 @@ const header: () => TemplateResult = () => html`
 const body: () => TemplateResult = () => html`
   <tbody>
     <tr>
-      <td>Chris</td>
-      <td>HTML tables</td>
-      <td>22</td>
+      <td>Lausanne - Fribourg - Bern Steigerhubel</td>
+      <td>Schmitten</td>
+      <td>Wünnewil</td>
+      <td>SBB</td>
+      <td>2024</td>
+      <td>1756</td>
+      <td>1052197</td>
+      <td>2024-03-08T14:23:54.78Z</td>
+      <td>c4dd</td>
     </tr>
     <tr>
-      <td>Dennis</td>
-      <td>Web accessibility</td>
-      <td>45</td>
+      <td>Lausanne - Fribourg - Bern Steigerhubel</td>
+      <td>Thörishaus Station</td>
+      <td>Oberwangen</td>
+      <td>SBB</td>
+      <td>2024</td>
+      <td>2007</td>
+      <td>1131857</td>
+      <td>2024-03-08T14:23:54.78Z</td>
+      <td>de82</td>
     </tr>
     <tr>
-      <td>Sarah</td>
-      <td>JavaScript frameworks</td>
-      <td>29</td>
+      <td>Lausanne - Fribourg - Bern Steigerhubel</td>
+      <td>Villars-sur-Glâne</td>
+      <td>Fribourg/Freiburg</td>
+      <td>SBB</td>
+      <td>2024</td>
+      <td>36110</td>
+      <td>10803746</td>
+      <td>2024-03-08T14:23:54.78Z</td>
+      <td>740a</td>
     </tr>
     <tr>
-      <td>KAREN</td>
-      <td>Web performance</td>
-      <td>36</td>
+      <td>Löchligut/Solothurn - NBS/ABS - Olten</td>
+      <td>Derendingen</td>
+      <td>Subingen</td>
+      <td>SBB</td>
+      <td>2024</td>
+      <td>10</td>
+      <td>10147</td>
+      <td>2024-03-08T14:23:54.78Z</td>
+      <td>0396</td>
     </tr>
   </tbody>
 `;
@@ -73,6 +97,7 @@ const body: () => TemplateResult = () => html`
 const Template = (args: Args): TemplateResult => html`
   <sbb-table-wrapper>
     <table
+      aria-label="Train lines 2024"
       class=${classMap({
         'sbb-table': true,
         'sbb-table-negative': args.negative,
@@ -80,9 +105,10 @@ const Template = (args: Args): TemplateResult => html`
         'sbb-table-m': args.size === 'm',
       })}
     >
-      ${caption()} ${header()} ${body()}
+      ${header()} ${body()}
     </table>
   </sbb-table-wrapper>
+  <p class="sbb-table-caption">Train lines 2024</p>
 `;
 
 export const Default: StoryObj = {
