@@ -1,25 +1,17 @@
-import { expect } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
 
-import './expansion-panel-content.js';
+import { SbbExpansionPanelContentElement } from './expansion-panel-content.js';
 
 describe(`sbb-expansion-panel-content`, () => {
+  let element: SbbExpansionPanelContentElement;
+
   it('renders', async () => {
-    const root = await fixture(
+    element = await fixture(
       html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`,
     );
-
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-expansion-panel-content slot="content" role="region">
-          Content
-        </sbb-expansion-panel-content>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    assert.instanceOf(element, SbbExpansionPanelContentElement);
   });
-
-  testA11yTreeSnapshot(html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`);
 });

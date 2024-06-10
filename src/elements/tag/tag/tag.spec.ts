@@ -1,89 +1,79 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import type { SbbTagElement } from './tag.js';
-import './tag.js';
+import { SbbTagElement } from './tag.js';
 import '../../icon.js';
 
 describe(`sbb-tag`, () => {
-  let root: SbbTagElement;
+  let element: SbbTagElement;
 
-  describe('renders unchecked', async () => {
-    beforeEach(async () => {
-      root = await fixture(
-        html`<sbb-tag value="all" aria-label="Check to remove filters">All</sbb-tag>`,
-      );
-    });
-
-    it('Dom', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
-    });
-
-    it('ShadowDom', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
-    });
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-tag value="tag">Tag</sbb-tag>`);
   });
 
-  describe('renders checked', async () => {
-    beforeEach(async () => {
-      root = await fixture(html`<sbb-tag checked value="info">Info</sbb-tag>`);
-    });
-
-    it('Dom', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
-    });
-
-    it('ShadowDom', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
-    });
+  it('renders', async () => {
+    assert.instanceOf(element, SbbTagElement);
   });
 
-  describe('renders disabled with icon and amount', async () => {
-    beforeEach(async () => {
-      root = await fixture(html`
-        <sbb-tag disabled amount="123" icon-name="circle-information-small" value="information">
-          Info
-        </sbb-tag>
-      `);
-    });
+  it('should be checked after click', async () => {
+    expect(element).not.to.have.attribute('checked');
+    const changeSpy = new EventSpy('change');
+    const inputSpy = new EventSpy('input');
 
-    it('Dom', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
-    });
+    element.click();
+    await waitForLitRender(element);
 
-    it('ShadowDom', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
-    });
+    expect(changeSpy.count).to.be.greaterThan(0);
+    expect(inputSpy.count).to.be.greaterThan(0);
+    expect(element).to.have.attribute('checked');
   });
 
-  describe('renders slotted icon and amount', async () => {
-    beforeEach(async () => {
-      root = await fixture(html`
-        <sbb-tag value="foo">
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            name="cross-small"
-            role="img"
-            slot="icon"
-          >
-          </sbb-icon>
-          Info
-          <span slot="amount">123</span>
-        </sbb-tag>
-      `);
-    });
+  it('should not be checked after click when disabled', async () => {
+    expect(element).not.to.have.attribute('checked');
+    element.toggleAttribute('disabled', true);
+    await waitForLitRender(element);
 
-    it('Dom', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
-    });
+    const changeSpy = new EventSpy('change');
+    const inputSpy = new EventSpy('input');
 
-    it('ShadowDom', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
-    });
+    element.click();
+    await waitForLitRender(element);
+
+    expect(changeSpy.count).not.to.be.greaterThan(0);
+    expect(inputSpy.count).not.to.be.greaterThan(0);
+    expect(element).not.to.have.attribute('checked');
   });
 
-  testA11yTreeSnapshot(html`<sbb-tag value="Value">Label</sbb-tag>`);
+  it('should be checked after "Space" keypress', async () => {
+    expect(element).not.to.have.attribute('checked');
+    const changeSpy = new EventSpy('change');
+    const inputSpy = new EventSpy('input');
+
+    element.focus();
+    await sendKeys({ press: 'Space' });
+
+    await waitForLitRender(element);
+    expect(changeSpy.count).to.be.greaterThan(0);
+    expect(inputSpy.count).to.be.greaterThan(0);
+    expect(element).to.have.attribute('checked');
+  });
+
+  it('should be unchecked after "Space" keypress', async () => {
+    element = await fixture(html`<sbb-tag value="tag" checked>Tag</sbb-tag>`);
+
+    const changeSpy = new EventSpy('change');
+    const inputSpy = new EventSpy('input');
+
+    element.focus();
+    await sendKeys({ press: 'Space' });
+
+    await waitForLitRender(element);
+    expect(changeSpy.count).to.be.greaterThan(0);
+    expect(inputSpy.count).to.be.greaterThan(0);
+    expect(element).not.to.have.attribute('checked');
+  });
 });

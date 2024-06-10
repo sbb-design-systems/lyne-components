@@ -1,112 +1,82 @@
-import { expect } from '@open-wc/testing';
+import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import type { SbbSecondaryButtonElement } from '../button.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing.js';
 
-import type { SbbNotificationElement } from './notification.js';
-import './notification.js';
+import { SbbNotificationElement } from './notification.js';
+
+import '../link/link.js';
 
 describe(`sbb-notification`, () => {
-  describe('renders', () => {
-    let element: SbbNotificationElement;
+  let element: SbbNotificationElement;
 
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-notification>The quick brown fox jumps over the lazy dog.</sbb-notification>`,
-      );
-    });
-
-    it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
-    });
-
-    it('ShadowDom', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+  beforeEach(async () => {
+    element = await fixture(html`
+      <sbb-notification id="notification">
+        The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+        <sbb-link href="/">Link one</sbb-link>
+      </sbb-notification>
+    `);
   });
 
-  describe('renders with a title', () => {
-    let element: SbbNotificationElement;
-
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-notification title-content="Title"
-          >The quick brown fox jumps over the lazy dog.</sbb-notification
-        >`,
-      );
-    });
-
-    it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
-    });
-
-    it('ShadowDom', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+  it('renders', async () => {
+    assert.instanceOf(element, SbbNotificationElement);
   });
 
-  describe('renders with a slotted title', () => {
-    let element: SbbNotificationElement;
+  it('closes the notification and removes it from the DOM', async () => {
+    const parent = element.parentElement!;
+    const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
 
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-notification
-          ><span slot="title">Slotted title</span>
-          The quick brown fox jumps over the lazy dog.
-        </sbb-notification>`,
-      );
-    });
+    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
+    expect(element).to.have.attribute('data-state', 'opened');
 
-    it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
-    });
+    element.close();
+    await waitForLitRender(element);
 
-    it('ShadowDom', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    expect(willCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
+
+    await aTimeout(0);
+    element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
+    expect(element).to.be.null;
   });
 
-  describe('renders without the close button', () => {
-    let element: SbbNotificationElement;
+  it('closes the notification and removes it from the DOM on close button click', async () => {
+    const parent = element.parentElement!;
+    const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
+    const closeButton = element.shadowRoot!.querySelector(
+      '.sbb-notification__close',
+    ) as SbbSecondaryButtonElement;
 
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-notification title-content="Title" readonly
-          >The quick brown fox jumps over the lazy dog.</sbb-notification
-        >`,
-      );
-    });
+    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
+    expect(element).to.have.attribute('data-state', 'opened');
 
-    it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
-    });
+    closeButton.click();
+    await waitForLitRender(element);
 
-    it('ShadowDom', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    expect(willCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
+
+    await aTimeout(0);
+    element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
+    expect(element).to.be.null;
   });
-
-  describe('renders size s', () => {
-    let element: SbbNotificationElement;
-
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-notification title-content="Title" size="s"
-          >The quick brown fox jumps over the lazy dog.</sbb-notification
-        >`,
-      );
-    });
-
-    it('Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
-    });
-
-    it('ShadowDom', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-  });
-
-  testA11yTreeSnapshot(
-    html`<sbb-notification title-content="Test title">Lorem ipsum ...</sbb-notification>`,
-  );
 });

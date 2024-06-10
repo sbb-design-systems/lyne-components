@@ -1,52 +1,38 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
 
-import type { SbbNavigationListElement } from './navigation-list.js';
+import { SbbNavigationListElement } from './navigation-list.js';
 
-import './navigation-list.js';
 import '../navigation-button.js';
 
 describe(`sbb-navigation-list`, () => {
   let element: SbbNavigationListElement;
 
-  describe('renders', async () => {
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-navigation-list>
-          <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>
-          <sbb-navigation-button>Travel information</sbb-navigation-button>
-          <sbb-navigation-button>Help & Contact</sbb-navigation-button>
-        </sbb-navigation-list>`,
-      );
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  beforeEach(async () => {
+    element = await fixture(html`
+      <sbb-navigation-list>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label 2</sbb-navigation-button>
+      </sbb-navigation-list>
+    `);
   });
 
-  describe('should render named slots if data-ssr-child-count attribute is set', async () => {
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-navigation-list data-ssr-child-count="3"></sbb-navigation-list>`,
-      );
-    });
+  it('renders', () => {
+    assert.instanceOf(element, SbbNavigationListElement);
+  });
 
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
+  it('automatic list generation', () => {
+    const list = element.shadowRoot!.querySelector('ul')!;
+    expect(list.className).to.be.equal('sbb-navigation-list__content');
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+    const listItems = list.querySelectorAll('li');
+    expect(listItems.length).to.equal(2);
+  });
+
+  it('force size on children elements', () => {
+    const action = element.querySelector('sbb-navigation-button');
+    expect(action).to.have.attribute('size', 'm');
   });
 });

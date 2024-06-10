@@ -1,101 +1,24 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
 
 import { SbbCheckboxPanelElement } from './checkbox-panel.js';
 
-describe('sbb-checkbox-panel', () => {
-  let element: SbbCheckboxPanelElement;
+describe(`sbb-checkbox-panel`, () => {
+  describe('general', () => {
+    let element: SbbCheckboxPanelElement;
 
-  describe('should render unchecked', async () => {
     beforeEach(async () => {
-      element = (await fixture(
-        html`<sbb-checkbox-panel
-          >Label
-          <span slot="subtext">Subtext</span>
-          <span slot="suffix">Suffix</span>
-        </sbb-checkbox-panel>`,
-      )) as SbbCheckboxPanelElement;
+      element = await fixture(
+        html`<sbb-checkbox-panel name="name" value="value">Label</sbb-checkbox-panel>`,
+      );
+    });
+
+    it('should render', async () => {
       assert.instanceOf(element, SbbCheckboxPanelElement);
     });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
   });
 
-  describe('should render checked', async () => {
-    beforeEach(async () => {
-      element = (await fixture(
-        html`<sbb-checkbox-panel checked
-          >Label
-          <span slot="subtext">Subtext</span>
-          <span slot="suffix">Suffix</span>
-        </sbb-checkbox-panel>`,
-      )) as SbbCheckboxPanelElement;
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-  });
-
-  describe('should render indeterminate', async () => {
-    beforeEach(async () => {
-      element = (await fixture(
-        html`<sbb-checkbox-panel indeterminate
-          >Label
-          <span slot="subtext">Subtext</span>
-          <span slot="suffix">Suffix</span>
-        </sbb-checkbox-panel>`,
-      )) as SbbCheckboxPanelElement;
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-  });
-
-  describe('should render unchecked disabled', async () => {
-    beforeEach(async () => {
-      element = (await fixture(
-        html`<sbb-checkbox-panel disabled
-          >Label
-          <span slot="subtext">Subtext</span>
-          <span slot="suffix">Suffix</span>
-        </sbb-checkbox-panel>`,
-      )) as SbbCheckboxPanelElement;
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-  });
-
-  testA11yTreeSnapshot(
-    html`<sbb-checkbox-panel>Label</sbb-checkbox-panel>`,
-    'Unchecked - A11y tree',
-  );
-
-  testA11yTreeSnapshot(
-    html`<sbb-checkbox-panel checked>Label</sbb-checkbox-panel>`,
-    'Checked - A11y tree',
-  );
+  // All the functionalities of sbb-checkbox-panel are tested in checkbox-common.e2e.ts file
 });
