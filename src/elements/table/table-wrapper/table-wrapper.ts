@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { AgnosticResizeObserver } from '../../core/observers.js';
 
 import style from './table-wrapper.scss?lit&inline';
 
@@ -20,20 +20,16 @@ import style from './table-wrapper.scss?lit&inline';
 export class SbbTableWrapperElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  private _abort = new SbbConnectedAbortController(this);
+  private _resizeObserver = new AgnosticResizeObserver(() => this._checkHorizontalScrollbar());
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    window.addEventListener('resize', () => this._checkHorizontalScrollbar(), {
-      passive: true,
-      signal: this._abort.signal,
-    });
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._resizeObserver.disconnect();
   }
 
   protected override firstUpdated(_changedProperties: PropertyValues): void {
     super.firstUpdated(_changedProperties);
-    this._checkHorizontalScrollbar();
+    this._resizeObserver.observe(this);
   }
 
   private _checkHorizontalScrollbar(): void {
