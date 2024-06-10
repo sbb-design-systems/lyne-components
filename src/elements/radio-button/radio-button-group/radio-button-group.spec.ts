@@ -103,7 +103,7 @@ describe(`sbb-radio-button-group`, () => {
       firstRadio.focus();
       await waitForLitRender(element);
 
-      await sendKeys({ down: 'ArrowLeft' });
+      await sendKeys({ press: 'ArrowLeft' });
       await waitForLitRender(element);
 
       const radio = element.querySelector('#sbb-radio-4');
@@ -119,7 +119,7 @@ describe(`sbb-radio-button-group`, () => {
       const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButtonElement;
 
       firstRadio.focus();
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
 
       await waitForLitRender(element);
       const radio = element.querySelector('#sbb-radio-2');
@@ -143,10 +143,10 @@ describe(`sbb-radio-button-group`, () => {
       secondRadio.focus();
       await waitForLitRender(element);
 
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(element);
 
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(element);
 
       const radio = element.querySelector('#sbb-radio-1');

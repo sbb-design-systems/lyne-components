@@ -172,7 +172,7 @@ describe(`sbb-toggle-check`, () => {
 
       element.focus();
       element.click();
-      await sendKeys({ up: 'Space' });
+      await sendKeys({ press: 'Space' });
 
       expect(inputSpy.count).to.be.equal(0);
       expect(changeSpy.count).to.be.equal(0);

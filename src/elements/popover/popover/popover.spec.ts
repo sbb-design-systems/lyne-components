@@ -237,7 +237,7 @@ describe(`sbb-popover`, () => {
       expect(popoverLink).not.to.be.null;
 
       popoverLink.focus();
-      await sendKeys({ down: 'Enter' });
+      await sendKeys({ press: 'Enter' });
 
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
       expect(didCloseEventSpy.count).to.be.equal(1);
@@ -250,8 +250,8 @@ describe(`sbb-popover`, () => {
       const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
 
-      await sendKeys({ down: 'Tab' });
-      await sendKeys({ down: 'Enter' });
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: 'Enter' });
 
       await waitForCondition(() => willOpenEventSpy.events.length === 1);
       expect(willOpenEventSpy.count).to.be.equal(1);
@@ -281,7 +281,7 @@ describe(`sbb-popover`, () => {
       await waitForLitRender(element);
 
       closeButton.focus();
-      await sendKeys({ down: 'Enter' });
+      await sendKeys({ press: 'Enter' });
 
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
       expect(didCloseEventSpy.count).to.be.equal(1);
@@ -306,8 +306,8 @@ describe(`sbb-popover`, () => {
 
       expect(element).to.have.attribute('data-state', 'opened');
 
-      await sendKeys({ down: 'Tab' });
-      await sendKeys({ down: 'Escape' });
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: 'Escape' });
 
       await waitForCondition(() => willCloseEventSpy.events.length === 1);
       expect(willCloseEventSpy.count).to.be.equal(1);

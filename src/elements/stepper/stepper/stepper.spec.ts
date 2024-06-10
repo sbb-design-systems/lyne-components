@@ -309,10 +309,10 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(1)',
     )!;
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: 'Tab' });
     expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: 'Tab' });
     expect(document.activeElement!.id).to.be.equal('step-one-content');
   });
 
@@ -330,8 +330,8 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(2)',
     )!;
 
-    await sendKeys({ down: 'Tab' });
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
@@ -345,13 +345,13 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(2)',
     )!;
 
-    await sendKeys({ down: 'Tab' });
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
 
-    await sendKeys({ down: 'ArrowLeft' });
+    await sendKeys({ press: 'ArrowLeft' });
 
     expect(stepLabelOne).to.have.attribute('data-selected');
     expect(stepLabelOne.step).to.have.attribute('data-selected');
@@ -368,18 +368,18 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(3)',
     )!;
 
-    await sendKeys({ down: 'Tab' });
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
 
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
 
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelOne).to.have.attribute('data-selected');
     expect(stepLabelOne.step).to.have.attribute('data-selected');
@@ -390,8 +390,8 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(3)',
     )!;
 
-    await sendKeys({ down: 'Tab' });
-    await sendKeys({ down: 'ArrowLeft' });
+    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: 'ArrowLeft' });
 
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
