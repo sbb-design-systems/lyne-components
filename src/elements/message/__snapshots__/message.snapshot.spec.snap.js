@@ -1,36 +1,12 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-message renders without optional slots"] = 
-`<div class="sbb-message__container">
-  <slot name="image">
-  </slot>
-  <sbb-title
-    aria-level="3"
-    class="sbb-message__title"
-    level="3"
-    role="heading"
-    visual-level="5"
-  >
-    <slot name="title">
-      Title.
-    </slot>
-  </sbb-title>
-  <slot name="subtitle">
-  </slot>
-  <slot name="legend">
-  </slot>
-  <slot name="action">
-  </slot>
-</div>
-`;
-/* end snapshot sbb-message renders without optional slots */
-
 snapshots["sbb-message renders DOM"] = 
 `<sbb-message title-content="Title.">
   <sbb-image
     aspect-ratio="16-9"
     border-radius="default"
+    data-loaded=""
     slot="image"
   >
   </sbb-image>
@@ -109,6 +85,40 @@ snapshots["sbb-message renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-message renders A11y tree Chrome */
+
+snapshots["sbb-message renders without optional slots DOM"] = 
+`<sbb-message title-content="Title.">
+  <p slot="subtitle">
+    Subtitle.
+  </p>
+</sbb-message>
+`;
+/* end snapshot sbb-message renders without optional slots DOM */
+
+snapshots["sbb-message renders without optional slots Shadow DOM"] = 
+`<div class="sbb-message__container">
+  <slot name="image">
+  </slot>
+  <sbb-title
+    aria-level="3"
+    class="sbb-message__title"
+    level="3"
+    role="heading"
+    visual-level="5"
+  >
+    <slot name="title">
+      Title.
+    </slot>
+  </sbb-title>
+  <slot name="subtitle">
+  </slot>
+  <slot name="legend">
+  </slot>
+  <slot name="action">
+  </slot>
+</div>
+`;
+/* end snapshot sbb-message renders without optional slots Shadow DOM */
 
 snapshots["sbb-message renders A11y tree Firefox"] = 
 `<p>

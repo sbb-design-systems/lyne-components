@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
-import { waitForCondition, waitForLitRender } from '../core/testing.js';
+import { waitForImageReady } from '../core/testing.js';
 
 import { SbbImageElement } from './image.js';
 
@@ -14,10 +14,7 @@ describe(`sbb-image`, () => {
   describe('should render', async () => {
     beforeEach(async () => {
       element = await fixture(html`<sbb-image image-src=${imageUrl}></sbb-image>`);
-
-      // Wait until the image is successfully loaded
-      await waitForCondition(() => element.hasAttribute('data-loaded'), 30, 6000);
-      await waitForLitRender(element);
+      await waitForImageReady(element);
 
       assert.instanceOf(element, SbbImageElement);
     });

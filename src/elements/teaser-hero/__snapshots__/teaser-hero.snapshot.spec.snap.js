@@ -9,7 +9,6 @@ snapshots["sbb-teaser-hero should render all properties DOM"] =
   dir="ltr"
   href="https://www.sbb.ch"
   image-alt="SBB CFF FFS Employee"
-  image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
   link-content="Find out more"
   rel="external"
   target="_blank"
@@ -53,8 +52,8 @@ snapshots["sbb-teaser-hero should render all properties Shadow DOM"] =
       alt="SBB CFF FFS Employee"
       aspect-ratio="16-9"
       border-radius="default"
+      data-loaded=""
       data-teaser=""
-      image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
     >
     </sbb-image>
   </slot>
@@ -97,8 +96,8 @@ snapshots["sbb-teaser-hero should render with slots DOM"] =
     alt="SBB CFF FFS Employee"
     aspect-ratio="16-9"
     border-radius="default"
+    data-loaded=""
     data-teaser=""
-    image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
     slot="image"
   >
   </sbb-image>
