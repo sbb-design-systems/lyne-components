@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-autocomplete-grid-cell Dom"] = 
+snapshots["sbb-autocomplete-grid-cell renders DOM"] = 
 `<sbb-autocomplete-grid-cell role="gridcell">
   <sbb-autocomplete-grid-button
     aria-disabled="false"
@@ -15,17 +15,17 @@ snapshots["sbb-autocomplete-grid-cell Dom"] =
   </sbb-autocomplete-grid-button>
 </sbb-autocomplete-grid-cell>
 `;
-/* end snapshot sbb-autocomplete-grid-cell Dom */
+/* end snapshot sbb-autocomplete-grid-cell renders DOM */
 
-snapshots["sbb-autocomplete-grid-cell ShadowDom"] = 
+snapshots["sbb-autocomplete-grid-cell renders Shadow DOM"] = 
 `<span class="sbb-autocomplete-grid-cell">
   <slot>
   </slot>
 </span>
 `;
-/* end snapshot sbb-autocomplete-grid-cell ShadowDom */
+/* end snapshot sbb-autocomplete-grid-cell renders Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-cell A11y tree Chrome"] =
+snapshots["sbb-autocomplete-grid-cell renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -39,9 +39,9 @@ snapshots["sbb-autocomplete-grid-cell A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-autocomplete-grid-cell A11y tree Chrome */
+/* end snapshot sbb-autocomplete-grid-cell renders A11y tree Chrome */
 
-snapshots["sbb-autocomplete-grid-cell A11y tree Firefox"] = 
+snapshots["sbb-autocomplete-grid-cell renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -55,5 +55,5 @@ snapshots["sbb-autocomplete-grid-cell A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-autocomplete-grid-cell A11y tree Firefox */
+/* end snapshot sbb-autocomplete-grid-cell renders A11y tree Firefox */
 

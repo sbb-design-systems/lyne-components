@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-autocomplete-grid-button renders Dom"] = 
+snapshots["sbb-autocomplete-grid-button renders DOM"] = 
 `<sbb-autocomplete-grid-button
   aria-disabled="false"
   data-action=""
@@ -13,9 +13,9 @@ snapshots["sbb-autocomplete-grid-button renders Dom"] =
 >
 </sbb-autocomplete-grid-button>
 `;
-/* end snapshot sbb-autocomplete-grid-button renders Dom */
+/* end snapshot sbb-autocomplete-grid-button renders DOM */
 
-snapshots["sbb-autocomplete-grid-button renders ShadowDom"] = 
+snapshots["sbb-autocomplete-grid-button renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-autocomplete-grid-button">
   <slot name="icon">
     <sbb-icon
@@ -28,9 +28,9 @@ snapshots["sbb-autocomplete-grid-button renders ShadowDom"] =
   </slot>
 </span>
 `;
-/* end snapshot sbb-autocomplete-grid-button renders ShadowDom */
+/* end snapshot sbb-autocomplete-grid-button renders Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-button renders disabled Dom"] = 
+snapshots["sbb-autocomplete-grid-button renders disabled DOM"] = 
 `<sbb-autocomplete-grid-button
   aria-disabled="true"
   data-action=""
@@ -43,9 +43,9 @@ snapshots["sbb-autocomplete-grid-button renders disabled Dom"] =
 >
 </sbb-autocomplete-grid-button>
 `;
-/* end snapshot sbb-autocomplete-grid-button renders disabled Dom */
+/* end snapshot sbb-autocomplete-grid-button renders disabled DOM */
 
-snapshots["sbb-autocomplete-grid-button renders disabled ShadowDom"] = 
+snapshots["sbb-autocomplete-grid-button renders disabled Shadow DOM"] = 
 `<span class="sbb-action-base sbb-autocomplete-grid-button">
   <slot name="icon">
     <sbb-icon
@@ -58,9 +58,9 @@ snapshots["sbb-autocomplete-grid-button renders disabled ShadowDom"] =
   </slot>
 </span>
 `;
-/* end snapshot sbb-autocomplete-grid-button renders disabled ShadowDom */
+/* end snapshot sbb-autocomplete-grid-button renders disabled Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-button renders negative without icon Dom"] = 
+snapshots["sbb-autocomplete-grid-button renders negative without icon DOM"] = 
 `<sbb-autocomplete-grid-button
   aria-disabled="false"
   data-action=""
@@ -72,15 +72,15 @@ snapshots["sbb-autocomplete-grid-button renders negative without icon Dom"] =
 >
 </sbb-autocomplete-grid-button>
 `;
-/* end snapshot sbb-autocomplete-grid-button renders negative without icon Dom */
+/* end snapshot sbb-autocomplete-grid-button renders negative without icon DOM */
 
-snapshots["sbb-autocomplete-grid-button renders negative without icon ShadowDom"] = 
+snapshots["sbb-autocomplete-grid-button renders negative without icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-autocomplete-grid-button">
   <slot name="icon">
   </slot>
 </span>
 `;
-/* end snapshot sbb-autocomplete-grid-button renders negative without icon ShadowDom */
+/* end snapshot sbb-autocomplete-grid-button renders negative without icon Shadow DOM */
 
 snapshots["sbb-autocomplete-grid-button A11y tree Chrome"] = 
 `<p>

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox Dom"] = 
+snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox DOM"] = 
 `<sbb-autocomplete-grid-optgroup
   aria-disabled="false"
   aria-label="Group"
@@ -38,9 +38,9 @@ snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox Dom"] =
   </sbb-autocomplete-grid-row>
 </sbb-autocomplete-grid-optgroup>
 `;
-/* end snapshot sbb-autocomplete-grid-optgroup Chrome-Firefox Dom */
+/* end snapshot sbb-autocomplete-grid-optgroup Chrome-Firefox DOM */
 
-snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox ShadowDom"] = 
+snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-optgroup__divider">
   <sbb-divider
     aria-orientation="horizontal"
@@ -62,7 +62,7 @@ snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox ShadowDom"] =
 <slot>
 </slot>
 `;
-/* end snapshot sbb-autocomplete-grid-optgroup Chrome-Firefox ShadowDom */
+/* end snapshot sbb-autocomplete-grid-optgroup Chrome-Firefox Shadow DOM */
 
 snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox A11y tree Chrome"] = 
 `<p>
@@ -104,7 +104,7 @@ snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox A11y tree Firefox"] =
 `;
 /* end snapshot sbb-autocomplete-grid-optgroup Chrome-Firefox A11y tree Firefox */
 
-snapshots["sbb-autocomplete-grid-optgroup Safari Dom"] = 
+snapshots["sbb-autocomplete-grid-optgroup Safari DOM"] = 
 `<sbb-autocomplete-grid-optgroup label="Group">
   <sbb-autocomplete-grid-row
     id="sbb-autocomplete-grid-row-1"
@@ -138,9 +138,9 @@ snapshots["sbb-autocomplete-grid-optgroup Safari Dom"] =
   </sbb-autocomplete-grid-row>
 </sbb-autocomplete-grid-optgroup>
 `;
-/* end snapshot sbb-autocomplete-grid-optgroup Safari Dom */
+/* end snapshot sbb-autocomplete-grid-optgroup Safari DOM */
 
-snapshots["sbb-autocomplete-grid-optgroup Safari ShadowDom"] = 
+snapshots["sbb-autocomplete-grid-optgroup Safari Shadow DOM"] = 
 `<div class="sbb-optgroup__divider">
   <sbb-divider
     aria-orientation="horizontal"
@@ -162,5 +162,5 @@ snapshots["sbb-autocomplete-grid-optgroup Safari ShadowDom"] =
 <slot>
 </slot>
 `;
-/* end snapshot sbb-autocomplete-grid-optgroup Safari ShadowDom */
+/* end snapshot sbb-autocomplete-grid-optgroup Safari Shadow DOM */
 

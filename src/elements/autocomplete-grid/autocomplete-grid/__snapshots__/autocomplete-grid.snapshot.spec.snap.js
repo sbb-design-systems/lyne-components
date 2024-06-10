@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] = 
+snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] = 
 `<sbb-autocomplete-grid
   data-state="closed"
   dir="ltr"
@@ -58,9 +58,9 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Dom"] =
   </sbb-autocomplete-grid-row>
 </sbb-autocomplete-grid>
 `;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox Dom */
+/* end snapshot sbb-autocomplete-grid Chrome-Firefox DOM */
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox ShadowDom"] = 
+snapshots["sbb-autocomplete-grid Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-autocomplete__gap-fix">
 </div>
 <div class="sbb-autocomplete__container">
@@ -94,7 +94,29 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox ShadowDom"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox ShadowDom */
+/* end snapshot sbb-autocomplete-grid Chrome-Firefox Shadow DOM */
+
+snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "combobox",
+      "name": "",
+      "autocomplete": "list",
+      "haspopup": "grid"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome */
 
 snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] = 
 `<p>
@@ -118,29 +140,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] =
 `;
 /* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox */
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] =
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "autocomplete": "list",
-      "haspopup": "grid"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome */
-
-snapshots["sbb-autocomplete-grid Safari Dom"] = 
+snapshots["sbb-autocomplete-grid Safari DOM"] = 
 `<sbb-autocomplete-grid
   data-state="closed"
   dir="ltr"
@@ -199,9 +199,9 @@ snapshots["sbb-autocomplete-grid Safari Dom"] =
   </sbb-autocomplete-grid-row>
 </sbb-autocomplete-grid>
 `;
-/* end snapshot sbb-autocomplete-grid Safari Dom */
+/* end snapshot sbb-autocomplete-grid Safari DOM */
 
-snapshots["sbb-autocomplete-grid Safari ShadowDom"] = 
+snapshots["sbb-autocomplete-grid Safari Shadow DOM"] = 
 `<div class="sbb-autocomplete__gap-fix">
 </div>
 <div class="sbb-autocomplete__container">
@@ -231,5 +231,5 @@ snapshots["sbb-autocomplete-grid Safari ShadowDom"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-autocomplete-grid Safari ShadowDom */
+/* end snapshot sbb-autocomplete-grid Safari Shadow DOM */
 
