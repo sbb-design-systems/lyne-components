@@ -3,7 +3,6 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
-import type { SbbImageElement } from '../image.js';
 
 import type { SbbTeaserHeroElement } from './teaser-hero.js';
 
@@ -30,7 +29,7 @@ describe(`sbb-teaser-hero`, () => {
           Break out and explore castles and palaces.
         </sbb-teaser-hero>`,
       );
-      await waitForImageReady(element.shadowRoot!.querySelector<SbbImageElement>('sbb-image')!);
+      await waitForImageReady(element.shadowRoot!.querySelector('sbb-image')!);
     });
 
     it('Dom', async () => {
@@ -53,7 +52,7 @@ describe(`sbb-teaser-hero`, () => {
           <sbb-image slot="image" image-src=${imageUrl} alt="SBB CFF FFS Employee"> </sbb-image>
         </sbb-teaser-hero>`,
       );
-      await waitForImageReady(element.querySelector<SbbImageElement>('sbb-image')!);
+      await waitForImageReady(element.querySelector('sbb-image')!);
     });
 
     it('Dom', async () => {

@@ -3,7 +3,6 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
-import type { SbbImageElement } from '../image.js';
 
 import type { SbbMessageElement } from './message.js';
 
@@ -26,7 +25,7 @@ describe(`sbb-message`, () => {
           <sbb-button slot="action" icon-name="arrows-circle-small"></sbb-button>
         </sbb-message>`,
       );
-      await waitForImageReady(root.querySelector<SbbImageElement>('sbb-image')!);
+      await waitForImageReady(root.querySelector('sbb-image')!);
     });
 
     it('Dom', async () => {

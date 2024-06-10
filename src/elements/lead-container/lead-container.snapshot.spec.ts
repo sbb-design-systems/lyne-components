@@ -3,7 +3,6 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
-import type { SbbImageElement } from '../image.js';
 
 import type { SbbLeadContainerElement } from './lead-container.js';
 
@@ -24,7 +23,7 @@ describe(`sbb-lead-container`, () => {
         <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
       </sbb-lead-container>`,
     );
-    await waitForImageReady(element.querySelector<SbbImageElement>('sbb-image')!);
+    await waitForImageReady(element.querySelector('sbb-image')!);
   });
 
   it('DOM', async () => {
