@@ -65,7 +65,7 @@ describe(`sbb-popover-trigger`, () => {
     await waitForCondition(() => focusSpy.events.length === 1);
     expect(focusSpy.count).to.be.equal(1);
 
-    await sendKeys({ down: 'Enter' });
+    await sendKeys({ press: 'Enter' });
     await waitForCondition(() => popover.getAttribute('data-state') === 'opened');
 
     expect(popover).to.have.attribute('data-state', 'opened');
@@ -80,7 +80,7 @@ describe(`sbb-popover-trigger`, () => {
     await waitForCondition(() => changeSpy.events.length === 1);
     expect(changeSpy.count).to.be.equal(1);
 
-    await sendKeys({ down: 'Enter' });
+    await sendKeys({ press: 'Enter' });
     await waitForCondition(() => popover.getAttribute('data-state') === 'opened');
 
     expect(popover).to.have.attribute('data-state', 'opened');
