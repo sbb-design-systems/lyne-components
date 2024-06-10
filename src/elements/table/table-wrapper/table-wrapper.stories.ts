@@ -95,7 +95,7 @@ const body: () => TemplateResult = () => html`
 `;
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-table-wrapper>
+  <sbb-table-wrapper ?negative=${args.negative}>
     <table
       aria-label="Train lines 2024"
       class=${classMap({

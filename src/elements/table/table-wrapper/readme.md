@@ -19,6 +19,16 @@ Currently, it only handles overflow (vertical and horizontal).
 
 See the [Table](/docs/styles-table--docs) style section.
 
+The component has a `negative` variant which can be set with the self-named property.
+
+```html
+<sbb-table-wrapper negative>
+  <table class="sbb-table sbb-table-negative">
+    ...
+  </table>
+</sbb-table-wrapper>
+```
+
 ## Accessibility
 
 Always provide an accessible label for your tables via `aria-label` or `aria-labelledby` on the table element.
@@ -32,6 +42,12 @@ Always provide an accessible label for your tables via `aria-label` or `aria-lab
 ```
 
 <!-- Auto Generated Below -->
+
+## Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 
 ## Slots
 

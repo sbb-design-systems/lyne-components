@@ -20,9 +20,14 @@
 
 .sbb-table-wrapper {
   overflow: auto;
-  @include sbb.scrollbar($track-visible: true);
+  @include sbb.scrollbar($size: thick, $track-visible: true);
 
   &::-webkit-scrollbar {
     border-radius: 0 0 var(--sbb-border-radius-4x) var(--sbb-border-radius-4x);
+  }
+
+  :host([negative]) & {
+    @include sbb.scrollbar-variables--color-negative;
+    @include sbb.scrollbar-variables--color-negative-track-visible;
   }
 }

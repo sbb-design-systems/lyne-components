@@ -7,6 +7,7 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbNegativeMixin } from '../../core/mixins.js';
 import { AgnosticResizeObserver } from '../../core/observers.js';
 
 import style from './table-wrapper.scss?lit&inline';
@@ -17,7 +18,7 @@ import style from './table-wrapper.scss?lit&inline';
  * @slot - Use the unnamed slot to add the table.
  */
 @customElement('sbb-table-wrapper')
-export class SbbTableWrapperElement extends LitElement {
+export class SbbTableWrapperElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   private _resizeObserver = new AgnosticResizeObserver(() => this._checkHorizontalScrollbar());
