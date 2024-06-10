@@ -90,27 +90,27 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                  | Default   | Description                                                          |
-| -------------------- | --------------------- | ------- | --------------------- | --------- | -------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined` |           | This will be forwarded as aria-label to the relevant nested element. |
-| `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`   | `'close'` | Backdrop click action.                                               |
-| `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                      |
+| Name                 | Attribute             | Privacy | Type                  | Default   | Description                                                                                                 |
+| -------------------- | --------------------- | ------- | --------------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined` |           | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. |
+| `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`   | `'close'` | Backdrop click action.                                                                                      |
+| `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                                                             |
 
 ## Methods
 
-| Name    | Privacy | Description                | Parameters                         | Return | Inherited From |
-| ------- | ------- | -------------------------- | ---------------------------------- | ------ | -------------- |
-| `close` | public  | Closes the dialog element. | `result: any, target: HTMLElement` | `any`  |                |
-| `open`  | public  | Opens the dialog element.  |                                    | `void` |                |
+| Name    | Privacy | Description           | Parameters                         | Return | Inherited From          |
+| ------- | ------- | --------------------- | ---------------------------------- | ------ | ----------------------- |
+| `close` | public  | Closes the component. | `result: any, target: HTMLElement` | `any`  | SbbOpenCloseBaseElement |
+| `open`  | public  | Opens the component.  |                                    | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                                      | Description                                                                     | Inherited From |
-| ----------- | ----------------------------------------- | ------------------------------------------------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<SbbDialogCloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      |                |
-| `didOpen`   | `CustomEvent<void>`                       | Emits whenever the `sbb-dialog` is opened.                                      |                |
-| `willClose` | `CustomEvent<void>`                       | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. |                |
-| `willOpen`  | `CustomEvent<void>`                       | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. |                |
+| Name        | Type                                       | Description                                                                     | Inherited From          |
+| ----------- | ------------------------------------------ | ------------------------------------------------------------------------------- | ----------------------- |
+| `didClose`  | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`   | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` is opened.                                      | SbbOpenCloseBaseElement |
+| `willClose` | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`  | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

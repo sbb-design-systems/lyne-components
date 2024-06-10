@@ -1,50 +1,74 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import {
   buttonIconTestTemplate,
-  buttonSlottedIconTestTemplate,
   buttonSpaceIconTestTemplate,
-  buttonTestTemplate,
 } from '../common/button-test-utils.js';
 
-import type { SbbButtonStaticElement } from './button-static.js';
-
-import './button-static.js';
+import { SbbButtonStaticElement } from './button-static.js';
 
 describe(`sbb-button-static`, () => {
-  describe('renders a sbb-button-static without icon', async () => {
-    let root: SbbButtonStaticElement;
+  let element: SbbButtonStaticElement;
 
-    beforeEach(async () => {
-      root = await fixture(buttonTestTemplate('sbb-button-static', true));
-    });
-
-    it('Dom', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
-    });
-
-    it('ShadowDom', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
-    });
+  it('renders', async () => {
+    element = await fixture(html`<sbb-button-static>I am a static button</sbb-button-static>`);
+    assert.instanceOf(element, SbbButtonStaticElement);
   });
 
-  describe('renders a sbb-button-static with slotted icon', async () => {
-    let root: SbbButtonStaticElement;
-
+  describe('events', () => {
     beforeEach(async () => {
-      root = await fixture(buttonSlottedIconTestTemplate('sbb-button-static'));
+      element = await fixture(
+        html`<sbb-button-static id="focus-id">I am a static button</sbb-button-static>`,
+      );
     });
 
-    it('Dom', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
+    it('dispatches event on click', async () => {
+      const clickSpy = new EventSpy('click');
+
+      element.click();
+      await waitForCondition(() => clickSpy.events.length === 1);
+      expect(clickSpy.count).to.be.equal(1);
     });
 
-    it('ShadowDom', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
+    it('should dispatch event on click if disabled', async () => {
+      element.setAttribute('disabled', 'true');
+
+      await waitForLitRender(element);
+
+      const clickSpy = new EventSpy('click');
+
+      element.click();
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
-    testA11yTreeSnapshot();
+    it('should stop propagating host click if disabled', async () => {
+      element.disabled = true;
+
+      const clickSpy = new EventSpy('click');
+
+      element.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+
+      expect(clickSpy.count).not.to.be.greaterThan(0);
+    });
+
+    it('should not dispatch click event on pressing Enter', async () => {
+      const changeSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: 'Enter' });
+      expect(changeSpy.count).not.to.be.greaterThan(0);
+    });
+
+    it('should not dispatch click event on pressing Space', async () => {
+      const changeSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: ' ' });
+      expect(changeSpy.count).not.to.be.greaterThan(0);
+    });
   });
 
   it('should detect icon in sbb-button-static', async () => {

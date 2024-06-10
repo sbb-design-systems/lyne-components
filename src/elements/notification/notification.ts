@@ -38,6 +38,7 @@ const DEBOUNCE_TIME = 150;
  */
 @customElement('sbb-notification')
 export class SbbNotificationElement extends LitElement {
+  // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',

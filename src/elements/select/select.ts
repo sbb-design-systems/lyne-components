@@ -1,14 +1,14 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
 import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
-import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbDisabledMixin, SbbNegativeMixin, SbbUpdateSchedulerMixin } from '../core/mixins.js';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
@@ -49,10 +49,12 @@ export interface SelectChange {
   role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbSelectElement extends SbbUpdateSchedulerMixin(
-  SbbDisabledMixin(SbbNegativeMixin(LitElement)),
+  SbbDisabledMixin(SbbNegativeMixin(SbbOpenCloseBaseElement)),
 ) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
+
+  // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
+  public static override readonly events = {
     didChange: 'didChange',
     change: 'change',
     input: 'input',
@@ -78,14 +80,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   /** Whether the select is readonly. */
   @property({ type: Boolean }) public readonly = false;
 
-  /** The state of the select. */
-  private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
-  }
-  private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
   /** The value displayed by the component. */
   @state() private _displayValue: string | null = null;
 
@@ -108,21 +102,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
       composed: false,
     },
   );
-
-  /** Emits whenever the `sbb-select` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbSelectElement.events.willOpen);
-
-  /** Emits whenever the `sbb-select` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbSelectElement.events.didOpen);
-
-  /** Emits whenever the `sbb-select` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbSelectElement.events.willClose,
-  );
-
-  /** Emits whenever the `sbb-select` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbSelectElement.events.didClose);
 
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
@@ -158,27 +137,27 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Opens the selection panel. */
   public open(): void {
-    if (this._state !== 'closed' || !this._overlay || this._options.length === 0) {
+    if (this.state !== 'closed' || !this._overlay || this._options.length === 0) {
       return;
     }
 
-    if (!this._willOpen.emit()) {
+    if (!this.willOpen.emit()) {
       return;
     }
-    this._state = 'opening';
+    this.state = 'opening';
     this._setOverlayPosition();
   }
 
   /** Closes the selection panel. */
   public close(): void {
-    if (this._state !== 'opened') {
+    if (this.state !== 'opened') {
       return;
     }
 
-    if (!this._willClose.emit()) {
+    if (!this.willClose.emit()) {
       return;
     }
-    this._state = 'closing';
+    this.state = 'closing';
     this._openPanelEventsController.abort();
   }
 
@@ -272,8 +251,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (ariaRoleOnHost) {
       this.id ||= this._overlayId;
     }
-
-    this._state ||= 'closed';
 
     const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
@@ -382,27 +359,27 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this._state === 'opening') {
+    if (event.animationName === 'open' && this.state === 'opening') {
       this._onOpenAnimationEnd();
-    } else if (event.animationName === 'close' && this._state === 'closing') {
+    } else if (event.animationName === 'close' && this.state === 'closing') {
       this._onCloseAnimationEnd();
     }
   }
 
   private _onOpenAnimationEnd(): void {
-    this._state = 'opened';
+    this.state = 'opened';
     this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
 
-    this._didOpen.emit();
+    this.didOpen.emit();
   }
 
   private _onCloseAnimationEnd(): void {
-    this._state = 'closed';
+    this.state = 'closed';
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
-    this._didClose.emit();
+    this.didClose.emit();
   }
 
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */
@@ -465,10 +442,10 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
       return;
     }
 
-    if (this._state === 'opened') {
+    if (this.state === 'opened') {
       await this._openedPanelKeyboardInteraction(event);
     }
-    if (this._state === 'closed') {
+    if (this.state === 'closed') {
       await this._closedPanelKeyboardInteraction(event);
     }
   }
@@ -490,7 +467,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private async _openedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
-    if (this.disabled || this.readonly || this._state !== 'opened') {
+    if (this.disabled || this.readonly || this.state !== 'opened') {
       return;
     }
 
@@ -688,7 +665,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
     this._triggerElement?.focus();
 
-    switch (this._state) {
+    switch (this.state) {
       case 'opened': {
         this.close();
         break;
