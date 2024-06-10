@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers/connected-abort-controller.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
 
 import style from './table-wrapper.scss?lit&inline';
 
