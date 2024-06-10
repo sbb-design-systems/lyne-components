@@ -1,32 +1,48 @@
-import { assert, expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { spy } from 'sinon';
 
 import { fixture } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import { waitForCondition } from '../core/testing.js';
 
-import { SbbImageElement } from './image.js';
+import './image.js';
 
 const imageUrl = import.meta.resolve('../clock/assets/sbb_clock_face.svg');
 
 describe(`sbb-image`, () => {
-  let element: SbbImageElement;
+  it('should trigger load event', async () => {
+    const loadSpy = spy();
+    const errorSpy = spy();
 
-  describe('should render', async () => {
-    beforeEach(async () => {
-      element = await fixture(html`<sbb-image image-src=${imageUrl}></sbb-image>`);
-      await waitForImageReady(element);
+    await fixture(
+      html`<sbb-image
+        image-src=${imageUrl}
+        @load=${(e: Event) => loadSpy(e)}
+        @error=${(e: Event) => errorSpy(e)}
+      ></sbb-image>`,
+    );
 
-      assert.instanceOf(element, SbbImageElement);
-    });
+    await waitForCondition(() => loadSpy.called);
 
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['image-src'] });
-    });
+    expect(loadSpy).to.have.been.called;
+    expect(errorSpy).not.to.have.been.called;
+  });
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot({
-        ignoreAttributes: ['src', 'srcset', 'fetchpriority'],
-      });
-    });
+  it('should trigger error event', async () => {
+    const loadSpy = spy();
+    const errorSpy = spy();
+
+    await fixture(
+      html`<sbb-image
+        image-src="http://localhost/dummy.png"
+        @load=${(e: Event) => loadSpy(e)}
+        @error=${(e: Event) => errorSpy(e)}
+      ></sbb-image>`,
+    );
+
+    await waitForCondition(() => errorSpy.called);
+
+    expect(loadSpy).not.to.have.been.called;
+    expect(errorSpy).to.have.been.called;
   });
 });
