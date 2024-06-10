@@ -13,10 +13,7 @@ describe(`sbb-table-wrapper`, () => {
     beforeEach(async () => {
       element = await fixture(
         html` <sbb-table-wrapper>
-          <table>
-            <caption>
-              Table caption
-            </caption>
+          <table class="sbb-table sbb-table-m" aria-label="Table caption">
             <thead>
               <tr>
                 <th>Col 1</th>

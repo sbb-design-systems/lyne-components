@@ -1,12 +1,12 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-table-wrapper renders DOM"] =
+snapshots["sbb-table-wrapper renders DOM"] = 
 `<sbb-table-wrapper>
-  <table>
-    <caption>
-      Table caption
-    </caption>
+  <table
+    aria-label="Table caption"
+    class="sbb-table sbb-table-m"
+  >
     <thead>
       <tr>
         <th>
@@ -32,22 +32,20 @@ snapshots["sbb-table-wrapper renders DOM"] =
 `;
 /* end snapshot sbb-table-wrapper renders DOM */
 
-snapshots["sbb-table-wrapper renders Shadow DOM"] =
-`<slot>
-</slot>
+snapshots["sbb-table-wrapper renders Shadow DOM"] = 
+`<div class="sbb-table-wrapper">
+  <slot>
+  </slot>
+</div>
 `;
 /* end snapshot sbb-table-wrapper renders Shadow DOM */
 
-snapshots["sbb-table-wrapper renders A11y tree Chrome"] =
+snapshots["sbb-table-wrapper renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
   "name": "",
   "children": [
-    {
-      "role": "text",
-      "name": "Table caption"
-    },
     {
       "role": "text",
       "name": "Col 1"
@@ -69,4 +67,32 @@ snapshots["sbb-table-wrapper renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-table-wrapper renders A11y tree Chrome */
+
+snapshots["sbb-table-wrapper renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Col 1"
+    },
+    {
+      "role": "text leaf",
+      "name": "Col 2"
+    },
+    {
+      "role": "text leaf",
+      "name": "Data 1"
+    },
+    {
+      "role": "text leaf",
+      "name": "Data 2"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-table-wrapper renders A11y tree Firefox */
 
