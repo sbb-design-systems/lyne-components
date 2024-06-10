@@ -4,7 +4,6 @@ import { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { getNextElementIndex } from '../../core/a11y.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { getDocumentWritingMode, isSafari } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { setAriaComboBoxAttributes } from '../../core/overlay.js';
 import type { SbbDividerElement } from '../../divider.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../../option.js';
@@ -38,37 +37,6 @@ const ariaRoleOnHost = isSafari;
   role: ariaRoleOnHost ? 'grid' : null,
 })
 export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
-  public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
-  } as const;
-
-  /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
-  protected willOpen: EventEmitter = new EventEmitter(
-    this,
-    SbbAutocompleteGridElement.events.willOpen,
-  );
-
-  /** Emits whenever the `sbb-autocomplete` is opened. */
-  protected didOpen: EventEmitter = new EventEmitter(
-    this,
-    SbbAutocompleteGridElement.events.didOpen,
-  );
-
-  /** Emits whenever the `sbb-autocomplete` begins the closing transition. */
-  protected willClose: EventEmitter = new EventEmitter(
-    this,
-    SbbAutocompleteGridElement.events.willClose,
-  );
-
-  /** Emits whenever the `sbb-autocomplete` is closed. */
-  protected didClose: EventEmitter = new EventEmitter(
-    this,
-    SbbAutocompleteGridElement.events.didClose,
-  );
-
   protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
   private _activeItemIndex = -1;

@@ -2,7 +2,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
@@ -10,10 +9,9 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { findReferencedElement, isSafari } from '../core/dom.js';
-import type { EventEmitter } from '../core/eventing.js';
-import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbNegativeMixin, SbbHydrationMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
@@ -32,7 +30,7 @@ import style from './autocomplete-base-element.scss?lit&inline';
 const ariaRoleOnHost = isSafari;
 
 export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
-  SbbHydrationMixin(LitElement),
+  SbbHydrationMixin(SbbOpenCloseBaseElement),
 ) {
   public static override styles: CSSResultGroup = style;
 
@@ -52,26 +50,6 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   /** Whether the icon space is preserved when no icon is set. */
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public preserveIconSpace?: boolean;
-
-  /* The state of the autocomplete. */
-  protected set state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
-  }
-  protected get state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
-  /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
-  protected abstract willOpen: EventEmitter;
-
-  /** Emits whenever the `sbb-autocomplete` is opened. */
-  protected abstract didOpen: EventEmitter;
-
-  /** Emits whenever the `sbb-autocomplete` begins the closing transition. */
-  protected abstract willClose: EventEmitter;
-
-  /** Emits whenever the `sbb-autocomplete` is closed. */
-  protected abstract didClose: EventEmitter;
 
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement {
@@ -138,7 +116,6 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     if (ariaRoleOnHost) {
       this.id ||= this.overlayId;
     }
-    this.state ||= 'closed';
     const signal = this.abort.signal;
     const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
 

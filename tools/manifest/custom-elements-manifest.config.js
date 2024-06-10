@@ -6,7 +6,7 @@ export function createManifestConfig(library = '') {
     litelement: true,
     globs: [`src/${library}/**/*.ts`],
     exclude: [
-      '**/*[.-]{stories,spec,e2e,test-utils}.ts',
+      '**/*[.-]{stories,spec,test-utils}.ts',
       '**/private/*',
       '**/private.ts',
       'vite.config.ts',

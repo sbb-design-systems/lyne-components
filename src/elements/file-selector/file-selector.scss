@@ -36,6 +36,8 @@
 
 .sbb-file-selector__input-container {
   -webkit-tap-highlight-color: transparent;
+  display: flex;
+  flex-direction: column;
 }
 
 .sbb-file-selector__visually-hidden {
@@ -64,12 +66,14 @@
   @include sbb.text--bold;
   @include sbb.title-6($exclude-spacing: true);
 
+  text-align: center;
   color: var(--sbb-file-selector-color);
 }
 
 .sbb-file-selector__dropzone-area--subtitle {
   @include sbb.text-xs--regular;
 
+  text-align: center;
   color: var(--sbb-file-selector-subtitle-color);
   margin-block-end: var(--sbb-spacing-fixed-4x);
 }

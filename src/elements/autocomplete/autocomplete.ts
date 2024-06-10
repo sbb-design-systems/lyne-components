@@ -3,7 +3,6 @@ import { customElement } from 'lit/decorators.js';
 import { getNextElementIndex } from '../core/a11y.js';
 import { hostAttributes } from '../core/decorators.js';
 import { getDocumentWritingMode, isSafari } from '../core/dom.js';
-import { EventEmitter } from '../core/eventing.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
@@ -35,28 +34,6 @@ const ariaRoleOnHost = isSafari;
   role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
-  public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
-  } as const;
-
-  /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
-  protected willOpen: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.willOpen);
-
-  /** Emits whenever the `sbb-autocomplete` is opened. */
-  protected didOpen: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.didOpen);
-
-  /** Emits whenever the `sbb-autocomplete` begins the closing transition. */
-  protected willClose: EventEmitter = new EventEmitter(
-    this,
-    SbbAutocompleteElement.events.willClose,
-  );
-
-  /** Emits whenever the `sbb-autocomplete` is closed. */
-  protected didClose: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.didClose);
-
   protected overlayId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';
   private _activeItemIndex = -1;

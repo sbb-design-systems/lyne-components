@@ -1,100 +1,77 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../../core/dom.js';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { describeIf } from '../../core/testing.js';
-
-import type { SbbOptGroupElement } from './optgroup.js';
-
-import '../../autocomplete.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
+import type { SbbOptionElement } from '../option.js';
 import '../option.js';
-import './optgroup.js';
+
+import { SbbOptGroupElement } from './optgroup.js';
 
 describe(`sbb-optgroup`, () => {
-  describe('autocomplete', () => {
-    describe('renders', () => {
-      let element: SbbOptGroupElement;
+  let element: SbbOptGroupElement;
 
-      beforeEach(async () => {
-        const testFixture = await fixture(html`
-          <div>
-            <input id="input" />
-            <sbb-autocomplete origin="anchor" trigger="input">
-              <sbb-optgroup label="Label">
-                <sbb-option value="1">1</sbb-option>
-                <sbb-option value="2">2</sbb-option>
-              </sbb-optgroup>
-            </sbb-autocomplete>
-            <div id="anchor"></div>
-          </div>
-        `);
-        element = testFixture.querySelector('sbb-optgroup')!;
+  beforeEach(async () => {
+    element = await fixture(html`
+      <sbb-optgroup label="Group 1">
+        <sbb-option id="option-1" value="option-1">Label 1</sbb-option>
+        <sbb-option id="option-2" disabled value="option-2">Label 2</sbb-option>
+        <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
+      </sbb-optgroup>
+    `);
+  });
 
-        // Open input for a meaningful a11y tree
-        testFixture.querySelector<HTMLInputElement>('input')!.focus();
-      });
+  it('renders', async () => {
+    assert.instanceOf(element, SbbOptGroupElement);
+  });
 
-      describeIf(!isSafari, 'Chrome-Firefox', async () => {
-        it('Dom', async () => {
-          await expect(element).dom.to.be.equalSnapshot();
-        });
+  it('disabled status is inherited', async () => {
+    const optionOne = element.querySelector(':scope > sbb-option#option-1');
+    const optionTwo = element.querySelector(':scope > sbb-option#option-2');
+    const optionThree = element.querySelector(':scope > sbb-option#option-3');
+    element.toggleAttribute('disabled', true);
+    await waitForLitRender(element);
 
-        it('ShadowDom', async () => {
-          await expect(element).shadowDom.to.be.equalSnapshot();
-        });
-      });
+    expect(element).to.have.attribute('disabled');
+    expect(optionOne).to.have.attribute('data-group-disabled');
+    expect(optionTwo).to.have.attribute('data-group-disabled');
+    expect(optionTwo).to.have.attribute('disabled');
+    expect(optionThree).to.have.attribute('data-group-disabled');
 
-      describeIf(isSafari, 'Safari', async () => {
-        it('Dom', async () => {
-          await expect(element).dom.to.be.equalSnapshot();
-        });
+    element.removeAttribute('disabled');
+    await waitForLitRender(element);
+    expect(optionTwo).not.to.have.attribute('data-group-disabled');
+    expect(optionTwo).to.have.attribute('disabled');
+  });
 
-        it('ShadowDom', async () => {
-          await expect(element).shadowDom.to.be.equalSnapshot();
-        });
-      });
+  it('disabled status prevents changes', async () => {
+    const optionOne = element.querySelector<SbbOptionElement>(':scope > sbb-option#option-1')!;
+    const optionTwo = element.querySelector<SbbOptionElement>(':scope > sbb-option#option-2')!;
+    const optionThree = element.querySelector<SbbOptionElement>(':scope > sbb-option#option-3')!;
+    const options = [optionOne, optionTwo, optionThree];
 
-      testA11yTreeSnapshot();
-    });
+    options.forEach((opt) => expect(opt).not.to.have.attribute('selected'));
 
-    describe('renders disabled', () => {
-      let elem: SbbOptGroupElement;
+    element.toggleAttribute('disabled', true);
+    await waitForLitRender(element);
+    expect(element).to.have.attribute('disabled');
 
-      beforeEach(async () => {
-        const testFixture = await fixture(html`
-          <div>
-            <sbb-autocomplete origin="anchor">
-              <sbb-optgroup label="Label" disabled>
-                <sbb-option value="1">1</sbb-option>
-                <sbb-option value="2">2</sbb-option>
-              </sbb-optgroup>
-            </sbb-autocomplete>
-            <div id="anchor"></div>
-          </div>
-        `);
-        elem = testFixture.querySelector('sbb-optgroup')!;
-      });
+    // clicks should have no effect since the group is disabled
+    for (const opt of options) {
+      opt.click();
+      await waitForLitRender(opt);
+      expect(opt).not.to.have.attribute('selected');
+    }
 
-      describeIf(!isSafari, 'Chrome-Firefox', async () => {
-        it('Dom', async () => {
-          await expect(elem).dom.to.be.equalSnapshot();
-        });
+    element.removeAttribute('disabled');
+    await waitForLitRender(element);
+    for (const opt of options) {
+      opt.click();
+      await waitForLitRender(opt);
+    }
 
-        it('ShadowDom', async () => {
-          await expect(elem).shadowDom.to.be.equalSnapshot();
-        });
-      });
-
-      describeIf(isSafari, 'Safari', async () => {
-        it('Dom', async () => {
-          await expect(elem).dom.to.be.equalSnapshot();
-        });
-
-        it('ShadowDom', async () => {
-          await expect(elem).shadowDom.to.be.equalSnapshot();
-        });
-      });
-    });
+    expect(optionOne).to.have.attribute('selected');
+    expect(optionTwo).not.to.have.attribute('selected');
+    expect(optionThree).to.have.attribute('selected');
   });
 });

@@ -1,13 +1,11 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbIconElement } from '../../icon.js';
 
-import type { SbbTrainWagonElement } from './train-wagon.js';
-import './train-wagon.js';
-import '../../icon.js';
-import '../../timetable-occupancy-icon.js';
+import { SbbTrainWagonElement } from './train-wagon.js';
 
 async function extractAriaLabels(
   properties: Partial<
@@ -61,103 +59,40 @@ async function extractAriaLabels(
 }
 
 describe(`sbb-train-wagon`, () => {
-  describe('render', () => {
-    it('should render as type wagon', async () => {
-      const root = await fixture(
-        html`<sbb-train-wagon
-          occupancy="none"
-          wagon-class="1"
-          type="wagon"
-          label="38"
-          blocked-passage="previous"
-        ></sbb-train-wagon>`,
-      );
+  let element: SbbTrainWagonElement;
 
-      expect(root).dom.to.be.equal(
-        `
-        <sbb-train-wagon data-has-visible-wagon-content blocked-passage="previous" label="38" occupancy="none" type="wagon" wagon-class="1">
-        </sbb-train-wagon>
-      `,
-      );
-      await expect(root).shadowDom.to.be.equalSnapshot();
+  it('renders', async () => {
+    element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
+    assert.instanceOf(element, SbbTrainWagonElement);
+  });
+
+  it('should emit sectorChange', async () => {
+    element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`);
+    const sectorChangeSpy = new EventSpy(SbbTrainWagonElement.events.sectorChange);
+    element.sector = 'B';
+
+    await waitForCondition(() => sectorChangeSpy.events.length === 1);
+    expect(sectorChangeSpy.count).to.be.greaterThan(0);
+  });
+
+  it('should change slot name when changing from multiple to single icon', async () => {
+    element = await fixture(
+      html`<sbb-train-wagon sector="A">
+        <sbb-icon name="sa-rs"></sbb-icon>
+        <sbb-icon name="sa-rs"></sbb-icon>
+      </sbb-train-wagon>`,
+    );
+
+    Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {
+      expect(icon.getAttribute('slot')).to.equal(`li-${index}`);
     });
 
-    it('should render as type wagon with one icon', async () => {
-      const root = await fixture(
-        html`<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>`,
-      );
-      expect(root).dom.to.be.equal(
-        `
-          <sbb-train-wagon data-has-visible-wagon-content type="wagon">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              name="sa-rs"
-              role="img"
-              slot="li-0"
-            ></sbb-icon>
-          </sbb-train-wagon>
-        `,
-      );
+    // Remove one icon
+    (element.querySelector('sbb-icon') as SbbIconElement).remove();
+    await waitForLitRender(element);
 
-      await expect(root).shadowDom.to.be.equalSnapshot();
-    });
-
-    it('should render as type wagon with multiple icons', async () => {
-      const root = await fixture(
-        html`<sbb-train-wagon
-          ><sbb-icon name="sa-rs"></sbb-icon><sbb-icon name="sa-rs"></sbb-icon
-        ></sbb-train-wagon>`,
-      );
-
-      expect(root).dom.to.be.equal(
-        `
-        <sbb-train-wagon data-has-visible-wagon-content type="wagon">
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            name="sa-rs"
-            role="img"
-            slot="li-0"></sbb-icon>
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            name="sa-rs"
-            role="img"
-            slot="li-1"></sbb-icon>
-        </sbb-train-wagon>
-      `,
-      );
-      await expect(root).shadowDom.to.be.equalSnapshot();
-    });
-
-    it('should render as type locomotive', async () => {
-      const root = await fixture(
-        html`<sbb-train-wagon
-          type="locomotive"
-          additional-accessibility-text="Top of the train"
-        ></sbb-train-wagon>`,
-      );
-
-      expect(root).dom.to.be.equal(
-        `
-          <sbb-train-wagon type="locomotive" additional-accessibility-text="Top of the train">
-          </sbb-train-wagon>
-        `,
-      );
-      await expect(root).shadowDom.to.be.equalSnapshot();
-    });
-
-    it('should render as type closed wagon without number', async () => {
-      const root = await fixture(html`<sbb-train-wagon type="closed"></sbb-train-wagon>`);
-
-      expect(root).dom.to.be.equal(
-        `
-          <sbb-train-wagon type="closed">
-          </sbb-train-wagon>
-        `,
-      );
-      await expect(root).shadowDom.to.be.equalSnapshot();
+    Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {
+      expect(icon.getAttribute('slot')).to.equal(`li-${index}`);
     });
   });
 

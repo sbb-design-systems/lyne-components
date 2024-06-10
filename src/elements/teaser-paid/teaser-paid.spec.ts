@@ -1,33 +1,36 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import type { SbbChipElement } from '../chip.js';
+import { fixture } from '../core/testing/private.js';
+import type { SbbImageElement } from '../image.js';
 
-import './teaser-paid.js';
+import { SbbTeaserPaidElement } from './teaser-paid.js';
 
-import type { SbbTeaserPaidElement } from './teaser-paid.js';
+import '../chip.js';
+import '../image.js';
 
 describe(`sbb-teaser-paid`, () => {
   let element: SbbTeaserPaidElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`<sbb-teaser-paid
-        accessibility-label="label"
-        href="https://www.sbb.ch"
-        rel="external"
-        target="_blank"
-      ></sbb-teaser-paid>`,
-    );
+    element = await fixture(html`
+      <sbb-teaser-paid>
+        <sbb-chip slot="chip">Label</sbb-chip>
+        <sbb-image slot="image"></sbb-image>
+      </sbb-teaser-paid>
+    `);
   });
 
-  it('Dom', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
+  it('renders', async () => {
+    assert.instanceOf(element, SbbTeaserPaidElement);
   });
 
-  it('ShadowDom', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+  it('styles slotted components', async () => {
+    const chip = element.querySelector<SbbChipElement>('sbb-chip')!;
+    const image = element.querySelector<SbbImageElement>('sbb-image')!;
 
-  testA11yTreeSnapshot();
+    expect(chip).to.have.attribute('color', 'charcoal');
+    expect(image).to.have.attribute('data-teaser');
+  });
 });

@@ -1,108 +1,57 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
+import type { SbbBlockLinkElement } from '../link.js';
 
-import type { SbbActionGroupElement } from './action-group.js';
-import './action-group.js';
+import { SbbActionGroupElement } from './action-group.js';
+
 import '../button/secondary-button.js';
 import '../link/block-link.js';
 
 describe(`sbb-action-group`, () => {
-  describe('renders', () => {
-    let element: SbbActionGroupElement;
+  let element: SbbActionGroupElement;
+  let button: SbbSecondaryButtonElement;
 
-    beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-action-group align-group="start" orientation="horizontal">
-          <sbb-secondary-button>Button</sbb-secondary-button>
-          <sbb-block-link
-            icon-name="chevron-small-left-small"
-            href="https://github.com/sbb-design-systems/lyne-components"
-          >
-            Link
-          </sbb-block-link>
-        </sbb-action-group>
-      `);
-    });
+  beforeEach(async () => {
+    element = await fixture(html`
+      <sbb-action-group align-group="start" orientation="horizontal">
+        <sbb-secondary-button>Button</sbb-secondary-button>
+        <sbb-block-link
+          icon-name="chevron-small-left-small"
+          icon-placement="start"
+          href="https://github.com/sbb-design-systems/lyne-components"
+        >
+          Link
+        </sbb-block-link>
+      </sbb-action-group>
+    `);
 
-    it('renders - Dom', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
+    button = element.querySelector<SbbSecondaryButtonElement>('sbb-secondary-button')!;
+  });
 
-    it('renders - ShadowDom', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  it('renders', async () => {
+    assert.instanceOf(element, SbbActionGroupElement);
   });
 
   describe('property sync', () => {
-    const assertButtons = (
-      root: SbbActionGroupElement,
-      assertion: (link: SbbSecondaryButtonElement) => boolean,
-    ): boolean => Array.from(root.querySelectorAll('sbb-secondary-button')).every(assertion);
-
-    it('should sync default button-size property with sbb-button', async () => {
-      const root = (await fixture(html`
-        <sbb-action-group align-group="start" orientation="horizontal">
-          <sbb-secondary-button>Button</sbb-secondary-button>
-          <sbb-block-link
-            icon-name="chevron-small-left-small"
-            href="https://github.com/sbb-design-systems/lyne-components"
-          >
-            Link </sbb-block-link
-          >˙
-        </sbb-action-group>
-      `)) as SbbActionGroupElement;
-      expect(assertButtons(root, (b) => b.size === 'l')).to.be.ok;
+    it('should sync default size with sbb-secondary-button', async () => {
+      expect(button.size).to.equal('l');
     });
 
-    it('should sync button-size="m" property with sbb-button', async () => {
-      const root = (await fixture(html`
-        <sbb-action-group align-group="start" orientation="horizontal" button-size="m">
-          <sbb-secondary-button>Button</sbb-secondary-button>
-          <sbb-block-link
-            icon-name="chevron-small-left-small"
-            href="https://github.com/sbb-design-systems/lyne-components"
-          >
-            Link
-          </sbb-block-link>
-        </sbb-action-group>
-      `)) as SbbActionGroupElement;
-      expect(assertButtons(root, (b) => b.size === 'm')).to.be.ok;
+    it('should update attributes with button-size="m"', async () => {
+      element.setAttribute('button-size', 'm');
+      await waitForLitRender(element);
+      expect(button.size).to.equal('m');
     });
 
-    it('should sync button-size="s" property with sbb-button', async () => {
-      const root = (await fixture(html`
-        <sbb-action-group align-group="start" orientation="horizontal" button-size="s">
-          <sbb-secondary-button>Button</sbb-secondary-button>
-          <sbb-block-link
-            icon-name="chevron-small-left-small"
-            href="https://github.com/sbb-design-systems/lyne-components"
-          >
-            Link
-          </sbb-block-link>
-        </sbb-action-group>
-      `)) as SbbActionGroupElement;
-      expect(assertButtons(root, (b) => b.size === 's')).to.be.ok;
-    });
-
-    it('should sync link-size property with sbb-link', async () => {
-      const root = (await fixture(html`
-        <sbb-action-group align-group="start" orientation="horizontal" link-size="s">
-          <sbb-secondary-button>Button</sbb-secondary-button>
-          <sbb-block-link
-            icon-name="chevron-small-left-small"
-            href="https://github.com/sbb-design-systems/lyne-components"
-          >
-            Link
-          </sbb-block-link>
-        </sbb-action-group>
-      `)) as SbbActionGroupElement;
-      expect(Array.from(root.querySelectorAll('sbb-block-link')).every((l) => l.size === 's')).to.be
-        .ok;
+    it('should update attributes with link-size="s"', async () => {
+      element.setAttribute('link-size', 's');
+      await waitForLitRender(element);
+      const link = element.querySelector<SbbBlockLinkElement>('sbb-block-link')!;
+      expect(link.size).to.equal('s');
     });
   });
 });

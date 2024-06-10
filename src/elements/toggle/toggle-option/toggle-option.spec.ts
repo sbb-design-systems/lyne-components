@@ -1,82 +1,48 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import type { SbbToggleOptionElement } from './toggle-option.js';
-
-import './toggle-option.js';
+import { SbbToggleOptionElement } from './toggle-option.js';
 
 describe(`sbb-toggle-option`, () => {
   let element: SbbToggleOptionElement;
 
-  describe('renders', async () => {
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-toggle-option checked value="Option 1"></sbb-toggle-option>`,
-      );
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`);
   });
 
-  describe('renders unchecked', async () => {
-    beforeEach(async () => {
-      element = await fixture(html`<sbb-toggle-option value="Option 1"></sbb-toggle-option>`);
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  it('renders', async () => {
+    assert.instanceOf(element, SbbToggleOptionElement);
   });
 
-  describe('renders checked disabled', async () => {
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-toggle-option checked disabled value="Option 1"></sbb-toggle-option>`,
-      );
-    });
+  it('selects the sbb-toggle-option on click', async () => {
+    const onInput = new EventSpy('input');
 
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
+    element.click();
+    await waitForLitRender(element);
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+    expect(element).to.have.attribute('checked');
+    await waitForCondition(() => onInput.events.length === 1);
+    expect(onInput.count).to.be.equal(1);
   });
 
-  describe('renders unchecked disabled', async () => {
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-toggle-option disabled value="Option 1"></sbb-toggle-option>`,
-      );
-    });
+  it('does not deselect sbb-toggle-option if already checked', async () => {
+    const onInput = new EventSpy('input');
 
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
+    element.click();
+    await waitForLitRender(element);
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+    expect(element).to.have.attribute('checked');
+    await waitForCondition(() => onInput.events.length === 1);
+    expect(onInput.count).to.be.equal(1);
 
-    testA11yTreeSnapshot();
+    element.click();
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('checked');
+    await waitForCondition(() => onInput.events.length === 1);
+    expect(onInput.count).to.be.equal(1);
   });
 });

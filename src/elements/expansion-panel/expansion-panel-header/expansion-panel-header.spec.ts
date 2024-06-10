@@ -1,76 +1,34 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy } from '../../core/testing.js';
 
-import './expansion-panel-header.js';
-import '../../icon.js';
+import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.js';
 
 describe(`sbb-expansion-panel-header`, () => {
-  it('renders collapsed', async () => {
-    const root = await fixture(
-      html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`,
-    );
+  let element: SbbExpansionPanelHeaderElement;
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-slot-names="unnamed" data-action data-button>
-          Header
-        </sbb-expansion-panel-header>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`);
   });
 
-  it('renders with icon', async () => {
-    const root = await fixture(
-      html`<sbb-expansion-panel-header icon-name="pie-medium">Header</sbb-expansion-panel-header>`,
-    );
-
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-expansion-panel-header
-          slot='header'
-          icon-name="pie-medium"
-          dir="ltr"
-          role="button"
-          slot="header"
-          tabindex="0"
-          data-action
-          data-button
-          data-icon
-          data-slot-names="unnamed"
-        >
-          Header
-        </sbb-expansion-panel-header>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  it('renders', async () => {
+    assert.instanceOf(element, SbbExpansionPanelHeaderElement);
   });
 
-  it('renders with slotted icon', async () => {
-    const root = await fixture(html`
-      <sbb-expansion-panel-header>
-        <sbb-icon slot="icon" name="pie-medium"></sbb-icon>
-        Header
-      </sbb-expansion-panel-header>
-    `);
-
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-icon data-slot-names="icon unnamed" data-action data-button>
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            role="img"
-            slot='icon'
-            name='pie-medium'></sbb-icon>
-          Header
-        </sbb-expansion-panel-header>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  it('should emit event on click', async () => {
+    const spy = new EventSpy(SbbExpansionPanelHeaderElement.events.toggleExpanded);
+    element.click();
+    expect(spy.count).to.be.greaterThan(0);
   });
 
-  testA11yTreeSnapshot(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`);
+  it('should not emit event on click if disabled', async () => {
+    element = await fixture(
+      html`<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`,
+    );
+    const spy = new EventSpy(SbbExpansionPanelHeaderElement.events.toggleExpanded);
+    element.click();
+    expect(spy.count).not.to.be.greaterThan(0);
+  });
 });

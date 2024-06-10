@@ -110,19 +110,19 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Methods
 
-| Name    | Privacy | Description              | Parameters | Return | Inherited From             |
-| ------- | ------- | ------------------------ | ---------- | ------ | -------------------------- |
-| `close` | public  | Closes the autocomplete. |            | `void` | SbbAutocompleteBaseElement |
-| `open`  | public  | Opens the autocomplete.  |            | `void` | SbbAutocompleteBaseElement |
+| Name    | Privacy | Description              | Parameters | Return | Inherited From          |
+| ------- | ------- | ------------------------ | ---------- | ------ | ----------------------- |
+| `close` | public  | Closes the autocomplete. |            | `void` | SbbOpenCloseBaseElement |
+| `open`  | public  | Opens the autocomplete.  |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                | Description                                                                           | Inherited From |
-| ----------- | ------------------- | ------------------------------------------------------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                                      |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                                      |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled. |                |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled. |                |
+| Name        | Type                | Description                                                                           | Inherited From          |
+| ----------- | ------------------- | ------------------------------------------------------------------------------------- | ----------------------- |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                                      | SbbOpenCloseBaseElement |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

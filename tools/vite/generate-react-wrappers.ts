@@ -156,10 +156,9 @@ function renderTemplate(
   // If a type or interface needs to be imported, the custom elements analyzer will not
   // detect/extract these and therefore we need to have a manual list of required
   // types/interfaces.
-  const interfaces = new Map<string, string>().set(
-    'SbbValidationChangeEvent',
-    'core/interfaces.js',
-  );
+  const interfaces = new Map<string, string>()
+    .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
+    .set('SbbValidationChangeEvent', 'core/interfaces.js');
   for (const customEventType of customEventTypes) {
     const exportModule = exports.find((e) => e.name === customEventType);
     if (exportModule) {

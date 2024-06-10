@@ -227,12 +227,6 @@ export class SbbCalendarElement<T = Date> extends LitElement {
     super();
     this._createMonthRows();
     this._setWeekdays();
-
-    // Workaround to execute initialization immediately after hydration
-    // If no hydration is needed, will be executed before the first rendering
-    this.addController({
-      hostConnected: () => this.resetPosition(),
-    });
   }
 
   private get _dateFilter(): (date: T) => boolean {
@@ -250,6 +244,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.resetPosition();
     this.focus = () => {
       this._resetFocus = true;
       this._focusCell();
