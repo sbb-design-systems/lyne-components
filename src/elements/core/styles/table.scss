@@ -35,3 +35,7 @@
 .sbb-table-data-cell {
   @include t.table-data-cell;
 }
+
+.sbb-table-caption {
+  @include t.table-caption;
+}

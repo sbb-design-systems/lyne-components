@@ -21,6 +21,18 @@ See the [Table](/docs/styles-table--docs) style section.
 
 <!-- Auto Generated Below -->
 
+## Accessibility
+
+Always provide an accessible label for your tables via `aria-label` or `aria-labelledby` on the table element.
+
+```html
+<sbb-table-wrapper>
+  <table class="sbb-table" aria-label="Table caption">
+    ...
+  </table>
+</sbb-table-wrapper>
+```
+
 ## Slots
 
 | Name | Description                            |

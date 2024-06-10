@@ -90,8 +90,9 @@
 @mixin table-caption {
   @include t.text-xs--regular;
 
-  color: var(--sbb-table-caption-color);
-  margin-block-start: var(--sbb-table-caption-margin-block-start);
+  // Defaults are needed for cases where the caption is used from outside a table
+  color: var(--sbb-table-caption-color, var(--sbb-color-granite));
+  margin-block-start: var(--sbb-table-caption-margin-block-start, var(--sbb-spacing-fixed-4x));
   text-align: left;
 }
 
