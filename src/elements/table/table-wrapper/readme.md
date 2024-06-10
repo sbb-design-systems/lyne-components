@@ -19,8 +19,6 @@ Currently, it only handles overflow (vertical and horizontal).
 
 See the [Table](/docs/styles-table--docs) style section.
 
-<!-- Auto Generated Below -->
-
 ## Accessibility
 
 Always provide an accessible label for your tables via `aria-label` or `aria-labelledby` on the table element.
@@ -32,6 +30,8 @@ Always provide an accessible label for your tables via `aria-label` or `aria-lab
   </table>
 </sbb-table-wrapper>
 ```
+
+<!-- Auto Generated Below -->
 
 ## Slots
 
