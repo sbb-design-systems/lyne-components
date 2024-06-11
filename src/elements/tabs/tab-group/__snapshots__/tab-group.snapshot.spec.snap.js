@@ -5,7 +5,7 @@ snapshots["sbb-tab-group renders DOM"] =
 `<sbb-tab-group initial-selected-index="0">
   <sbb-tab-label
     active=""
-    aria-controls="sbb-tab-panel-1"
+    aria-controls=""
     aria-selected="true"
     data-size="l"
     data-slot-names="unnamed"
@@ -15,16 +15,17 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 1
   </sbb-tab-label>
-  <div
+  <sbb-tab
     active=""
-    id="sbb-tab-panel-1"
     role="tabpanel"
-    tabindex="0"
   >
+    No content.
+  </sbb-tab>
+  <div>
     Test tab content 1
   </div>
   <sbb-tab-label
-    aria-controls="sbb-tab-panel-2"
+    aria-controls=""
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
@@ -34,15 +35,14 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 2
   </sbb-tab-label>
-  <div
-    id="sbb-tab-panel-2"
-    role="tabpanel"
-    tabindex="0"
-  >
+  <sbb-tab role="tabpanel">
+    No content.
+  </sbb-tab>
+  <div>
     Test tab content 2
   </div>
   <sbb-tab-label
-    aria-controls="sbb-tab-panel-3"
+    aria-controls=""
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
@@ -53,11 +53,10 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 3
   </sbb-tab-label>
-  <div
-    id="sbb-tab-panel-3"
-    role="tabpanel"
-    tabindex="0"
-  >
+  <sbb-tab role="tabpanel">
+    No content.
+  </sbb-tab>
+  <div>
     Test tab content 3
   </div>
   <sbb-tab-label
@@ -71,9 +70,9 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 4
   </sbb-tab-label>
-  <div role="tabpanel">
+  <sbb-tab role="tabpanel">
     No content.
-  </div>
+  </sbb-tab>
 </sbb-tab-group>
 `;
 /* end snapshot sbb-tab-group renders DOM */
@@ -117,14 +116,8 @@ snapshots["sbb-tab-group renders A11y tree Firefox"] =
       "name": "Test tab label 4"
     },
     {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Test tab content 1"
-        }
-      ]
+      "role": "text leaf",
+      "name": "No content."
     }
   ]
 }
@@ -156,14 +149,8 @@ snapshots["sbb-tab-group renders A11y tree Chrome"] =
       "name": "Test tab label 4"
     },
     {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text",
-          "name": "Test tab content 1"
-        }
-      ]
+      "role": "text",
+      "name": "No content."
     }
   ]
 }

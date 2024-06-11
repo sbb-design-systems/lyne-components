@@ -8,6 +8,7 @@ import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { EventEmitter, throttle } from '../../core/eventing.js';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
+import type { SbbTabElement } from '../tab.js';
 
 import style from './tab-group.scss?lit&inline';
 
@@ -19,10 +20,12 @@ export interface InterfaceSbbTabGroupActions {
   select(): void;
 }
 
+type SbbTabSupportedContentType = SbbTabElement | SbbTabGroupElement;
+
 export interface InterfaceSbbTabGroupTab extends HTMLElement {
   active?: boolean;
   disabled?: boolean;
-  relatedContent?: HTMLElement;
+  relatedContent?: SbbTabSupportedContentType;
   index?: number;
   tabGroupActions?: InterfaceSbbTabGroupActions;
   size: 's' | 'l' | 'xl';
@@ -32,7 +35,7 @@ const tabObserverConfig: MutationObserverInit = {
   attributeFilter: ['active', 'disabled'],
 };
 
-const SUPPORTED_CONTENT_WRAPPERS = ['article', 'div', 'section', 'sbb-tab-group'];
+const SUPPORTED_CONTENT_WRAPPERS = ['sbb-tab', 'sbb-tab-group'];
 
 let nextId = 0;
 
@@ -40,8 +43,8 @@ let nextId = 0;
  * It displays one or more tab, each one with a title and a content.
  *
  * @slot - Use the unnamed slot to add html-content to the `sbb-tab-group`.
- * Wrap the content in a `div`, a `section`, an `article` or provide a nested `sbb-tab-group`:
- * This is correct: `<div>Some text <p>Some other text</p></div>`
+ * Wrap the content in a `sbb-tab` or provide a nested `sbb-tab-group`:
+ * This is correct: `<sbb-tab>Some text <p>Some other text</p></sbb-tab>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
  * @slot tab-bar - When you provide the `sbb-tab-label` tag through the unnamed slot,
  * it will be automatically moved to this slot. You do not need to use it directly.
@@ -69,9 +72,7 @@ export class SbbTabGroupElement extends LitElement {
     this._onTabContentElementResize(entries),
   );
 
-  /**
-   * Size variant, either s, l or xl.
-   */
+  /** Size variant, either s, l or xl. */
   @property()
   public set size(value: InterfaceSbbTabGroupTab['size']) {
     this._size = value;
@@ -94,9 +95,7 @@ export class SbbTabGroupElement extends LitElement {
     }
   }
 
-  /**
-   * Emits an event on selected tab change
-   */
+  /** Emits an event on selected tab change. */
   private _selectedTabChanged: EventEmitter<void> = new EventEmitter(
     this,
     SbbTabGroupElement.events.didChange,
@@ -311,14 +310,14 @@ export class SbbTabGroupElement extends LitElement {
       tab.nextElementSibling?.localName &&
       SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.localName)
     ) {
-      tab.relatedContent = tab.nextElementSibling as HTMLElement;
+      tab.relatedContent = tab.nextElementSibling as SbbTabSupportedContentType;
       tab.relatedContent.id = this._assignId();
       if (tab.relatedContent.nodeName !== 'SBB-TAB-GROUP') {
         tab.relatedContent.tabIndex = 0;
       }
     } else {
-      tab.insertAdjacentHTML('afterend', '<div>No content.</div>');
-      tab.relatedContent = tab.nextElementSibling as HTMLElement;
+      tab.insertAdjacentHTML('afterend', '<sbb-tab>No content.</sbb-tab>');
+      tab.relatedContent = tab.nextElementSibling as SbbTabSupportedContentType;
       if (import.meta.env.DEV) {
         console.warn(
           `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`,

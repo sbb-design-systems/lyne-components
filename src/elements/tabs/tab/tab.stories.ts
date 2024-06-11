@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { html, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import './step.js';
+import './tab.js';
 
-const Template = (): TemplateResult =>
-  html`<sbb-step slot="step" data-selected>Step content.</sbb-step>`;
+const Template = (): TemplateResult => html`<sbb-tab> Content</sbb-tab>`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -17,7 +17,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-stepper/sbb-step',
+  title: 'elements/sbb-tab/sbb-tab',
 };
 
 export default meta;

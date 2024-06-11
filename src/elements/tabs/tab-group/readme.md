@@ -8,20 +8,20 @@ tab panels can present different sections of content and include text, images, f
 ```html
 <sbb-tab-group>
   <sbb-tab-label>I am the first</sbb-tab-label>
-  <div>Tab content 1</div>
+  <sbb-tab>Tab content 1</sbb-tab>
 
   <sbb-tab-label>I am the second</sbb-tab-label>
-  <section>Tab content 2</section>
+  <sbb-tab>Tab content 2</sbb-tab>
 
   <sbb-tab-label>I am the third</sbb-tab-label>
-  <article>Tab content 3</article>
+  <sbb-tab>Tab content 3</sbb-tab>
 </sbb-tab-group>
 ```
 
-In order to display a tab label within the tab bar, provide a `sbb-tab-label` right before its related tab content;
+To display a tab label within the tab bar, provide a `sbb-tab-label` right before its related tab content;
 please refer to the [sbb-tab-label](/docs/elements-sbb-tab-sbb-tab-label--docs) documentation for more details.
 
-**Note:** the content element should be wrapped in a `div`, a `section` or an `article` and placed right after its relative `sbb-tab-label`.
+The content element should be wrapped in a `sbb-tab` and placed right after its relative `sbb-tab-label`.
 Tab groups can also be nested, which means that a tab's content block can be represented by another `sbb-tab-group`,
 as shown in the "Nested Tab Groups" example.
 
@@ -61,7 +61,7 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 ## Slots
 
-| Name      | Description                                                                                                                                                                                                                                                                                     |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add html-content to the `sbb-tab-group`. Wrap the content in a `div`, a `section`, an `article` or provide a nested `sbb-tab-group`: This is correct: `<div>Some text <p>Some other text</p></div>` This is not correct: `<span>Some text</span><p>Some other text</p>` |
-| `tab-bar` | When you provide the `sbb-tab-label` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly.                                                                                                                                             |
+| Name      | Description                                                                                                                                                                                                                                                                      |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to add html-content to the `sbb-tab-group`. Wrap the content in a `sbb-tab` or provide a nested `sbb-tab-group`: This is correct: `<sbb-tab>Some text <p>Some other text</p></sbb-tab>` This is not correct: `<span>Some text</span><p>Some other text</p>` |
+| `tab-bar` | When you provide the `sbb-tab-label` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly.                                                                                                                              |

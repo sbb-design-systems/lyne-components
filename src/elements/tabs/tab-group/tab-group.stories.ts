@@ -19,13 +19,14 @@ import { SbbTabGroupElement } from './tab-group.js';
 import '../../link.js';
 import '../../title.js';
 import '../tab-label.js';
+import '../tab.js';
 
 const firstTabTitle = (label: string, args: Args): TemplateResult => html`
   <sbb-tab-label ${sbbSpread(args)}>${label}</sbb-tab-label>
 `;
 
 const tabPanelOne = (): TemplateResult => html`
-  <div>
+  <sbb-tab>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
@@ -34,25 +35,25 @@ const tabPanelOne = (): TemplateResult => html`
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec.
-  </div>
+  </sbb-tab>
 `;
 
 const tabPanelTwo = (): TemplateResult => html`
-  <section>
+  <sbb-tab>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec.
     <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
-  </section>
+  </sbb-tab>
 `;
 
 const tabPanelFour = (): TemplateResult => html`
-  <article>
+  <sbb-tab>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
     turpis in eu mi bibendum neque egestas congue.
-  </article>
+  </sbb-tab>
 `;
 
 const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
@@ -92,19 +93,19 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
     ${firstTabTitle(label, args)}
     <sbb-tab-group size=${size} initial-selected-index="1">
       <sbb-tab-label level="2">Nested tab</sbb-tab-label>
-      <div>
+      <sbb-tab>
         Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
         elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
         rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed
         faucibus turpis in eu mi bibendum neque egestas congue.
-      </div>
+      </sbb-tab>
 
       <sbb-tab-label level="2">Nested tab</sbb-tab-label>
-      <section>
+      <sbb-tab>
         Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
         elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
         rhoncus urna.
-      </section>
+      </sbb-tab>
     </sbb-tab-group>
 
     <sbb-tab-label amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-label>
