@@ -21,7 +21,7 @@ tab panels can present different sections of content and include text, images, f
 To display a tab label within the tab bar, provide a `sbb-tab-label` right before its related tab content;
 please refer to the [sbb-tab-label](/docs/elements-sbb-tab-sbb-tab-label--docs) documentation for more details.
 
-The content element should be wrapped in a `sbb-tab` and placed right after its relative `sbb-tab-label`.
+The content element must be wrapped in a `sbb-tab` and placed right after its relative `sbb-tab-label`.
 Tab groups can also be nested, which means that a tab's content block can be represented by another `sbb-tab-group`,
 as shown in the "Nested Tab Groups" example.
 

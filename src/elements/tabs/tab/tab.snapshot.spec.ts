@@ -7,7 +7,7 @@ import type { SbbTabElement } from './tab.js';
 import './tab.js';
 
 describe(`sbb-tab`, () => {
-  it('renders', () => {
+  describe('renders', () => {
     let element: SbbTabElement;
 
     beforeEach(async () => {

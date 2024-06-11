@@ -1,7 +1,14 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-tab-label renders"] = 
+snapshots["sbb-tab-label renders DOM"] = 
+`<sbb-tab-label data-slot-names="unnamed">
+  Label
+</sbb-tab-label>
+`;
+/* end snapshot sbb-tab-label renders DOM */
+
+snapshots["sbb-tab-label renders Shadow DOM"] = 
 `<div class="sbb-tab-label__wrapper">
   <h1 class="sbb-tab-label">
     <span class="sbb-tab-label__icon">
@@ -19,9 +26,20 @@ snapshots["sbb-tab-label renders"] =
   </h1>
 </div>
 `;
-/* end snapshot sbb-tab-label renders */
+/* end snapshot sbb-tab-label renders Shadow DOM */
 
-snapshots["sbb-tab-label renders correctly an H2 heading tag"] = 
+snapshots["sbb-tab-label renders correctly an H2 heading tag DOM"] = 
+`<sbb-tab-label
+  data-slot-names="unnamed"
+  icon-name="pie-small"
+  level="2"
+>
+  Label
+</sbb-tab-label>
+`;
+/* end snapshot sbb-tab-label renders correctly an H2 heading tag DOM */
+
+snapshots["sbb-tab-label renders correctly an H2 heading tag Shadow DOM"] = 
 `<div class="sbb-tab-label__wrapper">
   <h2 class="sbb-tab-label">
     <span class="sbb-tab-label__icon">
@@ -46,9 +64,20 @@ snapshots["sbb-tab-label renders correctly an H2 heading tag"] =
   </h2>
 </div>
 `;
-/* end snapshot sbb-tab-label renders correctly an H2 heading tag */
+/* end snapshot sbb-tab-label renders correctly an H2 heading tag Shadow DOM */
 
-snapshots["sbb-tab-label renders an H1 heading tag if the provided level is greater than 6"] = 
+snapshots["sbb-tab-label renders an H1 heading tag if the provided level is greater than 6 DOM"] = 
+`<sbb-tab-label
+  amount="78"
+  data-slot-names="unnamed"
+  level="7"
+>
+  Label
+</sbb-tab-label>
+`;
+/* end snapshot sbb-tab-label renders an H1 heading tag if the provided level is greater than 6 DOM */
+
+snapshots["sbb-tab-label renders an H1 heading tag if the provided level is greater than 6 Shadow DOM"] = 
 `<div class="sbb-tab-label__wrapper">
   <h1 class="sbb-tab-label">
     <span class="sbb-tab-label__icon">
@@ -67,7 +96,7 @@ snapshots["sbb-tab-label renders an H1 heading tag if the provided level is grea
   </h1>
 </div>
 `;
-/* end snapshot sbb-tab-label renders an H1 heading tag if the provided level is greater than 6 */
+/* end snapshot sbb-tab-label renders an H1 heading tag if the provided level is greater than 6 Shadow DOM */
 
 snapshots["sbb-tab-label A11y tree Chrome"] = 
 `<p>

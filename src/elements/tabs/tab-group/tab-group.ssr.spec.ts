@@ -21,7 +21,7 @@ describe(`sbb-tab-group ${fixture.name}`, () => {
         <sbb-tab>Test tab content 3</sbb-tab>
         <sbb-tab-label id="sbb-tab-4">Test tab label 4</sbb-tab-label>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.js', '../tab-label.js'] },
+      { modules: ['./tab-group.js', '../tab-label.js', '../tab.js'] },
     );
   });
 

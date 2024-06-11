@@ -1,7 +1,22 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["A11y tree Chrome"] = 
+snapshots["sbb-tab renders DOM"] = 
+`<sbb-tab>
+  Content
+</sbb-tab>
+`;
+/* end snapshot sbb-tab renders DOM */
+
+snapshots["sbb-tab renders Shadow DOM"] = 
+`<div class="sbb-tab">
+  <slot>
+  </slot>
+</div>
+`;
+/* end snapshot sbb-tab renders Shadow DOM */
+
+snapshots["sbb-tab renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -15,9 +30,9 @@ snapshots["A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot A11y tree Chrome */
+/* end snapshot sbb-tab renders A11y tree Chrome */
 
-snapshots["A11y tree Firefox"] = 
+snapshots["sbb-tab renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -31,5 +46,5 @@ snapshots["A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot A11y tree Firefox */
+/* end snapshot sbb-tab renders A11y tree Firefox */
 

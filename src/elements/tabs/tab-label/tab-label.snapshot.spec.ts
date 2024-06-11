@@ -3,30 +3,58 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
+import type { SbbTabLabelElement } from './tab-label.js';
 import './tab-label.js';
 
 describe(`sbb-tab-label`, () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-tab-label></sbb-tab-label>`);
+  describe(`renders`, () => {
+    let element: SbbTabLabelElement;
 
-    expect(root).dom.to.be.equal(`<sbb-tab-label></sbb-tab-label>`);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-tab-label>Label</sbb-tab-label>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders correctly an H2 heading tag', async () => {
-    const root = await fixture(
-      html`<sbb-tab-label level="2" icon-name="pie-small"></sbb-tab-label>`,
-    );
+  describe(`renders correctly an H2 heading tag`, () => {
+    let element: SbbTabLabelElement;
 
-    expect(root).dom.to.be.equal(`<sbb-tab-label level="2" icon-name="pie-small"></sbb-tab-label>`);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-tab-label level="2" icon-name="pie-small">Label</sbb-tab-label>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders an H1 heading tag if the provided level is greater than 6', async () => {
-    const root = await fixture(html`<sbb-tab-label level="7" amount="78"></sbb-tab-label>`);
+  describe(`renders an H1 heading tag if the provided level is greater than 6`, () => {
+    let element: SbbTabLabelElement;
 
-    expect(root).dom.to.be.equal(`<sbb-tab-label level="7" amount="78"></sbb-tab-label>`);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-tab-label level="7" amount="78">Label</sbb-tab-label>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
   testA11yTreeSnapshot(html`<sbb-tab-label>Tab title</sbb-tab-label>`);
