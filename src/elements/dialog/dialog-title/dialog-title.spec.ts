@@ -1,28 +1,25 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import type { SbbDialogTitleElement } from './dialog-title.js';
-
-import './dialog-title.js';
+import { SbbDialogTitleElement } from './dialog-title.js';
 
 describe('sbb-dialog-title', () => {
   let element: SbbDialogTitleElement;
 
-  describe('renders', () => {
-    beforeEach(async () => {
-      element = await fixture(html`<sbb-dialog-title>Title</sbb-dialog-title>`);
-    });
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-dialog-title back-button>Title</sbb-dialog-title>`);
+  });
 
-    it('Light DOM', async () => {
-      await expect(element).dom.to.equalSnapshot();
-    });
+  it('renders', async () => {
+    assert.instanceOf(element, SbbDialogTitleElement);
+  });
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  it('emits requestBackAction on back button click', async () => {
+    const myEventNameSpy = new EventSpy(SbbDialogTitleElement.events.backClick);
+    (element.shadowRoot!.querySelector('.sbb-dialog__back')! as HTMLElement).click();
+    await waitForLitRender(element);
+    expect(myEventNameSpy.count).to.be.equal(1);
   });
 });

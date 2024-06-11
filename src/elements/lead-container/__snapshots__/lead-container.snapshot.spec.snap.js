@@ -6,6 +6,7 @@ snapshots["sbb-lead-container DOM"] =
   <sbb-image
     aspect-ratio="16-9"
     border-radius="default"
+    data-loaded=""
     slot="image"
   >
   </sbb-image>

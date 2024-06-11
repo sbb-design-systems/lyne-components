@@ -1,72 +1,184 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import type { SbbCalendarElement } from '../../calendar.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbPopoverTriggerElement } from '../../popover.js';
+import { SbbPopoverElement } from '../../popover.js';
+import type { SbbDatepickerElement } from '../datepicker.js';
 
-import type { SbbDatepickerToggleElement } from './datepicker-toggle.js';
+import { SbbDatepickerToggleElement } from './datepicker-toggle.js';
 
-import './datepicker-toggle.js';
 import '../datepicker.js';
-import '../../form-field.js';
+import '../../form-field/form-field.js';
 
 describe(`sbb-datepicker-toggle`, () => {
-  it('renders', async () => {
-    const page = await fixture(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
+  it('renders standalone', async () => {
+    const element: SbbDatepickerToggleElement = await fixture(
+      html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`,
+    );
+    assert.instanceOf(element, SbbDatepickerToggleElement);
 
-    expect(page).dom.to.equal(`<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`);
-    await expect(page).shadowDom.to.equalSnapshot();
+    const popoverTrigger: SbbPopoverTriggerElement =
+      element.shadowRoot!.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    expect(popoverTrigger).to.have.attribute('disabled');
   });
 
-  describe('renders in form-field', () => {
-    it('renders in form-field', async () => {
-      const page: SbbFormFieldElement = await fixture(html`
-        <sbb-form-field>
-          <sbb-datepicker-toggle></sbb-datepicker-toggle>
-          <sbb-datepicker></sbb-datepicker>
-          <input />
-        </sbb-form-field>
-      `);
-      const element: SbbDatepickerToggleElement =
-        page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
-      expect(element).dom.to.be.equal(
-        `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
-      );
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+  it('renders and opens popover with picker', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+        <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
+        <input id="datepicker-input" />
+      </div>
+    `);
+    const element: SbbDatepickerToggleElement =
+      root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+    assert.instanceOf(element, SbbDatepickerToggleElement);
 
-    it('renders in disabled form-field', async () => {
-      const page: SbbFormFieldElement = await fixture(html`
-        <sbb-form-field>
-          <sbb-datepicker-toggle></sbb-datepicker-toggle>
-          <sbb-datepicker></sbb-datepicker>
-          <input disabled />
-        </sbb-form-field>
-      `);
-      const element: SbbDatepickerToggleElement =
-        page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
-      expect(element).dom.to.be.equal(
-        `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
-      );
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+    const popoverTrigger: SbbPopoverTriggerElement =
+      element.shadowRoot!.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    const popover: SbbPopoverElement =
+      element.shadowRoot!.querySelector<SbbPopoverElement>('sbb-popover')!;
 
-    it('renders in form-field with calendar parameters', async () => {
-      const page = await fixture(html`
-        <sbb-form-field>
-          <sbb-datepicker-toggle></sbb-datepicker-toggle>
-          <sbb-datepicker wide></sbb-datepicker>
-          <input min="1600000000" max="1700000000" />
-        </sbb-form-field>
-      `);
-      const element: SbbDatepickerToggleElement =
-        page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
-      expect(element).dom.to.be.equal(
-        `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
-      );
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+    expect(popoverTrigger).not.to.have.attribute('disabled');
+    expect(popover).to.have.attribute('data-state', 'closed');
+
+    popoverTrigger.click();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+
+    expect(popover).to.have.attribute('data-state', 'opened');
   });
 
-  testA11yTreeSnapshot(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
+  it('renders and opens popover programmatically', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+        <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
+        <input id="datepicker-input" />
+      </div>
+    `);
+    const element: SbbDatepickerToggleElement =
+      root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+    const popoverTrigger: SbbPopoverTriggerElement =
+      element.shadowRoot!.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    const popover: SbbPopoverElement =
+      element.shadowRoot!.querySelector<SbbPopoverElement>('sbb-popover')!;
+    await waitForLitRender(element);
+    assert.instanceOf(element, SbbDatepickerToggleElement);
+    expect(popoverTrigger).not.to.have.attribute('disabled');
+    expect(popover).to.have.attribute('data-state', 'closed');
+
+    element.open();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+
+    expect(popover).to.have.attribute('data-state', 'opened');
+  });
+
+  it('datepicker is created after the component', async () => {
+    const root = await fixture(html`
+      <div id="parent">
+        <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+        <input id="datepicker-input" />
+      </div>
+    `);
+
+    const toggle: SbbDatepickerToggleElement =
+      root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+    const inputUpdated: EventSpy<Event> = new EventSpy('inputUpdated', root);
+    const trigger: SbbPopoverTriggerElement =
+      toggle.shadowRoot!.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    // there's no datepicker, so no event and the popoverTrigger is disabled due _datePickerElement not set
+    expect(toggle).not.to.be.null;
+    expect(inputUpdated.count).to.be.equal(0);
+    expect(trigger).to.have.attribute('disabled');
+
+    const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
+    picker.setAttribute('input', 'datepicker-input');
+    picker.setAttribute('id', 'datepicker');
+    picker.setAttribute('value', '01-01-2023');
+    root.appendChild(picker);
+    await waitForLitRender(root);
+
+    // the datepicker is connected, which triggers a 1st inputUpdated event which calls _init and a 2nd one which sets max/min/disabled
+    expect(inputUpdated.count).to.be.equal(2);
+    expect(trigger).not.to.have.attribute('disabled');
+  });
+
+  it('datepicker is created after the component with different parent', async () => {
+    const root = await fixture(html`
+      <div>
+        <div id="parent">
+          <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+          <input id="datepicker-input" />
+        </div>
+        <div id="other"></div>
+      </div>
+    `);
+
+    const toggle: SbbDatepickerToggleElement =
+      root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+    const inputUpdated = new EventSpy('inputUpdated', root.querySelector('#parent'));
+    const trigger =
+      toggle.shadowRoot!.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    // there's no datepicker, so no event and the popoverTrigger is disabled due _datePickerElement not set
+    expect(toggle).not.to.be.null;
+    expect(inputUpdated.count).to.be.equal(0);
+    expect(trigger).to.have.attribute('disabled');
+
+    const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
+    picker.setAttribute('input', 'datepicker-input');
+    picker.setAttribute('id', 'datepicker');
+    picker.setAttribute('value', '01-01-2023');
+    root.querySelector<HTMLDivElement>('#other')!.appendChild(picker);
+    await waitForLitRender(root);
+
+    // the datepicker is connected on a different parent, so no changes are triggered
+    expect(inputUpdated.count).to.be.equal(0);
+    expect(trigger).to.have.attribute('disabled');
+  });
+
+  it('renders in form field, open calendar and change date', async () => {
+    const form: SbbFormFieldElement = await fixture(html`
+      <sbb-form-field>
+        <sbb-datepicker-toggle></sbb-datepicker-toggle>
+        <sbb-datepicker></sbb-datepicker>
+        <input />
+      </sbb-form-field>
+    `);
+    const element: SbbDatepickerToggleElement =
+      form.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+    const input: HTMLInputElement = form.querySelector<HTMLInputElement>('input')!;
+    const popover: SbbPopoverElement =
+      element.shadowRoot!.querySelector<SbbPopoverElement>('sbb-popover')!;
+    expect(popover).to.have.attribute('data-state', 'closed');
+    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+    const changeSpy = new EventSpy('change', input);
+    const blurSpy = new EventSpy('blur', input);
+    assert.instanceOf(element, SbbDatepickerToggleElement);
+
+    const popoverTrigger: SbbPopoverTriggerElement =
+      element.shadowRoot!.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    popoverTrigger.click();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(popover).to.have.attribute('data-state', 'opened');
+
+    const calendar: SbbCalendarElement =
+      element.shadowRoot!.querySelector<SbbCalendarElement>('sbb-calendar')!;
+    calendar.dispatchEvent(
+      new CustomEvent('dateSelected', {
+        detail: new Date('2022-01-01'),
+      }),
+    );
+    await waitForLitRender(element);
+
+    expect(input.value).to.be.equal('Sa, 01.01.2022');
+    expect(changeSpy.count).to.be.equal(1);
+    expect(blurSpy.count).to.be.equal(1);
+  });
 });
