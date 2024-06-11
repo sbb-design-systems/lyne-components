@@ -19,6 +19,12 @@ The role and the id for the `aria-controls` attribute is managed directly by the
 
 <!-- Auto Generated Below -->
 
+## Properties
+
+| Name    | Attribute | Privacy | Type                         | Default | Description                                  |
+| ------- | --------- | ------- | ---------------------------- | ------- | -------------------------------------------- |
+| `label` | -         | public  | `SbbTabLabelElement \| null` | `null`  | The `sbb-tab-label` associated with the tab. |
+
 ## Slots
 
 | Name | Description                              |

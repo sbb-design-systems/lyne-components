@@ -8,7 +8,7 @@ import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { EventEmitter, throttle } from '../../core/eventing.js';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
-import type { SbbTabElement } from '../tab.js';
+import { SbbTabElement } from '../tab.js';
 
 import style from './tab-group.scss?lit&inline';
 
@@ -312,8 +312,9 @@ export class SbbTabGroupElement extends LitElement {
     ) {
       tab.relatedContent = tab.nextElementSibling as SbbTabSupportedContentType;
       tab.relatedContent.id = this._assignId();
-      if (tab.relatedContent.nodeName !== 'SBB-TAB-GROUP') {
+      if (tab.relatedContent instanceof SbbTabElement) {
         tab.relatedContent.tabIndex = 0;
+        tab.relatedContent.configure();
       }
     } else {
       tab.insertAdjacentHTML('afterend', '<sbb-tab>No content.</sbb-tab>');
