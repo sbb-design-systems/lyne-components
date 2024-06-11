@@ -42,7 +42,10 @@ const setSbbInert = (el: HTMLElement): void => {
   if (!el.inert) {
     el.inert = true;
     if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
-      el.setAttribute('data-sbb-inert', `${+el.getAttribute('data-sbb-inert')! + 1 || 0}`);
+      el.setAttribute(
+        'data-sbb-inert',
+        `${+(el.getAttribute('data-sbb-inert') ?? undefined)! + 1 || 0}`,
+      );
     } else {
       el.toggleAttribute('data-sbb-inert', true);
     }
@@ -92,7 +95,10 @@ export function applyInertMechanism(overlay: HTMLElement): void {
       ) as HTMLElement[],
     );
     if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
-      el.setAttribute('data-sbb-inert', `${+el.getAttribute('data-sbb-inert')! + 1 || 0}`);
+      el.setAttribute(
+        'data-sbb-inert',
+        `${+(el.getAttribute('data-sbb-inert') ?? undefined)! + 1 || 0}`,
+      );
     }
   }
 
