@@ -4,6 +4,11 @@ import { customElement } from 'lit/decorators.js';
 
 import '@sbb-esta/lyne-elements/core/styles/standard-theme.scss';
 
+// @ts-expect-error: Property 'UrlPattern' does not exist
+if (!globalThis.URLPattern) {
+  await import('urlpattern-polyfill');
+}
+
 /**
  * Main app containing the router outlet.
  */
