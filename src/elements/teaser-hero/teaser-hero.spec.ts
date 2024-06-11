@@ -6,7 +6,7 @@ import { waitForLitRender } from '../core/testing.js';
 
 import { SbbTeaserHeroElement } from './teaser-hero.js';
 
-const imageUrl = import.meta.resolve('../clock/assets/sbb_clock_face.svg');
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser-hero`, () => {
   let element: SbbTeaserHeroElement;
