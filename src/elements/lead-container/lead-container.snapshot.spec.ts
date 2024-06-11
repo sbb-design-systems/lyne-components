@@ -12,7 +12,7 @@ import '../link/block-link/block-link.js';
 import '../title.js';
 import './lead-container.js';
 
-const imageUrl = import.meta.resolve('./assets/lucerne.png');
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-lead-container`, () => {
   let element: SbbLeadContainerElement;
