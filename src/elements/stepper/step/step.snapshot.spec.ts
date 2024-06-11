@@ -7,19 +7,21 @@ import type { SbbStepElement } from './step.js';
 import './step.js';
 
 describe('sbb-step', () => {
-  let element: SbbStepElement;
+  describe('renders', () => {
+    let element: SbbStepElement;
 
-  beforeEach(async () => {
-    element = await fixture(html`<sbb-step>Step content</sbb-step>`);
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-step>Step content</sbb-step>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
-
-  it('renders - DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
-
-  it('renders - Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
-
-  testA11yTreeSnapshot();
 });
