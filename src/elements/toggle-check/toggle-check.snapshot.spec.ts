@@ -8,11 +8,27 @@ import type { SbbToggleCheckElement } from './toggle-check.js';
 import './toggle-check.js';
 
 describe(`sbb-toggle-check`, () => {
-  describe('should render', async () => {
+  describe('renders', async () => {
     let element: SbbToggleCheckElement;
 
     beforeEach(async () => {
       element = await fixture(html`<sbb-toggle-check checked></sbb-toggle-check>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
+  describe('renders size xs', async () => {
+    let element: SbbToggleCheckElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-toggle-check size="xs"></sbb-toggle-check>`);
     });
 
     it('DOM', async () => {
