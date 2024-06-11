@@ -32,14 +32,14 @@ export class SbbStepperElement extends LitElement {
 
   /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public get horizontalFrom(): SbbHorizontalFrom | undefined {
-    return this._horizontalFrom;
-  }
   public set horizontalFrom(value: SbbHorizontalFrom) {
     this._horizontalFrom = breakpoints.includes(value) ? value : undefined;
     if (this._horizontalFrom && this._loaded) {
       this._checkOrientation();
     }
+  }
+  public get horizontalFrom(): SbbHorizontalFrom | undefined {
+    return this._horizontalFrom;
   }
   private _horizontalFrom?: SbbHorizontalFrom | undefined;
 

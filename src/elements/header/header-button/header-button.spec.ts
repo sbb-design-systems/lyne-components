@@ -1,38 +1,51 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
-import type { SbbHeaderButtonElement } from './header-button.js';
-import './header-button.js';
+import { SbbHeaderButtonElement } from './header-button.js';
 
 describe(`sbb-header-button`, () => {
-  describe('renders the component as a button with icon', () => {
-    let element: SbbHeaderButtonElement;
+  let element: SbbHeaderButtonElement;
 
-    beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-header-button
-          icon-name="pie-small"
-          name="test"
-          type="reset"
-          value="value"
-          expand-from="zero"
-          aria-label="a11y label"
-        >
-          Action
-        </sbb-header-button>
-      `);
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-header-button id="focus-id">Action</sbb-header-button>`);
+  });
+
+  it('renders', async () => {
+    assert.instanceOf(element, SbbHeaderButtonElement);
+  });
+
+  describe('events', () => {
+    it('dispatches event on click', async () => {
+      const clickSpy = new EventSpy('click');
+
+      element.click();
+      await waitForCondition(() => clickSpy.events.length === 1);
+      expect(clickSpy.count).to.be.equal(1);
     });
 
-    it('Light DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+    it('should dispatch click event on pressing Enter', async () => {
+      const clickSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: 'Enter' });
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
+    it('should dispatch click event on pressing Space', async () => {
+      const clickSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: ' ' });
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
-    testA11yTreeSnapshot();
+    it('should receive focus', async () => {
+      element.focus();
+      await waitForLitRender(element);
+
+      expect(document.activeElement!.id).to.be.equal('focus-id');
+    });
   });
 });

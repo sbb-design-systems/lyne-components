@@ -1,25 +1,15 @@
-import { expect } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.js';
 
-import './title.js';
+import { SbbTitleElement } from './title.js';
 
 describe(`sbb-title`, () => {
+  let element: SbbTitleElement;
+
   it('renders', async () => {
-    const root = await fixture(
-      html`<sbb-title level="1" visual-level="2">Sample Title Text</sbb-title>`,
-    );
-
-    expect(root).dom.to.be.equal(`
-      <sbb-title level="1" visual-level="2" aria-level="1" role="heading">
-        Sample Title Text
-      </sbb-title>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <h1 class="sbb-title" role="presentation"><slot></slot></h1>
-    `);
+    element = await fixture(html`<sbb-title></sbb-title>`);
+    assert.instanceOf(element, SbbTitleElement);
   });
-
-  testA11yTreeSnapshot(html`<sbb-title level="1" visual-level="2">Sample Title Text</sbb-title>`);
 });

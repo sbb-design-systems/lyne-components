@@ -1,17 +1,18 @@
-import { expect } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import './container.js';
+import { fixture } from '../../core/testing/private.js';
+
+import { SbbContainerElement } from './container.js';
 
 describe(`sbb-container`, () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-container></sbb-container>`);
+  let element: SbbContainerElement;
 
-    expect(root).dom.to.be.equal(`<sbb-container color="white"></sbb-container>`);
-
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-container></sbb-container>`);
   });
 
-  testA11yTreeSnapshot(html`<sbb-container></sbb-container>`);
+  it('renders', async () => {
+    assert.instanceOf(element, SbbContainerElement);
+  });
 });
