@@ -5,7 +5,7 @@ snapshots["sbb-tab-group renders DOM"] =
 `<sbb-tab-group initial-selected-index="0">
   <sbb-tab-label
     active=""
-    aria-controls=""
+    aria-controls="sbb-tab-panel-1"
     aria-selected="true"
     data-size="l"
     data-slot-names="unnamed"
@@ -17,15 +17,14 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab-label>
   <sbb-tab
     active=""
+    id="sbb-tab-panel-1"
     role="tabpanel"
+    tabindex="0"
   >
-    No content.
-  </sbb-tab>
-  <div>
     Test tab content 1
-  </div>
+  </sbb-tab>
   <sbb-tab-label
-    aria-controls=""
+    aria-controls="sbb-tab-panel-2"
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
@@ -35,14 +34,15 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 2
   </sbb-tab-label>
-  <sbb-tab role="tabpanel">
-    No content.
-  </sbb-tab>
-  <div>
+  <sbb-tab
+    id="sbb-tab-panel-2"
+    role="tabpanel"
+    tabindex="0"
+  >
     Test tab content 2
-  </div>
+  </sbb-tab>
   <sbb-tab-label
-    aria-controls=""
+    aria-controls="sbb-tab-panel-3"
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
@@ -53,12 +53,13 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 3
   </sbb-tab-label>
-  <sbb-tab role="tabpanel">
-    No content.
-  </sbb-tab>
-  <div>
+  <sbb-tab
+    id="sbb-tab-panel-3"
+    role="tabpanel"
+    tabindex="0"
+  >
     Test tab content 3
-  </div>
+  </sbb-tab>
   <sbb-tab-label
     aria-controls=""
     aria-selected="false"
@@ -116,8 +117,14 @@ snapshots["sbb-tab-group renders A11y tree Firefox"] =
       "name": "Test tab label 4"
     },
     {
-      "role": "text leaf",
-      "name": "No content."
+      "role": "tabpanel",
+      "name": "",
+      "children": [
+        {
+          "role": "text leaf",
+          "name": "Test tab content 1"
+        }
+      ]
     }
   ]
 }
@@ -149,8 +156,14 @@ snapshots["sbb-tab-group renders A11y tree Chrome"] =
       "name": "Test tab label 4"
     },
     {
-      "role": "text",
-      "name": "No content."
+      "role": "tabpanel",
+      "name": "",
+      "children": [
+        {
+          "role": "text",
+          "name": "Test tab content 1"
+        }
+      ]
     }
   ]
 }

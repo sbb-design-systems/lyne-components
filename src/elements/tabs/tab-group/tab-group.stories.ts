@@ -64,7 +64,7 @@ const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html
     ${tabPanelTwo()}
 
     <sbb-tab-label ?disabled=${true}>Tab title three</sbb-tab-label>
-    <div>I was disabled.</div>
+    <sbb-tab>I was disabled.</sbb-tab>
 
     <sbb-tab-label>Tab title four</sbb-tab-label>
     ${tabPanelFour()}
@@ -81,7 +81,7 @@ const IconsAndNumbersTemplate = ({ size, label, ...args }: Args): TemplateResult
     <sbb-tab-label ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
     </sbb-tab-label>
-    <div>I was disabled.</div>
+    <sbb-tab>I was disabled.</sbb-tab>
 
     <sbb-tab-label amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-label>
     ${tabPanelFour()}
@@ -114,7 +114,7 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
     <sbb-tab-label ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
     </sbb-tab-label>
-    <div>I was disabled.</div>
+    <sbb-tab>I was disabled.</sbb-tab>
 
     <sbb-tab-label amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-label>
     ${tabPanelFour()}
