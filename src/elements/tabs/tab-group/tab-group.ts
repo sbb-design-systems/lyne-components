@@ -12,6 +12,17 @@ import { SbbTabElement } from '../tab.js';
 
 import style from './tab-group.scss?lit&inline';
 
+export type SbbTabSupportedContentType = SbbTabElement | SbbTabGroupElement;
+
+export type SbbSelectTabChangedEventDetails = {
+  activeIndex: number;
+  activeTabLabel: SbbTabLabelElement;
+  activeTab: SbbTabElement;
+  previousIndex: number;
+  previousTabLabel: SbbTabLabelElement | undefined;
+  previousTab: SbbTabElement | undefined;
+};
+
 export interface InterfaceSbbTabGroupActions {
   activate(): void;
   deactivate(): void;
@@ -20,11 +31,9 @@ export interface InterfaceSbbTabGroupActions {
   select(): void;
 }
 
-type SbbTabSupportedContentType = SbbTabElement | SbbTabGroupElement;
-
-export interface InterfaceSbbTabGroupTab extends HTMLElement {
+export interface InterfaceSbbTabGroupTab extends SbbTabLabelElement {
   active?: boolean;
-  disabled?: boolean;
+  disabled: boolean;
   relatedContent?: SbbTabSupportedContentType;
   index?: number;
   tabGroupActions?: InterfaceSbbTabGroupActions;
@@ -48,7 +57,7 @@ let nextId = 0;
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
  * @slot tab-bar - When you provide the `sbb-tab-label` tag through the unnamed slot,
  * it will be automatically moved to this slot. You do not need to use it directly.
- * @event {CustomEvent<void>} didChange - Emits an event on selected tab change
+ * @event {CustomEvent<SbbSelectTabChangedEventDetails>} didChange - Emits an event on selected tab change.
  */
 @customElement('sbb-tab-group')
 export class SbbTabGroupElement extends LitElement {
@@ -96,7 +105,7 @@ export class SbbTabGroupElement extends LitElement {
   }
 
   /** Emits an event on selected tab change. */
-  private _selectedTabChanged: EventEmitter<void> = new EventEmitter(
+  private _selectedTabChanged: EventEmitter<SbbSelectTabChangedEventDetails> = new EventEmitter(
     this,
     SbbTabGroupElement.events.didChange,
   );
@@ -300,7 +309,14 @@ export class SbbTabGroupElement extends LitElement {
           this._selectedTab = tab;
 
           this._tabContentResizeObserver.observe(tab.relatedContent!);
-          this._selectedTabChanged.emit();
+          this._selectedTabChanged.emit({
+            activeIndex: this._getTabs().findIndex((e) => e === tab),
+            activeTabLabel: tab,
+            activeTab: tab.relatedContent as SbbTabElement,
+            previousIndex: this._getTabs().findIndex((e) => e === prevTab),
+            previousTabLabel: prevTab,
+            previousTab: prevTab?.relatedContent as SbbTabElement,
+          });
         } else if (import.meta.env.DEV && tab.disabled) {
           console.warn('You cannot activate a disabled tab');
         }

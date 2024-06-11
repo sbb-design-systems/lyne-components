@@ -36,6 +36,23 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 <sbb-tab-group initial-selected-index="1"> ... </sbb-tab-group>
 ```
 
+## Events
+
+Consumers can listen to the `didChange` event, whose `event.detail` is typed as `SbbSelectTabChangedEventDetails`.
+From it, it's possible to retrieve the information about the current `sbb-tab-label`, `sbb-tab` and index, and,
+if available, also the information about the previous ones.
+
+```ts
+type SbbSelectTabChangedEventDetails = {
+  activeIndex: number;
+  activeTabLabel: SbbTabLabelElement;
+  activeTab: SbbTabElement;
+  previousIndex: number;
+  previousTabLabel: SbbTabLabelElement | undefined;
+  previousTab: SbbTabElement | undefined;
+};
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -55,9 +72,9 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 ## Events
 
-| Name        | Type                | Description                           | Inherited From |
-| ----------- | ------------------- | ------------------------------------- | -------------- |
-| `didChange` | `CustomEvent<void>` | Emits an event on selected tab change |                |
+| Name        | Type                                           | Description                            | Inherited From |
+| ----------- | ---------------------------------------------- | -------------------------------------- | -------------- |
+| `didChange` | `CustomEvent<SbbSelectTabChangedEventDetails>` | Emits an event on selected tab change. |                |
 
 ## Slots
 
