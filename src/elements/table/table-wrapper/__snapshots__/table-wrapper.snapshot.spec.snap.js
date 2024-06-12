@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-table-wrapper renders DOM"] =
+snapshots["sbb-table-wrapper renders DOM"] = 
 `<sbb-table-wrapper>
   <table
     aria-label="Table caption"
@@ -32,7 +32,7 @@ snapshots["sbb-table-wrapper renders DOM"] =
 `;
 /* end snapshot sbb-table-wrapper renders DOM */
 
-snapshots["sbb-table-wrapper renders Shadow DOM"] =
+snapshots["sbb-table-wrapper renders Shadow DOM"] = 
 `<div class="sbb-table-wrapper">
   <slot>
   </slot>
@@ -68,7 +68,7 @@ snapshots["sbb-table-wrapper renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-table-wrapper renders A11y tree Chrome */
 
-snapshots["sbb-table-wrapper renders A11y tree Firefox"] =
+snapshots["sbb-table-wrapper renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
