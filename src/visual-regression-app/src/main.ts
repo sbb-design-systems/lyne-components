@@ -4,8 +4,9 @@ import { customElement } from 'lit/decorators.js';
 
 import '@sbb-esta/lyne-elements/core/styles/standard-theme.scss';
 
-// @ts-expect-error: Property 'UrlPattern' does not exist
-if (!globalThis.URLPattern) {
+// Lit Router uses URLPattern which is not defined so far in Firefox and Safari.
+// TODO: Remove as soon as possible
+if (!('URLPattern' in globalThis)) {
   await import('urlpattern-polyfill');
 }
 
