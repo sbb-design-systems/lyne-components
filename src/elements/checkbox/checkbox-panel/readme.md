@@ -90,5 +90,6 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | Name      | Description                                                                                     |
 | --------- | ----------------------------------------------------------------------------------------------- |
 |           | Use the unnamed slot to add content to the `sbb-checkbox`.                                      |
+| `badge`   | Use this slot to provide a `sbb-card-badge` (optional).                                         |
 | `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
 | `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |

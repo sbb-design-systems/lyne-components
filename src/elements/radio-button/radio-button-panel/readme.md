@@ -67,5 +67,6 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 | Name      | Description                                             |
 | --------- | ------------------------------------------------------- |
 |           | Use the unnamed slot to add content to the radio label. |
+| `badge`   | Use this slot to provide a `sbb-card-badge` (optional). |
 | `subtext` | Slot used to render a subtext under the label.          |
 | `suffix`  | Slot used to render additional content after the label. |

@@ -94,5 +94,4 @@ It's also possible to display the `sbb-selection-expansion-panel` without border
 | Name      | Description                                                                                                       |
 | --------- | ----------------------------------------------------------------------------------------------------------------- |
 |           | Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`. |
-| `badge`   | Use this slot to provide a `sbb-card-badge` (optional).                                                           |
 | `content` | Use this slot to provide custom content for the panel (optional).                                                 |
