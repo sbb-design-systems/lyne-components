@@ -12,21 +12,12 @@ const negative: InputType = {
   },
 };
 
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['s', 'm'],
-};
-
 const defaultArgTypes: ArgTypes = {
   negative,
-  size,
 };
 
 const defaultArgs: Args = {
   negative: false,
-  size: size.options![1],
 };
 
 const header: () => TemplateResult = () => html`
@@ -101,8 +92,6 @@ const Template = (args: Args): TemplateResult => html`
       class=${classMap({
         'sbb-table': true,
         'sbb-table--negative': args.negative,
-        'sbb-table-s': args.size === 's',
-        'sbb-table-m': args.size === 'm',
       })}
     >
       ${header()} ${body()}
