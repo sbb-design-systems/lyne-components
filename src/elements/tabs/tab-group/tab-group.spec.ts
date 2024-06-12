@@ -33,7 +33,7 @@ describe(`sbb-tab-group`, () => {
     assert.instanceOf(element, SbbTabGroupElement);
   });
 
-  it.only('renders tab content', async () => {
+  it('renders tab content', async () => {
     const content = element.querySelector<SbbTabElement>(
       ':scope > sbb-tab-label:first-of-type + sbb-tab',
     )!;
