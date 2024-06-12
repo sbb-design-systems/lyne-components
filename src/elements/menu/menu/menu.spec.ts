@@ -3,6 +3,7 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
@@ -78,7 +79,7 @@ describe(`sbb-menu`, () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
     await sendKeys({ press: 'Escape' });

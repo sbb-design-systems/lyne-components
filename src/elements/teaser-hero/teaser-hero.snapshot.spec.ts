@@ -9,7 +9,7 @@ import type { SbbTeaserHeroElement } from './teaser-hero.js';
 import './teaser-hero.js';
 import '../image.js';
 
-const imageUrl = import.meta.resolve('../clock/assets/sbb_clock_face.svg');
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser-hero`, () => {
   let element: SbbTeaserHeroElement;

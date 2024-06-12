@@ -3,6 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
@@ -281,7 +282,7 @@ describe(`sbb-navigation`, () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
     await sendKeys({ press: 'Escape' });
@@ -447,7 +448,7 @@ describe(`sbb-navigation`, () => {
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
     await sendKeys({ press: 'Escape' });

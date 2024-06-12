@@ -227,5 +227,10 @@ export default defineConfig(() =>
       outDir: new URL(`./visual-regression-app/`, distDir).pathname,
       emptyOutDir: true,
     },
+    esbuild: {
+      supported: {
+        'top-level-await': true, // Browsers can handle top-level-await features, used for the URLPattern polyfill.
+      },
+    },
   }),
 );
