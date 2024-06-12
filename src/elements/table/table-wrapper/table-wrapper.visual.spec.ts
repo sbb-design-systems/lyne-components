@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
 import {
@@ -14,25 +14,22 @@ describe(`sbb-table-wrapper`, () => {
   let root: HTMLElement;
 
   const cases = {
-    size: ['m', 's'],
     negative: [false, true],
-    striped: [false, true],
-    // TODO add scrollbar cases
+    scrollbar: [false, true],
   };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    describeEach(cases, ({ size, negative, striped }) => {
+    describeEach(cases, ({ negative, scrollbar }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-table-wrapper>
+            <sbb-table-wrapper ?negative=${negative}>
               <table
                 class=${classMap({
                   'sbb-table': true,
                   'sbb-table-negative': negative,
-                  'sbb-table-s': size === 's',
-                  'sbb-table-unstriped': !striped,
                 })}
+                style=${scrollbar ? 'width: 120%' : nothing}
               >
                 <thead>
                   <tr>
