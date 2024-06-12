@@ -1,6 +1,8 @@
 The `sbb-table` class is designed to handle the styling of common table use cases, ensuring a consistent and visually appealing presentation of tabular data.
 This guide will walk you through the various customization options and advanced scenarios for styling tables within our design system.
 
+In most of the cases, you might want to also use the [sbb-table-wrapper](/docs/elements-sbb-table-sbb-table-wrapper--docs).
+
 ### Basic usage
 
 ```html
@@ -34,7 +36,7 @@ By default, tables are styled with alternating row stripes to enhance readabilit
 
 ### Size
 
-The available sizes are `m` (default) and `s`. Use the respective `sbb-table-*size*` classes to specify the size:
+The available sizes are `m` (default) and `s`. Use the respective `sbb-table--*size*` classes to specify the size:
 
 ```html
 <table class="sbb-table sbb-table--s">
