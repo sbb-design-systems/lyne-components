@@ -332,7 +332,7 @@ describe('sbb-stepper', () => {
     )!;
 
     await sendKeys({ press: tabKey });
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
@@ -347,12 +347,12 @@ describe('sbb-stepper', () => {
     )!;
 
     await sendKeys({ press: tabKey });
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
 
-    await sendKeys({ down: 'ArrowLeft' });
+    await sendKeys({ press: 'ArrowLeft' });
 
     expect(stepLabelOne).to.have.attribute('data-selected');
     expect(stepLabelOne.step).to.have.attribute('data-selected');
@@ -370,17 +370,17 @@ describe('sbb-stepper', () => {
     )!;
 
     await sendKeys({ press: tabKey });
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
 
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
 
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'ArrowRight' });
 
     expect(stepLabelOne).to.have.attribute('data-selected');
     expect(stepLabelOne.step).to.have.attribute('data-selected');
@@ -392,7 +392,7 @@ describe('sbb-stepper', () => {
     )!;
 
     await sendKeys({ press: tabKey });
-    await sendKeys({ down: 'ArrowLeft' });
+    await sendKeys({ press: 'ArrowLeft' });
 
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');

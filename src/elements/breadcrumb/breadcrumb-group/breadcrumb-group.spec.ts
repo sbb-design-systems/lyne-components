@@ -38,9 +38,9 @@ describe(`sbb-breadcrumb-group`, () => {
           element.querySelector<SbbBreadcrumbElement>('#breadcrumb-2')!;
 
         first.focus();
-        await sendKeys({ down: 'ArrowRight' });
+        await sendKeys({ press: 'ArrowRight' });
         expect(document.activeElement!.id).to.be.equal(second.id);
-        await sendKeys({ down: 'ArrowRight' });
+        await sendKeys({ press: 'ArrowRight' });
         expect(document.activeElement!.id).to.be.equal(third.id);
       });
     });
@@ -132,14 +132,14 @@ describe(`sbb-breadcrumb-group`, () => {
       first.focus();
       expect(document.activeElement!.id).to.be.equal(first.id);
 
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
       expect(document.activeElement!.id).to.be.equal(element.id);
       expect(element.shadowRoot!.activeElement!.id).to.be.equal(ellipsisButton.id);
 
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
       expect(document.activeElement!.id).to.be.equal(last.id);
 
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
       expect(document.activeElement!.id).to.be.equal(first.id);
     });
 
