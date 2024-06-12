@@ -100,6 +100,8 @@ const defaultArgs: Args = {
   size: size.options![0],
 };
 
+const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+
 const Template = ({ label, checked, ...args }: Args): TemplateResult =>
   html` <sbb-checkbox-panel .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>
     ${label}
@@ -118,6 +120,7 @@ const Template = ({ label, checked, ...args }: Args): TemplateResult =>
         </span>
       </span>
     </span>
+    ${cardBadge()}
   </sbb-checkbox-panel>`;
 
 const TemplateWithForm = (args: Args): TemplateResult => html`

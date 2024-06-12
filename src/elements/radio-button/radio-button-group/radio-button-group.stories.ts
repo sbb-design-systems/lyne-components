@@ -14,12 +14,15 @@ import '../radio-button.js';
 import '../radio-button-panel.js';
 import '../../form-error.js';
 import '../../icon.js';
+import '../../card/card-badge.js';
 
 const suffixStyle: Readonly<StyleInfo> = {
   display: 'flex',
   alignItems: 'center',
   marginInline: 'var(--sbb-spacing-fixed-2x)',
 };
+
+const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
 
 const suffixAndSubtext = (): TemplateResult => html`
   <span slot="subtext">Subtext</span>
@@ -29,6 +32,7 @@ const suffixAndSubtext = (): TemplateResult => html`
       <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
     </span>
   </span>
+  ${cardBadge()}
 `;
 
 const value: InputType = {

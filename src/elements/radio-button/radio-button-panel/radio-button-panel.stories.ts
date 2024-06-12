@@ -8,6 +8,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import readme from './readme.md?raw';
 
 import '../../icon.js';
+import '../../card/card-badge.js';
 import '../radio-button-panel.js';
 
 const value: InputType = {
@@ -82,6 +83,8 @@ const defaultArgs: Args = {
   size: size.options![0],
 };
 
+const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+
 const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>
   html`<sbb-radio-button-panel ${sbbSpread(args)}
     >${labelBoldClass ? html`<span class="sbb-text--bold">Label</span>` : 'Label'}
@@ -100,6 +103,7 @@ const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>
         </span>
       </span>
     </span>
+    ${cardBadge()}
   </sbb-radio-button-panel>`;
 
 export const Default: StoryObj = {

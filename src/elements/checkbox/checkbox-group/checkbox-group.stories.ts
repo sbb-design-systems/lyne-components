@@ -15,6 +15,7 @@ import '../checkbox.js';
 import '../checkbox-panel.js';
 import '../../form-error.js';
 import '../../icon.js';
+import '../../card/card-badge.js';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -27,6 +28,8 @@ const suffixStyle: Readonly<StyleInfo> = {
   alignItems: 'center',
 };
 
+const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+
 const suffixAndSubtext = (): TemplateResult => html`
   <span slot="subtext">Subtext</span>
   <span slot="suffix" style="margin-inline-start: auto;">
@@ -35,6 +38,7 @@ const suffixAndSubtext = (): TemplateResult => html`
       <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
     </span>
   </span>
+  ${cardBadge()}
 `;
 
 const checkboxes = (
