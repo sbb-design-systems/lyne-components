@@ -35,6 +35,12 @@
       "automerge": false
     },
     {
+      "groupName": "playwright",
+      "matchPackagePrefixes": ["playwright"],
+      "prPriority": 10,
+      "automerge": false
+    },
+    {
       "groupName": "eslint",
       "matchPackagePrefixes": ["@typescript-eslint/", "eslint"]
     },
