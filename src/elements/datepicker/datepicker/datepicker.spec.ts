@@ -7,6 +7,7 @@ import type { Context } from 'mocha';
 import { NativeDateAdapter } from '../../core/datetime.js';
 import { findInput } from '../../core/dom.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture, typeInElement } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
@@ -212,7 +213,7 @@ describe(`sbb-datepicker`, () => {
 
         // When adding valid date
         typeInElement(input, '.');
-        await sendKeys({ press: 'Tab' });
+        await sendKeys({ press: tabKey });
 
         // Then validation event should not be emitted a second time
         expect(validationChangeSpy.count).to.be.equal(1);
@@ -308,7 +309,7 @@ describe(`sbb-datepicker`, () => {
           input.value = '';
 
           typeInElement(input, testCase.value);
-          await sendKeys({ press: 'Tab' });
+          await sendKeys({ press: tabKey });
           expect(input.value).to.be.equal(testCase.interpretedAs);
           const paragraphElement = document
             .querySelector<SbbDatepickerElement>('sbb-datepicker')!

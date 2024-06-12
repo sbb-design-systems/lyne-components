@@ -2,6 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbTabTitleElement } from '../tab-title.js';
@@ -110,7 +111,7 @@ describe(`sbb-tab-group`, () => {
     });
 
     it('selects tab on left arrow key pressed', async () => {
-      await sendKeys({ down: 'Tab' });
+      await sendKeys({ press: tabKey });
       await sendKeys({ down: 'ArrowLeft' });
       const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-1');
 
@@ -118,7 +119,7 @@ describe(`sbb-tab-group`, () => {
     });
 
     it('selects tab on right arrow key pressed', async () => {
-      await sendKeys({ down: 'Tab' });
+      await sendKeys({ press: tabKey });
       await sendKeys({ down: 'ArrowRight' });
       const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-4');
 
@@ -126,7 +127,7 @@ describe(`sbb-tab-group`, () => {
     });
 
     it('wraps around on arrow key navigation', async () => {
-      await sendKeys({ down: 'Tab' });
+      await sendKeys({ press: tabKey });
       await sendKeys({ down: 'ArrowRight' });
       await sendKeys({ down: 'ArrowRight' });
       const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-1');
@@ -135,7 +136,7 @@ describe(`sbb-tab-group`, () => {
     });
 
     it('wraps around on arrow left arrow key navigation', async () => {
-      await sendKeys({ down: 'Tab' });
+      await sendKeys({ press: tabKey });
       await sendKeys({ down: 'ArrowLeft' });
       await sendKeys({ down: 'ArrowLeft' });
       const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-4');
