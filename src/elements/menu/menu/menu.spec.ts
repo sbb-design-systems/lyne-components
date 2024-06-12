@@ -79,7 +79,7 @@ describe(`sbb-menu`, () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ down: tabKey });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
     await sendKeys({ down: 'Escape' });

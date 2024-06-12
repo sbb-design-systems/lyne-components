@@ -111,7 +111,7 @@ describe(`sbb-tab-group`, () => {
     });
 
     it('selects tab on left arrow key pressed', async () => {
-      await sendKeys({ down: tabKey });
+      await sendKeys({ press: tabKey });
       await sendKeys({ down: 'ArrowLeft' });
       const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-1');
 
@@ -119,7 +119,7 @@ describe(`sbb-tab-group`, () => {
     });
 
     it('selects tab on right arrow key pressed', async () => {
-      await sendKeys({ down: tabKey });
+      await sendKeys({ press: tabKey });
       await sendKeys({ down: 'ArrowRight' });
       const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-4');
 
@@ -127,7 +127,7 @@ describe(`sbb-tab-group`, () => {
     });
 
     it('wraps around on arrow key navigation', async () => {
-      await sendKeys({ down: tabKey });
+      await sendKeys({ press: tabKey });
       await sendKeys({ down: 'ArrowRight' });
       await sendKeys({ down: 'ArrowRight' });
       const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-1');
@@ -136,7 +136,7 @@ describe(`sbb-tab-group`, () => {
     });
 
     it('wraps around on arrow left arrow key navigation', async () => {
-      await sendKeys({ down: tabKey });
+      await sendKeys({ press: tabKey });
       await sendKeys({ down: 'ArrowLeft' });
       await sendKeys({ down: 'ArrowLeft' });
       const tab = element.querySelector(':scope > sbb-tab-title#sbb-tab-4');

@@ -282,7 +282,7 @@ describe(`sbb-navigation`, () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ down: tabKey });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
     await sendKeys({ down: 'Escape' });
@@ -448,7 +448,7 @@ describe(`sbb-navigation`, () => {
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ down: tabKey });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
     await sendKeys({ down: 'Escape' });

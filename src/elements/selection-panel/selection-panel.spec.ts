@@ -284,7 +284,7 @@ describe(`sbb-selection-panel`, () => {
       expect(firstPanel).to.have.attribute('data-state', 'closed');
       expect(secondPanel).to.have.attribute('data-state', 'closed');
 
-      await sendKeys({ down: tabKey });
+      await sendKeys({ press: tabKey });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
 

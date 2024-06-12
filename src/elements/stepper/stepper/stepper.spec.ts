@@ -310,10 +310,10 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(1)',
     )!;
 
-    await sendKeys({ down: tabKey });
+    await sendKeys({ press: tabKey });
     expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
 
-    await sendKeys({ down: tabKey });
+    await sendKeys({ press: tabKey });
     expect(document.activeElement!.id).to.be.equal('step-one-content');
   });
 
@@ -331,7 +331,7 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(2)',
     )!;
 
-    await sendKeys({ down: tabKey });
+    await sendKeys({ press: tabKey });
     await sendKeys({ down: 'ArrowRight' });
 
     expect(stepLabelTwo).to.have.attribute('data-selected');
@@ -346,7 +346,7 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(2)',
     )!;
 
-    await sendKeys({ down: tabKey });
+    await sendKeys({ press: tabKey });
     await sendKeys({ down: 'ArrowRight' });
 
     expect(stepLabelTwo).to.have.attribute('data-selected');
@@ -369,7 +369,7 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(3)',
     )!;
 
-    await sendKeys({ down: tabKey });
+    await sendKeys({ press: tabKey });
     await sendKeys({ down: 'ArrowRight' });
 
     expect(stepLabelTwo).to.have.attribute('data-selected');
@@ -391,7 +391,7 @@ describe('sbb-stepper', () => {
       'sbb-step-label:nth-of-type(3)',
     )!;
 
-    await sendKeys({ down: tabKey });
+    await sendKeys({ press: tabKey });
     await sendKeys({ down: 'ArrowLeft' });
 
     expect(stepLabelThree).to.have.attribute('data-selected');
