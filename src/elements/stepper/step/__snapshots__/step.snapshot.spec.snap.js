@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-step renders - DOM"] = 
+snapshots["sbb-step renders DOM"] = 
 `<sbb-step
   id="sbb-step-0"
   role="tabpanel"
@@ -10,9 +10,9 @@ snapshots["sbb-step renders - DOM"] =
   Step content
 </sbb-step>
 `;
-/* end snapshot sbb-step renders - DOM */
+/* end snapshot sbb-step renders DOM */
 
-snapshots["sbb-step renders - Shadow DOM"] = 
+snapshots["sbb-step renders Shadow DOM"] = 
 `<div class="sbb-step--wrapper">
   <div class="sbb-step">
     <slot>
@@ -20,9 +20,9 @@ snapshots["sbb-step renders - Shadow DOM"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-step renders - Shadow DOM */
+/* end snapshot sbb-step renders Shadow DOM */
 
-snapshots["sbb-step A11y tree Chrome"] = 
+snapshots["sbb-step renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -30,9 +30,9 @@ snapshots["sbb-step A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-step A11y tree Chrome */
+/* end snapshot sbb-step renders A11y tree Chrome */
 
-snapshots["sbb-step A11y tree Firefox"] = 
+snapshots["sbb-step renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -40,5 +40,5 @@ snapshots["sbb-step A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-step A11y tree Firefox */
+/* end snapshot sbb-step renders A11y tree Firefox */
 

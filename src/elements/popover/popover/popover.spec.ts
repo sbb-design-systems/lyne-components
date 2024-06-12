@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbButtonElement } from '../../button.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import type { SbbLinkElement } from '../../link.js';
 
 import { SbbPopoverElement } from './popover.js';
 
@@ -23,9 +24,10 @@ describe(`sbb-popover`, () => {
             Popover content.
             <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
           </sbb-popover>
-          <sbb-block-link href="#" id="interactive-background-element"
-            >Other interactive element</sbb-block-link
-          >
+          <!-- Place the button with a spacing to the popover so that it gets clickable. -->
+          <sbb-button id="interactive-background-element" style="margin-block-start:100px">
+            Other interactive element
+          </sbb-button>
         </span>
       `);
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
@@ -117,7 +119,7 @@ describe(`sbb-popover`, () => {
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
-      expect(document.activeElement!.id).to.be.equal('popover-trigger');
+      expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('closes on interactive element click', async () => {
@@ -148,7 +150,7 @@ describe(`sbb-popover`, () => {
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
-      expect(document.activeElement!.id).to.be.equal('popover-trigger');
+      expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('is correctly positioned on screen', async () => {
@@ -197,13 +199,13 @@ describe(`sbb-popover`, () => {
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
 
       expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
-      expect(document.activeElement!.id).to.be.equal('popover-trigger');
+      expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('should set correct focus attribute on trigger after backdrop click on an interactive element', async () => {
-      const interactiveBackgroundElement = element.parentElement!.querySelector(
+      const interactiveBackgroundElement = element.parentElement!.querySelector<SbbButtonElement>(
         '#interactive-background-element',
-      ) as HTMLElement;
+      )!;
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
       const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
 
@@ -221,13 +223,13 @@ describe(`sbb-popover`, () => {
       });
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
 
-      expect(document.activeElement!.id).to.be.equal('interactive-background-element');
+      expect(document.activeElement).to.be.equal(interactiveBackgroundElement);
     });
 
     it('closes on interactive element click by keyboard', async () => {
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
       const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
-      const popoverLink = element.querySelector(':scope > sbb-link') as HTMLElement;
+      const popoverLink = element.querySelector<SbbLinkElement>(':scope > sbb-link')!;
 
       trigger.click();
 
@@ -237,21 +239,21 @@ describe(`sbb-popover`, () => {
       expect(popoverLink).not.to.be.null;
 
       popoverLink.focus();
-      await sendKeys({ down: 'Enter' });
+      await sendKeys({ press: 'Enter' });
 
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
-      expect(document.activeElement!.id).to.be.equal('popover-trigger');
+      expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('sets the focus to the first focusable element when the popover is opened by keyboard', async () => {
       const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
 
-      await sendKeys({ down: 'Tab' });
-      await sendKeys({ down: 'Enter' });
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: 'Enter' });
 
       await waitForCondition(() => willOpenEventSpy.events.length === 1);
       expect(willOpenEventSpy.count).to.be.equal(1);
@@ -260,7 +262,7 @@ describe(`sbb-popover`, () => {
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
 
-      expect(document.activeElement!.id).to.be.equal('popover');
+      expect(document.activeElement).to.be.equal(element);
       expect(
         document.activeElement!.shadowRoot!.activeElement ===
           document.activeElement!.shadowRoot!.querySelector('[sbb-popover-close]'),
@@ -281,13 +283,13 @@ describe(`sbb-popover`, () => {
       await waitForLitRender(element);
 
       closeButton.focus();
-      await sendKeys({ down: 'Enter' });
+      await sendKeys({ press: 'Enter' });
 
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
-      expect(document.activeElement!.id).to.be.equal('popover-trigger');
+      expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('closes on Esc keypress', async () => {
@@ -306,8 +308,8 @@ describe(`sbb-popover`, () => {
 
       expect(element).to.have.attribute('data-state', 'opened');
 
-      await sendKeys({ down: 'Tab' });
-      await sendKeys({ down: 'Escape' });
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: 'Escape' });
 
       await waitForCondition(() => willCloseEventSpy.events.length === 1);
       expect(willCloseEventSpy.count).to.be.equal(1);
@@ -317,7 +319,7 @@ describe(`sbb-popover`, () => {
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
-      expect(document.activeElement!.id).to.be.equal('popover-trigger');
+      expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('does not open if prevented', async () => {
@@ -391,13 +393,14 @@ describe(`sbb-popover`, () => {
           <sbb-popover id="popover" trigger="popover-trigger" hide-close-button>
             Popover content.
           </sbb-popover>
-          <sbb-block-link href="#" id="interactive-background-element"
-            >Other interactive element</sbb-block-link
-          >
+          <!-- Place the button with a spacing to the popover so that it gets clickable. -->
+          <sbb-button id="interactive-background-element" style="margin-block-start:100px">
+            Other interactive element
+          </sbb-button>
         </span>
       `);
-      trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
-      element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
+      trigger = content.querySelector('sbb-button')!;
+      element = content.querySelector('sbb-popover')!;
     });
 
     it('should focus content container if no interactive content present', async () => {
@@ -448,9 +451,7 @@ describe(`sbb-popover`, () => {
   it('should close an open popover when another one is opened', async () => {
     const root = await fixture(html`
       <div>
-        <sbb-block-link href="#somewhere" id="interactive-background-element"
-          >Other interactive element</sbb-block-link
-        >
+        <sbb-button id="interactive-background-element">Other interactive element</sbb-button>
         <sbb-button id="popover-trigger">Popover trigger</sbb-button>
         <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
         <sbb-popover id="popover" trigger="popover-trigger"> Popover content. </sbb-popover>
