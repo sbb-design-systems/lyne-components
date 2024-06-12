@@ -92,7 +92,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
   }
 
-  private _hasSelectionPanel: boolean = false;
+  private _hasPanelElement: boolean = false;
   private _didLoad = false;
   private _abort = new SbbConnectedAbortController(this);
 
@@ -147,8 +147,10 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       },
     );
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._hasSelectionPanel = !!this.querySelector?.('sbb-selection-expansion-panel');
-    this.toggleAttribute('data-has-selection-expansion-panel', this._hasSelectionPanel);
+    this._hasPanelElement = !!this.querySelector?.(
+      'sbb-selection-expansion-panel, sbb-radio-button-panel',
+    );
+    this.toggleAttribute('data-has-selection-expansion-panel', this._hasPanelElement);
     this._updateRadios(this.value);
   }
 
@@ -241,7 +243,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       radio.parentElement?.localName === 'sbb-selection-expansion-panel' &&
       (radio.parentElement as SbbSelectionExpansionPanelElement).hasContent;
 
-    return isSelected || (this._hasSelectionPanel && isParentPanelWithContent) ? 0 : -1;
+    return isSelected || (this._hasPanelElement && isParentPanelWithContent) ? 0 : -1;
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -271,7 +273,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     const allPanelsHaveNoContent: boolean = (
       Array.from(this.querySelectorAll?.('sbb-selection-expansion-panel')) || []
     ).every((e: SbbSelectionExpansionPanelElement) => !e.hasContent);
-    if (!this._hasSelectionPanel || (this._hasSelectionPanel && allPanelsHaveNoContent)) {
+    if (!this._hasPanelElement || (this._hasPanelElement && allPanelsHaveNoContent)) {
       enabledRadios[nextIndex].select();
     }
 

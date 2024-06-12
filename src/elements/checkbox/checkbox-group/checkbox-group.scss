@@ -31,6 +31,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 :host([data-has-selection-expansion-panel]) {
   --sbb-checkbox-group-width: 100%;
+
+  ::slotted(sbb-checkbox-panel) {
+    flex: auto;
+  }
 }
 
 :host([data-has-selection-expansion-panel][orientation='vertical']) {

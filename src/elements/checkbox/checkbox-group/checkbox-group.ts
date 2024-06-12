@@ -58,7 +58,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this.toggleAttribute(
       'data-has-selection-expansion-panel',
-      !!this.querySelector?.('sbb-selection-expansion-panel'),
+      !!this.querySelector?.('sbb-selection-expansion-panel, sbb-checkbox-panel'),
     );
   }
 

@@ -16,6 +16,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
 
   display: block;
+
+  ::slotted(sbb-radio-button-panel) {
+    flex: auto;
+  }
 }
 
 :host([orientation='vertical']) {
