@@ -12,12 +12,16 @@
   @include t.table-s;
 }
 
-.sbb-table-negative {
-  @include t.table-negative;
+.sbb-table--negative {
+  @include t.table--negative;
 }
 
-.sbb-table-unstriped {
-  @include t.table-unstriped;
+.sbb-table--striped {
+  @include t.table--striped;
+}
+
+.sbb-table--unstriped {
+  @include t.table--unstriped;
 }
 
 .sbb-table-header-cell {
@@ -28,8 +32,8 @@
   @include t.table-data-row;
 }
 
-.sbb-table-row-striped {
-  @include t.table-row-striped;
+.sbb-table-row--striped {
+  @include t.table-row--striped;
 }
 
 .sbb-table-data-cell {

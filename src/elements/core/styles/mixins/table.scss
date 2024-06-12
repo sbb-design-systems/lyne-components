@@ -6,7 +6,7 @@
  * We cannot use `border-collapse` because it is not compatible with the `border-radius` property
  */
 @mixin table {
-  @include table-striped;
+  @include table--striped;
   @include table-m;
 
   --sbb-table-border: 1px solid var(--sbb-table-border-color);
@@ -96,23 +96,23 @@
   text-align: left;
 }
 
-@mixin table-striped {
+@mixin table--striped {
   tbody tr:nth-child(odd) {
-    @include table-row-striped;
+    @include table-row--striped;
   }
 }
 
-@mixin table-unstriped {
+@mixin table--unstriped {
   tbody tr:nth-child(odd) {
     background-color: unset;
   }
 }
 
-@mixin table-row-striped {
+@mixin table-row--striped {
   background-color: var(--sbb-table-row-striped-color);
 }
 
-@mixin table-negative {
+@mixin table--negative {
   --sbb-table-border-color: var(--sbb-color-anthracite);
   --sbb-table-background-color: var(--sbb-color-midnight);
   --sbb-table-color: var(--sbb-color-white);

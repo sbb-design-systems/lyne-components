@@ -78,27 +78,17 @@ const body: () => TemplateResult = () => html`
   </tbody>
 `;
 
-const footer: () => TemplateResult = () => html`
-  <!-- TODO -->
-  <!--  <tfoot>-->
-  <!--    <tr>-->
-  <!--      <th scope="row" colspan="2">Average age</th>-->
-  <!--      <td>33</td>-->
-  <!--    </tr>-->
-  <!--  </tfoot>-->
-`;
-
 const Template = (args: Args): TemplateResult => html`
   <table
     class=${classMap({
       'sbb-table': true,
-      'sbb-table-negative': args.negative,
+      'sbb-table--negative': args.negative,
       'sbb-table-s': args.size === 's',
       'sbb-table-m': args.size === 'm',
-      'sbb-table-unstriped': !args.striped,
+      'sbb-table--unstriped': !args.striped,
     })}
   >
-    ${caption()} ${header()} ${body()} ${footer()}
+    ${caption()} ${header()} ${body()}
   </table>
 `;
 

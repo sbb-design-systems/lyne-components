@@ -23,7 +23,7 @@ The component has a `negative` variant which can be set with the self-named prop
 
 ```html
 <sbb-table-wrapper negative>
-  <table class="sbb-table sbb-table-negative">
+  <table class="sbb-table sbb-table--negative">
     ...
   </table>
 </sbb-table-wrapper>

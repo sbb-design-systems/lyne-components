@@ -24,10 +24,10 @@ This guide will walk you through the various customization options and advanced 
 
 ### Striped table
 
-By default, tables are styled with alternating row stripes to enhance readability. To remove this striping, add the `sbb-table-unstriped` class:
+By default, tables are styled with alternating row stripes to enhance readability. To remove this striping, add the `sbb-table--unstriped` class:
 
 ```html
-<table class="sbb-table sbb-table-unstriped">
+<table class="sbb-table sbb-table--unstriped">
   ...
 </table>
 ```
@@ -44,10 +44,10 @@ The available sizes are `m` (default) and `s`. Use the respective `sbb-table-*si
 
 ### Negative variant
 
-For a negative color scheme, apply the `sbb-table-negative` class:
+For a negative color scheme, apply the `sbb-table--negative` class:
 
 ```html
-<table class="sbb-table sbb-table-negative">
+<table class="sbb-table sbb-table--negative">
   ...
 </table>
 ```
@@ -57,16 +57,16 @@ For a negative color scheme, apply the `sbb-table-negative` class:
 In advanced scenarios, predefined classes might not suffice.
 Therefore, we provide mixins you can build on top of:
 
-| Mixin               | Css class               | Description                       |
-| ------------------- | ----------------------- | --------------------------------- |
-| `table`             | `sbb-table`             | The whole table style             |
-| `table-negative`    | `sbb-table-negative`    | Negative variant style            |
-| `table-m`           | `sbb-table-m`           | Medium size table style           |
-| `table-s`           | `sbb-table-s`           | Small size table style            |
-| `table-striped`     | `sbb-table-striped`     | Striped table style               |
-| `table-unstriped`   | `sbb-table-unstriped`   | Non-striped table style           |
-| `table-row-striped` | `sbb-table-row-striped` | Force the striped state on a `tr` |
-| `table-header-cell` | `sbb-table-header-cell` | `th` element style                |
-| `table-data-row`    | `sbb-table-data-row`    | `tr` element style                |
-| `table-data-cell`   | `sbb-table-data-cell`   | `td` element style                |
-| `table-caption`     | `sbb-table-caption`     | `caption` element style           |
+| Mixin                | Css class                | Description                       |
+| -------------------- | ------------------------ | --------------------------------- |
+| `table`              | `sbb-table`              | The whole table style             |
+| `table--negative`    | `sbb-table--negative`    | Negative variant style            |
+| `table-m`            | `sbb-table-m`            | Medium size table style           |
+| `table-s`            | `sbb-table-s`            | Small size table style            |
+| `table--striped`     | `sbb-table--striped`     | Striped table style               |
+| `table--unstriped`   | `sbb-table--unstriped`   | Non-striped table style           |
+| `table-row--striped` | `sbb-table-row--striped` | Force the striped state on a `tr` |
+| `table-header-cell`  | `sbb-table-header-cell`  | `th` element style                |
+| `table-data-row`     | `sbb-table-data-row`     | `tr` element style                |
+| `table-data-cell`    | `sbb-table-data-cell`    | `td` element style                |
+| `table-caption`      | `sbb-table-caption`      | `caption` element style           |

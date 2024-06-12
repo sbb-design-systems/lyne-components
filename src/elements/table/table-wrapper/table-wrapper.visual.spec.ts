@@ -27,7 +27,7 @@ describe(`sbb-table-wrapper`, () => {
               <table
                 class=${classMap({
                   'sbb-table': true,
-                  'sbb-table-negative': negative,
+                  'sbb-table--negative': negative,
                 })}
                 style=${scrollbar ? 'width: 120%' : nothing}
               >

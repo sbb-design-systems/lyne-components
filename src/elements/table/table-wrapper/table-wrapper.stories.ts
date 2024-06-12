@@ -100,7 +100,7 @@ const Template = (args: Args): TemplateResult => html`
       aria-label="Train lines 2024"
       class=${classMap({
         'sbb-table': true,
-        'sbb-table-negative': args.negative,
+        'sbb-table--negative': args.negative,
         'sbb-table-s': args.size === 's',
         'sbb-table-m': args.size === 'm',
       })}
