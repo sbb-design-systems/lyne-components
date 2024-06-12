@@ -56,7 +56,6 @@ describe(`sbb-table-wrapper`, () => {
           `,
           {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-            focusOutlineDark: negative,
           },
         );
       });

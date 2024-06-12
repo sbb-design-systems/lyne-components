@@ -59,7 +59,6 @@ describe(`sbb-table-wrapper`, () => {
           }),
           {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-            focusOutlineDark: negative,
           },
         );
       });
@@ -81,6 +80,7 @@ describe(`sbb-table-wrapper`, () => {
             tableTemplate({
               'sbb-table': true,
               'sbb-table--s': size === 's',
+              'sbb-table--m': size === 'm',
             }),
           );
         }),
