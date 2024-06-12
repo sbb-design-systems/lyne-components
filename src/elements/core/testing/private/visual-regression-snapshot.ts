@@ -4,6 +4,7 @@ import { visualDiff } from '@web/test-runner-visual-regression';
 import type { TemplateResult } from 'lit';
 
 import { visualRegressionFixture } from './fixture.js';
+import { tabKey } from './keys.js';
 
 export function imageName(test: Mocha.Runnable): string {
   return test!.fullTitle().replaceAll(', ', '-').replaceAll(' ', '_');
@@ -99,7 +100,7 @@ export const visualDiffFocus: VisualDiffState = {
     return async function (this: Mocha.Context) {
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       builder.snapshotElement.focus();
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       await visualDiff(builder.snapshotElement, imageName(this.test!));
     };
   },

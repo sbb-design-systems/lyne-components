@@ -66,7 +66,8 @@ describe(`sbb-lead-container`, () => {
     </sbb-lead-container>
   `;
 
-  describeViewports(() => {
+  // The viewport is set to a big height, to not display scrollbars
+  describeViewports({ viewportHeight: 2000 }, () => {
     it(
       'with sbb-image',
       visualDiffDefault.with(async (setup) => {

@@ -24,7 +24,8 @@ const aspectRatios = [
 ];
 
 describe(`sbb-image`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  // The viewport is set to a big height, to not display scrollbars
+  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 2000 }, () => {
     for (const aspectRatio of aspectRatios) {
       it(
         `aspect-ratio=${aspectRatio}`,
