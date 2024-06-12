@@ -1,15 +1,16 @@
-@use './typo' as t;
+@use './typo' as typo;
 
 /*
  * SBB table mixin
  * Notes:
- * We cannot use `border-collapse` because it is not compatible with the `border-radius` property
+ * We cannot use `border-collapse` because it is not compatible with the `border-radius` property.
+ * Therefore, we have to build the grid avoiding double borders.
  */
 @mixin table {
   @include table--striped;
   @include table-m;
 
-  --sbb-table-border: 1px solid var(--sbb-table-border-color);
+  --sbb-table-border: var(--sbb-border-width-1x) solid var(--sbb-table-border-color);
   --sbb-table-border-color: var(--sbb-color-cloud);
   --sbb-table-border-radius: var(--sbb-border-radius-4x);
   --sbb-table-background-color: var(--sbb-color-white);
@@ -52,7 +53,7 @@
 }
 
 @mixin table-header-cell {
-  @include t.text-xs--bold;
+  @include typo.text-xs--bold;
 
   border-bottom: var(--sbb-table-border);
   border-right: var(--sbb-table-border);
@@ -67,14 +68,14 @@
 }
 
 @mixin table-data-row {
-  // To avoid double border
+  // To avoid double borders
   &:first-of-type td {
     border-top: none;
   }
 }
 
 @mixin table-data-cell {
-  @include t.text-s--regular;
+  @include typo.text-s--regular;
 
   border-top: var(--sbb-table-border);
   border-right: var(--sbb-table-border);
@@ -88,7 +89,7 @@
 }
 
 @mixin table-caption {
-  @include t.text-xs--regular;
+  @include typo.text-xs--regular;
 
   // Defaults are needed for cases where the caption is used from outside a table
   color: var(--sbb-table-caption-color, var(--sbb-color-granite));
