@@ -10,7 +10,7 @@ import {
 import './expansion-panel-header.js';
 import '../../icon.js';
 
-describe(`sbb-button`, () => {
+describe(`sbb-expansion-panel-header`, () => {
   let root: HTMLElement;
 
   const cases = {

@@ -13,7 +13,7 @@ import '../expansion-panel-header.js';
 import '../expansion-panel-content.js';
 import '../../icon.js';
 
-describe(`sbb-button`, () => {
+describe(`sbb-expansion-panel`, () => {
   let root: HTMLElement;
 
   const cases = {
@@ -85,7 +85,7 @@ describe(`sbb-button`, () => {
     // Title level test
     for (const titleLevel of titleLevelCases.titleLevel) {
       it(
-        `title-level=${titleLevel} ${visualDiffDefault.name}`,
+        `title-level=${titleLevel}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-expansion-panel title-level=${titleLevel}>
