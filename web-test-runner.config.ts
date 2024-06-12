@@ -9,6 +9,7 @@ import {
 } from '@web/test-runner';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
 import { playwrightLauncher } from '@web/test-runner-playwright';
+import type { PlaywrightLauncherArgs } from '@web/test-runner-playwright/src';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 import { initCompiler } from 'sass';
@@ -37,6 +38,13 @@ const { values: cliArgs } = parseArgs({
 });
 
 const concurrency = cliArgs.parallel ? {} : { concurrency: 1 };
+const launchOptions: PlaywrightLauncherArgs = {
+  launchOptions: {
+    ignoreDefaultArgs: ['--hide-scrollbars'],
+    // Enables focusing links with tab on Firefox, probably only relevant on macOS.
+    firefoxUserPrefs: { 'accessibility.tabfocus': 7 },
+  },
+};
 
 const stylesCompiler = initCompiler();
 const renderStyles = (): string =>
@@ -48,12 +56,16 @@ const browsers =
   cliArgs.ci || cliArgs['all-browsers']
     ? // Parallelism has problems, we need force concurrency to 1
       (['chromium', 'firefox', 'webkit'] as const).map((product) =>
-        playwrightLauncher({ product, ...concurrency }),
+        playwrightLauncher({
+          product,
+          ...concurrency,
+          ...launchOptions,
+        }),
       )
     : cliArgs.firefox
-      ? [playwrightLauncher({ product: 'firefox' })]
+      ? [playwrightLauncher({ product: 'firefox', ...launchOptions })]
       : cliArgs.webkit
-        ? [playwrightLauncher({ product: 'webkit' })]
+        ? [playwrightLauncher({ product: 'webkit', ...launchOptions })]
         : cliArgs.debug
           ? [
               puppeteerLauncher({
@@ -61,7 +73,7 @@ const browsers =
                 ...concurrency,
               }),
             ]
-          : [playwrightLauncher({ product: 'chromium' })];
+          : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
 
 const groupNameOverride = cliArgs['ssr-hydrated']
   ? 'ssr-hydrated'

@@ -10,7 +10,7 @@ import './message.js';
 import '../image.js';
 import '../button/button.js';
 
-const imageUrl = import.meta.resolve('../clock/assets/sbb_clock_face.svg');
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-message`, () => {
   let element: SbbMessageElement;
