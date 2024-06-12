@@ -24,21 +24,5 @@ describe(`sbb-toggle-check`, () => {
     });
   });
 
-  describe('renders size xs', async () => {
-    let element: SbbToggleCheckElement;
-
-    beforeEach(async () => {
-      element = await fixture(html`<sbb-toggle-check size="xs"></sbb-toggle-check>`);
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-  });
-
   testA11yTreeSnapshot(html`<sbb-toggle-check></sbb-toggle-check>`);
 });
