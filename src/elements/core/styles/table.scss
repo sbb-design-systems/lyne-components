@@ -12,6 +12,7 @@
   @include t.table-s;
 }
 
+sbb-table-wrapper[negative] .sbb-table,
 .sbb-table--negative {
   @include t.table--negative;
 }
