@@ -5,6 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type { SbbCheckboxGroupElement } from '../checkbox.js';
 import { SbbCheckboxElement } from '../checkbox.js';
+import { tabKey } from '../core/testing/private/keys.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 import type { SbbRadioButtonGroupElement } from '../radio-button.js';
@@ -283,7 +284,7 @@ describe(`sbb-selection-panel`, () => {
       expect(firstPanel).to.have.attribute('data-state', 'closed');
       expect(secondPanel).to.have.attribute('data-state', 'closed');
 
-      await sendKeys({ down: 'Tab' });
+      await sendKeys({ down: tabKey });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
 

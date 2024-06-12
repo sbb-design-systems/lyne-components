@@ -2,6 +2,7 @@ import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbOptionElement } from '../../option.js';
@@ -61,7 +62,7 @@ describe(`sbb-form-field`, () => {
       expect(element).to.have.attribute('data-input-focused');
 
       input.focus();
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       await waitForLitRender(element);
 
       expect(element).not.to.have.attribute('data-input-focused');
@@ -194,7 +195,7 @@ describe(`sbb-form-field`, () => {
       expect(element).to.have.attribute('data-input-focused');
 
       textarea.focus();
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       await waitForLitRender(element);
 
       expect(element).not.to.have.attribute('data-input-focused');
