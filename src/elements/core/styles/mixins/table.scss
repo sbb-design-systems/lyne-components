@@ -8,7 +8,7 @@
  */
 @mixin table {
   @include table--striped;
-  @include table-m;
+  @include table--m;
 
   --sbb-table-border: var(--sbb-border-width-1x) solid var(--sbb-table-border-color);
   --sbb-table-border-color: var(--sbb-color-cloud);
@@ -121,14 +121,14 @@
   --sbb-table-caption-color: var(--sbb-color-cement);
 }
 
-@mixin table-m {
+@mixin table--m {
   --sbb-table-header-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxs);
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-4x);
 }
 
-@mixin table-s {
+@mixin table--s {
   --sbb-table-header-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-table-cell-padding-block: var(--sbb-spacing-fixed-1x);

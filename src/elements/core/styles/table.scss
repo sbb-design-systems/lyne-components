@@ -4,12 +4,12 @@
   @include t.table;
 }
 
-.sbb-table-m {
-  @include t.table-m;
+.sbb-table--m {
+  @include t.table--m;
 }
 
-.sbb-table-s {
-  @include t.table-s;
+.sbb-table--s {
+  @include t.table--s;
 }
 
 sbb-table-wrapper[negative] .sbb-table,

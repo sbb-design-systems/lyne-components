@@ -80,7 +80,7 @@ describe(`sbb-table-wrapper`, () => {
           await setup.withFixture(
             tableTemplate({
               'sbb-table': true,
-              'sbb-table-s': size === 's',
+              'sbb-table--s': size === 's',
             }),
           );
         }),
