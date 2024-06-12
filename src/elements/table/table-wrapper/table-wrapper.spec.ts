@@ -5,13 +5,11 @@ import { fixture } from '../../core/testing/private.js';
 
 import { SbbTableWrapperElement } from './table-wrapper.js';
 
-describe(`sbb-table-wrapper with ${fixture.name}`, () => {
+describe(`sbb-table-wrapper`, () => {
   let element: SbbTableWrapperElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-table-wrapper></sbb-table-wrapper>`, {
-      modules: ['./table-wrapper.ts'],
-    });
+    element = await fixture(html`<sbb-table-wrapper></sbb-table-wrapper>`);
   });
 
   it('renders', async () => {
