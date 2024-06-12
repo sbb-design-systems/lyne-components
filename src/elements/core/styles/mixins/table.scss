@@ -1,4 +1,4 @@
-@use './typo' as typo;
+@use './typo';
 
 /*
  * SBB table mixin
@@ -41,10 +41,6 @@
         @include table-data-cell;
       }
     }
-  }
-
-  tfoot {
-    // TBD
   }
 
   caption {
