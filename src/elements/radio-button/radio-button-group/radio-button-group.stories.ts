@@ -3,6 +3,7 @@ import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../../form-error.js';
@@ -12,6 +13,23 @@ import './radio-button-group.js';
 import '../radio-button.js';
 import '../radio-button-panel.js';
 import '../../form-error.js';
+import '../../icon.js';
+
+const suffixStyle: Readonly<StyleInfo> = {
+  display: 'flex',
+  alignItems: 'center',
+  marginInline: 'var(--sbb-spacing-fixed-2x)',
+};
+
+const suffixAndSubtext = (): TemplateResult => html`
+  <span slot="subtext">Subtext</span>
+  <span slot="suffix" style="margin-inline-start: auto;">
+    <span style=${styleMap(suffixStyle)}>
+      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
+      <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
+    </span>
+  </span>
+`;
 
 const value: InputType = {
   control: {
@@ -94,10 +112,11 @@ const radioButtons = (): TemplateResult => html`
 `;
 
 const radioButtonPanels = (): TemplateResult => html`
-  <sbb-radio-button-panel value="Value one">Value one</sbb-radio-button-panel>
-  <sbb-radio-button-panel value="Value two">Value two</sbb-radio-button-panel>
-  <sbb-radio-button-panel value="Value three" disabled> Value three </sbb-radio-button-panel>
-  <sbb-radio-button-panel value="Value four">Value four</sbb-radio-button-panel>
+  <sbb-radio-button-panel value="Value one">Value 1 ${suffixAndSubtext()}</sbb-radio-button-panel>
+  <sbb-radio-button-panel value="Value two">Value 2 ${suffixAndSubtext()}</sbb-radio-button-panel>
+  <sbb-radio-button-panel value="Value three">
+    Value 3 ${suffixAndSubtext()}</sbb-radio-button-panel
+  >
 `;
 
 const DefaultTemplate = (args: Args): TemplateResult => html`

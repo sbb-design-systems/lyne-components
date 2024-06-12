@@ -3,7 +3,7 @@ import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
+import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbCheckboxElement } from '../checkbox.js';
@@ -14,12 +14,28 @@ import './checkbox-group.js';
 import '../checkbox.js';
 import '../checkbox-panel.js';
 import '../../form-error.js';
+import '../../icon.js';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
 lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at augue quis tellus vulputate tempor. Vivamus urna
 velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat
 metus.`;
+
+const suffixStyle: Readonly<StyleInfo> = {
+  display: 'flex',
+  alignItems: 'center',
+};
+
+const suffixAndSubtext = (): TemplateResult => html`
+  <span slot="subtext">Subtext</span>
+  <span slot="suffix" style="margin-inline-start: auto;">
+    <span style=${styleMap(suffixStyle)}>
+      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
+      <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
+    </span>
+  </span>
+`;
 
 const checkboxes = (
   checked: boolean,
@@ -54,11 +70,13 @@ const checkboxPanels = (
   disabledSingle: boolean,
   label: string,
 ): TemplateResult => html`
-  <sbb-checkbox-panel value="checkbox-1" ?checked=${checked}> ${label} 1 </sbb-checkbox-panel>
+  <sbb-checkbox-panel value="checkbox-1" ?checked=${checked}>
+    ${label} 1 ${suffixAndSubtext()}</sbb-checkbox-panel
+  >
   <sbb-checkbox-panel value="checkbox-2" ?disabled=${disabledSingle}>
-    ${label} 2
+    ${label} 2 ${suffixAndSubtext()}
   </sbb-checkbox-panel>
-  <sbb-checkbox-panel value="checkbox-3"> ${label} 3 </sbb-checkbox-panel>
+  <sbb-checkbox-panel value="checkbox-3"> ${label} 3 ${suffixAndSubtext()} </sbb-checkbox-panel>
 `;
 
 const DefaultTemplate = ({
