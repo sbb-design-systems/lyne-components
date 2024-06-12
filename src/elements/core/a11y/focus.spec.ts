@@ -2,6 +2,7 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 
+import { tabKey } from '../testing/private/keys.js';
 import { fixture } from '../testing/private.js';
 
 import { SbbFocusHandler, getFirstFocusableElement, getFocusableElements } from './focus.js';
@@ -121,19 +122,19 @@ describe('focus', () => {
       element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
 
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-link');
 
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
 
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
 
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
 
       expect(document.activeElement!.id).to.equal('slotted-button');
 
       // Wrap around
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
     });
 
@@ -146,7 +147,7 @@ describe('focus', () => {
       element.shadowRoot!.querySelector('input')!.focus();
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
 
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
     });
 
@@ -159,10 +160,10 @@ describe('focus', () => {
       element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
 
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-link');
 
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
     });
   });

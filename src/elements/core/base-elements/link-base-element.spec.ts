@@ -62,7 +62,7 @@ describe(`SbbLinkBaseElement`, () => {
       const clickSpy = new EventSpy('click');
       element.focus();
 
-      await sendKeys({ down: 'Enter' });
+      await sendKeys({ press: 'Enter' });
       await waitForLitRender(element);
       expect(clickSpy.count).to.be.equal(1);
     });

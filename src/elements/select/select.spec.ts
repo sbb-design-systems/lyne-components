@@ -2,6 +2,7 @@ import { aTimeout, assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { tabKey } from '../core/testing/private/keys.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
 import { SbbOptionElement } from '../option.js';
@@ -260,7 +261,7 @@ describe(`sbb-select`, () => {
     expect(didOpen.count).to.be.equal(2);
 
     focusableElement.focus();
-    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForCondition(() => didClose.events.length === 2);
     expect(didClose.count).to.be.equal(2);
 
