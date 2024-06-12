@@ -1,4 +1,11 @@
-import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } from 'lit';
+import {
+  LitElement,
+  html,
+  nothing,
+  type CSSResultGroup,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers.js';
@@ -43,6 +50,14 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
     super.connectedCallback();
 
     this._radioButtonLoaded.emit();
+  }
+
+  protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      this.toggleAttribute('data-checked', this.checked);
+    }
   }
 
   protected override render(): TemplateResult {

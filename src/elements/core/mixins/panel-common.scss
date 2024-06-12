@@ -35,11 +35,11 @@
   );
 }
 
-:host([borderless]:not([checked], [data-checked])) {
+:host([borderless]:not([data-checked])) {
   --sbb-selection-panel-border-color: transparent;
 }
 
-:host(:is([checked], [data-checked]):not(:disabled, [disabled])) {
+:host(:is([data-checked]):not(:disabled, [disabled])) {
   --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
   --sbb-selection-panel-border-width: var(
     --sbb-selection-expansion-panel-inner-border-width,
