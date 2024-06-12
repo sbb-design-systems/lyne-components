@@ -23,6 +23,10 @@ snapshots["sbb-radio-button-panel should render unchecked DOM"] =
 
 snapshots["sbb-radio-button-panel should render unchecked Shadow DOM"] = 
 `<label class="sbb-selection-panel">
+  <div class="sbb-selection-expansion-panel__badge">
+    <slot name="badge">
+    </slot>
+  </div>
   <span class="sbb-radio-button">
     <input
       aria-hidden="true"
@@ -49,6 +53,7 @@ snapshots["sbb-radio-button-panel should render checked DOM"] =
   aria-checked="true"
   aria-required="false"
   checked=""
+  data-checked=""
   data-slot-names="subtext suffix unnamed"
   role="radio"
   size="m"
@@ -67,6 +72,10 @@ snapshots["sbb-radio-button-panel should render checked DOM"] =
 
 snapshots["sbb-radio-button-panel should render checked Shadow DOM"] = 
 `<label class="sbb-selection-panel">
+  <div class="sbb-selection-expansion-panel__badge">
+    <slot name="badge">
+    </slot>
+  </div>
   <span class="sbb-radio-button">
     <input
       aria-hidden="true"

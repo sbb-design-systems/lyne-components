@@ -3,29 +3,13 @@ export const snapshots = {};
 
 snapshots["sbb-selection-expansion-panel renders DOM"] = 
 `<sbb-selection-expansion-panel
-  data-has-card-badge=""
   data-has-selection-expansion-panel-label=""
-  data-slot-names="badge content unnamed"
+  data-slot-names="content unnamed"
   data-state="closed"
 >
-  <sbb-card-badge
-    color="charcoal"
-    dir="ltr"
-    role="text"
-    slot="badge"
-  >
-    <span>
-      %
-    </span>
-    <span>
-      from CHF
-    </span>
-    <span>
-      19.99
-    </span>
-  </sbb-card-badge>
   <sbb-checkbox-panel
-    data-slot-names="subtext suffix unnamed"
+    data-has-card-badge=""
+    data-slot-names="badge subtext suffix unnamed"
     size="m"
     tabindex="0"
   >
@@ -36,6 +20,22 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
     <span slot="suffix">
       Suffix
     </span>
+    <sbb-card-badge
+      color="charcoal"
+      dir="ltr"
+      role="text"
+      slot="badge"
+    >
+      <span>
+        %
+      </span>
+      <span>
+        from CHF
+      </span>
+      <span>
+        19.99
+      </span>
+    </sbb-card-badge>
   </sbb-checkbox-panel>
   <div slot="content">
     Inner content
@@ -46,10 +46,6 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 
 snapshots["sbb-selection-expansion-panel renders Shadow DOM"] = 
 `<div class="sbb-selection-expansion-panel">
-  <div class="sbb-selection-expansion-panel__badge">
-    <slot name="badge">
-    </slot>
-  </div>
   <div class="sbb-selection-expansion-panel__input">
     <slot>
     </slot>
@@ -83,20 +79,8 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "%"
-    },
-    {
-      "role": "text",
-      "name": "from CHF"
-    },
-    {
-      "role": "text",
-      "name": "19.99"
-    },
-    {
       "role": "checkbox",
-      "name": "​ Value one Suffix Subtext",
+      "name": "% from CHF 19.99 ​ Value one Suffix Subtext",
       "checked": false
     },
     {
@@ -116,20 +100,8 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "text leaf",
-      "name": "%"
-    },
-    {
-      "role": "text leaf",
-      "name": "from CHF"
-    },
-    {
-      "role": "text leaf",
-      "name": "19.99"
-    },
-    {
       "role": "checkbox",
-      "name": "​ Value one Suffix Subtext"
+      "name": "% from CHF 19.99 ​ Value one Suffix Subtext"
     },
     {
       "role": "text leaf",
