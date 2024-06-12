@@ -92,15 +92,6 @@ $open-anim-opacity-to: 1;
   }
 }
 
-.sbb-selection-expansion-panel__badge {
-  user-select: none;
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  border-radius: var(--sbb-selection-expansion-panel-border-radius);
-  overflow: hidden;
-}
-
 .sbb-selection-expansion-panel__content--wrapper {
   display: grid;
   visibility: var(--sbb-selection-expansion-panel-content-visibility);

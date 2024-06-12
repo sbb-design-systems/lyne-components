@@ -20,6 +20,7 @@ import { SbbRadioButtonCommonElementMixin, radioButtonCommonStyle } from '../com
  * @slot - Use the unnamed slot to add content to the radio label.
  * @slot subtext - Slot used to render a subtext under the label.
  * @slot suffix - Slot used to render additional content after the label.
+ * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  */
 @customElement('sbb-radio-button-panel')
 export class SbbRadioButtonPanelElement extends SbbPanelMixin(
@@ -63,6 +64,9 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
   protected override render(): TemplateResult {
     return html`
       <label class="sbb-selection-panel">
+        <div class="sbb-selection-expansion-panel__badge">
+          <slot name="badge"></slot>
+        </div>
         <span class="sbb-radio-button">
           <input
             type="radio"

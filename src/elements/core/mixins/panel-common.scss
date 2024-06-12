@@ -85,6 +85,15 @@
   }
 }
 
+.sbb-selection-expansion-panel__badge {
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sbb-selection-expansion-panel-border-radius);
+  overflow: hidden;
+}
+
 slot[name='suffix'] {
   color: var(--sbb-selection-panel-suffix-color);
 }

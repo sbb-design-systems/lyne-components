@@ -19,7 +19,6 @@ import style from './selection-expansion-panel.scss?lit&inline';
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
  *
  * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`.
- * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @slot content - Use this slot to provide custom content for the panel (optional).
  * @event {CustomEvent<void>} willOpen - Emits whenever the content section starts the opening transition.
  * @event {CustomEvent<void>} didOpen - Emits whenever the content section is opened.
@@ -210,10 +209,6 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-selection-expansion-panel">
-        <div class="sbb-selection-expansion-panel__badge">
-          <slot name="badge"></slot>
-        </div>
-
         <div
           class="sbb-selection-expansion-panel__input"
           @stateChange=${this._onInputStateChange}
