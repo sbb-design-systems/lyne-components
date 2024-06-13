@@ -43,10 +43,11 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
 
+  // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
     didChange: 'didChange',
     stateChange: 'stateChange',
-    checkboxLoaded: 'checkboxLoaded',
+    panelConnected: 'panelConnected',
   } as const;
 
   /**
@@ -60,24 +61,9 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
     { bubbles: true },
   );
 
-  /**
-   * @internal
-   * Internal event that emits when the checkbox is loaded.
-   */
-  private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbCheckboxPanelElement.events.checkboxLoaded,
-    { bubbles: true },
-  );
-
   public constructor() {
     super();
     new SbbSlotStateController(this);
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._checkboxLoaded.emit();
   }
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {

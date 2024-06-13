@@ -1,17 +1,16 @@
 import {
-  LitElement,
-  html,
-  nothing,
   type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbSlotStateController } from '../../core/controllers.js';
-import { EventEmitter } from '../../core/eventing.js';
-import { SbbPanelMixin, SbbUpdateSchedulerMixin, panelCommonStyle } from '../../core/mixins.js';
-import { SbbRadioButtonCommonElementMixin, radioButtonCommonStyle } from '../common.js';
+import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import { radioButtonCommonStyle, SbbRadioButtonCommonElementMixin } from '../common.js';
 
 import '../../screen-reader-only.js';
 
@@ -29,30 +28,16 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, panelCommonStyle];
+
+  // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
     stateChange: 'stateChange',
-    radioButtonLoaded: 'radioButtonLoaded',
+    panelConnected: 'panelConnected',
   } as const;
-
-  /**
-   * @internal
-   * Internal event that emits when the radio button is loaded.
-   */
-  private _radioButtonLoaded: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbRadioButtonPanelElement.events.radioButtonLoaded,
-    { bubbles: true },
-  );
 
   public constructor() {
     super();
     new SbbSlotStateController(this);
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    this._radioButtonLoaded.emit();
   }
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {

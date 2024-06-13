@@ -3,16 +3,20 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxPanelElement } from '../checkbox.js';
-import { SbbLanguageController, SbbSlotStateController } from '../core/controllers.js';
+import {
+  SbbConnectedAbortController,
+  SbbLanguageController,
+  SbbSlotStateController,
+} from '../core/controllers.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button.js';
 
-import '../divider.js';
-
 import style from './selection-expansion-panel.scss?lit&inline';
+
+import '../divider.js';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -91,6 +95,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   );
 
   private _language = new SbbLanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _initialized: boolean = false;
 
   /**
@@ -109,6 +114,11 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 
   public override connectedCallback(): void {
     super.connectedCallback();
+
+    this.addEventListener('panelConnected', this._initFromInput.bind(this), {
+      signal: this._abort.signal,
+    });
+
     this._state ||= 'closed';
   }
 
@@ -198,7 +208,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
       return;
     }
 
-    if (!(this.querySelectorAll?.('[slot="content"]').length > 0)) {
+    if (!this.hasContent) {
       panelElement.expansionState = '';
       return;
     }
@@ -211,12 +221,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-selection-expansion-panel">
-        <div
-          class="sbb-selection-expansion-panel__input"
-          @stateChange=${this._onInputStateChange}
-          @checkboxLoaded=${this._initFromInput}
-          @radioButtonLoaded=${this._initFromInput}
-        >
+        <div class="sbb-selection-expansion-panel__input" @stateChange=${this._onInputStateChange}>
           <slot></slot>
         </div>
         <div
