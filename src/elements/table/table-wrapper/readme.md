@@ -20,6 +20,7 @@ Currently, it only handles overflow (vertical and horizontal).
 See the [Table](/docs/styles-table--docs) style section.
 
 The component has a `negative` variant which can be set with the self-named property.
+Note: Due to technical limitations, consumer has to use set the `negative` property and the `sbb-table--negative` class.
 
 ```html
 <sbb-table-wrapper negative>
