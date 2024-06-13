@@ -3,6 +3,7 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
@@ -78,10 +79,10 @@ describe(`sbb-menu`, () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
@@ -231,7 +232,7 @@ describe(`sbb-menu`, () => {
 
     trigger.focus();
 
-    await sendKeys({ down: 'Enter' });
+    await sendKeys({ press: 'Enter' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
