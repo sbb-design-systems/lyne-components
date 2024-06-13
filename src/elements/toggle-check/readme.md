@@ -31,6 +31,17 @@ The component can be displayed in `checked` or `disabled` states using the self-
 <sbb-toggle-check name="other" value="Value" disabled>Option</sbb-toggle-check>
 ```
 
+## Style
+
+The component has three different sizes (`xs`, `s`, which is the default, and `m`),
+which can be changed using the `size` property.
+
+```html
+<sbb-toggle-check size="m" value="single-checkbox"> Example in m size</sbb-toggle-check>
+
+<sbb-toggle-check size="xs" value="single-checkbox"> Example in xs size </sbb-toggle-check>
+```
+
 ## Events
 
 Consumers can listen to the native `change` event on the `sbb-toggle-check` component to intercept the input's change;

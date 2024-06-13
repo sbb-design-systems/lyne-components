@@ -24,7 +24,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm'],
+  options: ['xs', 's', 'm'],
 };
 
 const checked: InputType = {
@@ -89,7 +89,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options![0],
+  size: size.options![1],
   checked: false,
   disabled: false,
   label: 'Label',
@@ -178,7 +178,16 @@ export const SbbToggleCheckDefaultSizeM: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options![1],
+    size: size.options![2],
+  },
+};
+
+export const SbbToggleCheckDefaultSizeXS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![0],
   },
 };
 
@@ -206,7 +215,17 @@ export const SbbToggleCheckDefaultLongLabelSizeM: StoryObj = {
   args: {
     ...defaultArgs,
     label: longLabel,
-    size: size.options![1],
+    size: size.options![2],
+  },
+};
+
+export const SbbToggleCheckDefaultLongLabelSizeXS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    label: longLabel,
+    size: size.options![0],
   },
 };
 
