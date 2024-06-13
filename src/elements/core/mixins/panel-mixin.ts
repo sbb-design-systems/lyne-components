@@ -6,6 +6,7 @@ import type { AbstractConstructor } from './constructor.js';
 export declare class SbbPanelMixinType {
   public color: 'white' | 'milk';
   public borderless: boolean;
+  public expansionState?: string;
 }
 
 /**
@@ -21,6 +22,9 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement>>(
 
     /** Whether the unselected panel has a border. */
     @property({ reflect: true, type: Boolean }) public borderless = false;
+
+    /** @internal used for accessibility label when in expansion panel */
+    @property() public expansionState?: string;
   }
 
   return SbbPanelElement as AbstractConstructor<SbbPanelMixinType> & T;

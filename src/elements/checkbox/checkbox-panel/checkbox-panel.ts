@@ -1,7 +1,8 @@
 import {
-  LitElement,
-  html,
   type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
@@ -14,9 +15,10 @@ import type {
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces/types.js';
-import { SbbPanelMixin, SbbUpdateSchedulerMixin, panelCommonStyle } from '../../core/mixins.js';
-import { SbbCheckboxCommonElementMixin, checkboxCommonStyle } from '../common.js';
+import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.js';
 
+import '../../screen-reader-only.js';
 import '../../visual-checkbox.js';
 
 export type SbbCheckboxPanelStateChange = Extract<
@@ -118,6 +120,9 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
               </span>
             </span>
             <slot name="subtext"></slot>
+            ${this.expansionState
+              ? html`<sbb-screen-reader-only>${this.expansionState}</sbb-screen-reader-only>`
+              : nothing}
           </span>
         </span>
       </span>

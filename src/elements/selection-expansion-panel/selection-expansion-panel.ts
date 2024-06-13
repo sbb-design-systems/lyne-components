@@ -10,7 +10,6 @@ import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js
 import { SbbHydrationMixin } from '../core/mixins.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button.js';
 
-import '../screen-reader-only.js';
 import '../divider.js';
 
 import style from './selection-expansion-panel.scss?lit&inline';
@@ -53,9 +52,6 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   private get _state(): SbbOpenedClosedState {
     return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
-
-  /** The label describing whether the selection panel is expanded (for screen readers only). */
-  @state() private _selectionPanelExpandedLabel!: string;
 
   /** Whether the selection panel is checked. */
   private set _checked(checked: boolean) {
@@ -194,12 +190,20 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 
   private async _updateExpandedLabel(open: boolean): Promise<void> {
     await this.hydrationComplete;
-    if (!(this.querySelectorAll?.('[slot="content"]').length > 0)) {
-      this._selectionPanelExpandedLabel = '';
+
+    const panelElement = this.querySelector<SbbRadioButtonPanelElement | SbbCheckboxPanelElement>(
+      'sbb-radio-button-panel, sbb-checkbox-panel',
+    );
+    if (!panelElement) {
       return;
     }
 
-    this._selectionPanelExpandedLabel = open
+    if (!(this.querySelectorAll?.('[slot="content"]').length > 0)) {
+      panelElement.expansionState = '';
+      return;
+    }
+
+    panelElement.expansionState = open
       ? ', ' + i18nExpanded[this._language.current]
       : ', ' + i18nCollapsed[this._language.current];
   }
@@ -214,7 +218,6 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
           @radioButtonLoaded=${this._initFromInput}
         >
           <slot></slot>
-          <sbb-screen-reader-only> ${this._selectionPanelExpandedLabel} </sbb-screen-reader-only>
         </div>
         <div
           class="sbb-selection-expansion-panel__content--wrapper"

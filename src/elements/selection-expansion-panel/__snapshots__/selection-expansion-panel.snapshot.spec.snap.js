@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-selection-expansion-panel renders DOM"] =
+snapshots["sbb-selection-expansion-panel renders DOM"] = 
 `<sbb-selection-expansion-panel
   data-slot-names="content unnamed"
   data-state="closed"
@@ -43,14 +43,11 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 `;
 /* end snapshot sbb-selection-expansion-panel renders DOM */
 
-snapshots["sbb-selection-expansion-panel renders Shadow DOM"] =
+snapshots["sbb-selection-expansion-panel renders Shadow DOM"] = 
 `<div class="sbb-selection-expansion-panel">
   <div class="sbb-selection-expansion-panel__input">
     <slot>
     </slot>
-    <sbb-screen-reader-only>
-      , collapsed
-    </sbb-screen-reader-only>
   </div>
   <div
     class="sbb-selection-expansion-panel__content--wrapper"
@@ -71,7 +68,7 @@ snapshots["sbb-selection-expansion-panel renders Shadow DOM"] =
 `;
 /* end snapshot sbb-selection-expansion-panel renders Shadow DOM */
 
-snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
+snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -79,12 +76,8 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
   "children": [
     {
       "role": "checkbox",
-      "name": "% from CHF 19.99 ​ Value one Suffix Subtext",
+      "name": "% from CHF 19.99 ​ Value one Suffix Subtext , collapsed",
       "checked": false
-    },
-    {
-      "role": "text",
-      "name": ", collapsed"
     }
   ]
 }
@@ -92,7 +85,7 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-selection-expansion-panel renders A11y tree Chrome */
 
-snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] =
+snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -100,11 +93,7 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] =
   "children": [
     {
       "role": "checkbox",
-      "name": "% from CHF 19.99 ​ Value one Suffix Subtext"
-    },
-    {
-      "role": "text leaf",
-      "name": ", collapsed"
+      "name": "% from CHF 19.99 ​ Value one Suffix Subtext , collapsed"
     }
   ]
 }

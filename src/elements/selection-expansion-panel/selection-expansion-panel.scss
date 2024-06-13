@@ -51,10 +51,6 @@ $open-anim-opacity-to: 1;
   --sbb-selection-expansion-panel-border-color: transparent;
 }
 
-:host([data-resize-disable-animation]) {
-  @include sbb.disable-animation;
-}
-
 :host([data-slot-names~='content']:where([data-state='opening'], [data-state='opened'])) {
   --sbb-selection-expansion-panel-content-visibility: visible;
   --sbb-selection-expansion-panel-content-padding-block-end: var(--sbb-spacing-responsive-xs);

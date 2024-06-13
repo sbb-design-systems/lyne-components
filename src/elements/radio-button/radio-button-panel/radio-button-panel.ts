@@ -13,6 +13,8 @@ import { EventEmitter } from '../../core/eventing.js';
 import { SbbPanelMixin, SbbUpdateSchedulerMixin, panelCommonStyle } from '../../core/mixins.js';
 import { SbbRadioButtonCommonElementMixin, radioButtonCommonStyle } from '../common.js';
 
+import '../../screen-reader-only.js';
+
 /**
  /**
  * It displays a radio button enhanced with the panel design.
@@ -83,6 +85,9 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
             <slot name="suffix"></slot>
           </span>
           <slot name="subtext"></slot>
+          ${this.expansionState
+            ? html`<sbb-screen-reader-only>${this.expansionState}</sbb-screen-reader-only>`
+            : nothing}
         </span>
       </label>
     `;

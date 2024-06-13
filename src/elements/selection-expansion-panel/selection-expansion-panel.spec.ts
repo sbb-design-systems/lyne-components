@@ -1,5 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -384,26 +384,24 @@ describe(`sbb-selection-expansion-panel`, () => {
     });
 
     it('should display expanded label correctly', async () => {
-      const mainRadioButton1Label = panel1.shadowRoot!.querySelector(
-        'sbb-screen-reader-only:not(input)',
-      )!;
       const mainRadioButton2: SbbRadioButtonPanelElement =
         nestedElement.querySelector<SbbRadioButtonPanelElement>(
           "sbb-radio-button-panel[value='main2']",
         )!;
-      const mainRadioButton2Label = panel2.shadowRoot!.querySelector(
-        'sbb-screen-reader-only:not(input)',
-      )!;
-      const subRadioButton1 = nestedElement
-        .querySelector("sbb-radio-button[value='sub1']")!
-        .shadowRoot!.querySelector('.sbb-screen-reader-only:not(input)');
+
+      const mainRadioButton1Label = (await a11ySnapshot({
+        selector: 'sbb-radio-button-panel[value="main1"]',
+      })) as unknown as { name: string };
+
+      const mainRadioButton2Label = (await a11ySnapshot({
+        selector: 'sbb-radio-button-panel[value="main2"]',
+      })) as unknown as { name: string };
 
       await waitForCondition(() => didOpenEventSpy.count === 1);
       expect(willOpenEventSpy.count).to.be.equal(1);
       expect(didOpenEventSpy.count).to.be.equal(1);
-      expect(mainRadioButton1Label.textContent!.trim()).to.be.equal(', expanded');
-      expect(mainRadioButton2Label.textContent!.trim()).to.be.equal(', collapsed');
-      expect(subRadioButton1).to.be.null;
+      expect(mainRadioButton1Label.name.trim()).to.be.equal('Main Option 1 , expanded');
+      expect(mainRadioButton2Label.name.trim()).to.be.equal('Main Option 2 , collapsed');
       expect(panel1).to.have.attribute('data-state', 'opened');
       expect(panel2).to.have.attribute('data-state', 'closed');
 
@@ -413,13 +411,23 @@ describe(`sbb-selection-expansion-panel`, () => {
       await waitForCondition(() => didOpenEventSpy.count === 2);
       await waitForCondition(() => didCloseEventSpy.count === 1);
 
+      const mainRadioButton1LabelSecondRender = (await a11ySnapshot({
+        selector: 'sbb-radio-button-panel[value="main1"]',
+      })) as unknown as { name: string };
+
+      const mainRadioButton2LabelSecondRender = (await a11ySnapshot({
+        selector: 'sbb-radio-button-panel[value="main2"]',
+      })) as unknown as { name: string };
+
       expect(willOpenEventSpy.count).to.be.equal(2);
       expect(didOpenEventSpy.count).to.be.equal(2);
       expect(willCloseEventSpy.count).to.be.equal(1);
       expect(didCloseEventSpy.count).to.be.equal(1);
-      expect(mainRadioButton1Label.textContent!.trim()).to.be.equal(', collapsed');
-      expect(mainRadioButton2Label.textContent!.trim()).to.be.equal(', expanded');
-      expect(subRadioButton1).to.be.null;
+      expect(mainRadioButton1LabelSecondRender.name.trim()).to.be.equal(
+        'Main Option 1 , collapsed',
+      );
+      expect(mainRadioButton2LabelSecondRender.name.trim()).to.be.equal('Main Option 2 , expanded');
+
       expect(panel1).to.have.attribute('data-state', 'closed');
       expect(panel2).to.have.attribute('data-state', 'opened');
     });
@@ -724,22 +732,16 @@ describe(`sbb-selection-expansion-panel`, () => {
       const mainCheckbox2: SbbCheckboxPanelElement =
         nestedElement.querySelector<SbbCheckboxPanelElement>("sbb-checkbox-panel[value='main2']")!;
 
-      const selectionPanel1: SbbSelectionExpansionPanelElement =
-        nestedElement.querySelector<SbbSelectionExpansionPanelElement>(
-          'sbb-selection-expansion-panel#panel1',
-        )!;
-      const selectionPanel2: SbbSelectionExpansionPanelElement =
-        nestedElement.querySelector<SbbSelectionExpansionPanelElement>(
-          'sbb-selection-expansion-panel#panel2',
-        )!;
+      const mainCheckbox1Label = (await a11ySnapshot({
+        selector: 'sbb-checkbox-panel[value="main1"]',
+      })) as unknown as { name: string };
 
-      const mainCheckbox1Label =
-        selectionPanel1.shadowRoot!.querySelector('sbb-screen-reader-only')!;
-      const mainCheckbox2Label =
-        selectionPanel2.shadowRoot!.querySelector('sbb-screen-reader-only')!;
+      const mainCheckbox2Label = (await a11ySnapshot({
+        selector: 'sbb-checkbox-panel[value="main2"]',
+      })) as unknown as { name: string };
 
-      expect(mainCheckbox1Label.textContent!.trim()).to.be.equal(', expanded');
-      expect(mainCheckbox2Label.textContent!.trim()).to.be.equal(', collapsed');
+      expect(mainCheckbox1Label.name.trim()).to.be.equal('​ Main Option 1 , expanded');
+      expect(mainCheckbox2Label.name.trim()).to.be.equal('​ Main Option 2 , collapsed');
 
       // Deactivate main option 1
       mainCheckbox1.click();
@@ -749,8 +751,16 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       await waitForLitRender(nestedElement);
 
-      expect(mainCheckbox1Label.textContent!.trim()).to.be.equal(', collapsed');
-      expect(mainCheckbox2Label.textContent!.trim()).to.be.equal(', expanded');
+      const mainCheckbox1LabelSecondRender = (await a11ySnapshot({
+        selector: 'sbb-checkbox-panel[value="main1"]',
+      })) as unknown as { name: string };
+
+      const mainCheckbox2LabelSecondRender = (await a11ySnapshot({
+        selector: 'sbb-checkbox-panel[value="main2"]',
+      })) as unknown as { name: string };
+
+      expect(mainCheckbox1LabelSecondRender.name.trim()).to.be.equal('​ Main Option 1 , collapsed');
+      expect(mainCheckbox2LabelSecondRender.name.trim()).to.be.equal('​ Main Option 2 , expanded');
     });
 
     it('should mark only outer group children as disabled', async () => {
