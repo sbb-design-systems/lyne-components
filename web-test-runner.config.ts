@@ -8,14 +8,16 @@ import {
   type TestRunnerGroupConfig,
 } from '@web/test-runner';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
-import { type PlaywrightLauncherArgs, playwrightLauncher } from '@web/test-runner-playwright';
+import { type PlaywrightLauncherArgs, playwrightLauncher, type PlaywrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 import { initCompiler } from 'sass';
 
 import {
+  configureRemotePlaywrightBrowser,
   minimalReporter,
   patchedSummaryReporter,
+  containerPlaywrightBrowserPlugin,
   visualRegressionConfig,
   vitePlugin,
 } from './tools/web-test-runner/index.js';
@@ -32,6 +34,7 @@ const { values: cliArgs } = parseArgs({
     'update-visual-baseline': { type: 'boolean' },
     group: { type: 'string' },
     ssr: { type: 'boolean' },
+    container: { type: 'boolean' },
   },
 });
 
@@ -122,6 +125,12 @@ if (cliArgs.group === 'visual-regression') {
   groups.push({ name: 'visual-regression', files: 'src/**/*.visual.spec.ts', testRunnerHtml });
 }
 
+if (cliArgs.container) {
+  browsers
+    .filter((b): b is PlaywrightLauncher => b.type === 'playwright')
+    .forEach((browser) => configureRemotePlaywrightBrowser(browser));
+}
+
 export default {
   files: ['src/**/*.spec.ts', '!**/*.{visual,ssr}.spec.ts'],
   groups,
@@ -140,6 +149,7 @@ export default {
       ...visualRegressionConfig,
       update: !!cliArgs['update-visual-baseline'],
     }),
+    ...(cliArgs.container ? [containerPlaywrightBrowserPlugin()] : []),
   ],
   testFramework: {
     config: {
