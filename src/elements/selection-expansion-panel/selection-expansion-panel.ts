@@ -196,14 +196,12 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
     await this.hydrationComplete;
     if (!(this.querySelectorAll?.('[slot="content"]').length > 0)) {
       this._selectionPanelExpandedLabel = '';
-      this.removeAttribute('data-has-selection-expansion-panel-label');
       return;
     }
 
     this._selectionPanelExpandedLabel = open
       ? ', ' + i18nExpanded[this._language.current]
       : ', ' + i18nCollapsed[this._language.current];
-    this.toggleAttribute('data-has-selection-expansion-panel-label', true);
   }
 
   protected override render(): TemplateResult {
