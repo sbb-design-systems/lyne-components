@@ -15,7 +15,7 @@ import '../link/block-link/block-link.js';
 import '../title.js';
 import './lead-container.js';
 
-const leadImageUrl = import.meta.resolve('./assets/lucerne.png');
+const leadImageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);
 
 describe(`sbb-lead-container`, () => {
@@ -66,7 +66,8 @@ describe(`sbb-lead-container`, () => {
     </sbb-lead-container>
   `;
 
-  describeViewports(() => {
+  // The viewport is set to a big height, to not display scrollbars
+  describeViewports({ viewportHeight: 2000 }, () => {
     it(
       'with sbb-image',
       visualDiffDefault.with(async (setup) => {

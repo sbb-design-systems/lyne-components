@@ -2,6 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { tabKey } from '../core/testing/private/keys.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
 import { SbbFormFieldElement } from '../form-field.js';
@@ -71,7 +72,7 @@ describe(`sbb-autocomplete`, () => {
     expect(didOpenEventSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'true');
 
-    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForCondition(() => willCloseEventSpy.events.length === 2);
     expect(willCloseEventSpy.count).to.be.equal(2);
     await waitForCondition(() => didCloseEventSpy.events.length === 2);

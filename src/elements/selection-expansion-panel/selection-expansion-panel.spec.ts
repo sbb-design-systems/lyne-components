@@ -8,6 +8,7 @@ import {
   type SbbCheckboxElement,
   type SbbCheckboxGroupElement,
 } from '../checkbox.js';
+import { tabKey } from '../core/testing/private/keys.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 import {
@@ -120,8 +121,8 @@ describe(`sbb-selection-expansion-panel`, () => {
     await waitForLitRender(wrapper);
 
     expect(secondInput.checked).to.be.true;
-    await sendKeys({ down: 'ArrowRight' });
-    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ press: 'ArrowRight' });
+    await sendKeys({ press: 'ArrowRight' });
     await waitForLitRender(wrapper);
 
     expect(document.activeElement!.id).to.be.equal(firstInput.id);
@@ -234,7 +235,7 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       firstInput.click();
       firstInput.focus();
-      await sendKeys({ down: 'ArrowLeft' });
+      await sendKeys({ press: 'ArrowLeft' });
       await waitForLitRender(wrapper);
       expect(document.activeElement!.id).to.be.equal(fourthInput.id);
       expect(firstInput.checked).to.be.true;
@@ -248,7 +249,7 @@ describe(`sbb-selection-expansion-panel`, () => {
     it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
       firstInput.click();
       firstInput.focus();
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(wrapper);
       expect(document.activeElement!.id).to.be.equal(secondInput.id);
       expect(firstInput.checked).to.be.true;
@@ -309,29 +310,29 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(firstPanel).to.have.attribute('data-state', 'closed');
       expect(secondPanel).to.have.attribute('data-state', 'closed');
 
-      await sendKeys({ down: 'Tab' });
+      await sendKeys({ press: tabKey });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
 
-      await sendKeys({ down: 'ArrowUp' });
+      await sendKeys({ press: 'ArrowUp' });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(firstInputNoContent.id);
       expect(secondInputNoContent.checked).to.be.false;
       expect(firstInputNoContent.checked).to.be.true;
 
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
       expect(firstInputNoContent.checked).to.be.false;
       expect(secondInputNoContent.checked).to.be.true;
 
-      await sendKeys({ down: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(fourthInputNoContent.id);
       expect(secondInputNoContent.checked).to.be.false;
       expect(fourthInputNoContent.checked).to.be.true;
 
-      await sendKeys({ down: 'ArrowLeft' });
+      await sendKeys({ press: 'ArrowLeft' });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
       expect(fourthInputNoContent.checked).to.be.false;
@@ -654,7 +655,7 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       firstInput.click();
       firstInput.focus();
-      await sendKeys({ down: 'ArrowLeft' });
+      await sendKeys({ press: 'ArrowLeft' });
       await waitForCondition(() => !firstInput.checked);
       await waitForLitRender(wrapper);
       expect(document.activeElement!.id).to.be.equal(fourthInput.id);
@@ -671,7 +672,7 @@ describe(`sbb-selection-expansion-panel`, () => {
     it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
       firstInput.click();
       firstInput.focus();
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(wrapper);
       expect(document.activeElement!.id).to.be.equal(secondInput.id);
       expect(firstInput.checked).to.be.false;

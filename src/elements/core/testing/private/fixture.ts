@@ -81,15 +81,16 @@ export const fixture = Object.defineProperty(
 export async function visualRegressionFixture<T extends HTMLElement>(
   template: TemplateResult,
   wrapperStyles?: {
-    padding?: string;
     backgroundColor?: string;
+    color?: string;
     focusOutlineDark?: boolean;
+    padding?: string;
   },
 ): Promise<T> {
   return await fixture<T>(
     html`<div
       id="visual-regression-fixture-wrapper"
-      style=${`padding: ${wrapperStyles?.padding ?? '2rem'};background-color: ${wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)'};${wrapperStyles?.focusOutlineDark ? ' --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);' : ''}`}
+      style=${`padding: ${wrapperStyles?.padding ?? '2rem'};background-color: ${wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)'};${wrapperStyles?.color ? `color: ${wrapperStyles?.color};` : ''}${wrapperStyles?.focusOutlineDark ? ' --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);' : ''}`}
       tabindex="0"
     >
       ${template}

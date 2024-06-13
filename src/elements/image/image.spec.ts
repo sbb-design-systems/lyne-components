@@ -7,7 +7,7 @@ import { waitForCondition } from '../core/testing.js';
 
 import './image.js';
 
-const imageUrl = import.meta.resolve('../clock/assets/sbb_clock_face.svg');
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-image`, () => {
   it('should trigger load event', async () => {
