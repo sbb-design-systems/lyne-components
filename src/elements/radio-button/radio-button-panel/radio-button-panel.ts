@@ -64,7 +64,7 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
   protected override render(): TemplateResult {
     return html`
       <label class="sbb-selection-panel">
-        <div class="sbb-selection-expansion-panel__badge">
+        <div class="sbb-selection-panel__badge">
           <slot name="badge"></slot>
         </div>
         <span class="sbb-radio-button">

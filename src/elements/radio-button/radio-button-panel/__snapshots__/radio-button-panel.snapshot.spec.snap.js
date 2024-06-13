@@ -23,7 +23,7 @@ snapshots["sbb-radio-button-panel should render unchecked DOM"] =
 
 snapshots["sbb-radio-button-panel should render unchecked Shadow DOM"] = 
 `<label class="sbb-selection-panel">
-  <div class="sbb-selection-expansion-panel__badge">
+  <div class="sbb-selection-panel__badge">
     <slot name="badge">
     </slot>
   </div>
@@ -72,7 +72,7 @@ snapshots["sbb-radio-button-panel should render checked DOM"] =
 
 snapshots["sbb-radio-button-panel should render checked Shadow DOM"] = 
 `<label class="sbb-selection-panel">
-  <div class="sbb-selection-expansion-panel__badge">
+  <div class="sbb-selection-panel__badge">
     <slot name="badge">
     </slot>
   </div>

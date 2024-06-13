@@ -20,7 +20,7 @@ snapshots["sbb-checkbox-panel should render unchecked DOM"] =
 
 snapshots["sbb-checkbox-panel should render unchecked Shadow DOM"] = 
 `<span class="sbb-selection-panel">
-  <div class="sbb-selection-expansion-panel__badge">
+  <div class="sbb-selection-panel__badge">
     <slot name="badge">
     </slot>
   </div>
@@ -67,7 +67,7 @@ snapshots["sbb-checkbox-panel should render checked DOM"] =
 
 snapshots["sbb-checkbox-panel should render checked Shadow DOM"] = 
 `<span class="sbb-selection-panel">
-  <div class="sbb-selection-expansion-panel__badge">
+  <div class="sbb-selection-panel__badge">
     <slot name="badge">
     </slot>
   </div>
@@ -113,7 +113,7 @@ snapshots["sbb-checkbox-panel should render indeterminate DOM"] =
 
 snapshots["sbb-checkbox-panel should render indeterminate Shadow DOM"] = 
 `<span class="sbb-selection-panel">
-  <div class="sbb-selection-expansion-panel__badge">
+  <div class="sbb-selection-panel__badge">
     <slot name="badge">
     </slot>
   </div>
@@ -159,7 +159,7 @@ snapshots["sbb-checkbox-panel should render unchecked disabled DOM"] =
 
 snapshots["sbb-checkbox-panel should render unchecked disabled Shadow DOM"] = 
 `<span class="sbb-selection-panel">
-  <div class="sbb-selection-expansion-panel__badge">
+  <div class="sbb-selection-panel__badge">
     <slot name="badge">
     </slot>
   </div>
