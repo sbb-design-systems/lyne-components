@@ -93,7 +93,7 @@ describe(`sbb-action-group`, () => {
       );
     });
 
-    describe('vertical full-width', () => {
+    describe('orientation=vertical-full-width', () => {
       for (const alignSelfThird of ['start', 'center', 'end']) {
         it(
           `align-third=${alignSelfThird}`,
@@ -148,7 +148,7 @@ describe(`sbb-action-group`, () => {
     });
 
     it(
-      `horizontal-from=medium`,
+      `orientation=vertical-horizontal-from=medium`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
           <sbb-action-group orientation="vertical" horizontal-from="medium">
