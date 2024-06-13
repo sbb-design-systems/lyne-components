@@ -6,7 +6,13 @@
     var(--sbb-color-white)
   );
   --sbb-selection-panel-border-color: var(--sbb-color-cloud);
-  --sbb-selection-panel-border-radius: var(--sbb-border-radius-4x);
+
+  // We use --sbb-selection-expansion-panel-border-radius in case a user would define another border radius.
+  // The default is the same as here.
+  --sbb-selection-panel-border-radius: var(
+    --sbb-selection-expansion-panel-border-radius,
+    var(--sbb-border-radius-4x)
+  );
   --sbb-selection-panel-border-width: var(
     --sbb-selection-expansion-panel-inner-border-width,
     var(--sbb-border-width-1x)

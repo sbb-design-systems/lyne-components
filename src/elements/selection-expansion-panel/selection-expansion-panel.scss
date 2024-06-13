@@ -25,6 +25,7 @@ $open-anim-opacity-to: 1;
   --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-1x);
   --sbb-selection-expansion-panel-content-visibility: hidden;
   --sbb-selection-expansion-panel-content-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-expansion-panel-border-radius: var(--sbb-border-radius-4x);
 
   // As the selection panel has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the selection panel is used in a negative context.
