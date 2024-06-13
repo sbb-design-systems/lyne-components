@@ -1,6 +1,5 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
@@ -155,7 +154,6 @@ export const CheckedBold: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

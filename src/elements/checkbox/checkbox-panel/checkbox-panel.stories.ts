@@ -205,6 +205,9 @@ export const withForm: StoryObj = {
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
+    actions: {
+      handles: ['change', 'input'],
+    },
     docs: {
       extractComponentDescription: () => readme,
     },
