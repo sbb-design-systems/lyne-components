@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-card-button renders DOM"] = 
+snapshots["sbb-card-link renders DOM"] = 
 `<sbb-card
   color="white"
   data-action-role="link"
@@ -21,9 +21,9 @@ snapshots["sbb-card-button renders DOM"] =
   Content text
 </sbb-card>
 `;
-/* end snapshot sbb-card-button renders DOM */
+/* end snapshot sbb-card-link renders DOM */
 
-snapshots["sbb-card-button renders Shadow DOM"] = 
+snapshots["sbb-card-link renders Shadow DOM"] = 
 `<span class="sbb-card">
   <slot name="action">
   </slot>
@@ -37,9 +37,9 @@ snapshots["sbb-card-button renders Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-card-button renders Shadow DOM */
+/* end snapshot sbb-card-link renders Shadow DOM */
 
-snapshots["sbb-card-button renders A11y tree Chrome"] = 
+snapshots["sbb-card-link renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -57,9 +57,9 @@ snapshots["sbb-card-button renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-card-button renders A11y tree Chrome */
+/* end snapshot sbb-card-link renders A11y tree Chrome */
 
-snapshots["sbb-card-button renders A11y tree Firefox"] = 
+snapshots["sbb-card-link renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -78,5 +78,5 @@ snapshots["sbb-card-button renders A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-card-button renders A11y tree Firefox */
+/* end snapshot sbb-card-link renders A11y tree Firefox */
 
