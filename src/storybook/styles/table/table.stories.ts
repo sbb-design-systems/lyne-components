@@ -81,10 +81,9 @@ const body: () => TemplateResult = () => html`
 const Template = (args: Args): TemplateResult => html`
   <table
     class=${classMap({
-      'sbb-table': true,
       'sbb-table--negative': args.negative,
-      'sbb-table--s': args.size === 's',
-      'sbb-table--m': args.size === 'm',
+      'sbb-table-s': args.size === 's',
+      'sbb-table-m': args.size === 'm',
       'sbb-table--unstriped': !args.striped,
     })}
   >

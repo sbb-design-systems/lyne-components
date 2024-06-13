@@ -9,7 +9,7 @@ import {
   visualDiffDefault,
 } from '../../../elements/core/testing/private.js';
 
-describe(`sbb-table-wrapper`, () => {
+describe(`table`, () => {
   let root: HTMLElement;
 
   const cases = {
@@ -78,9 +78,8 @@ describe(`sbb-table-wrapper`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             tableTemplate({
-              'sbb-table': true,
-              'sbb-table--s': size === 's',
-              'sbb-table--m': size === 'm',
+              'sbb-table-s': size === 's',
+              'sbb-table-m': size === 'm',
             }),
           );
         }),

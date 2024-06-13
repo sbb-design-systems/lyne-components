@@ -1,14 +1,16 @@
 @use './mixins/table';
 
-.sbb-table {
+.sbb-table,
+.sbb-table-m,
+.sbb-table-s {
   @include table.table;
 }
 
-.sbb-table--m {
+.sbb-table-m {
   @include table.table--m;
 }
 
-.sbb-table--s {
+.sbb-table-s {
   @include table.table--s;
 }
 
