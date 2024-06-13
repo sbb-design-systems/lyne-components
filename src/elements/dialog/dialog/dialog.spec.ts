@@ -234,7 +234,7 @@ describe('sbb-dialog', () => {
     await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willClose.events.length === 1);
@@ -288,7 +288,7 @@ describe('sbb-dialog', () => {
     await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willClose.events.length === 1);
@@ -305,7 +305,7 @@ describe('sbb-dialog', () => {
     await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willClose.events.length === 2);

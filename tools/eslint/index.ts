@@ -7,6 +7,7 @@ import * as useLocalName from './local-name-rule.js';
 import * as missingComponentDocumentation from './missing-component-documentation-rule.js';
 import * as needsSuperCall from './needs-super-call-rule.js';
 import * as testDescribeTitle from './test-describe-title.js';
+import * as tabKeyRule from './test-tabkey-rule.js';
 
 const plugin: Omit<Required<TSESLint.FlatConfig.Plugin>, 'processors'> = {
   meta: {
@@ -20,6 +21,7 @@ const plugin: Omit<Required<TSESLint.FlatConfig.Plugin>, 'processors'> = {
     [useLocalName.name]: useLocalName.rule,
     [customElementDecoratorPosition.name]: customElementDecoratorPosition.rule,
     [needsSuperCall.name]: needsSuperCall.rule,
+    [tabKeyRule.name]: tabKeyRule.rule,
     [testDescribeTitle.name]: testDescribeTitle.rule,
   },
 };

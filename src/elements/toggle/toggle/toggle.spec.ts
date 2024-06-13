@@ -248,7 +248,7 @@ describe(`sbb-toggle`, () => {
       const inputSpy = new EventSpy('input');
 
       firstOption.focus();
-      await sendKeys({ down: 'ArrowLeft' });
+      await sendKeys({ press: 'ArrowLeft' });
       await waitForLitRender(element);
 
       expect(secondOption).to.have.attribute('checked');
@@ -267,7 +267,7 @@ describe(`sbb-toggle`, () => {
 
       firstOption.focus();
       await waitForLitRender(firstOption);
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(element);
 
       expect(secondOption).to.have.attribute('checked');

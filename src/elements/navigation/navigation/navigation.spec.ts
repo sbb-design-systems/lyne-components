@@ -285,7 +285,7 @@ describe(`sbb-navigation`, () => {
     await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
@@ -451,7 +451,7 @@ describe(`sbb-navigation`, () => {
     await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);

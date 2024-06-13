@@ -113,6 +113,10 @@
   :host([size='m']) & {
     @include sbb.text-m--regular;
   }
+
+  :host([size='xs']) & {
+    @include sbb.text-xs--regular;
+  }
 }
 
 .sbb-toggle-check__label {

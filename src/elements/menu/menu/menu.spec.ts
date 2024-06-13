@@ -82,7 +82,7 @@ describe(`sbb-menu`, () => {
     await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
@@ -232,7 +232,7 @@ describe(`sbb-menu`, () => {
 
     trigger.focus();
 
-    await sendKeys({ down: 'Enter' });
+    await sendKeys({ press: 'Enter' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
