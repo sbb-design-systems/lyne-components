@@ -303,8 +303,8 @@ const NestedRadioTemplate = ({
         Main Option 2
       </sbb-radio-button-panel>
       <sbb-radio-button-group orientation="vertical" value="suboption2" slot="content">
-        <sbb-radio-button-panel value="suboption1">Suboption 1</sbb-radio-button-panel>
-        <sbb-radio-button-panel value="suboption2">Suboption 2</sbb-radio-button-panel>
+        <sbb-radio-button value="suboption1">Suboption 1</sbb-radio-button>
+        <sbb-radio-button value="suboption2">Suboption 2</sbb-radio-button>
       </sbb-radio-button-group>
     </sbb-selection-expansion-panel>
   </sbb-radio-button-group>
@@ -433,50 +433,6 @@ const WithRadiosErrorMessageTemplate = ({
     </sbb-radio-button-group>
   `;
 };
-
-const WithNoContentTemplate = ({
-  checkedInput,
-  disabledInput,
-  ...args
-}: Args): TemplateResult => html`
-  <sbb-selection-expansion-panel
-    ${sbbSpread(args)}
-    style="display: block; margin-block-end: var(--sbb-spacing-fixed-4x);"
-  >
-    <sbb-checkbox-panel ?checked=${checkedInput} ?disabled=${disabledInput}>
-      Value one ${suffixAndSubtext()} ${cardBadge()}
-    </sbb-checkbox-panel>
-  </sbb-selection-expansion-panel>
-  <sbb-selection-expansion-panel ${sbbSpread(args)}>
-    <sbb-radio-button-panel value="Value one" ?disabled=${disabledInput}>
-      Value one ${suffixAndSubtext()} ${cardBadge()}
-    </sbb-radio-button-panel>
-  </sbb-selection-expansion-panel>
-`;
-
-const WithNoContentGroupTemplate = ({
-  checkedInput,
-  disabledInput,
-  ...args
-}: Args): TemplateResult => html`
-  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-radio-button-panel value="Value one" ?disabled=${disabledInput}>
-        Value one ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-radio-button-panel>
-    </sbb-selection-expansion-panel>
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-radio-button-panel value="Value two" ?checked=${checkedInput}>
-        Value two ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-radio-button-panel>
-    </sbb-selection-expansion-panel>
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-radio-button-panel value="Value three">
-        Value three ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-radio-button-panel>
-    </sbb-selection-expansion-panel>
-  </sbb-radio-button-group>
-`;
 
 export const WithCheckbox: StoryObj = {
   render: WithCheckboxTemplate,
@@ -657,24 +613,6 @@ export const WithRadiosErrorMessage: StoryObj = {
     'force-open': true,
     disabledInput: true,
   },
-};
-
-export const WithNoContent: StoryObj = {
-  render: WithNoContentTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, checkedInput: true },
-};
-
-export const WithNoContentCheckedDisabled: StoryObj = {
-  render: WithNoContentTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, checkedInput: true, disabledInput: true },
-};
-
-export const WithNoContentGroup: StoryObj = {
-  render: WithNoContentGroupTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, checkedInput: true },
 };
 
 export const TicketsOptionsExample: StoryObj = {
