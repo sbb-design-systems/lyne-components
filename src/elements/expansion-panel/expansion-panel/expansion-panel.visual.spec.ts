@@ -4,7 +4,8 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffStandardStates,
+  visualDiffFocus,
+  visualDiffHover,
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
@@ -51,7 +52,7 @@ describe(`sbb-expansion-panel`, () => {
         `);
       });
 
-      for (const state of visualDiffStandardStates) {
+      for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
         it(
           state.name,
           state.with((setup) => {
