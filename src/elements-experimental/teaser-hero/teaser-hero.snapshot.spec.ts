@@ -1,13 +1,12 @@
 import { expect } from '@open-wc/testing';
+import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { waitForImageReady } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
-
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
 
 import type { SbbTeaserHeroElement } from './teaser-hero.js';
 
 import './teaser-hero.js';
-import '../image.js';
+import '@sbb-esta/lyne-elements/image.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

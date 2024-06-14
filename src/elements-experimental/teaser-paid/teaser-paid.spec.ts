@@ -1,14 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
+import type { SbbChipElement } from '@sbb-esta/lyne-elements/chip.js';
+import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import type { SbbImageElement } from '@sbb-esta/lyne-elements/image.js';
 import { html } from 'lit/static-html.js';
-
-import type { SbbChipElement } from '../chip.js';
-import { fixture } from '../core/testing/private.js';
-import type { SbbImageElement } from '../image.js';
 
 import { SbbTeaserPaidElement } from './teaser-paid.js';
 
-import '../chip.js';
-import '../image.js';
+import '@sbb-esta/lyne-elements/chip.js';
+import '@sbb-esta/lyne-elements/image.js';
 
 describe(`sbb-teaser-paid`, () => {
   let element: SbbTeaserPaidElement;

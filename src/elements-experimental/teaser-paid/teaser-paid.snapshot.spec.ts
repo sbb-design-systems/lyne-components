@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
+import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
-
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
 import './teaser-paid.js';
 

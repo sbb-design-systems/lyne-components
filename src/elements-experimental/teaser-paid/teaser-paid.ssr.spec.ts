@@ -1,12 +1,11 @@
 import { assert } from '@open-wc/testing';
+import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
-
-import { fixture } from '../core/testing/private.js';
 
 import { SbbTeaserPaidElement } from './teaser-paid.js';
 
-import '../chip.js';
-import '../image.js';
+import '@sbb-esta/lyne-elements/chip.js';
+import '@sbb-esta/lyne-elements/image.js';
 
 describe(`sbb-teaser-paid ${fixture.name}`, () => {
   let root: SbbTeaserPaidElement;
@@ -19,7 +18,13 @@ describe(`sbb-teaser-paid ${fixture.name}`, () => {
           <sbb-image slot="image"></sbb-image>
         </sbb-teaser-paid>
       `,
-      { modules: ['./teaser-paid.js', '../chip.js', '../image.js'] },
+      {
+        modules: [
+          './teaser-paid.js',
+          '@sbb-esta/lyne-elements/chip.js',
+          '@sbb-esta/lyne-elements/image.js',
+        ],
+      },
     );
   });
 

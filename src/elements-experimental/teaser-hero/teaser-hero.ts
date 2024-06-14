@@ -1,13 +1,12 @@
+import { SbbLinkBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../core/base-elements.js';
-
 import style from './teaser-hero.scss?lit&inline';
 
-import '../image.js';
-import '../link/block-link-static.js';
+import '@sbb-esta/lyne-elements/image.js';
+import '@sbb-esta/lyne-elements/link/block-link-static.js';
 
 /**
  * It displays an image and an action call within a panel.
