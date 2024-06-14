@@ -358,7 +358,8 @@ describe(`sbb-selection-expansion-panel`, () => {
       nestedElement = await fixture(
         html`
           <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-            <sbb-selection-expansion-panel id="panel1">
+            <!-- We need enabled animation to properly test that fade in animation was not shown -->
+            <sbb-selection-expansion-panel id="panel1" class="sbb-enable-animation">
               <sbb-radio-button-panel value="main1" checked> Main Option 1 </sbb-radio-button-panel>
               <sbb-radio-button-group orientation="vertical" slot="content">
                 <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
@@ -396,6 +397,11 @@ describe(`sbb-selection-expansion-panel`, () => {
       const mainRadioButton2Label = (await a11ySnapshot({
         selector: 'sbb-radio-button-panel[value="main2"]',
       })) as unknown as { name: string };
+
+      // We assert that there was no fade in animation (skipped opening state).
+      await waitForCondition(() => panel1.getAttribute('data-state') === 'opening', 1, 100)
+        .then(() => Promise.reject('accidentally passed'))
+        .catch((error) => expect(error).to.include('timeout'));
 
       await waitForCondition(() => didOpenEventSpy.count === 1);
       expect(willOpenEventSpy.count).to.be.equal(1);
