@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import { SbbTeaserHeroElement } from './teaser-hero.js';
 
-const imageUrl = import.meta.resolve('@sbb-esta/lyne-elements/core/testing/assets/lucerne.png');
+const imageUrl = import.meta.resolve('../../elements/core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser-hero`, () => {
   let element: SbbTeaserHeroElement;

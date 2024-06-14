@@ -8,7 +8,7 @@ import type { SbbTeaserHeroElement } from './teaser-hero.js';
 import './teaser-hero.js';
 import '@sbb-esta/lyne-elements/image.js';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
+const imageUrl = import.meta.resolve('../../elements/core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser-hero`, () => {
   let element: SbbTeaserHeroElement;
