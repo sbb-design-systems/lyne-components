@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.52.1](https://github.com/sbb-design-systems/lyne-components/compare/v0.52.0...v0.52.1) (2024-06-14)
+
+
+### Features
+
+* **sbb-image:** provide load and error events ([#2725](https://github.com/sbb-design-systems/lyne-components/issues/2725)) ([56ae5b1](https://github.com/sbb-design-systems/lyne-components/commit/56ae5b16ccf2d2099f58b51508bfa89d2049d292))
+* **sbb-toggle-check:** add size 'xs' ([#2724](https://github.com/sbb-design-systems/lyne-components/issues/2724)) ([7415aeb](https://github.com/sbb-design-systems/lyne-components/commit/7415aeb5e2fb62155c042ae6da67396eeebaa53c))
+
+
+### Bug Fixes
+
+* avoid breaking type declarations due to alias resolution ([#2776](https://github.com/sbb-design-systems/lyne-components/issues/2776)) ([be72249](https://github.com/sbb-design-systems/lyne-components/commit/be72249727f40263138d4969bfc3a813273abfb7))
+* fix stacked overlays inert mechanism ([#2736](https://github.com/sbb-design-systems/lyne-components/issues/2736)) ([b611271](https://github.com/sbb-design-systems/lyne-components/commit/b611271d2b85647b96e99ea95a043c3320cc13ad))
+* **sbb-breadcrumb:** avoid to collapse for two or fewer breadcrumbs ([#2733](https://github.com/sbb-design-systems/lyne-components/issues/2733)) ([ecdb355](https://github.com/sbb-design-systems/lyne-components/commit/ecdb355a466599da8002fb0db4dad04af617ceb7))
+
 ## [0.52.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.51.1...v0.52.0) (2024-06-06)
 
 
