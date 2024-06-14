@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.52.2](https://github.com/sbb-design-systems/lyne-components/compare/v0.52.1...v0.52.2) (2024-06-14)
+
+
+### Bug Fixes
+
+* revert mangle configuration from build ([239a6a1](https://github.com/sbb-design-systems/lyne-components/commit/239a6a1cd4ccb9915b9fa3a8a2370fbe2aa80975))
+* revert split of sbb-checkbox and sbb-radio-button ([ebe391f](https://github.com/sbb-design-systems/lyne-components/commit/ebe391fab57463c03550ab711dff103838bf0537))
+
 ## [0.52.1](https://github.com/sbb-design-systems/lyne-components/compare/v0.52.0...v0.52.1) (2024-06-14)
 
 
