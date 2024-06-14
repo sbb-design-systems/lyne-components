@@ -58,7 +58,7 @@ describe(`sbb-expansion-panel`, () => {
 
       for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
         it(
-          `icon=${state.name}`,
+          state.name,
           state.with((setup) => {
             setup.withSnapshotElement(root);
           }),
@@ -107,7 +107,7 @@ describe(`sbb-expansion-panel`, () => {
     // Icon cases
     for (const state of iconCases) {
       it(
-        state.name,
+        `icon=${state.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-expansion-panel>
