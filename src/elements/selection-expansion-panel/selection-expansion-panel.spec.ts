@@ -1,29 +1,36 @@
 import { assert, expect } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbCheckboxGroupElement } from '../checkbox.js';
-import { SbbCheckboxElement } from '../checkbox.js';
-import { tabKey } from '../core/testing/private/keys.js';
+import {
+  SbbCheckboxPanelElement,
+  type SbbCheckboxElement,
+  type SbbCheckboxGroupElement,
+} from '../checkbox.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
-import type { SbbRadioButtonGroupElement } from '../radio-button.js';
-import { SbbRadioButtonElement } from '../radio-button.js';
+import {
+  SbbRadioButtonPanelElement,
+  type SbbRadioButtonElement,
+  type SbbRadioButtonGroupElement,
+} from '../radio-button.js';
 
-import { SbbSelectionPanelElement } from './selection-panel.js';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
+
 import '../link/block-link-button.js';
+import '../selection-expansion-panel.js';
 
-describe(`sbb-selection-panel`, () => {
-  let elements: SbbSelectionPanelElement[];
+describe(`sbb-selection-expansion-panel`, () => {
+  let elements: SbbSelectionExpansionPanelElement[];
 
   const getPageContent = (inputType: string): TemplateResult => {
     const tagGroupElement = unsafeStatic(`sbb-${inputType}-group`);
-    const tagSingle = unsafeStatic(`sbb-${inputType}`);
+    const tagSingle = unsafeStatic(`sbb-${inputType}-panel`);
     /* eslint-disable lit/binding-positions */
     return html`
       <${tagGroupElement} ${inputType === 'radio-button' && 'value="Value one"'}>
-        <sbb-selection-panel id="sbb-selection-panel-1">
+        <sbb-selection-expansion-panel id="sbb-selection-expansion-panel-1">
           <${tagSingle} id="sbb-input-1" value="Value one" ?checked='${
             inputType === 'checkbox'
           }'>Value one</${tagSingle}>
@@ -31,35 +38,35 @@ describe(`sbb-selection-panel`, () => {
             Inner Content
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
-        </sbb-selection-panel>
-        <sbb-selection-panel id="sbb-selection-panel-2">
+        </sbb-selection-expansion-panel>
+        <sbb-selection-expansion-panel id="sbb-selection-expansion-panel-2">
           <${tagSingle} id="sbb-input-2" value="Value two">Value two</${tagSingle}>
           <div id="panel-content-2" slot="content">
             Inner Content
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
-        </sbb-selection-panel>
-        <sbb-selection-panel id="sbb-selection-panel-3">
+        </sbb-selection-expansion-panel>
+        <sbb-selection-expansion-panel id="sbb-selection-expansion-panel-3">
           <${tagSingle} id="sbb-input-3" value="Value three" disabled>Value three</${tagSingle}>
           <div id="panel-content-3" slot="content">
             Inner Content
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
-        </sbb-selection-panel>
-        <sbb-selection-panel id="sbb-selection-panel-4">
+        </sbb-selection-expansion-panel>
+        <sbb-selection-expansion-panel id="sbb-selection-expansion-panel-4">
           <${tagSingle} id="sbb-input-4" value="Value four">Value four</${tagSingle}>
           <div id="panel-content-4" slot="content">
             Inner Content
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
-        </sbb-selection-panel>
+        </sbb-selection-expansion-panel>
       </${tagGroupElement}>`;
     /* eslint-enable lit/binding-positions */
   };
 
   const forceOpenTest = async (
     wrapper: SbbRadioButtonGroupElement | SbbCheckboxGroupElement,
-    secondInput: SbbRadioButtonElement | SbbCheckboxElement,
+    secondInput: SbbRadioButtonPanelElement | SbbCheckboxPanelElement,
   ): Promise<void> => {
     elements.forEach((e) => (e.forceOpen = true));
     await waitForLitRender(wrapper);
@@ -77,8 +84,8 @@ describe(`sbb-selection-panel`, () => {
 
   const preservesDisabled = async (
     wrapper: SbbRadioButtonGroupElement | SbbCheckboxGroupElement,
-    disabledInput: SbbRadioButtonElement | SbbCheckboxElement,
-    secondInput: SbbRadioButtonElement | SbbCheckboxElement,
+    disabledInput: SbbRadioButtonPanelElement | SbbCheckboxPanelElement,
+    secondInput: SbbRadioButtonPanelElement | SbbCheckboxPanelElement,
   ): Promise<void> => {
     wrapper.disabled = true;
     await waitForLitRender(wrapper);
@@ -105,8 +112,8 @@ describe(`sbb-selection-panel`, () => {
 
   const wrapsAround = async (
     wrapper: SbbRadioButtonGroupElement | SbbCheckboxGroupElement,
-    firstInput: SbbRadioButtonElement | SbbCheckboxElement,
-    secondInput: SbbRadioButtonElement | SbbCheckboxElement,
+    firstInput: SbbRadioButtonPanelElement | SbbCheckboxPanelElement,
+    secondInput: SbbRadioButtonPanelElement | SbbCheckboxPanelElement,
   ): Promise<void> => {
     secondInput.click();
     secondInput.focus();
@@ -122,38 +129,42 @@ describe(`sbb-selection-panel`, () => {
 
   describe('with radio buttons', () => {
     let wrapper: SbbRadioButtonGroupElement;
-    let firstPanel: SbbSelectionPanelElement;
-    let firstInput: SbbRadioButtonElement;
-    let secondPanel: SbbSelectionPanelElement;
-    let secondInput: SbbRadioButtonElement;
-    let disabledInput: SbbRadioButtonElement;
+    let firstPanel: SbbSelectionExpansionPanelElement;
+    let firstInput: SbbRadioButtonPanelElement;
+    let secondPanel: SbbSelectionExpansionPanelElement;
+    let secondInput: SbbRadioButtonPanelElement;
+    let disabledInput: SbbRadioButtonPanelElement;
     let willOpenEventSpy: EventSpy<Event>;
     let didOpenEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
-      didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
+      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen);
+      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen);
 
       wrapper = await fixture(getPageContent('radio-button'));
-      elements = Array.from(wrapper.querySelectorAll('sbb-selection-panel'));
-      firstPanel = wrapper.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
-      firstInput = wrapper.querySelector<SbbRadioButtonElement>('#sbb-input-1')!;
-      secondPanel = wrapper.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-2')!;
-      secondInput = wrapper.querySelector<SbbRadioButtonElement>('#sbb-input-2')!;
-      disabledInput = wrapper.querySelector<SbbRadioButtonElement>('#sbb-input-3')!;
+      elements = Array.from(wrapper.querySelectorAll('sbb-selection-expansion-panel'));
+      firstPanel = wrapper.querySelector<SbbSelectionExpansionPanelElement>(
+        '#sbb-selection-expansion-panel-1',
+      )!;
+      firstInput = wrapper.querySelector<SbbRadioButtonPanelElement>('#sbb-input-1')!;
+      secondPanel = wrapper.querySelector<SbbSelectionExpansionPanelElement>(
+        '#sbb-selection-expansion-panel-2',
+      )!;
+      secondInput = wrapper.querySelector<SbbRadioButtonPanelElement>('#sbb-input-2')!;
+      disabledInput = wrapper.querySelector<SbbRadioButtonPanelElement>('#sbb-input-3')!;
     });
 
     it('renders', () => {
-      elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanelElement));
-      assert.instanceOf(firstPanel, SbbSelectionPanelElement);
-      assert.instanceOf(firstInput, SbbRadioButtonElement);
-      assert.instanceOf(secondPanel, SbbSelectionPanelElement);
-      assert.instanceOf(secondInput, SbbRadioButtonElement);
+      elements.forEach((e) => assert.instanceOf(e, SbbSelectionExpansionPanelElement));
+      assert.instanceOf(firstPanel, SbbSelectionExpansionPanelElement);
+      assert.instanceOf(firstInput, SbbRadioButtonPanelElement);
+      assert.instanceOf(secondPanel, SbbSelectionExpansionPanelElement);
+      assert.instanceOf(secondInput, SbbRadioButtonPanelElement);
     });
 
     it('selects input on click and shows related content', async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
-      didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
+      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen);
+      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen);
 
       await waitForLitRender(wrapper);
 
@@ -217,7 +228,7 @@ describe(`sbb-selection-panel`, () => {
     });
 
     it('focuses input on left arrow key pressed and selects it on space key pressed', async () => {
-      const fourthInput = wrapper.querySelector<SbbRadioButtonElement>('#sbb-input-4')!;
+      const fourthInput = wrapper.querySelector<SbbRadioButtonPanelElement>('#sbb-input-4')!;
 
       firstInput.click();
       firstInput.focus();
@@ -251,130 +262,69 @@ describe(`sbb-selection-panel`, () => {
     });
   });
 
-  describe('with radio group with no slotted content', () => {
-    it('focus selected, the focus and select on keyboard navigation', async () => {
-      const wrapperNoContent = await fixture(html`
-        <sbb-radio-button-group id="group-no-content" value="Value 2">
-          <sbb-selection-panel id="no-content-1">
-            <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
-          </sbb-selection-panel>
-          <sbb-selection-panel id="no-content-2">
-            <sbb-radio-button id="input-no-content-2" value="Value 2">Value two</sbb-radio-button>
-          </sbb-selection-panel>
-          <sbb-selection-panel id="no-content-3">
-            <sbb-radio-button id="input-no-content-3" value="Value 3" disabled
-              >Value three</sbb-radio-button
-            >
-          </sbb-selection-panel>
-          <sbb-selection-panel id="no-content-4">
-            <sbb-radio-button id="input-no-content-4" value="Value 4">Value four</sbb-radio-button>
-          </sbb-selection-panel>
-        </sbb-radio-button-group>
-      `);
-      const firstInputNoContent =
-        wrapperNoContent.querySelector<SbbRadioButtonElement>('#input-no-content-1')!;
-      const secondInputNoContent =
-        wrapperNoContent.querySelector<SbbRadioButtonElement>('#input-no-content-2')!;
-      const fourthInputNoContent =
-        wrapperNoContent.querySelector<SbbRadioButtonElement>('#input-no-content-4')!;
-      const firstPanel = wrapperNoContent.querySelector<SbbSelectionPanelElement>('#no-content-1')!;
-      const secondPanel =
-        wrapperNoContent.querySelector<SbbSelectionPanelElement>('#no-content-2')!;
-
-      expect(firstPanel).to.have.attribute('data-state', 'closed');
-      expect(secondPanel).to.have.attribute('data-state', 'closed');
-
-      await sendKeys({ press: tabKey });
-      await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
-
-      await sendKeys({ press: 'ArrowUp' });
-      await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement!.id).to.be.equal(firstInputNoContent.id);
-      expect(secondInputNoContent.checked).to.be.false;
-      expect(firstInputNoContent.checked).to.be.true;
-
-      await sendKeys({ press: 'ArrowRight' });
-      await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
-      expect(firstInputNoContent.checked).to.be.false;
-      expect(secondInputNoContent.checked).to.be.true;
-
-      await sendKeys({ press: 'ArrowDown' });
-      await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement!.id).to.be.equal(fourthInputNoContent.id);
-      expect(secondInputNoContent.checked).to.be.false;
-      expect(fourthInputNoContent.checked).to.be.true;
-
-      await sendKeys({ press: 'ArrowLeft' });
-      await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
-      expect(fourthInputNoContent.checked).to.be.false;
-      expect(secondInputNoContent.checked).to.be.true;
-    });
-  });
-
   describe('with nested radio buttons', () => {
     let nestedElement: SbbRadioButtonGroupElement;
-    let panel1: SbbSelectionPanelElement;
-    let panel2: SbbSelectionPanelElement;
+    let panel1: SbbSelectionExpansionPanelElement;
+    let panel2: SbbSelectionExpansionPanelElement;
     let willOpenEventSpy: EventSpy<Event>;
     let didOpenEventSpy: EventSpy<Event>;
     let willCloseEventSpy: EventSpy<Event>;
     let didCloseEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
-      didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
-      willCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.willClose);
-      didCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.didClose);
+      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen);
+      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen);
+      willCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willClose);
+      didCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didClose);
 
       nestedElement = await fixture(html`
         <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-          <sbb-selection-panel id="panel1">
-            <sbb-radio-button value="main1" checked> Main Option 1 </sbb-radio-button>
+          <!-- We need enabled animation to properly test that fade in animation was not shown -->
+          <sbb-selection-expansion-panel id="panel1" class="sbb-enable-animation">
+            <sbb-radio-button-panel value="main1" checked> Main Option 1 </sbb-radio-button-panel>
             <sbb-radio-button-group orientation="vertical" slot="content">
               <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
               <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
             </sbb-radio-button-group>
-          </sbb-selection-panel>
+          </sbb-selection-expansion-panel>
 
-          <sbb-selection-panel id="panel2">
-            <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+          <sbb-selection-expansion-panel id="panel2">
+            <sbb-radio-button-panel value="main2"> Main Option 2 </sbb-radio-button-panel>
             <sbb-radio-button-group orientation="vertical" slot="content">
               <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
               <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
             </sbb-radio-button-group>
-          </sbb-selection-panel>
+          </sbb-selection-expansion-panel>
         </sbb-radio-button-group>
       `);
-      panel1 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel1')!;
-      panel2 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel2')!;
+      panel1 = nestedElement.querySelector<SbbSelectionExpansionPanelElement>('#panel1')!;
+      panel2 = nestedElement.querySelector<SbbSelectionExpansionPanelElement>('#panel2')!;
     });
 
     it('should display expanded label correctly', async () => {
-      const mainRadioButton1 = nestedElement.querySelector<SbbRadioButtonElement>(
-        "sbb-radio-button[value='main1']",
-      )!;
-      const mainRadioButton1Label = mainRadioButton1.shadowRoot!.querySelector(
-        '.sbb-screen-reader-only:not(input)',
-      )!;
-      const mainRadioButton2 = nestedElement.querySelector<SbbRadioButtonElement>(
-        "sbb-radio-button[value='main2']",
-      )!;
-      const mainRadioButton2Label = mainRadioButton2.shadowRoot!.querySelector(
-        '.sbb-screen-reader-only:not(input)',
-      )!;
-      const subRadioButton1 = nestedElement
-        .querySelector("sbb-radio-button[value='sub1']")!
-        .shadowRoot!.querySelector('.sbb-screen-reader-only:not(input)');
+      const mainRadioButton2: SbbRadioButtonPanelElement =
+        nestedElement.querySelector<SbbRadioButtonPanelElement>(
+          "sbb-radio-button-panel[value='main2']",
+        )!;
+
+      const mainRadioButton1Label = (await a11ySnapshot({
+        selector: 'sbb-radio-button-panel[value="main1"]',
+      })) as unknown as { name: string };
+
+      const mainRadioButton2Label = (await a11ySnapshot({
+        selector: 'sbb-radio-button-panel[value="main2"]',
+      })) as unknown as { name: string };
+
+      // We assert that there was no fade in animation (skipped opening state).
+      await waitForCondition(() => panel1.getAttribute('data-state') === 'opening', 1, 100)
+        .then(() => Promise.reject('accidentally passed'))
+        .catch((error) => expect(error).to.include('timeout'));
 
       await waitForCondition(() => didOpenEventSpy.count === 1);
       expect(willOpenEventSpy.count).to.be.equal(1);
       expect(didOpenEventSpy.count).to.be.equal(1);
-      expect(mainRadioButton1Label.textContent!.trim()).to.be.equal(', expanded');
-      expect(mainRadioButton2Label.textContent!.trim()).to.be.equal(', collapsed');
-      expect(subRadioButton1).to.be.null;
+      expect(mainRadioButton1Label.name.trim()).to.be.equal('Main Option 1 , expanded');
+      expect(mainRadioButton2Label.name.trim()).to.be.equal('Main Option 2 , collapsed');
       expect(panel1).to.have.attribute('data-state', 'opened');
       expect(panel2).to.have.attribute('data-state', 'closed');
 
@@ -384,13 +334,23 @@ describe(`sbb-selection-panel`, () => {
       await waitForCondition(() => didOpenEventSpy.count === 2);
       await waitForCondition(() => didCloseEventSpy.count === 1);
 
+      const mainRadioButton1LabelSecondRender = (await a11ySnapshot({
+        selector: 'sbb-radio-button-panel[value="main1"]',
+      })) as unknown as { name: string };
+
+      const mainRadioButton2LabelSecondRender = (await a11ySnapshot({
+        selector: 'sbb-radio-button-panel[value="main2"]',
+      })) as unknown as { name: string };
+
       expect(willOpenEventSpy.count).to.be.equal(2);
       expect(didOpenEventSpy.count).to.be.equal(2);
       expect(willCloseEventSpy.count).to.be.equal(1);
       expect(didCloseEventSpy.count).to.be.equal(1);
-      expect(mainRadioButton1Label.textContent!.trim()).to.be.equal(', collapsed');
-      expect(mainRadioButton2Label.textContent!.trim()).to.be.equal(', expanded');
-      expect(subRadioButton1).to.be.null;
+      expect(mainRadioButton1LabelSecondRender.name.trim()).to.be.equal(
+        'Main Option 1 , collapsed',
+      );
+      expect(mainRadioButton2LabelSecondRender.name.trim()).to.be.equal('Main Option 2 , expanded');
+
       expect(panel1).to.have.attribute('data-state', 'closed');
       expect(panel2).to.have.attribute('data-state', 'opened');
     });
@@ -399,7 +359,9 @@ describe(`sbb-selection-panel`, () => {
       nestedElement.toggleAttribute('disabled', true);
       await waitForLitRender(nestedElement);
 
-      const radioButtons = Array.from(nestedElement.querySelectorAll('sbb-radio-button'));
+      const radioButtons: SbbRadioButtonPanelElement[] = Array.from(
+        nestedElement.querySelectorAll('sbb-radio-button-panel, sbb-radio-button'),
+      );
 
       expect(radioButtons.length).to.be.equal(6);
       expect(radioButtons[0]).to.have.attribute('disabled');
@@ -411,12 +373,14 @@ describe(`sbb-selection-panel`, () => {
     });
 
     it('should not with interfere content on selection', async () => {
-      const main1 = nestedElement.querySelector<SbbRadioButtonElement>(
-        'sbb-radio-button[value="main1"]',
-      )!;
-      const main2 = nestedElement.querySelector<SbbRadioButtonElement>(
-        'sbb-radio-button[value="main2"]',
-      )!;
+      const main1: SbbRadioButtonPanelElement =
+        nestedElement.querySelector<SbbRadioButtonPanelElement>(
+          'sbb-radio-button-panel[value="main1"]',
+        )!;
+      const main2: SbbRadioButtonPanelElement =
+        nestedElement.querySelector<SbbRadioButtonPanelElement>(
+          'sbb-radio-button-panel[value="main2"]',
+        )!;
       const sub1 = nestedElement.querySelector<SbbRadioButtonElement>(
         'sbb-radio-button[value="sub1"]',
       )!;
@@ -453,21 +417,23 @@ describe(`sbb-selection-panel`, () => {
       const root = await fixture(html`
         <div>
           <template>
-            <sbb-selection-panel>
-              <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
+            <sbb-selection-expansion-panel>
+              <sbb-radio-button-panel value="main1" checked="true">
+                Main Option 1
+              </sbb-radio-button-panel>
               <sbb-radio-button-group orientation="vertical" slot="content">
                 <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
                 <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
               </sbb-radio-button-group>
-            </sbb-selection-panel>
+            </sbb-selection-expansion-panel>
 
-            <sbb-selection-panel>
-              <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+            <sbb-selection-expansion-panel>
+              <sbb-radio-button-panel value="main2"> Main Option 2 </sbb-radio-button-panel>
               <sbb-radio-button-group orientation="vertical" slot="content">
                 <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
                 <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
               </sbb-radio-button-group>
-            </sbb-selection-panel>
+            </sbb-selection-expansion-panel>
           </template>
 
           <sbb-radio-button-group value="main1"></sbb-radio-button-group>
@@ -476,7 +442,7 @@ describe(`sbb-selection-panel`, () => {
 
       const radioGroup = root.querySelector<SbbRadioButtonGroupElement>('sbb-radio-button-group')!;
       const selectionPanels = Array.from(
-        root.querySelector('template')!.content.querySelectorAll('sbb-selection-panel'),
+        root.querySelector('template')!.content.querySelectorAll('sbb-selection-expansion-panel'),
       );
 
       selectionPanels.forEach((el) => radioGroup.appendChild(el));
@@ -498,38 +464,42 @@ describe(`sbb-selection-panel`, () => {
 
   describe('with checkboxes', () => {
     let wrapper: SbbCheckboxGroupElement;
-    let firstPanel: SbbSelectionPanelElement;
-    let firstInput: SbbCheckboxElement;
-    let secondPanel: SbbSelectionPanelElement;
-    let secondInput: SbbCheckboxElement;
-    let disabledInput: SbbCheckboxElement;
+    let firstPanel: SbbSelectionExpansionPanelElement;
+    let firstInput: SbbCheckboxPanelElement;
+    let secondPanel: SbbSelectionExpansionPanelElement;
+    let secondInput: SbbCheckboxPanelElement;
+    let disabledInput: SbbCheckboxPanelElement;
     let willOpenEventSpy: EventSpy<Event>;
     let didOpenEventSpy: EventSpy<Event>;
     let willCloseEventSpy: EventSpy<Event>;
     let didCloseEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
-      didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
-      willCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.willClose);
-      didCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.didClose);
+      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen);
+      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen);
+      willCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willClose);
+      didCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didClose);
 
       wrapper = await fixture(getPageContent('checkbox'));
-      elements = Array.from(wrapper.querySelectorAll('sbb-selection-panel'));
-      firstPanel = wrapper.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
-      firstInput = wrapper.querySelector<SbbCheckboxElement>('#sbb-input-1')!;
-      secondPanel = wrapper.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-2')!;
-      secondInput = wrapper.querySelector<SbbCheckboxElement>('#sbb-input-2')!;
-      disabledInput = wrapper.querySelector<SbbCheckboxElement>('#sbb-input-3')!;
+      elements = Array.from(wrapper.querySelectorAll('sbb-selection-expansion-panel'));
+      firstPanel = wrapper.querySelector<SbbSelectionExpansionPanelElement>(
+        '#sbb-selection-expansion-panel-1',
+      )!;
+      firstInput = wrapper.querySelector<SbbCheckboxPanelElement>('#sbb-input-1')!;
+      secondPanel = wrapper.querySelector<SbbSelectionExpansionPanelElement>(
+        '#sbb-selection-expansion-panel-2',
+      )!;
+      secondInput = wrapper.querySelector<SbbCheckboxPanelElement>('#sbb-input-2')!;
+      disabledInput = wrapper.querySelector<SbbCheckboxPanelElement>('#sbb-input-3')!;
     });
 
     it('renders', () => {
-      elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanelElement));
+      elements.forEach((e) => assert.instanceOf(e, SbbSelectionExpansionPanelElement));
 
-      assert.instanceOf(firstPanel, SbbSelectionPanelElement);
-      assert.instanceOf(firstInput, SbbCheckboxElement);
-      assert.instanceOf(secondPanel, SbbSelectionPanelElement);
-      assert.instanceOf(secondInput, SbbCheckboxElement);
+      assert.instanceOf(firstPanel, SbbSelectionExpansionPanelElement);
+      assert.instanceOf(firstInput, SbbCheckboxPanelElement);
+      assert.instanceOf(secondPanel, SbbSelectionExpansionPanelElement);
+      assert.instanceOf(secondInput, SbbCheckboxPanelElement);
     });
 
     it('selects input on click and shows related content', async () => {
@@ -604,11 +574,13 @@ describe(`sbb-selection-panel`, () => {
     });
 
     it('focuses input on left arrow key pressed and selects it on space key pressed', async () => {
-      const fourthInput = wrapper.querySelector<SbbRadioButtonElement>('#sbb-input-4')!;
+      const fourthInput: SbbCheckboxPanelElement =
+        wrapper.querySelector<SbbCheckboxPanelElement>('#sbb-input-4')!;
 
       firstInput.click();
       firstInput.focus();
       await sendKeys({ press: 'ArrowLeft' });
+      await waitForCondition(() => !firstInput.checked);
       await waitForLitRender(wrapper);
       expect(document.activeElement!.id).to.be.equal(fourthInput.id);
       expect(firstInput.checked).to.be.false;
@@ -648,45 +620,41 @@ describe(`sbb-selection-panel`, () => {
     beforeEach(async () => {
       nestedElement = await fixture(html`
         <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-          <sbb-selection-panel>
-            <sbb-checkbox value="main1" checked> Main Option 1 </sbb-checkbox>
+          <sbb-selection-expansion-panel id="panel1">
+            <sbb-checkbox-panel value="main1" checked> Main Option 1 </sbb-checkbox-panel>
             <sbb-checkbox-group orientation="vertical" slot="content">
               <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
               <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>
             </sbb-checkbox-group>
-          </sbb-selection-panel>
+          </sbb-selection-expansion-panel>
 
-          <sbb-selection-panel>
-            <sbb-checkbox value="main2"> Main Option 2 </sbb-checkbox>
+          <sbb-selection-expansion-panel id="panel2">
+            <sbb-checkbox-panel value="main2"> Main Option 2 </sbb-checkbox-panel>
             <sbb-checkbox-group orientation="vertical" slot="content">
               <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
               <sbb-checkbox value="sub4">Suboption 4</sbb-checkbox>
             </sbb-checkbox-group>
-          </sbb-selection-panel>
+          </sbb-selection-expansion-panel>
         </sbb-checkbox-group>
       `);
     });
 
     it('should display expanded label correctly', async () => {
-      const mainCheckbox1: SbbCheckboxElement = nestedElement.querySelector<SbbCheckboxElement>(
-        "sbb-checkbox[value='main1']",
-      )!;
-      const mainCheckbox1Label = mainCheckbox1.shadowRoot!.querySelector(
-        '.sbb-checkbox__expanded-label',
-      )!;
-      const mainCheckbox2: SbbCheckboxElement = nestedElement.querySelector<SbbCheckboxElement>(
-        "sbb-checkbox[value='main2']",
-      )!;
-      const mainCheckbox2Label = mainCheckbox2.shadowRoot!.querySelector(
-        '.sbb-checkbox__expanded-label',
-      )!;
-      const subCheckbox1 = document
-        .querySelector("sbb-checkbox[value='sub1']")!
-        .shadowRoot!.querySelector('.sbb-checkbox__expanded-label');
+      const mainCheckbox1: SbbCheckboxPanelElement =
+        nestedElement.querySelector<SbbCheckboxPanelElement>("sbb-checkbox-panel[value='main1']")!;
+      const mainCheckbox2: SbbCheckboxPanelElement =
+        nestedElement.querySelector<SbbCheckboxPanelElement>("sbb-checkbox-panel[value='main2']")!;
 
-      expect(mainCheckbox1Label.textContent!.trim()).to.be.equal(', expanded');
-      expect(mainCheckbox2Label.textContent!.trim()).to.be.equal(', collapsed');
-      expect(subCheckbox1).to.be.empty;
+      const mainCheckbox1Label = (await a11ySnapshot({
+        selector: 'sbb-checkbox-panel[value="main1"]',
+      })) as unknown as { name: string };
+
+      const mainCheckbox2Label = (await a11ySnapshot({
+        selector: 'sbb-checkbox-panel[value="main2"]',
+      })) as unknown as { name: string };
+
+      expect(mainCheckbox1Label.name.trim()).to.be.equal('​ Main Option 1 , expanded');
+      expect(mainCheckbox2Label.name.trim()).to.be.equal('​ Main Option 2 , collapsed');
 
       // Deactivate main option 1
       mainCheckbox1.click();
@@ -696,16 +664,25 @@ describe(`sbb-selection-panel`, () => {
 
       await waitForLitRender(nestedElement);
 
-      expect(mainCheckbox1Label.textContent!.trim()).to.be.equal(', collapsed');
-      expect(mainCheckbox2Label.textContent!.trim()).to.be.equal(', expanded');
-      expect(subCheckbox1).to.be.empty;
+      const mainCheckbox1LabelSecondRender = (await a11ySnapshot({
+        selector: 'sbb-checkbox-panel[value="main1"]',
+      })) as unknown as { name: string };
+
+      const mainCheckbox2LabelSecondRender = (await a11ySnapshot({
+        selector: 'sbb-checkbox-panel[value="main2"]',
+      })) as unknown as { name: string };
+
+      expect(mainCheckbox1LabelSecondRender.name.trim()).to.be.equal('​ Main Option 1 , collapsed');
+      expect(mainCheckbox2LabelSecondRender.name.trim()).to.be.equal('​ Main Option 2 , expanded');
     });
 
     it('should mark only outer group children as disabled', async () => {
       nestedElement.toggleAttribute('disabled', true);
       await waitForLitRender(nestedElement);
 
-      const checkboxes = Array.from(nestedElement.querySelectorAll('sbb-checkbox'));
+      const checkboxes: (SbbCheckboxPanelElement | SbbCheckboxElement)[] = Array.from(
+        nestedElement.querySelectorAll('sbb-checkbox-panel, sbb-checkbox'),
+      );
 
       expect(checkboxes.length).to.be.equal(6);
       expect(checkboxes[0]).to.have.attribute('disabled');
