@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 
 import { SbbTabElement } from './tab.js';
 
-describe(`sbb-tab-label ${fixture.name}`, () => {
+describe(`sbb-tab ${fixture.name}`, () => {
   let root: SbbTabElement;
 
   beforeEach(async () => {
