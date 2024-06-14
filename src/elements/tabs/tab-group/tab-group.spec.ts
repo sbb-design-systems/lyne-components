@@ -25,6 +25,7 @@ describe(`sbb-tab-group`, () => {
         <sbb-tab-label id="sbb-tab-3" disabled>Test tab label 3</sbb-tab-label>
         <sbb-tab><p>Test tab content 3</p></sbb-tab>
         <sbb-tab-label id="sbb-tab-4">Test tab label 4</sbb-tab-label>
+        <sbb-tab><p>Test tab content 4</p></sbb-tab>
       </sbb-tab-group>`,
     );
   });
@@ -39,14 +40,6 @@ describe(`sbb-tab-group`, () => {
     )!;
 
     expect(content.textContent).to.be.equal('Test tab content 1');
-  });
-
-  it('renders no content tab panel', async () => {
-    const content = element.querySelector<SbbTabElement>(
-      ':scope > sbb-tab-label#sbb-tab-4 + sbb-tab',
-    )!;
-
-    expect(content.textContent).to.be.equal('No content.');
   });
 
   it('renders initial selected index', async () => {

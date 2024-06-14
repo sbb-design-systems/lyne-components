@@ -67,7 +67,7 @@ snapshots["sbb-tab-group renders DOM"] =
     </p>
   </sbb-tab>
   <sbb-tab-label
-    aria-controls=""
+    aria-controls="sbb-tab-panel-4"
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
@@ -77,8 +77,14 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 4
   </sbb-tab-label>
-  <sbb-tab role="tabpanel">
-    No content.
+  <sbb-tab
+    id="sbb-tab-panel-4"
+    role="tabpanel"
+    tabindex="0"
+  >
+    <p>
+      Test tab content 4
+    </p>
   </sbb-tab>
 </sbb-tab-group>
 `;

@@ -28,6 +28,9 @@ describe(`sbb-tab-group`, () => {
             <p>Test tab content 3</p>
           </sbb-tab>
           <sbb-tab-label>Test tab label 4</sbb-tab-label>
+          <sbb-tab>
+            <p>Test tab content 4</p>
+          </sbb-tab>
         </sbb-tab-group>`,
       );
     });
