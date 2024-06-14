@@ -1,7 +1,6 @@
 import { html, nothing } from 'lit';
 
 import {
-  describeEach,
   describeViewports,
   visualDiffStandardStates,
   visualRegressionFixture,
@@ -12,35 +11,31 @@ import './breadcrumb.js';
 describe('sbb-breadcrumb', () => {
   let root: HTMLElement;
 
-  const cases = {
-    state: [
-      { icon: undefined, text: 'Breadcrumb' },
-      { icon: 'house-small', text: 'Breadcrumb' },
-      { icon: 'house-small', text: undefined },
-    ],
-  };
+  const cases = [
+    { name: 'text', icon: undefined, text: 'Breadcrumb' },
+    { name: 'icon', icon: 'house-small', text: undefined },
+    { name: 'both', icon: 'house-small', text: 'Breadcrumb' },
+  ];
 
   describeViewports({ viewports: ['wide'] }, () => {
-    describeEach(cases, ({ state }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-breadcrumb
-            href="https://www.sbb.ch"
-            target="_blank"
-            download="false"
-            .iconName=${state.icon}
-            >${state.text ? state.text : nothing}</sbb-breadcrumb
-          >
-        `);
-      });
-
-      for (const state of visualDiffStandardStates) {
-        it(
-          state.name,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
-          }),
-        );
+    describe('combination', () => {
+      for (const singleCase of cases) {
+        for (const state of visualDiffStandardStates) {
+          it(
+            `${singleCase.name} ${state.name}`,
+            state.with((setup) => {
+              setup.withFixture(html`
+                <sbb-breadcrumb
+                  href="https://www.sbb.ch"
+                  target="_blank"
+                  download="false"
+                  .iconName=${singleCase.icon}
+                  >${singleCase.text ? singleCase.text : nothing}</sbb-breadcrumb
+                >
+              `);
+            }),
+          );
+        }
       }
     });
 
