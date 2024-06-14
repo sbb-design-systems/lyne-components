@@ -2,34 +2,29 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbCheckboxPanelElement } from '../checkbox.js';
-import {
-  SbbConnectedAbortController,
-  SbbLanguageController,
-  SbbSlotStateController,
-} from '../core/controllers.js';
+import type { SbbCheckboxElement } from '../checkbox.js';
+import { SbbConnectedAbortController, SbbSlotStateController } from '../core/controllers.js';
 import { EventEmitter } from '../core/eventing.js';
-import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
-import { SbbHydrationMixin } from '../core/mixins.js';
-import type { SbbRadioButtonPanelElement } from '../radio-button.js';
+import type { SbbRadioButtonElement } from '../radio-button.js';
 
-import style from './selection-expansion-panel.scss?lit&inline';
+import style from './selection-panel.scss?lit&inline';
 
 import '../divider.js';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
  *
- * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`.
+ * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-panel`.
+ * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @slot content - Use this slot to provide custom content for the panel (optional).
  * @event {CustomEvent<void>} willOpen - Emits whenever the content section starts the opening transition.
  * @event {CustomEvent<void>} didOpen - Emits whenever the content section is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the content section begins the closing transition.
  * @event {CustomEvent<void>} didClose - Emits whenever the content section is closed.
  */
-@customElement('sbb-selection-expansion-panel')
-export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
+@customElement('sbb-selection-panel')
+export class SbbSelectionPanelElement extends LitElement {
   // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
@@ -73,35 +68,35 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   /** Emits whenever the content section starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.willOpen,
+    SbbSelectionPanelElement.events.willOpen,
   );
 
   /** Emits whenever the content section is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.didOpen,
+    SbbSelectionPanelElement.events.didOpen,
   );
 
   /** Emits whenever the content section begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.willClose,
+    SbbSelectionPanelElement.events.willClose,
   );
 
   /** Emits whenever the content section is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.didClose,
+    SbbSelectionPanelElement.events.didClose,
   );
 
-  private _language = new SbbLanguageController(this);
   private _abort = new SbbConnectedAbortController(this);
   private _initialized: boolean = false;
 
   /**
    * Whether it has an expandable content
+   * @internal
    */
-  private get _hasContent(): boolean {
+  public get hasContent(): boolean {
     // We cannot use the NamedSlots because it's too slow to initialize
     return this.querySelectorAll?.('[slot="content"]').length > 0;
   }
@@ -113,12 +108,11 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    this.addEventListener('panelConnected', this._initFromInput.bind(this), {
-      signal: this._abort.signal,
-    });
-
     this._state ||= 'closed';
+    const signal = this._abort.signal;
+    this.addEventListener('stateChange', this._onInputStateChange.bind(this), { signal });
+    this.addEventListener('checkboxLoaded', this._initFromInput.bind(this), { signal });
+    this.addEventListener('radioButtonLoaded', this._initFromInput.bind(this), { signal });
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -136,12 +130,11 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   }
 
   private _updateState(): void {
-    if (!this._hasContent) {
+    if (!this.hasContent) {
       return;
     }
 
     this.forceOpen || this._checked ? this._open(!this._initialized) : this._close();
-    this._updateExpandedLabel(this.forceOpen || this._checked);
   }
 
   private _open(skipAnimation = false): void {
@@ -168,7 +161,11 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   }
 
   private _initFromInput(event: Event): void {
-    const input = event.target as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
+    const input = event.target as SbbCheckboxElement | SbbRadioButtonElement;
+
+    if (!input.isSelectionPanelInput) {
+      return;
+    }
 
     this._checked = input.checked;
     this._disabled = input.disabled;
@@ -176,6 +173,12 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   }
 
   private _onInputStateChange(event: CustomEvent<SbbStateChange>): void {
+    const input = event.target as SbbCheckboxElement | SbbRadioButtonElement;
+
+    if (!input.isSelectionPanelInput) {
+      return;
+    }
+
     if (event.detail.type === 'disabled') {
       this._disabled = event.detail.disabled;
       return;
@@ -197,38 +200,22 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
     }
   }
 
-  private async _updateExpandedLabel(open: boolean): Promise<void> {
-    await this.hydrationComplete;
-
-    const panelElement = this.querySelector<SbbRadioButtonPanelElement | SbbCheckboxPanelElement>(
-      'sbb-radio-button-panel, sbb-checkbox-panel',
-    );
-    if (!panelElement) {
-      return;
-    }
-
-    if (!this._hasContent) {
-      panelElement.expansionState = '';
-      return;
-    }
-
-    panelElement.expansionState = open
-      ? ', ' + i18nExpanded[this._language.current]
-      : ', ' + i18nCollapsed[this._language.current];
-  }
-
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-selection-expansion-panel">
-        <div class="sbb-selection-expansion-panel__input" @stateChange=${this._onInputStateChange}>
+      <div class="sbb-selection-panel">
+        <div class="sbb-selection-panel__badge">
+          <slot name="badge"></slot>
+        </div>
+
+        <div class="sbb-selection-panel__input">
           <slot></slot>
         </div>
         <div
-          class="sbb-selection-expansion-panel__content--wrapper"
+          class="sbb-selection-panel__content--wrapper"
           .inert=${this._state !== 'opened'}
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
         >
-          <div class="sbb-selection-expansion-panel__content">
+          <div class="sbb-selection-panel__content">
             <sbb-divider></sbb-divider>
             <slot name="content"></slot>
           </div>
@@ -241,6 +228,6 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-selection-expansion-panel': SbbSelectionExpansionPanelElement;
+    'sbb-selection-panel': SbbSelectionPanelElement;
   }
 }

@@ -43,7 +43,7 @@ The component can be displayed in `disabled` or `required` state by using the se
 
 ## Style
 
-The component has two `size`, named `s` and `m` (default).
+The component has two `size`, named `s` (default) and `m`.
 
 ```html
 <sbb-checkbox value="size" size="m">Size</sbb-checkbox>
@@ -103,7 +103,9 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 ## Slots
 
-| Name   | Description                                                                |
-| ------ | -------------------------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the `sbb-checkbox`.                 |
-| `icon` | Slot used to render the checkbox icon (disabled inside a selection panel). |
+| Name      | Description                                                                                     |
+| --------- | ----------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to add content to the `sbb-checkbox`.                                      |
+| `icon`    | Slot used to render the checkbox icon (disabled inside a selection panel).                      |
+| `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
+| `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |

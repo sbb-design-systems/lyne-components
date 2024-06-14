@@ -24,12 +24,18 @@ snapshots["sbb-checkbox should render unchecked Shadow DOM"] =
       <span class="sbb-checkbox__label">
         <slot>
         </slot>
-        <span class="sbb-checkbox__aligner sbb-checkbox__label--icon">
+        <span class="sbb-checkbox__label--icon">
           <slot name="icon">
           </slot>
         </span>
+        <slot name="suffix">
+        </slot>
       </span>
     </span>
+    <slot name="subtext">
+    </slot>
+    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
+    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -59,12 +65,18 @@ snapshots["sbb-checkbox should render checked Shadow DOM"] =
       <span class="sbb-checkbox__label">
         <slot>
         </slot>
-        <span class="sbb-checkbox__aligner sbb-checkbox__label--icon">
+        <span class="sbb-checkbox__label--icon">
           <slot name="icon">
           </slot>
         </span>
+        <slot name="suffix">
+        </slot>
       </span>
     </span>
+    <slot name="subtext">
+    </slot>
+    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
+    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -94,12 +106,18 @@ snapshots["sbb-checkbox should render indeterminate Shadow DOM"] =
       <span class="sbb-checkbox__label">
         <slot>
         </slot>
-        <span class="sbb-checkbox__aligner sbb-checkbox__label--icon">
+        <span class="sbb-checkbox__label--icon">
           <slot name="icon">
           </slot>
         </span>
+        <slot name="suffix">
+        </slot>
       </span>
     </span>
+    <slot name="subtext">
+    </slot>
+    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
+    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -129,12 +147,18 @@ snapshots["sbb-checkbox should render unchecked disabled Shadow DOM"] =
       <span class="sbb-checkbox__label">
         <slot>
         </slot>
-        <span class="sbb-checkbox__aligner sbb-checkbox__label--icon">
+        <span class="sbb-checkbox__label--icon">
           <slot name="icon">
           </slot>
         </span>
+        <slot name="suffix">
+        </slot>
       </span>
     </span>
+    <slot name="subtext">
+    </slot>
+    <sbb-screen-reader-only class="sbb-checkbox__expanded-label">
+    </sbb-screen-reader-only>
   </span>
 </span>
 `;
@@ -157,22 +181,6 @@ snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
 `;
 /* end snapshot sbb-checkbox Unchecked - A11y tree Chrome */
 
-snapshots["sbb-checkbox Unchecked - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox Unchecked - A11y tree Firefox */
-
 snapshots["sbb-checkbox Checked - A11y tree Chrome"] = 
 `<p>
   {
@@ -189,6 +197,22 @@ snapshots["sbb-checkbox Checked - A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-checkbox Checked - A11y tree Chrome */
+
+snapshots["sbb-checkbox Unchecked - A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "checkbox",
+      "name": "​ Label"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-checkbox Unchecked - A11y tree Firefox */
 
 snapshots["sbb-checkbox Checked - A11y tree Firefox"] = 
 `<p>

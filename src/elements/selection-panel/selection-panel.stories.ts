@@ -12,19 +12,18 @@ import type {
   SbbRadioButtonGroupElement,
   SbbRadioButtonGroupEventDetail,
 } from '../radio-button.js';
-import { SbbSelectionExpansionPanelElement } from '../selection-expansion-panel.js';
 
+import readme from './readme.md?raw';
+import { SbbSelectionPanelElement } from './selection-panel.js';
 import '../card.js';
 import '../checkbox.js';
 import '../divider.js';
 import '../form-error.js';
 import '../icon.js';
 import '../link/block-link-button.js';
-import '../popover.js';
 import '../radio-button.js';
+import '../popover.js';
 import '../title.js';
-
-import readme from './readme.md?raw';
 
 const color: InputType = {
   control: {
@@ -91,7 +90,9 @@ const suffixAndSubtext = (): TemplateResult => html`
   <span slot="suffix" style="margin-inline-start: auto;">
     <span style=${styleMap(suffixStyle)}>
       <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-      <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
+      <span class="sbb-text-m sbb-text--bold">
+        <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
+      </span>
     </span>
   </span>
 `;
@@ -110,12 +111,13 @@ const WithCheckboxTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-selection-expansion-panel ${sbbSpread(args)}>
-    <sbb-checkbox-panel ?checked=${checkedInput} ?disabled=${disabledInput}>
-      Value one ${suffixAndSubtext()} ${cardBadge()}
-    </sbb-checkbox-panel>
+  <sbb-selection-panel ${sbbSpread(args)}>
+    ${cardBadge()}
+    <sbb-checkbox ?checked=${checkedInput} ?disabled=${disabledInput}>
+      Value one ${suffixAndSubtext()}
+    </sbb-checkbox>
     ${innerContent()}
-  </sbb-selection-expansion-panel>
+  </sbb-selection-panel>
 `;
 
 const WithRadioButtonTemplate = ({
@@ -123,12 +125,13 @@ const WithRadioButtonTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-selection-expansion-panel ${sbbSpread(args)}>
-    <sbb-radio-button-panel value="Value one" ?checked=${checkedInput} ?disabled=${disabledInput}>
-      Value one ${suffixAndSubtext()} ${cardBadge()}
-    </sbb-radio-button-panel>
+  <sbb-selection-panel ${sbbSpread(args)}>
+    ${cardBadge()}
+    <sbb-radio-button value="Value one" ?checked=${checkedInput} ?disabled=${disabledInput}>
+      Value one ${suffixAndSubtext()}
+    </sbb-radio-button>
     ${innerContent()}
-  </sbb-selection-expansion-panel>
+  </sbb-selection-panel>
 `;
 
 const WithCheckboxGroupTemplate = ({
@@ -137,24 +140,23 @@ const WithCheckboxGroupTemplate = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-checkbox-panel ?checked=${checkedInput}>
-        Value one ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-checkbox-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox ?checked=${checkedInput}> Value one ${suffixAndSubtext()} </sbb-checkbox>
       ${innerContent()}
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
 
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-checkbox-panel ?disabled=${disabledInput}>
-        Value two ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-checkbox-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox ?disabled=${disabledInput}> Value two ${suffixAndSubtext()} </sbb-checkbox>
       ${innerContent()}
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
 
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-checkbox-panel> Value three ${suffixAndSubtext()} ${cardBadge()} </sbb-checkbox-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox> Value three ${suffixAndSubtext()} </sbb-checkbox>
       ${innerContent()}
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
   </sbb-checkbox-group>
 `;
 
@@ -169,26 +171,27 @@ const WithRadioButtonGroupTemplate = ({
     horizontal-from="large"
     ?allow-empty-selection=${allowEmptySelection}
   >
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-radio-button-panel value="Value one" ?checked=${checkedInput}>
-        Value one ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-radio-button-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value one" ?checked=${checkedInput}>
+        Value one ${suffixAndSubtext()}
+      </sbb-radio-button>
       ${innerContent()}
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
 
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-radio-button-panel value="Value two" ?disabled=${disabledInput}>
-        Value two ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-radio-button-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value two" ?disabled=${disabledInput}>
+        Value two ${suffixAndSubtext()}
+      </sbb-radio-button>
       ${innerContent()}
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
 
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-radio-button-panel value="Value three">
-        Value three ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-radio-button-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value three"> Value three ${suffixAndSubtext()} </sbb-radio-button>
       ${innerContent()}
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
   </sbb-radio-button-group>
 `;
 
@@ -198,30 +201,33 @@ const TicketsOptionsExampleTemplate = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-checkbox-panel ?checked=${checkedInput}>
-        Saving ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-checkbox-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox ?checked=${checkedInput}> Saving ${suffixAndSubtext()} </sbb-checkbox>
       <div slot="content">
         <sbb-radio-button-group orientation="vertical" value="non-flex">
           <sbb-radio-button value="non-flex" style="width: 100%;">
             Non-Flex
-            <span style="margin-inline-start: auto; color: var(--sbb-color-granite);">
-              <span class="sbb-text-m">CHF 0.00</span>
+            <span slot="subtext">No refund possible</span>
+            <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
+              <span style=${styleMap(suffixStyle)}>
+                <span class="sbb-text-m"> <span class="sbb-text-xxs">CHF</span> 0.00 </span>
+              </span>
             </span>
           </sbb-radio-button>
           <sbb-radio-button value="semi-flex" style="width: 100%;">
             Semi-Flex
-            <span style="margin-inline-start: auto; color: var(--sbb-color-granite);">
-              <span class="sbb-text-m">+ CHF 5.00</span>
+            <span slot="subtext">Partial refund possible</span>
+            <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
+              <span style=${styleMap(suffixStyle)}>
+                <span class="sbb-text-m"> <span class="sbb-text-xxs">+ CHF</span> 5.00 </span>
+              </span>
             </span>
           </sbb-radio-button>
         </sbb-radio-button-group>
         <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs);"></sbb-divider>
         <span style="color: var(--sbb-color-granite);">
-          <div
-            style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); color:var(--sbb-color-charcoal);"
-          >
+          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x);">
             1 x 0 x Supersaver ticket, Half-Fare Card${' '}
             <sbb-popover-trigger
               id="popover-trigger-1"
@@ -237,32 +243,33 @@ const TicketsOptionsExampleTemplate = ({
           <span class="sbb-text-s">Simple popover</span>
         </sbb-popover>
       </div>
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
 
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-checkbox-panel ?disabled=${disabledInput}>
-        City offer ${suffixAndSubtext()} ${cardBadge()}
-      </sbb-checkbox-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox ?disabled=${disabledInput}> City offer ${suffixAndSubtext()} </sbb-checkbox>
       <div slot="content">
         <sbb-checkbox-group orientation="vertical">
           <sbb-checkbox value="option-1" style="width: 100%;">
             Option one
-            <span style="margin-inline-start: auto; color: var(--sbb-color-granite);">
-              <span class="sbb-text-m">CHF 0.00</span>
+            <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
+              <span style=${styleMap(suffixStyle)}>
+                <span class="sbb-text-m"> <span class="sbb-text-xxs">CHF</span> 0.00 </span>
+              </span>
             </span>
           </sbb-checkbox>
           <sbb-checkbox value="option-2" style="width: 100%;">
             Option two
-            <span style="margin-inline-start: auto; color: var(--sbb-color-granite);">
-              <span class="sbb-text-m">+ CHF 5.00</span>
+            <span slot="suffix" style="margin-inline-start: auto; color: var(--sbb-color-granite);">
+              <span style=${styleMap(suffixStyle)}>
+                <span class="sbb-text-m"> <span class="sbb-text-xxs">+ CHF</span> 5.00 </span>
+              </span>
             </span>
           </sbb-checkbox>
         </sbb-checkbox-group>
         <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs);"></sbb-divider>
         <span style="color: var(--sbb-color-granite);">
-          <div
-            style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); color: var(--sbb-color-charcoal);"
-          >
+          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x);">
             1 x 0 x City Ticket incl. City Supplement City, Half-Fare Card${' '}
             <sbb-popover-trigger
               id="popover-trigger-2"
@@ -278,7 +285,7 @@ const TicketsOptionsExampleTemplate = ({
           <span class="sbb-text-s">Simple popover</span>
         </sbb-popover>
       </div>
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
   </sbb-checkbox-group>
 `;
 
@@ -288,25 +295,25 @@ const NestedRadioTemplate = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-radio-button-panel value="mainoption1" ?checked=${checkedInput}>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      <sbb-radio-button value="mainoption1" ?checked=${checkedInput}>
         Main Option 1
-      </sbb-radio-button-panel>
+      </sbb-radio-button>
       <sbb-radio-button-group orientation="vertical" value="suboption1" slot="content">
         <sbb-radio-button value="suboption1">Suboption 1</sbb-radio-button>
         <sbb-radio-button value="suboption2">Suboption 2</sbb-radio-button>
       </sbb-radio-button-group>
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
 
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-radio-button-panel value="mainoption2" ?disabled=${disabledInput}>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      <sbb-radio-button value="mainoption2" ?disabled=${disabledInput}>
         Main Option 2
-      </sbb-radio-button-panel>
+      </sbb-radio-button>
       <sbb-radio-button-group orientation="vertical" value="suboption2" slot="content">
         <sbb-radio-button value="suboption1">Suboption 1</sbb-radio-button>
         <sbb-radio-button value="suboption2">Suboption 2</sbb-radio-button>
       </sbb-radio-button-group>
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
   </sbb-radio-button-group>
 `;
 
@@ -316,25 +323,21 @@ const NestedCheckboxTemplate = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-checkbox-panel value="mainoption1" ?checked=${checkedInput}>
-        Main Option 1
-      </sbb-checkbox-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      <sbb-checkbox value="mainoption1" ?checked=${checkedInput}> Main Option 1 </sbb-checkbox>
       <sbb-checkbox-group orientation="vertical" slot="content">
         <sbb-checkbox value="suboption1">Suboption 1</sbb-checkbox>
         <sbb-checkbox value="suboption2">Suboption 2</sbb-checkbox>
       </sbb-checkbox-group>
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
 
-    <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-checkbox-panel value="mainoption2" ?disabled=${disabledInput}>
-        Main Option 2
-      </sbb-checkbox-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      <sbb-checkbox value="mainoption2" ?disabled=${disabledInput}> Main Option 2 </sbb-checkbox>
       <sbb-checkbox-group orientation="vertical" slot="content">
         <sbb-checkbox value="suboption1">Suboption 1</sbb-checkbox>
         <sbb-checkbox value="suboption2">Suboption 2</sbb-checkbox>
       </sbb-checkbox-group>
-    </sbb-selection-expansion-panel>
+    </sbb-selection-panel>
   </sbb-checkbox-group>
 `;
 
@@ -363,24 +366,23 @@ const WithCheckboxesErrorMessageTemplate = ({
         }
       }}
     >
-      <sbb-selection-expansion-panel ${sbbSpread(args)}>
-        <sbb-checkbox-panel ?checked=${checkedInput}>
-          Value one ${suffixAndSubtext()} ${cardBadge()}
-        </sbb-checkbox-panel>
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-checkbox ?checked=${checkedInput}> Value one ${suffixAndSubtext()} </sbb-checkbox>
         ${innerContent()}
-      </sbb-selection-expansion-panel>
+      </sbb-selection-panel>
 
-      <sbb-selection-expansion-panel ${sbbSpread(args)}>
-        <sbb-checkbox-panel ?disabled=${disabledInput}>
-          Value two ${suffixAndSubtext()} ${cardBadge()}
-        </sbb-checkbox-panel>
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-checkbox ?disabled=${disabledInput}> Value two ${suffixAndSubtext()} </sbb-checkbox>
         ${innerContent()}
-      </sbb-selection-expansion-panel>
+      </sbb-selection-panel>
 
-      <sbb-selection-expansion-panel ${sbbSpread(args)}>
-        <sbb-checkbox-panel> Value three ${suffixAndSubtext()} ${cardBadge()} </sbb-checkbox-panel>
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-checkbox> Value three ${suffixAndSubtext()} </sbb-checkbox>
         ${innerContent()}
-      </sbb-selection-expansion-panel>
+      </sbb-selection-panel>
       ${sbbFormError}
     </sbb-checkbox-group>
   `;
@@ -409,30 +411,78 @@ const WithRadiosErrorMessageTemplate = ({
         }
       }}
     >
-      <sbb-selection-expansion-panel ${sbbSpread(args)}>
-        <sbb-radio-button-panel value="Value one" ?checked=${checkedInput}>
-          Value one ${suffixAndSubtext()} ${cardBadge()}
-        </sbb-radio-button-panel>
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-radio-button value="Value one" ?checked=${checkedInput}>
+          Value one ${suffixAndSubtext()}
+        </sbb-radio-button>
         ${innerContent()}
-      </sbb-selection-expansion-panel>
+      </sbb-selection-panel>
 
-      <sbb-selection-expansion-panel ${sbbSpread(args)}>
-        <sbb-radio-button-panel value="Value two" ?disabled=${disabledInput}>
-          Value two ${suffixAndSubtext()} ${cardBadge()}
-        </sbb-radio-button-panel>
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-radio-button value="Value two" ?disabled=${disabledInput}>
+          Value two ${suffixAndSubtext()}
+        </sbb-radio-button>
         ${innerContent()}
-      </sbb-selection-expansion-panel>
+      </sbb-selection-panel>
 
-      <sbb-selection-expansion-panel ${sbbSpread(args)}>
-        <sbb-radio-button-panel value="Value three">
-          Value three ${suffixAndSubtext()} ${cardBadge()}
-        </sbb-radio-button-panel>
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-radio-button value="Value three"> Value three ${suffixAndSubtext()} </sbb-radio-button>
         ${innerContent()}
-      </sbb-selection-expansion-panel>
+      </sbb-selection-panel>
       ${sbbFormError}
     </sbb-radio-button-group>
   `;
 };
+
+const WithNoContentTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-selection-panel
+    ${sbbSpread(args)}
+    style="display: block; margin-block-end: var(--sbb-spacing-fixed-4x);"
+  >
+    ${cardBadge()}
+    <sbb-checkbox ?checked=${checkedInput} ?disabled=${disabledInput}>
+      Value one ${suffixAndSubtext()}
+    </sbb-checkbox>
+  </sbb-selection-panel>
+  <sbb-selection-panel ${sbbSpread(args)}>
+    ${cardBadge()}
+    <sbb-radio-button value="Value one" ?disabled=${disabledInput}>
+      Value one ${suffixAndSubtext()}
+    </sbb-radio-button>
+  </sbb-selection-panel>
+`;
+
+const WithNoContentGroupTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value one" ?disabled=${disabledInput}>
+        Value one ${suffixAndSubtext()}
+      </sbb-radio-button>
+    </sbb-selection-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value two" ?checked=${checkedInput}>
+        Value two ${suffixAndSubtext()}
+      </sbb-radio-button>
+    </sbb-selection-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value three"> Value three ${suffixAndSubtext()} </sbb-radio-button>
+    </sbb-selection-panel>
+  </sbb-radio-button-group>
+`;
 
 export const WithCheckbox: StoryObj = {
   render: WithCheckboxTemplate,
@@ -615,6 +665,24 @@ export const WithRadiosErrorMessage: StoryObj = {
   },
 };
 
+export const WithNoContent: StoryObj = {
+  render: WithNoContentTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true },
+};
+
+export const WithNoContentCheckedDisabled: StoryObj = {
+  render: WithNoContentTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, disabledInput: true },
+};
+
+export const WithNoContentGroup: StoryObj = {
+  render: WithNoContentGroupTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true },
+};
+
 export const TicketsOptionsExample: StoryObj = {
   render: TicketsOptionsExampleTemplate,
   argTypes: basicArgTypes,
@@ -639,17 +707,17 @@ const meta: Meta = {
     chromatic: { delay: 9000, fixedHeight: '14500px' },
     actions: {
       handles: [
-        SbbSelectionExpansionPanelElement.events.didOpen,
-        SbbSelectionExpansionPanelElement.events.didClose,
-        SbbSelectionExpansionPanelElement.events.willOpen,
-        SbbSelectionExpansionPanelElement.events.willClose,
+        SbbSelectionPanelElement.events.didOpen,
+        SbbSelectionPanelElement.events.didClose,
+        SbbSelectionPanelElement.events.willOpen,
+        SbbSelectionPanelElement.events.willClose,
       ],
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-selection-expansion-panel',
+  title: 'elements/sbb-selection-panel',
 };
 
 export default meta;

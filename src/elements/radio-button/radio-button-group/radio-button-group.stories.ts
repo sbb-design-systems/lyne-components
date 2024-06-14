@@ -1,9 +1,8 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../../form-error.js';
@@ -11,29 +10,7 @@ import type { SbbFormErrorElement } from '../../form-error.js';
 import readme from './readme.md?raw';
 import './radio-button-group.js';
 import '../radio-button.js';
-import '../radio-button-panel.js';
 import '../../form-error.js';
-import '../../icon.js';
-import '../../card/card-badge.js';
-
-const suffixStyle: Readonly<StyleInfo> = {
-  display: 'flex',
-  alignItems: 'center',
-  marginInline: 'var(--sbb-spacing-fixed-2x)',
-};
-
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
-
-const suffixAndSubtext = (): TemplateResult => html`
-  <span slot="subtext">Subtext</span>
-  <span slot="suffix" style="margin-inline-start: auto;">
-    <span style=${styleMap(suffixStyle)}>
-      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-      <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
-    </span>
-  </span>
-  ${cardBadge()}
-`;
 
 const value: InputType = {
   control: {
@@ -115,20 +92,8 @@ const radioButtons = (): TemplateResult => html`
   <sbb-radio-button value="Value four">Value four</sbb-radio-button>
 `;
 
-const radioButtonPanels = (): TemplateResult => html`
-  <sbb-radio-button-panel value="Value one">Value 1 ${suffixAndSubtext()}</sbb-radio-button-panel>
-  <sbb-radio-button-panel value="Value two">Value 2 ${suffixAndSubtext()}</sbb-radio-button-panel>
-  <sbb-radio-button-panel value="Value three">
-    Value 3 ${suffixAndSubtext()}</sbb-radio-button-panel
-  >
-`;
-
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-radio-button-group ${sbbSpread(args)}>${radioButtons()}</sbb-radio-button-group>
-`;
-
-const PanelTemplate = (args: Args): TemplateResult => html`
-  <sbb-radio-button-group ${sbbSpread(args)}>${radioButtonPanels()}</sbb-radio-button-group>
 `;
 
 const ErrorMessageTemplate = (args: Args): TemplateResult => {
@@ -218,28 +183,6 @@ export const ErrorMessageVertical: StoryObj = {
     required: true,
     orientation: orientation.options![1],
     'allow-empty-selection': true,
-  },
-};
-
-export const HorizontalPanels: StoryObj = {
-  render: PanelTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const VerticalPanels: StoryObj = {
-  render: PanelTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, orientation: orientation.options![1] },
-};
-
-export const VerticalToHorizontalPanels: StoryObj = {
-  render: PanelTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    orientation: orientation.options![1],
-    'horizontal-from': horizontalFrom.options![4],
   },
 };
 

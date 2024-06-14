@@ -1,6 +1,6 @@
-The `sbb-checkbox-group` component is used as a container for a collection of either
-[sbb-checkbox](/docs/elements-sbb-checkbox-sbb-checkbox--docs)s, [sbb-checkbox-panel](/docs/elements-sbb-checkbox-sbb-checkbox-panel--docs)s,
-or [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel--docs).
+The `sbb-checkbox-group` component is used as a container for one or multiple
+[sbb-checkbox](/docs/elements-sbb-checkbox-sbb-checkbox--docs) components,
+or, alternatively, for a collection of [sbb-selection-panel](/docs/elements-sbb-selection-panel--docs).
 
 ```html
 <sbb-checkbox-group>
@@ -10,7 +10,7 @@ or [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel-
 </sbb-checkbox-group>
 
 <sbb-checkbox-group>
-  <sbb-selection-expansion-panel>
+  <sbb-selection-panel>
     <sbb-checkbox>
       Value
       <span slot="suffix">
@@ -19,7 +19,7 @@ or [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel-
         <span class="sbb-text-m sbb-text--bold">40.00</span>
       </span>
     </sbb-checkbox>
-  </sbb-selection-expansion-panel>
+  </sbb-selection-panel>
 </sbb-checkbox-group>
 ```
 
@@ -73,14 +73,14 @@ Two values are available, `s` and `m`, which is the default
 
 ## Properties
 
-| Name             | Attribute         | Privacy | Type                                                | Default        | Description                                                                    |
-| ---------------- | ----------------- | ------- | --------------------------------------------------- | -------------- | ------------------------------------------------------------------------------ |
-| `checkboxes`     | -                 | public  | `(SbbCheckboxElement \| SbbCheckboxPanelElement)[]` |                | List of contained checkbox elements.                                           |
-| `disabled`       | `disabled`        | public  | `boolean`                                           | `false`        | Whether the component is disabled.                                             |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined`                    |                | Overrides the behaviour of `orientation` property.                             |
-| `orientation`    | `orientation`     | public  | `SbbOrientation`                                    | `'horizontal'` | Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. |
-| `required`       | `required`        | public  | `boolean`                                           | `false`        | Whether the checkbox group is required.                                        |
-| `size`           | `size`            | public  | `SbbCheckboxSize`                                   | `'m'`          | Size variant, either m or s.                                                   |
+| Name             | Attribute         | Privacy | Type                             | Default        | Description                                                                    |
+| ---------------- | ----------------- | ------- | -------------------------------- | -------------- | ------------------------------------------------------------------------------ |
+| `checkboxes`     | -                 | public  | `SbbCheckboxElement[]`           |                | List of contained checkbox elements.                                           |
+| `disabled`       | `disabled`        | public  | `boolean`                        | `false`        | Whether the component is disabled.                                             |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of `orientation` property.                             |
+| `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'horizontal'` | Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. |
+| `required`       | `required`        | public  | `boolean`                        | `false`        | Whether the checkbox group is required.                                        |
+| `size`           | `size`            | public  | `SbbCheckboxSize`                | `'m'`          | Size variant, either m or s.                                                   |
 
 ## Slots
 
