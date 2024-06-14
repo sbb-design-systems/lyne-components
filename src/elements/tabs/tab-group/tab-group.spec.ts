@@ -2,6 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
@@ -92,6 +93,8 @@ describe(`sbb-tab-group`, () => {
       const tab = element.querySelector<SbbTabLabelElement>(':scope > sbb-tab-label#sbb-tab-1')!;
 
       tab.click();
+      await waitForLitRender(element);
+
       expect(tab).to.have.attribute('active');
     });
 
@@ -105,34 +108,41 @@ describe(`sbb-tab-group`, () => {
     });
 
     it('selects tab on left arrow key pressed', async () => {
-      await sendKeys({ down: 'Tab' });
-      await sendKeys({ down: 'ArrowLeft' });
+      await sendKeys({ press: tabKey });
+      await sendKeys({ press: 'ArrowLeft' });
+      await waitForLitRender(element);
       const tab = element.querySelector(':scope > sbb-tab-label#sbb-tab-1');
 
       expect(tab).to.have.attribute('active');
     });
 
     it('selects tab on right arrow key pressed', async () => {
-      await sendKeys({ down: 'Tab' });
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: tabKey });
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+
       const tab = element.querySelector(':scope > sbb-tab-label#sbb-tab-4');
 
       expect(tab).to.have.attribute('active');
     });
 
     it('wraps around on arrow key navigation', async () => {
-      await sendKeys({ down: 'Tab' });
-      await sendKeys({ down: 'ArrowRight' });
-      await sendKeys({ down: 'ArrowRight' });
+      await sendKeys({ press: tabKey });
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+
       const tab = element.querySelector(':scope > sbb-tab-label#sbb-tab-1');
 
       expect(tab).to.have.attribute('active');
     });
 
     it('wraps around on arrow left arrow key navigation', async () => {
-      await sendKeys({ down: 'Tab' });
-      await sendKeys({ down: 'ArrowLeft' });
-      await sendKeys({ down: 'ArrowLeft' });
+      await sendKeys({ press: tabKey });
+      await sendKeys({ press: 'ArrowLeft' });
+      await sendKeys({ press: 'ArrowLeft' });
+      await waitForLitRender(element);
+
       const tab = element.querySelector(':scope > sbb-tab-label#sbb-tab-4');
 
       expect(tab).to.have.attribute('active');

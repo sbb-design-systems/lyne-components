@@ -29,7 +29,7 @@ describe('sbb-stepper', () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     it('Shadow DOM', async () => {

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-toggle-check should render DOM"] = 
+snapshots["sbb-toggle-check renders DOM"] = 
 `<sbb-toggle-check
   checked=""
   data-checked=""
@@ -11,9 +11,9 @@ snapshots["sbb-toggle-check should render DOM"] =
 >
 </sbb-toggle-check>
 `;
-/* end snapshot sbb-toggle-check should render DOM */
+/* end snapshot sbb-toggle-check renders DOM */
 
-snapshots["sbb-toggle-check should render Shadow DOM"] = 
+snapshots["sbb-toggle-check renders Shadow DOM"] = 
 `<span class="sbb-toggle-check">
   <span class="sbb-toggle-check__container">
     <span class="sbb-toggle-check__label">
@@ -38,7 +38,7 @@ snapshots["sbb-toggle-check should render Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-toggle-check should render Shadow DOM */
+/* end snapshot sbb-toggle-check renders Shadow DOM */
 
 snapshots["sbb-toggle-check A11y tree Chrome"] = 
 `<p>

@@ -3,6 +3,7 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { i18nDialog } from '../core/i18n.js';
+import { tabKey } from '../core/testing/private/keys.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
 import { SbbOverlayElement } from './overlay.js';
@@ -134,10 +135,10 @@ describe('sbb-overlay', () => {
 
     await openOverlay(element);
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willClose.events.length === 1);
@@ -184,10 +185,10 @@ describe('sbb-overlay', () => {
 
     expect(stackedOverlay).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willClose.events.length === 1);
@@ -201,10 +202,10 @@ describe('sbb-overlay', () => {
     expect(stackedOverlay).to.have.attribute('data-state', 'closed');
     expect(element).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willClose.events.length === 2);
@@ -224,7 +225,7 @@ describe('sbb-overlay', () => {
 
     await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Label`);
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
     expect(ariaLiveRef.textContent!.trim()).to.be.equal('');
