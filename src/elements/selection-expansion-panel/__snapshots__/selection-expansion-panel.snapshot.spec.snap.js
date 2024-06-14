@@ -25,15 +25,7 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
       role="text"
       slot="badge"
     >
-      <span>
-        %
-      </span>
-      <span>
-        from CHF
-      </span>
-      <span>
-        19.99
-      </span>
+      %
     </sbb-card-badge>
   </sbb-checkbox-panel>
   <div slot="content">
@@ -76,7 +68,7 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
   "children": [
     {
       "role": "checkbox",
-      "name": "% from CHF 19.99 ​ Value one Suffix Subtext , collapsed",
+      "name": "% ​ Value one Suffix Subtext , collapsed",
       "checked": false
     }
   ]
@@ -93,7 +85,7 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] =
   "children": [
     {
       "role": "checkbox",
-      "name": "% from CHF 19.99 ​ Value one Suffix Subtext , collapsed"
+      "name": "% ​ Value one Suffix Subtext , collapsed"
     }
   ]
 }

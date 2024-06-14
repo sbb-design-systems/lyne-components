@@ -1,5 +1,5 @@
 The `sbb-selection-expansion-panel` component wraps either a [sbb-checkbox-panel](/docs/elements-sbb-checkbox-sbb-checkbox-panel--docs)
-or a [sbb-radio-button-panel](/docs/elements-sbb-radio-button-sbb-radio-button-panel--docs) that can optionally toggle a content section.
+or a [sbb-radio-button-panel](/docs/elements-sbb-radio-button-sbb-radio-button-panel--docs) that can toggle a content section.
 
 The content section can be opened by checking `sbb-checkbox-panel` or selecting the `sbb-radio-button-panel`.
 Additionally, clicking on all the upper area sets the checked state and therefore opens the content;
@@ -13,12 +13,8 @@ or a [sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs).
 ```html
 <sbb-radio-button-group>
   <sbb-selection-expansion-panel>
-    <sbb-card-badge>
-      <span>%</span>
-      <span>from CHF</span>
-      <span>19.99</span>
-    </sbb-card-badge>
     <sbb-radio-button-panel>
+      <sbb-card-badge>%</sbb-card-badge>
       Value
       <span slot="subtext">Subtext</span>
       <span slot="suffix">
@@ -37,12 +33,8 @@ or a [sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs).
 ```html
 <sbb-checkbox-group>
   <sbb-selection-expansion-panel>
-    <sbb-card-badge>
-      <span>%</span>
-      <span>from CHF</span>
-      <span>19.99</span>
-    </sbb-card-badge>
     <sbb-checkbox-panel>
+      <sbb-card-badge>%</sbb-card-badge>
       Value
       <span slot="subtext">Subtext</span>
       <span slot="suffix">

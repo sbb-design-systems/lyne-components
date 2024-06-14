@@ -14,19 +14,13 @@ describe(`sbb-selection-expansion-panel`, () => {
 
   describe('renders', () => {
     beforeEach(async () => {
-      // Note: for easier testing, we add the slot="badge"
-      // to <sbb-card-badge> which would not be needed in real.
       element = await fixture(html`
         <sbb-selection-expansion-panel>
           <sbb-checkbox-panel>
             Value one
             <span slot="subtext">Subtext</span>
             <span slot="suffix">Suffix</span>
-            <sbb-card-badge slot="badge">
-              <span>%</span>
-              <span>from CHF</span>
-              <span>19.99</span>
-            </sbb-card-badge>
+            <sbb-card-badge>%</sbb-card-badge>
           </sbb-checkbox-panel>
           <div slot="content">Inner content</div>
         </sbb-selection-expansion-panel>

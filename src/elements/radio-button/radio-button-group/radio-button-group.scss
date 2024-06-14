@@ -31,11 +31,11 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   }
 }
 
-:host([data-has-selection-expansion-panel]) {
+:host([data-has-panel]) {
   --sbb-radio-button-group-width: 100%;
 }
 
-:host([data-has-selection-expansion-panel][orientation='vertical']) {
+:host([data-has-panel][orientation='vertical']) {
   --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
 }
 
@@ -51,11 +51,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
       }
     }
 
-    :host(
-        [orientation='vertical'][horizontal-from='#{$breakpoint}']:not(
-            [data-has-selection-expansion-panel]
-          )
-      ) {
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not([data-has-panel])) {
       --sbb-radio-button-group-width: max-content;
     }
   }

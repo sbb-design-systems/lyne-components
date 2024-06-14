@@ -100,9 +100,8 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 
   /**
    * Whether it has an expandable content
-   * @internal
    */
-  public get hasContent(): boolean {
+  private get _hasContent(): boolean {
     // We cannot use the NamedSlots because it's too slow to initialize
     return this.querySelectorAll?.('[slot="content"]').length > 0;
   }
@@ -137,7 +136,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   }
 
   private _updateState(): void {
-    if (!this.hasContent) {
+    if (!this._hasContent) {
       return;
     }
 
@@ -208,7 +207,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
       return;
     }
 
-    if (!this.hasContent) {
+    if (!this._hasContent) {
       panelElement.expansionState = '';
       return;
     }

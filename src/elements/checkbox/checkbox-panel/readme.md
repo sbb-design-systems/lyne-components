@@ -2,10 +2,14 @@ The `sbb-checkbox-panel` component provides the same functionality as a native `
 
 ## Slots
 
-It is possible to provide a label via an unnamed slot; additionally the slote named `subtext` can be used to provide a subtext and the slot named `suffix` can be used to provide suffix items.
+It is possible to provide a label via an unnamed slot;
+additionally the slots named `subtext` can be used to provide a subtext and
+the slot named `suffix` can be used to provide suffix items.
+If you use a <sbb-card-badge>, the slot `badge` is automatically assigned.
 
 ```html
 <sbb-checkbox-panel>
+  <sbb-card-badge>%</sbb-card-badge>
   Label
   <span slot="subtext">Subtext</span>
   <span slot="suffix">Suffix</span>
