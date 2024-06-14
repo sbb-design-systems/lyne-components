@@ -15,59 +15,53 @@ import '../link/block-link.js';
 describe(`sbb-action-group`, () => {
   let root: HTMLElement;
 
-  const horizontalCases = {
-    orientation: ['horizontal'],
-    states: [
-      { elements: 3, alignGroup: 'start' },
-      { elements: 3, alignGroup: 'start', alignSecond: 'center' },
-      { elements: 3, alignGroup: 'start', alignThird: 'end' },
-      { elements: 3, alignGroup: 'end', alignFirst: 'start' },
-      { elements: 2, alignGroup: 'start' },
-      { elements: 2, alignGroup: 'start', alignSecond: 'end' },
-    ],
-  };
+  const horizontalCases = [
+    { name: '300', elements: 3, alignGroup: 'start' },
+    { name: '111', elements: 3, alignGroup: 'start', alignSecond: 'center' },
+    { name: '201', elements: 3, alignGroup: 'start', alignThird: 'end' },
+    { name: '102', elements: 3, alignGroup: 'end', alignFirst: 'start' },
+    { name: '200', elements: 2, alignGroup: 'start' },
+    { name: '101', elements: 2, alignGroup: 'start', alignSecond: 'end' },
+  ];
 
   const verticalCases = {
-    orientation: ['vertical'],
     elements: [3, 2],
     alignGroup: ['start', 'center', 'end'],
   };
 
   describeViewports({ viewports: ['small', 'wide'] }, () => {
-    describeEach(horizontalCases, ({ orientation, states }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-action-group orientation=${orientation} align-group="${states.alignGroup}">
-            <sbb-secondary-button align-self=${states.alignFirst || nothing}
-              >Button 1</sbb-secondary-button
-            >
-            <sbb-button align-self=${states.alignSecond || nothing}>Button 2</sbb-button>
-            ${states.elements === 3
-              ? html` <sbb-block-link
-                  align-self=${states.alignThird || nothing}
-                  icon-name="chevron-small-left-small"
-                  href="https://github.com/sbb-design-systems/lyne-components"
+    describe('horizontal', () => {
+      for (const state of horizontalCases) {
+        it(
+          `${state.name}`,
+          visualDiffDefault.with((setup) => {
+            setup.withFixture(html`
+              <sbb-action-group orientation="horizontal" align-group="${state.alignGroup}">
+                <sbb-secondary-button align-self=${state.alignFirst || nothing}
+                  >Button 1</sbb-secondary-button
                 >
-                  Link
-                </sbb-block-link>`
-              : nothing}
-          </sbb-action-group>
-        `);
-      });
-
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
-        }),
-      );
+                <sbb-button align-self=${state.alignSecond || nothing}>Button 2</sbb-button>
+                ${state.elements === 3
+                  ? html` <sbb-block-link
+                      align-self=${state.alignThird || nothing}
+                      icon-name="chevron-small-left-small"
+                      href="https://github.com/sbb-design-systems/lyne-components"
+                    >
+                      Link
+                    </sbb-block-link>`
+                  : nothing}
+              </sbb-action-group>
+            `);
+          }),
+        );
+      }
     });
 
-    describeEach(verticalCases, ({ orientation, elements, alignGroup }) => {
+    describeEach(verticalCases, ({ elements, alignGroup }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
           <sbb-action-group
-            orientation=${orientation}
+            orientation="vertical"
             horizontal-from="unset"
             align-group="${alignGroup}"
           >
@@ -86,7 +80,7 @@ describe(`sbb-action-group`, () => {
       });
 
       it(
-        visualDiffDefault.name,
+        `vertical ${visualDiffDefault.name}`,
         visualDiffDefault.with((setup) => {
           setup.withSnapshotElement(root);
         }),
