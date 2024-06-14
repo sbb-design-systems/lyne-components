@@ -12,32 +12,36 @@ describe('sbb-breadcrumb', () => {
   let root: HTMLElement;
 
   const cases = [
-    { name: 'text', icon: undefined, text: 'Breadcrumb' },
-    { name: 'icon', icon: 'house-small', text: undefined },
-    { name: 'both', icon: 'house-small', text: 'Breadcrumb' },
+    { case: 'only label', icon: undefined, text: 'Breadcrumb' },
+    { case: 'only icon', icon: 'house-small', text: undefined },
+    { case: 'label and icon', icon: 'house-small', text: 'Breadcrumb' },
   ];
 
   describeViewports({ viewports: ['wide'] }, () => {
-    describe('combination', () => {
-      for (const singleCase of cases) {
+    for (const singleCase of cases) {
+      describe(`${singleCase.case}`, () => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(html`
+            <sbb-breadcrumb
+              href="https://www.sbb.ch"
+              target="_blank"
+              download="false"
+              icon-name=${singleCase.icon || nothing}
+              >${singleCase.text || nothing}</sbb-breadcrumb
+            >
+          `);
+        });
+
         for (const state of visualDiffStandardStates) {
           it(
-            `${singleCase.name} ${state.name}`,
+            `${state.name}`,
             state.with((setup) => {
-              setup.withFixture(html`
-                <sbb-breadcrumb
-                  href="https://www.sbb.ch"
-                  target="_blank"
-                  download="false"
-                  .iconName=${singleCase.icon}
-                  >${singleCase.text ? singleCase.text : nothing}</sbb-breadcrumb
-                >
-              `);
+              setup.withSnapshotElement(root);
             }),
           );
         }
-      }
-    });
+      });
+    }
 
     describe('slotted icon', () => {
       beforeEach(async function () {
