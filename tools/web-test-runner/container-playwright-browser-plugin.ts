@@ -25,7 +25,6 @@ export const startPlaywrightServerCommand = [
   'run',
   '-p',
   `${port}:${port}`,
-  '--add-host=hostmachine:host-gateway',
   '--rm',
   '--init',
   '--workdir=/home/pwuser',

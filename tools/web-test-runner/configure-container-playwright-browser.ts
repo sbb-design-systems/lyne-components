@@ -30,10 +30,9 @@ export function configureRemotePlaywrightBrowser(browser: PlaywrightLauncher): v
     if (!this.browser || !this.browser?.isConnected()) {
       this.__connectBrowserPromise = (async () => {
         // eslint-disable-next-line import-x/namespace
-        const browser = await playwright[this.product].connect(
-          playwrightWebsocketAddress,
-          this.launchOptions,
-        );
+        const browser = await playwright[this.product].connect(playwrightWebsocketAddress, {
+          headers: { 'x-playwright-launch-options': JSON.stringify(this.launchOptions) },
+        });
         return browser;
       })();
       const browser = await this.__connectBrowserPromise;
@@ -51,7 +50,7 @@ export function configureRemotePlaywrightBrowser(browser: PlaywrightLauncher): v
     await startSession.call(
       this,
       sessionId,
-      url.replace('http://localhost:', 'http://hostmachine:'),
+      url.replace('http://localhost:', 'http://host.containers.internal:'),
     );
   };
 }
