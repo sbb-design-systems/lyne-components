@@ -19,11 +19,7 @@ describe(`sbb-teaser-paid ${fixture.name}`, () => {
         </sbb-teaser-paid>
       `,
       {
-        modules: [
-          './teaser-paid.js',
-          '@sbb-esta/lyne-elements/chip.js',
-          '@sbb-esta/lyne-elements/image.js',
-        ],
+        modules: ['./teaser-paid.js', '../../elements/chip.js', '../../elements/image.js'],
       },
     );
   });
