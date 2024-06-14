@@ -3,6 +3,7 @@ import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
 import type { SbbLinkElement } from '../../link.js';
@@ -252,7 +253,7 @@ describe(`sbb-popover`, () => {
       const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
 
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       await sendKeys({ press: 'Enter' });
 
       await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -308,7 +309,7 @@ describe(`sbb-popover`, () => {
 
       expect(element).to.have.attribute('data-state', 'opened');
 
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       await sendKeys({ press: 'Escape' });
 
       await waitForCondition(() => willCloseEventSpy.events.length === 1);
@@ -416,7 +417,7 @@ describe(`sbb-popover`, () => {
       expect(popoverContainer).to.have.attribute('tabindex', '0');
 
       // When tabbing away
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
 
       // Then popover should close, next element should be focused and popover container be reset.
       await waitForCondition(() => element.getAttribute('data-state') === 'closed');
@@ -485,7 +486,7 @@ describe(`sbb-popover`, () => {
     expect(element).to.have.attribute('data-state', 'opened');
 
     trigger.focus();
-    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: tabKey });
 
     expect(document.activeElement!.id).to.be.equal('another-popover-trigger');
 
