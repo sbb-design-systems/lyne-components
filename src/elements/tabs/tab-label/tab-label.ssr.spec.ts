@@ -9,7 +9,9 @@ describe(`sbb-tab-label ${fixture.name}`, () => {
   let root: SbbTabLabelElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-tab-label></sbb-tab-label>`, { modules: ['./tab-label.js'] });
+    root = await fixture(html`<sbb-tab-label>Label</sbb-tab-label>`, {
+      modules: ['./tab-label.js'],
+    });
   });
 
   it('renders', () => {

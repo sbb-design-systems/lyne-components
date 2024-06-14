@@ -8,13 +8,19 @@ tab panels can present different sections of content and include text, images, f
 ```html
 <sbb-tab-group>
   <sbb-tab-label>I am the first</sbb-tab-label>
-  <sbb-tab>Tab content 1</sbb-tab>
+  <sbb-tab>
+    <p>Tab content 1</p>
+  </sbb-tab>
 
   <sbb-tab-label>I am the second</sbb-tab-label>
-  <sbb-tab>Tab content 2</sbb-tab>
+  <sbb-tab>
+    <p>Tab content 2</p>
+  </sbb-tab>
 
   <sbb-tab-label>I am the third</sbb-tab-label>
-  <sbb-tab>Tab content 3</sbb-tab>
+  <sbb-tab>
+    <p>Tab content 3</p>
+  </sbb-tab>
 </sbb-tab-group>
 ```
 
@@ -38,12 +44,12 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 ## Events
 
-Consumers can listen to the `didChange` event, whose `event.detail` is typed as `SbbSelectTabChangedEventDetails`.
+Consumers can listen to the `didChange` event, whose `event.detail` is typed as `SbbTabChangedEventDetails`.
 From it, it's possible to retrieve the information about the current `sbb-tab-label`, `sbb-tab` and index, and,
 if available, also the information about the previous ones.
 
 ```ts
-type SbbSelectTabChangedEventDetails = {
+type SbbTabChangedEventDetails = {
   activeIndex: number;
   activeTabLabel: SbbTabLabelElement;
   activeTab: SbbTabElement;
@@ -72,13 +78,13 @@ type SbbSelectTabChangedEventDetails = {
 
 ## Events
 
-| Name        | Type                                           | Description                            | Inherited From |
-| ----------- | ---------------------------------------------- | -------------------------------------- | -------------- |
-| `didChange` | `CustomEvent<SbbSelectTabChangedEventDetails>` | Emits an event on selected tab change. |                |
+| Name        | Type                                     | Description                            | Inherited From |
+| ----------- | ---------------------------------------- | -------------------------------------- | -------------- |
+| `didChange` | `CustomEvent<SbbTabChangedEventDetails>` | Emits an event on selected tab change. |                |
 
 ## Slots
 
-| Name      | Description                                                                                                                                                                                                                                                                      |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add html-content to the `sbb-tab-group`. Wrap the content in a `sbb-tab` or provide a nested `sbb-tab-group`: This is correct: `<sbb-tab>Some text <p>Some other text</p></sbb-tab>` This is not correct: `<span>Some text</span><p>Some other text</p>` |
-| `tab-bar` | When you provide the `sbb-tab-label` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly.                                                                                                                              |
+| Name      | Description                                                                                                                                         |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to add html-content to the `sbb-tab-group`; wrap the content in a `sbb-tab` or provide a nested `sbb-tab-group`.               |
+| `tab-bar` | When you provide the `sbb-tab-label` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly. |

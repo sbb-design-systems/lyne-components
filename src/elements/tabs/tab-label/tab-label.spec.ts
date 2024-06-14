@@ -9,7 +9,7 @@ describe(`sbb-tab-label`, () => {
   let element: SbbTabLabelElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-tab-label></sbb-tab-label>`);
+    element = await fixture(html`<sbb-tab-label>Label</sbb-tab-label>`);
     assert.instanceOf(element, SbbTabLabelElement);
   });
 });

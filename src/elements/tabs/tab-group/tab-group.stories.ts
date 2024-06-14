@@ -14,7 +14,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import { type SbbSelectTabChangedEventDetails, SbbTabGroupElement } from './tab-group.js';
+import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.js';
 
 import '../../link.js';
 import '../../title.js';
@@ -23,9 +23,9 @@ import '../tab.js';
 import '../../card.js';
 
 const changeEventHandler = (event: CustomEvent): void => {
-  const evDetail = event.detail as SbbSelectTabChangedEventDetails;
-  const div = document.getElementById('container')!;
-  div.innerHTML = `
+  const evDetail = event.detail as SbbTabChangedEventDetails;
+  const card = document.getElementById('container')!;
+  card.innerHTML = `
     The selected tab has index: ${evDetail.activeIndex} and label "${evDetail.activeTabLabel.textContent}";<br/>
     The previous tab has index: ${evDetail.previousIndex} with label "${evDetail.previousTabLabel?.textContent}"
   `;
@@ -37,32 +37,38 @@ const firstTabTitle = (label: string, args: Args): TemplateResult => html`
 
 const tabPanelOne = (): TemplateResult => html`
   <sbb-tab>
-    Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-    elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-    urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
-    turpis in eu mi bibendum neque egestas congue.
-    <sbb-title level="5">Content heading</sbb-title>
-    Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-    elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-    urna neque viverra justo nec.
+    <article>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
+      <sbb-title level="5">Content heading</sbb-title>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
+    </article>
   </sbb-tab>
 `;
 
 const tabPanelTwo = (): TemplateResult => html`
   <sbb-tab>
-    Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-    elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-    urna neque viverra justo nec.
-    <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
+    <section>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
+      <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
+    </section>
   </sbb-tab>
 `;
 
 const tabPanelFour = (): TemplateResult => html`
   <sbb-tab>
-    Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-    elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-    urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
-    turpis in eu mi bibendum neque egestas congue.
+    <p>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
+    </p>
   </sbb-tab>
 `;
 
@@ -113,17 +119,21 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
     <sbb-tab-group size=${size} initial-selected-index="1">
       <sbb-tab-label level="2">Nested tab</sbb-tab-label>
       <sbb-tab>
-        Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-        elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
-        rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed
-        faucibus turpis in eu mi bibendum neque egestas congue.
+        <p>
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+          rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed
+          faucibus turpis in eu mi bibendum neque egestas congue.
+        </p>
       </sbb-tab>
 
       <sbb-tab-label level="2">Nested tab</sbb-tab-label>
       <sbb-tab>
-        Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-        elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
-        rhoncus urna.
+        <p>
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+          rhoncus urna.
+        </p>
       </sbb-tab>
     </sbb-tab-group>
 
@@ -133,7 +143,7 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
     <sbb-tab-label ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
     </sbb-tab-label>
-    <sbb-tab>I was disabled.</sbb-tab>
+    <sbb-tab><p>I was disabled.</p></sbb-tab>
 
     <sbb-tab-label amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-label>
     ${tabPanelFour()}

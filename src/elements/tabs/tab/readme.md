@@ -2,15 +2,21 @@ The `sbb-tab` is a component used to provide content to a `sbb-tab-group`
 (see [sbb-tab-group](/docs/elements-sbb-tab-sbb-tab-group--docs) for more details).
 
 ```html
-<sbb-tab>Content</sbb-tab>
+<sbb-tab>
+  <p>Content</p>
+</sbb-tab>
 ```
 
 ## Slots
 
 The content is projected in an unnamed slot.
+Use a semantic element as a content wrapper (`p`, `article`, `section` and so on)
+to improve screen-reader usability due to its implicit role.
 
 ```html
-<sbb-tab>Content</sbb-tab>
+<sbb-tab>
+  <section>Content</section>
+</sbb-tab>
 ```
 
 ## Accessibility

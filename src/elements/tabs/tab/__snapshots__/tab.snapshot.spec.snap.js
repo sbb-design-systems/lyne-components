@@ -3,7 +3,9 @@ export const snapshots = {};
 
 snapshots["sbb-tab renders DOM"] = 
 `<sbb-tab>
-  Content
+  <p>
+    Content
+  </p>
 </sbb-tab>
 `;
 /* end snapshot sbb-tab renders DOM */

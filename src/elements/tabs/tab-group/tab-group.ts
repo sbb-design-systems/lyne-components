@@ -14,7 +14,7 @@ import style from './tab-group.scss?lit&inline';
 
 export type SbbTabSupportedContentType = SbbTabElement | SbbTabGroupElement;
 
-export type SbbSelectTabChangedEventDetails = {
+export type SbbTabChangedEventDetails = {
   activeIndex: number;
   activeTabLabel: SbbTabLabelElement;
   activeTab: SbbTabElement;
@@ -51,13 +51,11 @@ let nextId = 0;
 /**
  * It displays one or more tab, each one with a title and a content.
  *
- * @slot - Use the unnamed slot to add html-content to the `sbb-tab-group`.
- * Wrap the content in a `sbb-tab` or provide a nested `sbb-tab-group`:
- * This is correct: `<sbb-tab>Some text <p>Some other text</p></sbb-tab>`
- * This is not correct: `<span>Some text</span><p>Some other text</p>`
+ * @slot - Use the unnamed slot to add html-content to the `sbb-tab-group`;
+ * wrap the content in a `sbb-tab` or provide a nested `sbb-tab-group`.
  * @slot tab-bar - When you provide the `sbb-tab-label` tag through the unnamed slot,
  * it will be automatically moved to this slot. You do not need to use it directly.
- * @event {CustomEvent<SbbSelectTabChangedEventDetails>} didChange - Emits an event on selected tab change.
+ * @event {CustomEvent<SbbTabChangedEventDetails>} didChange - Emits an event on selected tab change.
  */
 @customElement('sbb-tab-group')
 export class SbbTabGroupElement extends LitElement {
@@ -105,7 +103,7 @@ export class SbbTabGroupElement extends LitElement {
   }
 
   /** Emits an event on selected tab change. */
-  private _selectedTabChanged: EventEmitter<SbbSelectTabChangedEventDetails> = new EventEmitter(
+  private _selectedTabChanged: EventEmitter<SbbTabChangedEventDetails> = new EventEmitter(
     this,
     SbbTabGroupElement.events.didChange,
   );
@@ -310,10 +308,10 @@ export class SbbTabGroupElement extends LitElement {
 
           this._tabContentResizeObserver.observe(tab.relatedContent!);
           this._selectedTabChanged.emit({
-            activeIndex: this._getTabs().findIndex((e) => e === tab),
+            activeIndex: this._tabs.findIndex((e) => e === tab),
             activeTabLabel: tab,
             activeTab: tab.relatedContent as SbbTabElement,
-            previousIndex: this._getTabs().findIndex((e) => e === prevTab),
+            previousIndex: this._tabs.findIndex((e) => e === prevTab),
             previousTabLabel: prevTab,
             previousTab: prevTab?.relatedContent as SbbTabElement,
           });
@@ -332,26 +330,26 @@ export class SbbTabGroupElement extends LitElement {
         tab.relatedContent.tabIndex = 0;
         tab.relatedContent.configure();
       }
-    } else {
+    } else if (import.meta.env.DEV) {
       tab.insertAdjacentHTML('afterend', '<sbb-tab>No content.</sbb-tab>');
       tab.relatedContent = tab.nextElementSibling as SbbTabSupportedContentType;
-      if (import.meta.env.DEV) {
-        console.warn(
-          `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`,
-        );
-      }
+      console.warn(
+        `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`,
+      );
     }
     tab.tabIndex = -1;
     tab.disabled = tab.hasAttribute('disabled');
     tab.active = tab.hasAttribute('active') && !tab.disabled;
     tab.setAttribute('role', 'tab');
-    tab.setAttribute('aria-controls', tab.relatedContent.id);
     tab.setAttribute('aria-selected', 'false');
-    tab.relatedContent.setAttribute('role', 'tabpanel');
-    tab.relatedContent.toggleAttribute('active', tab.active);
     tab.addEventListener('click', () => {
       tab.tabGroupActions?.select();
     });
+    if (tab.relatedContent) {
+      tab.setAttribute('aria-controls', tab.relatedContent.id);
+      tab.relatedContent.setAttribute('role', 'tabpanel');
+      tab.relatedContent.toggleAttribute('active', tab.active);
+    }
 
     this._tabAttributeObserver.observe(tab, tabObserverConfig);
     tab.slot = 'tab-bar';

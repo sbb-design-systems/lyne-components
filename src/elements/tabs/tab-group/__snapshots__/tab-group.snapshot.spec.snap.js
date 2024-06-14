@@ -21,7 +21,9 @@ snapshots["sbb-tab-group renders DOM"] =
     role="tabpanel"
     tabindex="0"
   >
-    Test tab content 1
+    <p>
+      Test tab content 1
+    </p>
   </sbb-tab>
   <sbb-tab-label
     aria-controls="sbb-tab-panel-2"
@@ -39,7 +41,9 @@ snapshots["sbb-tab-group renders DOM"] =
     role="tabpanel"
     tabindex="0"
   >
-    Test tab content 2
+    <p>
+      Test tab content 2
+    </p>
   </sbb-tab>
   <sbb-tab-label
     aria-controls="sbb-tab-panel-3"
@@ -58,7 +62,9 @@ snapshots["sbb-tab-group renders DOM"] =
     role="tabpanel"
     tabindex="0"
   >
-    Test tab content 3
+    <p>
+      Test tab content 3
+    </p>
   </sbb-tab>
   <sbb-tab-label
     aria-controls=""
@@ -92,45 +98,6 @@ snapshots["sbb-tab-group renders Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-tab-group renders Shadow DOM */
-
-snapshots["sbb-tab-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "tab",
-      "name": "Test tab label 1",
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 2"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 3"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 4"
-    },
-    {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Test tab content 1"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tab-group renders A11y tree Firefox */
 
 snapshots["sbb-tab-group renders A11y tree Chrome"] = 
 `<p>
@@ -170,4 +137,43 @@ snapshots["sbb-tab-group renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-tab-group renders A11y tree Chrome */
+
+snapshots["sbb-tab-group renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "tab",
+      "name": "Test tab label 1",
+      "selected": true
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 2"
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 3"
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 4"
+    },
+    {
+      "role": "tabpanel",
+      "name": "",
+      "children": [
+        {
+          "role": "text leaf",
+          "name": "Test tab content 1"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab-group renders A11y tree Firefox */
 
