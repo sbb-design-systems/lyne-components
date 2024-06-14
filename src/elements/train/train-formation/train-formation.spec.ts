@@ -305,5 +305,20 @@ describe(`sbb-train-formation`, () => {
         },
       ]);
     });
+
+    it('should remove sectors row if there were no sectors found', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train>
+            <sbb-train-wagon></sbb-train-wagon>
+          </sbb-train>
+          <sbb-train>
+            <sbb-train-wagon></sbb-train-wagon>
+          </sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(extractAggregatedSectors(element)).to.be.eql([]);
+    });
   });
 });
