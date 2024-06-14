@@ -6,7 +6,7 @@ snapshots["sbb-stepper renders DOM"] =
   data-disable-animation=""
   orientation="horizontal"
   selected-index="0"
-  style="--sbb-stepper-marker-size: 188px;"
+  style="--sbb-stepper-marker-size: 165px;"
 >
   <sbb-step-label
     aria-controls="sbb-step-0"
