@@ -58,7 +58,7 @@ describe(`sbb-expansion-panel`, () => {
 
       for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
         it(
-          state.name,
+          `icon=${state.name}`,
           state.with((setup) => {
             setup.withSnapshotElement(root);
           }),
