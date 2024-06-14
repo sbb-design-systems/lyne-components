@@ -307,11 +307,12 @@ export class SbbTabGroupElement extends LitElement {
           this._selectedTab = tab;
 
           this._tabContentResizeObserver.observe(tab.relatedContent!);
+          const tabs = this._tabs;
           this._selectedTabChanged.emit({
-            activeIndex: this._tabs.findIndex((e) => e === tab),
+            activeIndex: tabs.findIndex((e) => e === tab),
             activeTabLabel: tab,
             activeTab: tab.relatedContent as SbbTabElement,
-            previousIndex: this._tabs.findIndex((e) => e === prevTab),
+            previousIndex: tabs.findIndex((e) => e === prevTab),
             previousTabLabel: prevTab,
             previousTab: prevTab?.relatedContent as SbbTabElement,
           });
