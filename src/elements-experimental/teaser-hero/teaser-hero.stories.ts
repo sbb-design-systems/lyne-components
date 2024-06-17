@@ -1,3 +1,4 @@
+import sampleImages from '@sbb-esta/lyne-elements/core/images.js';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
@@ -5,7 +6,6 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
 import './teaser-hero.js';
@@ -156,7 +156,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-teaser/sbb-teaser-hero',
+  title: 'experimental/sbb-teaser/sbb-teaser-hero',
 };
 
 export default meta;

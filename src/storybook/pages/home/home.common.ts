@@ -17,8 +17,8 @@ import '../../../elements/link-list.js';
 import '../../../elements/menu.js';
 import '../../../elements/navigation.js';
 import '../../../elements/skiplink-list.js';
-import '../../../elements/teaser-hero.js';
 import '../../../elements/title.js';
+import '../../../elements-experimental/teaser-hero.js';
 
 export const skiplinkList = (): TemplateResult => html`
   <sbb-skiplink-list title-level="2" title-content="Skip to">

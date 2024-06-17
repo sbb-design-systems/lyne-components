@@ -1,8 +1,7 @@
 import { assert } from '@open-wc/testing';
+import images from '@sbb-esta/lyne-elements/core/images.js';
+import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
-
-import images from '../core/images.js';
-import { fixture } from '../core/testing/private.js';
 
 import { SbbTeaserHeroElement } from './teaser-hero.js';
 

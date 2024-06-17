@@ -1,15 +1,15 @@
+import sampleImages from '@sbb-esta/lyne-elements/core/images.js';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
 
-import '../chip.js';
-import '../image.js';
+import '@sbb-esta/lyne-elements/chip.js';
+import '@sbb-esta/lyne-elements/image.js';
 import './teaser-paid.js';
 
 const accessibilityLabel: InputType = {
@@ -118,7 +118,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-teaser/sbb-teaser-paid',
+  title: 'experimental/sbb-teaser/sbb-teaser-paid',
 };
 
 export default meta;

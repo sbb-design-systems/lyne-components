@@ -1,12 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
+import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
-
-import { fixture } from '../core/testing/private.js';
-import { waitForLitRender } from '../core/testing.js';
 
 import { SbbTeaserHeroElement } from './teaser-hero.js';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
+const imageUrl = import.meta.resolve('../../elements/core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser-hero`, () => {
   let element: SbbTeaserHeroElement;

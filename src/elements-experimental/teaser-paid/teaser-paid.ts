@@ -1,7 +1,6 @@
+import { SbbLinkBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-
-import { SbbLinkBaseElement } from '../core/base-elements.js';
 
 import style from './teaser-paid.scss?lit&inline';
 
