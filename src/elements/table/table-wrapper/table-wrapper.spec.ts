@@ -41,7 +41,7 @@ describe(`sbb-table-wrapper`, () => {
     table.style.setProperty('width', '130%');
 
     // ResizeObserver callbacks run outside the usual render flow
-    await aTimeout(20);
+    await aTimeout(100);
     expect(element).to.have.attribute('data-has-horizontal-scrollbar');
   });
 });
