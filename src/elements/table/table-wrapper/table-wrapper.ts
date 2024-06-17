@@ -22,6 +22,7 @@ export class SbbTableWrapperElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   private _resizeObserver = new AgnosticResizeObserver(() => this._checkHorizontalScrollbar());
+  private _tableWrapper!: HTMLElement;
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
@@ -30,14 +31,14 @@ export class SbbTableWrapperElement extends SbbNegativeMixin(LitElement) {
 
   protected override firstUpdated(_changedProperties: PropertyValues): void {
     super.firstUpdated(_changedProperties);
-    this._resizeObserver.observe(this);
+    this._tableWrapper = this.shadowRoot!.querySelector<HTMLElement>('.sbb-table-wrapper')!;
+    this._resizeObserver.observe(this._tableWrapper);
   }
 
   private _checkHorizontalScrollbar(): void {
-    const wrapper: HTMLElement = this.shadowRoot!.querySelector('.sbb-table-wrapper')!;
     this.toggleAttribute(
       'data-has-horizontal-scrollbar',
-      wrapper.scrollWidth > wrapper.offsetWidth,
+      this._tableWrapper.scrollWidth > this._tableWrapper.offsetWidth,
     );
   }
 

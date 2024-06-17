@@ -9,14 +9,6 @@
   display: block;
 }
 
-:host([data-has-horizontal-scrollbar]) {
-  ::slotted(.sbb-table) {
-    // Remove the border-radius from the bottom of the table if the scroll is visible (!important is needed because ::slotted has the lower specificity)
-    border-end-end-radius: 0 !important;
-    border-end-start-radius: 0 !important;
-  }
-}
-
 ::slotted(.sbb-table) {
   width: 100%;
 }
@@ -25,12 +17,12 @@
   overflow: auto;
   @include sbb.scrollbar($size: thick, $track-visible: true);
 
-  &::-webkit-scrollbar {
-    border-radius: 0 0 var(--sbb-table-wrapper-border-radius) var(--sbb-table-wrapper-border-radius);
-  }
-
   :host([negative]) & {
     @include sbb.scrollbar-variables--color-negative;
     @include sbb.scrollbar-variables--color-negative-track-visible;
+  }
+
+  :host([data-has-horizontal-scrollbar]) & {
+    padding-bottom: var(--sbb-spacing-fixed-1x);
   }
 }
