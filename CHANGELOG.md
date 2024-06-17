@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.53.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.52.2...v0.53.0) (2024-06-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-teaser-hero, sbb-teaser-paid:** `sbb-teaser-hero` and `sbb-teaser-paid` are now part of the `@sbb-esta/lyne-elements-experimental` package.
+* **sbb-tab:** the `sbb-tab-title` component has been renamed to `sbb-tab-label`.  A new component named `sbb-tab` has been created, and it is now the only supported tag for the tab's content; `article`, `section` and `div` are not supported anymore.  To solve the issue #1351, the `didChange` event on `sbb-tab-group` now includes an object which contains the currently selected tab index, the `sbb-tab-label` component and related `sbb-tab` component, plus, if available, the previous ones.
+* **sbb-selection-panel, sbb-checkbox, sbb-radio-button:** `sbb-selection-panel` has been renamed to `sbb-selection-expansion-panel`. The `sbb-checkbox` and `sbb-radio-button` components cannot be used anymore with `sbb-selection-expansion-panel` (does not apply for cases where they are slotted inside the `content` slot). As a replacement, we introduce the new components `sbb-checkbox-panel` and `sbb-radio-button-panel`, which could also be used standalone in cases where there is no content. `sbb-checkbox-group` and `sbb-radio-button-group` also support the panel variants. How to migrate?
+    - Rename usages of `sbb-selection-panel` to `sbb-selection-expansion-panel`.
+    - Inside the `sbb-selection-expansion-panel`, replace `sbb-checkbox` with `sbb-checkbox-panel` and `sbb-radio-button` with `sbb-radio-button-panel` (does not apply for cases where they are slotted inside the `content` slot of the `sbb-selection-expansion-panel`)
+    - In cases where there was no content (slot), don't use `sbb-selection-panel`/`sbb-selection-expansion-panel` anymore, but directly use `sbb-checkbox-panel` or `sbb-radio-button-panel`.
+
+### Bug Fixes
+
+* **sbb-train-formation:** hide sectors row if no sectors were defined ([#2779](https://github.com/sbb-design-systems/lyne-components/issues/2779)) ([b011a92](https://github.com/sbb-design-systems/lyne-components/commit/b011a92cf42deec24ba0b12d73549cf3293a321b))
+
+
+### Code Refactoring
+
+* **sbb-selection-panel, sbb-checkbox, sbb-radio-button:** split into regular and panel variants ([#2778](https://github.com/sbb-design-systems/lyne-components/issues/2778)) ([d206926](https://github.com/sbb-design-systems/lyne-components/commit/d206926ad8944653e9010462fe926a04742a3e9d))
+* **sbb-tab:** align with sbb-stepper ([#2744](https://github.com/sbb-design-systems/lyne-components/issues/2744)) ([4305ca8](https://github.com/sbb-design-systems/lyne-components/commit/4305ca8bf348a62ee72bc2453487c385bc55bda2))
+* **sbb-teaser-hero, sbb-teaser-paid:** move to `@sbb-esta/lyne-elements-experimental` ([#2782](https://github.com/sbb-design-systems/lyne-components/issues/2782)) ([1032e76](https://github.com/sbb-design-systems/lyne-components/commit/1032e76b5fedd0bb01f1795fa3933de51b4aebeb))
+
 ## [0.52.2](https://github.com/sbb-design-systems/lyne-components/compare/v0.52.1...v0.52.2) (2024-06-14)
 
 
