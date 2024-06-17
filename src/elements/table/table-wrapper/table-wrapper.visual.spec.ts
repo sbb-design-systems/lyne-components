@@ -7,9 +7,9 @@ import {
   visualRegressionFixture,
   visualDiffDefault,
 } from '../../core/testing/private.js';
+import { waitForCondition } from '../../core/testing/wait-for-condition.js';
 
 import './table-wrapper.js';
-import { waitForCondition } from '@sbb-esta/lyne-elements/core/testing/wait-for-condition';
 
 describe(`sbb-table-wrapper`, () => {
   let root: HTMLElement;
