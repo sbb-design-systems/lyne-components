@@ -9,6 +9,7 @@ import {
 } from '../../core/testing/private.js';
 
 import './table-wrapper.js';
+import { waitForCondition } from '@sbb-esta/lyne-elements/core/testing/wait-for-condition';
 
 describe(`sbb-table-wrapper`, () => {
   let root: HTMLElement;
@@ -58,6 +59,9 @@ describe(`sbb-table-wrapper`, () => {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
           },
         );
+        if (scrollbar) {
+          await waitForCondition(() => root.hasAttribute('data-has-horizontal-scrollbar'));
+        }
       });
 
       it(
