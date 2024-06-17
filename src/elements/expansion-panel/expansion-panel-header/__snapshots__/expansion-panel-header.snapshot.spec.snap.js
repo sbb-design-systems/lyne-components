@@ -1,7 +1,22 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-expansion-panel-header renders collapsed"] = 
+snapshots["sbb-expansion-panel-header renders DOM"] = 
+`<sbb-expansion-panel-header
+  data-action=""
+  data-button=""
+  data-slot-names="unnamed"
+  dir="ltr"
+  role="button"
+  slot="header"
+  tabindex="0"
+>
+  Header
+</sbb-expansion-panel-header>
+`;
+/* end snapshot sbb-expansion-panel-header renders DOM */
+
+snapshots["sbb-expansion-panel-header renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-expansion-panel-header">
   <span class="sbb-expansion-panel-header__title">
     <span class="sbb-expansion-panel-header__icon">
@@ -23,9 +38,42 @@ snapshots["sbb-expansion-panel-header renders collapsed"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-expansion-panel-header renders collapsed */
+/* end snapshot sbb-expansion-panel-header renders Shadow DOM */
 
-snapshots["sbb-expansion-panel-header renders with icon"] = 
+snapshots["sbb-expansion-panel-header renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Header"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-expansion-panel-header renders A11y tree Chrome */
+
+snapshots["sbb-expansion-panel-header renders with icon DOM"] = 
+`<sbb-expansion-panel-header
+  data-action=""
+  data-button=""
+  data-icon=""
+  data-slot-names="unnamed"
+  dir="ltr"
+  icon-name="pie-medium"
+  role="button"
+  slot="header"
+  tabindex="0"
+>
+  Header
+</sbb-expansion-panel-header>
+`;
+/* end snapshot sbb-expansion-panel-header renders with icon DOM */
+
+snapshots["sbb-expansion-panel-header renders with icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-expansion-panel-header">
   <span class="sbb-expansion-panel-header__title">
     <span class="sbb-expansion-panel-header__icon">
@@ -54,9 +102,33 @@ snapshots["sbb-expansion-panel-header renders with icon"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-expansion-panel-header renders with icon */
+/* end snapshot sbb-expansion-panel-header renders with icon Shadow DOM */
 
-snapshots["sbb-expansion-panel-header renders with slotted icon"] = 
+snapshots["sbb-expansion-panel-header renders with slotted icon DOM"] = 
+`<sbb-expansion-panel-header
+  data-action=""
+  data-button=""
+  data-icon=""
+  data-slot-names="icon unnamed"
+  dir="ltr"
+  role="button"
+  slot="header"
+  tabindex="0"
+>
+  <sbb-icon
+    aria-hidden="true"
+    data-namespace="default"
+    name="pie-medium"
+    role="img"
+    slot="icon"
+  >
+  </sbb-icon>
+  Header
+</sbb-expansion-panel-header>
+`;
+/* end snapshot sbb-expansion-panel-header renders with slotted icon DOM */
+
+snapshots["sbb-expansion-panel-header renders with slotted icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-expansion-panel-header">
   <span class="sbb-expansion-panel-header__title">
     <span class="sbb-expansion-panel-header__icon">
@@ -78,25 +150,9 @@ snapshots["sbb-expansion-panel-header renders with slotted icon"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-expansion-panel-header renders with slotted icon */
+/* end snapshot sbb-expansion-panel-header renders with slotted icon Shadow DOM */
 
-snapshots["sbb-expansion-panel-header A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Header"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-expansion-panel-header A11y tree Chrome */
-
-snapshots["sbb-expansion-panel-header A11y tree Firefox"] = 
+snapshots["sbb-expansion-panel-header renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -110,5 +166,5 @@ snapshots["sbb-expansion-panel-header A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-expansion-panel-header A11y tree Firefox */
+/* end snapshot sbb-expansion-panel-header renders A11y tree Firefox */
 
