@@ -264,6 +264,8 @@ const defaultArgsButton = {
   value: 'Value',
 };
 
+//TODO: Stories can be simplified
+
 export const ColorWhite: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -489,11 +491,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.color === 'white' || context.args.color === 'transparent-bordered-dashed'
-        ? 'var(--sbb-color-milk)'
-        : context.args.color === 'milk'
-          ? 'var(--sbb-color-white)'
-          : '--sbb-color-platinum',
+      context.args.color === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
     actions: {
       handles: ['click'],
     },
