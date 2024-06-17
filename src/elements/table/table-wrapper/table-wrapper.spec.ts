@@ -1,8 +1,8 @@
-import { assert, aTimeout, expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing/wait-for-render.js';
+import { waitForLitRender, waitForCondition } from '../../core/testing.js';
 
 import { SbbTableWrapperElement } from './table-wrapper.js';
 
@@ -41,7 +41,8 @@ describe(`sbb-table-wrapper`, () => {
     table.style.setProperty('width', '130%');
 
     // ResizeObserver callbacks run outside the usual render flow
-    await aTimeout(100);
+    await waitForCondition(() => element.hasAttribute('data-has-horizontal-scrollbar'));
+
     expect(element).to.have.attribute('data-has-horizontal-scrollbar');
   });
 });
