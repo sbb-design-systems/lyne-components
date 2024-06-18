@@ -11,62 +11,95 @@ import '../datepicker.js';
 import '../../form-field.js';
 
 describe(`sbb-datepicker-toggle`, () => {
-  it('renders', async () => {
-    const page = await fixture(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
+  describe(`renders`, () => {
+    let element: SbbDatepickerToggleElement;
 
-    expect(page).dom.to.equal(`<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`);
-    await expect(page).shadowDom.to.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
-  describe('renders in form-field', () => {
-    it('renders in form-field', async () => {
-      const page: SbbFormFieldElement = await fixture(html`
-        <sbb-form-field>
-          <sbb-datepicker-toggle></sbb-datepicker-toggle>
-          <sbb-datepicker></sbb-datepicker>
-          <input />
-        </sbb-form-field>
-      `);
-      const element: SbbDatepickerToggleElement =
-        page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
-      expect(element).dom.to.be.equal(
-        `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
-      );
-      await expect(element).shadowDom.to.be.equalSnapshot();
+  describe('in form-field', () => {
+    describe('renders', async () => {
+      let page: SbbFormFieldElement;
+      let element: SbbDatepickerToggleElement;
+
+      beforeEach(async () => {
+        page = await fixture(html`
+          <sbb-form-field>
+            <sbb-datepicker-toggle></sbb-datepicker-toggle>
+            <sbb-datepicker></sbb-datepicker>
+            <input />
+          </sbb-form-field>
+        `);
+        element = page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+      });
+
+      it('DOM', async () => {
+        await expect(element).dom.to.be.equalSnapshot();
+      });
+
+      it('Shadow DOM', async () => {
+        await expect(element).shadowDom.to.be.equalSnapshot();
+      });
     });
 
-    it('renders in disabled form-field', async () => {
-      const page: SbbFormFieldElement = await fixture(html`
-        <sbb-form-field>
-          <sbb-datepicker-toggle></sbb-datepicker-toggle>
-          <sbb-datepicker></sbb-datepicker>
-          <input disabled />
-        </sbb-form-field>
-      `);
-      const element: SbbDatepickerToggleElement =
-        page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
-      expect(element).dom.to.be.equal(
-        `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
-      );
-      await expect(element).shadowDom.to.be.equalSnapshot();
+    describe('renders disabled', async () => {
+      let page: SbbFormFieldElement;
+      let element: SbbDatepickerToggleElement;
+
+      beforeEach(async () => {
+        page = await fixture(html`
+          <sbb-form-field>
+            <sbb-datepicker-toggle></sbb-datepicker-toggle>
+            <sbb-datepicker></sbb-datepicker>
+            <input disabled />
+          </sbb-form-field>
+        `);
+        element = page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+      });
+
+      it('DOM', async () => {
+        await expect(element).dom.to.be.equalSnapshot();
+      });
+
+      it('Shadow DOM', async () => {
+        await expect(element).shadowDom.to.be.equalSnapshot();
+      });
     });
 
-    it('renders in form-field with calendar parameters', async () => {
-      const page = await fixture(html`
-        <sbb-form-field>
-          <sbb-datepicker-toggle></sbb-datepicker-toggle>
-          <sbb-datepicker wide></sbb-datepicker>
-          <input min="1600000000" max="1700000000" />
-        </sbb-form-field>
-      `);
-      const element: SbbDatepickerToggleElement =
-        page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
-      expect(element).dom.to.be.equal(
-        `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
-      );
-      await expect(element).shadowDom.to.be.equalSnapshot();
+    describe('with calendar parameters', async () => {
+      let page: SbbFormFieldElement;
+      let element: SbbDatepickerToggleElement;
+
+      beforeEach(async () => {
+        page = await fixture(html`
+          <sbb-form-field>
+            <sbb-datepicker-toggle></sbb-datepicker-toggle>
+            <sbb-datepicker wide></sbb-datepicker>
+            <input min="1600000000" max="1700000000" />
+          </sbb-form-field>
+        `);
+        element = page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+      });
+
+      it('DOM', async () => {
+        await expect(element).dom.to.be.equalSnapshot();
+      });
+
+      it('Shadow DOM', async () => {
+        await expect(element).shadowDom.to.be.equalSnapshot();
+      });
     });
   });
-
-  testA11yTreeSnapshot(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
 });
