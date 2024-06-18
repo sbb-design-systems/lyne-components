@@ -55,6 +55,12 @@ export default [
     },
   },
   {
+    files: ['src/storybook/**/*.ts'],
+    rules: {
+      'lyne/test-describe-title': 'off',
+    },
+  },
+  {
     files: ['**/*.ts'],
     rules: {
       '@typescript-eslint/array-type': 'error',

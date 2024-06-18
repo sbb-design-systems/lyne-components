@@ -2,6 +2,59 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.53.0...v1.0.0) (2024-06-17)
+
+
+### Miscellaneous Chores
+
+* prepare release 1.0.0 ([33c4e4b](https://github.com/sbb-design-systems/lyne-components/commit/33c4e4b9b5b28c281f9fcb302e8c6f7e78aac0f7))
+
+## [0.53.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.52.2...v0.53.0) (2024-06-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-teaser-hero, sbb-teaser-paid:** `sbb-teaser-hero` and `sbb-teaser-paid` are now part of the `@sbb-esta/lyne-elements-experimental` package.
+* **sbb-tab:** the `sbb-tab-title` component has been renamed to `sbb-tab-label`.  A new component named `sbb-tab` has been created, and it is now the only supported tag for the tab's content; `article`, `section` and `div` are not supported anymore.  To solve the issue #1351, the `didChange` event on `sbb-tab-group` now includes an object which contains the currently selected tab index, the `sbb-tab-label` component and related `sbb-tab` component, plus, if available, the previous ones.
+* **sbb-selection-panel, sbb-checkbox, sbb-radio-button:** `sbb-selection-panel` has been renamed to `sbb-selection-expansion-panel`. The `sbb-checkbox` and `sbb-radio-button` components cannot be used anymore with `sbb-selection-expansion-panel` (does not apply for cases where they are slotted inside the `content` slot). As a replacement, we introduce the new components `sbb-checkbox-panel` and `sbb-radio-button-panel`, which could also be used standalone in cases where there is no content. `sbb-checkbox-group` and `sbb-radio-button-group` also support the panel variants. How to migrate?
+    - Rename usages of `sbb-selection-panel` to `sbb-selection-expansion-panel`.
+    - Inside the `sbb-selection-expansion-panel`, replace `sbb-checkbox` with `sbb-checkbox-panel` and `sbb-radio-button` with `sbb-radio-button-panel` (does not apply for cases where they are slotted inside the `content` slot of the `sbb-selection-expansion-panel`)
+    - In cases where there was no content (slot), don't use `sbb-selection-panel`/`sbb-selection-expansion-panel` anymore, but directly use `sbb-checkbox-panel` or `sbb-radio-button-panel`.
+
+### Bug Fixes
+
+* **sbb-train-formation:** hide sectors row if no sectors were defined ([#2779](https://github.com/sbb-design-systems/lyne-components/issues/2779)) ([b011a92](https://github.com/sbb-design-systems/lyne-components/commit/b011a92cf42deec24ba0b12d73549cf3293a321b))
+
+
+### Code Refactoring
+
+* **sbb-selection-panel, sbb-checkbox, sbb-radio-button:** split into regular and panel variants ([#2778](https://github.com/sbb-design-systems/lyne-components/issues/2778)) ([d206926](https://github.com/sbb-design-systems/lyne-components/commit/d206926ad8944653e9010462fe926a04742a3e9d))
+* **sbb-tab:** align with sbb-stepper ([#2744](https://github.com/sbb-design-systems/lyne-components/issues/2744)) ([4305ca8](https://github.com/sbb-design-systems/lyne-components/commit/4305ca8bf348a62ee72bc2453487c385bc55bda2))
+* **sbb-teaser-hero, sbb-teaser-paid:** move to `@sbb-esta/lyne-elements-experimental` ([#2782](https://github.com/sbb-design-systems/lyne-components/issues/2782)) ([1032e76](https://github.com/sbb-design-systems/lyne-components/commit/1032e76b5fedd0bb01f1795fa3933de51b4aebeb))
+
+## [0.52.2](https://github.com/sbb-design-systems/lyne-components/compare/v0.52.1...v0.52.2) (2024-06-14)
+
+
+### Bug Fixes
+
+* revert mangle configuration from build ([239a6a1](https://github.com/sbb-design-systems/lyne-components/commit/239a6a1cd4ccb9915b9fa3a8a2370fbe2aa80975))
+* revert split of sbb-checkbox and sbb-radio-button ([ebe391f](https://github.com/sbb-design-systems/lyne-components/commit/ebe391fab57463c03550ab711dff103838bf0537))
+
+## [0.52.1](https://github.com/sbb-design-systems/lyne-components/compare/v0.52.0...v0.52.1) (2024-06-14)
+
+
+### Features
+
+* **sbb-image:** provide load and error events ([#2725](https://github.com/sbb-design-systems/lyne-components/issues/2725)) ([56ae5b1](https://github.com/sbb-design-systems/lyne-components/commit/56ae5b16ccf2d2099f58b51508bfa89d2049d292))
+* **sbb-toggle-check:** add size 'xs' ([#2724](https://github.com/sbb-design-systems/lyne-components/issues/2724)) ([7415aeb](https://github.com/sbb-design-systems/lyne-components/commit/7415aeb5e2fb62155c042ae6da67396eeebaa53c))
+
+
+### Bug Fixes
+
+* avoid breaking type declarations due to alias resolution ([#2776](https://github.com/sbb-design-systems/lyne-components/issues/2776)) ([be72249](https://github.com/sbb-design-systems/lyne-components/commit/be72249727f40263138d4969bfc3a813273abfb7))
+* fix stacked overlays inert mechanism ([#2736](https://github.com/sbb-design-systems/lyne-components/issues/2736)) ([b611271](https://github.com/sbb-design-systems/lyne-components/commit/b611271d2b85647b96e99ea95a043c3320cc13ad))
+* **sbb-breadcrumb:** avoid to collapse for two or fewer breadcrumbs ([#2733](https://github.com/sbb-design-systems/lyne-components/issues/2733)) ([ecdb355](https://github.com/sbb-design-systems/lyne-components/commit/ecdb355a466599da8002fb0db4dad04af617ceb7))
+
 ## [0.52.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.51.1...v0.52.0) (2024-06-06)
 
 
