@@ -264,7 +264,7 @@ const defaultArgsButton = {
   value: 'Value',
 };
 
-//TODO: Stories can be simplified
+// TODO: Stories can be simplified
 
 export const ColorWhite: StoryObj = {
   render: Template,
