@@ -1,7 +1,25 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-train-formation should render with one train"] = 
+snapshots["sbb-train-formation should render with one train DOM"] = 
+`<sbb-train-formation>
+  <sbb-train
+    direction="left"
+    slot="li-0"
+  >
+    <sbb-train-wagon
+      data-has-visible-wagon-content=""
+      sector="A"
+      slot="li-0"
+      type="wagon"
+    >
+    </sbb-train-wagon>
+  </sbb-train>
+</sbb-train-formation>
+`;
+/* end snapshot sbb-train-formation should render with one train DOM */
+
+snapshots["sbb-train-formation should render with one train Shadow DOM"] = 
 `<div
   class="sbb-train-formation"
   style="--sbb-train-direction-width: 800px;"
@@ -17,7 +35,7 @@ snapshots["sbb-train-formation should render with one train"] =
                 --sbb-train-formation-wagon-blocked-passage-count: 0"
     >
       <span class="sbb-train-formation__sector-sticky-wrapper">
-        Sector
+        Sec. A
       </span>
     </span>
   </div>
@@ -38,9 +56,39 @@ snapshots["sbb-train-formation should render with one train"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-train-formation should render with one train */
+/* end snapshot sbb-train-formation should render with one train Shadow DOM */
 
-snapshots["sbb-train-formation should render with multiple trains"] = 
+snapshots["sbb-train-formation should render with multiple trains DOM"] = 
+`<sbb-train-formation>
+  <sbb-train
+    direction="left"
+    slot="li-0"
+  >
+    <sbb-train-wagon
+      data-has-visible-wagon-content=""
+      sector="A"
+      slot="li-0"
+      type="wagon"
+    >
+    </sbb-train-wagon>
+  </sbb-train>
+  <sbb-train
+    direction="left"
+    slot="li-1"
+  >
+    <sbb-train-wagon
+      data-has-visible-wagon-content=""
+      sector="B"
+      slot="li-0"
+      type="wagon"
+    >
+    </sbb-train-wagon>
+  </sbb-train>
+</sbb-train-formation>
+`;
+/* end snapshot sbb-train-formation should render with multiple trains DOM */
+
+snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] = 
 `<div
   class="sbb-train-formation"
   style="--sbb-train-direction-width: 800px;"
@@ -52,11 +100,21 @@ snapshots["sbb-train-formation should render with multiple trains"] =
     <span
       class="sbb-train-formation__sector"
       style="
-                --sbb-train-formation-wagon-count: 2;
+                --sbb-train-formation-wagon-count: 1;
                 --sbb-train-formation-wagon-blocked-passage-count: 0"
     >
       <span class="sbb-train-formation__sector-sticky-wrapper">
-        Sector
+        Sec. A
+      </span>
+    </span>
+    <span
+      class="sbb-train-formation__sector"
+      style="
+                --sbb-train-formation-wagon-count: 1;
+                --sbb-train-formation-wagon-blocked-passage-count: 0"
+    >
+      <span class="sbb-train-formation__sector-sticky-wrapper">
+        Sec. B
       </span>
     </span>
   </div>
@@ -81,5 +139,81 @@ snapshots["sbb-train-formation should render with multiple trains"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-train-formation should render with multiple trains */
+/* end snapshot sbb-train-formation should render with multiple trains Shadow DOM */
+
+snapshots["sbb-train-formation should render with multiple trains A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Train.",
+      "level": 6
+    },
+    {
+      "role": "text leaf",
+      "name": "Coaches of the train"
+    },
+    {
+      "role": "text leaf",
+      "name": "Sector, A"
+    },
+    {
+      "role": "heading",
+      "name": "Train.",
+      "level": 6
+    },
+    {
+      "role": "text leaf",
+      "name": "Coaches of the train"
+    },
+    {
+      "role": "text leaf",
+      "name": "Sector, B"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-train-formation should render with multiple trains A11y tree Firefox */
+
+snapshots["sbb-train-formation should render with multiple trains A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Train.",
+      "level": 6
+    },
+    {
+      "role": "text",
+      "name": "Coaches of the train"
+    },
+    {
+      "role": "text",
+      "name": "Sector, A"
+    },
+    {
+      "role": "heading",
+      "name": "Train.",
+      "level": 6
+    },
+    {
+      "role": "text",
+      "name": "Coaches of the train"
+    },
+    {
+      "role": "text",
+      "name": "Sector, B"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-train-formation should render with multiple trains A11y tree Chrome */
 

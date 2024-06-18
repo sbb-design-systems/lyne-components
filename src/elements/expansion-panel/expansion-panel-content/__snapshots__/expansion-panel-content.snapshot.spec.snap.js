@@ -1,15 +1,25 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-expansion-panel-content renders"] = 
+snapshots["sbb-expansion-panel-content renders DOM"] = 
+`<sbb-expansion-panel-content
+  role="region"
+  slot="content"
+>
+  Content
+</sbb-expansion-panel-content>
+`;
+/* end snapshot sbb-expansion-panel-content renders DOM */
+
+snapshots["sbb-expansion-panel-content renders Shadow DOM"] = 
 `<div class="sbb-expansion-panel-content">
   <slot>
   </slot>
 </div>
 `;
-/* end snapshot sbb-expansion-panel-content renders */
+/* end snapshot sbb-expansion-panel-content renders Shadow DOM */
 
-snapshots["sbb-expansion-panel-content A11y tree Chrome"] = 
+snapshots["sbb-expansion-panel-content renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -23,9 +33,9 @@ snapshots["sbb-expansion-panel-content A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-expansion-panel-content A11y tree Chrome */
+/* end snapshot sbb-expansion-panel-content renders A11y tree Chrome */
 
-snapshots["sbb-expansion-panel-content A11y tree Firefox"] = 
+snapshots["sbb-expansion-panel-content renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -39,5 +49,5 @@ snapshots["sbb-expansion-panel-content A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-expansion-panel-content A11y tree Firefox */
+/* end snapshot sbb-expansion-panel-content renders A11y tree Firefox */
 

@@ -42,7 +42,7 @@ export function describeViewports(
 
   for (const [size, value] of viewportSizeTests) {
     describe(`viewport=${size}`, function () {
-      this.ctx['requestViewport'] = { width: value, height: options.viewportHeight ?? 400 };
+      this.ctx['requestViewport'] = { width: value, height: options.viewportHeight ?? 2500 };
       fn.call(this);
     });
   }

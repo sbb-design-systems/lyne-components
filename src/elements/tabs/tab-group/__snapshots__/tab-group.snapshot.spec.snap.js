@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-tab-group renders DOM"] = 
 `<sbb-tab-group initial-selected-index="0">
-  <sbb-tab-title
+  <sbb-tab-label
     active=""
     aria-controls="sbb-tab-panel-1"
     aria-selected="true"
@@ -14,16 +14,18 @@ snapshots["sbb-tab-group renders DOM"] =
     tabindex="0"
   >
     Test tab label 1
-  </sbb-tab-title>
-  <div
+  </sbb-tab-label>
+  <sbb-tab
     active=""
     id="sbb-tab-panel-1"
     role="tabpanel"
     tabindex="0"
   >
-    Test tab content 1
-  </div>
-  <sbb-tab-title
+    <p>
+      Test tab content 1
+    </p>
+  </sbb-tab>
+  <sbb-tab-label
     aria-controls="sbb-tab-panel-2"
     aria-selected="false"
     data-size="l"
@@ -33,15 +35,17 @@ snapshots["sbb-tab-group renders DOM"] =
     tabindex="-1"
   >
     Test tab label 2
-  </sbb-tab-title>
-  <div
+  </sbb-tab-label>
+  <sbb-tab
     id="sbb-tab-panel-2"
     role="tabpanel"
     tabindex="0"
   >
-    Test tab content 2
-  </div>
-  <sbb-tab-title
+    <p>
+      Test tab content 2
+    </p>
+  </sbb-tab>
+  <sbb-tab-label
     aria-controls="sbb-tab-panel-3"
     aria-selected="false"
     data-size="l"
@@ -52,16 +56,18 @@ snapshots["sbb-tab-group renders DOM"] =
     tabindex="-1"
   >
     Test tab label 3
-  </sbb-tab-title>
-  <div
+  </sbb-tab-label>
+  <sbb-tab
     id="sbb-tab-panel-3"
     role="tabpanel"
     tabindex="0"
   >
-    Test tab content 3
-  </div>
-  <sbb-tab-title
-    aria-controls=""
+    <p>
+      Test tab content 3
+    </p>
+  </sbb-tab>
+  <sbb-tab-label
+    aria-controls="sbb-tab-panel-4"
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
@@ -70,10 +76,16 @@ snapshots["sbb-tab-group renders DOM"] =
     tabindex="-1"
   >
     Test tab label 4
-  </sbb-tab-title>
-  <div role="tabpanel">
-    No content.
-  </div>
+  </sbb-tab-label>
+  <sbb-tab
+    id="sbb-tab-panel-4"
+    role="tabpanel"
+    tabindex="0"
+  >
+    <p>
+      Test tab content 4
+    </p>
+  </sbb-tab>
 </sbb-tab-group>
 `;
 /* end snapshot sbb-tab-group renders DOM */
@@ -92,45 +104,6 @@ snapshots["sbb-tab-group renders Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-tab-group renders Shadow DOM */
-
-snapshots["sbb-tab-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "tab",
-      "name": "Test tab label 1",
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 2"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 3"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 4"
-    },
-    {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Test tab content 1"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tab-group renders A11y tree Firefox */
 
 snapshots["sbb-tab-group renders A11y tree Chrome"] = 
 `<p>
@@ -170,4 +143,43 @@ snapshots["sbb-tab-group renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-tab-group renders A11y tree Chrome */
+
+snapshots["sbb-tab-group renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "tab",
+      "name": "Test tab label 1",
+      "selected": true
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 2"
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 3"
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 4"
+    },
+    {
+      "role": "tabpanel",
+      "name": "",
+      "children": [
+        {
+          "role": "text leaf",
+          "name": "Test tab content 1"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab-group renders A11y tree Firefox */
 
