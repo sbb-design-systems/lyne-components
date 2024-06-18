@@ -1,7 +1,16 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-calendar renders"] = 
+snapshots["sbb-calendar renders renders - DOM"] = 
+`<sbb-calendar
+  now="2023-01-04T00:00:00"
+  selected="2023-01-20T00:00:00"
+>
+</sbb-calendar>
+`;
+/* end snapshot sbb-calendar renders renders - DOM */
+
+snapshots["sbb-calendar renders renders - Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
@@ -565,9 +574,9 @@ snapshots["sbb-calendar renders"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-calendar renders */
+/* end snapshot sbb-calendar renders renders - Shadow DOM */
 
-snapshots["sbb-calendar A11y tree Chrome"] = 
+snapshots["sbb-calendar renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -771,14 +780,213 @@ snapshots["sbb-calendar A11y tree Chrome"] =
       "role": "button",
       "name": "January 31, 2023",
       "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "Change to the previous month"
+    },
+    {
+      "role": "button",
+      "name": "Choose year and month January 2023"
+    },
+    {
+      "role": "text",
+      "name": "January 2023"
+    },
+    {
+      "role": "button",
+      "name": "Change to the next month"
+    },
+    {
+      "role": "text",
+      "name": "Monday"
+    },
+    {
+      "role": "text",
+      "name": "Tuesday"
+    },
+    {
+      "role": "text",
+      "name": "Wednesday"
+    },
+    {
+      "role": "text",
+      "name": "Thursday"
+    },
+    {
+      "role": "text",
+      "name": "Friday"
+    },
+    {
+      "role": "text",
+      "name": "Saturday"
+    },
+    {
+      "role": "text",
+      "name": "Sunday"
+    },
+    {
+      "role": "button",
+      "name": "January 1, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 2, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 3, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 4, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 5, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 6, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 7, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 8, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 9, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 10, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 11, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 12, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 13, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 14, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 15, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 16, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 17, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 18, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 19, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 20, 2023",
+      "pressed": true
+    },
+    {
+      "role": "button",
+      "name": "January 21, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 22, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 23, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 24, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 25, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 26, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 27, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 28, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 29, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 30, 2023",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "January 31, 2023",
+      "pressed": false
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-calendar A11y tree Chrome */
+/* end snapshot sbb-calendar renders A11y tree Chrome */
 
-snapshots["sbb-calendar A11y tree Firefox"] = 
+snapshots["sbb-calendar renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -952,10 +1160,179 @@ snapshots["sbb-calendar A11y tree Firefox"] =
     {
       "role": "toggle button",
       "name": "January 31, 2023"
+    },
+    {
+      "role": "button",
+      "name": "Change to the previous month"
+    },
+    {
+      "role": "button",
+      "name": "Choose year and month January 2023"
+    },
+    {
+      "role": "text leaf",
+      "name": "January 2023 "
+    },
+    {
+      "role": "button",
+      "name": "Change to the next month"
+    },
+    {
+      "role": "text leaf",
+      "name": "Monday"
+    },
+    {
+      "role": "text leaf",
+      "name": "Tuesday"
+    },
+    {
+      "role": "text leaf",
+      "name": "Wednesday"
+    },
+    {
+      "role": "text leaf",
+      "name": "Thursday"
+    },
+    {
+      "role": "text leaf",
+      "name": "Friday"
+    },
+    {
+      "role": "text leaf",
+      "name": "Saturday"
+    },
+    {
+      "role": "text leaf",
+      "name": "Sunday"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 1, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 2, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 3, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 4, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 5, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 6, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 7, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 8, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 9, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 10, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 11, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 12, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 13, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 14, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 15, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 16, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 17, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 18, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 19, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 20, 2023",
+      "pressed": true
+    },
+    {
+      "role": "toggle button",
+      "name": "January 21, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 22, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 23, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 24, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 25, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 26, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 27, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 28, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 29, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 30, 2023"
+    },
+    {
+      "role": "toggle button",
+      "name": "January 31, 2023"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-calendar A11y tree Firefox */
+/* end snapshot sbb-calendar renders A11y tree Firefox */
 
