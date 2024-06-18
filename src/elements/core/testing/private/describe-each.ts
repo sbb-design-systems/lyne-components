@@ -2,7 +2,7 @@ function generateDescribeName(payload: Record<string, unknown>): string {
   return Object.entries(payload)
     .map(
       ([key, value]) =>
-        `${key}=${typeof value === 'object' && !(value instanceof Date) && value ? `(${generateDescribeName(value as Record<string, unknown>)})` : value instanceof Date ? `${value.toISOString()}` : value}`,
+        `${key}=${typeof value === 'object' && !(value instanceof Date) && value ? `(${generateDescribeName(value as Record<string, unknown>)})` : value instanceof Date ? `${value.valueOf()}` : value}`,
     )
     .join(', ');
 }
