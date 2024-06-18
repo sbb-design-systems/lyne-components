@@ -153,3 +153,36 @@ snapshots["sbb-breadcrumb with icon and text A11y tree Firefox"] =
 `;
 /* end snapshot sbb-breadcrumb with icon and text A11y tree Firefox */
 
+snapshots["sbb-breadcrumb with text A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Breadcrumb . Link target opens in a new window."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-breadcrumb with text A11y tree Chrome */
+
+snapshots["sbb-breadcrumb with text A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Breadcrumb . Link target opens in a new window.",
+      "value": "https://example.com/test"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-breadcrumb with text A11y tree Firefox */
+

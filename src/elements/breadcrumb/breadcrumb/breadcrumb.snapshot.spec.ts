@@ -25,6 +25,8 @@ describe(`sbb-breadcrumb`, () => {
     it('renders - Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 
   describe('with icon', () => {
@@ -63,9 +65,5 @@ describe(`sbb-breadcrumb`, () => {
     it('renders - Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot(html`
-      <sbb-breadcrumb href="https://example.com/test">Breadcrumb</sbb-breadcrumb>
-    `);
   });
 });
