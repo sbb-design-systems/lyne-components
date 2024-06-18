@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.53.0...v1.0.0) (2024-06-17)
+
+
+### Miscellaneous Chores
+
+* prepare release 1.0.0 ([33c4e4b](https://github.com/sbb-design-systems/lyne-components/commit/33c4e4b9b5b28c281f9fcb302e8c6f7e78aac0f7))
+
 ## [0.53.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.52.2...v0.53.0) (2024-06-17)
 
 
