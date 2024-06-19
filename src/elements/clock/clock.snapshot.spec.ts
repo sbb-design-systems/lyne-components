@@ -1,30 +1,41 @@
-import { assert, expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import { SbbClockElement } from './clock.js';
+import type { SbbClockElement } from './clock.js';
+import './clock.js';
 
 describe(`sbb-clock`, () => {
   let element: SbbClockElement;
 
-  it('renders', async () => {
-    element = await fixture(html`<sbb-clock></sbb-clock>`);
-    assert.instanceOf(element, SbbClockElement);
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-clock></sbb-clock>`);
+    });
 
-    expect(element).dom.to.be.equal(`<sbb-clock></sbb-clock>`);
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-    await expect(element).shadowDom.to.be.equalSnapshot();
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
-  it('renders with a fixed time', async () => {
-    element = await fixture(html`<sbb-clock now="12:30:00"></sbb-clock>`);
-    assert.instanceOf(element, SbbClockElement);
+  describe('renders with fixed time', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-clock now="12:30:00"></sbb-clock>`);
+    });
 
-    expect(element).to.have.attribute('data-initialized');
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-    await expect(element).shadowDom.to.be.equalSnapshot();
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
-
-  testA11yTreeSnapshot(html`<sbb-clock></sbb-clock>`);
 });

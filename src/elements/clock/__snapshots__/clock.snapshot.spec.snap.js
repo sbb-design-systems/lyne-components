@@ -1,7 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-clock renders"] = 
+snapshots["sbb-clock renders DOM"] = 
+`<sbb-clock>
+</sbb-clock>
+`;
+/* end snapshot sbb-clock renders DOM */
+
+snapshots["sbb-clock renders Shadow DOM"] = 
 `<div class="sbb-clock">
   <span class="sbb-clock__face">
   </span>
@@ -13,9 +19,29 @@ snapshots["sbb-clock renders"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-clock renders */
+/* end snapshot sbb-clock renders Shadow DOM */
 
-snapshots["sbb-clock renders with a fixed time"] = 
+snapshots["sbb-clock renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-clock renders A11y tree Chrome */
+
+snapshots["sbb-clock renders with fixed time DOM"] = 
+`<sbb-clock
+  data-initialized=""
+  now="12:30:00"
+  style="--sbb-clock-hours-animation-start-angle: 15deg; --sbb-clock-hours-animation-duration: 41400s; --sbb-clock-seconds-animation-start-angle: 0deg; --sbb-clock-seconds-animation-duration: 60s; --sbb-clock-animation-play-state: running;"
+>
+</sbb-clock>
+`;
+/* end snapshot sbb-clock renders with fixed time DOM */
+
+snapshots["sbb-clock renders with fixed time Shadow DOM"] = 
 `<div class="sbb-clock">
   <span class="sbb-clock__face">
   </span>
@@ -30,19 +56,9 @@ snapshots["sbb-clock renders with a fixed time"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-clock renders with a fixed time */
+/* end snapshot sbb-clock renders with fixed time Shadow DOM */
 
-snapshots["sbb-clock A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-clock A11y tree Chrome */
-
-snapshots["sbb-clock A11y tree Firefox"] = 
+snapshots["sbb-clock renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -50,5 +66,5 @@ snapshots["sbb-clock A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-clock A11y tree Firefox */
+/* end snapshot sbb-clock renders A11y tree Firefox */
 
