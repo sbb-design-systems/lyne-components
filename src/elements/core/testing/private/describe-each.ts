@@ -1,10 +1,18 @@
 function generateDescribeName(payload: Record<string, unknown>): string {
-  return Object.entries(payload)
-    .map(
-      ([key, value]) =>
-        `${key}=${typeof value === 'object' && !(value instanceof Date) && value ? `(${generateDescribeName(value as Record<string, unknown>)})` : value instanceof Date ? `${value.valueOf()}` : value}`,
-    )
-    .join(', ');
+  return (
+    Object.entries(payload)
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      .map(([key, value]) => `${key}=${getDescribeName(value)}`)
+      .join(', ')
+  );
+}
+
+function getDescribeName(value: unknown): string {
+  return value instanceof Date
+    ? `${value.valueOf()}`
+    : typeof value === 'object' && value
+      ? `(${generateDescribeName(value as Record<string, unknown>)})`
+      : (value as string);
 }
 
 function partialDescribeEach<T extends Record<string, unknown[]>>(
