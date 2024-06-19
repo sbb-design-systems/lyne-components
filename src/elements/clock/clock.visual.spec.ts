@@ -17,7 +17,7 @@ describe(`sbb-clock`, () => {
       const timeStamp = `${time.hours}:${time.minutes}:${time.seconds}`;
 
       it(
-        `time=${timeStamp}`,
+        `time=${timeStamp.replaceAll(':', '-')}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`<sbb-clock now=${timeStamp}></sbb-clock>`);
         }),
