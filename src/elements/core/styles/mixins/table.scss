@@ -120,7 +120,7 @@
 @mixin table--m {
   --sbb-table-header-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-4x);
-  --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxs);
+  --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-4x);
 }
 
@@ -129,4 +129,8 @@
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-table-cell-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-2x);
+
+  tbody > tr > td {
+    @include typo.text-xs--regular;
+  }
 }
