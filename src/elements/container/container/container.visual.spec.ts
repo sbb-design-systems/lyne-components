@@ -25,7 +25,7 @@ describe(`sbb-container`, () => {
     <sbb-secondary-button style="margin-block-end: 3rem;">See more</sbb-secondary-button>
   `;
 
-  describeViewports(() => {
+  describeViewports({ viewportHeight: 600 }, () => {
     for (const color of colorCases) {
       it(
         `color=${color}`,
@@ -52,7 +52,7 @@ describe(`sbb-container`, () => {
   // Test very large screens
   for (const backgroundExpanded of backgroundExpandedCases) {
     it(
-      `background-expanded=${backgroundExpanded}`,
+      `viewport=custom_background-expanded=${backgroundExpanded}`,
       visualDiffDefault.with(async (setup) => {
         await setViewport({ width: SbbBreakpointUltraMin + 300, height: 600 });
 

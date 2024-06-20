@@ -210,7 +210,7 @@ export const Default: StoryObj = {
 export const Expanded: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, expanded: true },
+  args: { ...defaultArgs, containerExpanded: true },
 };
 
 export const White: StoryObj = {
