@@ -1,7 +1,19 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-alert should render default properties"] = 
+snapshots["sbb-alert should render default properties DOM"] = 
+`<sbb-alert
+  animation="open"
+  data-state="opening"
+  size="m"
+  title-content="Interruption"
+>
+  Alert content
+</sbb-alert>
+`;
+/* end snapshot sbb-alert should render default properties DOM */
+
+snapshots["sbb-alert should render default properties Shadow DOM"] = 
 `<div class="sbb-alert__transition-wrapper">
   <div class="sbb-alert__transition-sub-wrapper">
     <div class="sbb-alert">
@@ -62,9 +74,28 @@ snapshots["sbb-alert should render default properties"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-alert should render default properties */
+/* end snapshot sbb-alert should render default properties Shadow DOM */
 
-snapshots["sbb-alert should render customized properties"] = 
+snapshots["sbb-alert should render customized properties DOM"] = 
+`<sbb-alert
+  accessibility-label="label"
+  animation="open"
+  data-state="opening"
+  href="https://www.sbb.ch"
+  icon-name="disruption"
+  link-content="Show much more"
+  rel="noopener"
+  size="l"
+  target="_blank"
+  title-content="Interruption"
+  title-level="2"
+>
+  Alert content
+</sbb-alert>
+`;
+/* end snapshot sbb-alert should render customized properties DOM */
+
+snapshots["sbb-alert should render customized properties Shadow DOM"] = 
 `<div class="sbb-alert__transition-wrapper">
   <div class="sbb-alert__transition-sub-wrapper">
     <div class="sbb-alert">
@@ -140,7 +171,7 @@ snapshots["sbb-alert should render customized properties"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-alert should render customized properties */
+/* end snapshot sbb-alert should render customized properties Shadow DOM */
 
 snapshots["sbb-alert A11y tree Chrome"] = 
 `<p>
