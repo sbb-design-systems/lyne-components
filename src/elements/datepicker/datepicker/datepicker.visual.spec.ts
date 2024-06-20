@@ -91,5 +91,29 @@ describe(`sbb-datepicker`, () => {
         }),
       );
     }
+
+    describe('no form field', () => {
+      it(
+        visualDiffDefault.name,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <div style="display: flex; gap: 0.25rem;">
+              <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+              <sbb-datepicker-toggle
+                date-picker="datepicker"
+                data-testid="toggle"
+              ></sbb-datepicker-toggle>
+              <input value="12.02.2023" id="datepicker-input" />
+              <sbb-datepicker
+                id="datepicker"
+                input="datepicker-input"
+                now="12.02.2023"
+              ></sbb-datepicker>
+              <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+            </div>
+          `);
+        }),
+      );
+    });
   });
 });
