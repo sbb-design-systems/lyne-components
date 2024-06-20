@@ -106,6 +106,12 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const Negative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+};
+
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
