@@ -25,8 +25,6 @@ describe(`sbb-datepicker-toggle`, () => {
     it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot();
   });
 
   describe('in form-field', () => {
@@ -100,6 +98,8 @@ describe(`sbb-datepicker-toggle`, () => {
       it('Shadow DOM', async () => {
         await expect(element).shadowDom.to.be.equalSnapshot();
       });
+
+      testA11yTreeSnapshot();
     });
   });
 });
