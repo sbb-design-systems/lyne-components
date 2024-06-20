@@ -1,0 +1,48 @@
+@use './mixins/table';
+
+.sbb-table,
+.sbb-table-m,
+.sbb-table-s {
+  @include table.table;
+}
+
+.sbb-table-m {
+  @include table.table--m;
+}
+
+.sbb-table-s {
+  @include table.table--s;
+}
+
+sbb-table-wrapper[negative] .sbb-table,
+.sbb-table--negative {
+  @include table.table--negative;
+}
+
+.sbb-table--striped {
+  @include table.table--striped;
+}
+
+.sbb-table--unstriped {
+  @include table.table--unstriped;
+}
+
+.sbb-table-header-cell {
+  @include table.table-header-cell;
+}
+
+.sbb-table-data-row {
+  @include table.table-data-row;
+}
+
+.sbb-table-row--striped {
+  @include table.table-row--striped;
+}
+
+.sbb-table-data-cell {
+  @include table.table-data-cell;
+}
+
+.sbb-table-caption {
+  @include table.table-caption;
+}
