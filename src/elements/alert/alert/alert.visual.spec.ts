@@ -1,28 +1,41 @@
-import type { Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import './alert.js';
 
 describe(`sbb-alert`, () => {
-  const defaultArgs: Args = {
-    'title-content': 'Interruption between Berne and Olten',
+  const defaultArgs = {
     size: 'm',
     readonly: false,
-    'icon-name': 'info',
-    'link-content': undefined,
-    href: 'https://www.sbb.ch',
+    icon: 'info',
+    titleContent: 'Interruption between Berne and Olten',
+    linkContent: undefined as string | undefined,
+    href: 'https://www.sbb.ch' as string | undefined,
   };
 
   const contentSlotText = html`Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from
   22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times
   and changed connections.`;
 
-  const alertTemplate = (args: Args): TemplateResult => html`
-    <sbb-alert ${sbbSpread(args)}>${contentSlotText}</sbb-alert>
+  const alertTemplate = ({
+    size,
+    readonly,
+    icon,
+    titleContent,
+    linkContent,
+    href,
+  }: typeof defaultArgs): TemplateResult => html`
+    <sbb-alert
+      size=${size}
+      ?readonly=${readonly}
+      icon-name=${icon}
+      title-content=${titleContent}
+      .linkContent=${linkContent}
+      .href=${href}
+      >${contentSlotText}</sbb-alert
+    >
   `;
 
   describeViewports({ viewports: ['micro', 'small'] }, () => {
@@ -53,7 +66,7 @@ describe(`sbb-alert`, () => {
       'with custom link text',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          alertTemplate({ ...defaultArgs, 'link-content': 'Follow this link (custom text)' }),
+          alertTemplate({ ...defaultArgs, linkContent: 'Follow this link (custom text)' }),
         );
       }),
     );
