@@ -24,15 +24,15 @@ describe(`sbb-form-field-clear`, () => {
       element = root.querySelector('sbb-form-field-clear')!;
     });
 
-    it('Formfield DOM', async () => {
+    it('form-field DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('Formfield Shadow DOM', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
+    it('form-field-clear DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
-    it('FormfieldClear Shadow DOM', async () => {
+    it('form-field-clear Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
