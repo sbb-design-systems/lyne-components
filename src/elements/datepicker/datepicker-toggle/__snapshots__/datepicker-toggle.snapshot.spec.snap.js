@@ -52,6 +52,24 @@ snapshots["sbb-datepicker-toggle renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-datepicker-toggle renders A11y tree Chrome */
 
+snapshots["sbb-datepicker-toggle renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Show calendar",
+      "disabled": true,
+      "haspopup": "dialog"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-datepicker-toggle renders A11y tree Firefox */
+
 snapshots["sbb-datepicker-toggle in form-field renders DOM"] = 
 `<sbb-datepicker-toggle slot="prefix">
 </sbb-datepicker-toggle>
@@ -148,22 +166,4 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow D
 </sbb-popover>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM */
-
-snapshots["sbb-datepicker-toggle renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Show calendar",
-      "disabled": true,
-      "haspopup": "dialog"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-toggle renders A11y tree Firefox */
 
