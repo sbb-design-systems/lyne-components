@@ -29,8 +29,8 @@ export class SbbTableWrapperElement extends SbbNegativeMixin(LitElement) {
     this._resizeObserver.disconnect();
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
     this._tableWrapper = this.shadowRoot!.querySelector<HTMLElement>('.sbb-table-wrapper')!;
     this._resizeObserver.observe(this._tableWrapper);
   }
