@@ -99,6 +99,8 @@
 // Default state for icon-button in form-field
 @mixin icon-button-base($host-selector, $button-selector, $icon-selector) {
   #{$host-selector} {
+    --sbb-button-display: flex;
+
     display: inline-block;
     -webkit-tap-highlight-color: transparent;
     height: fit-content;
