@@ -204,7 +204,9 @@ ${value}</textarea
           `slot=buttons ${name} ${visualDiffDefault.name}`,
           visualDiffDefault.with(async (setup) => {
             const templateResult: TemplateResult = html`${template(args)} ${buttonsAndPopover(args)}`;
-            await setup.withFixture(html` ${formField(args, templateResult)} `);
+            await setup.withFixture(html`${formField(args, templateResult)}`, {
+              backgroundColor: negative ? '#484040' : undefined,
+            });
           }),
         );
       }
