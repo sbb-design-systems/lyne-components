@@ -141,9 +141,6 @@ ${value}</textarea
   };
 
   const visualProp = {
-    negative: [false, true],
-    optional: [true, false],
-    borderless: [true, false],
     size: ['m', 'l'],
     width: ['default', 'collapse'],
     errorText: [true, false],
@@ -195,22 +192,16 @@ ${value}</textarea
 
       for (const [name, template] of component.entries()) {
         it(
-          `text ${name} ${visualDiffDefault.name}`,
+          `slot=none ${name} ${visualDiffDefault.name}`,
           visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(html`${formField(args, template(args))}`);
+            await setup.withFixture(html`${formField(args, template(args))}`, {
+              backgroundColor: negative ? '#484040' : undefined,
+            });
           }),
         );
 
         it(
-          `icons ${name} ${visualDiffDefault.name}`,
-          visualDiffDefault.with(async (setup) => {
-            const templateResult: TemplateResult = html`${template(args)} ${icons}`;
-            await setup.withFixture(html` ${formField(args, templateResult)} `);
-          }),
-        );
-
-        it(
-          `buttons ${name} ${visualDiffDefault.name}`,
+          `slot=buttons ${name} ${visualDiffDefault.name}`,
           visualDiffDefault.with(async (setup) => {
             const templateResult: TemplateResult = html`${template(args)} ${buttonsAndPopover(args)}`;
             await setup.withFixture(html` ${formField(args, templateResult)} `);
@@ -219,8 +210,8 @@ ${value}</textarea
       }
     });
 
-    // labels
     for (const [name, template] of component.entries()) {
+      // labels
       it(
         `label=undefined ${name} ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
@@ -268,19 +259,34 @@ ${value}</textarea
           await setup.withFixture(html`${formField(hiddenLabel, template(hiddenLabel))}`);
         }),
       );
+
+      // optional
+      it(
+        `optional=true ${name} ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          const noLabel = { ...basicArgs, optional: true };
+          await setup.withFixture(html`${formField(noLabel, template(noLabel))}`);
+        }),
+      );
+
+      // borderless
+      it(
+        `borderless=true ${name} ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          const noLabel = { ...basicArgs, borderless: true };
+          await setup.withFixture(html`${formField(noLabel, template(noLabel))}`);
+        }),
+      );
     }
 
     // visual
-    describeEach(visualProp, ({ negative, optional, borderless, size, width, errorText }) => {
+    describeEach(visualProp, ({ size, width, errorText }) => {
       for (const [name, template] of component.entries()) {
         it(
           `${name} ${visualDiffDefault.name}`,
           visualDiffDefault.with(async (setup) => {
             const args = {
               ...basicArgs,
-              negative,
-              optional,
-              borderless,
               size,
               width,
               errorText,
