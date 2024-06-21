@@ -9,10 +9,8 @@ import {
 } from '../../core/testing/private.js';
 
 import './form-field.js';
-import '../form-field-clear.js';
 import '../../button/mini-button.js';
 import '../../form-error.js';
-import '../../link.js';
 import '../../popover.js';
 
 describe(`sbb-form-field`, () => {
@@ -94,7 +92,7 @@ describe(`sbb-form-field`, () => {
 ${value}</textarea
     >`;
 
-  const icons = html`
+  const icons: TemplateResult = html`
     <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
     <sbb-icon slot="suffix" name="dog-small"></sbb-icon>
   `;
