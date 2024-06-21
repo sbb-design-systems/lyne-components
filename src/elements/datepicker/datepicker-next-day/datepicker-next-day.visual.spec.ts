@@ -10,7 +10,6 @@ import './datepicker-next-day.js';
 
 import '../datepicker.js';
 import '../../form-field.js';
-import '../../calendar.js';
 
 describe(`sbb-datepicker-next-day`, () => {
   const cases = [

@@ -10,7 +10,6 @@ import './datepicker-previous-day.js';
 
 import '../datepicker.js';
 import '../../form-field.js';
-import '../../calendar.js';
 
 describe(`sbb-datepicker-previous-day`, () => {
   const cases = [
