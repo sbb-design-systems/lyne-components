@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbPopoverElement } from './popover.js';
 import '../../button.js';
 import '../../link.js';
 
-describe(`sbb-popover ${fixture.name}`, () => {
+describe(`sbb-popover ssr`, () => {
   let root: HTMLSpanElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <span>
           <sbb-button id="popover-trigger">Popover trigger</sbb-button>

@@ -1,15 +1,18 @@
+import { ssrHydratedFixture } from '@lit-labs/testing/fixtures.js';
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
 import { SbbClockElement } from './clock.js';
 
-describe(`sbb-clock ${fixture.name}`, () => {
+describe(`sbb-clock ssr`, () => {
   let root: SbbClockElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-clock></sbb-clock>`, { modules: ['./clock.js'] });
+    root = await waitForLitRender(
+      ssrHydratedFixture(html`<sbb-clock></sbb-clock>`, { modules: ['./clock.js'] }),
+    );
   });
 
   it('renders', () => {

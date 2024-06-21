@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbLeadContainerElement } from './lead-container.js';
 
 import '../image.js';
 
-describe(`sbb-lead-container ${fixture.name}`, () => {
+describe(`sbb-lead-container ssr`, () => {
   let root: SbbLeadContainerElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`<sbb-lead-container>
         <sbb-image slot="image"></sbb-image>
       </sbb-lead-container>`,

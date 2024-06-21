@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbTransparentButtonStaticElement } from './transparent-button-static.js';
 
-describe(`sbb-transparent-button-static ${fixture.name}`, () => {
+describe(`sbb-transparent-button-static ssr`, () => {
   let root: SbbTransparentButtonStaticElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`<sbb-transparent-button-static>Button</sbb-transparent-button-static>`,
       { modules: ['./transparent-button-static.js'] },
     );

@@ -1,5 +1,5 @@
 import { assert } from '@open-wc/testing';
-import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { ssrHydratedFixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
 
 import { SbbTeaserPaidElement } from './teaser-paid.js';
@@ -7,11 +7,11 @@ import { SbbTeaserPaidElement } from './teaser-paid.js';
 import '@sbb-esta/lyne-elements/chip.js';
 import '@sbb-esta/lyne-elements/image.js';
 
-describe(`sbb-teaser-paid ${fixture.name}`, () => {
+describe(`sbb-teaser-paid ssr`, () => {
   let root: SbbTeaserPaidElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-teaser-paid>
           <sbb-chip slot="chip">Label</sbb-chip>

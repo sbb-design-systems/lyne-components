@@ -8,8 +8,7 @@ import {
   type TestRunnerGroupConfig,
 } from '@web/test-runner';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
-import { playwrightLauncher } from '@web/test-runner-playwright';
-import type { PlaywrightLauncherArgs } from '@web/test-runner-playwright/src';
+import { type PlaywrightLauncherArgs, playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 import { initCompiler } from 'sass';
@@ -32,8 +31,7 @@ const { values: cliArgs } = parseArgs({
     parallel: { type: 'boolean' },
     'update-visual-baseline': { type: 'boolean' },
     group: { type: 'string' },
-    'ssr-hydrated': { type: 'boolean' },
-    'ssr-non-hydrated': { type: 'boolean' },
+    ssr: { type: 'boolean' },
   },
 });
 
@@ -75,12 +73,6 @@ const browsers =
             ]
           : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
 
-const groupNameOverride = cliArgs['ssr-hydrated']
-  ? 'ssr-hydrated'
-  : cliArgs['ssr-non-hydrated']
-    ? 'ssr-non-hydrated'
-    : null;
-
 const testRunnerHtml = (
   testFramework: string,
   _config: TestRunnerCoreConfig,
@@ -113,7 +105,7 @@ const testRunnerHtml = (
     <style type="text/css">${renderStyles()}</style>
     <script>
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
-      globalThis.testGroup = '${groupNameOverride ?? group?.name ?? 'default'}';
+      globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : group?.name ?? 'default'}';
     </script>
   </head>
   <body class="sbb-disable-animation">
@@ -130,9 +122,7 @@ const suppressedLogs = [
 ];
 
 const groups: TestRunnerGroupConfig[] = [
-  // Disable ssr tests until stabilized.
-  { name: 'ssr-hydrated', files: 'src/**/*.ssr.spec.ts', testRunnerHtml },
-  // { name: 'ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+  { name: 'ssr', files: 'src/**/*.ssr.spec.ts', testRunnerHtml },
 ];
 
 // The visual regression test group is only added when explicitly set, as the tests are very expensive.

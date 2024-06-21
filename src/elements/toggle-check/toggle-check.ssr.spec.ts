@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbToggleCheckElement } from './toggle-check.js';
 
-describe(`sbb-toggle-check ${fixture.name}`, () => {
+describe(`sbb-toggle-check ssr`, () => {
   let root: SbbToggleCheckElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`<sbb-toggle-check id="focus-id" name="name" value="value"></sbb-toggle-check>`,
       {
         modules: ['./toggle-check.js'],

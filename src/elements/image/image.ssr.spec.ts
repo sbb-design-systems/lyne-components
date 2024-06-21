@@ -1,16 +1,16 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbImageElement } from './image.js';
 
-describe(`sbb-image ${fixture.name}`, () => {
+describe(`sbb-image ssr`, () => {
   let root: SbbImageElement;
   const url = import.meta.resolve('../core/testing/assets/lucerne.png');
 
   it('renders', async () => {
-    root = await fixture(html`<sbb-image image-src=${url}></sbb-image>`, {
+    root = await ssrHydratedFixture(html`<sbb-image image-src=${url}></sbb-image>`, {
       modules: ['./image.js'],
     });
     assert.instanceOf(root, SbbImageElement);
@@ -23,7 +23,7 @@ describe(`sbb-image ${fixture.name}`, () => {
   ];
   for (const { name, url } of urls) {
     it(`should work with ${name}`, async () => {
-      root = await fixture(html`<sbb-image image-src=${url}></sbb-image>`, {
+      root = await ssrHydratedFixture(html`<sbb-image image-src=${url}></sbb-image>`, {
         modules: ['./image.js'],
       });
       const sources = Array.from(root.shadowRoot!.querySelectorAll('source'));

@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbTagGroupElement } from './tag-group.js';
 
 import '../tag.js';
 
-describe(`sbb-tag-group ${fixture.name}`, () => {
+describe(`sbb-tag-group ssr`, () => {
   let root: SbbTagGroupElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-tag-group multiple>
           <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>

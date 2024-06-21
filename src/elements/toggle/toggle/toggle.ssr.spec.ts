@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbToggleElement } from './toggle.js';
 
 import '../toggle-option.js';
 
-describe(`sbb-toggle ${fixture.name}`, () => {
+describe(`sbb-toggle ssr`, () => {
   let root: SbbToggleElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-toggle value="Value one">
           <sbb-toggle-option id="sbb-toggle-option-1" value="Value one">

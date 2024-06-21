@@ -42,7 +42,7 @@ export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[]
             : titleArgument.value;
 
         const expectedTitle = fileName.endsWith('ssr.spec.ts')
-          ? `sbb-${componentName} \${fixture.name}`
+          ? `sbb-${componentName} ssr`
           : `sbb-${componentName}`;
 
         if (currentTitle !== expectedTitle) {

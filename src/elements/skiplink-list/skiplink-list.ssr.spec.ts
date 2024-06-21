@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbSkiplinkListElement } from './skiplink-list.js';
 
 import '../link/block-link.js';
 
-describe(`sbb-skiplink-list ${fixture.name}`, () => {
+describe(`sbb-skiplink-list ssr`, () => {
   let root: SbbSkiplinkListElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-skiplink-list>
           <sbb-block-link href="#" id="link-1">Link 1</sbb-block-link>

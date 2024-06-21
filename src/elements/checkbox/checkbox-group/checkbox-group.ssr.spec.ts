@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbCheckboxGroupElement } from './checkbox-group.js';
 
 import '../checkbox.js';
 
-describe(`sbb-checkbox-group ${fixture.name}`, () => {
+describe(`sbb-checkbox-group ssr`, () => {
   let root: SbbCheckboxGroupElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-checkbox-group>
           <sbb-checkbox id="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>

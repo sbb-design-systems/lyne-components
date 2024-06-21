@@ -1,11 +1,33 @@
-import { getSvgContent } from '../../icon.js';
-import { sbbInputModalityDetector } from '../a11y.js';
+// IMPORTANT: This file must not have imports to components and/or lit.
+// This would import the LitElement class without hydration, which would break SSR tests.
+
+import type { UncompiledTemplateResult } from 'lit';
+
 import type { SbbIconConfig } from '../config.js';
 import { mergeConfig } from '../config.js';
 
-import { isHydratedSsr, isVisualRegressionRun } from './private.js';
+function globalTestingSetup(): void {
+  beforeEach(async () => {
+    (await import('../a11y/input-modality-detector.js')).sbbInputModalityDetector.reset();
+  });
 
-if (isVisualRegressionRun) {
+  afterEach(async () => {
+    (await import('@lit-labs/testing/fixtures.js')).cleanupFixtures();
+  });
+}
+
+if (document.readyState === 'loading') {
+  // Loading hasn't finished yet
+  document.addEventListener('DOMContentLoaded', globalTestingSetup);
+} else {
+  setTimeout(globalTestingSetup);
+}
+
+if ((globalThis as any).testGroup === 'ssr') {
+  await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
+}
+
+if ((globalThis as any).testGroup === 'visual-regression') {
   const preloadedIcons = [
     'add-stop',
     'alternative',
@@ -100,6 +122,7 @@ if (isVisualRegressionRun) {
     'walk-slow-small',
     'walk-small',
   ];
+  const { getSvgContent } = await import('../../icon/icon-request.js');
   await Promise.all(preloadedIcons.map((icon) => getSvgContent('default', icon, true)));
 
   mergeConfig({
@@ -133,24 +156,24 @@ if (isVisualRegressionRun) {
   mergeConfig({ icon });
 }
 
-if (isHydratedSsr) {
-  await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
-}
-
-function globalTestingSetup(): void {
-  beforeEach(() => {
-    sbbInputModalityDetector.reset();
+// A simple functionality to try to render a TemplateResult for debugging purposes.
+(globalThis as any).fakeRender = function fakeRender(node: UncompiledTemplateResult): string {
+  let result = '';
+  node.strings.forEach((e, i) => {
+    result += e;
+    const value = node.values[i];
+    if (typeof value === 'string') {
+      result += value;
+    } else if (typeof value === 'boolean') {
+      result += value.toString();
+    } else if (typeof value === 'symbol' && value.description === 'lit-nothing') {
+      // Do nothing
+    } else if (typeof value === 'object' && (value as UncompiledTemplateResult)?.strings) {
+      result += fakeRender(value as UncompiledTemplateResult);
+    } else {
+      // Placeholder for unknown values.
+      result += 'Δ';
+    }
   });
-
-  afterEach(async () => {
-    const fixtures = await import('@lit-labs/testing/fixtures.js');
-    fixtures.cleanupFixtures();
-  });
-}
-
-if (document.readyState === 'loading') {
-  // Loading hasn't finished yet
-  document.addEventListener('DOMContentLoaded', globalTestingSetup);
-} else {
-  setTimeout(globalTestingSetup);
-}
+  return result;
+};
