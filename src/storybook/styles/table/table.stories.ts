@@ -25,16 +25,25 @@ const striped: InputType = {
   },
 };
 
+const colorVariant: InputType = {
+  options: ['none', 'iron'],
+  control: {
+    type: 'select',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   size,
   negative,
   striped,
+  'color-variant': colorVariant,
 };
 
 const defaultArgs: Args = {
   size: size.options![1],
   negative: false,
   striped: true,
+  'color-variant': colorVariant.options![0],
 };
 
 const caption: () => TemplateResult = () => html`
@@ -85,6 +94,7 @@ const Template = (args: Args): TemplateResult => html`
       'sbb-table-s': args.size === 's',
       'sbb-table-m': args.size === 'm',
       'sbb-table--unstriped': !args.striped,
+      'sbb-table--color-iron': args['color-variant'] === 'iron',
     })}
   >
     ${caption()} ${header()} ${body()}
@@ -107,6 +117,12 @@ export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
+};
+
+export const IronVariant: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'color-variant': 'iron' },
 };
 
 const meta: Meta = {

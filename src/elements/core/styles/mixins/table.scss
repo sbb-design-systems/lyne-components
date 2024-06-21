@@ -87,7 +87,7 @@
 @mixin table-caption {
   @include typo.text-xs--regular;
 
-  // Defaults are needed for cases where the caption is used from outside a table
+  // Defaults are needed for cases where the caption is used outside a table
   color: var(--sbb-table-caption-color, var(--sbb-color-granite));
   margin-block-start: var(--sbb-table-caption-margin-block-start, var(--sbb-spacing-fixed-4x));
   text-align: left;
@@ -133,4 +133,16 @@
   tbody > tr > td {
     @include typo.text-xs--regular;
   }
+}
+
+@mixin table--color-iron {
+  --sbb-table-cell-color: var(--sbb-color-iron);
+
+  tbody > tr > td {
+    color: var(--sbb-table-cell-color);
+  }
+}
+
+@mixin table--color-iron-negative {
+  --sbb-table-cell-color: var(--sbb-color-cloud);
 }

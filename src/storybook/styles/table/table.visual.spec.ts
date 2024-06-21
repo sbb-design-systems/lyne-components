@@ -85,5 +85,25 @@ describe(`table`, () => {
         }),
       );
     }
+
+    describe('iron-variant', () => {
+      for (const negative of [false, true]) {
+        it(
+          `negative=${negative}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              tableTemplate({
+                'sbb-table': true,
+                'sbb-table--color-iron': true,
+                'sbb-table--negative': negative,
+              }),
+              {
+                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              },
+            );
+          }),
+        );
+      }
+    });
   });
 });

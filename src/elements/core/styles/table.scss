@@ -27,6 +27,14 @@ sbb-table-wrapper[negative] .sbb-table,
   @include table.table--unstriped;
 }
 
+.sbb-table--color-iron {
+  @include table.table--color-iron;
+
+  &.sbb-table--negative {
+    @include table.table--color-iron-negative;
+  }
+}
+
 .sbb-table-header-cell {
   @include table.table-header-cell;
 }
