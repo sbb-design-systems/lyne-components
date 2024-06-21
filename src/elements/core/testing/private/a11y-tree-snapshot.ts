@@ -1,4 +1,4 @@
-import { aTimeout, expect, fixtureCleanup } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
@@ -20,7 +20,6 @@ async function a11yTreeEqualSnapshot(): Promise<void> {
 
   const htmlWrapper = await fixture(html`<p>${JSON.stringify(snapshot, null, 2)}</p>`);
   await expect(htmlWrapper).to.be.equalSnapshot();
-  fixtureCleanup();
 }
 
 /**

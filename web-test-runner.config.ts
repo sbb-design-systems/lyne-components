@@ -119,6 +119,7 @@ const testRunnerHtml = (
 const suppressedLogs = [
   'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.',
   '[vite] connecting...',
+  '[vite] connected.',
 ];
 
 const groups: TestRunnerGroupConfig[] = [
@@ -139,6 +140,7 @@ export default {
       ? [defaultReporter(), patchedSummaryReporter()]
       : [minimalReporter()],
   browsers: browsers,
+  concurrentBrowsers: 3,
   plugins: [
     a11ySnapshotPlugin(),
     litSsrPlugin(),

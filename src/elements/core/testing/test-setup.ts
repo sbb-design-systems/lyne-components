@@ -1,31 +1,19 @@
 // IMPORTANT: This file must not have imports to components and/or lit.
 // This would import the LitElement class without hydration, which would break SSR tests.
 
+import { cleanupFixtures } from '@lit-labs/testing/fixtures.js';
 import type { UncompiledTemplateResult } from 'lit';
 
-import type { SbbIconConfig } from '../config.js';
-import { mergeConfig } from '../config.js';
+import { mergeConfig, type SbbIconConfig } from '../config.js';
 
-function globalTestingSetup(): void {
-  beforeEach(async () => {
-    (await import('../a11y/input-modality-detector.js')).sbbInputModalityDetector.reset();
-  });
+(window as any)['__WTR_CONFIG__'].testFrameworkConfig.rootHooks = {
+  beforeEach: async () =>
+    (await import('../a11y/input-modality-detector.js')).sbbInputModalityDetector.reset(),
+  afterEach: async () => cleanupFixtures(),
+};
 
-  afterEach(async () => {
-    (await import('@lit-labs/testing/fixtures.js')).cleanupFixtures();
-  });
-}
-
-if (document.readyState === 'loading') {
-  // Loading hasn't finished yet
-  document.addEventListener('DOMContentLoaded', globalTestingSetup);
-} else {
-  setTimeout(globalTestingSetup);
-}
-
-if ((globalThis as any).testGroup === 'ssr') {
-  await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
-}
+// TODO: Decide if we want to remove hydration logic in non ssr scenario.
+//if ((globalThis as any).testGroup === 'ssr') {}
 
 if ((globalThis as any).testGroup === 'visual-regression') {
   const preloadedIcons = [
