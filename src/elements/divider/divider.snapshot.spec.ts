@@ -7,7 +7,7 @@ import type { SbbDividerElement } from './divider.js';
 import './divider.js';
 
 describe(`sbb-divider`, () => {
-  describe('should render with default values', () => {
+  describe('renders', () => {
     let element: SbbDividerElement;
 
     beforeEach(async () => {
@@ -25,7 +25,7 @@ describe(`sbb-divider`, () => {
     testA11yTreeSnapshot();
   });
 
-  describe('should render with orientation horizontal', () => {
+  describe('renders horizontal', () => {
     let element: SbbDividerElement;
 
     beforeEach(async () => {
@@ -41,7 +41,7 @@ describe(`sbb-divider`, () => {
     });
   });
 
-  describe('should render with orientation vertical', () => {
+  describe('renders vertical', () => {
     let element: SbbDividerElement;
 
     beforeEach(async () => {

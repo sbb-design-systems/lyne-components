@@ -14,6 +14,7 @@ describe(`sbb-divider`, () => {
 
   it('should react to change of orientation', async () => {
     const element: SbbDividerElement = await fixture(html`<sbb-divider></sbb-divider>`);
+    expect(element).to.have.attribute('aria-orientation', 'horizontal');
 
     element.orientation = 'vertical';
     await waitForLitRender(element);
