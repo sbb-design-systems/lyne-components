@@ -109,7 +109,7 @@ snapshots["sbb-stepper renders Shadow DOM"] =
 `;
 /* end snapshot sbb-stepper renders Shadow DOM */
 
-snapshots["sbb-stepper renders A11y tree Chrome"] = 
+snapshots["sbb-stepper renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
