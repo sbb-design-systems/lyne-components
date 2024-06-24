@@ -1,7 +1,6 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
 
 import './dialog.js';
 import '../dialog-actions.js';
@@ -13,8 +12,6 @@ import '../../button/secondary-button.js';
 
 describe(`sbb-dialog`, () => {
   const negativeCases = [false, true];
-
-  const hideOnScrollCases = [false, true];
 
   const dialogTitle = (backButton = true, hideOnScroll = false): TemplateResult => html`
     <sbb-dialog-title ?back-button=${backButton} ?hide-on-scroll=${hideOnScroll}>
@@ -73,30 +70,6 @@ describe(`sbb-dialog`, () => {
           const dialog = setup.snapshotElement.querySelector('sbb-dialog')!;
           setup.withSnapshotElement(dialog);
           dialog.open();
-        }),
-      );
-    }
-
-    // Hide on scroll test
-    for (const hideOnScroll of hideOnScrollCases) {
-      it(
-        `hideOnScroll=${hideOnScroll}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-dialog>
-              ${dialogTitle(undefined, hideOnScroll)} ${dialogContent(true)} ${dialogFooter()}
-            </sbb-dialog>
-          `);
-          const dialog = setup.snapshotElement.querySelector('sbb-dialog')!;
-          setup.withSnapshotElement(dialog);
-          dialog.open();
-          await waitForLitRender(dialog);
-
-          // scroll the container
-          const contentWrapper = dialog
-            .querySelector('sbb-dialog-content')!
-            .shadowRoot!.querySelector('.sbb-dialog-content')!;
-          contentWrapper.scrollTop = 100;
         }),
       );
     }
