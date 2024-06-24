@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbBlockLinkElement } from './block-link.js';
 
-describe(`sbb-block-link ${fixture.name}`, () => {
+describe(`sbb-block-link ssr`, () => {
   let root: SbbBlockLinkElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-block-link
           href="https://github.com/sbb-design-systems/lyne-components"

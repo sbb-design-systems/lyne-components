@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbTeaserElement } from './teaser.js';
 
-describe(`sbb-teaser ${fixture.name}`, () => {
+describe(`sbb-teaser ssr`, () => {
   let root: SbbTeaserElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`, {
+    root = await ssrHydratedFixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`, {
       modules: ['./teaser.js'],
     });
   });

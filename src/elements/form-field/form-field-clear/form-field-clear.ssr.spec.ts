@@ -1,18 +1,18 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 import type { SbbFormFieldElement } from '../form-field.js';
 
 import { SbbFormFieldClearElement } from './form-field-clear.js';
 
 import '../form-field.js';
 
-describe(`sbb-form-field-clear ${fixture.name}`, () => {
+describe(`sbb-form-field-clear ssr`, () => {
   let root: SbbFormFieldElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html` <sbb-form-field>
         <label>Label</label>
         <input id="input" type="text" placeholder="Input placeholder" value="Input value" />

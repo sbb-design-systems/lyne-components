@@ -1,4 +1,4 @@
-import { aTimeout, expect, fixture, fixtureCleanup } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
@@ -6,6 +6,8 @@ import { html } from 'lit/static-html.js';
 import { isChromium, isFirefox } from '../../dom.js';
 import { testIf } from '../mocha-extensions.js';
 import { waitForLitRender } from '../wait-for-render.js';
+
+import { fixture } from './fixture.js';
 
 /**
  * Get the a11y tree snapshot and tests its snapshot.
@@ -18,7 +20,6 @@ async function a11yTreeEqualSnapshot(): Promise<void> {
 
   const htmlWrapper = await fixture(html`<p>${JSON.stringify(snapshot, null, 2)}</p>`);
   await expect(htmlWrapper).to.be.equalSnapshot();
-  fixtureCleanup();
 }
 
 /**
@@ -39,7 +40,7 @@ export function testA11yTreeSnapshot(
       if (template) {
         await fixture(template);
       }
-      await waitForLitRender(document);
+      await waitForLitRender(document.documentElement);
     });
 
     testIf(isChromium && !exclude.chrome, 'Chrome', async () => {

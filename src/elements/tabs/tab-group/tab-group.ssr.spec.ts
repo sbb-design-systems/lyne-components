@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbTabGroupElement } from './tab-group.js';
 import '../tab-label.js';
 import '../tab.js';
 
-describe(`sbb-tab-group ${fixture.name}`, () => {
+describe(`sbb-tab-group ssr`, () => {
   let root: SbbTabGroupElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html` <sbb-tab-group initial-selected-index="1">
         <sbb-tab-label id="sbb-tab-1">Test tab label 1</sbb-tab-label>
         <sbb-tab> Test tab content 1 </sbb-tab>

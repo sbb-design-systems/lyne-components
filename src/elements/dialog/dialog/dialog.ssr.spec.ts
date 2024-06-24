@@ -1,7 +1,7 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbDialogElement } from './dialog.js';
 
@@ -9,11 +9,11 @@ import '../dialog-actions.js';
 import '../dialog-content.js';
 import '../dialog-title.js';
 
-describe(`sbb-dialog ${fixture.name}`, () => {
+describe(`sbb-dialog ssr`, () => {
   let root: SbbDialogElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-dialog id="my-dialog-1">
           <sbb-dialog-title>Title</sbb-dialog-title>

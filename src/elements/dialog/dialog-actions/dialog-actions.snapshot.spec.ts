@@ -2,23 +2,26 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+
+import type { SbbDialogActionsElement } from './dialog-actions.js';
 import './dialog-actions.js';
 
 describe('sbb-dialog-actions', () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-dialog-actions></sbb-dialog-actions>`);
+  describe('renders', async () => {
+    let root: SbbDialogActionsElement;
 
-    await expect(root).dom.to.equalSnapshot();
+    beforeEach(async () => {
+      root = await fixture(html`<sbb-dialog-actions></sbb-dialog-actions>`);
+    });
 
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-dialog-actions">
-        <div class="sbb-action-group">
-          <slot>
-          </slot>
-        </div>
-      </div>
-    `);
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
-
-  testA11yTreeSnapshot(html`<sbb-dialog-actions></sbb-dialog-actions>`);
 });
