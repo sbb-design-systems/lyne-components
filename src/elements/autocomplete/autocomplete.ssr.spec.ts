@@ -1,18 +1,18 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbAutocompleteElement } from './autocomplete.js';
 
 import '../form-field.js';
 import '../option.js';
 
-describe(`sbb-autocomplete ${fixture.name}`, () => {
+describe(`sbb-autocomplete ssr`, () => {
   let root: SbbAutocompleteElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-form-field>
           <input />

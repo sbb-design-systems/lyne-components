@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbTrainBlockedPassageElement } from './train-blocked-passage.js';
 
-describe(`sbb-train-blocked-passage ${fixture.name}`, () => {
+describe(`sbb-train-blocked-passage ssr`, () => {
   let root: SbbTrainBlockedPassageElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`, {
+    root = await ssrHydratedFixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`, {
       modules: ['./train-blocked-passage.js'],
     });
   });

@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbTableWrapperElement } from './table-wrapper.js';
 
-describe(`sbb-table-wrapper ${fixture.name}`, () => {
+describe(`sbb-table-wrapper ssr`, () => {
   let root: SbbTableWrapperElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`<sbb-table-wrapper>
         <table>
           <caption>

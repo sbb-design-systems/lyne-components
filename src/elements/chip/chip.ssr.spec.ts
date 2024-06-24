@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbChipElement } from './chip.js';
 
-describe(`sbb-chip ${fixture.name}`, () => {
+describe(`sbb-chip ssr`, () => {
   let root: SbbChipElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-chip>Label</sbb-chip>`, {
+    root = await ssrHydratedFixture(html`<sbb-chip>Label</sbb-chip>`, {
       modules: ['./chip.js'],
     });
   });

@@ -18,5 +18,5 @@ describe(`sbb-checkbox with`, () => {
     });
   });
 
-  // All the functionalities of sbb-checkbox are tested in checkbox-common.e2e.ts file
+  // All the functionalities of sbb-checkbox are tested in checkbox-common.spec.ts file
 });

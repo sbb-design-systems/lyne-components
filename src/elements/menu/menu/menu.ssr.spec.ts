@@ -1,7 +1,7 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbMenuElement } from './menu.js';
 
@@ -10,11 +10,11 @@ import '../../divider.js';
 import '../../link.js';
 import '../menu-button.js';
 
-describe(`sbb-menu ${fixture.name}`, () => {
+describe(`sbb-menu ssr`, () => {
   let root: HTMLDivElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <div>
           <sbb-button id="menu-trigger">Menu trigger</sbb-button>

@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html, isServer, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -89,7 +89,7 @@ export class SbbClockElement extends LitElement {
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('now')) {
+    if (!isServer && changedProperties.has('now')) {
       if (this.now) {
         this._removeSecondsAnimationStyles();
         this._removeHoursAnimationStyles();
@@ -100,24 +100,20 @@ export class SbbClockElement extends LitElement {
     }
   }
 
-  private async _handlePageVisibilityChange(): Promise<void> {
+  private _handlePageVisibilityChange = async (): Promise<void> => {
     if (document.visibilityState === 'hidden') {
       await this._stopClock();
     } else if (!this.now) {
       await this._startClock();
     }
-  }
+  };
 
   private _addEventListeners(): void {
-    document.addEventListener('visibilitychange', () => this._handlePageVisibilityChange(), false);
+    document.addEventListener('visibilitychange', this._handlePageVisibilityChange, false);
   }
 
   private _removeEventListeners(): void {
-    document.removeEventListener(
-      'visibilitychange',
-      () => this._handlePageVisibilityChange(),
-      false,
-    );
+    document?.removeEventListener('visibilitychange', this._handlePageVisibilityChange);
     this._clockHandHours?.removeEventListener('animationend', this._moveHoursHandFn);
     this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHandFn);
     clearInterval(this._handMovement);
@@ -174,22 +170,22 @@ export class SbbClockElement extends LitElement {
         (remainingHours - hasRemainingMinutesOrSeconds) * SECONDS_IN_AN_HOUR;
     }
 
-    this.style.setProperty(
+    this.style?.setProperty(
       '--sbb-clock-hours-animation-start-angle',
       `${Math.ceil(this._hours * HOURS_ANGLE + this._minutes / 2)}deg`,
     );
-    this.style.setProperty('--sbb-clock-hours-animation-duration', `${hoursAnimationDuration}s`);
-    this.style.setProperty(
+    this.style?.setProperty('--sbb-clock-hours-animation-duration', `${hoursAnimationDuration}s`);
+    this.style?.setProperty(
       '--sbb-clock-seconds-animation-start-angle',
       `${Math.ceil(this._seconds * SBB_SECONDS_ANGLE)}deg`,
     );
-    this.style.setProperty('--sbb-clock-seconds-animation-duration', `${remainingSeconds}s`);
+    this.style?.setProperty('--sbb-clock-seconds-animation-duration', `${remainingSeconds}s`);
 
     this._setMinutesHand();
 
     this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
     this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
-    this.style.setProperty('--sbb-clock-animation-play-state', 'running');
+    this.style?.setProperty('--sbb-clock-animation-play-state', 'running');
 
     this.toggleAttribute('data-initialized', true);
   }
@@ -257,7 +253,7 @@ export class SbbClockElement extends LitElement {
 
     this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
-    this.style.setProperty('--sbb-clock-animation-play-state', 'paused');
+    this.style?.setProperty('--sbb-clock-animation-play-state', 'paused');
   }
 
   /** Starts the clock by defining the hands starting position then starting the animations. */
@@ -281,12 +277,14 @@ export class SbbClockElement extends LitElement {
   protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changedProperties);
 
-    this._addEventListeners();
+    if (!isServer) {
+      this._addEventListeners();
 
-    if (this.now) {
-      await this._stopClock();
-    } else {
-      await this._startClock();
+      if (this.now) {
+        await this._stopClock();
+      } else {
+        await this._startClock();
+      }
     }
   }
 

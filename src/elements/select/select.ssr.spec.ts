@@ -1,16 +1,16 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbSelectElement } from './select.js';
 import '../option.js';
 
-describe(`sbb-select ${fixture.name}`, () => {
+describe(`sbb-select ssr`, () => {
   let root: SbbSelectElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-select placeholder="Placeholder">
           <sbb-option id="option-1" value="1">First</sbb-option>

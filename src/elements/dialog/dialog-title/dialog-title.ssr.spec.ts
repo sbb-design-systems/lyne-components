@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbDialogTitleElement } from './dialog-title.js';
 
-describe(`sbb-dialog-title ${fixture.name}`, () => {
+describe(`sbb-dialog-title ssr`, () => {
   let root: SbbDialogTitleElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-dialog-title back-button>Title</sbb-dialog-title>`, {
+    root = await ssrHydratedFixture(html`<sbb-dialog-title back-button>Title</sbb-dialog-title>`, {
       modules: ['./dialog-title.js'],
     });
   });
