@@ -196,6 +196,7 @@ $open-anim-height-to: calc(
 .sbb-notification__icon {
   color: var(--sbb-notification-icon-color);
   margin-block-start: var(--sbb-notification-icon-margin-block-start);
+  visibility: var(--sbb-notification-icon-visibility);
 }
 
 .sbb-notification__title {
