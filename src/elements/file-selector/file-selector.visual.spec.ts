@@ -4,12 +4,13 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
+  visualDiffFocus,
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
 import '../form-error.js';
 import './file-selector.js';
-import type { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector/file-selector';
+import type { SbbFileSelectorElement } from './file-selector.js';
 
 describe(`sbb-file-selector`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorElement): void {
@@ -50,7 +51,7 @@ describe(`sbb-file-selector`, () => {
           <sbb-file-selector
             id="fs"
             title-content="Title"
-            ?multiple=${true}
+            multiple
             variant=${variant}
             ?disabled=${state.disabled}
           ></sbb-file-selector>
@@ -77,7 +78,7 @@ describe(`sbb-file-selector`, () => {
           <sbb-file-selector
             id="fs"
             title-content="Title"
-            ?multiple=${true}
+            multiple
             variant=${variant}
             size=${size}
           ></sbb-file-selector>
@@ -87,6 +88,14 @@ describe(`sbb-file-selector`, () => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with((setup) => {
+          addFilesToComponentInput(root.querySelector('#fs')!);
+          setup.withSnapshotElement(root);
+        }),
+      );
+
+      it(
+        visualDiffFocus.name,
+        visualDiffFocus.with((setup) => {
           addFilesToComponentInput(root.querySelector('#fs')!);
           setup.withSnapshotElement(root);
         }),
