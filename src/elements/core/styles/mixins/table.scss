@@ -15,8 +15,7 @@
   --sbb-table-border-radius: var(--sbb-border-radius-4x);
   --sbb-table-background-color: var(--sbb-color-white);
   --sbb-table-row-striped-color: var(--sbb-color-milk);
-  --sbb-table-header-color: var(--sbb-color-charcoal);
-  --sbb-table-cell-color: var(--sbb-color-iron);
+  --sbb-table-color: inherit;
   --sbb-table-caption-color: var(--sbb-color-granite);
   --sbb-table-caption-margin-block-start: var(--sbb-spacing-fixed-4x);
 
@@ -25,6 +24,7 @@
   border-radius: var(--sbb-table-border-radius);
   border-spacing: 0;
   caption-side: bottom;
+  color: var(--sbb-table-color);
   table-layout: auto;
 
   thead {
@@ -53,7 +53,6 @@
 
   border-bottom: var(--sbb-table-border);
   border-right: var(--sbb-table-border);
-  color: var(--sbb-table-header-color);
   padding-block: var(--sbb-table-header-padding-block);
   padding-inline: var(--sbb-table-header-padding-inline);
   text-align: left;
@@ -76,7 +75,6 @@
 
   border-top: var(--sbb-table-border);
   border-right: var(--sbb-table-border);
-  color: var(--sbb-table-cell-color);
   padding-block: var(--sbb-table-cell-padding-block);
   padding-inline: var(--sbb-table-cell-padding-inline);
 
@@ -89,7 +87,7 @@
 @mixin table-caption {
   @include typo.text-xs--regular;
 
-  // Defaults are needed for cases where the caption is used from outside a table
+  // Defaults are needed for cases where the caption is used outside a table
   color: var(--sbb-table-caption-color, var(--sbb-color-granite));
   margin-block-start: var(--sbb-table-caption-margin-block-start, var(--sbb-spacing-fixed-4x));
   text-align: left;
@@ -114,8 +112,7 @@
 @mixin table--negative {
   --sbb-table-border-color: var(--sbb-color-anthracite);
   --sbb-table-background-color: var(--sbb-color-midnight);
-  --sbb-table-header-color: var(--sbb-color-white);
-  --sbb-table-cell-color: var(--sbb-color-cloud);
+  --sbb-table-color: var(--sbb-color-white);
   --sbb-table-row-striped-color: var(--sbb-color-charcoal);
   --sbb-table-caption-color: var(--sbb-color-cement);
 }
@@ -136,4 +133,16 @@
   tbody > tr > td {
     @include typo.text-xs--regular;
   }
+}
+
+@mixin table--theme-iron {
+  --sbb-table-cell-color: var(--sbb-color-iron);
+
+  tbody > tr > td {
+    color: var(--sbb-table-cell-color);
+  }
+}
+
+@mixin table--theme-iron-negative {
+  --sbb-table-cell-color: var(--sbb-color-cloud);
 }
