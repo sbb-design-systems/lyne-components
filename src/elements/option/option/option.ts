@@ -113,6 +113,8 @@ export class SbbOptionElement extends SbbDisabledMixin(
   /** Disable the highlight of the label. */
   @state() private _disableLabelHighlight: boolean = false;
 
+  @state() private _inertAriaGroups = false;
+
   private set _variant(state: SbbOptionVariant) {
     if (state) {
       this.setAttribute('data-variant', state);
@@ -139,6 +141,14 @@ export class SbbOptionElement extends SbbDisabledMixin(
   public constructor() {
     super();
     new SbbSlotStateController(this);
+
+    if (inertAriaGroups) {
+      if (this.hydrationRequired) {
+        this.hydrationComplete.then(() => (this._inertAriaGroups = inertAriaGroups));
+      } else {
+        this._inertAriaGroups = inertAriaGroups;
+      }
+    }
   }
 
   public override attributeChangedCallback(
@@ -363,7 +373,7 @@ export class SbbOptionElement extends SbbDisabledMixin(
             ${this._variant === 'autocomplete' && this._label && !this._disableLabelHighlight
               ? this._getHighlightedLabel()
               : nothing}
-            ${inertAriaGroups && this.getAttribute('data-group-label')
+            ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html` <sbb-screen-reader-only>
                   (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
                 >`

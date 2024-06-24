@@ -17,7 +17,7 @@ export function vitePlugin(): TestRunnerPlugin {
         '/__web-dev-server__web-socket.js',
       ];
 
-      const viteServer = await createServer({
+      viteServer = await createServer({
         clearScreen: false,
         // Disable hmr in favor of the @web/test-runner to take care of restarts.
         server: { middlewareMode: true, hmr: false },
