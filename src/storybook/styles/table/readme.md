@@ -60,6 +60,17 @@ For a negative color scheme, apply the `sbb-table--negative` class:
 </table>
 ```
 
+## Iron theme
+
+For the iron theme, apply the `sbb-table--theme-iron` class.
+This scheme changes the text color of the cells to `sbb-color-iron`.
+
+```html
+<table class="sbb-table sbb-table--theme-iron">
+  ...
+</table>
+```
+
 ### Mixins and classes
 
 In advanced scenarios, predefined classes might not suffice.
