@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import type { SbbTabGroupElement } from '../tab-group.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 
 import style from './tab.scss?lit&inline';
@@ -14,6 +15,8 @@ import style from './tab.scss?lit&inline';
 @customElement('sbb-tab')
 export class SbbTabElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+
+  public nestedTabGroup: SbbTabGroupElement | null = null;
 
   /** The `sbb-tab-label` associated with the tab. */
   public get label(): SbbTabLabelElement | null {
@@ -32,6 +35,11 @@ export class SbbTabElement extends LitElement {
   /** @internal */
   public configure(): void {
     this._label = this._getTabLabel();
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.nestedTabGroup = this.querySelector('sbb-tab-group');
   }
 
   protected override render(): TemplateResult {

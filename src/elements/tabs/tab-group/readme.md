@@ -28,7 +28,7 @@ To display a tab label within the tab bar, provide a `sbb-tab-label` right befor
 please refer to the [sbb-tab-label](/docs/elements-sbb-tab-sbb-tab-label--docs) documentation for more details.
 
 The content element must be wrapped in a `sbb-tab` and placed right after its relative `sbb-tab-label`.
-Tab groups can also be nested, which means that a tab's content block can be represented by another `sbb-tab-group`,
+Tab groups can also be nested, which means that a `sbb-tab` can contain another `sbb-tab-group`,
 as shown in the "Nested Tab Groups" example.
 
 ## States
