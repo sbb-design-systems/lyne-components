@@ -12,6 +12,7 @@ import '../dialog-content.js';
 describe(`sbb-dialog`, () => {
   describe('renders an open dialog', async () => {
     let root: SbbDialogElement;
+
     beforeEach(async () => {
       root = await fixture(
         html` <sbb-dialog>
@@ -22,12 +23,15 @@ describe(`sbb-dialog`, () => {
       root.open();
       await waitForLitRender(root);
     });
+
     it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
+
     it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
     testA11yTreeSnapshot();
   });
 });
