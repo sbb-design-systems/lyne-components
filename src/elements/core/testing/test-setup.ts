@@ -3,19 +3,34 @@
 
 import { cleanupFixtures } from '@lit-labs/testing/fixtures.js';
 import type { UncompiledTemplateResult } from 'lit';
+import type { MochaOptions } from 'mocha';
 
 import { mergeConfig, type SbbIconConfig } from '../config.js';
 
-(window as any)['__WTR_CONFIG__'].testFrameworkConfig.rootHooks = {
-  beforeEach: async () =>
-    (await import('../a11y/input-modality-detector.js')).sbbInputModalityDetector.reset(),
-  afterEach: async () => cleanupFixtures(),
+const {
+  __WTR_CONFIG__: { testFrameworkConfig },
+  testGroup,
+  testRunScript,
+} = globalThis as unknown as {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  __WTR_CONFIG__: { testFrameworkConfig: MochaOptions };
+  testGroup: string;
+  testRunScript: string;
+};
+
+testFrameworkConfig.rootHooks = {
+  beforeEach: async () => {
+    (await import('../a11y/input-modality-detector.js')).sbbInputModalityDetector.reset();
+  },
+  afterEach: () => {
+    cleanupFixtures();
+  },
 };
 
 // TODO: Decide if we want to remove hydration logic in non ssr scenario.
-//if ((globalThis as any).testGroup === 'ssr') {}
+//if (testGroup === 'ssr') {}
 
-if ((globalThis as any).testGroup === 'visual-regression') {
+if (testGroup === 'visual-regression') {
   const preloadedIcons = [
     'add-stop',
     'alternative',
@@ -165,3 +180,6 @@ if ((globalThis as any).testGroup === 'visual-regression') {
   });
   return result;
 };
+
+// We import and run the web test runner script manually, as it ensures correct load order.
+await import(/* @vite-ignore */ testRunScript);

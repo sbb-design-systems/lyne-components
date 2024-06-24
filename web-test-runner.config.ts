@@ -80,37 +80,28 @@ const testRunnerHtml = (
 ): string => `
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
+  <head>${['Roman', 'Bold', 'Light']
+    .map(
+      (type) => `
     <link
       rel="preload"
-      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff2"
+      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-${type}.woff2"
       as="font"
       type="font/woff2"
       crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Light.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
+    />`,
+    )
+    .join('')}
+    <link rel="preload" as="script" crossorigin="anonymous" href="/src/elements/core/testing/test-setup.ts">
     <style type="text/css">${renderStyles()}</style>
     <script>
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
       globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : group?.name ?? 'default'}';
+      globalThis.testRunScript = '${testFramework}';
     </script>
   </head>
   <body class="sbb-disable-animation">
     <script type="module" src="/src/elements/core/testing/test-setup.ts"></script>
-    <script type="module" src="${testFramework}"></script>
   </body>
 </html>
 `;
