@@ -60,13 +60,13 @@ For a negative color scheme, apply the `sbb-table--negative` class:
 </table>
 ```
 
-## Iron color variant
+## Iron theme
 
-For the iron variant color scheme, apply the `sbb-table--color-iron` class.
-This scheme changes the color of the cells content to `sbb-color-iron`.
+For the iron theme, apply the `sbb-table--theme-iron` class.
+This scheme changes the text color of the cells to `sbb-color-iron`.
 
 ```html
-<table class="sbb-table sbb-table--color-iron">
+<table class="sbb-table sbb-table--theme-iron">
   ...
 </table>
 ```

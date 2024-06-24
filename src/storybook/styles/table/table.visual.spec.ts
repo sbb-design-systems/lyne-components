@@ -86,7 +86,7 @@ describe(`table`, () => {
       );
     }
 
-    describe('iron-variant', () => {
+    describe('iron-theme', () => {
       for (const negative of [false, true]) {
         it(
           `negative=${negative}`,
@@ -94,7 +94,7 @@ describe(`table`, () => {
             await setup.withFixture(
               tableTemplate({
                 'sbb-table': true,
-                'sbb-table--color-iron': true,
+                'sbb-table--theme-iron': true,
                 'sbb-table--negative': negative,
               }),
               {

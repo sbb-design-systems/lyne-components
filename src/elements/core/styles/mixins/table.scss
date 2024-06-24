@@ -135,7 +135,7 @@
   }
 }
 
-@mixin table--color-iron {
+@mixin table--theme-iron {
   --sbb-table-cell-color: var(--sbb-color-iron);
 
   tbody > tr > td {
@@ -143,6 +143,6 @@
   }
 }
 
-@mixin table--color-iron-negative {
+@mixin table--theme-iron-negative {
   --sbb-table-cell-color: var(--sbb-color-cloud);
 }
