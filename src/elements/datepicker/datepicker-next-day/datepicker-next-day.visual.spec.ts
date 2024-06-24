@@ -38,7 +38,7 @@ describe(`sbb-datepicker-next-day`, () => {
                   input="datepicker-input"
                   now="2023-01-12T00:00:00Z"
                 ></sbb-datepicker>
-                <sbb-datepicker-next-day></sbb-datepicker-next-day>
+                <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
               </div>
             `);
           }),

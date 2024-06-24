@@ -34,7 +34,7 @@ describe(`sbb-datepicker-previous-day`, () => {
           state.with(async (setup) => {
             await setup.withFixture(html`
               <div style="display: flex; gap: 1em;">
-                <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+                <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
                 <input value="${inputValue.value || nothing}" id="datepicker-input" />
                 <sbb-datepicker
                   id="datepicker"
