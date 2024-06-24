@@ -2,9 +2,7 @@ The `sbb-tab` is a component used to provide content to a `sbb-tab-group`
 (see [sbb-tab-group](/docs/elements-sbb-tab-sbb-tab-group--docs) for more details).
 
 ```html
-<sbb-tab>
-  <p>Content</p>
-</sbb-tab>
+<sbb-tab> Content </sbb-tab>
 ```
 
 ## Slots

@@ -63,12 +63,10 @@ const tabPanelTwo = (): TemplateResult => html`
 
 const tabPanelFour = (): TemplateResult => html`
   <sbb-tab>
-    <p>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
-      turpis in eu mi bibendum neque egestas congue.
-    </p>
+    Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+    elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+    urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+    turpis in eu mi bibendum neque egestas congue.
   </sbb-tab>
 `;
 
@@ -120,21 +118,17 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
       <sbb-tab-group size=${size} initial-selected-index="1">
         <sbb-tab-label level="2">Nested tab</sbb-tab-label>
         <sbb-tab>
-          <p>
-            Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-            elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
-            rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim
-            sed faucibus turpis in eu mi bibendum neque egestas congue.
-          </p>
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+          rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed
+          faucibus turpis in eu mi bibendum neque egestas congue.
         </sbb-tab>
 
         <sbb-tab-label level="2">Nested tab</sbb-tab-label>
         <sbb-tab>
-          <p>
-            Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-            elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
-            rhoncus urna.
-          </p>
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+          rhoncus urna.
         </sbb-tab>
       </sbb-tab-group>
     </sbb-tab>
@@ -145,7 +139,7 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
     <sbb-tab-label ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
     </sbb-tab-label>
-    <sbb-tab><p>I was disabled.</p></sbb-tab>
+    <sbb-tab>I was disabled.</sbb-tab>
 
     <sbb-tab-label amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-label>
     ${tabPanelFour()}
