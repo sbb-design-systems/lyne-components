@@ -17,7 +17,7 @@ describe(`sbb-footer`, () => {
     negative: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'small', 'medium', 'wide'] }, () => {
     describeEach(cases, ({ expanded, negative }) => {
       it(
         'variant=default',
