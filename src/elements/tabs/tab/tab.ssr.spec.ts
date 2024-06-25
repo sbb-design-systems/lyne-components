@@ -9,7 +9,7 @@ describe(`sbb-tab ssr`, () => {
   let root: SbbTabElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(html`<sbb-tab><p>Content</p></sbb-tab>`, {
+    root = await ssrHydratedFixture(html`<sbb-tab>Content</sbb-tab>`, {
       modules: ['./tab.js'],
     });
   });

@@ -5,11 +5,7 @@ import { html } from 'lit';
 import readme from './readme.md?raw';
 import './tab.js';
 
-const Template = (): TemplateResult => html`
-  <sbb-tab>
-    <p>Content</p>
-  </sbb-tab>
-`;
+const Template = (): TemplateResult => html` <sbb-tab> Content </sbb-tab> `;
 
 export const Default: StoryObj = {
   render: Template,
