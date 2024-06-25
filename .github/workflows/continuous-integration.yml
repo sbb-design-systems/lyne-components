@@ -175,8 +175,10 @@ jobs:
 
       - name: Install browser dependencies
         run: yarn playwright install-deps
+        # This step must not fail, so we define a fallback, which will succeed, even if
+        # the visual regression tests failed. This will be evaluated in the secure workflow.
       - name: Run visual regression tests
-        run: yarn test:visual-regression
+        run: yarn test:visual-regression || true
         env:
           NODE_ENV: production
       - name: Prepare failed screenshot artifacts
