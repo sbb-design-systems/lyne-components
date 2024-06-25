@@ -158,7 +158,7 @@ export default {
       ? [defaultReporter(), patchedSummaryReporter()]
       : [minimalReporter()],
   browsers: browsers,
-  concurrentBrowsers: 3,
+  concurrentBrowsers: cliArgs.ci ? 2 : 3,
   plugins: [
     a11ySnapshotPlugin(),
     litSsrPlugin(),
