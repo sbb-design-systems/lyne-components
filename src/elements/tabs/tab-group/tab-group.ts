@@ -42,17 +42,13 @@ const tabObserverConfig: MutationObserverInit = {
   attributeFilter: ['active', 'disabled'],
 };
 
-const SUPPORTED_CONTENT_WRAPPERS = ['sbb-tab', 'sbb-tab-group'];
-
 let nextId = 0;
 
 /**
- * It displays one or more tab, each one with a title and a content.
+ * It displays one or more tabs, each one with a label and a content.
  *
- * @slot - Use the unnamed slot to add html-content to the `sbb-tab-group`;
- * wrap the content in a `sbb-tab` or provide a nested `sbb-tab-group`.
- * @slot tab-bar - When you provide the `sbb-tab-label` tag through the unnamed slot,
- * it will be automatically moved to this slot. You do not need to use it directly.
+ * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via
+ * `sbb-tab-label` and `sbb-tab` instances.
  * @event {CustomEvent<SbbTabChangedEventDetails>} didChange - Emits an event on selected tab change.
  */
 @customElement('sbb-tab-group')
@@ -144,7 +140,6 @@ export class SbbTabGroupElement extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this.toggleAttribute('data-nested', !!this.parentElement?.closest('sbb-tab-group'));
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -261,7 +256,6 @@ export class SbbTabGroupElement extends LitElement {
         tabLabel.tabIndex = 0;
         tabLabel.setAttribute('aria-selected', 'true');
         tabLabel.tab?.toggleAttribute('active', true);
-        tabLabel.tab?.nestedTabGroup?.toggleAttribute('active', true);
       },
       deactivate: (): void => {
         tabLabel.removeAttribute('active');
@@ -269,7 +263,6 @@ export class SbbTabGroupElement extends LitElement {
         tabLabel.tabIndex = -1;
         tabLabel.setAttribute('aria-selected', 'false');
         tabLabel.tab?.removeAttribute('active');
-        tabLabel.tab?.nestedTabGroup?.removeAttribute('active');
       },
       disable: (): void => {
         if (tabLabel.disabled) {
@@ -321,10 +314,7 @@ export class SbbTabGroupElement extends LitElement {
         }
       },
     };
-    if (
-      tabLabel.nextElementSibling?.localName &&
-      SUPPORTED_CONTENT_WRAPPERS.includes(tabLabel.nextElementSibling?.localName)
-    ) {
+    if (tabLabel.nextElementSibling?.localName === 'sbb-tab') {
       tabLabel.tab = tabLabel.nextElementSibling as SbbTabElement;
       tabLabel.tab.id = this._assignId();
       if (tabLabel.tab instanceof SbbTabElement) {

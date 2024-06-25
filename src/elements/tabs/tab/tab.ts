@@ -16,8 +16,6 @@ import style from './tab.scss?lit&inline';
 export class SbbTabElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  public nestedTabGroup: SbbTabGroupElement | null = null;
-
   /** The `sbb-tab-label` associated with the tab. */
   public get label(): SbbTabLabelElement | null {
     return this._label;
@@ -35,11 +33,6 @@ export class SbbTabElement extends LitElement {
   /** @internal */
   public configure(): void {
     this._label = this._getTabLabel();
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.nestedTabGroup = this.querySelector('sbb-tab-group');
   }
 
   protected override render(): TemplateResult {
