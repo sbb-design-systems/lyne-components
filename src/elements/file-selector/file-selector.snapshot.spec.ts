@@ -2,35 +2,45 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { waitForLitRender } from '../core/testing.js';
 
+import type { SbbFileSelectorElement } from './file-selector.js';
 import './file-selector.js';
 
 describe(`sbb-file-selector`, () => {
-  it('renders default', async () => {
-    const root = await fixture(html`<sbb-file-selector></sbb-file-selector>`);
+  describe('renders', () => {
+    let element: SbbFileSelectorElement;
 
-    expect(root).dom.to.be.equal(`
-      <sbb-file-selector size='m'>
-      </sbb-file-selector>
-    `);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-file-selector></sbb-file-selector>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders with dropzone area and size s', async () => {
-    const root = await fixture(
-      html`<sbb-file-selector variant="dropzone" size="s"></sbb-file-selector>`,
-    );
+  describe('renders with dropzone area and size s', () => {
+    let element: SbbFileSelectorElement;
 
-    await waitForLitRender(root);
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-file-selector variant="dropzone" size="s"></sbb-file-selector>`,
+      );
+    });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-file-selector variant='dropzone' size='s'>
-      </sbb-file-selector>
-    `);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    // We skip safari because it has an inconsistent behavior on ci environment
+    testA11yTreeSnapshot(undefined, undefined, { safari: true });
   });
-
-  // We skip safari because it has an inconsistent behavior on ci environment
-  testA11yTreeSnapshot(html`<sbb-file-selector></sbb-file-selector>`, undefined, { safari: true });
 });
