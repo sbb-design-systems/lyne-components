@@ -1,18 +1,18 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbStepperElement } from './stepper.js';
 
 import '../step.js';
 import '../step-label.js';
 
-describe(`sbb-stepper ${fixture.name}`, () => {
+describe(`sbb-stepper ssr`, () => {
   let root: SbbStepperElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-stepper selected-index="0">
           <sbb-step-label>Test step label 1</sbb-step-label>

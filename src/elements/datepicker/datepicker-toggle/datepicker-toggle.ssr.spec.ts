@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbDatepickerToggleElement } from './datepicker-toggle.js';
 
-describe(`sbb-datepicker-toggle ${fixture.name}`, () => {
+describe(`sbb-datepicker-toggle ssr`, () => {
   let root: SbbDatepickerToggleElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`, {
+    root = await ssrHydratedFixture(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`, {
       modules: ['./datepicker-toggle.js'],
     });
   });

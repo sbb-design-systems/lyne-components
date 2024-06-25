@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbIconElement } from './icon.js';
 
-describe(`sbb-icon ${fixture.name}`, () => {
+describe(`sbb-icon ssr`, () => {
   let root: SbbIconElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-icon></sbb-icon>`, { modules: ['./icon.js'] });
+    root = await ssrHydratedFixture(html`<sbb-icon></sbb-icon>`, { modules: ['./icon.js'] });
   });
 
   it('renders', () => {

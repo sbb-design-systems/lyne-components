@@ -196,6 +196,9 @@ $open-anim-height-to: calc(
 .sbb-notification__icon {
   color: var(--sbb-notification-icon-color);
   margin-block-start: var(--sbb-notification-icon-margin-block-start);
+
+  // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.
+  --sbb-icon-svg-width: var(--sbb-notification-icon-size);
 }
 
 .sbb-notification__title {

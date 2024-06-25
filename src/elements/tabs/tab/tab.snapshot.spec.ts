@@ -11,7 +11,7 @@ describe(`sbb-tab`, () => {
     let element: SbbTabElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-tab><p>Content</p></sbb-tab>`);
+      element = await fixture(html`<sbb-tab>Content</sbb-tab>`);
     });
 
     it('DOM', async () => {

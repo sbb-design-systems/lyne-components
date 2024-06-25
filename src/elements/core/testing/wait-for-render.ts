@@ -22,7 +22,15 @@ const promiseComplete = Promise.resolve();
  *
  * @param root a parent node to wait for rendering on.
  */
-export const waitForLitRender = async (root: ParentNode): Promise<void> => {
+export const waitForLitRender = async <
+  T extends HTMLElement | DocumentFragment = HTMLElement | DocumentFragment,
+>(
+  node: T | Promise<T>,
+): Promise<T> => {
+  const root = await node;
+  (root.parentElement ?? root)
+    .querySelectorAll?.('[defer-hydration]')
+    .forEach((e) => e.removeAttribute('defer-hydration'));
   const completables = [root as Element, ...root.querySelectorAll('*')]
     .filter(isReactiveElement)
     .map((e) => [
@@ -32,4 +40,5 @@ export const waitForLitRender = async (root: ParentNode): Promise<void> => {
     ])
     .flat(Infinity);
   await Promise.all(completables);
+  return root;
 };

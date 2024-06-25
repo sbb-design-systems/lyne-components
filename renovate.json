@@ -25,7 +25,7 @@
       "enabled": false
     },
     {
-      "matchPackageNames": ["jackspeak"],
+      "matchPackageNames": ["jackspeak", "@web/dev-server-core"],
       "enabled": false
     },
     {

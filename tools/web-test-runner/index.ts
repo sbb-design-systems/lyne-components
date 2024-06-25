@@ -1,3 +1,5 @@
+export * from './configure-container-playwright-browser.js';
+export * from './container-playwright-browser-plugin.js';
 export * from './minimal-reporter.js';
 export * from './patched-summary-reporter.js';
 export * from './visual-regression-plugin-config.js';

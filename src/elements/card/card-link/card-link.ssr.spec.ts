@@ -1,18 +1,18 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 import type { SbbCardElement } from '../card.js';
 
 import { SbbCardLinkElement } from './card-link.js';
 
 import '../card.js';
 
-describe(`sbb-card-link ${fixture.name}`, () => {
+describe(`sbb-card-link ssr`, () => {
   let root: SbbCardElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-card>
           <sbb-card-link

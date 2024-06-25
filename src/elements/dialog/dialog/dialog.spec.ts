@@ -442,6 +442,7 @@ describe('sbb-dialog with long content', () => {
     await openDialog(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => element.hasAttribute('data-overflows'));
     expect(element).to.have.attribute('data-overflows', '');
   });
 

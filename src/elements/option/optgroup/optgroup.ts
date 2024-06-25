@@ -34,10 +34,24 @@ export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitEl
 
   @state() private _negative = false;
 
+  @state() private _inertAriaGroups = false;
+
   private _negativeObserver = new AgnosticMutationObserver(() => this._onNegativeChange());
 
   private get _options(): SbbOptionElement[] {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOptionElement[];
+  }
+
+  public constructor() {
+    super();
+
+    if (inertAriaGroups) {
+      if (this.hydrationRequired) {
+        this.hydrationComplete.then(() => (this._inertAriaGroups = inertAriaGroups));
+      } else {
+        this._inertAriaGroups = inertAriaGroups;
+      }
+    }
   }
 
   public override connectedCallback(): void {
@@ -63,7 +77,7 @@ export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitEl
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('disabled')) {
-      if (!inertAriaGroups) {
+      if (!this._inertAriaGroups) {
         this.setAttribute('aria-disabled', this.disabled.toString());
       }
 
@@ -94,7 +108,7 @@ export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitEl
   }
 
   private _proxyGroupLabelToOptions(): void {
-    if (!inertAriaGroups) {
+    if (!this._inertAriaGroups) {
       setOrRemoveAttribute(this, 'aria-label', this.label);
       return;
     } else if (this.label) {

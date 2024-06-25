@@ -1,7 +1,22 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-breadcrumb renders with text"] = 
+snapshots["sbb-breadcrumb with text renders - DOM"] = 
+`<sbb-breadcrumb
+  data-action=""
+  data-link=""
+  dir="ltr"
+  download=""
+  href="https://example.com/test"
+  rel="subsection"
+  target="_blank"
+>
+  Breadcrumb
+</sbb-breadcrumb>
+`;
+/* end snapshot sbb-breadcrumb with text renders - DOM */
+
+snapshots["sbb-breadcrumb with text renders - Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-breadcrumb"
   download=""
@@ -20,9 +35,21 @@ snapshots["sbb-breadcrumb renders with text"] =
   </sbb-screen-reader-only>
 </a>
 `;
-/* end snapshot sbb-breadcrumb renders with text */
+/* end snapshot sbb-breadcrumb with text renders - Shadow DOM */
 
-snapshots["sbb-breadcrumb renders with icon"] = 
+snapshots["sbb-breadcrumb with icon renders - DOM"] = 
+`<sbb-breadcrumb
+  data-action=""
+  data-link=""
+  dir="ltr"
+  href="/"
+  icon-name="house-small"
+>
+</sbb-breadcrumb>
+`;
+/* end snapshot sbb-breadcrumb with icon renders - DOM */
+
+snapshots["sbb-breadcrumb with icon renders - Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-breadcrumb"
   href="/"
@@ -46,9 +73,22 @@ snapshots["sbb-breadcrumb renders with icon"] =
   </span>
 </a>
 `;
-/* end snapshot sbb-breadcrumb renders with icon */
+/* end snapshot sbb-breadcrumb with icon renders - Shadow DOM */
 
-snapshots["sbb-breadcrumb renders with icon and text"] = 
+snapshots["sbb-breadcrumb with icon and text renders - DOM"] = 
+`<sbb-breadcrumb
+  data-action=""
+  data-link=""
+  dir="ltr"
+  href="/"
+  icon-name="house-small"
+>
+  Home
+</sbb-breadcrumb>
+`;
+/* end snapshot sbb-breadcrumb with icon and text renders - DOM */
+
+snapshots["sbb-breadcrumb with icon and text renders - Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-breadcrumb"
   href="/"
@@ -69,14 +109,18 @@ snapshots["sbb-breadcrumb renders with icon and text"] =
   </span>
 </a>
 `;
-/* end snapshot sbb-breadcrumb renders with icon and text */
+/* end snapshot sbb-breadcrumb with icon and text renders - Shadow DOM */
 
-snapshots["sbb-breadcrumb A11y tree Chrome"] = 
+snapshots["sbb-breadcrumb with icon and text A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
   "name": "",
   "children": [
+    {
+      "role": "link",
+      "name": "Home"
+    },
     {
       "role": "link",
       "name": "Breadcrumb"
@@ -85,14 +129,19 @@ snapshots["sbb-breadcrumb A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-breadcrumb A11y tree Chrome */
+/* end snapshot sbb-breadcrumb with icon and text A11y tree Chrome */
 
-snapshots["sbb-breadcrumb A11y tree Firefox"] = 
+snapshots["sbb-breadcrumb with icon and text A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
   "name": "",
   "children": [
+    {
+      "role": "link",
+      "name": "Home",
+      "value": "http://localhost:8000/"
+    },
     {
       "role": "link",
       "name": "Breadcrumb",
@@ -102,5 +151,38 @@ snapshots["sbb-breadcrumb A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-breadcrumb A11y tree Firefox */
+/* end snapshot sbb-breadcrumb with icon and text A11y tree Firefox */
+
+snapshots["sbb-breadcrumb with text A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Breadcrumb . Link target opens in a new window."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-breadcrumb with text A11y tree Chrome */
+
+snapshots["sbb-breadcrumb with text A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Breadcrumb . Link target opens in a new window.",
+      "value": "https://example.com/test"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-breadcrumb with text A11y tree Firefox */
 

@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbBlockLinkButtonElement } from './block-link-button.js';
 
-describe(`sbb-block-link-button ${fixture.name}`, () => {
+describe(`sbb-block-link-button ssr`, () => {
   let root: SbbBlockLinkButtonElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html` <sbb-block-link-button
         icon-placement="end"
         size="m"

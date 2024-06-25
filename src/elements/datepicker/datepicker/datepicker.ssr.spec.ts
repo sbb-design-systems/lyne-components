@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
 import { defaultDateAdapter } from '../../core/datetime.js';
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbDatepickerElement } from './datepicker.js';
 
@@ -11,18 +11,18 @@ import '../datepicker-next-day.js';
 import '../datepicker-previous-day.js';
 import '../datepicker-toggle.js';
 
-describe(`sbb-datepicker ${fixture.name}`, () => {
+describe(`sbb-datepicker ssr`, () => {
   const asIso8601 = (date: Date): string => defaultDateAdapter.toIso8601(date);
 
   it('renders', async () => {
-    const root = await fixture(html`<sbb-datepicker></sbb-datepicker>`, {
+    const root = await ssrHydratedFixture(html`<sbb-datepicker></sbb-datepicker>`, {
       modules: ['./datepicker.js'],
     });
     assert.instanceOf(root, SbbDatepickerElement);
   });
 
   it('should render full datepicker component set', async () => {
-    const root = await fixture(
+    const root = await ssrHydratedFixture(
       html`
         <sbb-form-field>
           <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
