@@ -80,7 +80,7 @@ describe(`sbb-datepicker`, () => {
               <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
               <sbb-datepicker-next-day></sbb-datepicker-next-day>
               <sbb-datepicker-toggle></sbb-datepicker-toggle>
-              <input value="12.02.2023" />
+              <input value="2023-02-12" />
               <sbb-datepicker
                 now="12.02.2023"
                 .dateParser=${dateHandling.dateParser}
