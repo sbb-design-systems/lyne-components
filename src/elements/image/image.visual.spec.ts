@@ -9,7 +9,6 @@ import './image.js';
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 const aspectRatios = [
-  'free',
   '1-1',
   '1-2',
   '2-1',
@@ -37,6 +36,21 @@ describe(`sbb-image`, () => {
         }),
       );
     }
+
+    it(
+      `aspect-ratio=free`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-image
+            image-src=${imageUrl}
+            aspect-ratio="free"
+            style="width: 200px; height: 100px;"
+          ></sbb-image>`,
+        );
+
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+      }),
+    );
 
     for (const borderRadius of ['none', 'round']) {
       it(

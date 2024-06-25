@@ -82,10 +82,10 @@
 .sbb-image__img {
   position: absolute;
   inset: 0;
-  opacity: 0.000001;
+  opacity: 0;
 
   :host([data-loaded]) & {
-    opacity: 0.999999;
+    opacity: 1;
   }
 }
 
