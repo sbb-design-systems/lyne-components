@@ -25,12 +25,18 @@
       "enabled": false
     },
     {
-      "matchPackageNames": ["jackspeak"],
+      "matchPackageNames": ["jackspeak", "@web/dev-server-core"],
       "enabled": false
     },
     {
       "groupName": "esta",
       "matchPackagePrefixes": ["@sbb-esta/"],
+      "prPriority": 10,
+      "automerge": false
+    },
+    {
+      "groupName": "playwright",
+      "matchPackagePrefixes": ["playwright"],
       "prPriority": 10,
       "automerge": false
     },

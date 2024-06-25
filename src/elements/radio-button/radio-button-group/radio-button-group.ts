@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
@@ -8,18 +8,15 @@ import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
-import type { SbbSelectionPanelElement } from '../../selection-panel.js';
-import type {
-  SbbRadioButtonElement,
-  SbbRadioButtonSize,
-  SbbRadioButtonStateChange,
-} from '../radio-button.js';
+import type { SbbRadioButtonSize, SbbRadioButtonStateChange } from '../common.js';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
+import type { SbbRadioButtonElement } from '../radio-button.js';
 
 import style from './radio-button-group.scss?lit&inline';
 
 export type SbbRadioButtonGroupEventDetail = {
   value: any | null;
-  radioButton: SbbRadioButtonElement;
+  radioButton: SbbRadioButtonElement | SbbRadioButtonPanelElement;
 };
 
 /**
@@ -79,19 +76,22 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   /**
    * List of contained radio buttons.
    */
-  public get radioButtons(): SbbRadioButtonElement[] {
+  public get radioButtons(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] {
     return (
-      Array.from(this.querySelectorAll?.('sbb-radio-button') ?? []) as SbbRadioButtonElement[]
+      Array.from(this.querySelectorAll?.('sbb-radio-button, sbb-radio-button-panel') ?? []) as (
+        | SbbRadioButtonElement
+        | SbbRadioButtonPanelElement
+      )[]
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }
 
-  private get _enabledRadios(): SbbRadioButtonElement[] | undefined {
+  private get _enabledRadios(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] | undefined {
     if (!this.disabled) {
       return this.radioButtons.filter((r) => !r.disabled);
     }
   }
 
-  private _hasSelectionPanel: boolean = false;
+  private _hasSelectionExpansionPanelElement: boolean = false;
   private _didLoad = false;
   private _abort = new SbbConnectedAbortController(this);
 
@@ -146,8 +146,13 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       },
     );
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._hasSelectionPanel = !!this.querySelector?.('sbb-selection-panel');
-    this.toggleAttribute('data-has-selection-panel', this._hasSelectionPanel);
+    this._hasSelectionExpansionPanelElement = !!this.querySelector?.(
+      'sbb-selection-expansion-panel',
+    );
+    this.toggleAttribute(
+      'data-has-panel',
+      !!this.querySelector?.('sbb-selection-expansion-panel, sbb-radio-button-panel'),
+    );
     this._updateRadios(this.value);
   }
 
@@ -234,13 +239,10 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
   }
 
-  private _getRadioTabIndex(radio: SbbRadioButtonElement): number {
+  private _getRadioTabIndex(radio: SbbRadioButtonElement | SbbRadioButtonPanelElement): number {
     const isSelected: boolean = radio.checked && !radio.disabled && !this.disabled;
-    const isParentPanelWithContent: boolean =
-      radio.parentElement?.nodeName === 'SBB-SELECTION-PANEL' &&
-      (radio.parentElement as SbbSelectionPanelElement).hasContent;
 
-    return isSelected || (this._hasSelectionPanel && isParentPanelWithContent) ? 0 : -1;
+    return isSelected || this._hasSelectionExpansionPanelElement ? 0 : -1;
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -252,7 +254,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this &&
         (evt.target as HTMLElement).parentElement !== this &&
-        (evt.target as HTMLElement).parentElement?.nodeName !== 'SBB-SELECTION-PANEL')
+        (evt.target as HTMLElement).parentElement?.localName !== 'sbb-selection-expansion-panel')
     ) {
       return;
     }
@@ -261,14 +263,12 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       return;
     }
 
-    const current: number = enabledRadios.findIndex((e: SbbRadioButtonElement) => e === evt.target);
+    const current: number = enabledRadios.findIndex(
+      (e: SbbRadioButtonElement | SbbRadioButtonPanelElement) => e === evt.target,
+    );
     const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
 
-    // Selection on arrow keypress is allowed only if all the selection-panels have no content.
-    const allPanelsHaveNoContent: boolean = (
-      Array.from(this.querySelectorAll?.('sbb-selection-panel')) || []
-    ).every((e: SbbSelectionPanelElement) => !e.hasContent);
-    if (!this._hasSelectionPanel || (this._hasSelectionPanel && allPanelsHaveNoContent)) {
+    if (!this._hasSelectionExpansionPanelElement) {
       enabledRadios[nextIndex].select();
     }
 

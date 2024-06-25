@@ -1,14 +1,14 @@
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import images from '../core/images.js';
 
+import { SbbImageElement } from './image.js';
 import readme from './readme.md?raw';
-
-import './image.js';
 
 const Template = (args: Args): TemplateResult => html`<sbb-image ${sbbSpread(args)}></sbb-image>`;
 
@@ -188,8 +188,14 @@ export const RoundBorderRadius: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`<div style="max-width: 480px;">${story()}</div>`],
+  decorators: [
+    (story) => html`<div style="max-width: 480px;">${story()}</div>`,
+    withActions as Decorator,
+  ],
   parameters: {
+    actions: {
+      handles: [SbbImageElement.events.load, SbbImageElement.events.error],
+    },
     chromatic: { diffThreshold: 0.11, delay: 8000 },
     docs: {
       extractComponentDescription: () => readme,

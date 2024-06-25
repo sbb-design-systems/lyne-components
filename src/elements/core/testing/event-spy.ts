@@ -1,5 +1,5 @@
 /**
- * This class exists to facilitate the E2E test migration from stencil to lit.
+ * This class exists to facilitate the test migration from stencil to lit.
  * It mimics the API that stencil provided to test events.
  *
  * TODO: Document me

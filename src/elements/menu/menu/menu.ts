@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -10,10 +10,9 @@ import {
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   applyInertMechanism,
@@ -57,15 +56,9 @@ let nextId = 0;
 @customElement('sbb-menu')
 export class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
-  typeof LitElement
->(LitElement) {
+  typeof SbbOpenCloseBaseElement
+>(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
-  } as const;
   protected override readonly listChildLocalNames = ['sbb-menu-button', 'sbb-menu-link'];
 
   /**
@@ -89,28 +82,6 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
    */
   @property({ attribute: 'list-accessibility-label' }) public listAccessibilityLabel?: string;
 
-  /**
-   * The state of the menu.
-   */
-  private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
-  }
-  private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
-  /** Emits whenever the `sbb-menu` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willOpen);
-
-  /** Emits whenever the `sbb-menu` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.didOpen);
-
-  /** Emits whenever the `sbb-menu` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willClose);
-
-  /** Emits whenever the `sbb-menu` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.didClose);
-
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;
   private _isPointerDownEventOnMenu: boolean = false;
@@ -124,15 +95,15 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
    * Opens the menu on trigger click.
    */
   public open(): void {
-    if (this._state === 'closing' || !this._menu) {
+    if (this.state === 'closing' || !this._menu) {
       return;
     }
 
-    if (!this._willOpen.emit()) {
+    if (!this.willOpen.emit()) {
       return;
     }
 
-    this._state = 'opening';
+    this.state = 'opening';
     this._setMenuPosition();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
 
@@ -146,15 +117,15 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
    * Closes the menu.
    */
   public close(): void {
-    if (this._state === 'opening') {
+    if (this.state === 'opening') {
       return;
     }
 
-    if (!this._willClose.emit()) {
+    if (!this.willClose.emit()) {
       return;
     }
 
-    this._state = 'closing';
+    this.state = 'closing';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -191,7 +162,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
 
   // Closes the menu on "Esc" key pressed and traps focus within the menu.
   private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
-    if (this._state !== 'opened') {
+    if (this.state !== 'opened') {
       return;
     }
 
@@ -215,7 +186,6 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._state ||= 'closed';
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
@@ -229,7 +199,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
 
-    if (this._state === 'opened') {
+    if (this.state === 'opened') {
       applyInertMechanism(this);
     }
   }
@@ -275,7 +245,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     this.id = this.id || `sbb-menu-${nextId++}`;
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
     this._menuController?.abort();
     this._menuController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -331,15 +301,15 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onMenuAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this._state === 'opening') {
-      this._state = 'opened';
-      this._didOpen.emit();
+    if (event.animationName === 'open' && this.state === 'opening') {
+      this.state = 'opened';
+      this.didOpen.emit();
       applyInertMechanism(this);
       this._setMenuFocus();
       this._focusHandler.trap(this);
       this._attachWindowEvents();
-    } else if (event.animationName === 'close' && this._state === 'closing') {
-      this._state = 'closed';
+    } else if (event.animationName === 'close' && this.state === 'closing') {
+      this.state = 'closed';
       this._menu?.firstElementChild?.scrollTo(0, 0);
       removeInertMechanism();
       setModalityOnNextFocus(this._triggerElement);
@@ -350,7 +320,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
           this._triggerElement.localName === 'sbb-header-button' ||
           this._triggerElement.localName === 'sbb-header-link',
       });
-      this._didClose.emit();
+      this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusHandler.disconnect();
 
@@ -373,7 +343,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
       !isBreakpoint('medium') ||
       !this._menu ||
       !this._triggerElement ||
-      this._state === 'closing'
+      this.state === 'closing'
     ) {
       return;
     }

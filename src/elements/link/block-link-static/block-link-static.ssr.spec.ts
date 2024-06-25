@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbBlockLinkStaticElement } from './block-link-static.js';
 
-describe(`sbb-block-link-static ${fixture.name}`, () => {
+describe(`sbb-block-link-static ssr`, () => {
   let root: SbbBlockLinkStaticElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html` <sbb-block-link-static icon-placement="end" size="m">
         <sbb-icon
           aria-hidden="true"

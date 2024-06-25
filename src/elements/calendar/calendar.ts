@@ -33,6 +33,7 @@ import {
   i18nYearMonthSelection,
 } from '../core/i18n.js';
 import type { SbbDateLike } from '../core/interfaces.js';
+import { SbbHydrationMixin } from '../core/mixins.js';
 
 import style from './calendar.scss?lit&inline';
 
@@ -90,7 +91,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
 @customElement('sbb-calendar')
-export class SbbCalendarElement<T = Date> extends LitElement {
+export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     dateSelected: 'dateSelected',
@@ -215,6 +216,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   /** Whether the focus should be reset on focusCell. */
   private _resetFocus = false;
 
+  @state()
   private _initialized = false;
 
   private _abort = new SbbConnectedAbortController(this);
@@ -227,12 +229,6 @@ export class SbbCalendarElement<T = Date> extends LitElement {
     super();
     this._createMonthRows();
     this._setWeekdays();
-
-    // Workaround to execute initialization immediately after hydration
-    // If no hydration is needed, will be executed before the first rendering
-    this.addController({
-      hostConnected: () => this.resetPosition(),
-    });
   }
 
   private get _dateFilter(): (date: T) => boolean {
@@ -250,6 +246,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.resetPosition();
     this.focus = () => {
       this._resetFocus = true;
       this._focusCell();
@@ -289,6 +286,9 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   private _init(activeDate?: T): void {
     //Due to its complexity, the caledar is only initialized on client side
     if (isServer) {
+      return;
+    } else if (this.hydrationRequired) {
+      this.hydrationComplete.then(() => this._init());
       return;
     }
 
@@ -1233,6 +1233,11 @@ export class SbbCalendarElement<T = Date> extends LitElement {
   }
 
   private get _getView(): TemplateResult {
+    if (isServer || this.hydrationRequired) {
+      // TODO: We disable SSR for calendar for now. Figure our, if there is a way
+      // to enable it, while considering i18n and date information.
+      return html`${nothing}`;
+    }
     switch (this._calendarView) {
       case 'year':
         return this._renderYearView();

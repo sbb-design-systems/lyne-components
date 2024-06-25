@@ -33,7 +33,7 @@ export default [
       '**/*.chromatic.stories.*',
       'dist/**/*',
       'coverage/**/*',
-      'tools/generate-component/boilerplate/**/*',
+      'tools/generate-component/**/*',
       '**/__snapshots__/**/*',
     ],
   },
@@ -52,6 +52,12 @@ export default [
     rules: {
       'lyne/custom-element-class-name-rule': 'off',
       'import-x/namespace': 'off',
+    },
+  },
+  {
+    files: ['src/storybook/**/*.ts'],
+    rules: {
+      'lyne/test-describe-title': 'off',
     },
   },
   {

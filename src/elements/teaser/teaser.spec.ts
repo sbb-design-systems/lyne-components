@@ -1,81 +1,32 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import images from '../core/images.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import type { SbbTeaserElement } from './teaser.js';
-
-import './teaser.js';
+import { SbbTeaserElement } from './teaser.js';
 
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;
 
-  describe('renders after centered', () => {
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-teaser
-          href="https://github.com/sbb-design-systems/lyne-components"
-          alignment="after-centered"
-          accessibility-label="SBB teaser"
-        ></sbb-teaser>`,
-      );
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`);
   });
 
-  describe('renders after with title level set', () => {
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-teaser
-          href="https://github.com/sbb-design-systems/lyne-components"
-          alignment="after"
-          accessibility-label="SBB teaser"
-          title-level="2"
-        ></sbb-teaser>`,
-      );
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.equalSnapshot();
-    });
+  it('should render', async () => {
+    assert.instanceOf(element, SbbTeaserElement);
   });
 
-  describe('renders below with projected content', () => {
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-teaser
-          href="https://github.com/sbb-design-systems/lyne-components"
-          accessibility-label="SBB teaser"
-          alignment="below"
-        >
-          <img slot="image" src=${images[0]} alt="400x300" />
-          <span slot="chip">Chip</span>
-          <span slot="title">TITLE</span>
-          description
-        </sbb-teaser>`,
-      );
-    });
+  it('should receive focus', async () => {
+    element.focus();
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('focus-id');
+  });
 
-    it('DOM', async () => {
-      await expect(element).dom.to.equalSnapshot();
-    });
+  it('dispatches event on click', async () => {
+    const clickSpy = new EventSpy('click');
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.equalSnapshot();
-    });
+    element.click();
+    expect(clickSpy.count).to.be.equal(1);
   });
 });

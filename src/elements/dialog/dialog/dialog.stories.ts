@@ -29,6 +29,7 @@ import '../../button.js';
 import '../../link.js';
 import '../../form-field.js';
 import '../../image.js';
+import '../../popover.js';
 import '../dialog-content.js';
 import '../dialog-actions.js';
 
@@ -238,7 +239,21 @@ const DefaultTemplate = ({
   <sbb-dialog data-testid="dialog" id="my-dialog-1" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
     <sbb-dialog-content>
-      <p id="dialog-content-1" style=${styleMap({ margin: '0' })}>Dialog content</p>
+      <p
+        id="dialog-content-1"
+        style=${styleMap({
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--sbb-spacing-fixed-1x)',
+          margin: '0',
+        })}
+      >
+        Dialog content
+        <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+      </p>
+      <sbb-popover trigger="popover-trigger">
+        <p style="margin: 0" class="sbb-text-s">Some content.</p>
+      </sbb-popover>
     </sbb-dialog-content>
     ${dialogActions(args.negative)}
   </sbb-dialog>

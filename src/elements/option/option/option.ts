@@ -12,7 +12,7 @@ import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/
 import { hostAttributes } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
@@ -35,7 +35,7 @@ const optionObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-disabled', 'data-negative'],
 };
 
-export type SbbOptionVariant = 'autocomplete' | 'select';
+export type SbbOptionVariant = 'autocomplete' | 'select' | null;
 
 /**
  * It displays on option item which can be used in `sbb-select` or `sbb-autocomplete`.
@@ -51,7 +51,9 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
 @hostAttributes({
   role: 'option',
 })
-export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
+export class SbbOptionElement extends SbbDisabledMixin(
+  SbbIconNameMixin(SbbHydrationMixin(LitElement)),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectionChange: 'optionSelectionChange',
@@ -111,11 +113,22 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   /** Disable the highlight of the label. */
   @state() private _disableLabelHighlight: boolean = false;
 
+  @state() private _inertAriaGroups = false;
+
   private set _variant(state: SbbOptionVariant) {
-    this.setAttribute('data-variant', state);
+    if (state) {
+      this.setAttribute('data-variant', state);
+    }
   }
   private get _variant(): SbbOptionVariant {
     return this.getAttribute('data-variant') as SbbOptionVariant;
+  }
+
+  private set _isMultiple(isMultiple: boolean) {
+    this.toggleAttribute('data-multiple', isMultiple);
+  }
+  private get _isMultiple(): boolean {
+    return !this.hydrationRequired && this.hasAttribute('data-multiple');
   }
 
   private _abort = new SbbConnectedAbortController(this);
@@ -125,21 +138,17 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     this._onOptionAttributesChange(mutationsList),
   );
 
-  private get _isAutocomplete(): boolean {
-    return this._variant === 'autocomplete';
-  }
-
-  private get _isSelect(): boolean {
-    return this._variant === 'select';
-  }
-
-  private get _isMultiple(): boolean {
-    return !!this.closest?.('sbb-select[multiple]');
-  }
-
   public constructor() {
     super();
     new SbbSlotStateController(this);
+
+    if (inertAriaGroups) {
+      if (this.hydrationRequired) {
+        this.hydrationComplete.then(() => (this._inertAriaGroups = inertAriaGroups));
+      } else {
+        this._inertAriaGroups = inertAriaGroups;
+      }
+    }
   }
 
   public override attributeChangedCallback(
@@ -196,28 +205,11 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
     this.id ||= `sbb-option-${nextId++}`;
 
-    const signal = this._abort.signal;
-    const parentGroup = this.closest?.('sbb-optgroup');
-    if (parentGroup) {
-      this._disabledFromGroup = parentGroup.disabled;
-      this._updateAriaDisabled();
+    if (this.hydrationRequired) {
+      this.hydrationComplete.then(() => this._init());
+    } else {
+      this._init();
     }
-    this._optionAttributeObserver.observe(this, optionObserverConfig);
-
-    this._negative = !!this.closest?.(
-      // :is() selector not possible due to test environment
-      `sbb-autocomplete[negative],sbb-select[negative],sbb-form-field[negative]`,
-    );
-    this.toggleAttribute('data-negative', this._negative);
-
-    this._setVariantByContext();
-
-    this.toggleAttribute('data-multiple', this._isMultiple);
-
-    this.addEventListener('click', (e: MouseEvent) => this._selectByClick(e), {
-      signal,
-      passive: true,
-    });
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -234,6 +226,33 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
     // Init first select state because false would not call setter of selected property.
     this._updateAriaSelected();
+  }
+
+  private _init(): void {
+    const signal = this._abort.signal;
+    const parentGroup = this.closest?.('sbb-optgroup');
+    if (parentGroup) {
+      this._disabledFromGroup = parentGroup.disabled;
+      this._updateAriaDisabled();
+    }
+    this._optionAttributeObserver.observe(this, optionObserverConfig);
+
+    this._negative = !!this.closest?.(
+      // :is() selector not possible due to test environment
+      `sbb-autocomplete[negative],sbb-select[negative],sbb-form-field[negative]`,
+    );
+    this.toggleAttribute('data-negative', this._negative);
+
+    this._setVariantByContext();
+    // We need to check highlight state both on slot change, but also when connecting
+    // the element to the DOM. The slot change events might be swallowed when using declarative
+    // shadow DOM with SSR or if the DOM is changed when disconnected.
+    this._handleHighlightState();
+
+    this.addEventListener('click', (e: MouseEvent) => this._selectByClick(e), {
+      signal,
+      passive: true,
+    });
   }
 
   private _updateAriaDisabled(): void {
@@ -259,6 +278,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     } else if (this.closest?.('sbb-select')) {
       this._variant = 'select';
     }
+    this._isMultiple = !!this.closest?.('sbb-select[multiple]');
   }
 
   /** Observe changes on data attributes and set the appropriate values. */
@@ -273,16 +293,20 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     }
   }
 
-  private _setupHighlightHandler(event: Event): void {
-    if (!this._isAutocomplete) {
+  private _handleHighlightState(): void {
+    if (this._variant !== 'autocomplete') {
       this._updateDisableHighlight(true);
       return;
     }
 
-    const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
+    const slotNodes = Array.from(this.childNodes ?? []).filter(
+      (n) => !(n instanceof Element) || n.slot !== 'icon',
+    );
     const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
-    // Disable the highlight if the slot contain more than just text nodes
+    // Disable the highlight if the slot contain more than just text nodes.
+    // We need to ignore template elements, as SSR adds a declarative shadow DOM
+    // in the form of a template element.
     if (
       labelNodes.length === 0 ||
       slotNodes.filter((n) => !(n instanceof Element) || n.localName !== 'template').length !==
@@ -343,13 +367,13 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
           <!-- Label -->
           <span class="sbb-option__label">
-            <slot @slotchange=${this._setupHighlightHandler}></slot>
+            <slot @slotchange=${this._handleHighlightState}></slot>
 
             <!-- Search highlight -->
-            ${this._isAutocomplete && this._label && !this._disableLabelHighlight
+            ${this._variant === 'autocomplete' && this._label && !this._disableLabelHighlight
               ? this._getHighlightedLabel()
               : nothing}
-            ${inertAriaGroups && this.getAttribute('data-group-label')
+            ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html` <sbb-screen-reader-only>
                   (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
                 >`
@@ -357,7 +381,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
           </span>
 
           <!-- Selected tick -->
-          ${this._isSelect && !isMultiple && this.selected
+          ${this._variant === 'select' && !isMultiple && this.selected
             ? html`<sbb-icon name="tick-small"></sbb-icon>`
             : nothing}
         </div>

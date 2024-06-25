@@ -1,34 +1,48 @@
-import { assert, expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { spy } from 'sinon';
 
 import { fixture } from '../core/testing/private.js';
-import { waitForCondition, waitForLitRender } from '../core/testing.js';
+import { waitForCondition } from '../core/testing.js';
 
-import { SbbImageElement } from './image.js';
+import './image.js';
+
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-image`, () => {
-  let element: SbbImageElement;
+  it('should trigger load event', async () => {
+    const loadSpy = spy();
+    const errorSpy = spy();
 
-  describe('should render', async () => {
-    beforeEach(async () => {
-      const url = `${location.protocol}//${location.host}/src/elements/clock/assets/sbb_clock_face.svg`;
-      element = await fixture(html`<sbb-image image-src=${url}></sbb-image>`);
+    await fixture(
+      html`<sbb-image
+        image-src=${imageUrl}
+        @load=${(e: Event) => loadSpy(e)}
+        @error=${(e: Event) => errorSpy(e)}
+      ></sbb-image>`,
+    );
 
-      // Wait until the image is successfully loaded
-      await waitForCondition(() => element.hasAttribute('data-loaded'), 30, 6000);
-      await waitForLitRender(element);
+    await waitForCondition(() => loadSpy.called);
 
-      assert.instanceOf(element, SbbImageElement);
-    });
+    expect(loadSpy).to.have.been.called;
+    expect(errorSpy).not.to.have.been.called;
+  });
 
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['image-src'] });
-    });
+  it('should trigger error event', async () => {
+    const loadSpy = spy();
+    const errorSpy = spy();
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot({
-        ignoreAttributes: ['src', 'srcset', 'fetchpriority'],
-      });
-    });
+    await fixture(
+      html`<sbb-image
+        image-src="http://localhost/dummy.png"
+        @load=${(e: Event) => loadSpy(e)}
+        @error=${(e: Event) => errorSpy(e)}
+      ></sbb-image>`,
+    );
+
+    await waitForCondition(() => errorSpy.called);
+
+    expect(loadSpy).not.to.have.been.called;
+    expect(errorSpy).to.have.been.called;
   });
 });

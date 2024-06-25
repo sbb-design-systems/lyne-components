@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbLinkListElement } from './link-list.js';
 
 import '../link.js';
 
-describe(`sbb-link-list ${fixture.name}`, () => {
+describe(`sbb-link-list ssr`, () => {
   let root: SbbLinkListElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-link-list title-level="2">
           <span slot="title">Help &amp; Contact</span>

@@ -1,71 +1,34 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import './breadcrumb.js';
+import { SbbBreadcrumbElement } from './breadcrumb.js';
 
 describe(`sbb-breadcrumb`, () => {
-  it('renders with text', async () => {
-    const root = await fixture(html`
-      <sbb-breadcrumb href="https://example.com/test" target="_blank" download rel="subsection"
-        >Breadcrumb</sbb-breadcrumb
-      >
-    `);
+  let element: SbbBreadcrumbElement;
 
-    expect(root).dom.to.be.equal(`
-      <sbb-breadcrumb
-        dir="ltr"
-        data-action
-        data-link
-        href="https://example.com/test"
-        target="_blank"
-        download
-        rel="subsection">
-        Breadcrumb
-      </sbb-breadcrumb>
-    `);
-
-    await expect(root).shadowDom.to.equalSnapshot();
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-breadcrumb id="focus-id" href="#">Test</sbb-breadcrumb>`);
   });
 
-  it('renders with icon', async () => {
-    const root = await fixture(html`
-      <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>
-    `);
-
-    expect(root).dom.to.be.equal(`
-      <sbb-breadcrumb
-        dir="ltr"
-        data-action
-        data-link
-        href="/"
-        icon-name="house-small"></sbb-breadcrumb>
-    `);
-
-    await expect(root).shadowDom.to.equalSnapshot();
+  it('renders', async () => {
+    assert.instanceOf(element, SbbBreadcrumbElement);
   });
 
-  it('renders with icon and text', async () => {
-    const root = await fixture(html`
-      <sbb-breadcrumb href="/" icon-name="house-small">Home</sbb-breadcrumb>
-    `);
+  it('dispatches event on click', async () => {
+    const changeSpy = new EventSpy('click');
 
-    expect(root).dom.to.be.equal(`
-      <sbb-breadcrumb
-        dir="ltr"
-        data-action
-        data-link
-        href="/"
-        icon-name="house-small">
-        Home
-      </sbb-breadcrumb>
-    `);
-
-    await expect(root).shadowDom.to.equalSnapshot();
+    element.click();
+    await waitForCondition(() => changeSpy.events.length === 1);
+    expect(changeSpy.count).to.be.equal(1);
   });
 
-  testA11yTreeSnapshot(html`
-    <sbb-breadcrumb href="https://example.com/test">Breadcrumb</sbb-breadcrumb>
-  `);
+  it('should receive focus', async () => {
+    element.focus();
+    await waitForLitRender(element);
+
+    expect(document.activeElement!.id).to.be.equal('focus-id');
+  });
 });

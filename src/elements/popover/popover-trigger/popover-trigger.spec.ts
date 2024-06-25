@@ -1,30 +1,103 @@
-import { expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
+import { SbbPopoverElement } from '../popover.js';
 
-import './popover-trigger.js';
+import { SbbPopoverTriggerElement } from './popover-trigger.js';
+
+import '../../icon.js';
+import '../../link/link.js';
 
 describe(`sbb-popover-trigger`, () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-popover-trigger></sbb-popover-trigger>`);
+  let element: SbbPopoverTriggerElement, popover: SbbPopoverElement;
 
-    expect(root).dom.to.be.equal(
-      `<sbb-popover-trigger role="button" tabindex="0" dir="ltr" data-action data-button></sbb-popover-trigger>`,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  beforeEach(async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+        <sbb-popover id="popover" trigger="popover-trigger">
+          Popover content.
+          <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
+        </sbb-popover>
+      </div>
+    `);
+    element = root.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    popover = root.querySelector<SbbPopoverElement>('sbb-popover')!;
   });
 
-  it('renders with custom content', async () => {
-    const root = await fixture(html`<sbb-popover-trigger>Custom Content</sbb-popover-trigger>`);
-
-    expect(root).dom.to.be.equal(
-      `<sbb-popover-trigger role="button" tabindex="0" dir="ltr" data-action data-button>
-        Custom Content
-      </sbb-popover-trigger>`,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  it('renders', () => {
+    assert.instanceOf(element, SbbPopoverTriggerElement);
   });
 
-  testA11yTreeSnapshot(html`<sbb-popover-trigger></sbb-popover-trigger>`);
+  it('shows popover on popover-trigger click', async () => {
+    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+
+    element.click();
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(popover).to.have.attribute('data-state', 'opened');
+  });
+
+  it("doesn't show popover on disabled popover-trigger click", async () => {
+    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+    element.disabled = true;
+    await waitForLitRender(element);
+
+    element.click();
+    await waitForLitRender(element);
+
+    expect(willOpenEventSpy.count).to.be.equal(0);
+    expect(popover).to.have.attribute('data-state', 'closed');
+  });
+
+  it('shows popover on keyboard event', async () => {
+    const focusSpy = new EventSpy('focus', element);
+
+    element.focus();
+    await waitForCondition(() => focusSpy.events.length === 1);
+    expect(focusSpy.count).to.be.equal(1);
+
+    await sendKeys({ press: 'Enter' });
+    await waitForCondition(() => popover.getAttribute('data-state') === 'opened');
+
+    expect(popover).to.have.attribute('data-state', 'opened');
+  });
+
+  it('shows popover on keyboard event with hover-trigger', async () => {
+    const changeSpy = new EventSpy('focus', element);
+
+    popover.hoverTrigger = true;
+    element.focus();
+
+    await waitForCondition(() => changeSpy.events.length === 1);
+    expect(changeSpy.count).to.be.equal(1);
+
+    await sendKeys({ press: 'Enter' });
+    await waitForCondition(() => popover.getAttribute('data-state') === 'opened');
+
+    expect(popover).to.have.attribute('data-state', 'opened');
+  });
+
+  it("doesn't focus popover-trigger on keyboard event when disabled", async () => {
+    const changeSpy = new EventSpy('focus', element);
+
+    element.disabled = true;
+    popover.hoverTrigger = true;
+    await waitForLitRender(element);
+
+    element.focus();
+
+    await waitForLitRender(element);
+
+    expect(changeSpy.count).not.to.be.greaterThan(0);
+    expect(popover).to.have.attribute('data-state', 'closed');
+  });
 });

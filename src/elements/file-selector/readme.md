@@ -18,6 +18,12 @@ In this case, it's possible to customize the area's title via the `titleContent`
 <sbb-file-selector variant="dropzone" title-content="Drop file here."></sbb-file-selector>
 ```
 
+The component has also two different sizes, `m` (default) and `s`, which can be changed using the `size` property.
+
+```html
+<sbb-file-selector size="s"></sbb-file-selector>
+```
+
 ### Multiple and multipleMode
 
 In both variants, a single file can be selected by default; this can be changed setting the `multiple` property to `true`.
@@ -90,6 +96,7 @@ It's suggested to have a different value for each variant, e.g.:
 | `files`              | -                     | public  | `File[]`                    |             | Gets the currently selected files.                                       |
 | `multiple`           | `multiple`            | public  | `boolean`                   | `false`     | Whether more than one file can be selected.                              |
 | `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` | `'default'` | Whether the newly added files should override the previously added ones. |
+| `size`               | `size`                | public  | `'s' \| 'm'`                | `'m'`       | Size variant, either s or m.                                             |
 | `titleContent`       | `title-content`       | public  | `string \| undefined`       |             | The title displayed in `dropzone` variant.                               |
 | `variant`            | `variant`             | public  | `'default' \| 'dropzone'`   | `'default'` | Whether the component has a dropzone area or not.                        |
 

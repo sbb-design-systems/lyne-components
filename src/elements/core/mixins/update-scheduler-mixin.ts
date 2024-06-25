@@ -1,6 +1,6 @@
 import type { LitElement } from 'lit';
 
-import type { Constructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.js';
 
 // Define the interface for the mixin
 export declare class SbbUpdateSchedulerMixinType {
@@ -14,10 +14,13 @@ export declare class SbbUpdateSchedulerMixinType {
  * @returns A class extended with the slot child observer functionality.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbUpdateSchedulerMixin = <T extends Constructor<LitElement>>(
+export const SbbUpdateSchedulerMixin = <T extends AbstractConstructor<LitElement>>(
   base: T,
-): Constructor<SbbUpdateSchedulerMixinType> & T => {
-  class SbbUpdateSchedulerElement extends base implements Partial<SbbUpdateSchedulerMixinType> {
+): AbstractConstructor<SbbUpdateSchedulerMixinType> & T => {
+  abstract class SbbUpdateSchedulerElement
+    extends base
+    implements Partial<SbbUpdateSchedulerMixinType>
+  {
     private _updatePromise = Promise.resolve();
     private _updateResolve = (): void => {};
 
@@ -35,5 +38,6 @@ export const SbbUpdateSchedulerMixin = <T extends Constructor<LitElement>>(
       return result;
     }
   }
-  return SbbUpdateSchedulerElement as unknown as Constructor<SbbUpdateSchedulerMixinType> & T;
+  return SbbUpdateSchedulerElement as unknown as AbstractConstructor<SbbUpdateSchedulerMixinType> &
+    T;
 };

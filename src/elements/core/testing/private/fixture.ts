@@ -1,9 +1,6 @@
-import { html, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 
 import { waitForLitRender } from '../wait-for-render.js';
-
-import { applyViewport } from './describe-viewports.js';
-import { isHydratedSsr, isNonHydratedSsr } from './platform.js';
 
 // Copied from @lit-labs/testing/lib/fixtures/fixture-options.d.ts
 interface FixtureOptions {
@@ -20,6 +17,27 @@ interface FixtureOptions {
   base?: string;
 }
 
+const internalFixture = async <T extends HTMLElement>(
+  type: 'csrFixture' | 'ssrHydratedFixture' | 'ssrNonHydratedFixture',
+  template: TemplateResult,
+  options: FixtureOptions = { modules: [] },
+): Promise<T> => {
+  // PlayWright with WebKit does not include wtr-session-id in stack trace.
+  // As an alternative, we look for the first file in the stack trace that is not part of
+  // node_modules and not in /core/testing/.
+  // See https://github.com/lit/lit/issues/4067
+  const { stack } = new Error();
+  options.base ??= [...stack!.matchAll(/http:\/\/localhost:?[^:)]+/gm)]
+    .map((m) => m[0])
+    .find((u) => !u.includes('/node_modules/') && !u.includes('/core/testing/private/fixture'));
+  if (type !== 'csrFixture') {
+    options.modules.unshift('/src/elements/core/testing/test-setup-ssr.ts');
+  }
+
+  const fixtures = await import('@lit-labs/testing/fixtures.js');
+  return await waitForLitRender(fixtures[type]<T>(template, options));
+};
+
 /**
  * We want to dynamically use the correct fixture from Lit testing for the current context.
  * However, currently @lit-labs/testing/fixtures.js also loads the Lit hydration logic
@@ -29,75 +47,54 @@ interface FixtureOptions {
  * We also patch the name property of this function, to reflect the correct function name
  * of the original fixture.
  */
-export const fixture = Object.defineProperty(
-  async <T extends HTMLElement>(
-    template: TemplateResult,
-    options: FixtureOptions = { modules: [] },
-  ): Promise<T> => {
-    // PlayWright with WebKit does not include wtr-session-id in stack trace.
-    // As an alternative, we look for the first file in the stack trace that is not part of
-    // node_modules and not in /core/testing/.
-    // See https://github.com/lit/lit/issues/4067
-    const { stack } = new Error();
-    options.base ??= [...stack!.matchAll(/http:\/\/localhost:?[^:)]+/gm)]
-      .map((m) => m[0])
-      .find((u) => !u.includes('/node_modules/') && !u.includes('/core/testing/'));
-    options.modules.unshift('/src/elements/core/testing/test-setup-ssr.ts');
-    const fixtures = await import('@lit-labs/testing/fixtures.js');
-    let result: T;
-    if (isHydratedSsr) {
-      result = await fixtures.ssrHydratedFixture<T>(template, options);
-      result
-        .parentElement!.querySelectorAll('[defer-hydration]')
-        .forEach((e) => e.removeAttribute('defer-hydration'));
-      return result;
-    } else if (isNonHydratedSsr) {
-      result = await fixtures.ssrNonHydratedFixture<T>(template, options);
-    } else {
-      result = await fixtures.csrFixture<T>(template, options);
-    }
-    await waitForLitRender(result);
-    return result;
-  },
-  'name',
-  {
-    get() {
-      if (isHydratedSsr) {
-        return 'ssrHydratedFixture';
-      } else if (isNonHydratedSsr) {
-        return 'ssrNonHydratedFixture';
-      } else {
-        return 'csrFixture';
-      }
-    },
-  },
-);
+export const fixture = async <T extends HTMLElement>(
+  template: TemplateResult,
+  options?: FixtureOptions,
+): Promise<T> => internalFixture('csrFixture', template, options);
 
 /**
- * Fixture which provide a div container for test cases.
+ * Renders the provided Lit template server-side by executing a custom command
+ * for Web Test Runner provided by the Lit SSR Plugin, loads it to the document
+ * and hydrates it, returning the element.
+ */
+export const ssrHydratedFixture = async <T extends HTMLElement>(
+  template: TemplateResult,
+  options?: FixtureOptions,
+): Promise<T> => internalFixture('ssrHydratedFixture', template, options);
+
+/**
+ * Renders the provided Lit template server-side by executing a custom command
+ * for Web Test Runner provided by the Lit SSR Plugin, loads it to the document
+ * **without** hydrating it, returning the element.
+ */
+export const ssrNonHydratedFixture = async <T extends HTMLElement>(
+  template: TemplateResult,
+  options?: FixtureOptions,
+): Promise<T> => internalFixture('ssrNonHydratedFixture', template, options);
+
+/**
+ * Fixture which provides a div container for visual test cases.
  *
  * @param wrapperStyles.padding Defaults to 2rem to include shadows and similar styles.
  * @param wrapperStyles.backgroundColor Defaults to white.
  */
 export async function visualRegressionFixture<T extends HTMLElement>(
   template: TemplateResult,
-  context: Mocha.Context,
   wrapperStyles?: {
-    padding?: string;
     backgroundColor?: string;
+    color?: string;
     focusOutlineDark?: boolean;
+    padding?: string;
   },
 ): Promise<T> {
-  const fix = await fixture<T>(
+  const { html } = await import('lit-html');
+  return await fixture<T>(
     html`<div
-      style=${`padding: ${wrapperStyles?.padding ?? '2rem'};background-color: ${wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)'};${wrapperStyles?.focusOutlineDark ? ' --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);' : ''}`}
+      id="visual-regression-fixture-wrapper"
+      style=${`padding: ${wrapperStyles?.padding ?? '2rem'};background-color: ${wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)'};${wrapperStyles?.color ? `color: ${wrapperStyles?.color};` : ''}${wrapperStyles?.focusOutlineDark ? ' --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);' : ''}`}
       tabindex="0"
     >
       ${template}
     </div>`,
   );
-
-  // Due to Webkit rendering issues, the viewport has to be set after fixture creation.
-  await applyViewport(context);
-  return fix;
 }

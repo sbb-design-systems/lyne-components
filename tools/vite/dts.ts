@@ -4,9 +4,14 @@ import dtsPlugin from 'vite-plugin-dts';
 export function dts(): Plugin {
   return dtsPlugin({
     entryRoot: '.',
-    exclude: ['**/*[.-]{stories,spec,e2e,test-utils}.ts', '**/private/*', 'vite.config.ts'],
+    exclude: ['**/*[.-]{stories,spec,test-utils}.ts', '**/private/*', 'vite.config.ts'],
     pathsToAliases: false,
     strictOutput: false,
+    aliasesExclude: [
+      /^@sbb-esta\/lyne-elements\/?/,
+      /^@sbb-esta\/lyne-elements-experimental\/?/,
+      /^@sbb-esta\/lyne-react\/?/,
+    ],
     afterDiagnostic(diagnostics) {
       if (diagnostics.length) {
         throw new Error('dts generation for react package failed! See logs for details.');
