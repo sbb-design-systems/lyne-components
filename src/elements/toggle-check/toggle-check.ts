@@ -26,8 +26,8 @@ export class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(
     didChange: 'didChange',
   } as const;
 
-  /** Size variant, either m or s. */
-  @property({ reflect: true }) public size: 's' | 'm' = 's';
+  /** Size variant, either m, s or xs. */
+  @property({ reflect: true }) public size: 'xs' | 's' | 'm' = 's';
 
   /** The svg name for the true state - default -> 'tick-small' */
   @property({ attribute: 'icon-name' }) public override iconName = 'tick-small';
