@@ -85,21 +85,15 @@ describe(`sbb-file-selector`, () => {
         `);
       });
 
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          addFilesToComponentInput(root.querySelector('#fs')!);
-          setup.withSnapshotElement(root);
-        }),
-      );
-
-      it(
-        visualDiffFocus.name,
-        visualDiffFocus.with((setup) => {
-          addFilesToComponentInput(root.querySelector('#fs')!);
-          setup.withSnapshotElement(root);
-        }),
-      );
+      for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+        it(
+          visualDiffState.name,
+          visualDiffState.with((setup) => {
+            addFilesToComponentInput(root.querySelector('#fs')!);
+            setup.withSnapshotElement(root);
+          }),
+        );
+      }
     });
   });
 });
