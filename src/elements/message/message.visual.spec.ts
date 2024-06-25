@@ -45,8 +45,6 @@ describe(`sbb-message`, () => {
             ></sbb-secondary-button>
           </sbb-message>
         `);
-
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
