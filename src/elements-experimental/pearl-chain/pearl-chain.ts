@@ -96,8 +96,8 @@ export class SbbPearlChainElement extends LitElement {
       return 0;
     }
 
-    const startWithDelay = addMinutes(start.time, start.delay);
-    const endWithDelay = addMinutes(end.time, end.delay);
+    const startWithDelay = addMinutes(start.time, start.delay ?? 0);
+    const endWithDelay = addMinutes(end.time, end.delay ?? 0);
     const total = differenceInMinutes(endWithDelay, startWithDelay);
     const progress = differenceInMinutes(now, startWithDelay);
 
@@ -105,8 +105,8 @@ export class SbbPearlChainElement extends LitElement {
   }
 
   private _getStatus(now: Date, start?: Time, end?: Time): Status {
-    const startWithDelay = start && start.time && addMinutes(start.time, start.delay);
-    const endWithDelay = end && end.time && addMinutes(end.time, end.delay);
+    const startWithDelay = start && start.time && addMinutes(start.time, start.delay ?? 0);
+    const endWithDelay = end && end.time && addMinutes(end.time, end.delay ?? 0);
 
     if (
       startWithDelay &&
@@ -149,7 +149,7 @@ export class SbbPearlChainElement extends LitElement {
       rideLegs?.length && removeTimezoneFromISOTimeString(rideLegs[0]?.departure?.time);
     const departureWithDelay = departureTime && {
       time: departureTime,
-      delay: rideLegs[0].departure.delay || 0,
+      delay: rideLegs[0].departure.delay ?? 0,
     };
 
     const arrivalTime =
@@ -157,7 +157,7 @@ export class SbbPearlChainElement extends LitElement {
       removeTimezoneFromISOTimeString(rideLegs[rideLegs.length - 1].arrival?.time);
     const arrivalTimeDelay = arrivalTime && {
       time: arrivalTime,
-      delay: rideLegs[rideLegs.length - 1]?.arrival.delay || 0,
+      delay: rideLegs[rideLegs.length - 1]?.arrival.delay ?? 0,
     };
 
     const departureNotServiced = ((): string => {
@@ -246,8 +246,8 @@ export class SbbPearlChainElement extends LitElement {
 
           const cancelled = serviceAlteration?.cancelled ? 'sbb-pearl-chain__leg--disruption' : '';
 
-          const legDepartureWithDelay = { time: departure, delay: leg.departure.delay || 0 };
-          const legArrivalWithDelay = { time: arrival, delay: leg.arrival.delay || 0 };
+          const legDepartureWithDelay = { time: departure, delay: leg.departure?.delay ?? 0 };
+          const legArrivalWithDelay = { time: arrival, delay: leg.arrival?.delay ?? 0 };
           const status = this._getStatus(now, legDepartureWithDelay, legArrivalWithDelay);
 
           const legStatus =
