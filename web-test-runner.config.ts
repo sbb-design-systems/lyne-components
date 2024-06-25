@@ -1,3 +1,4 @@
+import { platform } from 'node:os';
 import { parseArgs } from 'node:util';
 
 import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
@@ -8,7 +9,11 @@ import {
   type TestRunnerGroupConfig,
 } from '@web/test-runner';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
-import { type PlaywrightLauncherArgs, playwrightLauncher, type PlaywrightLauncher } from '@web/test-runner-playwright';
+import {
+  type PlaywrightLauncherArgs,
+  playwrightLauncher,
+  type PlaywrightLauncher,
+} from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 import { initCompiler } from 'sass';
@@ -35,6 +40,7 @@ const { values: cliArgs } = parseArgs({
     group: { type: 'string' },
     ssr: { type: 'boolean' },
     container: { type: 'boolean' },
+    local: { type: 'boolean' },
   },
 });
 
@@ -123,6 +129,12 @@ const groups: TestRunnerGroupConfig[] = [
 // The visual regression test group is only added when explicitly set, as the tests are very expensive.
 if (cliArgs.group === 'visual-regression') {
   groups.push({ name: 'visual-regression', files: 'src/**/*.visual.spec.ts', testRunnerHtml });
+  if (!cliArgs.local && platform() !== 'linux') {
+    console.log(
+      `Running visual regression tests in a non-linux environment. Switching to container usage. Use --local to opt-out.`,
+    );
+    cliArgs.container = true;
+  }
 }
 
 if (cliArgs.container) {
