@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
@@ -32,14 +32,25 @@ describe(`sbb-alert`, () => {
       ?readonly=${readonly}
       icon-name=${icon}
       title-content=${titleContent}
-      .linkContent=${linkContent}
-      .href=${href}
+      link-content=${linkContent ?? nothing}
+      href=${href ?? nothing}
       >${contentSlotText}</sbb-alert
     >
   `;
 
   describeViewports({ viewports: ['micro', 'small'] }, () => {
-    for (const size of ['s', 'm', 'l']) {
+    it(
+      'with default args',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-alert title-content=${defaultArgs.titleContent} href=${defaultArgs.href!}
+            >${contentSlotText}</sbb-alert
+          >`,
+        );
+      }),
+    );
+
+    for (const size of ['s', 'l']) {
       it(
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
@@ -75,7 +86,7 @@ describe(`sbb-alert`, () => {
       'icon and title as slot',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-alert icon-name="info" href="https://www.sbb.ch">
+          html`<sbb-alert href="https://www.sbb.ch">
             <sbb-icon name="disruption" slot="icon"></sbb-icon>
             <span slot="title">Slotted title</span>
             ${contentSlotText}</sbb-alert
