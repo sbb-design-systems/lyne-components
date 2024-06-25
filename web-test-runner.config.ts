@@ -30,6 +30,7 @@ import {
 const { values: cliArgs } = parseArgs({
   strict: false,
   options: {
+    file: { type: 'string' },
     ci: { type: 'boolean', default: !!process.env.CI },
     debug: { type: 'boolean' },
     'all-browsers': { type: 'boolean', short: 'a' },
@@ -122,13 +123,18 @@ const suppressedLogs = [
   '[vite] connected.',
 ];
 
+const testFile = typeof cliArgs.file === 'string' && cliArgs.file ? cliArgs.file : undefined;
 const groups: TestRunnerGroupConfig[] = [
-  { name: 'ssr', files: 'src/**/*.ssr.spec.ts', testRunnerHtml },
+  { name: 'ssr', files: testFile ?? 'src/**/*.ssr.spec.ts', testRunnerHtml },
 ];
 
 // The visual regression test group is only added when explicitly set, as the tests are very expensive.
 if (cliArgs.group === 'visual-regression') {
-  groups.push({ name: 'visual-regression', files: 'src/**/*.visual.spec.ts', testRunnerHtml });
+  groups.push({
+    name: 'visual-regression',
+    files: testFile ?? 'src/**/*.visual.spec.ts',
+    testRunnerHtml,
+  });
   if (!cliArgs.local && platform() !== 'linux') {
     console.log(
       `Running visual regression tests in a non-linux environment. Switching to container usage. Use --local to opt-out.`,
@@ -144,7 +150,7 @@ if (cliArgs.container) {
 }
 
 export default {
-  files: ['src/**/*.spec.ts', '!**/*.{visual,ssr}.spec.ts'],
+  files: testFile ?? ['src/**/*.spec.ts', '!**/*.{visual,ssr}.spec.ts'],
   groups,
   nodeResolve: true,
   reporters:
