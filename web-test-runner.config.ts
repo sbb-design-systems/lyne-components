@@ -1,3 +1,4 @@
+import { platform } from 'node:os';
 import { parseArgs } from 'node:util';
 
 import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
@@ -8,14 +9,20 @@ import {
   type TestRunnerGroupConfig,
 } from '@web/test-runner';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
-import { type PlaywrightLauncherArgs, playwrightLauncher } from '@web/test-runner-playwright';
+import {
+  type PlaywrightLauncherArgs,
+  playwrightLauncher,
+  type PlaywrightLauncher,
+} from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 import { initCompiler } from 'sass';
 
 import {
+  configureRemotePlaywrightBrowser,
   minimalReporter,
   patchedSummaryReporter,
+  containerPlaywrightBrowserPlugin,
   visualRegressionConfig,
   vitePlugin,
 } from './tools/web-test-runner/index.js';
@@ -23,6 +30,7 @@ import {
 const { values: cliArgs } = parseArgs({
   strict: false,
   options: {
+    file: { type: 'string' },
     ci: { type: 'boolean', default: !!process.env.CI },
     debug: { type: 'boolean' },
     'all-browsers': { type: 'boolean', short: 'a' },
@@ -32,6 +40,8 @@ const { values: cliArgs } = parseArgs({
     'update-visual-baseline': { type: 'boolean' },
     group: { type: 'string' },
     ssr: { type: 'boolean' },
+    container: { type: 'boolean' },
+    local: { type: 'boolean' },
   },
 });
 
@@ -113,17 +123,34 @@ const suppressedLogs = [
   '[vite] connected.',
 ];
 
+const testFile = typeof cliArgs.file === 'string' && cliArgs.file ? cliArgs.file : undefined;
 const groups: TestRunnerGroupConfig[] = [
-  { name: 'ssr', files: 'src/**/*.ssr.spec.ts', testRunnerHtml },
+  { name: 'ssr', files: testFile ?? 'src/**/*.ssr.spec.ts', testRunnerHtml },
 ];
 
 // The visual regression test group is only added when explicitly set, as the tests are very expensive.
 if (cliArgs.group === 'visual-regression') {
-  groups.push({ name: 'visual-regression', files: 'src/**/*.visual.spec.ts', testRunnerHtml });
+  groups.push({
+    name: 'visual-regression',
+    files: testFile ?? 'src/**/*.visual.spec.ts',
+    testRunnerHtml,
+  });
+  if (!cliArgs.local && platform() !== 'linux') {
+    console.log(
+      `Running visual regression tests in a non-linux environment. Switching to container usage. Use --local to opt-out.`,
+    );
+    cliArgs.container = true;
+  }
+}
+
+if (cliArgs.container) {
+  browsers
+    .filter((b): b is PlaywrightLauncher => b.type === 'playwright')
+    .forEach((browser) => configureRemotePlaywrightBrowser(browser));
 }
 
 export default {
-  files: ['src/**/*.spec.ts', '!**/*.{visual,ssr}.spec.ts'],
+  files: testFile ?? ['src/**/*.spec.ts', '!**/*.{visual,ssr}.spec.ts'],
   groups,
   nodeResolve: true,
   reporters:
@@ -140,6 +167,7 @@ export default {
       ...visualRegressionConfig,
       update: !!cliArgs['update-visual-baseline'],
     }),
+    ...(cliArgs.container ? [containerPlaywrightBrowserPlugin()] : []),
   ],
   testFramework: {
     config: {

@@ -38,7 +38,7 @@ rendering.
 
 It is possible to debug tests and/or run them in isolation with Visual Studio Code.
 The following code snippet can be placed in `.vscode/launch.json`.
-Replace `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-hydrated` to test SSR.
+Replace `test:csr` with `test:ssr` to test SSR.
 Add the `--debug` param to enable breakpoint debugging and the detailed test report.
 
 ```json
@@ -46,7 +46,7 @@ Add the `--debug` param to enable breakpoint debugging and the detailed test rep
   {
     "name": "Test",
     "request": "launch",
-    "runtimeArgs": ["test:csr", "${relativeFile}", "--watch"],
+    "runtimeArgs": ["test:csr", "--file=${relativeFile}", "--watch"],
     "runtimeExecutable": "yarn",
     "skipFiles": ["<node_internals>/**"],
     "type": "node",
@@ -60,11 +60,11 @@ Add the `--debug` param to enable breakpoint debugging and the detailed test rep
 It is possible to debug tests and/or run them in isolation also with IntelliJ IDEA.
 From the title bar, open the 'Run' menu, then select 'Edit configuration'.
 Create and save a new `npm` configuration with the following parameters,
-possibly replacing `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-hydrated` to test SSR:
+possibly replacing `test:csr` with `test:ssr` to test SSR:
 
 - Command: `run`
 - Scripts: `test:csr`
-- Arguments: `**/$FileName$ --watch`
+- Arguments: `--file=**/$FileName$ --watch`
 
 Finally, open the file you want to test and run the script.
 Add the `--debug` param to enable breakpoint debugging and the detailed test report.
