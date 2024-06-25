@@ -91,14 +91,7 @@ snapshots["sbb-option selected active Firefox"] =
 `<p>
   {
   "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "option",
-      "name": "",
-      "selected": true
-    }
-  ]
+  "name": ""
 }
 </p>
 `;
@@ -108,14 +101,7 @@ snapshots["sbb-option disabled Firefox"] =
 `<p>
   {
   "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "option",
-      "name": "",
-      "disabled": true
-    }
-  ]
+  "name": ""
 }
 </p>
 `;
