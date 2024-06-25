@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.0.0...v1.1.0) (2024-06-25)
+
+
+### Features
+
+* **sbb-table-wrapper:** initial implementation ([#2715](https://github.com/sbb-design-systems/lyne-components/issues/2715)) ([d6aaf68](https://github.com/sbb-design-systems/lyne-components/commit/d6aaf68ef1e5e040e948a452919a3183b23104d1))
+
+
+### Bug Fixes
+
+* disabled and focused state in mini-button mixin ([#2799](https://github.com/sbb-design-systems/lyne-components/issues/2799)) ([5797419](https://github.com/sbb-design-systems/lyne-components/commit/579741920414ba304516750094401b4bd142fa4a))
+* **sbb-tab-group:** fix nested tab groups logic ([#2816](https://github.com/sbb-design-systems/lyne-components/issues/2816)) ([4674a61](https://github.com/sbb-design-systems/lyne-components/commit/4674a61cf47e7593e0274c3de81c2863d9e4076a))
+* verify SSR functionality ([#2805](https://github.com/sbb-design-systems/lyne-components/issues/2805)) ([1095121](https://github.com/sbb-design-systems/lyne-components/commit/1095121f2d299d23df13d873a3edcd442cb5d377))
+
 ## [1.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v0.53.0...v1.0.0) (2024-06-17)
 
 
