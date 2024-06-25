@@ -1,3 +1,5 @@
+import { isServer } from 'lit';
+
 import type { SbbIconConfig } from '../core/config.js';
 import { readConfig } from '../core/config.js';
 
@@ -19,7 +21,7 @@ export const getSvgContent = (
   const config: SbbIconConfig = readConfig().icon ?? {};
 
   const resolvedNamespace = config.namespaces?.get(namespace) ?? iconNamespaces.get(namespace);
-  if (resolvedNamespace === undefined) {
+  if (resolvedNamespace == null) {
     throw Error(
       `Unable to find the namespace "${namespace}". Please register your custom namespace.`,
     );
@@ -30,7 +32,9 @@ export const getSvgContent = (
   let req = requests.get(url);
 
   if (!req) {
-    if (typeof fetch !== 'undefined' && typeof document !== 'undefined') {
+    // We cannot support server side rendered icons (yet), as the validation
+    // is done via DOM, which is not available during SSR.
+    if (typeof fetch !== 'undefined' && !isServer) {
       const interceptor = config.interceptor ?? ((i) => i.request());
 
       req = interceptor({
@@ -39,16 +43,11 @@ export const getSvgContent = (
         url,
         request: () =>
           fetch(url)
-            .then((rsp) => {
-              if (rsp.ok) {
-                return rsp.text().then((svgContent) => {
-                  if (svgContent) {
-                    svgContent = validateContent(svgContent, sanitize);
-                  }
-                  return svgContent;
-                });
+            .then(async (response) => {
+              if (!response.ok) {
+                throw new Error('Failed to load icon ' + namespace + ':' + name);
               }
-              throw new Error('Failed to load icon ' + namespace + ':' + name);
+              return validateContent(await response.text(), sanitize);
             })
             .catch((error) => {
               throw Error(error);
