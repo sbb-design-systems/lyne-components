@@ -78,7 +78,6 @@ type SbbTabChangedEventDetails = {
 
 ## Slots
 
-| Name      | Description                                                                                                                                         |
-| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add html-content to the `sbb-tab-group`; wrap the content in a `sbb-tab` or provide a nested `sbb-tab-group`.               |
-| `tab-bar` | When you provide the `sbb-tab-label` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly. |
+| Name | Description                                                                                             |
+| ---- | ------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances. |
