@@ -15,11 +15,13 @@ describe(`sbb-pearl-chain`, () => {
     it('renders component with config', async () => {
       const element = await fixture<SbbPearlChainElement>(
         html`<sbb-pearl-chain
-          .legs=${{
-            __typename: 'PTRideLeg',
-            arrival: { time: '2022-08-18T05:00' },
-            departure: { time: '2022-08-18T04:00' },
-          }}
+          .legs=${[
+            {
+              __typename: 'PTRideLeg',
+              arrival: { time: '2022-08-18T05:00' },
+              departure: { time: '2022-08-18T04:00' },
+            },
+          ]}
         ></sbb-pearl-chain>`,
       );
 
