@@ -38,7 +38,7 @@ describe(`sbb-alert`, () => {
     >
   `;
 
-  describeViewports({ viewports: ['micro', 'small'] }, () => {
+  describeViewports({ viewports: ['micro', 'small', 'medium'] }, () => {
     it(
       'with default args',
       visualDiffDefault.with(async (setup) => {
