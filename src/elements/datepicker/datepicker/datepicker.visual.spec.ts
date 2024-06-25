@@ -12,7 +12,6 @@ import '../datepicker-next-day.js';
 import '../datepicker-toggle.js';
 import './datepicker.js';
 import '../../form-field.js';
-import '../../calendar.js';
 
 describe(`sbb-datepicker`, () => {
   let root: HTMLElement;
@@ -26,27 +25,6 @@ describe(`sbb-datepicker`, () => {
     ],
   };
 
-  const handlingFunctions = [
-    {
-      name: 'ISO String (YYYY-MM-DD)',
-      dateParser: (s: string) => new Date(s),
-      format: (d: Date) =>
-        `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
-          d.getDate(),
-        ).padStart(2, '0')}`,
-    },
-    {
-      name: 'Business (DDMMYY)',
-      dateParser: (s: string) =>
-        new Date(+s.substring(4, s.length), +s.substring(2, 4) - 1, +s.substring(0, 2)),
-      format: (d: Date) =>
-        `${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(
-          2,
-          '0',
-        )}${d.getFullYear()}`,
-    },
-  ];
-
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     describeEach(cases, ({ negative, states }) => {
       beforeEach(async function () {
@@ -57,7 +35,7 @@ describe(`sbb-datepicker`, () => {
             <sbb-datepicker-next-day></sbb-datepicker-next-day>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
             <input ?disabled=${states.disabled} ?readonly=${states.readonly} value="12.02.2023" />
-            <sbb-datepicker now="12.02.2023"></sbb-datepicker>
+            <sbb-datepicker now="2023-02-12T00:00:00Z"></sbb-datepicker>
           </sbb-form-field>
         `);
       });
@@ -70,29 +48,7 @@ describe(`sbb-datepicker`, () => {
       );
     });
 
-    for (const dateHandling of handlingFunctions) {
-      it(
-        `${dateHandling.name} ${visualDiffDefault.name}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-form-field width="collapse">
-              <label>Label</label>
-              <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-              <sbb-datepicker-next-day></sbb-datepicker-next-day>
-              <sbb-datepicker-toggle></sbb-datepicker-toggle>
-              <input value="2023-02-12" />
-              <sbb-datepicker
-                now="12.02.2023"
-                .dateParser=${dateHandling.dateParser}
-                .format=${dateHandling.format}
-              ></sbb-datepicker>
-            </sbb-form-field>
-          `);
-        }),
-      );
-    }
-
-    describe('no form field', () => {
+    describe('without form field', () => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
@@ -107,7 +63,7 @@ describe(`sbb-datepicker`, () => {
               <sbb-datepicker
                 id="datepicker"
                 input="datepicker-input"
-                now="12.02.2023"
+                now="2023-02-12T00:00:00Z"
               ></sbb-datepicker>
               <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
             </div>

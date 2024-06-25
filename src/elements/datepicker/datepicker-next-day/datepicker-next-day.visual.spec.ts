@@ -6,8 +6,8 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.js';
-import './datepicker-next-day.js';
 
+import './datepicker-next-day.js';
 import '../datepicker.js';
 import '../../form-field.js';
 
@@ -22,7 +22,7 @@ describe(`sbb-datepicker-next-day`, () => {
       it(
         `standalone ${state.name}`,
         state.with(async (setup) => {
-          await setup.withFixture(html` <sbb-datepicker-next-day></sbb-datepicker-next-day> `);
+          await setup.withFixture(html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`);
         }),
       );
 

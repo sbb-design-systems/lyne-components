@@ -6,8 +6,8 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.js';
-import './datepicker-previous-day.js';
 
+import './datepicker-previous-day.js';
 import '../datepicker.js';
 import '../../form-field.js';
 
