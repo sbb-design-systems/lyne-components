@@ -82,13 +82,14 @@ describe(`sbb-sticky-bar`, () => {
   it(
     `viewport=medium_short content`,
     visualDiffDefault.with(async (setup) => {
-      await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
       await setup.withFixture(
         html` <sbb-container>
           ${containerContent()}
           <sbb-sticky-bar color="milk"> ${actionGroup()} </sbb-sticky-bar>
         </sbb-container>`,
+        { padding: '0' },
       );
+      await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
     }),
   );
 });

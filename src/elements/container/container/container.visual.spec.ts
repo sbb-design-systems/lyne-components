@@ -32,7 +32,7 @@ describe(`sbb-container`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html` <sbb-container color=${color}> ${containerContent()} </sbb-container> `,
-            { backgroundColor: 'var(--sbb-color-silver)' },
+            { backgroundColor: 'var(--sbb-color-silver)', padding: '0' },
           );
         }),
       );
@@ -43,7 +43,7 @@ describe(`sbb-container`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html` <sbb-container expanded> ${containerContent()} </sbb-container> `,
-          { backgroundColor: 'var(--sbb-color-silver)' },
+          { backgroundColor: 'var(--sbb-color-silver)', padding: '0' },
         );
       }),
     );
