@@ -233,7 +233,6 @@ export class SbbClockElement extends LitElement {
   /** Stops the clock by removing all the animations. */
   private async _stopClock(): Promise<void> {
     clearInterval(this._handMovement);
-    console.log('stop', this._handMovement);
 
     if (this.now) {
       this._setHandsStartingPosition();
@@ -263,7 +262,6 @@ export class SbbClockElement extends LitElement {
       ADD_EVENT_LISTENER_OPTIONS,
     );
 
-    console.log('start');
     await new Promise(() =>
       setTimeout(() => this._setHandsStartingPosition(), INITIAL_TIMEOUT_DURATION),
     );
