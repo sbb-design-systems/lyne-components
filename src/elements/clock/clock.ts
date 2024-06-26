@@ -233,16 +233,10 @@ export class SbbClockElement extends LitElement {
   /** Stops the clock by removing all the animations. */
   private async _stopClock(): Promise<void> {
     clearInterval(this._handMovement);
+    console.log('stop', this._handMovement);
 
     if (this.now) {
       this._setHandsStartingPosition();
-
-      // Wait a tick to before animation is added. Otherwise, the animation gets not completely
-      // removed which can lead to a mispositioned seconds hand.
-      await new Promise((resolve) => setTimeout(resolve));
-
-      this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
-      this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
     } else {
       this._removeSecondsAnimationStyles();
       this._removeHoursAnimationStyles();
@@ -269,6 +263,7 @@ export class SbbClockElement extends LitElement {
       ADD_EVENT_LISTENER_OPTIONS,
     );
 
+    console.log('start');
     await new Promise(() =>
       setTimeout(() => this._setHandsStartingPosition(), INITIAL_TIMEOUT_DURATION),
     );
