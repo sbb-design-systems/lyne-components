@@ -8,19 +8,13 @@ tab panels can present different sections of content and include text, images, f
 ```html
 <sbb-tab-group>
   <sbb-tab-label>I am the first</sbb-tab-label>
-  <sbb-tab>
-    <p>Tab content 1</p>
-  </sbb-tab>
+  <sbb-tab> Tab content 1 </sbb-tab>
 
   <sbb-tab-label>I am the second</sbb-tab-label>
-  <sbb-tab>
-    <p>Tab content 2</p>
-  </sbb-tab>
+  <sbb-tab> Tab content 2 </sbb-tab>
 
   <sbb-tab-label>I am the third</sbb-tab-label>
-  <sbb-tab>
-    <p>Tab content 3</p>
-  </sbb-tab>
+  <sbb-tab> Tab content 3 </sbb-tab>
 </sbb-tab-group>
 ```
 
@@ -28,7 +22,7 @@ To display a tab label within the tab bar, provide a `sbb-tab-label` right befor
 please refer to the [sbb-tab-label](/docs/elements-sbb-tab-sbb-tab-label--docs) documentation for more details.
 
 The content element must be wrapped in a `sbb-tab` and placed right after its relative `sbb-tab-label`.
-Tab groups can also be nested, which means that a tab's content block can be represented by another `sbb-tab-group`,
+Tab groups can also be nested, which means that a `sbb-tab` can contain another `sbb-tab-group`,
 as shown in the "Nested Tab Groups" example.
 
 ## States
@@ -84,7 +78,6 @@ type SbbTabChangedEventDetails = {
 
 ## Slots
 
-| Name      | Description                                                                                                                                         |
-| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add html-content to the `sbb-tab-group`; wrap the content in a `sbb-tab` or provide a nested `sbb-tab-group`.               |
-| `tab-bar` | When you provide the `sbb-tab-label` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly. |
+| Name | Description                                                                                             |
+| ---- | ------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances. |
