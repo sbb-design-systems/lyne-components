@@ -12,26 +12,11 @@ describe(`sbb-link-list`, () => {
   let element: SbbLinkListElement;
 
   const sbbLinkSnippet = html`
-    <sbb-block-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Rückerstattungen</sbb-block-link
-    >
-    <sbb-block-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Fundbüro</sbb-block-link
-    >
-    <sbb-block-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Beschwerden</sbb-block-link
-    >
-    <sbb-block-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Lob aussprechen</sbb-block-link
-    >
-    <sbb-block-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Sachbeschädigung melden</sbb-block-link
-    >
+    <sbb-block-link href="#">Link 1</sbb-block-link>
+    <sbb-block-link href="#">Link 2</sbb-block-link>
+    <sbb-block-link href="#">Link 3</sbb-block-link>
+    <sbb-block-link href="#">Link 4</sbb-block-link>
+    <sbb-block-link href="#">Link 5</sbb-block-link>
   `;
 
   describe('rendered with a slotted title', () => {
