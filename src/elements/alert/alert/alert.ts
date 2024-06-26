@@ -50,7 +50,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
    */
   @property({ reflect: true, type: Boolean }) public readonly = false;
 
-  /** You can choose between `m` or `l` size. */
+  /** You can choose between `s`, `m` or `l` size. */
   @property({ reflect: true }) public size: 's' | 'm' | 'l' = 'm';
 
   /**
