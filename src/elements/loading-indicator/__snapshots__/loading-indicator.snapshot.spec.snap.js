@@ -1,7 +1,19 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-loading-indicator renders with variant `window`"] = 
+snapshots["sbb-loading-indicator renders with variant `window` DOM"] = 
+`<sbb-loading-indicator
+  aria-busy="true"
+  color="default"
+  role="progressbar"
+  size="m"
+  variant="window"
+>
+</sbb-loading-indicator>
+`;
+/* end snapshot sbb-loading-indicator renders with variant `window` DOM */
+
+snapshots["sbb-loading-indicator renders with variant `window` Shadow DOM"] = 
 `<span class="sbb-loading-indicator">
   <span class="sbb-loading-indicator__animated-element">
     <span>
@@ -21,77 +33,29 @@ snapshots["sbb-loading-indicator renders with variant `window`"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-loading-indicator renders with variant `window` */
+/* end snapshot sbb-loading-indicator renders with variant `window` Shadow DOM */
 
-snapshots["sbb-loading-indicator renders with variant `window` and color smoke"] = 
-`<span class="sbb-loading-indicator">
-  <span class="sbb-loading-indicator__animated-element">
-    <span>
-      <span>
-        <span>
-        </span>
-        <span>
-        </span>
-        <span>
-        </span>
-        <span>
-        </span>
-        <span>
-        </span>
-      </span>
-    </span>
-  </span>
-</span>
+snapshots["sbb-loading-indicator renders with variant `circle` DOM"] = 
+`<sbb-loading-indicator
+  aria-busy="true"
+  color="default"
+  role="progressbar"
+  size="s"
+  variant="circle"
+>
+</sbb-loading-indicator>
 `;
-/* end snapshot sbb-loading-indicator renders with variant `window` and color smoke */
+/* end snapshot sbb-loading-indicator renders with variant `circle` DOM */
 
-snapshots["sbb-loading-indicator renders with variant `window` and color white"] = 
-`<span class="sbb-loading-indicator">
-  <span class="sbb-loading-indicator__animated-element">
-    <span>
-      <span>
-        <span>
-        </span>
-        <span>
-        </span>
-        <span>
-        </span>
-        <span>
-        </span>
-        <span>
-        </span>
-      </span>
-    </span>
-  </span>
-</span>
-`;
-/* end snapshot sbb-loading-indicator renders with variant `window` and color white */
-
-snapshots["sbb-loading-indicator renders with variant `circle`"] = 
+snapshots["sbb-loading-indicator renders with variant `circle` Shadow DOM"] = 
 `<span class="sbb-loading-indicator">
   <span class="sbb-loading-indicator__animated-element">
   </span>
 </span>
 `;
-/* end snapshot sbb-loading-indicator renders with variant `circle` */
+/* end snapshot sbb-loading-indicator renders with variant `circle` Shadow DOM */
 
-snapshots["sbb-loading-indicator renders with variant `circle` and color smoke"] = 
-`<span class="sbb-loading-indicator">
-  <span class="sbb-loading-indicator__animated-element">
-  </span>
-</span>
-`;
-/* end snapshot sbb-loading-indicator renders with variant `circle` and color smoke */
-
-snapshots["sbb-loading-indicator renders with variant `circle` and color white"] = 
-`<span class="sbb-loading-indicator">
-  <span class="sbb-loading-indicator__animated-element">
-  </span>
-</span>
-`;
-/* end snapshot sbb-loading-indicator renders with variant `circle` and color white */
-
-snapshots["sbb-loading-indicator A11y tree Chrome"] = 
+snapshots["sbb-loading-indicator renders with variant `window` A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -99,9 +63,9 @@ snapshots["sbb-loading-indicator A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-loading-indicator A11y tree Chrome */
+/* end snapshot sbb-loading-indicator renders with variant `window` A11y tree Chrome */
 
-snapshots["sbb-loading-indicator A11y tree Firefox"] = 
+snapshots["sbb-loading-indicator renders with variant `window` A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -109,5 +73,5 @@ snapshots["sbb-loading-indicator A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-loading-indicator A11y tree Firefox */
+/* end snapshot sbb-loading-indicator renders with variant `window` A11y tree Firefox */
 
