@@ -19,9 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_REPO_STORYBOOK: ghcr.io/${{ github.repository }}/storybook
-    outputs:
-      releases_created: ${{ steps.release.outputs.releases_created }}
-      version: ${{ steps.release.outputs.version }}
     steps:
       - uses: google-github-actions/release-please-action@v4
         id: release
@@ -56,6 +53,7 @@ jobs:
         run: node ./scripts/clean-storybook-files.cjs
 
       - name: 'Release: Determine npm tag'
+        if: ${{ steps.release.outputs.release_created }}
         id: npm_tag
         run: echo "npm_tag=$([[ "${{ steps.version.outputs.version }}" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
 
@@ -101,7 +99,7 @@ jobs:
       - name: Generate chromatic stories
         run: yarn generate:chromatic-stories
       - name: Create versioned storybook for chromatic
-        run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}"" yarn build:storybook
+        run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build:storybook
         env:
           CHROMATIC: true
         # Send storybook to chromatic. These snapshots should be accepted as new
