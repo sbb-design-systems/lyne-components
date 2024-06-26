@@ -1,7 +1,17 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-journey-header renders"] = 
+snapshots["sbb-journey-header renders DOM"] = 
+`<sbb-journey-header
+  destination="B"
+  origin="A"
+  size="m"
+>
+</sbb-journey-header>
+`;
+/* end snapshot sbb-journey-header renders DOM */
+
+snapshots["sbb-journey-header renders Shadow DOM"] = 
 `<sbb-title
   aria-level="3"
   level="3"
@@ -34,9 +44,22 @@ snapshots["sbb-journey-header renders"] =
   </span>
 </sbb-title>
 `;
-/* end snapshot sbb-journey-header renders */
+/* end snapshot sbb-journey-header renders Shadow DOM */
 
-snapshots["sbb-journey-header renders H1 L-sized round-trip negative"] = 
+snapshots["sbb-journey-header renders H1 L-sized round-trip negative DOM"] = 
+`<sbb-journey-header
+  destination="C"
+  level="1"
+  negative=""
+  origin="B"
+  round-trip=""
+  size="l"
+>
+</sbb-journey-header>
+`;
+/* end snapshot sbb-journey-header renders H1 L-sized round-trip negative DOM */
+
+snapshots["sbb-journey-header renders H1 L-sized round-trip negative Shadow DOM"] = 
 `<sbb-title
   aria-level="1"
   level="1"
@@ -73,9 +96,9 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative"] =
   </span>
 </sbb-title>
 `;
-/* end snapshot sbb-journey-header renders H1 L-sized round-trip negative */
+/* end snapshot sbb-journey-header renders H1 L-sized round-trip negative Shadow DOM */
 
-snapshots["sbb-journey-header A11y tree Chrome"] = 
+snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -90,9 +113,9 @@ snapshots["sbb-journey-header A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-journey-header A11y tree Chrome */
+/* end snapshot sbb-journey-header renders H1 L-sized round-trip negative A11y tree Chrome */
 
-snapshots["sbb-journey-header A11y tree Firefox"] = 
+snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -107,5 +130,5 @@ snapshots["sbb-journey-header A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-journey-header A11y tree Firefox */
+/* end snapshot sbb-journey-header renders H1 L-sized round-trip negative A11y tree Firefox */
 
