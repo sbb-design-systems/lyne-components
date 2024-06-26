@@ -6,7 +6,7 @@ snapshots["sbb-loading-indicator renders with variant `window` DOM"] =
   aria-busy="true"
   color="default"
   role="progressbar"
-  size="m"
+  size="s"
   variant="window"
 >
 </sbb-loading-indicator>

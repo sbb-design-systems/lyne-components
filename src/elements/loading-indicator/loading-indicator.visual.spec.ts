@@ -36,7 +36,7 @@ describe(`sbb-loading-indicator`, () => {
               <sbb-loading-indicator
                 variant="circle"
                 color=${color}
-                style=${size === 'l' ? 'font-size: var(--sbb-typo-scale-2x);' : nothing}
+                style=${size === 'l' ? 'font-size: var(--sbb-font-size-text-xl);' : nothing}
               ></sbb-loading-indicator>
             `,
             { backgroundColor: color === 'white' ? 'var(--sbb-color-charcoal)' : undefined },
