@@ -7,7 +7,7 @@ import './message.js';
 import '../image.js';
 import '../button/secondary-button.js';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
+const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
 describe(`sbb-message`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
