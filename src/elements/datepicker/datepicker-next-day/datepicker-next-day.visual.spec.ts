@@ -31,13 +31,16 @@ describe(`sbb-datepicker-next-day`, () => {
       let root: HTMLElement;
 
       beforeEach(async () => {
-        root = await visualRegressionFixture(html`
-          <sbb-form-field ?negative=${negative}>
-            <input value=${value || nothing} />
-            <sbb-datepicker></sbb-datepicker>
-            <sbb-datepicker-next-day></sbb-datepicker-next-day>
-          </sbb-form-field>
-        `);
+        root = await visualRegressionFixture(
+          html`
+            <sbb-form-field ?negative=${negative}>
+              <input value=${value || nothing} />
+              <sbb-datepicker></sbb-datepicker>
+              <sbb-datepicker-next-day></sbb-datepicker-next-day>
+            </sbb-form-field>
+          `,
+          { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
+        );
       });
 
       it(
@@ -52,8 +55,11 @@ describe(`sbb-datepicker-next-day`, () => {
         visualDiffDefault.with(async (setup) => {
           setup.withSnapshotElement(root);
 
-          // Focus input so that with a tab press it should land on next day
-          setup.snapshotElement.querySelector('input')!.focus();
+          if (value) {
+            // Focus input so that with a tab press it should land on next day
+            setup.snapshotElement.querySelector('input')!.focus();
+          }
+
           await sendKeys({ press: tabKey });
         }),
       );

@@ -32,13 +32,16 @@ describe(`sbb-datepicker-previous-day`, () => {
         it(
           `with form-field ${state.name}`,
           state.with(async (setup) => {
-            await setup.withFixture(html`
-              <sbb-form-field ?negative=${negative}>
-                <input value=${value || nothing} />
-                <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-                <sbb-datepicker></sbb-datepicker>
-              </sbb-form-field>
-            `);
+            await setup.withFixture(
+              html`
+                <sbb-form-field ?negative=${negative}>
+                  <input value=${value || nothing} />
+                  <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+                  <sbb-datepicker></sbb-datepicker>
+                </sbb-form-field>
+              `,
+              { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
+            );
           }),
         );
       });
