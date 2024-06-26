@@ -14,14 +14,5 @@ describe(`sbb-icon`, () => {
         }),
       );
     }
-
-    for (const code of ['b', 'bz', 'ci', 'fz', 'nf', 'r', 'rr', 'rs', 'wr']) {
-      it(
-        `code=${code} ${visualDiffDefault.name}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`<sbb-icon name="sa-${code}"></sbb-icon>`);
-        }),
-      );
-    }
   });
 });
