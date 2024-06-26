@@ -15,8 +15,10 @@ import '../link/block-link/block-link.js';
 import '../title.js';
 import './lead-container.js';
 
-const leadImageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
-const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);
+const leadImageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const leadImageBase64 = await loadAssetAsBase64(
+  import.meta.resolve('../core/testing/assets/lucerne.png'),
+);
 
 describe(`sbb-lead-container`, () => {
   const wrapperStyles = { backgroundColor: `var(--sbb-color-milk)`, padding: '0' };

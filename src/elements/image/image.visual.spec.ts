@@ -6,7 +6,7 @@ import { waitForImageReady } from '../core/testing.js';
 
 import './image.js';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
+const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
 const aspectRatios = [
   '1-1',
@@ -44,7 +44,7 @@ describe(`sbb-image`, () => {
           html`<sbb-image
             image-src=${imageUrl}
             aspect-ratio="free"
-            style="width: 200px; height: 100px;"
+            style="--sbb-image-aspect-ratio: 10 / 1;"
           ></sbb-image>`,
         );
 
