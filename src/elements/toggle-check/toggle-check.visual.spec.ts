@@ -57,88 +57,72 @@ describe(`sbb-toggle-check`, () => {
       }
     });
 
-    describe('without label', () => {
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html` <sbb-toggle-check></sbb-toggle-check> `);
-        }),
-      );
-    });
+    it(
+      'without label',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html` <sbb-toggle-check></sbb-toggle-check> `);
+      }),
+    );
 
-    describe('label before', () => {
+    it(
+      'label before',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-toggle-check label-position="before">Label</sbb-toggle-check>
+        `);
+      }),
+    );
+
+    it(
+      'custom icon',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-toggle-check checked icon-name="face-smiling-small">Label</sbb-toggle-check>
+        `);
+      }),
+    );
+
+    it(
+      'custom icon slotted',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-toggle-check checked
+            >Label
+            <sbb-icon slot="icon" name="eye-small"></sbb-icon>
+          </sbb-toggle-check>
+        `);
+      }),
+    );
+
+    for (const checked of [false, true]) {
       it(
-        visualDiffDefault.name,
+        `disabled ${checked ? 'checked' : 'unchecked'}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-toggle-check label-position="before">Label</sbb-toggle-check>
-          `);
-        }),
-      );
-    });
-
-    describe('custom icon', () => {
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-toggle-check checked icon-name="face-smiling-small">Label</sbb-toggle-check>
-          `);
-        }),
-      );
-    });
-
-    describe('custom icon slotted', () => {
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-toggle-check checked
-              >Label
-              <sbb-icon slot="icon" name="eye-small"></sbb-icon>
+            <sbb-toggle-check .checked=${checked} ?checked=${checked} disabled>
+              Label
             </sbb-toggle-check>
           `);
         }),
       );
-    });
+    }
 
-    describeEach({ checked: [false, true] }, ({ checked }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-toggle-check .checked=${checked} ?checked=${checked} disabled>
-            Label
+    it(
+      'block variant',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-toggle-check label-position="before" style="display: block;">
+            <sbb-title level="5" style="margin: 0;"> Accessible Connection. </sbb-title>
+            <span class="sbb-text-s" style="color: var(--sbb-color-iron);">
+              Show connections for accessible journeys.
+            </span>
           </sbb-toggle-check>
+          <p class="sbb-text-xs">
+            In this example <code>&lt;sbb-toggle-check&gt;</code> is converted to a block element by
+            setting <code>display: block</code>.
+          </p>
         `);
-      });
-
-      it(
-        `disabled ${visualDiffDefault.name}`,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
-        }),
-      );
-    });
-
-    describe('block variant', () => {
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <div>
-              <sbb-toggle-check label-position="before" style="display: block;">
-                <sbb-title level="5" style="margin: 0;"> Accessible Connection. </sbb-title>
-                <span class="sbb-text-s" style="color: var(--sbb-color-iron);">
-                  Show connections for accessible journeys.
-                </span>
-              </sbb-toggle-check>
-              <p class="sbb-text-xs">
-                In this example <code>&lt;sbb-toggle-check&gt;</code> is converted to a block
-                element by setting <code>display: block</code>.
-              </p>
-            </div>
-          `);
-        }),
-      );
-    });
+      }),
+    );
   });
 });
