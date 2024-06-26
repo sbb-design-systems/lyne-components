@@ -58,6 +58,8 @@ describe(`sbb-datepicker-next-day`, () => {
           if (value) {
             // Focus input so that with a tab press it should land on next day
             setup.snapshotElement.querySelector('input')!.focus();
+          } else {
+            setup.snapshotElement.focus();
           }
 
           await sendKeys({ press: tabKey });
