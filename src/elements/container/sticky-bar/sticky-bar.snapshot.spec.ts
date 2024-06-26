@@ -2,16 +2,26 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+
+import type { SbbStickyBarElement } from './sticky-bar.js';
 import './sticky-bar.js';
 
 describe(`sbb-sticky-bar`, () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-sticky-bar></sbb-sticky-bar>`);
+  describe('renders', () => {
+    let element: SbbStickyBarElement;
 
-    expect(root).dom.to.be.equal(`<sbb-sticky-bar slot="sticky-bar"></sbb-sticky-bar>`);
+    beforeEach(async () => {
+      element = await fixture(html` <sbb-sticky-bar></sbb-sticky-bar> `);
+    });
 
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
-
-  testA11yTreeSnapshot(html`<sbb-sticky-bar></sbb-sticky-bar>`);
 });

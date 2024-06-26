@@ -1,6 +1,5 @@
 import { expect } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
 import type { PtRideLeg } from '../core/timetable.js';
@@ -17,16 +16,16 @@ describe(`sbb-pearl-chain-time`, () => {
       <sbb-pearl-chain-time
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"
-        .now="${now}"
+        .now=${now}
+        .legs=${[
+          {
+            __typename: 'PTRideLeg',
+          } as PtRideLeg,
+        ]}
       >
       </sbb-pearl-chain-time>
     `);
-    element.legs = [
-      {
-        __typename: 'PTRideLeg',
-      } as PtRideLeg,
-    ];
-    await waitForLitRender(element);
+
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00">
       </sbb-pearl-chain-time>
@@ -56,16 +55,16 @@ describe(`sbb-pearl-chain-time`, () => {
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"
         departure-walk="10"
-        .now="${now}"
+        .now=${now}
+        .legs=${[
+          {
+            __typename: 'PTRideLeg',
+          } as PtRideLeg,
+        ]}
       >
       </sbb-pearl-chain-time>
     `);
-    element.legs = [
-      {
-        __typename: 'PTRideLeg',
-      } as PtRideLeg,
-    ];
-    await waitForLitRender(element);
+
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10">
       </sbb-pearl-chain-time>
@@ -112,16 +111,16 @@ describe(`sbb-pearl-chain-time`, () => {
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"
         arrival-walk="10"
-        .now="${now}"
+        .now=${now}
+        .legs=${[
+          {
+            __typename: 'PTRideLeg',
+          } as PtRideLeg,
+        ]}
       >
       </sbb-pearl-chain-time>
     `);
-    element.legs = [
-      {
-        __typename: 'PTRideLeg',
-      } as PtRideLeg,
-    ];
-    await waitForLitRender(element);
+
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" arrival-walk="10">
       </sbb-pearl-chain-time>
@@ -169,16 +168,16 @@ describe(`sbb-pearl-chain-time`, () => {
         arrival-time="2022-08-16T15:00:00"
         departure-walk="20"
         arrival-walk="10"
-        .now="${now}"
+        .now=${now}
+        .legs=${[
+          {
+            __typename: 'PTRideLeg',
+          } as PtRideLeg,
+        ]}
       >
       </sbb-pearl-chain-time>
     `);
-    element.legs = [
-      {
-        __typename: 'PTRideLeg',
-      } as PtRideLeg,
-    ];
-    await waitForLitRender(element);
+
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10">
       </sbb-pearl-chain-time>
