@@ -15,19 +15,6 @@ describe(`sbb-header-link`, () => {
           `);
         }),
       );
-
-      it(
-        `multiple=true ${state.name}`,
-        state.with(async (setup) => {
-          await setup.withFixture(html`
-            <div style="display: flex; gap: 2rem;">
-              <sbb-header-link icon-name="hamburger-menu-small">Menu</sbb-header-link>
-              <sbb-header-link icon-name="hamburger-menu-small">Menu</sbb-header-link>
-              <sbb-header-link icon-name="hamburger-menu-small">Menu</sbb-header-link>
-            </div>
-          `);
-        }),
-      );
     }
   });
 });

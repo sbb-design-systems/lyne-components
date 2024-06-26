@@ -33,7 +33,7 @@ describe(`sbb-header`, () => {
             html`
               <style>
                 ${' .last-element {display: none;} '}
-                ${' @media screen and (width >= 840px}) { .last-element { display: block; } }'}
+                ${' @media screen and (width >= 840px) { .last-element { display: block; } }'}
                 ${' @media screen and (width < 1023px) { .sbb-header-spacer { display: none; } }'}
               </style>
               <sbb-header ?expanded=${state.expanded}>
