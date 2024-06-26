@@ -21,9 +21,7 @@ snapshots["sbb-tab-group renders DOM"] =
     role="tabpanel"
     tabindex="0"
   >
-    <p>
-      Test tab content 1
-    </p>
+    Test tab content 1
   </sbb-tab>
   <sbb-tab-label
     aria-controls="sbb-tab-panel-2"
@@ -41,9 +39,7 @@ snapshots["sbb-tab-group renders DOM"] =
     role="tabpanel"
     tabindex="0"
   >
-    <p>
-      Test tab content 2
-    </p>
+    Test tab content 2
   </sbb-tab>
   <sbb-tab-label
     aria-controls="sbb-tab-panel-3"
@@ -62,9 +58,7 @@ snapshots["sbb-tab-group renders DOM"] =
     role="tabpanel"
     tabindex="0"
   >
-    <p>
-      Test tab content 3
-    </p>
+    Test tab content 3
   </sbb-tab>
   <sbb-tab-label
     aria-controls="sbb-tab-panel-4"
@@ -82,9 +76,7 @@ snapshots["sbb-tab-group renders DOM"] =
     role="tabpanel"
     tabindex="0"
   >
-    <p>
-      Test tab content 4
-    </p>
+    Test tab content 4
   </sbb-tab>
 </sbb-tab-group>
 `;
@@ -173,7 +165,7 @@ snapshots["sbb-tab-group renders A11y tree Firefox"] =
       "children": [
         {
           "role": "text leaf",
-          "name": "Test tab content 1"
+          "name": "Test tab content 1 "
         }
       ]
     }

@@ -1,17 +1,13 @@
 import { html } from 'lit/static-html.js';
 
-import {
-  describeViewports,
-  loadAssetAsBase64,
-  visualDiffDefault,
-} from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { waitForImageReady } from '../core/testing.js';
 
 import './message.js';
 import '../image.js';
 import '../button/secondary-button.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
-await loadAssetAsBase64(imageUrl);
 
 describe(`sbb-message`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
@@ -30,6 +26,8 @@ describe(`sbb-message`, () => {
             ></sbb-secondary-button>
           </sbb-message>
         `);
+
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
@@ -64,6 +62,8 @@ describe(`sbb-message`, () => {
             ></sbb-secondary-button>
           </sbb-message>
         `);
+
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
@@ -77,6 +77,8 @@ describe(`sbb-message`, () => {
             <p slot="legend">Error code: 0001</p>
           </sbb-message>
         `);
+
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
@@ -96,6 +98,8 @@ describe(`sbb-message`, () => {
             ></sbb-secondary-button>
           </sbb-message>
         `);
+
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
   });

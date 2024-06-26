@@ -40,6 +40,7 @@ if (testGroup === 'visual-regression') {
     'arrow-right-small',
     'arrows-circle-small',
     'arrows-right-left-small',
+    'arrows-long-right-left-small',
     'backpack-medium',
     'battery-level-empty-small',
     'battery-level-high-small',

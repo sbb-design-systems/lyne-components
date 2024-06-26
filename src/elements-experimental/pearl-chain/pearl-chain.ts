@@ -1,6 +1,6 @@
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces/types';
-import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
+import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -13,6 +13,10 @@ import { isRideLeg } from '../core/timetable.js';
 import style from './pearl-chain.scss?lit&inline';
 
 type Status = 'progress' | 'future' | 'past';
+type Time = {
+  time?: Date;
+  delay: number;
+};
 
 /**
  * It visually displays journey information.
@@ -87,26 +91,37 @@ export class SbbPearlChainElement extends LitElement {
     return 0;
   }
 
-  private _getProgress(now: Date, start?: Date, end?: Date): number {
-    if (!start || !end) {
+  private _getProgress(now: Date, start?: Time, end?: Time): number {
+    if (!start?.time || !end?.time) {
       return 0;
     }
-    const total = differenceInMinutes(end, start);
-    const progress = differenceInMinutes(now, start);
+
+    const startWithDelay = addMinutes(start.time, start.delay ?? 0);
+    const endWithDelay = addMinutes(end.time, end.delay ?? 0);
+    const total = differenceInMinutes(endWithDelay, startWithDelay);
+    const progress = differenceInMinutes(now, startWithDelay);
 
     return total && (progress / total) * 100;
   }
 
-  private _getStatus(now: Date, end?: Date, start?: Date): Status {
-    if (start && end && isBefore(start, now) && isAfter(end, now)) {
+  private _getStatus(now: Date, start?: Time, end?: Time): Status {
+    const startWithDelay = start && start.time && addMinutes(start.time, start.delay ?? 0);
+    const endWithDelay = end && end.time && addMinutes(end.time, end.delay ?? 0);
+
+    if (
+      startWithDelay &&
+      isBefore(startWithDelay, now) &&
+      endWithDelay &&
+      isAfter(endWithDelay, now)
+    ) {
       return 'progress';
-    } else if (end && isBefore(end, now)) {
+    } else if (endWithDelay && isBefore(endWithDelay, now)) {
       return 'past';
     }
     return 'future';
   }
 
-  private _renderPosition(now: Date, start?: Date, end?: Date): TemplateResult | undefined {
+  private _renderPosition(now: Date, start?: Time, end?: Time): TemplateResult | undefined {
     const currentPosition = this._getProgress(now, start, end);
     if (currentPosition < 0 && currentPosition > 100) return undefined;
 
@@ -132,9 +147,18 @@ export class SbbPearlChainElement extends LitElement {
 
     const departureTime =
       rideLegs?.length && removeTimezoneFromISOTimeString(rideLegs[0]?.departure?.time);
+    const departureWithDelay = departureTime && {
+      time: departureTime,
+      delay: rideLegs[0].departure.delay ?? 0,
+    };
+
     const arrivalTime =
       rideLegs?.length &&
-      removeTimezoneFromISOTimeString(rideLegs[rideLegs?.length - 1].arrival?.time);
+      removeTimezoneFromISOTimeString(rideLegs[rideLegs.length - 1].arrival?.time);
+    const arrivalTimeDelay = arrivalTime && {
+      time: arrivalTime,
+      delay: rideLegs[rideLegs.length - 1]?.arrival.delay ?? 0,
+    };
 
     const departureNotServiced = ((): string => {
       return rideLegs &&
@@ -165,14 +189,17 @@ export class SbbPearlChainElement extends LitElement {
         : '';
     })();
 
+    const status =
+      departureWithDelay &&
+      arrivalTimeDelay &&
+      this._getStatus(now, departureWithDelay, arrivalTimeDelay);
+
     const statusClassDeparture =
-      rideLegs && departureTime && arrivalTime && !departureCancelClass
-        ? 'sbb-pearl-chain__bullet--' + this._getStatus(now, arrivalTime, departureTime)
-        : '';
+      rideLegs && status && !departureCancelClass ? 'sbb-pearl-chain__bullet--' + status : '';
 
     const statusClassArrival =
-      rideLegs && arrivalTime && !arrivalCancelClass
-        ? 'sbb-pearl-chain__bullet--' + this._getStatus(now, arrivalTime)
+      rideLegs && status && !arrivalCancelClass
+        ? 'sbb-pearl-chain__bullet--' + this._getStatus(now, undefined, arrivalTimeDelay)
         : '';
 
     if (this._isAllCancelled(rideLegs)) {
@@ -219,31 +246,35 @@ export class SbbPearlChainElement extends LitElement {
 
           const cancelled = serviceAlteration?.cancelled ? 'sbb-pearl-chain__leg--disruption' : '';
 
+          const legDepartureWithDelay = { time: departure, delay: leg.departure?.delay ?? 0 };
+          const legArrivalWithDelay = { time: arrival, delay: leg.arrival?.delay ?? 0 };
+          const status = this._getStatus(now, legDepartureWithDelay, legArrivalWithDelay);
+
           const legStatus =
             !cancelled &&
-            this._getStatus(now, departure, arrival) &&
-            'sbb-pearl-chain__leg--' + this._getStatus(now, arrival, departure);
-
+            !skippedLeg &&
+            this._getStatus(now, legDepartureWithDelay, legArrivalWithDelay) &&
+            'sbb-pearl-chain__leg--' + status;
           const legStyle = (): Record<string, string> => {
             return {
               '--sbb-pearl-chain-leg-width': `${duration}%`,
-              ...(this._getStatus(now, arrival, departure) === 'progress' && !cancelled
+              ...(status === 'progress' && !cancelled && !skippedLeg
                 ? {
-                    '--sbb-pearl-chain-leg-status': `${this._getProgress(now, departure, arrival)}%`,
+                    '--sbb-pearl-chain-leg-status': `${this._getProgress(now, legDepartureWithDelay, legArrivalWithDelay)}%`,
                   }
                 : {}),
             };
           };
 
           return html` <div
-            class="sbb-pearl-chain__leg ${legStatus} ${cancelled} ${skippedLeg}"
+            class="sbb-pearl-chain__leg ${legStatus || ''} ${cancelled} ${skippedLeg}"
             style=${styleMap(legStyle())}
           >
             ${index > 0 && index < rideLegs.length
               ? html`<span class="sbb-pearl-chain__stop ${departureSkippedBullet}"></span>`
               : nothing}
-            ${this._getStatus(now, arrival, departure) === 'progress' && !cancelled
-              ? this._renderPosition(now, departure, arrival)
+            ${status === 'progress' && !cancelled && !skippedLeg
+              ? this._renderPosition(now, legDepartureWithDelay, legArrivalWithDelay)
               : nothing}
           </div>`;
         })}

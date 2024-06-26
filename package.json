@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-elements",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -63,7 +63,8 @@
     "test:snapshot": "yarn test:csr --ci --update-snapshots",
     "test:csr": "yarn -s wtr --group default",
     "test:ssr": "yarn -s wtr --group ssr",
-    "test:visual-regression": "yarn -s ts-hooks tools/visual-regression-testing/exec.ts --config=web-test-runner.config.ts --group=visual-regression --all-browsers",
+    "test:visual-regression": "yarn -s wtr --group visual-regression --all-browsers",
+    "test:playwright-server": "yarn -s ts-hooks tools/web-test-runner/start-playwright-server.ts",
     "wtr": "yarn -s ts-hooks node_modules/@web/test-runner/dist/bin.js --config=web-test-runner.config.ts",
     "ts-hooks": "node --no-deprecation --enable-source-maps --import ./tools/node-esm-hook/register-hooks.js",
     "prepare": "husky"
@@ -95,7 +96,7 @@
     "@storybook/web-components-vite": "8.1.10",
     "@types/glob": "8.1.0",
     "@types/mocha": "10.0.7",
-    "@types/node": "20.14.8",
+    "@types/node": "20.14.9",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "7.14.1",
@@ -147,11 +148,13 @@
     "vite-plugin-dts": "3.9.1"
   },
   "resolutions": {
-    "@types/node": "20.14.8",
+    "@types/node": "20.14.9",
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "0.7.1",
     "jackspeak": "2.1.1",
-    "lit": "3.1.4"
+    "lit": "3.1.4",
+    "playwright": "1.44.1",
+    "prettier": "3.3.2"
   },
   "prettier": {
     "singleQuote": true,

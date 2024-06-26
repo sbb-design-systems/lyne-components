@@ -33,9 +33,9 @@ describe(`sbb-action-group`, () => {
     describe('horizontal', () => {
       for (const state of horizontalCases) {
         it(
-          `${state.name}`,
-          visualDiffDefault.with((setup) => {
-            setup.withFixture(html`
+          state.name,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
               <sbb-action-group orientation="horizontal" align-group="${state.alignGroup}">
                 <sbb-secondary-button align-self=${state.alignFirst || nothing}
                   >Button 1</sbb-secondary-button

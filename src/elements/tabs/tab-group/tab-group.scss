@@ -51,11 +51,3 @@
     @include sbb.focus-outline;
   }
 }
-
-// Make inactive nested tab groups non-focusable, to ensure accessibility
-:host([data-nested]:not([active])) *,
-:host([data-nested]:not([active])) ::slotted(*) {
-  visibility: hidden;
-  opacity: 0;
-  height: 0;
-}

@@ -63,12 +63,10 @@ const tabPanelTwo = (): TemplateResult => html`
 
 const tabPanelFour = (): TemplateResult => html`
   <sbb-tab>
-    <p>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
-      turpis in eu mi bibendum neque egestas congue.
-    </p>
+    Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+    elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+    urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+    turpis in eu mi bibendum neque egestas congue.
   </sbb-tab>
 `;
 
@@ -116,26 +114,24 @@ const IconsAndNumbersTemplate = ({ size, label, ...args }: Args): TemplateResult
 const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   <sbb-tab-group size=${size} initial-selected-index="0">
     ${firstTabTitle(label, args)}
-    <sbb-tab-group size=${size} initial-selected-index="1">
-      <sbb-tab-label level="2">Nested tab</sbb-tab-label>
-      <sbb-tab>
-        <p>
+    <sbb-tab>
+      <sbb-tab-group size=${size} initial-selected-index="1">
+        <sbb-tab-label level="2">Nested tab</sbb-tab-label>
+        <sbb-tab>
           Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
           elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
           rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed
           faucibus turpis in eu mi bibendum neque egestas congue.
-        </p>
-      </sbb-tab>
+        </sbb-tab>
 
-      <sbb-tab-label level="2">Nested tab</sbb-tab-label>
-      <sbb-tab>
-        <p>
+        <sbb-tab-label level="2">Nested tab</sbb-tab-label>
+        <sbb-tab>
           Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
           elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
           rhoncus urna.
-        </p>
-      </sbb-tab>
-    </sbb-tab-group>
+        </sbb-tab>
+      </sbb-tab-group>
+    </sbb-tab>
 
     <sbb-tab-label amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-label>
     ${tabPanelTwo()}
@@ -143,7 +139,7 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
     <sbb-tab-label ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
     </sbb-tab-label>
-    <sbb-tab><p>I was disabled.</p></sbb-tab>
+    <sbb-tab>I was disabled.</sbb-tab>
 
     <sbb-tab-label amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-label>
     ${tabPanelFour()}
