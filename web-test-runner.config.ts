@@ -25,6 +25,7 @@ import {
   containerPlaywrightBrowserPlugin,
   visualRegressionConfig,
   vitePlugin,
+  preloadIcons,
 } from './tools/web-test-runner/index.js';
 
 const { values: cliArgs } = parseArgs({
@@ -83,6 +84,8 @@ const browsers =
             ]
           : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
 
+const preloadedIcons = await preloadIcons();
+
 const testRunnerHtml = (
   testFramework: string,
   _config: TestRunnerCoreConfig,
@@ -110,7 +113,12 @@ const testRunnerHtml = (
       globalThis.testRunScript = '${testFramework}';
     </script>
   </head>
-  <body class="sbb-disable-animation">
+  <body class="sbb-disable-animation">${preloadedIcons
+    .map(
+      (i) => `
+    <template id="icon:${i.namespace}:${i.icon}">${i.svg}</template>`,
+    )
+    .join('')}
     <script type="module" src="/src/elements/core/testing/test-setup.ts"></script>
   </body>
 </html>
