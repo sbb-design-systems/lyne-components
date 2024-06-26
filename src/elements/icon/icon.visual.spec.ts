@@ -13,6 +13,15 @@ describe(`sbb-icon`, () => {
           await setup.withFixture(html`<sbb-icon name="circle-information-${size}"></sbb-icon>`);
         }),
       );
+
+      it(
+        `icon=circle-information color=red size=${size} ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-icon style="color: red;" name="circle-information-${size}"></sbb-icon>`,
+          );
+        }),
+      );
     }
   });
 });
