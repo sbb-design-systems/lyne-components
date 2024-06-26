@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.1.0...v1.2.0) (2024-06-26)
+
+
+### Features
+
+* **sbb-timetable-row:** enhance trip status and display logic ([#2680](https://github.com/sbb-design-systems/lyne-components/issues/2680)) ([6e0424f](https://github.com/sbb-design-systems/lyne-components/commit/6e0424f71a9f4a74f52757ee21d2d62cf82933a3))
+
 ## [1.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.0.0...v1.1.0) (2024-06-25)
 
 
