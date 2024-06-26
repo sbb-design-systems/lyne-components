@@ -1,5 +1,4 @@
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
@@ -63,11 +62,11 @@ describe(`sbb-footer`, () => {
                       level="2"
                       visual-level="5"
                       ?negative=${negative}
-                      style=${styleMap({ margin: '0 0 var(--sbb-spacing-fixed-3x)' })}
+                      style="margin: 0 0 var(--sbb-spacing-fixed-3x)"
                     >
                       Newsletter.
                     </sbb-title>
-                    <p style=${styleMap({ margin: '0' })}>
+                    <p style="margin: 0">
                       Our newsletter regularly informs you of attractive offers from SBB via e-mail.
                     </p>
                   </span>
