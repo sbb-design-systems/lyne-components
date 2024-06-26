@@ -20,11 +20,11 @@ describe(`sbb-link-list`, () => {
   };
 
   const linksTemplate = (): TemplateResult => html`
-    <sbb-block-link href="#">Rückerstattungen</sbb-block-link>
-    <sbb-block-link href="#">Fundbüro</sbb-block-link>
-    <sbb-block-link href="#">Beschwerden</sbb-block-link>
-    <sbb-block-link href="#">Lob aussprechen</sbb-block-link>
-    <sbb-block-link href="#">Sachbeschädigung melden</sbb-block-link>
+    <sbb-block-link href="#">Link 1</sbb-block-link>
+    <sbb-block-link href="#">Link 2</sbb-block-link>
+    <sbb-block-link href="#">Link 3</sbb-block-link>
+    <sbb-block-link href="#">Link 4</sbb-block-link>
+    <sbb-block-link href="#">Link 5</sbb-block-link>
   `;
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
