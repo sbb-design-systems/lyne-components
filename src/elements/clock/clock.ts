@@ -244,14 +244,24 @@ export class SbbClockElement extends LitElement {
     this.style?.setProperty('--sbb-clock-animation-play-state', 'paused');
 
     if (this.now) {
-      if (this._clockHandSeconds) {
-        this._clockHandSeconds.style.animation = '';
-        // Trigger reflow
-        this._clockHandSeconds.offsetHeight;
-        this._clockHandSeconds.style.removeProperty('animation');
-      }
+      this._resetSecondsHandAnimation();
       this._setHandsStartingPosition();
     }
+  }
+
+  /**
+   * Removing animation by overriding with empty string,
+   * then triggering a reflow and re add original animation by removing override.
+   * @private
+   */
+  private _resetSecondsHandAnimation(): void {
+    if (!this._clockHandSeconds) {
+      return;
+    }
+    this._clockHandSeconds.style.animation = '';
+    // Hack to trigger reflow
+    this._clockHandSeconds.offsetHeight;
+    this._clockHandSeconds.style.removeProperty('animation');
   }
 
   /** Starts the clock by defining the hands starting position then starting the animations. */
