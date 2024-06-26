@@ -1,5 +1,8 @@
+import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
 
+import type { SbbMiniButtonElement } from '../../button/mini-button.js';
+import { tabKey } from '../../core/testing/private/keys.js';
 import {
   describeEach,
   describeViewports,
@@ -169,16 +172,36 @@ ${value}</textarea
             await setup.withFixture(html` ${formField(basicArgs, templateResult)} `);
           }),
         );
-
-        it(
-          `slot=buttons ${name} ${visualDiffState.name}`,
-          visualDiffState.with(async (setup) => {
-            const templateResult: TemplateResult = html`${template(basicArgs)}
-            ${buttonsAndPopover(basicArgs)}`;
-            await setup.withFixture(html` ${formField(basicArgs, templateResult)} `);
-          }),
-        );
       }
+
+      it(
+        `slot=buttons ${name} ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          const templateResult: TemplateResult = html`${template(basicArgs)}
+          ${buttonsAndPopover(basicArgs)}`;
+          await setup.withFixture(html` ${formField(basicArgs, templateResult)} `);
+        }),
+      );
+      it(
+        `slot=buttons ${name} ${visualDiffActive.name}`,
+        visualDiffActive.with(async (setup) => {
+          const templateResult: TemplateResult = html`${template(basicArgs)}
+          ${buttonsAndPopover(basicArgs)}`;
+          await setup.withFixture(html` ${formField(basicArgs, templateResult)} `);
+        }),
+      );
+      it(
+        `slot=buttons ${name} focus`,
+        visualDiffDefault.with(async (setup) => {
+          const templateResult: TemplateResult = html`${template(basicArgs)}
+          ${buttonsAndPopover(basicArgs)}`;
+          await setup.withFixture(html` ${formField(basicArgs, templateResult)} `);
+          (
+            setup.snapshotElement.querySelector(name)!.nextElementSibling as SbbMiniButtonElement
+          ).focus();
+          await sendKeys({ press: tabKey });
+        }),
+      );
     }
 
     // disabled and readonly states
@@ -195,7 +218,7 @@ ${value}</textarea
           `slot=none ${name} ${visualDiffDefault.name}`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`${formField(args, template(args))}`, {
-              backgroundColor: negative ? '#484040' : undefined,
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
             });
           }),
         );
@@ -205,7 +228,7 @@ ${value}</textarea
           visualDiffDefault.with(async (setup) => {
             const templateResult: TemplateResult = html`${template(args)} ${buttonsAndPopover(args)}`;
             await setup.withFixture(html`${formField(args, templateResult)}`, {
-              backgroundColor: negative ? '#484040' : undefined,
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
             });
           }),
         );

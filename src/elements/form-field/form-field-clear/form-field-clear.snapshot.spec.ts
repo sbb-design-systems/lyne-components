@@ -28,10 +28,6 @@ describe(`sbb-form-field-clear`, () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('form-field-clear DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
     it('form-field-clear Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });

@@ -35,19 +35,6 @@ snapshots["sbb-form-field-clear renders form-field DOM"] =
 `;
 /* end snapshot sbb-form-field-clear renders form-field DOM */
 
-snapshots["sbb-form-field-clear renders form-field-clear DOM"] = 
-`<span class="sbb-action-base sbb-form-field-clear">
-  <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
-    name="cross-small"
-    role="img"
-  >
-  </sbb-icon>
-</span>
-`;
-/* end snapshot sbb-form-field-clear renders form-field-clear DOM */
-
 snapshots["sbb-form-field-clear renders form-field-clear Shadow DOM"] = 
 `<span class="sbb-action-base sbb-form-field-clear">
   <sbb-icon

@@ -26,7 +26,7 @@ describe(`sbb-form-error`, () => {
     errorText: ['short', 'long'],
   };
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'medium'] }, () => {
     describeEach(cases, ({ negative, iconName, errorText }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
@@ -36,7 +36,7 @@ describe(`sbb-form-error`, () => {
               ${errorText === 'short' ? 'Required field.' : longText}
             </sbb-form-error>
           `,
-          { backgroundColor: negative ? '#484040' : undefined },
+          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
         );
       });
 

@@ -39,7 +39,7 @@ describe(`sbb-form-field-clear`, () => {
               <sbb-form-field-clear></sbb-form-field-clear>
             </sbb-form-field>
           `,
-          { backgroundColor: negative ? '#484040' : undefined },
+          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
         );
       });
 
