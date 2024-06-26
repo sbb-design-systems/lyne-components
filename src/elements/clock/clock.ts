@@ -185,7 +185,6 @@ export class SbbClockElement extends LitElement {
 
     this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
     this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
-    this.style?.setProperty('--sbb-clock-animation-play-state', 'running');
 
     this.toggleAttribute('data-initialized', true);
   }
@@ -234,12 +233,8 @@ export class SbbClockElement extends LitElement {
   private async _stopClock(): Promise<void> {
     clearInterval(this._handMovement);
 
-    if (this.now) {
-      this._setHandsStartingPosition();
-    } else {
-      this._removeSecondsAnimationStyles();
-      this._removeHoursAnimationStyles();
-    }
+    this._removeSecondsAnimationStyles();
+    this._removeHoursAnimationStyles();
 
     this._clockHandHours?.removeEventListener('animationend', this._moveHoursHandFn);
     this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHandFn);
@@ -247,6 +242,16 @@ export class SbbClockElement extends LitElement {
     this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
     this.style?.setProperty('--sbb-clock-animation-play-state', 'paused');
+
+    if (this.now) {
+      if (this._clockHandSeconds) {
+        this._clockHandSeconds.style.animation = '';
+        // Trigger reflow
+        this._clockHandSeconds.offsetHeight;
+        this._clockHandSeconds.style.removeProperty('animation');
+      }
+      this._setHandsStartingPosition();
+    }
   }
 
   /** Starts the clock by defining the hands starting position then starting the animations. */
@@ -263,7 +268,11 @@ export class SbbClockElement extends LitElement {
     );
 
     await new Promise(() =>
-      setTimeout(() => this._setHandsStartingPosition(), INITIAL_TIMEOUT_DURATION),
+      setTimeout(() => {
+        this._setHandsStartingPosition();
+
+        this.style?.setProperty('--sbb-clock-animation-play-state', 'running');
+      }, INITIAL_TIMEOUT_DURATION),
     );
   }
 
