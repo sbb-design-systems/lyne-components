@@ -35,7 +35,7 @@ snapshots["sbb-clock renders with fixed time DOM"] =
 `<sbb-clock
   data-initialized=""
   now="12:30:00"
-  style="--sbb-clock-hours-animation-start-angle: 15deg; --sbb-clock-hours-animation-duration: 41400s; --sbb-clock-seconds-animation-start-angle: 0deg; --sbb-clock-seconds-animation-duration: 60s; --sbb-clock-animation-play-state: running;"
+  style="--sbb-clock-hours-animation-start-angle: 15deg; --sbb-clock-hours-animation-duration: 41400s; --sbb-clock-seconds-animation-start-angle: 0deg; --sbb-clock-seconds-animation-duration: 60s; --sbb-clock-animation-play-state: paused;"
 >
 </sbb-clock>
 `;
