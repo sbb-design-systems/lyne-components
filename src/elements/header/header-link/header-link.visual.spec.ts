@@ -11,7 +11,7 @@ describe(`sbb-header-link`, () => {
         state.name,
         state.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-header-link icon-name="hamburger-menu-small">Menu</sbb-header-link>
+            <sbb-header-link icon-name="hamburger-menu-small" href="#">Menu</sbb-header-link>
           `);
         }),
       );
