@@ -4,6 +4,8 @@ const future = '2022-12-07T12:11:00+01:00';
 const future2 = '2022-12-11T12:13:00+01:00';
 
 const defaultService = {
+  quayTypeName: 'platform',
+  quayTypeShortName: 'Pl.',
   serviceAlteration: {
     cancelled: false,
     delayText: 'string',
@@ -11,12 +13,21 @@ const defaultService = {
     unplannedStopPointsText: '',
   },
 };
-const cancelledService = { serviceAlteration: { cancelled: true } };
-const delayedService = { serviceAlteration: { delay: true } };
-const isNotReachableService = { serviceAlteration: { reachable: false } };
-const unplannedStopService = { serviceAlteration: { unplannedStopPointsText: 'unplannedStop' } };
-const redirectedService = { serviceAlteration: { redirectedText: 'Ausnahmsweise kein Halt' } };
+
+const busService = { ...defaultService, quayTypeName: 'Stand', quayTypeShortName: 'Stand' };
+const cancelledService = { ...defaultService, serviceAlteration: { cancelled: true } };
+const delayedService = { ...defaultService, serviceAlteration: { delay: true } };
+const isNotReachableService = { ...defaultService, serviceAlteration: { reachable: false } };
+const unplannedStopService = {
+  ...defaultService,
+  serviceAlteration: { unplannedStopPointsText: 'unplannedStop' },
+};
+const redirectedService = {
+  ...defaultService,
+  serviceAlteration: { redirectedText: 'Exceptionally no stop' },
+};
 const departureNotServiced = {
+  ...defaultService,
   stopPoints: [{ stopStatus: 'NOT_SERVICED' }, { stopStatus: 'PLANNED' }],
 };
 const arrivalNotServiced = {
@@ -68,6 +79,34 @@ export const pastLeg: any = {
   serviceJourney: defaultService,
 };
 
+export const defaultBusLeg: any = {
+  ...futureLeg,
+  serviceJourney: busService,
+};
+
+export const pastBusLeg: any = {
+  ...pastLeg,
+  serviceJourney: busService,
+};
+
+export const defaultShipLeg: any = {
+  ...futureLeg,
+  serviceJourney: {
+    ...defaultService,
+    quayTypeName: 'Pier',
+    quayTypeShortName: 'Pier',
+  },
+};
+
+export const defaultTramLeg: any = {
+  ...futureLeg,
+  serviceJourney: {
+    ...defaultService,
+    quayTypeName: 'Stand',
+    quayTypeShortName: 'Stand',
+  },
+};
+
 export const delayedLeg = {
   __typename: 'PTRideLeg',
   arrival: { time: future2 },
@@ -94,8 +133,8 @@ export const redirectedOnDepartureLeg = {
   arrival: { time: future2 },
   departure: { time: future },
   serviceJourney: {
-    ...redirectedService,
     ...departureNotServiced,
+    ...redirectedService,
   },
 };
 
