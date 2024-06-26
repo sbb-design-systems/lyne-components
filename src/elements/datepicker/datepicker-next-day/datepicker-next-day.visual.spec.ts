@@ -1,10 +1,12 @@
+import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing } from 'lit';
 
+import { tabKey } from '../../core/testing/private/keys.js';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffFocus,
+  visualRegressionFixture,
 } from '../../core/testing/private.js';
 
 import './datepicker-next-day.js';
@@ -12,53 +14,49 @@ import '../datepicker.js';
 import '../../form-field.js';
 
 describe(`sbb-datepicker-next-day`, () => {
-  const cases = [
-    { name: 'no value', value: null },
-    { name: 'with value', value: '15.02.2023' },
-  ];
+  const cases = {
+    negative: [true, false],
+    value: [null, '15.02.2023'],
+  };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const state of [visualDiffDefault, visualDiffFocus]) {
+    it(
+      `standalone`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`);
+      }),
+    );
+
+    describeEach(cases, ({ negative, value }) => {
+      let root: HTMLElement;
+
+      beforeEach(async () => {
+        root = await visualRegressionFixture(html`
+          <sbb-form-field ?negative=${negative}>
+            <input value=${value || nothing} />
+            <sbb-datepicker></sbb-datepicker>
+            <sbb-datepicker-next-day></sbb-datepicker-next-day>
+          </sbb-form-field>
+        `);
+      });
+
       it(
-        `standalone ${state.name}`,
-        state.with(async (setup) => {
-          await setup.withFixture(html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`);
+        `with form-field`,
+        visualDiffDefault.with(async (setup) => {
+          setup.withSnapshotElement(root);
         }),
       );
 
-      for (const inputValue of cases) {
-        it(
-          `with picker ${inputValue.name} ${state.name}`,
-          state.with(async (setup) => {
-            await setup.withFixture(html`
-              <div style="display: flex; gap: 1em;">
-                <input value="${inputValue.value || nothing}" id="datepicker-input" />
-                <sbb-datepicker
-                  id="datepicker"
-                  input="datepicker-input"
-                  now="2023-01-12T00:00:00Z"
-                ></sbb-datepicker>
-                <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
-              </div>
-            `);
-          }),
-        );
+      it(
+        `with form-field focus`,
+        visualDiffDefault.with(async (setup) => {
+          setup.withSnapshotElement(root);
 
-        describeEach({ negative: [true, false] }, ({ negative }) => {
-          it(
-            `with form-field ${inputValue.name} ${state.name}`,
-            state.with(async (setup) => {
-              await setup.withFixture(html`
-                <sbb-form-field ?negative=${negative}>
-                  <input value=${inputValue.value || nothing} />
-                  <sbb-datepicker></sbb-datepicker>
-                  <sbb-datepicker-next-day ?negative=${negative}></sbb-datepicker-next-day>
-                </sbb-form-field>
-              `);
-            }),
-          );
-        });
-      }
-    }
+          // Focus input so that with a tab press it should land on next day
+          setup.snapshotElement.querySelector('input')!.focus();
+          await sendKeys({ press: tabKey });
+        }),
+      );
+    });
   });
 });
