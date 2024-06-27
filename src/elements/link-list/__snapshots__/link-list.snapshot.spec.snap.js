@@ -55,12 +55,12 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-0"
   >
-    Rückerstattungen
+    Link 1
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -68,12 +68,12 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-1"
   >
-    Fundbüro
+    Link 2
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -81,12 +81,12 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-2"
   >
-    Beschwerden
+    Link 3
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -94,12 +94,12 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-3"
   >
-    Lob aussprechen
+    Link 4
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -107,12 +107,12 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-4"
   >
-    Sachbeschädigung melden
+    Link 5
   </sbb-block-link>
 </sbb-link-list>
 `;
@@ -188,12 +188,12 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-0"
   >
-    Rückerstattungen
+    Link 1
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -201,12 +201,12 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-1"
   >
-    Fundbüro
+    Link 2
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -214,12 +214,12 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-2"
   >
-    Beschwerden
+    Link 3
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -227,12 +227,12 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-3"
   >
-    Lob aussprechen
+    Link 4
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -240,12 +240,12 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-4"
   >
-    Sachbeschädigung melden
+    Link 5
   </sbb-block-link>
 </sbb-link-list>
 `;
@@ -310,12 +310,12 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-0"
   >
-    Rückerstattungen
+    Link 1
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -323,12 +323,12 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-1"
   >
-    Fundbüro
+    Link 2
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -336,12 +336,12 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-2"
   >
-    Beschwerden
+    Link 3
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -349,12 +349,12 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-3"
   >
-    Lob aussprechen
+    Link 4
   </sbb-block-link>
   <sbb-block-link
     data-action=""
@@ -362,12 +362,12 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    href="#"
     icon-placement="start"
     size="s"
     slot="li-4"
   >
-    Sachbeschädigung melden
+    Link 5
   </sbb-block-link>
 </sbb-link-list>
 `;

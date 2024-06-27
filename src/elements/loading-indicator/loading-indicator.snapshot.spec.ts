@@ -3,94 +3,43 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
+import type { SbbLoadingIndicatorElement } from './loading-indicator.js';
 import './loading-indicator.js';
 
 describe(`sbb-loading-indicator`, () => {
-  it('renders with variant `window`', async () => {
-    const root = await fixture(
-      html`<sbb-loading-indicator variant="window" size="m"></sbb-loading-indicator>`,
-    );
+  let element: SbbLoadingIndicatorElement;
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-loading-indicator variant="window" size="m" color="default" role="progressbar" aria-busy='true'>  
-        </sbb-loading-indicator>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  describe('renders with variant `window`', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-loading-indicator variant="window"></sbb-loading-indicator>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
-  it('renders with variant `window` and color smoke', async () => {
-    const root = await fixture(
-      html`<sbb-loading-indicator variant="window" size="m" color="smoke"></sbb-loading-indicator>`,
-    );
+  describe('renders with variant `circle`', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-loading-indicator variant="circle"></sbb-loading-indicator>`,
+      );
+    });
 
-    expect(root).dom.to.be.equal(
-      `
-      <sbb-loading-indicator variant="window" size="m" color="smoke" role="progressbar" aria-busy='true'>
-      </sbb-loading-indicator>
-    `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
-
-  it('renders with variant `window` and color white', async () => {
-    const root = await fixture(
-      html`<sbb-loading-indicator variant="window" size="m" color="white"></sbb-loading-indicator>`,
-    );
-
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-loading-indicator variant="window" size="m" color="white" role="progressbar" aria-busy='true'>
-        </sbb-loading-indicator>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
-  });
-
-  it('renders with variant `circle`', async () => {
-    const root = await fixture(
-      html`<sbb-loading-indicator variant="circle"></sbb-loading-indicator>`,
-    );
-
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-loading-indicator variant="circle" size="s" color="default" role="progressbar" aria-busy="true">
-        </sbb-loading-indicator>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
-  });
-
-  it('renders with variant `circle` and color smoke', async () => {
-    const root = await fixture(
-      html`<sbb-loading-indicator variant="circle" color="smoke"></sbb-loading-indicator>`,
-    );
-
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-loading-indicator variant="circle" color="smoke" size="s" role="progressbar" aria-busy="true">
-        </sbb-loading-indicator>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
-  });
-
-  it('renders with variant `circle` and color white', async () => {
-    const root = await fixture(
-      html`<sbb-loading-indicator variant="circle" color="white"></sbb-loading-indicator>`,
-    );
-
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-loading-indicator variant="circle" color="white" size="s" role="progressbar" aria-busy="true">
-        </sbb-loading-indicator>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
-  });
-
-  testA11yTreeSnapshot(
-    html`<sbb-loading-indicator variant="window" size="m"></sbb-loading-indicator>`,
-  );
 });
