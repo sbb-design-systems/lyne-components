@@ -20,8 +20,8 @@ describe(`sbb-block-link-button`, () => {
       for (const state of visualDiffStandardStates) {
         it(
           state.name,
-          state.with((setup) => {
-            setup.withFixture(
+          state.with(async (setup) => {
+            await setup.withFixture(
               html`<sbb-block-link-button ?negative=${negative}
                 >Travelcards & tickets</sbb-block-link-button
               >`,
@@ -37,8 +37,8 @@ describe(`sbb-block-link-button`, () => {
     describeEach(iconState, ({ iconPlacement, slotted }) => {
       it(
         visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withFixture(html`
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
             <sbb-block-link-button
               icon-name=${slotted ? nothing : 'chevron-small-right-small'}
               icon-placement=${iconPlacement}
@@ -56,8 +56,8 @@ describe(`sbb-block-link-button`, () => {
     for (const size of ['xs', 's', 'm']) {
       it(
         `size=${size} ${visualDiffDefault.name}`,
-        visualDiffDefault.with((setup) => {
-          setup.withFixture(
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
             html`<sbb-block-link-button size=${size}>Travelcards & tickets</sbb-block-link-button>`,
           );
         }),
@@ -66,8 +66,8 @@ describe(`sbb-block-link-button`, () => {
 
     it(
       `width=fixed ${visualDiffDefault.name}`,
-      visualDiffDefault.with((setup) => {
-        setup.withFixture(
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
           html`<sbb-block-link-button icon-name="chevron-small-right-small" style="width: 200px;">
             A lot of link text to show what happens if there is not enough space.
           </sbb-block-link-button>`,
