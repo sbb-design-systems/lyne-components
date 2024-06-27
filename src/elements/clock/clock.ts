@@ -86,18 +86,26 @@ export class SbbClockElement extends LitElement {
   /** Move the minutes hand every minute. */
   private _handMovement?: ReturnType<typeof setInterval>;
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);
 
     if (!isServer && changedProperties.has('now')) {
-      if (this.now) {
-        this._removeSecondsAnimationStyles();
-        this._removeHoursAnimationStyles();
-        this._stopClock();
-      } else {
-        this._startClock();
-      }
+      await this._startOrConfigureClock();
     }
+  }
+
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
+    if (!isServer) {
+      document.addEventListener('visibilitychange', this._handlePageVisibilityChange, false);
+      await this._startOrConfigureClock();
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._removeEventListeners();
   }
 
   private _handlePageVisibilityChange = async (): Promise<void> => {
@@ -108,40 +116,51 @@ export class SbbClockElement extends LitElement {
     }
   };
 
-  private _addEventListeners(): void {
-    document.addEventListener('visibilitychange', this._handlePageVisibilityChange, false);
+  private async _startOrConfigureClock(): Promise<void> {
+    if (this.now) {
+      await this._stopClock();
+      this._resetSecondsHandAnimation();
+      this._setHandsStartingPosition();
+    } else {
+      await this._startClock();
+    }
   }
 
-  private _removeEventListeners(): void {
-    document?.removeEventListener('visibilitychange', this._handlePageVisibilityChange);
+  /** Starts the clock by defining the hands starting position then starting the animations. */
+  private async _startClock(): Promise<void> {
+    this._clockHandHours?.addEventListener(
+      'animationend',
+      this._moveHoursHandFn,
+      ADD_EVENT_LISTENER_OPTIONS,
+    );
+    this._clockHandSeconds?.addEventListener(
+      'animationend',
+      this._moveMinutesHandFn,
+      ADD_EVENT_LISTENER_OPTIONS,
+    );
+
+    await new Promise(() =>
+      setTimeout(() => {
+        this._setHandsStartingPosition();
+
+        this.style?.setProperty('--sbb-clock-animation-play-state', 'running');
+      }, INITIAL_TIMEOUT_DURATION),
+    );
+  }
+
+  /** Stops the clock by removing all the animations. */
+  private async _stopClock(): Promise<void> {
+    clearInterval(this._handMovement);
+
+    this._removeSecondsAnimationStyles();
+    this._removeHoursAnimationStyles();
+
     this._clockHandHours?.removeEventListener('animationend', this._moveHoursHandFn);
     this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHandFn);
-    clearInterval(this._handMovement);
-  }
 
-  private _removeHoursAnimationStyles(): void {
-    this._clockHandHours?.classList.remove('sbb-clock__hand-hours--initial-hour');
-    this.style.removeProperty('--sbb-clock-hours-animation-start-angle');
-    this.style.removeProperty('--sbb-clock-hours-animation-duration');
-  }
+    this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
-  private _removeSecondsAnimationStyles(): void {
-    this._clockHandSeconds?.classList.remove('sbb-clock__hand-seconds--initial-minute');
-    this._clockHandMinutes?.classList.remove('sbb-clock__hand-minutes--no-transition');
-    this.style.removeProperty('--sbb-clock-seconds-animation-start-angle');
-    this.style.removeProperty('--sbb-clock-seconds-animation-duration');
-  }
-
-  /** Given the current date, calculates the hh/mm/ss values and the hh/mm/ss left to the next midnight. */
-  private _assignCurrentTime(): void {
-    const date = this.now ? null : new Date();
-    const [hours, minutes, seconds] = date
-      ? [date.getHours(), date.getMinutes(), date.getSeconds()]
-      : this.now!.split(':').map((p) => +p);
-
-    this._hours = hours % 12;
-    this._minutes = minutes;
-    this._seconds = seconds;
+    this.style?.setProperty('--sbb-clock-animation-play-state', 'paused');
   }
 
   /** Set the starting position for the three hands on the clock face. */
@@ -189,6 +208,18 @@ export class SbbClockElement extends LitElement {
     this.toggleAttribute('data-initialized', true);
   }
 
+  /** Given the current date, calculates the hh/mm/ss values and the hh/mm/ss left to the next midnight. */
+  private _assignCurrentTime(): void {
+    const date = this.now ? null : new Date();
+    const [hours, minutes, seconds] = date
+      ? [date.getHours(), date.getMinutes(), date.getSeconds()]
+      : this.now!.split(':').map((p) => +p);
+
+    this._hours = hours % 12;
+    this._minutes = minutes;
+    this._seconds = seconds;
+  }
+
   /** Set the starting position for the minutes hand. */
   private _setMinutesHand(): void {
     this._clockHandMinutes?.style.setProperty(
@@ -229,26 +260,6 @@ export class SbbClockElement extends LitElement {
     this._setMinutesHand();
   }
 
-  /** Stops the clock by removing all the animations. */
-  private async _stopClock(): Promise<void> {
-    clearInterval(this._handMovement);
-
-    this._removeSecondsAnimationStyles();
-    this._removeHoursAnimationStyles();
-
-    this._clockHandHours?.removeEventListener('animationend', this._moveHoursHandFn);
-    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHandFn);
-
-    this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
-
-    this.style?.setProperty('--sbb-clock-animation-play-state', 'paused');
-
-    if (this.now) {
-      this._resetSecondsHandAnimation();
-      this._setHandsStartingPosition();
-    }
-  }
-
   /**
    * Removing animation by overriding with empty string,
    * then triggering a reflow and re add original animation by removing override.
@@ -264,45 +275,24 @@ export class SbbClockElement extends LitElement {
     this._clockHandSeconds.style.removeProperty('animation');
   }
 
-  /** Starts the clock by defining the hands starting position then starting the animations. */
-  private async _startClock(): Promise<void> {
-    this._clockHandHours?.addEventListener(
-      'animationend',
-      this._moveHoursHandFn,
-      ADD_EVENT_LISTENER_OPTIONS,
-    );
-    this._clockHandSeconds?.addEventListener(
-      'animationend',
-      this._moveMinutesHandFn,
-      ADD_EVENT_LISTENER_OPTIONS,
-    );
-
-    await new Promise(() =>
-      setTimeout(() => {
-        this._setHandsStartingPosition();
-
-        this.style?.setProperty('--sbb-clock-animation-play-state', 'running');
-      }, INITIAL_TIMEOUT_DURATION),
-    );
+  private _removeEventListeners(): void {
+    document?.removeEventListener('visibilitychange', this._handlePageVisibilityChange);
+    this._clockHandHours?.removeEventListener('animationend', this._moveHoursHandFn);
+    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHandFn);
+    clearInterval(this._handMovement);
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
-    super.firstUpdated(changedProperties);
-
-    if (!isServer) {
-      this._addEventListeners();
-
-      if (this.now) {
-        await this._stopClock();
-      } else {
-        await this._startClock();
-      }
-    }
+  private _removeHoursAnimationStyles(): void {
+    this._clockHandHours?.classList.remove('sbb-clock__hand-hours--initial-hour');
+    this.style.removeProperty('--sbb-clock-hours-animation-start-angle');
+    this.style.removeProperty('--sbb-clock-hours-animation-duration');
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._removeEventListeners();
+  private _removeSecondsAnimationStyles(): void {
+    this._clockHandSeconds?.classList.remove('sbb-clock__hand-seconds--initial-minute');
+    this._clockHandMinutes?.classList.remove('sbb-clock__hand-minutes--no-transition');
+    this.style.removeProperty('--sbb-clock-seconds-animation-start-angle');
+    this.style.removeProperty('--sbb-clock-seconds-animation-duration');
   }
 
   protected override render(): TemplateResult {
