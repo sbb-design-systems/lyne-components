@@ -1,3 +1,4 @@
+import { emulateMedia } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -89,10 +90,17 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     focusOutlineDark?: boolean;
     padding?: string;
     minHeight?: string;
+    forcedColors?: boolean;
   },
 ): Promise<T> {
   const base = tryFindBase(new Error().stack!);
   const { html } = await import('lit-html');
+
+  await emulateMedia({
+    forcedColors: wrapperStyles?.forcedColors ? 'active' : 'none',
+    colorScheme: wrapperStyles?.forcedColors ? 'dark' : 'light',
+  });
+
   return await fixture<T>(
     html`<div
       id="visual-regression-fixture-wrapper"

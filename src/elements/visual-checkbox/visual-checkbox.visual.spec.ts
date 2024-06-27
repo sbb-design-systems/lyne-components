@@ -1,4 +1,3 @@
-import { emulateMedia } from '@web/test-runner-commands';
 import { html } from 'lit';
 
 import {
@@ -35,13 +34,10 @@ describe(`sbb-visual-checkbox`, () => {
             ?negative=${negative}
           ></sbb-visual-checkbox>`,
           {
+            forcedColors,
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
           },
         );
-        await emulateMedia({
-          forcedColors: forcedColors ? 'active' : 'none',
-          colorScheme: forcedColors ? 'dark' : 'no-preference',
-        });
       });
 
       it(
