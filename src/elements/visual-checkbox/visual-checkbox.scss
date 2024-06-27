@@ -81,7 +81,7 @@
     outline: var(--sbb-border-width-2x) solid ButtonBorder;
     outline-offset: calc(-1 * var(--sbb-border-width-2x));
 
-    :host([checked]) & {
+    :host([checked]:not([indeterminate])) & {
       background-color: HighLight;
       outline: none;
     }
@@ -90,7 +90,7 @@
       outline-color: GrayText;
     }
 
-    :host([checked][disabled]) & {
+    :host([checked][disabled]:not([indeterminate])) & {
       background-color: GrayText;
     }
   }
