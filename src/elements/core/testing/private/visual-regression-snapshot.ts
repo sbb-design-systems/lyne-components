@@ -7,7 +7,7 @@ import { visualRegressionFixture } from './fixture.js';
 import { tabKey } from './keys.js';
 
 export function imageName(test: Mocha.Runnable): string {
-  return test!.fullTitle().replaceAll(', ', '-').replaceAll(' ', '_');
+  return test!.fullTitle().replaceAll(', ', '-').replaceAll(' ', '_').replaceAll('.', '_');
 }
 
 class VisualDiffSetupBuilder {

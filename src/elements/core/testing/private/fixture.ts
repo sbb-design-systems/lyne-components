@@ -1,4 +1,5 @@
 import type { TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForLitRender } from '../wait-for-render.js';
 
@@ -87,6 +88,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     color?: string;
     focusOutlineDark?: boolean;
     padding?: string;
+    minHeight?: string;
   },
 ): Promise<T> {
   const base = tryFindBase(new Error().stack!);
@@ -94,7 +96,15 @@ export async function visualRegressionFixture<T extends HTMLElement>(
   return await fixture<T>(
     html`<div
       id="visual-regression-fixture-wrapper"
-      style=${`padding: ${wrapperStyles?.padding ?? '2rem'};background-color: ${wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)'};${wrapperStyles?.color ? `color: ${wrapperStyles?.color};` : ''}${wrapperStyles?.focusOutlineDark ? ' --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);' : ''}`}
+      style=${styleMap({
+        padding: wrapperStyles?.padding ?? '2rem',
+        'background-color': wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)',
+        color: wrapperStyles?.color,
+        '--sbb-focus-outline-color': wrapperStyles?.focusOutlineDark
+          ? 'var(--sbb-focus-outline-color-dark)'
+          : undefined,
+        'min-height': wrapperStyles?.minHeight,
+      })}
       tabindex="0"
     >
       ${template}

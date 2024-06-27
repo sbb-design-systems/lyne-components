@@ -7,7 +7,7 @@ import type { SbbHeaderLinkElement } from './header-link.js';
 import './header-link.js';
 
 describe(`sbb-header-link`, () => {
-  describe('renders the component as a button with icon', () => {
+  describe('renders', () => {
     let element: SbbHeaderLinkElement;
 
     beforeEach(async () => {
@@ -23,7 +23,7 @@ describe(`sbb-header-link`, () => {
       );
     });
 
-    it('Light DOM', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 

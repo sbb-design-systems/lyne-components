@@ -21,52 +21,76 @@ describe(`sbb-icon`, () => {
     mergeConfig({ icon: iconConfig });
   });
 
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-icon></sbb-icon>`);
+  describe('renders', async () => {
+    let element: SbbIconElement;
 
-    expect(root).dom.to.be.equal(`
-      <sbb-icon aria-hidden="true" role="img" data-empty data-namespace="default">
-      </sbb-icon>
-    `);
-    await expect(root).shadowDom.to.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-icon></sbb-icon>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders aria-hidden and no aria-label', async () => {
-    const root: SbbIconElement = await fixture(html`<sbb-icon name="app-icon-medium"></sbb-icon>`);
+  describe('renders aria-hidden and no aria-label', async () => {
+    let element: SbbIconElement;
 
-    expect(root).dom.to.be.equal(`
-      <sbb-icon name="app-icon-medium" aria-hidden="true" role="img" data-namespace="default">
-      </sbb-icon>
-    `);
-    await expect(root).shadowDom.to.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-icon name="app-icon-medium"></sbb-icon>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders default aria-label', async () => {
-    const root = await fixture(
-      html`<sbb-icon name="app-icon-medium" aria-hidden="false"></sbb-icon>`,
-    );
+  describe('renders default aria-label', async () => {
+    let element: SbbIconElement;
 
-    expect(root).dom.to.be.equal(`
-      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Icon app icon medium" role="img" data-namespace="default">
-      </sbb-icon>
-    `);
-    await expect(root).shadowDom.to.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-icon name="app-icon-medium" aria-hidden="false"></sbb-icon>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders custom aria-label', async () => {
-    const root = await fixture(
-      html`<sbb-icon
-        name="app-icon-medium"
-        aria-hidden="false"
-        aria-label="Custom label"
-      ></sbb-icon>`,
-    );
+  describe('renders custom aria-label', async () => {
+    let element: SbbIconElement;
 
-    expect(root).dom.to.be.equal(`
-      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Custom label" role="img" data-namespace="default">
-      </sbb-icon>
-    `);
-    await expect(root).shadowDom.to.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-icon
+          name="app-icon-medium"
+          aria-hidden="false"
+          aria-label="Custom label"
+        ></sbb-icon>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
   it('renders default label after changing source', async () => {
