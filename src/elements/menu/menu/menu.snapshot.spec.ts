@@ -39,8 +39,6 @@ describe(`sbb-menu`, () => {
     it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot();
   });
 
   describe('renders with list', () => {
@@ -68,5 +66,7 @@ describe(`sbb-menu`, () => {
     it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 });

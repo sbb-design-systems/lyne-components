@@ -87,7 +87,7 @@ snapshots["sbb-menu renders Shadow DOM"] =
 snapshots["sbb-menu renders with list DOM"] = 
 `<sbb-menu
   data-state="closed"
-  id="sbb-menu-3"
+  id="sbb-menu-2"
   trigger="menu-trigger"
 >
   <sbb-menu-button
@@ -173,7 +173,7 @@ snapshots["sbb-menu renders with list Shadow DOM"] =
 `;
 /* end snapshot sbb-menu renders with list Shadow DOM */
 
-snapshots["sbb-menu renders A11y tree Chrome"] = 
+snapshots["sbb-menu renders with list A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -188,9 +188,9 @@ snapshots["sbb-menu renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-menu renders A11y tree Chrome */
+/* end snapshot sbb-menu renders with list A11y tree Chrome */
 
-snapshots["sbb-menu renders A11y tree Firefox"] = 
+snapshots["sbb-menu renders with list A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -205,5 +205,5 @@ snapshots["sbb-menu renders A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-menu renders A11y tree Firefox */
+/* end snapshot sbb-menu renders with list A11y tree Firefox */
 
