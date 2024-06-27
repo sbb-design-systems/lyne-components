@@ -58,6 +58,13 @@ describe(`sbb-toggle-check`, () => {
     });
 
     it(
+      `long label ${visualDiffFocus.name}`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(html` <sbb-toggle-check> ${longLabel} </sbb-toggle-check> `);
+      }),
+    );
+
+    it(
       'without label',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html` <sbb-toggle-check></sbb-toggle-check> `);
@@ -107,22 +114,24 @@ describe(`sbb-toggle-check`, () => {
       );
     }
 
-    it(
-      'block variant',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-toggle-check label-position="before" style="display: block;">
-            <sbb-title level="5" style="margin: 0;"> Accessible Connection. </sbb-title>
-            <span class="sbb-text-s" style="color: var(--sbb-color-iron);">
-              Show connections for accessible journeys.
-            </span>
-          </sbb-toggle-check>
-          <p class="sbb-text-xs">
-            In this example <code>&lt;sbb-toggle-check&gt;</code> is converted to a block element by
-            setting <code>display: block</code>.
-          </p>
-        `);
-      }),
-    );
+    for (const state of [visualDiffDefault, visualDiffFocus]) {
+      it(
+        `block variant ${state.name}`,
+        state.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-toggle-check label-position="before" style="display: block;">
+              <sbb-title level="5" style="margin: 0;"> Accessible Connection. </sbb-title>
+              <span class="sbb-text-s" style="color: var(--sbb-color-iron);">
+                Show connections for accessible journeys.
+              </span>
+            </sbb-toggle-check>
+            <p class="sbb-text-xs">
+              In this example <code>&lt;sbb-toggle-check&gt;</code> is converted to a block element
+              by setting <code>display: block</code>.
+            </p>
+          `);
+        }),
+      );
+    }
   });
 });

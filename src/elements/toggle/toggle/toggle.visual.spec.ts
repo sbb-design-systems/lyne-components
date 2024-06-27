@@ -91,5 +91,21 @@ describe(`sbb-toggle`, () => {
         `);
       }),
     );
+
+    it(
+      'dynamic width',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html` <sbb-toggle>
+            <sbb-toggle-option value="Value 1" icon-name="app-icon-small">
+              Zürich
+            </sbb-toggle-option>
+            <sbb-toggle-option value="Value 2" icon-name="arrows-right-left-small">
+              Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse
+            </sbb-toggle-option>
+          </sbb-toggle>`,
+        );
+      }),
+    );
   });
 });
