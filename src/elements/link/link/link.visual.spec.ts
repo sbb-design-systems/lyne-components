@@ -10,8 +10,8 @@ describe(`sbb-link`, () => {
       for (const state of visualDiffStandardStates) {
         it(
           `negative=${negative} ${state.name}`,
-          state.with((setup) => {
-            setup.withFixture(
+          state.with(async (setup) => {
+            await setup.withFixture(
               html` <p class="sbb-text-m">
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
                 tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
