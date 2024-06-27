@@ -10,57 +10,43 @@ import './alert.js';
 describe(`sbb-alert`, () => {
   let element: SbbAlertElement;
 
-  it('should render default properties', async () => {
-    element = await fixture(
-      html`<sbb-alert title-content="Interruption">Alert content</sbb-alert>`,
-    );
-
-    expect(element).dom.to.be.equal(
-      `
-        <sbb-alert title-content="Interruption" size="m" data-state="opening" animation="open">
-           Alert content
-        </sbb-alert>
-      `,
-    );
-
-    await expect(element).shadowDom.to.equalSnapshot();
+  describe('should render default properties', async () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-alert title-content="Interruption">Alert content</sbb-alert>`,
+      );
+    });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('should render customized properties', async () => {
-    element = await fixture(
-      html`<sbb-alert
-        title-content="Interruption"
-        title-level="2"
-        size="l"
-        icon-name="disruption"
-        accessibility-label="label"
-        href="https://www.sbb.ch"
-        rel="noopener"
-        target="_blank"
-        link-content="Show much more"
-        >Alert content</sbb-alert
-      >`,
-    );
-
-    expect(element).dom.to.be.equal(
-      `
-        <sbb-alert
+  describe('should render customized properties', async () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-alert
           title-content="Interruption"
           title-level="2"
           size="l"
           icon-name="disruption"
           accessibility-label="label"
           href="https://www.sbb.ch"
-          rel="noopener" target="_blank"
+          rel="noopener"
+          target="_blank"
           link-content="Show much more"
-          animation="open"
-          data-state="opening"
-        >
-           Alert content
-        </sbb-alert>
-      `,
-    );
-    await expect(element).shadowDom.to.equalSnapshot();
+          >Alert content</sbb-alert
+        >`,
+      );
+    });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
   testA11yTreeSnapshot(html`

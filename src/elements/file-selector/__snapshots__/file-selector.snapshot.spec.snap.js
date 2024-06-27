@@ -1,7 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-file-selector renders default"] = 
+snapshots["sbb-file-selector renders DOM"] = 
+`<sbb-file-selector size="m">
+</sbb-file-selector>
+`;
+/* end snapshot sbb-file-selector renders DOM */
+
+snapshots["sbb-file-selector renders Shadow DOM"] = 
 `<div class="sbb-file-selector">
   <div class="sbb-file-selector__input-container">
     <label>
@@ -32,9 +38,18 @@ snapshots["sbb-file-selector renders default"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-file-selector renders default */
+/* end snapshot sbb-file-selector renders Shadow DOM */
 
-snapshots["sbb-file-selector renders with dropzone area and size s"] = 
+snapshots["sbb-file-selector renders with dropzone area and size s DOM"] = 
+`<sbb-file-selector
+  size="s"
+  variant="dropzone"
+>
+</sbb-file-selector>
+`;
+/* end snapshot sbb-file-selector renders with dropzone area and size s DOM */
+
+snapshots["sbb-file-selector renders with dropzone area and size s Shadow DOM"] = 
 `<div class="sbb-file-selector">
   <div class="sbb-file-selector__input-container">
     <label>
@@ -82,9 +97,9 @@ snapshots["sbb-file-selector renders with dropzone area and size s"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-file-selector renders with dropzone area and size s */
+/* end snapshot sbb-file-selector renders with dropzone area and size s Shadow DOM */
 
-snapshots["sbb-file-selector A11y tree Chrome"] = 
+snapshots["sbb-file-selector renders with dropzone area and size s A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -92,20 +107,24 @@ snapshots["sbb-file-selector A11y tree Chrome"] =
   "children": [
     {
       "role": "text",
+      "name": "Drag & Drop your files here"
+    },
+    {
+      "role": "text",
       "name": "Choose a file"
     },
     {
       "role": "button",
-      "name": "Choose a file",
+      "name": "Drag & Drop your files here Choose a file",
       "value": "No file chosen"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-file-selector A11y tree Chrome */
+/* end snapshot sbb-file-selector renders with dropzone area and size s A11y tree Chrome */
 
-snapshots["sbb-file-selector A11y tree Firefox"] = 
+snapshots["sbb-file-selector renders with dropzone area and size s A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -113,15 +132,19 @@ snapshots["sbb-file-selector A11y tree Firefox"] =
   "children": [
     {
       "role": "text leaf",
+      "name": "Drag & Drop your files here"
+    },
+    {
+      "role": "text leaf",
       "name": "Choose a file"
     },
     {
       "role": "button",
-      "name": "Choose a file Browse… …"
+      "name": "Drag & Drop your files here Choose a file Browse… …"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-file-selector A11y tree Firefox */
+/* end snapshot sbb-file-selector renders with dropzone area and size s A11y tree Firefox */
 

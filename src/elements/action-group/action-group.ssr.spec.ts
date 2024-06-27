@@ -1,18 +1,18 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbActionGroupElement } from './action-group.js';
 
 import '../button.js';
 import '../link.js';
 
-describe(`sbb-action-group ${fixture.name}`, () => {
+describe(`sbb-action-group ssr`, () => {
   let root: SbbActionGroupElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-action-group align-group="start" orientation="horizontal">
           <sbb-secondary-button>Button</sbb-secondary-button>

@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbDatepickerNextDayElement } from './datepicker-next-day.js';
 
-describe(`sbb-datepicker-next-day ${fixture.name}`, () => {
+describe(`sbb-datepicker-next-day ssr`, () => {
   let root: SbbDatepickerNextDayElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`, {
+    root = await ssrHydratedFixture(html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`, {
       modules: ['./datepicker-next-day.js'],
     });
   });

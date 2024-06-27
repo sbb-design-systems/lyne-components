@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbVisualCheckboxElement } from './visual-checkbox.js';
 
-describe(`sbb-visual-checkbox ${fixture.name}`, () => {
+describe(`sbb-visual-checkbox ssr`, () => {
   let root: SbbVisualCheckboxElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-visual-checkbox></sbb-visual-checkbox>`, {
+    root = await ssrHydratedFixture(html`<sbb-visual-checkbox></sbb-visual-checkbox>`, {
       modules: ['./visual-checkbox.js'],
     });
   });

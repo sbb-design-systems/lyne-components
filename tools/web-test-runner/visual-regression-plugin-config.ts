@@ -22,14 +22,18 @@ export const visualRegressionConfig = {
     if (existsSync(filePath) && info.branch === branch) {
       return readFileSync(filePath);
     } else if (existsSync(filePath) && info.etag) {
-      const response = await fetch(baselineFileUrl, {
-        method: 'HEAD',
-        headers: { 'if-none-match': info.etag },
-      });
+      try {
+        const response = await fetch(baselineFileUrl, {
+          method: 'HEAD',
+          headers: { 'if-none-match': info.etag },
+        });
 
-      if (response.status === 304) {
-        return readFileSync(filePath);
-      } else if (response.status === 404) {
+        if (response.status === 304) {
+          return readFileSync(filePath);
+        } else if (response.status === 404) {
+          return undefined;
+        }
+      } catch {
         return undefined;
       }
     }

@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbNotificationElement } from './notification.js';
 
 import '../link/link.js';
 
-describe(`sbb-notification ${fixture.name}`, () => {
+describe(`sbb-notification ssr`, () => {
   let root: SbbNotificationElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-notification id="notification">
           The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.

@@ -1,17 +1,27 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+
+import type { SbbDialogContentElement } from './dialog-content.js';
 import './dialog-content.js';
 
 describe('sbb-dialog-content', () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-dialog-content>Content</sbb-dialog-content>`);
+  describe('renders', async () => {
+    let root: SbbDialogContentElement;
 
-    expect(root).dom.to.be.equal(`<sbb-dialog-content>Content</sbb-dialog-content>`);
+    beforeEach(async () => {
+      root = await fixture(html`<sbb-dialog-content>Content</sbb-dialog-content>`);
+    });
 
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-dialog-content">
-        <slot></slot>
-      </div>
-    `);
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 });

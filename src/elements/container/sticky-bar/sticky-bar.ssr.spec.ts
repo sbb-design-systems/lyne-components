@@ -1,18 +1,18 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 import type { SbbContainerElement } from '../container.js';
 
 import { SbbStickyBarElement } from './sticky-bar.js';
 
 import '../container.js';
 
-describe(`sbb-sticky-bar ${fixture.name}`, () => {
+describe(`sbb-sticky-bar ssr`, () => {
   let root: SbbContainerElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-container>
           <div><p>Situation 1</p></div>
