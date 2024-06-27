@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-block-link renders - DOM"] = 
+snapshots["sbb-block-link renders DOM"] = 
 `<sbb-block-link
   accessibility-label="Travelcards &amp; tickets"
   data-action=""
@@ -17,9 +17,9 @@ snapshots["sbb-block-link renders - DOM"] =
   Travelcards & tickets.
 </sbb-block-link>
 `;
-/* end snapshot sbb-block-link renders - DOM */
+/* end snapshot sbb-block-link renders DOM */
 
-snapshots["sbb-block-link renders - Shadow DOM"] = 
+snapshots["sbb-block-link renders Shadow DOM"] = 
 `<a
   aria-label="Travelcards &amp; tickets"
   class="sbb-action-base sbb-block-link"
@@ -34,9 +34,9 @@ snapshots["sbb-block-link renders - Shadow DOM"] =
   </slot>
 </a>
 `;
-/* end snapshot sbb-block-link renders - Shadow DOM */
+/* end snapshot sbb-block-link renders Shadow DOM */
 
-snapshots["sbb-block-link A11y tree Chrome"] = 
+snapshots["sbb-block-link renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -50,9 +50,9 @@ snapshots["sbb-block-link A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-block-link A11y tree Chrome */
+/* end snapshot sbb-block-link renders A11y tree Chrome */
 
-snapshots["sbb-block-link A11y tree Firefox"] = 
+snapshots["sbb-block-link renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -67,5 +67,5 @@ snapshots["sbb-block-link A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-block-link A11y tree Firefox */
+/* end snapshot sbb-block-link renders A11y tree Firefox */
 

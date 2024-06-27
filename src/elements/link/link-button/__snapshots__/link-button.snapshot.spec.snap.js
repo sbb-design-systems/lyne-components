@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-link-button renders - DOM"] = 
+snapshots["sbb-link-button renders DOM"] = 
 `<sbb-link-button
   aria-label="Travelcards &amp; tickets"
   data-action=""
@@ -20,17 +20,17 @@ snapshots["sbb-link-button renders - DOM"] =
   Travelcards & tickets.
 </sbb-link-button>
 `;
-/* end snapshot sbb-link-button renders - DOM */
+/* end snapshot sbb-link-button renders DOM */
 
-snapshots["sbb-link-button renders - Shadow DOM"] = 
+snapshots["sbb-link-button renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-link-button">
   <slot>
   </slot>
 </span>
 `;
-/* end snapshot sbb-link-button renders - Shadow DOM */
+/* end snapshot sbb-link-button renders Shadow DOM */
 
-snapshots["sbb-link-button A11y tree Chrome"] = 
+snapshots["sbb-link-button renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -44,9 +44,9 @@ snapshots["sbb-link-button A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-link-button A11y tree Chrome */
+/* end snapshot sbb-link-button renders A11y tree Chrome */
 
-snapshots["sbb-link-button A11y tree Firefox"] = 
+snapshots["sbb-link-button renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -60,5 +60,5 @@ snapshots["sbb-link-button A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-link-button A11y tree Firefox */
+/* end snapshot sbb-link-button renders A11y tree Firefox */
 

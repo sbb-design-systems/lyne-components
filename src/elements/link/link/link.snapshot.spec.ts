@@ -10,21 +10,23 @@ import './link.js';
 describe(`sbb-link`, () => {
   let element: SbbLinkElement;
 
-  beforeEach(async () => {
-    element = await fixture(
-      html` <sbb-link size="m" href="https://sbb.ch" target="_blank">
-        Travelcards &amp; tickets.
-      </sbb-link>`,
-    );
-  });
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html` <sbb-link size="m" href="https://sbb.ch" target="_blank">
+          Travelcards &amp; tickets.
+        </sbb-link>`,
+      );
+    });
 
-  it('renders - DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-  it('renders - Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
+    testA11yTreeSnapshot();
+  });
 });

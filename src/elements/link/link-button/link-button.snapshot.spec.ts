@@ -10,28 +10,30 @@ import './link-button.js';
 describe(`sbb-link-button`, () => {
   let element: SbbLinkButtonElement;
 
-  beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-link-button
-        name="name"
-        type="button"
-        form="form"
-        value="value"
-        size="m"
-        aria-label="Travelcards &amp; tickets"
-      >
-        Travelcards &amp; tickets.
-      </sbb-link-button>
-    `);
-  });
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-link-button
+          name="name"
+          type="button"
+          form="form"
+          value="value"
+          size="m"
+          aria-label="Travelcards &amp; tickets"
+        >
+          Travelcards &amp; tickets.
+        </sbb-link-button>
+      `);
+    });
 
-  it('renders - DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-  it('renders - Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
+    testA11yTreeSnapshot();
+  });
 });
