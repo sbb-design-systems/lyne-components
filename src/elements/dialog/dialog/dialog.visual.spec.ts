@@ -24,8 +24,7 @@ describe(`sbb-dialog`, () => {
       <p style="margin: 0">
         “What really knocks me out is a book that, when you're all done reading it, you wish the
         author that wrote it was a terrific friend of yours and you could call him up on the phone
-        whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher
-        in the Rye
+        whenever you felt like it.
       </p>
       ${longContent
         ? html`
