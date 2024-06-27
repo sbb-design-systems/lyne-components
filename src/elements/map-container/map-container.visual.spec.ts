@@ -14,7 +14,7 @@ describe(`sbb-map-container`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`
-            <sbb-header expanded hide-on-scroll>
+            <sbb-header expanded>
               <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
                 Menu
               </sbb-header-button>
