@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
@@ -19,47 +19,48 @@ describe(`sbb-header`, () => {
       ante, mollis eu lorem id, commodo cursus risus.
   `;
 
-  const states = [
-    { expanded: false, cssClass: 'sbb-page-spacing' },
-    { expanded: true, cssClass: 'sbb-page-spacing-expanded' },
-  ];
+  const template = ({ expanded }: { expanded?: boolean }): TemplateResult => html`
+    <style>
+      ${' .last-element {display: none;} '}
+      ${' @media screen and (width >= 840px) { .last-element { display: block; } }'}
+      ${' @media screen and (width < 1023px) { .sbb-header-spacer { display: none; } }'}
+    </style>
+    <sbb-header ?expanded=${expanded}>
+      <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+        Menu
+      </sbb-header-button>
+      <div class="sbb-header-spacer"></div>
+      <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small"
+        >Search
+      </sbb-header-link>
+      <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
+        Christina Müller
+      </sbb-header-button>
+      <sbb-header-button icon-name="globe-small" class="last-element"> English </sbb-header-button>
+    </sbb-header>
+    <div class=${expanded ? 'sbb-page-spacing-expanded' : 'sbb-page-spacing'}>
+      ${loremIpsumTemplate}
+    </div>
+  `;
 
-  describeViewports({ viewports: ['zero', 'ultra'] }, () => {
-    for (const state of states) {
+  describeViewports({ viewports: ['zero', 'ultra'], viewportHeight: 300 }, () => {
+    for (const expanded of [true, false]) {
       it(
-        `expanded=${state.expanded} ${visualDiffDefault.name}`,
+        `expanded=${expanded}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html`
-              <style>
-                ${' .last-element {display: none;} '}
-                ${' @media screen and (width >= 840px) { .last-element { display: block; } }'}
-                ${' @media screen and (width < 1023px) { .sbb-header-spacer { display: none; } }'}
-              </style>
-              <sbb-header ?expanded=${state.expanded}>
-                <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
-                  Menu
-                </sbb-header-button>
-                <div class="sbb-header-spacer"></div>
-                <sbb-header-link
-                  href="https://www.sbb.ch"
-                  target="_blank"
-                  icon-name="magnifying-glass-small"
-                  >Search
-                </sbb-header-link>
-                <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
-                  Christina Müller
-                </sbb-header-button>
-                <sbb-header-button icon-name="globe-small" class="last-element">
-                  English
-                </sbb-header-button>
-              </sbb-header>
-              <div class=${state.cssClass}>${loremIpsumTemplate}</div>
-            `,
-            { padding: '0' },
-          );
+          await setup.withFixture(template({ expanded }), { padding: '0' });
         }),
       );
     }
+
+    it(
+      `scroll`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({}), { padding: '0' });
+
+        // Scroll page down
+        window.scrollTo(0, document.body.scrollHeight);
+      }),
+    );
   });
 });
