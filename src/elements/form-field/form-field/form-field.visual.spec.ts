@@ -157,51 +157,62 @@ ${value}</textarea
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     // visual states
     for (const [name, template] of component.entries()) {
-      for (const visualDiffState of [visualDiffDefault, visualDiffFocus, visualDiffActive]) {
-        it(
-          `slot=none ${name} ${visualDiffState.name}`,
-          visualDiffState.with(async (setup) => {
-            await setup.withFixture(html`${formField(basicArgs, template(basicArgs))}`);
-          }),
-        );
+      for (const negative of [false, true]) {
+        const args = { ...basicArgs, negative };
+
+        for (const visualDiffState of [visualDiffDefault, visualDiffFocus, visualDiffActive]) {
+          it(
+            `slot=none negative=${negative} ${name} ${visualDiffState.name}`,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(html`${formField(args, template(args))}`, {
+                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              });
+            }),
+          );
+
+          it(
+            `slot=icons negative=${negative} ${name} ${visualDiffState.name}`,
+            visualDiffState.with(async (setup) => {
+              const templateResult: TemplateResult = html`${template(args)} ${icons}`;
+              await setup.withFixture(html`${formField(args, templateResult)}`, {
+                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              });
+            }),
+          );
+        }
 
         it(
-          `slot=icons ${name} ${visualDiffState.name}`,
-          visualDiffState.with(async (setup) => {
-            const templateResult: TemplateResult = html`${template(basicArgs)} ${icons}`;
-            await setup.withFixture(html` ${formField(basicArgs, templateResult)} `);
+          `slot=buttons negative=${negative} ${name} ${visualDiffDefault.name}`,
+          visualDiffDefault.with(async (setup) => {
+            const templateResult: TemplateResult = html`${template(args)} ${buttonsAndPopover(args)}`;
+            await setup.withFixture(html`${formField(args, templateResult)}`, {
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            });
+          }),
+        );
+        it(
+          `slot=buttons negative=${negative} ${name} ${visualDiffActive.name}`,
+          visualDiffActive.with(async (setup) => {
+            const templateResult: TemplateResult = html`${template(args)} ${buttonsAndPopover(args)}`;
+            await setup.withFixture(html`${formField(args, templateResult)}`, {
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            });
+          }),
+        );
+        it(
+          `slot=buttons negative=${negative} ${name} focus`,
+          visualDiffDefault.with(async (setup) => {
+            const templateResult: TemplateResult = html`${template(args)} ${buttonsAndPopover(args)}`;
+            await setup.withFixture(html`${formField(args, templateResult)}`, {
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            });
+            (
+              setup.snapshotElement.querySelector(name)!.nextElementSibling as SbbMiniButtonElement
+            ).focus();
+            await sendKeys({ press: tabKey });
           }),
         );
       }
-
-      it(
-        `slot=buttons ${name} ${visualDiffDefault.name}`,
-        visualDiffDefault.with(async (setup) => {
-          const templateResult: TemplateResult = html`${template(basicArgs)}
-          ${buttonsAndPopover(basicArgs)}`;
-          await setup.withFixture(html` ${formField(basicArgs, templateResult)} `);
-        }),
-      );
-      it(
-        `slot=buttons ${name} ${visualDiffActive.name}`,
-        visualDiffActive.with(async (setup) => {
-          const templateResult: TemplateResult = html`${template(basicArgs)}
-          ${buttonsAndPopover(basicArgs)}`;
-          await setup.withFixture(html` ${formField(basicArgs, templateResult)} `);
-        }),
-      );
-      it(
-        `slot=buttons ${name} focus`,
-        visualDiffDefault.with(async (setup) => {
-          const templateResult: TemplateResult = html`${template(basicArgs)}
-          ${buttonsAndPopover(basicArgs)}`;
-          await setup.withFixture(html` ${formField(basicArgs, templateResult)} `);
-          (
-            setup.snapshotElement.querySelector(name)!.nextElementSibling as SbbMiniButtonElement
-          ).focus();
-          await sendKeys({ press: tabKey });
-        }),
-      );
     }
 
     // disabled and readonly states
