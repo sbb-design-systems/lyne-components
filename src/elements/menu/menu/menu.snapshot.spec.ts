@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
 import type { SbbMenuElement } from './menu.js';
 
@@ -39,6 +39,8 @@ describe(`sbb-menu`, () => {
     it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 
   describe('renders with list', () => {
