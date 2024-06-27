@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-link-static renders - DOM"] = 
+snapshots["sbb-link-static renders DOM"] = 
 `<sbb-link-static
   data-action=""
   data-sbb-link=""
@@ -12,17 +12,17 @@ snapshots["sbb-link-static renders - DOM"] =
   Travelcards & tickets.
 </sbb-link-static>
 `;
-/* end snapshot sbb-link-static renders - DOM */
+/* end snapshot sbb-link-static renders DOM */
 
-snapshots["sbb-link-static renders - Shadow DOM"] = 
+snapshots["sbb-link-static renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-link-static">
   <slot>
   </slot>
 </span>
 `;
-/* end snapshot sbb-link-static renders - Shadow DOM */
+/* end snapshot sbb-link-static renders Shadow DOM */
 
-snapshots["sbb-link-static A11y tree Chrome"] = 
+snapshots["sbb-link-static renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -36,9 +36,9 @@ snapshots["sbb-link-static A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-link-static A11y tree Chrome */
+/* end snapshot sbb-link-static renders A11y tree Chrome */
 
-snapshots["sbb-link-static A11y tree Firefox"] = 
+snapshots["sbb-link-static renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -52,5 +52,5 @@ snapshots["sbb-link-static A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-link-static A11y tree Firefox */
+/* end snapshot sbb-link-static renders A11y tree Firefox */
 
