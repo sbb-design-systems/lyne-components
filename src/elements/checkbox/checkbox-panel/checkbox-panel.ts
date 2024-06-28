@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../../core/controllers.js';
+import { slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
@@ -38,6 +38,7 @@ export type SbbCheckboxPanelStateChange = Extract<
  * @event {InputEvent} input - Event fired on input.
  */
 @customElement('sbb-checkbox-panel')
+@slotState()
 export class SbbCheckboxPanelElement extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
@@ -60,11 +61,6 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
     SbbCheckboxPanelElement.events.stateChange,
     { bubbles: true },
   );
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);

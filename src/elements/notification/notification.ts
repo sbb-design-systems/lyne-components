@@ -2,18 +2,20 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController, SbbSlotStateController } from '../core/controllers.js';
+import { SbbLanguageController } from '../core/controllers.js';
+import { slotState } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { AgnosticResizeObserver } from '../core/observers.js';
 import type { SbbTitleLevel } from '../title.js';
+
+import style from './notification.scss?lit&inline';
+
 import '../button/secondary-button.js';
 import '../divider.js';
 import '../icon.js';
 import '../title.js';
-
-import style from './notification.scss?lit&inline';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -37,6 +39,7 @@ const DEBOUNCE_TIME = 150;
  * See style section for more information.
  */
 @customElement('sbb-notification')
+@slotState()
 export class SbbNotificationElement extends LitElement {
   // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
@@ -116,11 +119,6 @@ export class SbbNotificationElement extends LitElement {
     this,
     SbbNotificationElement.events.didClose,
   );
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   private _open(): void {
     if (this._state === 'closed') {

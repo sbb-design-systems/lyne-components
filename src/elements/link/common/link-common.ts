@@ -3,8 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { SbbSlotStateController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
+import { hostAttributes, slotState } from '../../core/decorators.js';
 import {
   SbbNegativeMixin,
   type SbbNegativeMixinType,
@@ -24,6 +23,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
   superClass: T,
 ): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
   @hostAttributes({ 'data-sbb-link': '' })
+  @slotState()
   abstract class SbbLinkCommonElement
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>
@@ -35,11 +35,6 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
      * With inline variant, the text size adapts to where it is used.
      */
     @property({ reflect: true }) public size: SbbLinkSize = 's';
-
-    public constructor(...args: any[]) {
-      super(args);
-      new SbbSlotStateController(this);
-    }
 
     protected override renderTemplate(): TemplateResult {
       return html`<slot></slot>`;

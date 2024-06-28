@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../../core/controllers.js';
+import { slotState } from '../../core/decorators.js';
 import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { radioButtonCommonStyle, SbbRadioButtonCommonElementMixin } from '../common.js';
 
@@ -24,6 +24,7 @@ import '../../screen-reader-only.js';
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  */
 @customElement('sbb-radio-button-panel')
+@slotState()
 export class SbbRadioButtonPanelElement extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
@@ -34,11 +35,6 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
     stateChange: 'stateChange',
     panelConnected: 'panelConnected',
   } as const;
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);
