@@ -1,6 +1,7 @@
-import { html, nothing } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
+import type { visualRegressionFixture } from '../../core/testing/private.js';
 import {
   describeEach,
   describeViewports,
@@ -12,32 +13,52 @@ import {
 import './menu-button.js';
 
 describe(`sbb-menu-button`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    const state = {
-      amount: [undefined, 123],
-      slotted: [false, true],
-    };
+  const defaultArgs = {
+    amount: 123 as number | undefined,
+    iconName: 'tick-small',
+    label: 'Button',
+    disabled: false,
+    slottedIcon: false,
+  };
 
+  const template = ({
+    amount,
+    iconName,
+    label,
+    disabled,
+    slottedIcon,
+  }: typeof defaultArgs): TemplateResult => html`
+    ${repeat(
+      new Array(3),
+      (_, index) => html`
+        <sbb-menu-button
+          amount=${amount || nothing}
+          icon-name=${iconName || nothing}
+          .disabled=${disabled}
+        >
+          ${label} ${index}
+          ${slottedIcon ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
+        </sbb-menu-button>
+      `,
+    )}
+  `;
+
+  const state = {
+    amount: [undefined, 123],
+    slottedIcon: [false, true],
+  };
+
+  const wrapperStyles: Parameters<typeof visualRegressionFixture>[1] = {
+    backgroundColor: 'var(--sbb-color-black)',
+    width: '256px',
+  };
+
+  describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const visualDiffState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
       it(
         visualDiffState.name,
         visualDiffState.with(async (setup) => {
-          await setup.withFixture(
-            html`
-              ${repeat(
-                new Array(3),
-                (_, index) => html`
-                  <sbb-menu-button amount="123" icon-name="tick-small"
-                    >Button ${index}</sbb-menu-button
-                  >
-                `,
-              )}
-            `,
-            {
-              backgroundColor: 'var(--sbb-color-black)',
-              width: '256px',
-            },
-          );
+          await setup.withFixture(template(defaultArgs), wrapperStyles);
         }),
       );
 
@@ -45,47 +66,21 @@ describe(`sbb-menu-button`, () => {
         `long label ${visualDiffState.name}`,
         visualDiffState.with(async (setup) => {
           await setup.withFixture(
-            html`
-              ${repeat(
-                new Array(3),
-                (_, index) => html`
-                  <sbb-menu-button amount="123" icon-name="tick-small"
-                    >Button lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    ${index}</sbb-menu-button
-                  >
-                `,
-              )}
-            `,
-            {
-              backgroundColor: 'var(--sbb-color-black)',
-              width: '256px',
-            },
+            template({
+              ...defaultArgs,
+              label: 'Button lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            }),
+            wrapperStyles,
           );
         }),
       );
     }
 
-    describeEach(state, ({ amount, slotted }) => {
+    describeEach(state, ({ amount, slottedIcon }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html`
-              ${repeat(
-                new Array(3),
-                (_, index) => html`
-                  <sbb-menu-button amount=${amount || nothing}>
-                    Button ${index}
-                    ${slotted ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
-                  </sbb-menu-button>
-                `,
-              )}
-            `,
-            {
-              backgroundColor: 'var(--sbb-color-black)',
-              width: '256px',
-            },
-          );
+          await setup.withFixture(template({ ...defaultArgs, amount, slottedIcon }), wrapperStyles);
         }),
       );
     });
@@ -93,22 +88,7 @@ describe(`sbb-menu-button`, () => {
     it(
       `disabled=true ${visualDiffDefault.name}`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`
-            ${repeat(
-              new Array(3),
-              (_, index) => html`
-                <sbb-menu-button amount="123" icon-name="tick-small" disabled
-                  >Button ${index}</sbb-menu-button
-                >
-              `,
-            )}
-          `,
-          {
-            backgroundColor: 'var(--sbb-color-black)',
-            width: '256px',
-          },
-        );
+        await setup.withFixture(template({ ...defaultArgs, disabled: true }), wrapperStyles);
       }),
     );
   });
