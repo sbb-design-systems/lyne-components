@@ -9,13 +9,21 @@ import '../link/link.js';
 import './notification.js';
 
 describe(`sbb-notification`, () => {
-  const notificationTemplate = (
-    type: string,
-    size = 'm',
-    readonly = false,
-    title = true,
-    slotted = false,
-  ): TemplateResult => html`
+  const defaultArgs = {
+    type: 'info',
+    size: 'm',
+    readonly: false,
+    title: true,
+    slotted: false,
+  };
+
+  const notificationTemplate = ({
+    type,
+    size,
+    readonly,
+    title,
+    slotted,
+  }: typeof defaultArgs): TemplateResult => html`
     <sbb-notification
       title-content=${title && !slotted ? 'Title' : nothing}
       size=${size}
@@ -29,22 +37,18 @@ describe(`sbb-notification`, () => {
       <sbb-link href="/">Link two</sbb-link>
       <sbb-link href="/">Link three</sbb-link>
     </sbb-notification>
-  `;
-
-  const pageContent: TemplateResult = html`
     <p style="margin: 0;">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. <sbb-link href="/"> Link </sbb-link>
     </p>
   `;
 
-  const types = ['info', 'success', 'warn', 'error'];
-
   const states = {
     readonly: [false, true],
     slottedTitle: [false, true],
   };
 
+  const types = ['info', 'success', 'warn', 'error'];
   const visualStates = {
     state: [...types.map((type) => ({ type, multiple: false })), { multiple: true, type: 'all' }],
     size: ['s', 'm'],
@@ -63,10 +67,8 @@ describe(`sbb-notification`, () => {
           visualDiffDefault.name,
           visualDiffDefault.with(async (setup) => {
             await setViewport({ width: vp.width, height: 400 });
-            await setup.withFixture(html`
-              ${notificationTemplate('info', 'm', readonly, slottedTitle, slottedTitle)}
-              ${pageContent}
-            `);
+            const args = { ...defaultArgs, readonly, title: slottedTitle, slotted: slottedTitle };
+            await setup.withFixture(html`${notificationTemplate(args)}`);
           }),
         );
       });
@@ -79,9 +81,8 @@ describe(`sbb-notification`, () => {
             await setup.withFixture(html`
               ${repeat(
                 state.multiple ? types : [state.type],
-                (type: string) => html`${notificationTemplate(type, size)}`,
+                (type: string) => html`${notificationTemplate({ ...defaultArgs, type, size })}`,
               )}
-              ${pageContent}
             `);
           }),
         );
