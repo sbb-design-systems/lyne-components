@@ -28,7 +28,7 @@ describe(`sbb-menu-link`, () => {
                 new Array(3),
                 (_, index) => html`
                   <sbb-menu-link href="#" amount="123" icon-name="tick-small"
-                    >Details ${index}</sbb-menu-link
+                    >Link ${index}</sbb-menu-link
                   >
                 `,
               )}
@@ -36,7 +36,29 @@ describe(`sbb-menu-link`, () => {
             {
               backgroundColor: 'var(--sbb-color-black)',
               width: '256px',
-              focusOutlineDark: true,
+            },
+          );
+        }),
+      );
+
+      it(
+        `long label ${visualDiffState.name}`,
+        visualDiffState.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              ${repeat(
+                new Array(3),
+                (_, index) => html`
+                  <sbb-menu-link href="#" amount="123" icon-name="tick-small"
+                    >Link lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    ${index}</sbb-menu-link
+                  >
+                `,
+              )}
+            `,
+            {
+              backgroundColor: 'var(--sbb-color-black)',
+              width: '256px',
             },
           );
         }),
@@ -53,7 +75,7 @@ describe(`sbb-menu-link`, () => {
                 new Array(3),
                 (_, index) => html`
                   <sbb-menu-link href="#" amount=${amount || nothing}>
-                    Details ${index}
+                    Link ${index}
                     ${slotted ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
                   </sbb-menu-link>
                 `,
@@ -68,29 +90,26 @@ describe(`sbb-menu-link`, () => {
       );
     });
 
-    for (const disabled of [true, false]) {
-      it(
-        `long label disabled=${disabled} ${visualDiffDefault.name}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html`
-              ${repeat(
-                new Array(3),
-                (_, index) => html`
-                  <sbb-menu-link href="#" amount="123" icon-name="tick-small" .disabled=${disabled}
-                    >Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    ${index}</sbb-menu-link
-                  >
-                `,
-              )}
-            `,
-            {
-              backgroundColor: 'var(--sbb-color-black)',
-              width: '256px',
-            },
-          );
-        }),
-      );
-    }
+    it(
+      `disabled=true ${visualDiffDefault.name}`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            ${repeat(
+              new Array(3),
+              (_, index) => html`
+                <sbb-menu-link href="#" amount="123" icon-name="tick-small" disabled
+                  >Link ${index}</sbb-menu-link
+                >
+              `,
+            )}
+          `,
+          {
+            backgroundColor: 'var(--sbb-color-black)',
+            width: '256px',
+          },
+        );
+      }),
+    );
   });
 });

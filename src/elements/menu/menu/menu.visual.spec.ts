@@ -1,6 +1,7 @@
 import { SbbBreakpointMediumMin } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import type { SbbButtonElement } from '../../button/button.js';
@@ -58,29 +59,10 @@ describe(`sbb-menu`, () => {
           html`
             <sbb-button id="menu-trigger-2" size="m"> Menu trigger</sbb-button>
             <sbb-menu trigger="menu-trigger-2">
-              <sbb-menu-button>English</sbb-menu-button>
-              <sbb-menu-button>Deutsch</sbb-menu-button>
-              <sbb-menu-button>Français</sbb-menu-button>
-              <sbb-menu-button>Italiano</sbb-menu-button>
-              <sbb-menu-button>Rumantsch</sbb-menu-button>
-              <sbb-menu-button>Español</sbb-menu-button>
-              <sbb-menu-button>Português</sbb-menu-button>
-              <sbb-menu-button>日本語</sbb-menu-button>
-              <sbb-menu-button>한국어</sbb-menu-button>
-              <sbb-menu-button>广州话</sbb-menu-button>
-              <sbb-menu-button>Afrikaans</sbb-menu-button>
-              <sbb-menu-button>Svenska</sbb-menu-button>
-              <sbb-menu-button>Dansk</sbb-menu-button>
-              <sbb-menu-button>Nederlands</sbb-menu-button>
-              <sbb-menu-button>Suomi</sbb-menu-button>
-              <sbb-menu-button>українська мова</sbb-menu-button>
-              <sbb-menu-button>አማርኛ</sbb-menu-button>
-              <sbb-menu-button>ქართული ენა</sbb-menu-button>
-              <sbb-menu-button>Afrikaans</sbb-menu-button>
-              <sbb-menu-button>Svenska</sbb-menu-button>
-              <sbb-menu-button>Dansk</sbb-menu-button>
-              <sbb-menu-button>Nederlands</sbb-menu-button>
-              <sbb-menu-button>Suomi</sbb-menu-button>
+              ${repeat(
+                new Array(10),
+                (_, index) => html`<sbb-menu-button>Element ${index}</sbb-menu-button>`,
+              )}
             </sbb-menu>
           `,
           { minHeight: '400px' },
