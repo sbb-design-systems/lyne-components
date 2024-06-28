@@ -1,6 +1,4 @@
-import { type LitElement, type PropertyValues } from 'lit';
-
-import { forwardEventToHost } from '../eventing.js';
+import type { LitElement, PropertyValues } from 'lit';
 
 import type { AbstractConstructor } from './constructor.js';
 
@@ -57,35 +55,37 @@ export const SbbHydrationMixin = <T extends AbstractConstructor<LitElement>>(
     public constructor(...args: any[]) {
       super(...args);
       // Check whether hydration is needed by checking whether the shadow root
-      // is available during construction phase.
+      // is available during construction/upgrade phase.
       this._hydrationRequired = !!this.shadowRoot;
       if (!this._hydrationRequired) {
         this._resolveHydration(false);
       } else {
+        // During hydration phase, we want to suppress slotchange events as they
+        // can cause render differences, which would break hydration. After
+        // hydration is complete, we dispatch a manual slotchange event, if there
+        // are elements assigned to a slot.
+        const suppressSlotchangeEvent = (event: Event): void => {
+          if (this._hydrationRequired) {
+            event.stopImmediatePropagation();
+          }
+        };
+        const eventOptions: EventListenerOptions = { capture: true };
         const slots = this.shadowRoot?.querySelectorAll('slot');
         if (slots?.length) {
           slots.forEach((slot) =>
-            slot.addEventListener('slotchange', this._handleBeforeHydrationSlotchange, {
-              capture: true,
-            }),
+            slot.addEventListener('slotchange', suppressSlotchangeEvent, eventOptions),
           );
           this.hydrationComplete.then(() =>
-            slots.forEach((slot) =>
-              slot.removeEventListener('slotchange', this._handleBeforeHydrationSlotchange),
-            ),
+            slots.forEach((slot) => {
+              slot.removeEventListener('slotchange', suppressSlotchangeEvent, eventOptions);
+              if (slot.assignedNodes().length) {
+                slot.dispatchEvent(new Event('slotchange', { bubbles: true }));
+              }
+            }),
           );
         }
       }
     }
-
-    private _handleBeforeHydrationSlotchange = (event: Event): void => {
-      if (!this._hydrationRequired) {
-        return;
-      }
-      event.stopImmediatePropagation();
-      const target = event.target as HTMLSlotElement;
-      this.hydrationComplete.then(() => forwardEventToHost(event, target));
-    };
 
     protected override update(changedProperties: PropertyValues<this>): void {
       // When hydration is needed, we wait the hydration process to finish, which is patched

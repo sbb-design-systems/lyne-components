@@ -44,7 +44,7 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
   private _multi: boolean = false;
 
-  /** Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. `*/
+  /** Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. */
   @property({ reflect: true }) public size: 's' | 'l' = 'l';
 
   private _abort = new SbbConnectedAbortController(this);

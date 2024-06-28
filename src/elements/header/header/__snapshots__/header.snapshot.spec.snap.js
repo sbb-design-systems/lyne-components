@@ -1,7 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-header renders"] = 
+snapshots["sbb-header renders DOM"] = 
+`<sbb-header>
+</sbb-header>
+`;
+/* end snapshot sbb-header renders DOM */
+
+snapshots["sbb-header renders Shadow DOM"] = 
 `<header class="sbb-header">
   <div class="sbb-header__wrapper">
     <slot>
@@ -15,7 +21,7 @@ snapshots["sbb-header renders"] =
   </div>
 </header>
 `;
-/* end snapshot sbb-header renders */
+/* end snapshot sbb-header renders Shadow DOM */
 
 snapshots["sbb-header renders actions and logo DOM"] = 
 `<sbb-header>

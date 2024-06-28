@@ -10,26 +10,28 @@ import './block-link.js';
 describe(`sbb-block-link`, () => {
   let element: SbbBlockLinkElement;
 
-  beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-block-link
-        href="https://github.com/sbb-design-systems/lyne-components"
-        size="m"
-        download
-        accessibility-label="Travelcards &amp; tickets"
-      >
-        Travelcards &amp; tickets.
-      </sbb-block-link>
-    `);
-  });
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-block-link
+          href="https://github.com/sbb-design-systems/lyne-components"
+          size="m"
+          download
+          accessibility-label="Travelcards &amp; tickets"
+        >
+          Travelcards &amp; tickets.
+        </sbb-block-link>
+      `);
+    });
 
-  it('renders - DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-  it('renders - Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
+    testA11yTreeSnapshot();
+  });
 });

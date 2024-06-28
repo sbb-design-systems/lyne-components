@@ -11,29 +11,31 @@ import './block-link-button.js';
 describe(`sbb-block-link-button`, () => {
   let element: SbbBlockLinkButtonElement;
 
-  beforeEach(async () => {
-    element = await fixture(
-      html` <sbb-block-link-button
-        icon-placement="end"
-        size="m"
-        negative
-        name="name"
-        type="submit"
-        form="formid"
-      >
-        <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
-        Travelcards &amp; tickets.
-      </sbb-block-link-button>`,
-    );
-  });
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html` <sbb-block-link-button
+          icon-placement="end"
+          size="m"
+          negative
+          name="name"
+          type="submit"
+          form="formid"
+        >
+          <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
+          Travelcards &amp; tickets.
+        </sbb-block-link-button>`,
+      );
+    });
 
-  it('renders - DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-  it('renders - Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
+    testA11yTreeSnapshot();
+  });
 });

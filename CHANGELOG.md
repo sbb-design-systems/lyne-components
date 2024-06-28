@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.2.0...v1.2.1) (2024-06-27)
+
+
+### Bug Fixes
+
+* ensure slotchange events are handled correctly in hydration ([#2850](https://github.com/sbb-design-systems/lyne-components/issues/2850)) ([06112a4](https://github.com/sbb-design-systems/lyne-components/commit/06112a4237b310f07a1031a548498dea7211385a))
+* missing async/await in tests ([#2849](https://github.com/sbb-design-systems/lyne-components/issues/2849)) ([14dcef4](https://github.com/sbb-design-systems/lyne-components/commit/14dcef4dba501b9d7a9edd95dd7e9b4cefee5ae6))
+* **sbb-clock:** treat a specific date consistently ([#2838](https://github.com/sbb-design-systems/lyne-components/issues/2838)) ([4ffa4bc](https://github.com/sbb-design-systems/lyne-components/commit/4ffa4bc70a77db30067dc942d3c994a6d3fe5c00))
+* **sbb-visual-checkbox:** fix high contrast mode of indeterminate state ([#2845](https://github.com/sbb-design-systems/lyne-components/issues/2845)) ([f7e5adb](https://github.com/sbb-design-systems/lyne-components/commit/f7e5adb25d3fa3e1b7e686dbc43226ba146ac57e))
+
 ## [1.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.1.0...v1.2.0) (2024-06-26)
 
 

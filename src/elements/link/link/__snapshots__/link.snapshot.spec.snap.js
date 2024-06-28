@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-link renders - DOM"] = 
+snapshots["sbb-link renders DOM"] = 
 `<sbb-link
   data-action=""
   data-link=""
@@ -15,9 +15,9 @@ snapshots["sbb-link renders - DOM"] =
   Travelcards & tickets.
 </sbb-link>
 `;
-/* end snapshot sbb-link renders - DOM */
+/* end snapshot sbb-link renders DOM */
 
-snapshots["sbb-link renders - Shadow DOM"] = 
+snapshots["sbb-link renders Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-link"
   href="https://sbb.ch"
@@ -31,9 +31,9 @@ snapshots["sbb-link renders - Shadow DOM"] =
   </sbb-screen-reader-only>
 </a>
 `;
-/* end snapshot sbb-link renders - Shadow DOM */
+/* end snapshot sbb-link renders Shadow DOM */
 
-snapshots["sbb-link A11y tree Chrome"] = 
+snapshots["sbb-link renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -47,9 +47,9 @@ snapshots["sbb-link A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-link A11y tree Chrome */
+/* end snapshot sbb-link renders A11y tree Chrome */
 
-snapshots["sbb-link A11y tree Firefox"] = 
+snapshots["sbb-link renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -64,5 +64,5 @@ snapshots["sbb-link A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-link A11y tree Firefox */
+/* end snapshot sbb-link renders A11y tree Firefox */
 

@@ -9,7 +9,9 @@ describe(`sbb-icon ssr`, () => {
   let root: SbbIconElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(html`<sbb-icon></sbb-icon>`, { modules: ['./icon.js'] });
+    root = await ssrHydratedFixture(html`<sbb-icon name="app-icon-small"></sbb-icon>`, {
+      modules: ['./icon.js'],
+    });
   });
 
   it('renders', () => {

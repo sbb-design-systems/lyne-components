@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-header-link renders the component as a button with icon Light DOM"] = 
+snapshots["sbb-header-link renders DOM"] = 
 `<sbb-header-link
   accessibility-label="a11y label"
   data-action=""
@@ -15,9 +15,9 @@ snapshots["sbb-header-link renders the component as a button with icon Light DOM
   Action
 </sbb-header-link>
 `;
-/* end snapshot sbb-header-link renders the component as a button with icon Light DOM */
+/* end snapshot sbb-header-link renders DOM */
 
-snapshots["sbb-header-link renders the component as a button with icon Shadow DOM"] = 
+snapshots["sbb-header-link renders Shadow DOM"] = 
 `<a
   aria-label="a11y label"
   class="sbb-action-base sbb-header-link"
@@ -47,9 +47,9 @@ snapshots["sbb-header-link renders the component as a button with icon Shadow DO
   </sbb-screen-reader-only>
 </a>
 `;
-/* end snapshot sbb-header-link renders the component as a button with icon Shadow DOM */
+/* end snapshot sbb-header-link renders Shadow DOM */
 
-snapshots["sbb-header-link renders the component as a button with icon A11y tree Chrome"] = 
+snapshots["sbb-header-link renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -63,9 +63,9 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
 }
 </p>
 `;
-/* end snapshot sbb-header-link renders the component as a button with icon A11y tree Chrome */
+/* end snapshot sbb-header-link renders A11y tree Chrome */
 
-snapshots["sbb-header-link renders the component as a button with icon A11y tree Firefox"] = 
+snapshots["sbb-header-link renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -80,5 +80,5 @@ snapshots["sbb-header-link renders the component as a button with icon A11y tree
 }
 </p>
 `;
-/* end snapshot sbb-header-link renders the component as a button with icon A11y tree Firefox */
+/* end snapshot sbb-header-link renders A11y tree Firefox */
 
