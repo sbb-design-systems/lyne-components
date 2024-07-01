@@ -227,6 +227,14 @@ function prepareScreenshots(): PluginOption {
           baselineCommitUrl: `https://github.com/sbb-design-systems/lyne-components/commit/${meta.baselineGitSha}`,
         } satisfies Meta;
 
+        if (viteConfig.command !== 'serve') {
+          this.emitFile({
+            type: 'asset',
+            fileName: 'meta.json',
+            source: JSON.stringify(meta),
+          });
+        }
+
         return `export const meta = ${JSON.stringify(metaToWrite)};`;
       }
     },

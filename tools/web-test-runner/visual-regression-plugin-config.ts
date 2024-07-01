@@ -25,7 +25,7 @@ let meta: Partial<Meta> = {
 
 let baselineMeta;
 try {
-  const response = await fetch(`${baselineUrl}screenshots/${metaFileName}`);
+  const response = await fetch(`${baselineUrl}${metaFileName}`);
   baselineMeta = JSON.parse(await response.text()) satisfies Meta;
   meta = { ...meta, baselineGitSha: baselineMeta.gitSha ?? 'N/A' };
 } catch (e) {
