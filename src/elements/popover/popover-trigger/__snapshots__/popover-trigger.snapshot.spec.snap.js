@@ -1,7 +1,19 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-popover-trigger renders"] = 
+snapshots["sbb-popover-trigger renders DOM"] = 
+`<sbb-popover-trigger
+  data-action=""
+  data-button=""
+  dir="ltr"
+  role="button"
+  tabindex="0"
+>
+</sbb-popover-trigger>
+`;
+/* end snapshot sbb-popover-trigger renders DOM */
+
+snapshots["sbb-popover-trigger renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-popover-trigger">
   <slot>
     <sbb-icon
@@ -14,9 +26,22 @@ snapshots["sbb-popover-trigger renders"] =
   </slot>
 </span>
 `;
-/* end snapshot sbb-popover-trigger renders */
+/* end snapshot sbb-popover-trigger renders Shadow DOM */
 
-snapshots["sbb-popover-trigger renders with custom content"] = 
+snapshots["sbb-popover-trigger renders with custom content DOM"] = 
+`<sbb-popover-trigger
+  data-action=""
+  data-button=""
+  dir="ltr"
+  role="button"
+  tabindex="0"
+>
+  Custom Content
+</sbb-popover-trigger>
+`;
+/* end snapshot sbb-popover-trigger renders with custom content DOM */
+
+snapshots["sbb-popover-trigger renders with custom content Shadow DOM"] = 
 `<span class="sbb-action-base sbb-popover-trigger">
   <slot>
     <sbb-icon
@@ -29,9 +54,9 @@ snapshots["sbb-popover-trigger renders with custom content"] =
   </slot>
 </span>
 `;
-/* end snapshot sbb-popover-trigger renders with custom content */
+/* end snapshot sbb-popover-trigger renders with custom content Shadow DOM */
 
-snapshots["sbb-popover-trigger A11y tree Chrome"] = 
+snapshots["sbb-popover-trigger renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -45,9 +70,9 @@ snapshots["sbb-popover-trigger A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-popover-trigger A11y tree Chrome */
+/* end snapshot sbb-popover-trigger renders A11y tree Chrome */
 
-snapshots["sbb-popover-trigger A11y tree Firefox"] = 
+snapshots["sbb-popover-trigger renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -61,5 +86,5 @@ snapshots["sbb-popover-trigger A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-popover-trigger A11y tree Firefox */
+/* end snapshot sbb-popover-trigger renders A11y tree Firefox */
 
