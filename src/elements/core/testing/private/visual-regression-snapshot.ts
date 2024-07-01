@@ -13,6 +13,7 @@ export function imageName(test: Mocha.Runnable): string {
 class VisualDiffSetupBuilder {
   private _snapshotElement?: HTMLElement;
   private _stateElement?: HTMLElement;
+  private _postSetupAction?: () => void | Promise<void>;
 
   /** Returns the snapshot element. Usually the wrapper div around the sbb element. */
   public get snapshotElement(): HTMLElement {
@@ -47,6 +48,13 @@ class VisualDiffSetupBuilder {
     ];
   }
 
+  /**
+   * Action executed after the fixture and the setViewPort
+   */
+  public get postSetupAction(): () => void | Promise<void> {
+    return this._postSetupAction ? this._postSetupAction : () => {};
+  }
+
   public withSnapshotElement(element: HTMLElement): this {
     this._snapshotElement = element;
     return this;
@@ -64,6 +72,11 @@ class VisualDiffSetupBuilder {
     this._snapshotElement = await visualRegressionFixture(template, wrapperStyles);
     return this;
   }
+
+  public withPostSetupAction(action: () => void | Promise<void>): this {
+    this._postSetupAction = action;
+    return this;
+  }
 }
 
 const runSetupWithViewport = async (
@@ -75,6 +88,7 @@ const runSetupWithViewport = async (
   if (viewport) {
     await setViewport(viewport);
   }
+  await builder.postSetupAction();
 
   return builder;
 };
