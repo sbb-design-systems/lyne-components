@@ -16,15 +16,13 @@ describe(`sbb-navigation-section`, () => {
     <sbb-navigation-link href="#"> Link 3 </sbb-navigation-link>
   `;
 
-  const navigationList = (slottedLabel?: boolean, active?: boolean): TemplateResult => html`
+  const navigationList = (slottedLabel?: boolean): TemplateResult => html`
     <sbb-navigation-list label=${!slottedLabel ? 'Label' : nothing}>
       ${slottedLabel ? html`<span slot="label">Slotted label</span>` : nothing}
 
       <sbb-navigation-button>Button</sbb-navigation-button>
       <sbb-navigation-button>Button</sbb-navigation-button>
-      <sbb-navigation-link href="#" class=${active ? 'sbb-active' : nothing}>
-        Link
-      </sbb-navigation-link>
+      <sbb-navigation-link href="#">Link</sbb-navigation-link>
     </sbb-navigation-list>
   `;
 
@@ -38,7 +36,7 @@ describe(`sbb-navigation-section`, () => {
               <sbb-navigation-marker id="nav-marker">${navigationActions()}</sbb-navigation-marker>
 
               <sbb-navigation-section trigger="nav-2" title-content="Title two">
-                ${navigationList(true, true)} ${navigationList(true)} ${navigationList()}
+                ${navigationList(true)} ${navigationList(true)} ${navigationList()}
                 ${navigationList()} ${navigationList()} ${navigationList()}
               </sbb-navigation-section>
             </sbb-navigation>
