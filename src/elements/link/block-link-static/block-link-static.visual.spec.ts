@@ -20,7 +20,7 @@ describe(`sbb-block-link-static`, () => {
     for (const negative of [true, false]) {
       for (const state of [visualDiffDefault, visualDiffActive, visualDiffHover]) {
         it(
-          state.name,
+          `negative=${negative} ${state.name}`,
           state.with(async (setup) => {
             await setup.withFixture(
               html` <sbb-block-link-static ?negative="${negative}"
