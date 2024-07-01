@@ -28,7 +28,7 @@ describe(`sbb-notification`, () => {
       title-content=${title && !slotted ? 'Title' : nothing}
       size=${size}
       ?readonly=${readonly}
-      type="${type}"
+      type=${type}
       style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     >
       ${title && slotted ? html`<span slot="title">Slotted title</span>` : nothing} The quick brown
