@@ -12,6 +12,7 @@ export type ScreenshotMap = Record<string, Record<string, Record<string, Screens
 
 export interface Meta {
   gitSha: string;
-  baselineGitSha?: string;
   commitUrl: string;
+  baselineGitSha?: string;
+  baselineCommitUrl?: string;
 }

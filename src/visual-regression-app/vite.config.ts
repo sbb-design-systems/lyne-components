@@ -221,7 +221,13 @@ function prepareScreenshots(): PluginOption {
           meta = { gitSha: process.env.GITHUB_SHA ?? 'local', baselineGitSha: 'N/A' };
         }
 
-        return `export const meta = ${JSON.stringify({ ...meta, commitUrl: `https://github.com/sbb-design-systems/lyne-components/commit/${meta.gitSha}` } satisfies Meta)};`;
+        const metaToWrite = {
+          ...meta,
+          commitUrl: `https://github.com/sbb-design-systems/lyne-components/commit/${meta.gitSha}`,
+          baselineCommitUrl: `https://github.com/sbb-design-systems/lyne-components/commit/${meta.baselineGitSha}`,
+        } satisfies Meta;
+
+        return `export const meta = ${JSON.stringify(metaToWrite)};`;
       }
     },
     configureServer(server) {
