@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-checkbox-panel should render unchecked DOM"] = 
+snapshots["sbb-checkbox-panel renders unchecked DOM"] = 
 `<sbb-checkbox-panel
   data-slot-names="subtext suffix unnamed"
   size="m"
@@ -16,9 +16,9 @@ snapshots["sbb-checkbox-panel should render unchecked DOM"] =
   </span>
 </sbb-checkbox-panel>
 `;
-/* end snapshot sbb-checkbox-panel should render unchecked DOM */
+/* end snapshot sbb-checkbox-panel renders unchecked DOM */
 
-snapshots["sbb-checkbox-panel should render unchecked Shadow DOM"] = 
+snapshots["sbb-checkbox-panel renders unchecked Shadow DOM"] = 
 `<span class="sbb-selection-panel">
   <div class="sbb-selection-panel__badge">
     <slot name="badge">
@@ -44,9 +44,9 @@ snapshots["sbb-checkbox-panel should render unchecked Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-checkbox-panel should render unchecked Shadow DOM */
+/* end snapshot sbb-checkbox-panel renders unchecked Shadow DOM */
 
-snapshots["sbb-checkbox-panel should render checked DOM"] = 
+snapshots["sbb-checkbox-panel renders checked DOM"] = 
 `<sbb-checkbox-panel
   checked=""
   data-checked=""
@@ -63,9 +63,9 @@ snapshots["sbb-checkbox-panel should render checked DOM"] =
   </span>
 </sbb-checkbox-panel>
 `;
-/* end snapshot sbb-checkbox-panel should render checked DOM */
+/* end snapshot sbb-checkbox-panel renders checked DOM */
 
-snapshots["sbb-checkbox-panel should render checked Shadow DOM"] = 
+snapshots["sbb-checkbox-panel renders checked Shadow DOM"] = 
 `<span class="sbb-selection-panel">
   <div class="sbb-selection-panel__badge">
     <slot name="badge">
@@ -91,9 +91,9 @@ snapshots["sbb-checkbox-panel should render checked Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-checkbox-panel should render checked Shadow DOM */
+/* end snapshot sbb-checkbox-panel renders checked Shadow DOM */
 
-snapshots["sbb-checkbox-panel should render indeterminate DOM"] = 
+snapshots["sbb-checkbox-panel renders indeterminate DOM"] = 
 `<sbb-checkbox-panel
   data-slot-names="subtext suffix unnamed"
   indeterminate=""
@@ -109,9 +109,9 @@ snapshots["sbb-checkbox-panel should render indeterminate DOM"] =
   </span>
 </sbb-checkbox-panel>
 `;
-/* end snapshot sbb-checkbox-panel should render indeterminate DOM */
+/* end snapshot sbb-checkbox-panel renders indeterminate DOM */
 
-snapshots["sbb-checkbox-panel should render indeterminate Shadow DOM"] = 
+snapshots["sbb-checkbox-panel renders indeterminate Shadow DOM"] = 
 `<span class="sbb-selection-panel">
   <div class="sbb-selection-panel__badge">
     <slot name="badge">
@@ -137,9 +137,9 @@ snapshots["sbb-checkbox-panel should render indeterminate Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-checkbox-panel should render indeterminate Shadow DOM */
+/* end snapshot sbb-checkbox-panel renders indeterminate Shadow DOM */
 
-snapshots["sbb-checkbox-panel should render unchecked disabled DOM"] = 
+snapshots["sbb-checkbox-panel renders unchecked disabled DOM"] = 
 `<sbb-checkbox-panel
   data-slot-names="subtext suffix unnamed"
   disabled=""
@@ -155,9 +155,9 @@ snapshots["sbb-checkbox-panel should render unchecked disabled DOM"] =
   </span>
 </sbb-checkbox-panel>
 `;
-/* end snapshot sbb-checkbox-panel should render unchecked disabled DOM */
+/* end snapshot sbb-checkbox-panel renders unchecked disabled DOM */
 
-snapshots["sbb-checkbox-panel should render unchecked disabled Shadow DOM"] = 
+snapshots["sbb-checkbox-panel renders unchecked disabled Shadow DOM"] = 
 `<span class="sbb-selection-panel">
   <div class="sbb-selection-panel__badge">
     <slot name="badge">
@@ -183,23 +183,7 @@ snapshots["sbb-checkbox-panel should render unchecked disabled Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-checkbox-panel should render unchecked disabled Shadow DOM */
-
-snapshots["sbb-checkbox-panel Unchecked - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox-panel Unchecked - A11y tree Firefox */
+/* end snapshot sbb-checkbox-panel renders unchecked disabled Shadow DOM */
 
 snapshots["sbb-checkbox-panel Unchecked - A11y tree Chrome"] = 
 `<p>
@@ -234,6 +218,22 @@ snapshots["sbb-checkbox-panel Checked - A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-checkbox-panel Checked - A11y tree Chrome */
+
+snapshots["sbb-checkbox-panel Unchecked - A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "checkbox",
+      "name": "​ Label"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-checkbox-panel Unchecked - A11y tree Firefox */
 
 snapshots["sbb-checkbox-panel Checked - A11y tree Firefox"] = 
 `<p>

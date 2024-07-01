@@ -3,11 +3,8 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxPanelElement } from '../checkbox.js';
-import {
-  SbbConnectedAbortController,
-  SbbLanguageController,
-  SbbSlotStateController,
-} from '../core/controllers.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { slotState } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
@@ -29,6 +26,7 @@ import '../divider.js';
  * @event {CustomEvent<void>} didClose - Emits whenever the content section is closed.
  */
 @customElement('sbb-selection-expansion-panel')
+@slotState()
 export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
@@ -104,11 +102,6 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   private get _hasContent(): boolean {
     // We cannot use the NamedSlots because it's too slow to initialize
     return this.querySelectorAll?.('[slot="content"]').length > 0;
-  }
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {

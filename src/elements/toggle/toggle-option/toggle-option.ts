@@ -2,8 +2,8 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { hostAttributes, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbToggleElement } from '../toggle.js';
@@ -20,6 +20,7 @@ import style from './toggle-option.scss?lit&inline';
 @hostAttributes({
   role: 'radio',
 })
+@slotState()
 export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -43,11 +44,6 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
 
   private _toggle?: SbbToggleElement;
   private _abort = new SbbConnectedAbortController(this);
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   public override connectedCallback(): void {
     super.connectedCallback();

@@ -4,19 +4,17 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbInputModality } from '../../core/a11y.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
-import {
-  SbbConnectedAbortController,
-  SbbLanguageController,
-  SbbSlotStateController,
-} from '../../core/controllers.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { slotState } from '../../core/decorators.js';
 import { isFirefox, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
 import type { SbbSelectElement } from '../../select.js';
-import '../../icon.js';
 
 import style from './form-field.scss?lit&inline';
+
+import '../../icon.js';
 
 let nextId = 0;
 let nextFormFieldErrorId = 0;
@@ -33,6 +31,7 @@ const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-select'];
  * @slot error - Use this slot to render an error.
  */
 @customElement('sbb-form-field')
+@slotState()
 export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -124,11 +123,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   );
 
   private _inputAbortController = new AbortController();
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   public override connectedCallback(): void {
     super.connectedCallback();

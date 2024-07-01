@@ -126,8 +126,10 @@ jobs:
           path: dist/screenshots/
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
+
+        # TODO: Remove once meta file workflow has elaborated
       - name: Remove .keep file
-        run: rm dist/screenshots/.keep
+        run: rm dist/screenshots/.keep || true
 
       - name: Build visual-regression-app
         run: yarn build:visual-regression-app
@@ -155,7 +157,7 @@ jobs:
             });
 
             // If we have no screenshots, we do not need to create a check.
-            if (!readdirSync('dist/screenshots').length) {
+            if (readdirSync('dist/screenshots').length <= 1) {
               await createCheck(true);
               return 'empty';
             }

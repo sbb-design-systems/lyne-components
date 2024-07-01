@@ -3,7 +3,7 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbSlotStateController } from '../../core/controllers.js';
+import { slotState } from '../../core/decorators.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
@@ -18,6 +18,7 @@ import style from './tab-label.scss?lit&inline';
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
 @customElement('sbb-tab-label')
+@slotState()
 export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
@@ -32,11 +33,6 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(LitEle
 
   /** Amount displayed inside the tab. */
   @property({ reflect: true }) public amount?: string;
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override render(): TemplateResult {
     const TAGNAME = `h${Number(this.level) < 7 ? this.level : '1'}`;

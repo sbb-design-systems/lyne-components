@@ -3,8 +3,8 @@ import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { hostAttributes, slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
@@ -32,6 +32,7 @@ export type SbbRadioButtonGroupEventDetail = {
 @hostAttributes({
   role: 'radiogroup',
 })
+@slotState()
 export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
@@ -127,11 +128,6 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     this,
     SbbRadioButtonGroupElement.events.input,
   );
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   public override connectedCallback(): void {
     super.connectedCallback();

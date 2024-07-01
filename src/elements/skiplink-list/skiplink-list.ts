@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../core/controllers.js';
+import { slotState } from '../core/decorators.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins.js';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.js';
 import type { SbbTitleLevel } from '../title.js';
@@ -26,6 +26,7 @@ import '../title.js';
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-skiplink-list')
+@slotState()
 export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   SbbBlockLinkElement | SbbBlockLinkButtonElement,
   typeof LitElement
@@ -38,11 +39,6 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 
   /** The semantic level of the title, e.g. 2 = h2. */
   @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '2';
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
