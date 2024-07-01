@@ -1,17 +1,17 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-screen-reader-only renders with Light DOM"] = 
+snapshots["sbb-screen-reader-only renders DOM"] = 
 `<sbb-screen-reader-only>
 </sbb-screen-reader-only>
 `;
-/* end snapshot sbb-screen-reader-only renders with Light DOM */
+/* end snapshot sbb-screen-reader-only renders DOM */
 
-snapshots["sbb-screen-reader-only renders with Shadow DOM"] = 
+snapshots["sbb-screen-reader-only renders Shadow DOM"] = 
 `<slot>
 </slot>
 `;
-/* end snapshot sbb-screen-reader-only renders with Shadow DOM */
+/* end snapshot sbb-screen-reader-only renders Shadow DOM */
 
 snapshots["sbb-screen-reader-only renders A11y tree Chrome"] = 
 `<p>
