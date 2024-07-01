@@ -35,26 +35,30 @@ describe('sbb-checkbox', () => {
         >
       `;
 
-      for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
-        it(
-          `${state} ${visualDiffState.name}`,
-          visualDiffState.with(async (setup) => {
-            await setup.withFixture(template(defaultArgs));
-          }),
-        );
+      for (const forcedColors of [false, true]) {
+        for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            `${state} forcedColors=${forcedColors} ${visualDiffState.name}`,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(template(defaultArgs), { forcedColors });
+            }),
+          );
+
+          it(
+            `${state} forcedColors=${forcedColors} disabled`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(template({ ...defaultArgs, disabled: true }), {
+                forcedColors,
+              });
+            }),
+          );
+        }
       }
 
       it(
         `${state} size=s`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, size: 's' }));
-        }),
-      );
-
-      it(
-        `${state} disabled`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, disabled: true }));
         }),
       );
 
