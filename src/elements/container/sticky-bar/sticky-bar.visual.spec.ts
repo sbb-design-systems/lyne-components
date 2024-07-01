@@ -61,19 +61,19 @@ describe(`sbb-sticky-bar`, () => {
           `,
           { padding: '0' },
         );
-
         root = element.querySelector('#scroll-container')!;
-
-        if (scrolled) {
-          root.scrollTop = root.scrollHeight;
-          await waitForLitRender(root);
-        }
       });
 
       it(
         visualDiffDefault.name,
         visualDiffDefault.with((setup) => {
           setup.withSnapshotElement(root);
+          setup.withPostSetupAction(async () => {
+            if (scrolled) {
+              root.scrollTop = root.scrollHeight;
+              await waitForLitRender(root);
+            }
+          });
         }),
       );
     });
