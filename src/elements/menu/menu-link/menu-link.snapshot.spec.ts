@@ -8,6 +8,30 @@ import type { SbbMenuLinkElement } from './menu-link.js';
 import './menu-link.js';
 
 describe(`sbb-menu-link`, () => {
+  describe('renders', () => {
+    let element: SbbMenuLinkElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-menu-link
+          href="https://github.com/sbb-design-systems/lyne-components"
+          target="_blank"
+          accessibility-label="a11y label"
+        >
+          <span>Action</span>
+        </sbb-menu-link>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
   describe('renders component with icon and amount', () => {
     let element: SbbMenuLinkElement;
 
@@ -25,7 +49,7 @@ describe(`sbb-menu-link`, () => {
       `);
     });
 
-    it('Light DOM', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 

@@ -1,7 +1,48 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-menu-link renders component with icon and amount Light DOM"] = 
+snapshots["sbb-menu-link renders DOM"] = 
+`<sbb-menu-link
+  accessibility-label="a11y label"
+  data-action=""
+  data-link=""
+  dir="ltr"
+  href="https://github.com/sbb-design-systems/lyne-components"
+  target="_blank"
+>
+  <span>
+    Action
+  </span>
+</sbb-menu-link>
+`;
+/* end snapshot sbb-menu-link renders DOM */
+
+snapshots["sbb-menu-link renders Shadow DOM"] = 
+`<a
+  aria-label="a11y label"
+  class="sbb-action-base sbb-menu-link"
+  href="https://github.com/sbb-design-systems/lyne-components"
+  rel="external noopener nofollow"
+  target="_blank"
+>
+  <span class="sbb-menu-action__content">
+    <span class="sbb-menu-action__icon">
+      <slot name="icon">
+      </slot>
+    </span>
+    <span class="sbb-menu-action__label">
+      <slot>
+      </slot>
+    </span>
+  </span>
+  <sbb-screen-reader-only>
+    . Link target opens in a new window.
+  </sbb-screen-reader-only>
+</a>
+`;
+/* end snapshot sbb-menu-link renders Shadow DOM */
+
+snapshots["sbb-menu-link renders component with icon and amount DOM"] = 
 `<sbb-menu-link
   accessibility-label="a11y label"
   amount="123456"
@@ -17,7 +58,7 @@ snapshots["sbb-menu-link renders component with icon and amount Light DOM"] =
   </span>
 </sbb-menu-link>
 `;
-/* end snapshot sbb-menu-link renders component with icon and amount Light DOM */
+/* end snapshot sbb-menu-link renders component with icon and amount DOM */
 
 snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] = 
 `<a

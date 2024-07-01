@@ -19,15 +19,13 @@ describe(`sbb-menu-button`, () => {
       `);
     });
 
-    it('Light DOM', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot();
   });
 
   describe('renders component with icon and amount', () => {
@@ -41,12 +39,14 @@ describe(`sbb-menu-button`, () => {
       `);
     });
 
-    it('Light DOM', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 });

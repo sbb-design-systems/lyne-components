@@ -173,3 +173,37 @@ snapshots["sbb-menu renders with list Shadow DOM"] =
 `;
 /* end snapshot sbb-menu renders with list Shadow DOM */
 
+snapshots["sbb-menu renders with list A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Menu trigger",
+      "haspopup": "menu"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-menu renders with list A11y tree Chrome */
+
+snapshots["sbb-menu renders with list A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Menu trigger",
+      "haspopup": "menu"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-menu renders with list A11y tree Firefox */
+
