@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../core/base-elements.js';
-import { SbbSlotStateController } from '../core/controllers.js';
+import { slotState } from '../core/decorators.js';
 import type { SbbTitleLevel } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
@@ -20,6 +20,7 @@ import '../title.js';
  * @slot - Use the unnamed slot to render the description.
  */
 @customElement('sbb-teaser')
+@slotState()
 export class SbbTeaserElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
@@ -35,11 +36,6 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
 
   /** Content of chip. */
   @property({ attribute: 'chip-content', reflect: true }) public chipContent?: string;
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override renderTemplate(): TemplateResult {
     return html`
