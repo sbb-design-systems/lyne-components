@@ -12,7 +12,7 @@ describe('sbb-checkbox', () => {
   const defaultArgs = {
     size: 'm',
     disabled: false,
-    icon: undefined as string | undefined,
+    iconName: undefined as string | undefined,
     iconPlacement: undefined as string | undefined,
   };
 
@@ -21,7 +21,7 @@ describe('sbb-checkbox', () => {
       const template = ({
         size,
         disabled,
-        icon,
+        iconName,
         iconPlacement,
       }: typeof defaultArgs): TemplateResult => html`
         <sbb-checkbox
@@ -29,7 +29,7 @@ describe('sbb-checkbox', () => {
           .disabled=${disabled}
           .indeterminate=${state === 'indeterminate'}
           .checked=${state === 'checked'}
-          icon-name=${icon || nothing}
+          icon-name=${iconName || nothing}
           icon-placement=${iconPlacement || nothing}
           >Label</sbb-checkbox
         >
@@ -62,7 +62,7 @@ describe('sbb-checkbox', () => {
         it(
           `${state} iconPlacement=${iconPlacement}`,
           visualDiffDefault.with(async (setup) => {
-            const args = { ...defaultArgs, icon: 'tickets-class-small', iconPlacement };
+            const args = { ...defaultArgs, iconName: 'tickets-class-small', iconPlacement };
             await setup.withFixture(template(args));
           }),
         );
