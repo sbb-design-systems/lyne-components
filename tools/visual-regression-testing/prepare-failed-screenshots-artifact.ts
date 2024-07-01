@@ -1,9 +1,9 @@
-import { cpSync, existsSync, mkdirSync, writeFileSync, type CopySyncOptions } from 'node:fs';
+import { type CopySyncOptions, cpSync, existsSync, mkdirSync } from 'node:fs';
 
 import * as glob from 'glob';
 
 // When visual regression tests have failed, we only want to pack the relevant screenshots
-// into the artifact transfered to the secure workflow, as uploading and downloading the full
+// into the artifact transferred to the secure workflow, as uploading and downloading the full
 // baseline would take far longer.
 // Due to this we copy the necessary screenshots to /dist/screenshots-artifact which will
 // be moved to /dist/screenshots in the secure workflow.
@@ -12,7 +12,8 @@ const screenshotDir = new URL('../../dist/screenshots/', import.meta.url);
 const artifactDir = new URL('../../dist/screenshots-artifact/', import.meta.url);
 const copyOptions: CopySyncOptions = { force: true, recursive: true };
 mkdirSync(artifactDir, { recursive: true });
-writeFileSync(new URL('./.keep', artifactDir), '', 'utf8');
+
+cpSync(new URL('./meta.json', screenshotDir), new URL('./meta.json', artifactDir), copyOptions);
 
 const failedDirs = glob.sync('*/failed/', { cwd: screenshotDir });
 for (const failedDir of failedDirs.map((d) => `./${d}`)) {
