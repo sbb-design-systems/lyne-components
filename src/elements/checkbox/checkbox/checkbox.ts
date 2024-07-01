@@ -1,14 +1,14 @@
 import { LitElement, html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../../core/controllers.js';
+import { slotState } from '../../core/decorators.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import { SbbCheckboxCommonElementMixin, checkboxCommonStyle } from '../common.js';
 
-import '../../visual-checkbox.js';
-
 import checkboxStyle from './checkbox.scss?lit&inline';
+
+import '../../visual-checkbox.js';
 
 /**
  * It displays a checkbox enhanced with the SBB Design.
@@ -20,6 +20,7 @@ import checkboxStyle from './checkbox.scss?lit&inline';
  * @event {InputEvent} input - Event fired on input.
  */
 @customElement('sbb-checkbox')
+@slotState()
 export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
   SbbIconNameMixin(LitElement),
 ) {
@@ -32,11 +33,6 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
   public iconPlacement: SbbIconPlacement = 'end';
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override render(): TemplateResult {
     return html`

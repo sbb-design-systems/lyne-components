@@ -3,8 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { SbbSlotStateController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
+import { hostAttributes, slotState } from '../../core/decorators.js';
 import type {
   AbstractConstructor,
   SbbDisabledMixinType,
@@ -33,17 +32,13 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
   @hostAttributes({
     'data-sbb-button': '',
   })
+  @slotState()
   abstract class SbbButtonCommonElementClass
     extends SbbNegativeMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbButtonCommonElementMixinType>
   {
     /** Size variant, either l or m. */
     @property({ reflect: true }) public size?: SbbButtonSize = 'l';
-
-    protected constructor(...args: any[]) {
-      super(args);
-      new SbbSlotStateController(this);
-    }
 
     protected override renderTemplate(): TemplateResult {
       return html`

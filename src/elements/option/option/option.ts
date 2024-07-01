@@ -8,8 +8,8 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { hostAttributes, slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
@@ -51,6 +51,7 @@ export type SbbOptionVariant = 'autocomplete' | 'select' | null;
 @hostAttributes({
   role: 'option',
 })
+@slotState()
 export class SbbOptionElement extends SbbDisabledMixin(
   SbbIconNameMixin(SbbHydrationMixin(LitElement)),
 ) {
@@ -140,7 +141,6 @@ export class SbbOptionElement extends SbbDisabledMixin(
 
   public constructor() {
     super();
-    new SbbSlotStateController(this);
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {

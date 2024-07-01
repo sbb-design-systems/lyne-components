@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../core/controllers.js';
+import { slotState } from '../core/decorators.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.js';
 import { SbbNamedSlotListMixin, SbbNegativeMixin, type WithListChildren } from '../core/mixins.js';
 import type {
@@ -24,6 +24,7 @@ import '../title.js';
  * @slot title - Use this slot to provide a title.
  */
 @customElement('sbb-link-list')
+@slotState()
 export class SbbLinkListElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<
     SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement,
@@ -55,11 +56,6 @@ export class SbbLinkListElement extends SbbNegativeMixin(
 
   /** The orientation in which the list will be shown vertical or horizontal. */
   @property({ reflect: true }) public orientation: SbbOrientation = 'vertical';
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
