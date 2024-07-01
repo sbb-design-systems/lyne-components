@@ -9,3 +9,10 @@ export interface ScreenshotFiles {
 }
 
 export type ScreenshotMap = Record<string, Record<string, Record<string, ScreenshotFiles[]>>>;
+
+export interface Meta {
+  gitSha: string;
+  commitUrl: string;
+  baselineGitSha?: string;
+  baselineCommitUrl?: string;
+}

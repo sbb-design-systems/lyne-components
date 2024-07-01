@@ -13,3 +13,7 @@ declare module '@custom-elements-manifest/analyzer/cli' {
 declare module 'virtual:screenshots' {
   export const screenshotsRaw: import('./visual-regression-app/src/interfaces').ScreenshotMap;
 }
+
+declare module 'virtual:meta' {
+  export const meta: import('./visual-regression-app/src/interfaces').Meta;
+}
