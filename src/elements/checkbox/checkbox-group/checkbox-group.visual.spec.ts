@@ -7,8 +7,11 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
+import '../../card.js';
 import '../../form-error.js';
+import '../../icon.js';
 import '../checkbox.js';
+import '../checkbox-panel.js';
 import './checkbox-group.js';
 
 describe('sbb-checkbox-group', () => {
@@ -22,14 +25,14 @@ describe('sbb-checkbox-group', () => {
     orientation: 'horizontal',
     disabled: false,
     required: false,
-    horizontalFrom: undefined,
+    horizontalFrom: undefined as string | undefined,
     size: 'm',
     label: 'Label',
     iconName: undefined as string | undefined,
     iconPlacement: undefined as string | undefined,
   };
 
-  const template = ({
+  const checkboxesTemplate = ({
     orientation,
     disabled,
     required,
@@ -50,7 +53,7 @@ describe('sbb-checkbox-group', () => {
         (_, index) => html`
           <sbb-checkbox
             value="checkbox-${index}"
-            ?checked=${index === 0 && true}
+            ?checked=${index === 0}
             icon-name=${iconName || nothing}
             icon-placement=${iconPlacement || nothing}
           >
@@ -64,6 +67,40 @@ describe('sbb-checkbox-group', () => {
     </sbb-checkbox-group>
   `;
 
+  const panelsTemplate = ({
+    orientation,
+    disabled,
+    horizontalFrom,
+    size,
+  }: typeof defaultArgs): TemplateResult => html`
+    <sbb-checkbox-group
+      orientation=${orientation}
+      horizontal-from=${horizontalFrom || nothing}
+      size=${size}
+      .disabled=${disabled}
+    >
+      ${repeat(
+        new Array(2),
+        (_, index) => html`
+          <sbb-checkbox-panel value="checkbox-${index}" ?checked=${index === 0}>
+            Label ${index}
+            <span slot="subtext">Subtext</span>
+            <span slot="suffix" style="margin-inline-start: auto;">
+              <span style="display: flex; align-items: center;">
+                <sbb-icon
+                  name="diamond-small"
+                  style="margin-inline: var(--sbb-spacing-fixed-2x);"
+                ></sbb-icon>
+                <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
+              </span>
+            </span>
+            <sbb-card-badge>%</sbb-card-badge>
+          </sbb-checkbox-panel>
+        `,
+      )}
+    </sbb-checkbox-group>
+  `;
+
   describeViewports({ viewports: ['small', 'medium'] }, () => {
     for (const orientation of ['horizontal', 'vertical']) {
       const args = { ...defaultArgs, orientation };
@@ -71,7 +108,7 @@ describe('sbb-checkbox-group', () => {
         it(
           `${orientation} ${visualDiffState.name}`,
           visualDiffState.with(async (setup) => {
-            await setup.withFixture(template(args));
+            await setup.withFixture(checkboxesTemplate(args));
           }),
         );
       }
@@ -79,28 +116,28 @@ describe('sbb-checkbox-group', () => {
       it(
         `${orientation} size=s ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...args, size: 's' }));
+          await setup.withFixture(checkboxesTemplate({ ...args, size: 's' }));
         }),
       );
 
       it(
         `${orientation} disabled ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...args, disabled: true }));
+          await setup.withFixture(checkboxesTemplate({ ...args, disabled: true }));
         }),
       );
 
       it(
         `${orientation} required ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...args, required: true }));
+          await setup.withFixture(checkboxesTemplate({ ...args, required: true }));
         }),
       );
 
       it(
-        `${orientation} label=ellipsis ${visualDiffDefault.name}`,
+        `${orientation} label=long ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...args, label: longLabelText }));
+          await setup.withFixture(checkboxesTemplate({ ...args, label: longLabelText }));
         }),
       );
 
@@ -109,11 +146,35 @@ describe('sbb-checkbox-group', () => {
           `${orientation} iconPlacement=${iconPlacement} ${visualDiffDefault.name}`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
-              template({ ...args, iconName: 'tickets-class-small', iconPlacement }),
+              checkboxesTemplate({ ...args, iconName: 'tickets-class-small', iconPlacement }),
             );
           }),
         );
       }
+
+      it(
+        `${orientation} template=panel ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(panelsTemplate(args));
+        }),
+      );
     }
+
+    describe('horizontalFrom=medium', () => {
+      const args = { ...defaultArgs, orientation: 'vertical', horizontalFrom: 'medium' };
+      it(
+        `checkbox ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(checkboxesTemplate(args));
+        }),
+      );
+
+      it(
+        `panel ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(panelsTemplate(args));
+        }),
+      );
+    });
   });
 });
