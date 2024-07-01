@@ -28,8 +28,8 @@ describe(`sbb-navigation`, () => {
           { padding: '0' },
         );
         const navigation = setup.snapshotElement.querySelector('sbb-navigation')!;
-        navigation.open();
         setup.withSnapshotElement(navigation);
+        setup.withPostSetupAction(() => navigation.open());
       }),
     );
   });
