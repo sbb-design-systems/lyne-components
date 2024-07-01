@@ -63,6 +63,13 @@ describe(`sbb-menu-link`, () => {
       );
 
       it(
+        `disabled ${visualDiffState.name}`,
+        visualDiffState.with(async (setup) => {
+          await setup.withFixture(template({ ...defaultArgs, disabled: true }), wrapperStyles);
+        }),
+      );
+
+      it(
         `long label ${visualDiffState.name}`,
         visualDiffState.with(async (setup) => {
           await setup.withFixture(
@@ -84,12 +91,5 @@ describe(`sbb-menu-link`, () => {
         }),
       );
     });
-
-    it(
-      `disabled=true ${visualDiffDefault.name}`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ ...defaultArgs, disabled: true }), wrapperStyles);
-      }),
-    );
   });
 });
