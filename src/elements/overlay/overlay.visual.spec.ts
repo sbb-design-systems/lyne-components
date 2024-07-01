@@ -27,7 +27,7 @@ describe(`sbb-overlay`, () => {
   const openOverlay = (setup: any): void => {
     const overlay: SbbOverlayElement = setup.snapshotElement.querySelector('sbb-overlay')!;
     setup.withSnapshotElement(overlay);
-    overlay.open();
+    setup.withPostSetupAction(() => overlay.open());
   };
 
   describeViewports({ viewportHeight: 600 }, () => {
