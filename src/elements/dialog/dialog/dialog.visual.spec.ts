@@ -68,7 +68,8 @@ describe(`sbb-dialog`, () => {
           `);
           const dialog = setup.snapshotElement.querySelector('sbb-dialog')!;
           setup.withSnapshotElement(dialog);
-          dialog.open();
+
+          setup.withPostSetupAction(() => dialog.open());
         }),
       );
     }
@@ -81,7 +82,8 @@ describe(`sbb-dialog`, () => {
         `);
         const dialog = setup.snapshotElement.querySelector('sbb-dialog')!;
         setup.withSnapshotElement(dialog);
-        dialog.open();
+
+        setup.withPostSetupAction(() => dialog.open());
       }),
     );
 
@@ -93,7 +95,8 @@ describe(`sbb-dialog`, () => {
         `);
         const dialog = setup.snapshotElement.querySelector('sbb-dialog')!;
         setup.withSnapshotElement(dialog);
-        dialog.open();
+
+        setup.withPostSetupAction(() => dialog.open());
       }),
     );
 
@@ -105,7 +108,8 @@ describe(`sbb-dialog`, () => {
         `);
         const dialog = setup.snapshotElement.querySelector('sbb-dialog')!;
         setup.withSnapshotElement(dialog);
-        dialog.open();
+
+        setup.withPostSetupAction(() => dialog.open());
       }),
     );
   });
