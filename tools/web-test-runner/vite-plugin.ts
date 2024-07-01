@@ -1,5 +1,4 @@
 import type { TestRunnerPlugin } from '@web/test-runner';
-import c2k from 'koa-connect';
 import { createServer, type ViteDevServer } from 'vite';
 
 // Reference: https://github.com/remcovaes/web-test-runner-vite-plugin
@@ -37,7 +36,18 @@ export function vitePlugin(): TestRunnerPlugin {
           noDiscovery: true,
         },
       });
-      app.use(c2k(viteServer.middlewares));
+      app.use(
+        (ctx, next) =>
+          new Promise<void>((resolve, reject) => {
+            viteServer.middlewares(ctx.req, ctx.res, (err?: unknown) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(next());
+              }
+            });
+          }),
+      );
     },
     async serverStop() {
       return await viteServer.close();
