@@ -159,7 +159,7 @@ jobs:
   visual-regression:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    needs: test
+    needs: lint
     services:
       visual-regression:
         image: ghcr.io/${{ github.repository }}/visual-regression:baseline

@@ -1,5 +1,7 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+// eslint-disable-next-line import-x/no-unresolved
+import { meta } from 'virtual:meta';
 
 import type { ScreenshotFiles } from '../../../../interfaces.js';
 
@@ -47,7 +49,11 @@ export class FullscreenDiff extends LitElement {
           : nothing}
       </sbb-radio-button-group>
       <div class="app-scroll-container">
-        <img class="app-image" .src="./${this.screenshotFiles?.[this.selectedFile]}" alt="" />
+        <img
+          class="app-image"
+          .src=${`./${this.screenshotFiles?.[this.selectedFile]}?commit=${this.selectedFile === 'baselineFile' ? meta.baselineGitSha : meta.gitSha}`}
+          alt=""
+        />
       </div>`;
   }
 }
