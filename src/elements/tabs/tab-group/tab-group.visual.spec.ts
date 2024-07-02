@@ -29,7 +29,7 @@ describe(`sbb-tab-group`, () => {
                 amount=${numbersAndIcons ? 16 : nothing}
                 icon-name=${numbersAndIcons ? 'app-icon-small' : nothing}
               >
-                Tab title two
+                Tab title one
               </sbb-tab-label>
               <sbb-tab>
                 <article>
@@ -48,7 +48,7 @@ describe(`sbb-tab-group`, () => {
               </sbb-tab-label>
 
               <sbb-tab-label
-                ?disabled=${true}
+                disabled
                 amount=${numbersAndIcons ? 16 : nothing}
                 icon-name=${numbersAndIcons ? 'train-small' : nothing}
               >
@@ -71,7 +71,7 @@ describe(`sbb-tab-group`, () => {
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(html`
           <sbb-tab-group initial-selected-index="0">
-            <sbb-tab-label amount="16" icon-name="app-icon-small"> Tab title two </sbb-tab-label>
+            <sbb-tab-label amount="16" icon-name="app-icon-small"> Tab title one </sbb-tab-label>
             <sbb-tab>
               <article>
                 Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean
@@ -83,7 +83,7 @@ describe(`sbb-tab-group`, () => {
 
             <sbb-tab-label amount="16" icon-name="swisspass-small"> Tab title two </sbb-tab-label>
 
-            <sbb-tab-label ?disabled=${true} amount="16" icon-name="train-small">
+            <sbb-tab-label disabled amount="16" icon-name="train-small">
               Tab title three
             </sbb-tab-label>
             <sbb-tab-label amount="16" icon-name="pie-small"> Tab title four </sbb-tab-label>
