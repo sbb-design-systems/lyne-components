@@ -90,8 +90,8 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     focusOutlineDark?: boolean;
     padding?: string;
     minHeight?: string;
-    forcedColors?: boolean;
     maxWidth?: string;
+    forcedColors?: boolean;
   },
 ): Promise<T> {
   const base = tryFindBase(new Error().stack!);
