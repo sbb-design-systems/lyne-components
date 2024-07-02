@@ -1,12 +1,11 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-stepper renders - DOM"] = 
+snapshots["sbb-stepper renders DOM"] = 
 `<sbb-stepper
   data-disable-animation=""
   orientation="horizontal"
   selected-index="0"
-  style="--sbb-stepper-marker-size: 188px;"
 >
   <sbb-step-label
     aria-controls="sbb-step-0"
@@ -91,9 +90,9 @@ snapshots["sbb-stepper renders - DOM"] =
   </sbb-step-label>
 </sbb-stepper>
 `;
-/* end snapshot sbb-stepper renders - DOM */
+/* end snapshot sbb-stepper renders DOM */
 
-snapshots["sbb-stepper renders - Shadow DOM"] = 
+snapshots["sbb-stepper renders Shadow DOM"] = 
 `<div class="sbb-stepper">
   <div
     class="sbb-stepper__labels"
@@ -108,9 +107,9 @@ snapshots["sbb-stepper renders - Shadow DOM"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-stepper renders - Shadow DOM */
+/* end snapshot sbb-stepper renders Shadow DOM */
 
-snapshots["sbb-stepper A11y tree Chrome"] = 
+snapshots["sbb-stepper renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -141,9 +140,9 @@ snapshots["sbb-stepper A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-stepper A11y tree Chrome */
+/* end snapshot sbb-stepper renders A11y tree Chrome */
 
-snapshots["sbb-stepper A11y tree Firefox"] = 
+snapshots["sbb-stepper renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -182,5 +181,5 @@ snapshots["sbb-stepper A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-stepper A11y tree Firefox */
+/* end snapshot sbb-stepper renders A11y tree Firefox */
 

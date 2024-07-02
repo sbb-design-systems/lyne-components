@@ -12,7 +12,7 @@ import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
-describe(`sbb-autocomplete-grid-option`, () => {
+describe(`sbb-autocomplete-grid-option ssr`, () => {
   let element: SbbFormFieldElement;
 
   beforeEach(async () => {

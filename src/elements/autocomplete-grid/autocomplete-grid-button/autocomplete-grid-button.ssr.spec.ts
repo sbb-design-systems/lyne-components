@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 
 import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.js';
 
-describe(`sbb-autocomplete-grid-button with ${fixture.name}`, () => {
+describe(`sbb-autocomplete-grid-button ssr`, () => {
   let element: SbbAutocompleteGridButtonElement;
 
   beforeEach(async () => {

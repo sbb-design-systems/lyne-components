@@ -10,19 +10,21 @@ import './link-static.js';
 describe(`sbb-link-static`, () => {
   let element: SbbLinkStaticElement;
 
-  beforeEach(async () => {
-    element = await fixture(
-      html`<sbb-link-static size="m"> Travelcards &amp; tickets. </sbb-link-static>`,
-    );
-  });
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-link-static size="m"> Travelcards &amp; tickets. </sbb-link-static>`,
+      );
+    });
 
-  it('renders - DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-  it('renders - Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
+    testA11yTreeSnapshot();
+  });
 });

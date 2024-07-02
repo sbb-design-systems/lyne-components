@@ -1,12 +1,15 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { slotState } from '../../core/decorators.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
-import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox.js';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel.js';
+import type { SbbCheckboxElement } from '../checkbox.js';
+import type { SbbCheckboxSize } from '../common.js';
 
 import style from './checkbox-group.scss?lit&inline';
 
@@ -17,6 +20,7 @@ import style from './checkbox-group.scss?lit&inline';
  * @slot error - Slot used to render a `sbb-form-error` inside the `sbb-checkbox-group`.
  */
 @customElement('sbb-checkbox-group')
+@slotState()
 export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -35,24 +39,24 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   public orientation: SbbOrientation = 'horizontal';
 
   /** List of contained checkbox elements. */
-  public get checkboxes(): SbbCheckboxElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-checkbox') ?? []).filter(
-      (el: SbbCheckboxElement) => el.closest('sbb-checkbox-group') === this,
+  public get checkboxes(): (SbbCheckboxElement | SbbCheckboxPanelElement)[] {
+    return <(SbbCheckboxElement | SbbCheckboxPanelElement)[]>(
+      Array.from(this.querySelectorAll?.('sbb-checkbox, sbb-checkbox-panel') ?? []).filter(
+        (el) => el.closest('sbb-checkbox-group') === this,
+      )
     );
   }
 
   private _abort: SbbConnectedAbortController = new SbbConnectedAbortController(this);
 
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this.toggleAttribute('data-has-selection-panel', !!this.querySelector?.('sbb-selection-panel'));
+    this.toggleAttribute(
+      'data-has-panel',
+      !!this.querySelector?.('sbb-selection-expansion-panel, sbb-checkbox-panel'),
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -70,24 +74,25 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    const enabledCheckboxes: SbbCheckboxElement[] = this.checkboxes.filter(
-      (checkbox: SbbCheckboxElement) =>
-        !checkbox.disabled && interactivityChecker.isVisible(checkbox),
-    );
+    const enabledCheckboxes: (SbbCheckboxElement | SbbCheckboxPanelElement)[] =
+      this.checkboxes.filter(
+        (checkbox: SbbCheckboxElement | SbbCheckboxPanelElement) =>
+          !checkbox.disabled && interactivityChecker.isVisible(checkbox as HTMLElement),
+      );
 
     if (
       !enabledCheckboxes ||
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this &&
         (evt.target as HTMLElement).parentElement !== this &&
-        (evt.target as HTMLElement).parentElement!.nodeName !== 'SBB-SELECTION-PANEL')
+        (evt.target as HTMLElement).parentElement!.localName !== 'sbb-selection-expansion-panel')
     ) {
       return;
     }
 
     if (isArrowKeyPressed(evt)) {
       const current: number = enabledCheckboxes.findIndex(
-        (e: SbbCheckboxElement) => e === evt.target,
+        (e: SbbCheckboxElement | SbbCheckboxPanelElement) => e === evt.target,
       );
       const nextIndex: number = getNextElementIndex(evt, current, enabledCheckboxes.length);
       enabledCheckboxes[nextIndex]?.focus();

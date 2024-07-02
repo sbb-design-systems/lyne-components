@@ -31,6 +31,17 @@ The component can be displayed in `checked` or `disabled` states using the self-
 <sbb-toggle-check name="other" value="Value" disabled>Option</sbb-toggle-check>
 ```
 
+## Style
+
+The component has three different sizes (`xs`, `s`, which is the default, and `m`),
+which can be changed using the `size` property.
+
+```html
+<sbb-toggle-check size="m" value="single-checkbox"> Example in m size</sbb-toggle-check>
+
+<sbb-toggle-check size="xs" value="single-checkbox"> Example in xs size </sbb-toggle-check>
+```
+
 ## Events
 
 Consumers can listen to the native `change` event on the `sbb-toggle-check` component to intercept the input's change;
@@ -62,7 +73,7 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 | `labelPosition` | `label-position` | public  | `'before' \| 'after' \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |
 | `name`          | `name`           | public  | `string`                           |                | Name of the form element. Will be read from name attribute.    |
 | `required`      | `required`       | public  | `boolean`                          | `false`        | Whether the component is required.                             |
-| `size`          | `size`           | public  | `'s' \| 'm'`                       | `'s'`          | Size variant, either m or s.                                   |
+| `size`          | `size`           | public  | `'xs' \| 's' \| 'm'`               | `'s'`          | Size variant, either m, s or xs.                               |
 | `value`         | `value`          | public  | `string \| null`                   | `null`         | Value of the form element.                                     |
 
 ## Events

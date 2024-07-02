@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../../core/controllers.js';
+import { slotState } from '../../core/decorators.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
@@ -21,6 +21,7 @@ import style from './navigation-list.scss?lit&inline';
  * @slot label - Use this to provide a label element.
  */
 @customElement('sbb-navigation-list')
+@slotState()
 export class SbbNavigationListElement extends SbbNamedSlotListMixin<
   SbbNavigationButtonElement | SbbNavigationLinkElement,
   typeof LitElement
@@ -35,11 +36,6 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
    * The label to be shown before the action list.
    */
   @property({ reflect: true }) public label?: string;
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);

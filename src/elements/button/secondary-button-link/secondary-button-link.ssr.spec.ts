@@ -1,17 +1,20 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbSecondaryButtonLinkElement } from './secondary-button-link.js';
 
-describe(`sbb-secondary-button-link ${fixture.name}`, () => {
+describe(`sbb-secondary-button-link ssr`, () => {
   let root: SbbSecondaryButtonLinkElement;
 
   beforeEach(async () => {
-    root = await fixture(html`<sbb-secondary-button-link>Button</sbb-secondary-button-link>`, {
-      modules: ['./secondary-button-link.js'],
-    });
+    root = await ssrHydratedFixture(
+      html`<sbb-secondary-button-link>Button</sbb-secondary-button-link>`,
+      {
+        modules: ['./secondary-button-link.js'],
+      },
+    );
   });
 
   it('renders', () => {

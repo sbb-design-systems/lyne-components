@@ -3,7 +3,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -15,7 +14,7 @@ const TemplateSingle = (args: Args): TemplateResult => html`
 `;
 
 const TemplateMultiple = (args: Args): TemplateResult => html`
-  <div style=${styleMap({ display: 'flex', gap: '2rem' })}>
+  <div style="display: flex; gap: 2rem;">
     <sbb-header-link ${sbbSpread(args)}>${args.text} 1</sbb-header-link>
     <sbb-header-link ${sbbSpread(args)}>${args.text} 2</sbb-header-link>
     <sbb-header-link ${sbbSpread(args)}>${args.text} 3</sbb-header-link>

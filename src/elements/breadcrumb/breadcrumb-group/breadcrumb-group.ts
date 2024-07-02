@@ -25,6 +25,8 @@ import style from './breadcrumb-group.scss?lit&inline';
 
 import '../../icon.js';
 
+const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
+
 /**
  * It can be used as a container for one or more `sbb-breadcrumb` component.
  *
@@ -120,7 +122,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
     this.listChildren[this.listChildren.length - 1]?.setAttribute('aria-current', 'page');
 
     // If it is not expandable, reset state
-    if (this.listChildren.length < 3) {
+    if (this.listChildren.length < MIN_BREADCRUMBS_TO_COLLAPSE) {
       this._state = null;
     }
   }
@@ -160,7 +162,11 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
 
   /** Evaluate if the expanded breadcrumb element fits in page width, otherwise it needs ellipsis */
   private _evaluateCollapsedState(): void {
-    if (!this._state && this.scrollWidth > this.offsetWidth) {
+    if (
+      !this._state &&
+      this.scrollWidth > this.offsetWidth &&
+      this.listChildren.length >= MIN_BREADCRUMBS_TO_COLLAPSE
+    ) {
       this._state = 'collapsed';
       this._resizeObserver.disconnect();
     }

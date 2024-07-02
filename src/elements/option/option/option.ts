@@ -9,7 +9,7 @@ import { SbbOptionBaseElement } from './option-base-element.js';
 import style from './option.scss?lit&inline';
 import '../../visual-checkbox.js';
 
-export type SbbOptionVariant = 'autocomplete' | 'select';
+export type SbbOptionVariant = 'autocomplete' | 'select' | null;
 
 /**
  * It displays on option item which can be used in `sbb-select` or `sbb-autocomplete`.
@@ -47,22 +47,19 @@ export class SbbOptionElement extends SbbOptionBaseElement {
   );
 
   private set _variant(state: SbbOptionVariant) {
-    this.setAttribute('data-variant', state);
+    if (state) {
+      this.setAttribute('data-variant', state);
+    }
   }
   private get _variant(): SbbOptionVariant {
     return this.getAttribute('data-variant') as SbbOptionVariant;
   }
 
-  private get _isAutocomplete(): boolean {
-    return this._variant === 'autocomplete';
+  private set _isMultiple(isMultiple: boolean) {
+    this.toggleAttribute('data-multiple', isMultiple);
   }
-
-  private get _isSelect(): boolean {
-    return this._variant === 'select';
-  }
-
   private get _isMultiple(): boolean {
-    return !!this.closest?.('sbb-select[multiple]');
+    return !this.hydrationRequired && this.hasAttribute('data-multiple');
   }
 
   protected setAttributeFromParent(): void {
@@ -97,13 +94,15 @@ export class SbbOptionElement extends SbbOptionBaseElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+  }
+
+  protected override init(): void {
+    super.init();
     this._setVariantByContext();
     // We need to check highlight state both on slot change, but also when connecting
     // the element to the DOM. The slot change events might be swallowed when using declarative
     // shadow DOM with SSR or if the DOM is changed when disconnected.
     this.handleHighlightState();
-
-    this.toggleAttribute('data-multiple', this._isMultiple);
   }
 
   private _setVariantByContext(): void {
@@ -112,10 +111,11 @@ export class SbbOptionElement extends SbbOptionBaseElement {
     } else if (this.closest?.('sbb-select')) {
       this._variant = 'select';
     }
+    this._isMultiple = !!this.closest?.('sbb-select[multiple]');
   }
 
   protected override handleHighlightState(): void {
-    if (!this._isAutocomplete) {
+    if (this._variant !== 'autocomplete') {
       this.updateDisableHighlight(true);
       return;
     }
@@ -144,13 +144,13 @@ export class SbbOptionElement extends SbbOptionBaseElement {
   }
 
   protected override renderLabel(): TemplateResult | typeof nothing {
-    return this._isAutocomplete && this.label && !this.disableLabelHighlight
+    return this._variant === 'autocomplete' && this.label && !this.disableLabelHighlight
       ? this.getHighlightedLabel()
       : nothing;
   }
 
   protected override renderTick(): TemplateResult | typeof nothing {
-    return this._isSelect && !this._isMultiple && this.selected
+    return this._variant === 'select' && !this._isMultiple && this.selected
       ? html`<sbb-icon name="tick-small"></sbb-icon>`
       : nothing;
   }

@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../core/controllers.js';
+import { slotState } from '../core/decorators.js';
 import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.js';
 import { SbbIconNameMixin } from '../icon.js';
 
@@ -18,6 +18,7 @@ import style from './toggle-check.scss?lit&inline';
  * @event {InputEvent} input - Event fired on input.
  */
 @customElement('sbb-toggle-check')
+@slotState()
 export class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(
   SbbIconNameMixin(LitElement),
 ) {
@@ -26,8 +27,8 @@ export class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(
     didChange: 'didChange',
   } as const;
 
-  /** Size variant, either m or s. */
-  @property({ reflect: true }) public size: 's' | 'm' = 's';
+  /** Size variant, either m, s or xs. */
+  @property({ reflect: true }) public size: 'xs' | 's' | 'm' = 's';
 
   /** The svg name for the true state - default -> 'tick-small' */
   @property({ attribute: 'icon-name' }) public override iconName = 'tick-small';
@@ -35,11 +36,6 @@ export class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(
   /** The label position relative to the toggle. Defaults to 'after' */
   @property({ attribute: 'label-position', reflect: true })
   public labelPosition?: 'before' | 'after' = 'after';
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);

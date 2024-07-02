@@ -1,10 +1,11 @@
 import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import type { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import '../../screen-reader-only.js';
@@ -23,7 +24,10 @@ const optionObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-disabled', 'data-negative'],
 };
 
-export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
+@slotState()
+export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
+  SbbIconNameMixin(SbbHydrationMixin(LitElement)),
+) {
   protected abstract optionId: string;
 
   /**
@@ -73,6 +77,8 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
   /** The portion of the highlighted label. */
   @state() private _highlightString: string | null = null;
 
+  @state() private _inertAriaGroups = false;
+
   private _abort = new SbbConnectedAbortController(this);
   protected abstract selectByClick(event: MouseEvent): void;
   protected abstract setAttributeFromParent(): void;
@@ -89,7 +95,14 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
 
   public constructor() {
     super();
-    new SbbSlotStateController(this);
+
+    if (inertAriaGroups) {
+      if (this.hydrationRequired) {
+        this.hydrationComplete.then(() => (this._inertAriaGroups = inertAriaGroups));
+      } else {
+        this._inertAriaGroups = inertAriaGroups;
+      }
+    }
   }
 
   public override attributeChangedCallback(
@@ -125,13 +138,11 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `${this.optionId}-${nextId++}`;
-    this.setAttributeFromParent();
-    this._optionAttributeObserver.observe(this, optionObserverConfig);
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e: MouseEvent) => this.selectByClick(e), {
-      signal,
-      passive: true,
-    });
+    if (this.hydrationRequired) {
+      this.hydrationComplete.then(() => this.init());
+    } else {
+      this.init();
+    }
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -153,6 +164,16 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._optionAttributeObserver.disconnect();
+  }
+
+  protected init(): void {
+    this.setAttributeFromParent();
+    this._optionAttributeObserver.observe(this, optionObserverConfig);
+    const signal = this._abort.signal;
+    this.addEventListener('click', (e: MouseEvent) => this.selectByClick(e), {
+      signal,
+      passive: true,
+    });
   }
 
   protected updateAriaDisabled(): void {
@@ -246,7 +267,7 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
           <span class="sbb-option__label">
             <slot @slotchange=${this.handleHighlightState}></slot>
             ${this.renderLabel()}
-            ${inertAriaGroups && this.getAttribute('data-group-label')
+            ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html` <sbb-screen-reader-only>
                   (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
                 >`

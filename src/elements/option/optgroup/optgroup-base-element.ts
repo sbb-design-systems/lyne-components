@@ -36,11 +36,25 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
 
   @state() protected negative = false;
 
+  @state() private _inertAriaGroups = false;
+
   private _negativeObserver = new AgnosticMutationObserver(() => this._onNegativeChange());
 
   protected abstract get options(): SbbOptionBaseElement[];
   protected abstract setAttributeFromParent(): void;
   protected abstract getAutocompleteParent(): SbbAutocompleteBaseElement | null;
+
+  public constructor() {
+    super();
+
+    if (inertAriaGroups) {
+      if (this.hydrationRequired) {
+        this.hydrationComplete.then(() => (this._inertAriaGroups = inertAriaGroups));
+      } else {
+        this._inertAriaGroups = inertAriaGroups;
+      }
+    }
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -58,7 +72,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('disabled')) {
-      if (!inertAriaGroups) {
+      if (!this._inertAriaGroups) {
         this.setAttribute('aria-disabled', this.disabled.toString());
       }
 
@@ -81,7 +95,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
   }
 
   private _proxyGroupLabelToOptions(): void {
-    if (!inertAriaGroups) {
+    if (!this._inertAriaGroups) {
       setOrRemoveAttribute(this, 'aria-label', this.label);
       return;
     } else if (this.label) {

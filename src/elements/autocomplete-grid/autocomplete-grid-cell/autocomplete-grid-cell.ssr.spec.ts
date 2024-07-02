@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 
 import { SbbAutocompleteGridCellElement } from './autocomplete-grid-cell.js';
 
-describe('sbb-autocomplete-grid-cell', () => {
+describe(`sbb-autocomplete-grid-cell ssr`, () => {
   let element: SbbAutocompleteGridCellElement;
 
   beforeEach(async () => {

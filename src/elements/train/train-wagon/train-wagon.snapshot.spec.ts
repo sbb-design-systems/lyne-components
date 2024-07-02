@@ -14,7 +14,7 @@ describe(`sbb-train-wagon`, () => {
 
   describe('should render as type wagon', async () => {
     beforeEach(async () => {
-      element = await await fixture(
+      element = await fixture(
         html`<sbb-train-wagon
           occupancy="none"
           wagon-class="1"
@@ -38,7 +38,7 @@ describe(`sbb-train-wagon`, () => {
 
   describe('should render as type wagon with one icon', async () => {
     beforeEach(async () => {
-      element = await await fixture(
+      element = await fixture(
         html`<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>`,
       );
     });

@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbRadioButtonGroupElement } from './radio-button-group.js';
 
 import '../radio-button.js';
 
-describe(`sbb-radio-button-group ${fixture.name}`, () => {
+describe(`sbb-radio-button-group ssr`, () => {
   let root: SbbRadioButtonGroupElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-radio-button-group value="Value one">
           <sbb-radio-button id="sbb-radio-1" value="Value one">Value one</sbb-radio-button>

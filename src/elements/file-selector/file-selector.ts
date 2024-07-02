@@ -6,7 +6,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../button.js';
 import { sbbInputModalityDetector } from '../core/a11y.js';
-import { SbbLanguageController, SbbSlotStateController } from '../core/controllers.js';
+import { SbbLanguageController } from '../core/controllers.js';
+import { slotState } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
   i18nFileSelectorButtonLabel,
@@ -31,6 +32,7 @@ export type DOMEvent = globalThis.Event;
  * @event {CustomEvent<File[]>} fileChanged - An event which is emitted each time the file list changes.
  */
 @customElement('sbb-file-selector')
+@slotState()
 export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
@@ -93,11 +95,6 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   private _liveRegion!: HTMLParagraphElement;
 
   private _language = new SbbLanguageController(this);
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   private _blockEvent(event: DragEvent): void {
     event.stopPropagation();

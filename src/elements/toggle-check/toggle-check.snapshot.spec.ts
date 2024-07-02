@@ -8,7 +8,7 @@ import type { SbbToggleCheckElement } from './toggle-check.js';
 import './toggle-check.js';
 
 describe(`sbb-toggle-check`, () => {
-  describe('should render', async () => {
+  describe('renders', async () => {
     let element: SbbToggleCheckElement;
 
     beforeEach(async () => {

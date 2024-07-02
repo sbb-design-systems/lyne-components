@@ -10,7 +10,7 @@ import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 import '../autocomplete-grid-option.js';
 
-describe(`sbb-autocomplete-grid-optgroup`, () => {
+describe(`sbb-autocomplete-grid-optgroup ssr`, () => {
   let element: SbbAutocompleteGridOptgroupElement;
 
   beforeEach(async () => {

@@ -3,6 +3,7 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { i18nDialog } from '../../core/i18n.js';
+import { tabKey } from '../../core/testing/private/keys.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
 import { SbbDialogElement } from './dialog.js';
@@ -230,10 +231,10 @@ describe('sbb-dialog', () => {
 
     await openDialog(element);
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willClose.events.length === 1);
@@ -284,10 +285,10 @@ describe('sbb-dialog', () => {
 
     expect(stackedDialog).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willClose.events.length === 1);
@@ -301,10 +302,10 @@ describe('sbb-dialog', () => {
     expect(stackedDialog).to.have.attribute('data-state', 'closed');
     expect(element).to.have.attribute('data-state', 'opened');
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
-    await sendKeys({ down: 'Escape' });
+    await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
     await waitForCondition(() => willClose.events.length === 2);
@@ -375,7 +376,7 @@ describe('sbb-dialog', () => {
 
     await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Title`);
 
-    await sendKeys({ down: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForLitRender(element);
 
     expect(ariaLiveRef.textContent!.trim()).to.be.equal('');
@@ -441,6 +442,7 @@ describe('sbb-dialog with long content', () => {
     await openDialog(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => element.hasAttribute('data-overflows'));
     expect(element).to.have.attribute('data-overflows', '');
   });
 

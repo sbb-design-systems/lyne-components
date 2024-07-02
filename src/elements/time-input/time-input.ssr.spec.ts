@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.js';
 
 import { SbbTimeInputElement } from './time-input.js';
 
-describe(`sbb-time-input ${fixture.name}`, () => {
+describe(`sbb-time-input ssr`, () => {
   let root: SbbTimeInputElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-time-input input="input-1"></sbb-time-input>
         <input id="input-1" />

@@ -8,11 +8,20 @@ import './header.js';
 import '../header-link.js';
 
 describe(`sbb-header`, () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-header></sbb-header>`);
+  describe('renders', () => {
+    let element: SbbHeaderElement;
 
-    expect(root).dom.to.be.equal(`<sbb-header></sbb-header>`);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-header></sbb-header>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
   describe('renders actions and logo', () => {

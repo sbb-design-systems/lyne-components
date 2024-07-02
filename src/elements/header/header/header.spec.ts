@@ -2,6 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing.js';
 import { SbbMenuElement } from '../../menu.js';
@@ -118,7 +119,7 @@ describe(`sbb-header`, () => {
     );
 
     // Focus an element inside the header
-    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: tabKey });
     expect(element).to.have.attribute('data-has-visible-focus-within');
     expect(window.getComputedStyle(element).getPropertyValue('--sbb-header-transform')).to.equal(
       'translate3d(0, 0, 0)',

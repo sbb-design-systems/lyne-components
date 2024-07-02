@@ -10,29 +10,33 @@ import './map-container.js';
 describe(`sbb-map-container`, () => {
   let element: SbbMapContainerElement;
 
-  it('renders the container with button', async () => {
-    element = await fixture(html`<sbb-map-container></sbb-map-container>`);
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-map-container></sbb-map-container>`);
+    });
 
-    expect(element).dom.to.be.equal(
-      `
-        <sbb-map-container>  
-        </sbb-map-container>
-      `,
-    );
-    await expect(element).shadowDom.to.be.equalSnapshot();
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
-  it('renders the container without button', async () => {
-    element = await fixture(html`<sbb-map-container hide-scroll-up-button></sbb-map-container>`);
+  describe('renders without scroll-up button', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-map-container hide-scroll-up-button></sbb-map-container>`);
+    });
 
-    expect(element).dom.to.be.equal(
-      `
-        <sbb-map-container hide-scroll-up-button>
-        </sbb-map-container>
-      `,
-    );
-    await expect(element).shadowDom.to.be.equalSnapshot();
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
-
-  testA11yTreeSnapshot(html`<sbb-map-container hide-scroll-up-button></sbb-map-container>`);
 });

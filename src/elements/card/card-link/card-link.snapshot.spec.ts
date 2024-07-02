@@ -7,7 +7,7 @@ import type { SbbCardElement } from '../card.js';
 import '../card.js';
 import './card-link.js';
 
-describe(`sbb-card-button`, () => {
+describe(`sbb-card-link`, () => {
   let element: SbbCardElement;
 
   describe('renders', () => {

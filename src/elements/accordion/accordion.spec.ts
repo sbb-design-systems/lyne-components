@@ -1,8 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
-import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { fixture, isSsr } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.js';
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
 import {
   SbbExpansionPanelElement,
@@ -15,18 +14,17 @@ describe(`sbb-accordion`, () => {
   let element: SbbAccordionElement;
 
   beforeEach(async function () {
-    const ssrTitleLevel = isSsr ? '4' : nothing;
     element = await fixture(html`
       <sbb-accordion title-level="4">
-        <sbb-expansion-panel id="panel-1" title-level=${ssrTitleLevel}>
+        <sbb-expansion-panel id="panel-1">
           <sbb-expansion-panel-header id="header-1">Header 1</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>
         </sbb-expansion-panel>
-        <sbb-expansion-panel id="panel-2" title-level=${ssrTitleLevel}>
+        <sbb-expansion-panel id="panel-2">
           <sbb-expansion-panel-header id="header-2">Header 2</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
         </sbb-expansion-panel>
-        <sbb-expansion-panel id="panel-3" title-level=${ssrTitleLevel}>
+        <sbb-expansion-panel id="panel-3">
           <sbb-expansion-panel-header id="header-3">Header 3</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content 3</sbb-expansion-panel-content>
         </sbb-expansion-panel>

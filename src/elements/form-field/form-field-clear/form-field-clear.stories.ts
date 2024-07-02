@@ -17,13 +17,13 @@ import readme from './readme.md?raw';
 import './form-field-clear.js';
 import '../form-field.js';
 
-const negativeArg: InputType = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const disabledArg: InputType = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -32,7 +32,7 @@ const disabledArg: InputType = {
   },
 };
 
-const readonlyArg: InputType = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -42,9 +42,9 @@ const readonlyArg: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
-  negative: negativeArg,
-  disabled: disabledArg,
-  readonly: readonlyArg,
+  negative,
+  disabled,
+  readonly,
 };
 
 const basicArgs: Args = {

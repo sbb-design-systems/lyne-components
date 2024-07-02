@@ -4,14 +4,16 @@ import { visualDiff } from '@web/test-runner-visual-regression';
 import type { TemplateResult } from 'lit';
 
 import { visualRegressionFixture } from './fixture.js';
+import { tabKey } from './keys.js';
 
 export function imageName(test: Mocha.Runnable): string {
-  return test!.fullTitle().replaceAll(', ', '-').replaceAll(' ', '_');
+  return test!.fullTitle().replaceAll(', ', '-').replaceAll(' ', '_').replaceAll('.', '_');
 }
 
 class VisualDiffSetupBuilder {
   private _snapshotElement?: HTMLElement;
   private _stateElement?: HTMLElement;
+  private _postSetupAction?: () => void | Promise<void>;
 
   /** Returns the snapshot element. Usually the wrapper div around the sbb element. */
   public get snapshotElement(): HTMLElement {
@@ -46,6 +48,13 @@ class VisualDiffSetupBuilder {
     ];
   }
 
+  /**
+   * Action executed after the fixture and the setViewPort
+   */
+  public get postSetupAction(): () => void | Promise<void> {
+    return this._postSetupAction ? this._postSetupAction : () => {};
+  }
+
   public withSnapshotElement(element: HTMLElement): this {
     this._snapshotElement = element;
     return this;
@@ -63,6 +72,11 @@ class VisualDiffSetupBuilder {
     this._snapshotElement = await visualRegressionFixture(template, wrapperStyles);
     return this;
   }
+
+  public withPostSetupAction(action: () => void | Promise<void>): this {
+    this._postSetupAction = action;
+    return this;
+  }
 }
 
 const runSetupWithViewport = async (
@@ -74,6 +88,7 @@ const runSetupWithViewport = async (
   if (viewport) {
     await setViewport(viewport);
   }
+  await builder.postSetupAction();
 
   return builder;
 };
@@ -99,7 +114,7 @@ export const visualDiffFocus: VisualDiffState = {
     return async function (this: Mocha.Context) {
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       builder.snapshotElement.focus();
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: tabKey });
       await visualDiff(builder.snapshotElement, imageName(this.test!));
     };
   },

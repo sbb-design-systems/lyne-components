@@ -4,19 +4,17 @@ import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import {
-  SbbConnectedAbortController,
-  SbbLanguageController,
-  SbbSlotStateController,
-} from '../core/controllers.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { slotState } from '../core/decorators.js';
 import { isFirefox } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
-import '../button/transparent-button.js';
 
 import style from './toast.scss?lit&inline';
+
+import '../button/transparent-button.js';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
@@ -40,6 +38,7 @@ const toastRefs = new Set<SbbToastElement>();
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-toast')
+@slotState()
 export class SbbToastElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -119,11 +118,6 @@ export class SbbToastElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     if (closeElement && !closeElement.hasAttribute('disabled')) {
       this.close();
     }
-  }
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
   }
 
   public override connectedCallback(): void {
@@ -217,9 +211,9 @@ export class SbbToastElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-toast__overlay-container">
+        ${/* Firefox needs 'role' to enable screen readers */ ''}
         <div
           class="sbb-toast"
-          ${/* Firefox needs 'role' to enable screen readers */ ''}
           role=${this._role ?? nothing}
           @animationend=${this._onToastAnimationEnd}
         >

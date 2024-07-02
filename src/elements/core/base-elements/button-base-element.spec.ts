@@ -86,7 +86,7 @@ describe(`SbbButtonBaseElement`, () => {
       await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
 
-      await sendKeys({ down: 'Enter' });
+      await sendKeys({ press: 'Enter' });
       await waitForLitRender(element);
       expect(clickSpy.count).to.be.equal(1);
     });

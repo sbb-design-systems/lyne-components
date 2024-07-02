@@ -1,17 +1,17 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbNavigationListElement } from './navigation-list.js';
 
 import '../navigation-button.js';
 
-describe(`sbb-navigation-list ${fixture.name}`, () => {
+describe(`sbb-navigation-list ssr`, () => {
   let root: SbbNavigationListElement;
 
   beforeEach(async () => {
-    root = await fixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-navigation-list>
           <sbb-navigation-button>Label</sbb-navigation-button>

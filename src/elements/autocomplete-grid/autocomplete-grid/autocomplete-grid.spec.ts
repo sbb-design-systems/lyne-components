@@ -3,6 +3,7 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../../core/dom.js';
+import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
 import { describeIf, EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbFormFieldElement } from '../../form-field.js';
@@ -121,7 +122,7 @@ describe(`sbb-autocomplete-grid`, () => {
     expect(didOpenEventSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'true');
 
-    await sendKeys({ press: 'Tab' });
+    await sendKeys({ press: tabKey });
     await waitForCondition(() => willCloseEventSpy.events.length === 2);
     expect(willCloseEventSpy.count).to.be.equal(2);
     await waitForCondition(() => didCloseEventSpy.events.length === 2);

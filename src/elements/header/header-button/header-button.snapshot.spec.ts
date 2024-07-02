@@ -7,7 +7,7 @@ import type { SbbHeaderButtonElement } from './header-button.js';
 import './header-button.js';
 
 describe(`sbb-header-button`, () => {
-  describe('renders the component as a button with icon', () => {
+  describe('renders', () => {
     let element: SbbHeaderButtonElement;
 
     beforeEach(async () => {
@@ -25,7 +25,7 @@ describe(`sbb-header-button`, () => {
       `);
     });
 
-    it('Light DOM', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 

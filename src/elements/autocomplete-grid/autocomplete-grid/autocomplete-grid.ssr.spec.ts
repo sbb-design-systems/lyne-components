@@ -9,7 +9,7 @@ import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
-describe(`sbb-autocomplete-grid with ${fixture.name}`, () => {
+describe(`sbb-autocomplete-grid ssr`, () => {
   let formField: SbbFormFieldElement;
   let element: SbbAutocompleteGridElement;
 

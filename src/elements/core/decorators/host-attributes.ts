@@ -22,10 +22,10 @@ function applyAttributes(
  *
  * @example
  *
+ * @customElement('my-element)
  * @hostAttributes({
  *   role: 'region'
  * })
- * @customElement('my-element)
  * export class MyElement extends LitElement {
  *   ...
  * }
