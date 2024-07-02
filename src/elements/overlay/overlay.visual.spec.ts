@@ -1,6 +1,7 @@
 import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
+import type { VisualDiffSetupBuilder } from '../core/testing/private.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import './overlay.js';
@@ -35,7 +36,7 @@ describe(`sbb-overlay`, () => {
     </sbb-overlay>
   `;
 
-  const openOverlay = (setup: any): void => {
+  const openOverlay = (setup: VisualDiffSetupBuilder): void => {
     const overlay: SbbOverlayElement = setup.snapshotElement.querySelector('sbb-overlay')!;
     setup.withSnapshotElement(overlay);
     setup.withPostSetupAction(() => overlay.open());
