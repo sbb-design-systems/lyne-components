@@ -20,7 +20,7 @@ const baselineUrl = process.env.GITHUB_ACTIONS
 const screenshotsDir = new URL(`screenshots/`, new URL('../../dist/', import.meta.url));
 
 let meta: Partial<Meta> = {
-  gitSha: process.env.GITHUB_SHA ?? 'local',
+  gitSha: process.env.RELEVANT_SHA ?? 'local',
 };
 
 let baselineMeta;

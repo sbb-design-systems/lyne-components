@@ -218,7 +218,7 @@ function prepareScreenshots(): PluginOption {
         try {
           meta = JSON.parse(readFileSync(new URL('./meta.json', screenshotsDir), 'utf8'));
         } catch {
-          meta = { gitSha: process.env.GITHUB_SHA ?? 'local', baselineGitSha: 'N/A' };
+          meta = { gitSha: 'local', baselineGitSha: 'N/A' };
         }
 
         const metaToWrite = {
