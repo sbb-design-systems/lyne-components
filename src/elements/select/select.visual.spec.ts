@@ -104,7 +104,7 @@ describe('sbb-select', () => {
           visualDiffState.with(async (setup) => {
             await setup.withFixture(
               html`
-                <div style="position: absolute; inset-block-end: 2rem; width: calc(100% - 4rem)">
+                <div style="position: absolute; inset-block-end: 2rem; width: calc(100% - 4rem);">
                   ${template({ ...defaultArgs, negative })}
                 </div>
               `,
