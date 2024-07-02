@@ -17,15 +17,16 @@ describe(`sbb-logo`, () => {
     protectiveRoom: ['none', 'minimal', 'ideal'],
   };
 
-  describeViewports({ viewports: ['medium'] }, () => {
-    // Main test cases
+  describeViewports({ viewports: ['zero'] }, () => {
     describeEach(cases, ({ negative, protectiveRoom }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
-          html` <div style="max-width: 300px">
-            <sbb-logo ?negative=${negative} protective-room=${protectiveRoom}></sbb-logo>
-          </div>`,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined, padding: '0' },
+          html` <sbb-logo ?negative=${negative} protective-room=${protectiveRoom}></sbb-logo> `,
+          {
+            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            padding: '0',
+            maxWidth: '300px',
+          },
         );
       });
 
