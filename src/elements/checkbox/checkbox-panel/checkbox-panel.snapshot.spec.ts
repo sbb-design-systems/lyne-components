@@ -8,7 +8,7 @@ import { SbbCheckboxPanelElement } from './checkbox-panel.js';
 describe('sbb-checkbox-panel', () => {
   let element: SbbCheckboxPanelElement;
 
-  describe('should render unchecked', async () => {
+  describe('renders unchecked', async () => {
     beforeEach(async () => {
       element = (await fixture(
         html`<sbb-checkbox-panel
@@ -29,7 +29,7 @@ describe('sbb-checkbox-panel', () => {
     });
   });
 
-  describe('should render checked', async () => {
+  describe('renders checked', async () => {
     beforeEach(async () => {
       element = (await fixture(
         html`<sbb-checkbox-panel checked
@@ -49,7 +49,7 @@ describe('sbb-checkbox-panel', () => {
     });
   });
 
-  describe('should render indeterminate', async () => {
+  describe('renders indeterminate', async () => {
     beforeEach(async () => {
       element = (await fixture(
         html`<sbb-checkbox-panel indeterminate
@@ -69,7 +69,7 @@ describe('sbb-checkbox-panel', () => {
     });
   });
 
-  describe('should render unchecked disabled', async () => {
+  describe('renders unchecked disabled', async () => {
     beforeEach(async () => {
       element = (await fixture(
         html`<sbb-checkbox-panel disabled

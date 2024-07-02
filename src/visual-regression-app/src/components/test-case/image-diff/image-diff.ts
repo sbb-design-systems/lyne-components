@@ -1,5 +1,7 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+// eslint-disable-next-line import-x/no-unresolved
+import { meta } from 'virtual:meta';
 
 import type { ScreenshotFiles } from '../../../interfaces.js';
 
@@ -104,7 +106,7 @@ export class ImageDiff extends LitElement {
               >
                 <img
                   class="app-image"
-                  .src="./${this.screenshotFiles?.baselineFile}"
+                  .src=${`./${this.screenshotFiles?.baselineFile}?commit=${meta.baselineGitSha}`}
                   alt=""
                   @load=${this._setBaselineImageDimension}
                 />
@@ -120,7 +122,11 @@ export class ImageDiff extends LitElement {
                 class="app-image-button"
                 ?hidden=${!this._showDiff || this.screenshotFiles.isNew}
               >
-                <img class="app-image" .src="./${this.screenshotFiles?.diffFile}" alt="" />
+                <img
+                  class="app-image"
+                  .src=${`./${this.screenshotFiles?.diffFile}?commit=${meta.gitSha}`}
+                  alt=""
+                />
               </button>
               <button
                 @click=${() => this._showFullscreen('failedFile')}
@@ -129,7 +135,7 @@ export class ImageDiff extends LitElement {
               >
                 <img
                   class="app-image"
-                  .src="./${this.screenshotFiles?.failedFile}"
+                  .src=${`./${this.screenshotFiles?.failedFile}?commit=${meta.gitSha}`}
                   alt=""
                   @load=${this._setFailedImageDimension}
                 />

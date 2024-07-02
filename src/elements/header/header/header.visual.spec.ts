@@ -59,7 +59,7 @@ describe(`sbb-header`, () => {
         await setup.withFixture(template({}), { padding: '0' });
 
         // Scroll page down
-        window.scrollTo(0, document.body.scrollHeight);
+        setup.withPostSetupAction(() => window.scrollTo(0, document.body.scrollHeight));
       }),
     );
   });

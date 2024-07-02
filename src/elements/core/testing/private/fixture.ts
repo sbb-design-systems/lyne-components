@@ -91,6 +91,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     padding?: string;
     minHeight?: string;
     forcedColors?: boolean;
+    maxWidth?: string;
   },
 ): Promise<T> {
   const base = tryFindBase(new Error().stack!);
@@ -112,6 +113,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
           ? 'var(--sbb-focus-outline-color-dark)'
           : undefined,
         'min-height': wrapperStyles?.minHeight,
+        'max-width': wrapperStyles?.maxWidth,
       })}
       tabindex="0"
     >

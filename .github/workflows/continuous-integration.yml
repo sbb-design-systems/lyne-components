@@ -159,7 +159,7 @@ jobs:
   visual-regression:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    needs: test
+    needs: lint
     services:
       visual-regression:
         image: ghcr.io/${{ github.repository }}/visual-regression:baseline
@@ -181,6 +181,7 @@ jobs:
         run: yarn test:visual-regression || true
         env:
           NODE_ENV: production
+          RELEVANT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Prepare failed screenshot artifacts
         run: yarn ts-hooks tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
       - name: Store visual regression output
@@ -214,6 +215,7 @@ jobs:
         run: yarn test:visual-regression --update-visual-baseline
         env:
           NODE_ENV: production
+          RELEVANT_SHA: ${{ github.sha }}
       - name: Build visual-regression-app
         run: yarn build:visual-regression-app
 
