@@ -19,7 +19,7 @@ describe(`sbb-block-link-button`, () => {
     for (const negative of [true, false]) {
       for (const state of visualDiffStandardStates) {
         it(
-          state.name,
+          `negative=${negative} ${state.name}`,
           state.with(async (setup) => {
             await setup.withFixture(
               html`<sbb-block-link-button ?negative=${negative}

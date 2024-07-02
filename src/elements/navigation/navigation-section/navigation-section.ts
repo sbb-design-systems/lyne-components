@@ -7,8 +7,8 @@ import {
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
-import { SbbLanguageController, SbbSlotStateController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
+import { SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes, slotState } from '../../core/decorators.js';
 import { findReferencedElement, isBreakpoint, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nGoBack } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
@@ -37,6 +37,7 @@ let nextId = 0;
 @hostAttributes({
   slot: 'navigation-section',
 })
+@slotState()
 export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -90,11 +91,6 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
   private _navigationSectionController!: AbortController;
   private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   /**
    * Opens the navigation section on trigger click.

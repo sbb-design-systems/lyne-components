@@ -6,7 +6,7 @@ on:
 
 # Documentation:
 # https://github.com/googleapis/release-please
-# https://github.com/google-github-actions/release-please-action
+# https://github.com/googleapis/release-please-action
 # https://github.com/googleapis/release-please/blob/main/docs/customizing.md
 
 permissions:
@@ -20,7 +20,7 @@ jobs:
     env:
       IMAGE_REPO_STORYBOOK: ghcr.io/${{ github.repository }}/storybook
     steps:
-      - uses: google-github-actions/release-please-action@v4
+      - uses: googleapis/release-please-action@v4
         id: release
         with:
           release-type: node

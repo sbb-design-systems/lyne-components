@@ -3,7 +3,8 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -24,6 +25,7 @@ export type SbbTagSize = 's' | 'm';
  * @event {CustomEvent<void>} change - Change event emitter
  */
 @customElement('sbb-tag')
+@slotState()
 export class SbbTagElement extends SbbIconNameMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
@@ -70,11 +72,6 @@ export class SbbTagElement extends SbbIconNameMixin(
   });
 
   private _abort = new SbbConnectedAbortController(this);
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
