@@ -35,7 +35,7 @@ describe(`sbb-menu-link`, () => {
           href="#"
           amount=${amount || nothing}
           icon-name=${iconName || nothing}
-          .disabled=${disabled}
+          ?disabled=${disabled}
         >
           ${label} ${index}
           ${slottedIcon ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
@@ -50,7 +50,7 @@ describe(`sbb-menu-link`, () => {
 
   const wrapperStyles: Parameters<typeof visualRegressionFixture>[1] = {
     backgroundColor: 'var(--sbb-color-black)',
-    width: '256px',
+    maxWidth: '256px',
   };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {

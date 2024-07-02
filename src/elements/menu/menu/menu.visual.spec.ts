@@ -1,5 +1,3 @@
-import { SbbBreakpointMediumMin } from '@sbb-esta/lyne-design-tokens';
-import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -45,10 +43,10 @@ describe(`sbb-menu`, () => {
           `,
           { minHeight: '400px' },
         );
-        await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
-
-        const button = setup.snapshotElement.querySelector('#menu-trigger-1') as SbbButtonElement;
-        button.click();
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-1')!;
+          button.click();
+        });
       }),
     );
 
@@ -67,10 +65,10 @@ describe(`sbb-menu`, () => {
           `,
           { minHeight: '400px' },
         );
-        await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
-
-        const button = setup.snapshotElement.querySelector('#menu-trigger-2') as SbbButtonElement;
-        button.click();
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-2')!;
+          button.click();
+        });
       }),
     );
 
@@ -100,10 +98,11 @@ describe(`sbb-menu`, () => {
           `,
           { minHeight: '400px' },
         );
-        await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
 
-        const button = setup.snapshotElement.querySelector('#menu-trigger-3') as SbbButtonElement;
-        button.click();
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-3')!;
+          button.click();
+        });
       }),
     );
   });

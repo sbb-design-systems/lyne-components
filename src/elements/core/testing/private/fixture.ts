@@ -90,7 +90,6 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     focusOutlineDark?: boolean;
     padding?: string;
     minHeight?: string;
-    width?: string;
     maxWidth?: string;
     forcedColors?: boolean;
   },
@@ -115,7 +114,6 @@ export async function visualRegressionFixture<T extends HTMLElement>(
           : undefined,
         'min-height': wrapperStyles?.minHeight,
         'max-width': wrapperStyles?.maxWidth,
-        width: wrapperStyles?.width,
       })}
       tabindex="0"
     >
