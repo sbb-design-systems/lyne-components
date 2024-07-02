@@ -165,14 +165,15 @@ export class SbbNotificationElement extends LitElement {
       clearTimeout(this._resizeObserverTimeout);
     }
 
-    this.toggleAttribute('data-resize-disable-animation', true);
-    this._setNotificationHeight();
-
     // Disable the animation when resizing the notification to avoid strange height transition effects.
+    this.toggleAttribute('data-resize-disable-animation', true);
     this._resizeObserverTimeout = setTimeout(
       () => this.removeAttribute('data-resize-disable-animation'),
       DEBOUNCE_TIME,
     );
+
+    // To avoid ResizeObserver loops, we set the height a tick later.
+    setTimeout(() => this._setNotificationHeight());
   }
 
   private _onNotificationAnimationEnd(event: AnimationEvent): void {
