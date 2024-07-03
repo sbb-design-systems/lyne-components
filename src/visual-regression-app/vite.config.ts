@@ -218,7 +218,7 @@ function prepareScreenshots(): PluginOption {
         try {
           meta = JSON.parse(readFileSync(new URL('./meta.json', screenshotsDir), 'utf8'));
         } catch {
-          meta = { gitSha: process.env.GITHUB_SHA ?? 'local', baselineGitSha: 'N/A' };
+          meta = { gitSha: 'local', baselineGitSha: 'N/A' };
         }
 
         const metaToWrite = {
@@ -226,6 +226,14 @@ function prepareScreenshots(): PluginOption {
           commitUrl: `https://github.com/sbb-design-systems/lyne-components/commit/${meta.gitSha}`,
           baselineCommitUrl: `https://github.com/sbb-design-systems/lyne-components/commit/${meta.baselineGitSha}`,
         } satisfies Meta;
+
+        if (viteConfig.command !== 'serve') {
+          this.emitFile({
+            type: 'asset',
+            fileName: 'meta.json',
+            source: JSON.stringify(meta),
+          });
+        }
 
         return `export const meta = ${JSON.stringify(metaToWrite)};`;
       }

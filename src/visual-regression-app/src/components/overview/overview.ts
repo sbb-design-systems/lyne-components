@@ -40,7 +40,7 @@ export class Overview extends LitElement {
               button-size="s"
               link-size="s"
             >
-              ${meta.baselineGitSha
+              ${meta.baselineGitSha && !screenshots.baselineOnly
                 ? html`<sbb-block-link
                     icon-name="document-check-small"
                     href=${meta.baselineCommitUrl || nothing}
@@ -56,7 +56,7 @@ export class Overview extends LitElement {
                     icon-name="arrow-change-horizontal-small"
                     href=${meta.commitUrl || nothing}
                     ?disabled=${meta.gitSha === 'local'}
-                    >Compare Commit
+                    >Commit
                     ${meta.gitSha === 'local'
                       ? meta.gitSha
                       : `#${meta.gitSha.substring(0, 7)}`}</sbb-block-link

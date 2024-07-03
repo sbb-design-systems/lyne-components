@@ -20,12 +20,12 @@ const baselineUrl = process.env.GITHUB_ACTIONS
 const screenshotsDir = new URL(`screenshots/`, new URL('../../dist/', import.meta.url));
 
 let meta: Partial<Meta> = {
-  gitSha: process.env.GITHUB_SHA ?? 'local',
+  gitSha: process.env.RELEVANT_SHA ?? 'local',
 };
 
 let baselineMeta;
 try {
-  const response = await fetch(`${baselineUrl}screenshots/${metaFileName}`);
+  const response = await fetch(`${baselineUrl}${metaFileName}`);
   baselineMeta = JSON.parse(await response.text()) satisfies Meta;
   meta = { ...meta, baselineGitSha: baselineMeta.gitSha ?? 'N/A' };
 } catch (e) {

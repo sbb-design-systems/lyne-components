@@ -90,6 +90,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     focusOutlineDark?: boolean;
     padding?: string;
     minHeight?: string;
+    maxWidth?: string;
     forcedColors?: boolean;
   },
 ): Promise<T> {
@@ -112,6 +113,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
           ? 'var(--sbb-focus-outline-color-dark)'
           : undefined,
         'min-height': wrapperStyles?.minHeight,
+        'max-width': wrapperStyles?.maxWidth,
       })}
       tabindex="0"
     >
