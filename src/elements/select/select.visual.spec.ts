@@ -12,7 +12,6 @@ describe('sbb-select', () => {
   const defaultArgs = {
     borderless: false,
     negative: false,
-    floatingLabel: false,
     disableOption: false,
     withOptionGroup: false,
     disableGroup: false,
@@ -55,7 +54,6 @@ describe('sbb-select', () => {
   const template = ({
     borderless,
     negative,
-    floatingLabel,
     disableOption,
     withOptionGroup,
     disableGroup,
@@ -66,11 +64,7 @@ describe('sbb-select', () => {
       args.value = [args.value as string];
     }
     return html`
-      <sbb-form-field
-        ?borderless=${borderless}
-        ?negative=${negative}
-        ?floating-label=${floatingLabel}
-      >
+      <sbb-form-field ?borderless=${borderless} ?negative=${negative}>
         <label>Select</label>
         <sbb-select
           value=${args.value || nothing}
