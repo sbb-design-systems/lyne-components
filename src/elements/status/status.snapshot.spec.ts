@@ -3,33 +3,44 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
+import type { SbbStatusElement } from './status.js';
+
 import './status.js';
 
 describe(`sbb-status`, () => {
-  it('renders', async () => {
-    const root = await fixture(html` <sbb-status type="info"> Status info text </sbb-status>`);
+  let element: SbbStatusElement;
 
-    expect(root).dom.to.be.equal(
-      `<sbb-status type="info" data-slot-names="unnamed">Status info text</sbb-status>`,
-    );
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-status type="info"> Status info text </sbb-status>`);
+    });
 
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
-  it('renders with the status title', async () => {
-    const root = await fixture(
-      html` <sbb-status type="info" title-content="Title"> Status info text </sbb-status>`,
-    );
+  describe('renders with title', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-status type="info" title-content="Title"> Status info text </sbb-status>`,
+      );
+    });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-status type="info" title-content="Title" data-slot-names="unnamed">
-        Status info text
-      </sbb-status>
-    `);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
-
-  testA11yTreeSnapshot(
-    html` <sbb-status type="info" title-content="Title"> Status info text </sbb-status>`,
-  );
 });
