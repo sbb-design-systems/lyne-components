@@ -6,8 +6,6 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.js';
 
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-row.js';
 import './autocomplete-grid-button.js';
 
 describe(`sbb-autocomplete-grid-button`, () => {
