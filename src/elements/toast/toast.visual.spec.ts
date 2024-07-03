@@ -25,8 +25,8 @@ describe(`sbb-toast`, () => {
     describeEach(cases, ({ icon, action }) => {
       it(
         '',
-        visualDiffDefault.with((setup) => {
-          setup.withFixture(
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
             html`
               <sbb-toast
                 icon-name=${icon ? 'circle-tick-small' : nothing}
