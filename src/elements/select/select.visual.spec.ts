@@ -66,33 +66,29 @@ describe('sbb-select', () => {
       args.value = [args.value as string];
     }
     return html`
-      <div>
-        <sbb-form-field
-          ?borderless=${borderless}
-          ?negative=${negative}
-          ?floating-label=${floatingLabel}
+      <sbb-form-field
+        ?borderless=${borderless}
+        ?negative=${negative}
+        ?floating-label=${floatingLabel}
+      >
+        <label>Select</label>
+        <sbb-select
+          value=${args.value || nothing}
+          ?multiple=${args.multiple}
+          ?disabled=${args.disabled}
+          ?required=${args.required}
+          ?readonly=${args.readonly}
+          class=${args.required ? 'sbb-invalid' : nothing}
         >
-          <label>Select</label>
-          <sbb-select
-            value=${args.value || nothing}
-            ?multiple=${args.multiple}
-            ?disabled=${args.disabled}
-            ?required=${args.required}
-            ?readonly=${args.readonly}
-            class=${args.required ? 'sbb-invalid' : nothing}
-          >
-            ${withEllipsis
-              ? html` <sbb-option value=${valueEllipsis} selected="">
-                  ${valueEllipsis}
-                </sbb-option>`
-              : nothing}
-            ${withOptionGroup
-              ? createOptionsGroup(disableOption, disableGroup)
-              : createOptions(disableOption, false, args.value)}
-          </sbb-select>
-          ${args.required ? html`<sbb-form-error>Error</sbb-form-error>` : nothing}
-        </sbb-form-field>
-      </div>
+          ${withEllipsis
+            ? html` <sbb-option value=${valueEllipsis} selected=""> ${valueEllipsis} </sbb-option>`
+            : nothing}
+          ${withOptionGroup
+            ? createOptionsGroup(disableOption, disableGroup)
+            : createOptions(disableOption, false, args.value)}
+        </sbb-select>
+        ${args.required ? html`<sbb-form-error>Error</sbb-form-error>` : nothing}
+      </sbb-form-field>
     `;
   };
 
@@ -104,7 +100,7 @@ describe('sbb-select', () => {
           visualDiffState.with(async (setup) => {
             await setup.withFixture(
               html`
-                <div style="position: absolute; inset-block-end: 2rem; width: calc(100% - 4rem);">
+                <div style="position: absolute; inset-block-end: 2rem;">
                   ${template({ ...defaultArgs, negative })}
                 </div>
               `,
