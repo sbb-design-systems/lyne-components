@@ -31,6 +31,7 @@ and it can be set using the `title-content` property.
 
 ## Slots
 
-| Name | Description                                                                                               |
-| ---- | --------------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add `sbb-block-link`/`sbb-block-link-button` elements to the `sbb-skiplink-list`. |
+| Name    | Description                                                                                               |
+| ------- | --------------------------------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add `sbb-block-link`/`sbb-block-link-button` elements to the `sbb-skiplink-list`. |
+| `title` | Use this to provide a title for the skiplink-list (optional).                                             |
