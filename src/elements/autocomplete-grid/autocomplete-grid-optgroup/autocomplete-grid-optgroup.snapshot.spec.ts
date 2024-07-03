@@ -15,47 +15,49 @@ import '../autocomplete-grid-button.js';
 import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.js';
 
 describe('sbb-autocomplete-grid-optgroup', () => {
-  let root: SbbAutocompleteGridOptgroupElement;
-  const opt: TemplateResult = html`
-    <sbb-autocomplete-grid-optgroup label="Group">
-      <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-      </sbb-autocomplete-grid-row>
-      <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
-      </sbb-autocomplete-grid-row>
-    </sbb-autocomplete-grid-optgroup>
-  `;
-  beforeEach(async () => {
-    root = (
-      await fixture(html`
-        <sbb-autocomplete-grid origin="anchor"> ${opt} </sbb-autocomplete-grid>
-        <div id="anchor"></div>
-      `)
-    ).querySelector('sbb-autocomplete-grid-optgroup')!;
-  });
-
-  describeIf(!isSafari, 'Chrome-Firefox', async () => {
-    it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
+  describe('renders', () => {
+    let root: SbbAutocompleteGridOptgroupElement;
+    const opt: TemplateResult = html`
+      <sbb-autocomplete-grid-optgroup label="Group">
+        <sbb-autocomplete-grid-row>
+          <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+        </sbb-autocomplete-grid-row>
+        <sbb-autocomplete-grid-row>
+          <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
+        </sbb-autocomplete-grid-row>
+      </sbb-autocomplete-grid-optgroup>
+    `;
+    beforeEach(async () => {
+      root = (
+        await fixture(html`
+          <sbb-autocomplete-grid origin="anchor"> ${opt} </sbb-autocomplete-grid>
+          <div id="anchor"></div>
+        `)
+      ).querySelector('sbb-autocomplete-grid-optgroup')!;
     });
 
-    it('Shadow DOM', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
+    describeIf(!isSafari, 'Chrome-Firefox', async () => {
+      it('DOM', async () => {
+        await expect(root).dom.to.be.equalSnapshot();
+      });
+
+      it('Shadow DOM', async () => {
+        await expect(root).shadowDom.to.be.equalSnapshot();
+      });
+
+      testA11yTreeSnapshot(opt);
     });
 
-    testA11yTreeSnapshot(opt);
-  });
+    describeIf(isSafari, 'Safari', async () => {
+      it('DOM', async () => {
+        await expect(root).dom.to.be.equalSnapshot();
+      });
 
-  describeIf(isSafari, 'Safari', async () => {
-    it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
+      it('Shadow DOM', async () => {
+        await expect(root).shadowDom.to.be.equalSnapshot();
+      });
+
+      testA11yTreeSnapshot(opt);
     });
-
-    it('Shadow DOM', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot(opt);
   });
 });
