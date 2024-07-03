@@ -18,11 +18,9 @@ describe(`sbb-popover`, () => {
     { name: 'bottom-right', alignItems: 'end', justifyContent: 'end' },
   ];
 
-  const popoverTrigger = (): TemplateResult => html`
-    <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
-  `;
-
   const popover = (hideCloseButton?: boolean): TemplateResult => html`
+    <sbb-popover-trigger id="popover-trigger" style="border: 1px solid"></sbb-popover-trigger>
+
     <sbb-popover trigger="popover-trigger" ?hide-close-button=${hideCloseButton}>
       <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
       <p style="margin: 0" class="sbb-text-s">
@@ -39,23 +37,27 @@ describe(`sbb-popover`, () => {
     </sbb-popover>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 350 }, () => {
+  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
     for (const position of positionCases) {
       it(
         `position=${position.name}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <div
-              style=${styleMap({
-                height: '300px',
-                display: 'flex',
-                alignItems: position.alignItems,
-                justifyContent: position.justifyContent,
-              })}
-            >
-              ${popoverTrigger()} ${popover()}
-            </div>
-          `);
+          await setup.withFixture(
+            html`
+              <div
+                style=${styleMap({
+                  height: '400px',
+                  padding: '3rem',
+                  display: 'flex',
+                  alignItems: position.alignItems,
+                  justifyContent: position.justifyContent,
+                })}
+              >
+                ${popover()}
+              </div>
+            `,
+            { padding: '0' },
+          );
           setup.withPostSetupAction(() =>
             setup.snapshotElement.querySelector('sbb-popover-trigger')!.click(),
           );
@@ -66,8 +68,9 @@ describe(`sbb-popover`, () => {
     it(
       `hide-close-button`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html` ${popoverTrigger()} ${popover(true)} `, {
-          minHeight: '300px',
+        await setup.withFixture(html` ${popover(true)} `, {
+          minHeight: '400px',
+          padding: '3rem',
         });
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector('sbb-popover-trigger')!.click(),
