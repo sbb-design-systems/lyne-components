@@ -19,7 +19,7 @@ describe(`sbb-popover`, () => {
   ];
 
   const popover = (hideCloseButton?: boolean): TemplateResult => html`
-    <sbb-popover-trigger id="popover-trigger" style="border: 1px solid"></sbb-popover-trigger>
+    <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
 
     <sbb-popover trigger="popover-trigger" ?hide-close-button=${hideCloseButton}>
       <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
