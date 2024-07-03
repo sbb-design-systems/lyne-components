@@ -11,7 +11,7 @@ import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
 describe('sbb-autocomplete-grid-option', () => {
-  describe('default', () => {
+  describe('renders', () => {
     let root: SbbAutocompleteGridOptionElement;
     beforeEach(async () => {
       root = (
@@ -39,7 +39,7 @@ describe('sbb-autocomplete-grid-option', () => {
     html`<sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>`,
   );
 
-  describe('disabled', () => {
+  describe('renders disabled', () => {
     let root: SbbAutocompleteGridOptionElement;
     beforeEach(async () => {
       root = (
@@ -57,8 +57,11 @@ describe('sbb-autocomplete-grid-option', () => {
     });
 
     it('DOM', async () => {
-      await expect(root).to.have.attribute('disabled');
-      await expect(root).to.have.attribute('aria-disabled', 'true');
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
 });

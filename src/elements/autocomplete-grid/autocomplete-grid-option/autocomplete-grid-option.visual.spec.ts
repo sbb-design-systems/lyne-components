@@ -5,11 +5,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import '../../form-field.js';
-import '../../select.js';
-import '../../autocomplete.js';
-import './option.js';
+import '../../autocomplete-grid.js';
+import './autocomplete-grid-option.js';
 
-describe(`sbb-option`, () => {
+describe(`sbb-autocomplete-grid-option`, () => {
   const defaultArgs = {
     iconName: undefined as string | undefined,
     active: false,
@@ -17,27 +16,20 @@ describe(`sbb-option`, () => {
     preserveIconSpace: false,
   };
 
-  const createOptions = ({
-    active,
-    disabled,
-    preserveIconSpace,
-    iconName,
-  }: typeof defaultArgs): TemplateResult => {
+  const createOption = (
+    { active, disabled, preserveIconSpace, iconName }: typeof defaultArgs,
+    i: number,
+  ): TemplateResult => {
     const style = preserveIconSpace ? { '--sbb-option-icon-container-display': 'block' } : {};
     return html`
-      ${repeat(
-        new Array(5),
-        (_, i) => html`
-          <sbb-option
-            style=${styleMap(style)}
-            icon-name=${iconName || nothing}
-            ?active=${active && i === 0}
-            ?disabled=${disabled && i === 0}
-            value=${`Value ${i + 1}`}
-            >Value ${i + 1}</sbb-option
-          >
-        `,
-      )}
+      <sbb-autocomplete-grid-option
+        style=${styleMap(style)}
+        icon-name=${iconName || nothing}
+        ?active=${active && i === 0}
+        ?disabled=${disabled && i === 0}
+        value=${`Value ${i + 1}`}
+        >Value ${i + 1}</sbb-autocomplete-grid-option
+      >
     `;
   };
 
@@ -45,7 +37,7 @@ describe(`sbb-option`, () => {
     <div
       style="border-width: var(--sbb-spacing-fixed-2x); border-style: dashed; border-color: #ad00ff; width: 320px;"
     >
-      ${createOptions(args)}
+      ${repeat(new Array(5), (_, i) => createOption(args, i))}
     </div>
   `;
 
@@ -53,14 +45,14 @@ describe(`sbb-option`, () => {
     <sbb-form-field>
       <label>sbb-autocomplete</label>
       <input placeholder="Please select." />
-      <sbb-autocomplete>${createOptions(args)}</sbb-autocomplete>
-    </sbb-form-field>
-  `;
-
-  const selectTemplate = (args: typeof defaultArgs): TemplateResult => html`
-    <sbb-form-field>
-      <label>sbb-select</label>
-      <sbb-select placeholder="Please select.">${createOptions(args)}</sbb-select>
+      <sbb-autocomplete-grid>
+        ${repeat(
+          new Array(5),
+          (_, i) => html`
+            <sbb-autocomplete-grid-row> ${createOption(args, i)} </sbb-autocomplete-grid-row>
+          `,
+        )}
+      </sbb-autocomplete-grid>
     </sbb-form-field>
   `;
 
@@ -81,13 +73,6 @@ describe(`sbb-option`, () => {
       );
 
       it(
-        `disabled`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabled: true }));
-        }),
-      );
-
-      it(
         `active`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(standaloneTemplate({ ...defaultArgs, active: true }));
@@ -102,25 +87,25 @@ describe(`sbb-option`, () => {
       );
     });
 
-    describe('autocomplete', () => {
+    describe('autocomplete-grid', () => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(autocompleteTemplate(defaultArgs), { minHeight: '400px' });
           setup.withPostSetupAction(() =>
-            setup.snapshotElement.querySelector('sbb-autocomplete')!.open(),
+            setup.snapshotElement.querySelector('sbb-autocomplete-grid')!.open(),
           );
         }),
       );
-    });
 
-    describe('select', () => {
       it(
-        visualDiffDefault.name,
+        'disabled',
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(selectTemplate(defaultArgs), { minHeight: '400px' });
+          await setup.withFixture(autocompleteTemplate({ ...defaultArgs, disabled: true }), {
+            minHeight: '400px',
+          });
           setup.withPostSetupAction(() =>
-            setup.snapshotElement.querySelector('sbb-select')!.open(),
+            setup.snapshotElement.querySelector('sbb-autocomplete-grid')!.open(),
           );
         }),
       );
