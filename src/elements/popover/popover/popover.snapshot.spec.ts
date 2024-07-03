@@ -2,17 +2,26 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+
+import type { SbbPopoverElement } from './popover.js';
 import './popover.js';
 
 describe(`sbb-popover`, () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-popover></sbb-popover>`);
+  let element: SbbPopoverElement;
 
-    expect(root).dom.to.be.equal(
-      `<sbb-popover data-state="closed" id="sbb-popover-1"></sbb-popover>`,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-popover></sbb-popover>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
-
-  testA11yTreeSnapshot(html`<sbb-popover></sbb-popover>`);
 });
