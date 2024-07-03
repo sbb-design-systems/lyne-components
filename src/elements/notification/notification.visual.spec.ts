@@ -52,7 +52,7 @@ describe(`sbb-notification`, () => {
     size: ['s', 'm'],
   };
 
-  describeViewports({ viewports: ['zero', 'small'] }, () => {
+  describeViewports({ viewports: ['zero', 'small', 'medium'] }, () => {
     describeEach(states, ({ readonly, slottedTitle }) => {
       it(
         visualDiffDefault.name,
