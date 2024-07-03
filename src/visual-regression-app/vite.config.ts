@@ -13,7 +13,7 @@ import {
 import { distDir } from '../../tools/vite/index.js';
 import rootConfig from '../../vite.config.js';
 
-import type { ScreenshotFiles } from './src/interfaces.js';
+import type { ScreenshotFiles, Meta } from './src/interfaces.js';
 
 const packageRoot = new URL('.', import.meta.url);
 const screenshotsDir = new URL(`./screenshots/`, distDir);
@@ -56,8 +56,11 @@ const extractHierarchicalMap = (
 
 function prepareScreenshots(): PluginOption {
   let viteConfig: ResolvedConfig;
-  const virtualModuleId = 'virtual:screenshots';
-  const resolvedVirtualModuleId = '\0' + virtualModuleId;
+  const virtualModuleScreenshotsId = 'virtual:screenshots';
+  const resolvedVirtualModuleScreenshotsId = '\0' + virtualModuleScreenshotsId;
+
+  const virtualModuleMetaId = 'virtual:meta';
+  const resolvedVirtualModuleMetaId = '\0' + virtualModuleMetaId;
 
   return {
     name: 'prepare screenshot',
@@ -65,12 +68,15 @@ function prepareScreenshots(): PluginOption {
       viteConfig = config;
     },
     resolveId(id) {
-      if (id === virtualModuleId) {
-        return resolvedVirtualModuleId;
+      if (id === virtualModuleScreenshotsId) {
+        return resolvedVirtualModuleScreenshotsId;
+      }
+      if (id === virtualModuleMetaId) {
+        return resolvedVirtualModuleMetaId;
       }
     },
     load(id) {
-      if (id === resolvedVirtualModuleId) {
+      if (id === resolvedVirtualModuleScreenshotsId) {
         if (!existsSync(screenshotsDir)) {
           return `export const screenshotsRaw = []`;
         }
@@ -204,6 +210,32 @@ function prepareScreenshots(): PluginOption {
           extractHierarchicalMap(screenshots),
           (_key, value) => (value instanceof Map ? Object.fromEntries(Array.from(value)) : value),
         )}`;
+      }
+
+      if (id === resolvedVirtualModuleMetaId) {
+        let meta: Pick<Meta, 'gitSha' | 'baselineGitSha'>;
+
+        try {
+          meta = JSON.parse(readFileSync(new URL('./meta.json', screenshotsDir), 'utf8'));
+        } catch {
+          meta = { gitSha: 'local', baselineGitSha: 'N/A' };
+        }
+
+        const metaToWrite = {
+          ...meta,
+          commitUrl: `https://github.com/sbb-design-systems/lyne-components/commit/${meta.gitSha}`,
+          baselineCommitUrl: `https://github.com/sbb-design-systems/lyne-components/commit/${meta.baselineGitSha}`,
+        } satisfies Meta;
+
+        if (viteConfig.command !== 'serve') {
+          this.emitFile({
+            type: 'asset',
+            fileName: 'meta.json',
+            source: JSON.stringify(meta),
+          });
+        }
+
+        return `export const meta = ${JSON.stringify(metaToWrite)};`;
       }
     },
     configureServer(server) {

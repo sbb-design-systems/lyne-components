@@ -15,11 +15,11 @@ describe(`sbb-screen-reader-only`, () => {
       root = await fixture(html`<sbb-screen-reader-only></sbb-screen-reader-only>`);
     });
 
-    it('with Light DOM', async () => {
+    it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
 
-    it('with Shadow DOM', async () => {
+    it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
 

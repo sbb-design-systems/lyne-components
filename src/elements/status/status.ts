@@ -2,12 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../core/controllers.js';
+import { slotState } from '../core/decorators.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbTitleLevel } from '../title.js';
 
-import '../title.js';
 import style from './status.scss?lit&inline';
+
+import '../title.js';
 
 export type SbbStatusType = 'info' | 'success' | 'warning' | 'error';
 
@@ -19,6 +20,7 @@ export type SbbStatusType = 'info' | 'success' | 'warning' | 'error';
  * @slot icon - Use this slot to override the default status icon.
  */
 @customElement('sbb-status')
+@slotState()
 export class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -37,11 +39,6 @@ export class SbbStatusElement extends SbbIconNameMixin(LitElement) {
 
   /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
   @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '3';
-
-  public constructor() {
-    super();
-    new SbbSlotStateController(this);
-  }
 
   protected override renderIconSlot(): TemplateResult {
     return html`

@@ -5,6 +5,9 @@ import { dirname, extname } from 'path';
 
 import type { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 
+import type { Meta } from '../../src/visual-regression-app/src/interfaces.js';
+
+const metaFileName = 'meta.json';
 const branch =
   process.env.GITHUB_REF_NAME ??
   process.env.BRANCH ??
@@ -12,6 +15,27 @@ const branch =
 const baselineUrl = process.env.GITHUB_ACTIONS
   ? 'http://localhost:8050/'
   : 'https://lyne-visual-regression-baseline.app.sbb.ch/';
+
+// Importing distDir doesn't work
+const screenshotsDir = new URL(`screenshots/`, new URL('../../dist/', import.meta.url));
+
+let meta: Partial<Meta> = {
+  gitSha: process.env.RELEVANT_SHA ?? 'local',
+};
+
+let baselineMeta;
+try {
+  const response = await fetch(`${baselineUrl}${metaFileName}`);
+  baselineMeta = JSON.parse(await response.text()) satisfies Meta;
+  meta = { ...meta, baselineGitSha: baselineMeta.gitSha ?? 'N/A' };
+} catch (e) {
+  meta = { ...meta, baselineGitSha: 'N/A' };
+}
+
+if (!existsSync(screenshotsDir)) {
+  mkdirSync(screenshotsDir, { recursive: true });
+}
+writeFileSync(new URL(`./${metaFileName}`, screenshotsDir), JSON.stringify(meta), 'utf8');
 
 export const visualRegressionConfig = {
   baseDir: 'dist/screenshots',
