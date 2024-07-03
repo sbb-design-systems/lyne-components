@@ -47,3 +47,20 @@ sbb-title {
   background-color: var(--sbb-color-black);
   width: calc(var(--app-progress) * 100%);
 }
+
+.app-filter-and-toggle {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @include sbb.mq($from: wide) {
+    align-items: end;
+    flex-direction: row;
+  }
+}
+
+.app-diff-global-toggle {
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}

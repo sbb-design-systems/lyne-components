@@ -1,4 +1,4 @@
-import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
+import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
@@ -32,10 +32,10 @@ export class ImageDiff extends LitElement {
   @state() private _baselineDimension?: string;
   @state() private _failedDimension?: string;
 
-  @state() private _showDiff: boolean = true;
+  @property() public showDiff: boolean = true;
 
   private _toggleDiff(event: Event): void {
-    this._showDiff = (event.target as SbbToggleCheckElement).checked;
+    this.showDiff = (event.target as SbbToggleCheckElement).checked;
   }
 
   private _setFailedImageDimension(event: Event): void {
@@ -88,7 +88,7 @@ export class ImageDiff extends LitElement {
         </div>
         ${!this.screenshotFiles.isNew && this.screenshotFiles.diffFile
           ? html`<sbb-toggle-check
-              checked
+              .checked=${this.showDiff}
               size="s"
               class="app-diff-toggle"
               @change=${this._toggleDiff}
@@ -120,7 +120,7 @@ export class ImageDiff extends LitElement {
               <button
                 @click=${() => this._showFullscreen('diffFile')}
                 class="app-image-button"
-                ?hidden=${!this._showDiff || this.screenshotFiles.isNew}
+                ?hidden=${!this.showDiff || this.screenshotFiles.isNew}
               >
                 <img
                   class="app-image"
@@ -131,7 +131,7 @@ export class ImageDiff extends LitElement {
               <button
                 @click=${() => this._showFullscreen('failedFile')}
                 class="app-image-button"
-                ?hidden=${this._showDiff && !this.screenshotFiles.isNew}
+                ?hidden=${this.showDiff && !this.screenshotFiles.isNew}
               >
                 <img
                   class="app-image"
