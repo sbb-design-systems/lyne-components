@@ -35,6 +35,9 @@ describe(`sbb-notification`, () => {
       <sbb-link href="/">Link two</sbb-link>
       <sbb-link href="/">Link three</sbb-link>
     </sbb-notification>
+  `;
+
+  const textTemplate = html`
     <p style="margin: 0;">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. <sbb-link href="/"> Link </sbb-link>
@@ -58,7 +61,7 @@ describe(`sbb-notification`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           const args = { ...defaultArgs, readonly, title: slottedTitle, slotted: slottedTitle };
-          await setup.withFixture(html`${notificationTemplate(args)}`);
+          await setup.withFixture(html`${notificationTemplate(args)} ${textTemplate}`);
         }),
       );
     });
@@ -72,6 +75,7 @@ describe(`sbb-notification`, () => {
               state.multiple ? types : [state.type],
               (type: string) => html`${notificationTemplate({ ...defaultArgs, type, size })}`,
             )}
+            ${textTemplate}
           `);
         }),
       );
