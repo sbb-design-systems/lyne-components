@@ -202,7 +202,7 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   protected handleHighlightState(): void {
     const slotNodes = Array.from(this.childNodes ?? []).filter(
-      (n) => !(n instanceof Element) || n.slot !== 'icon',
+      (n) => n.nodeType !== Node.COMMENT_NODE && (!(n instanceof Element) || n.slot !== 'icon'),
     );
     const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
