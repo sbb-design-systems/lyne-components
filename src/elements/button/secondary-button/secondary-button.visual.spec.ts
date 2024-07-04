@@ -7,10 +7,10 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import './button-link.js';
+import './secondary-button.js';
 
 // We test only the differences to the sbb-button
-describe(`sbb-button-link`, () => {
+describe(`sbb-secondary-button`, () => {
   let root: HTMLElement;
 
   const cases = {
@@ -24,14 +24,13 @@ describe(`sbb-button-link`, () => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-button-link
+            <sbb-secondary-button
               ?disabled=${disabled}
               ?negative=${negative}
               icon-name="arrow-right-small"
-              href="#"
             >
               Button
-            </sbb-button-link>
+            </sbb-secondary-button>
           `,
           {
             backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,

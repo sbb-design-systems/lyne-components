@@ -42,7 +42,7 @@ describe(`sbb-button`, () => {
             </sbb-button>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
             focusOutlineDark: negative,
           },
         );
@@ -79,7 +79,7 @@ describe(`sbb-button`, () => {
               </sbb-button>
             `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
               focusOutlineDark: negative,
               forcedColors: true,
             },

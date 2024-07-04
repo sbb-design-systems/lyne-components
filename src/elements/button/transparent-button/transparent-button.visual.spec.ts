@@ -7,10 +7,10 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import './button-link.js';
+import './transparent-button.js';
 
 // We test only the differences to the sbb-button
-describe(`sbb-button-link`, () => {
+describe(`sbb-transparent-button`, () => {
   let root: HTMLElement;
 
   const cases = {
@@ -24,17 +24,16 @@ describe(`sbb-button-link`, () => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-button-link
+            <sbb-transparent-button
               ?disabled=${disabled}
               ?negative=${negative}
               icon-name="arrow-right-small"
-              href="#"
             >
               Button
-            </sbb-button-link>
+            </sbb-transparent-button>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-color-granite)' : undefined,
             focusOutlineDark: negative,
             forcedColors,
           },
