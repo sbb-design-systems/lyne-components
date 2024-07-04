@@ -160,11 +160,14 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
       return;
     }
     this._calendarElement = calendar;
-    if (!this._datePickerElement?.valueAsDate || !this._calendarElement?.resetPosition) {
+    if (
+      !('valueAsDate' in (this._datePickerElement ?? {})) ||
+      !this._calendarElement?.resetPosition
+    ) {
       return;
     }
-    this._calendarElement.selected = this._datePickerElement.valueAsDate;
-    this._configureCalendar(this._calendarElement, this._datePickerElement);
+    this._calendarElement.selected = this._datePickerElement!.valueAsDate ?? undefined;
+    this._configureCalendar(this._calendarElement, this._datePickerElement!);
     this._calendarElement.resetPosition();
   }
 

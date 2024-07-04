@@ -187,14 +187,19 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
   @property({ type: Boolean }) public wide = false;
 
   /** A function used to filter out dates. */
-  @property({ attribute: 'date-filter' }) public dateFilter: (date: T | null) => boolean = () =>
-    true;
+  @property({ attribute: false }) public dateFilter: (date: T | null) => boolean = () => true;
 
-  /** A function used to parse string value into dates. */
-  @property({ attribute: 'date-parser' }) public dateParser?: (value: string) => T | undefined;
+  /**
+   * A function used to parse string value into dates.
+   * @deprecated No longer required.
+   */
+  @property({ attribute: false }) public dateParser?: (value: string) => T | undefined;
 
-  /** A function used to format dates into the preferred string format. */
-  @property() public format?: (date: T) => string;
+  /**
+   * A function used to format dates into the preferred string format.
+   * @deprecated No longer required.
+   */
+  @property({ attribute: false }) public format?: (date: T) => string;
 
   /** Reference of the native input connected to the datepicker. */
   @property() public input?: string | HTMLElement;
@@ -211,7 +216,7 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
   private _now?: T | null;
 
   /** The currently selected date as a Date or custom date provider instance. */
-  @property()
+  @property({ attribute: false })
   public set valueAsDate(value: SbbDateLike<T> | null) {
     this._valueAsDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     if (this._tryApplyFormatToInput()) {
@@ -269,6 +274,7 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
 
   private _inputObserver = new AgnosticMutationObserver((mutationsList) => {
     this._emitInputUpdated();
+    // TODO: Decide whether to remove this logic by adding a value property to the datepicker.
     if (this._inputElement && mutationsList?.some((e) => e.attributeName === 'value')) {
       const value = this._inputElement.getAttribute('value');
       this.valueAsDate = this._dateAdapter.parse(value, this.now) ?? value;
@@ -303,7 +309,7 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
   public override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('input') && this.input! !== changedProperties.get('input')!) {
+    if (changedProperties.has('input')) {
       this._attachInput();
     }
     if (
