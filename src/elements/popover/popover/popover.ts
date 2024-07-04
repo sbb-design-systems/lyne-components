@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html, isServer, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -15,6 +15,7 @@ import { findReferencedElement } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
+import { SbbHydrationMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
   isEventOnElement,
@@ -47,7 +48,7 @@ const popoversRef = new Set<SbbPopoverElement>();
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-popover')
-export class SbbPopoverElement extends SbbOpenCloseBaseElement {
+export class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -210,6 +211,13 @@ export class SbbPopoverElement extends SbbOpenCloseBaseElement {
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(): void {
+    if (isServer) {
+      return;
+    } else if (this.hydrationRequired) {
+      this.hydrationComplete.then(() => this._configure);
+      return;
+    }
+
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     if (!this.trigger) {
