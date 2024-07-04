@@ -37,7 +37,7 @@ snapshots["sbb-autocomplete-grid-option renders disabled DOM"] =
   aria-selected="false"
   data-slot-names="unnamed"
   disabled=""
-  id="sbb-autocomplete-grid-option-3"
+  id="sbb-autocomplete-grid-option-2"
   role="gridcell"
   value="1"
 >
@@ -63,22 +63,6 @@ snapshots["sbb-autocomplete-grid-option renders disabled Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid-option renders disabled Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-option A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Option 1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-option A11y tree Chrome */
-
 snapshots["sbb-autocomplete-grid-option A11y tree Firefox"] = 
 `<p>
   {
@@ -94,4 +78,20 @@ snapshots["sbb-autocomplete-grid-option A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-autocomplete-grid-option A11y tree Firefox */
+
+snapshots["sbb-autocomplete-grid-option A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Option 1"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-option A11y tree Chrome */
 

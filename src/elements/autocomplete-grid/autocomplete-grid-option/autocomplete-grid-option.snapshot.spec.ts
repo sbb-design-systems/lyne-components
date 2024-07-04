@@ -35,10 +35,6 @@ describe('sbb-autocomplete-grid-option', () => {
     });
   });
 
-  testA11yTreeSnapshot(
-    html`<sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>`,
-  );
-
   describe('renders disabled', () => {
     let root: SbbAutocompleteGridOptionElement;
     beforeEach(async () => {
@@ -64,4 +60,8 @@ describe('sbb-autocomplete-grid-option', () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
+
+  testA11yTreeSnapshot(
+    html`<sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>`,
+  );
 });
