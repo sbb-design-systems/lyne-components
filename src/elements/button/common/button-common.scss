@@ -52,6 +52,31 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   @include sbb.if-forced-colors {
     --sbb-button-color-default-border: CanvasText !important;
     --sbb-button-color-active-border: Highlight !important;
+    --sbb-button-color-default-background: Canvas !important;
+    --sbb-button-color-hover-background: Canvas !important;
+    --sbb-button-color-active-background: Canvas !important;
+    --sbb-button-color-disabled-background: Canvas !important;
+
+    // For static cases, button and link roles will override it.
+    --sbb-button-color-default-text: CanvasText !important;
+    --sbb-button-color-hover-text: CanvasText !important;
+    --sbb-button-color-active-text: CanvasText !important;
+  }
+}
+
+:host([role='button']) {
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-text: ButtonText !important;
+    --sbb-button-color-hover-text: ButtonText !important;
+    --sbb-button-color-active-text: ButtonText !important;
+  }
+}
+
+:host([data-link]) {
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-text: LinkText !important;
+    --sbb-button-color-hover-text: LinkText !important;
+    --sbb-button-color-active-text: LinkText !important;
   }
 }
 
@@ -101,18 +126,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 
   @include sbb.if-forced-colors {
     --sbb-button-color-hover-border: Highlight !important;
-  }
-}
-
-:host([role='button']) {
-  @include sbb.if-forced-colors {
-    --sbb-button-color-default-text: ButtonText !important;
-    --sbb-button-color-hover-text: ButtonText !important;
-    --sbb-button-color-active-text: ButtonText !important;
-    --sbb-button-color-default-background: Canvas !important;
-    --sbb-button-color-hover-background: Canvas !important;
-    --sbb-button-color-active-background: Canvas !important;
-    --sbb-button-color-disabled-background: Canvas !important;
   }
 }
 

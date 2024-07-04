@@ -27,6 +27,11 @@ describe(`sbb-button`, () => {
   // 'l' as default is covered by other cases.
   const sizeCases = { size: ['s', 'm'], icon: [undefined, 'arrow-right-small'] };
 
+  const forcedColorCases = {
+    disabled: [false, true],
+    negative: [false, true],
+  };
+
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     describeEach(cases, ({ disabled, negative, state }) => {
       beforeEach(async function () {
@@ -37,7 +42,7 @@ describe(`sbb-button`, () => {
             </sbb-button>
           `,
           {
-            backgroundColor: negative ? '#484040' : undefined,
+            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
             focusOutlineDark: negative,
           },
         );
@@ -58,10 +63,38 @@ describe(`sbb-button`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-button size=${size as 's' | 'm'} .iconName=${icon}>Button</sbb-button>`,
+            html`<sbb-button size=${size} .iconName=${icon}>Button</sbb-button>`,
           );
         }),
       );
+    });
+
+    describe('forcedColors=true', () => {
+      describeEach(forcedColorCases, ({ disabled, negative }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html`
+              <sbb-button ?disabled=${disabled} ?negative=${negative} icon-name="arrow-right-small">
+                Button
+              </sbb-button>
+            `,
+            {
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              focusOutlineDark: negative,
+              forcedColors: true,
+            },
+          );
+        });
+
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      });
     });
 
     it(
