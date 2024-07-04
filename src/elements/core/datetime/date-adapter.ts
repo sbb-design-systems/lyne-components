@@ -5,6 +5,8 @@ export const YEARS_PER_PAGE: number = 24;
 export const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
+// TODO(breaking-change): Change undefined return types to null.
+
 /**
  * Abstract date functionality.
  *
@@ -36,14 +38,14 @@ export abstract class DateAdapter<T = any> {
    */
   public abstract getDayOfWeek(date: T): number;
 
-  /* Get the first day of the week (0: sunday; 1: monday; etc.). */
+  /** Get the first day of the week (0: sunday; 1: monday; etc.). */
   public abstract getFirstDayOfWeek(): number;
 
   /**
    * Get the number of days in a month.
    * @param year
    * @param month
-   * */
+   */
   public abstract getNumDaysInMonth(date: T): number;
 
   /**
@@ -67,12 +69,13 @@ export abstract class DateAdapter<T = any> {
   /**
    * Checks whether a given `date` is valid.
    * @param date
-   * */
+   */
   public abstract isValid(date: T | null | undefined): boolean;
 
-  /** Creates a new date by cloning the given one.
+  /**
+   * Creates a new date by cloning the given one.
    * @param date
-   * */
+   */
   public abstract clone(date: T): T;
 
   /**
@@ -80,7 +83,7 @@ export abstract class DateAdapter<T = any> {
    * @param year
    * @param month The month of the date (1-indexed, 1 = January). Must be an integer 1 - 12.
    * @param date
-   * */
+   */
   public abstract createDate(year: number, month: number, date: number): T;
 
   /**
@@ -90,7 +93,7 @@ export abstract class DateAdapter<T = any> {
    * the given value is already a valid date object or null.
    * @param value Either Date, ISOString, Unix Timestamp (number of seconds since Jan 1, 1970).
    * @returns The date if the input is valid, `null` otherwise.
-   * */
+   */
   public deserialize(value: T | string | number | null | undefined): T | null {
     if (
       value == null ||
@@ -117,30 +120,60 @@ export abstract class DateAdapter<T = any> {
    */
   public abstract addCalendarMonths(date: T, months: number): T;
 
-  /** Creates a new date by adding the number of provided `days` to the provided `date`.
+  /**
+   * Creates a new date by adding the number of provided `days` to the provided `date`.
    * @param date The starting date.
    * @param days The number of days to add.
    */
   public abstract addCalendarDays(date: T, days: number): T;
 
-  /** Get the date in the local format.
+  /**
+   * Get the date in the local format.
    * @param date The date to format
    * @returns The `date` in the local format as string.
    */
   public abstract getAccessibilityFormatDate(date: T | string): string;
 
-  /** Get the given string as Date.
+  /**
+   * Get the given string as Date.
    * @param value The date in the format DD.MM.YYYY.
    * @param now The current date as Date.
    */
   public abstract parse(value: string | null | undefined, now: T): T | undefined;
 
-  /** Format the given Date as string.
+  /**
+   * Format the given date as string.
    * @param date The date to format.
    */
-  public abstract format(date: T | null | undefined): string;
+  public format(
+    date: T | null | undefined,
+    options?: { weekdayStyle?: 'long' | 'short' | 'narrow' },
+  ): string {
+    if (!this.isValid(date)) {
+      return '';
+    }
 
-  /** Checks whether the given `obj` is a Date.
+    const value = new Date(this.toIso8601(date!) + 'T00:00:00');
+    const dateFormatter = new Intl.DateTimeFormat('de-CH', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+
+    const weekdayStyle = options?.weekdayStyle ?? 'short';
+    let weekday = this.getDayOfWeekNames(weekdayStyle)[this.getDayOfWeek(date!)];
+    weekday = weekday.charAt(0).toUpperCase() + weekday.substring(1);
+    // We have the special requirement for date formats at SBB, where the short form
+    // for weekdays should be two characters in length.
+    if (weekdayStyle === 'short') {
+      weekday = weekday.substring(0, 2);
+    }
+
+    return `${weekday}, ${dateFormatter.format(value)}`;
+  }
+
+  /**
+   * Checks whether the given `obj` is a Date.
    * @param obj The object to check.
    */
   public abstract isDateInstance(obj: any): boolean;
@@ -151,7 +184,8 @@ export abstract class DateAdapter<T = any> {
    */
   public abstract invalid(): T;
 
-  /** Get the given date as ISO String.
+  /**
+   * Get the given date as ISO String.
    * @param date The date to convert to ISO String.
    */
   public toIso8601(date: T): string {

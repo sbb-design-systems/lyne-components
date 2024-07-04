@@ -43,7 +43,7 @@ describe(`sbb-datepicker ssr`, () => {
       },
     );
     const datepicker = root.querySelector('sbb-datepicker')!;
-    expect(asIso8601(datepicker.getValueAsDate()!)).to.equal(asIso8601(new Date(2023, 0, 1)));
+    expect(asIso8601(datepicker.valueAsDate!)).to.equal(asIso8601(new Date(2023, 0, 1)));
 
     const datepickerToggle = root.querySelector('sbb-datepicker-toggle')!;
     await datepickerToggle.hydrationComplete;

@@ -25,7 +25,9 @@ import '../../popover.js';
 @hostAttributes({
   slot: 'prefix',
 })
-export class SbbDatepickerToggleElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
+export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
+  SbbHydrationMixin(LitElement),
+) {
   public static override styles: CSSResultGroup = style;
 
   /** Datepicker reference. */
@@ -39,9 +41,9 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(SbbHydrationMix
 
   @state() private _renderCalendar = false;
 
-  private _datePickerElement: SbbDatepickerElement | null | undefined;
+  private _datePickerElement: SbbDatepickerElement<T> | null | undefined;
 
-  private _calendarElement!: SbbCalendarElement;
+  private _calendarElement!: SbbCalendarElement<T>;
 
   private _triggerElement!: SbbPopoverTriggerElement;
 
@@ -96,7 +98,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(SbbHydrationMix
   private _init(datePicker?: string | SbbDatepickerElement): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
-    this._datePickerElement = getDatePicker(this, datePicker);
+    this._datePickerElement = getDatePicker<T>(this, datePicker);
     if (!this._datePickerElement) {
       // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
       // assuming that the two components share the same parent element.
@@ -111,7 +113,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(SbbHydrationMix
     this._datePickerElement?.addEventListener(
       'inputUpdated',
       (event: CustomEvent<SbbInputUpdateEvent>) => {
-        this._datePickerElement = event.target as SbbDatepickerElement;
+        this._datePickerElement = event.target as SbbDatepickerElement<T>;
         this._disabled = !!(event.detail.disabled || event.detail.readonly);
         this._min = event.detail.min;
         this._max = event.detail.max;
@@ -128,13 +130,16 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(SbbHydrationMix
     this._datePickerElement?.addEventListener(
       'datePickerUpdated',
       (event: Event) =>
-        this._configureCalendar(this._calendarElement, event.target as SbbDatepickerElement),
+        this._configureCalendar(this._calendarElement, event.target as SbbDatepickerElement<T>),
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEventFactory());
   }
 
-  private _configureCalendar(calendar: SbbCalendarElement, datepicker: SbbDatepickerElement): void {
+  private _configureCalendar(
+    calendar: SbbCalendarElement<T>,
+    datepicker: SbbDatepickerElement<T>,
+  ): void {
     if (!calendar || !datepicker) {
       return;
     }
@@ -144,23 +149,21 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(SbbHydrationMix
   }
 
   private _datePickerChanged(event: Event): void {
-    this._datePickerElement = event.target as SbbDatepickerElement;
-    this._calendarElement.selected = this._datePickerElement.getValueAsDate();
+    this._datePickerElement = event.target as SbbDatepickerElement<T>;
+    if (this._calendarElement && this._datePickerElement.valueAsDate) {
+      this._calendarElement.selected = this._datePickerElement.valueAsDate;
+    }
   }
 
-  private _assignCalendar(calendar: SbbCalendarElement): void {
+  private _assignCalendar(calendar: SbbCalendarElement<T>): void {
     if (this._calendarElement && this._calendarElement === calendar) {
       return;
     }
     this._calendarElement = calendar;
-    if (
-      !this._datePickerElement ||
-      !this._datePickerElement.getValueAsDate ||
-      !this._calendarElement?.resetPosition
-    ) {
+    if (!this._datePickerElement?.valueAsDate || !this._calendarElement?.resetPosition) {
       return;
     }
-    this._calendarElement.selected = this._datePickerElement.getValueAsDate();
+    this._calendarElement.selected = this._datePickerElement.valueAsDate;
     this._configureCalendar(this._calendarElement, this._datePickerElement);
     this._calendarElement.resetPosition();
   }
@@ -171,7 +174,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(SbbHydrationMix
     this._popoverElement.trigger = this._triggerElement;
   }
 
-  private _nowOrUndefined(): Date | undefined {
+  private _nowOrUndefined(): T | undefined {
     return this._datePickerElement?.hasCustomNow() ? this._datePickerElement.now : undefined;
   }
 
@@ -202,12 +205,15 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(SbbHydrationMix
               .now=${this._nowOrUndefined()}
               ?wide=${this._datePickerElement?.wide}
               .dateFilter=${this._datePickerElement?.dateFilter}
-              @dateSelected=${(d: CustomEvent<Date>) => {
-                const newDate = new Date(d.detail);
-                this._calendarElement.selected = newDate;
-                this._datePickerElement?.setValueAsDate(newDate);
+              @dateSelected=${(d: CustomEvent<T>) => {
+                this._calendarElement.selected = d.detail;
+                if (this._datePickerElement) {
+                  this._datePickerElement.valueAsDate = d.detail;
+                }
               }}
-              ${ref((calendar?: Element) => this._assignCalendar(calendar as SbbCalendarElement))}
+              ${ref((calendar?: Element) =>
+                this._assignCalendar(calendar as SbbCalendarElement<T>),
+              )}
             ></sbb-calendar>`
           : nothing}
       </sbb-popover>
