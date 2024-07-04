@@ -4,12 +4,12 @@ import { repeat } from 'lit/directives/repeat.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import '../../form-field.js';
-import '../../autocomplete.js';
-import '../../select.js';
-import '../option.js';
-import './optgroup.js';
+import '../autocomplete-grid.js';
+import '../autocomplete-grid-option.js';
+import '../autocomplete-grid-row.js';
+import './autocomplete-grid-optgroup.js';
 
-describe(`sbb-optgroup`, () => {
+describe(`sbb-autocomplete-grid-optgroup`, () => {
   const defaultArgs = {
     iconName: undefined as string | undefined,
     disabled: false,
@@ -23,23 +23,25 @@ describe(`sbb-optgroup`, () => {
     ${repeat(
       new Array(3),
       (_, i) => html`
-        <sbb-option
-          value=${`Option ${i + 1}`}
-          ?disabled=${disabledSingle && i === 0}
-          icon-name=${iconName || nothing}
-          >Option ${i + 1}</sbb-option
-        >
+        <sbb-autocomplete-grid-row>
+          <sbb-autocomplete-grid-option
+            value=${`Option ${i + 1}`}
+            ?disabled=${disabledSingle && i === 0}
+            icon-name=${iconName || nothing}
+            >Option ${i + 1}</sbb-autocomplete-grid-option
+          >
+        </sbb-autocomplete-grid-row>
       `,
     )}
   `;
 
   const template = (args: typeof defaultArgs): TemplateResult => html`
-    <sbb-optgroup label="Option group 1" ?disabled=${args.disabled}>
+    <sbb-autocomplete-grid-optgroup label="Option group 1" ?disabled=${args.disabled}>
       ${createOptions(args.iconName, args.disabledSingle)}
-    </sbb-optgroup>
-    <sbb-optgroup label="Option group 2" ?disabled=${args.disabled}>
+    </sbb-autocomplete-grid-optgroup>
+    <sbb-autocomplete-grid-optgroup label="Option group 2" ?disabled=${args.disabled}>
       ${createOptions(args.iconName, args.disabledSingle)}
-    </sbb-optgroup>
+    </sbb-autocomplete-grid-optgroup>
   `;
 
   const standaloneTemplate = (args: typeof defaultArgs): TemplateResult => html`
@@ -54,14 +56,7 @@ describe(`sbb-optgroup`, () => {
     <sbb-form-field>
       <label>Autocomplete</label>
       <input placeholder="Placeholder" />
-      <sbb-autocomplete>${template(args)}</sbb-autocomplete>
-    </sbb-form-field>
-  `;
-
-  const selectTemplate = (args: typeof defaultArgs, multiple: boolean): TemplateResult => html`
-    <sbb-form-field>
-      <label>Select</label>
-      <sbb-select ?multiple=${multiple} placeholder="Select"> ${template(args)} </sbb-select>
+      <sbb-autocomplete-grid>${template(args)}</sbb-autocomplete-grid>
     </sbb-form-field>
   `;
 
@@ -96,35 +91,13 @@ describe(`sbb-optgroup`, () => {
       );
     });
 
-    describe('autocomplete', () => {
+    describe('autocomplete-grid', () => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(autocompleteTemplate(defaultArgs), { minHeight: '600px' });
+          await setup.withFixture(autocompleteTemplate(defaultArgs), { minHeight: '800px' });
           setup.withPostSetupAction(() =>
-            setup.snapshotElement.querySelector('sbb-autocomplete')!.open(),
-          );
-        }),
-      );
-    });
-
-    describe('select', () => {
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(selectTemplate(defaultArgs, false), { minHeight: '600px' });
-          setup.withPostSetupAction(() =>
-            setup.snapshotElement.querySelector('sbb-select')!.open(),
-          );
-        }),
-      );
-
-      it(
-        'multiple',
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(selectTemplate(defaultArgs, true), { minHeight: '600px' });
-          setup.withPostSetupAction(() =>
-            setup.snapshotElement.querySelector('sbb-select')!.open(),
+            setup.snapshotElement.querySelector('sbb-autocomplete-grid')!.open(),
           );
         }),
       );
