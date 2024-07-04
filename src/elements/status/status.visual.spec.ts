@@ -28,7 +28,7 @@ describe(`sbb-status`, () => {
       });
 
       it(
-        visualDiffDefault.name,
+       '',
         visualDiffDefault.with((setup) => {
           setup.withSnapshotElement(root);
         }),
