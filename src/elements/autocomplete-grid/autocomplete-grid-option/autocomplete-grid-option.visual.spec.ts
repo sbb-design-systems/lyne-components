@@ -43,7 +43,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
 
   const autocompleteTemplate = (args: typeof defaultArgs): TemplateResult => html`
     <sbb-form-field>
-      <label>sbb-autocomplete</label>
+      <label>sbb-autocomplete-grid</label>
       <input placeholder="Please select." />
       <sbb-autocomplete-grid>
         ${repeat(
