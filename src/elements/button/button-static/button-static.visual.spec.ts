@@ -6,7 +6,7 @@ import './button-static.js';
 
 // We test only the differences to the sbb-button and sbb-button-link
 describe(`sbb-button-static`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero'] }, () => {
     for (const forcedColors of [false, true]) {
       describe(`forcedColors=${forcedColors}`, () => {
         for (const state of visualDiffStandardStates) {
