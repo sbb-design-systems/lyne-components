@@ -8,7 +8,7 @@ import { SbbConnectedAbortController, SbbLanguageController } from '../../core/c
 import { slotState } from '../../core/decorators.js';
 import { isFirefox, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
-import { SbbNegativeMixin } from '../../core/mixins.js';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver } from '../../core/observers.js';
 import type { SbbSelectElement } from '../../select.js';
 
@@ -32,7 +32,7 @@ const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-select'];
  */
 @customElement('sbb-form-field')
 @slotState()
-export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
+export class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   private readonly _supportedNativeInputElements = ['input', 'select', 'textarea'];
