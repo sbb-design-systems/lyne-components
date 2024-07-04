@@ -443,13 +443,16 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
   }
 
   private _parseInput(deserializeAsFallback = false): void {
-    const value = this._inputElement?.value ?? '';
-    this._valueAsDate = this._dateAdapter.getValidDateOrNull(
-      this.dateParser
-        ? this.dateParser(value)
-        : this._dateAdapter.parse(value, this.now) ??
-            (deserializeAsFallback ? this._dateAdapter.deserialize(value) : null),
-    );
+    const value = this._inputElement!.value;
+    const parse = this.dateParser ?? ((v: string) => this._dateAdapter.parse(v, this.now));
+    // We are assigning directly to the private backing property of valueAsDate
+    // as we don't want to trigger a blur event during this time.
+    this._valueAsDate = this._dateAdapter.getValidDateOrNull(parse(value));
+    if (deserializeAsFallback && !this._valueAsDate) {
+      this._valueAsDate = this._dateAdapter.getValidDateOrNull(
+        this._dateAdapter.deserialize(value),
+      );
+    }
   }
 
   private _format(date: T): string {
