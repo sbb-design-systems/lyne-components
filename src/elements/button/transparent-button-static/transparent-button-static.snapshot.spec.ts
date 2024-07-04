@@ -4,12 +4,13 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { buttonSlottedIconTestTemplate, buttonTestTemplate } from '../common/button-test-utils.js';
 
 import type { SbbTransparentButtonStaticElement } from './transparent-button-static.js';
+
 import './transparent-button-static.js';
 
 describe(`sbb-transparent-button-static`, () => {
   let element: SbbTransparentButtonStaticElement;
 
-  describe('renders a sbb-transparent-button-static without icon', async () => {
+  describe('renders without icon', async () => {
     beforeEach(async () => {
       element = await fixture(buttonTestTemplate('sbb-transparent-button-static', true));
     });
@@ -23,7 +24,7 @@ describe(`sbb-transparent-button-static`, () => {
     });
   });
 
-  describe('renders a sbb-transparent-button-static with slotted icon', async () => {
+  describe('renders with slotted icon', async () => {
     beforeEach(async () => {
       element = await fixture(buttonSlottedIconTestTemplate('sbb-transparent-button-static'));
     });

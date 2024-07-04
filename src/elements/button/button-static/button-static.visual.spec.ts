@@ -1,6 +1,11 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffStandardStates } from '../../core/testing/private.js';
+import {
+  describeViewports,
+  visualDiffActive,
+  visualDiffDefault,
+  visualDiffHover,
+} from '../../core/testing/private.js';
 
 import './button-static.js';
 
@@ -9,7 +14,7 @@ describe(`sbb-button-static`, () => {
   describeViewports({ viewports: ['zero'] }, () => {
     for (const forcedColors of [false, true]) {
       describe(`forcedColors=${forcedColors}`, () => {
-        for (const state of visualDiffStandardStates) {
+        for (const state of [visualDiffDefault, visualDiffHover, visualDiffActive]) {
           it(
             state.name,
             state.with(async (setup) => {
