@@ -1,4 +1,3 @@
-import { writeFileSync } from 'fs';
 import { type CopySyncOptions, cpSync, existsSync, mkdirSync } from 'node:fs';
 
 import * as glob from 'glob';
@@ -13,9 +12,6 @@ const screenshotDir = new URL('../../dist/screenshots/', import.meta.url);
 const artifactDir = new URL('../../dist/screenshots-artifact/', import.meta.url);
 const copyOptions: CopySyncOptions = { force: true, recursive: true };
 mkdirSync(artifactDir, { recursive: true });
-
-// TODO: remove once on main
-writeFileSync(new URL('./.keep', artifactDir), '', 'utf8');
 
 cpSync(new URL('./meta.json', screenshotDir), new URL('./meta.json', artifactDir), copyOptions);
 
