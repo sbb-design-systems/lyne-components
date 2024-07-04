@@ -65,7 +65,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   }
 }
 
-:host([role='button']) {
+:host([data-button]) {
   @include sbb.if-forced-colors {
     --sbb-button-color-default-text: ButtonText !important;
     --sbb-button-color-hover-text: ButtonText !important;
