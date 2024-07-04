@@ -127,10 +127,6 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
 
-        # TODO: Remove once meta file workflow has elaborated
-      - name: Remove .keep file
-        run: rm dist/screenshots/.keep || true
-
       - name: Build visual-regression-app
         run: yarn build:visual-regression-app
 
