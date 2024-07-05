@@ -164,7 +164,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
         // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
         // string is the right format first.
       } else if (ISO_8601_REGEX.test(date)) {
-        return this.getValidDateOrNull(new Date(date));
+        return this.getValidDateOrNull(new Date(date.includes('T') ? date : date + 'T00:00:00'));
       }
     } else if (typeof date === 'number') {
       return this.getValidDateOrNull(new Date(date * 1000));
@@ -201,26 +201,6 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     return new Date(year, +match[2] - 1, +match[1]);
   }
 
-  public format(value: Date | null | undefined): string {
-    if (!value) {
-      return '';
-    }
-    const locale = `${SbbLanguageController.current}-CH`;
-    const dateFormatter = new Intl.DateTimeFormat('de-CH', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-    const dayFormatter = new Intl.DateTimeFormat(locale, {
-      weekday: 'short',
-    });
-
-    let weekday = dayFormatter.format(value);
-    weekday = weekday.charAt(0).toUpperCase() + weekday.charAt(1);
-
-    return `${weekday}, ${dateFormatter.format(value)}`;
-  }
-
   public override invalid(): Date {
     return new Date(NaN);
   }
@@ -231,11 +211,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    * @param valueFunction The function of array's index used to fill the array.
    */
   private _range<T>(length: number, valueFunction: (index: number) => T): T[] {
-    const valuesArray = Array(length);
-    for (let i = 0; i < length; i++) {
-      valuesArray[i] = valueFunction(i);
-    }
-    return valuesArray;
+    return Array.from({ length }).map((_, i) => valueFunction(i));
   }
 
   /** Creates a date but allows the month and date to overflow. */

@@ -16,7 +16,7 @@ import style from './datepicker-previous-day.scss?lit&inline';
 @hostAttributes({
   slot: 'prefix',
 })
-export class SbbDatepickerPreviousDayElement extends SbbDatepickerButton {
+export class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
   public static override styles: CSSResultGroup = style;
 
   protected iconName: string = 'chevron-small-left-small';
