@@ -48,42 +48,44 @@ describe('sbb-slider', () => {
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const variant of variants) {
-      for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+      describe(`${variant.name}`, () => {
+        for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            visualDiffState.name,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(variant.template(defaultArgs));
+            }),
+          );
+        }
+
         it(
-          `${variant.name} ${visualDiffState.name}`,
-          visualDiffState.with(async (setup) => {
-            await setup.withFixture(variant.template(defaultArgs));
+          'disabled',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(variant.template({ ...defaultArgs, disabled: true }));
           }),
         );
-      }
 
-      it(
-        `${variant.name} disabled`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(variant.template({ ...defaultArgs, disabled: true }));
-        }),
-      );
+        it(
+          'readonly',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(variant.template({ ...defaultArgs, readonly: true }));
+          }),
+        );
 
-      it(
-        `${variant.name} readonly`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(variant.template({ ...defaultArgs, readonly: true }));
-        }),
-      );
+        it(
+          'icon=false',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(variant.template({ ...defaultArgs, withIcon: false }));
+          }),
+        );
 
-      it(
-        `${variant.name} icon=false`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(variant.template({ ...defaultArgs, withIcon: false }));
-        }),
-      );
-
-      it(
-        `${variant.name} icon=slotted`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(variant.template({ ...defaultArgs, withSlottedIcon: true }));
-        }),
-      );
+        it(
+          'icon=slotted',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(variant.template({ ...defaultArgs, withSlottedIcon: true }));
+          }),
+        );
+      });
     }
   });
 });
