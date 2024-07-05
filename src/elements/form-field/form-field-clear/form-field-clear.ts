@@ -5,7 +5,6 @@ import { customElement } from 'lit/decorators.js';
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
-import { hostContext } from '../../core/dom.js';
 import { i18nClearInput } from '../../core/i18n.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
 import type { SbbFormFieldElement } from '../form-field.js';
@@ -24,7 +23,7 @@ import '../../icon.js';
 export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 
-  private _formField?: SbbFormFieldElement;
+  private _formField?: SbbFormFieldElement | null;
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
 
@@ -32,9 +31,7 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('click', () => this._handleClick(), { signal });
-    this._formField =
-      (hostContext('sbb-form-field', this) as SbbFormFieldElement) ??
-      (hostContext('[data-form-field]', this) as SbbFormFieldElement);
+    this._formField = this.closest<SbbFormFieldElement>('sbb-form-field, [data-form-field]');
 
     if (this._formField) {
       this.negative = this._formField.hasAttribute('negative');
