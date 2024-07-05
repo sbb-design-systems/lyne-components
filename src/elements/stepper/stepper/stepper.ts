@@ -11,6 +11,7 @@ import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { breakpoints, isBreakpoint } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
+import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.js';
 
 import style from './stepper.scss?lit&inline';
@@ -24,7 +25,7 @@ const DEBOUNCE_TIME = 150;
  * @slot step - Use this slot to provide an `sbb-step`.
  */
 @customElement('sbb-stepper')
-export class SbbStepperElement extends LitElement {
+export class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** If set to true, only the current and previous labels can be clicked and selected. */
