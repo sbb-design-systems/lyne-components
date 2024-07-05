@@ -46,7 +46,7 @@ const TemplateSbbSliderInFormField = ({ label, optional, ...args }: Args): Templ
   </sbb-form-field>
 `;
 
-const valueArg: InputType = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -55,7 +55,7 @@ const valueArg: InputType = {
   },
 };
 
-const valueAsNumberArg: InputType = {
+const valueAsNumber: InputType = {
   control: {
     type: 'number',
   },
@@ -64,7 +64,7 @@ const valueAsNumberArg: InputType = {
   },
 };
 
-const minArg: InputType = {
+const min: InputType = {
   control: {
     type: 'text',
   },
@@ -73,7 +73,7 @@ const minArg: InputType = {
   },
 };
 
-const maxArg: InputType = {
+const max: InputType = {
   control: {
     type: 'text',
   },
@@ -82,7 +82,7 @@ const maxArg: InputType = {
   },
 };
 
-const disabledArg: InputType = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -91,7 +91,7 @@ const disabledArg: InputType = {
   },
 };
 
-const readonlyArg: InputType = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -100,7 +100,7 @@ const readonlyArg: InputType = {
   },
 };
 
-const startIconArg: InputType = {
+const startIcon: InputType = {
   control: {
     type: 'text',
   },
@@ -109,7 +109,7 @@ const startIconArg: InputType = {
   },
 };
 
-const endIconArg: InputType = {
+const endIcon: InputType = {
   control: {
     type: 'text',
   },
@@ -127,7 +127,7 @@ const ariaLabel: InputType = {
   },
 };
 
-const labelArgArg: InputType = {
+const label: InputType = {
   control: {
     type: 'text',
   },
@@ -136,7 +136,7 @@ const labelArgArg: InputType = {
   },
 };
 
-const optionalArg: InputType = {
+const optional: InputType = {
   control: {
     type: 'boolean',
   },
@@ -146,21 +146,21 @@ const optionalArg: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
-  max: maxArg,
-  min: minArg,
-  disabled: disabledArg,
-  readonly: readonlyArg,
-  value: valueArg,
-  'value-as-number': valueAsNumberArg,
-  'start-icon': startIconArg,
-  'end-icon': endIconArg,
+  max,
+  min,
+  disabled,
+  readonly,
+  value: value,
+  'value-as-number': valueAsNumber,
+  'start-icon': startIcon,
+  'end-icon': endIcon,
   'aria-label': ariaLabel,
 };
 
 const formFieldBasicArgsTypes: ArgTypes = {
   ...basicArgTypes,
-  label: labelArgArg,
-  optional: optionalArg,
+  label,
+  optional,
 };
 
 const basicArgs: Args = {
@@ -181,49 +181,49 @@ const formFieldBasicArgs = {
   optional: undefined,
 };
 
-export const sbbSlider: StoryObj = {
+export const Default: StoryObj = {
   render: TemplateSbbSlider,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgs },
 };
 
-export const sbbSliderChangeEvent: StoryObj = {
+export const WithChangeEvent: StoryObj = {
   render: TemplateSbbSliderChangeEvent,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgs },
 };
 
-export const sbbSliderWithoutIcons: StoryObj = {
+export const NoIcons: StoryObj = {
   render: TemplateSbbSlider,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined },
 };
 
-export const sbbSliderSlottedIcons: StoryObj = {
+export const WithSlottedIcons: StoryObj = {
   render: TemplateSlottedIcons,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined },
 };
 
-export const sbbSliderDisabled: StoryObj = {
+export const Disabled: StoryObj = {
   render: TemplateSbbSlider,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgs, disabled: true },
 };
 
-export const sbbSliderReadonly: StoryObj = {
+export const Readonly: StoryObj = {
   render: TemplateSbbSlider,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgs, readonly: true },
 };
 
-export const sbbSliderInFormField: StoryObj = {
+export const InFormField: StoryObj = {
   render: TemplateSbbSliderInFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: formFieldBasicArgs,
 };
 
-export const sbbSliderInFormFieldNoIcon: StoryObj = {
+export const InFormFieldNoIcons: StoryObj = {
   render: TemplateSbbSliderInFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
@@ -233,7 +233,7 @@ export const sbbSliderInFormFieldNoIcon: StoryObj = {
   },
 };
 
-export const sbbSliderInFormFieldDisabled: StoryObj = {
+export const InFormFieldDisabled: StoryObj = {
   render: TemplateSbbSliderInFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, disabled: true },
