@@ -15,24 +15,19 @@ const template = (title?: string): TemplateResult => html`
 
 describe(`sbb-skiplink-list`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    it(
-      'not focused',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(), { minHeight: '100px' });
-      }),
-    );
-
-    it(
-      `no title`,
-      visualDiffFocus.with(async (setup) => {
-        await setup.withFixture(template(), { minHeight: '100px' });
-      }),
-    );
+    for (const state of [visualDiffDefault, visualDiffFocus]) {
+      it(
+        state.name,
+        state.with(async (setup) => {
+          await setup.withFixture(template(), { minHeight: '100px' });
+        }),
+      );
+    }
 
     it(
       `title content`,
       visualDiffFocus.with(async (setup) => {
-        await setup.withFixture(template(), { minHeight: '100px' });
+        await setup.withFixture(template('Skip to'), { minHeight: '100px' });
       }),
     );
   });
