@@ -150,7 +150,7 @@ const basicArgTypes: ArgTypes = {
   min,
   disabled,
   readonly,
-  value: value,
+  value,
   'value-as-number': valueAsNumber,
   'start-icon': startIcon,
   'end-icon': endIcon,
