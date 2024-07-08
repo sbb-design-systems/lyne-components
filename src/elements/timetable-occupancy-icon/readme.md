@@ -16,7 +16,7 @@ in this case, the rendered icon will change accordingly.
 
 ## Accessibility
 
-In high contrast mode, in both light and dark variant, the rendered icon changes for a better user experience.
+In high contrast mode, the rendered icon changes for a better user experience.
 
 <!-- Auto Generated Below -->
 
