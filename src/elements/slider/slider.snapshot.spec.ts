@@ -10,7 +10,7 @@ import './slider.js';
 describe(`sbb-slider`, () => {
   let element: SbbSliderElement;
 
-  describe('should render', async () => {
+  describe('renders', async () => {
     beforeEach(async () => {
       element = await fixture(html`<sbb-slider value="1"></sbb-slider>`);
     });
@@ -26,7 +26,7 @@ describe(`sbb-slider`, () => {
     testA11yTreeSnapshot();
   });
 
-  describe('should render with properties', async () => {
+  describe('renders with properties', async () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-slider
@@ -50,7 +50,7 @@ describe(`sbb-slider`, () => {
     testA11yTreeSnapshot();
   });
 
-  describe('should render disabled', async () => {
+  describe('renders disabled', async () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-slider
@@ -75,7 +75,7 @@ describe(`sbb-slider`, () => {
     testA11yTreeSnapshot();
   });
 
-  describe('should render readonly', async () => {
+  describe('renders readonly', async () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-slider
