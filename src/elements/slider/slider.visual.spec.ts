@@ -1,6 +1,11 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
+import {
+  describeViewports,
+  visualDiffActive,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../core/testing/private.js';
 
 import '../form-field.js';
 import './slider.js';
@@ -49,7 +54,7 @@ describe('sbb-slider', () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const variant of variants) {
       describe(`${variant.name}`, () => {
-        for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+        for (const visualDiffState of [visualDiffActive, visualDiffDefault, visualDiffFocus]) {
           it(
             visualDiffState.name,
             visualDiffState.with(async (setup) => {
