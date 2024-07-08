@@ -11,6 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
+import { readConfig } from '../core/config.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import type { DateAdapter } from '../core/datetime.js';
 import {
@@ -152,7 +153,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   /** A function used to filter out dates. */
   @property({ attribute: 'date-filter' }) public dateFilter?: (date: T | null) => boolean;
 
-  private _dateAdapter: DateAdapter<T> = defaultDateAdapter as unknown as DateAdapter<T>;
+  private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   /** Event emitted on date selection. */
   private _dateSelected: EventEmitter<T> = new EventEmitter(

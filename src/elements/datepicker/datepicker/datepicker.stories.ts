@@ -298,9 +298,7 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
 
 const changeEventHandler = async (event: Event): Promise<void> => {
   const div = document.createElement('div');
-  div.innerText = `valueAsDate is: ${await (
-    event.target as SbbDatepickerElement
-  ).getValueAsDate()}.`;
+  div.innerText = `valueAsDate is: ${(event.target as SbbDatepickerElement).valueAsDate}.`;
   document.getElementById('container-value')?.append(div);
 };
 

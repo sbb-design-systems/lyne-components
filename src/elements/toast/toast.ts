@@ -9,6 +9,7 @@ import { slotState } from '../core/decorators.js';
 import { isFirefox } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
+import { SbbHydrationMixin } from '../core/mixins.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
 
@@ -39,7 +40,7 @@ const toastRefs = new Set<SbbToastElement>();
  */
 @customElement('sbb-toast')
 @slotState()
-export class SbbToastElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
+export class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBaseElement)) {
   public static override styles: CSSResultGroup = style;
 
   /**

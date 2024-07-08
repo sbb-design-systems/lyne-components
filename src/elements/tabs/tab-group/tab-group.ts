@@ -6,6 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { EventEmitter, throttle } from '../../core/eventing.js';
+import { SbbHydrationMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 import { SbbTabElement } from '../tab.js';
@@ -52,7 +53,7 @@ let nextId = 0;
  * @event {CustomEvent<SbbTabChangedEventDetails>} didChange - Emits an event on selected tab change.
  */
 @customElement('sbb-tab-group')
-export class SbbTabGroupElement extends LitElement {
+export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',

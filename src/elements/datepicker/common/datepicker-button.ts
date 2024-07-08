@@ -2,6 +2,7 @@ import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { readConfig } from '../../core/config.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { i18nToday } from '../../core/i18n.js';
@@ -12,11 +13,12 @@ import {
   type SbbDatepickerElement,
   type SbbInputUpdateEvent,
 } from '../datepicker.js';
+
 import '../../icon.js';
 
-export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBaseElement) {
+export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(SbbButtonBaseElement) {
   /** Datepicker reference. */
-  @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
+  @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement<T>;
 
   /** The boundary date (min/max) as set in the date-picker's input. */
   @state() protected boundary: string | number | null = null;
@@ -27,8 +29,8 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
   /** Whether the component is disabled due date-picker's input disabled. */
   private _inputDisabled = false;
 
-  protected datePickerElement?: SbbDatepickerElement | null = null;
-  private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
+  protected datePickerElement?: SbbDatepickerElement<T> | null = null;
+  private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   private _datePickerController!: AbortController;
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
@@ -37,11 +39,11 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
   protected abstract i18nOffBoundaryDay: Record<string, string>;
   protected abstract i18nSelectOffBoundaryDay: (_currentDate: string) => Record<string, string>;
   protected abstract findAvailableDate: (
-    _date: Date,
-    _dateFilter: ((date: Date) => boolean) | null,
-    _dateAdapter: DateAdapter<Date>,
+    _date: T,
+    _dateFilter: ((date: T) => boolean) | null,
+    _dateAdapter: DateAdapter<T>,
     _boundary: string | number | null,
-  ) => Date;
+  ) => T;
   protected abstract onInputUpdated(event: CustomEvent<SbbInputUpdateEvent>): void;
 
   public override connectedCallback(): void {
@@ -66,8 +68,8 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
     this._datePickerController?.abort();
   }
 
-  protected setDisabledState(datepicker: SbbDatepickerElement | null | undefined): void {
-    const pickerValueAsDate = datepicker?.getValueAsDate?.();
+  protected setDisabledState(datepicker: SbbDatepickerElement<T> | null | undefined): void {
+    const pickerValueAsDate = datepicker?.valueAsDate;
 
     if (!pickerValueAsDate) {
       this._disabled = true;
@@ -75,7 +77,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
       return;
     }
 
-    const availableDate: Date = this.findAvailableDate(
+    const availableDate: T = this.findAvailableDate(
       pickerValueAsDate,
       datepicker?.dateFilter || null,
       this._dateAdapter,
@@ -89,16 +91,15 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
     if (!this.datePickerElement || this.hasAttribute('data-disabled')) {
       return;
     }
-    const startingDate: Date =
-      this.datePickerElement.getValueAsDate() ?? this.datePickerElement.now;
-    const date: Date = this.findAvailableDate(
+    const startingDate: T = this.datePickerElement.valueAsDate ?? this.datePickerElement.now;
+    const date: T = this.findAvailableDate(
       startingDate,
       this.datePickerElement.dateFilter,
       this._dateAdapter,
       this.boundary,
     );
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
-      this.datePickerElement.setValueAsDate(date);
+      this.datePickerElement.valueAsDate = date;
     }
   }
 
@@ -119,7 +120,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
     }
   }
 
-  private _init(picker?: string | SbbDatepickerElement): void {
+  private _init(picker?: string | SbbDatepickerElement<T>): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this.datePickerElement = getDatePicker(this, picker);
@@ -129,7 +130,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
       // assuming that the two components share the same parent element.
       this.parentElement?.addEventListener(
         'inputUpdated',
-        (e: CustomEvent<SbbInputUpdateEvent>) => this._init(e.target as SbbDatepickerElement),
+        (e: CustomEvent<SbbInputUpdateEvent>) => this._init(e.target as SbbDatepickerElement<T>),
         { once: true, signal: this._datePickerController.signal },
       );
       return;
@@ -139,7 +140,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
     this.datePickerElement.addEventListener(
       'change',
       (event: Event) => {
-        this.setDisabledState(event.target as SbbDatepickerElement);
+        this.setDisabledState(event.target as SbbDatepickerElement<T>);
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
@@ -147,7 +148,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
     this.datePickerElement.addEventListener(
       'datePickerUpdated',
       (event: Event) => {
-        this.setDisabledState(event.target as SbbDatepickerElement);
+        this.setDisabledState(event.target as SbbDatepickerElement<T>);
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
@@ -167,7 +168,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
   }
 
   private _setAriaLabel(): void {
-    const currentDate = this.datePickerElement?.getValueAsDate?.();
+    const currentDate = this.datePickerElement?.valueAsDate;
 
     if (!currentDate || !this._dateAdapter.isValid(currentDate)) {
       this.setAttribute('aria-label', this.i18nOffBoundaryDay[this._language.current]);
@@ -176,7 +177,8 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
 
     // TODO: use toIsoString() instead of toDateString()
     const currentDateString =
-      this.datePickerElement?.now.toDateString() === currentDate.toDateString()
+      this.datePickerElement &&
+      this._dateAdapter.compareDate(this.datePickerElement.now, currentDate) === 0
         ? i18nToday[this._language.current].toLowerCase()
         : this._dateAdapter.getAccessibilityFormatDate(currentDate);
 

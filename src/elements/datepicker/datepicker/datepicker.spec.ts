@@ -63,7 +63,7 @@ describe(`sbb-datepicker`, () => {
     it('renders and interprets timestamp', async () => {
       const element = await fixture(html`
         <div>
-          <input id="datepicker-input" value="1594512000000" />
+          <input id="datepicker-input" value="1594512000" />
           <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
         </div>
       `);
@@ -355,7 +355,7 @@ describe(`sbb-datepicker`, () => {
         page.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
       const elementNext: SbbDatepickerNextDayElement =
         page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-      expect(getDatePicker(elementNext)).to.equal(picker);
+      expect(getDatePicker<Date>(elementNext)).to.equal(picker);
     });
 
     it('returns the datepicker if its id is passed as trigger', async () => {
@@ -369,7 +369,7 @@ describe(`sbb-datepicker`, () => {
       const picker: SbbDatepickerElement = page.querySelector<SbbDatepickerElement>('#picker')!;
       const elementPrevious: SbbDatepickerPreviousDayElement =
         page.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
-      expect(getDatePicker(elementPrevious, 'picker')).to.equal(picker);
+      expect(getDatePicker<Date>(elementPrevious, 'picker')).to.equal(picker);
     });
   });
 
