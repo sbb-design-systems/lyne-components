@@ -10,7 +10,7 @@ import './step-label.js';
 
 describe(`sbb-step-label`, () => {
   const template = (disabled?: boolean): TemplateResult =>
-    html`<sbb-step-label ?disabled=${disabled}>Label</sbb-step-label>`;
+    html`<sbb-step-label icon-name="tick-small" ?disabled=${disabled}>Label</sbb-step-label>`;
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const state of [visualDiffDefault, visualDiffHover]) {
