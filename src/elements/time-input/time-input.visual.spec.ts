@@ -25,11 +25,12 @@ describe(`sbb-time-input`, () => {
     readonly?: boolean;
     borderless?: boolean;
     disabled?: boolean;
+    noIcons?: boolean;
   };
   const template = (args: Partial<ParamsType>): TemplateResult => html`
     <sbb-form-field ?borderless=${args.borderless} ?negative=${args.negative} width="collapse">
       <label>Label</label>
-      <sbb-icon slot="prefix" name="clock-small"></sbb-icon>
+      ${!args.noIcons ? html`<sbb-icon slot="prefix" name="clock-small"></sbb-icon>` : nothing}
       <sbb-time-input></sbb-time-input>
       <input
         id="input-id"
@@ -37,7 +38,9 @@ describe(`sbb-time-input`, () => {
         ?disabled=${args.disabled}
         ?readonly="${args.readonly}"
       />
-      <sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>
+      ${!args.noIcons
+        ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
+        : nothing}
       ${args.withError ? html`<sbb-form-error>Error message</sbb-form-error>` : nothing}
     </sbb-form-field>
   `;
@@ -77,6 +80,13 @@ describe(`sbb-time-input`, () => {
         `borderless_${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(template({ borderless: true }));
+        }),
+      );
+
+      it(
+        `no icon_${state.name}`,
+        state.with(async (setup) => {
+          await setup.withFixture(template({ noIcons: true }));
         }),
       );
     }
