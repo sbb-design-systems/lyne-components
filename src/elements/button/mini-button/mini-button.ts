@@ -1,9 +1,9 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbMiniButtonBaseElement } from '../../core/base-elements.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 
+import { SbbMiniButtonBaseElement } from './mini-button-base-element.js';
 import style from './mini-button.scss?lit&inline';
 
 /**

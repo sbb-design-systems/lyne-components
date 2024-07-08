@@ -2,8 +2,7 @@ import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement } from '../../core/base-elements.js';
-import { SbbSlotStateController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
+import { hostAttributes, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { isEventPrevented } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
@@ -31,6 +30,7 @@ const buttonObserverConfig: MutationObserverInit = {
   tabindex: null,
   'data-button': '',
 })
+@slotState()
 export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
@@ -52,23 +52,17 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   }
 
   /** MutationObserver on data attributes. */
-  private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
-    this._onOptionAttributesChange(mutationsList),
-  );
-
-  /** Observe changes on data attributes and set the appropriate values. */
-  private _onOptionAttributesChange(mutationsList: MutationRecord[]): void {
+  private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
         this._disabledFromGroup = this.hasAttribute('data-group-disabled');
         setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
       }
     }
-  }
+  });
 
   public constructor() {
     super();
-    new SbbSlotStateController(this);
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._handleButtonClick);
@@ -106,14 +100,6 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
    * Used to dispatch a click event when users interact with the button via keyboard (the component does not receive focus).
    */
   public dispatchClick(event: KeyboardEvent): void {
-    return this.dispatchClickEvent(event);
-  }
-
-  /**
-   * Event needs to be dispatched from the action element; in autocomplete-grid,
-   * the input has always the focus, so the `event.target` on parent class is the input and not the button.
-   */
-  protected dispatchClickEvent = (event: KeyboardEvent): void => {
     const { altKey, ctrlKey, metaKey, shiftKey } = event;
     this.dispatchEvent(
       new PointerEvent('click', {
@@ -128,7 +114,7 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
         shiftKey,
       }),
     );
-  };
+  }
 
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {
     if ((await isEventPrevented(event)) || !this.closest('form')) {

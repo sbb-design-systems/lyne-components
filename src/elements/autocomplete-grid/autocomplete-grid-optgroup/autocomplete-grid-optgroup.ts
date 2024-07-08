@@ -18,12 +18,6 @@ export class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
     ) as SbbAutocompleteGridOptionElement[];
   }
 
-  private get _buttons(): SbbAutocompleteGridButtonElement[] {
-    return Array.from(
-      this.querySelectorAll?.('sbb-autocomplete-grid-button') ?? [],
-    ) as SbbAutocompleteGridButtonElement[];
-  }
-
   protected getAutocompleteParent(): SbbAutocompleteGridElement | null {
     return this.closest?.('sbb-autocomplete-grid') || null;
   }
@@ -35,7 +29,10 @@ export class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
 
   protected override proxyDisabledToOptions(): void {
     super.proxyDisabledToOptions();
-    for (const el of this._buttons) {
+    const buttons = Array.from(
+      this.querySelectorAll?.('sbb-autocomplete-grid-button') ?? [],
+    ) as SbbAutocompleteGridButtonElement[];
+    for (const el of buttons) {
       el.toggleAttribute('data-group-disabled', this.disabled);
     }
   }

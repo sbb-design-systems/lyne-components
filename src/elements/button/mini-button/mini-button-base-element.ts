@@ -1,10 +1,9 @@
 import type { TemplateResult } from 'lit';
 
+import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { slotState } from '../../core/decorators.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
-import { slotState } from '../decorators.js';
-import { SbbNegativeMixin } from '../mixins.js';
-
-import { SbbButtonBaseElement } from './button-base-element.js';
 
 @slotState()
 export abstract class SbbMiniButtonBaseElement extends SbbNegativeMixin(
