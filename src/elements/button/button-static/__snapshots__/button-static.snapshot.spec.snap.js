@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-button-static renders a sbb-button-static without icon DOM"] = 
+snapshots["sbb-button-static renders without icon DOM"] = 
 `<sbb-button-static
   data-action=""
   data-sbb-button=""
@@ -14,9 +14,9 @@ snapshots["sbb-button-static renders a sbb-button-static without icon DOM"] =
   Label Text
 </sbb-button-static>
 `;
-/* end snapshot sbb-button-static renders a sbb-button-static without icon DOM */
+/* end snapshot sbb-button-static renders without icon DOM */
 
-snapshots["sbb-button-static renders a sbb-button-static without icon Shadow DOM"] = 
+snapshots["sbb-button-static renders without icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-button-static">
   <slot name="icon">
   </slot>
@@ -26,9 +26,9 @@ snapshots["sbb-button-static renders a sbb-button-static without icon Shadow DOM
   </span>
 </span>
 `;
-/* end snapshot sbb-button-static renders a sbb-button-static without icon Shadow DOM */
+/* end snapshot sbb-button-static renders without icon Shadow DOM */
 
-snapshots["sbb-button-static renders a sbb-button-static with slotted icon DOM"] = 
+snapshots["sbb-button-static renders with slotted icon DOM"] = 
 `<sbb-button-static
   data-action=""
   data-sbb-button=""
@@ -47,9 +47,9 @@ snapshots["sbb-button-static renders a sbb-button-static with slotted icon DOM"]
   Label Text
 </sbb-button-static>
 `;
-/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon DOM */
+/* end snapshot sbb-button-static renders with slotted icon DOM */
 
-snapshots["sbb-button-static renders a sbb-button-static with slotted icon Shadow DOM"] = 
+snapshots["sbb-button-static renders with slotted icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-button-static">
   <slot name="icon">
   </slot>
@@ -59,9 +59,9 @@ snapshots["sbb-button-static renders a sbb-button-static with slotted icon Shado
   </span>
 </span>
 `;
-/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon Shadow DOM */
+/* end snapshot sbb-button-static renders with slotted icon Shadow DOM */
 
-snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y tree Chrome"] = 
+snapshots["sbb-button-static renders with slotted icon A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -75,9 +75,9 @@ snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y 
 }
 </p>
 `;
-/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon A11y tree Chrome */
+/* end snapshot sbb-button-static renders with slotted icon A11y tree Chrome */
 
-snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y tree Firefox"] = 
+snapshots["sbb-button-static renders with slotted icon A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -91,5 +91,5 @@ snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y 
 }
 </p>
 `;
-/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon A11y tree Firefox */
+/* end snapshot sbb-button-static renders with slotted icon A11y tree Firefox */
 
