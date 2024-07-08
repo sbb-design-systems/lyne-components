@@ -95,20 +95,3 @@ jobs:
           docker push $IMAGE_REPO_STORYBOOK:dev
         env:
           DOCKER_BUILDKIT: 1
-
-      - name: Generate chromatic stories
-        run: yarn generate:chromatic-stories
-      - name: Create versioned storybook for chromatic
-        run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build:storybook
-        env:
-          CHROMATIC: true
-        # Send storybook to chromatic. These snapshots should be accepted as new
-        # baseline in storybook.
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          storybookBuildDir: dist/storybook
-          autoAcceptChanges: true
-          exitZeroOnChanges: true
-          zip: true

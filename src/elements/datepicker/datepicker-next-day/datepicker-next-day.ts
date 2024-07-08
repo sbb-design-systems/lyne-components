@@ -16,7 +16,7 @@ import style from './datepicker-next-day.scss?lit&inline';
 @hostAttributes({
   slot: 'suffix',
 })
-export class SbbDatepickerNextDayElement extends SbbDatepickerButton {
+export class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
   public static override styles: CSSResultGroup = style;
 
   protected iconName: string = 'chevron-small-right-small';

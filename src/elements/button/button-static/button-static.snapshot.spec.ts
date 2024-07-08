@@ -10,7 +10,7 @@ import './button-static.js';
 describe(`sbb-button-static`, () => {
   let element: SbbButtonStaticElement;
 
-  describe('renders a sbb-button-static without icon', async () => {
+  describe('renders without icon', async () => {
     beforeEach(async () => {
       element = await fixture(buttonTestTemplate('sbb-button-static', true));
     });
@@ -24,7 +24,7 @@ describe(`sbb-button-static`, () => {
     });
   });
 
-  describe('renders a sbb-button-static with slotted icon', async () => {
+  describe('renders with slotted icon', async () => {
     beforeEach(async () => {
       element = await fixture(buttonSlottedIconTestTemplate('sbb-button-static'));
     });

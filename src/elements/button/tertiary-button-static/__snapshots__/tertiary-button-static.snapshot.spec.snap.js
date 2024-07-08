@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-tertiary-button-static renders a sbb-secondary-button-static without icon DOM"] = 
+snapshots["sbb-tertiary-button-static renders without icon DOM"] = 
 `<sbb-tertiary-button-static
   data-action=""
   data-sbb-button=""
@@ -14,9 +14,9 @@ snapshots["sbb-tertiary-button-static renders a sbb-secondary-button-static with
   Label Text
 </sbb-tertiary-button-static>
 `;
-/* end snapshot sbb-tertiary-button-static renders a sbb-secondary-button-static without icon DOM */
+/* end snapshot sbb-tertiary-button-static renders without icon DOM */
 
-snapshots["sbb-tertiary-button-static renders a sbb-secondary-button-static without icon Shadow DOM"] = 
+snapshots["sbb-tertiary-button-static renders without icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-tertiary-button-static">
   <slot name="icon">
   </slot>
@@ -26,9 +26,9 @@ snapshots["sbb-tertiary-button-static renders a sbb-secondary-button-static with
   </span>
 </span>
 `;
-/* end snapshot sbb-tertiary-button-static renders a sbb-secondary-button-static without icon Shadow DOM */
+/* end snapshot sbb-tertiary-button-static renders without icon Shadow DOM */
 
-snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon DOM"] = 
+snapshots["sbb-tertiary-button-static renders with slotted icon DOM"] = 
 `<sbb-tertiary-button-static
   data-action=""
   data-sbb-button=""
@@ -47,9 +47,9 @@ snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with 
   Label Text
 </sbb-tertiary-button-static>
 `;
-/* end snapshot sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon DOM */
+/* end snapshot sbb-tertiary-button-static renders with slotted icon DOM */
 
-snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon Shadow DOM"] = 
+snapshots["sbb-tertiary-button-static renders with slotted icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-tertiary-button-static">
   <slot name="icon">
   </slot>
@@ -59,9 +59,9 @@ snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with 
   </span>
 </span>
 `;
-/* end snapshot sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon Shadow DOM */
+/* end snapshot sbb-tertiary-button-static renders with slotted icon Shadow DOM */
 
-snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon A11y tree Chrome"] = 
+snapshots["sbb-tertiary-button-static renders with slotted icon A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -75,9 +75,9 @@ snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with 
 }
 </p>
 `;
-/* end snapshot sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon A11y tree Chrome */
+/* end snapshot sbb-tertiary-button-static renders with slotted icon A11y tree Chrome */
 
-snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon A11y tree Firefox"] = 
+snapshots["sbb-tertiary-button-static renders with slotted icon A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -91,5 +91,5 @@ snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with 
 }
 </p>
 `;
-/* end snapshot sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon A11y tree Firefox */
+/* end snapshot sbb-tertiary-button-static renders with slotted icon A11y tree Firefox */
 

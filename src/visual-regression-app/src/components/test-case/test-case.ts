@@ -2,6 +2,7 @@ import {
   type CSSResultGroup,
   html,
   LitElement,
+  nothing,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
@@ -18,6 +19,8 @@ import '@sbb-esta/lyne-elements/title.js';
 
 import type { TestCaseFilter } from './test-case-filter/test-case-filter.js';
 import style from './test-case.scss?lit&inline';
+
+import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 
 import './test-case-filter/test-case-filter.js';
 import './image-diff/image-diff.js';
@@ -40,6 +43,7 @@ export class TestCase extends LitElement {
   @state() private _testCase?: ScreenshotTestCase;
   @state() private _testCaseIndex: number = -1;
   @state() private _filter: Filter = {};
+  @state() private _showGlobalDiff = true;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -86,6 +90,10 @@ export class TestCase extends LitElement {
     };
   }
 
+  private _toggleGlobalDiff(event: Event): void {
+    this._showGlobalDiff = (event.target as SbbToggleCheckElement).checked;
+  }
+
   public override render(): TemplateResult {
     return html`
       <sbb-header expanded>
@@ -116,11 +124,25 @@ export class TestCase extends LitElement {
       ${this._testCase
         ? html`<div class="app-testcase">
             <sbb-container expanded>
-              <app-test-case-filter
-                .testCase=${this._testCase}
-                @browserFilterChange=${this._browserFilterChanged}
-                @viewportFilterChange=${this._viewportFilterChanged}
-              ></app-test-case-filter>
+              <div class="app-filter-and-toggle">
+                <app-test-case-filter
+                  .testCase=${this._testCase}
+                  @browserFilterChange=${this._browserFilterChanged}
+                  @viewportFilterChange=${this._viewportFilterChanged}
+                ></app-test-case-filter>
+                ${this._testCase
+                  ?.filter(this._filter.viewport, this._filter.browser)
+                  .some((screenshotFiles) => !screenshotFiles.isNew && !!screenshotFiles.diffFile)
+                  ? html`<sbb-toggle-check
+                      @change=${this._toggleGlobalDiff}
+                      .checked=${this._showGlobalDiff}
+                      size="s"
+                      class="app-diff-global-toggle"
+                    >
+                      Show Diff
+                    </sbb-toggle-check>`
+                  : nothing}
+              </div>
             </sbb-container>
             <sbb-container expanded color="milk">
               <div class="app-image-diffs">
@@ -128,7 +150,10 @@ export class TestCase extends LitElement {
                   ?.filter(this._filter.viewport, this._filter.browser)
                   .map(
                     (screenshotFiles) =>
-                      html`<app-image-diff .screenshotFiles=${screenshotFiles}></app-image-diff>`,
+                      html`<app-image-diff
+                        .screenshotFiles=${screenshotFiles}
+                        .showDiff=${this._showGlobalDiff}
+                      ></app-image-diff>`,
                   )}
               </div>
             </sbb-container>

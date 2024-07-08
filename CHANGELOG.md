@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.2.1...v1.3.0) (2024-07-08)
+
+
+### Features
+
+* **sbb-datepicker:** add support for `DateAdapter` ([#2889](https://github.com/sbb-design-systems/lyne-components/issues/2889)) ([4d9973e](https://github.com/sbb-design-systems/lyne-components/commit/4d9973e147faa281f0e38d10286ca086eb2da9d1))
+
+
+### Bug Fixes
+
+* **sbb-button:** fix high contrast styles ([#2890](https://github.com/sbb-design-systems/lyne-components/issues/2890)) ([8f9237c](https://github.com/sbb-design-systems/lyne-components/commit/8f9237c966b8797ab176736986abd5a8b594ccea))
+* **sbb-form-field:** ensure input element is detected during hydration ([#2894](https://github.com/sbb-design-systems/lyne-components/issues/2894)) ([9519827](https://github.com/sbb-design-systems/lyne-components/commit/95198270efbf02dfc54bc5228ca9fab0b9293503)), closes [#2877](https://github.com/sbb-design-systems/lyne-components/issues/2877)
+* **sbb-map-container:** respect disabled global animation ([#2879](https://github.com/sbb-design-systems/lyne-components/issues/2879)) ([d5e52e3](https://github.com/sbb-design-systems/lyne-components/commit/d5e52e3674e3c255fed81c58b303c4a77cca54e0))
+* **sbb-notification:** avoid resizeObserver loop warning ([#2855](https://github.com/sbb-design-systems/lyne-components/issues/2855)) ([6222b25](https://github.com/sbb-design-systems/lyne-components/commit/6222b258973c8c6a617b51bc99c3a0ece8fec5ba))
+* **sbb-popover:** prevent matchMedia call before hydration ([#2893](https://github.com/sbb-design-systems/lyne-components/issues/2893)) ([c5bbb96](https://github.com/sbb-design-systems/lyne-components/commit/c5bbb96e120b8692a0be756e5c8e541d222fc4bc)), closes [#2875](https://github.com/sbb-design-systems/lyne-components/issues/2875)
+* **various:** ensure slotchange event is handled properly in hydration ([#2897](https://github.com/sbb-design-systems/lyne-components/issues/2897)) ([9b5f498](https://github.com/sbb-design-systems/lyne-components/commit/9b5f4980ccd35c922b8acdce4a640d67f0fd0522))
+
 ## [1.2.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.2.0...v1.2.1) (2024-06-27)
 
 
