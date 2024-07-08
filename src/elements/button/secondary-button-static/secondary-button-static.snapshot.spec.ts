@@ -4,12 +4,13 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { buttonSlottedIconTestTemplate, buttonTestTemplate } from '../common/button-test-utils.js';
 
 import type { SbbSecondaryButtonStaticElement } from './secondary-button-static.js';
+
 import './secondary-button-static.js';
 
 describe(`sbb-secondary-button-static`, () => {
   let element: SbbSecondaryButtonStaticElement;
 
-  describe('renders a sbb-secondary-button-static without icon', async () => {
+  describe('renders without icon', async () => {
     beforeEach(async () => {
       element = await fixture(buttonTestTemplate('sbb-secondary-button-static', true));
     });
@@ -23,7 +24,7 @@ describe(`sbb-secondary-button-static`, () => {
     });
   });
 
-  describe('renders a sbb-secondary-button-static with slotted icon', async () => {
+  describe('renders with slotted icon', async () => {
     beforeEach(async () => {
       element = await fixture(buttonSlottedIconTestTemplate('sbb-secondary-button-static'));
     });
