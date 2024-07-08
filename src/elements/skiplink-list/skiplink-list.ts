@@ -21,6 +21,7 @@ import '../title.js';
  * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
  *
  * @slot - Use the unnamed slot to add `sbb-block-link`/`sbb-block-link-button` elements to the `sbb-skiplink-list`.
+ * @slot title - Use this to provide a title for the skiplink-list (optional).
  * @cssprop [--sbb-skiplink-list-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
