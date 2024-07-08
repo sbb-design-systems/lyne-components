@@ -22,6 +22,8 @@ describe('sbb-step-label', () => {
     it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 
   describe('renders with icon', async () => {
@@ -51,6 +53,4 @@ describe('sbb-step-label', () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
-
-  testA11yTreeSnapshot(html`<sbb-step-label>Label</sbb-step-label>`);
 });
