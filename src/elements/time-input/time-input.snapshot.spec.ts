@@ -8,19 +8,21 @@ import './time-input.js';
 
 describe(`sbb-time-input`, () => {
   describe('renders', () => {
+    let root: HTMLElement;
     let element: SbbTimeInputElement;
 
     beforeEach(async () => {
-      element = await fixture(html`
+      root = await fixture(html`
         <span>
           <sbb-time-input input="id-1"></sbb-time-input>
           <input id="id-1" />
         </span>
       `);
+      element = document.querySelector('sbb-time-input')!;
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(root).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {
