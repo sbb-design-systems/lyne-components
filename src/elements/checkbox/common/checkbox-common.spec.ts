@@ -570,7 +570,7 @@ describe(`checkbox common behaviors`, () => {
                 focusable: false,
               });
 
-              if (selector === 'sbb-checkbox-panel') {
+              if (selector !== 'input') {
                 expect(
                   element.shadowRoot!.querySelector<SbbVisualCheckboxElement>(
                     'sbb-visual-checkbox',
@@ -591,7 +591,7 @@ describe(`checkbox common behaviors`, () => {
                 focusable: false,
               });
 
-              if (selector === 'sbb-checkbox-panel') {
+              if (selector !== 'input') {
                 expect(
                   element.shadowRoot!.querySelector<SbbVisualCheckboxElement>(
                     'sbb-visual-checkbox',
@@ -615,7 +615,7 @@ describe(`checkbox common behaviors`, () => {
                 focusable: true,
               });
 
-              if (selector === 'sbb-checkbox-panel') {
+              if (selector !== 'input') {
                 expect(
                   element.shadowRoot!.querySelector<SbbVisualCheckboxElement>(
                     'sbb-visual-checkbox',
@@ -638,7 +638,8 @@ describe(`checkbox common behaviors`, () => {
                 ariaDisabled: undefined,
                 focusable: true,
               });
-              if (selector === 'sbb-checkbox-panel') {
+
+              if (selector !== 'input') {
                 expect(
                   element.shadowRoot!.querySelector<SbbVisualCheckboxElement>(
                     'sbb-visual-checkbox',
@@ -659,6 +660,14 @@ describe(`checkbox common behaviors`, () => {
                 focusable: false,
               });
 
+              if (selector !== 'input') {
+                expect(
+                  element.shadowRoot!.querySelector<SbbVisualCheckboxElement>(
+                    'sbb-visual-checkbox',
+                  )!.disabled,
+                ).to.be.true;
+              }
+
               element.toggleAttribute('disabled', false);
               await waitForLitRender(form);
 
@@ -669,6 +678,14 @@ describe(`checkbox common behaviors`, () => {
                 ariaDisabled: undefined,
                 focusable: true,
               });
+
+              if (selector !== 'input') {
+                expect(
+                  element.shadowRoot!.querySelector<SbbVisualCheckboxElement>(
+                    'sbb-visual-checkbox',
+                  )!.disabled,
+                ).to.be.false;
+              }
             });
 
             it('should be disabled by property', async () => {
@@ -683,6 +700,14 @@ describe(`checkbox common behaviors`, () => {
                 focusable: false,
               });
 
+              if (selector !== 'input') {
+                expect(
+                  element.shadowRoot!.querySelector<SbbVisualCheckboxElement>(
+                    'sbb-visual-checkbox',
+                  )!.disabled,
+                ).to.be.true;
+              }
+
               element.disabled = false;
               await waitForLitRender(form);
 
@@ -693,6 +718,14 @@ describe(`checkbox common behaviors`, () => {
                 ariaDisabled: undefined,
                 focusable: true,
               });
+
+              if (selector !== 'input') {
+                expect(
+                  element.shadowRoot!.querySelector<SbbVisualCheckboxElement>(
+                    'sbb-visual-checkbox',
+                  )!.disabled,
+                ).to.be.false;
+              }
             });
 
             it('should sync disabled attribute after re-enabling by property', async () => {
@@ -709,6 +742,14 @@ describe(`checkbox common behaviors`, () => {
                 ariaDisabled: undefined,
                 focusable: true,
               });
+
+              if (selector !== 'input') {
+                expect(
+                  element.shadowRoot!.querySelector<SbbVisualCheckboxElement>(
+                    'sbb-visual-checkbox',
+                  )!.disabled,
+                ).to.be.false;
+              }
             });
           });
         });
