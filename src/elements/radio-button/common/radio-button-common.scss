@@ -79,6 +79,7 @@
 .sbb-radio-button__label-slot {
   display: flex;
   align-items: flex-start;
+  gap: var(--sbb-spacing-fixed-2x);
   overflow: hidden;
 
   &::before,
@@ -109,7 +110,6 @@
     // The border color acts as background color.
     border: var(--sbb-radio-button-background-fake-border-width) solid
       var(--sbb-radio-button-background-color);
-    margin-inline-end: var(--sbb-spacing-fixed-2x);
   }
 
   &::after {
