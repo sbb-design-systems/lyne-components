@@ -5,7 +5,8 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffStandardStates,
+  visualDiffFocus,
+  visualDiffHover,
 } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
 
@@ -36,14 +37,65 @@ describe(`sbb-teaser`, () => {
   for (const screenCombination of screenCombinations) {
     describeViewports({ viewports: [screenCombination.viewport] }, () => {
       for (const alignment of screenCombination.alignments) {
-        for (const visualDiffStandardState of visualDiffStandardStates) {
+        describe(`alignment=${alignment}`, () => {
+          for (const visualDiffStandardState of [
+            visualDiffDefault,
+            visualDiffFocus,
+            visualDiffHover,
+          ]) {
+            it(
+              `state=${visualDiffStandardState.name}`,
+              visualDiffStandardState.with(async (setup) => {
+                await setup.withFixture(
+                  html`
+                    <sbb-teaser title-content="This is a title" href="#" alignment=${alignment}>
+                      <img slot="image" src=${imageUrl} />
+                      This is a paragraph
+                    </sbb-teaser>
+                  `,
+                  { maxWidth: '760px' },
+                );
+                await waitForImageReady(setup.snapshotElement.querySelector('img')!);
+              }),
+            );
+          }
+
+          describeEach(visualStates, ({ hasChip, withLongContent }) => {
+            it(
+              '',
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  html`
+                    <sbb-teaser
+                      title-content="This is a title"
+                      href="#"
+                      alignment=${alignment}
+                      chip-content=${hasChip ? 'This is a chip.' : nothing}
+                    >
+                      <img slot="image" src=${imageUrl} />
+                      ${withLongContent ? loremIpsum : 'This is a paragraph'}
+                    </sbb-teaser>
+                  `,
+                  { maxWidth: '760px' },
+                );
+                await waitForImageReady(setup.snapshotElement.querySelector('img')!);
+              }),
+            );
+          });
+
           it(
-            `alignment=${alignment} ${visualDiffStandardState.name}`,
-            visualDiffStandardState.with(async (setup) => {
+            `longChip=true`,
+            visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
                 html`
-                  <sbb-teaser title-content="This is a title" href="#" alignment=${alignment}>
-                    <img slot="image" src=${imageUrl} alt="400x300" />
+                  <sbb-teaser
+                    style="width: 400px;"
+                    title-content="This is a title"
+                    href="#"
+                    alignment=${alignment}
+                    chip-content=${longChip}
+                  >
+                    <img slot="image" src=${imageUrl} />
                     This is a paragraph
                   </sbb-teaser>
                 `,
@@ -52,59 +104,12 @@ describe(`sbb-teaser`, () => {
               await waitForImageReady(setup.snapshotElement.querySelector('img')!);
             }),
           );
-        }
 
-        describeEach(visualStates, ({ hasChip, withLongContent }) => {
           it(
-            `alignment=${alignment}`,
+            `list=true`,
             visualDiffDefault.with(async (setup) => {
-              await setup.withFixture(
-                html`
-                  <sbb-teaser
-                    title-content="This is a title"
-                    href="#"
-                    alignment=${alignment}
-                    chip-content=${hasChip ? 'This is a chip.' : nothing}
-                  >
-                    <img slot="image" src=${imageUrl} alt="400x300" />
-                    ${withLongContent ? loremIpsum : 'This is a paragraph'}
-                  </sbb-teaser>
-                `,
-                { maxWidth: '760px' },
-              );
-              await waitForImageReady(setup.snapshotElement.querySelector('img')!);
-            }),
-          );
-        });
-
-        it(
-          `longChip=true ${alignment}`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(
-              html`
-                <sbb-teaser
-                  style="width: 400px;"
-                  title-content="This is a title"
-                  href="#"
-                  alignment=${alignment}
-                  chip-content=${longChip}
-                >
-                  <img slot="image" src=${imageUrl} alt="400x300" />
-                  This is a paragraph
-                </sbb-teaser>
-              `,
-              { maxWidth: '760px' },
-            );
-            await waitForImageReady(setup.snapshotElement.querySelector('img')!);
-          }),
-        );
-
-        it(
-          `list=true ${alignment}`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(
-              html`
-                <ul style="list-style: none;">
+              await setup.withFixture(html`
+                <ul style="list-style: none; padding: 0;">
                   ${repeat(
                     new Array(5),
                     (_, i) => html`
@@ -114,19 +119,18 @@ describe(`sbb-teaser`, () => {
                           href="#"
                           alignment=${alignment}
                         >
-                          <img slot="image" src=${imageUrl} alt="400x300" />
+                          <img slot="image" src=${imageUrl} />
                           This is the paragraph n.${i + 1}
                         </sbb-teaser>
                       </li>
                     `,
                   )}
                 </ul>
-              `,
-              { maxWidth: '760px' },
-            );
-            await waitForImageReady(setup.snapshotElement.querySelector('img')!);
-          }),
-        );
+              `);
+              await waitForImageReady(setup.snapshotElement.querySelector('img')!);
+            }),
+          );
+        });
       }
     });
   }
