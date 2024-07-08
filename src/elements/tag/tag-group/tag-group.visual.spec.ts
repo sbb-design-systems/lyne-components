@@ -13,7 +13,7 @@ describe(`sbb-tag-group`, () => {
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-tag-group size="${size}">
+            <sbb-tag-group size=${size}>
               <sbb-tag checked amount="123" icon-name="pie-small">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit,
                 ultricies in tincidunt quis, mattis eu quam.
