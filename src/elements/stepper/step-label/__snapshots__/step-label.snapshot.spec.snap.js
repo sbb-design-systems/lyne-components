@@ -36,7 +36,7 @@ snapshots["sbb-step-label renders with icon DOM"] =
   data-button=""
   dir="ltr"
   icon-name="tick-small"
-  id="sbb-step-label-3"
+  id="sbb-step-label-2"
   role="tab"
   slot="step-label"
   tabindex="-1"
@@ -74,7 +74,7 @@ snapshots["sbb-step-label renders disabled DOM"] =
   data-disabled=""
   dir="ltr"
   disabled=""
-  id="sbb-step-label-5"
+  id="sbb-step-label-4"
   role="tab"
   slot="step-label"
   tabindex="-1"
@@ -129,36 +129,4 @@ snapshots["sbb-step-label A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-step-label A11y tree Firefox */
-
-snapshots["sbb-step-label renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "tab",
-      "name": "Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-step-label renders A11y tree Chrome */
-
-snapshots["sbb-step-label renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "tab",
-      "name": "Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-step-label renders A11y tree Firefox */
 
