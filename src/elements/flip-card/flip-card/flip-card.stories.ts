@@ -11,7 +11,7 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import { SbbFlipCardElement } from './flip-card.js';
 import readme from './readme.md?raw';
@@ -50,7 +50,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-flip-card',
+  title: 'elements/sbb-flip-card/sbb-flip-card',
 };
 
 export default meta;

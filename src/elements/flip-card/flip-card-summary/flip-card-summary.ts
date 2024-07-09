@@ -2,8 +2,8 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../core/controllers.js';
-import { EventEmitter } from '../core/eventing.js';
+import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
 
 import style from './flip-card-summary.scss?lit&inline';
 
