@@ -96,26 +96,6 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
     this._optionAttributeObserver.disconnect();
   }
 
-  /**
-   * Used to dispatch a click event when users interact with the button via keyboard (the component does not receive focus).
-   */
-  public dispatchClick(event: KeyboardEvent): void {
-    const { altKey, ctrlKey, metaKey, shiftKey } = event;
-    this.dispatchEvent(
-      new PointerEvent('click', {
-        bubbles: true,
-        cancelable: true,
-        composed: true,
-        pointerId: -1,
-        pointerType: '',
-        altKey,
-        ctrlKey,
-        metaKey,
-        shiftKey,
-      }),
-    );
-  }
-
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {
     if ((await isEventPrevented(event)) || !this.closest('form')) {
       return;

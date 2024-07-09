@@ -102,18 +102,6 @@ since the focus must always stay on the connected `<input>`.
 | `negative` | `negative`  | public  | `boolean`                                  | `false` | Negative coloring variant flag.                                                                                                  |
 | `option`   | -           | public  | `SbbAutocompleteGridOptionElement \| null` |         | Gets the SbbAutocompleteGridOptionElement on the same row of the button.                                                         |
 
-## Methods
-
-| Name            | Privacy | Description                                                                                                             | Parameters             | Return | Inherited From |
-| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------ | -------------- |
-| `dispatchClick` | public  | Used to dispatch a click event when users interact with the button via keyboard (the component does not receive focus). | `event: KeyboardEvent` | `void` |                |
-
-## Events
-
-| Name    | Type           | Description | Inherited From |
-| ------- | -------------- | ----------- | -------------- |
-| `click` | `PointerEvent` |             |                |
-
 ## Slots
 
 | Name   | Description                                  |
