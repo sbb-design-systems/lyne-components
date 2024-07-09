@@ -250,11 +250,7 @@ export class SbbPearlChainElement extends LitElement {
           const legArrivalWithDelay = { time: arrival, delay: leg.arrival?.delay ?? 0 };
           const status = this._getStatus(now, legDepartureWithDelay, legArrivalWithDelay);
 
-          const legStatus =
-            !cancelled &&
-            !skippedLeg &&
-            this._getStatus(now, legDepartureWithDelay, legArrivalWithDelay) &&
-            'sbb-pearl-chain__leg--' + status;
+          const legStatus = !cancelled && !skippedLeg && 'sbb-pearl-chain__leg--' + status;
           const legStyle = (): Record<string, string> => {
             return {
               '--sbb-pearl-chain-leg-width': `${duration}%`,
