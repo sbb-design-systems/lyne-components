@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-time-input A11y tree Chrome"] =
+snapshots["sbb-time-input A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -17,7 +17,7 @@ snapshots["sbb-time-input A11y tree Chrome"] =
 `;
 /* end snapshot sbb-time-input A11y tree Chrome */
 
-snapshots["sbb-time-input A11y tree Firefox"] =
+snapshots["sbb-time-input A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -55,7 +55,7 @@ snapshots["sbb-time-input renders Shadow DOM"] =
 `;
 /* end snapshot sbb-time-input renders Shadow DOM */
 
-snapshots["sbb-time-input renders A11y tree Chrome"] =
+snapshots["sbb-time-input renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
