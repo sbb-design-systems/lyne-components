@@ -3,28 +3,32 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
+import type { SbbTimeInputElement } from './time-input.js';
 import './time-input.js';
 
 describe(`sbb-time-input`, () => {
-  it('renders', async () => {
-    const root = await fixture(
-      html` <span>
-        <sbb-time-input input="id-1"></sbb-time-input>
-        <input id="id-1" />
-      </span>`,
-    );
-    const elem = root.querySelector('sbb-time-input');
+  describe('renders', () => {
+    let root: HTMLElement;
+    let element: SbbTimeInputElement;
 
-    await expect(root).dom.to.be.equalSnapshot();
-    expect(elem).shadowDom.to.be.equal(`
-      <p role="status"></p>
-    `);
+    beforeEach(async () => {
+      root = await fixture(html`
+        <span>
+          <sbb-time-input input="id-1"></sbb-time-input>
+          <input id="id-1" />
+        </span>
+      `);
+      element = document.querySelector('sbb-time-input')!;
+    });
+
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
-
-  testA11yTreeSnapshot(
-    html` <span>
-      <sbb-time-input input="id-1"></sbb-time-input>
-      <input id="id-1" />
-    </span>`,
-  );
 });

@@ -163,7 +163,12 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
      * @internal
      */
     public formDisabledCallback(disabled: boolean): void {
-      this.formDisabled = disabled;
+      // This callback is triggered if the disabled property changes or the disabled attribute of a fieldset or form changes.
+      // We need to postpone the assignment, otherwise it interferes with disabled status setting
+      // and leads to a wrong state (e.g. embedded sbb-visual-checkbox).
+      Promise.resolve().then(() => {
+        this.formDisabled = disabled;
+      });
     }
 
     /**
