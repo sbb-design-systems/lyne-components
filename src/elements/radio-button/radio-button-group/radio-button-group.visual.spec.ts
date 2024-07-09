@@ -1,5 +1,4 @@
 import { html, type TemplateResult } from 'lit';
-import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
 import {
   describeEach,
@@ -19,19 +18,11 @@ const cases = {
   size: ['m', 's'],
 };
 
-const suffixStyle: Readonly<StyleInfo> = {
-  display: 'flex',
-  alignItems: 'center',
-  marginInline: 'var(--sbb-spacing-fixed-2x)',
-};
-
 const suffixAndSubtext = (): TemplateResult => html`
   <span slot="subtext">Subtext</span>
-  <span slot="suffix" style="margin-inline-start: auto;">
-    <span style=${styleMap(suffixStyle)}>
-      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-      <span class="sbb-text-m sbb-text--bold">CHF 8.00</span>
-    </span>
+  <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
+    <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
+    <span class="sbb-text-m sbb-text--bold">CHF 8.00</span>
   </span>
   <sbb-card-badge>%</sbb-card-badge>
 `;
@@ -57,23 +48,27 @@ describe(`sbb-radio-button-group`, () => {
   describeViewports({ viewports: ['small', 'medium'] }, () => {
     describeEach(cases, ({ orientation, size, disabled }) => {
       for (const variant of variants) {
-        for (const state of [visualDiffDefault, visualDiffFocus]) {
-          (disabled && state === visualDiffFocus ? it.skip : it)(
-            `${variant.name} ${state.name}`,
-            state.with(async (setup) => {
-              await setup.withFixture(html`
-                <sbb-radio-button-group
-                  orientation=${orientation}
-                  size=${size}
-                  ?disabled=${disabled}
-                  value="Value one"
-                >
-                  ${variant.template}
-                </sbb-radio-button-group>
-              `);
-            }),
-          );
-        }
+        describe(variant.name, () => {
+          for (const state of [visualDiffDefault, visualDiffFocus]) {
+            if (!(disabled && state === visualDiffFocus)) {
+              it(
+                state.name,
+                state.with(async (setup) => {
+                  await setup.withFixture(html`
+                    <sbb-radio-button-group
+                      orientation=${orientation}
+                      size=${size}
+                      ?disabled=${disabled}
+                      value="Value one"
+                    >
+                      ${variant.template}
+                    </sbb-radio-button-group>
+                  `);
+                }),
+              );
+            }
+          }
+        });
       }
     });
     for (const variant of variants) {
