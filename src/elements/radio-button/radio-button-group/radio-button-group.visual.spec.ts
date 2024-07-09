@@ -84,18 +84,35 @@ describe(`sbb-radio-button-group`, () => {
       );
     }
 
-    for (const variant of ['vertical', 'horizontal']) {
+    for (const variant of variants) {
       it(
-        `error message ${variant}`,
+        `horizontal-from=medium with ${variant.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-radio-button-group allow-empty-selection orientation=${variant}>
-              ${variants[0].template}
-              <sbb-form-error slot="error">This is a required field.</sbb-form-error>
+            html`<sbb-radio-button-group orientation="vertical" horizontal-from="medium">
+              ${variant.template}
             </sbb-radio-button-group>`,
           );
         }),
       );
+    }
+
+    for (const variant of variants) {
+      describe(variant.name, () => {
+        for (const orientation of ['vertical', 'horizontal']) {
+          it(
+            `error message orientation=${orientation}`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`<sbb-radio-button-group allow-empty-selection orientation=${orientation}>
+                  ${variant.template}
+                  <sbb-form-error slot="error">This is a required field.</sbb-form-error>
+                </sbb-radio-button-group>`,
+              );
+            }),
+          );
+        }
+      });
     }
   });
 });
