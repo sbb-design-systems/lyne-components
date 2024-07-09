@@ -89,7 +89,7 @@ describe(`sbb-teaser`, () => {
               await setup.withFixture(
                 html`
                   <sbb-teaser
-                    style="width: 400px;"
+                    style="width: ${screenCombination.viewport === 'micro' ? '300px' : '400px'};"
                     title-content="This is a title"
                     href="#"
                     alignment=${alignment}
