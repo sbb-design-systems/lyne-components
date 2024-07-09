@@ -36,19 +36,15 @@ describe('sbb-checkbox-panel', () => {
     >
       Label ${size}
       <span slot="subtext">Subtext</span>
-      <span slot="suffix" style="margin-inline-start: auto;">
-        <span style="display:flex;align-items:center;">
-          <sbb-icon
-            name="diamond-small"
-            style="margin-inline: var(--sbb-spacing-fixed-2x);"
-            data-namespace="default"
-            role="img"
-            aria-hidden="true"
-          ></sbb-icon>
-          <span class="${size ? `sbb-text-${size}` : 'sbb-text-m'} sbb-text--bold">
-            CHF 40.00
-          </span>
-        </span>
+      <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
+        <sbb-icon
+          name="diamond-small"
+          style="margin-inline: var(--sbb-spacing-fixed-2x);"
+          data-namespace="default"
+          role="img"
+          aria-hidden="true"
+        ></sbb-icon>
+        <span class="${size ? `sbb-text-${size}` : 'sbb-text-m'} sbb-text--bold"> CHF 40.00 </span>
       </span>
       <sbb-card-badge>%</sbb-card-badge>
     </sbb-checkbox-panel>`;
