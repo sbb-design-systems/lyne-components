@@ -36,13 +36,8 @@ describe(`sbb-timetable-occupancy-icon`, () => {
       matches: false,
       media: '(forced-colors: active)',
     });
-    matchMediaStub.withArgs('(prefer-color-scheme: dark)').returns({
-      ...mediaQueryListArgs,
-      matches: false,
-      media: '(prefer-color-scheme: dark)',
-    });
     const element: SbbTimetableOccupancyIconElement = await fixture(
-      html` <sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
+      html`<sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.low.en);
@@ -59,13 +54,8 @@ describe(`sbb-timetable-occupancy-icon`, () => {
       matches: true,
       media: '(forced-colors: active)',
     });
-    matchMediaStub.withArgs('(prefer-color-scheme: dark)').returns({
-      ...mediaQueryListArgs,
-      matches: false,
-      media: '(prefer-color-scheme: dark)',
-    });
     const element: SbbTimetableOccupancyIconElement = await fixture(
-      html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
+      html`<sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
@@ -82,13 +72,11 @@ describe(`sbb-timetable-occupancy-icon`, () => {
       matches: false,
       media: '(forced-colors: active)',
     });
-    matchMediaStub.withArgs('(prefer-color-scheme: dark)').returns({
-      ...mediaQueryListArgs,
-      matches: true,
-      media: '(prefer-color-scheme: dark)',
-    });
     const element: SbbTimetableOccupancyIconElement = await fixture(
-      html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
+      html`<sbb-timetable-occupancy-icon
+        occupancy="medium"
+        negative
+      ></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);

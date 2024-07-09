@@ -1,0 +1,34 @@
+import { html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
+
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+
+import '../tag.js';
+import './tag-group.js';
+
+describe(`sbb-tag-group`, () => {
+  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+    for (const size of ['s', 'm']) {
+      it(
+        `size=${size}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-tag-group size=${size}>
+              <sbb-tag checked amount="123" icon-name="pie-small">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit,
+                ultricies in tincidunt quis, mattis eu quam.
+              </sbb-tag>
+              ${repeat(
+                new Array(5),
+                (_, i) =>
+                  html`<sbb-tag ?checked="${i === 0}" amount="123" icon-name="pie-small">
+                    Label ${i}
+                  </sbb-tag>`,
+              )}
+            </sbb-tag-group>
+          `);
+        }),
+      );
+    }
+  });
+});

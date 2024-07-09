@@ -30,13 +30,8 @@ export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBa
 
     let icon = `utilization-${this.occupancy}`;
     if (globalThis.window?.matchMedia('(forced-colors: active)').matches) {
-      // high contrast
       icon += '-high-contrast';
-    } else if (
-      this.negative ||
-      globalThis.window?.matchMedia('(prefer-color-scheme: dark)').matches
-    ) {
-      // dark
+    } else if (this.negative) {
       icon += '-negative';
     }
 
@@ -59,11 +54,6 @@ export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBa
     super.connectedCallback();
     window
       .matchMedia('(forced-colors: active)')
-      .addEventListener('change', () => this._setNameAndAriaLabel(), {
-        signal: this._abort.signal,
-      });
-    window
-      .matchMedia('(prefer-color-scheme: dark)')
       .addEventListener('change', () => this._setNameAndAriaLabel(), {
         signal: this._abort.signal,
       });
