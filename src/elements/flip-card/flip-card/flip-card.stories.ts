@@ -12,9 +12,15 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import sampleImages from '../../core/images.js';
 
 import { SbbFlipCardElement } from './flip-card.js';
 import readme from './readme.md?raw';
+
+import '../../image/image.js';
+import '../../title/title.js';
+import '../flip-card-details.js';
+import '../flip-card-summary.js';
 
 const myProp: InputType = {
   control: {
@@ -30,7 +36,14 @@ const defaultArgs: Args = {
   'my-prop': 'Label',
 };
 
-const Template = (args: Args): TemplateResult => html`<sbb-flip-card ${sbbSpread(args)}></sbb-flip-card>`;
+const Template = (args: Args): TemplateResult =>
+  html`<sbb-flip-card ${sbbSpread(args)}>
+    <sbb-flip-card-summary>
+      <sbb-title level="4">Summary</sbb-title>
+      <sbb-image slot="image" image-src=${sampleImages[1]} border-radius="none"></sbb-image>
+    </sbb-flip-card-summary>
+    <!-- <sbb-flip-card-details>Details</sbb-flip-card-details> -->
+  </sbb-flip-card>`;
 
 export const Default: StoryObj = {
   render: Template,

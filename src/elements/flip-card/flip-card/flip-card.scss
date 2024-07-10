@@ -4,11 +4,21 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-flip-card-some-color-var: var(--color-black);
-
   display: block;
 }
 
-.sbb-flip-card {
-  color: var(--sbb-flip-card-some-color-var);
+.sbb-flip-card--wrapper {
+  position: relative;
+  min-height: 280px;
+  background-color: var(--sbb-color-cloud); // add cloud-alpha-80?
+  border-radius: var(--sbb-border-radius-4x);
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+
+.sbb-flip-card--toggle-button {
+  position: absolute;
+  inset-inline-start: var(--sbb-spacing-responsive-s);
+  inset-block-end: var(--sbb-spacing-responsive-s);
 }

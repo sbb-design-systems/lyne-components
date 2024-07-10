@@ -4,11 +4,57 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-flip-card-summary-some-color-var: var(--color-black);
-
   display: block;
+  width: 100%;
 }
 
-.sbb-flip-card-summary {
-  color: var(--sbb-flip-card-summary-some-color-var);
+.sbb-flip-card-summary--wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+
+  :host([image-alignment='after']) & {
+    @include sbb.mq($from: small) {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr;
+    }
+  }
+
+  height: 100%;
+}
+
+::slotted(sbb-title) {
+  padding-inline: var(--sbb-spacing-responsive-s);
+  padding-block: var(--sbb-spacing-responsive-s) var(--sbb-spacing-responsive-xs);
+  margin: 0;
+  grid-area: 1 / 1 / 2 / 2;
+
+  :host([image-alignment='after']) & {
+    @include sbb.mq($from: small) {
+      grid-area: 1 / 1 / 2 / 3;
+    }
+  }
+}
+
+.sbb-flip-card-summary--image-wrapper {
+  grid-area: 2 / 1 / 3 / 2;
+
+  :host([image-alignment='after']) & {
+    @include sbb.mq($from: small) {
+      grid-area: 1 / 3 / 2 / 4;
+    }
+  }
+}
+
+::slotted(img) {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+::slotted(sbb-image) {
+  --sbb-image-object-position: 0% 100%;
+
+  width: 100%;
+  height: 100%;
 }

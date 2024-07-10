@@ -1,8 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 
 import style from './flip-card-summary.scss?lit&inline';
@@ -10,10 +11,12 @@ import style from './flip-card-summary.scss?lit&inline';
 /**
  * Describe the purpose of the component with a single short sentence.
  *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
  * @event {CustomEvent<any>} myEventName - TODO: Document this event
  */
 @customElement('sbb-flip-card-summary')
+@hostAttributes({
+  slot: 'summary',
+})
 export class SbbFlipCardSummaryElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
@@ -21,7 +24,9 @@ export class SbbFlipCardSummaryElement extends LitElement {
   } as const;
 
   /** myProp documentation */
-  @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
+  @property({ attribute: 'image-alignment', reflect: true }) public imageAlignment:
+    | 'after'
+    | 'below' = 'after';
 
   /** _myState documentation */
   @state() private _myState = false;
@@ -58,7 +63,12 @@ export class SbbFlipCardSummaryElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-flip-card-summary">${this._myState ? html`<slot></slot>` : nothing} ${this.myProp}</div>
+      <div class="sbb-flip-card-summary--wrapper">
+        <slot></slot>
+        <div class="sbb-flip-card-summary--image-wrapper">
+          <slot name="image"></slot>
+        </div>
+      </div>
     `;
   }
 }

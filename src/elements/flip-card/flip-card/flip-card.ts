@@ -1,16 +1,21 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
+import '../../button/secondary-button.js';
+import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
+import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
 
 import style from './flip-card.scss?lit&inline';
 
 /**
  * Describe the purpose of the component with a single short sentence.
  *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
+ * @slot summary- Use this slot to provide a sbb-flip-card-summary component.
+ * @slot details- Use this slot to provide a sbb-flip-card-details component.
+ *
  * @event {CustomEvent<any>} myEventName - TODO: Document this event
  */
 @customElement('sbb-flip-card')
@@ -23,8 +28,21 @@ export class SbbFlipCardElement extends LitElement {
   /** myProp documentation */
   @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
 
-  /** _myState documentation */
-  @state() private _myState = false;
+  /** Whether the card is flipped or not. */
+  @state() private _flipped = false;
+
+  /** TODO */
+  public toggle(): void {
+    this._flipped = !this._flipped;
+  }
+
+  public get summary(): SbbFlipCardSummaryElement {
+    return this.querySelector('sbb-flip-card-summary')!;
+  }
+
+  public get details(): SbbFlipCardDetailsElement {
+    return this.querySelector('sbb-flip-card-details')!;
+  }
 
   private _abort = new SbbConnectedAbortController(this);
   private _myEvent: EventEmitter<any> = new EventEmitter(
@@ -58,7 +76,15 @@ export class SbbFlipCardElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-flip-card">${this._myState ? html`<slot></slot>` : nothing} ${this.myProp}</div>
+      <div class="sbb-flip-card--wrapper">
+        <slot name="summary"></slot>
+        <slot name="details"></slot>
+        <sbb-secondary-button
+          class="sbb-flip-card--toggle-button"
+          icon-name=${this._flipped ? 'minus-small' : 'plus-small'}
+          @click=${() => this.toggle()}
+        ></sbb-secondary-button>
+      </div>
     `;
   }
 }

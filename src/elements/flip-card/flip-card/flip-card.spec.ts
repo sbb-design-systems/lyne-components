@@ -1,8 +1,8 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../core/testing.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
 import { SbbFlipCardElement } from './flip-card.js';
 

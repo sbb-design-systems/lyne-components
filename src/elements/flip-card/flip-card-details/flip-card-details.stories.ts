@@ -30,7 +30,8 @@ const defaultArgs: Args = {
   'my-prop': 'Label',
 };
 
-const Template = (args: Args): TemplateResult => html`<sbb-flip-card-details ${sbbSpread(args)}></sbb-flip-card-details>`;
+const Template = (args: Args): TemplateResult =>
+  html`<sbb-flip-card-details ${sbbSpread(args)}></sbb-flip-card-details>`;
 
 export const Default: StoryObj = {
   render: Template,

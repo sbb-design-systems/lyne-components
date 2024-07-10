@@ -42,3 +42,15 @@ The `sbb-flip-card` is a component . . .
 > Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
 
 <!-- Auto Generated Below -->
+
+## Properties
+
+| Name     | Attribute | Privacy | Type     | Default | Description          |
+| -------- | --------- | ------- | -------- | ------- | -------------------- |
+| `myProp` | `my-prop` | public  | `string` | `''`    | myProp documentation |
+
+## Events
+
+| Name          | Type               | Description               | Inherited From |
+| ------------- | ------------------ | ------------------------- | -------------- |
+| `myEventName` | `CustomEvent<any>` | TODO: Document this event |                |
