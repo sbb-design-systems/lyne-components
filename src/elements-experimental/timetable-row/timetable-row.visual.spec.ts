@@ -85,13 +85,14 @@ describe(`sbb-timetable-row`, () => {
       disable-animation
     ></sbb-timetable-row>
   `;
+  const wrapperStyle = { backgroundColor: 'var(--sbb-color-milk)' };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const c of cases) {
       it(
         c.name,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...c }), { backgroundColor: 'var(--sbb-color-milk)' });
+          await setup.withFixture(template({ ...c }), wrapperStyle);
         }),
       );
     }
@@ -100,18 +101,14 @@ describe(`sbb-timetable-row`, () => {
       it(
         `basic ${state.name}`,
         state.with(async (setup) => {
-          await setup.withFixture(template({ trip: defaultTrip }), {
-            backgroundColor: 'var(--sbb-color-milk)',
-          });
+          await setup.withFixture(template({ trip: defaultTrip }), wrapperStyle);
         }),
       );
 
       it(
         `active ${state.name}`,
         state.with(async (setup) => {
-          await setup.withFixture(template({ trip: defaultTrip, active: true }), {
-            backgroundColor: 'var(--sbb-color-milk)',
-          });
+          await setup.withFixture(template({ trip: defaultTrip, active: true }), wrapperStyle);
         }),
       );
     }
@@ -119,9 +116,7 @@ describe(`sbb-timetable-row`, () => {
     it(
       'price',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ trip: defaultTrip, price: samplePrice }), {
-          backgroundColor: 'var(--sbb-color-milk)',
-        });
+        await setup.withFixture(template({ trip: defaultTrip, price: samplePrice }), wrapperStyle);
       }),
     );
 
@@ -130,7 +125,7 @@ describe(`sbb-timetable-row`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           template({ trip: defaultTrip, price: { ...samplePrice, isDiscount: true } }),
-          { backgroundColor: 'var(--sbb-color-milk)' },
+          wrapperStyle,
         );
       }),
     );
@@ -140,7 +135,7 @@ describe(`sbb-timetable-row`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           template({ trip: defaultTrip, loadingTrip: true, loadingPrice: true }),
-          { backgroundColor: 'var(--sbb-color-milk)' },
+          wrapperStyle,
         );
       }),
     );
