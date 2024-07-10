@@ -8,6 +8,7 @@ import readme from './readme.md?raw';
 import './pearl-chain-vertical.js';
 import '../pearl-chain-vertical-item.js';
 import '@sbb-esta/lyne-elements/icon.js';
+import '@sbb-esta/lyne-elements/timetable-occupancy.js';
 
 const lineType: InputType = {
   options: ['dotted', 'standard', 'thin'],
@@ -225,9 +226,10 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }: Args): Template
               <div>Direction Station</div>
             </div>
             <span>
-              1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
-                name="utilization-high"
-              ></sbb-icon>
+              <sbb-timetable-occupancy
+                first-class-occupancy="high"
+                second-class-occupancy="high"
+              ></sbb-timetable-occupancy>
             </span>
           </div>
         </div>
@@ -307,9 +309,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult
           </div>
           <div style="padding-bottom: 5px; padding-top: 5px;">
             <span>
-              1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
-                name="utilization-high"
-              ></sbb-icon>
+              <sbb-timetable-occupancy
+                first-class-occupancy="high"
+                second-class-occupancy="high"
+              ></sbb-timetable-occupancy>
             </span>
           </div>
         </div>
@@ -342,9 +345,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult
           </div>
           <div style="padding-bottom: 5px; padding-top: 5px;">
             <span>
-              1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
-                name="utilization-high"
-              ></sbb-icon>
+              <sbb-timetable-occupancy
+                first-class-occupancy="high"
+                second-class-occupancy="high"
+              ></sbb-timetable-occupancy>
             </span>
           </div>
         </div>

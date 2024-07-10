@@ -48,9 +48,15 @@ describe(`sbb-pearl-chain-vertical-item`, () => {
         'left',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${defaultArgs}>
+            <sbb-pearl-chain-vertical-item
+              .pearlChainVerticalItemAttributes=${{
+                ...defaultArgs,
+                lineColor: 'disruption',
+                bulletType: 'disruption',
+              }}
+            >
               <div slot="left" style="--sbb-pearl-chain-vertical-left-item-inline-end: 10px;">
-                ${content}
+                slot for content
               </div>
             </sbb-pearl-chain-vertical-item>
           `);

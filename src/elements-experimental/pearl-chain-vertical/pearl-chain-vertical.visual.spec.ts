@@ -3,6 +3,7 @@ import {
   visualDiffDefault,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import '@sbb-esta/lyne-elements/icon.js';
+import '@sbb-esta/lyne-elements/timetable-occupancy.js';
 import { html } from 'lit';
 
 import './pearl-chain-vertical.js';
@@ -47,9 +48,10 @@ describe(`sbb-pearl-chain-vertical`, () => {
                     <div>Direction Station</div>
                   </div>
                   <span>
-                    1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
-                      name="utilization-high"
-                    ></sbb-icon>
+                    <sbb-timetable-occupancy
+                      first-class-occupancy="high"
+                      second-class-occupancy="high"
+                    ></sbb-timetable-occupancy>
                   </span>
                 </div>
               </div>
@@ -118,9 +120,10 @@ describe(`sbb-pearl-chain-vertical`, () => {
                 </div>
                 <div style="padding-bottom: 5px; padding-top: 5px;">
                   <span>
-                    1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
-                      name="utilization-high"
-                    ></sbb-icon>
+                    <sbb-timetable-occupancy
+                      first-class-occupancy="high"
+                      second-class-occupancy="high"
+                    ></sbb-timetable-occupancy>
                   </span>
                 </div>
               </div>
@@ -152,9 +155,10 @@ describe(`sbb-pearl-chain-vertical`, () => {
                 </div>
                 <div style="padding-bottom: 5px; padding-top: 5px;">
                   <span>
-                    1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
-                      name="utilization-high"
-                    ></sbb-icon>
+                    <sbb-timetable-occupancy
+                      first-class-occupancy="high"
+                      second-class-occupancy="high"
+                    ></sbb-timetable-occupancy>
                   </span>
                 </div>
               </div>
