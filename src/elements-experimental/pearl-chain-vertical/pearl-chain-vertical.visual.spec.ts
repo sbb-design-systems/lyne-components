@@ -21,8 +21,42 @@ describe(`sbb-pearl-chain-vertical`, () => {
 
   describeViewports({ viewports: ['medium'] }, () => {
     it(
+      'two dots',
+      visualDiffDefault.with(async (setup) => {
+        const argsFirstDot = { ...defaultArgs, lineColor: 'disruption', bulletType: 'disruption' };
+        const argsSecondDot = { ...argsFirstDot, hideLine: true };
+        await setup.withFixture(html`
+          <sbb-pearl-chain-vertical>
+            <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${argsFirstDot}>
+              <div
+                slot="right"
+                style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
+              >
+                slot for content
+                <div>more</div>
+                <div>more</div>
+                <div>more</div>
+                <div>more</div>
+                <div>more</div>
+              </div>
+            </sbb-pearl-chain-vertical-item>
+            <sbb-pearl-chain-vertical-item
+              .pearlChainVerticalItemAttributes=${argsSecondDot}
+            ></sbb-pearl-chain-vertical-item>
+          </sbb-pearl-chain-vertical>
+        `);
+      }),
+    );
+
+    it(
       'connection',
       visualDiffDefault.with(async (setup) => {
+        const args = {
+          ...defaultArgs,
+          lineColor: 'disruption',
+          hideLine: true,
+          bulletSize: 'stop',
+        };
         await setup.withFixture(html`
           <sbb-pearl-chain-vertical>
             <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${defaultArgs}>
@@ -54,16 +88,7 @@ describe(`sbb-pearl-chain-vertical`, () => {
                 19:00
               </div>
             </sbb-pearl-chain-vertical-item>
-            <sbb-pearl-chain-vertical-item
-              .pearlChainVerticalItemAttributes=${{
-                lineType: 'standard',
-                lineColor: 'disruption',
-                minHeight: '100px',
-                hideLine: true,
-                bulletSize: 'stop',
-                position: 0,
-              }}
-            >
+            <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args}>
               <div
                 slot="right"
                 style="
@@ -276,7 +301,7 @@ describe(`sbb-pearl-chain-vertical`, () => {
                 lineType: 'dotted',
                 lineColor: 'walk',
                 bulletType: 'standard',
-                minHeight: '100px',
+                minHeight: 100,
                 hideLine: true,
                 bulletSize: 'start-end',
                 position: 0,
