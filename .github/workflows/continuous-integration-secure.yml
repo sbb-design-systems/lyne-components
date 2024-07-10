@@ -20,18 +20,20 @@ jobs:
   preview-image:
     runs-on: ubuntu-latest
     if: >
-      github.event.workflow_run.conclusion == 'success' && (
-        github.event.workflow_run.event == 'pull_request' || (
-          github.event.workflow_run.event == 'push' &&
-          github.event.workflow_run.head_branch == 'main'
-        )
-      )
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.pull_requests[0] != null
     permissions:
       deployments: write
       packages: write
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
       - uses: actions/download-artifact@v4
         with:
           name: storybook
@@ -46,7 +48,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const environment = process.env.PR_NUMBER ? `pr${process.env.PR_NUMBER}` : 'main';
+            const environment = `pr${process.env.PR_NUMBER}`;
             const payload = { owner: context.repo.owner, repo: context.repo.repo, environment };
             const { data: deployment } = await github.rest.repos.createDeployment({
               ...payload,
@@ -60,56 +62,31 @@ jobs:
               state: 'in_progress',
               environment_url: `https://${context.repo.repo}-${environment}.app.sbb.ch`,
             });
-            return environment;
-          result-encoding: string
 
       - name: 'Container: Build and preview image'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag $IMAGE_REPO_PREVIEW:${{ steps.tag-name.outputs.result }} .
-          docker push $IMAGE_REPO_PREVIEW:${{ steps.tag-name.outputs.result }}
+          docker build --tag $IMAGE_REPO_PREVIEW:pr$PR_NUMBER .
+          docker push $IMAGE_REPO_PREVIEW:pr$PR_NUMBER
         env:
           DOCKER_BUILDKIT: 1
 
       - name: "Add 'preview-available' label"
         if: env.PR_NUMBER != ''
         # This label is used for filtering deployments in ArgoCD
-        run: gh issue edit ${{ env.PR_NUMBER }} --repo ${{ github.repository }} --add-label "preview-available"
+        run: gh issue edit $PR_NUMBER --add-label "preview-available"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  codecov:
-    runs-on: ubuntu-latest
-    if: >
-      github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success'
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: coverage
-          path: coverage/
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
-      - uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
-          override_branch: ${{ github.event.workflow_run.head_branch }}
-          override_commit: ${{ github.event.workflow_run.head_commit.id }}
-          override_pr: ${{ env.PR_NUMBER }}
-          fail_ci_if_error: true
-          verbose: true
 
   visual-regression:
     runs-on: ubuntu-latest
     if: >
       github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success'
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.pull_requests[0] != null
     permissions:
       checks: write
+      deployments: write
       packages: write
       pull-requests: write
     steps:
@@ -138,19 +115,36 @@ jobs:
             const { readdirSync, readFileSync } = await import('fs');
             const diffUrl = process.env.DIFF_URL.replace('{}', process.env.PR_NUMBER);
             const diffInfo = JSON.parse(readFileSync('dist/visual-regression-app/diff.json', 'utf8'));
-            const createCheck = async (success) => await github.rest.checks.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              name: 'Visual Regression',
-              head_sha: context.payload.workflow_run.head_sha,
-              details_url: diffUrl,
-              output: {
-                title: `Visual Regression ${success ? 'Success' : `Failed (${diffInfo.changedAmount + diffInfo.newAmount})`}`,
-                summary: diffUrl,
-                text: `Changes: ${diffInfo.changedAmount}\nNew: ${diffInfo.newAmount}`,
-              },
-              ...(success ? { status: 'completed', conclusion: 'success' } : { status: 'in_progress' }),
-            });
+            const createCheck = async (success) => {
+              await github.rest.checks.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'Visual Regression',
+                head_sha: context.payload.workflow_run.head_sha,
+                details_url: diffUrl,
+                output: {
+                  title: `Visual Regression ${success ? 'Success' : `Failed (${diffInfo.changedAmount + diffInfo.newAmount})`}`,
+                  summary: diffUrl,
+                  text: `Changes: ${diffInfo.changedAmount}\nNew: ${diffInfo.newAmount}`,
+                },
+                ...(success ? { status: 'completed', conclusion: 'success' } : { status: 'in_progress' }),
+              });
+              
+              const environment = `pr${process.env.PR_NUMBER}-diff`;
+              const payload = { owner: context.repo.owner, repo: context.repo.repo, environment };
+              const { data: deployment } = await github.rest.repos.createDeployment({
+                ...payload,
+                ref: context.payload.workflow_run.head_sha,
+                auto_merge: false,
+                required_contexts: ['integrity', 'build', 'test', 'lint']
+              });
+              await github.rest.repos.createDeploymentStatus({
+                ...payload,
+                deployment_id: deployment.id,
+                state: success ? 'inactive' : 'in_progress',
+                environment_url: diffUrl,
+              });
+            };
 
             // If we have no screenshots, we do not need to create a check.
             if (readdirSync('dist/screenshots').length <= 1) {
@@ -173,12 +167,12 @@ jobs:
           result-encoding: string
 
       - name: Remove labels when no failed screenshots exist
-        if: steps.screenshot-check.outputs.result == 'empty'
+        if: steps.screenshot-check.outputs.result == 'empty' && env.PR_NUMBER != ''
         run: gh issue edit $PR_NUMBER --remove-label "$VISUAL_REQUIRED"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Add label and create container
+      - name: Create visual regression container
         if: steps.screenshot-check.outputs.result == 'changed' || steps.screenshot-check.outputs.result == 'empty'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
@@ -187,10 +181,39 @@ jobs:
             --tag $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER \
             .
           docker push $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER
-
-          gh issue edit $PR_NUMBER --remove-label "$VISUAL_APPROVED"
-          gh issue edit $PR_NUMBER --add-label "$VISUAL_REQUIRED"
-          gh issue edit $PR_NUMBER --add-label "visual-regression-diff-available"
         env:
           DOCKER_BUILDKIT: 1
+      - name: Apply labels
+        if: (steps.screenshot-check.outputs.result == 'changed' || steps.screenshot-check.outputs.result == 'empty') && env.PR_NUMBER != ''
+        run: |
+          gh issue edit $PR_NUMBER --remove-label "$VISUAL_APPROVED"
+          gh issue edit $PR_NUMBER --add-label "$VISUAL_REQUIRED"
+          gh issue edit $PR_NUMBER --add-label "diff-available"
+        env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  codecov:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.pull_requests[0] != null
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
+          override_branch: ${{ github.event.workflow_run.head_branch }}
+          override_commit: ${{ github.event.workflow_run.head_commit.id }}
+          override_pr: ${{ env.PR_NUMBER }}
+          fail_ci_if_error: true
+          verbose: true
