@@ -1,13 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-journey-summary renders DOM"] =
+snapshots["sbb-journey-summary renders DOM"] = 
   `<sbb-journey-summary>
 </sbb-journey-summary>
 `;
 /* end snapshot sbb-journey-summary renders DOM */
 
-snapshots["sbb-journey-summary renders Shadow DOM"] =
+snapshots["sbb-journey-summary renders Shadow DOM"] = 
   `<div class="sbb-journey-summary">
   <div>
     <div class="sbb-journey-summary__via-block">
@@ -44,13 +44,13 @@ snapshots["sbb-journey-summary renders Shadow DOM"] =
 `;
 /* end snapshot sbb-journey-summary renders Shadow DOM */
 
-snapshots["sbb-journey-summary renders without vias DOM"] =
+snapshots["sbb-journey-summary renders without vias DOM"] = 
   `<sbb-journey-summary>
 </sbb-journey-summary>
 `;
 /* end snapshot sbb-journey-summary renders without vias DOM */
 
-snapshots["sbb-journey-summary renders without vias Shadow DOM"] =
+snapshots["sbb-journey-summary renders without vias Shadow DOM"] = 
   `<div class="sbb-journey-summary">
   <div>
     <div class="sbb-journey-summary__date">
@@ -74,13 +74,13 @@ snapshots["sbb-journey-summary renders without vias Shadow DOM"] =
 `;
 /* end snapshot sbb-journey-summary renders without vias Shadow DOM */
 
-snapshots["sbb-journey-summary renders with second journey DOM"] =
+snapshots["sbb-journey-summary renders with second journey DOM"] = 
   `<sbb-journey-summary round-trip="">
 </sbb-journey-summary>
 `;
 /* end snapshot sbb-journey-summary renders with second journey DOM */
 
-snapshots["sbb-journey-summary renders with second journey Shadow DOM"] =
+snapshots["sbb-journey-summary renders with second journey Shadow DOM"] = 
   `<div class="sbb-journey-summary">
   <div>
     <div class="sbb-journey-summary__date">
