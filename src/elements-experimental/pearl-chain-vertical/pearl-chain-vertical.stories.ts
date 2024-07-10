@@ -8,6 +8,7 @@ import readme from './readme.md?raw';
 import './pearl-chain-vertical.js';
 import '../pearl-chain-vertical-item.js';
 import '@sbb-esta/lyne-elements/icon.js';
+import '@sbb-esta/lyne-elements/timetable-occupancy.js';
 
 const lineType: InputType = {
   options: ['dotted', 'standard', 'thin'],
@@ -64,7 +65,7 @@ const defaultArgs: Args = {
   lineType: lineType.options![1],
   lineColor: lineColor.options![0],
   bulletType: bulletType.options![0],
-  minHeight: '100',
+  minHeight: 100,
   hideLine: false,
   bulletSize: bulletSize.options![0],
   position: 0,
@@ -145,8 +146,7 @@ const TemplateTwoDots = ({ disableAnimation, ...args }: Args): TemplateResult =>
           lineType: 'standard',
           lineColor: 'disruption',
           bulletType: 'disruption',
-          // TODO: Check if bug?
-          minHeight: '100px' as any,
+          minHeight: 100,
           hideLine: true,
           bulletSize: 'start-end',
           position: 0,
@@ -187,8 +187,7 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }: Args): TemplateRe
           lineType: 'standard',
           lineColor: 'disruption',
           bulletType: 'disruption',
-          // TODO: Check if bug?
-          minHeight: '100px' as any,
+          minHeight: 100,
           hideLine: true,
           bulletSize: 'start-end',
           position: 0,
@@ -227,9 +226,10 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }: Args): Template
               <div>Direction Station</div>
             </div>
             <span>
-              1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
-                name="utilization-high"
-              ></sbb-icon>
+              <sbb-timetable-occupancy
+                first-class-occupancy="high"
+                second-class-occupancy="high"
+              ></sbb-timetable-occupancy>
             </span>
           </div>
         </div>
@@ -245,8 +245,7 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }: Args): Template
         .pearlChainVerticalItemAttributes=${{
           lineType: 'standard',
           lineColor: 'disruption',
-          // TODO: Check if bug?
-          minHeight: '100px' as any,
+          minHeight: 100,
           hideLine: true,
           bulletSize: 'stop',
           position: 0,
@@ -310,9 +309,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult
           </div>
           <div style="padding-bottom: 5px; padding-top: 5px;">
             <span>
-              1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
-                name="utilization-high"
-              ></sbb-icon>
+              <sbb-timetable-occupancy
+                first-class-occupancy="high"
+                second-class-occupancy="high"
+              ></sbb-timetable-occupancy>
             </span>
           </div>
         </div>
@@ -345,9 +345,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult
           </div>
           <div style="padding-bottom: 5px; padding-top: 5px;">
             <span>
-              1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
-                name="utilization-high"
-              ></sbb-icon>
+              <sbb-timetable-occupancy
+                first-class-occupancy="high"
+                second-class-occupancy="high"
+              ></sbb-timetable-occupancy>
             </span>
           </div>
         </div>
@@ -428,8 +429,7 @@ const TimetableChange = (): TemplateResult => {
         .pearlChainVerticalItemAttributes=${{
           lineType: 'dotted',
           lineColor: 'walk',
-          // TODO: Check if bug?
-          bulletType: 'thick' as any,
+          bulletType: 'thick',
           minHeight: 122,
           hideLine: false,
           bulletSize: 'stop',
@@ -468,10 +468,8 @@ const TimetableChange = (): TemplateResult => {
         .pearlChainVerticalItemAttributes=${{
           lineType: 'dotted',
           lineColor: 'walk',
-          // TODO: Check if bug?
-          bulletType: 'standard' as any,
-          // TODO: Check if bug?
-          minHeight: '100px' as any,
+          bulletType: 'standard',
+          minHeight: 100,
           hideLine: true,
           bulletSize: 'start-end',
           position: 0,
@@ -513,7 +511,7 @@ export const defaultPearlChainLeftSlot: StoryObj = {
     ...defaultArgs,
     lineColor: 'disruption',
     bulletType: 'disruption',
-    minHeight: '100',
+    minHeight: 100,
   },
 };
 export const defaultPearlChainTwoDots: StoryObj = {
@@ -612,7 +610,7 @@ export const timetableConnection: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    minHeight: '89',
+    minHeight: 89,
   },
 };
 
