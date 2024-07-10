@@ -36,39 +36,56 @@ const dataWithoutVia: InterfaceSbbJourneySummaryAttributes = {
 };
 
 describe(`sbb-journey-summary`, () => {
-  it('renders', async () => {
-    const root = (await fixture(
-      html` <sbb-journey-summary .now=${now} .trip=${data}></sbb-journey-summary>`,
-    )) as SbbJourneySummaryElement;
+  describe('renders', () => {
+    let root: SbbJourneySummaryElement;
+    beforeEach(async () => {
+      root = await fixture(
+        html`<sbb-journey-summary .now=${now} .trip=${data}></sbb-journey-summary>`,
+      );
+    });
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-journey-summary>
-      </sbb-journey-summary>`);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders without vias', async () => {
-    const root = (await fixture(
-      html` <sbb-journey-summary .now=${now} .trip=${dataWithoutVia}></sbb-journey-summary>`,
-    )) as SbbJourneySummaryElement;
+  describe('renders without vias', () => {
+    let root: SbbJourneySummaryElement;
+    beforeEach(async () => {
+      root = await fixture(
+        html`<sbb-journey-summary .now=${now} .trip=${dataWithoutVia}></sbb-journey-summary>`,
+      );
+    });
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-journey-summary>
-      </sbb-journey-summary>`);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders with second journey', async () => {
-    const root = (await fixture(
-      html`<sbb-journey-summary
-        .now=${now}
-        .trip=${dataWithoutVia}
-        .tripBack=${data}
-        round-trip
-      ></sbb-journey-summary>`,
-    )) as SbbJourneySummaryElement;
+  describe('renders with second journey', () => {
+    let root: SbbJourneySummaryElement;
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-journey-summary
+          .now=${now}
+          .trip=${dataWithoutVia}
+          .tripBack=${data}
+          round-trip
+        ></sbb-journey-summary>
+      `);
+    });
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
 
-    expect(root).dom.to.be.equal(`<sbb-journey-summary round-trip></sbb-journey-summary>`);
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 });
