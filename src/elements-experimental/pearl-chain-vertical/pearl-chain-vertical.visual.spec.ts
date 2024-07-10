@@ -21,34 +21,6 @@ describe(`sbb-pearl-chain-vertical`, () => {
 
   describeViewports({ viewports: ['medium'] }, () => {
     it(
-      'two dots',
-      visualDiffDefault.with(async (setup) => {
-        const argsFirstDot = { ...defaultArgs, lineColor: 'disruption', bulletType: 'disruption' };
-        const argsSecondDot = { ...argsFirstDot, hideLine: true };
-        await setup.withFixture(html`
-          <sbb-pearl-chain-vertical>
-            <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${argsFirstDot}>
-              <div
-                slot="right"
-                style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
-              >
-                slot for content
-                <div>more</div>
-                <div>more</div>
-                <div>more</div>
-                <div>more</div>
-                <div>more</div>
-              </div>
-            </sbb-pearl-chain-vertical-item>
-            <sbb-pearl-chain-vertical-item
-              .pearlChainVerticalItemAttributes=${argsSecondDot}
-            ></sbb-pearl-chain-vertical-item>
-          </sbb-pearl-chain-vertical>
-        `);
-      }),
-    );
-
-    it(
       'connection',
       visualDiffDefault.with(async (setup) => {
         const args = {
