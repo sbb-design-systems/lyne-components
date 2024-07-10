@@ -25,14 +25,16 @@ describe(`sbb-container`, () => {
     <sbb-secondary-button style="margin-block-end: 3rem;">See more</sbb-secondary-button>
   `;
 
+  const wrapperStyles = { backgroundColor: 'var(--sbb-color-silver)', padding: '0' };
+
   describeViewports({ viewportHeight: 600 }, () => {
     for (const color of colorCases) {
       it(
         `color=${color}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html` <sbb-container color=${color}> ${containerContent()} </sbb-container> `,
-            { backgroundColor: 'var(--sbb-color-silver)', padding: '0' },
+            html`<sbb-container color=${color}>${containerContent()}</sbb-container>`,
+            wrapperStyles,
           );
         }),
       );
@@ -42,8 +44,27 @@ describe(`sbb-container`, () => {
       `expanded`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html` <sbb-container expanded> ${containerContent()} </sbb-container> `,
-          { backgroundColor: 'var(--sbb-color-silver)', padding: '0' },
+          html`<sbb-container expanded>${containerContent()}</sbb-container>`,
+          wrapperStyles,
+        );
+      }),
+    );
+  });
+
+  describeViewports({ viewports: ['medium'] }, () => {
+    it(
+      `nested`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-container color="white">
+              ${containerContent()}
+              <div style="background-color: var(--sbb-color-milk);">
+                <sbb-container color="transparent">${containerContent()}</sbb-container>
+              </div>
+            </sbb-container>
+          `,
+          wrapperStyles,
         );
       }),
     );

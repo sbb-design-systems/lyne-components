@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention, import-x/namespace  */
+/* eslint-disable @typescript-eslint/naming-convention */
 import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { parse, stringify } from 'comment-parser';

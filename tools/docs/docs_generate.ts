@@ -1,7 +1,6 @@
 /**
  * Docs: https://github.com/open-wc/custom-elements-manifest/tree/master/packages/to-markdown
  */
-/* eslint-disable import-x/namespace, import-x/default, import-x/no-named-as-default, import-x/no-named-as-default-member */
 import fs from 'fs';
 
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
