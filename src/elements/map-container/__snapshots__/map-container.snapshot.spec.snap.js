@@ -9,6 +9,10 @@ snapshots["sbb-map-container renders DOM"] =
 
 snapshots["sbb-map-container renders Shadow DOM"] = 
 `<div class="sbb-map-container">
+  <div class="sbb-map-container__map">
+    <slot name="map">
+    </slot>
+  </div>
   <div class="sbb-map-container__sidebar">
     <span>
     </span>
@@ -31,10 +35,6 @@ snapshots["sbb-map-container renders Shadow DOM"] =
       Show map
     </sbb-tertiary-button>
   </div>
-  <div class="sbb-map-container__map">
-    <slot name="map">
-    </slot>
-  </div>
 </div>
 `;
 /* end snapshot sbb-map-container renders Shadow DOM */
@@ -47,12 +47,12 @@ snapshots["sbb-map-container renders without scroll-up button DOM"] =
 
 snapshots["sbb-map-container renders without scroll-up button Shadow DOM"] = 
 `<div class="sbb-map-container">
-  <div class="sbb-map-container__sidebar">
-    <slot>
-    </slot>
-  </div>
   <div class="sbb-map-container__map">
     <slot name="map">
+    </slot>
+  </div>
+  <div class="sbb-map-container__sidebar">
+    <slot>
     </slot>
   </div>
 </div>
