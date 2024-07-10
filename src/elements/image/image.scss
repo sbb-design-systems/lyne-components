@@ -76,7 +76,11 @@
 }
 
 .sbb-image__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-4x);
   margin: 0;
+  height: 100%;
 }
 
 .sbb-image__img {
@@ -102,19 +106,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--sbb-image-object-position);
   transition: opacity var(--sbb-image-animation-duration) var(--sbb-animation-easing);
+  aspect-ratio: var(--sbb-image-aspect-ratio);
 }
 
 .sbb-image__wrapper {
+  display: flex;
   position: relative;
   overflow: hidden;
   max-width: 100%;
   border-radius: var(--sbb-image-border-radius);
-  aspect-ratio: var(--sbb-image-aspect-ratio);
+  height: 100%;
 }
 
 .sbb-image__caption {
   @include sbb.text-xs--regular;
-
-  margin-block-start: var(--sbb-spacing-fixed-4x);
 }
