@@ -8,7 +8,7 @@ import './alert-group.js';
 import '../alert.js';
 
 describe(`sbb-alert-group`, () => {
-  describe('should render', () => {
+  describe('renders', () => {
     let root: SbbAlertGroupElement;
 
     beforeEach(async () => {
@@ -35,30 +35,30 @@ describe(`sbb-alert-group`, () => {
     testA11yTreeSnapshot();
   });
 
-  it('should render with slots', async () => {
-    const root = await fixture(html`
-      <sbb-alert-group accessibility-title-level="3">
-        <span slot="accessibility-title">Interruptions</span>
-        <sbb-alert
-          title-content="Interruption between Genève and Lausanne"
-          href="https://www.sbb.ch"
-          data-state="opening"
-        >
-          The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-        </sbb-alert>
-      </sbb-alert-group>
-    `);
+  describe('renders with slotted', () => {
+    let root: SbbAlertGroupElement;
 
-    await expect(root).dom.to.be.equalSnapshot();
-    expect(root).shadowDom.to.be.equal(
-      `
-        <div class="sbb-alert-group">
-          <h3 class="sbb-alert-group__title">
-            <slot name="accessibility-title"></slot>
-          </h3>
-          <slot></slot>
-        </div>
-      `,
-    );
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-alert-group accessibility-title-level="3">
+          <span slot="accessibility-title">Interruptions</span>
+          <sbb-alert
+            title-content="Interruption between Genève and Lausanne"
+            href="https://www.sbb.ch"
+            data-state="opening"
+          >
+            The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+          </sbb-alert>
+        </sbb-alert-group>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 });
