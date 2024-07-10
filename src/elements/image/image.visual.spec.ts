@@ -94,7 +94,7 @@ describe(`sbb-image`, () => {
     );
 
     it(
-      'cropped image',
+      'cropped',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`<sbb-image image-src=${imageUrl} style="width: 200px; height: 200px"></sbb-image>`,
@@ -105,13 +105,27 @@ describe(`sbb-image`, () => {
     );
 
     it(
-      'cropped image with caption',
+      'cropped with caption',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`<sbb-image
             image-src=${imageUrl}
             style="width: 200px; height: 300px"
             caption="I am a caption below"
+          ></sbb-image>`,
+        );
+
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+      }),
+    );
+
+    it(
+      'cropped with object-position',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-image
+            image-src=${imageUrl}
+            style="width: 200px; height: 300px; --sbb-image-object-position: 0 0"
           ></sbb-image>`,
         );
 
