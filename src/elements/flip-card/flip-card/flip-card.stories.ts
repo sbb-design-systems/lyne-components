@@ -40,7 +40,12 @@ const Template = (args: Args): TemplateResult =>
   html`<sbb-flip-card ${sbbSpread(args)}>
     <sbb-flip-card-summary>
       <sbb-title level="4">Summary</sbb-title>
-      <sbb-image slot="image" image-src=${sampleImages[1]} border-radius="none"></sbb-image>
+      <sbb-image
+        slot="image"
+        image-src=${sampleImages[1]}
+        border-radius="none"
+        aspect-ratio="free"
+      ></sbb-image>
     </sbb-flip-card-summary>
     <!-- <sbb-flip-card-details>Details</sbb-flip-card-details> -->
   </sbb-flip-card>`;
