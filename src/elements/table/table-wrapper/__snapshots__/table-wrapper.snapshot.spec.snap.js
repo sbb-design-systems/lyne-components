@@ -40,7 +40,7 @@ snapshots["sbb-table-wrapper renders Shadow DOM"] =
 `;
 /* end snapshot sbb-table-wrapper renders Shadow DOM */
 
-snapshots["sbb-table-wrapper renders A11y tree Chrome"] =
+snapshots["sbb-table-wrapper renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",

@@ -31,6 +31,18 @@ const aspectRatio: InputType = {
   options: ['free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'],
 };
 
+const alt: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const caption: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const copyright: InputType = {
   control: {
     type: 'text',
@@ -115,8 +127,8 @@ const performanceMark: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  alt: {},
-  caption: {},
+  alt,
+  caption,
   'border-radius': borderRadius,
   'aspect-ratio': aspectRatio,
   copyright,

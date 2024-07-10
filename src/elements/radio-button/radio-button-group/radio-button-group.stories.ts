@@ -19,18 +19,16 @@ import '../../card/card-badge.js';
 const suffixStyle: Readonly<StyleInfo> = {
   display: 'flex',
   alignItems: 'center',
-  marginInline: 'var(--sbb-spacing-fixed-2x)',
+  marginInlineStart: 'auto',
 };
 
 const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
 
 const suffixAndSubtext = (): TemplateResult => html`
   <span slot="subtext">Subtext</span>
-  <span slot="suffix" style="margin-inline-start: auto;">
-    <span style=${styleMap(suffixStyle)}>
-      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-      <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
-    </span>
+  <span slot="suffix" style=${styleMap(suffixStyle)}>
+    <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
+    <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
   </span>
   ${cardBadge()}
 `;

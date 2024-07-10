@@ -8,7 +8,6 @@
   --sbb-checkbox-label-color: var(--sbb-color-charcoal);
   --sbb-checkbox-label-icon-color: var(--sbb-color-charcoal);
   --sbb-checkbox-cursor: pointer;
-  --sbb-checkbox-label-gap: var(--sbb-spacing-fixed-2x);
 }
 
 :host(:disabled) {
@@ -45,7 +44,6 @@
 
 .sbb-checkbox__label {
   display: flex;
-  gap: var(--sbb-checkbox-label-gap);
   flex-grow: 1;
   color: var(--sbb-checkbox-label-color);
 
