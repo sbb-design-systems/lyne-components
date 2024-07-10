@@ -36,13 +36,15 @@ const dataWithoutVia: InterfaceSbbJourneySummaryAttributes = {
 };
 
 describe(`sbb-journey-summary`, () => {
+  let root: SbbJourneySummaryElement;
+
   describe('renders', () => {
-    let root: SbbJourneySummaryElement;
     beforeEach(async () => {
       root = await fixture(
         html`<sbb-journey-summary .now=${now} .trip=${data}></sbb-journey-summary>`,
       );
     });
+
     it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
@@ -53,12 +55,12 @@ describe(`sbb-journey-summary`, () => {
   });
 
   describe('renders without vias', () => {
-    let root: SbbJourneySummaryElement;
     beforeEach(async () => {
       root = await fixture(
         html`<sbb-journey-summary .now=${now} .trip=${dataWithoutVia}></sbb-journey-summary>`,
       );
     });
+
     it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
@@ -69,7 +71,6 @@ describe(`sbb-journey-summary`, () => {
   });
 
   describe('renders with second journey', () => {
-    let root: SbbJourneySummaryElement;
     beforeEach(async () => {
       root = await fixture(html`
         <sbb-journey-summary
@@ -80,6 +81,7 @@ describe(`sbb-journey-summary`, () => {
         ></sbb-journey-summary>
       `);
     });
+
     it('DOM', async () => {
       await expect(root).dom.to.be.equalSnapshot();
     });
