@@ -13,7 +13,7 @@ const imageUrl = import.meta.resolve('../../elements/core/testing/assets/lucerne
 describe(`sbb-teaser-hero`, () => {
   let element: SbbTeaserHeroElement;
 
-  describe('should render all properties', () => {
+  describe('renders', () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-teaser-hero
@@ -42,7 +42,7 @@ describe(`sbb-teaser-hero`, () => {
     testA11yTreeSnapshot();
   });
 
-  describe('should render with slots', async () => {
+  describe('renders with slots', async () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">
