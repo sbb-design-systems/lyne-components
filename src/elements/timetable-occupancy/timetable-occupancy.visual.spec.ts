@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import {
   describeEach,
@@ -11,8 +11,8 @@ import './timetable-occupancy.js';
 
 describe(`sbb-timetable-occupancy`, () => {
   const cases = {
-    firstClassOccupancy: ['high', 'low'],
-    secondClassOccupancy: ['medium', 'none'],
+    firstClassOccupancy: ['high', 'low', undefined],
+    secondClassOccupancy: ['medium', 'none', undefined],
     negative: [false, true],
     forcedColors: [false, true],
   };
@@ -26,8 +26,8 @@ describe(`sbb-timetable-occupancy`, () => {
           html`
             <sbb-timetable-occupancy
               ?negative=${negative}
-              first-class-occupancy=${firstClassOccupancy}
-              second-class-occupancy=${secondClassOccupancy}
+              first-class-occupancy=${firstClassOccupancy || nothing}
+              second-class-occupancy=${secondClassOccupancy || nothing}
             ></sbb-timetable-occupancy>
           `,
           {
