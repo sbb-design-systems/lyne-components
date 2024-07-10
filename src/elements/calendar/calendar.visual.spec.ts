@@ -26,7 +26,7 @@ describe('sbb-calendar', () => {
     { name: 'odd days', dateFilter: (d: Date): boolean => d.getDate() % 2 === 1 },
   ];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'medium', 'wide'] }, () => {
     describeEach(cases, ({ min, max }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
@@ -59,11 +59,30 @@ describe('sbb-calendar', () => {
                 .max=${defaultDateAdapter.toIso8601(new Date(2023, 1, 17))}
                 .selected=${new Date(2023, 0, 20)}
                 .dateFilter=${fn.dateFilter}
+                .now=${new Date(2023, 0, 12, 0, 0, 0)}
               ></sbb-calendar>
             `);
           }),
         );
       }
     });
+
+    for (const wide of [false, true]) {
+      describe(`wide=${wide}`, () => {
+        it(
+          'dynamic width',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              <sbb-calendar
+                style="width: 900px"
+                ?wide=${wide}
+                .selected=${new Date(2023, 0, 20)}
+                .now=${new Date(2023, 0, 12, 0, 0, 0)}
+              ></sbb-calendar>
+            `);
+          }),
+        );
+      });
+    }
   });
 });
