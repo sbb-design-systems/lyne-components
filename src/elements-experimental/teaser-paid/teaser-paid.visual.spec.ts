@@ -4,11 +4,13 @@ import {
   visualDiffFocus,
   visualDiffHover,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { waitForImageReady } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit';
 
-import './teaser-paid.js';
 import '@sbb-esta/lyne-elements/chip.js';
 import '@sbb-esta/lyne-elements/image.js';
+
+import './teaser-paid.js';
 
 const imageUrl = import.meta.resolve('../../elements/core/testing/assets/placeholder-image.png');
 
@@ -24,6 +26,8 @@ describe(`sbb-teaser-paid`, () => {
               <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
             </sbb-teaser-paid>
           `);
+
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
     }
