@@ -5041,10 +5041,10 @@ eslint-module-utils@^2.7.4:
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-import-x@0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-0.5.3.tgz#5965a567885521734c05c6832de93ece18da12ad"
-  integrity sha512-hJ/wkMcsLQXAZL3+txXIDpbW5cqwdm1rLTqV4VRY03aIbzE3zWE7rPZKW6Gzf7xyl1u3V1iYC6tOG77d9NF4GQ==
+eslint-plugin-import-x@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-3.0.0.tgz#196d8f5643d6f4f4371b0c254a38c154e327255b"
+  integrity sha512-zk3QklFELk7mrSlhP9C27NpKx86G5YtIEvDV1dIJRS3VOIm5tCHQCln2JkwbO5lpYOvyYSoro35PCAAVG9lY8w==
   dependencies:
     "@typescript-eslint/utils" "^7.4.0"
     debug "^4.3.4"
