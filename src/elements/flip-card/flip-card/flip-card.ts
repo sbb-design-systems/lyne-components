@@ -1,9 +1,7 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { EventEmitter } from '../../core/eventing.js';
 import '../../button/secondary-button.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
@@ -21,12 +19,6 @@ import style from './flip-card.scss?lit&inline';
 @customElement('sbb-flip-card')
 export class SbbFlipCardElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    myEventName: 'myEventName',
-  } as const;
-
-  /** myProp documentation */
-  @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
 
   /** Whether the card is flipped or not. */
   @state() private _flipped = false;
@@ -35,6 +27,8 @@ export class SbbFlipCardElement extends LitElement {
   public toggle(): void {
     this._flipped = !this._flipped;
     this.toggleAttribute('data-flipped', this._flipped);
+    this.summary.inert = this._flipped;
+    this.details.inert = !this._flipped;
   }
 
   public get summary(): SbbFlipCardSummaryElement {
@@ -45,47 +39,27 @@ export class SbbFlipCardElement extends LitElement {
     return this.querySelector('sbb-flip-card-details')!;
   }
 
-  private _abort = new SbbConnectedAbortController(this);
-  private _myEvent: EventEmitter<any> = new EventEmitter(
-    this,
-    SbbFlipCardElement.events.myEventName,
-  );
-
-  private _onClickFn(): void {
-    this._myEvent.emit();
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', () => this._onClickFn(), { signal });
-    // do stuff
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('myProp')) {
-      // do stuff
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    // do stuff
+    this.summary.inert = this._flipped;
+    this.details.inert = !this._flipped;
   }
 
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-flip-card--wrapper">
         <slot name="summary"></slot>
+        <button
+          @click=${() => this.toggle()}
+          aria-label="Click on this card to show more details"
+          aria-expanded=${this._flipped.toString()}
+        ></button>
         <slot name="details"></slot>
         <sbb-secondary-button
-        class="sbb-flip-card--toggle-button"
-        icon-name=${this._flipped ? 'cross-small' : 'plus-small'}
-        @click=${() => this.toggle()}
+          class="sbb-flip-card--toggle-button"
+          icon-name=${this._flipped ? 'cross-small' : 'plus-small'}
+          @click=${() => this.toggle()}
         ></sbb-secondary-button>
-        <!-- <button @click=${() => this.toggle()}></button> -->
       </div>
     `;
   }

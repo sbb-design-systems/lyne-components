@@ -1,10 +1,10 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
 import { hostAttributes } from '../../core/decorators.js';
-import { EventEmitter } from '../../core/eventing.js';
+import { AgnosticMutationObserver } from '../../core/observers.js';
 
 import style from './flip-card-details.scss?lit&inline';
 
@@ -19,44 +19,36 @@ import style from './flip-card-details.scss?lit&inline';
 })
 export class SbbFlipCardDetailsElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    myEventName: 'myEventName',
-  } as const;
 
-  /** myProp documentation */
-  @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
-
-  /** _myState documentation */
-  @state() private _myState = false;
-
-  private _abort = new SbbConnectedAbortController(this);
-  private _myEvent: EventEmitter<any> = new EventEmitter(
-    this,
-    SbbFlipCardDetailsElement.events.myEventName,
+  private _flipCardMutationObserver = new AgnosticMutationObserver(() =>
+    this._checkForSlottedActions(),
   );
 
-  private _onClickFn(): void {
-    this._myEvent.emit();
+  private _checkForSlottedActions(): void {
+    const cardFocusableAttributeName = 'data-card-focusable';
+
+    Array.from(this.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
+      .filter((el) => !el.hasAttribute(cardFocusableAttributeName))
+      .forEach((el: Element) => el.setAttribute(cardFocusableAttributeName, ''));
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', () => this._onClickFn(), { signal });
-    // do stuff
+    this._checkForSlottedActions();
+    this._flipCardMutationObserver.observe(this, {
+      childList: true,
+      subtree: true,
+    });
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('myProp')) {
-      // do stuff
-    }
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this._checkForSlottedActions();
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    // do stuff
+    this._flipCardMutationObserver.disconnect();
   }
 
   protected override render(): TemplateResult {

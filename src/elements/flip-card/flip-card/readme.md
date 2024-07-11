@@ -45,12 +45,27 @@ The `sbb-flip-card` is a component . . .
 
 ## Properties
 
-| Name     | Attribute | Privacy | Type     | Default | Description          |
-| -------- | --------- | ------- | -------- | ------- | -------------------- |
-| `myProp` | `my-prop` | public  | `string` | `''`    | myProp documentation |
+| Name      | Attribute | Privacy | Type                        | Default | Description          |
+| --------- | --------- | ------- | --------------------------- | ------- | -------------------- |
+| `details` | -         | public  | `SbbFlipCardDetailsElement` |         |                      |
+| `myProp`  | `my-prop` | public  | `string`                    | `''`    | myProp documentation |
+| `summary` | -         | public  | `SbbFlipCardSummaryElement` |         |                      |
+
+## Methods
+
+| Name     | Privacy | Description | Parameters | Return | Inherited From |
+| -------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `toggle` | public  | TODO        |            | `void` |                |
 
 ## Events
 
 | Name          | Type               | Description               | Inherited From |
 | ------------- | ------------------ | ------------------------- | -------------- |
 | `myEventName` | `CustomEvent<any>` | TODO: Document this event |                |
+
+## Slots
+
+| Name      | Description                                                 |
+| --------- | ----------------------------------------------------------- |
+| `details` | Use this slot to provide a sbb-flip-card-details component. |
+| `summary` | Use this slot to provide a sbb-flip-card-summary component. |

@@ -45,18 +45,12 @@ The `sbb-flip-card-summary` is a component . . .
 
 ## Properties
 
-| Name     | Attribute | Privacy | Type     | Default | Description          |
-| -------- | --------- | ------- | -------- | ------- | -------------------- |
-| `myProp` | `my-prop` | public  | `string` | `''`    | myProp documentation |
+| Name             | Attribute         | Privacy | Type                        | Default   | Description          |
+| ---------------- | ----------------- | ------- | --------------------------- | --------- | -------------------- |
+| `imageAlignment` | `image-alignment` | public  | `\| 'after'     \| 'below'` | `'after'` | myProp documentation |
 
 ## Events
 
 | Name          | Type               | Description               | Inherited From |
 | ------------- | ------------------ | ------------------------- | -------------- |
 | `myEventName` | `CustomEvent<any>` | TODO: Document this event |                |
-
-## Slots
-
-| Name | Description                                      |
-| ---- | ------------------------------------------------ |
-|      | Use the unnamed slot to add `sbb-TODO` elements. |

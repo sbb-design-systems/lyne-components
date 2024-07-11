@@ -4,7 +4,9 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-flip-card-background-color: var(--sbb-color-cloud); // add cloud-alpha-80
+  --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
+  --sbb-flip-card-background-color: var(--sbb-color-cloud);
+  --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
 
   position: relative;
   display: block;
@@ -15,14 +17,12 @@
 
   ::slotted(sbb-flip-card-summary) {
     --sbb-flip-card-summary-opacity: 0;
-
-    pointer-events: none;
+    --sbb-flip-card-summary-pointer-events: none;
   }
-  
+
   ::slotted(sbb-flip-card-details) {
     --sbb-flip-card-details-opacity: 1;
-
-    pointer-events: all;
+    --sbb-flip-card-details-translate-y: 0;
   }
 }
 
@@ -30,23 +30,33 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-flow: wrap;
   gap: var(--sbb-spacing-responsive-xs);
-  // min-height: 280px;
+  min-height: #{sbb.px-to-rem-build(280)}; // TODO: check if correct
   background-color: var(--sbb-flip-card-background-color);
-  border-radius: var(--sbb-border-radius-4x);
-  overflow: hidden;
+  border-radius: var(--sbb-flip-card-border-radius);
+  transition: all 250ms ease-out;
 }
 
 .sbb-flip-card--toggle-button {
-  position: relative;
+  position: absolute;
   inset-inline-start: var(--sbb-spacing-responsive-s);
   inset-block-end: var(--sbb-spacing-responsive-s);
+
+  :host([data-flipped]) & {
+    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  }
 }
 
-// button {
-//   @include sbb.button-reset;
+button {
+  @include sbb.button-reset;
 
-//   position: absolute;
-//   inset: 0;
-//   cursor: pointer;
-// }
+  cursor: pointer;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sbb-flip-card-border-radius);
+
+  &:not([data-focus-origin='mouse'], [data-focus-origin='touch']):focus-visible {
+    @include sbb.focus-outline;
+  }
+}

@@ -5,7 +5,8 @@
 
 :host {
   --sbb-flip-card-details-opacity: 0;
-  
+  --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-4x);
+
   display: contents;
 }
 
@@ -14,4 +15,9 @@
   color: var(--sbb-color-milk);
   opacity: var(--sbb-flip-card-details-opacity);
   padding: var(--sbb-spacing-responsive-s);
+  padding-block-end: calc(
+    var(--sbb-spacing-responsive-s) + var(--sbb-spacing-responsive-xs) + var(--sbb-size-element-m)
+  );
+  transform: translateY(var(--sbb-flip-card-details-translate-y));
+  transition: all 250ms ease-out;
 }
