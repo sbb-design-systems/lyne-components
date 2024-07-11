@@ -6,7 +6,7 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -16,11 +16,16 @@ import type {
   SbbStateChange,
 } from '../../core/interfaces/types.js';
 import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.js';
+import {
+  checkboxCommonStyle,
+  SbbCheckboxCommonElementMixin,
+  type SbbCheckboxSize,
+} from '../common.js';
 
 import '../../screen-reader-only.js';
 import '../../visual-checkbox.js';
 
+export type SbbCheckboxPanelSize = Omit<SbbCheckboxSize, 'xs'>;
 export type SbbCheckboxPanelStateChange = Extract<
   SbbStateChange,
   SbbDisabledStateChange | SbbCheckedStateChange
@@ -50,6 +55,16 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
     stateChange: 'stateChange',
     panelConnected: 'panelConnected',
   } as const;
+
+  /** Label size variant, either m or s. */
+  @property({ reflect: true })
+  public set size(value: SbbCheckboxPanelSize) {
+    this._size = value;
+  }
+  public get size(): SbbCheckboxPanelSize {
+    return this._size;
+  }
+  private _size: SbbCheckboxPanelSize = 'm';
 
   /**
    * @internal

@@ -10,16 +10,13 @@ import {
 } from '../../core/mixins.js';
 import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
 
-export type SbbCheckboxSize = 's' | 'm';
+export type SbbCheckboxSize = 'xs' | 's' | 'm';
 
 export declare class SbbCheckboxCommonElementMixinType
   extends SbbFormAssociatedCheckboxMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
   public indeterminate: boolean;
-
-  public set size(value: SbbCheckboxSize);
-  public get size(): SbbCheckboxSize;
 
   public get group(): SbbCheckboxGroupElement | null;
 }
@@ -34,16 +31,6 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
   {
     /** Whether the checkbox is indeterminate. */
     @property({ type: Boolean }) public indeterminate = false;
-
-    /** Label size variant, either m or s. */
-    @property({ reflect: true })
-    public set size(value: SbbCheckboxSize) {
-      this._size = value;
-    }
-    public get size(): SbbCheckboxSize {
-      return this.group?.size ?? this._size;
-    }
-    private _size: SbbCheckboxSize = 'm';
 
     /** Reference to the connected checkbox group. */
     public get group(): SbbCheckboxGroupElement | null {

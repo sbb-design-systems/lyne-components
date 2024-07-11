@@ -234,7 +234,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['m', 's', 'xs'],
   table: {
     category: 'Checkbox group',
   },
@@ -357,6 +357,12 @@ export const horizontalSizeM: StoryObj = {
   render: DefaultTemplate,
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgs, size: 'm' },
+};
+
+export const horizontalSizeXS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgs, size: 'xs' },
 };
 
 export const horizontalDisabled: StoryObj = {

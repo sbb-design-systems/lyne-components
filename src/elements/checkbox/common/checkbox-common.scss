@@ -34,6 +34,10 @@
   :host([size='s']) & {
     @include sbb.text-s--regular;
   }
+
+  :host([size='xs']) & {
+    @include sbb.text-xs--regular;
+  }
 }
 
 .sbb-checkbox__inner {
