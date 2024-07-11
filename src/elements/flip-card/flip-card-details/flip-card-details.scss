@@ -4,11 +4,14 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-flip-card-details-some-color-var: var(--color-black);
-
-  display: block;
+  --sbb-flip-card-details-opacity: 0;
+  
+  display: contents;
 }
 
-.sbb-flip-card-details {
-  color: var(--sbb-flip-card-details-some-color-var);
+.sbb-flip-card-details--wrapper {
+  pointer-events: none;
+  color: var(--sbb-color-milk);
+  opacity: var(--sbb-flip-card-details-opacity);
+  padding: var(--sbb-spacing-responsive-s);
 }

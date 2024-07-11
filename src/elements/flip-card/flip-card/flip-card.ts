@@ -13,8 +13,8 @@ import style from './flip-card.scss?lit&inline';
 /**
  * Describe the purpose of the component with a single short sentence.
  *
- * @slot summary- Use this slot to provide a sbb-flip-card-summary component.
- * @slot details- Use this slot to provide a sbb-flip-card-details component.
+ * @slot summary - Use this slot to provide a sbb-flip-card-summary component.
+ * @slot details - Use this slot to provide a sbb-flip-card-details component.
  *
  * @event {CustomEvent<any>} myEventName - TODO: Document this event
  */
@@ -34,6 +34,7 @@ export class SbbFlipCardElement extends LitElement {
   /** TODO */
   public toggle(): void {
     this._flipped = !this._flipped;
+    this.toggleAttribute('data-flipped', this._flipped);
   }
 
   public get summary(): SbbFlipCardSummaryElement {
@@ -80,10 +81,11 @@ export class SbbFlipCardElement extends LitElement {
         <slot name="summary"></slot>
         <slot name="details"></slot>
         <sbb-secondary-button
-          class="sbb-flip-card--toggle-button"
-          icon-name=${this._flipped ? 'minus-small' : 'plus-small'}
-          @click=${() => this.toggle()}
+        class="sbb-flip-card--toggle-button"
+        icon-name=${this._flipped ? 'cross-small' : 'plus-small'}
+        @click=${() => this.toggle()}
         ></sbb-secondary-button>
+        <!-- <button @click=${() => this.toggle()}></button> -->
       </div>
     `;
   }

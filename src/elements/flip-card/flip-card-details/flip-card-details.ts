@@ -61,7 +61,7 @@ export class SbbFlipCardDetailsElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-flip-card-details">
+      <div class="sbb-flip-card-details--wrapper">
         <slot></slot>
       </div>
     `;

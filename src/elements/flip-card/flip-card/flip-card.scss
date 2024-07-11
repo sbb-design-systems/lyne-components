@@ -4,21 +4,49 @@
 @include sbb.box-sizing;
 
 :host {
+  --sbb-flip-card-background-color: var(--sbb-color-cloud); // add cloud-alpha-80
+
+  position: relative;
   display: block;
+}
+
+:host([data-flipped]) {
+  --sbb-flip-card-background-color: var(--sbb-color-midnight);
+
+  ::slotted(sbb-flip-card-summary) {
+    --sbb-flip-card-summary-opacity: 0;
+
+    pointer-events: none;
+  }
+  
+  ::slotted(sbb-flip-card-details) {
+    --sbb-flip-card-details-opacity: 1;
+
+    pointer-events: all;
+  }
 }
 
 .sbb-flip-card--wrapper {
   position: relative;
-  min-height: 280px;
-  background-color: var(--sbb-color-cloud); // add cloud-alpha-80?
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-responsive-xs);
+  // min-height: 280px;
+  background-color: var(--sbb-flip-card-background-color);
   border-radius: var(--sbb-border-radius-4x);
   overflow: hidden;
-  display: flex;
-  align-items: stretch;
 }
 
 .sbb-flip-card--toggle-button {
-  position: absolute;
+  position: relative;
   inset-inline-start: var(--sbb-spacing-responsive-s);
   inset-block-end: var(--sbb-spacing-responsive-s);
 }
+
+// button {
+//   @include sbb.button-reset;
+
+//   position: absolute;
+//   inset: 0;
+//   cursor: pointer;
+// }

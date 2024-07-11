@@ -4,15 +4,18 @@
 @include sbb.box-sizing;
 
 :host {
-  display: block;
-  width: 100%;
+  --sbb-flip-card-summary-opacity: 1;
+
+  display: contents;
 }
 
 .sbb-flip-card-summary--wrapper {
   display: grid;
+  position: absolute;
+  opacity: var(--sbb-flip-card-summary-opacity);
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
-
+  grid-template-rows: auto 1fr;
+  
   :host([image-alignment='after']) & {
     @include sbb.mq($from: small) {
       grid-template-columns: repeat(3, 1fr);
