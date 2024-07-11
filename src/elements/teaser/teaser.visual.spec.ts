@@ -4,6 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import {
   describeEach,
   describeViewports,
+  loadAssetAsBase64,
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
@@ -12,7 +13,9 @@ import { waitForImageReady } from '../core/testing.js';
 
 import './teaser.js';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const imageBase64 = await loadAssetAsBase64(
+  import.meta.resolve('../core/testing/assets/placeholder-image.png'),
+);
 
 describe(`sbb-teaser`, () => {
   const loremIpsum: string = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
@@ -49,7 +52,7 @@ describe(`sbb-teaser`, () => {
                 await setup.withFixture(
                   html`
                     <sbb-teaser title-content="This is a title" href="#" alignment=${alignment}>
-                      <img slot="image" src=${imageUrl} />
+                      <img slot="image" src=${imageBase64} />
                       This is a paragraph
                     </sbb-teaser>
                   `,
@@ -72,7 +75,7 @@ describe(`sbb-teaser`, () => {
                       alignment=${alignment}
                       chip-content=${hasChip ? 'This is a chip.' : nothing}
                     >
-                      <img slot="image" src=${imageUrl} />
+                      <img slot="image" src=${imageBase64} />
                       ${withLongContent ? loremIpsum : 'This is a paragraph'}
                     </sbb-teaser>
                   `,
@@ -95,7 +98,7 @@ describe(`sbb-teaser`, () => {
                     alignment=${alignment}
                     chip-content=${longChip}
                   >
-                    <img slot="image" src=${imageUrl} />
+                    <img slot="image" src=${imageBase64} />
                     This is a paragraph
                   </sbb-teaser>
                 `,
@@ -108,10 +111,11 @@ describe(`sbb-teaser`, () => {
           it(
             `list=true`,
             visualDiffDefault.with(async (setup) => {
+              const count = 5;
               await setup.withFixture(html`
                 <ul style="list-style: none; padding: 0;">
                   ${repeat(
-                    new Array(5),
+                    new Array(count),
                     (_, i) => html`
                       <li style="margin-block: 1rem;">
                         <sbb-teaser
@@ -119,7 +123,7 @@ describe(`sbb-teaser`, () => {
                           href="#"
                           alignment=${alignment}
                         >
-                          <img slot="image" src=${imageUrl} />
+                          <img slot="image" src=${imageBase64} id=${`img${i}`} />
                           This is the paragraph n.${i + 1}
                         </sbb-teaser>
                       </li>
@@ -127,7 +131,11 @@ describe(`sbb-teaser`, () => {
                   )}
                 </ul>
               `);
-              await waitForImageReady(setup.snapshotElement.querySelector('img')!);
+              await Promise.all(
+                new Array(count).map((_, i) =>
+                  waitForImageReady(setup.snapshotElement.querySelector(`#img${i}`)!),
+                ),
+              );
             }),
           );
         });
