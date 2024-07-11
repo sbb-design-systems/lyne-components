@@ -14,8 +14,6 @@
 }
 
 .sbb-action-base {
-  @include sbb.link-base;
-
   display: flex;
   align-items: center;
   word-break: break-word;
@@ -23,6 +21,8 @@
   cursor: pointer;
   padding: var(--sbb-link-padding, 0);
   outline: none;
+
+  @include sbb.link-base;
 
   :host([disabled]) & {
     pointer-events: none;

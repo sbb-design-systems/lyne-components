@@ -4,6 +4,13 @@
 @include sbb.box-sizing;
 
 :host {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+  display: inline-block;
+  min-width: #{sbb.px-to-rem-build(150)};
+  width: min(#{sbb.px-to-rem-build(400)}, 100%);
+
   --sbb-slider-line-height: #{sbb.px-to-rem-build(4)};
   --sbb-slider-value-fraction: 0;
   --sbb-slider-knob-size: #{sbb.px-to-rem-build(28)};
@@ -22,13 +29,6 @@
     --sbb-slider-selected-line-color: Highlight;
     --sbb-slider-line-color: CanvasText;
   }
-
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
-  display: inline-block;
-  min-width: #{sbb.px-to-rem-build(150)};
-  width: min(#{sbb.px-to-rem-build(400)}, 100%);
 }
 
 :host([disabled]) {

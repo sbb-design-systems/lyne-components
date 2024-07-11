@@ -166,6 +166,9 @@
   @include sbb.font-smoothing;
   @include sbb.ellipsis;
 
+  color: var(--sbb-tab-label-color);
+  transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
+
   :host([data-size='s']) & {
     @include sbb.text-s--bold;
   }
@@ -173,12 +176,13 @@
   :host([data-size='xl']) & {
     @include sbb.text-xl--bold;
   }
-
-  color: var(--sbb-tab-label-color);
-  transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 }
 
 .sbb-tab-label__amount {
+  display: flex;
+  color: var(--sbb-tab-label-amount-color);
+  transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
+
   @include sbb.text-m--regular;
   @include sbb.font-smoothing;
 
@@ -193,8 +197,4 @@
   :host([data-size='xl']) & {
     @include sbb.text-xl--regular;
   }
-
-  display: flex;
-  color: var(--sbb-tab-label-amount-color);
-  transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 }

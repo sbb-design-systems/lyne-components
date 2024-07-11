@@ -64,16 +64,16 @@
 .sbb-radio-button {
   @include sbb.text-m--regular;
 
-  :host([size='s']) & {
-    @include sbb.text-s--regular;
-  }
-
   display: block;
   cursor: var(--sbb-radio-button-cursor);
   user-select: none;
   position: relative;
   color: var(--sbb-radio-button-label-color);
   -webkit-tap-highlight-color: transparent;
+
+  :host([size='s']) & {
+    @include sbb.text-s--regular;
+  }
 }
 
 .sbb-radio-button__label-slot {

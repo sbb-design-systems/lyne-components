@@ -83,15 +83,15 @@
 }
 
 .sbb-toggle-check {
-  // Avoids unwanted space displayed if no label text is set.
-  @include sbb.zero-width-space;
-
   position: relative;
   display: flex;
   color: var(--sbb-color-charcoal);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);
+
+  // Avoids unwanted space displayed if no label text is set.
+  @include sbb.zero-width-space;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {

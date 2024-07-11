@@ -41,11 +41,11 @@
 :host([disabled]) {
   --sbb-popover-color: var(--sbb-color-graphite);
 
+  pointer-events: none;
+
   @include sbb.if-forced-colors {
     --sbb-popover-color: GrayText !important;
   }
-
-  pointer-events: none;
 }
 
 :host([disabled][negative]) {
