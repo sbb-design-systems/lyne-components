@@ -29,23 +29,6 @@ snapshots["sbb-datepicker-next-day renders Shadow DOM"] =
 `;
 /* end snapshot sbb-datepicker-next-day renders Shadow DOM */
 
-snapshots["sbb-datepicker-next-day renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Next day",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-next-day renders A11y tree Chrome */
-
 snapshots["sbb-datepicker-next-day renders with connected datepicker DOM"] = 
 `<sbb-datepicker-next-day
   aria-label="Change to the next day, currently selected December 31, 2022."
@@ -73,6 +56,23 @@ snapshots["sbb-datepicker-next-day renders with connected datepicker Shadow DOM"
 </span>
 `;
 /* end snapshot sbb-datepicker-next-day renders with connected datepicker Shadow DOM */
+
+snapshots["sbb-datepicker-next-day renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Next day",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-datepicker-next-day renders A11y tree Chrome */
 
 snapshots["sbb-datepicker-next-day renders with connected datepicker A11y tree Chrome"] = 
 `<p>

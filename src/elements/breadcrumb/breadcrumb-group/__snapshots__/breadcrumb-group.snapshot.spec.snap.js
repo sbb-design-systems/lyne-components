@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-breadcrumb-group renders - DOM"] = 
+snapshots["sbb-breadcrumb-group renders DOM"] = 
 `<sbb-breadcrumb-group
   data-loaded=""
   role="navigation"
@@ -36,9 +36,9 @@ snapshots["sbb-breadcrumb-group renders - DOM"] =
   </sbb-breadcrumb>
 </sbb-breadcrumb-group>
 `;
-/* end snapshot sbb-breadcrumb-group renders - DOM */
+/* end snapshot sbb-breadcrumb-group renders DOM */
 
-snapshots["sbb-breadcrumb-group renders - Shadow DOM"] = 
+snapshots["sbb-breadcrumb-group renders Shadow DOM"] = 
 `<ol class="sbb-breadcrumb-group">
   <li class="sbb-breadcrumb-group__item">
     <slot name="li-0">
@@ -74,9 +74,9 @@ snapshots["sbb-breadcrumb-group renders - Shadow DOM"] =
   </slot>
 </span>
 `;
-/* end snapshot sbb-breadcrumb-group renders - Shadow DOM */
+/* end snapshot sbb-breadcrumb-group renders Shadow DOM */
 
-snapshots["sbb-breadcrumb-group A11y tree Chrome"] = 
+snapshots["sbb-breadcrumb-group renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -98,9 +98,9 @@ snapshots["sbb-breadcrumb-group A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-breadcrumb-group A11y tree Chrome */
+/* end snapshot sbb-breadcrumb-group renders A11y tree Chrome */
 
-snapshots["sbb-breadcrumb-group A11y tree Firefox"] = 
+snapshots["sbb-breadcrumb-group renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -125,5 +125,5 @@ snapshots["sbb-breadcrumb-group A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-breadcrumb-group A11y tree Firefox */
+/* end snapshot sbb-breadcrumb-group renders A11y tree Firefox */
 

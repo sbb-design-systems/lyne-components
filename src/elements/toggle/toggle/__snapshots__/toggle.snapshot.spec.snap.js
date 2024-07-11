@@ -37,27 +37,6 @@ snapshots["sbb-toggle renders Shadow DOM"] =
 `;
 /* end snapshot sbb-toggle renders Shadow DOM */
 
-snapshots["sbb-toggle renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "Value one",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "Value two"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle renders A11y tree Firefox */
-
 snapshots["sbb-toggle renders A11y tree Chrome"] = 
 `<p>
   {
@@ -79,4 +58,25 @@ snapshots["sbb-toggle renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-toggle renders A11y tree Chrome */
+
+snapshots["sbb-toggle renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "Value one",
+      "checked": true
+    },
+    {
+      "role": "radio",
+      "name": "Value two"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle renders A11y tree Firefox */
 

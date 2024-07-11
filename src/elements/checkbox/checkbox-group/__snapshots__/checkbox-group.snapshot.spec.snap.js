@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-checkbox-group renders - DOM"] = 
+snapshots["sbb-checkbox-group renders DOM"] = 
 `<sbb-checkbox-group
   data-slot-names="unnamed"
   orientation="horizontal"
@@ -35,9 +35,9 @@ snapshots["sbb-checkbox-group renders - DOM"] =
   </sbb-checkbox>
 </sbb-checkbox-group>
 `;
-/* end snapshot sbb-checkbox-group renders - DOM */
+/* end snapshot sbb-checkbox-group renders DOM */
 
-snapshots["sbb-checkbox-group renders - Shadow DOM"] = 
+snapshots["sbb-checkbox-group renders Shadow DOM"] = 
 `<div class="sbb-checkbox-group">
   <slot>
   </slot>
@@ -47,9 +47,9 @@ snapshots["sbb-checkbox-group renders - Shadow DOM"] =
   </slot>
 </div>
 `;
-/* end snapshot sbb-checkbox-group renders - Shadow DOM */
+/* end snapshot sbb-checkbox-group renders Shadow DOM */
 
-snapshots["sbb-checkbox-group A11y tree Chrome"] = 
+snapshots["sbb-checkbox-group renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -74,9 +74,9 @@ snapshots["sbb-checkbox-group A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-checkbox-group A11y tree Chrome */
+/* end snapshot sbb-checkbox-group renders A11y tree Chrome */
 
-snapshots["sbb-checkbox-group A11y tree Firefox"] = 
+snapshots["sbb-checkbox-group renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -98,5 +98,5 @@ snapshots["sbb-checkbox-group A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-checkbox-group A11y tree Firefox */
+/* end snapshot sbb-checkbox-group renders A11y tree Firefox */
 

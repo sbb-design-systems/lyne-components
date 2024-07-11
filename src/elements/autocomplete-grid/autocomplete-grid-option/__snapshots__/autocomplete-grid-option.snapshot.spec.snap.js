@@ -63,22 +63,6 @@ snapshots["sbb-autocomplete-grid-option renders disabled Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid-option renders disabled Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-option A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Option 1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-option A11y tree Firefox */
-
 snapshots["sbb-autocomplete-grid-option A11y tree Chrome"] = 
 `<p>
   {
@@ -94,4 +78,20 @@ snapshots["sbb-autocomplete-grid-option A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-autocomplete-grid-option A11y tree Chrome */
+
+snapshots["sbb-autocomplete-grid-option A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Option 1"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-option A11y tree Firefox */
 

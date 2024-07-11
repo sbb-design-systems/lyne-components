@@ -10,17 +10,19 @@ import './radio-button.js';
 describe(`sbb-radio-button`, () => {
   let element: SbbRadioButtonElement;
 
-  beforeEach(async () => {
-    element = await fixture(html`<sbb-radio-button value="radio-value"></sbb-radio-button>`);
-  });
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-radio-button value="radio-value"></sbb-radio-button>`);
+    });
 
-  it('renders - DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-  it('renders - Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
+    testA11yTreeSnapshot();
+  });
 });

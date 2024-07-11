@@ -98,22 +98,6 @@ snapshots["sbb-radio-button-panel should render checked Shadow DOM"] =
 `;
 /* end snapshot sbb-radio-button-panel should render checked Shadow DOM */
 
-snapshots["sbb-radio-button-panel Unchecked - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-radio-button-panel Unchecked - A11y tree Firefox */
-
 snapshots["sbb-radio-button-panel Unchecked - A11y tree Chrome"] = 
 `<p>
   {
@@ -147,6 +131,22 @@ snapshots["sbb-radio-button-panel Checked - A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-radio-button-panel Checked - A11y tree Chrome */
+
+snapshots["sbb-radio-button-panel Unchecked - A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "Label"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-radio-button-panel Unchecked - A11y tree Firefox */
 
 snapshots["sbb-radio-button-panel Checked - A11y tree Firefox"] = 
 `<p>

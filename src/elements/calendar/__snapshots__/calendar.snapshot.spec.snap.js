@@ -1,16 +1,16 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-calendar renders renders - DOM"] = 
+snapshots["sbb-calendar renders DOM"] = 
 `<sbb-calendar
   now="2023-01-04T00:00:00"
   selected="2023-01-20T00:00:00"
 >
 </sbb-calendar>
 `;
-/* end snapshot sbb-calendar renders renders - DOM */
+/* end snapshot sbb-calendar renders DOM */
 
-snapshots["sbb-calendar renders renders - Shadow DOM"] = 
+snapshots["sbb-calendar renders Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
@@ -574,7 +574,7 @@ snapshots["sbb-calendar renders renders - Shadow DOM"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-calendar renders renders - Shadow DOM */
+/* end snapshot sbb-calendar renders Shadow DOM */
 
 snapshots["sbb-calendar renders A11y tree Chrome"] = 
 `<p>

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-radio-button renders - DOM"] = 
+snapshots["sbb-radio-button renders DOM"] = 
 `<sbb-radio-button
   aria-checked="false"
   aria-required="false"
@@ -11,9 +11,9 @@ snapshots["sbb-radio-button renders - DOM"] =
 >
 </sbb-radio-button>
 `;
-/* end snapshot sbb-radio-button renders - DOM */
+/* end snapshot sbb-radio-button renders DOM */
 
-snapshots["sbb-radio-button renders - Shadow DOM"] = 
+snapshots["sbb-radio-button renders Shadow DOM"] = 
 `<label class="sbb-radio-button">
   <input
     aria-hidden="true"
@@ -28,9 +28,9 @@ snapshots["sbb-radio-button renders - Shadow DOM"] =
   </span>
 </label>
 `;
-/* end snapshot sbb-radio-button renders - Shadow DOM */
+/* end snapshot sbb-radio-button renders Shadow DOM */
 
-snapshots["sbb-radio-button A11y tree Chrome"] = 
+snapshots["sbb-radio-button renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -45,9 +45,9 @@ snapshots["sbb-radio-button A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-radio-button A11y tree Chrome */
+/* end snapshot sbb-radio-button renders A11y tree Chrome */
 
-snapshots["sbb-radio-button A11y tree Firefox"] = 
+snapshots["sbb-radio-button renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -61,5 +61,5 @@ snapshots["sbb-radio-button A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-radio-button A11y tree Firefox */
+/* end snapshot sbb-radio-button renders A11y tree Firefox */
 

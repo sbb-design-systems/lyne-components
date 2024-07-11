@@ -87,34 +87,6 @@ snapshots["sbb-navigation-list renders Shadow DOM"] =
 `;
 /* end snapshot sbb-navigation-list renders Shadow DOM */
 
-snapshots["sbb-navigation-list renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Tickets & Offers"
-    },
-    {
-      "role": "button",
-      "name": "Vacations & Recreation"
-    },
-    {
-      "role": "button",
-      "name": "Travel information"
-    },
-    {
-      "role": "button",
-      "name": "Help & Contact"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-navigation-list renders A11y tree Chrome */
-
 snapshots["sbb-navigation-list should render named slots if data-ssr-child-count attribute is set DOM"] = 
 `<sbb-navigation-list data-ssr-child-count="3">
 </sbb-navigation-list>
@@ -152,6 +124,34 @@ snapshots["sbb-navigation-list should render named slots if data-ssr-child-count
 </span>
 `;
 /* end snapshot sbb-navigation-list should render named slots if data-ssr-child-count attribute is set Shadow DOM */
+
+snapshots["sbb-navigation-list renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Tickets & Offers"
+    },
+    {
+      "role": "button",
+      "name": "Vacations & Recreation"
+    },
+    {
+      "role": "button",
+      "name": "Travel information"
+    },
+    {
+      "role": "button",
+      "name": "Help & Contact"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-navigation-list renders A11y tree Chrome */
 
 snapshots["sbb-navigation-list renders A11y tree Firefox"] = 
 `<p>

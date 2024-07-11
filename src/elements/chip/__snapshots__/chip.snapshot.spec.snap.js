@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-chip renders - DOM"] = 
+snapshots["sbb-chip renders DOM"] = 
 `<sbb-chip
   color="milk"
   size="xxs"
@@ -9,9 +9,9 @@ snapshots["sbb-chip renders - DOM"] =
   Label
 </sbb-chip>
 `;
-/* end snapshot sbb-chip renders - DOM */
+/* end snapshot sbb-chip renders DOM */
 
-snapshots["sbb-chip renders - Shadow DOM"] = 
+snapshots["sbb-chip renders Shadow DOM"] = 
 `<span class="sbb-chip">
   <span class="sbb-chip__text-wrapper">
     <slot>
@@ -19,9 +19,9 @@ snapshots["sbb-chip renders - Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-chip renders - Shadow DOM */
+/* end snapshot sbb-chip renders Shadow DOM */
 
-snapshots["sbb-chip A11y tree Chrome"] = 
+snapshots["sbb-chip renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -35,9 +35,9 @@ snapshots["sbb-chip A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-chip A11y tree Chrome */
+/* end snapshot sbb-chip renders A11y tree Chrome */
 
-snapshots["sbb-chip A11y tree Firefox"] = 
+snapshots["sbb-chip renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -51,5 +51,5 @@ snapshots["sbb-chip A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-chip A11y tree Firefox */
+/* end snapshot sbb-chip renders A11y tree Firefox */
 

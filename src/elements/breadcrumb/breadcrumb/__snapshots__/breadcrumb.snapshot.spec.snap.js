@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-breadcrumb with text renders - DOM"] = 
+snapshots["sbb-breadcrumb renders with text DOM"] = 
 `<sbb-breadcrumb
   data-action=""
   data-link=""
@@ -14,9 +14,9 @@ snapshots["sbb-breadcrumb with text renders - DOM"] =
   Breadcrumb
 </sbb-breadcrumb>
 `;
-/* end snapshot sbb-breadcrumb with text renders - DOM */
+/* end snapshot sbb-breadcrumb renders with text DOM */
 
-snapshots["sbb-breadcrumb with text renders - Shadow DOM"] = 
+snapshots["sbb-breadcrumb renders with text Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-breadcrumb"
   download=""
@@ -35,9 +35,9 @@ snapshots["sbb-breadcrumb with text renders - Shadow DOM"] =
   </sbb-screen-reader-only>
 </a>
 `;
-/* end snapshot sbb-breadcrumb with text renders - Shadow DOM */
+/* end snapshot sbb-breadcrumb renders with text Shadow DOM */
 
-snapshots["sbb-breadcrumb with icon renders - DOM"] = 
+snapshots["sbb-breadcrumb renders with icon DOM"] = 
 `<sbb-breadcrumb
   data-action=""
   data-link=""
@@ -47,9 +47,9 @@ snapshots["sbb-breadcrumb with icon renders - DOM"] =
 >
 </sbb-breadcrumb>
 `;
-/* end snapshot sbb-breadcrumb with icon renders - DOM */
+/* end snapshot sbb-breadcrumb renders with icon DOM */
 
-snapshots["sbb-breadcrumb with icon renders - Shadow DOM"] = 
+snapshots["sbb-breadcrumb renders with icon Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-breadcrumb"
   href="/"
@@ -73,9 +73,9 @@ snapshots["sbb-breadcrumb with icon renders - Shadow DOM"] =
   </span>
 </a>
 `;
-/* end snapshot sbb-breadcrumb with icon renders - Shadow DOM */
+/* end snapshot sbb-breadcrumb renders with icon Shadow DOM */
 
-snapshots["sbb-breadcrumb with icon and text renders - DOM"] = 
+snapshots["sbb-breadcrumb renders with icon and text DOM"] = 
 `<sbb-breadcrumb
   data-action=""
   data-link=""
@@ -86,9 +86,9 @@ snapshots["sbb-breadcrumb with icon and text renders - DOM"] =
   Home
 </sbb-breadcrumb>
 `;
-/* end snapshot sbb-breadcrumb with icon and text renders - DOM */
+/* end snapshot sbb-breadcrumb renders with icon and text DOM */
 
-snapshots["sbb-breadcrumb with icon and text renders - Shadow DOM"] = 
+snapshots["sbb-breadcrumb renders with icon and text Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-breadcrumb"
   href="/"
@@ -109,51 +109,9 @@ snapshots["sbb-breadcrumb with icon and text renders - Shadow DOM"] =
   </span>
 </a>
 `;
-/* end snapshot sbb-breadcrumb with icon and text renders - Shadow DOM */
+/* end snapshot sbb-breadcrumb renders with icon and text Shadow DOM */
 
-snapshots["sbb-breadcrumb with icon and text A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Home"
-    },
-    {
-      "role": "link",
-      "name": "Breadcrumb"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-breadcrumb with icon and text A11y tree Chrome */
-
-snapshots["sbb-breadcrumb with icon and text A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Home",
-      "value": "http://localhost:8000/"
-    },
-    {
-      "role": "link",
-      "name": "Breadcrumb",
-      "value": "https://example.com/test"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-breadcrumb with icon and text A11y tree Firefox */
-
-snapshots["sbb-breadcrumb with text A11y tree Chrome"] = 
+snapshots["sbb-breadcrumb renders with text A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -167,9 +125,9 @@ snapshots["sbb-breadcrumb with text A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-breadcrumb with text A11y tree Chrome */
+/* end snapshot sbb-breadcrumb renders with text A11y tree Chrome */
 
-snapshots["sbb-breadcrumb with text A11y tree Firefox"] = 
+snapshots["sbb-breadcrumb renders with text A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -184,5 +142,5 @@ snapshots["sbb-breadcrumb with text A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-breadcrumb with text A11y tree Firefox */
+/* end snapshot sbb-breadcrumb renders with text A11y tree Firefox */
 
