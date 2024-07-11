@@ -18,8 +18,7 @@ import '@sbb-esta/lyne-elements/button/secondary-button.js';
 describe(`sbb-journey-summary`, () => {
   const defaultArgs = {
     roundTrip: false,
-    headerLevel: 3,
-    now: new Date('2022-12-05T12:11:00').valueOf(),
+    now: new Date('2022-12-05T12:11:00'),
     trip: undefined as object | undefined,
     tripBack: undefined as object | undefined,
     hasSlot: true,
@@ -27,19 +26,12 @@ describe(`sbb-journey-summary`, () => {
 
   const template = ({
     roundTrip,
-    headerLevel,
     now,
     trip,
     tripBack,
     hasSlot,
   }: typeof defaultArgs): TemplateResult => html`
-    <sbb-journey-summary
-      ?round-trip=${roundTrip}
-      header-level=${headerLevel || nothing}
-      .trip=${trip}
-      .tripBack=${tripBack}
-      now=${now ? now / 1000 : nothing}
-    >
+    <sbb-journey-summary ?round-trip=${roundTrip} .trip=${trip} .tripBack=${tripBack} .now=${now}>
       ${hasSlot
         ? html`
             <div
@@ -155,7 +147,7 @@ describe(`sbb-journey-summary`, () => {
           arrival: '2022-09-20T00:30:00+02:00',
           duration: 120,
         },
-        'round-trip': true,
+        roundTrip: true,
       },
     },
     {
@@ -172,24 +164,7 @@ describe(`sbb-journey-summary`, () => {
           arrival: '2022-09-19T22:30:00+02:00',
           duration: 120,
         },
-        'round-trip': true,
-      },
-    },
-    {
-      name: 'header level',
-      args: {
-        ...defaultArgs,
-        hasSlot: false,
-        'header-level': 5,
-        trip: {
-          legs: [pastLeg, progressLeg, futureLeg],
-          origin: 'Bern',
-          destination: 'Basel',
-          departure: '2022-09-19T20:30:00+02:00',
-          arrival: '2022-09-19T22:30:00+02:00',
-          duration: 120,
-        },
-        'round-trip': true,
+        roundTrip: true,
       },
     },
   ];
