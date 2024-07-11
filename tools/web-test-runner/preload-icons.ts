@@ -42,7 +42,6 @@ const preloadIconList = [
   'container-small',
   'context-menu-small',
   'cross-small',
-  'dash-small',
   'delay',
   'diamond-small',
   'disruption',
