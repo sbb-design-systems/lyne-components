@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-card-badge renders - DOM"] = 
+snapshots["sbb-card-badge renders DOM"] = 
 `<sbb-card-badge
   color="charcoal"
   dir="ltr"
@@ -11,9 +11,9 @@ snapshots["sbb-card-badge renders - DOM"] =
   Black Friday Special
 </sbb-card-badge>
 `;
-/* end snapshot sbb-card-badge renders - DOM */
+/* end snapshot sbb-card-badge renders DOM */
 
-snapshots["sbb-card-badge renders - Shadow DOM"] = 
+snapshots["sbb-card-badge renders Shadow DOM"] = 
 `<span class="sbb-card-badge-wrapper">
   <span class="sbb-card-badge">
     <span
@@ -28,9 +28,9 @@ snapshots["sbb-card-badge renders - Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-card-badge renders - Shadow DOM */
+/* end snapshot sbb-card-badge renders Shadow DOM */
 
-snapshots["sbb-card-badge A11y tree Chrome"] = 
+snapshots["sbb-card-badge renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -44,9 +44,9 @@ snapshots["sbb-card-badge A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-card-badge A11y tree Chrome */
+/* end snapshot sbb-card-badge renders A11y tree Chrome */
 
-snapshots["sbb-card-badge A11y tree Firefox"] = 
+snapshots["sbb-card-badge renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -60,5 +60,5 @@ snapshots["sbb-card-badge A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-card-badge A11y tree Firefox */
+/* end snapshot sbb-card-badge renders A11y tree Firefox */
 

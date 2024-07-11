@@ -40,22 +40,6 @@ snapshots["sbb-button-link renders a sbb-button-link without icon Shadow DOM"] =
 `;
 /* end snapshot sbb-button-link renders a sbb-button-link without icon Shadow DOM */
 
-snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-button-link renders a sbb-button-link without icon A11y tree Chrome */
-
 snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon DOM"] = 
 `<sbb-button-link
   data-action=""
@@ -96,6 +80,22 @@ snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon 
 </a>
 `;
 /* end snapshot sbb-button-link renders a disabled sbb-button-link with slotted icon Shadow DOM */
+
+snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Label Text . Link target opens in a new window."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-button-link renders a sbb-button-link without icon A11y tree Chrome */
 
 snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Firefox"] = 
 `<p>

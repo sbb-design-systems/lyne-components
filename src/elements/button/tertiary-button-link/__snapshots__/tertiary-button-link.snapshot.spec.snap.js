@@ -40,22 +40,6 @@ snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without i
 `;
 /* end snapshot sbb-tertiary-button-link renders a sbb-tertiary-button-link without icon Shadow DOM */
 
-snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without icon A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tertiary-button-link renders a sbb-tertiary-button-link without icon A11y tree Chrome */
-
 snapshots["sbb-tertiary-button-link renders a disabled sbb-tertiary-button-link with slotted icon DOM"] = 
 `<sbb-tertiary-button-link
   data-action=""
@@ -96,6 +80,22 @@ snapshots["sbb-tertiary-button-link renders a disabled sbb-tertiary-button-link 
 </a>
 `;
 /* end snapshot sbb-tertiary-button-link renders a disabled sbb-tertiary-button-link with slotted icon Shadow DOM */
+
+snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without icon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Label Text . Link target opens in a new window."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tertiary-button-link renders a sbb-tertiary-button-link without icon A11y tree Chrome */
 
 snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without icon A11y tree Firefox"] = 
 `<p>

@@ -141,44 +141,6 @@ snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] =
 `;
 /* end snapshot sbb-train-formation should render with multiple trains Shadow DOM */
 
-snapshots["sbb-train-formation should render with multiple trains A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Train.",
-      "level": 6
-    },
-    {
-      "role": "text leaf",
-      "name": "Coaches of the train"
-    },
-    {
-      "role": "text leaf",
-      "name": "Sector, A"
-    },
-    {
-      "role": "heading",
-      "name": "Train.",
-      "level": 6
-    },
-    {
-      "role": "text leaf",
-      "name": "Coaches of the train"
-    },
-    {
-      "role": "text leaf",
-      "name": "Sector, B"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-train-formation should render with multiple trains A11y tree Firefox */
-
 snapshots["sbb-train-formation should render with multiple trains A11y tree Chrome"] = 
 `<p>
   {
@@ -216,4 +178,42 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Chro
 </p>
 `;
 /* end snapshot sbb-train-formation should render with multiple trains A11y tree Chrome */
+
+snapshots["sbb-train-formation should render with multiple trains A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Train.",
+      "level": 6
+    },
+    {
+      "role": "text leaf",
+      "name": "Coaches of the train"
+    },
+    {
+      "role": "text leaf",
+      "name": "Sector, A"
+    },
+    {
+      "role": "heading",
+      "name": "Train.",
+      "level": 6
+    },
+    {
+      "role": "text leaf",
+      "name": "Coaches of the train"
+    },
+    {
+      "role": "text leaf",
+      "name": "Sector, B"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-train-formation should render with multiple trains A11y tree Firefox */
 

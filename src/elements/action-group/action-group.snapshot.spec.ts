@@ -12,28 +12,30 @@ describe(`sbb-action-group`, () => {
   describe('renders', () => {
     let element: SbbActionGroupElement;
 
-    beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-action-group align-group="start" orientation="horizontal">
-          <sbb-secondary-button>Button</sbb-secondary-button>
-          <sbb-block-link
-            icon-name="chevron-small-left-small"
-            href="https://github.com/sbb-design-systems/lyne-components"
-          >
-            Link
-          </sbb-block-link>
-        </sbb-action-group>
-      `);
-    });
+    describe('renders', () => {
+      beforeEach(async () => {
+        element = await fixture(html`
+          <sbb-action-group align-group="start" orientation="horizontal">
+            <sbb-secondary-button>Button</sbb-secondary-button>
+            <sbb-block-link
+              icon-name="chevron-small-left-small"
+              href="https://github.com/sbb-design-systems/lyne-components"
+            >
+              Link
+            </sbb-block-link>
+          </sbb-action-group>
+        `);
+      });
 
-    it('renders - DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
+      it('DOM', async () => {
+        await expect(element).dom.to.be.equalSnapshot();
+      });
 
-    it('renders - Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
+      it('Shadow DOM', async () => {
+        await expect(element).shadowDom.to.be.equalSnapshot();
+      });
 
-    testA11yTreeSnapshot();
+      testA11yTreeSnapshot();
+    });
   });
 });

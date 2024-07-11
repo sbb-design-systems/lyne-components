@@ -7,7 +7,7 @@ import type { SbbBreadcrumbElement } from './breadcrumb.js';
 import './breadcrumb.js';
 
 describe(`sbb-breadcrumb`, () => {
-  describe('with text', () => {
+  describe('renders with text', () => {
     let element: SbbBreadcrumbElement;
 
     beforeEach(async () => {
@@ -18,18 +18,18 @@ describe(`sbb-breadcrumb`, () => {
       `);
     });
 
-    it('renders - DOM', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 
-    it('renders - Shadow DOM', async () => {
+    it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
     testA11yTreeSnapshot();
   });
 
-  describe('with icon', () => {
+  describe('renders with icon', () => {
     let element: SbbBreadcrumbElement;
 
     beforeEach(async () => {
@@ -38,16 +38,16 @@ describe(`sbb-breadcrumb`, () => {
       `);
     });
 
-    it('renders - DOM', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 
-    it('renders - Shadow DOM', async () => {
+    it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
   });
 
-  describe('with icon and text', () => {
+  describe('renders with icon and text', () => {
     let element: SbbBreadcrumbElement;
 
     beforeEach(async () => {
@@ -58,11 +58,11 @@ describe(`sbb-breadcrumb`, () => {
       `);
     });
 
-    it('renders - DOM', async () => {
+    it('DOM', async () => {
       await expect(element).dom.to.be.equalSnapshot();
     });
 
-    it('renders - Shadow DOM', async () => {
+    it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
   });

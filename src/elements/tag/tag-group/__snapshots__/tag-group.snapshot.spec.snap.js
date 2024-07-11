@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-tag-group renders - DOM"] = 
+snapshots["sbb-tag-group renders DOM"] = 
 `<sbb-tag-group
   role="group"
   size="m"
@@ -52,9 +52,9 @@ snapshots["sbb-tag-group renders - DOM"] =
   </sbb-tag>
 </sbb-tag-group>
 `;
-/* end snapshot sbb-tag-group renders - DOM */
+/* end snapshot sbb-tag-group renders DOM */
 
-snapshots["sbb-tag-group renders - Shadow DOM"] = 
+snapshots["sbb-tag-group renders Shadow DOM"] = 
 `<div class="sbb-tag-group">
   <ul class="sbb-tag-group__list">
     <li>
@@ -80,9 +80,9 @@ snapshots["sbb-tag-group renders - Shadow DOM"] =
   </span>
 </div>
 `;
-/* end snapshot sbb-tag-group renders - Shadow DOM */
+/* end snapshot sbb-tag-group renders Shadow DOM */
 
-snapshots["sbb-tag-group A11y tree Chrome"] = 
+snapshots["sbb-tag-group renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -107,9 +107,9 @@ snapshots["sbb-tag-group A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-tag-group A11y tree Chrome */
+/* end snapshot sbb-tag-group renders A11y tree Chrome */
 
-snapshots["sbb-tag-group A11y tree Firefox"] = 
+snapshots["sbb-tag-group renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -131,5 +131,5 @@ snapshots["sbb-tag-group A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-tag-group A11y tree Firefox */
+/* end snapshot sbb-tag-group renders A11y tree Firefox */
 

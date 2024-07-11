@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-action-group renders renders - DOM"] = 
+snapshots["sbb-action-group renders renders DOM"] = 
 `<sbb-action-group
   align-group="start"
   button-size="l"
@@ -36,17 +36,17 @@ snapshots["sbb-action-group renders renders - DOM"] =
   </sbb-block-link>
 </sbb-action-group>
 `;
-/* end snapshot sbb-action-group renders renders - DOM */
+/* end snapshot sbb-action-group renders renders DOM */
 
-snapshots["sbb-action-group renders renders - Shadow DOM"] = 
+snapshots["sbb-action-group renders renders Shadow DOM"] = 
 `<div class="sbb-action-group">
   <slot>
   </slot>
 </div>
 `;
-/* end snapshot sbb-action-group renders renders - Shadow DOM */
+/* end snapshot sbb-action-group renders renders Shadow DOM */
 
-snapshots["sbb-action-group renders A11y tree Chrome"] = 
+snapshots["sbb-action-group renders renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -64,9 +64,9 @@ snapshots["sbb-action-group renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-action-group renders A11y tree Chrome */
+/* end snapshot sbb-action-group renders renders A11y tree Chrome */
 
-snapshots["sbb-action-group renders A11y tree Firefox"] = 
+snapshots["sbb-action-group renders renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -85,5 +85,5 @@ snapshots["sbb-action-group renders A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-action-group renders A11y tree Firefox */
+/* end snapshot sbb-action-group renders renders A11y tree Firefox */
 

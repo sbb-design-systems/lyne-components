@@ -10,28 +10,30 @@ import '../expansion-panel.js';
 describe(`sbb-accordion`, () => {
   let element: SbbAccordionElement;
 
-  beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-accordion>
-        <sbb-expansion-panel>
-          <sbb-expansion-panel-header>Header 1</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>
-        </sbb-expansion-panel>
-        <sbb-expansion-panel>
-          <sbb-expansion-panel-header>Header 2</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
-        </sbb-expansion-panel>
-      </sbb-accordion>
-    `);
-  });
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-accordion>
+          <sbb-expansion-panel>
+            <sbb-expansion-panel-header>Header 1</sbb-expansion-panel-header>
+            <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>
+          </sbb-expansion-panel>
+          <sbb-expansion-panel>
+            <sbb-expansion-panel-header>Header 2</sbb-expansion-panel-header>
+            <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
+          </sbb-expansion-panel>
+        </sbb-accordion>
+      `);
+    });
 
-  it('renders - DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-  it('renders - Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
+    testA11yTreeSnapshot();
+  });
 });

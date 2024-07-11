@@ -40,22 +40,6 @@ snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without
 `;
 /* end snapshot sbb-secondary-button-link renders a sbb-secondary-button-link without icon Shadow DOM */
 
-snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without icon A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-secondary-button-link renders a sbb-secondary-button-link without icon A11y tree Chrome */
-
 snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-link with slotted icon DOM"] = 
 `<sbb-secondary-button-link
   data-action=""
@@ -96,6 +80,22 @@ snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-lin
 </a>
 `;
 /* end snapshot sbb-secondary-button-link renders a disabled sbb-secondary-button-link with slotted icon Shadow DOM */
+
+snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without icon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Label Text . Link target opens in a new window."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-secondary-button-link renders a sbb-secondary-button-link without icon A11y tree Chrome */
 
 snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without icon A11y tree Firefox"] = 
 `<p>

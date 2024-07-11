@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-accordion renders - DOM"] = 
+snapshots["sbb-accordion renders DOM"] = 
 `<sbb-accordion size="l">
   <sbb-expansion-panel
     data-accordion=""
@@ -67,17 +67,17 @@ snapshots["sbb-accordion renders - DOM"] =
   </sbb-expansion-panel>
 </sbb-accordion>
 `;
-/* end snapshot sbb-accordion renders - DOM */
+/* end snapshot sbb-accordion renders DOM */
 
-snapshots["sbb-accordion renders - Shadow DOM"] = 
+snapshots["sbb-accordion renders Shadow DOM"] = 
 `<div class="sbb-accordion">
   <slot>
   </slot>
 </div>
 `;
-/* end snapshot sbb-accordion renders - Shadow DOM */
+/* end snapshot sbb-accordion renders Shadow DOM */
 
-snapshots["sbb-accordion A11y tree Chrome"] = 
+snapshots["sbb-accordion renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -95,9 +95,9 @@ snapshots["sbb-accordion A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-accordion A11y tree Chrome */
+/* end snapshot sbb-accordion renders A11y tree Chrome */
 
-snapshots["sbb-accordion A11y tree Firefox"] = 
+snapshots["sbb-accordion renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -115,5 +115,5 @@ snapshots["sbb-accordion A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-accordion A11y tree Firefox */
+/* end snapshot sbb-accordion renders A11y tree Firefox */
 

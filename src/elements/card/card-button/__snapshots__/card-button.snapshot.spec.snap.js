@@ -41,26 +41,6 @@ snapshots["sbb-card-button renders Shadow DOM"] =
 `;
 /* end snapshot sbb-card-button renders Shadow DOM */
 
-snapshots["sbb-card-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Click me"
-    },
-    {
-      "role": "text leaf",
-      "name": "Content"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-card-button renders A11y tree Firefox */
-
 snapshots["sbb-card-button renders A11y tree Chrome"] = 
 `<p>
   {
@@ -80,4 +60,24 @@ snapshots["sbb-card-button renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-card-button renders A11y tree Chrome */
+
+snapshots["sbb-card-button renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Click me"
+    },
+    {
+      "role": "text leaf",
+      "name": "Content"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-card-button renders A11y tree Firefox */
 

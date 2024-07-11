@@ -164,16 +164,6 @@ snapshots["sbb-link-list rendered with a slotted title Shadow DOM"] =
 `;
 /* end snapshot sbb-link-list rendered with a slotted title Shadow DOM */
 
-snapshots["sbb-link-list rendered with a slotted title A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-link-list rendered with a slotted title A11y tree Chrome */
-
 snapshots["sbb-link-list rendered with a title from properties DOM"] = 
 `<sbb-link-list
   data-slot-names="li-0 li-1 li-2 li-3 li-4"
@@ -418,6 +408,16 @@ snapshots["sbb-link-list rendered without a title Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-link-list rendered without a title Shadow DOM */
+
+snapshots["sbb-link-list rendered with a slotted title A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-link-list rendered with a slotted title A11y tree Chrome */
 
 snapshots["sbb-link-list rendered with a slotted title A11y tree Firefox"] = 
 `<p>

@@ -61,38 +61,6 @@ snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] =
 `;
 /* end snapshot sbb-train-wagon should render as type wagon Shadow DOM */
 
-snapshots["sbb-train-wagon should render as type wagon A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Number,"
-    },
-    {
-      "role": "text",
-      "name": " "
-    },
-    {
-      "role": "text",
-      "name": "38"
-    },
-    {
-      "role": "text",
-      "name": "First Class"
-    },
-    {
-      "role": "text",
-      "name": "No passage to the previous train coach"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-train-wagon should render as type wagon A11y tree Chrome */
-
 snapshots["sbb-train-wagon should render as type wagon with one icon DOM"] = 
 `<sbb-train-wagon
   data-has-visible-wagon-content=""
@@ -264,6 +232,38 @@ snapshots["sbb-train-wagon should render as type closed wagon without number Sha
 </div>
 `;
 /* end snapshot sbb-train-wagon should render as type closed wagon without number Shadow DOM */
+
+snapshots["sbb-train-wagon should render as type wagon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Number,"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "38"
+    },
+    {
+      "role": "text",
+      "name": "First Class"
+    },
+    {
+      "role": "text",
+      "name": "No passage to the previous train coach"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon A11y tree Chrome */
 
 snapshots["sbb-train-wagon should render as type wagon A11y tree Firefox"] = 
 `<p>

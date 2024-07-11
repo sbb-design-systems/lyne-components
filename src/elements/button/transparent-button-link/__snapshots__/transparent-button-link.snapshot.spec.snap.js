@@ -40,22 +40,6 @@ snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link wit
 `;
 /* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon Shadow DOM */
 
-snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome */
-
 snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button-link with slotted icon DOM"] = 
 `<sbb-transparent-button-link
   data-action=""
@@ -96,6 +80,22 @@ snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button
 </a>
 `;
 /* end snapshot sbb-transparent-button-link renders a disabled sbb-transparent-button-link with slotted icon Shadow DOM */
+
+snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Label Text . Link target opens in a new window."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome */
 
 snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Firefox"] = 
 `<p>

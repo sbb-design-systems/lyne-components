@@ -54,22 +54,6 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser renders after centered Shadow DOM */
 
-snapshots["sbb-teaser renders after centered A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "SBB teaser"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser renders after centered A11y tree Chrome */
-
 snapshots["sbb-teaser renders after with title level set DOM"] = 
 `<sbb-teaser
   accessibility-label="SBB teaser"
@@ -189,6 +173,22 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
 </a>
 `;
 /* end snapshot sbb-teaser renders below with projected content Shadow DOM */
+
+snapshots["sbb-teaser renders after centered A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "SBB teaser"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser renders after centered A11y tree Chrome */
 
 snapshots["sbb-teaser renders after centered A11y tree Firefox"] = 
 `<p>
