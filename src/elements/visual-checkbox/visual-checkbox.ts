@@ -20,7 +20,7 @@ export class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(
   /** Indeterminate state. */
   @property({ reflect: true, type: Boolean }) public indeterminate = false;
 
-  /** Indeterminate state. */
+  /** Size of the checkbox. */
   @property({ reflect: true }) public size: SbbCheckboxSize = 'm';
 
   protected override render(): TemplateResult {

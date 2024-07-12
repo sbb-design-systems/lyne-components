@@ -43,10 +43,12 @@ The component can be displayed in `disabled` or `required` state by using the se
 
 ## Style
 
-The component has two `size`, named `s` and `m` (default).
+The component has three `size`, named `xs`, `s` and `m` (default).
 
 ```html
-<sbb-checkbox value="size" size="m">Size</sbb-checkbox>
+<sbb-checkbox value="size" size="xs">Size</sbb-checkbox>
+
+<sbb-checkbox value="size" size="a">Size</sbb-checkbox>
 ```
 
 The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:

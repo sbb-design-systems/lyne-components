@@ -12,6 +12,16 @@ It has four different states related to the properties `checked`, `indeterminate
 - an indeterminate state (`checked` unset and `indeterminate` set to `true`): a horizontal line is displayed in the square;
 - a disabled state (`disabled` set to `true`): a grayed out empty square is shown.
 
+## Style
+
+The component has three `size`, named `xs`, `s` and `m` (default).
+
+```html
+<sbb-visual-checkbox size="xs"></sbb-visual-checkbox>
+
+<sbb-visual-checkbox size="a"></sbb-visual-checkbox>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -22,4 +32,4 @@ It has four different states related to the properties `checked`, `indeterminate
 | `disabled`      | `disabled`      | public  | `boolean`         | `false` | Whether the component is disabled. |
 | `indeterminate` | `indeterminate` | public  | `boolean`         | `false` | Indeterminate state.               |
 | `negative`      | `negative`      | public  | `boolean`         | `false` | Negative coloring variant flag.    |
-| `size`          | `size`          | public  | `SbbCheckboxSize` | `'m'`   | Indeterminate state.               |
+| `size`          | `size`          | public  | `SbbCheckboxSize` | `'m'`   | Size of the checkbox.              |
