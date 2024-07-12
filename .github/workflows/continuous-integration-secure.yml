@@ -44,7 +44,6 @@ jobs:
         run: node ./scripts/clean-storybook-files.cjs
 
       - name: Create GitHub Deployment
-        id: tag-name
         uses: actions/github-script@v7
         with:
           script: |
@@ -72,7 +71,6 @@ jobs:
           DOCKER_BUILDKIT: 1
 
       - name: "Add 'preview-available' label"
-        if: env.PR_NUMBER != ''
         # This label is used for filtering deployments in ArgoCD
         run: gh issue edit $PR_NUMBER --add-label "preview-available"
         env:
@@ -167,7 +165,7 @@ jobs:
           result-encoding: string
 
       - name: Remove labels when no failed screenshots exist
-        if: steps.screenshot-check.outputs.result == 'empty' && env.PR_NUMBER != ''
+        if: steps.screenshot-check.outputs.result == 'empty'
         run: gh issue edit $PR_NUMBER --remove-label "$VISUAL_REQUIRED"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -184,7 +182,7 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
       - name: Apply labels
-        if: (steps.screenshot-check.outputs.result == 'changed' || steps.screenshot-check.outputs.result == 'empty') && env.PR_NUMBER != ''
+        if: steps.screenshot-check.outputs.result == 'changed' || steps.screenshot-check.outputs.result == 'empty'
         run: |
           gh issue edit $PR_NUMBER --remove-label "$VISUAL_APPROVED"
           gh issue edit $PR_NUMBER --add-label "$VISUAL_REQUIRED"
