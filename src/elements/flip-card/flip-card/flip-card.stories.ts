@@ -11,7 +11,6 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import sampleImages from '../../core/images.js';
 
 import readme from './readme.md?raw';
@@ -65,17 +64,15 @@ const cardDetails = (): TemplateResult => html`
 `;
 
 const DefaultTemplate = (args: Args): TemplateResult =>
-  html`<sbb-flip-card ${sbbSpread(args)}>
-    ${cardSummary(args.imageAlignment, true)} ${cardDetails()}
-  </sbb-flip-card>`;
+  html`<sbb-flip-card> ${cardSummary(args.imageAlignment, true)} ${cardDetails()} </sbb-flip-card>`;
 
 const NoImageTemplate = (args: Args): TemplateResult =>
-  html`<sbb-flip-card ${sbbSpread(args)}>
+  html`<sbb-flip-card>
     ${cardSummary(args.imageAlignment, false)} ${cardDetails()}
   </sbb-flip-card>`;
 
 const LongContentTemplate = (args: Args): TemplateResult =>
-  html`<sbb-flip-card ${sbbSpread(args)}>
+  html`<sbb-flip-card>
     ${cardSummary(args.imageAlignment, true)}
     <sbb-flip-card-details slot="details"
       >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
