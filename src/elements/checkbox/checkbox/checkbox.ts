@@ -34,7 +34,7 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
     didChange: 'didChange',
   } as const;
 
-  /** Label size variant, either m or s. */
+  /** Size variant. */
   @property({ reflect: true })
   public set size(value: SbbCheckboxSize) {
     this._size = value;

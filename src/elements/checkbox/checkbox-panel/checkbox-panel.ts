@@ -16,16 +16,12 @@ import type {
   SbbStateChange,
 } from '../../core/interfaces/types.js';
 import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import {
-  checkboxCommonStyle,
-  SbbCheckboxCommonElementMixin,
-  type SbbCheckboxSize,
-} from '../common.js';
+import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.js';
 
 import '../../screen-reader-only.js';
 import '../../visual-checkbox.js';
 
-export type SbbCheckboxPanelSize = Omit<SbbCheckboxSize, 'xs'>;
+export type SbbCheckboxPanelSize = 's' | 'm';
 export type SbbCheckboxPanelStateChange = Extract<
   SbbStateChange,
   SbbDisabledStateChange | SbbCheckedStateChange
@@ -56,13 +52,13 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
     panelConnected: 'panelConnected',
   } as const;
 
-  /** Label size variant, either m or s. */
+  /** Size variant. */
   @property({ reflect: true })
   public set size(value: SbbCheckboxPanelSize) {
     this._size = value;
   }
   public get size(): SbbCheckboxPanelSize {
-    return this._size;
+    return this.group?.size ? (this.group.size === 'xs' ? 's' : this.group.size) : this._size;
   }
   private _size: SbbCheckboxPanelSize = 'm';
 

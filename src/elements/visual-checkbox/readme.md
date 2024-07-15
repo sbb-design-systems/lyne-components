@@ -19,7 +19,7 @@ The component has three `size`, named `xs`, `s` and `m` (default).
 ```html
 <sbb-visual-checkbox size="xs"></sbb-visual-checkbox>
 
-<sbb-visual-checkbox size="a"></sbb-visual-checkbox>
+<sbb-visual-checkbox size="s"></sbb-visual-checkbox>
 ```
 
 <!-- Auto Generated Below -->
