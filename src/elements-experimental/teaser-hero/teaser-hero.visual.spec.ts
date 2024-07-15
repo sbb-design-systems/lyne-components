@@ -4,6 +4,7 @@ import {
   visualDiffFocus,
   visualDiffHover,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { waitForImageReady } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit';
 
 import './teaser-hero.js';
@@ -22,6 +23,12 @@ describe(`sbb-teaser-hero`, () => {
               Break out and explore castles and palaces.
             </sbb-teaser-hero>
           `);
+
+          await waitForImageReady(
+            setup.snapshotElement
+              .querySelector('sbb-teaser-hero')!
+              .shadowRoot!.querySelector('sbb-image')!,
+          );
         }),
       );
 
@@ -35,6 +42,8 @@ describe(`sbb-teaser-hero`, () => {
               <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
             </sbb-teaser-hero>
           `);
+
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
     }

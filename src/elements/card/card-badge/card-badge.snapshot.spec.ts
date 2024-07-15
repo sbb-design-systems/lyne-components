@@ -10,17 +10,19 @@ import './card-badge.js';
 describe(`sbb-card-badge`, () => {
   let element: SbbCardBadgeElement;
 
-  beforeEach(async () => {
-    element = await fixture(html`<sbb-card-badge>Black Friday Special</sbb-card-badge>`);
-  });
+  describe('renders', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-card-badge>Black Friday Special</sbb-card-badge>`);
+    });
 
-  it('renders - DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-  it('renders - Shadow DOM', async () => {
-    await expect(element).shadowDom.to.be.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
+    testA11yTreeSnapshot();
+  });
 });

@@ -109,7 +109,7 @@ const testRunnerHtml = (
     <style type="text/css">${renderStyles()}</style>
     <script>
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
-      globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : group?.name ?? 'default'}';
+      globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : (group?.name ?? 'default')}';
       globalThis.testRunScript = '${testFramework}';
     </script>
   </head>

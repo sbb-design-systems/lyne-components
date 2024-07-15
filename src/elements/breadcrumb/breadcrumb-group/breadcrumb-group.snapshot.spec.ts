@@ -11,23 +11,25 @@ import './breadcrumb-group.js';
 describe(`sbb-breadcrumb-group`, () => {
   let root: SbbBreadcrumbGroupElement;
 
-  beforeEach(async () => {
-    root = await fixture(html`
-      <sbb-breadcrumb-group>
-        <sbb-breadcrumb href="https://example.com" icon-name="pie-small"></sbb-breadcrumb>
-        <sbb-breadcrumb href="https://example.com/one">One</sbb-breadcrumb>
-        <sbb-breadcrumb href="https://example.com/one">Two</sbb-breadcrumb>
-      </sbb-breadcrumb-group>
-    `);
-  });
+  describe('renders', () => {
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-breadcrumb-group>
+          <sbb-breadcrumb href="https://example.com" icon-name="pie-small"></sbb-breadcrumb>
+          <sbb-breadcrumb href="https://example.com/one">One</sbb-breadcrumb>
+          <sbb-breadcrumb href="https://example.com/one">Two</sbb-breadcrumb>
+        </sbb-breadcrumb-group>
+      `);
+    });
 
-  it('renders - DOM', async () => {
-    await expect(root).dom.to.be.equalSnapshot();
-  });
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
 
-  it('renders - Shadow DOM', async () => {
-    await expect(root).shadowDom.to.equalSnapshot();
-  });
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.equalSnapshot();
+    });
 
-  testA11yTreeSnapshot();
+    testA11yTreeSnapshot();
+  });
 });

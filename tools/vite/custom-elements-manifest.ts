@@ -1,4 +1,3 @@
-/* eslint-disable import-x/namespace  */
 import { cli } from '@custom-elements-manifest/analyzer/cli';
 import type { PluginOption } from 'vite';
 

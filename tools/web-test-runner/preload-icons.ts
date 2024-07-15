@@ -58,6 +58,8 @@ const preloadIconList = [
   'heart-medium',
   'house-small',
   'info',
+  'ir-35',
+  'ir-37',
   'link-small',
   'location-pin-map-small',
   'magnifying-glass-small',

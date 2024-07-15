@@ -29,40 +29,6 @@ snapshots["sbb-datepicker-previous-day renders Shadow DOM"] =
 `;
 /* end snapshot sbb-datepicker-previous-day renders Shadow DOM */
 
-snapshots["sbb-datepicker-previous-day renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous day",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-previous-day renders A11y tree Chrome */
-
-snapshots["sbb-datepicker-previous-day renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous day",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-previous-day renders A11y tree Firefox */
-
 snapshots["sbb-datepicker-previous-day renders with connected datepicker DOM"] = 
 `<sbb-datepicker-previous-day
   aria-label="Change to the previous day, currently selected December 31, 2022."
@@ -91,6 +57,23 @@ snapshots["sbb-datepicker-previous-day renders with connected datepicker Shadow 
 `;
 /* end snapshot sbb-datepicker-previous-day renders with connected datepicker Shadow DOM */
 
+snapshots["sbb-datepicker-previous-day renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous day",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-datepicker-previous-day renders A11y tree Chrome */
+
 snapshots["sbb-datepicker-previous-day renders with connected datepicker A11y tree Chrome"] = 
 `<p>
   {
@@ -115,6 +98,23 @@ snapshots["sbb-datepicker-previous-day renders with connected datepicker A11y tr
 </p>
 `;
 /* end snapshot sbb-datepicker-previous-day renders with connected datepicker A11y tree Chrome */
+
+snapshots["sbb-datepicker-previous-day renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous day",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-datepicker-previous-day renders A11y tree Firefox */
 
 snapshots["sbb-datepicker-previous-day renders with connected datepicker A11y tree Firefox"] = 
 `<p>

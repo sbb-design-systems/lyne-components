@@ -91,5 +91,24 @@ describe(`sbb-tab-group`, () => {
         `);
       }),
     );
+
+    it(
+      'respect content margin',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-tab-group initial-selected-index="0">
+            <sbb-tab-label>Tab title</sbb-tab-label>
+            <sbb-tab>
+              <article style="margin-block-start: 2rem">
+                Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean
+                euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl
+                rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi
+                proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+              </article>
+            </sbb-tab>
+          </sbb-tab-group>
+        `);
+      }),
+    );
   });
 });

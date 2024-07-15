@@ -18,8 +18,6 @@
 }
 
 .tab-content {
-  @include sbb.ignore-children-margin;
-
   margin-block-start: var(--sbb-spacing-responsive-m);
   transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
 
