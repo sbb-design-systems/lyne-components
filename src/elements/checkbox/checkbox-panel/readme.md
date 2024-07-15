@@ -52,6 +52,8 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 ```
 
 The component has two `size`, named `s` and `m` (default).
+If the component is used within a group, the size is inherited from it;
+since the `sbb-checkbox-group` has also `xs` size, this case will fall back to `s`.
 
 ```html
 <sbb-checkbox-panel size="s"> Size </sbb-checkbox-panel>
