@@ -45,11 +45,10 @@ The `sbb-flip-card` is a component . . .
 
 ## Properties
 
-| Name      | Attribute | Privacy | Type                        | Default | Description          |
-| --------- | --------- | ------- | --------------------------- | ------- | -------------------- |
-| `details` | -         | public  | `SbbFlipCardDetailsElement` |         |                      |
-| `myProp`  | `my-prop` | public  | `string`                    | `''`    | myProp documentation |
-| `summary` | -         | public  | `SbbFlipCardSummaryElement` |         |                      |
+| Name      | Attribute | Privacy | Type                        | Default | Description |
+| --------- | --------- | ------- | --------------------------- | ------- | ----------- |
+| `details` | -         | public  | `SbbFlipCardDetailsElement` |         |             |
+| `summary` | -         | public  | `SbbFlipCardSummaryElement` |         |             |
 
 ## Methods
 
