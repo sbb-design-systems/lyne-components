@@ -13,7 +13,7 @@ import type {
 import type { AbstractConstructor } from '../../core/mixins.js';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
 
-export type SbbRadioButtonSize = 's' | 'm';
+export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 
 export type SbbRadioButtonStateChange = Extract<
   SbbStateChange,
@@ -109,18 +109,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
       return this._checked;
     }
     private _checked = false;
-
-    /**
-     * Label size variant, either m or s.
-     */
-    @property({ reflect: true })
-    public set size(value: SbbRadioButtonSize) {
-      this._size = value;
-    }
-    public get size(): SbbRadioButtonSize {
-      return this.group?.size ?? this._size;
-    }
-    private _size: SbbRadioButtonSize = 'm';
 
     private _abort = new SbbConnectedAbortController(this);
     private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
