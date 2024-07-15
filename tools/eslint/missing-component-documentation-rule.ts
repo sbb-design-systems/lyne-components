@@ -99,7 +99,7 @@ export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule
 
           const doc = context.getSourceCode().getCommentsBefore(node.parent!)?.[0];
           const eventDoc = doc
-            ? parse(`/*${doc.value}*/`)[0] ?? parse(`/**${doc.value}*/`)[0]
+            ? (parse(`/*${doc.value}*/`)[0] ?? parse(`/**${doc.value}*/`)[0])
             : undefined;
           if (eventDoc?.tags.some((t) => t.tag === 'internal')) {
             return;

@@ -69,8 +69,8 @@ export class SbbToggleElement extends LitElement {
   }
   public get value(): string {
     return isServer
-      ? this._value ?? ''
-      : this.options.find((o) => o.checked)?.value ?? this.options[0]?.value ?? '';
+      ? (this._value ?? '')
+      : (this.options.find((o) => o.checked)?.value ?? this.options[0]?.value ?? '');
   }
   private _value: string | null = null;
 
