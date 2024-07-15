@@ -33,7 +33,7 @@ The `allowEmptySelection` property allows user to deselect the component.
 ## Style
 
 The component has three different sizes, which can be changed using the `size` property (`m`, which is the default, `s` and `xs`).
-If used inside a `sbb-radio-button-group`, the `size` will be inherited from the group.
+If used inside a `sbb-radio-button-group`, the `size` will be inherited from it.
 
 ```html
 <sbb-radio-button value="small" size="s">Size</sbb-radio-button>
