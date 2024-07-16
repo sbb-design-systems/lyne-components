@@ -64,7 +64,7 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 | `disabled`            | `disabled`              | public  | `boolean`                            | `false`   | Whether the radio button is disabled.          |
 | `group`               | -                       | public  | `SbbRadioButtonGroupElement \| null` | `null`    | Reference to the connected radio button group. |
 | `required`            | `required`              | public  | `boolean`                            | `false`   | Whether the radio button is required.          |
-| `size`                | `size`                  | public  | `SbbRadioButtonPanelSize`            | `'m'`     | Size variant.                                  |
+| `size`                | `size`                  | public  | `SbbPanelSize`                       | `'m'`     | Size variant.                                  |
 | `value`               | `value`                 | public  | `string \| undefined`                |           | Value of radio button.                         |
 
 ## Methods
