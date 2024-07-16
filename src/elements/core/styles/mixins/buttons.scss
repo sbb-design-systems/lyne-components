@@ -1,7 +1,7 @@
-@use './a11y.scss';
-@use '../core/mediaqueries.scss';
-@use '../core/functions.scss';
-@use './typo.scss';
+@use './a11y';
+@use '../core/mediaqueries';
+@use '../core/functions';
+@use './typo';
 
 // ----------------------------------------------------------------------------------------------------
 // Buttons Mixins
