@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.3.0...v1.4.0) (2024-07-16)
+
+
+### Features
+
+* **sbb-autocomplete-grid:** component implementation ([#2512](https://github.com/sbb-design-systems/lyne-components/issues/2512)) ([0fc5f40](https://github.com/sbb-design-systems/lyne-components/commit/0fc5f40191bcab18f901984e86d75607edc304e4))
+* **sbb-image:** provide ability to crop image on host ([#2917](https://github.com/sbb-design-systems/lyne-components/issues/2917)) ([84a7cf7](https://github.com/sbb-design-systems/lyne-components/commit/84a7cf7c7c05657a2ab8ef98e316a42c00bcc01c))
+* **sbb-radio-button, sbb-radio-button-group:** add size xs ([#2936](https://github.com/sbb-design-systems/lyne-components/issues/2936)) ([7237dce](https://github.com/sbb-design-systems/lyne-components/commit/7237dce8c3def73b82718ea1fb1f96580cc87990))
+
+
+### Bug Fixes
+
+* **sbb-checkbox, sbb-checkbox-panel:** fix visual disabled state after prop change ([#2906](https://github.com/sbb-design-systems/lyne-components/issues/2906)) ([36999a9](https://github.com/sbb-design-systems/lyne-components/commit/36999a9a0ecc2028bc06c440aef434b3590d7ee3)), closes [#2905](https://github.com/sbb-design-systems/lyne-components/issues/2905)
+* **sbb-container, sbb-tab-group:** avoid reserving invisible space ([#2921](https://github.com/sbb-design-systems/lyne-components/issues/2921)) ([edec173](https://github.com/sbb-design-systems/lyne-components/commit/edec173a8046d7a284f0c610abd2f36616552c3a)), closes [#2835](https://github.com/sbb-design-systems/lyne-components/issues/2835)
+* **sbb-map-container:** remove z-index to avoid stacking problems ([#2924](https://github.com/sbb-design-systems/lyne-components/issues/2924)) ([bf27c10](https://github.com/sbb-design-systems/lyne-components/commit/bf27c100ab5857cdaa088b5aff6f4fdc5378b579)), closes [#2804](https://github.com/sbb-design-systems/lyne-components/issues/2804)
+* **sbb-radio-button-panel:** fix spacing between label and suffix ([#2900](https://github.com/sbb-design-systems/lyne-components/issues/2900)) ([c76a0ac](https://github.com/sbb-design-systems/lyne-components/commit/c76a0ac655c9b0dd6947ce10aaa2b76826476a07))
+
 ## [1.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.2.1...v1.3.0) (2024-07-08)
 
 
