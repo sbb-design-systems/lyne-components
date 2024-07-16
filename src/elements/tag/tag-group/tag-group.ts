@@ -80,7 +80,7 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
       ? this._value
       : this.multiple
         ? this.tags.filter((t) => t.checked).map((t) => t.value)
-        : this.tags.find((t) => t.checked)?.value ?? null;
+        : (this.tags.find((t) => t.checked)?.value ?? null);
   }
   private _value: string | string[] | null = null;
 
