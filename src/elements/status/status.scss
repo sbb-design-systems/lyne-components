@@ -56,6 +56,10 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
   --sbb-status-text-color: var(--sbb-color-charcoal);
 }
 
+:host(:is([type='not-started'], [type='in-progress']#{$has-title})) {
+  --sbb-status-icon-color: var(--sbb-color-smoke);
+}
+
 :host([type='in-progress']) {
   --sbb-status-text-color: var(--sbb-color-pink);
 }
