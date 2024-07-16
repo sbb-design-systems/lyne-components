@@ -6,13 +6,15 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { slotState } from '../../core/decorators.js';
 import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { radioButtonCommonStyle, SbbRadioButtonCommonElementMixin } from '../common.js';
 
 import '../../screen-reader-only.js';
+
+export type SbbRadioButtonPanelSize = 's' | 'm';
 
 /**
  /**
@@ -35,6 +37,18 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
     stateChange: 'stateChange',
     panelConnected: 'panelConnected',
   } as const;
+
+  /**
+   * Size variant.
+   */
+  @property({ reflect: true })
+  public set size(value: SbbRadioButtonPanelSize) {
+    this._size = value;
+  }
+  public get size(): SbbRadioButtonPanelSize {
+    return this.group?.size ? (this.group.size === 'xs' ? 's' : this.group.size) : this._size;
+  }
+  private _size: SbbRadioButtonPanelSize = 'm';
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);
