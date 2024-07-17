@@ -40,22 +40,16 @@ export class SbbFlipCardElement extends LitElement {
     return this.querySelector('sbb-flip-card-details')!;
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.summary.inert = this._flipped;
-    this.details.inert = !this._flipped;
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-flip-card--wrapper">
-        <slot name="summary"></slot>
+        <slot name="summary" @slotchange=${() => (this.summary.inert = this._flipped)}></slot>
         <button
           @click=${() => this.toggle()}
           aria-label="Click on this card to show more details"
           aria-expanded=${this._flipped.toString()}
         ></button>
-        <slot name="details"></slot>
+        <slot name="details" @slotchange=${() => (this.details.inert = !this._flipped)}></slot>
         <sbb-secondary-button
           class="sbb-flip-card--toggle-button"
           icon-name=${this._flipped ? 'cross-small' : 'plus-small'}

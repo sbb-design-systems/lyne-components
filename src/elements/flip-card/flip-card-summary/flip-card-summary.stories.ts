@@ -10,6 +10,7 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import sampleImages from '../../core/images.js';
 
@@ -38,15 +39,26 @@ const defaultArgs: Args = {
 };
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-flip-card-summary image-alignment=${args.imageAlignment}>
-    <sbb-title level="4">Summary</sbb-title>
-    <sbb-image
-      slot="image"
-      image-src=${sampleImages[0]}
-      border-radius="none"
-      aspect-ratio="free"
-    ></sbb-image>
-  </sbb-flip-card-summary>
+  <div
+    style=${styleMap({
+      position: 'relative',
+      display: 'flex',
+      'flex-flow': 'column wrap',
+      gap: 'var(--sbb-spacing-responsive-xs)',
+      'min-height': '17.5rem',
+      'background-color': 'var(--sbb-color-cloud-alpha-80)',
+    })}
+  >
+    <sbb-flip-card-summary image-alignment=${args.imageAlignment}>
+      <sbb-title level="4">Summary</sbb-title>
+      <sbb-image
+        slot="image"
+        image-src=${sampleImages[0]}
+        border-radius="none"
+        aspect-ratio="free"
+      ></sbb-image>
+    </sbb-flip-card-summary>
+  </div>
 `;
 
 export const Default: StoryObj = {
