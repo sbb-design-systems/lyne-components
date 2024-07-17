@@ -5,7 +5,6 @@
 
 :host {
   --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
-  --sbb-flip-card-background-color: var(--sbb-color-cloud);
   --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
 
   position: relative;
@@ -29,8 +28,8 @@
 .sbb-flip-card--wrapper {
   position: relative;
   display: flex;
-  flex-direction: column;
   flex-flow: wrap;
+  flex-direction: column;
   gap: var(--sbb-spacing-responsive-xs);
   min-height: #{sbb.px-to-rem-build(280)}; // TODO: check if correct
   background-color: var(--sbb-flip-card-background-color);
