@@ -9,9 +9,9 @@ import { AgnosticMutationObserver } from '../../core/observers.js';
 import style from './flip-card-details.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * Combined with a `sbb-flip-card`, it displays its content when the card is flipped.
  *
- * @event {CustomEvent<any>} myEventName - TODO: Document this event
+ * @slot - Use the unnamed slot to provide any kind of content.
  */
 @customElement('sbb-flip-card-details')
 @hostAttributes({

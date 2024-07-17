@@ -1,66 +1,38 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-flip-card` is a component . . .
+The `sbb-flip-card` component displays an informative card that reveals more informations when clicked or toggled programmatically.
+It's meant to be used together with `sbb-flip-card-summary` and `sbb-flip-card-details`.
 
 ```html
-<sbb-flip-card></sbb-flip-card>
+<sbb-flip-card>
+  <sbb-flip-card-summary>
+    <sbb-title> Card Title </sbb-title>
+    <sbb-image slot="image" image-src="..."></sbb-image>
+  </sbb-flip-card-summary>
+  <sbb-flip-card-details> Some additional text. </sbb-flip-card-details>
+</sbb-flip-card>
 ```
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
+The component will display the content slotted in the `summary` slot in the main view, and the content slotted inside the `details` slot after the card has been flipped.
 
 ## States
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+The `sbb-flip-card` will switch to the flipped state after the user clicks on it or after the `toggle` method is called. Once the component is flipped, it will have the attribute `data-flipped`, which is for internal use only, so it should not be set by hand.
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name      | Attribute | Privacy | Type                        | Default | Description |
-| --------- | --------- | ------- | --------------------------- | ------- | ----------- |
-| `details` | -         | public  | `SbbFlipCardDetailsElement` |         |             |
-| `summary` | -         | public  | `SbbFlipCardSummaryElement` |         |             |
+| Name      | Attribute | Privacy | Type                        | Default | Description                                |
+| --------- | --------- | ------- | --------------------------- | ------- | ------------------------------------------ |
+| `details` | -         | public  | `SbbFlipCardDetailsElement` |         | Returns the slotted sbb-flip-card-details. |
+| `summary` | -         | public  | `SbbFlipCardSummaryElement` |         | Returns the slotted sbb-flip-card-summary. |
 
 ## Methods
 
-| Name     | Privacy | Description | Parameters | Return | Inherited From |
-| -------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `toggle` | public  | TODO        |            | `void` |                |
-
-## Events
-
-| Name          | Type               | Description               | Inherited From |
-| ------------- | ------------------ | ------------------------- | -------------- |
-| `myEventName` | `CustomEvent<any>` | TODO: Document this event |                |
+| Name     | Privacy | Description                             | Parameters | Return | Inherited From |
+| -------- | ------- | --------------------------------------- | ---------- | ------ | -------------- |
+| `toggle` | public  | Toggles the state of the sbb-flip-card. |            | `void` |                |
 
 ## Slots
 

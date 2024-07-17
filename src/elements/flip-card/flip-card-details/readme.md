@@ -1,50 +1,22 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-flip-card-details` is a component . . .
+The `sbb-flip-card-details`, when used inside a `sbb-flip-card`, will show its contents when the card is flipped.
+The component's slot is implicitly set to `"details"`.
 
 ```html
-<sbb-flip-card-details></sbb-flip-card-details>
+<sbb-flip-card>
+  <sbb-flip-card-details>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer placerat ipsum rhoncus viverra
+    dapibus. Aenean id nibh ac tortor elementum vestibulum eu vitae dui. Integer tellus ex, bibendum
+    eget purus id, pellentesque interdum tortor. Sed bibendum neque nisi, ac egestas magna consequat
+    eu.
+    <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link>
+  </sbb-flip-card-details>
+</sbb-flip-card>
 ```
-
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
 
 <!-- Auto Generated Below -->
 
-## Events
+## Slots
 
-| Name          | Type               | Description               | Inherited From |
-| ------------- | ------------------ | ------------------------- | -------------- |
-| `myEventName` | `CustomEvent<any>` | TODO: Document this event |                |
+| Name | Description                                          |
+| ---- | ---------------------------------------------------- |
+|      | Use the unnamed slot to provide any kind of content. |

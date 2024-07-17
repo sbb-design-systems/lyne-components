@@ -7,9 +7,10 @@ import { hostAttributes } from '../../core/decorators.js';
 import style from './flip-card-summary.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * Combined with a `sbb-flip-card`, it displays its content when the card is not flipped.
  *
- * @event {CustomEvent<any>} myEventName - TODO: Document this event
+ * @slot - Use the unnamed slot to provide a title for the `sbb-flip-card-summary`.
+ * @slot image - Use this slot to provide an image for the `sbb-flip-card-summary`.
  */
 @customElement('sbb-flip-card-summary')
 @hostAttributes({
@@ -18,7 +19,7 @@ import style from './flip-card-summary.scss?lit&inline';
 export class SbbFlipCardSummaryElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** myProp documentation */
+  /** The position where to render the image. */
   @property({ attribute: 'image-alignment', reflect: true }) public imageAlignment:
     | 'after'
     | 'below' = 'after';

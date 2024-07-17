@@ -1,56 +1,30 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-flip-card-summary` is a component . . .
+The `sbb-flip-card-summary`, when used inside a `sbb-flip-card`, shows its contents when the card is not flipped.
+The component's slot is implicitly set to `"summary"`.
 
 ```html
-<sbb-flip-card-summary></sbb-flip-card-summary>
+<sbb-flip-card>
+  <sbb-flip-card-summary>
+    <sbb-title> Card Title </sbb-title>
+    <sbb-image slot="image" image-src="..."></sbb-image>
+  </sbb-flip-card-summary>
+</sbb-flip-card>
 ```
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+Use the unnamed slot of `sbb-flip-card-summary` to provide a title and, optionally, the `image` slot to provide an image (via either `sbb-image` or `img`).
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name             | Attribute         | Privacy | Type                        | Default   | Description          |
-| ---------------- | ----------------- | ------- | --------------------------- | --------- | -------------------- |
-| `imageAlignment` | `image-alignment` | public  | `\| 'after'     \| 'below'` | `'after'` | myProp documentation |
+| Name             | Attribute         | Privacy | Type                        | Default   | Description                             |
+| ---------------- | ----------------- | ------- | --------------------------- | --------- | --------------------------------------- |
+| `imageAlignment` | `image-alignment` | public  | `\| 'after'     \| 'below'` | `'after'` | The position where to render the image. |
 
-## Events
+## Slots
 
-| Name          | Type               | Description               | Inherited From |
-| ------------- | ------------------ | ------------------------- | -------------- |
-| `myEventName` | `CustomEvent<any>` | TODO: Document this event |                |
+| Name    | Description                                                              |
+| ------- | ------------------------------------------------------------------------ |
+|         | Use the unnamed slot to provide a title for the `sbb-flip-card-summary`. |
+| `image` | Use this slot to provide an image for the `sbb-flip-card-summary`.       |

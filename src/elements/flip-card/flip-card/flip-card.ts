@@ -9,12 +9,11 @@ import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
 import style from './flip-card.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * Displays an informative card that reveals more informations upon being clicked.
  *
  * @slot summary - Use this slot to provide a sbb-flip-card-summary component.
  * @slot details - Use this slot to provide a sbb-flip-card-details component.
  *
- * @event {CustomEvent<any>} myEventName - TODO: Document this event
  */
 @customElement('sbb-flip-card')
 export class SbbFlipCardElement extends LitElement {
@@ -23,7 +22,7 @@ export class SbbFlipCardElement extends LitElement {
   /** Whether the card is flipped or not. */
   @state() private _flipped = false;
 
-  /** TODO */
+  /** Toggles the state of the sbb-flip-card. */
   public toggle(): void {
     this._flipped = !this._flipped;
     this.toggleAttribute('data-flipped', this._flipped);
@@ -31,10 +30,12 @@ export class SbbFlipCardElement extends LitElement {
     this.details.inert = !this._flipped;
   }
 
+  /** Returns the slotted sbb-flip-card-summary. */
   public get summary(): SbbFlipCardSummaryElement {
     return this.querySelector('sbb-flip-card-summary')!;
   }
 
+  /** Returns the slotted sbb-flip-card-details. */
   public get details(): SbbFlipCardDetailsElement {
     return this.querySelector('sbb-flip-card-details')!;
   }
