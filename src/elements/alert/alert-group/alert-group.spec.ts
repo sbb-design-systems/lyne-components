@@ -44,7 +44,6 @@ describe(`sbb-alert-group`, () => {
       .shadowRoot!.querySelector<SbbTransparentButtonElement>(
         '.sbb-alert__close-button-wrapper sbb-transparent-button',
       )!;
-
     closeButton.focus();
     closeButton.click();
     await waitForLitRender(element);
@@ -73,6 +72,8 @@ describe(`sbb-alert-group`, () => {
 
     // Then the alert should be removed from sbb-alert-group, tabindex should be set to 0,
     // focus should be on sbb-alert-group, accessibility title should be removed and empty event should be fired.
+    await waitForCondition(() => didDismissAlertSpy.events.length === 2);
+    expect(didDismissAlertSpy.count).to.be.equal(2);
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(0);
     expect(element.tabIndex).to.be.equal(0);
     expect(document.activeElement!.id).to.be.equal(alertGroupId);

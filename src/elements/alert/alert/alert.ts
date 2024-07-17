@@ -23,8 +23,6 @@ import '../../divider.js';
 import '../../link.js';
 import '../../title.js';
 
-type SbbAlertState = Exclude<SbbOpenedClosedState, 'closing'>;
-
 /**
  * It displays messages which require user's attention.
  *
@@ -33,6 +31,8 @@ type SbbAlertState = Exclude<SbbOpenedClosedState, 'closing'>;
  * @slot title - Title content.
  * @event {CustomEvent<void>} willOpen - Emits when the fade in animation starts.
  * @event {CustomEvent<void>} didOpen - Emits when the fade in animation ends and the button is displayed.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-notification` begins the closing transition.
+ * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-notification` is closed.
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')
@@ -41,6 +41,8 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   public static readonly events = {
     willOpen: 'willOpen',
     didOpen: 'didOpen',
+    willClose: 'willClose',
+    didClose: 'didClose',
     dismissalRequested: 'dismissalRequested',
   } as const;
 
@@ -82,14 +84,14 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /** The enabled animations. */
-  @property({ reflect: true }) public animation: 'open' | 'none' = 'open';
+  @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
   /** The state of the alert. */
-  private get _state(): SbbAlertState {
-    return (this.getAttribute('data-state') as SbbAlertState | null) ?? 'closed';
-  }
-  private set _state(value: SbbAlertState) {
+  private set _state(value: SbbOpenedClosedState) {
     this.setAttribute('data-state', value);
+  }
+  private get _state(): SbbOpenedClosedState {
+    return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
   /** Emits when the fade in animation starts. */
@@ -98,7 +100,16 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   /** Emits when the fade in animation ends and the button is displayed. */
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.didOpen);
 
-  /** Emits when dismissal of an alert was requested. */
+  /** Emits whenever the `sbb-notification` begins the closing transition. */
+  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.willClose);
+
+  /** Emits whenever the `sbb-notification` is closed. */
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.didClose);
+
+  /**
+   * @deprecated
+   * Emits when dismissal of an alert was requested.
+   */
   private _dismissalRequested: EventEmitter<void> = new EventEmitter(
     this,
     SbbAlertElement.events.dismissalRequested,
@@ -112,22 +123,45 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
     this._open();
   }
 
-  /** Requests dismissal of the alert. */
+  /** Requests dismissal of the alert.
+   * @deprecated in favour of 'willClose' and 'didClose' events
+   */
   public requestDismissal(): void {
     this._dismissalRequested.emit();
   }
 
+  /** Close the alert. */
+  public close(): void {
+    if (this._willClose.emit()) {
+      this._state = 'closing';
+    }
+  }
+
   /** Open the alert. */
   private _open(): void {
-    this._state = 'opening';
     this._willOpen.emit();
+    this._state = 'opening';
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
     if (this._state === 'opening' && event.animationName === 'open-opacity') {
-      this._state = 'opened';
-      this._didOpen.emit();
+      this._handleOpening();
     }
+
+    if (this._state === 'closing' && event.animationName === 'close') {
+      this._handleClosing();
+    }
+  }
+
+  private _handleOpening(): void {
+    this._state = 'opened';
+    this._didOpen.emit();
+  }
+
+  private _handleClosing(): void {
+    this._state = 'closed';
+    this._didClose.emit();
+    setTimeout(() => this.remove());
   }
 
   protected override render(): TemplateResult {

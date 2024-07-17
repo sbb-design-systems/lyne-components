@@ -57,11 +57,24 @@ export class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
 
   private _abort = new SbbConnectedAbortController(this);
 
-  private _removeAlert(event: Event): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener(
+      SbbAlertElement.events.dismissalRequested,
+      (e) => (e.target as SbbAlertElement).close(),
+      {
+        signal,
+      },
+    );
+    this.addEventListener(SbbAlertElement.events.didClose, (e) => this._alertClosed(e), {
+      signal,
+    });
+  }
+
+  private _alertClosed(event: Event): void {
     const target = event.target as SbbAlertElement;
     const hasFocusInsideAlertGroup = document.activeElement === target;
-
-    target.parentNode?.removeChild(target);
     this._didDismissAlert.emit(target);
 
     // Restore focus
@@ -75,14 +88,6 @@ export class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
         once: true,
       });
     }
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener(SbbAlertElement.events.dismissalRequested, (e) => this._removeAlert(e), {
-      signal,
-    });
   }
 
   private _slotChanged(event: Event): void {
