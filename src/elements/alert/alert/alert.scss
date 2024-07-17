@@ -10,6 +10,8 @@ $open-anim-opacity-to: 1;
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-alert-background-color: var(--sbb-color-midnight);
   --sbb-alert-border-radius: var(--sbb-border-radius-4x);
@@ -34,8 +36,6 @@ $open-anim-opacity-to: 1;
     outline: var(--sbb-border-width-1x) solid CanvasText;
     border-radius: var(--sbb-alert-border-radius);
   }
-
-  display: block;
 }
 
 :host([animation='none']) {

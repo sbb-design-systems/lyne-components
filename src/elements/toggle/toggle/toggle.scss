@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-toggle-width: fit-content;
   --sbb-toggle-min-width: calc(
     var(--sbb-toggle-padding-inline) * 2 + var(--sbb-size-icon-ui-small)
@@ -27,8 +29,6 @@
     --sbb-toggle-selected-option-border-color: Highlight;
     --sbb-toggle-border-width: var(--sbb-border-width-2x);
   }
-
-  display: block;
 }
 
 :host([even]) {

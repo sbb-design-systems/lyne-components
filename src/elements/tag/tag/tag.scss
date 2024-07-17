@@ -4,6 +4,13 @@
 @include sbb.box-sizing;
 
 :host {
+  display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+  max-width: 100%;
+
   --sbb-tag-border-radius: var(--sbb-border-radius-infinity);
   --sbb-tag-background-color: var(--sbb-color-white);
   --sbb-tag-border-color: var(--sbb-color-cloud);
@@ -29,13 +36,6 @@
     --sbb-tag-border-color: CanvasText;
     --sbb-tag-border-width: var(--sbb-border-width-2x);
   }
-
-  display: inline-block;
-
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
-  max-width: 100%;
 }
 
 // Active state

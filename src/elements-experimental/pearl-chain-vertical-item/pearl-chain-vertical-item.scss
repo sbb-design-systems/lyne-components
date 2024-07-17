@@ -102,13 +102,13 @@ slot[name='right']::slotted(*) {
 }
 
 .sbb-pearl-chain-vertical-item__line--default {
-  @include sbb.if-forced-colors {
-    --sbb-pearl-chain-vertical-item-color-default: CanvasText;
-  }
-
   background-color: var(--sbb-pearl-chain-vertical-item-color-default);
   border-color: var(--sbb-pearl-chain-vertical-item-color-default);
   color: var(--sbb-pearl-chain-vertical-item-color-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-default: CanvasText;
+  }
 }
 
 .sbb-pearl-chain-vertical-item__line--disruption {
