@@ -1,52 +1,29 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components';
+import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-
-import { SbbFlipCardDetailsElement } from './flip-card-details.js';
 import readme from './readme.md?raw';
 
-const myProp: InputType = {
-  control: {
-    type: 'text',
-  },
-};
+import '../../link.js';
+import './flip-card-details.js';
 
-const defaultArgTypes: ArgTypes = {
-  'my-prop': myProp,
-};
-
-const defaultArgs: Args = {
-  'my-prop': 'Label',
-};
-
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-flip-card-details ${sbbSpread(args)}></sbb-flip-card-details>`;
+const Template = (): TemplateResult =>
+  html`<sbb-flip-card-details style="--sbb-flip-card-details-opacity: 1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum. Vivamus
+    turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus vitae tortor
+    ullamcorper maximus. In convallis consectetur felis.
+    <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link>
+  </sbb-flip-card-details>`;
 
 export const Default: StoryObj = {
   render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    actions: {
-      handles: [SbbFlipCardDetailsElement.events.myEventName],
-    },
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+    backgroundColor: () => 'var(--sbb-color-midnight)',
     docs: {
       extractComponentDescription: () => readme,
     },

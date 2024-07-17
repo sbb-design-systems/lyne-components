@@ -11,40 +11,53 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import sampleImages from '../../core/images.js';
 
-import { SbbFlipCardSummaryElement } from './flip-card-summary.js';
 import readme from './readme.md?raw';
 
-const myProp: InputType = {
+import './flip-card-summary.js';
+import '../../title.js';
+import '../../image.js';
+
+const imageAlignment: InputType = {
   control: {
-    type: 'text',
+    type: 'select',
+  },
+  options: ['after', 'below'],
+  table: {
+    category: 'Summary',
   },
 };
 
 const defaultArgTypes: ArgTypes = {
-  'my-prop': myProp,
+  imageAlignment,
 };
 
 const defaultArgs: Args = {
-  'my-prop': 'Label',
+  imageAlignment: imageAlignment.options![0],
 };
 
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-flip-card-summary ${sbbSpread(args)}></sbb-flip-card-summary>`;
+const Template = (args: Args): TemplateResult => html`
+  <sbb-flip-card-summary image-alignment=${args.imageAlignment}>
+    <sbb-title level="4">Summary</sbb-title>
+    <sbb-image
+      slot="image"
+      image-src=${sampleImages[0]}
+      border-radius="none"
+      aspect-ratio="free"
+    ></sbb-image>
+  </sbb-flip-card-summary>
+`;
 
 export const Default: StoryObj = {
   render: Template,
+  args: defaultArgs,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    actions: {
-      handles: [SbbFlipCardSummaryElement.events.myEventName],
-    },
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
