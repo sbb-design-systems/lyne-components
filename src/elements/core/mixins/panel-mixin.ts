@@ -11,6 +11,8 @@ export declare class SbbPanelMixinType {
   public expansionState?: string;
 }
 
+export type SbbPanelSize = 's' | 'm';
+
 /**
  * Mixin for common panel behaviors
  */

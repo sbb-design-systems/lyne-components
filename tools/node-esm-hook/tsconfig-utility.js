@@ -44,6 +44,6 @@ export const createAliasResolver = (/** @type {'src' | 'dist'} */ mode = 'src') 
 
   return (/** @type {string} */ specifier) =>
     aliasPrefixes.some((p) => specifier.startsWith(p))
-      ? aliasPaths.find((a) => a.match(specifier))?.resolve(specifier) ?? null
+      ? (aliasPaths.find((a) => a.match(specifier))?.resolve(specifier) ?? null)
       : null;
 };

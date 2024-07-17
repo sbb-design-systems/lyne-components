@@ -79,6 +79,9 @@ export class SbbMapContainerElement extends LitElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-map-container">
+        <div class="sbb-map-container__map">
+          <slot name="map"></slot>
+        </div>
         <div class="sbb-map-container__sidebar">
           ${!this.hideScrollUpButton
             ? html`<span
@@ -110,9 +113,6 @@ export class SbbMapContainerElement extends LitElement {
                 ${i18nMapContainerButtonLabel[this._language.current]}
               </sbb-tertiary-button>`
             : nothing}
-        </div>
-        <div class="sbb-map-container__map">
-          <slot name="map"></slot>
         </div>
       </div>
     `;

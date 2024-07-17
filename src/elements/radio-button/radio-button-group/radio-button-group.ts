@@ -8,7 +8,7 @@ import { hostAttributes, slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
-import type { SbbRadioButtonSize, SbbRadioButtonStateChange } from '../common.js';
+import type { SbbRadioButtonStateChange, SbbRadioButtonSize } from '../common.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
 
@@ -58,7 +58,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   @property() public value?: any | null;
 
   /**
-   * Size variant, either m or s.
+   * Size variant.
    */
   @property() public size: SbbRadioButtonSize = 'm';
 

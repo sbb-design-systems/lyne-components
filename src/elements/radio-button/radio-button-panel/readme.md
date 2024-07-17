@@ -36,6 +36,13 @@ The `allowEmptySelection` property allows user to deselect the component.
 
 ## Style
 
+The component has three different sizes, which can be changed using the `size` property (`m`, which is the default and `s`).
+If used inside a `sbb-radio-button-group`, the `size` will be inherited from it.
+
+```html
+<sbb-radio-button-panel size="s">Size</sbb-radio-button-panel>
+```
+
 The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
 
 ```html
@@ -57,7 +64,7 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 | `disabled`            | `disabled`              | public  | `boolean`                            | `false`   | Whether the radio button is disabled.          |
 | `group`               | -                       | public  | `SbbRadioButtonGroupElement \| null` | `null`    | Reference to the connected radio button group. |
 | `required`            | `required`              | public  | `boolean`                            | `false`   | Whether the radio button is required.          |
-| `size`                | `size`                  | public  | `SbbRadioButtonSize`                 | `'m'`     | Label size variant, either m or s.             |
+| `size`                | `size`                  | public  | `SbbPanelSize`                       | `'m'`     | Size variant.                                  |
 | `value`               | `value`                 | public  | `string \| undefined`                |           | Value of radio button.                         |
 
 ## Methods

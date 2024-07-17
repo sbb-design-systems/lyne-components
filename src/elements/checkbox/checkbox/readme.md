@@ -43,10 +43,12 @@ The component can be displayed in `disabled` or `required` state by using the se
 
 ## Style
 
-The component has two `size`, named `s` and `m` (default).
+The component has three `size`, named `xs`, `s` and `m` (default).
 
 ```html
-<sbb-checkbox value="size" size="m">Size</sbb-checkbox>
+<sbb-checkbox value="size" size="xs">Size</sbb-checkbox>
+
+<sbb-checkbox value="size" size="s">Size</sbb-checkbox>
 ```
 
 The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
@@ -90,7 +92,7 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `indeterminate` | `indeterminate`  | public  | `boolean`                         | `false` | Whether the checkbox is indeterminate.                                                                                           |
 | `name`          | `name`           | public  | `string`                          |         | Name of the form element. Will be read from name attribute.                                                                      |
 | `required`      | `required`       | public  | `boolean`                         | `false` | Whether the component is required.                                                                                               |
-| `size`          | `size`           | public  | `SbbCheckboxSize`                 | `'m'`   | Label size variant, either m or s.                                                                                               |
+| `size`          | `size`           | public  | `SbbCheckboxSize`                 | `'m'`   | Size variant.                                                                                                                    |
 | `value`         | `value`          | public  | `string \| null`                  | `null`  | Value of the form element.                                                                                                       |
 
 ## Events

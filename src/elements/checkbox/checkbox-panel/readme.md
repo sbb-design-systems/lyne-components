@@ -51,6 +51,14 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 </sbb-checkbox-panel>
 ```
 
+The component has two `size`, named `s` and `m` (default).
+If the component is used within a group, the size is inherited from it;
+since the `sbb-checkbox-group` has also `xs` size, this case will fall back to `s`.
+
+```html
+<sbb-checkbox-panel size="s"> Size </sbb-checkbox-panel>
+```
+
 ## Events
 
 Consumers can listen to the native `change` event on the `sbb-checkbox-panel` component to intercept the input's change;
@@ -78,7 +86,7 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `indeterminate` | `indeterminate` | public  | `boolean`                         | `false`   | Whether the checkbox is indeterminate.                      |
 | `name`          | `name`          | public  | `string`                          |           | Name of the form element. Will be read from name attribute. |
 | `required`      | `required`      | public  | `boolean`                         | `false`   | Whether the component is required.                          |
-| `size`          | `size`          | public  | `SbbCheckboxSize`                 | `'m'`     | Label size variant, either m or s.                          |
+| `size`          | `size`          | public  | `SbbPanelSize`                    | `'m'`     | Size variant.                                               |
 | `value`         | `value`         | public  | `string \| null`                  | `null`    | Value of the form element.                                  |
 
 ## Events

@@ -24,7 +24,11 @@ describe(`sbb-teaser-hero`, () => {
             </sbb-teaser-hero>
           `);
 
-          await waitForImageReady(setup.snapshotElement.shadowRoot!.querySelector('sbb-image')!);
+          await waitForImageReady(
+            setup.snapshotElement
+              .querySelector('sbb-teaser-hero')!
+              .shadowRoot!.querySelector('sbb-image')!,
+          );
         }),
       );
 

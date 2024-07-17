@@ -15,7 +15,7 @@ import '../../radio-button.js';
 const cases = {
   disabled: [false, true],
   orientation: ['vertical', 'horizontal'],
-  size: ['m', 's'],
+  size: ['m', 's', 'xs'],
 };
 
 const suffixAndSubtext = (): TemplateResult => html`

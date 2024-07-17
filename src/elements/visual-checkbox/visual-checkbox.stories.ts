@@ -32,11 +32,19 @@ const negative: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's', 'xs'],
+};
+
 const defaultArgTypes: ArgTypes = {
   checked,
   indeterminate,
   disabled,
   negative,
+  size,
 };
 
 const defaultArgs: Args = {
@@ -44,6 +52,7 @@ const defaultArgs: Args = {
   indeterminate: false,
   disabled: false,
   negative: false,
+  size: size.options![0],
 };
 
 const Template = (args: Args): TemplateResult =>
@@ -119,6 +128,30 @@ export const DisabledIndeterminateNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, indeterminate: true, disabled: true, negative: true },
+};
+
+export const SizeXS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![2] },
+};
+
+export const SizeXSChecked: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![2], checked: true },
+};
+
+export const SizeXSIndeterminate: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![2], indeterminate: true },
+};
+
+export const SizeXSNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![2], negative: true },
 };
 
 const meta: Meta = {

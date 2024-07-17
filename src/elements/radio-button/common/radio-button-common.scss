@@ -57,6 +57,10 @@
   }
 }
 
+:host([size='xs']) {
+  --sbb-radio-button-dimension: #{sbb.px-to-rem-build(20)};
+}
+
 .sbb-screen-reader-only {
   @include sbb.screen-reader-only;
 }
@@ -73,6 +77,10 @@
 
   :host([size='s']) & {
     @include sbb.text-s--regular;
+  }
+
+  :host([size='xs']) & {
+    @include sbb.text-xs--regular;
   }
 }
 

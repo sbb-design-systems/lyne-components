@@ -62,6 +62,13 @@ describe('sbb-checkbox', () => {
         }),
       );
 
+      it(
+        `${state} size=xs`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ ...defaultArgs, size: 'xs' }));
+        }),
+      );
+
       for (const iconPlacement of ['start', 'end']) {
         it(
           `${state} iconPlacement=${iconPlacement}`,

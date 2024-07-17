@@ -4,7 +4,11 @@ import { customElement, property } from 'lit/decorators.js';
 import { slotState } from '../../core/decorators.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
-import { SbbCheckboxCommonElementMixin, checkboxCommonStyle } from '../common.js';
+import {
+  SbbCheckboxCommonElementMixin,
+  checkboxCommonStyle,
+  type SbbCheckboxSize,
+} from '../common.js';
 
 import checkboxStyle from './checkbox.scss?lit&inline';
 
@@ -30,6 +34,16 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
     didChange: 'didChange',
   } as const;
 
+  /** Size variant. */
+  @property({ reflect: true })
+  public set size(value: SbbCheckboxSize) {
+    this._size = value;
+  }
+  public get size(): SbbCheckboxSize {
+    return this.group?.size ?? this._size;
+  }
+  private _size: SbbCheckboxSize = 'm';
+
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
   public iconPlacement: SbbIconPlacement = 'end';
@@ -44,6 +58,7 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
                 ?checked=${this.checked}
                 ?indeterminate=${this.indeterminate}
                 ?disabled=${this.disabled || this.formDisabled}
+                size=${this.size}
               ></sbb-visual-checkbox>
             </span>
             <span class="sbb-checkbox__label">

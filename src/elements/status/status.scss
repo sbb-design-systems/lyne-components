@@ -35,6 +35,39 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
   --sbb-status-text-color: var(--sbb-color-charcoal);
 }
 
+:host([type='pending']) {
+  --sbb-status-text-color: var(--sbb-color-sky);
+}
+
+:host(:is([type='pending'], [type='pending']#{$has-title})) {
+  --sbb-status-icon-color: var(--sbb-color-sky);
+}
+
+:host([type='incomplete']) {
+  --sbb-status-text-color: var(--sbb-color-red125);
+}
+
+:host(:is([type='incomplete'], [type='incomplete']#{$has-title})) {
+  --sbb-status-icon-color: var(--sbb-color-red125);
+}
+
+:host([type='not-started']) {
+  --sbb-status-icon-color: var(--sbb-color-smoke);
+  --sbb-status-text-color: var(--sbb-color-charcoal);
+}
+
+:host(:is([type='not-started'], [type='in-progress']#{$has-title})) {
+  --sbb-status-icon-color: var(--sbb-color-smoke);
+}
+
+:host([type='in-progress']) {
+  --sbb-status-text-color: var(--sbb-color-pink);
+}
+
+:host(:is([type='in-progress'], [type='in-progress']#{$has-title})) {
+  --sbb-status-icon-color: var(--sbb-color-pink);
+}
+
 :host(#{$has-title}) {
   --sbb-status-text-color: var(--sbb-color-granite);
   --sbb-status-icon-color: var(--sbb-color-charcoal);

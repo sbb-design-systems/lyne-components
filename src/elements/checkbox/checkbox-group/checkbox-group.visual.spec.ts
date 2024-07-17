@@ -122,6 +122,13 @@ describe('sbb-checkbox-group', () => {
       );
 
       it(
+        `${orientation} size=xs ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(checkboxesTemplate({ ...args, size: 'xs' }));
+        }),
+      );
+
+      it(
         `${orientation} disabled ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(checkboxesTemplate({ ...args, disabled: true }));

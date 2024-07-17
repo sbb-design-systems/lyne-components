@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import type { SbbCheckboxSize } from '../checkbox/common.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.js';
 
 import style from './visual-checkbox.scss?lit&inline';
@@ -19,14 +20,17 @@ export class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(
   /** Indeterminate state. */
   @property({ reflect: true, type: Boolean }) public indeterminate = false;
 
+  /** Size of the checkbox. */
+  @property({ reflect: true }) public size: SbbCheckboxSize = 'm';
+
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-visual-checkbox">
         <span class="sbb-visual-checkbox__icon">
           ${this.checked || this.indeterminate
             ? html`<svg
-                width="24"
-                height="24"
+                width=${this.size === 'xs' ? '20' : '24'}
+                height=${this.size === 'xs' ? '20' : '24'}
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

@@ -33,7 +33,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['m', 's', 'xs'],
 };
 
 const ariaLabel: InputType = {
@@ -87,6 +87,12 @@ export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
+};
+
+export const SizeXS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![2] },
 };
 
 export const Checked: StoryObj = {
