@@ -10,12 +10,9 @@ describe(`sbb-flip-card-details ssr`, () => {
     let root: SbbFlipCardDetailsElement;
 
     beforeEach(async () => {
-      root = await ssrHydratedFixture(
-        html`<sbb-flip-card-details my-prop="Label"></sbb-flip-card-details>`,
-        {
-          modules: ['./flip-card-details.js'],
-        },
-      );
+      root = await ssrHydratedFixture(html`<sbb-flip-card-details></sbb-flip-card-details>`, {
+        modules: ['./flip-card-details.js'],
+      });
     });
 
     it('renders', () => {

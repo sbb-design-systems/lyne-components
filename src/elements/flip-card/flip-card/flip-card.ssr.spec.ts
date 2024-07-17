@@ -10,7 +10,7 @@ describe(`sbb-flip-card ssr`, () => {
     let root: SbbFlipCardElement;
 
     beforeEach(async () => {
-      root = await ssrHydratedFixture(html`<sbb-flip-card my-prop="Label"></sbb-flip-card>`, {
+      root = await ssrHydratedFixture(html`<sbb-flip-card></sbb-flip-card>`, {
         modules: ['./flip-card.js'],
       });
     });

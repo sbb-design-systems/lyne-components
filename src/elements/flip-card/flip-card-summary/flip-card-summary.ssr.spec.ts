@@ -11,7 +11,7 @@ describe(`sbb-flip-card-summary ssr`, () => {
 
     beforeEach(async () => {
       root = await ssrHydratedFixture(
-        html`<sbb-flip-card-summary my-prop="Label"></sbb-flip-card-summary>`,
+        html`<sbb-flip-card-summary image-alignment="after"></sbb-flip-card-summary>`,
         {
           modules: ['./flip-card-summary.js'],
         },
