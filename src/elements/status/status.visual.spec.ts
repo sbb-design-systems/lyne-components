@@ -11,7 +11,16 @@ import './status.js';
 
 describe(`sbb-status`, () => {
   const cases = {
-    type: ['info', 'success', 'warning', 'error'],
+    type: [
+      'info',
+      'success',
+      'warning',
+      'error',
+      'pending',
+      'incomplete',
+      'not-started',
+      'in-progress',
+    ],
     titleContent: [undefined, 'Title'],
   };
 
