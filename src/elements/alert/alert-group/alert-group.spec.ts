@@ -1,4 +1,5 @@
 import { expect } from '@open-wc/testing';
+import { sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbTransparentButtonElement } from '../../button.js';
@@ -82,8 +83,8 @@ describe(`sbb-alert-group`, () => {
     expect(didDismissAlertSpy.count).to.be.equal(2);
     expect(emptySpy.count).to.be.greaterThan(0);
 
-    // When clicking away (simulated by blur event)
-    element.dispatchEvent(new CustomEvent('blur'));
+    // When clicking away
+    await sendMouse({ type: 'click', position: [0, 0] });
     await waitForLitRender(element);
 
     // Then the active element id should be unset and tabindex should be removed
