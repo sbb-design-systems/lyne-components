@@ -29,10 +29,10 @@ import '../../title.js';
  * @slot - Use the unnamed slot to add content to the `sbb-alert`.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
- * @event {CustomEvent<void>} willOpen - Emits when the fade in animation starts.
- * @event {CustomEvent<void>} didOpen - Emits when the fade in animation ends and the button is displayed.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-notification` begins the closing transition.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-notification` is closed.
+ * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
+ * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
+ * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
+ * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')

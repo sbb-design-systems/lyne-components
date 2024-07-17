@@ -105,13 +105,13 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Events
 
-| Name                 | Type                | Description                                                          | Inherited From |
-| -------------------- | ------------------- | -------------------------------------------------------------------- | -------------- |
-| `didClose`           | `CustomEvent<void>` | Emits whenever the `sbb-notification` is closed.                     |                |
-| `didOpen`            | `CustomEvent<void>` | Emits when the fade in animation ends and the button is displayed.   |                |
-| `dismissalRequested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.                      |                |
-| `willClose`          | `CustomEvent<void>` | Emits whenever the `sbb-notification` begins the closing transition. |                |
-| `willOpen`           | `CustomEvent<void>` | Emits when the fade in animation starts.                             |                |
+| Name                 | Type                | Description                                               | Inherited From |
+| -------------------- | ------------------- | --------------------------------------------------------- | -------------- |
+| `didClose`           | `CustomEvent<void>` | Emits when the closing animation ends.                    |                |
+| `didOpen`            | `CustomEvent<void>` | Emits when the opening animation ends.                    |                |
+| `dismissalRequested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.           |                |
+| `willClose`          | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. |                |
+| `willOpen`           | `CustomEvent<void>` | Emits when the opening animation starts.                  |                |
 
 ## Slots
 

@@ -97,12 +97,12 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Events
 
-| Name        | Type                | Description                                                          | Inherited From |
-| ----------- | ------------------- | -------------------------------------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-notification` is closed.                     |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-notification` is opened.                     |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-notification` begins the closing transition. |                |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-notification` starts the opening transition. |                |
+| Name        | Type                | Description                              | Inherited From |
+| ----------- | ------------------- | ---------------------------------------- | -------------- |
+| `didClose`  | `CustomEvent<void>` | Emits when the closing animation ends.   |                |
+| `didOpen`   | `CustomEvent<void>` | Emits when the opening animation ends.   |                |
+| `willClose` | `CustomEvent<void>` | Emits when the closing animation starts. |                |
+| `willOpen`  | `CustomEvent<void>` | Emits when the opening animation starts. |                |
 
 ## CSS Properties
 

@@ -31,10 +31,10 @@ const DEBOUNCE_TIME = 150;
  *
  * @slot - Use the unnamed slot to add content to the notification message.
  * @slot title - Use this to provide a notification title (optional).
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-notification` starts the opening transition.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-notification` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-notification` begins the closing transition.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-notification` is closed.
+ * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
+ * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
+ * @event {CustomEvent<void>} willClose - Emits when the closing animation starts.
+ * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
  */
