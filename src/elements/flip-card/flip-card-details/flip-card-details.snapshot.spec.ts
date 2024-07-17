@@ -7,23 +7,19 @@ import type { SbbFlipCardDetailsElement } from './flip-card-details.js';
 import './flip-card-details.js';
 
 describe(`sbb-flip-card-details`, () => {
-  it('renders', () => {
-    let element: SbbFlipCardDetailsElement;
+  let element: SbbFlipCardDetailsElement;
 
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-flip-card-details my-prop="Label"></sbb-flip-card-details>`,
-      );
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-flip-card-details>Example text</sbb-flip-card-details>`);
   });
+
+  it('DOM', async () => {
+    await expect(element).dom.to.be.equalSnapshot();
+  });
+
+  it('Shadow DOM', async () => {
+    await expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  testA11yTreeSnapshot();
 });
