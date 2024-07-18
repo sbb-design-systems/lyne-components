@@ -1,13 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
@@ -90,6 +83,22 @@ const LongContentTemplate = (args: Args): TemplateResult =>
     >
   </sbb-flip-card>`;
 
+const LongTitleTemplate = (args: Args): TemplateResult =>
+  html`<sbb-flip-card>
+    <sbb-flip-card-summary slot="summary" image-alignment=${args.imageAlignment}>
+      <sbb-title level="4"
+        >This is a very long title that should break into multiple lines</sbb-title
+      >
+      <sbb-image
+        slot="image"
+        image-src=${sampleImages[0]}
+        border-radius="none"
+        aspect-ratio="free"
+      ></sbb-image>
+    </sbb-flip-card-summary>
+    ${cardDetails()}
+  </sbb-flip-card>`;
+
 export const ImageAfter: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
@@ -114,11 +123,15 @@ export const LongContent: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const LongTitle: StoryObj = {
+  render: LongTitleTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },
