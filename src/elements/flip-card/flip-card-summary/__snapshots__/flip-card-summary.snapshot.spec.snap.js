@@ -33,6 +33,7 @@ snapshots["sbb-flip-card-summary DOM"] =
   <sbb-image
     aspect-ratio="free"
     border-radius="none"
+    image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
     slot="image"
   >
   </sbb-image>

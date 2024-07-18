@@ -1,6 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import sampleImages from '../../core/images.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
 import type { SbbFlipCardSummaryElement } from './flip-card-summary.js';
@@ -16,7 +17,12 @@ describe(`sbb-flip-card-summary`, () => {
     element = await fixture(
       html`<sbb-flip-card-summary image-alignment="below">
         <sbb-title level="4">Summary</sbb-title>
-        <sbb-image slot="image" border-radius="none" aspect-ratio="free"></sbb-image>
+        <sbb-image
+          slot="image"
+          border-radius="none"
+          aspect-ratio="free"
+          image-src=${sampleImages[0]}
+        ></sbb-image>
       </sbb-flip-card-summary>`,
     );
   });

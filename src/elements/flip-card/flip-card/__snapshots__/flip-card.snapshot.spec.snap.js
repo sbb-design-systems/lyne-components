@@ -78,7 +78,7 @@ snapshots["sbb-flip-card Shadow DOM"] =
   </slot>
   <button
     aria-expanded="false"
-    aria-label="Click on this card to show more details"
+    aria-label="Click on this card for details"
   >
   </button>
   <slot name="details">
@@ -112,7 +112,7 @@ snapshots["sbb-flip-card A11y tree Chrome"] =
     },
     {
       "role": "button",
-      "name": "Click on this card to show more details"
+      "name": "Click on this card for details"
     },
     {
       "role": "button",
@@ -137,7 +137,7 @@ snapshots["sbb-flip-card A11y tree Firefox"] =
     },
     {
       "role": "button",
-      "name": "Click on this card to show more details"
+      "name": "Click on this card for details"
     },
     {
       "role": "button",
