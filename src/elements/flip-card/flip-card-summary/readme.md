@@ -1,4 +1,4 @@
-The `sbb-flip-card-summary`, when used inside a `sbb-flip-card`, shows its contents when the card is not flipped.
+The `sbb-flip-card-summary`, when used inside a [sbb-flip-card](/docs/elements-sbb-flip-card-sbb-flip-card--docs), shows its contents when the card is not flipped.
 The component's slot is implicitly set to `"summary"`.
 
 ```html
@@ -20,7 +20,7 @@ Use the unnamed slot of `sbb-flip-card-summary` to provide a title and, optional
 
 | Name             | Attribute         | Privacy | Type                        | Default   | Description                             |
 | ---------------- | ----------------- | ------- | --------------------------- | --------- | --------------------------------------- |
-| `imageAlignment` | `image-alignment` | public  | `\| 'after'     \| 'below'` | `'after'` | The position where to render the image. |
+| `imageAlignment` | `image-alignment` | public  | `SbbFlipCardImageAlignment` | `'after'` | The position where to render the image. |
 
 ## Slots
 

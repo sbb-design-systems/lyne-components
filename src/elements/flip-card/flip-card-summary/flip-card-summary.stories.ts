@@ -67,6 +67,12 @@ export const Default: StoryObj = {
   argTypes: defaultArgTypes,
 };
 
+export const ImageBelow: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, imageAlignment: imageAlignment.options![1] },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {

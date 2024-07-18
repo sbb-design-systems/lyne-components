@@ -1,4 +1,4 @@
-The `sbb-flip-card-details`, when used inside a `sbb-flip-card`, will show its contents when the card is flipped.
+The `sbb-flip-card-details`, when used inside a [sbb-flip-card](/docs/elements-sbb-flip-card-sbb-flip-card--docs), will show its contents when the card is flipped.
 The component's slot is implicitly set to `"details"`.
 
 ```html

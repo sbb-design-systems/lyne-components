@@ -21,6 +21,16 @@ import style from './flip-card.scss?lit&inline';
 export class SbbFlipCardElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
+  /** Returns the slotted sbb-flip-card-summary. */
+  public get summary(): SbbFlipCardSummaryElement {
+    return this.querySelector('sbb-flip-card-summary')!;
+  }
+
+  /** Returns the slotted sbb-flip-card-details. */
+  public get details(): SbbFlipCardDetailsElement {
+    return this.querySelector('sbb-flip-card-details')!;
+  }
+
   /** Whether the card is flipped or not. */
   @state() private _flipped = false;
 
@@ -32,16 +42,6 @@ export class SbbFlipCardElement extends LitElement {
     this.toggleAttribute('data-flipped', this._flipped);
     this.summary.inert = this._flipped;
     this.details.inert = !this._flipped;
-  }
-
-  /** Returns the slotted sbb-flip-card-summary. */
-  public get summary(): SbbFlipCardSummaryElement {
-    return this.querySelector('sbb-flip-card-summary')!;
-  }
-
-  /** Returns the slotted sbb-flip-card-details. */
-  public get details(): SbbFlipCardDetailsElement {
-    return this.querySelector('sbb-flip-card-details')!;
   }
 
   protected override render(): TemplateResult {

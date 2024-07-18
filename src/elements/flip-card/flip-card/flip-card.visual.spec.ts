@@ -1,4 +1,4 @@
-import { html, nothing } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import sampleImages from '../../core/images.js';
 import {
@@ -6,19 +6,19 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.js';
-
 import './flip-card.js';
 import '../flip-card-summary.js';
 import '../flip-card-details.js';
 import '../../title.js';
 import '../../link.js';
 import '../../image.js';
+import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
 
 const content = (
   title: string = 'Summary',
-  imageAlignment: 'after' | 'below' = 'after',
+  imageAlignment: SbbFlipCardImageAlignment = 'after',
   longConent: boolean = false,
-) =>
+): TemplateResult =>
   html` <sbb-flip-card-summary slot="summary" image-alignment=${imageAlignment}>
       <sbb-title level="4">${title}</sbb-title>
       <sbb-image
@@ -52,7 +52,7 @@ describe(`sbb-flip-card`, () => {
           state.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-flip-card>
-                ${content('Summary', imageAlignment as 'after' | 'below')}
+                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment)}
               </sbb-flip-card>
             `);
           }),
@@ -86,7 +86,7 @@ describe(`sbb-flip-card`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`<sbb-flip-card>
-              ${content('Summary', imageAlignment as 'after' | 'below', true)}
+              ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
             </sbb-flip-card>`,
           );
         }),

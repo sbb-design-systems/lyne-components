@@ -6,6 +6,8 @@ import { hostAttributes } from '../../core/decorators.js';
 
 import style from './flip-card-summary.scss?lit&inline';
 
+export type SbbFlipCardImageAlignment = 'after' | 'below';
+
 /**
  * Combined with a `sbb-flip-card`, it displays its content when the card is not flipped.
  *
@@ -20,9 +22,8 @@ export class SbbFlipCardSummaryElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The position where to render the image. */
-  @property({ attribute: 'image-alignment', reflect: true }) public imageAlignment:
-    | 'after'
-    | 'below' = 'after';
+  @property({ attribute: 'image-alignment', reflect: true })
+  public imageAlignment: SbbFlipCardImageAlignment = 'after';
 
   protected override render(): TemplateResult {
     return html`
