@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import sampleImages from '../../core/images.js';
 import {
@@ -14,9 +14,13 @@ import '../../title.js';
 import '../../link.js';
 import '../../image.js';
 
-const content = (imageAlignment: 'after' | 'below' = 'after') =>
+const content = (
+  title: string = 'Summary',
+  imageAlignment: 'after' | 'below' = 'after',
+  longConent: boolean = false,
+) =>
   html` <sbb-flip-card-summary slot="summary" image-alignment=${imageAlignment}>
-      <sbb-title level="4">Summary</sbb-title>
+      <sbb-title level="4">${title}</sbb-title>
       <sbb-image
         slot="image"
         image-src=${sampleImages[0]}
@@ -26,8 +30,16 @@ const content = (imageAlignment: 'after' | 'below' = 'after') =>
     </sbb-flip-card-summary>
     <sbb-flip-card-details slot="details"
       >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
-      Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus vitae
-      tortor ullamcorper maximus.
+      Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh.
+      ${longConent
+        ? `Duis dapibus vitae
+      tortor ullamcorper maximus. In convallis consectetur felis. Lorem ipsum dolor sit amet,
+      consectetur adipiscing elit. Nam luctus ornare condimentum. Vivamus turpis elit, dapibus eget
+      fringilla pellentesque, lobortis in nibh. Duis dapibus vitae tortor ullamcorper maximus. In
+      convallis consectetur felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+      luctus ornare condimentum. Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis
+      in nibh. Duis dapibus vitae tortor ullamcorper maximus. In convallis consectetur felis.`
+        : nothing}
       <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link></sbb-flip-card-details
     >`;
 
@@ -39,7 +51,9 @@ describe(`sbb-flip-card`, () => {
           `image-alignment=${imageAlignment} ${state.name}`,
           state.with(async (setup) => {
             await setup.withFixture(html`
-              <sbb-flip-card> ${content(imageAlignment as 'after' | 'below')} </sbb-flip-card>
+              <sbb-flip-card>
+                ${content('Summary', imageAlignment as 'after' | 'below')}
+              </sbb-flip-card>
             `);
           }),
         );
@@ -52,5 +66,31 @@ describe(`sbb-flip-card`, () => {
         await setup.withFixture(html`<sbb-flip-card data-flipped> ${content()}</sbb-flip-card>`);
       }),
     );
+
+    it(
+      'multiline',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-flip-card>
+            ${content(
+              'This is a very long title that should break into multiple lines',
+            )}</sbb-flip-card
+          >`,
+        );
+      }),
+    );
+
+    for (const imageAlignment of ['after', 'below']) {
+      it(
+        `long content image-alignment=${imageAlignment}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-flip-card>
+              ${content('Summary', imageAlignment as 'after' | 'below', true)}
+            </sbb-flip-card>`,
+          );
+        }),
+      );
+    }
   });
 });
