@@ -4,7 +4,6 @@ import { styleMap } from 'lit/directives/style-map.js';
 import sampleImages from '../../core/images.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
-
 import './flip-card-summary.js';
 import '../../flip-card.js';
 import '../../title.js';

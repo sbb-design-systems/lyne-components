@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
+import { SbbLanguageController } from '../../core/controllers.js';
+import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
 import '../../button/secondary-button.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
@@ -21,6 +23,8 @@ export class SbbFlipCardElement extends LitElement {
 
   /** Whether the card is flipped or not. */
   @state() private _flipped = false;
+
+  private _language = new SbbLanguageController(this);
 
   /** Toggles the state of the sbb-flip-card. */
   public toggle(): void {
@@ -46,7 +50,9 @@ export class SbbFlipCardElement extends LitElement {
         <slot name="summary" @slotchange=${() => (this.summary.inert = this._flipped)}></slot>
         <button
           @click=${() => this.toggle()}
-          aria-label="Click on this card to show more details"
+          aria-label=${!this._flipped
+            ? i18nFlipCard[this._language.current]
+            : i18nReverseCard[this._language.current]}
           aria-expanded=${this._flipped.toString()}
         ></button>
         <slot name="details" @slotchange=${() => (this.details.inert = !this._flipped)}></slot>
