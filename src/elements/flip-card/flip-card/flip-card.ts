@@ -4,11 +4,13 @@ import { customElement, state } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
-import '../../button/secondary-button.js';
+import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
 
 import style from './flip-card.scss?lit&inline';
+
+import '../../button/secondary-button.js';
 
 /**
  * Displays an informative card that reveals more informations upon being clicked.
@@ -18,7 +20,7 @@ import style from './flip-card.scss?lit&inline';
  *
  */
 @customElement('sbb-flip-card')
-export class SbbFlipCardElement extends LitElement {
+export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Returns the slotted sbb-flip-card-summary. */
@@ -46,7 +48,7 @@ export class SbbFlipCardElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-flip-card--wrapper">
+      <div class="sbb-flip-card">
         <slot name="summary" @slotchange=${() => (this.summary.inert = this._flipped)}></slot>
         <button
           @click=${() => this.toggle()}

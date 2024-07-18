@@ -42,7 +42,7 @@ snapshots["sbb-flip-card-summary DOM"] =
 /* end snapshot sbb-flip-card-summary DOM */
 
 snapshots["sbb-flip-card-summary Shadow DOM"] = 
-`<div class="sbb-flip-card-summary--wrapper">
+`<div class="sbb-flip-card-summary">
   <slot>
   </slot>
   <div class="sbb-flip-card-summary--image-wrapper">
