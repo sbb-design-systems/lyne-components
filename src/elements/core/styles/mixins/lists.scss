@@ -93,6 +93,11 @@
   );
   --sbb-step-list-vertical-gap: var(--sbb-spacing-fixed-1x);
 
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: steps;
+
   &:where(.sbb-text-s) {
     --sbb-step-list-padding-block: var(--sbb-spacing-fixed-4x);
   }
@@ -106,11 +111,6 @@
       --sbb-step-list-marker-dimensions: #{functions.px-to-rem-build(41)};
     }
   }
-
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  counter-reset: steps;
 
   /* stylelint-disable-next-line no-descending-specificity */
   > li {

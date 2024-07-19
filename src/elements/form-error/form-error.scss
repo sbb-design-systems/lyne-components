@@ -17,11 +17,11 @@
   color: var(--sbb-form-error-color);
   min-height: var(--sbb-form-error-height);
 
+  @include sbb.text-xs--regular;
+
   @include sbb.if-forced-colors {
     --sbb-form-error-color: LinkText !important;
   }
-
-  @include sbb.text-xs--regular;
 }
 
 :host([negative]) {
