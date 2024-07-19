@@ -1,18 +1,10 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { LinkTargetType } from '../../core/base-elements.js';
+import { type LinkTargetType, SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
 
@@ -36,9 +28,9 @@ import '../../title.js';
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')
-export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
+export class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
+  public static override readonly events = {
     willOpen: 'willOpen',
     didOpen: 'didOpen',
     willClose: 'willClose',
@@ -86,29 +78,9 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   /** The enabled animations. */
   @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
-  /** The state of the alert. */
-  private set _state(value: SbbOpenedClosedState) {
-    this.setAttribute('data-state', value);
-  }
-  private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
-  }
-
-  /** Emits when the fade in animation starts. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.willOpen);
-
-  /** Emits when the fade in animation ends and the button is displayed. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.didOpen);
-
-  /** Emits whenever the `sbb-notification` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.willClose);
-
-  /** Emits whenever the `sbb-notification` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.didClose);
-
   /**
-   * @deprecated
    * Emits when dismissal of an alert was requested.
+   * @deprecated
    */
   private _dismissalRequested: EventEmitter<void> = new EventEmitter(
     this,
@@ -120,7 +92,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changedProperties);
 
-    this._open();
+    this.open();
   }
 
   /** Requests dismissal of the alert.
@@ -130,37 +102,37 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
     this._dismissalRequested.emit();
   }
 
-  /** Close the alert. */
-  public close(): void {
-    if (this._willClose.emit()) {
-      this._state = 'closing';
-    }
+  /** Open the alert. */
+  public open(): void {
+    this.willOpen.emit();
+    this.state = 'opening';
   }
 
-  /** Open the alert. */
-  private _open(): void {
-    this._willOpen.emit();
-    this._state = 'opening';
+  /** Close the alert. */
+  public close(): void {
+    if (this.willClose.emit()) {
+      this.state = 'closing';
+    }
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
-    if (this._state === 'opening' && event.animationName === 'open-opacity') {
+    if (this.state === 'opening' && event.animationName === 'open-opacity') {
       this._handleOpening();
     }
 
-    if (this._state === 'closing' && event.animationName === 'close') {
+    if (this.state === 'closing' && event.animationName === 'close') {
       this._handleClosing();
     }
   }
 
   private _handleOpening(): void {
-    this._state = 'opened';
-    this._didOpen.emit();
+    this.state = 'opened';
+    this.didOpen.emit();
   }
 
   private _handleClosing(): void {
-    this._state = 'closed';
-    this._didClose.emit();
+    this.state = 'closed';
+    this.didClose.emit();
     setTimeout(() => this.remove());
   }
 

@@ -98,20 +98,21 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Methods
 
-| Name               | Privacy | Description                      | Parameters | Return | Inherited From |
-| ------------------ | ------- | -------------------------------- | ---------- | ------ | -------------- |
-| `close`            | public  | Close the alert.                 |            | `void` |                |
-| `requestDismissal` | public  | Requests dismissal of the alert. |            | `void` |                |
+| Name               | Privacy | Description                      | Parameters | Return | Inherited From          |
+| ------------------ | ------- | -------------------------------- | ---------- | ------ | ----------------------- |
+| `close`            | public  | Close the alert.                 |            | `void` | SbbOpenCloseBaseElement |
+| `open`             | public  | Open the alert.                  |            | `void` | SbbOpenCloseBaseElement |
+| `requestDismissal` | public  | Requests dismissal of the alert. |            | `void` |                         |
 
 ## Events
 
-| Name                 | Type                | Description                                               | Inherited From |
-| -------------------- | ------------------- | --------------------------------------------------------- | -------------- |
-| `didClose`           | `CustomEvent<void>` | Emits when the closing animation ends.                    |                |
-| `didOpen`            | `CustomEvent<void>` | Emits when the opening animation ends.                    |                |
-| `dismissalRequested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.           |                |
-| `willClose`          | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. |                |
-| `willOpen`           | `CustomEvent<void>` | Emits when the opening animation starts.                  |                |
+| Name                 | Type                | Description                                               | Inherited From          |
+| -------------------- | ------------------- | --------------------------------------------------------- | ----------------------- |
+| `didClose`           | `CustomEvent<void>` | Emits when the closing animation ends.                    | SbbOpenCloseBaseElement |
+| `didOpen`            | `CustomEvent<void>` | Emits when the opening animation ends.                    | SbbOpenCloseBaseElement |
+| `dismissalRequested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.           |                         |
+| `willClose`          | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`           | `CustomEvent<void>` | Emits when the opening animation starts.                  | SbbOpenCloseBaseElement |
 
 ## Slots
 
