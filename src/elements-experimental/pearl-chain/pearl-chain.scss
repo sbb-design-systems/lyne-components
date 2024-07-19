@@ -45,8 +45,8 @@
 
 // first and last bullet
 .sbb-pearl-chain__bullet {
-  @include sbb.pearl-chain-bullet;
   @include sbb.pearl-chain-bullet-start-end;
+  @include sbb.pearl-chain-bullet;
 
   & {
     content: '';
