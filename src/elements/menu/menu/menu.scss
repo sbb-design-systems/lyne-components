@@ -154,25 +154,25 @@
     padding-block: var(--sbb-spacing-fixed-1x);
     overflow: auto;
     outline: none;
+  }
 
-    // Margin bottom in mobile variant
-    &::after {
-      content: '';
-      display: block;
-      height: var(--sbb-spacing-fixed-8x);
+  // Margin bottom in mobile variant
+  &::after {
+    content: '';
+    display: block;
+    height: var(--sbb-spacing-fixed-8x);
+  }
+
+  @include sbb.mq($from: medium) {
+    max-height: fit-content;
+
+    :host(:not([data-state='closed'])) & {
+      max-height: var(--sbb-menu-max-height);
+      min-height: var(--sbb-menu-min-height);
     }
 
-    @include sbb.mq($from: medium) {
-      max-height: fit-content;
-
-      :host(:not([data-state='closed'])) & {
-        max-height: var(--sbb-menu-max-height);
-        min-height: var(--sbb-menu-min-height);
-      }
-
-      &::after {
-        display: none;
-      }
+    &::after {
+      display: none;
     }
   }
 }
