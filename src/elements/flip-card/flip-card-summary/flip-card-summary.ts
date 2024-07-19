@@ -29,10 +29,7 @@ export class SbbFlipCardSummaryElement extends LitElement {
     super.willUpdate(_changedProperties);
 
     if (_changedProperties.has('imageAlignment')) {
-      this.closest?.('sbb-flip-card')?.toggleAttribute(
-        'data-image-after',
-        this.imageAlignment === 'after',
-      );
+      this.closest?.('sbb-flip-card')?.setAttribute('data-image-alignment', this.imageAlignment);
     }
   }
 

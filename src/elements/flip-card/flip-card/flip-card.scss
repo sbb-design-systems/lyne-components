@@ -44,7 +44,7 @@
   }
 }
 
-:host([data-image-after]) {
+:host([data-image-alignment='after']) {
   @include sbb.mq($from: small, $to: medium) {
     --sbb-flip-card-min-height: #{sbb.px-to-rem-build(240)};
   }

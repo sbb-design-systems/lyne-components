@@ -27,7 +27,7 @@ snapshots["A11y tree Chrome"] =
 /* end snapshot A11y tree Chrome */
 
 snapshots["sbb-flip-card DOM"] = 
-`<sbb-flip-card data-image-after="">
+`<sbb-flip-card data-image-alignment="after">
   <sbb-flip-card-summary
     image-alignment="after"
     slot="summary"
