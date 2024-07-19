@@ -115,6 +115,7 @@ slot[name='right']::slotted(*) {
   border-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
   background-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
   color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+
   @include sbb.if-forced-colors {
     --sbb-pearl-chain-vertical-item-color-disruption: Highlight;
   }
@@ -176,10 +177,10 @@ slot[name='right']::slotted(*) {
 }
 
 .sbb-pearl-chain-vertical-item__bullet--position {
+  inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
+
   @include sbb.pearl-chain-bullet-position;
   @include sbb.absolute-center-x;
-
-  inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
 
   :host([disable-animation]) & {
     animation: unset !important;

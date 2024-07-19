@@ -88,17 +88,17 @@
 }
 
 @mixin pearl-chain-bullet-skipped-stop {
-  @include pearl-chain-bullet-skipped;
-  @include pearl-chain-bullet-stop;
-
   --sbb-pearl-chain-bullet-crossed-width: #{functions.px-to-rem-build(11.31)};
   --sbb-pearl-chain-bullet-crossed-height: #{functions.px-to-rem-build(3)};
+
+  @include pearl-chain-bullet-stop;
+  @include pearl-chain-bullet-skipped;
 }
 
 @mixin pearl-chain-bullet-irrelevant-stop {
-  @include pearl-chain-bullet-stop;
-
   --sbb-pearl-chain-bullet-border-width: var(--sbb-border-width-1x);
+
+  @include pearl-chain-bullet-stop;
 }
 
 @mixin pearl-chain-bullet-position {
@@ -124,6 +124,8 @@
     }
   }
 
-  animation: pearl-chain-bullet-position-pulse var(--sbb-pearl-chain-bullet-animation-duration)
-    var(--sbb-pearl-chain-bullet-animation-easing) infinite;
+  & {
+    animation: pearl-chain-bullet-position-pulse var(--sbb-pearl-chain-bullet-animation-duration)
+      var(--sbb-pearl-chain-bullet-animation-easing) infinite;
+  }
 }

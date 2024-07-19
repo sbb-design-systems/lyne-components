@@ -25,9 +25,9 @@
   --sbb-pearl-chain-color-past: var(--sbb-pearl-chain-bullet-color-past);
   --sbb-pearl-chain-leg-width: 100%;
 
-  @include sbb.pearl-chain-bullet-variables;
-
   display: block;
+
+  @include sbb.pearl-chain-bullet-variables;
 }
 
 .sbb-pearl-chain {
@@ -94,8 +94,11 @@
   position: relative;
   z-index: 2;
 
-  @include sbb.pearl-chain-bullet-stop;
   @include sbb.pearl-chain-bullet;
+
+  & {
+    @include sbb.pearl-chain-bullet-stop;
+  }
 }
 
 .sbb-pearl-chain__bullet--future {
@@ -109,9 +112,9 @@
 .sbb-pearl-chain__leg--progress .sbb-pearl-chain__stop,
 .sbb-pearl-chain--progress,
 .sbb-pearl-chain__bullet--past {
-  @include sbb.pearl-chain-bullet-past;
-
   color: var(--sbb-pearl-chain-color-past);
+
+  @include sbb.pearl-chain-bullet-past;
 
   @include sbb.if-forced-colors {
     background-color: GrayText !important;
@@ -119,18 +122,18 @@
 }
 
 .sbb-pearl-chain__bullet--progress {
-  @include sbb.pearl-chain-bullet-past;
-
   background: var(--sbb-pearl-chain-bullet-color);
+
+  @include sbb.pearl-chain-bullet-past;
 }
 
 .sbb-pearl-chain__bullet--departure-disruption,
 .sbb-pearl-chain--arrival-disruption,
 .sbb-pearl-chain--departure-disruption,
 .sbb-pearl-chain__leg--disruption {
-  @include sbb.pearl-chain-bullet-disruption;
-
   color: var(--sbb-pearl-chain-color-disruption);
+
+  @include sbb.pearl-chain-bullet-disruption;
 
   @include sbb.if-forced-colors {
     color: Highlight;
@@ -159,8 +162,8 @@
 }
 
 .sbb-pearl-chain__stop--departure-skipped {
-  @include sbb.pearl-chain-bullet-skipped;
   @include sbb.pearl-chain-bullet-stop;
+  @include sbb.pearl-chain-bullet-skipped;
 }
 
 .sbb-pearl-chain--arrival-skipped,
@@ -202,12 +205,14 @@
 .sbb-pearl-chain__position {
   @include sbb.pearl-chain-bullet-position;
 
-  position: absolute;
-  inset-block-start: -200%;
-  z-index: 4;
+  & {
+    position: absolute;
+    inset-block-start: -200%;
+    z-index: 4;
 
-  // --sbb-pearl-chain-status-position: defined in .ts file
-  inset-inline-start: var(--sbb-pearl-chain-status-position);
+    // --sbb-pearl-chain-status-position: defined in .ts file
+    inset-inline-start: var(--sbb-pearl-chain-status-position);
+  }
 }
 
 .sbb-pearl-chain__position--no-animation {
