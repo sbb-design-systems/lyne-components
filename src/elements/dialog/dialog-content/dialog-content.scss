@@ -8,11 +8,13 @@
 }
 
 .sbb-dialog-content {
-  padding-inline: var(--sbb-dialog-padding-inline);
-  padding-block: var(--sbb-dialog-padding-block);
-  overflow: auto;
-  margin-block: var(--sbb-dialog-header-margin-block-start) 0;
-  transition: margin var(--sbb-dialog-animation-duration) var(--sbb-dialog-animation-easing);
-
   @include sbb.scrollbar-rules;
+
+  & {
+    padding-inline: var(--sbb-dialog-padding-inline);
+    padding-block: var(--sbb-dialog-padding-block);
+    overflow: auto;
+    margin-block: var(--sbb-dialog-header-margin-block-start) 0;
+    transition: margin var(--sbb-dialog-animation-duration) var(--sbb-dialog-animation-easing);
+  }
 }

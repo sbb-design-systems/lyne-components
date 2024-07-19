@@ -22,32 +22,34 @@
 }
 
 .sbb-train-formation {
-  display: grid;
-  grid-template:
-    'start sectors end' auto
-    'start trains end' auto / auto 1fr auto;
-  position: relative;
-  overflow-x: auto;
-  background-color: var(--sbb-train-formation-background-color);
-
-  // Enable inline padding
-  &::before,
-  &::after {
-    content: '';
-    display: block;
-    width: var(--sbb-train-formation-inline-padding);
-    background-color: var(--sbb-train-formation-background-color);
-  }
-
-  &::before {
-    grid-area: start;
-  }
-
-  &::after {
-    grid-area: end;
-  }
-
   @include sbb.scrollbar;
+
+  & {
+    display: grid;
+    grid-template:
+      'start sectors end' auto
+      'start trains end' auto / auto 1fr auto;
+    position: relative;
+    overflow-x: auto;
+    background-color: var(--sbb-train-formation-background-color);
+
+    // Enable inline padding
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      width: var(--sbb-train-formation-inline-padding);
+      background-color: var(--sbb-train-formation-background-color);
+    }
+
+    &::before {
+      grid-area: start;
+    }
+
+    &::after {
+      grid-area: end;
+    }
+  }
 }
 
 .sbb-train-formation__sectors {

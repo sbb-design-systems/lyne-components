@@ -134,18 +134,20 @@
 }
 
 .sbb-navigation-section__wrapper {
-  height: 100%;
-  padding-block: var(--sbb-navigation-section-padding-block);
-  outline: none;
-  overflow-y: auto;
-
-  :host(:is([data-state='opening'], [data-state='closing'])) & {
-    --sbb-scrollbar-color: transparent;
-
-    scrollbar-color: transparent transparent;
-  }
-
   @include sbb.scrollbar($negative: true);
+
+  & {
+    height: 100%;
+    padding-block: var(--sbb-navigation-section-padding-block);
+    outline: none;
+    overflow-y: auto;
+
+    :host(:is([data-state='opening'], [data-state='closing'])) & {
+      --sbb-scrollbar-color: transparent;
+
+      scrollbar-color: transparent transparent;
+    }
+  }
 }
 
 .sbb-navigation-section__header {
