@@ -91,11 +91,11 @@
 
 // dot on leg
 .sbb-pearl-chain__stop {
-  @include sbb.pearl-chain-bullet;
-  @include sbb.pearl-chain-bullet-stop;
-
   position: relative;
   z-index: 2;
+
+  @include sbb.pearl-chain-bullet-stop;
+  @include sbb.pearl-chain-bullet;
 }
 
 .sbb-pearl-chain__bullet--future {
