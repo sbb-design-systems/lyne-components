@@ -121,13 +121,13 @@ slot[name='right']::slotted(*) {
 }
 
 .sbb-pearl-chain-vertical-item__line--past {
-  @include sbb.if-forced-colors {
-    --sbb-pearl-chain-vertical-item-color-past: GrayText;
-  }
-
   border-color: var(--sbb-pearl-chain-vertical-item-color-past);
   background-color: var(--sbb-pearl-chain-vertical-item-color-past);
   color: var(--sbb-pearl-chain-vertical-item-color-past);
+
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-past: GrayText;
+  }
 }
 
 .sbb-pearl-chain-vertical-item__line--walk {
@@ -139,11 +139,11 @@ slot[name='right']::slotted(*) {
 // Bullet styles
 
 .sbb-pearl-chain-vertical-item__bullet {
-  @include sbb.pearl-chain-bullet;
-
   position: relative;
   inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
   transform: var(--sbb-pearl-chain-vertical-item-transform);
+
+  @include sbb.pearl-chain-bullet;
 }
 
 .sbb-pearl-chain-vertical-item__bullet--start-end {

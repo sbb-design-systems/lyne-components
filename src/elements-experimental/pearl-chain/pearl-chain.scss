@@ -48,11 +48,13 @@
   @include sbb.pearl-chain-bullet;
   @include sbb.pearl-chain-bullet-start-end;
 
-  content: '';
-  position: absolute;
-  background-color: currentcolor;
-  inset-block-start: 0;
-  z-index: 3;
+  & {
+    content: '';
+    position: absolute;
+    background-color: currentcolor;
+    inset-block-start: 0;
+    z-index: 3;
+  }
 }
 
 .sbb-pearl-chain__bullet:first-of-type {
