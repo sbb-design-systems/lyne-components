@@ -64,9 +64,11 @@ $intersector-overlapping: 1px;
       @include sbb.page-spacing-expanded;
     }
 
-    // Needed because there is no content and Firefox
-    // has troubles displaying correct padding when there is no content.
-    padding: 0 !important;
+    & {
+      // Needed because there is no content and Firefox
+      // has troubles displaying correct padding when there is no content.
+      padding: 0 !important;
+    }
   }
 
   // Color and border radius when sticky

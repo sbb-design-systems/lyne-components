@@ -116,6 +116,7 @@
 .sbb-calendar__table-container {
   display: flex;
   gap: var(--sbb-calendar-tables-gap);
+  margin-inline: var(--sbb-calendar-margin);
 
   // The padding of the first and last column should not be visible if calendar is stretched.
   // Therefore we need a negative inline margin.
@@ -140,8 +141,6 @@
     );
     --sbb-calendar-margin: calc(0.5 * var(--sbb-calendar-start-offset));
   }
-
-  margin-inline: var(--sbb-calendar-margin);
 }
 
 .sbb-calendar__table {

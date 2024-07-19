@@ -22,9 +22,6 @@
 .sbb-breadcrumb {
   --sbb-link-text-decoration: none;
 
-  @include sbb.text-xs--regular;
-  @include sbb.link-base;
-
   display: flex;
   cursor: pointer;
   gap: var(--sbb-spacing-fixed-2x);
@@ -32,6 +29,9 @@
   align-items: center;
   overflow: hidden;
   outline: none;
+
+  @include sbb.text-xs--regular;
+  @include sbb.link-base;
 
   @include sbb.if-forced-colors {
     --sbb-breadcrumb-color: ButtonText;

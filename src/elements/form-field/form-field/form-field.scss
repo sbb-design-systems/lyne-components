@@ -409,8 +409,6 @@
 }
 
 .sbb-form-field__input ::slotted(textarea) {
-  @include sbb.scrollbar;
-
   position: relative;
   resize: none;
 
@@ -418,6 +416,8 @@
   white-space: break-spaces;
   overflow-y: auto;
   min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+
+  @include sbb.scrollbar;
 
   :host([negative]) & {
     @include sbb.scrollbar($negative: true);

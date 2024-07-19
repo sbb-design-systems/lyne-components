@@ -38,7 +38,9 @@
 .sbb-chip {
   @include sbb.chip-rules;
 
-  display: flex;
+  & {
+    display: flex;
+  }
 }
 
 .sbb-chip__text-wrapper {
