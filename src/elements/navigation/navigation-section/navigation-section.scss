@@ -134,8 +134,6 @@
 }
 
 .sbb-navigation-section__wrapper {
-  @include sbb.scrollbar($negative: true);
-
   height: 100%;
   padding-block: var(--sbb-navigation-section-padding-block);
   outline: none;
@@ -146,6 +144,8 @@
 
     scrollbar-color: transparent transparent;
   }
+
+  @include sbb.scrollbar($negative: true);
 }
 
 .sbb-navigation-section__header {

@@ -22,8 +22,6 @@
 }
 
 .sbb-train-formation {
-  @include sbb.scrollbar;
-
   display: grid;
   grid-template:
     'start sectors end' auto
@@ -48,6 +46,8 @@
   &::after {
     grid-area: end;
   }
+
+  @include sbb.scrollbar;
 }
 
 .sbb-train-formation__sectors {

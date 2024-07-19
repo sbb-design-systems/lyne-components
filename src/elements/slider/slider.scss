@@ -45,21 +45,21 @@
 
 :host([disabled]),
 :host([readonly]) {
+  --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
+  --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
+
   @include sbb.if-forced-colors {
     --sbb-slider-icon-color: GrayText;
     --sbb-slider-selected-line-disabled-color: GrayText;
     --sbb-slider-line-disabled-color: GrayText;
   }
-
-  --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
-  --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
 }
 
 .sbb-slider__height-container {
-  @include sbb.zero-width-space;
-
   display: flex;
   flex-direction: column;
+
+  @include sbb.zero-width-space;
 }
 
 .sbb-slider__wrapper {

@@ -147,8 +147,6 @@
 }
 
 .sbb-menu__content {
-  @include sbb.scrollbar($negative: true);
-
   max-height: var(--sbb-menu-max-height);
   padding-block: var(--sbb-spacing-fixed-1x);
   overflow: auto;
@@ -160,6 +158,8 @@
     display: block;
     height: var(--sbb-spacing-fixed-8x);
   }
+
+  @include sbb.scrollbar($negative: true);
 
   @include sbb.mq($from: medium) {
     max-height: fit-content;
