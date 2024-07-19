@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -24,6 +24,17 @@ export class SbbFlipCardSummaryElement extends LitElement {
   /** The position where to render the image. */
   @property({ attribute: 'image-alignment', reflect: true })
   public imageAlignment: SbbFlipCardImageAlignment = 'after';
+
+  protected override willUpdate(_changedProperties: PropertyValues): void {
+    super.willUpdate(_changedProperties);
+
+    if (_changedProperties.has('imageAlignment')) {
+      this.closest('sbb-flip-card')?.toggleAttribute(
+        'data-image-after',
+        this.imageAlignment === 'after',
+      );
+    }
+  }
 
   protected override render(): TemplateResult {
     return html`

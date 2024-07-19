@@ -5,7 +5,7 @@
 
 :host {
   --sbb-flip-card-details-opacity: 0;
-  --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-4x);
+  --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-2x);
 
   display: contents;
 }
@@ -19,5 +19,7 @@
     var(--sbb-spacing-responsive-s) + var(--sbb-spacing-responsive-xs) + var(--sbb-size-element-m)
   );
   transform: translateY(var(--sbb-flip-card-details-translate-y));
-  transition: all 250ms ease-out;
+  transition: var(--sbb-flip-card-details-transition-duration) ease-out;
+  transition-delay: var(--sbb-flip-card-details-transition-delay);
+  max-height: var(--sbb-flip-card-details-min-height);
 }

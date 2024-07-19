@@ -27,7 +27,7 @@ snapshots["A11y tree Chrome"] =
 /* end snapshot A11y tree Chrome */
 
 snapshots["sbb-flip-card DOM"] = 
-`<sbb-flip-card>
+`<sbb-flip-card data-image-after="">
   <sbb-flip-card-summary
     image-alignment="after"
     slot="summary"
@@ -91,7 +91,7 @@ snapshots["sbb-flip-card Shadow DOM"] =
     dir="ltr"
     icon-name="plus-small"
     role="button"
-    size="l"
+    size="s"
     tabindex="0"
   >
   </sbb-secondary-button>

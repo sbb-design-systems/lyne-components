@@ -3,16 +3,35 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
+// TODO: improve component's animation
 :host {
-  --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
+  --sbb-flip-card-background-color: var(--sbb-color-cloud);
   --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
+  --sbb-flip-card-min-height: #{sbb.px-to-rem-build(280)};
+  --sbb-flip-card-details-min-height: var(--sbb-flip-card-min-height);
+  --sbb-flip-card-summary-transition-duration: var(--sbb-animation-duration-5x);
+  --sbb-flip-card-summary-transition-delay: var(--sbb-animation-duration-2x);
+  --sbb-flip-card-details-transition-duration: var(--sbb-animation-duration-4x);
+  --sbb-flip-card-details-transition-delay: var(--sbb-disable-animation-zero-time);
 
   position: relative;
   display: block;
+
+  @include sbb.mq($from: medium) {
+    --sbb-flip-card-min-height: #{sbb.px-to-rem-build(320)};
+  }
+}
+
+:host(:hover) {
+  --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
 }
 
 :host([data-flipped]) {
   --sbb-flip-card-background-color: var(--sbb-color-midnight);
+  --sbb-flip-card-details-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-flip-card-details-transition-delay: var(--sbb-animation-duration-5x);
+  --sbb-flip-card-summary-transition-delay: var(--sbb-disable-animation-zero-time);
+  --sbb-flip-card-details-min-height: fit-content;
 
   ::slotted(sbb-flip-card-summary) {
     --sbb-flip-card-summary-opacity: 0;
@@ -25,6 +44,16 @@
   }
 }
 
+:host([data-image-after]) {
+  @include sbb.mq($from: small, $to: medium) {
+    --sbb-flip-card-min-height: #{sbb.px-to-rem-build(240)};
+  }
+
+  @include sbb.mq($from: wide) {
+    --sbb-flip-card-min-height: #{sbb.px-to-rem-build(400)};
+  }
+}
+
 .sbb-flip-card {
   position: relative;
   display: flex;
@@ -32,10 +61,11 @@
   flex-flow: wrap;
   flex-direction: column;
   gap: var(--sbb-spacing-responsive-xs);
-  min-height: #{sbb.px-to-rem-build(280)}; // TODO: check if correct
+  min-height: var(--sbb-flip-card-min-height);
   background-color: var(--sbb-flip-card-background-color);
   border-radius: var(--sbb-flip-card-border-radius);
-  transition: all 250ms ease-out;
+  transition: var(--sbb-flip-card-summary-transition-duration) ease-out;
+  transition-delay: var(--sbb-flip-card-summary-transition-delay);
 }
 
 .sbb-flip-card--toggle-button {

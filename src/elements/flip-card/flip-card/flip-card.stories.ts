@@ -1,6 +1,5 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
@@ -8,12 +7,12 @@ import sampleImages from '../../core/images.js';
 
 import readme from './readme.md?raw';
 
-import './flip-card.js';
-import '../flip-card-summary.js';
-import '../flip-card-details.js';
 import '../../image/image.js';
-import '../../title/title.js';
 import '../../link/link/link.js';
+import '../../title/title.js';
+import '../flip-card-details.js';
+import '../flip-card-summary.js';
+import './flip-card.js';
 
 const imageAlignment: InputType = {
   control: {
@@ -130,7 +129,7 @@ export const LongTitle: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
+  decorators: [(story) => html`<div style="max-width: 792px;">${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

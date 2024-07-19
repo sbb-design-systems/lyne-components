@@ -62,6 +62,7 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
           class="sbb-flip-card--toggle-button"
           icon-name=${this._flipped ? 'cross-small' : 'plus-small'}
           @click=${() => this.toggle()}
+          size="s"
         ></sbb-secondary-button>
       </div>
     `;
