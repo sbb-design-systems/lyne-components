@@ -1,0 +1,56 @@
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+import type { SbbMiniButtonElement } from '../button/mini-button/mini-button.js';
+import { SbbNamedSlotListMixin } from '../core/mixins/named-slot-list-mixin.js';
+import { SbbNegativeMixin } from '../core/mixins/negative-mixin.js';
+import type { SbbDividerElement } from '../divider/divider.js';
+
+import style from './mini-button-group.scss?lit&inline';
+
+export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl';
+
+/**
+ * Display a list of `sbb-mini-button` elements in a horizontal container
+ *
+ * @slot - Use the unnamed slot to add `sbb-mini-button` and `sbb-divider` elements.
+ */
+@customElement('sbb-mini-button-group')
+export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
+  SbbNamedSlotListMixin<SbbMiniButtonElement, typeof LitElement>(LitElement),
+) {
+  public static override styles: CSSResultGroup = style;
+  protected override readonly listChildLocalNames = ['sbb-mini-button', 'sbb-divider'];
+
+  /** This will be forwarded as aria-label to the relevant nested element. */
+  @property({ attribute: 'accessibility-label' }) public accessibilityLabel?: string;
+
+  /** Size variant, either s, m, l or xl. */
+  @property({ reflect: true }) public size: SbbMiniButtonGroupSize = 'm';
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('negative')) {
+      this._proxyNegative();
+    }
+  }
+
+  private _proxyNegative(): void {
+    this.querySelectorAll<SbbDividerElement | SbbMiniButtonElement>(
+      'sbb-divider, sbb-mini-button',
+    ).forEach((e) => (e.negative = this.negative));
+  }
+
+  protected override render(): TemplateResult {
+    return html` ${this.renderList({ ariaLabel: this.accessibilityLabel })} `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-mini-button-group': SbbMiniButtonGroupElement;
+  }
+}
