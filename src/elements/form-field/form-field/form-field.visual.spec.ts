@@ -44,15 +44,9 @@ describe(`sbb-form-field`, () => {
       ?negative=${negative}
     >
       ${label && !slottedLabel
-        ? html`<label
-            >${label},
-            <!--TODO remove ','--></label
-          >`
+        ? html`<label>${label}</label>`
         : label && slottedLabel
-          ? html`<span slot="label"
-              >${label},
-              <!--TODO remove ','--></span
-            >`
+          ? html`<span slot="label">${label}</span>`
           : nothing}
       ${template}
       ${errorText

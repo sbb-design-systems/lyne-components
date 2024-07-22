@@ -51,10 +51,7 @@ describe(`sbb-expansion-panel`, () => {
             <sbb-expansion-panel-header icon-name="arrow-right-small">
               Header
             </sbb-expansion-panel-header>
-            <sbb-expansion-panel-content>
-              Content,
-              <!--TODO remove ','-->
-            </sbb-expansion-panel-content>
+            <sbb-expansion-panel-content> Content </sbb-expansion-panel-content>
           </sbb-expansion-panel>
         `);
       });
@@ -115,8 +112,7 @@ describe(`sbb-expansion-panel`, () => {
           await setup.withFixture(html`
             <sbb-expansion-panel>
               <sbb-expansion-panel-header .iconName=${!state.slotted ? state.icon : undefined}>
-                ${state.slotted ? html`<sbb-icon name=${state.icon!}></sbb-icon>` : nothing} Label,
-                <!--TODO remove ','-->
+                ${state.slotted ? html`<sbb-icon name=${state.icon!}></sbb-icon>` : nothing} Label
               </sbb-expansion-panel-header>
               <sbb-expansion-panel-content> Content </sbb-expansion-panel-content>
             </sbb-expansion-panel>

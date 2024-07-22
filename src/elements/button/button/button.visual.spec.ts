@@ -38,8 +38,7 @@ describe(`sbb-button`, () => {
         root = await visualRegressionFixture(
           html`
             <sbb-button ?disabled=${disabled} ?negative=${negative} .iconName=${state.icon}>
-              ${state.text},
-              <!--TODO remove ','-->
+              ${state.text}
             </sbb-button>
           `,
           {
