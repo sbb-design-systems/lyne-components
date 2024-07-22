@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.4.0...v1.5.0) (2024-07-19)
+
+
+### Features
+
+* **sbb-checkbox:** add size xs ([#2933](https://github.com/sbb-design-systems/lyne-components/issues/2933)) ([56db302](https://github.com/sbb-design-systems/lyne-components/commit/56db30290eddaaa4fa0d67b20f6c1610380ce5fd))
+* **sbb-flip-card:** first implementation ([#2946](https://github.com/sbb-design-systems/lyne-components/issues/2946)) ([b086612](https://github.com/sbb-design-systems/lyne-components/commit/b08661298d6f6bf42e98182d760007e97ab716d1))
+* **sbb-status:** add new types ([#2939](https://github.com/sbb-design-systems/lyne-components/issues/2939)) ([9e44f2a](https://github.com/sbb-design-systems/lyne-components/commit/9e44f2adb9d11b4e4fe645d66b7e1610b7defa5f))
+
 ## [1.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.3.0...v1.4.0) (2024-07-16)
 
 

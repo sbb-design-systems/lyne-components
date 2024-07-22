@@ -629,6 +629,20 @@ export const i18nClearInput: Record<string, string> = {
   it: 'Cancella il valore dell’input',
 };
 
+export const i18nFlipCard: Record<string, string> = {
+  de: 'Klicken Sie auf diese Karte für Details',
+  en: 'Click on this card for details',
+  fr: 'Cliquez sur cette carte pour plus de détails',
+  it: 'Clicca su questa scheda per i dettagli',
+};
+
+export const i18nReverseCard: Record<string, string> = {
+  de: 'Klicken Sie auf diese Karte, um zurück zur Zusammenfassung zu gelangen',
+  en: 'Click on this card to go back to summary',
+  fr: 'Cliquez sur cette carte pour revenir au résumé',
+  it: 'Clicca su questa scheda per tornare al sommario',
+};
+
 export const i18nFileSelectorButtonLabel: Record<string, string> = {
   de: 'Datei auswählen',
   en: 'Choose a file',
