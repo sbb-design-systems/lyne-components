@@ -179,8 +179,8 @@ slot[name='right']::slotted(*) {
 .sbb-pearl-chain-vertical-item__bullet--position {
   inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
 
-  @include sbb.pearl-chain-bullet-position;
   @include sbb.absolute-center-x;
+  @include sbb.pearl-chain-bullet-position;
 
   :host([disable-animation]) & {
     animation: unset !important;

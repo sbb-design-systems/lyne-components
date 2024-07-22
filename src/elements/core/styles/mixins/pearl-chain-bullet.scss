@@ -102,9 +102,12 @@
 }
 
 @mixin pearl-chain-bullet-position {
-  @include pearl-chain-bullet;
   @include pearl-chain-bullet-start-end;
-  @include pearl-chain-bullet-disruption;
+  @include pearl-chain-bullet;
+
+  & {
+    @include pearl-chain-bullet-disruption;
+  }
 
   @keyframes pearl-chain-bullet-position-pulse {
     0% {
