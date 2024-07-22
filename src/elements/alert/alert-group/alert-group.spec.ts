@@ -1,4 +1,5 @@
 import { expect } from '@open-wc/testing';
+import { sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbTransparentButtonElement } from '../../button.js';
@@ -44,7 +45,6 @@ describe(`sbb-alert-group`, () => {
       .shadowRoot!.querySelector<SbbTransparentButtonElement>(
         '.sbb-alert__close-button-wrapper sbb-transparent-button',
       )!;
-
     closeButton.focus();
     closeButton.click();
     await waitForLitRender(element);
@@ -73,6 +73,8 @@ describe(`sbb-alert-group`, () => {
 
     // Then the alert should be removed from sbb-alert-group, tabindex should be set to 0,
     // focus should be on sbb-alert-group, accessibility title should be removed and empty event should be fired.
+    await waitForCondition(() => didDismissAlertSpy.events.length === 2);
+    expect(didDismissAlertSpy.count).to.be.equal(2);
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(0);
     expect(element.tabIndex).to.be.equal(0);
     expect(document.activeElement!.id).to.be.equal(alertGroupId);
@@ -81,8 +83,8 @@ describe(`sbb-alert-group`, () => {
     expect(didDismissAlertSpy.count).to.be.equal(2);
     expect(emptySpy.count).to.be.greaterThan(0);
 
-    // When clicking away (simulated by blur event)
-    element.dispatchEvent(new CustomEvent('blur'));
+    // When clicking away
+    await sendMouse({ type: 'click', position: [0, 0] });
     await waitForLitRender(element);
 
     // Then the active element id should be unset and tabindex should be removed

@@ -25,6 +25,7 @@ $open-anim-opacity-to: 1;
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-6x)
   );
+  --sbb-alert-timing-function: ease-in;
 
   @include sbb.mq($from: medium) {
     --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
@@ -38,7 +39,12 @@ $open-anim-opacity-to: 1;
   }
 }
 
-:host([animation='none']) {
+// By default, the open animation is disabled
+:host([data-state='opening']:not([animation='open'], [animation='all'])) {
+  @include sbb.disable-animation;
+}
+
+:host([data-state='closing']:not([animation='close'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 
@@ -60,7 +66,7 @@ $open-anim-opacity-to: 1;
   grid-template-rows: #{$open-anim-rows-from};
   opacity: #{$open-anim-opacity-from};
 
-  :host([data-state='opened']) & {
+  :host(:is([data-state='opened'], [data-state='closing'])) & {
     grid-template-rows: #{$open-anim-rows-to};
     opacity: #{$open-anim-opacity-to};
   }
@@ -69,8 +75,18 @@ $open-anim-opacity-to: 1;
     animation-name: open, open-opacity;
     animation-fill-mode: forwards;
     animation-duration: var(--sbb-alert-animation-duration);
-    animation-timing-function: ease-in;
+    animation-timing-function: var(--sbb-alert-timing-function);
     animation-delay: 0s, var(--sbb-alert-animation-duration);
+  }
+
+  :host([data-state='closing']) & {
+    animation: {
+      name: close-opacity, close;
+      fill-mode: forwards;
+      duration: var(--sbb-alert-animation-duration);
+      timing-function: var(--sbb-alert-timing-function);
+      delay: 0s, var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-2x));
+    }
   }
 }
 
@@ -170,5 +186,25 @@ $open-anim-opacity-to: 1;
 
   to {
     opacity: #{$open-anim-opacity-to};
+  }
+}
+
+@keyframes close {
+  from {
+    grid-template-rows: #{$open-anim-rows-to};
+  }
+
+  to {
+    grid-template-rows: #{$open-anim-rows-from};
+  }
+}
+
+@keyframes close-opacity {
+  from {
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  to {
+    opacity: #{$open-anim-opacity-from};
   }
 }
