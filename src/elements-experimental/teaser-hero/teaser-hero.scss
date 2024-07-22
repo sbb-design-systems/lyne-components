@@ -36,8 +36,11 @@
 .sbb-teaser-hero__panel {
   z-index: 1;
 
-  @include sbb.absolute-center-y;
   @include sbb.panel;
+
+  & {
+    @include sbb.absolute-center-y;
+  }
 }
 
 .sbb-teaser-hero__panel-text {
