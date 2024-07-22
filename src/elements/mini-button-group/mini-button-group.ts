@@ -3,8 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbMiniButtonElement } from '../button/mini-button/mini-button.js';
-import { SbbNamedSlotListMixin } from '../core/mixins/named-slot-list-mixin.js';
-import { SbbNegativeMixin } from '../core/mixins/negative-mixin.js';
+import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../core/mixins.js';
 import type { SbbDividerElement } from '../divider/divider.js';
 
 import style from './mini-button-group.scss?lit&inline';

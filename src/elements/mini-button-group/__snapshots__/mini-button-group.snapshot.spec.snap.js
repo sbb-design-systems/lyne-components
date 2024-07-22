@@ -72,13 +72,20 @@ snapshots["sbb-mini-button-group renders DOM"] =
     tabindex="0"
   >
   </sbb-mini-button>
+  <sbb-divider
+    aria-orientation="vertical"
+    orientation="vertical"
+    role="separator"
+    slot="li-1"
+  >
+  </sbb-divider>
   <sbb-mini-button
     data-action=""
     data-button=""
     dir="ltr"
     icon-name="pen-small"
     role="button"
-    slot="li-1"
+    slot="li-2"
     tabindex="0"
   >
   </sbb-mini-button>
@@ -97,6 +104,10 @@ snapshots["sbb-mini-button-group renders Shadow DOM"] =
   </li>
   <li>
     <slot name="li-1">
+    </slot>
+  </li>
+  <li>
+    <slot name="li-2">
     </slot>
   </li>
 </ul>
