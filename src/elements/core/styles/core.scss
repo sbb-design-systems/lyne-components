@@ -122,3 +122,9 @@ sbb-title + p {
 input[data-sbb-time-input] {
   max-width: var(--sbb-time-input-max-width);
 }
+
+.sbb-overlay-outlet {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
