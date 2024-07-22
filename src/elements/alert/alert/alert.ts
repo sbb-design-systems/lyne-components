@@ -1,18 +1,10 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { LinkTargetType } from '../../core/base-elements.js';
+import { type LinkTargetType, SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
 
@@ -23,24 +15,26 @@ import '../../divider.js';
 import '../../link.js';
 import '../../title.js';
 
-type SbbAlertState = Exclude<SbbOpenedClosedState, 'closing'>;
-
 /**
  * It displays messages which require user's attention.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-alert`.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
- * @event {CustomEvent<void>} willOpen - Emits when the fade in animation starts.
- * @event {CustomEvent<void>} didOpen - Emits when the fade in animation ends and the button is displayed.
+ * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
+ * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
+ * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
+ * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')
-export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
+export class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
+  public static override readonly events = {
     willOpen: 'willOpen',
     didOpen: 'didOpen',
+    willClose: 'willClose',
+    didClose: 'didClose',
     dismissalRequested: 'dismissalRequested',
   } as const;
 
@@ -82,23 +76,12 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /** The enabled animations. */
-  @property({ reflect: true }) public animation: 'open' | 'none' = 'open';
+  @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
-  /** The state of the alert. */
-  private get _state(): SbbAlertState {
-    return (this.getAttribute('data-state') as SbbAlertState | null) ?? 'closed';
-  }
-  private set _state(value: SbbAlertState) {
-    this.setAttribute('data-state', value);
-  }
-
-  /** Emits when the fade in animation starts. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.willOpen);
-
-  /** Emits when the fade in animation ends and the button is displayed. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.didOpen);
-
-  /** Emits when dismissal of an alert was requested. */
+  /**
+   * Emits when dismissal of an alert was requested.
+   * @deprecated
+   */
   private _dismissalRequested: EventEmitter<void> = new EventEmitter(
     this,
     SbbAlertElement.events.dismissalRequested,
@@ -109,25 +92,46 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changedProperties);
 
-    this._open();
+    this.open();
   }
 
-  /** Requests dismissal of the alert. */
+  /** Requests dismissal of the alert.
+   * @deprecated in favour of 'willClose' and 'didClose' events
+   */
   public requestDismissal(): void {
     this._dismissalRequested.emit();
   }
 
   /** Open the alert. */
-  private _open(): void {
-    this._state = 'opening';
-    this._willOpen.emit();
+  public open(): void {
+    this.willOpen.emit();
+    this.state = 'opening';
+  }
+
+  /** Close the alert. */
+  public close(): void {
+    if (this.willClose.emit()) {
+      this.state = 'closing';
+    }
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
-    if (this._state === 'opening' && event.animationName === 'open-opacity') {
-      this._state = 'opened';
-      this._didOpen.emit();
+    if (this.state === 'opening' && event.animationName === 'open-opacity') {
+      this._handleOpening();
+    } else if (this.state === 'closing' && event.animationName === 'close') {
+      this._handleClosing();
     }
+  }
+
+  private _handleOpening(): void {
+    this.state = 'opened';
+    this.didOpen.emit();
+  }
+
+  private _handleClosing(): void {
+    this.state = 'closed';
+    this.didClose.emit();
+    setTimeout(() => this.remove());
   }
 
   protected override render(): TemplateResult {

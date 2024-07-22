@@ -17,13 +17,27 @@ describe(`sbb-alert`, () => {
   it('should fire animation events', async () => {
     const willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen);
     const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen);
+    const willCloseSpy = new EventSpy(SbbAlertElement.events.willClose);
+    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose);
+    const dismissalSpy = new EventSpy(SbbAlertElement.events.dismissalRequested);
 
-    await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
+    const alert: SbbAlertElement = await fixture(
+      html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`,
+    );
 
     await waitForCondition(() => willOpenSpy.events.length === 1);
     expect(willOpenSpy.count).to.be.equal(1);
     await waitForCondition(() => didOpenSpy.events.length === 1);
     expect(didOpenSpy.count).to.be.equal(1);
+
+    alert.requestDismissal();
+    expect(dismissalSpy.count).to.be.equal(1);
+
+    alert.close();
+
+    await waitForCondition(() => didCloseSpy.events.length === 1);
+    expect(willCloseSpy.count).to.be.equal(1);
+    expect(didCloseSpy.count).to.be.equal(1);
   });
 
   it('should hide close button in readonly mode', async () => {

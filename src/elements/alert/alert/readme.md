@@ -85,7 +85,7 @@ As a base rule, opening animations should be active if an alert arrives after th
 | Name                 | Attribute             | Privacy | Type                                    | Default  | Description                                                                                                                                                      |
 | -------------------- | --------------------- | ------- | --------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |          | This will be forwarded as aria-label to the relevant nested element.                                                                                             |
-| `animation`          | `animation`           | public  | `'open' \| 'none'`                      | `'open'` | The enabled animations.                                                                                                                                          |
+| `animation`          | `animation`           | public  | `'open' \| 'close' \| 'all' \| 'none'`  | `'all'`  | The enabled animations.                                                                                                                                          |
 | `href`               | `href`                | public  | `string \| undefined`                   |          | The href value you want to link to.                                                                                                                              |
 | `iconName`           | `icon-name`           | public  | `string \| undefined`                   | `'info'` | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
 | `linkContent`        | `link-content`        | public  | `string \| undefined`                   |          | Content of the link.                                                                                                                                             |
@@ -98,17 +98,21 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Methods
 
-| Name               | Privacy | Description                      | Parameters | Return | Inherited From |
-| ------------------ | ------- | -------------------------------- | ---------- | ------ | -------------- |
-| `requestDismissal` | public  | Requests dismissal of the alert. |            | `void` |                |
+| Name               | Privacy | Description                      | Parameters | Return | Inherited From          |
+| ------------------ | ------- | -------------------------------- | ---------- | ------ | ----------------------- |
+| `close`            | public  | Close the alert.                 |            | `void` | SbbOpenCloseBaseElement |
+| `open`             | public  | Open the alert.                  |            | `void` | SbbOpenCloseBaseElement |
+| `requestDismissal` | public  | Requests dismissal of the alert. |            | `void` |                         |
 
 ## Events
 
-| Name                 | Type                | Description                                                        | Inherited From |
-| -------------------- | ------------------- | ------------------------------------------------------------------ | -------------- |
-| `didOpen`            | `CustomEvent<void>` | Emits when the fade in animation ends and the button is displayed. |                |
-| `dismissalRequested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.                    |                |
-| `willOpen`           | `CustomEvent<void>` | Emits when the fade in animation starts.                           |                |
+| Name                 | Type                | Description                                               | Inherited From          |
+| -------------------- | ------------------- | --------------------------------------------------------- | ----------------------- |
+| `didClose`           | `CustomEvent<void>` | Emits when the closing animation ends.                    | SbbOpenCloseBaseElement |
+| `didOpen`            | `CustomEvent<void>` | Emits when the opening animation ends.                    | SbbOpenCloseBaseElement |
+| `dismissalRequested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.           |                         |
+| `willClose`          | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`           | `CustomEvent<void>` | Emits when the opening animation starts.                  | SbbOpenCloseBaseElement |
 
 ## Slots
 
