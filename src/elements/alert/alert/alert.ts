@@ -118,9 +118,7 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   private _onAnimationEnd(event: AnimationEvent): void {
     if (this.state === 'opening' && event.animationName === 'open-opacity') {
       this._handleOpening();
-    }
-
-    if (this.state === 'closing' && event.animationName === 'close') {
+    } else if (this.state === 'closing' && event.animationName === 'close') {
       this._handleClosing();
     }
   }
