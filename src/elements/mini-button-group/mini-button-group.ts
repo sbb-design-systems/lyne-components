@@ -37,7 +37,7 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   }
 
   private _proxyNegative(): void {
-    this.querySelectorAll<SbbDividerElement | SbbMiniButtonElement>(
+    this.querySelectorAll?.<SbbDividerElement | SbbMiniButtonElement>(
       'sbb-divider, sbb-mini-button',
     ).forEach((e) => (e.negative = this.negative));
   }
