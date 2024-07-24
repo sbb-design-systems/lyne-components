@@ -52,7 +52,11 @@ describe(`sbb-alert-group`, () => {
     // Then one alert should be removed from sbb-alert-group, tabindex should be set to 0,
     // focus should be on sbb-alert-group and accessibility title should still be rendered.
     // Moreover, didDismissAlert event should have been fired.
-    await waitForCondition(() => didDismissAlertSpy.events.length === 1);
+    await waitForCondition(
+      () =>
+        didDismissAlertSpy.events.length === 1 &&
+        element.querySelectorAll('sbb-alert').length === 1,
+    );
     expect(didDismissAlertSpy.count).to.be.equal(1);
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(1);
     expect(element.tabIndex).to.be.equal(0);
@@ -73,7 +77,11 @@ describe(`sbb-alert-group`, () => {
 
     // Then the alert should be removed from sbb-alert-group, tabindex should be set to 0,
     // focus should be on sbb-alert-group, accessibility title should be removed and empty event should be fired.
-    await waitForCondition(() => didDismissAlertSpy.events.length === 2);
+    await waitForCondition(
+      () =>
+        didDismissAlertSpy.events.length === 2 &&
+        element.querySelectorAll('sbb-alert').length === 0,
+    );
     expect(didDismissAlertSpy.count).to.be.equal(2);
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(0);
     expect(element.tabIndex).to.be.equal(0);
