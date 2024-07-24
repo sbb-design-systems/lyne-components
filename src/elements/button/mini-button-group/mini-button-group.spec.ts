@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
-import { waitForLitRender } from '../core/testing/wait-for-render.js';
+import { fixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing/wait-for-render.js';
 
 import { SbbMiniButtonGroupElement } from './mini-button-group.js';
-import '../button/mini-button.js';
-import '../divider/divider.js';
+import '../mini-button.js';
+import '../../divider/divider.js';
 
 describe('sbb-mini-button-group', () => {
   let element: SbbMiniButtonGroupElement;

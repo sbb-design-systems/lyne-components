@@ -2,9 +2,9 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbMiniButtonElement } from '../button/mini-button/mini-button.js';
-import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../core/mixins.js';
-import type { SbbDividerElement } from '../divider/divider.js';
+import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import type { SbbDividerElement } from '../../divider/divider.js';
+import type { SbbMiniButtonElement } from '../mini-button/mini-button.js';
 
 import style from './mini-button-group.scss?lit&inline';
 

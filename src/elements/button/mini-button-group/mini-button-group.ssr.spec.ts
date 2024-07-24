@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbMiniButtonGroupElement } from './mini-button-group.js';
-import '../button/mini-button.js';
-import '../divider/divider.js';
+import '../mini-button.js';
+import '../../divider/divider.js';
 
 describe(`sbb-mini-button-group ssr`, () => {
   let root: SbbMiniButtonGroupElement;

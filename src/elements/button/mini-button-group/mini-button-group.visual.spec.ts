@@ -1,10 +1,14 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
+import {
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../../core/testing/private.js';
 
 import './mini-button-group.js';
-import '../button/mini-button.js';
-import '../divider/divider.js';
+import '../mini-button.js';
+import '../../divider/divider.js';
 
 describe('sbb-mini-button-group', () => {
   const sizeCases = ['s', 'm', 'l', 'xl'];

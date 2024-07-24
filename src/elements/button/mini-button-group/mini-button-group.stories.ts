@@ -11,12 +11,12 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './mini-button-group.js';
-import '../button/mini-button.js';
-import '../divider/divider.js';
+import '../mini-button.js';
+import '../../divider/divider.js';
 
 const size: InputType = {
   control: {
@@ -84,7 +84,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-mini-button-group',
+  title: 'elements/sbb-button/sbb-mini-button-group',
 };
 
 export default meta;
