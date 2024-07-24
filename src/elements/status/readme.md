@@ -13,16 +13,26 @@ The `sbb-status` is structured in the following way:
 
 ## Variants
 
-The `sbb-status` supports four types: `info` (default), `success`, `warn` and `error`, based on the type of the information displayed.
+The `sbb-status` supports eight types, based on the type of the information displayed:
+
+- `info` (default)
+- `success`
+- `warn`
+- `error`
+- `pending`
+- `incomplete`
+- `not-started`
+- `in-progress`
 
 ```html
 <sbb-status type="info">...</sbb-status>
-
 <sbb-status type="success">...</sbb-status>
-
 <sbb-status type="warn">...</sbb-status>
-
 <sbb-status type="error">...</sbb-status>
+<sbb-status type="pending">...</sbb-status>
+<sbb-status type="incomplete">...</sbb-status>
+<sbb-status type="not-started">...</sbb-status>
+<sbb-status type="in-progress">...</sbb-status>
 ```
 
 ## Icon

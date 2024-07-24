@@ -10,7 +10,15 @@ import style from './status.scss?lit&inline';
 
 import '../title.js';
 
-export type SbbStatusType = 'info' | 'success' | 'warning' | 'error';
+export type SbbStatusType =
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'pending'
+  | 'incomplete'
+  | 'not-started'
+  | 'in-progress';
 
 /**
  * Displays a message to the user's attention.
@@ -29,6 +37,10 @@ export class SbbStatusElement extends SbbIconNameMixin(LitElement) {
     ['success', 'circle-tick-small'],
     ['warning', 'circle-exclamation-point-small'],
     ['error', 'circle-cross-small'],
+    ['pending', 'circle-three-dots-small'],
+    ['incomplete', 'circle-dotted-part-x-small'],
+    ['not-started', 'circle-dotted-small'],
+    ['in-progress', 'circle-dotted-part-small'],
   ]);
 
   /** The type of the status. */

@@ -8,7 +8,7 @@ snapshots["sbb-alert-group renders DOM"] =
   role="status"
 >
   <sbb-alert
-    animation="open"
+    animation="all"
     data-state="opening"
     href="https://www.sbb.ch"
     size="m"
@@ -42,7 +42,7 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
     Interruptions
   </span>
   <sbb-alert
-    animation="open"
+    animation="all"
     data-state="opening"
     href="https://www.sbb.ch"
     size="m"

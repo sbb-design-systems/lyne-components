@@ -10,7 +10,11 @@ import { SbbAlertElement } from './alert.js';
 import readme from './readme.md?raw';
 
 const Default = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`
-  <sbb-alert ${sbbSpread(args)}>${contentSlotText}</sbb-alert>
+  <sbb-alert
+    ${sbbSpread(args)}
+    @dismissalRequested=${(e: Event) => (e.target! as SbbAlertElement).close()}
+    >${contentSlotText}</sbb-alert
+  >
 `;
 
 const DefaultWithOtherContent = (args: Args): TemplateResult => {
@@ -134,7 +138,7 @@ const animation: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['open', 'none'],
+  options: ['all', 'open', 'close', 'none'],
 };
 
 const defaultArgTypes: ArgTypes = {

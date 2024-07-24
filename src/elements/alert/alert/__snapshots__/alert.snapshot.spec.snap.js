@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-alert should render default properties DOM"] = 
 `<sbb-alert
-  animation="open"
+  animation="all"
   data-state="opening"
   size="m"
   title-content="Interruption"
@@ -79,7 +79,7 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
 snapshots["sbb-alert should render customized properties DOM"] = 
 `<sbb-alert
   accessibility-label="label"
-  animation="open"
+  animation="all"
   data-state="opening"
   href="https://www.sbb.ch"
   icon-name="disruption"
