@@ -1,11 +1,11 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import sampleImages from '../../core/images.js';
 import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.js';
+import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 import './flip-card.js';
 import '../flip-card-summary.js';
 import '../flip-card-details.js';
@@ -14,16 +14,18 @@ import '../../link.js';
 import '../../image.js';
 import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
 
+const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
+
 const content = (
   title: string = 'Summary',
   imageAlignment: SbbFlipCardImageAlignment = 'after',
-  longConent: boolean = false,
+  longContent: boolean = false,
 ): TemplateResult =>
   html` <sbb-flip-card-summary slot="summary" image-alignment=${imageAlignment}>
       <sbb-title level="4">${title}</sbb-title>
       <sbb-image
         slot="image"
-        image-src=${sampleImages[0]}
+        image-src=${imageUrl}
         border-radius="none"
         aspect-ratio="free"
       ></sbb-image>
@@ -31,7 +33,7 @@ const content = (
     <sbb-flip-card-details slot="details"
       >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
       Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh.
-      ${longConent
+      ${longContent
         ? `Duis dapibus vitae
       tortor ullamcorper maximus. In convallis consectetur felis. Lorem ipsum dolor sit amet,
       consectetur adipiscing elit. Nam luctus ornare condimentum. Vivamus turpis elit, dapibus eget
@@ -55,6 +57,7 @@ describe(`sbb-flip-card`, () => {
                 ${content('Summary', imageAlignment as SbbFlipCardImageAlignment)}
               </sbb-flip-card>
             `);
+            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
           }),
         );
       }
@@ -64,6 +67,7 @@ describe(`sbb-flip-card`, () => {
       'flipped',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`<sbb-flip-card data-flipped> ${content()}</sbb-flip-card>`);
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
@@ -77,6 +81,7 @@ describe(`sbb-flip-card`, () => {
             )}</sbb-flip-card
           >`,
         );
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
@@ -89,6 +94,7 @@ describe(`sbb-flip-card`, () => {
               ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
             </sbb-flip-card>`,
           );
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
     }
