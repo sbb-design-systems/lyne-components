@@ -18,8 +18,6 @@
   );
   --sbb-overlay-animation-easing: ease;
   --sbb-overlay-pointer-events: none;
-  --sbb-overlay-content-transition: transform var(--sbb-overlay-animation-duration)
-    var(--sbb-overlay-animation-easing);
 
   display: block;
   position: fixed;
@@ -50,14 +48,27 @@
 .sbb-overlay__container {
   background-color: var(--sbb-overlay-background-color);
   pointer-events: var(--sbb-overlay-pointer-events);
-  display: flex;
+  display: none;
   align-items: center;
   position: fixed;
   inset: var(--sbb-overlay-inset);
+
+  :host([data-state]:not([data-state='closed'])) & {
+    display: flex;
+    animation: {
+      name: open;
+      duration: var(--sbb-overlay-animation-duration);
+      timing-function: var(--sbb-overlay-animation-easing);
+    }
+  }
+
+  :host([data-state][data-state='closing']) & {
+    pointer-events: none;
+    animation-name: close;
+  }
 }
 
 .sbb-overlay {
-  display: none;
   position: absolute;
   inset-inline: 0;
   margin: auto;
@@ -68,18 +79,15 @@
   color: var(--sbb-overlay-color);
 
   :host([data-state]:not([data-state='closed'])) & {
-    display: block;
-
     animation: {
-      name: open;
+      name: open-move-in;
       duration: var(--sbb-overlay-animation-duration);
-      timing-function: ease;
+      timing-function: var(--sbb-overlay-animation-easing);
     }
   }
 
   :host([data-state][data-state='closing']) & {
-    pointer-events: none;
-    animation-name: close;
+    animation-name: close-move-out;
   }
 }
 
@@ -137,11 +145,19 @@
 @keyframes open {
   from {
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-4x));
   }
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes open-move-in {
+  from {
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+
+  to {
     transform: translateY(0%);
   }
 }
@@ -149,11 +165,19 @@
 @keyframes close {
   from {
     opacity: 1;
-    transform: translateY(0%);
   }
 
   to {
     opacity: 0;
+  }
+}
+
+@keyframes close-move-out {
+  from {
+    transform: translateY(0%);
+  }
+
+  to {
     transform: translateY(var(--sbb-spacing-fixed-4x));
   }
 }
