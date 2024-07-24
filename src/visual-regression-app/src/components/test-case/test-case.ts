@@ -22,7 +22,7 @@ import style from './test-case.scss?lit&inline';
 
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 
-import './describe-each-chip-list/describe-each-chip-list.js';
+import './test-title-chip-list/test-title-chip-list.js';
 import './image-diff/image-diff.js';
 import './test-case-filter/test-case-filter.js';
 
@@ -125,9 +125,9 @@ export class TestCase extends LitElement {
       ${this._testCase
         ? html`<div class="app-testcase">
             <sbb-container expanded>
-              <app-describe-each-chip-list
+              <app-test-title-chip-list
                 .testCaseName=${this.params?.testCaseName}
-              ></app-describe-each-chip-list>
+              ></app-test-title-chip-list>
               <div class="app-filter-and-toggle">
                 <app-test-case-filter
                   .testCase=${this._testCase}

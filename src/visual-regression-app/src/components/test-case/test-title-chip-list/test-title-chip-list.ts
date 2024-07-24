@@ -2,7 +2,7 @@ import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } f
 import { customElement, property } from 'lit/decorators.js';
 
 import '@sbb-esta/lyne-elements/chip.js';
-import style from './describe-each-chip-list.scss?lit&inline';
+import style from './test-title-chip-list.scss?lit&inline';
 
 /**
  * Captures two groups
@@ -27,23 +27,30 @@ type DescribeEachItem = {
  *  - If param is undefined, show nothing;
  *  - Else, show a default chip with "key = value";
  */
-@customElement('app-describe-each-chip-list')
-export class DescribeEachChipList extends LitElement {
+@customElement('app-test-title-chip-list')
+export class TestTitleChipList extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   @property()
   public set testCaseName(name: string) {
+    this._testName = name;
     this._chips = Array.from(name.matchAll(paramsRegex)).map(this._mapToChip);
-    this.requestUpdate();
   }
+  public get testCaseName(): string {
+    return this._testName;
+  }
+  private _testName: string = '';
   private _chips: DescribeEachItem[] = [];
 
   private _mapToChip(match: RegExpMatchArray): DescribeEachItem {
-    const [key, value] = match[0].split('=', 2);
+    const input = match[0];
+    const key = input.slice(0, input.indexOf('='));
+    const value = input.slice(input.indexOf('=') + 1);
+
     return {
       key,
       value,
-      input: match[0],
+      input,
       isBoolean: value === 'false' || value === 'true',
       isUndefined: value === 'undefined',
       isComplex: !!match.groups?.complex,
@@ -70,6 +77,6 @@ export class DescribeEachChipList extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'app-describe-each-chip-list': DescribeEachChipList;
+    'app-test-title-chip-list': TestTitleChipList;
   }
 }
