@@ -71,7 +71,14 @@ snapshots["sbb-option selected active Chrome"] =
 `<p>
   {
   "role": "WebArea",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "listbox",
+      "name": "",
+      "orientation": "vertical"
+    }
+  ]
 }
 </p>
 `;
@@ -81,7 +88,14 @@ snapshots["sbb-option disabled Chrome"] =
 `<p>
   {
   "role": "WebArea",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "listbox",
+      "name": "",
+      "orientation": "vertical"
+    }
+  ]
 }
 </p>
 `;
@@ -94,9 +108,15 @@ snapshots["sbb-option selected active Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "option",
+      "role": "listbox",
       "name": "",
-      "selected": true
+      "children": [
+        {
+          "role": "option",
+          "name": "1",
+          "selected": true
+        }
+      ]
     }
   ]
 }
@@ -111,9 +131,15 @@ snapshots["sbb-option disabled Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "option",
+      "role": "listbox",
       "name": "",
-      "disabled": true
+      "children": [
+        {
+          "role": "option",
+          "name": "1",
+          "disabled": true
+        }
+      ]
     }
   ]
 }
