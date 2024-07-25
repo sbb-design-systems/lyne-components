@@ -7,7 +7,7 @@ import type { SbbPaginatorElement } from './paginator.js';
 import './paginator.js';
 
 describe(`sbb-paginator`, () => {
-  it('renders', () => {
+  describe('renders', () => {
     let element: SbbPaginatorElement;
 
     beforeEach(async () => {

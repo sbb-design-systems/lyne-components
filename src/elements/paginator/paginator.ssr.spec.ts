@@ -6,20 +6,18 @@ import { ssrHydratedFixture } from '../core/testing/private.js';
 import { SbbPaginatorElement } from './paginator.js';
 
 describe(`sbb-paginator ssr`, () => {
+  let root: SbbPaginatorElement;
+
+  beforeEach(async () => {
+    root = await ssrHydratedFixture(
+      html`<sbb-paginator length="50" page-size="4"></sbb-paginator>`,
+      {
+        modules: ['./paginator.js'],
+      },
+    );
+  });
+
   it('renders', () => {
-    let root: SbbPaginatorElement;
-
-    beforeEach(async () => {
-      root = await ssrHydratedFixture(
-        html`<sbb-paginator length="50" page-size="4"></sbb-paginator>`,
-        {
-          modules: ['./paginator.js'],
-        },
-      );
-    });
-
-    it('renders', () => {
-      assert.instanceOf(root, SbbPaginatorElement);
-    });
+    assert.instanceOf(root, SbbPaginatorElement);
   });
 });
