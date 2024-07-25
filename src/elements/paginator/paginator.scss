@@ -1,0 +1,101 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-paginator-label-color: var(--sbb-color-metal);
+  --sbb-paginator-marker-color: inherit;
+  --sbb-paginator-marker-transform: scale(0);
+  --sbb-paginator-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-paginator-animation-easing: var(--sbb-animation-easing);
+}
+
+.sbb-paginator {
+  height: var(--sbb-size-element-m);
+  display: flex;
+  align-items: center;
+}
+
+.sbb-paginator__pages {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  gap: var(--sbb-spacing-fixed-4x);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sbb-paginator__page {
+  position: relative;
+  height: 100%;
+  align-content: center;
+  color: var(--sbb-paginator-label-color);
+  transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
+
+  &[data-active] {
+    --sbb-paginator-label-color: var(--sbb-color-charcoal);
+    --sbb-paginator-marker-color: var(--sbb-color-charcoal);
+    --sbb-paginator-marker-transform: scale(1);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    inset-inline: 0;
+    inset-block-end: 0;
+    height: #{sbb.px-to-rem-build(3)};
+    background-color: var(--sbb-paginator-marker-color);
+    transform: var(--sbb-paginator-marker-transform);
+    transition: {
+      duration: var(--sbb-paginator-animation-duration);
+      timing-function: var(--sbb-paginator-animation-easing);
+      property: transform, background-color;
+    }
+
+    z-index: 1;
+  }
+}
+
+.sbb-paginator__page--ellipsis {
+  @include sbb.text-s--regular;
+
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-inline: var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-paginator-label-color);
+}
+
+.sbb-paginator__page--number {
+  @include sbb.text-s--regular;
+
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding-inline: var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-paginator-label-color);
+  transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
+  outline: none !important;
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  &:focus-visible {
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
+      border: var(--sbb-focus-outline-width) solid var(--sbb-focus-outline-color);
+      border-radius: var(--sbb-border-radius-2x);
+      z-index: 1;
+    }
+  }
+}
