@@ -75,6 +75,24 @@ export const Negative: StoryObj = {
   args: { ...defaultArgs, negative: true },
 };
 
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: 's' },
+};
+
+export const SizeL: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: 'l' },
+};
+
+export const SizeXL: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: 'xl' },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
