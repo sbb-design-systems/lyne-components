@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+
 import type { TestRunnerPlugin } from '@web/test-runner';
 import { createServer, type ViteDevServer } from 'vite';
 
@@ -8,7 +10,7 @@ export function vitePlugin(): TestRunnerPlugin {
   return {
     name: 'vite-plugin',
 
-    async serverStart({ app }) {
+    async serverStart({ app, fileWatcher }) {
       const externals = [
         // @web/test-runner-commands needs to establish a web-socket
         // connection. It expects a file to be served from the
@@ -22,6 +24,15 @@ export function vitePlugin(): TestRunnerPlugin {
         server: { middlewareMode: true, hmr: false },
         appType: 'custom',
         plugins: [
+          {
+            name: 'file-name',
+            transform(_src, id) {
+              const file = id.split('?')[0];
+              if (!file.startsWith('\0') && existsSync(file)) {
+                fileWatcher.add(file);
+              }
+            },
+          },
           {
             name: 'mark-external',
             resolveId: (id) => (externals.includes(id) ? { id, external: true } : undefined),
