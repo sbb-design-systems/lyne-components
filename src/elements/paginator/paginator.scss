@@ -17,15 +17,19 @@
 }
 
 .sbb-paginator {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-6x);
   height: var(--sbb-size-element-m);
+}
+
+.sbb-paginator__page-size-options {
   display: flex;
   align-items: center;
+  gap: var(--sbb-spacing-fixed-2x);
 }
 
 .sbb-paginator__pages {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   height: 100%;
   gap: var(--sbb-spacing-fixed-4x);
   list-style: none;
@@ -35,8 +39,6 @@
 
 .sbb-paginator__page {
   position: relative;
-  height: 100%;
-  align-content: center;
   color: var(--sbb-paginator-label-color);
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
 
@@ -98,4 +100,8 @@
       z-index: 1;
     }
   }
+}
+
+.sbb-screen-reader-only {
+  @include sbb.screen-reader-only;
 }

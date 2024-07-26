@@ -34,7 +34,7 @@ const pageIndex: InputType = {
   },
 };
 
-const pageSizeOptionsValues = [[], [10, 20, 50, 100], [5, 50, 500]];
+const pageSizeOptionsValues = [[], [10, 20, 50, 100], [10, 50, 100, 500]];
 const pageSizeOptions: InputType = {
   options: Object.keys(pageSizeOptionsValues),
   mapping: pageSizeOptionsValues,
@@ -57,16 +57,16 @@ const pagerPosition: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   length,
-  pageSize,
-  pageIndex,
+  'page-size': pageSize,
+  'page-index': pageIndex,
   pageSizeOptions,
   'pager-position': pagerPosition,
 };
 
 const defaultArgs: Args = {
   length: 100,
-  pageSize: 10,
-  pageIndex: 0,
+  'page-size': 10,
+  'page-index': 0,
   pageSizeOptions: pageSizeOptions.options![0],
   'pager-position': pagerPosition.options![0],
 };
@@ -82,6 +82,12 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const WithPageSizeOptions: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, length: 1000, pageSizeOptions: pageSizeOptions.options![1] },
 };
 
 const meta: Meta = {

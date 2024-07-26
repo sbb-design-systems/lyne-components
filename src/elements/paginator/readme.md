@@ -13,13 +13,21 @@ It can be controlled via the following properties:
 [//]: # 'FIXME: add `sbb-mini-button-group` link'
 
 By default, a `sbb-mini-button-group` with two buttons is displayed, which allows moving to the previous/next pages.
-The positioning of this element is set using the `pagerPosition` parameter (default: `start`):
+The positioning of this element is set using the `pagerPosition` property (default: `start`):
 
 ```html
 <sbb-paginator length="100" page-size="20" pager-position="end"></sbb-paginator>
 ```
 
-[//]: # 'FIXME: add `pageSizeOptions` logic'
+Users have the possibility to dynamically change the page size using a dropdown menu;
+to do this, consumers must add the `pageSizeOptions` property, which accepts an array of number
+that are set as `sbb-option`'s values within a `sbb-select`.
+Consumers must be consistent, so the defined `pageSize` must be an element of the `pageSizeOptions` array.
+The dropdown menu and buttons are facing each other with the page numbers always in the center.
+
+```html
+<sbb-paginator length="100" page-size="20" page-size-options="[10, 20, 50]"></sbb-paginator>
+```
 
 ## Style
 

@@ -5,8 +5,13 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { EventEmitter } from '../core/eventing.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
+import type { SbbSelectElement } from '../select.js';
 
 import style from './paginator.scss?lit&inline';
+
+import '../form-field.js';
+import '../select.js';
+import '../option.js';
 
 export type SbbPaginatorPageChanged = {
   currentPageIndex: number;
@@ -40,7 +45,8 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** Number of items per page. */
   @property({ attribute: 'page-size', type: Number })
   public set pageSize(value: number) {
-    this._changePageSize(value);
+    this._pageSize = Math.max(value, 0);
+    this.pageIndex = Math.floor((this.pageIndex * this.pageSize) / this._pageSize) || 0;
   }
   public get pageSize(): number {
     return this._pageSize;
@@ -52,7 +58,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   public set pageIndex(value: number) {
     const previousPageIndex = this._pageIndex;
     this._pageIndex = this._calculatePageIndex(value);
-    this._pageChanged.emit({ previousPageIndex, currentPageIndex: value });
+    if (previousPageIndex !== this._pageIndex) {
+      this._pageChanged.emit({ previousPageIndex, currentPageIndex: value });
+    }
   }
   public get pageIndex(): number {
     return this._pageIndex;
@@ -74,10 +82,8 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     { composed: true, bubbles: true },
   );
 
-  /** Changes the page size maintaining the current page view. */
-  private _changePageSize(pageSize: number): void {
-    this._pageSize = Math.max(pageSize, 0);
-    this.pageIndex = Math.floor((this.pageIndex * this.pageSize) / this._pageSize) || 0;
+  private _changePage(value: number): void {
+    this.pageIndex = value;
   }
 
   /** Evaluate `pageIndex` by excluding edge cases. */
@@ -136,14 +142,34 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return Array.from({ length }, (_, k) => k + offset);
   }
 
-  private _changePage(value: number): void {
-    this.pageIndex = value;
+  private _renderItemPerPageTemplate(): TemplateResult {
+    return html`
+      <div class="sbb-paginator__page-size-options">
+        Items per page
+        <sbb-form-field borderless width="collapse">
+          <sbb-select
+            value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
+            this.pageSizeOptions![0]}
+            @change=${(e: CustomEvent) =>
+              (this.pageSize = +((e.target as SbbSelectElement).value as string))}
+          >
+            ${repeat(
+              this.pageSizeOptions!,
+              (element) => html`<sbb-option value=${element}>${element}</sbb-option>`,
+            )}
+          </sbb-select>
+        </sbb-form-field>
+      </div>
+    `;
   }
 
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-paginator">
-        <!-- Add logic for buttons & pageOptions -->
+        <!-- Add logic for buttons -->
+        ${this.pageSizeOptions && this.pageSizeOptions.length > 0
+          ? this._renderItemPerPageTemplate()
+          : nothing}
         <ul class="sbb-paginator__pages">
           ${repeat(
             this._getVisiblePages(),

@@ -24,4 +24,23 @@ describe(`sbb-paginator`, () => {
 
     testA11yTreeSnapshot();
   });
+
+  describe('renders with options', () => {
+    let element: SbbPaginatorElement;
+
+    beforeEach(async () => {
+      const opt = [10, 25, 50];
+      element = await fixture(
+        html`<sbb-paginator length="50" page-size="10" .pageSizeOptions=${opt}></sbb-paginator>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
 });
