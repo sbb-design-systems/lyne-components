@@ -56,12 +56,9 @@ describe(`sbb-option`, () => {
   });
 
   testA11yTreeSnapshot(
-    html`<div role="listbox"><sbb-option value="1" selected active>1</sbb-option></div>`,
+    html`<sbb-option value="1" selected active></sbb-option>`,
     'selected active',
   );
 
-  testA11yTreeSnapshot(
-    html`<div role="listbox"><sbb-option value="1" disabled>1</sbb-option></div>`,
-    'disabled',
-  );
+  testA11yTreeSnapshot(html`<sbb-option value="1" disabled></sbb-option>`, 'disabled');
 });
