@@ -1,7 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { isSafari } from '../core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { describeIf } from '../core/testing.js';
 
 import type { SbbPaginatorElement } from './paginator.js';
 import './paginator.js';
@@ -35,12 +37,24 @@ describe(`sbb-paginator`, () => {
       );
     });
 
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+    describeIf(!isSafari, 'Chrome-Firefox', async () => {
+      it('DOM', async () => {
+        await expect(element).dom.to.be.equalSnapshot();
+      });
+
+      it('Shadow DOM', async () => {
+        await expect(element).shadowDom.to.be.equalSnapshot();
+      });
     });
 
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
+    describeIf(isSafari, 'Safari', async () => {
+      it('DOM', async () => {
+        await expect(element).dom.to.be.equalSnapshot();
+      });
+
+      it('Shadow DOM', async () => {
+        await expect(element).shadowDom.to.be.equalSnapshot();
+      });
     });
   });
 });
