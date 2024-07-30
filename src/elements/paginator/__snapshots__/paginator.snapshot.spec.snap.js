@@ -13,6 +13,27 @@ snapshots["sbb-paginator renders DOM"] =
 
 snapshots["sbb-paginator renders Shadow DOM"] = 
 `<div class="sbb-paginator">
+  <div class="sbb-paginator__buttons">
+    <sbb-mini-button
+      aria-disabled="true"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-left-small"
+      role="button"
+    >
+    </sbb-mini-button>
+    <sbb-mini-button
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-right-small"
+      role="button"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </div>
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page"
@@ -22,8 +43,9 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         aria-current="true"
         aria-selected="true"
         class="sbb-paginator__page--number"
+        data-index="0"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         1
       </span>
@@ -31,8 +53,9 @@ snapshots["sbb-paginator renders Shadow DOM"] =
     <li class="sbb-paginator__page">
       <span
         class="sbb-paginator__page--number"
+        data-index="1"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         2
       </span>
@@ -40,8 +63,9 @@ snapshots["sbb-paginator renders Shadow DOM"] =
     <li class="sbb-paginator__page">
       <span
         class="sbb-paginator__page--number"
+        data-index="2"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         3
       </span>
@@ -49,8 +73,9 @@ snapshots["sbb-paginator renders Shadow DOM"] =
     <li class="sbb-paginator__page">
       <span
         class="sbb-paginator__page--number"
+        data-index="3"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         4
       </span>
@@ -63,8 +88,9 @@ snapshots["sbb-paginator renders Shadow DOM"] =
     <li class="sbb-paginator__page">
       <span
         class="sbb-paginator__page--number"
+        data-index="12"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         13
       </span>
@@ -86,6 +112,84 @@ snapshots["sbb-paginator renders with options Safari DOM"] =
 
 snapshots["sbb-paginator renders with options Safari Shadow DOM"] = 
 `<div class="sbb-paginator">
+  <div class="sbb-paginator__buttons">
+    <sbb-mini-button
+      aria-disabled="true"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-left-small"
+      role="button"
+    >
+    </sbb-mini-button>
+    <sbb-mini-button
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-right-small"
+      role="button"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </div>
+  <ul class="sbb-paginator__pages">
+    <li
+      class="sbb-paginator__page"
+      data-active="true"
+    >
+      <span
+        aria-current="true"
+        aria-selected="true"
+        class="sbb-paginator__page--number"
+        data-index="0"
+        role="button"
+        tabindex="0"
+      >
+        1
+      </span>
+    </li>
+    <li class="sbb-paginator__page">
+      <span
+        class="sbb-paginator__page--number"
+        data-index="1"
+        role="button"
+        tabindex="-1"
+      >
+        2
+      </span>
+    </li>
+    <li class="sbb-paginator__page">
+      <span
+        class="sbb-paginator__page--number"
+        data-index="2"
+        role="button"
+        tabindex="-1"
+      >
+        3
+      </span>
+    </li>
+    <li class="sbb-paginator__page">
+      <span
+        class="sbb-paginator__page--number"
+        data-index="3"
+        role="button"
+        tabindex="-1"
+      >
+        4
+      </span>
+    </li>
+    <li class="sbb-paginator__page">
+      <span
+        class="sbb-paginator__page--number"
+        data-index="4"
+        role="button"
+        tabindex="-1"
+      >
+        5
+      </span>
+    </li>
+  </ul>
   <div class="sbb-paginator__page-size-options">
     Items per page
     <sbb-form-field
@@ -154,58 +258,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
       </sbb-select>
     </sbb-form-field>
   </div>
-  <ul class="sbb-paginator__pages">
-    <li
-      class="sbb-paginator__page"
-      data-active="true"
-    >
-      <span
-        aria-current="true"
-        aria-selected="true"
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="-1"
-      >
-        1
-      </span>
-    </li>
-    <li class="sbb-paginator__page">
-      <span
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="0"
-      >
-        2
-      </span>
-    </li>
-    <li class="sbb-paginator__page">
-      <span
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="0"
-      >
-        3
-      </span>
-    </li>
-    <li class="sbb-paginator__page">
-      <span
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="0"
-      >
-        4
-      </span>
-    </li>
-    <li class="sbb-paginator__page">
-      <span
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="0"
-      >
-        5
-      </span>
-    </li>
-  </ul>
 </div>
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
@@ -216,6 +268,15 @@ snapshots["sbb-paginator renders A11y tree Chrome"] =
   "role": "WebArea",
   "name": "",
   "children": [
+    {
+      "role": "button",
+      "name": "",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": ""
+    },
     {
       "role": "button",
       "name": "1"
@@ -258,6 +319,84 @@ snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] =
 
 snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-paginator">
+  <div class="sbb-paginator__buttons">
+    <sbb-mini-button
+      aria-disabled="true"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-left-small"
+      role="button"
+    >
+    </sbb-mini-button>
+    <sbb-mini-button
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-right-small"
+      role="button"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </div>
+  <ul class="sbb-paginator__pages">
+    <li
+      class="sbb-paginator__page"
+      data-active="true"
+    >
+      <span
+        aria-current="true"
+        aria-selected="true"
+        class="sbb-paginator__page--number"
+        data-index="0"
+        role="button"
+        tabindex="0"
+      >
+        1
+      </span>
+    </li>
+    <li class="sbb-paginator__page">
+      <span
+        class="sbb-paginator__page--number"
+        data-index="1"
+        role="button"
+        tabindex="-1"
+      >
+        2
+      </span>
+    </li>
+    <li class="sbb-paginator__page">
+      <span
+        class="sbb-paginator__page--number"
+        data-index="2"
+        role="button"
+        tabindex="-1"
+      >
+        3
+      </span>
+    </li>
+    <li class="sbb-paginator__page">
+      <span
+        class="sbb-paginator__page--number"
+        data-index="3"
+        role="button"
+        tabindex="-1"
+      >
+        4
+      </span>
+    </li>
+    <li class="sbb-paginator__page">
+      <span
+        class="sbb-paginator__page--number"
+        data-index="4"
+        role="button"
+        tabindex="-1"
+      >
+        5
+      </span>
+    </li>
+  </ul>
   <div class="sbb-paginator__page-size-options">
     Items per page
     <sbb-form-field
@@ -324,58 +463,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
       </sbb-select>
     </sbb-form-field>
   </div>
-  <ul class="sbb-paginator__pages">
-    <li
-      class="sbb-paginator__page"
-      data-active="true"
-    >
-      <span
-        aria-current="true"
-        aria-selected="true"
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="-1"
-      >
-        1
-      </span>
-    </li>
-    <li class="sbb-paginator__page">
-      <span
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="0"
-      >
-        2
-      </span>
-    </li>
-    <li class="sbb-paginator__page">
-      <span
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="0"
-      >
-        3
-      </span>
-    </li>
-    <li class="sbb-paginator__page">
-      <span
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="0"
-      >
-        4
-      </span>
-    </li>
-    <li class="sbb-paginator__page">
-      <span
-        class="sbb-paginator__page--number"
-        role="button"
-        tabindex="0"
-      >
-        5
-      </span>
-    </li>
-  </ul>
 </div>
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
@@ -386,6 +473,15 @@ snapshots["sbb-paginator renders A11y tree Firefox"] =
   "role": "document",
   "name": "",
   "children": [
+    {
+      "role": "button",
+      "name": "",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": ""
+    },
     {
       "role": "button",
       "name": "1"

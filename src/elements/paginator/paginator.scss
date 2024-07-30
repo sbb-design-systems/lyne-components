@@ -22,10 +22,12 @@
   height: var(--sbb-size-element-m);
 }
 
+.sbb-paginator__buttons,
 .sbb-paginator__page-size-options {
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
+  white-space: nowrap;
 }
 
 .sbb-paginator__pages {
@@ -89,7 +91,7 @@
   outline: none !important;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  &:focus-visible {
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
     &::before {
       content: '';
       position: absolute;

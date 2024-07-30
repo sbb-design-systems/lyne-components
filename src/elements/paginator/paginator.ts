@@ -1,14 +1,23 @@
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
+import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../core/a11y.js';
+import { SbbConnectedAbortController } from '../core/controllers.js';
 import { EventEmitter } from '../core/eventing.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 import type { SbbSelectElement } from '../select.js';
 
 import style from './paginator.scss?lit&inline';
 
+import '../button/mini-button.js';
 import '../form-field.js';
 import '../select.js';
 import '../option.js';
@@ -82,6 +91,37 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     { composed: true, bubbles: true },
   );
 
+  private _markForFocus: number | null = null;
+  private _abort = new SbbConnectedAbortController(this);
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    const signal = this._abort.signal;
+    this.shadowRoot!.querySelector('.sbb-paginator__pages')!.addEventListener(
+      'keydown',
+      (e) => this._handleKeydown(e as KeyboardEvent),
+      { signal },
+    );
+  }
+
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+    if (this._markForFocus && sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+      const focusElement = this._getVisiblePages().find(
+        (e) => this.pageIndex === +e.getAttribute('data-index')!,
+      );
+      if (focusElement) {
+        (focusElement as HTMLElement).focus();
+      }
+      // Reset mark for focus
+      this._markForFocus = null;
+    }
+  }
+
+  private _getVisiblePages(): Element[] {
+    return Array.from(this.shadowRoot!.querySelectorAll('.sbb-paginator__page--number'));
+  }
+
   private _changePage(value: number): void {
     this.pageIndex = value;
   }
@@ -111,7 +151,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
    *  - the last page must always be visible;
    *  - if there are more than `MAX_PAGE_NUMBERS_DISPLAYED` other pages, ellipsis button must be used.
    */
-  private _getVisiblePages(): (number | null)[] {
+  private _getVisiblePagesIndex(): (number | null)[] {
     const totalPages: number = this._numberOfPages();
     const currentPageIndex: number = this.pageIndex;
 
@@ -142,67 +182,109 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return Array.from({ length }, (_, k) => k + offset);
   }
 
-  private _renderItemPerPageTemplate(): TemplateResult {
+  private _handleKeydown(event: KeyboardEvent): void {
+    if (isArrowKeyPressed(event)) {
+      event.preventDefault();
+      const pages = this._getVisiblePages();
+      const current = pages.findIndex((e: Element) => e === event.target);
+      const nextIndex = getNextElementIndex(event, current, pages.length);
+      (pages[nextIndex] as HTMLElement).focus();
+    }
+
+    if (event.key === ' ') {
+      event.preventDefault();
+      const pages = this._getVisiblePages();
+      const current = pages.find((e: Element) => e === event.target);
+      if (current) {
+        this.pageIndex = +current.getAttribute('data-index')!;
+        this._markForFocus = this.pageIndex;
+      }
+    }
+  }
+
+  // FIXME add sbb-mini-button-group when merged
+  private _renderPrevNextButtons(): TemplateResult {
     return html`
-      <div class="sbb-paginator__page-size-options">
-        Items per page
-        <sbb-form-field borderless width="collapse">
-          <sbb-select
-            value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
-            this.pageSizeOptions![0]}
-            @change=${(e: CustomEvent) =>
-              (this.pageSize = +((e.target as SbbSelectElement).value as string))}
-          >
-            ${repeat(
-              this.pageSizeOptions!,
-              (element) => html`<sbb-option value=${element}>${element}</sbb-option>`,
-            )}
-          </sbb-select>
-        </sbb-form-field>
+      <div class="sbb-paginator__buttons">
+        <sbb-mini-button
+          icon-name="chevron-left-small"
+          ?disabled=${this.pageIndex === 0}
+          @click=${() => this._changePage(this.pageIndex - 1)}
+        ></sbb-mini-button>
+        <sbb-mini-button
+          icon-name="chevron-right-small"
+          ?disabled=${this.pageIndex === this._numberOfPages() - 1}
+          @click=${() => this._changePage(this.pageIndex + 1)}
+        ></sbb-mini-button>
       </div>
+    `;
+  }
+
+  private _renderItemPerPageTemplate(): TemplateResult | typeof nothing {
+    return this.pageSizeOptions && this.pageSizeOptions.length > 0
+      ? html`
+          <div class="sbb-paginator__page-size-options">
+            Items per page
+            <sbb-form-field borderless width="collapse">
+              <sbb-select
+                value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
+                this.pageSizeOptions![0]}
+                @change=${(e: CustomEvent) =>
+                  (this.pageSize = +((e.target as SbbSelectElement).value as string))}
+              >
+                ${repeat(
+                  this.pageSizeOptions!,
+                  (element) => html`<sbb-option value=${element}>${element}</sbb-option>`,
+                )}
+              </sbb-select>
+            </sbb-form-field>
+          </div>
+        `
+      : nothing;
+  }
+
+  private _renderPageNumbers(): TemplateResult {
+    return html`
+      <ul class="sbb-paginator__pages">
+        ${repeat(
+          this._getVisiblePagesIndex(),
+          (item): TemplateResult =>
+            item === null
+              ? html`
+                  <li class="sbb-paginator__page">
+                    <span class="sbb-paginator__page--ellipsis">...</span>
+                  </li>
+                `
+              : html`
+                  <li class="sbb-paginator__page" data-active=${this.pageIndex === item || nothing}>
+                    <span
+                      role="button"
+                      class="sbb-paginator__page--number"
+                      data-index=${item}
+                      aria-current=${this.pageIndex === item ? 'true' : nothing}
+                      aria-selected=${this.pageIndex === item ? 'true' : nothing}
+                      tabindex=${this.pageIndex === item ? '0' : '-1'}
+                      @click=${() => this._changePage(item)}
+                    >
+                      ${item + 1}
+                    </span>
+                  </li>
+                `,
+        )}
+      </ul>
     `;
   }
 
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-paginator">
-        <!-- Add logic for buttons -->
-        ${this.pageSizeOptions && this.pageSizeOptions.length > 0
+        ${this.pagerPosition === 'start'
+          ? this._renderPrevNextButtons()
+          : this._renderItemPerPageTemplate()}
+        ${this._renderPageNumbers()}
+        ${this.pagerPosition === 'start'
           ? this._renderItemPerPageTemplate()
-          : nothing}
-        <ul class="sbb-paginator__pages">
-          ${repeat(
-            this._getVisiblePages(),
-            (item) => html`
-            ${
-              item === null
-                ? html`
-                    <li class="sbb-paginator__page">
-                      <span class="sbb-paginator__page--ellipsis">...</span>
-                    </li>
-                  `
-                : html`
-                    <li
-                      class="sbb-paginator__page"
-                      data-active=${this.pageIndex === item || nothing}
-                    >
-                      <span
-                        role="button"
-                        class="sbb-paginator__page--number"
-                        aria-current=${this.pageIndex === item ? 'true' : nothing}
-                        aria-selected=${this.pageIndex === item ? 'true' : nothing}
-                        tabindex=${this.pageIndex === item ? '-1' : '0'}
-                        @click=${() => this._changePage(item)}
-                      >
-                        ${item + 1}
-                      </span>
-                    </li>
-                  `
-            }
-            </li>
-          `,
-          )}
-        </ul>
+          : this._renderPrevNextButtons()}
       </div>
     `;
   }
