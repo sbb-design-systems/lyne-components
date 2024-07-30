@@ -202,17 +202,19 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
-  // FIXME add sbb-mini-button-group when merged
+  // FIXME add sbb-mini-button-group when merged - add size handling (m-s)
   private _renderPrevNextButtons(): TemplateResult {
     return html`
       <div class="sbb-paginator__buttons">
         <sbb-mini-button
           icon-name="chevron-left-small"
+          ?negative=${this.negative}
           ?disabled=${this.pageIndex === 0}
           @click=${() => this._changePage(this.pageIndex - 1)}
         ></sbb-mini-button>
         <sbb-mini-button
           icon-name="chevron-right-small"
+          ?negative=${this.negative}
           ?disabled=${this.pageIndex === this._numberOfPages() - 1}
           @click=${() => this._changePage(this.pageIndex + 1)}
         ></sbb-mini-button>
@@ -220,12 +222,13 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     `;
   }
 
+  // FIXME component with size=s needs sbb-select in size=s
   private _renderItemPerPageTemplate(): TemplateResult | typeof nothing {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
           <div class="sbb-paginator__page-size-options">
             Items per page
-            <sbb-form-field borderless width="collapse">
+            <sbb-form-field borderless width="collapse" ?negative=${this.negative}>
               <sbb-select
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}

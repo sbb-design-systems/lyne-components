@@ -14,12 +14,28 @@
     var(--sbb-animation-duration-2x)
   );
   --sbb-paginator-animation-easing: var(--sbb-animation-easing);
+  --sbb-paginator-height: var(--sbb-size-element-m);
+}
+
+:host([size='s']) {
+  --sbb-paginator-height: var(--sbb-size-element-xs);
+}
+
+:host([negative]) {
+  --sbb-paginator-label-color: var(--sbb-color-white);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+  .sbb-paginator__page[data-active] {
+    --sbb-paginator-label-color: var(--sbb-color-white);
+    --sbb-paginator-marker-color: var(--sbb-color-white);
+    --sbb-paginator-marker-transform: scale(1);
+  }
 }
 
 .sbb-paginator {
   display: flex;
   gap: var(--sbb-spacing-fixed-6x);
-  height: var(--sbb-size-element-m);
+  height: var(--sbb-paginator-height);
 }
 
 .sbb-paginator__buttons,
@@ -28,6 +44,7 @@
   align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
   white-space: nowrap;
+  color: var(--sbb-paginator-label-color);
 }
 
 .sbb-paginator__pages {
