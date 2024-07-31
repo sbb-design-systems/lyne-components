@@ -162,7 +162,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-link-list',
+  title: 'elements/sbb-link-list/sbb-link-list',
 };
 
 export default meta;
