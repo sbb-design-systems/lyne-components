@@ -210,6 +210,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
     removeInertMechanism();
+    this._scrollHandler.enableScroll();
   }
 
   private _checkListCase(event: Event): void {

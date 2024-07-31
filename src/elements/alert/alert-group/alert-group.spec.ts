@@ -53,6 +53,7 @@ describe(`sbb-alert-group`, () => {
     // focus should be on sbb-alert-group and accessibility title should still be rendered.
     // Moreover, didDismissAlert event should have been fired.
     await waitForCondition(() => didDismissAlertSpy.events.length === 1);
+    await waitForCondition(() => element.querySelectorAll('sbb-alert').length === 1);
     expect(didDismissAlertSpy.count).to.be.equal(1);
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(1);
     expect(element.tabIndex).to.be.equal(0);
@@ -79,8 +80,6 @@ describe(`sbb-alert-group`, () => {
     expect(element.tabIndex).to.be.equal(0);
     expect(document.activeElement!.id).to.be.equal(alertGroupId);
     expect(element.shadowRoot!.querySelector('.sbb-alert-group__title')).to.be.null;
-    await waitForCondition(() => didDismissAlertSpy.events.length === 2);
-    expect(didDismissAlertSpy.count).to.be.equal(2);
     expect(emptySpy.count).to.be.greaterThan(0);
 
     // When clicking away

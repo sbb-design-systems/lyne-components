@@ -3,9 +3,10 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
+import { pageScrollDisabled } from '../../core/dom.js';
 import { tabKey } from '../../core/testing/private/keys.js';
 import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import { waitForCondition, waitForLitRender, EventSpy, waitForEvent } from '../../core/testing.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
@@ -521,5 +522,15 @@ describe(`sbb-navigation`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+  });
+
+  it('should re-enable scrolling when removed from the DOM', async () => {
+    element.open();
+    await waitForEvent(element, SbbNavigationElement.events.didOpen);
+
+    expect(pageScrollDisabled()).to.be.true;
+
+    element.remove();
+    expect(pageScrollDisabled()).to.be.false;
   });
 });
