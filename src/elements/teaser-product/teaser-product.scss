@@ -37,6 +37,7 @@
 
 @include sbb.mq($to: large) {
   ::slotted(sbb-image) {
+    // We have to remove the image bottom border-radius when stacked
     --sbb-image-border-radius: var(--sbb-teaser-product-border-radius)
       var(--sbb-teaser-product-border-radius) 0 0;
   }

@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLinkBaseElement } from '../core/base-elements/link-base-element.js';
+import { SbbLinkBaseElement } from '../core/base-elements.js';
 import { slotState } from '../core/decorators.js';
 import { SbbNegativeMixin } from '../core/mixins/negative-mixin.js';
 
