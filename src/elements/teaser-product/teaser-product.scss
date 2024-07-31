@@ -1,0 +1,98 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-teaser-product-background-color: var(--sbb-color-cloud);
+  --sbb-teaser-product-background-gradient-direction: to right;
+  --sbb-teaser-product-background: var(--sbb-teaser-product-background-color);
+  --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
+  --sbb-teaser-product-content-color: inherit;
+  --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-teaser-product-footer-color: var(--sbb-color-anthracite);
+
+  @include sbb.mq($from: large) {
+    --sbb-teaser-product-background: linear-gradient(
+      var(--sbb-teaser-product-background-gradient-direction),
+      var(--sbb-teaser-product-background-color) 25%,
+      transparent 75%
+    );
+  }
+}
+
+:host([negative]) {
+  --sbb-teaser-product-background-color: var(--sbb-color-black);
+  --sbb-teaser-product-content-color: var(--sbb-color-white);
+  --sbb-teaser-product-footer-color: var(--sbb-color-white);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-title-text-color-normal-override: var(--sbb-color-white);
+}
+
+:host([image-alignment='before']) {
+  --sbb-teaser-product-background-gradient-direction: to left;
+}
+
+@include sbb.mq($to: large) {
+  ::slotted(sbb-image) {
+    --sbb-image-border-radius: var(--sbb-teaser-product-border-radius)
+      var(--sbb-teaser-product-border-radius) 0 0;
+  }
+}
+
+.sbb-teaser-product {
+  display: block;
+  position: relative;
+}
+
+.sbb-teaser-product__container {
+  display: block;
+  background: var(--sbb-teaser-product-background);
+  border-radius: 0 0 var(--sbb-teaser-product-border-radius) var(--sbb-teaser-product-border-radius);
+  padding: var(--sbb-spacing-responsive-s);
+
+  @include sbb.mq($from: large) {
+    display: grid;
+    grid:
+      'content .' 1fr
+      'footnote .' auto / 1fr 1fr;
+    position: absolute;
+    inset: 0;
+    background: var(--sbb-teaser-product-background);
+    border-radius: var(--sbb-teaser-product-border-radius);
+    padding-block: var(--sbb-teaser-product-container-padding-block) 0;
+    padding-inline: var(--sbb-spacing-responsive-xl);
+
+    :host([image-alignment='before']) & {
+      grid-template-areas:
+        '. content'
+        '. footnote';
+    }
+  }
+}
+
+.sbb-teaser-product__content {
+  grid-area: content;
+  align-self: center;
+  margin: 0;
+  color: var(--sbb-teaser-product-content-color);
+}
+
+.sbb-teaser-product__footnote {
+  grid-area: footnote;
+  margin: 0;
+  padding-block-start: var(--sbb-spacing-responsive-s);
+  color: var(--sbb-teaser-product-footer-color);
+  @include sbb.text-xxs--regular;
+
+  :host(:not([data-slot-names~='footnote'])) & {
+    padding-block-start: 0;
+  }
+
+  @include sbb.mq($from: large) {
+    min-height: var(--sbb-teaser-product-container-padding-block);
+    padding-block: var(--sbb-spacing-responsive-xs);
+  }
+}
