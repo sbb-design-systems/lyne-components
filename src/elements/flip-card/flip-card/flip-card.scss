@@ -42,7 +42,7 @@
   );
   --sbb-flip-card-details-transition-delay: var(--sbb-animation-duration-5x);
   --sbb-flip-card-summary-transition-delay: 0s;
-  --sbb-flip-card-details-min-height: fit-content;
+  --sbb-flip-card-details-min-height: var(--sbb-flip-card-details-scroll-height);
 
   ::slotted(sbb-flip-card-summary) {
     --sbb-flip-card-summary-opacity: 0;

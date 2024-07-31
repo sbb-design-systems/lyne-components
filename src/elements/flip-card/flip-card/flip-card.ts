@@ -77,8 +77,13 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
 
   /** Toggles the state of the sbb-flip-card. */
   public toggle(): void {
+    this.style?.setProperty(
+      '--sbb-flip-card-details-scroll-height',
+      `${this.details!.shadowRoot?.firstElementChild?.scrollHeight}px`,
+    );
     this._flipped = !this._flipped;
     this.toggleAttribute('data-flipped', this._flipped);
+    this.details!.toggleAttribute('data-flipped', this._flipped);
     this.summary!.inert = this._flipped;
     this.details!.inert = !this._flipped;
     this.flip.emit();

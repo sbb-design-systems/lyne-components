@@ -6,20 +6,32 @@
 :host {
   --sbb-flip-card-details-opacity: 0;
   --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-2x);
+  --sbb-flip-card-details-max-height: var(--sbb-flip-card-details-min-height);
+  --sbb-flip-card-details-padding: var(--sbb-spacing-responsive-s);
+  --sbb-flip-card-details-padding-block-end: calc(
+    var(--sbb-spacing-responsive-s) + var(--sbb-spacing-responsive-xs) + var(--sbb-size-element-m)
+  );
 
   display: contents;
+}
+
+:host([data-flipped]) {
+  --sbb-flip-card-details-max-height: calc(
+    var(--sbb-flip-card-details-min-height) + var(--sbb-flip-card-details-padding) +
+      var(--sbb-flip-card-details-padding-block-end)
+  );
 }
 
 .sbb-flip-card-details {
   pointer-events: none;
   color: var(--sbb-color-milk);
   opacity: var(--sbb-flip-card-details-opacity);
-  padding: var(--sbb-spacing-responsive-s);
-  padding-block-end: calc(
-    var(--sbb-spacing-responsive-s) + var(--sbb-spacing-responsive-xs) + var(--sbb-size-element-m)
-  );
+  padding: var(--sbb-flip-card-details-padding);
+  padding-block-end: var(--sbb-flip-card-details-padding-block-end);
+  max-height: var(--sbb-flip-card-details-max-height);
   transform: translateY(var(--sbb-flip-card-details-translate-y));
-  transition: var(--sbb-flip-card-details-transition-duration) ease-out;
-  transition-delay: var(--sbb-flip-card-details-transition-delay);
-  max-height: var(--sbb-flip-card-details-min-height);
+
+  // transition: var(--sbb-flip-card-details-transition-duration) ease-out;
+  // transition-delay: var(--sbb-flip-card-details-transition-delay);
+  transition: all var(--sbb-flip-card-details-transition-duration) ease-out;
 }
