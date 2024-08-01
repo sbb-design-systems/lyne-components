@@ -37,7 +37,7 @@ snapshots["sbb-paginator renders Shadow DOM"] =
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
-      data-active="true"
+      data-selected="true"
     >
       <span
         aria-current="true"
@@ -136,7 +136,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
-      data-active="true"
+      data-selected="true"
     >
       <span
         aria-current="true"
@@ -262,7 +262,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
 
-snapshots["sbb-paginator renders A11y tree Chrome"] = 
+snapshots["sbb-paginator renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -307,7 +307,7 @@ snapshots["sbb-paginator renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-paginator renders A11y tree Chrome */
 
-snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] = 
+snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] =
 `<sbb-paginator
   length="50"
   page-size="10"
@@ -343,7 +343,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
-      data-active="true"
+      data-selected="true"
     >
       <span
         aria-current="true"

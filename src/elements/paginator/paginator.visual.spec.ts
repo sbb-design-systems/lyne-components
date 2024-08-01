@@ -1,18 +1,39 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
+import {
+  describeViewports,
+  visualDiffDefault,
+  visualDiffStandardStates,
+} from '../core/testing/private.js';
 
 import './paginator.js';
 
 describe('sbb-paginator', () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const negative in [false, true]) {
-      for (const state of [visualDiffDefault, visualDiffFocus]) {
+  describeViewports({ viewports: ['small', 'medium'] }, () => {
+    for (const negative of [false, true]) {
+      for (const state of visualDiffStandardStates) {
         it(
           `${state.name} negative=${negative}`,
           state.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-paginator length="50" page-size="4"></sbb-paginator>`,
+              html` <sbb-paginator
+                ?negative=${negative || nothing}
+                length="50"
+                page-size="10"
+                pager-position="end"
+              ></sbb-paginator>`,
+              {
+                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                focusOutlineDark: negative,
+              },
+            );
+            const value = state.name === 'default' || state.name === 'focus' ? 0 : 2;
+            setup.withStateElement(
+              setup.snapshotElement
+                .querySelector('sbb-paginator')!
+                .shadowRoot!.querySelector(
+                  `.sbb-paginator__page--number-item[data-index="${value}"]`,
+                )!,
             );
           }),
         );
@@ -22,9 +43,14 @@ describe('sbb-paginator', () => {
         it(
           `pageIndex=${pageIndex} negative=${negative}`,
           visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(html`
-              <sbb-paginator length="100" page-index=${pageIndex}></sbb-paginator>
-            `);
+            await setup.withFixture(
+              html` <sbb-paginator
+                length="100"
+                page-index="${pageIndex}"
+                ?negative=${negative || nothing}
+              ></sbb-paginator>`,
+              { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
+            );
           }),
         );
       }
@@ -34,11 +60,13 @@ describe('sbb-paginator', () => {
         visualDiffDefault.with(async (setup) => {
           const pageSizeOptions = [10, 20, 50];
           await setup.withFixture(
-            html`<sbb-paginator
+            html` <sbb-paginator
               length="50"
               page-size="4"
-              page-size-options=${pageSizeOptions}
+              .pageSizeOptions="${pageSizeOptions}"
+              ?negative=${negative || nothing}
             ></sbb-paginator>`,
+            { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
           );
         }),
       );
@@ -47,7 +75,13 @@ describe('sbb-paginator', () => {
         `size=s negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-paginator length="50" page-size="4" size="s"></sbb-paginator>`,
+            html` <sbb-paginator
+              length="50"
+              page-size="4"
+              size="s"
+              ?negative=${negative || nothing}
+            ></sbb-paginator>`,
+            { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
           );
         }),
       );

@@ -26,18 +26,19 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   .sbb-paginator__page--number {
-    &[data-active] {
-      --sbb-paginator-label-color: var(--sbb-color-white);
-      --sbb-paginator-marker-color: var(--sbb-color-white);
-      --sbb-paginator-marker-transform: scale(1);
-    }
-
     &:hover {
       @include sbb.hover-mq($hover: true) {
         --sbb-paginator-label-color: var(--sbb-color-silver);
         --sbb-paginator-marker-color: var(--sbb-color-silver);
         --sbb-paginator-marker-transform: scale(1);
       }
+    }
+
+    &:active,
+    &[data-selected] {
+      --sbb-paginator-label-color: var(--sbb-color-white);
+      --sbb-paginator-marker-color: var(--sbb-color-white);
+      --sbb-paginator-marker-transform: scale(1);
     }
   }
 }
@@ -66,6 +67,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .sbb-paginator__page--ellipsis {
@@ -89,18 +92,19 @@
   color: var(--sbb-paginator-label-color);
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
 
-  &[data-active] {
-    --sbb-paginator-label-color: var(--sbb-color-charcoal);
-    --sbb-paginator-marker-color: var(--sbb-color-charcoal);
-    --sbb-paginator-marker-transform: scale(1);
-  }
-
   &:hover {
     @include sbb.hover-mq($hover: true) {
       --sbb-paginator-label-color: var(--sbb-color-granite);
       --sbb-paginator-marker-color: var(--sbb-color-granite);
       --sbb-paginator-marker-transform: scale(1);
     }
+  }
+
+  &:active,
+  &[data-selected] {
+    --sbb-paginator-label-color: var(--sbb-color-charcoal);
+    --sbb-paginator-marker-color: var(--sbb-color-charcoal);
+    --sbb-paginator-marker-transform: scale(1);
   }
 
   &::before {

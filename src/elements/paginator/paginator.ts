@@ -261,7 +261,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
               : html`
                   <li
                     class="sbb-paginator__page--number"
-                    data-active=${this.pageIndex === item || nothing}
+                    data-selected=${this.pageIndex === item || nothing}
                   >
                     <span
                       role="button"
