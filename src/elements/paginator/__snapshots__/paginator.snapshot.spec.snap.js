@@ -36,13 +36,13 @@ snapshots["sbb-paginator renders Shadow DOM"] =
   </div>
   <ul class="sbb-paginator__pages">
     <li
-      class="sbb-paginator__page"
+      class="sbb-paginator__page--number"
       data-active="true"
     >
       <span
         aria-current="true"
         aria-selected="true"
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
         tabindex="0"
@@ -50,9 +50,9 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         1
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="1"
         role="button"
         tabindex="-1"
@@ -60,9 +60,9 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         2
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="2"
         role="button"
         tabindex="-1"
@@ -70,9 +70,9 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         3
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="3"
         role="button"
         tabindex="-1"
@@ -80,14 +80,14 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         4
       </span>
     </li>
-    <li class="sbb-paginator__page">
-      <span class="sbb-paginator__page--ellipsis">
+    <li class="sbb-paginator__page--ellipsis">
+      <span class="sbb-paginator__page--ellipsis-item">
         ...
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="12"
         role="button"
         tabindex="-1"
@@ -135,13 +135,13 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
   </div>
   <ul class="sbb-paginator__pages">
     <li
-      class="sbb-paginator__page"
+      class="sbb-paginator__page--number"
       data-active="true"
     >
       <span
         aria-current="true"
         aria-selected="true"
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
         tabindex="0"
@@ -149,9 +149,9 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         1
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="1"
         role="button"
         tabindex="-1"
@@ -159,9 +159,9 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         2
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="2"
         role="button"
         tabindex="-1"
@@ -169,9 +169,9 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         3
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="3"
         role="button"
         tabindex="-1"
@@ -179,9 +179,9 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         4
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="4"
         role="button"
         tabindex="-1"
@@ -342,13 +342,13 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
   </div>
   <ul class="sbb-paginator__pages">
     <li
-      class="sbb-paginator__page"
+      class="sbb-paginator__page--number"
       data-active="true"
     >
       <span
         aria-current="true"
         aria-selected="true"
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
         tabindex="0"
@@ -356,9 +356,9 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         1
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="1"
         role="button"
         tabindex="-1"
@@ -366,9 +366,9 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         2
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="2"
         role="button"
         tabindex="-1"
@@ -376,9 +376,9 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         3
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="3"
         role="button"
         tabindex="-1"
@@ -386,9 +386,9 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         4
       </span>
     </li>
-    <li class="sbb-paginator__page">
+    <li class="sbb-paginator__page--number">
       <span
-        class="sbb-paginator__page--number"
+        class="sbb-paginator__page--number-item"
         data-index="4"
         role="button"
         tabindex="-1"

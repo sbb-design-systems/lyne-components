@@ -19,7 +19,7 @@ describe('sbb-paginator', () => {
 
   it('emits on click', async () => {
     const myEventNameSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
-    const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number');
+    const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item');
     pages[2].dispatchEvent(new Event('click'));
     await waitForLitRender(element);
     expect(myEventNameSpy.count).to.be.equal(1);
