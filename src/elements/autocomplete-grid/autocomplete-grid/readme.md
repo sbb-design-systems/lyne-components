@@ -5,11 +5,11 @@ If you don't need actions, use the [sbb-autocomplete](/docs/elements-sbb-autocom
 
 The component is strictly connected to:
 
-- the [sbb-autocomplete-grid-row](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-row--docs), which is a wrapper for both option and buttons;
-- the [sbb-autocomplete-grid-option](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-option--docs), which displays a selectable option within a panel;
-- the [sbb-autocomplete-grid-cell](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-cell--docs), which is a wrapper a for button element;
-- the [sbb-autocomplete-grid-button](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-button--docs), which displays a button within a row;
-- the [sbb-autocomplete-grid-optgroup](/docs/elements-sbb-autocomplete-sbb-autocomplete-grid-optgroup--docs), which can be used to group more row within a group.
+- the [sbb-autocomplete-grid-row](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-row--docs), which is a wrapper for both option and buttons;
+- the [sbb-autocomplete-grid-option](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs), which displays a selectable option within a panel;
+- the [sbb-autocomplete-grid-cell](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-cell--docs), which is a wrapper a for button element;
+- the [sbb-autocomplete-grid-button](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-button--docs), which displays a button within a row;
+- the [sbb-autocomplete-grid-optgroup](/docs/elements-sbb-autocomplete-grid-sbb-autocomplete-grid-optgroup--docs), which can be used to group more row within a group.
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
 and the input which will work as a trigger using the `trigger` prop.
