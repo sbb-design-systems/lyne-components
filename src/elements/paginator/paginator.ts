@@ -119,7 +119,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _getVisiblePages(): Element[] {
-    return Array.from(this.shadowRoot!.querySelectorAll('.sbb-paginator__page--number'));
+    return Array.from(this.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item'));
   }
 
   private _changePage(value: number): void {
@@ -254,15 +254,18 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
           (item): TemplateResult =>
             item === null
               ? html`
-                  <li class="sbb-paginator__page">
-                    <span class="sbb-paginator__page--ellipsis">...</span>
+                  <li class="sbb-paginator__page--ellipsis">
+                    <span class="sbb-paginator__page--ellipsis-item">...</span>
                   </li>
                 `
               : html`
-                  <li class="sbb-paginator__page" data-active=${this.pageIndex === item || nothing}>
+                  <li
+                    class="sbb-paginator__page--number"
+                    data-active=${this.pageIndex === item || nothing}
+                  >
                     <span
                       role="button"
-                      class="sbb-paginator__page--number"
+                      class="sbb-paginator__page--number-item"
                       data-index=${item}
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
                       aria-selected=${this.pageIndex === item ? 'true' : nothing}

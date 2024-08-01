@@ -25,10 +25,20 @@
   --sbb-paginator-label-color: var(--sbb-color-white);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
-  .sbb-paginator__page[data-active] {
-    --sbb-paginator-label-color: var(--sbb-color-white);
-    --sbb-paginator-marker-color: var(--sbb-color-white);
-    --sbb-paginator-marker-transform: scale(1);
+  .sbb-paginator__page--number {
+    &[data-active] {
+      --sbb-paginator-label-color: var(--sbb-color-white);
+      --sbb-paginator-marker-color: var(--sbb-color-white);
+      --sbb-paginator-marker-transform: scale(1);
+    }
+
+    &:hover {
+      @include sbb.hover-mq($hover: true) {
+        --sbb-paginator-label-color: var(--sbb-color-silver);
+        --sbb-paginator-marker-color: var(--sbb-color-silver);
+        --sbb-paginator-marker-transform: scale(1);
+      }
+    }
   }
 }
 
@@ -56,7 +66,23 @@
   padding: 0;
 }
 
-.sbb-paginator__page {
+.sbb-paginator__page--ellipsis {
+  position: relative;
+  color: var(--sbb-paginator-label-color);
+}
+
+.sbb-paginator__page--ellipsis-item {
+  @include sbb.text-s--regular;
+
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-inline: var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-paginator-label-color);
+  cursor: default;
+}
+
+.sbb-paginator__page--number {
   position: relative;
   color: var(--sbb-paginator-label-color);
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
@@ -65,6 +91,14 @@
     --sbb-paginator-label-color: var(--sbb-color-charcoal);
     --sbb-paginator-marker-color: var(--sbb-color-charcoal);
     --sbb-paginator-marker-transform: scale(1);
+  }
+
+  &:hover {
+    @include sbb.hover-mq($hover: true) {
+      --sbb-paginator-label-color: var(--sbb-color-granite);
+      --sbb-paginator-marker-color: var(--sbb-color-granite);
+      --sbb-paginator-marker-transform: scale(1);
+    }
   }
 
   &::before {
@@ -85,17 +119,7 @@
   }
 }
 
-.sbb-paginator__page--ellipsis {
-  @include sbb.text-s--regular;
-
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding-inline: var(--sbb-spacing-fixed-2x);
-  color: var(--sbb-paginator-label-color);
-}
-
-.sbb-paginator__page--number {
+.sbb-paginator__page--number-item {
   @include sbb.text-s--regular;
 
   height: 100%;
