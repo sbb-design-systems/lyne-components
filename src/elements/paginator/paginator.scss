@@ -22,7 +22,7 @@
 }
 
 :host([negative]) {
-  --sbb-paginator-label-color: var(--sbb-color-white);
+  --sbb-paginator-label-color: var(--sbb-color-smoke);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   .sbb-paginator__page--number {
@@ -50,6 +50,8 @@
 
 .sbb-paginator__buttons,
 .sbb-paginator__page-size-options {
+  @include sbb.text-s--regular;
+
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
