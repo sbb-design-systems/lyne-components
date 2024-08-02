@@ -7,7 +7,7 @@ import type { __nameUpperCase__ } from './__noPrefixName__.js';
 import './__noPrefixName__.js';
 
 describe(`__name__`, () => {
-  it('renders', () => {
+  describe('renders', () => {
     let element: __nameUpperCase__;
 
     beforeEach(async () => {
