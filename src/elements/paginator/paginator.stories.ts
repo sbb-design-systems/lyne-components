@@ -122,12 +122,7 @@ export const NegativeSizeS: StoryObj = {
 export const WithPageSizeOptions: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    length: 1000,
-    negative: true,
-    pageSizeOptions: pageSizeOptions.options![1],
-  },
+  args: { ...defaultArgs, length: 1000, pageSizeOptions: pageSizeOptions.options![1] },
 };
 
 export const WithPageSizeOptionsNegative: StoryObj = {
@@ -138,6 +133,23 @@ export const WithPageSizeOptionsNegative: StoryObj = {
     length: 1000,
     negative: true,
     pageSizeOptions: pageSizeOptions.options![1],
+  },
+};
+
+export const PagerPositionEnd: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'pager-position': 'end' },
+};
+
+export const PagerPositionEndPageSizeOptions: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    length: 1000,
+    pageSizeOptions: pageSizeOptions.options![1],
+    'pager-position': 'end',
   },
 };
 

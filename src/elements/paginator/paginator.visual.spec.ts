@@ -11,6 +11,8 @@ import './paginator.js';
 describe('sbb-paginator', () => {
   describeViewports({ viewports: ['small', 'medium'] }, () => {
     for (const negative of [false, true]) {
+      const wrapperStyle = { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined };
+
       for (const state of visualDiffStandardStates) {
         it(
           `${state.name} negative=${negative}`,
@@ -22,10 +24,7 @@ describe('sbb-paginator', () => {
                 page-size="10"
                 pager-position="end"
               ></sbb-paginator>`,
-              {
-                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                focusOutlineDark: negative,
-              },
+              { ...wrapperStyle, focusOutlineDark: negative },
             );
             const value = state.name === 'default' || state.name === 'focus' ? 0 : 2;
             setup.withStateElement(
@@ -49,7 +48,7 @@ describe('sbb-paginator', () => {
                 page-index="${pageIndex}"
                 ?negative=${negative || nothing}
               ></sbb-paginator>`,
-              { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
+              wrapperStyle,
             );
           }),
         );
@@ -66,7 +65,7 @@ describe('sbb-paginator', () => {
               .pageSizeOptions="${pageSizeOptions}"
               ?negative=${negative || nothing}
             ></sbb-paginator>`,
-            { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
+            wrapperStyle,
           );
         }),
       );
@@ -81,7 +80,22 @@ describe('sbb-paginator', () => {
               size="s"
               ?negative=${negative || nothing}
             ></sbb-paginator>`,
-            { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
+            wrapperStyle,
+          );
+        }),
+      );
+
+      it(
+        `pagerPosition=end negative=${negative}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html` <sbb-paginator
+              length="50"
+              page-size="4"
+              pager-position="end"
+              ?negative=${negative || nothing}
+            ></sbb-paginator>`,
+            wrapperStyle,
           );
         }),
       );

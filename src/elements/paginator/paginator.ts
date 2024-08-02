@@ -106,6 +106,8 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   protected override updated(changedProperties: PropertyValues<this>): void {
     super.updated(changedProperties);
+
+    /** Arrow navigation can force a rerender when ellipsis elements need to be displayed; the focus must stay on the correct element. */
     if (this._markForFocus && sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       const focusElement = this._getVisiblePages().find(
         (e) => this.pageIndex === +e.getAttribute('data-index')!,
@@ -118,10 +120,12 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
+  /** Returns the displayed page elements. */
   private _getVisiblePages(): Element[] {
     return Array.from(this.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item'));
   }
 
+  /** Change page by setting the `pageIndex`. */
   private _changePage(value: number): void {
     this.pageIndex = value;
   }
@@ -136,7 +140,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   /**
    * Calculates the current number of pages based on the `length` and the `pageSize`;
-   * value must be rounded up (e.g. length=21 - pageSize=10 => 3 pages).
+   * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
    */
   private _numberOfPages(): number {
     if (!this.pageSize) {
@@ -178,6 +182,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
+  /** Creates an array of consecutive numbers given the length and the starting value. */
   private _range(length: number, offset: number = 0): number[] {
     return Array.from({ length }, (_, k) => k + offset);
   }
@@ -193,8 +198,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
     if (event.key === ' ') {
       event.preventDefault();
-      const pages = this._getVisiblePages();
-      const current = pages.find((e: Element) => e === event.target);
+      const current = this._getVisiblePages().find((e: Element) => e === event.target);
       if (current) {
         this.pageIndex = +current.getAttribute('data-index')!;
         this._markForFocus = this.pageIndex;
