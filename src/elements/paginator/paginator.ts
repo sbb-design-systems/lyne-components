@@ -187,21 +187,44 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return Array.from({ length }, (_, k) => k + offset);
   }
 
+  /** Move to a specific page or calculate the next element from event. */
+  private _moveToPage(event: KeyboardEvent, index?: number): void {
+    event.preventDefault();
+    const pages = this._getVisiblePages();
+    const nextIndex =
+      index ??
+      getNextElementIndex(
+        event,
+        pages.findIndex((e: Element) => e === event.target),
+        pages.length,
+      );
+    (pages[nextIndex] as HTMLElement).focus();
+  }
+
   private _handleKeydown(event: KeyboardEvent): void {
     if (isArrowKeyPressed(event)) {
-      event.preventDefault();
-      const pages = this._getVisiblePages();
-      const current = pages.findIndex((e: Element) => e === event.target);
-      const nextIndex = getNextElementIndex(event, current, pages.length);
-      (pages[nextIndex] as HTMLElement).focus();
+      this._moveToPage(event);
     }
 
-    if (event.key === ' ') {
-      event.preventDefault();
-      const current = this._getVisiblePages().find((e: Element) => e === event.target);
-      if (current) {
-        this.pageIndex = +current.getAttribute('data-index')!;
-        this._markForFocus = this.pageIndex;
+    switch (event.key) {
+      case 'Home':
+      case 'PageUp':
+        this._moveToPage(event, 0);
+        break;
+
+      case 'End':
+      case 'PageDown':
+        this._moveToPage(event, this._getVisiblePages().length - 1);
+        break;
+
+      case ' ': {
+        event.preventDefault();
+        const current = this._getVisiblePages().find((e: Element) => e === event.target);
+        if (current) {
+          this.pageIndex = +current.getAttribute('data-index')!;
+          this._markForFocus = this.pageIndex;
+        }
+        break;
       }
     }
   }
