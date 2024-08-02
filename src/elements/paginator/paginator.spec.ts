@@ -2,6 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import type { SbbMiniButtonElement } from '../button/mini-button.js';
 import { tabKey } from '../core/testing/private/keys.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
@@ -19,12 +20,40 @@ describe('sbb-paginator', () => {
     assert.instanceOf(element, SbbPaginatorElement);
   });
 
+  it('change pages via buttons', async () => {
+    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+    const goToPrev: SbbMiniButtonElement = element.shadowRoot!.querySelector(
+      '#sbb-paginator-prev-page',
+    )!;
+    const goToNext: SbbMiniButtonElement = element.shadowRoot!.querySelector(
+      '#sbb-paginator-next-page',
+    )!;
+
+    expect(goToPrev).to.have.attribute('disabled');
+    goToPrev.click();
+    await waitForLitRender(element);
+    expect(pageChangedEventSpy.count).to.be.equal(0);
+
+    expect(goToNext).not.to.have.attribute('disabled');
+    goToNext.click();
+    await waitForLitRender(element);
+    expect(pageChangedEventSpy.count).to.be.equal(1);
+    expect(element.pageIndex).to.be.equal(1);
+    expect(goToPrev).not.to.have.attribute('disabled');
+    expect(goToNext).not.to.have.attribute('disabled');
+
+    goToPrev.click();
+    await waitForLitRender(element);
+    expect(pageChangedEventSpy.count).to.be.equal(2);
+    expect(element.pageIndex).to.be.equal(0);
+  });
+
   it('emits on click', async () => {
-    const myEventNameSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
     const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item');
     pages[2].dispatchEvent(new Event('click'));
     await waitForLitRender(element);
-    expect(myEventNameSpy.count).to.be.equal(1);
+    expect(pageChangedEventSpy.count).to.be.equal(1);
   });
 
   it('arrow navigation', async () => {

@@ -234,12 +234,14 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return html`
       <div class="sbb-paginator__buttons">
         <sbb-mini-button
+          id="sbb-paginator-prev-page"
           icon-name="chevron-left-small"
           ?negative=${this.negative}
           ?disabled=${this.pageIndex === 0}
           @click=${() => this._changePage(this.pageIndex - 1)}
         ></sbb-mini-button>
         <sbb-mini-button
+          id="sbb-paginator-next-page"
           icon-name="chevron-right-small"
           ?negative=${this.negative}
           ?disabled=${this.pageIndex === this._numberOfPages() - 1}
