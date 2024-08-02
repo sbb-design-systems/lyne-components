@@ -34,16 +34,22 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 
 ## Properties
 
-| Name          | Attribute      | Privacy | Type                  | Default | Description                                   |
-| ------------- | -------------- | ------- | --------------------- | ------- | --------------------------------------------- |
-| `imageAlt`    | `image-alt`    | public  | `string \| undefined` |         | Image alt text will be passed to `sbb-image`. |
-| `imageSrc`    | `image-src`    | public  | `string \| undefined` |         | Image src will be passed to `sbb-image`.      |
-| `linkContent` | `link-content` | public  | `string \| undefined` |         | Panel link text.                              |
+| Name                 | Attribute             | Privacy | Type                                    | Default | Description                                                       |
+| -------------------- | --------------------- | ------- | --------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the inner anchor element. |
+| `download`           | `download`            | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.       |
+| `href`               | `href`                | public  | `string \| undefined`                   |         | The href value you want to link to.                               |
+| `imageAlt`           | `image-alt`           | public  | `string \| undefined`                   |         | Image alt text will be passed to `sbb-image`.                     |
+| `imageSrc`           | `image-src`           | public  | `string \| undefined`                   |         | Image src will be passed to `sbb-image`.                          |
+| `linkContent`        | `link-content`        | public  | `string \| undefined`                   |         | Panel link text.                                                  |
+| `rel`                | `rel`                 | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
+| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                  |
 
 ## Slots
 
 | Name           | Description                                           |
 | -------------- | ----------------------------------------------------- |
 |                | Use the unnamed slot to add text content to the panel |
+| `chip`         | Link content of the panel                             |
 | `image`        | The background image that can be a `sbb-image`        |
 | `link-content` | Link content of the panel                             |
