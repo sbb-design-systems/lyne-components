@@ -71,25 +71,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.sbb-paginator__page--ellipsis {
-  position: relative;
-  color: var(--sbb-paginator-label-color);
-}
-
-.sbb-paginator__page--ellipsis-item {
-  @include sbb.text-s--regular;
-
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding-inline: var(--sbb-spacing-fixed-2x);
-  color: var(--sbb-paginator-label-color);
-  cursor: default;
-}
-
+.sbb-paginator__page--ellipsis,
 .sbb-paginator__page--number {
   position: relative;
   color: var(--sbb-paginator-label-color);
+}
+
+.sbb-paginator__page--number {
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
 
   &:hover {
@@ -125,15 +113,23 @@
   }
 }
 
+.sbb-paginator__page--ellipsis-item,
 .sbb-paginator__page--number-item {
   @include sbb.text-s--regular;
 
   height: 100%;
   display: flex;
   align-items: center;
-  cursor: pointer;
   padding-inline: var(--sbb-spacing-fixed-2x);
   color: var(--sbb-paginator-label-color);
+}
+
+.sbb-paginator__page--ellipsis-item {
+  cursor: default;
+}
+
+.sbb-paginator__page--number-item {
+  cursor: pointer;
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
   outline: none !important;
 
