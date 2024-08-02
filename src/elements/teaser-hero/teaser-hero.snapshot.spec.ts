@@ -1,14 +1,15 @@
 import { expect } from '@open-wc/testing';
-import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import { waitForImageReady } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { waitForImageReady } from '../core/testing.js';
+
 import type { SbbTeaserHeroElement } from './teaser-hero.js';
-
 import './teaser-hero.js';
-import '@sbb-esta/lyne-elements/image.js';
+import '../image.js';
+import '../chip.js';
 
-const imageUrl = import.meta.resolve('../../elements/core/testing/assets/lucerne.png');
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser-hero`, () => {
   let element: SbbTeaserHeroElement;
@@ -26,6 +27,7 @@ describe(`sbb-teaser-hero`, () => {
           image-alt="SBB CFF FFS Employee"
         >
           Break out and explore castles and palaces.
+          <sbb-chip slot="chip">Label</sbb-chip>
         </sbb-teaser-hero>`,
       );
       await waitForImageReady(element.shadowRoot!.querySelector('sbb-image')!);
@@ -50,6 +52,7 @@ describe(`sbb-teaser-hero`, () => {
           <span slot="link-content">Find out more</span>
           <sbb-image slot="image" image-src=${imageUrl} alt="SBB CFF FFS Employee"></sbb-image>
           </sbb-image>
+          <sbb-chip slot="chip">Label</sbb-chip>
         </sbb-teaser-hero>`,
       );
       await waitForImageReady(element.querySelector('sbb-image')!);

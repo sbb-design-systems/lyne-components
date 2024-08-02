@@ -1,4 +1,4 @@
-@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+@use '../core/styles' as sbb;
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
@@ -11,8 +11,7 @@
   outline: none !important;
 
   --sbb-teaser-hero-brightness-hover: 1.075;
-
-  @include sbb.panel-variables;
+  --sbb-teaser-hero-chip-inset: var(--sbb-spacing-responsive-xxxs) auto auto var(--sbb-spacing-responsive-xxxs);
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -41,6 +40,11 @@
   & {
     @include sbb.absolute-center-y;
   }
+
+  // Hide panel when no content or link-content is proview.
+  :host(:not([data-slot-names~='unnamed'], [data-slot-names~='link-content'], [link-content])) & {
+    display: none;
+  }
 }
 
 .sbb-teaser-hero__panel-text {
@@ -63,4 +67,10 @@ sbb-image {
   will-change: filter;
   filter: brightness(var(--sbb-teaser-hero-brightness, 1));
   transition: filter var(--sbb-panel-animation-duration) var(--sbb-panel-animation-easing);
+}
+
+::slotted([slot='chip']) {
+  position: absolute;
+  inset: var(--sbb-teaser-hero-chip-inset);
+  z-index: 1;
 }
