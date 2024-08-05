@@ -84,7 +84,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     this.openOverlayController?.abort();
     this.focusHandler.disconnect();
     this.removeInstanceFromGlobalCollection();
-    sbbInert.remove(this);
+    sbbInert.remove(this, true);
     this.scrollHandler.enableScroll();
   }
 

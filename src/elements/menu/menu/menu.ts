@@ -208,7 +208,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     this._menuController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
-    sbbInert.remove(this);
+    sbbInert.remove(this, true);
     this._scrollHandler.enableScroll();
   }
 

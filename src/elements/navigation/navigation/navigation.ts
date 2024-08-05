@@ -338,7 +338,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this._focusHandler.disconnect();
     this._navigationObserver.disconnect();
     this._navigationResizeObserver.disconnect();
-    sbbInert.remove(this);
+    sbbInert.remove(this, true);
     this._scrollHandler.enableScroll();
   }
 

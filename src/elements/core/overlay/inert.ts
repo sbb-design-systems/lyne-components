@@ -53,13 +53,13 @@ export class Inert {
     this._addInertAttributes();
   }
 
-  public remove(overlay: HTMLElement): void {
+  public remove(overlay: HTMLElement, silent = false): void {
     if (this._currentOverlay !== overlay) {
       // If e.g. a component gets disconnected, it could be that it is not the top most.
       // In this case, we can directly remove it, as there is currently no inert state applied.
       if (this._inertOverlays.includes(overlay)) {
         this._inertOverlays.splice(this._inertOverlays.indexOf(overlay), 1);
-      } else if (import.meta.env.DEV) {
+      } else if (import.meta.env.DEV && !silent) {
         console.warn(
           'Trying to remove inert state of an overlay which never had an applied inert state.',
           overlay,
