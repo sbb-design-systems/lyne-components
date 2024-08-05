@@ -58,3 +58,12 @@ export abstract class SbbOpenCloseBaseElement extends LitElement {
     this.state ||= 'closed';
   }
 }
+
+declare global {
+  interface GlobalEventHandlersEventMap {
+    willOpen: CustomEvent<void>;
+    willClose: CustomEvent<void>;
+    didOpen: CustomEvent<void>;
+    didClose: CustomEvent<void>;
+  }
+}

@@ -15,12 +15,3 @@ export function overlayGapFixCorners(): TemplateResult {
     </div>
   `;
 }
-
-declare global {
-  interface GlobalEventHandlersEventMap {
-    willOpen: CustomEvent<void>;
-    willClose: CustomEvent<void>;
-    didOpen: CustomEvent<void>;
-    didClose: CustomEvent<void>;
-  }
-}
