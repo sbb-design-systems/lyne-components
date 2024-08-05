@@ -89,9 +89,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     { composed: true, bubbles: true },
   );
 
-  private _markForFocus: number | null = null;
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
+  private _markForFocus: number | null = null;
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);

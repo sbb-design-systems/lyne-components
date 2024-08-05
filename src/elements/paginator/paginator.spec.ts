@@ -114,4 +114,20 @@ describe('sbb-paginator', () => {
       '0',
     );
   });
+
+  it('keyboard selection', async () => {
+    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+    await sendKeys({ press: tabKey });
+    await sendKeys({ press: tabKey });
+    expect(document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-index')).to.equal(
+      '0',
+    );
+    await sendKeys({ press: 'ArrowRight' });
+    expect(document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-index')).to.equal(
+      '1',
+    );
+    await sendKeys({ press: 'Space' });
+    await waitForLitRender(element);
+    expect(pageChangedEventSpy.count).to.be.equal(1);
+  });
 });

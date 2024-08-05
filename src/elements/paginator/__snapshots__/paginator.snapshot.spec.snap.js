@@ -3,15 +3,73 @@ export const snapshots = {};
 
 snapshots["sbb-paginator renders DOM"] = 
 `<sbb-paginator
-  length="50"
+  length="4"
   page-size="4"
-  size="m"
 >
 </sbb-paginator>
 `;
 /* end snapshot sbb-paginator renders DOM */
 
 snapshots["sbb-paginator renders Shadow DOM"] = 
+`<div class="sbb-paginator">
+  <div class="sbb-paginator__buttons">
+    <sbb-mini-button
+      aria-disabled="true"
+      aria-label="Previous page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-left-small"
+      id="sbb-paginator-prev-page"
+      role="button"
+    >
+    </sbb-mini-button>
+    <sbb-mini-button
+      aria-disabled="true"
+      aria-label="Next page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-right-small"
+      id="sbb-paginator-next-page"
+      role="button"
+    >
+    </sbb-mini-button>
+  </div>
+  <ul class="sbb-paginator__pages">
+    <li
+      class="sbb-paginator__page--number"
+      data-selected="true"
+    >
+      <span
+        aria-current="true"
+        aria-label="Page 1"
+        aria-selected="true"
+        class="sbb-paginator__page--number-item"
+        data-index="0"
+        role="button"
+        tabindex="0"
+      >
+        1
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+/* end snapshot sbb-paginator renders Shadow DOM */
+
+snapshots["sbb-paginator renders ellipsis on end side DOM"] = 
+`<sbb-paginator
+  length="50"
+  page-size="4"
+>
+</sbb-paginator>
+`;
+/* end snapshot sbb-paginator renders ellipsis on end side DOM */
+
+snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] = 
 `<div class="sbb-paginator">
   <div class="sbb-paginator__buttons">
     <sbb-mini-button
@@ -107,13 +165,231 @@ snapshots["sbb-paginator renders Shadow DOM"] =
   </ul>
 </div>
 `;
-/* end snapshot sbb-paginator renders Shadow DOM */
+/* end snapshot sbb-paginator renders ellipsis on end side Shadow DOM */
+
+snapshots["sbb-paginator renders ellipsis on start side DOM"] = 
+`<sbb-paginator
+  length="50"
+  page-index="10"
+  page-size="4"
+>
+</sbb-paginator>
+`;
+/* end snapshot sbb-paginator renders ellipsis on start side DOM */
+
+snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] = 
+`<div class="sbb-paginator">
+  <div class="sbb-paginator__buttons">
+    <sbb-mini-button
+      aria-label="Previous page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-left-small"
+      id="sbb-paginator-prev-page"
+      role="button"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+    <sbb-mini-button
+      aria-label="Next page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-right-small"
+      id="sbb-paginator-next-page"
+      role="button"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </div>
+  <ul class="sbb-paginator__pages">
+    <li class="sbb-paginator__page--number">
+      <span
+        aria-label="Page 1"
+        class="sbb-paginator__page--number-item"
+        data-index="0"
+        role="button"
+        tabindex="-1"
+      >
+        1
+      </span>
+    </li>
+    <li class="sbb-paginator__page--ellipsis">
+      <span class="sbb-paginator__page--ellipsis-item">
+        …
+      </span>
+    </li>
+    <li class="sbb-paginator__page--number">
+      <span
+        aria-label="Page 10"
+        class="sbb-paginator__page--number-item"
+        data-index="9"
+        role="button"
+        tabindex="-1"
+      >
+        10
+      </span>
+    </li>
+    <li
+      class="sbb-paginator__page--number"
+      data-selected="true"
+    >
+      <span
+        aria-current="true"
+        aria-label="Page 11"
+        aria-selected="true"
+        class="sbb-paginator__page--number-item"
+        data-index="10"
+        role="button"
+        tabindex="0"
+      >
+        11
+      </span>
+    </li>
+    <li class="sbb-paginator__page--number">
+      <span
+        aria-label="Page 12"
+        class="sbb-paginator__page--number-item"
+        data-index="11"
+        role="button"
+        tabindex="-1"
+      >
+        12
+      </span>
+    </li>
+    <li class="sbb-paginator__page--number">
+      <span
+        aria-label="Page 13"
+        class="sbb-paginator__page--number-item"
+        data-index="12"
+        role="button"
+        tabindex="-1"
+      >
+        13
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+/* end snapshot sbb-paginator renders ellipsis on start side Shadow DOM */
+
+snapshots["sbb-paginator renders ellipsis on both side DOM"] = 
+`<sbb-paginator
+  length="50"
+  page-index="7"
+  page-size="4"
+>
+</sbb-paginator>
+`;
+/* end snapshot sbb-paginator renders ellipsis on both side DOM */
+
+snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] = 
+`<div class="sbb-paginator">
+  <div class="sbb-paginator__buttons">
+    <sbb-mini-button
+      aria-label="Previous page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-left-small"
+      id="sbb-paginator-prev-page"
+      role="button"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+    <sbb-mini-button
+      aria-label="Next page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-right-small"
+      id="sbb-paginator-next-page"
+      role="button"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </div>
+  <ul class="sbb-paginator__pages">
+    <li class="sbb-paginator__page--number">
+      <span
+        aria-label="Page 1"
+        class="sbb-paginator__page--number-item"
+        data-index="0"
+        role="button"
+        tabindex="-1"
+      >
+        1
+      </span>
+    </li>
+    <li class="sbb-paginator__page--ellipsis">
+      <span class="sbb-paginator__page--ellipsis-item">
+        …
+      </span>
+    </li>
+    <li class="sbb-paginator__page--number">
+      <span
+        aria-label="Page 7"
+        class="sbb-paginator__page--number-item"
+        data-index="6"
+        role="button"
+        tabindex="-1"
+      >
+        7
+      </span>
+    </li>
+    <li
+      class="sbb-paginator__page--number"
+      data-selected="true"
+    >
+      <span
+        aria-current="true"
+        aria-label="Page 8"
+        aria-selected="true"
+        class="sbb-paginator__page--number-item"
+        data-index="7"
+        role="button"
+        tabindex="0"
+      >
+        8
+      </span>
+    </li>
+    <li class="sbb-paginator__page--number">
+      <span
+        aria-label="Page 9"
+        class="sbb-paginator__page--number-item"
+        data-index="8"
+        role="button"
+        tabindex="-1"
+      >
+        9
+      </span>
+    </li>
+    <li class="sbb-paginator__page--ellipsis">
+      <span class="sbb-paginator__page--ellipsis-item">
+        …
+      </span>
+    </li>
+    <li class="sbb-paginator__page--number">
+      <span
+        aria-label="Page 13"
+        class="sbb-paginator__page--number-item"
+        data-index="12"
+        role="button"
+        tabindex="-1"
+      >
+        13
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+/* end snapshot sbb-paginator renders ellipsis on both side Shadow DOM */
 
 snapshots["sbb-paginator renders with options Safari DOM"] = 
 `<sbb-paginator
   length="50"
   page-size="10"
-  size="m"
 >
 </sbb-paginator>
 `;
@@ -280,10 +556,10 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
 
-snapshots["sbb-paginator renders A11y tree Chrome"] = 
+snapshots["sbb-paginator renders A11y tree Firefox"] = 
 `<p>
   {
-  "role": "WebArea",
+  "role": "document",
   "name": "",
   "children": [
     {
@@ -293,43 +569,23 @@ snapshots["sbb-paginator renders A11y tree Chrome"] =
     },
     {
       "role": "button",
-      "name": "Next page"
+      "name": "Next page",
+      "disabled": true
     },
     {
       "role": "button",
       "name": "Page 1"
-    },
-    {
-      "role": "button",
-      "name": "Page 2"
-    },
-    {
-      "role": "button",
-      "name": "Page 3"
-    },
-    {
-      "role": "button",
-      "name": "Page 4"
-    },
-    {
-      "role": "text",
-      "name": "…"
-    },
-    {
-      "role": "button",
-      "name": "Page 13"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-paginator renders A11y tree Chrome */
+/* end snapshot sbb-paginator renders A11y tree Firefox */
 
 snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] = 
 `<sbb-paginator
   length="50"
   page-size="10"
-  size="m"
 >
 </sbb-paginator>
 `;
@@ -494,10 +750,10 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
 
-snapshots["sbb-paginator renders A11y tree Firefox"] = 
+snapshots["sbb-paginator renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "document",
+  "role": "WebArea",
   "name": "",
   "children": [
     {
@@ -507,35 +763,16 @@ snapshots["sbb-paginator renders A11y tree Firefox"] =
     },
     {
       "role": "button",
-      "name": "Next page"
+      "name": "Next page",
+      "disabled": true
     },
     {
       "role": "button",
       "name": "Page 1"
-    },
-    {
-      "role": "button",
-      "name": "Page 2"
-    },
-    {
-      "role": "button",
-      "name": "Page 3"
-    },
-    {
-      "role": "button",
-      "name": "Page 4"
-    },
-    {
-      "role": "text leaf",
-      "name": "…"
-    },
-    {
-      "role": "button",
-      "name": "Page 13"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-paginator renders A11y tree Firefox */
+/* end snapshot sbb-paginator renders A11y tree Chrome */
 
