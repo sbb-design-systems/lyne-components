@@ -12,10 +12,9 @@ import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import {
-  applyInertMechanism,
+  sbbInert,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
-  removeInertMechanism,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
@@ -196,7 +195,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
       this.state = 'opened';
       this.didOpen.emit();
       this._navigationResizeObserver.observe(this);
-      applyInertMechanism(this);
+      sbbInert.apply(this);
       this._focusHandler.trap(this, { filter: this._trapFocusFilter });
       this._attachWindowEvents();
       this._setNavigationFocus();
@@ -204,7 +203,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
       this.state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
-      removeInertMechanism();
+      sbbInert.remove(this);
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
       this.didClose.emit();
@@ -328,7 +327,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this.addEventListener('pointerdown', (event) => this._pointerDownListener(event), { signal });
 
     if (this.state === 'opened') {
-      applyInertMechanism(this);
+      sbbInert.apply(this);
     }
   }
 
@@ -339,7 +338,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this._focusHandler.disconnect();
     this._navigationObserver.disconnect();
     this._navigationResizeObserver.disconnect();
-    removeInertMechanism();
+    sbbInert.remove(this);
     this._scrollHandler.enableScroll();
   }
 

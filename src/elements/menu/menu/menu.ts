@@ -15,11 +15,10 @@ import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
-  applyInertMechanism,
   getElementPosition,
+  sbbInert,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
-  removeInertMechanism,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
 import type { SbbMenuButtonElement } from '../menu-button.js';
@@ -200,7 +199,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     this._configure(this.trigger);
 
     if (this.state === 'opened') {
-      applyInertMechanism(this);
+      sbbInert.apply(this);
     }
   }
 
@@ -209,7 +208,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     this._menuController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
-    removeInertMechanism();
+    sbbInert.remove(this);
     this._scrollHandler.enableScroll();
   }
 
@@ -305,14 +304,14 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     if (event.animationName === 'open' && this.state === 'opening') {
       this.state = 'opened';
       this.didOpen.emit();
-      applyInertMechanism(this);
+      sbbInert.apply(this);
       this._setMenuFocus();
       this._focusHandler.trap(this);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.state = 'closed';
       this._menu?.firstElementChild?.scrollTo(0, 0);
-      removeInertMechanism();
+      sbbInert.remove(this);
       setModalityOnNextFocus(this._triggerElement);
       // Manually focus last focused element
       this._triggerElement?.focus({
