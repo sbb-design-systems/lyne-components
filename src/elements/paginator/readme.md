@@ -29,14 +29,6 @@ The dropdown menu and buttons are facing each other with the page numbers always
 <sbb-paginator length="100" page-size="20" page-size-options="[10, 20, 50]"></sbb-paginator>
 ```
 
-## Style
-
-The component has two sizes, named `m` (default) and `s`.
-
-```html
-<sbb-paginator size="s" length="100" page-size="20"></sbb-paginator>
-```
-
 ## Events
 
 Consumers can listen to the `pageChanged` event on the `sbb-paginator` component to intercept the page change event.
@@ -46,15 +38,14 @@ The `event.detail` contains both the information about the `currentPageIndex` an
 
 ## Properties
 
-| Name              | Attribute           | Privacy | Type                    | Default   | Description                         |
-| ----------------- | ------------------- | ------- | ----------------------- | --------- | ----------------------------------- |
-| `length`          | `length`            | public  | `number`                | `0`       | Total number of items.              |
-| `negative`        | `negative`          | public  | `boolean`               | `false`   | Negative coloring variant flag.     |
-| `pageIndex`       | `page-index`        | public  | `number`                | `0`       | Current page index.                 |
-| `pagerPosition`   | `pager-position`    | public  | `'start' \| 'end'`      | `'start'` | Position of the prev/next buttons.  |
-| `pageSize`        | `page-size`         | public  | `number`                | `10`      | Number of items per page.           |
-| `pageSizeOptions` | `page-size-options` | public  | `number[] \| undefined` |           | The available `pageSize` choices.   |
-| `size`            | `size`              | public  | `'s' \| 'm'`            | `'m'`     | Size of the component (`s` or `m`). |
+| Name              | Attribute           | Privacy | Type                    | Default   | Description                        |
+| ----------------- | ------------------- | ------- | ----------------------- | --------- | ---------------------------------- |
+| `length`          | `length`            | public  | `number`                | `0`       | Total number of items.             |
+| `negative`        | `negative`          | public  | `boolean`               | `false`   | Negative coloring variant flag.    |
+| `pageIndex`       | `page-index`        | public  | `number`                | `0`       | Current page index.                |
+| `pagerPosition`   | `pager-position`    | public  | `'start' \| 'end'`      | `'start'` | Position of the prev/next buttons. |
+| `pageSize`        | `page-size`         | public  | `number`                | `10`      | Number of items per page.          |
+| `pageSizeOptions` | `page-size-options` | public  | `number[] \| undefined` |           | The available `pageSize` choices.  |
 
 ## Events
 

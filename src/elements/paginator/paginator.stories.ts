@@ -55,13 +55,6 @@ const pagerPosition: InputType = {
   options: ['start', 'end'],
 };
 
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['m', 's'],
-};
-
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -74,7 +67,6 @@ const defaultArgTypes: ArgTypes = {
   'page-index': pageIndex,
   pageSizeOptions,
   'pager-position': pagerPosition,
-  size,
   negative,
 };
 
@@ -84,7 +76,6 @@ const defaultArgs: Args = {
   'page-index': 0,
   pageSizeOptions: pageSizeOptions.options![0],
   'pager-position': pagerPosition.options![0],
-  size: size.options![0],
   negative: false,
 };
 
@@ -105,18 +96,6 @@ export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
-};
-
-export const SizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1] },
-};
-
-export const NegativeSizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true, size: size.options![1] },
 };
 
 export const WithPageSizeOptions: StoryObj = {

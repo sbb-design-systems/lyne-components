@@ -17,10 +17,6 @@
   --sbb-paginator-height: var(--sbb-size-element-m);
 }
 
-:host([size='s']) {
-  --sbb-paginator-height: var(--sbb-size-element-xs);
-}
-
 :host([negative]) {
   --sbb-paginator-label-color: var(--sbb-color-smoke);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);

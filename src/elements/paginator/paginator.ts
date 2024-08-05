@@ -83,9 +83,6 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** Position of the prev/next buttons. */
   @property({ attribute: 'pager-position' }) public pagerPosition: 'start' | 'end' = 'start';
 
-  /** Size of the component (`s` or `m`). */
-  @property({ reflect: true }) public size: 's' | 'm' = 'm';
-
   private _pageChanged: EventEmitter<SbbPaginatorPageChanged> = new EventEmitter(
     this,
     SbbPaginatorElement.events.pageChanged,
@@ -231,7 +228,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
-  // FIXME add sbb-mini-button-group when merged - add size handling (m-s)
+  // FIXME add sbb-mini-button-group when merged
   private _renderPrevNextButtons(): TemplateResult {
     return html`
       <div class="sbb-paginator__buttons">
@@ -255,7 +252,6 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     `;
   }
 
-  // FIXME component with size=s needs sbb-select in size=s
   private _renderItemPerPageTemplate(): TemplateResult | typeof nothing {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`

@@ -71,21 +71,6 @@ describe('sbb-paginator', () => {
       );
 
       it(
-        `size=s negative=${negative}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html` <sbb-paginator
-              length="50"
-              page-size="4"
-              size="s"
-              ?negative=${negative || nothing}
-            ></sbb-paginator>`,
-            wrapperStyle,
-          );
-        }),
-      );
-
-      it(
         `pagerPosition=end negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
