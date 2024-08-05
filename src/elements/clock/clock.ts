@@ -272,6 +272,7 @@ export class SbbClockElement extends LitElement {
     }
     this._clockHandSeconds.style.animation = '';
     // Hack to trigger reflow
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     this._clockHandSeconds.offsetHeight;
     this._clockHandSeconds.style.removeProperty('animation');
   }

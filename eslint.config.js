@@ -61,6 +61,12 @@ export default [
     },
   },
   {
+    files: ['**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/no-unused-expressions': 'off',
+    },
+  },
+  {
     files: ['**/*.ts'],
     rules: {
       '@typescript-eslint/array-type': 'error',
