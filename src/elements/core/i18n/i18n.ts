@@ -680,3 +680,24 @@ export const i18nFileSelectorCurrentlySelected = (filesName: string[]): Record<s
     it: 'Nessun file selezionato.',
   };
 };
+
+export const i18nNextPage: Record<string, string> = {
+  de: 'Nächste Seite',
+  en: 'Next page',
+  fr: 'Prochaine page',
+  it: 'Pagina successiva',
+};
+
+export const i18nPreviousPage: Record<string, string> = {
+  de: 'Vorherige Seite',
+  en: 'Previous page',
+  fr: 'Page précédente',
+  it: 'Pagina precedente',
+};
+
+export const i18nPage: Record<string, string> = {
+  de: 'Seite',
+  en: 'Page',
+  fr: 'Page',
+  it: 'Pagina',
+};

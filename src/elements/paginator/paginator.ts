@@ -10,8 +10,9 @@ import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../core/a11y.js';
-import { SbbConnectedAbortController } from '../core/controllers.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import { EventEmitter } from '../core/eventing.js';
+import { i18nPreviousPage, i18nNextPage, i18nPage } from '../core/i18n.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 import type { SbbSelectElement } from '../select.js';
 
@@ -93,6 +94,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   private _markForFocus: number | null = null;
   private _abort = new SbbConnectedAbortController(this);
+  private _language = new SbbLanguageController(this);
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
@@ -235,6 +237,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       <div class="sbb-paginator__buttons">
         <sbb-mini-button
           id="sbb-paginator-prev-page"
+          aria-label=${i18nPreviousPage[this._language.current]}
           icon-name="chevron-left-small"
           ?negative=${this.negative}
           ?disabled=${this.pageIndex === 0}
@@ -242,6 +245,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
         ></sbb-mini-button>
         <sbb-mini-button
           id="sbb-paginator-next-page"
+          aria-label=${i18nNextPage[this._language.current]}
           icon-name="chevron-right-small"
           ?negative=${this.negative}
           ?disabled=${this.pageIndex === this._numberOfPages() - 1}
@@ -284,7 +288,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
             item === null
               ? html`
                   <li class="sbb-paginator__page--ellipsis">
-                    <span class="sbb-paginator__page--ellipsis-item">...</span>
+                    <span class="sbb-paginator__page--ellipsis-item">…</span>
                   </li>
                 `
               : html`
@@ -296,6 +300,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                       role="button"
                       class="sbb-paginator__page--number-item"
                       data-index=${item}
+                      aria-label="${i18nPage[this._language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
                       aria-selected=${this.pageIndex === item ? 'true' : nothing}
                       tabindex=${this.pageIndex === item ? '0' : '-1'}
