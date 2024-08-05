@@ -194,8 +194,9 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
       <sbb-popover
         @willOpen=${() => this._calendarElement.resetPosition()}
         @didOpen=${() => {
-          sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
+          if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
             this._calendarElement.focus();
+          }
         }}
         .trigger=${this._triggerElement}
         hide-close-button

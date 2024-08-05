@@ -72,7 +72,7 @@ const imageHelperGetBreakpoints = (
 
   try {
     jsonObject = JSON.parse(jsonString);
-  } catch (error) {
+  } catch {
     logWarning?.();
     return [];
   }
