@@ -3,7 +3,7 @@ import { html, LitElement, type TemplateResult } from 'lit';
 
 import { fixture } from '../testing/private/fixture.js';
 
-import { Inert } from './inert.js';
+import { SbbInertHandler } from './inert.js';
 
 class ShadowElement extends LitElement {
   protected override render(): TemplateResult {
@@ -19,13 +19,13 @@ class ShadowElement extends LitElement {
 customElements.define('shadow-element', ShadowElement);
 
 describe('inert', () => {
-  let inertController: Inert;
+  let inertHandler: SbbInertHandler;
   let element: HTMLElement;
   let overlay: HTMLDivElement;
   let overlay2: HTMLDivElement;
 
   beforeEach(async () => {
-    inertController = new Inert();
+    inertHandler = new SbbInertHandler();
   });
 
   describe('light DOM', () => {
@@ -47,48 +47,48 @@ describe('inert', () => {
     });
 
     it('should mark inert', async () => {
-      inertController.apply(overlay);
+      inertHandler.apply(overlay);
 
       await expect(element).dom.to.equalSnapshot();
     });
 
     it('should remove inert', async () => {
-      inertController.apply(overlay);
-      inertController.remove(overlay);
+      inertHandler.apply(overlay);
+      inertHandler.remove(overlay);
 
       await expect(element).dom.to.equalSnapshot();
     });
 
     describe('stacked', () => {
       it('should mark inert', async () => {
-        inertController.apply(overlay);
-        inertController.apply(overlay2);
+        inertHandler.apply(overlay);
+        inertHandler.apply(overlay2);
 
         await expect(element).dom.to.equalSnapshot();
       });
 
       it('should remove inert level 2', async () => {
-        inertController.apply(overlay);
-        inertController.apply(overlay2);
-        inertController.remove(overlay2);
+        inertHandler.apply(overlay);
+        inertHandler.apply(overlay2);
+        inertHandler.remove(overlay2);
 
         await expect(element).dom.to.equalSnapshot();
       });
 
       it('should remove inert level 1', async () => {
-        inertController.apply(overlay);
-        inertController.apply(overlay2);
-        inertController.remove(overlay2);
-        inertController.remove(overlay);
+        inertHandler.apply(overlay);
+        inertHandler.apply(overlay2);
+        inertHandler.remove(overlay2);
+        inertHandler.remove(overlay);
 
         await expect(element).dom.to.equalSnapshot();
       });
 
       it('should handle level skip removal', async () => {
-        inertController.apply(overlay);
-        inertController.apply(overlay2);
-        inertController.remove(overlay);
-        inertController.remove(overlay2);
+        inertHandler.apply(overlay);
+        inertHandler.apply(overlay2);
+        inertHandler.remove(overlay);
+        inertHandler.remove(overlay2);
 
         await expect(element).dom.to.equalSnapshot();
       });
@@ -117,7 +117,7 @@ describe('inert', () => {
 
     describe('should mark inert', () => {
       beforeEach(async () => {
-        inertController.apply(overlay);
+        inertHandler.apply(overlay);
       });
 
       it('DOM', async () => {
@@ -131,8 +131,8 @@ describe('inert', () => {
 
     describe('should remove inert', () => {
       beforeEach(async () => {
-        inertController.apply(overlay);
-        inertController.remove(overlay);
+        inertHandler.apply(overlay);
+        inertHandler.remove(overlay);
       });
 
       it('DOM', async () => {

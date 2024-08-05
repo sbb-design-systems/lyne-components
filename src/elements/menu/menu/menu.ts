@@ -16,7 +16,7 @@ import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../cor
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
-  sbbInert,
+  sbbInertHandler,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
@@ -199,7 +199,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     this._configure(this.trigger);
 
     if (this.state === 'opened') {
-      sbbInert.apply(this);
+      sbbInertHandler.apply(this);
     }
   }
 
@@ -208,7 +208,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     this._menuController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
-    sbbInert.remove(this, true);
+    sbbInertHandler.remove(this, true);
     this._scrollHandler.enableScroll();
   }
 
@@ -304,14 +304,14 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     if (event.animationName === 'open' && this.state === 'opening') {
       this.state = 'opened';
       this.didOpen.emit();
-      sbbInert.apply(this);
+      sbbInertHandler.apply(this);
       this._setMenuFocus();
       this._focusHandler.trap(this);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.state = 'closed';
       this._menu?.firstElementChild?.scrollTo(0, 0);
-      sbbInert.remove(this);
+      sbbInertHandler.remove(this);
       setModalityOnNextFocus(this._triggerElement);
       // Manually focus last focused element
       this._triggerElement?.focus({

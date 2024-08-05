@@ -30,7 +30,7 @@ const removeSbbInert = (el: HTMLElement): void => {
   }
 };
 
-export class Inert {
+export class SbbInertHandler {
   private _modifiedElements = new Set<HTMLElement>();
   private _inertOverlays: HTMLElement[] = [];
 
@@ -105,4 +105,4 @@ export class Inert {
   }
 }
 
-export const sbbInert = new Inert();
+export const sbbInertHandler = new SbbInertHandler();

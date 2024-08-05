@@ -12,7 +12,7 @@ import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import {
-  sbbInert,
+  sbbInertHandler,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
@@ -195,7 +195,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
       this.state = 'opened';
       this.didOpen.emit();
       this._navigationResizeObserver.observe(this);
-      sbbInert.apply(this);
+      sbbInertHandler.apply(this);
       this._focusHandler.trap(this, { filter: this._trapFocusFilter });
       this._attachWindowEvents();
       this._setNavigationFocus();
@@ -203,7 +203,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
       this.state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
-      sbbInert.remove(this);
+      sbbInertHandler.remove(this);
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
       this.didClose.emit();
@@ -327,7 +327,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this.addEventListener('pointerdown', (event) => this._pointerDownListener(event), { signal });
 
     if (this.state === 'opened') {
-      sbbInert.apply(this);
+      sbbInertHandler.apply(this);
     }
   }
 
@@ -338,7 +338,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this._focusHandler.disconnect();
     this._navigationObserver.disconnect();
     this._navigationResizeObserver.disconnect();
-    sbbInert.remove(this, true);
+    sbbInertHandler.remove(this, true);
     this._scrollHandler.enableScroll();
   }
 

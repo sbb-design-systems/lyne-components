@@ -6,7 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseDialog, i18nGoBack } from '../core/i18n.js';
-import { sbbInert } from '../core/overlay.js';
+import { sbbInertHandler } from '../core/overlay.js';
 
 import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.js';
 import style from './overlay.scss?lit&inline';
@@ -99,7 +99,7 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
     if (event.animationName === 'open' && this.state === 'opening') {
       this.state = 'opened';
       this.didOpen.emit();
-      sbbInert.apply(this);
+      sbbInertHandler.apply(this);
       this.attachOpenOverlayEvents();
       this.setOverlayFocus();
       // Use timeout to read label after focused element
@@ -108,7 +108,7 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this._overlayContentElement?.scrollTo(0, 0);
       this.state = 'closed';
-      sbbInert.remove(this);
+      sbbInertHandler.remove(this);
       setModalityOnNextFocus(this.lastFocusedElement);
       // Manually focus last focused element
       this.lastFocusedElement?.focus();

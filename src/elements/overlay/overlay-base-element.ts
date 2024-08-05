@@ -9,7 +9,7 @@ import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
 import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
-import { sbbInert } from '../core/overlay.js';
+import { sbbInertHandler } from '../core/overlay.js';
 import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
 
 // A global collection of existing overlays.
@@ -67,7 +67,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     this.overlayController = new AbortController();
 
     if (this.state === 'opened') {
-      sbbInert.apply(this);
+      sbbInertHandler.apply(this);
     }
   }
 
@@ -84,7 +84,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     this.openOverlayController?.abort();
     this.focusHandler.disconnect();
     this.removeInstanceFromGlobalCollection();
-    sbbInert.remove(this, true);
+    sbbInertHandler.remove(this, true);
     this.scrollHandler.enableScroll();
   }
 
