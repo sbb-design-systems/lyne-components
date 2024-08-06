@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import sampleImages from '../core/images.js';
-import { fixture } from '../core/testing/private.js';
+import sampleImages from '../../core/images.js';
+import { fixture } from '../../core/testing/private.js';
 
 import { SbbTeaserProductElement } from './teaser-product.js';
-import '../image.js';
+import '../../image.js';
 
 describe('sbb-teaser-product', () => {
   let element: SbbTeaserProductElement;

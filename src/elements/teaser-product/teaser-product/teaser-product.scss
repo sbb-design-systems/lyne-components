@@ -1,0 +1,27 @@
+@use '../../core/styles/index' as sbb;
+
+/**
+ * Add the hover effect on the slotted image
+ */
+:host {
+  --sbb-teaser-product-brightness-hover: 1.075;
+  --sbb-teaser-product-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-teaser-product-animation-easing: var(--sbb-animation-easing);
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover[href]) {
+    --sbb-teaser-product-brightness: var(--sbb-teaser-product-brightness-hover);
+  }
+}
+
+::slotted([slot='image']),
+sbb-image {
+  will-change: filter;
+  filter: brightness(var(--sbb-teaser-product-brightness, 1));
+  transition: filter var(--sbb-teaser-product-animation-duration)
+    var(--sbb-teaser-product-animation-easing);
+}

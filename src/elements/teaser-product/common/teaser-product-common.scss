@@ -1,4 +1,4 @@
-@use '../core/styles' as sbb;
+@use '../../core/styles/index' as sbb;
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
@@ -10,7 +10,7 @@
   --sbb-teaser-product-background-gradient-direction: to right;
   --sbb-teaser-product-background: var(--sbb-teaser-product-background-color);
   --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
-  --sbb-teaser-product-content-color: inherit;
+  --sbb-teaser-product-content-color: var(--sbb-font-default-color);
   --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l);
   --sbb-teaser-product-footer-color: var(--sbb-color-anthracite);
 
@@ -43,7 +43,8 @@
   }
 }
 
-.sbb-teaser-product {
+.sbb-teaser-product,
+.sbb-teaser-product-static {
   display: block;
   position: relative;
 }

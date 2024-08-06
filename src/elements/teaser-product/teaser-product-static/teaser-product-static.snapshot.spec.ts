@@ -1,24 +1,24 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import sampleImages from '../core/images.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import sampleImages from '../../core/images.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbTeaserProductElement } from './teaser-product.js';
-import './teaser-product.js';
-import '../image.js';
+import type { SbbTeaserProductStaticElement } from './teaser-product-static.js';
+import './teaser-product-static.js';
+import '../../image.js';
 
-describe(`sbb-teaser-product`, () => {
+describe(`sbb-teaser-product-static`, () => {
   describe('renders', () => {
-    let element: SbbTeaserProductElement;
+    let element: SbbTeaserProductStaticElement;
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-teaser-product href="https://www.sbb.ch">
+        <sbb-teaser-product-static>
           <sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>
           Content
           <span slot="footnote">Footnote</span>
-        </sbb-teaser-product>
+        </sbb-teaser-product-static>
       `);
     });
 

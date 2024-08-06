@@ -4,14 +4,15 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import { type TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import sampleImages from '../core/images.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import sampleImages from '../../core/images.js';
 
 import readme from './readme.md?raw';
-import './teaser-product.js';
-import '../button/button.js';
-import '../image.js';
-import '../title.js';
+import './teaser-product-static.js';
+import '../../button/button.js';
+import '../../button/secondary-button.js';
+import '../../image.js';
+import '../../title.js';
 
 const imageAlignment: InputType = {
   control: {
@@ -26,36 +27,14 @@ const negative: InputType = {
   },
 };
 
-const href: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const accessibilityLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   'image-alignment': imageAlignment,
   negative,
-  href,
-  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs: Args = {
   'image-alignment': imageAlignment.options![0],
   negative: false,
-  href: '',
-  'accessibility-label': '',
 };
 
 const content = (): TemplateResult => html`
@@ -67,6 +46,9 @@ const content = (): TemplateResult => html`
     tortor, ut laoreet velit congue in.
     <div style="margin-block-start: var(--sbb-spacing-responsive-xxs);">
       <sbb-button>Label</sbb-button>
+      <sbb-secondary-button style="margin-inline-start: var(--sbb-spacing-fixed-4x)"
+        >Label</sbb-secondary-button
+      >
     </div>
   </div>
 `;
@@ -80,17 +62,17 @@ const footer = (): TemplateResult => html`
 `;
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-teaser-product ${sbbSpread(args)} style="height: 600px">
+  <sbb-teaser-product-static ${sbbSpread(args)} style="height: 600px">
     <sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>
     ${content()} ${footer()}
-  </sbb-teaser-product>
+  </sbb-teaser-product-static>
 `;
 
 const NoFooterTemplate = (args: Args): TemplateResult => html`
-  <sbb-teaser-product ${sbbSpread(args)} style="height: 600px">
+  <sbb-teaser-product-static ${sbbSpread(args)} style="height: 600px">
     <sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>
     ${content()}
-  </sbb-teaser-product>
+  </sbb-teaser-product-static>
 `;
 
 export const Default: StoryObj = {
@@ -124,7 +106,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-teaser/sbb-teaser-product',
+  title: 'elements/sbb-teaser/sbb-teaser-product-static',
 };
 
 export default meta;

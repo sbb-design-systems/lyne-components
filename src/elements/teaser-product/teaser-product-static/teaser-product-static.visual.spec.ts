@@ -1,13 +1,13 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, describeEach, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, describeEach, visualDiffDefault } from '../../core/testing/private.js';
 
-import './teaser-product.js';
-import '../button/button.js';
-import '../image.js';
-import '../title.js';
+import './teaser-product-static.js';
+import '../../button/button.js';
+import '../../image.js';
+import '../../title.js';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
 const content = (): TemplateResult => html`
   <div>
@@ -32,17 +32,17 @@ const template = (
   imageAlignment?: string,
   showFooter?: boolean,
 ): TemplateResult => html`
-  <sbb-teaser-product
+  <sbb-teaser-product-static
     ?negative=${negative}
     image-alignment=${imageAlignment || nothing}
     style="height: 600px"
   >
     <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
     ${content()} ${showFooter ? footer() : nothing}
-  </sbb-teaser-product>
+  </sbb-teaser-product-static>
 `;
 
-describe('sbb-teaser-product', () => {
+describe('sbb-teaser-product-static', () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     const cases = {
       negative: [true, false],

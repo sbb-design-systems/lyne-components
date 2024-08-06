@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import sampleImages from '../core/images.js';
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import sampleImages from '../../core/images.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbTeaserProductElement } from './teaser-product.js';
-import '../image.js';
+import '../../image.js';
 
 describe(`sbb-teaser-product ssr`, () => {
   describe('renders', () => {
@@ -21,7 +21,7 @@ describe(`sbb-teaser-product ssr`, () => {
           </sbb-teaser-product>
         `,
         {
-          modules: ['./teaser-product.js', '../image.js'],
+          modules: ['./teaser-product.js', '../../image.js'],
         },
       );
     });
