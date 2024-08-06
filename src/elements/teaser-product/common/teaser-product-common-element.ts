@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
@@ -8,8 +8,6 @@ import {
   type SbbNegativeMixinType,
   type AbstractConstructor,
 } from '../../core/mixins.js';
-
-import style from './teaser-product-common.scss?lit&inline';
 
 export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixinType {
   public imageAlignment?: 'after' | 'before';
@@ -26,8 +24,6 @@ export const SbbTeaserProductCommonElementMixin = <
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbTeaserProductCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
-
     /** Whether the content and footer are aligned 'before' or 'after' the image */
     @property({ attribute: 'image-alignment', reflect: true })
     public imageAlignment: 'after' | 'before' = 'after';

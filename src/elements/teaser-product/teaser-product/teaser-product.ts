@@ -2,10 +2,9 @@ import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.js';
-import { SbbTeaserProductCommonElementMixin } from '../common/teaser-product-base-element.js';
-import style from '../common/teaser-product-common.scss?lit&inline';
+import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.js';
 
-import extensionStyle from './teaser-product.scss?lit&inline';
+import style from './teaser-product.scss?lit&inline';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product
@@ -18,7 +17,7 @@ import extensionStyle from './teaser-product.scss?lit&inline';
 export class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(
   SbbLinkBaseElement,
 ) {
-  public static override styles: CSSResultGroup = [style, extensionStyle];
+  public static override styles: CSSResultGroup = [teaserProductCommonStyle, style];
 }
 
 declare global {

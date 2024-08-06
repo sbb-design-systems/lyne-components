@@ -1,7 +1,8 @@
+import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement } from '../../core/base-elements.js';
-import { SbbTeaserProductCommonElementMixin } from '../common/teaser-product-base-element.js';
+import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.js';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product
@@ -13,7 +14,9 @@ import { SbbTeaserProductCommonElementMixin } from '../common/teaser-product-bas
 @customElement('sbb-teaser-product-static')
 export class SbbTeaserProductStaticElement extends SbbTeaserProductCommonElementMixin(
   SbbActionBaseElement,
-) {}
+) {
+  public static override styles: CSSResultGroup = [teaserProductCommonStyle];
+}
 
 declare global {
   interface HTMLElementTagNameMap {
