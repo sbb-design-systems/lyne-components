@@ -26,7 +26,7 @@ The `sbb-flip-card` will switch to the flipped state after the user clicks on it
 | Name        | Attribute | Privacy | Type                        | Default | Description                                |
 | ----------- | --------- | ------- | --------------------------- | ------- | ------------------------------------------ |
 | `details`   | -         | public  | `SbbFlipCardDetailsElement` |         | Returns the slotted sbb-flip-card-details. |
-| `isFlipped` | -         | public  | `boolean`                   |         | Returns whether the flip card is flipped.  |
+| `isFlipped` | -         | public  | `boolean`                   |         | Whether the flip card is flipped.          |
 | `summary`   | -         | public  | `SbbFlipCardSummaryElement` |         | Returns the slotted sbb-flip-card-summary. |
 
 ## Methods

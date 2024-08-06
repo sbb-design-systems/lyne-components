@@ -41,7 +41,7 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
     return this.querySelector('sbb-flip-card-details')!;
   }
 
-  /** Returns whether the flip card is flipped. */
+  /** Whether the flip card is flipped. */
   public get isFlipped(): boolean {
     return this._flipped;
   }
