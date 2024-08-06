@@ -1,10 +1,10 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbLinkListAnchorElement } from './link-list-anchor.js';
-import '../link.js';
+import '../../link.js';
 
 describe(`sbb-link-list-anchor ssr`, () => {
   let root: SbbLinkListAnchorElement;

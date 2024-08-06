@@ -1,12 +1,11 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbLinkListBaseElement } from '../link-list/common/link-list-base.js';
-import baseStyle from '../link-list/common/link-list-base.scss?lit&inline';
+import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.js';
 
 import style from './link-list-anchor.scss?lit&inline';
 
-import '../title.js';
+import '../../title.js';
 
 /**
  * It displays a list of `sbb-block-link`.
@@ -16,7 +15,7 @@ import '../title.js';
  */
 @customElement('sbb-link-list-anchor')
 export class SbbLinkListAnchorElement extends SbbLinkListBaseElement {
-  public static override styles: CSSResultGroup = [baseStyle, style];
+  public static override styles: CSSResultGroup = [linkListBaseStyle, style];
 }
 
 declare global {

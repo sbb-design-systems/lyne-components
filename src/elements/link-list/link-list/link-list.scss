@@ -1,4 +1,4 @@
-@use '../core/styles' as sbb;
+@use '../../core/styles/index' as sbb;
 
 @mixin horizontal-orientation {
   --sbb-link-list-flex-flow: row wrap;

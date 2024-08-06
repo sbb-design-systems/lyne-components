@@ -11,11 +11,11 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './link-list-anchor.js';
-import '../link/block-link.js';
+import '../../link/block-link.js';
 
 const LinkTemplate = (args: Args): TemplateResult => html`
   <sbb-block-link

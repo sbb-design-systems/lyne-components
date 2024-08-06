@@ -3,10 +3,10 @@ import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/we
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../link/block-link.js';
+import '../../link/block-link.js';
 import './link-list.js';
 
 const LinkTemplate = (args: Args): TemplateResult => html`

@@ -1,9 +1,9 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import './link-list-anchor.js';
-import '../link/block-link.js';
+import '../../link/block-link.js';
 
 const links = (): TemplateResult[] =>
   new Array(5).fill('').map((_v, i) => html` <sbb-block-link href="#">Link ${i}</sbb-block-link> `);
