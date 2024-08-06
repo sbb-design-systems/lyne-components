@@ -1,18 +1,12 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { slotState } from '../core/decorators.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.js';
-import { SbbNamedSlotListMixin, SbbNegativeMixin, type WithListChildren } from '../core/mixins.js';
-import type {
-  SbbBlockLinkButtonElement,
-  SbbBlockLinkElement,
-  SbbBlockLinkStaticElement,
-  SbbLinkSize,
-} from '../link.js';
-import type { SbbTitleLevel } from '../title.js';
+import { type WithListChildren } from '../core/mixins.js';
+import type { SbbLinkSize } from '../link.js';
 
+import { SbbLinkListBaseElement } from './common/link-list-base.js';
+import baseStyle from './common/link-list-base.scss?lit&inline';
 import style from './link-list.scss?lit&inline';
 
 import '../title.js';
@@ -24,25 +18,8 @@ import '../title.js';
  * @slot title - Use this slot to provide a title.
  */
 @customElement('sbb-link-list')
-@slotState()
-export class SbbLinkListElement extends SbbNegativeMixin(
-  SbbNamedSlotListMixin<
-    SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement,
-    typeof LitElement
-  >(LitElement),
-) {
-  public static override styles: CSSResultGroup = style;
-  protected override readonly listChildLocalNames = [
-    'sbb-block-link',
-    'sbb-block-link-button',
-    'sbb-block-link-static',
-  ];
-
-  /** The title text we want to show before the list. */
-  @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
-
-  /** The semantic level of the title, e.g. 2 = h2. */
-  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '2';
+export class SbbLinkListElement extends SbbLinkListBaseElement {
+  public static override styles: CSSResultGroup = [baseStyle, style];
 
   /**
    * Text size of the nested sbb-block-link instances. This will overwrite the size attribute of
@@ -60,33 +37,11 @@ export class SbbLinkListElement extends SbbNegativeMixin(
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
 
-    if (
-      changedProperties.has('size') ||
-      changedProperties.has('negative') ||
-      changedProperties.has('listChildren')
-    ) {
+    if (changedProperties.has('size')) {
       for (const link of this.listChildren) {
-        link.negative = this.negative;
         link.size = this.size;
       }
     }
-  }
-
-  protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-link-list-wrapper">
-        <sbb-title
-          class="sbb-link-list-title"
-          level=${this.titleLevel || nothing}
-          visual-level="5"
-          ?negative=${this.negative}
-          id="sbb-link-list-title-id"
-        >
-          <slot name="title">${this.titleContent}</slot>
-        </sbb-title>
-        ${this.renderList({ ariaLabelledby: 'sbb-link-list-title-id' })}
-      </div>
-    `;
   }
 }
 
