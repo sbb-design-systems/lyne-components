@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
 
@@ -31,6 +31,7 @@ describe('sbb-flip-card', () => {
   });
 
   it('it toggles on click', async () => {
+    const flipSpy = new EventSpy(SbbFlipCardElement.events.flip);
     const summary: SbbFlipCardSummaryElement = element.summary;
     const details: SbbFlipCardDetailsElement = element.details;
 
@@ -40,6 +41,9 @@ describe('sbb-flip-card', () => {
     element.shadowRoot?.querySelector('button')!.click();
     await waitForLitRender(element);
 
+    await waitForCondition(() => flipSpy.events.length === 1);
+    expect(flipSpy.count).to.be.equal(1);
+
     expect(element).to.have.attribute('data-flipped');
 
     expect(summary.inert).to.be.equal(true);
@@ -47,6 +51,7 @@ describe('sbb-flip-card', () => {
   });
 
   it('it toggles programmatically', async () => {
+    const flipSpy = new EventSpy(SbbFlipCardElement.events.flip);
     const summary: SbbFlipCardSummaryElement = element.summary;
     const details: SbbFlipCardDetailsElement = element.details;
 
@@ -55,6 +60,9 @@ describe('sbb-flip-card', () => {
 
     element.toggle();
     await waitForLitRender(element);
+
+    await waitForCondition(() => flipSpy.events.length === 1);
+    expect(flipSpy.count).to.be.equal(1);
 
     expect(element).to.have.attribute('data-flipped');
 
