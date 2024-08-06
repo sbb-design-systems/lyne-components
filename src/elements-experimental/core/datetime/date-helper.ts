@@ -73,7 +73,7 @@ export const durationToTime = (
   const days = differenceInDays(future, now);
   if (days > 0) {
     short.push(`${days} d`);
-    currentLanguage &&
+    if (currentLanguage) {
       long.push(
         `${days} ${
           days > 1
@@ -81,13 +81,14 @@ export const durationToTime = (
             : i18nDurationDay.single.long[currentLanguage]
         }`,
       );
+    }
     future = subDays(future, days);
   }
 
   const hours = differenceInHours(future, now);
   if (hours > 0) {
     short.push(`${hours} h`);
-    currentLanguage &&
+    if (currentLanguage) {
       long.push(
         `${hours} ${
           hours > 1
@@ -95,13 +96,14 @@ export const durationToTime = (
             : i18nDurationHour.single.long[currentLanguage]
         }`,
       );
+    }
     future = subHours(future, hours);
   }
 
   const minutes = differenceInMinutes(future, now);
   if (minutes > 0) {
     short.push(`${minutes} min`);
-    currentLanguage &&
+    if (currentLanguage) {
       long.push(
         `${minutes} ${
           minutes > 1
@@ -109,6 +111,7 @@ export const durationToTime = (
             : i18nDurationMinute.single.long[currentLanguage]
         }`,
       );
+    }
   }
 
   return {
