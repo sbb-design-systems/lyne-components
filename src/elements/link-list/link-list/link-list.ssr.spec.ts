@@ -37,7 +37,7 @@ describe(`sbb-link-list ssr`, () => {
           >
         </sbb-link-list>
       `,
-      { modules: ['./link-list.js', '../link.js'] },
+      { modules: ['./link-list.js', '../../link.js'] },
     );
   });
 

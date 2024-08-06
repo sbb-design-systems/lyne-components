@@ -50,7 +50,7 @@ snapshots["sbb-link-list-anchor renders DOM"] =
 /* end snapshot sbb-link-list-anchor renders DOM */
 
 snapshots["sbb-link-list-anchor renders Shadow DOM"] = 
-`<div class="sbb-link-list-anchor-wrapper">
+`<div class="sbb-link-list-wrapper">
   <sbb-title
     aria-level="2"
     class="sbb-link-list-title"
