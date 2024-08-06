@@ -8,7 +8,7 @@
   --sbb-link-list-anchor-border-color: var(--sbb-color-granite);
 }
 
-::slotted(:is(sbb-block-link, sbb-block-link-button, sbb-block-link-static)) {
+::slotted([data-link]) {
   --sbb-link-text-decoration: none;
 }
 
