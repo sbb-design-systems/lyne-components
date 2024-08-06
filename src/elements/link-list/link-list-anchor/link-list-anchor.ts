@@ -5,8 +5,6 @@ import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.js';
 
 import style from './link-list-anchor.scss?lit&inline';
 
-import '../../title.js';
-
 /**
  * It displays a list of `sbb-block-link`.
  *

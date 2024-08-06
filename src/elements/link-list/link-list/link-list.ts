@@ -8,8 +8,6 @@ import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.js';
 
 import style from './link-list.scss?lit&inline';
 
-import '../../title.js';
-
 /**
  * It displays a list of `sbb-block-link`.
  *

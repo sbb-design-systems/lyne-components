@@ -1,4 +1,4 @@
-The `sbb-link-list-anchor` is a component that can be used to collect and display more [sbb-block-link](/docs/elements-sbb-link-sbb-block-link--docs).
+The `sbb-link-list-anchor` is a component that can be used to collect and display [sbb-block-link](/docs/elements-sbb-link-sbb-block-link--docs).
 It is mainly intended to be used as a link list for page anchors.
 
 ```html
