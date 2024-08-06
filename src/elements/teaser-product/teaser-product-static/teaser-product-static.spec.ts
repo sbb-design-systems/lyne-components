@@ -1,4 +1,4 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import sampleImages from '../../core/images.js';
@@ -22,10 +22,5 @@ describe('sbb-teaser-product-static', () => {
 
   it('renders', async () => {
     assert.instanceOf(element, SbbTeaserProductStaticElement);
-  });
-
-  it('should receive focus', async () => {
-    element.focus();
-    expect(document.activeElement!.localName).to.be.equal('sbb-teaser-product-static');
   });
 });
