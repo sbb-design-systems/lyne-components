@@ -32,6 +32,7 @@
   --sbb-navigation-content-transform: translateX(0);
   --sbb-navigation-width: 100%;
   --sbb-navigation-height: 100vh;
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   display: block;
   position: fixed;
@@ -44,8 +45,6 @@
   @supports (height: 100dvh) {
     --sbb-navigation-height: 100dvh;
   }
-
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   @include sbb.mq($from: medium) {
     --sbb-navigation-grid-column: 1 / 9;
@@ -200,15 +199,17 @@
   @include transition(transform);
   @include sbb.scrollbar($negative: true);
 
-  display: flex;
-  flex-direction: column;
-  gap: var(--sbb-spacing-responsive-xxl);
-  position: relative;
-  height: var(--sbb-navigation-height);
-  padding-inline: var(--sbb-navigation-padding-inline);
-  padding-block: var(--sbb-navigation-padding-block-start) var(--sbb-navigation-padding-block-end);
-  overflow-y: auto;
-  transform: var(--sbb-navigation-content-transform);
+  & {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sbb-spacing-responsive-xxl);
+    position: relative;
+    height: var(--sbb-navigation-height);
+    padding-inline: var(--sbb-navigation-padding-inline);
+    padding-block: var(--sbb-navigation-padding-block-start) var(--sbb-navigation-padding-block-end);
+    overflow-y: auto;
+    transform: var(--sbb-navigation-content-transform);
+  }
 }
 
 ::slotted(:first-child) {

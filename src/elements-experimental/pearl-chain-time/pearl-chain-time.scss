@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-pearl-chain-time-height: auto;
 
   @include sbb.mq($from: small) {
@@ -13,8 +15,6 @@
   @include sbb.mq($from: medium) {
     --sbb-pearl-chain-time-height: #{sbb.px-to-rem-build(28)};
   }
-
-  display: block;
 }
 
 .sbb-pearl-chain__time {
