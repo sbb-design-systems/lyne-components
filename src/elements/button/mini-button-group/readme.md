@@ -1,4 +1,5 @@
-The `sbb-mini-button-group` component displays a set of [sbb-mini-button](/docs/elements-sbb-button-sbb-mini-button--docs) optionally separated by a [sbb-divider](/docs/elements-sbb-divider--docs).
+The `sbb-mini-button-group` component displays a set of [sbb-mini-button](/docs/elements-sbb-button-sbb-mini-button--docs)
+optionally separated by a [sbb-divider](/docs/elements-sbb-divider--docs).
 
 ```html
 <sbb-mini-button-group accessibility-label="...">
@@ -27,11 +28,11 @@ Use the `accessibility-label` property to describe the purpose of the `sbb-mini-
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                     | Default | Description                                                          |
-| -------------------- | --------------------- | ------- | ------------------------ | ------- | -------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`    |         | This will be forwarded as aria-label to the relevant nested element. |
-| `negative`           | `negative`            | public  | `boolean`                | `false` | Negative coloring variant flag.                                      |
-| `size`               | `size`                | public  | `SbbMiniButtonGroupSize` | `'m'`   | Size variant, either s, m, l or xl.                                  |
+| Name                 | Attribute             | Privacy | Type                     | Default | Description                                                                 |
+| -------------------- | --------------------- | ------- | ------------------------ | ------- | --------------------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`    |         | This will be forwarded as aria-label to the list that contains the buttons. |
+| `negative`           | `negative`            | public  | `boolean`                | `false` | Negative coloring variant flag.                                             |
+| `size`               | `size`                | public  | `SbbMiniButtonGroupSize` | `'m'`   | Size variant, either s, m, l or xl.                                         |
 
 ## Slots
 

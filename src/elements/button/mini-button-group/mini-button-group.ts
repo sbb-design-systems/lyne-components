@@ -11,7 +11,8 @@ import style from './mini-button-group.scss?lit&inline';
 export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl';
 
 /**
- * Display a list of `sbb-mini-button` elements in a horizontal container
+ * Display a list of `sbb-mini-button` elements in a horizontal container,
+ * possibly grouped using the `sbb-divider` component.
  *
  * @slot - Use the unnamed slot to add `sbb-mini-button` and `sbb-divider` elements.
  */
@@ -22,7 +23,7 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-mini-button', 'sbb-divider'];
 
-  /** This will be forwarded as aria-label to the relevant nested element. */
+  /** This will be forwarded as aria-label to the list that contains the buttons. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel?: string;
 
   /** Size variant, either s, m, l or xl. */

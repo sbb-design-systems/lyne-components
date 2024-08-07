@@ -49,18 +49,16 @@ const defaultArgs: Args = {
   'accessibility-label': '',
 };
 
-const miniButtons = (n = 1): TemplateResult[] =>
-  new Array(n)
-    .fill(null)
-    .map(() => html`<sbb-mini-button icon-name="pen-small"></sbb-mini-button>`);
-
 const Template = (args: Args): TemplateResult =>
   html` <sbb-mini-button-group ${sbbSpread(args)}>
-    ${miniButtons(2)}
+    <sbb-mini-button aria-label="previous" icon-name="chevron-small-left-small"></sbb-mini-button>
+    <sbb-mini-button aria-label="next" icon-name="chevron-small-right-small"></sbb-mini-button>
     <sbb-divider orientation="vertical"></sbb-divider>
-    ${miniButtons(3)}
+    <sbb-mini-button aria-label="edit" icon-name="pen-small"></sbb-mini-button>
+    <sbb-mini-button aria-label="duplicate" icon-name="copy-small"></sbb-mini-button>
+    <sbb-mini-button aria-label="delete" icon-name="trash-small"></sbb-mini-button>
     <sbb-divider orientation="vertical"></sbb-divider>
-    ${miniButtons(1)}
+    <sbb-mini-button aria-label="bookmark" icon-name="star-small"></sbb-mini-button>
   </sbb-mini-button-group>`;
 
 export const Default: StoryObj = {

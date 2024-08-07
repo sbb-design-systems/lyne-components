@@ -1,62 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot A11y tree Chrome */
-
-snapshots["A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot A11y tree Firefox */
-
 snapshots["sbb-mini-button-group renders DOM"] = 
 `<sbb-mini-button-group
   accessibility-label="Group label"
@@ -118,26 +62,6 @@ snapshots["sbb-mini-button-group renders Shadow DOM"] =
 `;
 /* end snapshot sbb-mini-button-group renders Shadow DOM */
 
-snapshots["sbb-mini-button-group renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-mini-button-group renders A11y tree Chrome */
-
 snapshots["sbb-mini-button-group renders negative DOM"] = 
 `<sbb-mini-button-group
   negative=""
@@ -186,6 +110,26 @@ snapshots["sbb-mini-button-group renders negative Shadow DOM"] =
 </span>
 `;
 /* end snapshot sbb-mini-button-group renders negative Shadow DOM */
+
+snapshots["sbb-mini-button-group renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    },
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-mini-button-group renders A11y tree Chrome */
 
 snapshots["sbb-mini-button-group renders A11y tree Firefox"] = 
 `<p>

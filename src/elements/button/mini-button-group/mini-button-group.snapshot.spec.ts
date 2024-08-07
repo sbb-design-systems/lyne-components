@@ -14,7 +14,7 @@ describe(`sbb-mini-button-group`, () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-mini-button-group accessibility-label="Group label">
+        html` <sbb-mini-button-group accessibility-label="Group label">
           <sbb-mini-button icon-name="pen-small"></sbb-mini-button>
           <sbb-divider orientation="vertical"></sbb-divider>
           <sbb-mini-button icon-name="pen-small"></sbb-mini-button>
@@ -38,7 +38,7 @@ describe(`sbb-mini-button-group`, () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-mini-button-group negative>
+        html` <sbb-mini-button-group negative>
           <sbb-mini-button icon-name="pen-small"></sbb-mini-button>
           <sbb-mini-button icon-name="pen-small"></sbb-mini-button>
         </sbb-mini-button-group>`,
