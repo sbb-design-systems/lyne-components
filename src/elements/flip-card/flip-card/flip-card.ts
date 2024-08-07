@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
+import { EventEmitter } from '../../core/eventing.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
@@ -17,11 +18,18 @@ import '../../button/secondary-button.js';
  *
  * @slot summary - Use this slot to provide a sbb-flip-card-summary component.
  * @slot details - Use this slot to provide a sbb-flip-card-details component.
+ * @event {CustomEvent<void>} flip - Emits when the flip card flips.
  *
  */
 @customElement('sbb-flip-card')
 export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
+  public static readonly events = {
+    flip: 'flip',
+  } as const;
+
+  /** Emits whenever the component is flipped. */
+  protected flip: EventEmitter = new EventEmitter(this, SbbFlipCardElement.events.flip);
 
   /** Returns the slotted sbb-flip-card-summary. */
   public get summary(): SbbFlipCardSummaryElement {
@@ -31,6 +39,11 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
   /** Returns the slotted sbb-flip-card-details. */
   public get details(): SbbFlipCardDetailsElement {
     return this.querySelector('sbb-flip-card-details')!;
+  }
+
+  /** Whether the flip card is flipped. */
+  public get isFlipped(): boolean {
+    return this._flipped;
   }
 
   /** Whether the card is flipped or not. */
@@ -44,6 +57,7 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
     this.toggleAttribute('data-flipped', this._flipped);
     this.summary.inert = this._flipped;
     this.details.inert = !this._flipped;
+    this.flip.emit();
   }
 
   protected override render(): TemplateResult {

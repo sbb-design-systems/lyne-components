@@ -66,6 +66,13 @@
 }
 
 .sbb-radio-button {
+  display: block;
+  cursor: var(--sbb-radio-button-cursor);
+  user-select: none;
+  position: relative;
+  color: var(--sbb-radio-button-label-color);
+  -webkit-tap-highlight-color: transparent;
+
   @include sbb.text-m--regular;
 
   :host([size='s']) & {
@@ -75,13 +82,6 @@
   :host([size='xs']) & {
     @include sbb.text-xs--regular;
   }
-
-  display: block;
-  cursor: var(--sbb-radio-button-cursor);
-  user-select: none;
-  position: relative;
-  color: var(--sbb-radio-button-label-color);
-  -webkit-tap-highlight-color: transparent;
 }
 
 .sbb-radio-button__label-slot {

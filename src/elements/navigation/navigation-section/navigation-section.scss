@@ -136,15 +136,17 @@
 .sbb-navigation-section__wrapper {
   @include sbb.scrollbar($negative: true);
 
-  height: 100%;
-  padding-block: var(--sbb-navigation-section-padding-block);
-  outline: none;
-  overflow-y: auto;
+  & {
+    height: 100%;
+    padding-block: var(--sbb-navigation-section-padding-block);
+    outline: none;
+    overflow-y: auto;
 
-  :host(:is([data-state='opening'], [data-state='closing'])) & {
-    --sbb-scrollbar-color: transparent;
+    :host(:is([data-state='opening'], [data-state='closing'])) & {
+      --sbb-scrollbar-color: transparent;
 
-    scrollbar-color: transparent transparent;
+      scrollbar-color: transparent transparent;
+    }
   }
 }
 

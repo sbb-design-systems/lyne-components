@@ -143,10 +143,12 @@
 }
 
 .sbb-select__options {
-  @include sbb.scrollbar-rules;
   @include sbb.optionsOverlay;
+  @include sbb.scrollbar-rules;
 
-  padding-block: var(--sbb-spacing-fixed-2x);
+  & {
+    padding-block: var(--sbb-spacing-fixed-2x);
+  }
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;

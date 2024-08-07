@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-visual-checkbox-dimension: var(--sbb-size-icon-ui-small);
   --sbb-visual-checkbox-background-color: var(--sbb-color-white);
   --sbb-visual-checkbox-border-color: var(--sbb-color-smoke);
@@ -16,8 +18,6 @@
     --sbb-visual-checkbox-selection-color: Canvas;
     --sbb-visual-checkbox-border-width: 0;
   }
-
-  display: block;
 }
 
 :host([size='xs']) {

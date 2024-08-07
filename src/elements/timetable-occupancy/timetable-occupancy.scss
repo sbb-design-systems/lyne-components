@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: inline-block;
+
   --sbb-timetable-occupancy-color: var(--sbb-color-charcoal);
   --sbb-icon-svg-width: #{sbb.px-to-rem-build(14.25)};
   --sbb-icon-svg-height: v#{sbb.px-to-rem-build(12)};
@@ -12,8 +14,6 @@
     --sbb-icon-svg-width: #{sbb.px-to-rem-build(19)};
     --sbb-icon-svg-height: v#{sbb.px-to-rem-build(16)};
   }
-
-  display: inline-block;
 }
 
 :host([negative]) {

@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-train-wagon-width: var(--sbb-train-formation-wagon-width);
   --sbb-train-wagon-height: var(--sbb-train-formation-wagon-height);
   --sbb-train-wagon-inner-padding: var(--sbb-spacing-fixed-3x);
@@ -18,8 +20,6 @@
   @include sbb.if-forced-colors {
     --sbb-train-wagon-shape-color-closed: CanvasText;
   }
-
-  display: block;
 }
 
 .sbb-train-wagon {

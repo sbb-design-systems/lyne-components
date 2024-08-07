@@ -102,32 +102,33 @@ slot[name='right']::slotted(*) {
 }
 
 .sbb-pearl-chain-vertical-item__line--default {
-  @include sbb.if-forced-colors {
-    --sbb-pearl-chain-vertical-item-color-default: CanvasText;
-  }
-
   background-color: var(--sbb-pearl-chain-vertical-item-color-default);
   border-color: var(--sbb-pearl-chain-vertical-item-color-default);
   color: var(--sbb-pearl-chain-vertical-item-color-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-default: CanvasText;
+  }
 }
 
 .sbb-pearl-chain-vertical-item__line--disruption {
   border-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
   background-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
   color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+
   @include sbb.if-forced-colors {
     --sbb-pearl-chain-vertical-item-color-disruption: Highlight;
   }
 }
 
 .sbb-pearl-chain-vertical-item__line--past {
-  @include sbb.if-forced-colors {
-    --sbb-pearl-chain-vertical-item-color-past: GrayText;
-  }
-
   border-color: var(--sbb-pearl-chain-vertical-item-color-past);
   background-color: var(--sbb-pearl-chain-vertical-item-color-past);
   color: var(--sbb-pearl-chain-vertical-item-color-past);
+
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-past: GrayText;
+  }
 }
 
 .sbb-pearl-chain-vertical-item__line--walk {
@@ -139,11 +140,11 @@ slot[name='right']::slotted(*) {
 // Bullet styles
 
 .sbb-pearl-chain-vertical-item__bullet {
-  @include sbb.pearl-chain-bullet;
-
   position: relative;
   inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
   transform: var(--sbb-pearl-chain-vertical-item-transform);
+
+  @include sbb.pearl-chain-bullet;
 }
 
 .sbb-pearl-chain-vertical-item__bullet--start-end {
@@ -176,10 +177,10 @@ slot[name='right']::slotted(*) {
 }
 
 .sbb-pearl-chain-vertical-item__bullet--position {
-  @include sbb.pearl-chain-bullet-position;
-  @include sbb.absolute-center-x;
-
   inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
+
+  @include sbb.absolute-center-x;
+  @include sbb.pearl-chain-bullet-position;
 
   :host([disable-animation]) & {
     animation: unset !important;

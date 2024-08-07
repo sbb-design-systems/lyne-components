@@ -4,6 +4,12 @@
 @include sbb.box-sizing;
 
 :host {
+  display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
   --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-header-action-color: var(--sbb-color-black);
   --sbb-header-action-background-color: transparent;
@@ -19,20 +25,14 @@
   --sbb-header-action-translate-y: 0;
   --sbb-header-action-gap: var(--sbb-spacing-fixed-2x);
 
-  @include sbb.if-forced-colors {
-    --sbb-header-action-border-color: CanvasText;
-    --sbb-header-action-color: LinkText;
-  }
-
   // If expanded, move it left by left padding.
   // As result, the icon should be aligned with the left side of the page wrapper.
   --sbb-header-first-item-margin-inline-start: calc(-1 * var(--sbb-header-action-padding-inline));
 
-  display: inline-block;
-
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
+  @include sbb.if-forced-colors {
+    --sbb-header-action-border-color: CanvasText;
+    --sbb-header-action-color: LinkText;
+  }
 }
 
 @include sbb.hover-mq($hover: true) {

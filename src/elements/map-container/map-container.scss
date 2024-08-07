@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-map-container-map-height-zero: #{sbb.px-to-rem-build(295)};
   --sbb-map-container-map-height-small: #{sbb.px-to-rem-build(320)};
   --sbb-map-container-sidebar-width: #{sbb.px-to-rem-build(400)};
@@ -26,8 +28,6 @@
   @include sbb.mq($from: wide) {
     --sbb-map-container-sidebar-width: #{sbb.px-to-rem-build(480)};
   }
-
-  display: block;
 }
 
 .sbb-map-container {
@@ -76,22 +76,24 @@
 .sbb-map-container__sidebar {
   @include sbb.scrollbar($size: thick, $track-visible: true);
 
-  grid-column: 1 / 3;
-  grid-row: 2 / 3;
-  width: 100%;
-  overflow: hidden auto;
-  position: relative;
-  border-start-end-radius: var(--sbb-map-container-border-radius);
-  border-start-start-radius: var(--sbb-map-container-border-radius);
-  margin-block-start: calc(var(--sbb-map-container-border-radius) * -1);
-  background-color: var(--sbb-map-container-sidebar-background-color);
+  & {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    width: 100%;
+    overflow: hidden auto;
+    position: relative;
+    border-start-end-radius: var(--sbb-map-container-border-radius);
+    border-start-start-radius: var(--sbb-map-container-border-radius);
+    margin-block-start: calc(var(--sbb-map-container-border-radius) * -1);
+    background-color: var(--sbb-map-container-sidebar-background-color);
 
-  @include sbb.mq($from: medium) {
-    grid-column: 1 / 2;
-    grid-row: 1 / 3;
-    border-radius: 0;
-    margin-block-start: 0;
-    border-block-start: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+    @include sbb.mq($from: medium) {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
+      border-radius: 0;
+      margin-block-start: 0;
+      border-block-start: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+    }
   }
 }
 
