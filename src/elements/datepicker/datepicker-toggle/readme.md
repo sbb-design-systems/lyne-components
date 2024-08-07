@@ -36,10 +36,11 @@ both standalone or within the `sbb-form-field`, they must have the same parent e
 
 ## Properties
 
-| Name         | Attribute     | Privacy | Type                                          | Default | Description                     |
-| ------------ | ------------- | ------- | --------------------------------------------- | ------- | ------------------------------- |
-| `datePicker` | `date-picker` | public  | `string \| SbbDatepickerElement \| undefined` |         | Datepicker reference.           |
-| `negative`   | `negative`    | public  | `boolean`                                     | `false` | Negative coloring variant flag. |
+| Name                  | Attribute               | Privacy | Type                                          | Default | Description                                                        |
+| --------------------- | ----------------------- | ------- | --------------------------------------------- | ------- | ------------------------------------------------------------------ |
+| `datePicker`          | `date-picker`           | public  | `string \| SbbDatepickerElement \| undefined` |         | Datepicker reference.                                              |
+| `initialCalendarView` | `initial-calendar-view` | public  | `CalendarView`                                | `'day'` | The initial view of calendar which should be displayed on opening. |
+| `negative`            | `negative`              | public  | `boolean`                                     | `false` | Negative coloring variant flag.                                    |
 
 ## Methods
 

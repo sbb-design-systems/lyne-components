@@ -101,6 +101,10 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   /** If set to true, two months are displayed */
   @property({ type: Boolean }) public wide = false;
 
+  /** The initial view of calendar which should be displayed on opening. */
+  @property({ attribute: 'initial-calendar-view' }) public initialCalendarView: CalendarView =
+    'day';
+
   /** The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
   @property()
   public set min(value: SbbDateLike<T> | null) {
@@ -238,9 +242,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
 
   /** Resets the active month according to the new state of the calendar. */
   public resetPosition(): void {
-    if (this._calendarView !== 'day') {
-      this._resetToDayView();
-    }
+    this._resetCalendarView();
     this._activeDate = this.selected ?? this.now;
     this._init();
   }
@@ -267,6 +269,10 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
 
     if (changedProperties.has('wide')) {
       this.resetPosition();
+    }
+
+    if (changedProperties.has('initialCalendarView')) {
+      this._calendarView = this.initialCalendarView ?? 'day';
     }
   }
 
@@ -496,10 +502,18 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   /** Emits the selected date and sets it internally. */
   private _selectDate(day: string): void {
     this._chosenMonth = undefined;
-    this._chosenYear = undefined;
+    this._setChosenYear();
     if (this._selected !== day) {
       this._selected = day;
       this._dateSelected.emit(this._dateAdapter.deserialize(day)!);
+    }
+  }
+
+  private _setChosenYear(): void {
+    if (this.initialCalendarView === 'month') {
+      this._chosenYear = this._dateAdapter.getYear(this.selected ?? this.now);
+    } else {
+      this._chosenYear = undefined;
     }
   }
 
@@ -806,12 +820,12 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
       : this._findNext(days, nextIndex, -verticalOffset);
   }
 
-  private _resetToDayView(): void {
+  private _resetCalendarView(): void {
     this._resetFocus = true;
     this._activeDate = this.selected ?? this.now;
-    this._chosenYear = undefined;
+    this._setChosenYear();
     this._chosenMonth = undefined;
-    this._nextCalendarView = 'day';
+    this._nextCalendarView = this.initialCalendarView;
     this._removeTable();
   }
 
@@ -1016,7 +1030,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
         id="sbb-calendar__month-selection"
         class="sbb-calendar__controls-change-date"
         aria-label=${`${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`}
-        @click=${() => this._resetToDayView()}
+        @click=${() => this._resetCalendarView()}
       >
         ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear! + 1}` : nothing}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
@@ -1163,7 +1177,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
         id="sbb-calendar__year-selection"
         class="sbb-calendar__controls-change-date"
         aria-label="${i18nCalendarDateSelection[this._language.current]} ${yearLabel}"
-        @click=${() => this._resetToDayView()}
+        @click=${() => this._resetCalendarView()}
       >
         ${yearLabel}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
@@ -1263,9 +1277,9 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
 
   private _removeTable(): void {
     this.toggleAttribute('data-transition', true);
-    this.shadowRoot!.querySelectorAll('table').forEach((e) =>
-      e.classList.toggle('sbb-calendar__table-hide'),
-    );
+    this.shadowRoot
+      ?.querySelectorAll('table')
+      ?.forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));
   }
 
   protected override render(): TemplateResult {
