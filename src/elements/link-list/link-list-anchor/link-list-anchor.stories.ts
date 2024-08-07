@@ -17,6 +17,8 @@ import readme from './readme.md?raw';
 import './link-list-anchor.js';
 import '../../link/block-link.js';
 
+const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
+
 const LinkTemplate = (args: Args): TemplateResult => html`
   <sbb-block-link
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
@@ -24,8 +26,6 @@ const LinkTemplate = (args: Args): TemplateResult => html`
     ${args.linkTitle}
   </sbb-block-link>
 `;
-
-const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
 const TemplateSlottedTitle = ({
   'title-content': titleContent,
@@ -50,6 +50,13 @@ const negative: InputType = {
   options: [true, false],
 };
 
+const size: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['xs', 's', 'm'],
+};
+
 const titleContent: InputType = {
   control: {
     type: 'text',
@@ -71,12 +78,14 @@ const titleLevel: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   negative,
+  size,
   'title-level': titleLevel,
   'title-content': titleContent,
 };
 
 const defaultArgs: Args = {
   negative: false,
+  size: size.options![1],
   'title-level': titleLevel.options![0],
   'title-content': 'Help & Contact',
 };
@@ -85,6 +94,24 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const SizeXS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![0],
+  },
+};
+
+export const SizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![2],
+  },
 };
 
 export const SlottedTitle: StoryObj = {

@@ -9,6 +9,8 @@ import readme from './readme.md?raw';
 import '../../link/block-link.js';
 import './link-list.js';
 
+const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
+
 const LinkTemplate = (args: Args): TemplateResult => html`
   <sbb-block-link
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
@@ -16,8 +18,6 @@ const LinkTemplate = (args: Args): TemplateResult => html`
     ${args.linkTitle}
   </sbb-block-link>
 `;
-
-const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
 // SlottedTitle
 const TemplateSlottedTitle = ({
@@ -116,6 +116,15 @@ export const LinkListXS: StoryObj = {
   args: {
     ...defaultArgs,
     size: size.options![0],
+  },
+};
+
+export const LinkListM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![2],
   },
 };
 

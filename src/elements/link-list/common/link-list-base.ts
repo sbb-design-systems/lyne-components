@@ -12,6 +12,7 @@ import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
+  SbbLinkSize,
 } from '../../link.js';
 import type { SbbTitleLevel } from '../../title.js';
 
@@ -42,12 +43,23 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
   /** The semantic level of the title, e.g. 2 = h2. */
   @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '2';
 
+  /**
+   * Text size of the nested sbb-block-link instances.
+   * This will overwrite the size attribute of nested sbb-block-link instances.
+   */
+  @property({ reflect: true }) public size: SbbLinkSize = 's';
+
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('negative') || changedProperties.has('listChildren')) {
+    if (
+      changedProperties.has('size') ||
+      changedProperties.has('negative') ||
+      changedProperties.has('listChildren')
+    ) {
       for (const link of this.listChildren) {
         link.negative = this.negative;
+        link.size = this.size;
       }
     }
   }

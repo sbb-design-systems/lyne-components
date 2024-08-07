@@ -24,10 +24,10 @@ The title can be set using the `titleContent` property or, alternatively, can be
 ## Style
 
 The component will accept only `sbb-block-link` or `sbb-block-link-button` instances,
-and it will sync its `negative` property with the inner links.
+and it will sync its `size` and `negative` property with the inner links.
 
 ```html
-<sbb-link-list-anchor negative>
+<sbb-link-list-anchor size="xs" negative>
   <sbb-block-link href="#refunds">Refunds</sbb-block-link>
   <sbb-block-link href="#loss-report">Loss Report</sbb-block-link>
   ...
@@ -38,11 +38,12 @@ and it will sync its `negative` property with the inner links.
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type                  | Default | Description                                     |
-| -------------- | --------------- | ------- | --------------------- | ------- | ----------------------------------------------- |
-| `negative`     | `negative`      | public  | `boolean`             | `false` | Negative coloring variant flag.                 |
-| `titleContent` | `title-content` | public  | `string \| undefined` |         | The title text we want to show before the list. |
-| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`       | `'2'`   | The semantic level of the title, e.g. 2 = h2.   |
+| Name           | Attribute       | Privacy | Type                  | Default | Description                                                                                                                  |
+| -------------- | --------------- | ------- | --------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `negative`     | `negative`      | public  | `boolean`             | `false` | Negative coloring variant flag.                                                                                              |
+| `size`         | `size`          | public  | `SbbLinkSize`         | `'s'`   | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
+| `titleContent` | `title-content` | public  | `string \| undefined` |         | The title text we want to show before the list.                                                                              |
+| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`       | `'2'`   | The semantic level of the title, e.g. 2 = h2.                                                                                |
 
 ## Slots
 
