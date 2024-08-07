@@ -162,12 +162,12 @@
 }
 
 .sbb-tab-label__text {
-  @include sbb.text-m--bold;
-  @include sbb.font-smoothing;
-  @include sbb.ellipsis;
-
   color: var(--sbb-tab-label-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
+
+  @include sbb.font-smoothing;
+  @include sbb.ellipsis;
+  @include sbb.text-m--bold;
 
   :host([data-size='s']) & {
     @include sbb.text-s--bold;
