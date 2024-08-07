@@ -37,6 +37,7 @@ describe('sbb-flip-card', () => {
 
     expect(summary.inert).to.be.equal(false);
     expect(details.inert).to.be.equal(true);
+    expect(element.isFlipped).to.be.false;
 
     element.shadowRoot?.querySelector('button')!.click();
     await waitForLitRender(element);
@@ -45,6 +46,7 @@ describe('sbb-flip-card', () => {
     expect(flipSpy.count).to.be.equal(1);
 
     expect(element).to.have.attribute('data-flipped');
+    expect(element.isFlipped).to.be.true;
 
     expect(summary.inert).to.be.equal(true);
     expect(details.inert).to.be.equal(false);
@@ -57,6 +59,7 @@ describe('sbb-flip-card', () => {
 
     expect(summary.inert).to.be.equal(false);
     expect(details.inert).to.be.equal(true);
+    expect(element.isFlipped).to.be.false;
 
     element.toggle();
     await waitForLitRender(element);
@@ -65,6 +68,7 @@ describe('sbb-flip-card', () => {
     expect(flipSpy.count).to.be.equal(1);
 
     expect(element).to.have.attribute('data-flipped');
+    expect(element.isFlipped).to.be.true;
 
     expect(summary.inert).to.be.equal(true);
     expect(details.inert).to.be.equal(false);
