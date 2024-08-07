@@ -1,13 +1,15 @@
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import sampleImages from '../../core/images.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 
 import './flip-card-summary.js';
 import '../../flip-card.js';
 import '../../title.js';
 import '../../image.js';
+
+const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
 describe(`sbb-flip-card-summary`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
@@ -30,13 +32,14 @@ describe(`sbb-flip-card-summary`, () => {
                 <sbb-title level="4">Summary</sbb-title>
                 <sbb-image
                   slot="image"
-                  image-src=${sampleImages[0]}
+                  image-src=${imageUrl}
                   border-radius="none"
                   aspect-ratio="free"
                 ></sbb-image>
               </sbb-flip-card-summary>
             </div>
           `);
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
     }

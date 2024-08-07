@@ -1,0 +1,22 @@
+@use '@sbb-esta/lyne-elements/core/styles/index' as sbb;
+
+@include sbb.box-sizing;
+
+.chip-list-wrapper {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-1x);
+}
+
+sbb-chip {
+  margin-block-end: var(--sbb-spacing-fixed-1x);
+}
+
+sbb-chip[color='custom-green'] {
+  --sbb-chip-color: var(--sbb-color-white);
+  --sbb-chip-background-color: var(--sbb-color-green);
+}
+
+sbb-chip[color='custom-red'] {
+  --sbb-chip-color: var(--sbb-color-white);
+  --sbb-chip-background-color: var(--sbb-color-red125);
+}

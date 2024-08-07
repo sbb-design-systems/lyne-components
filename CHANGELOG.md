@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.5.0...v1.6.0) (2024-07-26)
+
+
+### Features
+
+* **sbb-alert:** add close fade-out animation and change `animation` property default to all ([#2943](https://github.com/sbb-design-systems/lyne-components/issues/2943)) ([581b95c](https://github.com/sbb-design-systems/lyne-components/commit/581b95c4bf184fb3c862a68c983074a8ac48bdce))
+* **sbb-icon:** provide compatibility with sbb-angular ([#2971](https://github.com/sbb-design-systems/lyne-components/issues/2971)) ([3c4e4b0](https://github.com/sbb-design-systems/lyne-components/commit/3c4e4b093cb33f260544f5b3495738aa9cde7a53)), closes [#2746](https://github.com/sbb-design-systems/lyne-components/issues/2746)
+
+
+### Bug Fixes
+
+* **sbb-clock:** fix internal await to actually finish ([#2966](https://github.com/sbb-design-systems/lyne-components/issues/2966)) ([af634c0](https://github.com/sbb-design-systems/lyne-components/commit/af634c08729283f4da596a71e03a6127af849cd9))
+* **sbb-overlay:** add background animation ([#2945](https://github.com/sbb-design-systems/lyne-components/issues/2945)) ([dac84ce](https://github.com/sbb-design-systems/lyne-components/commit/dac84ce40e3785afd828bf14669f54650a8d2561))
+* **sbb-toggle:** spacing adjustment ([#2957](https://github.com/sbb-design-systems/lyne-components/issues/2957)) ([8870deb](https://github.com/sbb-design-systems/lyne-components/commit/8870deb231d054dd78ee7c3f05deb5b4bca1bd77))
+* **various:** re-enable scrolling when disconnecting the component before animationend ([#2970](https://github.com/sbb-design-systems/lyne-components/issues/2970)) ([76ef11b](https://github.com/sbb-design-systems/lyne-components/commit/76ef11bfd88b5c0177d42e530bd5818dccbb27c5)), closes [#2967](https://github.com/sbb-design-systems/lyne-components/issues/2967)
+
 ## [1.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.4.0...v1.5.0) (2024-07-19)
 
 

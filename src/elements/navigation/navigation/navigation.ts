@@ -340,6 +340,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this._navigationObserver.disconnect();
     this._navigationResizeObserver.disconnect();
     removeInertMechanism();
+    this._scrollHandler.enableScroll();
   }
 
   protected override render(): TemplateResult {

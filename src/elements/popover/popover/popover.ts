@@ -263,7 +263,9 @@ export class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement
       this._triggerElement.addEventListener(
         'click',
         () => {
-          this.state === 'closed' && this.open();
+          if (this.state === 'closed') {
+            this.open();
+          }
         },
         {
           signal: this._popoverController.signal,

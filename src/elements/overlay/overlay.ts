@@ -116,7 +116,9 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
       this.focusHandler.disconnect();
       this.removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the overlay if no overlay is open
-      !overlayRefs.length && this.scrollHandler.enableScroll();
+      if (!overlayRefs.length) {
+        this.scrollHandler.enableScroll();
+      }
       this.didClose.emit({
         returnValue: this.returnValue,
         closeTarget: this.overlayCloseElement,
@@ -165,11 +167,11 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
     /* eslint-enable lit/binding-positions */
 
     return html`
-      <div class="sbb-overlay__container">
-        <div
-          @animationend=${(event: AnimationEvent) => this.onOverlayAnimationEnd(event)}
-          class="sbb-overlay"
-        >
+      <div
+        class="sbb-overlay__container"
+        @animationend=${(event: AnimationEvent) => this.onOverlayAnimationEnd(event)}
+      >
+        <div class="sbb-overlay">
           <div
             @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
             class="sbb-overlay__wrapper"
