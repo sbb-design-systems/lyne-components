@@ -139,11 +139,12 @@ export class SbbClockElement extends LitElement {
       ADD_EVENT_LISTENER_OPTIONS,
     );
 
-    await new Promise(() =>
+    await new Promise<void>((resolve) =>
       setTimeout(() => {
         this._setHandsStartingPosition();
 
         this.style?.setProperty('--sbb-clock-animation-play-state', 'running');
+        resolve();
       }, INITIAL_TIMEOUT_DURATION),
     );
   }
@@ -271,6 +272,7 @@ export class SbbClockElement extends LitElement {
     }
     this._clockHandSeconds.style.animation = '';
     // Hack to trigger reflow
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     this._clockHandSeconds.offsetHeight;
     this._clockHandSeconds.style.removeProperty('animation');
   }

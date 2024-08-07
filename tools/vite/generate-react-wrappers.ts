@@ -33,7 +33,7 @@ export function generateReactWrappers(
   let manifest: Package;
   try {
     manifest = JSON.parse(readFileSync(fullManifestPath, 'utf8'));
-  } catch (e) {
+  } catch {
     console.error(
       `Failed to read manifest at ${fullManifestPath}. Please run 'yarn build:elements' or 'yarn docs:manifest' first!`,
     );
