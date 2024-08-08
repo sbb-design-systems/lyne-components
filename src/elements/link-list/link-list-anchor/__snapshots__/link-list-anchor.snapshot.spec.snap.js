@@ -4,6 +4,7 @@ export const snapshots = {};
 snapshots["sbb-link-list-anchor renders DOM"] = 
 `<sbb-link-list-anchor
   data-slot-names="li-0 li-1 li-2"
+  size="s"
   title-content="title"
 >
   <sbb-block-link
