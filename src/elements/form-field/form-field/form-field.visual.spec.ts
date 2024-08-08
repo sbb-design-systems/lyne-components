@@ -337,15 +337,31 @@ describe(`sbb-form-field`, () => {
             );
 
             // borderless
-            it(
-              `borderless=true`,
-              visualDiffDefault.with(async (setup) => {
-                const noLabel = { ...basicArgs, borderless: true };
-                await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                  forcedColors,
-                });
-              }),
-            );
+            for (const negative of [false, true]) {
+              describe(`negative=${negative}`, () => {
+                it(
+                  `borderless=true`,
+                  visualDiffDefault.with(async (setup) => {
+                    const noLabel = { ...basicArgs, negative, borderless: true };
+                    await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
+                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      forcedColors,
+                    });
+                  }),
+                );
+
+                it(
+                  `borderless=true ${visualDiffFocus.name}`,
+                  visualDiffFocus.with(async (setup) => {
+                    const noLabel = { ...basicArgs, negative, borderless: true };
+                    await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
+                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      forcedColors,
+                    });
+                  }),
+                );
+              });
+            }
 
             // visual
             describeEach(visualProp, ({ size, width, errorText }) => {
