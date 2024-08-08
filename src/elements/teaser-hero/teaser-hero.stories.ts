@@ -1,14 +1,15 @@
-import sampleImages from '@sbb-esta/lyne-elements/core/images.js';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
+import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
 import './teaser-hero.js';
+import '../chip.js';
 
 const accessibilityLabel: InputType = {
   control: {
@@ -80,6 +81,12 @@ const imageAlt: InputType = {
   },
 };
 
+const chipLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   'accessibility-label': accessibilityLabel,
   href,
@@ -89,6 +96,7 @@ const defaultArgTypes: ArgTypes = {
   'link-content': linkContent,
   'image-src': imageSrc,
   'image-alt': imageAlt,
+  'chip-label': chipLabel,
 };
 
 const defaultArgs: Args = {
@@ -100,10 +108,21 @@ const defaultArgs: Args = {
   'link-content': 'Find out more',
   'image-src': sampleImages[1],
   'image-alt': 'SBB CFF FFS Employee',
+  'chip-label': undefined,
 };
 
-const TemplateSbbTeaserHeroDefault = ({ content, ...args }: Args): TemplateResult => html`
-  <sbb-teaser-hero ${sbbSpread(args)}>${content}</sbb-teaser-hero>
+const chip = (content: string): TemplateResult => html`
+  <sbb-chip slot="chip">${content}</sbb-chip>
+`;
+
+const TemplateSbbTeaserHeroDefault = ({
+  content,
+  'chip-label': chipLabel,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-teaser-hero ${sbbSpread(args)}
+    >${content} ${chipLabel ? chip(chipLabel) : nothing}
+  </sbb-teaser-hero>
 `;
 
 const TemplateSbbTeaserWithSlots = ({
@@ -137,6 +156,27 @@ export const openInNewWindow: StoryObj = {
   },
 };
 
+export const withChip: StoryObj = {
+  render: TemplateSbbTeaserHeroDefault,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'chip-label': 'Label',
+  },
+};
+
+export const chipOnly: StoryObj = {
+  render: TemplateSbbTeaserHeroDefault,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    href: href.options![0],
+    'chip-label': 'Label',
+    content: undefined,
+    'link-content': undefined,
+  },
+};
+
 export const withSlots: StoryObj = {
   render: TemplateSbbTeaserWithSlots,
   argTypes: defaultArgTypes,
@@ -156,7 +196,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-teaser/sbb-teaser-hero',
+  title: 'elements/sbb-teaser/sbb-teaser-hero',
 };
 
 export default meta;

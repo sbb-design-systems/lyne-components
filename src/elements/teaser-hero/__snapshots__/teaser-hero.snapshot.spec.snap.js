@@ -6,6 +6,7 @@ snapshots["sbb-teaser-hero renders DOM"] =
   accessibility-label="label"
   data-action=""
   data-link=""
+  data-slot-names="chip unnamed"
   dir="ltr"
   href="https://www.sbb.ch"
   image-alt="SBB CFF FFS Employee"
@@ -14,6 +15,13 @@ snapshots["sbb-teaser-hero renders DOM"] =
   target="_blank"
 >
   Break out and explore castles and palaces.
+  <sbb-chip
+    color="charcoal"
+    size="xxs"
+    slot="chip"
+  >
+    Label
+  </sbb-chip>
 </sbb-teaser-hero>
 `;
 /* end snapshot sbb-teaser-hero renders DOM */
@@ -26,6 +34,8 @@ snapshots["sbb-teaser-hero renders Shadow DOM"] =
   rel="external"
   target="_blank"
 >
+  <slot name="chip">
+  </slot>
   <span class="sbb-teaser-hero__panel">
     <p class="sbb-teaser-hero__panel-text">
       <slot>
@@ -69,6 +79,7 @@ snapshots["sbb-teaser-hero renders with slots DOM"] =
   accessibility-label="label"
   data-action=""
   data-link=""
+  data-slot-names="chip image link-content unnamed"
   dir="ltr"
   href="https://www.sbb.ch"
 >
@@ -85,6 +96,13 @@ snapshots["sbb-teaser-hero renders with slots DOM"] =
     slot="image"
   >
   </sbb-image>
+  <sbb-chip
+    color="charcoal"
+    size="xxs"
+    slot="chip"
+  >
+    Label
+  </sbb-chip>
 </sbb-teaser-hero>
 `;
 /* end snapshot sbb-teaser-hero renders with slots DOM */
@@ -95,6 +113,8 @@ snapshots["sbb-teaser-hero renders with slots Shadow DOM"] =
   class="sbb-action-base sbb-teaser-hero"
   href="https://www.sbb.ch"
 >
+  <slot name="chip">
+  </slot>
   <span class="sbb-teaser-hero__panel">
     <p class="sbb-teaser-hero__panel-text">
       <slot>

@@ -1,12 +1,14 @@
-import { SbbLinkBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
+import { SbbLinkBaseElement } from '../core/base-elements.js';
+import { slotState } from '../core/decorators.js';
+
 import style from './teaser-hero.scss?lit&inline';
 
-import '@sbb-esta/lyne-elements/image.js';
-import '@sbb-esta/lyne-elements/link/block-link-static.js';
+import '../image.js';
+import '../link/block-link-static.js';
 
 /**
  * It displays an image and an action call within a panel.
@@ -14,13 +16,15 @@ import '@sbb-esta/lyne-elements/link/block-link-static.js';
  * @slot - Use the unnamed slot to add text content to the panel
  * @slot link-content - Link content of the panel
  * @slot image - The background image that can be a `sbb-image`
+ * @slot chip - The `sbb-chip` component that will be displayed on top-left corner
  */
 @customElement('sbb-teaser-hero')
+@slotState()
 export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
   /** Panel link text. */
-  @property({ attribute: 'link-content' }) public linkContent?: string;
+  @property({ attribute: 'link-content', reflect: true }) public linkContent?: string;
 
   /** Image src will be passed to `sbb-image`. */
   @property({ attribute: 'image-src' }) public imageSrc?: string;
@@ -28,8 +32,13 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   /** Image alt text will be passed to `sbb-image`. */
   @property({ attribute: 'image-alt' }) public imageAlt?: string;
 
+  private _chipSlotChanged(): void {
+    this.querySelector('sbb-chip')?.setAttribute('color', 'charcoal');
+  }
+
   protected override renderTemplate(): TemplateResult {
     return html`
+      <slot name="chip" @slotchange=${() => this._chipSlotChanged()}></slot>
       <span class="sbb-teaser-hero__panel">
         <p class="sbb-teaser-hero__panel-text">
           <slot></slot>
