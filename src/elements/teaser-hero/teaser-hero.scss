@@ -11,7 +11,8 @@
   outline: none !important;
 
   --sbb-teaser-hero-brightness-hover: 1.075;
-  --sbb-teaser-hero-chip-inset: var(--sbb-spacing-responsive-xxxs) auto auto var(--sbb-spacing-responsive-xxxs);
+  --sbb-teaser-hero-chip-inset: var(--sbb-spacing-responsive-xxxs) auto auto
+    var(--sbb-spacing-responsive-xxxs);
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -40,7 +41,7 @@
   & {
     @include sbb.absolute-center-y;
   }
-  
+
   // Hide panel when no content or link-content is provided.
   :host(:not([data-slot-names~='unnamed'], [data-slot-names~='link-content'], [link-content])) & {
     display: none;
