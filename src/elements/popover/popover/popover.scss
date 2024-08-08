@@ -103,13 +103,13 @@
 
   // Popover arrow
   &::after {
+    z-index: -1;
+
     @include sbb.shadow-level-5-hard;
 
     @include sbb.if-forced-colors {
       outline: var(--sbb-border-width-1x) solid CanvasText;
     }
-
-    z-index: -1;
 
     :host([data-position='above']) & {
       top: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));

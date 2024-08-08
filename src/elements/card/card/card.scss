@@ -9,9 +9,9 @@
 // All focusable elements inside the main slot will receive `pointer-events: all` which makes them pointer accessible.
 
 :host {
-  @include sbb.card-variables;
-
   display: block;
+
+  @include sbb.card-variables;
 }
 
 :host([color='milk']) {
@@ -89,10 +89,10 @@
 }
 
 .sbb-card {
-  @include sbb.card;
-
   width: 100%;
   height: 100%;
+
+  @include sbb.card;
 }
 
 .sbb-card__wrapper {

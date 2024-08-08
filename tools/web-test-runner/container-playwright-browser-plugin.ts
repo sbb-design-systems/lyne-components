@@ -8,7 +8,7 @@ function executableIsAvailable(name: string): string | null {
   try {
     execSync(`${platform().startsWith('win') ? 'where' : 'which'} ${name}`, { encoding: 'utf8' });
     return name;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

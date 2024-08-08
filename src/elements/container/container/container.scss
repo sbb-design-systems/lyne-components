@@ -20,9 +20,9 @@
 }
 
 .sbb-container {
-  @include sbb.ignore-children-margin;
-
   background-color: var(--sbb-container-background-color);
+
+  @include sbb.ignore-children-margin;
 
   // In order to support nested sbb-containers (e.g. if used in an overlay), we need to explicitly set background color to transparent.
   // We cannot use the --sbb-container-background-color variable because using it would

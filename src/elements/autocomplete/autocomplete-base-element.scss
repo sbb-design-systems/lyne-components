@@ -128,10 +128,12 @@
 }
 
 .sbb-autocomplete__options {
-  @include sbb.scrollbar-rules;
   @include sbb.optionsOverlay;
+  @include sbb.scrollbar-rules;
 
-  pointer-events: var(--sbb-options-pointer-events);
+  & {
+    pointer-events: var(--sbb-options-pointer-events);
+  }
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;

@@ -156,7 +156,9 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
       this._dialogContentResizeObserver.disconnect();
       this.removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the dialog if no dialog is open
-      !overlayRefs.length && this.scrollHandler.enableScroll();
+      if (!overlayRefs.length) {
+        this.scrollHandler.enableScroll();
+      }
       this.didClose.emit({
         returnValue: this.returnValue,
         closeTarget: this.overlayCloseElement,
@@ -269,8 +271,9 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
         ? hideOnScroll
         : isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true });
     this.toggleAttribute('data-hide-header', !hideHeader ? false : value);
-    this._dialogTitleElement &&
+    if (this._dialogTitleElement) {
       this._dialogTitleElement.toggleAttribute('data-hide-header', !hideHeader ? false : value);
+    }
   }
 
   private _setOverflowsDataAttribute(): void {

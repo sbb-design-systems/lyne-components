@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-train-formation-inline-padding: var(--sbb-spacing-fixed-4x);
   --sbb-train-formation-background-color: var(--sbb-color-white);
   --sbb-train-formation-sector-label-color: var(--sbb-color-metal);
@@ -13,8 +15,6 @@
   @include sbb.if-forced-colors {
     --sbb-train-formation-sector-line-color: CanvasText;
   }
-
-  display: block;
 }
 
 :host([hide-wagon-label]) {
@@ -24,13 +24,15 @@
 .sbb-train-formation {
   @include sbb.scrollbar;
 
-  display: grid;
-  grid-template:
-    'start sectors end' auto
-    'start trains end' auto / auto 1fr auto;
-  position: relative;
-  overflow-x: auto;
-  background-color: var(--sbb-train-formation-background-color);
+  & {
+    display: grid;
+    grid-template:
+      'start sectors end' auto
+      'start trains end' auto / auto 1fr auto;
+    position: relative;
+    overflow-x: auto;
+    background-color: var(--sbb-train-formation-background-color);
+  }
 
   // Enable inline padding
   &::before,

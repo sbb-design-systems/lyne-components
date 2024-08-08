@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: inline-block;
+
   --sbb-form-field-background-color: var(--sbb-color-white);
   --sbb-form-field-border-color: var(--sbb-color-smoke);
   --sbb-form-field-border-style: solid;
@@ -48,8 +50,6 @@
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: ButtonBorder;
   }
-
-  display: inline-block;
 }
 
 :host(:where(:not([width='collapse']))) {
@@ -181,10 +181,10 @@
 }
 
 .sbb-form-field__space-wrapper {
-  @include sbb.zero-width-space;
-
   display: flex;
   flex-direction: column;
+
+  @include sbb.zero-width-space;
 }
 
 .sbb-form-field__wrapper {
@@ -411,13 +411,15 @@
 .sbb-form-field__input ::slotted(textarea) {
   @include sbb.scrollbar;
 
-  position: relative;
-  resize: none;
+  & {
+    position: relative;
+    resize: none;
 
-  // White-space break needed for Firefox
-  white-space: break-spaces;
-  overflow-y: auto;
-  min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+    // White-space break needed for Firefox
+    white-space: break-spaces;
+    overflow-y: auto;
+    min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+  }
 
   :host([negative]) & {
     @include sbb.scrollbar($negative: true);
