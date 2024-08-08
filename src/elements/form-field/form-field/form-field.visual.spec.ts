@@ -378,7 +378,6 @@ describe(`sbb-form-field`, () => {
                         ...basicArgs,
                         negative,
                         borderless: true,
-                        disabled: true,
                         cssClass: 'sbb-invalid',
                       };
                       await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
