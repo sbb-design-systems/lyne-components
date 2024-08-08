@@ -18,7 +18,7 @@ and is used as the `aria-labelledby` attribute of the `ul` element.
 The title can be set using the `titleContent` property or, alternatively, can be projected using the `title` slot.
 
 ```html
-<sbb-link-list-anchor title-content="Help &amp; Contact"> ... </sbb-link-list-anchor>
+<sbb-link-list-anchor title-content="Help & Contact"> ... </sbb-link-list-anchor>
 ```
 
 ## Style
