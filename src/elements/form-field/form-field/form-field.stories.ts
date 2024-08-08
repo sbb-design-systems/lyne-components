@@ -7,6 +7,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import type { SbbFormErrorElement } from '../../form-error.js';
 
 import readme from './readme.md?raw';
+
 import './form-field.js';
 import '../form-field-clear.js';
 import '../../button/mini-button.js';
@@ -103,9 +104,8 @@ const TemplateBasicTextarea = ({
     placeholder=${placeholder}
     ?disabled=${disabled}
     ?readonly=${readonly}
-  >
-${value}</textarea
-  >`;
+    .value=${value || nothing}
+  ></textarea>`;
 
 const TemplateInput = (args: Args): TemplateResult => formField(args, TemplateBasicInput(args));
 
@@ -262,9 +262,8 @@ const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
               placeholder=${args.placeholder}
               ?disabled=${args.disabled}
               ?readonly=${args.readonly}
-            >
-${args.value}</textarea
-            >
+              .value=${args.value || nothing}
+            ></textarea>
             ${sbbFormError}`,
         )}
       </div>

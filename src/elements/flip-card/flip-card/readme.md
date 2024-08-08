@@ -23,16 +23,23 @@ The `sbb-flip-card` will switch to the flipped state after the user clicks on it
 
 ## Properties
 
-| Name      | Attribute | Privacy | Type                        | Default | Description                                |
-| --------- | --------- | ------- | --------------------------- | ------- | ------------------------------------------ |
-| `details` | -         | public  | `SbbFlipCardDetailsElement` |         | Returns the slotted sbb-flip-card-details. |
-| `summary` | -         | public  | `SbbFlipCardSummaryElement` |         | Returns the slotted sbb-flip-card-summary. |
+| Name        | Attribute | Privacy | Type                        | Default | Description                                |
+| ----------- | --------- | ------- | --------------------------- | ------- | ------------------------------------------ |
+| `details`   | -         | public  | `SbbFlipCardDetailsElement` |         | Returns the slotted sbb-flip-card-details. |
+| `isFlipped` | -         | public  | `boolean`                   |         | Whether the flip card is flipped.          |
+| `summary`   | -         | public  | `SbbFlipCardSummaryElement` |         | Returns the slotted sbb-flip-card-summary. |
 
 ## Methods
 
 | Name     | Privacy | Description                             | Parameters | Return | Inherited From |
 | -------- | ------- | --------------------------------------- | ---------- | ------ | -------------- |
 | `toggle` | public  | Toggles the state of the sbb-flip-card. |            | `void` |                |
+
+## Events
+
+| Name   | Type                | Description                     | Inherited From |
+| ------ | ------------------- | ------------------------------- | -------------- |
+| `flip` | `CustomEvent<void>` | Emits when the flip card flips. |                |
 
 ## Slots
 

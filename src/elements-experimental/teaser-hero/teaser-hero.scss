@@ -10,9 +10,9 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  @include sbb.panel-variables;
-
   --sbb-teaser-hero-brightness-hover: 1.075;
+
+  @include sbb.panel-variables;
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -34,10 +34,13 @@
 }
 
 .sbb-teaser-hero__panel {
-  @include sbb.panel;
-  @include sbb.absolute-center-y;
-
   z-index: 1;
+
+  @include sbb.panel;
+
+  & {
+    @include sbb.absolute-center-y;
+  }
 }
 
 .sbb-teaser-hero__panel-text {

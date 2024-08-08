@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-signet-background-color: var(--sbb-color-red);
   --sbb-signet-icon-color: var(--sbb-color-white);
   --sbb-signet-aspect-ratio: 2 / 1;
@@ -13,8 +15,6 @@
     --sbb-signet-background-color: ButtonText !important;
     --sbb-signet-icon-color: Canvas !important;
   }
-
-  display: block;
 }
 
 :host([protective-room='minimal']) {

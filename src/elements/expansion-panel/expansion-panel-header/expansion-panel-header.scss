@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-expansion-panel-header-cursor: pointer;
   --sbb-expansion-panel-header-text-color: var(--sbb-color-charcoal);
   --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-6x);
@@ -13,8 +15,6 @@
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-header-text-color: ButtonText;
   }
-
-  display: block;
 }
 
 :host([data-size='s']) {
