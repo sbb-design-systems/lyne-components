@@ -13,6 +13,8 @@
   --sbb-teaser-hero-brightness-hover: 1.075;
   --sbb-teaser-hero-chip-inset: var(--sbb-spacing-responsive-xxxs) auto auto
     var(--sbb-spacing-responsive-xxxs);
+
+  @include sbb.panel-variables;
 }
 
 @include sbb.hover-mq($hover: true) {
