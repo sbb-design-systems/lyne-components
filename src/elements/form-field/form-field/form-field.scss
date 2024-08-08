@@ -220,7 +220,7 @@
       }
     }
 
-    :host(:is([data-input-focused], [data-has-popup-open])[borderless]) & {
+    :host(:is([data-input-focused], [data-has-popup-open], [data-disabled])[borderless]) & {
       &::after {
         content: '';
         position: absolute;
