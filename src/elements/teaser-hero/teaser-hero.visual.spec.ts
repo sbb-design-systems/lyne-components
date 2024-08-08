@@ -58,6 +58,12 @@ describe(`sbb-teaser-hero`, () => {
               <sbb-chip slot="chip">Label</sbb-chip>
             </sbb-teaser-hero>
           `);
+
+          await waitForImageReady(
+            setup.snapshotElement
+              .querySelector('sbb-teaser-hero')!
+              .shadowRoot!.querySelector('sbb-image')!,
+          );
         }),
       );
     }
