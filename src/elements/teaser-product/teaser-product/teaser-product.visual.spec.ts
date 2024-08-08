@@ -6,10 +6,10 @@ import {
   visualDiffDefault,
   visualDiffHover,
 } from '../../core/testing/private.js';
+import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 
 import './teaser-product.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
+import '../../button/button-static.js';
 import '../../image.js';
 import '../../title.js';
 
@@ -21,10 +21,7 @@ const content = (): TemplateResult => html`
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia.
     <div style="margin-block-start: var(--sbb-spacing-responsive-xxs);">
-      <sbb-button>Label</sbb-button>
-      <sbb-secondary-button style="margin-inline-start: var(--sbb-spacing-fixed-4x)"
-        >Label</sbb-secondary-button
-      >
+      <sbb-button-static>Label</sbb-button-static>
     </div>
   </div>
 `;
@@ -52,7 +49,7 @@ const template = (
 `;
 
 describe('sbb-teaser-product', () => {
-  describeViewports({ viewports: ['zero', 'large'] }, () => {
+  describeViewports({ viewports: ['zero', 'medium', 'large'], viewportHeight: 800 }, () => {
     const cases = {
       negative: [true, false],
       imageAlignment: ['after', 'before'],
@@ -62,14 +59,16 @@ describe('sbb-teaser-product', () => {
       it(
         'default',
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(negative, imageAlignment, true));
+          await setup.withFixture(template(negative, imageAlignment, true), { minHeight: '800px' });
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
 
       it(
         'no footer',
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(negative, imageAlignment));
+          await setup.withFixture(template(negative, imageAlignment), { minHeight: '800px' });
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
     });
@@ -77,7 +76,8 @@ describe('sbb-teaser-product', () => {
     it(
       visualDiffHover.name,
       visualDiffHover.with(async (setup) => {
-        await setup.withFixture(template());
+        await setup.withFixture(template(), { minHeight: '800px' });
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
   });

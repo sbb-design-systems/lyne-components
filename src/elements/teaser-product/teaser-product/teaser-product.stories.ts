@@ -1,7 +1,7 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import { type TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
@@ -9,7 +9,7 @@ import sampleImages from '../../core/images.js';
 
 import readme from './readme.md?raw';
 import './teaser-product.js';
-import '../../button/button.js';
+import '../../button/button-static.js';
 import '../../image.js';
 import '../../title.js';
 
@@ -21,6 +21,12 @@ const imageAlignment: InputType = {
 };
 
 const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const withFooter: InputType = {
   control: {
     type: 'boolean',
   },
@@ -47,6 +53,7 @@ const accessibilityLabel: InputType = {
 const defaultArgTypes: ArgTypes = {
   'image-alignment': imageAlignment,
   negative,
+  withFooter,
   href,
   'accessibility-label': accessibilityLabel,
 };
@@ -54,6 +61,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   'image-alignment': imageAlignment.options![0],
   negative: false,
+  withFooter: true,
   href: 'https://www.sbb.ch',
   'accessibility-label': undefined,
 };
@@ -66,7 +74,7 @@ const content = (): TemplateResult => html`
     vel dapibus lobortis. Sed at ex sit amet leo suscipit fermentum. Donec consequat hendrerit
     tortor, ut laoreet velit congue in.
     <div style="margin-block-start: var(--sbb-spacing-responsive-xxs);">
-      <sbb-button>Label</sbb-button>
+      <sbb-button-static>Label</sbb-button-static>
     </div>
   </div>
 `;
@@ -79,17 +87,10 @@ const footer = (): TemplateResult => html`
   </span>
 `;
 
-const Template = (args: Args): TemplateResult => html`
+const Template = ({ withFooter, ...args }: Args): TemplateResult => html`
   <sbb-teaser-product ${sbbSpread(args)} style="height: 600px">
     <sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>
-    ${content()} ${footer()}
-  </sbb-teaser-product>
-`;
-
-const NoFooterTemplate = (args: Args): TemplateResult => html`
-  <sbb-teaser-product ${sbbSpread(args)} style="height: 600px">
-    <sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>
-    ${content()}
+    ${content()} ${withFooter ? footer() : nothing}
   </sbb-teaser-product>
 `;
 
@@ -99,6 +100,12 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const Negative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+};
+
 export const ImageBefore: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -106,15 +113,9 @@ export const ImageBefore: StoryObj = {
 };
 
 export const NoFooter: StoryObj = {
-  render: NoFooterTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true },
+  args: { ...defaultArgs, withFooter: false },
 };
 
 const meta: Meta = {

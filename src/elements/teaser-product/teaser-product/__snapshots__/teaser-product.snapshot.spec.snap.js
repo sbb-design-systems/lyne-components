@@ -1,39 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Content Footnote"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot A11y tree Chrome */
-
-snapshots["A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Content Footnote",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot A11y tree Firefox */
-
 snapshots["sbb-teaser-product renders DOM"] = 
 `<sbb-teaser-product
   data-action=""
@@ -79,22 +46,6 @@ snapshots["sbb-teaser-product renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-product renders Shadow DOM */
 
-snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Content Footnote"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser-product renders A11y tree Chrome */
-
 snapshots["sbb-teaser-product renders A11y tree Firefox"] = 
 `<p>
   {
@@ -111,4 +62,20 @@ snapshots["sbb-teaser-product renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-teaser-product renders A11y tree Firefox */
+
+snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Content Footnote"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser-product renders A11y tree Chrome */
 

@@ -5,7 +5,7 @@ import { SbbActionBaseElement } from '../../core/base-elements.js';
 import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.js';
 
 /**
- * Displays a text and a footnote, combined with an image, to tease a product
+ * Displays a text and a footnote, combined with an image, to tease a product.
  *
  * @slot - Use this slot to provide the main content.
  * @slot image - Use this slot to provide a sbb-image as background.

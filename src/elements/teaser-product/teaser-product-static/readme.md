@@ -1,5 +1,7 @@
-The `sbb-teaser-product-static` is a component which can displays a text and a footnote, combined with an image as background, to tease a product.
-On small screens, the content follows the image.
+The `sbb-teaser-product-static` is a component that can display a text and a footnote,
+combined with an image as background, to tease a product.
+It should be used if there is more than one interactive action,
+otherwise, see [sbb-teaser-product](/docs/elements-sbb-teaser-sbb-teaser-product--docs).
 
 ```html
 <sbb-teaser-product-static>
