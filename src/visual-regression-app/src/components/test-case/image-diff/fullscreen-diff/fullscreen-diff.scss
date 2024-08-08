@@ -17,5 +17,7 @@
 .app-scroll-container {
   @include sbb.scrollbar;
 
-  overflow: auto;
+  & {
+    overflow: auto;
+  }
 }

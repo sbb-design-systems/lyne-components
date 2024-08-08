@@ -94,6 +94,21 @@ Please refer to their documentation for more details.
 
 ## Style
 
+The component has a `size` property, which accepts three different values: `s`, `m` (default) and `l`.
+
+```html
+<sbb-form-field size="s">
+  <label>Example</label>
+  <input />
+</sbb-form-field>
+
+<sbb-form-field size="l">
+  <label>Example</label>
+  <input required />
+  <sbb-form-error>This field is required!</sbb-form-error>
+</sbb-form-field>
+```
+
 By default, the component has a defined width and min-width. However, this behavior can be overridden by setting
 the `width` property to `collapse`: in this way the component adapts its width to the inner slotted input component.
 This is useful, for example, for the [sbb-time-input](/docs/elements-sbb-time-input--docs) component.
