@@ -6,6 +6,7 @@ it should be an eye-catcher and should have an emotional effect on the user with
 It is possible to provide the panel label via an unnamed slot,
 while the link text can be provided using the `link-content` slot or the `linkContent` property;
 similarly, the background image can be provided using the `image` slot or the `imageSrc` property.
+Optionally a `sbb-chip` can be slotted in the `chip` slot, either together with the other slottable elements or alone.
 
 ```html
 <sbb-teaser-hero
@@ -47,9 +48,9 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 
 ## Slots
 
-| Name           | Description                                           |
-| -------------- | ----------------------------------------------------- |
-|                | Use the unnamed slot to add text content to the panel |
-| `chip`         | Link content of the panel                             |
-| `image`        | The background image that can be a `sbb-image`        |
-| `link-content` | Link content of the panel                             |
+| Name           | Description                                                        |
+| -------------- | ------------------------------------------------------------------ |
+|                | Use the unnamed slot to add text content to the panel              |
+| `chip`         | The `sbb-chip` component that will be displayed on top-left corner |
+| `image`        | The background image that can be a `sbb-image`                     |
+| `link-content` | Link content of the panel                                          |

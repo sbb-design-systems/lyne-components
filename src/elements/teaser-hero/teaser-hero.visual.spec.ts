@@ -54,7 +54,7 @@ describe(`sbb-teaser-hero`, () => {
         `without content ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-teaser-hero href="#">
+            <sbb-teaser-hero href="#" image-src=${imageUrl}>
               <sbb-chip slot="chip">Label</sbb-chip>
             </sbb-teaser-hero>
           `);

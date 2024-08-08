@@ -16,7 +16,7 @@ import '../link/block-link-static.js';
  * @slot - Use the unnamed slot to add text content to the panel
  * @slot link-content - Link content of the panel
  * @slot image - The background image that can be a `sbb-image`
- * @slot chip - Link content of the panel
+ * @slot chip - The `sbb-chip` component that will be displayed on top-left corner
  */
 @customElement('sbb-teaser-hero')
 @slotState()

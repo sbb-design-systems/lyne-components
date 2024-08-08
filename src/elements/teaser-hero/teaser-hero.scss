@@ -40,8 +40,8 @@
   & {
     @include sbb.absolute-center-y;
   }
-
-  // Hide panel when no content or link-content is proview.
+  
+  // Hide panel when no content or link-content is provided.
   :host(:not([data-slot-names~='unnamed'], [data-slot-names~='link-content'], [link-content])) & {
     display: none;
   }
