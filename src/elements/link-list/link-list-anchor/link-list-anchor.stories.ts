@@ -22,6 +22,7 @@ const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Repor
 const LinkTemplate = (args: Args): TemplateResult => html`
   <sbb-block-link
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    target="_blank"
   >
     ${args.linkTitle}
   </sbb-block-link>
