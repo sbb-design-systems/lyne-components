@@ -1,6 +1,14 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffActive,
+  visualDiffDefault,
+  visualDiffFocus,
+  visualDiffHover,
+  visualRegressionFixture,
+} from '../../core/testing/private.js';
 
 import './link-list-anchor.js';
 import '../../link/block-link.js';
@@ -24,13 +32,29 @@ const listAnchor = (
 `;
 
 describe(`sbb-link-list-anchor`, () => {
-  const cases = {
-    negative: [false, true],
-    size: ['xs', 's', 'm'],
-  };
+  const cases = { negative: [false, true] };
 
   describeViewports({ viewports: ['zero', 'medium', 'wide'] }, () => {
-    describeEach(cases, ({ negative, size }) => {
+    describeEach(cases, ({ negative }) => {
+      let root: HTMLElement;
+
+      beforeEach(async function () {
+        root = await visualRegressionFixture(listAnchor(negative, 's', true), {
+          backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+        });
+      });
+
+      for (const state of [visualDiffActive, visualDiffHover, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with((setup) => {
+            setup.withSnapshotElement(root);
+          }),
+        );
+      }
+    });
+
+    describeEach({ ...cases, size: ['xs', 's', 'm'] }, ({ negative, size }) => {
       it(
         'title',
         visualDiffDefault.with(async (setup) => {
