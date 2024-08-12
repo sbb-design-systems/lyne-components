@@ -383,11 +383,7 @@
 }
 
 .sbb-form-field__input {
-  :host([size='s']:is([data-input-type='input'], [data-input-type='select'])) & {
-    // In size s, the natural height of the text input is too small.
-    // To not reserve too much space, we decrease the height.
-    height: var(--sbb-spacing-fixed-6x);
-  }
+  display: flex;
 }
 
 // Input
@@ -456,6 +452,10 @@
     white-space: break-spaces;
     overflow-y: auto;
     min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+  }
+
+  :host([size='l']) & {
+    padding-block-end: #{sbb.px-to-rem-build(5.5)};
   }
 
   :host([negative]) & {
