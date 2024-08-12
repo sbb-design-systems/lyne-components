@@ -273,47 +273,11 @@ describe(`sbb-form-field`, () => {
               );
             });
 
-            // labels
-            it(
-              `label=undefined`,
-              visualDiffDefault.with(async (setup) => {
-                const noLabel = { ...basicArgs, label: undefined };
-                await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                  forcedColors,
-                });
-              }),
-            );
-
-            it(
-              `label=hidden`,
-              visualDiffDefault.with(async (setup) => {
-                const hiddenLabel = { ...basicArgs, 'hidden-label': true };
-                await setup.withFixture(html`${formField(hiddenLabel, template(hiddenLabel))}`, {
-                  forcedColors,
-                });
-              }),
-            );
-
             it(
               `label=slotted`,
               visualDiffDefault.with(async (setup) => {
                 const slottedLabel = { ...basicArgs, 'slotted-label': true };
                 await setup.withFixture(html`${formField(slottedLabel, template(slottedLabel))}`, {
-                  forcedColors,
-                });
-              }),
-            );
-
-            it(
-              `label=floating`,
-              visualDiffDefault.with(async (setup) => {
-                const hiddenLabel = {
-                  ...basicArgs,
-                  'floating-label': true,
-                  value: undefined,
-                  selectNullValue: true,
-                };
-                await setup.withFixture(html`${formField(hiddenLabel, template(hiddenLabel))}`, {
                   forcedColors,
                 });
               }),
@@ -421,6 +385,53 @@ describe(`sbb-form-field`, () => {
                 }),
               );
             });
+
+            for (const size of visualProp.size) {
+              describe(`size=${size}`, () => {
+                it(
+                  `label=floating`,
+                  visualDiffDefault.with(async (setup) => {
+                    const hiddenLabel = {
+                      ...basicArgs,
+                      'floating-label': true,
+                      value: undefined,
+                      selectNullValue: true,
+                      size,
+                    };
+                    await setup.withFixture(
+                      html`${formField(hiddenLabel, template(hiddenLabel))}`,
+                      {
+                        forcedColors,
+                      },
+                    );
+                  }),
+                );
+
+                it(
+                  `label=hidden`,
+                  visualDiffDefault.with(async (setup) => {
+                    const hiddenLabel = { ...basicArgs, 'hidden-label': true, size };
+                    await setup.withFixture(
+                      html`${formField(hiddenLabel, template(hiddenLabel))}`,
+                      {
+                        forcedColors,
+                      },
+                    );
+                  }),
+                );
+
+                // labels
+                it(
+                  `label=undefined`,
+                  visualDiffDefault.with(async (setup) => {
+                    const noLabel = { ...basicArgs, label: undefined, size };
+                    await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
+                      forcedColors,
+                    });
+                  }),
+                );
+              });
+            }
           });
         }
       });
