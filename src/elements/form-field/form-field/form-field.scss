@@ -353,6 +353,10 @@
   @include sbb.ellipsis;
 }
 
+.sbb-form-field__input {
+  display: flex;
+}
+
 // Input
 
 .sbb-form-field__input ::slotted(:where(input, select, textarea, sbb-select)) {
@@ -419,6 +423,10 @@
     white-space: break-spaces;
     overflow-y: auto;
     min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+  }
+
+  :host([size='l']) & {
+    padding-block-end: #{sbb.px-to-rem-build(5.5)};
   }
 
   :host([negative]) & {
