@@ -46,7 +46,7 @@ snapshots["sbb-mini-button-group renders Shadow DOM"] =
     <slot name="li-0">
     </slot>
   </li>
-  <li>
+  <li aria-hidden="true">
     <slot name="li-1">
     </slot>
   </li>

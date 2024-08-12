@@ -44,7 +44,12 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   }
 
   protected override render(): TemplateResult {
-    return html` ${this.renderList({ ariaLabel: this.accessibilityLabel })} `;
+    return html`
+      ${this.renderList(
+        { ariaLabel: this.accessibilityLabel },
+        { localNameVisualOnly: ['sbb-divider'] },
+      )}
+    `;
   }
 }
 
