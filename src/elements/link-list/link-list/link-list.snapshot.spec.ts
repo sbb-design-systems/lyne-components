@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
 import type { SbbLinkListElement } from './link-list.js';
 
-import '../link/block-link.js';
+import '../../link/block-link.js';
 import './link-list.js';
 
 describe(`sbb-link-list`, () => {

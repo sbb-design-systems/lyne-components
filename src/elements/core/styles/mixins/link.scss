@@ -57,7 +57,7 @@
 @mixin link-hover-rules {
   @include mediaqueries.hover-mq($hover: true) {
     color: var(--sbb-link-color-hover);
-    text-decoration: underline;
+    text-decoration: var(--sbb-link-hover-text-decoration, underline);
   }
 }
 

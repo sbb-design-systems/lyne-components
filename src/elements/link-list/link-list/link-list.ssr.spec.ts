@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbLinkListElement } from './link-list.js';
 
-import '../link.js';
+import '../../link.js';
 
 describe(`sbb-link-list ssr`, () => {
   let root: SbbLinkListElement;
@@ -37,7 +37,7 @@ describe(`sbb-link-list ssr`, () => {
           >
         </sbb-link-list>
       `,
-      { modules: ['./link-list.js', '../link.js'] },
+      { modules: ['./link-list.js', '../../link.js'] },
     );
   });
 

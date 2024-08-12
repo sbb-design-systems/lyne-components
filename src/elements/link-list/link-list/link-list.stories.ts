@@ -3,11 +3,13 @@ import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/we
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import '../link/block-link.js';
+import '../../link/block-link.js';
 import './link-list.js';
+
+const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
 const LinkTemplate = (args: Args): TemplateResult => html`
   <sbb-block-link
@@ -16,8 +18,6 @@ const LinkTemplate = (args: Args): TemplateResult => html`
     ${args.linkTitle}
   </sbb-block-link>
 `;
-
-const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
 // SlottedTitle
 const TemplateSlottedTitle = ({
@@ -119,6 +119,15 @@ export const LinkListXS: StoryObj = {
   },
 };
 
+export const LinkListM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![2],
+  },
+};
+
 export const LinkListNoTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -162,7 +171,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-link-list',
+  title: 'elements/sbb-link-list/sbb-link-list',
 };
 
 export default meta;
