@@ -89,13 +89,13 @@
 
   // Values found by try and error
   --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)};
-  --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.125)};
-  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-11)};
+  --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.5)};
+  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8.5)};
 
   @include sbb.mq($from: medium) {
     // Values found by try and error
     --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
-    --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(6.5)};
+    --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5)};
     --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)};
   }
 }
@@ -338,6 +338,9 @@
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
 
+  // Textarea with forced colors active needs to have the label a level higher
+  z-index: 1;
+
   @include sbb.text-xs--regular;
 
   :host([size='s']) & {
@@ -384,6 +387,12 @@
 
 .sbb-form-field__input {
   display: flex;
+
+  :host([size='s']:is([data-input-type='input'], [data-input-type='select'])) & {
+    // In size s, the natural height of the text input is too small.
+    // To not reserve too much space, we decrease the height.
+    margin-block-end: #{sbb.px-to-rem-build(-2)};
+  }
 }
 
 // Input
