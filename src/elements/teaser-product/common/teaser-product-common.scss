@@ -57,6 +57,18 @@
   }
 }
 
+::slotted(p) {
+  margin: 0;
+}
+
+::slotted(sbb-title.sbb-teaser-product--spacing) {
+  --sbb-title-margin-block-start: 0;
+}
+
+::slotted(:is(div, sbb-action-group).sbb-teaser-product--spacing) {
+  margin-block-start: var(--sbb-spacing-responsive-xxs);
+}
+
 .sbb-action-base {
   display: block;
   position: relative;

@@ -15,12 +15,39 @@ otherwise, see [sbb-teaser-product](/docs/elements-sbb-teaser-sbb-teaser-product
 
 ## Slots
 
-The default slot is reserved for the main content.
-If it only contains a single interactable element, like a button or a link, use the [sbb-teaser-product](/docs/elements-sbb-teaser-sbb-teaser-product--docs) instead.
+Use the `image` slot to pass a `sbb-image` that will be used as a background,
+and use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 
-Use the `image` slot to pass a `sbb-image` that will be used as background.
+The default slot is reserved for the main content: it could be a simple text or a text combined with more elements,
+like a `sbb-title` or some interactive elements, like buttons or links within the `sbb-action-group` component.
 
-Use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
+```html
+<sbb-teaser-product-static href="...">
+  <sbb-image slot="image" image-src="..."></sbb-image>
+  <p>Content ...</p>
+</sbb-teaser-product-static>
+```
+
+If the content is text only, the `p` tag has the `margin` property automatically set to 0;
+if title and/or buttons are used, consumers can apply the helper class `sbb-teaser-product--spacing`
+to display the components with the correct spacings.
+
+```html
+<sbb-teaser-product href="...">
+  <sbb-image slot="image" image-src="..."></sbb-image>
+  <sbb-title level="3" class="sbb-teaser-product--spacing">
+    Benefit from up to 70% discount
+  </sbb-title>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
+    viverra lacinia. Donec et enim mi. Aliquam erat volutpat. Proin ut odio tellus.
+  </p>
+  <sbb-action-group class="sbb-teaser-product--spacing">
+    <sbb-button>Label</sbb-button>
+    <sbb-secondary-button>Label</sbb-secondary-button>
+  </sbb-action-group>
+</sbb-teaser-product>
+```
 
 ## Style
 

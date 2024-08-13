@@ -47,17 +47,19 @@ const defaultArgs: Args = {
 };
 
 const content = (): TemplateResult => html`
-  <div>
-    <sbb-title level="3" style="margin-block-start: 0;">Benefit from up to 70% discount</sbb-title>
+  <sbb-title level="3" class="sbb-teaser-product--spacing"
+    >Benefit from up to 70% discount</sbb-title
+  >
+  <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia. Donec et enim mi. Aliquam erat volutpat. Proin ut odio tellus. Donec tempor mi
     vel dapibus lobortis. Sed at ex sit amet leo suscipit fermentum. Donec consequat hendrerit
     tortor, ut laoreet velit congue in.
-    <sbb-action-group style="margin-block-start: var(--sbb-spacing-responsive-xxs);">
-      <sbb-button>Label</sbb-button>
-      <sbb-secondary-button>Label</sbb-secondary-button>
-    </sbb-action-group>
-  </div>
+  </p>
+  <sbb-action-group class="sbb-teaser-product--spacing">
+    <sbb-button>Label</sbb-button>
+    <sbb-secondary-button>Label</sbb-secondary-button>
+  </sbb-action-group>
 `;
 
 const footer = (): TemplateResult => html`
