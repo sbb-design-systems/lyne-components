@@ -9,10 +9,16 @@
   --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
   --sbb-flip-card-min-height: #{sbb.px-to-rem-build(280)};
   --sbb-flip-card-details-min-height: var(--sbb-flip-card-min-height);
-  --sbb-flip-card-summary-transition-duration: var(--sbb-animation-duration-5x);
+  --sbb-flip-card-summary-transition-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-5x)
+  );
   --sbb-flip-card-summary-transition-delay: var(--sbb-animation-duration-2x);
-  --sbb-flip-card-details-transition-duration: var(--sbb-animation-duration-4x);
-  --sbb-flip-card-details-transition-delay: var(--sbb-disable-animation-zero-time);
+  --sbb-flip-card-details-transition-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-flip-card-details-transition-delay: 0s;
 
   position: relative;
   display: block;
@@ -28,9 +34,12 @@
 
 :host([data-flipped]) {
   --sbb-flip-card-background-color: var(--sbb-color-midnight);
-  --sbb-flip-card-details-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-flip-card-details-transition-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-flip-card-details-transition-delay: var(--sbb-animation-duration-5x);
-  --sbb-flip-card-summary-transition-delay: var(--sbb-disable-animation-zero-time);
+  --sbb-flip-card-summary-transition-delay: 0s;
   --sbb-flip-card-details-min-height: fit-content;
 
   ::slotted(sbb-flip-card-summary) {
