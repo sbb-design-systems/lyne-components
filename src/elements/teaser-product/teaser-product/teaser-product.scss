@@ -25,17 +25,3 @@
   transition: filter var(--sbb-teaser-product-animation-duration)
     var(--sbb-teaser-product-animation-easing);
 }
-
-::slotted(img) {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--sbb-teaser-product-border-radius);
-
-  @include sbb.mq($to: large) {
-    border-radius: var(--sbb-teaser-product-border-radius) var(--sbb-teaser-product-border-radius) 0
-      0;
-  }
-}

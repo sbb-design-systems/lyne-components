@@ -28,14 +28,14 @@ snapshots["sbb-teaser-product-static renders Shadow DOM"] =
   <slot name="image">
   </slot>
   <span class="sbb-teaser-product__container">
-    <p class="sbb-teaser-product__content">
+    <span class="sbb-teaser-product__content">
       <slot>
       </slot>
-    </p>
-    <p class="sbb-teaser-product__footnote">
+    </span>
+    <span class="sbb-teaser-product__footnote">
       <slot name="footnote">
       </slot>
-    </p>
+    </span>
   </span>
 </span>
 `;
@@ -69,7 +69,7 @@ snapshots["sbb-teaser-product-static renders A11y tree Chrome"] =
   "children": [
     {
       "role": "text",
-      "name": "Content"
+      "name": "Content "
     },
     {
       "role": "text",

@@ -33,14 +33,14 @@ snapshots["sbb-teaser-product renders Shadow DOM"] =
   <slot name="image">
   </slot>
   <span class="sbb-teaser-product__container">
-    <p class="sbb-teaser-product__content">
+    <span class="sbb-teaser-product__content">
       <slot>
       </slot>
-    </p>
-    <p class="sbb-teaser-product__footnote">
+    </span>
+    <span class="sbb-teaser-product__footnote">
       <slot name="footnote">
       </slot>
-    </p>
+    </span>
   </span>
 </a>
 `;

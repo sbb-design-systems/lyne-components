@@ -47,8 +47,8 @@ Add the `negative` attribute to enable the negative variant.
 
 ## Slots
 
-| Name       | Description                                         |
-| ---------- | --------------------------------------------------- |
-|            | Use this slot to provide the main content.          |
-| `footnote` | Use this slot to provide a footnote.                |
-| `image`    | Use this slot to provide a sbb-image as background. |
+| Name       | Description                                                         |
+| ---------- | ------------------------------------------------------------------- |
+|            | Use this slot to provide the main content.                          |
+| `footnote` | Use this slot to provide a footnote.                                |
+| `image`    | Use this slot to provide an image or a `sbb-image` as a background. |
