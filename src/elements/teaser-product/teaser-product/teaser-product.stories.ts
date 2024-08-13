@@ -94,6 +94,13 @@ const Template = ({ withFooter, ...args }: Args): TemplateResult => html`
   </sbb-teaser-product>
 `;
 
+const TemplateSlottedImg = ({ withFooter, ...args }: Args): TemplateResult => html`
+  <sbb-teaser-product ${sbbSpread(args)} style="height: 600px">
+    <img slot="image" src="${sampleImages[4]}" alt="" />
+    ${content()} ${withFooter ? footer() : nothing}
+  </sbb-teaser-product>
+`;
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -114,6 +121,24 @@ export const ImageBefore: StoryObj = {
 
 export const NoFooter: StoryObj = {
   render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, withFooter: false },
+};
+
+export const SlottedImg: StoryObj = {
+  render: TemplateSlottedImg,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const SlottedImgNegative: StoryObj = {
+  render: TemplateSlottedImg,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+};
+
+export const SlottedImgNoFooter: StoryObj = {
+  render: TemplateSlottedImg,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, withFooter: false },
 };

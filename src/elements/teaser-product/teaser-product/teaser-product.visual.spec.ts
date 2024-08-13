@@ -37,13 +37,16 @@ const template = (
   negative?: boolean,
   imageAlignment?: string,
   showFooter?: boolean,
+  slottedImg?: boolean,
 ): TemplateResult => html`
   <sbb-teaser-product
     ?negative=${negative}
     image-alignment=${imageAlignment || nothing}
     style="height: 600px"
   >
-    <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+    ${slottedImg
+      ? html`<img slot="image" src=${imageUrl} alt="" />`
+      : html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`}
     ${content()} ${showFooter ? footer() : nothing}
   </sbb-teaser-product>
 `;
@@ -53,22 +56,31 @@ describe('sbb-teaser-product', () => {
     const cases = {
       negative: [true, false],
       imageAlignment: ['after', 'before'],
+      slottedImg: [false, true],
     };
 
-    describeEach(cases, ({ negative, imageAlignment }) => {
+    describeEach(cases, ({ negative, imageAlignment, slottedImg }) => {
       it(
         'default',
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(negative, imageAlignment, true), { minHeight: '800px' });
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          await setup.withFixture(template(negative, imageAlignment, true, slottedImg), {
+            minHeight: '800px',
+          });
+          await waitForImageReady(
+            setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+          );
         }),
       );
 
       it(
         'no footer',
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(negative, imageAlignment), { minHeight: '800px' });
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          await setup.withFixture(template(negative, imageAlignment, false, slottedImg), {
+            minHeight: '800px',
+          });
+          await waitForImageReady(
+            setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+          );
         }),
       );
     });
