@@ -36,7 +36,8 @@ The component has also four color variants that can be set using the `color` pro
 
 ## Slots
 
-| Name         | Description                                            |
-| ------------ | ------------------------------------------------------ |
-|              | Use the unnamed slot to add anything to the container. |
-| `sticky-bar` | The slot used by the sbb-sticky-bar component.         |
+| Name         | Description                                                |
+| ------------ | ---------------------------------------------------------- |
+|              | Use the unnamed slot to add anything to the container.     |
+| `image`      | The slot used to slot an `sbb-image` to use as background. |
+| `sticky-bar` | The slot used by the sbb-sticky-bar component.             |

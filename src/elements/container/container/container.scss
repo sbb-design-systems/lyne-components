@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  --sbb-image-object-position: bottom;
+
   display: block;
 }
 
@@ -13,6 +15,10 @@
 
 :host([color='milk']) {
   --sbb-container-background-color: var(--sbb-color-milk);
+}
+
+:host([data-slot-names~='image']) {
+  --sbb-container-background-color: transparent;
 }
 
 :host(:not([expanded])[background-expanded]) {
@@ -38,4 +44,21 @@
   :host([expanded]) & {
     @include sbb.page-spacing-expanded;
   }
+
+  :host([data-slot-names~='image']) & {
+    position: relative;
+  }
+}
+
+::slotted([slot='image']) {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+::slotted(img[slot='image']) {
+  object-fit: cover;
+  object-position: var(--sbb-image-object-position);
+  height: 100%;
+  width: 100%;
 }

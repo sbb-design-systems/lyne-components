@@ -1,10 +1,14 @@
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import sampleImages from '../../core/images.js';
 
 import '../../button/secondary-button.js';
+import '../../card.js';
+import '../../image.js';
 import '../../title.js';
 import './container.js';
 
@@ -23,6 +27,25 @@ const containerContent = (title: string, last = false): TemplateResult => html`
     >See more</sbb-secondary-button
   >
 `;
+
+const card = (title: string): TemplateResult => html`
+  <sbb-card style="max-width: 504px; min-width: 288px;">
+    <sbb-title level="5" style="margin-block-start: 1rem;">${title}</sbb-title>
+    <p class="sbb-text-s">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua.
+    </p>
+    <sbb-secondary-button style="margin-block-end: 1rem;">See more</sbb-secondary-button>
+  </sbb-card>
+`;
+
+const cardContainerStyle: Args = {
+  padding: '3rem 0',
+  display: 'flex',
+  gap: '2rem',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+};
 
 const color: InputType = {
   control: {
@@ -43,22 +66,38 @@ const backgroundExpanded: InputType = {
   },
 };
 
+const imageSrc: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   color,
   expanded,
   'background-expanded': backgroundExpanded,
+  'image-src': imageSrc,
 };
 
 const defaultArgs: Args = {
   color: color.options![0],
   expanded: false,
   'background-expanded': false,
+  'image-src': undefined,
 };
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)}>
     ${containerContent('Example title')} ${containerContent('Another one')}
     ${containerContent('And another one', true)}
+  </sbb-container>
+`;
+
+const BackgroundImageTemplate = ({ 'image-src': imageSrc, ...args }: Args): TemplateResult => html`
+  <sbb-container ${sbbSpread(args)}>
+    <sbb-title level="2">Container with background image</sbb-title>
+    <div style=${styleMap(cardContainerStyle)}>${card('Example title')} ${card('Another one')}</div>
+    <sbb-image slot="image" image-src=${imageSrc}></sbb-image>
   </sbb-container>
 `;
 
@@ -90,6 +129,15 @@ export const Milk: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![2] },
+};
+
+export const BackgroundImage: StoryObj = {
+  render: BackgroundImageTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'image-src': sampleImages[7],
+  },
 };
 
 export const Expanded: StoryObj = {
