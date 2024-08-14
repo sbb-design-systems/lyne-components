@@ -22,7 +22,7 @@ The default slot is reserved for the main content: it could be a simple text or 
 like a `sbb-title` or some interactive elements, like buttons or links within the `sbb-action-group` component.
 
 ```html
-<sbb-teaser-product-static href="...">
+<sbb-teaser-product-static>
   <sbb-image slot="image" image-src="..."></sbb-image>
   <p class="sbb-teaser-product--spacing">Content ...</p>
 </sbb-teaser-product-static>
@@ -32,7 +32,7 @@ If paragraphs, title and/or button are used, consumers can apply the helper clas
 to display the components with the correct spacings.
 
 ```html
-<sbb-teaser-product-static href="...">
+<sbb-teaser-product-static>
   <sbb-image slot="image" image-src="..."></sbb-image>
   <sbb-title level="3" class="sbb-teaser-product--spacing">
     Benefit from up to 70% discount

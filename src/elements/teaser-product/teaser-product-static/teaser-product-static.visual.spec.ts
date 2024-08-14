@@ -2,6 +2,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeViewports,
+  loadAssetAsBase64,
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.js';
@@ -15,6 +16,7 @@ import '../../image.js';
 import '../../title.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
+const imageBase64 = await loadAssetAsBase64(imageUrl);
 
 const content = (longContent = false): TemplateResult => html`
   <sbb-title level="3" class="sbb-teaser-product--spacing">
@@ -57,7 +59,7 @@ const template = ({
 } = {}): TemplateResult => html`
   <sbb-teaser-product-static ?negative=${negative} image-alignment=${imageAlignment || nothing}>
     ${slottedImg
-      ? html`<img slot="image" src=${imageUrl} alt="" />`
+      ? html`<img slot="image" src=${imageBase64} alt="" />`
       : html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`}
     ${content(longContent)} ${showFooter ? footer() : nothing}
   </sbb-teaser-product-static>
