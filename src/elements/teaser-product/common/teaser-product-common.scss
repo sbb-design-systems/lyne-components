@@ -25,10 +25,10 @@
 
 :host([negative]) {
   --sbb-teaser-product-background-color: var(--sbb-color-midnight);
-  --sbb-teaser-product-content-color: var(--sbb-color-white);
+  --sbb-teaser-product-content-color: var(--sbb-color-cloud);
   --sbb-teaser-product-footer-color: var(--sbb-color-cloud);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-title-text-color-normal-override: var(--sbb-color-white);
+  --sbb-title-text-color-normal-override: var(--sbb-color-milk);
 }
 
 :host([image-alignment='before']) {
