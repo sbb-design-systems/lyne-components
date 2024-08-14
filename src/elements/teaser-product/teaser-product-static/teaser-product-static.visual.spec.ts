@@ -1,6 +1,10 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, describeEach, visualDiffDefault } from '../../core/testing/private.js';
+import {
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 
 import './teaser-product-static.js';
@@ -49,38 +53,49 @@ const template = (
 
 describe('sbb-teaser-product-static', () => {
   describeViewports({ viewports: ['zero', 'medium', 'large'], viewportHeight: 800 }, () => {
-    const cases = {
-      negative: [true, false],
-      imageAlignment: ['after', 'before'],
-      slottedImg: [false, true],
-    };
-
-    describeEach(cases, ({ negative, imageAlignment, slottedImg }) => {
-      it(
-        'default',
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(negative, imageAlignment, true, slottedImg), {
-            minHeight: '800px',
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+    for (const slottedImg of [false, true]) {
+      describe(`slottedImg=${slottedImg}`, () => {
+        for (const negative of [false, true]) {
+          describe(`negative=${negative}`, () => {
+            for (const visualState of [visualDiffDefault, visualDiffFocus]) {
+              it(
+                visualState.name,
+                visualState.with(async (setup) => {
+                  await setup.withFixture(template(negative, 'after', true, slottedImg), {
+                    minHeight: '800px',
+                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                  });
+                  await waitForImageReady(
+                    setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+                  );
+                }),
+              );
+            }
           });
-          await waitForImageReady(
-            setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
-          );
-        }),
-      );
+        }
 
-      it(
-        'no footer',
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(negative, imageAlignment, false, slottedImg), {
-            minHeight: '800px',
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-          });
-          await waitForImageReady(
-            setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
-          );
-        }),
-      );
-    });
+        it(
+          `imageAlignment=before`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template(false, 'before', true, slottedImg), {
+              minHeight: '800px',
+            });
+            await waitForImageReady(
+              setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+            );
+          }),
+        );
+      });
+    }
+
+    it(
+      'no footer',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(false, 'after', false), {
+          minHeight: '800px',
+        });
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+      }),
+    );
   });
 });

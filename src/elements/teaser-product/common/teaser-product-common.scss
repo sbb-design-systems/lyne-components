@@ -35,11 +35,14 @@
   --sbb-teaser-product-background-gradient-direction: to left;
 }
 
-@include sbb.mq($to: large) {
-  ::slotted(sbb-image) {
-    // We have to remove the image bottom border-radius when stacked
-    --sbb-image-border-radius: var(--sbb-teaser-product-border-radius)
-      var(--sbb-teaser-product-border-radius) 0 0;
+.sbb-teaser-product__image-container {
+  overflow: hidden;
+
+  // We have to remove the image bottom border-radius when stacked
+  border-radius: var(--sbb-teaser-product-border-radius) var(--sbb-teaser-product-border-radius) 0 0;
+
+  @include sbb.mq($from: large) {
+    border-radius: var(--sbb-teaser-product-border-radius);
   }
 }
 
@@ -49,13 +52,11 @@
   height: 100%;
   object-fit: cover;
   aspect-ratio: 16 / 9;
-  border-radius: var(--sbb-teaser-product-border-radius);
+}
 
-  @include sbb.mq($to: large) {
-    // We have to remove the image bottom border-radius when stacked
-    border-radius: var(--sbb-teaser-product-border-radius) var(--sbb-teaser-product-border-radius) 0
-      0;
-  }
+// Reset sbb-image border radius in order to control it from teaser product.
+::slotted(sbb-image) {
+  --sbb-image-border-radius: 0;
 }
 
 ::slotted(p.sbb-teaser-product--spacing) {

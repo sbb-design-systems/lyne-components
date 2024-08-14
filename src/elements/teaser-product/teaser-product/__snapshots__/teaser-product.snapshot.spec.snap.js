@@ -35,8 +35,10 @@ snapshots["sbb-teaser-product renders Shadow DOM"] =
   class="sbb-action-base sbb-teaser-product"
   href="https://www.sbb.ch"
 >
-  <slot name="image">
-  </slot>
+  <div class="sbb-teaser-product__image-container">
+    <slot name="image">
+    </slot>
+  </div>
   <span class="sbb-teaser-product__container">
     <span class="sbb-teaser-product__content">
       <slot>

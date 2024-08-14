@@ -24,13 +24,16 @@ export const SbbTeaserProductCommonElementMixin = <
     extends SbbNegativeMixin(superClass)
     implements SbbTeaserProductCommonElementMixinType
   {
-    /** Whether the content and footer are aligned 'before' or 'after' the image */
+    /**
+     * Whether the fully visible part of the image is aligned 'before' or 'after' the content.
+     * Only relevant starting from large breakpoint.
+     */
     @property({ attribute: 'image-alignment', reflect: true })
     public imageAlignment: 'after' | 'before' = 'after';
 
     protected override renderTemplate(): TemplateResult {
       return html`
-        <slot name="image"></slot>
+        <div class="sbb-teaser-product__image-container"><slot name="image"></slot></div>
         <span class="sbb-teaser-product__container">
           <span class="sbb-teaser-product__content">
             <slot></slot>

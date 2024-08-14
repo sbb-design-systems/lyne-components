@@ -66,10 +66,10 @@ Add the `negative` attribute to enable the negative variant.
 
 ## Properties
 
-| Name             | Attribute         | Privacy | Type                  | Default   | Description                                                              |
-| ---------------- | ----------------- | ------- | --------------------- | --------- | ------------------------------------------------------------------------ |
-| `imageAlignment` | `image-alignment` | public  | `'after' \| 'before'` | `'after'` | Whether the content and footer are aligned 'before' or 'after' the image |
-| `negative`       | `negative`        | public  | `boolean`             | `false`   | Negative coloring variant flag.                                          |
+| Name             | Attribute         | Privacy | Type                  | Default   | Description                                                                                                                           |
+| ---------------- | ----------------- | ------- | --------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `imageAlignment` | `image-alignment` | public  | `'after' \| 'before'` | `'after'` | Whether the fully visible part of the image is aligned 'before' or 'after' the content. Only relevant starting from large breakpoint. |
+| `negative`       | `negative`        | public  | `boolean`             | `false`   | Negative coloring variant flag.                                                                                                       |
 
 ## Slots
 

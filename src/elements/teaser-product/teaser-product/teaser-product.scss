@@ -11,17 +11,10 @@
   --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
 }
 
-.sbb-teaser-product {
-  will-change: transform;
-  filter: brightness(var(--sbb-teaser-product-brightness, 1));
-  transition: transform var(--sbb-teaser-product-animation-duration) var(--sbb-animation-easing);
-
-  &:hover {
-    @include sbb.hover-mq($hover: true) {
-      transform: scale(var(--sbb-teaser-product-scale-hover));
-
-      --sbb-teaser-product-brightness: var(--sbb-teaser-product-brightness-hover);
-    }
+:host(:hover) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-teaser-product-brightness: var(--sbb-teaser-product-brightness-hover);
+    --sbb-teaser-product-scale: var(--sbb-teaser-product-scale-hover);
   }
 }
 
@@ -31,4 +24,13 @@
 
     border-radius: var(--sbb-teaser-product-border-radius);
   }
+}
+
+::slotted(:is(img, sbb-image)) {
+  will-change: transform, filter;
+  transition-property: transform, filter;
+  transition-duration: var(--sbb-teaser-product-animation-duration);
+  transition-timing-function: var(--sbb-animation-easing);
+  filter: brightness(var(--sbb-teaser-product-brightness, 1));
+  transform: scale(var(--sbb-teaser-product-scale));
 }

@@ -68,15 +68,15 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser-product>`, wh
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                                    | Default   | Description                                                              |
-| -------------------- | --------------------- | ------- | --------------------------------------- | --------- | ------------------------------------------------------------------------ |
-| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |           | This will be forwarded as aria-label to the inner anchor element.        |
-| `download`           | `download`            | public  | `boolean \| undefined`                  |           | Whether the browser will show the download dialog on click.              |
-| `href`               | `href`                | public  | `string \| undefined`                   |           | The href value you want to link to.                                      |
-| `imageAlignment`     | `image-alignment`     | public  | `'after' \| 'before'`                   | `'after'` | Whether the content and footer are aligned 'before' or 'after' the image |
-| `negative`           | `negative`            | public  | `boolean`                               | `false`   | Negative coloring variant flag.                                          |
-| `rel`                | `rel`                 | public  | `string \| undefined`                   |           | The relationship of the linked URL as space-separated link types.        |
-| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |           | Where to display the linked URL.                                         |
+| Name                 | Attribute             | Privacy | Type                                    | Default   | Description                                                                                                                           |
+| -------------------- | --------------------- | ------- | --------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |           | This will be forwarded as aria-label to the inner anchor element.                                                                     |
+| `download`           | `download`            | public  | `boolean \| undefined`                  |           | Whether the browser will show the download dialog on click.                                                                           |
+| `href`               | `href`                | public  | `string \| undefined`                   |           | The href value you want to link to.                                                                                                   |
+| `imageAlignment`     | `image-alignment`     | public  | `'after' \| 'before'`                   | `'after'` | Whether the fully visible part of the image is aligned 'before' or 'after' the content. Only relevant starting from large breakpoint. |
+| `negative`           | `negative`            | public  | `boolean`                               | `false`   | Negative coloring variant flag.                                                                                                       |
+| `rel`                | `rel`                 | public  | `string \| undefined`                   |           | The relationship of the linked URL as space-separated link types.                                                                     |
+| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |           | Where to display the linked URL.                                                                                                      |
 
 ## Slots
 
