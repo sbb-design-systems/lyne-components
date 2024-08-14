@@ -1,7 +1,6 @@
 import type { InputType } from '@storybook/types';
-import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import sampleImages from '../../core/images.js';
@@ -23,29 +22,23 @@ const containerContent = (title: string, last = false): TemplateResult => html`
     laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
     voluptate velit esse cillum dolore eu fugiat nulla pariatur.
   </p>
-  <sbb-secondary-button style=${last ? 'margin-block-end: 3rem;' : nothing}
-    >See more</sbb-secondary-button
-  >
+  <sbb-secondary-button style=${last ? 'margin-block-end: 3rem;' : nothing}>
+    See more
+  </sbb-secondary-button>
 `;
 
 const card = (title: string): TemplateResult => html`
-  <sbb-card style="max-width: 504px; min-width: 288px;">
-    <sbb-title level="5" style="margin-block-start: 1rem;">${title}</sbb-title>
-    <p class="sbb-text-s">
+  <sbb-card size="xxl">
+    <sbb-title level="5">${title}</sbb-title>
+    <p class="sbb-text-s" style="margin: 0">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua.
     </p>
-    <sbb-secondary-button style="margin-block-end: 1rem;">See more</sbb-secondary-button>
+    <sbb-secondary-button style="margin-block-start: var(--sbb-spacing-responsive-xs)">
+      See more
+    </sbb-secondary-button>
   </sbb-card>
 `;
-
-const cardContainerStyle: Args = {
-  padding: '3rem 0',
-  display: 'flex',
-  gap: '2rem',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-};
 
 const color: InputType = {
   control: {
@@ -96,8 +89,22 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 const BackgroundImageTemplate = ({ 'image-src': imageSrc, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)}>
     <sbb-title level="2">Container with background image</sbb-title>
-    <div style=${styleMap(cardContainerStyle)}>${card('Example title')} ${card('Another one')}</div>
-    <sbb-image slot="image" image-src=${imageSrc}></sbb-image>
+    <style>
+      .content {
+        padding: var(--sbb-spacing-responsive-m) 0;
+        display: flex;
+        gap: var(--sbb-spacing-fixed-6x);
+        justify-content: center;
+        flex-direction: column;
+
+        /* Starting from breakpoint medium. Please use design token. */
+        @media screen and (width >= 840px) {
+          flex-direction: row;
+        }
+      }
+    </style>
+    <div class="content">${card('Example title')} ${card('Another one')}</div>
+    <sbb-image slot="image" image-src=${imageSrc} alt="Train"></sbb-image>
   </sbb-container>
 `;
 

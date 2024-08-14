@@ -17,6 +17,7 @@ import style from './container.scss?lit&inline';
  * @slot - Use the unnamed slot to add anything to the container.
  * @slot sticky-bar - The slot used by the sbb-sticky-bar component.
  * @slot image - The slot used to slot an `sbb-image` to use as background.
+ * @cssprop [--sbb-container-image-position=end] - Define where the image should stick, if it has to be cropped.
  */
 @customElement('sbb-container')
 @slotState()
@@ -45,7 +46,9 @@ export class SbbContainerElement extends LitElement {
     return html`
       <div class="sbb-container">
         <slot name="image"></slot>
-        <slot></slot>
+        <div class="sbb-container__content">
+          <slot></slot>
+        </div>
       </div>
       <slot name="sticky-bar"></slot>
     `;

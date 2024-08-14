@@ -2,7 +2,11 @@ import { SbbBreakpointUltraMin } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import {
+  describeViewports,
+  loadAssetAsBase64,
+  visualDiffDefault,
+} from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing.js';
 
 import '../../button.js';
@@ -12,11 +16,27 @@ import '../../title.js';
 import './container.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
+const imageBase64 = await loadAssetAsBase64(imageUrl);
 
 describe(`sbb-container`, () => {
   const colorCases = ['transparent', 'white', 'milk'];
 
   const backgroundExpandedCases = [false, true];
+
+  const images = [
+    {
+      selector: 'sbb-image',
+      image: html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`,
+    },
+    {
+      selector: 'img',
+      image: html`<img
+      slot="image"
+      src=${imageBase64}
+      alt=''
+    ></img>`,
+    },
+  ];
 
   const containerContent = (): TemplateResult => html`
     <sbb-title level="4">Example title</sbb-title>
@@ -30,18 +50,12 @@ describe(`sbb-container`, () => {
     <sbb-secondary-button style="margin-block-end: 3rem;">See more</sbb-secondary-button>
   `;
 
-  const backgroundImageContent = (title: string): TemplateResult => html`
-    <sbb-title level="2">Title</sbb-title>
-    <div style="padding: 3rem 0; display: flex; gap: 2rem;">
-      <sbb-card style="max-width: 504px; min-width: 288px;">
-        <sbb-title level="5" style="margin-block-start: 1rem;">${title}</sbb-title>
-        <p class="sbb-text-s">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua.
-        </p>
-        <sbb-secondary-button style="margin-block-end: 1rem;">See more</sbb-secondary-button>
-      </sbb-card>
-    </div>
+  const backgroundImageContent = html`
+    <sbb-title level="2">Container with background image</sbb-title>
+    <sbb-card size="xxl" style="margin-bottom: var(--sbb-spacing-responsive-xs)">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua.
+    </sbb-card>
   `;
 
   const wrapperStyles = { backgroundColor: 'var(--sbb-color-silver)', padding: '0' };
@@ -69,37 +83,26 @@ describe(`sbb-container`, () => {
       }),
     );
 
-    it(
-      `background-image slotted=sbb-image`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html` <sbb-container>
-            ${backgroundImageContent('Example title')}
-            <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
-          </sbb-container>`,
-        );
+    describe('background-image', () => {
+      for (const expanded of [false, true]) {
+        describe(`expanded=${expanded}`, () => {
+          for (const image of images) {
+            it(
+              `slotted=${image.selector}`,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  html`<sbb-container ?expanded=${expanded}>
+                    ${backgroundImageContent} ${image.image}
+                  </sbb-container>`,
+                );
 
-        await waitForImageReady(
-          setup.snapshotElement.querySelector('sbb-container')!.querySelector('sbb-image')!,
-        );
-      }),
-    );
-
-    it(
-      `background-image slotted=img`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html` <sbb-container>
-            ${backgroundImageContent('Example title')}
-            <img slot="image" src=${imageUrl} />
-          </sbb-container>`,
-        );
-
-        await waitForImageReady(
-          setup.snapshotElement.querySelector('sbb-container')!.querySelector('img')!,
-        );
-      }),
-    );
+                await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!);
+              }),
+            );
+          }
+        });
+      }
+    });
   });
 
   describeViewports({ viewports: ['medium'] }, () => {

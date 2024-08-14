@@ -34,6 +34,12 @@ The component has also four color variants that can be set using the `color` pro
 | `color`              | `color`               | public  | `'transparent' \| 'white' \| 'milk'` | `'white'` | Color of the container, like transparent, white etc.                            |
 | `expanded`           | `expanded`            | public  | `boolean`                            | `false`   | Whether the container is expanded.                                              |
 
+## CSS Properties
+
+| Name                             | Default | Description                                                   |
+| -------------------------------- | ------- | ------------------------------------------------------------- |
+| `--sbb-container-image-position` | `end`   | Define where the image should stick, if it has to be cropped. |
+
 ## Slots
 
 | Name         | Description                                                |
