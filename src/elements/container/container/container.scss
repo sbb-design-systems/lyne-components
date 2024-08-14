@@ -5,8 +5,6 @@
 
 :host {
   display: block;
-
-  --sbb-container-image-position: end;
 }
 
 :host([color='white']) {
@@ -56,7 +54,6 @@
 
 ::slotted([slot='image']) {
   --sbb-image-border-radius: 0;
-  --sbb-image-object-position: var(--sbb-container-image-position);
 
   position: absolute;
   inset: 0;
@@ -72,7 +69,6 @@
 
 ::slotted(img[slot='image']) {
   object-fit: cover;
-  object-position: var(--sbb-container-image-position);
   height: 100%;
   width: 100%;
 }

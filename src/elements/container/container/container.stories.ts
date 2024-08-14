@@ -104,7 +104,12 @@ const BackgroundImageTemplate = ({ 'image-src': imageSrc, ...args }: Args): Temp
       }
     </style>
     <div class="content">${card('Example title')} ${card('Another one')}</div>
-    <sbb-image slot="image" image-src=${imageSrc} alt="Train"></sbb-image>
+    <sbb-image
+      slot="image"
+      image-src=${imageSrc}
+      alt="Train"
+      style="--sbb-image-object-position: bottom;"
+    ></sbb-image>
   </sbb-container>
 `;
 

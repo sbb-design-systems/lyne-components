@@ -14,6 +14,9 @@ The `sbb-container` is a component that displays its content with the default pa
 
 The `sbb-container` content is provided via an unnamed slot.
 
+The `image` slot can be used to place a background image. If you need to control the object position,
+use CSS object-position for slotted `img`, or `--sbb-image-object-position` variable for slotted `sbb-image`.
+
 ## Style
 
 By default `sbb-container` uses the `page spacing` defined in the [layout documentation](/docs/styles-layout--docs). Optionally the user can use the `expanded` property (default: `false`) to switch to the `page spacing expanded` layout.
@@ -33,12 +36,6 @@ The component has also four color variants that can be set using the `color` pro
 | `backgroundExpanded` | `background-expanded` | public  | `boolean`                            | `false`   | Whether the background color is shown on full container width on large screens. |
 | `color`              | `color`               | public  | `'transparent' \| 'white' \| 'milk'` | `'white'` | Color of the container, like transparent, white etc.                            |
 | `expanded`           | `expanded`            | public  | `boolean`                            | `false`   | Whether the container is expanded.                                              |
-
-## CSS Properties
-
-| Name                             | Default | Description                                                   |
-| -------------------------------- | ------- | ------------------------------------------------------------- |
-| `--sbb-container-image-position` | `end`   | Define where the image should stick, if it has to be cropped. |
 
 ## Slots
 
