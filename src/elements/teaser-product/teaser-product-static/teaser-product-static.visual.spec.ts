@@ -4,6 +4,7 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
+  visualDiffHover,
 } from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 
@@ -97,5 +98,15 @@ describe('sbb-teaser-product-static', () => {
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
+
+    for (const visualState of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
+      it(
+        `${visualState.name} forcedColors=true`,
+        visualState.with(async (setup) => {
+          await setup.withFixture(template(), { minHeight: '800px', forcedColors: true });
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        }),
+      );
+    }
   });
 });

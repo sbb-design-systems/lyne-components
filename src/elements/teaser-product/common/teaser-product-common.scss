@@ -75,6 +75,16 @@
   display: block;
   position: relative;
   text-decoration: none;
+
+  @include sbb.if-forced-colors {
+    outline: CanvasText solid var(--sbb-focus-outline-width);
+    outline-offset: var(--sbb-focus-outline-offset);
+    border-radius: var(--sbb-teaser-product-border-radius);
+
+    &:hover {
+      outline-color: Highlight;
+    }
+  }
 }
 
 .sbb-teaser-product__container {

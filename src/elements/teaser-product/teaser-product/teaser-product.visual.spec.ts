@@ -93,5 +93,15 @@ describe('sbb-teaser-product', () => {
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
+
+    for (const visualState of [visualDiffDefault, visualDiffHover]) {
+      it(
+        `${visualState.name} forcedColors=true`,
+        visualState.with(async (setup) => {
+          await setup.withFixture(template(), { minHeight: '800px', forcedColors: true });
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        }),
+      );
+    }
   });
 });
