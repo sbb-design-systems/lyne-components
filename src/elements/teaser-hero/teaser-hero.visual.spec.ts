@@ -11,7 +11,7 @@ import './teaser-hero.js';
 import '../image.js';
 import '../chip.js';
 
-const imageUrl = import.meta.resolve('../../elements/core/testing/assets/placeholder-image.png');
+const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
 describe(`sbb-teaser-hero`, () => {
   describeViewports({ viewports: ['zero', 'micro', 'small', 'medium', 'wide'] }, () => {

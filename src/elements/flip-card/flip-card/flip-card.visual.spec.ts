@@ -21,7 +21,7 @@ const content = (
   imageAlignment: SbbFlipCardImageAlignment = 'after',
   longContent: boolean = false,
 ): TemplateResult =>
-  html` <sbb-flip-card-summary slot="summary" image-alignment=${imageAlignment}>
+  html`<sbb-flip-card-summary slot="summary" image-alignment=${imageAlignment}>
       <sbb-title level="4">${title}</sbb-title>
       <sbb-image
         slot="image"
@@ -30,8 +30,8 @@ const content = (
         aspect-ratio="free"
       ></sbb-image>
     </sbb-flip-card-summary>
-    <sbb-flip-card-details slot="details"
-      >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
+    <sbb-flip-card-details slot="details">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
       Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh.
       ${longContent
         ? `Duis dapibus vitae
@@ -42,25 +42,28 @@ const content = (
       luctus ornare condimentum. Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis
       in nibh. Duis dapibus vitae tortor ullamcorper maximus. In convallis consectetur felis.`
         : nothing}
-      <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link></sbb-flip-card-details
-    >`;
+      <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link>
+    </sbb-flip-card-details>`;
 
 describe(`sbb-flip-card`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const imageAlignment of ['after', 'below']) {
-      for (const state of [visualDiffDefault, visualDiffFocus]) {
-        it(
-          `image-alignment=${imageAlignment} ${state.name}`,
-          state.with(async (setup) => {
-            await setup.withFixture(html`
-              <sbb-flip-card>
-                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment)}
-              </sbb-flip-card>
-            `);
-            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
-          }),
-        );
-      }
+      describe(`image-alignment=${imageAlignment}`, () => {
+        for (const state of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            state.name,
+            state.with(async (setup) => {
+              await setup.withFixture(html`
+                <sbb-flip-card>
+                  ${content('Summary', imageAlignment as SbbFlipCardImageAlignment)}
+                </sbb-flip-card>
+              `);
+
+              await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+            }),
+          );
+        }
+      });
     }
 
     it(
