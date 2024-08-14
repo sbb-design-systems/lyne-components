@@ -47,7 +47,7 @@ export declare abstract class SbbNamedSlotListMixinType<
       localNameVisualOnly?: string[];
     },
   ): TemplateResult;
-  protected listSlot(): SbbNamedSlotProperties[];
+  protected listSlotEntries(): SbbNamedSlotProperties[];
   protected renderHiddenSlot(): TemplateResult;
 }
 
@@ -125,7 +125,7 @@ export const SbbNamedSlotListMixin = <
       attributes: { class?: string; ariaLabel?: string; ariaLabelledby?: string } = {},
       listItemAttributes: { localNameVisualOnly?: string[] } = {},
     ): TemplateResult {
-      const listSlotNames: SbbNamedSlotProperties[] = this.listSlot(listItemAttributes);
+      const listSlotNames: SbbNamedSlotProperties[] = this.listSlotEntries(listItemAttributes);
 
       if (listSlotNames.length >= 2) {
         return html`
@@ -164,7 +164,7 @@ export const SbbNamedSlotListMixin = <
      * framework wrapper (like e.g. React). This allows to provide the number of
      * children to be passed via the `data-ssr-child-count` attribute value.
      */
-    protected listSlot(listItemAttributes: {
+    protected listSlotEntries(listItemAttributes: {
       localNameVisualOnly?: string[];
     }): SbbNamedSlotProperties[] {
       const listChildren = this.listChildren.length

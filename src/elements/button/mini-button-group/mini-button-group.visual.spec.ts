@@ -32,18 +32,16 @@ describe('sbb-mini-button-group', () => {
       );
     }
 
-    it(
-      `negative`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(undefined, true));
-      }),
-    );
-
-    it(
-      `focus`,
-      visualDiffFocus.with(async (setup) => {
-        await setup.withFixture(template());
-      }),
-    );
+    for (const negative of [false, true]) {
+      it(
+        `${visualDiffFocus.name} negative=${negative}`,
+        visualDiffFocus.with(async (setup) => {
+          await setup.withFixture(template(undefined, negative), {
+            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            focusOutlineDark: negative,
+          });
+        }),
+      );
+    }
   });
 });

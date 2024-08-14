@@ -19,6 +19,7 @@
 :host([negative]) {
   --sbb-mini-button-group-background: var(--sbb-color-midnight);
   --sbb-mini-button-group-border-color: var(--sbb-color-anthracite);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 :host([size='s']) {
@@ -52,7 +53,10 @@
   gap: var(--sbb-mini-button-group-gap);
   width: fit-content;
   min-height: var(--sbb-mini-button-group-min-height);
+
+  // reset the line-height is needed to achieve the correct vertical positioning
   line-height: 0;
+  background-color: var(--sbb-mini-button-group-background);
   border: var(--sbb-mini-button-group-border);
   border-radius: var(--sbb-border-radius-infinity);
   padding-inline: calc(
