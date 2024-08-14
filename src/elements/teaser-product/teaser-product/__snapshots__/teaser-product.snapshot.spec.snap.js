@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser-product renders DOM"] =
+snapshots["sbb-teaser-product renders DOM"] = 
 `<sbb-teaser-product
   data-action=""
   data-link=""
@@ -30,7 +30,7 @@ snapshots["sbb-teaser-product renders DOM"] =
 `;
 /* end snapshot sbb-teaser-product renders DOM */
 
-snapshots["sbb-teaser-product renders Shadow DOM"] =
+snapshots["sbb-teaser-product renders Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-teaser-product"
   href="https://www.sbb.ch"
@@ -51,7 +51,7 @@ snapshots["sbb-teaser-product renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-product renders Shadow DOM */
 
-snapshots["sbb-teaser-product renders A11y tree Chrome"] =
+snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -67,7 +67,7 @@ snapshots["sbb-teaser-product renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-teaser-product renders A11y tree Chrome */
 
-snapshots["sbb-teaser-product renders A11y tree Firefox"] =
+snapshots["sbb-teaser-product renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
