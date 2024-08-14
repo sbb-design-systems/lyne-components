@@ -4,8 +4,6 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-image-object-position: bottom;
-
   display: block;
 }
 
@@ -51,6 +49,9 @@
 }
 
 ::slotted([slot='image']) {
+  --sbb-image-border-radius: 0;
+  --sbb-image-object-position: end;
+
   position: absolute;
   inset: 0;
   z-index: -1;

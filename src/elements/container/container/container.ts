@@ -8,8 +8,6 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { slotState } from '../../core/decorators.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
-import type { SbbImageElement } from '../../image.js';
 
 import style from './container.scss?lit&inline';
 
@@ -22,7 +20,7 @@ import style from './container.scss?lit&inline';
  */
 @customElement('sbb-container')
 @slotState()
-export class SbbContainerElement extends SbbHydrationMixin(LitElement) {
+export class SbbContainerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Whether the container is expanded. */
@@ -43,19 +41,10 @@ export class SbbContainerElement extends SbbHydrationMixin(LitElement) {
     }
   }
 
-  private _imageSlotChanged(): void {
-    const image: SbbImageElement = this.querySelector('sbb-image[slot="image"]') as SbbImageElement;
-    if (!image) {
-      return;
-    }
-
-    image.borderRadius = 'none';
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-container">
-        <slot name="image" @slotchange=${() => this._imageSlotChanged()}></slot>
+        <slot name="image"></slot>
         <slot></slot>
       </div>
       <slot name="sticky-bar"></slot>
