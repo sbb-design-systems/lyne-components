@@ -87,11 +87,12 @@ describe('sbb-teaser-product', () => {
     for (const negative of [false, true]) {
       for (const visualState of [visualDiffHover, visualDiffFocus]) {
         it(
-          visualState.name,
+          `${visualState.name} negative=${negative}`,
           visualState.with(async (setup) => {
             await setup.withFixture(template(), {
               minHeight: '800px',
               backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              focusOutlineDark: negative,
             });
             await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
           }),

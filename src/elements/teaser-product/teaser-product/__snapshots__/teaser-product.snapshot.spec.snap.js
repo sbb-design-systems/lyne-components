@@ -13,7 +13,7 @@ snapshots["sbb-teaser-product renders DOM"] =
   <sbb-image
     aspect-ratio="16-9"
     border-radius="default"
-    image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/online-kaufen.jpg"
+    image-src="http://localhost:8000/src/elements/core/testing/assets/placeholder-image.png"
     slot="image"
   >
   </sbb-image>
@@ -51,22 +51,6 @@ snapshots["sbb-teaser-product renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-product renders Shadow DOM */
 
-snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Content Footnote"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser-product renders A11y tree Chrome */
-
 snapshots["sbb-teaser-product renders A11y tree Firefox"] = 
 `<p>
   {
@@ -83,4 +67,20 @@ snapshots["sbb-teaser-product renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-teaser-product renders A11y tree Firefox */
+
+snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Content Footnote"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser-product renders A11y tree Chrome */
 
