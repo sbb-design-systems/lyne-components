@@ -7,9 +7,9 @@ otherwise, see [sbb-teaser-product](/docs/elements-sbb-teaser-sbb-teaser-product
 <sbb-teaser-product-static>
   <sbb-image slot="image" image-src="..."></sbb-image>
 
-  Content ...
+  <p class="sbb-teaser-product--spacing">Content ...</p>
 
-  <span slot="footnote">...</span>
+  <p slot="footnote" class="sbb-teaser-product--spacing">...</p>
 </sbb-teaser-product-static>
 ```
 
@@ -24,21 +24,20 @@ like a `sbb-title` or some interactive elements, like buttons or links within th
 ```html
 <sbb-teaser-product-static href="...">
   <sbb-image slot="image" image-src="..."></sbb-image>
-  <p>Content ...</p>
+  <p class="sbb-teaser-product--spacing">Content ...</p>
 </sbb-teaser-product-static>
 ```
 
-If the content is text only, the `p` tag has the `margin` property automatically set to 0;
-if title and/or buttons are used, consumers can apply the helper class `sbb-teaser-product--spacing`
+If paragraphs, title and/or button are used, consumers can apply the helper class `sbb-teaser-product--spacing`
 to display the components with the correct spacings.
 
 ```html
-<sbb-teaser-product href="...">
+<sbb-teaser-product-static href="...">
   <sbb-image slot="image" image-src="..."></sbb-image>
   <sbb-title level="3" class="sbb-teaser-product--spacing">
     Benefit from up to 70% discount
   </sbb-title>
-  <p>
+  <p class="sbb-teaser-product--spacing">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia. Donec et enim mi. Aliquam erat volutpat. Proin ut odio tellus.
   </p>
@@ -46,7 +45,7 @@ to display the components with the correct spacings.
     <sbb-button>Label</sbb-button>
     <sbb-secondary-button>Label</sbb-secondary-button>
   </sbb-action-group>
-</sbb-teaser-product>
+</sbb-teaser-product-static>
 ```
 
 ## Style

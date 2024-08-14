@@ -1,4 +1,4 @@
-The `sbb-teaser-product` is a component which can display a text and a footnote, combined with an image as background, to tease a product.
+The `sbb-teaser-product` is a component that can display a text and a footnote, combined with an image as background, to tease a product.
 The whole component behaves like a link, and it is clickable; on small screens, the content follows the image.
 
 The component can have at most a single interactive element in its static version (e.g. `sbb-button-static`).
@@ -8,9 +8,9 @@ If it has to include more than one interactive element, use the [sbb-teaser-prod
 <sbb-teaser-product href="...">
   <sbb-image slot="image" image-src="..."></sbb-image>
 
-  Content ...
+  <p class="sbb-teaser-product--spacing">Content ...</p>
 
-  <span slot="footnote">...</span>
+  <p slot="footnote" class="sbb-teaser-product--spacing">...</p>
 </sbb-teaser-product>
 ```
 
@@ -20,17 +20,16 @@ Use the `image` slot to pass a `sbb-image` or an `img` that will be used as a ba
 and use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 
 The default slot is reserved for the main content: it could be a simple text or a text combined with more elements,
-like the `sbb-title` or an interactive element, like a button or a link.
+like the `sbb-title` or an interactive element, like a button or a link (needs to be in static variant!).
 
 ```html
 <sbb-teaser-product href="...">
   <sbb-image slot="image" image-src="..."></sbb-image>
-  <p>Content ...</p>
+  <p class="sbb-teaser-product--spacing">Content ...</p>
 </sbb-teaser-product>
 ```
 
-If the content is text only, the `p` tag has the `margin` property automatically set to 0;
-if title and/or button are used, consumers can apply the helper class `sbb-teaser-product--spacing`
+If paragraphs, title and/or button are used, consumers can apply the helper class `sbb-teaser-product--spacing`
 to display the components with the correct spacings.
 
 ```html
@@ -39,13 +38,11 @@ to display the components with the correct spacings.
   <sbb-title level="3" class="sbb-teaser-product--spacing">
     Benefit from up to 70% discount
   </sbb-title>
-  <p>
+  <p class="sbb-teaser-product--spacing">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia. Donec et enim mi. Aliquam erat volutpat. Proin ut odio tellus.
   </p>
-  <div class="sbb-teaser-product--spacing">
-    <sbb-button-static>Label</sbb-button-static>
-  </div>
+  <sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>
 </sbb-teaser-product>
 ```
 
@@ -65,7 +62,7 @@ Add the `negative` attribute to enable the negative variant.
 
 ## Accessibility
 
-It's important to set the `accessibilityLabel` on the `<sbb-teaser-product>`, which describes it for screen-reader users.
+It's important to set the `accessibilityLabel` on the `<sbb-teaser-product>`, which describes the link for screen-reader users.
 
 <!-- Auto Generated Below -->
 

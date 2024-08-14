@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser-product-static renders DOM"] = 
+snapshots["sbb-teaser-product-static renders DOM"] =
 `<sbb-teaser-product-static
   data-action=""
   data-slot-names="footnote image unnamed"
@@ -15,15 +15,20 @@ snapshots["sbb-teaser-product-static renders DOM"] =
     slot="image"
   >
   </sbb-image>
-  Content
-  <span slot="footnote">
+  <p class="sbb-teaser-product--spacing">
+    Content
+  </p>
+  <p
+    class="sbb-teaser-product--spacing"
+    slot="footnote"
+  >
     Footnote
-  </span>
+  </p>
 </sbb-teaser-product-static>
 `;
 /* end snapshot sbb-teaser-product-static renders DOM */
 
-snapshots["sbb-teaser-product-static renders Shadow DOM"] = 
+snapshots["sbb-teaser-product-static renders Shadow DOM"] =
 `<span class="sbb-action-base sbb-teaser-product-static">
   <slot name="image">
   </slot>
@@ -41,7 +46,7 @@ snapshots["sbb-teaser-product-static renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-product-static renders Shadow DOM */
 
-snapshots["sbb-teaser-product-static renders A11y tree Chrome"] = 
+snapshots["sbb-teaser-product-static renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -61,7 +66,7 @@ snapshots["sbb-teaser-product-static renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-teaser-product-static renders A11y tree Chrome */
 
-snapshots["sbb-teaser-product-static renders A11y tree Firefox"] = 
+snapshots["sbb-teaser-product-static renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -69,7 +74,7 @@ snapshots["sbb-teaser-product-static renders A11y tree Firefox"] =
   "children": [
     {
       "role": "text leaf",
-      "name": "Content "
+      "name": "Content"
     },
     {
       "role": "text leaf",

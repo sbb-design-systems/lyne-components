@@ -16,7 +16,7 @@ const content = (): TemplateResult => html`
   <sbb-title level="3" class="sbb-teaser-product--spacing">
     Benefit from up to 70% discount
   </sbb-title>
-  <p>
+  <p class="sbb-teaser-product--spacing">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia.
   </p>
@@ -27,10 +27,10 @@ const content = (): TemplateResult => html`
 `;
 
 const footer = (): TemplateResult => html`
-  <span slot="footnote">
+  <p slot="footnote" class="sbb-teaser-product--spacing">
     Footnote Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit
     amet felis viverra lacinia.
-  </span>
+  </p>
 `;
 
 const template = (
@@ -39,11 +39,7 @@ const template = (
   showFooter?: boolean,
   slottedImg?: boolean,
 ): TemplateResult => html`
-  <sbb-teaser-product-static
-    ?negative=${negative}
-    image-alignment=${imageAlignment || nothing}
-    style="height: 600px"
-  >
+  <sbb-teaser-product-static ?negative=${negative} image-alignment=${imageAlignment || nothing}>
     ${slottedImg
       ? html`<img slot="image" src=${imageUrl} alt="" />`
       : html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`}
@@ -65,6 +61,7 @@ describe('sbb-teaser-product-static', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template(negative, imageAlignment, true, slottedImg), {
             minHeight: '800px',
+            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
           });
           await waitForImageReady(
             setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
@@ -77,6 +74,7 @@ describe('sbb-teaser-product-static', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template(negative, imageAlignment, false, slottedImg), {
             minHeight: '800px',
+            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
           });
           await waitForImageReady(
             setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,

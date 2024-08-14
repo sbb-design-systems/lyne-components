@@ -1,6 +1,13 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  Meta,
+  StoryContext,
+  StoryObj,
+} from '@storybook/web-components';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -75,32 +82,30 @@ const defaultArgs: Args = {
 };
 
 const content = (): TemplateResult => html`
-  <sbb-title level="3" class="sbb-teaser-product--spacing"
-    >Benefit from up to 70% discount</sbb-title
-  >
-  <p>
+  <sbb-title level="3" class="sbb-teaser-product--spacing">
+    Benefit from up to 70% discount
+  </sbb-title>
+  <p class="sbb-teaser-product--spacing">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia. Donec et enim mi. Aliquam erat volutpat. Proin ut odio tellus. Donec tempor mi
     vel dapibus lobortis. Sed at ex sit amet leo suscipit fermentum. Donec consequat hendrerit
     tortor, ut laoreet velit congue in.
   </p>
-  <div class="sbb-teaser-product--spacing">
-    <sbb-button-static>Label</sbb-button-static>
-  </div>
+  <sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>
 `;
 
 const footer = (): TemplateResult => html`
-  <span slot="footnote">
+  <p slot="footnote" class="sbb-teaser-product--spacing">
     Footnote Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit
     amet felis viverra lacinia. Donec et enim mi. Aliquam erat volutpat. Proin ut odio tellus. Donec
     tempor mi vel dapibus lobortis.
-  </span>
+  </p>
 `;
 
 const Template = ({ withFooter, slottedImg, ...args }: Args): TemplateResult => html`
-  <sbb-teaser-product ${sbbSpread(args)} style="height: 600px">
+  <sbb-teaser-product ${sbbSpread(args)}>
     ${slottedImg
-      ? html`<img slot="image" src="${sampleImages[4]}" alt="" />`
+      ? html`<img slot="image" src=${sampleImages[4]} alt="" />`
       : html`<sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>`}
     ${content()} ${withFooter ? footer() : nothing}
   </sbb-teaser-product>
@@ -136,21 +141,11 @@ export const SlottedImg: StoryObj = {
   args: { ...defaultArgs, slottedImg: true },
 };
 
-export const SlottedImgNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true, slottedImg: true },
-};
-
-export const SlottedImgNoFooter: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, withFooter: false, slottedImg: true },
-};
-
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

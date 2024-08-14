@@ -1,9 +1,10 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
 import {
-  describeViewports,
   describeEach,
+  describeViewports,
   visualDiffDefault,
+  visualDiffFocus,
   visualDiffHover,
 } from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
@@ -16,21 +17,21 @@ import '../../title.js';
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
 const content = (): TemplateResult => html`
-  <div>
-    <sbb-title level="3" style="margin-block-start: 0;">Benefit from up to 70% discount</sbb-title>
+  <sbb-title level="3" class="sbb-teaser-product--spacing">
+    Benefit from up to 70% discount
+  </sbb-title>
+  <p class="sbb-teaser-product--spacing">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia.
-    <div style="margin-block-start: var(--sbb-spacing-responsive-xxs);">
-      <sbb-button-static>Label</sbb-button-static>
-    </div>
-  </div>
+  </p>
+  <sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>
 `;
 
 const footer = (): TemplateResult => html`
-  <span slot="footnote">
+  <p slot="footnote" class="sbb-teaser-product--spacing">
     Footnote Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit
     amet felis viverra lacinia.
-  </span>
+  </p>
 `;
 
 const template = (
@@ -39,11 +40,7 @@ const template = (
   showFooter?: boolean,
   slottedImg?: boolean,
 ): TemplateResult => html`
-  <sbb-teaser-product
-    ?negative=${negative}
-    image-alignment=${imageAlignment || nothing}
-    style="height: 600px"
-  >
+  <sbb-teaser-product ?negative=${negative} image-alignment=${imageAlignment || nothing} href="#">
     ${slottedImg
       ? html`<img slot="image" src=${imageUrl} alt="" />`
       : html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`}
@@ -65,6 +62,7 @@ describe('sbb-teaser-product', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template(negative, imageAlignment, true, slottedImg), {
             minHeight: '800px',
+            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
           });
           await waitForImageReady(
             setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
@@ -77,6 +75,7 @@ describe('sbb-teaser-product', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template(negative, imageAlignment, false, slottedImg), {
             minHeight: '800px',
+            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
           });
           await waitForImageReady(
             setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
@@ -85,12 +84,19 @@ describe('sbb-teaser-product', () => {
       );
     });
 
-    it(
-      visualDiffHover.name,
-      visualDiffHover.with(async (setup) => {
-        await setup.withFixture(template(), { minHeight: '800px' });
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
-      }),
-    );
+    for (const negative of [false, true]) {
+      for (const visualState of [visualDiffHover, visualDiffFocus]) {
+        it(
+          visualState.name,
+          visualState.with(async (setup) => {
+            await setup.withFixture(template(), {
+              minHeight: '800px',
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            });
+            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          }),
+        );
+      }
+    }
   });
 });
