@@ -1,0 +1,23 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+}
+
+.sbb-link-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-link-list-title {
+  // Overwrite sbb-title default margin
+  margin: 0;
+
+  :host(:not([data-slot-names~='title'], [title-content])) & {
+    display: none;
+  }
+}
