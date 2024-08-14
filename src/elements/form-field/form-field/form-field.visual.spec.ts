@@ -143,7 +143,7 @@ describe(`sbb-form-field`, () => {
   };
 
   const visualProp = {
-    size: ['m', 'l'],
+    size: ['s', 'm', 'l'],
     width: ['default', 'collapse'],
     errorText: [true, false],
   };
