@@ -24,7 +24,8 @@ There are four available sizes: `s`, `m` (default), `l` and `xl`.
 
 Use the `accessibility-label` property to describe the purpose of the `sbb-mini-button-group` for screen-reader users.
 
-The `sbb-divider` components have the `aria-hidden` property set to `true` to have the list read by screen-readers with the correct size.
+If `sbb-divider` components are used as separators, their `aria-hidden` property is automatically set to `true`
+to ensure that the button list is read by screen readers with the correct size.
 
 <!-- Auto Generated Below -->
 

@@ -12,7 +12,7 @@ export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl';
 
 /**
  * Display a list of `sbb-mini-button` elements in a horizontal container,
- * possibly grouped using the `sbb-divider` component.
+ * possibly separated by a `sbb-divider` component.
  *
  * @slot - Use the unnamed slot to add `sbb-mini-button` and `sbb-divider` elements.
  */
