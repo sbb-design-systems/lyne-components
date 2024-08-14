@@ -15,7 +15,7 @@ otherwise, see [sbb-teaser-product](/docs/elements-sbb-teaser-sbb-teaser-product
 
 ## Slots
 
-Use the `image` slot to pass a `sbb-image` that will be used as a background,
+Use the `image` slot to pass a `sbb-image` or an `img` that will be used as a background,
 and use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 
 The default slot is reserved for the main content: it could be a simple text or a text combined with more elements,

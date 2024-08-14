@@ -32,6 +32,12 @@ const withFooter: InputType = {
   },
 };
 
+const slottedImg: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const href: InputType = {
   control: {
     type: 'text',
@@ -54,6 +60,7 @@ const defaultArgTypes: ArgTypes = {
   'image-alignment': imageAlignment,
   negative,
   withFooter,
+  slottedImg,
   href,
   'accessibility-label': accessibilityLabel,
 };
@@ -62,6 +69,7 @@ const defaultArgs: Args = {
   'image-alignment': imageAlignment.options![0],
   negative: false,
   withFooter: true,
+  slottedImg: false,
   href: 'https://www.sbb.ch',
   'accessibility-label': undefined,
 };
@@ -89,16 +97,11 @@ const footer = (): TemplateResult => html`
   </span>
 `;
 
-const Template = ({ withFooter, ...args }: Args): TemplateResult => html`
+const Template = ({ withFooter, slottedImg, ...args }: Args): TemplateResult => html`
   <sbb-teaser-product ${sbbSpread(args)} style="height: 600px">
-    <sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>
-    ${content()} ${withFooter ? footer() : nothing}
-  </sbb-teaser-product>
-`;
-
-const TemplateSlottedImg = ({ withFooter, ...args }: Args): TemplateResult => html`
-  <sbb-teaser-product ${sbbSpread(args)} style="height: 600px">
-    <img slot="image" src="${sampleImages[4]}" alt="" />
+    ${slottedImg
+      ? html`<img slot="image" src="${sampleImages[4]}" alt="" />`
+      : html`<sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>`}
     ${content()} ${withFooter ? footer() : nothing}
   </sbb-teaser-product>
 `;
@@ -128,21 +131,21 @@ export const NoFooter: StoryObj = {
 };
 
 export const SlottedImg: StoryObj = {
-  render: TemplateSlottedImg,
+  render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: { ...defaultArgs, slottedImg: true },
 };
 
 export const SlottedImgNegative: StoryObj = {
-  render: TemplateSlottedImg,
+  render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true },
+  args: { ...defaultArgs, negative: true, slottedImg: true },
 };
 
 export const SlottedImgNoFooter: StoryObj = {
-  render: TemplateSlottedImg,
+  render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, withFooter: false },
+  args: { ...defaultArgs, withFooter: false, slottedImg: true },
 };
 
 const meta: Meta = {

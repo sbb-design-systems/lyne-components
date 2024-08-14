@@ -22,7 +22,7 @@ export const SbbTeaserProductCommonElementMixin = <
   @slotState()
   abstract class SbbTeaserProductCommonElement
     extends SbbNegativeMixin(superClass)
-    implements Partial<SbbTeaserProductCommonElementMixinType>
+    implements SbbTeaserProductCommonElementMixinType
   {
     /** Whether the content and footer are aligned 'before' or 'after' the image */
     @property({ attribute: 'image-alignment', reflect: true })
@@ -42,6 +42,6 @@ export const SbbTeaserProductCommonElementMixin = <
       `;
     }
   }
-  return SbbTeaserProductCommonElement as unknown as AbstractConstructor<SbbTeaserProductCommonElementMixinType> &
+  return SbbTeaserProductCommonElement as AbstractConstructor<SbbTeaserProductCommonElementMixinType> &
     T;
 };

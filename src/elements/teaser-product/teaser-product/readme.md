@@ -1,6 +1,9 @@
 The `sbb-teaser-product` is a component which can display a text and a footnote, combined with an image as background, to tease a product.
 The whole component behaves like a link, and it is clickable; on small screens, the content follows the image.
 
+The component can have at most a single interactive element in its static version (e.g. `sbb-button-static`).
+If it has to include more than one interactive element, use the [sbb-teaser-product-static](docs/elements-sbb-teaser-sbb-teaser-product-static) instead.
+
 ```html
 <sbb-teaser-product href="...">
   <sbb-image slot="image" image-src="..."></sbb-image>
@@ -13,7 +16,7 @@ The whole component behaves like a link, and it is clickable; on small screens, 
 
 ## Slots
 
-Use the `image` slot to pass a `sbb-image` that will be used as a background,
+Use the `image` slot to pass a `sbb-image` or an `img` that will be used as a background,
 and use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 
 The default slot is reserved for the main content: it could be a simple text or a text combined with more elements,
@@ -45,10 +48,6 @@ to display the components with the correct spacings.
   </div>
 </sbb-teaser-product>
 ```
-
-The component can have at most a single interactive element in its static version (e.g. `sbb-button-static`).
-
-If it has to include more than one interactive element, use the [sbb-teaser-product-static](docs/elements-sbb-teaser-sbb-teaser-product-static) instead.
 
 ## Style
 
