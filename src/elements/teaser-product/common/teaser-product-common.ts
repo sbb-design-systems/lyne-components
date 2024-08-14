@@ -33,7 +33,7 @@ export const SbbTeaserProductCommonElementMixin = <
 
     protected override renderTemplate(): TemplateResult {
       return html`
-        <div class="sbb-teaser-product__image-container"><slot name="image"></slot></div>
+        <span class="sbb-teaser-product__image-container"><slot name="image"></slot></span>
         <span class="sbb-teaser-product__container">
           <span class="sbb-teaser-product__content">
             <slot></slot>

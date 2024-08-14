@@ -13,6 +13,7 @@
   --sbb-teaser-product-content-color: var(--sbb-color-iron);
   --sbb-teaser-product-footer-color: var(--sbb-color-anthracite);
   --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-teaser-product-min-height: #{sbb.px-to-rem-build(600)};
 
   @include sbb.mq($from: large) {
     --sbb-teaser-product-background: linear-gradient(
@@ -36,12 +37,15 @@
 }
 
 .sbb-teaser-product__image-container {
+  display: block;
   overflow: hidden;
 
   // We have to remove the image bottom border-radius when stacked
   border-radius: var(--sbb-teaser-product-border-radius) var(--sbb-teaser-product-border-radius) 0 0;
 
   @include sbb.mq($from: large) {
+    position: absolute;
+    inset: 0;
     border-radius: var(--sbb-teaser-product-border-radius);
   }
 }
@@ -57,6 +61,8 @@
 // Reset sbb-image border radius in order to control it from teaser product.
 ::slotted(sbb-image) {
   --sbb-image-border-radius: 0;
+
+  height: 100%;
 }
 
 ::slotted(p.sbb-teaser-product--spacing) {
@@ -77,12 +83,15 @@
   text-decoration: none;
 
   @include sbb.if-forced-colors {
-    outline: CanvasText solid var(--sbb-focus-outline-width);
-    outline-offset: var(--sbb-focus-outline-offset);
-    border-radius: var(--sbb-teaser-product-border-radius);
-
-    &:hover {
-      outline-color: Highlight;
+    // Apply a visual border for forced color mode
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: 0;
+      pointer-events: none;
+      border: var(--sbb-border-width-2x) solid CanvasText;
+      border-radius: var(--sbb-teaser-product-border-radius);
     }
   }
 }
@@ -98,12 +107,12 @@
     grid:
       'content .' 1fr
       'footnote .' auto / 1fr 1fr;
-    position: absolute;
-    inset: 0;
     background: var(--sbb-teaser-product-background);
     border-radius: var(--sbb-teaser-product-border-radius);
     padding-block: var(--sbb-teaser-product-container-padding-block) 0;
     padding-inline: var(--sbb-spacing-responsive-xl);
+    position: relative;
+    min-height: var(--sbb-teaser-product-min-height);
 
     :host([image-alignment='before']) & {
       grid-template-areas:
@@ -125,6 +134,7 @@
   display: block;
   padding-block-start: var(--sbb-spacing-responsive-s);
   color: var(--sbb-teaser-product-footer-color);
+
   @include sbb.text-xxs--regular;
 
   :host(:not([data-slot-names~='footnote'])) & {

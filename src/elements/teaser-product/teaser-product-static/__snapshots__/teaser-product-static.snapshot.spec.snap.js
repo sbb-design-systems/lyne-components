@@ -30,10 +30,10 @@ snapshots["sbb-teaser-product-static renders DOM"] =
 
 snapshots["sbb-teaser-product-static renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-teaser-product-static">
-  <div class="sbb-teaser-product__image-container">
+  <span class="sbb-teaser-product__image-container">
     <slot name="image">
     </slot>
-  </div>
+  </span>
   <span class="sbb-teaser-product__container">
     <span class="sbb-teaser-product__content">
       <slot>
