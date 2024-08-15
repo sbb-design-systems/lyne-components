@@ -77,6 +77,7 @@ snapshots["sbb-flip-card Shadow DOM"] =
   <button
     aria-expanded="false"
     class="sbb-flip-card-button"
+    type="button"
   >
     <sbb-screen-reader-only>
       Summary, Click on this card for details

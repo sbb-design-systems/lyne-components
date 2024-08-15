@@ -98,7 +98,11 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-flip-card">
-        <button class="sbb-flip-card-button" aria-expanded=${this._flipped.toString()}>
+        <button
+          class="sbb-flip-card-button"
+          aria-expanded=${this._flipped.toString()}
+          type="button"
+        >
           <sbb-screen-reader-only>${until(this._accessibilityLabel(), '')}</sbb-screen-reader-only>
         </button>
         <slot name="summary" @slotchange=${() => (this.summary!.inert = this._flipped)}></slot>
