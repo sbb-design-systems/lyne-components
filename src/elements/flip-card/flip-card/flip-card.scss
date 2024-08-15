@@ -14,7 +14,10 @@
     var(--sbb-animation-duration-5x)
   );
   --sbb-flip-card-summary-transition-delay: var(--sbb-animation-duration-2x);
-  --sbb-flip-card-details-transition-duration: var(--sbb-animation-duration-4x);
+  --sbb-flip-card-details-transition-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-4x)
+  );
 
   position: relative;
   display: block;
@@ -32,7 +35,10 @@
 
 :host([data-flipped]) {
   --sbb-flip-card-toggle-icon-transform: rotate(45deg);
-  --sbb-flip-card-details-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-flip-card-details-transition-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-flip-card-summary-transition-delay: 0s;
   --sbb-flip-card-details-min-height: var(--sbb-flip-card-details-scroll-height);
 

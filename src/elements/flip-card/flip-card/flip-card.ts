@@ -78,6 +78,11 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
     );
   }
 
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._flipCardResizeObserver.disconnect();
+  }
+
   private _setFlipCardHeight(): void {
     this.style?.setProperty(
       '--sbb-flip-card-details-scroll-height',
