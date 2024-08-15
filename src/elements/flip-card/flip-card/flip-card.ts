@@ -119,11 +119,13 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
         </button>
         <slot name="summary" @slotchange=${() => (this.summary!.inert = this._flipped)}></slot>
         <slot name="details" @slotchange=${() => (this.details!.inert = !this._flipped)}></slot>
-        <sbb-secondary-button-static
-          class="sbb-flip-card--toggle-button"
-          icon-name=${this._flipped ? 'cross-small' : 'plus-small'}
-          size="s"
-        ></sbb-secondary-button-static>
+        <sbb-secondary-button-static class="sbb-flip-card--toggle-button" size="s">
+          <sbb-icon
+            class="sbb-flip-card--toggle-button-icon"
+            slot="icon"
+            name="plus-small"
+          ></sbb-icon>
+        </sbb-secondary-button-static>
       </div>
     `;
   }

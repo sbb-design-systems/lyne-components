@@ -4,6 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
+  --sbb-flip-card-toggle-icon-transform: rotate(0);
   --sbb-flip-card-background-color: var(--sbb-color-cloud);
   --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
   --sbb-flip-card-min-height: #{sbb.px-to-rem-build(280)};
@@ -30,6 +31,7 @@
 }
 
 :host([data-flipped]) {
+  --sbb-flip-card-toggle-icon-transform: rotate(45deg);
   --sbb-flip-card-details-transition-duration: var(--sbb-animation-duration-2x);
   --sbb-flip-card-summary-transition-delay: 0s;
   --sbb-flip-card-details-min-height: var(--sbb-flip-card-details-scroll-height);
@@ -119,6 +121,11 @@
   :host([data-flipped]) & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   }
+}
+
+.sbb-flip-card--toggle-button-icon {
+  transform: var(--sbb-flip-card-toggle-icon-transform);
+  transition: transform var(--sbb-flip-card-summary-transition-duration) ease-out;
 }
 
 .sbb-flip-card-button {
