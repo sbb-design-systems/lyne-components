@@ -13,7 +13,10 @@
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-5x)
   );
-  --sbb-flip-card-summary-transition-delay: var(--sbb-animation-duration-2x);
+  --sbb-flip-card-summary-transition-delay: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-flip-card-details-transition-duration: var(
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-4x)
@@ -106,7 +109,7 @@
     width: var(--sbb-size-element-xs);
     height: var(--sbb-size-element-xs);
     border-radius: var(--sbb-size-element-xs);
-    transition: var(--sbb-animation-duration-5x) ease-out;
+    transition: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-5x)) ease-out;
 
     :host([data-flipped]) & {
       opacity: 1;

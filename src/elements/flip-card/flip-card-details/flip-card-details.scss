@@ -7,7 +7,10 @@
   --sbb-flip-card-details-opacity: 0;
   --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-2x);
   --sbb-flip-card-details-max-height: var(--sbb-flip-card-details-min-height);
-  --sbb-flip-card-details-transition-delay: var(--sbb-animation-duration-6x);
+  --sbb-flip-card-details-transition-delay: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-6x)
+  );
   --sbb-flip-card-details-padding: var(--sbb-spacing-responsive-s);
   --sbb-flip-card-details-padding-block-end: calc(
     var(--sbb-spacing-responsive-s) + var(--sbb-spacing-responsive-xs) + var(--sbb-size-element-m)
