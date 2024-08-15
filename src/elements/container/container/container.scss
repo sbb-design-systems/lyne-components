@@ -17,6 +17,7 @@
 
 :host([data-slot-names~='image']) {
   --sbb-container-background-color: transparent;
+  --sbb-container-padding: var(--sbb-spacing-responsive-xxl);
 }
 
 :host(:not([expanded])[background-expanded]) {
@@ -25,6 +26,7 @@
 
 .sbb-container {
   background-color: var(--sbb-container-background-color);
+  padding: var(--sbb-container-padding);
 
   @include sbb.ignore-children-margin;
 

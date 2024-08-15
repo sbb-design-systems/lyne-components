@@ -51,8 +51,8 @@ describe(`sbb-container`, () => {
   `;
 
   const backgroundImageContent = html`
-    <sbb-title level="2">Container with background image</sbb-title>
-    <sbb-card size="xxl" style="margin-bottom: var(--sbb-spacing-responsive-xs)">
+    <sbb-title level="2" style="margin-block-start: 0">Container with background image</sbb-title>
+    <sbb-card size="xxl">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua.
     </sbb-card>

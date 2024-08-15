@@ -88,11 +88,11 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 
 const BackgroundImageTemplate = ({ 'image-src': imageSrc, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)}>
-    <sbb-title level="2">Container with background image</sbb-title>
+    <sbb-title level="2" style="margin: 0">Container with background image</sbb-title>
     <style>
       .content {
-        padding: var(--sbb-spacing-responsive-m) 0;
         display: flex;
+        margin-block-start: var(--sbb-spacing-responsive-m);
         gap: var(--sbb-spacing-fixed-6x);
         justify-content: center;
         flex-direction: column;
