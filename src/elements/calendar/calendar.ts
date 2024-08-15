@@ -101,7 +101,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   /** If set to true, two months are displayed */
   @property({ type: Boolean }) public wide = false;
 
-  /** The initial view of calendar which should be displayed on opening. */
+  /** The initial view of the calendar which should be displayed on opening. */
   @property({ attribute: 'initial-calendar-view' }) public initialCalendarView: CalendarView =
     'day';
 
