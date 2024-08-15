@@ -112,7 +112,6 @@
     padding-block: var(--sbb-teaser-product-container-padding-block) 0;
     padding-inline: var(--sbb-spacing-responsive-xl);
     position: relative;
-    min-height: var(--sbb-teaser-product-min-height);
 
     :host([image-alignment='before']) & {
       grid-template-areas:
@@ -127,6 +126,13 @@
   align-self: center;
   margin: 0;
   color: var(--sbb-teaser-product-content-color);
+
+  @include sbb.mq($from: large) {
+    align-content: center;
+    min-height: calc(
+      var(--sbb-teaser-product-min-height) - 2 * var(--sbb-teaser-product-container-padding-block)
+    );
+  }
 }
 
 .sbb-teaser-product__footnote {
