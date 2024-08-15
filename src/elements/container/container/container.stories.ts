@@ -148,7 +148,7 @@ export const BackgroundImage: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'image-src': sampleImages[7],
+    'image-src': sampleImages[10],
   },
 };
 
