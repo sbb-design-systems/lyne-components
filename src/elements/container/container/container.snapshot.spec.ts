@@ -11,7 +11,7 @@ describe(`sbb-container`, () => {
     let element: SbbContainerElement;
 
     beforeEach(async () => {
-      element = await fixture(html` <sbb-container></sbb-container> `);
+      element = await fixture(html`<sbb-container></sbb-container>`);
     });
 
     it('DOM', async () => {

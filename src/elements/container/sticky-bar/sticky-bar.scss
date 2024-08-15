@@ -56,17 +56,13 @@ $intersector-overlapping: 1px;
   &::before {
     background-color: var(--sbb-container-background-color);
 
-    :host(:not([data-expanded])) & {
-      @include sbb.page-spacing;
-    }
-
-    :host([data-expanded]) & {
-      @include sbb.page-spacing-expanded;
-    }
-
     // Needed because there is no content and Firefox
     // has troubles displaying correct padding when there is no content.
     padding: 0 !important;
+
+    :host(:not([data-expanded])) & {
+      @include sbb.page-spacing;
+    }
   }
 
   // Color and border radius when sticky

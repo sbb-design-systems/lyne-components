@@ -203,10 +203,10 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   }
 
   private _renderExpanded(): TemplateResult[] {
-    return this.listSlotNames().map(
-      (name, index, array) => html`
+    return this.listSlotEntries().map(
+      (slot, index, array) => html`
         <li class="sbb-breadcrumb-group__item">
-          <slot name=${name}></slot>
+          <slot name=${slot.name}></slot>
           ${index !== array.length - 1
             ? html`<sbb-icon
                 name="chevron-small-right-small"

@@ -3,6 +3,7 @@ export * from './button/secondary-button.js';
 export * from './button/tertiary-button.js';
 export * from './button/transparent-button.js';
 export * from './button/mini-button.js';
+export * from './button/mini-button-group.js';
 export * from './button/button-link.js';
 export * from './button/secondary-button-link.js';
 export * from './button/tertiary-button-link.js';

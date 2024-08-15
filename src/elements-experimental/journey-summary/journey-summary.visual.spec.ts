@@ -31,7 +31,13 @@ describe(`sbb-journey-summary`, () => {
     tripBack,
     hasSlot,
   }: typeof defaultArgs): TemplateResult => html`
-    <sbb-journey-summary ?round-trip=${roundTrip} .trip=${trip} .tripBack=${tripBack} .now=${now}>
+    <sbb-journey-summary
+      ?round-trip=${roundTrip}
+      .trip=${trip}
+      .tripBack=${tripBack}
+      .now=${now}
+      disable-animation
+    >
       ${hasSlot
         ? html`
             <div

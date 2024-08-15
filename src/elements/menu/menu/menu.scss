@@ -4,6 +4,11 @@
 @include sbb.box-sizing;
 
 :host {
+  // We use this rule to make the inner container element to appear as if it were a
+  // direct child of the host's parent element. This is useful because the host
+  // should be ignored when using CSS grid or similar layout techniques.
+  display: contents;
+
   --sbb-menu-position-x: 0;
   --sbb-menu-position-y: 0;
   --sbb-menu-animation-duration: var(
@@ -17,12 +22,6 @@
   --sbb-menu-inset: 0 auto auto 0;
   --sbb-menu-container-height: 100vh;
 
-  // Needed for backwards compatibility on Chromatic
-  // TODO: Remove once not needed
-  @supports (height: 100dvh) {
-    --sbb-menu-container-height: 100dvh;
-  }
-
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-menu-min-height: #{sbb.px-to-rem-build(48.5)};
@@ -30,10 +29,11 @@
   --sbb-menu-visibility: hidden;
   --sbb-menu-backdrop-color: transparent;
 
-  // We use this rule to make the inner container element to appear as if it were a
-  // direct child of the host's parent element. This is useful because the host
-  // should be ignored when using CSS grid or similar layout techniques.
-  display: contents;
+  // Needed for backwards compatibility on Chromatic
+  // TODO: Remove once not needed
+  @supports (height: 100dvh) {
+    --sbb-menu-container-height: 100dvh;
+  }
 
   @include sbb.mq($from: medium) {
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
@@ -149,10 +149,12 @@
 .sbb-menu__content {
   @include sbb.scrollbar($negative: true);
 
-  max-height: var(--sbb-menu-max-height);
-  padding-block: var(--sbb-spacing-fixed-1x);
-  overflow: auto;
-  outline: none;
+  & {
+    max-height: var(--sbb-menu-max-height);
+    padding-block: var(--sbb-spacing-fixed-1x);
+    overflow: auto;
+    outline: none;
+  }
 
   // Margin bottom in mobile variant
   &::after {

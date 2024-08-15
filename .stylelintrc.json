@@ -48,6 +48,7 @@
       }
     ],
     "number-max-precision": 12,
-    "value-no-vendor-prefix": [true, { "ignoreValues": ["box"] }]
+    "value-no-vendor-prefix": [true, { "ignoreValues": ["box"] }],
+    "no-duplicate-selectors": null
   }
 }
