@@ -21,16 +21,11 @@ const content = (
   imageAlignment: SbbFlipCardImageAlignment = 'after',
   longContent: boolean = false,
 ): TemplateResult =>
-  html`<sbb-flip-card-summary slot="summary" image-alignment=${imageAlignment}>
+  html`<sbb-flip-card-summary image-alignment=${imageAlignment}>
       <sbb-title level="4">${title}</sbb-title>
-      <sbb-image
-        slot="image"
-        image-src=${imageUrl}
-        border-radius="none"
-        aspect-ratio="free"
-      ></sbb-image>
+      <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
     </sbb-flip-card-summary>
-    <sbb-flip-card-details slot="details">
+    <sbb-flip-card-details>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
       Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh.
       ${longContent

@@ -75,6 +75,7 @@
   border-radius: var(--sbb-flip-card-border-radius);
   transition: var(--sbb-flip-card-summary-transition-duration) ease-out;
   transition-delay: var(--sbb-flip-card-summary-transition-delay);
+  cursor: pointer;
 }
 
 .sbb-flip-card--toggle-button {
@@ -87,10 +88,9 @@
   }
 }
 
-button {
+.sbb-flip-card-button {
   @include sbb.button-reset;
 
-  cursor: pointer;
   position: absolute;
   inset: 0;
   border-radius: var(--sbb-flip-card-border-radius);
