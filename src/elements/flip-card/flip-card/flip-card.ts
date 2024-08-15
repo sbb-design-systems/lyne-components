@@ -2,7 +2,7 @@ import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y/focus.js';
+import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';

@@ -33,7 +33,14 @@ describe(`sbb-flip-card ssr`, () => {
         </sbb-flip-card>
       `,
       {
-        modules: ['./flip-card.js'],
+        modules: [
+          './flip-card.js',
+          '../flip-card-summary.js',
+          '../flip-card-details.js',
+          '../../title.js',
+          '../../image.js',
+          '../../link.js',
+        ],
       },
     );
   });
