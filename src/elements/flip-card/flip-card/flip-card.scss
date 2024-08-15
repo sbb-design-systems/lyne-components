@@ -3,7 +3,6 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
-// TODO: improve component's animation
 :host {
   --sbb-flip-card-background-color: var(--sbb-color-cloud);
   --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
@@ -14,11 +13,7 @@
     var(--sbb-animation-duration-5x)
   );
   --sbb-flip-card-summary-transition-delay: var(--sbb-animation-duration-2x);
-  --sbb-flip-card-details-transition-duration: var(
-    --sbb-disable-animation-zero-time,
-    var(--sbb-animation-duration-4x)
-  );
-  --sbb-flip-card-details-transition-delay: 0s;
+  --sbb-flip-card-details-transition-duration: var(--sbb-animation-duration-4x);
 
   position: relative;
   display: block;
@@ -35,12 +30,7 @@
 }
 
 :host([data-flipped]) {
-  --sbb-flip-card-background-color: var(--sbb-color-midnight);
-  --sbb-flip-card-details-transition-duration: var(
-    --sbb-disable-animation-zero-time,
-    var(--sbb-animation-duration-2x)
-  );
-  --sbb-flip-card-details-transition-delay: var(--sbb-animation-duration-5x);
+  --sbb-flip-card-details-transition-duration: var(--sbb-animation-duration-2x);
   --sbb-flip-card-summary-transition-delay: 0s;
   --sbb-flip-card-details-min-height: var(--sbb-flip-card-details-scroll-height);
 
@@ -93,6 +83,30 @@
           border-color: Highlight;
         }
       }
+    }
+  }
+
+  // Expanding dark background from the button when flipped.
+  &::before {
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    inset-inline-start: var(--sbb-spacing-responsive-s);
+    inset-block-end: var(--sbb-spacing-responsive-s);
+    background-color: var(--sbb-color-midnight);
+    width: var(--sbb-size-element-xs);
+    height: var(--sbb-size-element-xs);
+    border-radius: var(--sbb-size-element-xs);
+    transition: var(--sbb-animation-duration-5x) ease-out;
+
+    :host([data-flipped]) & {
+      opacity: 1;
+      inset-inline-start: 0;
+      inset-block-end: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--sbb-flip-card-border-radius);
     }
   }
 }

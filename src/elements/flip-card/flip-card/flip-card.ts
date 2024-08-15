@@ -7,6 +7,7 @@ import { SbbConnectedAbortController, SbbLanguageController } from '../../core/c
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
+import { AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
 
@@ -58,9 +59,11 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
 
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
+  private _flipCardResizeObserver = new AgnosticResizeObserver(() => this._setFlipCardHeight());
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._flipCardResizeObserver.observe(this);
     this.addEventListener(
       'click',
       (event: Event) => {
@@ -75,12 +78,16 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
     );
   }
 
-  /** Toggles the state of the sbb-flip-card. */
-  public toggle(): void {
+  private _setFlipCardHeight(): void {
     this.style?.setProperty(
       '--sbb-flip-card-details-scroll-height',
       `${this.details!.shadowRoot?.firstElementChild?.scrollHeight}px`,
     );
+  }
+
+  /** Toggles the state of the sbb-flip-card. */
+  public toggle(): void {
+    this._setFlipCardHeight();
     this._flipped = !this._flipped;
     this.toggleAttribute('data-flipped', this._flipped);
     this.details!.toggleAttribute('data-flipped', this._flipped);

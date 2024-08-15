@@ -7,6 +7,7 @@
   --sbb-flip-card-details-opacity: 0;
   --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-2x);
   --sbb-flip-card-details-max-height: var(--sbb-flip-card-details-min-height);
+  --sbb-flip-card-details-transition-delay: var(--sbb-animation-duration-6x);
   --sbb-flip-card-details-padding: var(--sbb-spacing-responsive-s);
   --sbb-flip-card-details-padding-block-end: calc(
     var(--sbb-spacing-responsive-s) + var(--sbb-spacing-responsive-xs) + var(--sbb-size-element-m)
@@ -30,8 +31,11 @@
   padding-block-end: var(--sbb-flip-card-details-padding-block-end);
   max-height: var(--sbb-flip-card-details-max-height);
   transform: translateY(var(--sbb-flip-card-details-translate-y));
+  transition-property: max-height, transform, opacity;
+  transition-duration: var(--sbb-flip-card-details-transition-duration);
 
-  // transition: var(--sbb-flip-card-details-transition-duration) ease-out;
-  // transition-delay: var(--sbb-flip-card-details-transition-delay);
-  transition: all var(--sbb-flip-card-details-transition-duration) ease-out;
+  :host([data-flipped]) & {
+    transition-delay: 0s, var(--sbb-flip-card-details-transition-delay),
+      var(--sbb-flip-card-details-transition-delay);
+  }
 }
