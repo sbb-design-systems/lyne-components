@@ -107,6 +107,7 @@
     grid:
       'content .' 1fr
       'footnote .' auto / 1fr 1fr;
+    column-gap: var(--sbb-spacing-responsive-xxl);
     background: var(--sbb-teaser-product-background);
     border-radius: var(--sbb-teaser-product-border-radius);
     padding-block: var(--sbb-teaser-product-container-padding-block) 0;

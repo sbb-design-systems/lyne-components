@@ -2,7 +2,6 @@
 
 :host {
   --sbb-teaser-product-brightness-hover: 1.075;
-  --sbb-teaser-product-scale-hover: 1.02;
   --sbb-teaser-product-animation-duration: var(
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-4x)
@@ -14,7 +13,6 @@
 :host(:hover) {
   @include sbb.hover-mq($hover: true) {
     --sbb-teaser-product-brightness: var(--sbb-teaser-product-brightness-hover);
-    --sbb-teaser-product-scale: var(--sbb-teaser-product-scale-hover);
   }
 }
 
@@ -37,10 +35,9 @@
 }
 
 ::slotted(:is(img, sbb-image)) {
-  will-change: transform, filter;
-  transition-property: transform, filter;
+  will-change: filter;
+  transition-property: filter;
   transition-duration: var(--sbb-teaser-product-animation-duration);
   transition-timing-function: var(--sbb-animation-easing);
   filter: brightness(var(--sbb-teaser-product-brightness, 1));
-  transform: scale(var(--sbb-teaser-product-scale));
 }
