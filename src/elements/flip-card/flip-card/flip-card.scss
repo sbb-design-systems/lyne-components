@@ -112,6 +112,7 @@
 
   position: absolute;
   inset: 0;
+  width: 100%;
   border-radius: var(--sbb-flip-card-border-radius);
 
   &:not([data-focus-origin='mouse'], [data-focus-origin='touch']):focus-visible {
