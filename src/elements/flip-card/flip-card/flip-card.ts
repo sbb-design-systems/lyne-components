@@ -2,6 +2,7 @@ import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
+import { IS_FOCUSABLE_QUERY } from '../../core/a11y/focus.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
@@ -60,7 +61,18 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.addEventListener('click', () => this.toggle(), { signal: this._abort.signal });
+    this.addEventListener(
+      'click',
+      (event: Event) => {
+        if (
+          event.target === this ||
+          !(event.target as HTMLElement)?.matches?.(IS_FOCUSABLE_QUERY)
+        ) {
+          this.toggle();
+        }
+      },
+      { signal: this._abort.signal },
+    );
   }
 
   /** Toggles the state of the sbb-flip-card. */

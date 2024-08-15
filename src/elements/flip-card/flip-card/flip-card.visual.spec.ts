@@ -4,15 +4,17 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
+  visualDiffHover,
 } from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
+import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
+
 import './flip-card.js';
 import '../flip-card-summary.js';
 import '../flip-card-details.js';
 import '../../title.js';
 import '../../link.js';
 import '../../image.js';
-import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
@@ -44,7 +46,7 @@ describe(`sbb-flip-card`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const imageAlignment of ['after', 'below']) {
       describe(`image-alignment=${imageAlignment}`, () => {
-        for (const state of [visualDiffDefault, visualDiffFocus]) {
+        for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
           it(
             state.name,
             state.with(async (setup) => {
@@ -96,5 +98,20 @@ describe(`sbb-flip-card`, () => {
         }),
       );
     }
+
+    describe('forcedColors=true', () => {
+      for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(html`<sbb-flip-card>${content('Summary')}</sbb-flip-card>`, {
+              forcedColors: true,
+            });
+
+            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          }),
+        );
+      }
+    });
   });
 });

@@ -11,6 +11,7 @@ import { SbbFlipCardElement } from './flip-card.js';
 import '../flip-card-summary.js';
 import '../flip-card-details.js';
 import '../../title.js';
+import '../../link/link.js';
 
 describe('sbb-flip-card', () => {
   let element: SbbFlipCardElement;
@@ -21,7 +22,9 @@ describe('sbb-flip-card', () => {
         <sbb-flip-card-summary>
           <sbb-title>Card Title</sbb-title>
         </sbb-flip-card-summary>
-        <sbb-flip-card-details>Some additional text.</sbb-flip-card-details>
+        <sbb-flip-card-details>
+          Some additional text. <sbb-link href="#">Link</sbb-link>
+        </sbb-flip-card-details>
       </sbb-flip-card>`,
     );
   });
@@ -106,7 +109,6 @@ describe('sbb-flip-card', () => {
 
   it('should prefer accessibility-label', async () => {
     element.accessibilityLabel = 'A11Y-Label';
-
     await waitForLitRender(element);
 
     expect(element.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent).to.be.equal(
@@ -116,11 +118,20 @@ describe('sbb-flip-card', () => {
 
   it('should present closing accessibility-label', async () => {
     element.toggle();
-
     await waitForLitRender(element);
 
     expect(element.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent).to.be.equal(
       'Click on this card to go back to the summary',
     );
+  });
+
+  it('should not close on interactive element click', async () => {
+    element.toggle();
+    await waitForLitRender(element);
+
+    element.querySelector('sbb-link')!.click();
+    await waitForLitRender(element);
+
+    expect(element.isFlipped).to.be.true;
   });
 });
