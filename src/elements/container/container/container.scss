@@ -15,12 +15,18 @@
   --sbb-container-background-color: var(--sbb-color-milk);
 }
 
+:host([data-slot-names~='image']) {
+  --sbb-container-background-color: transparent;
+  --sbb-container-padding: var(--sbb-spacing-responsive-xxl);
+}
+
 :host(:not([expanded])[background-expanded]) {
   background-color: var(--sbb-container-background-color);
 }
 
 .sbb-container {
   background-color: var(--sbb-container-background-color);
+  padding: var(--sbb-container-padding);
 
   @include sbb.ignore-children-margin;
 
@@ -38,4 +44,33 @@
   :host([expanded]) & {
     @include sbb.page-spacing-expanded;
   }
+
+  :host([data-slot-names~='image']) & {
+    position: relative;
+  }
+}
+
+.sbb-container__content {
+  position: relative;
+}
+
+::slotted([slot='image']) {
+  --sbb-image-border-radius: 0;
+
+  position: absolute;
+  inset: 0;
+
+  :host(:not([expanded])) & {
+    @include sbb.mq($from: ultra) {
+      --sbb-image-border-radius: var(--sbb-border-radius-4x);
+
+      border-radius: var(--sbb-border-radius-4x);
+    }
+  }
+}
+
+::slotted(img[slot='image']) {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }

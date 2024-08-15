@@ -29,7 +29,9 @@
 }
 
 :host(:hover) {
-  --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
+  @include sbb.hover-mq($hover: true) {
+    --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
+  }
 }
 
 :host([data-flipped]) {
@@ -75,6 +77,24 @@
   border-radius: var(--sbb-flip-card-border-radius);
   transition: var(--sbb-flip-card-summary-transition-duration) ease-out;
   transition-delay: var(--sbb-flip-card-summary-transition-delay);
+  cursor: pointer;
+
+  @include sbb.if-forced-colors {
+    &::after {
+      content: '';
+      border: var(--sbb-border-width-2x) solid CanvasText;
+      border-radius: var(--sbb-flip-card-border-radius);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+
+      :host(:hover) & {
+        @include sbb.hover-mq($hover: true) {
+          border-color: Highlight;
+        }
+      }
+    }
+  }
 }
 
 .sbb-flip-card--toggle-button {
@@ -87,13 +107,14 @@
   }
 }
 
-button {
+.sbb-flip-card-button {
   @include sbb.button-reset;
 
-  cursor: pointer;
   position: absolute;
   inset: 0;
+  width: 100%;
   border-radius: var(--sbb-flip-card-border-radius);
+  cursor: pointer;
 
   &:not([data-focus-origin='mouse'], [data-focus-origin='touch']):focus-visible {
     @include sbb.focus-outline;

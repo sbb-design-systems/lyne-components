@@ -5,7 +5,7 @@ The component's slot is implicitly set to `"summary"`.
 <sbb-flip-card>
   <sbb-flip-card-summary>
     <sbb-title> Card Title </sbb-title>
-    <sbb-image slot="image" image-src="..."></sbb-image>
+    <sbb-image slot="image" image-src="..." alt="..."></sbb-image>
   </sbb-flip-card-summary>
 </sbb-flip-card>
 ```

@@ -21,12 +21,7 @@ const imageBase64 = await loadAssetAsBase64(
 const images = [
   {
     selector: 'sbb-image',
-    image: html`<sbb-image
-      slot="image"
-      image-src=${imageUrl}
-      border-radius="none"
-      aspect-ratio="free"
-    ></sbb-image>`,
+    image: html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`,
   },
   {
     selector: 'img',
@@ -57,7 +52,7 @@ describe(`sbb-flip-card-summary`, () => {
                     'background-color': 'var(--sbb-color-cloud-alpha-80)',
                   })}
                 >
-                  <sbb-flip-card-summary slot="summary" image-alignment=${imageAlignment}>
+                  <sbb-flip-card-summary image-alignment=${imageAlignment}>
                     ${image.image}
                     <sbb-title level="4">Summary</sbb-title>
                   </sbb-flip-card-summary>
