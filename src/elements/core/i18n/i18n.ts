@@ -638,7 +638,7 @@ export const i18nFlipCard: Record<string, string> = {
 
 export const i18nReverseCard: Record<string, string> = {
   de: 'Klicken Sie auf diese Karte, um zurück zur Zusammenfassung zu gelangen',
-  en: 'Click on this card to go back to summary',
+  en: 'Click on this card to go back to the summary',
   fr: 'Cliquez sur cette carte pour revenir au résumé',
   it: 'Clicca su questa scheda per tornare al sommario',
 };

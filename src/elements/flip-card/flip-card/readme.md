@@ -5,7 +5,7 @@ It's meant to be used together with [sbb-flip-card-summary](/docs/elements-sbb-f
 <sbb-flip-card>
   <sbb-flip-card-summary>
     <sbb-title> Card Title </sbb-title>
-    <sbb-image slot="image" image-src="..."></sbb-image>
+    <sbb-image slot="image" image-src="..." alt="..."></sbb-image>
   </sbb-flip-card-summary>
   <sbb-flip-card-details> Some additional text. </sbb-flip-card-details>
 </sbb-flip-card>
@@ -23,11 +23,12 @@ The `sbb-flip-card` will switch to the flipped state after the user clicks on it
 
 ## Properties
 
-| Name        | Attribute | Privacy | Type                        | Default | Description                                |
-| ----------- | --------- | ------- | --------------------------- | ------- | ------------------------------------------ |
-| `details`   | -         | public  | `SbbFlipCardDetailsElement` |         | Returns the slotted sbb-flip-card-details. |
-| `isFlipped` | -         | public  | `boolean`                   |         | Whether the flip card is flipped.          |
-| `summary`   | -         | public  | `SbbFlipCardSummaryElement` |         | Returns the slotted sbb-flip-card-summary. |
+| Name                 | Attribute             | Privacy | Type                                | Default | Description                                                                                                                                       |
+| -------------------- | --------------------- | ------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`               |         | This will be forwarded as aria-label to the action in the non flipped state. If not set, the textContent of the `sbb-flip-card-summary` is taken. |
+| `details`            | -                     | public  | `SbbFlipCardDetailsElement \| null` |         | Returns the slotted sbb-flip-card-details.                                                                                                        |
+| `isFlipped`          | -                     | public  | `boolean`                           |         | Whether the flip card is flipped.                                                                                                                 |
+| `summary`            | -                     | public  | `SbbFlipCardSummaryElement \| null` |         | Returns the slotted sbb-flip-card-summary.                                                                                                        |
 
 ## Methods
 
@@ -43,7 +44,6 @@ The `sbb-flip-card` will switch to the flipped state after the user clicks on it
 
 ## Slots
 
-| Name      | Description                                                 |
-| --------- | ----------------------------------------------------------- |
-| `details` | Use this slot to provide a sbb-flip-card-details component. |
-| `summary` | Use this slot to provide a sbb-flip-card-summary component. |
+| Name | Description                                                                                  |
+| ---- | -------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add a `sbb-flip-card-summary` and a `sbb-flip-card-details` element. |
