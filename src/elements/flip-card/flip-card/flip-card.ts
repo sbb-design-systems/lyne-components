@@ -13,7 +13,7 @@ import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
 import style from './flip-card.scss?lit&inline';
 
 import '../../button/secondary-button-static.js';
-import '../../screen-reader-only/screen-reader-only.js';
+import '../../screen-reader-only.js';
 
 /**
  * Displays an informative card that reveals more information upon being clicked.
