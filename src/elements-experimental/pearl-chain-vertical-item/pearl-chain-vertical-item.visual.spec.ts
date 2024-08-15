@@ -32,7 +32,10 @@ describe(`sbb-pearl-chain-vertical-item`, () => {
         'right',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${defaultArgs}>
+            <sbb-pearl-chain-vertical-item
+              .pearlChainVerticalItemAttributes=${defaultArgs}
+              disable-animation
+            >
               <div
                 slot="right"
                 style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
@@ -54,6 +57,7 @@ describe(`sbb-pearl-chain-vertical-item`, () => {
                 lineColor: 'disruption',
                 bulletType: 'disruption',
               }}
+              disable-animation
             >
               <div slot="left" style="--sbb-pearl-chain-vertical-left-item-inline-end: 10px;">
                 slot for content
@@ -68,6 +72,7 @@ describe(`sbb-pearl-chain-vertical-item`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-pearl-chain-vertical-item
+              disable-animation
               .pearlChainVerticalItemAttributes=${defaultArgs}
             ></sbb-pearl-chain-vertical-item>
           `);
@@ -78,7 +83,10 @@ describe(`sbb-pearl-chain-vertical-item`, () => {
         'both',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${defaultArgs}>
+            <sbb-pearl-chain-vertical-item
+              .pearlChainVerticalItemAttributes=${defaultArgs}
+              disable-animation
+            >
               <div
                 slot="right"
                 style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
@@ -99,7 +107,7 @@ describe(`sbb-pearl-chain-vertical-item`, () => {
 
     describe('variants', () => {
       const template = (args: typeof defaultArgs): TemplateResult => html`
-        <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args}>
+        <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args} disable-animation>
           <div
             slot="right"
             style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
