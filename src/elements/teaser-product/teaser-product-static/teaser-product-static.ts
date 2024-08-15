@@ -10,6 +10,8 @@ import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '..
  * @slot - Use this slot to provide the main content.
  * @slot image - Use this slot to provide an image or a `sbb-image` as a background.
  * @slot footnote - Use this slot to provide a footnote.
+ * @cssprop [--sbb-teaser-product-background-gradient-start=25%] - At which percentage the background should start getting transparent.
+ * @cssprop [--sbb-teaser-product-background-gradient-end=75%] - At which percentage the background should be fully transparent.
  */
 @customElement('sbb-teaser-product-static')
 export class SbbTeaserProductStaticElement extends SbbTeaserProductCommonElementMixin(

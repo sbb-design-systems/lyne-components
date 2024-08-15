@@ -78,6 +78,13 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser-product>`, wh
 | `rel`                | `rel`                 | public  | `string \| undefined`                   |           | The relationship of the linked URL as space-separated link types.                                                                     |
 | `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |           | Where to display the linked URL.                                                                                                      |
 
+## CSS Properties
+
+| Name                                             | Default | Description                                                          |
+| ------------------------------------------------ | ------- | -------------------------------------------------------------------- |
+| `--sbb-teaser-product-background-gradient-end`   | `75%`   | At which percentage the background should be fully transparent.      |
+| `--sbb-teaser-product-background-gradient-start` | `25%`   | At which percentage the background should start getting transparent. |
+
 ## Slots
 
 | Name       | Description                                                         |

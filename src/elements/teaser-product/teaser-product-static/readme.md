@@ -71,6 +71,13 @@ Add the `negative` attribute to enable the negative variant.
 | `imageAlignment` | `image-alignment` | public  | `'after' \| 'before'` | `'after'` | Whether the fully visible part of the image is aligned 'before' or 'after' the content. Only relevant starting from large breakpoint. |
 | `negative`       | `negative`        | public  | `boolean`             | `false`   | Negative coloring variant flag.                                                                                                       |
 
+## CSS Properties
+
+| Name                                             | Default | Description                                                          |
+| ------------------------------------------------ | ------- | -------------------------------------------------------------------- |
+| `--sbb-teaser-product-background-gradient-end`   | `75%`   | At which percentage the background should be fully transparent.      |
+| `--sbb-teaser-product-background-gradient-start` | `25%`   | At which percentage the background should start getting transparent. |
+
 ## Slots
 
 | Name       | Description                                                         |

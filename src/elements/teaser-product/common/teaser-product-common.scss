@@ -14,12 +14,14 @@
   --sbb-teaser-product-footer-color: var(--sbb-color-anthracite);
   --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l);
   --sbb-teaser-product-min-height: #{sbb.px-to-rem-build(600)};
+  --sbb-teaser-product-background-gradient-start: 25%;
+  --sbb-teaser-product-background-gradient-end: 75%;
 
   @include sbb.mq($from: large) {
     --sbb-teaser-product-background: linear-gradient(
       var(--sbb-teaser-product-background-gradient-direction),
-      var(--sbb-teaser-product-background-color) 25%,
-      transparent 75%
+      var(--sbb-teaser-product-background-color) var(--sbb-teaser-product-background-gradient-start),
+      transparent var(--sbb-teaser-product-background-gradient-end)
     );
   }
 }
