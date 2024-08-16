@@ -33,6 +33,7 @@
 :host(:hover) {
   @include sbb.hover-mq($hover: true) {
     --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
+    --sbb-flip-card-title-translate-y-hover: #{sbb.px-to-rem-build(-1)};
   }
 }
 
@@ -108,8 +109,8 @@
     background-color: var(--sbb-color-midnight);
     width: var(--sbb-size-element-xs);
     height: var(--sbb-size-element-xs);
-    border-radius: var(--sbb-size-element-xs);
-    transition: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-5x)) ease-out;
+    border-radius: #{sbb.px-to-rem-build(256)};
+    transition: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-3x)) ease-out;
 
     :host([data-flipped]) & {
       opacity: 1;
@@ -118,6 +119,7 @@
       width: 100%;
       height: 100%;
       border-radius: var(--sbb-flip-card-border-radius);
+      transition-duration: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-5x));
     }
   }
 }

@@ -42,6 +42,9 @@
   padding-block: var(--sbb-spacing-responsive-s) var(--sbb-spacing-responsive-xs);
   margin: 0;
   grid-area: 1 / 1 / 2 / 2;
+  transform: translateY(var(--sbb-flip-card-title-translate-y-hover, #{sbb.px-to-rem-build(0)}));
+  transition: transform var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-2x))
+    var(--sbb-animation-easing);
 
   :host([image-alignment='after']) & {
     @include sbb.mq($from: small) {
