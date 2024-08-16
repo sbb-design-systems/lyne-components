@@ -33,7 +33,7 @@
 :host(:hover) {
   @include sbb.hover-mq($hover: true) {
     --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
-    --sbb-flip-card-title-translate-y-hover: #{sbb.px-to-rem-build(-1)};
+    --sbb-flip-card-translate-title-y-hover: #{sbb.px-to-rem-build(-1)};
   }
 }
 
