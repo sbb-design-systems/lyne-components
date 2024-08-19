@@ -126,20 +126,43 @@ describe(`sbb-container`, () => {
 
   // Test very large screens
   for (const backgroundExpanded of backgroundExpandedCases) {
-    it(
-      `viewport=custom_background-expanded=${backgroundExpanded}`,
-      visualDiffDefault.with(async (setup) => {
-        await setViewport({ width: SbbBreakpointUltraMin + 300, height: 600 });
+    describe(`viewport=custom_background-expanded=${backgroundExpanded}`, () => {
+      const viewport = { width: SbbBreakpointUltraMin + 300, height: 600 };
+      const wrapperStyles = { backgroundColor: 'var(--sbb-color-silver)', padding: '0' };
 
-        await setup.withFixture(
-          html`
-            <sbb-container ?background-expanded=${backgroundExpanded}>
-              ${containerContent()}
-            </sbb-container>
-          `,
-          { backgroundColor: 'var(--sbb-color-silver)', padding: '0' },
-        );
-      }),
-    );
+      it(
+        ``,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-container ?background-expanded=${backgroundExpanded}>
+                ${containerContent()}
+              </sbb-container>
+            `,
+            wrapperStyles,
+          );
+
+          await setViewport(viewport);
+        }),
+      );
+
+      it(
+        `background-image`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-container ?background-expanded=${backgroundExpanded}>
+                ${backgroundImageContent}
+                <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+              </sbb-container>
+            `,
+            wrapperStyles,
+          );
+
+          await setViewport(viewport);
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        }),
+      );
+    });
   }
 });

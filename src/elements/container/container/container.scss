@@ -20,8 +20,12 @@
   --sbb-container-padding: var(--sbb-spacing-responsive-xxl);
 }
 
-:host(:not([expanded])[background-expanded]) {
+:host([background-expanded]:not([expanded])) {
   background-color: var(--sbb-container-background-color);
+}
+
+:host([data-slot-names~='image'][background-expanded]) {
+  position: relative;
 }
 
 .sbb-container {
@@ -45,7 +49,7 @@
     @include sbb.page-spacing-expanded;
   }
 
-  :host([data-slot-names~='image']) & {
+  :host([data-slot-names~='image']:not([background-expanded])) & {
     position: relative;
   }
 }
@@ -60,7 +64,7 @@
   position: absolute;
   inset: 0;
 
-  :host(:not([expanded])) & {
+  :host(:not([expanded], [background-expanded])) & {
     @include sbb.mq($from: ultra) {
       --sbb-image-border-radius: var(--sbb-border-radius-4x);
 
