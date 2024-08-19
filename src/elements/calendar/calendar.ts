@@ -243,7 +243,6 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   /** Resets the active month according to the new state of the calendar. */
   public resetPosition(): void {
     this._resetCalendarView();
-    this._activeDate = this.selected ?? this.now;
     this._init();
   }
 
@@ -272,7 +271,9 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     }
 
     if (changedProperties.has('initialCalendarView')) {
-      this._calendarView = this.initialCalendarView ?? 'day';
+      this._setChosenYear();
+      this._chosenMonth = undefined;
+      this._nextCalendarView = this._calendarView = this.initialCalendarView;
     }
   }
 
@@ -511,7 +512,9 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
 
   private _setChosenYear(): void {
     if (this.initialCalendarView === 'month') {
-      this._chosenYear = this._dateAdapter.getYear(this.selected ?? this.now);
+      this._chosenYear = this._dateAdapter.getYear(
+        this._dateAdapter.deserialize(this._selected) ?? this.selected ?? this.now,
+      );
     } else {
       this._chosenYear = undefined;
     }
@@ -820,13 +823,16 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
       : this._findNext(days, nextIndex, -verticalOffset);
   }
 
-  private _resetCalendarView(): void {
+  private _resetCalendarView(initTransition = false): void {
     this._resetFocus = true;
     this._activeDate = this.selected ?? this.now;
     this._setChosenYear();
     this._chosenMonth = undefined;
-    this._nextCalendarView = this.initialCalendarView;
-    this._removeTable();
+    this._nextCalendarView = this._calendarView = this.initialCalendarView;
+
+    if (initTransition) {
+      this._startTableTransition();
+    }
   }
 
   /** Render the view for the day selection. */
@@ -877,7 +883,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
         @click=${() => {
           this._resetFocus = true;
           this._nextCalendarView = 'year';
-          this._removeTable();
+          this._startTableTransition();
         }}
       >
         ${monthLabel}
@@ -1030,7 +1036,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
         id="sbb-calendar__month-selection"
         class="sbb-calendar__controls-change-date"
         aria-label=${`${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`}
-        @click=${() => this._resetCalendarView()}
+        @click=${() => this._resetCalendarView(true)}
       >
         ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear! + 1}` : nothing}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
@@ -1118,7 +1124,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
         this._dateAdapter.getDate(this._activeDate),
       ),
     );
-    this._removeTable();
+    this._startTableTransition();
   }
 
   /** Render the view for the year selection. */
@@ -1177,7 +1183,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
         id="sbb-calendar__year-selection"
         class="sbb-calendar__controls-change-date"
         aria-label="${i18nCalendarDateSelection[this._language.current]} ${yearLabel}"
-        @click=${() => this._resetCalendarView()}
+        @click=${() => this._resetCalendarView(true)}
       >
         ${yearLabel}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
@@ -1244,7 +1250,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
         this._dateAdapter.getDate(this._activeDate),
       ),
     );
-    this._removeTable();
+    this._startTableTransition();
   }
 
   private get _getView(): TemplateResult {
@@ -1275,7 +1281,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     }
   }
 
-  private _removeTable(): void {
+  private _startTableTransition(): void {
     this.toggleAttribute('data-transition', true);
     this.shadowRoot
       ?.querySelectorAll('table')

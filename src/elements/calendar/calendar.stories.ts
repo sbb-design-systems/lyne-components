@@ -87,6 +87,13 @@ const max: InputType = {
   },
 };
 
+const initialCalendarView: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['day', 'month', 'year'],
+};
+
 const now: InputType = {
   control: {
     type: 'date',
@@ -127,6 +134,7 @@ const defaultArgTypes: ArgTypes = {
   min,
   max,
   dateFilter,
+  'initial-calendar-view': initialCalendarView,
   now,
 };
 
@@ -137,6 +145,7 @@ const defaultArgs: Args = {
   wide: false,
   selected: isChromatic() ? new Date(2023, 0, 20) : today,
   now: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
+  'initial-calendar-view': initialCalendarView.options![0],
 };
 
 export const Calendar: StoryObj = {
@@ -184,6 +193,12 @@ export const CalendarWideDynamicWidth: StoryObj = {
   render: TemplateDynamicWidth,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, wide: true },
+};
+
+export const CalendarWithInitialYearSelection: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'initial-calendar-view': initialCalendarView.options![2] },
 };
 
 const meta: Meta = {
