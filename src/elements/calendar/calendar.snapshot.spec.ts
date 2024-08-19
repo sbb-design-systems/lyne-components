@@ -24,7 +24,6 @@ describe(`sbb-calendar`, () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
-    // We skip safari because it has an inconsistent behavior on ci environment
-    testA11yTreeSnapshot(undefined, undefined, { safari: true });
+    testA11yTreeSnapshot();
   });
 });
