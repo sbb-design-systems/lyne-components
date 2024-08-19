@@ -31,7 +31,7 @@ const negative: InputType = {
   },
 };
 
-const initialCalendarView: InputType = {
+const view: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -40,12 +40,12 @@ const initialCalendarView: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   negative,
-  'initial-calendar-view': initialCalendarView,
+  view: view,
 };
 
 const defaultArgs: Args = {
   negative: false,
-  'initial-calendar-view': initialCalendarView.options![0],
+  view: view.options![0],
 };
 
 // Story interaction executed after the story renders
@@ -116,7 +116,7 @@ export const InFormFieldNegative: StoryObj = {
 export const InitialYearSelection: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'initial-calendar-view': initialCalendarView.options![2] },
+  args: { ...defaultArgs, view: view.options![2] },
   play: isChromatic() ? playStory : undefined,
 };
 

@@ -102,8 +102,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   @property({ type: Boolean }) public wide = false;
 
   /** The initial view of the calendar which should be displayed on opening. */
-  @property({ attribute: 'initial-calendar-view' }) public initialCalendarView: CalendarView =
-    'day';
+  @property() public view: CalendarView = 'day';
 
   /** The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
   @property()
@@ -270,10 +269,10 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
       this.resetPosition();
     }
 
-    if (changedProperties.has('initialCalendarView')) {
+    if (changedProperties.has('view')) {
       this._setChosenYear();
       this._chosenMonth = undefined;
-      this._nextCalendarView = this._calendarView = this.initialCalendarView;
+      this._nextCalendarView = this._calendarView = this.view;
     }
   }
 
@@ -511,7 +510,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   }
 
   private _setChosenYear(): void {
-    if (this.initialCalendarView === 'month') {
+    if (this.view === 'month') {
       this._chosenYear = this._dateAdapter.getYear(
         this._dateAdapter.deserialize(this._selected) ?? this.selected ?? this.now,
       );
@@ -828,7 +827,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     this._activeDate = this.selected ?? this.now;
     this._setChosenYear();
     this._chosenMonth = undefined;
-    this._nextCalendarView = this._calendarView = this.initialCalendarView;
+    this._nextCalendarView = this._calendarView = this.view;
 
     if (initTransition) {
       this._startTableTransition();

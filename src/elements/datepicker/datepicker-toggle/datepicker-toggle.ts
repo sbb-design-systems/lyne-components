@@ -34,8 +34,7 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
   @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
 
   /** The initial view of calendar which should be displayed on opening. */
-  @property({ attribute: 'initial-calendar-view' }) public initialCalendarView: CalendarView =
-    'day';
+  @property() public view: CalendarView = 'day';
 
   @state() private _disabled = false;
 
@@ -208,7 +207,7 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
       >
         ${this._renderCalendar
           ? html`<sbb-calendar
-              .initialCalendarView=${this.initialCalendarView}
+              .view=${this.view}
               .min=${this._min}
               .max=${this._max}
               .now=${this._nowOrUndefined()}
