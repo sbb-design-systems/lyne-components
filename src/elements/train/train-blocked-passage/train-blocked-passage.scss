@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-train-blocked-passage-height: var(--sbb-train-formation-wagon-height);
   --sbb-train-blocked-passage-background-color: var(--sbb-color-red);
   --sbb-train-blocked-passage-bar-color: var(--sbb-color-white);
@@ -16,8 +18,6 @@
     --sbb-train-blocked-passage-background-color: CanvasText;
     --sbb-train-blocked-passage-bar-color: Canvas;
   }
-
-  display: block;
 }
 
 .sbb-train-blocked-passage {

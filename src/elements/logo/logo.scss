@@ -4,6 +4,9 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+  height: var(--sbb-logo-height);
+
   --sbb-logo-panel-color: var(--sbb-color-red);
   --sbb-logo-panel-stroke-color: var(--sbb-color-red);
   --sbb-logo-signet-color: var(--sbb-color-white);
@@ -19,9 +22,6 @@
     --sbb-logo-signet-color: Canvas !important;
     --sbb-logo-word-mark-color: ButtonText !important;
   }
-
-  display: block;
-  height: var(--sbb-logo-height);
 }
 
 :host([negative]) {

@@ -1,0 +1,53 @@
+@use '../../core/styles/index' as sbb;
+
+:host {
+  --sbb-link-list-anchor-border-color: var(--sbb-color-cloud);
+}
+
+:host([negative]) {
+  --sbb-link-list-anchor-border-color: var(--sbb-color-granite);
+}
+
+::slotted([data-link]) {
+  --sbb-link-text-decoration: none;
+  --sbb-link-hover-text-decoration: none;
+  --sbb-link-padding: var(--sbb-spacing-fixed-1x) 0 var(--sbb-spacing-fixed-1x)
+    var(--sbb-spacing-fixed-4x);
+  --sbb-link-color-hover: var(--sbb-color-charcoal);
+  --sbb-link-color-active: var(--sbb-color-granite);
+
+  border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-link-list-anchor-border-color);
+
+  :host([negative]) & {
+    --sbb-link-color-normal: var(--sbb-color-smoke);
+    --sbb-link-color-hover: var(--sbb-color-milk);
+    --sbb-link-color-active: var(--sbb-color-smoke);
+  }
+}
+
+::slotted([data-link]:is(:active, [data-active]):not([disabled])) {
+  --sbb-link-list-anchor-border-color: var(--sbb-color-iron);
+
+  :host([negative]) & {
+    --sbb-link-list-anchor-border-color: var(--sbb-color-silver);
+  }
+}
+
+::slotted([data-link]:hover:not([disabled])) {
+  --sbb-link-list-anchor-border-color: var(--sbb-color-charcoal);
+
+  :host([negative]) & {
+    --sbb-link-list-anchor-border-color: var(--sbb-color-milk);
+  }
+}
+
+.sbb-link-list-anchor {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-flow: column;
+
+  > li {
+    margin-inline-start: var(--sbb-spacing-fixed-4x);
+  }
+}

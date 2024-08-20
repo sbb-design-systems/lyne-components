@@ -7,25 +7,27 @@
  * Therefore, we have to build the grid avoiding double borders.
  */
 @mixin table {
-  @include table--striped;
   @include table--m;
+  @include table--striped;
 
-  --sbb-table-border: var(--sbb-border-width-1x) solid var(--sbb-table-border-color);
-  --sbb-table-border-color: var(--sbb-color-cloud);
-  --sbb-table-border-radius: var(--sbb-border-radius-4x);
-  --sbb-table-background-color: var(--sbb-color-white);
-  --sbb-table-row-striped-color: var(--sbb-color-milk);
-  --sbb-table-color: inherit;
-  --sbb-table-caption-color: var(--sbb-color-granite);
-  --sbb-table-caption-margin-block-start: var(--sbb-spacing-fixed-4x);
+  & {
+    --sbb-table-border: var(--sbb-border-width-1x) solid var(--sbb-table-border-color);
+    --sbb-table-border-color: var(--sbb-color-cloud);
+    --sbb-table-border-radius: var(--sbb-border-radius-4x);
+    --sbb-table-background-color: var(--sbb-color-white);
+    --sbb-table-row-striped-color: var(--sbb-color-milk);
+    --sbb-table-color: inherit;
+    --sbb-table-caption-color: var(--sbb-color-granite);
+    --sbb-table-caption-margin-block-start: var(--sbb-spacing-fixed-4x);
 
-  background-color: var(--sbb-table-background-color);
-  border: var(--sbb-table-border);
-  border-radius: var(--sbb-table-border-radius);
-  border-spacing: 0;
-  caption-side: bottom;
-  color: var(--sbb-table-color);
-  table-layout: auto;
+    background-color: var(--sbb-table-background-color);
+    border: var(--sbb-table-border);
+    border-radius: var(--sbb-table-border-radius);
+    border-spacing: 0;
+    caption-side: bottom;
+    color: var(--sbb-table-color);
+    table-layout: auto;
+  }
 
   thead {
     & > tr > th {

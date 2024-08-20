@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.6.0...v1.7.0) (2024-08-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-teaser-hero, sbb-teaser-paid:** `sbb-teaser-paid` was removed and integrated in `sbb-teaser-hero`. Replacing the component / selector should be enough, as the API remains the same. `sbb-teaser-hero` moved from `@sbb-esta/experimental` into `@sbb-esta/elements` package, therefore imports need to be adapted.
+
+### Features
+
+* **sbb-container:** support for background image ([#2999](https://github.com/sbb-design-systems/lyne-components/issues/2999)) ([ff68e28](https://github.com/sbb-design-systems/lyne-components/commit/ff68e28dcb5723f8347517be633989555d100d09))
+* **sbb-flip-card:** add flip event and isFlipped getter ([#2988](https://github.com/sbb-design-systems/lyne-components/issues/2988)) ([b912dac](https://github.com/sbb-design-systems/lyne-components/commit/b912dac06e4041c5df3628a162ce240d28f78d59))
+* **sbb-form-field:** introduce size s ([#2995](https://github.com/sbb-design-systems/lyne-components/issues/2995)) ([9abb131](https://github.com/sbb-design-systems/lyne-components/commit/9abb1314348e1d06be211c2dbf362ad899d894d0))
+* **sbb-link-list-anchor:** component implementation ([#2987](https://github.com/sbb-design-systems/lyne-components/issues/2987)) ([d81a565](https://github.com/sbb-design-systems/lyne-components/commit/d81a565d776499472b91d9c82b99511034985d8e))
+* **sbb-mini-button-group:** component implementation ([#2959](https://github.com/sbb-design-systems/lyne-components/issues/2959)) ([e732593](https://github.com/sbb-design-systems/lyne-components/commit/e73259362859271e04ffb6130375b00d1e2e9674))
+* **sbb-teaser-hero, sbb-teaser-paid:** merge components and move into elements package ([#2984](https://github.com/sbb-design-systems/lyne-components/issues/2984)) ([2b3f13e](https://github.com/sbb-design-systems/lyne-components/commit/2b3f13ed436a675a478767aa7ba4db86da83cb9e))
+* **sbb-teaser-product:** initial implementation ([#2976](https://github.com/sbb-design-systems/lyne-components/issues/2976)) ([79601d2](https://github.com/sbb-design-systems/lyne-components/commit/79601d2f28dbfff571cbe38b33d3c875ab3308a8))
+
+
+### Bug Fixes
+
+* **sbb-flip-card:** fix accessibility issues ([#3000](https://github.com/sbb-design-systems/lyne-components/issues/3000)) ([1f107a0](https://github.com/sbb-design-systems/lyne-components/commit/1f107a0cad33764a4be2c32b84fcceb81342aca5)), closes [#2983](https://github.com/sbb-design-systems/lyne-components/issues/2983)
+* **sbb-flip-card:** support disabled animation ([#2998](https://github.com/sbb-design-systems/lyne-components/issues/2998)) ([fbb6ca6](https://github.com/sbb-design-systems/lyne-components/commit/fbb6ca6d824e1d4d90ad3e1e0c382387ba3b00ad))
+* **sbb-flip-card:** use type button to avoid accidental form submission ([#3002](https://github.com/sbb-design-systems/lyne-components/issues/3002)) ([25dbd78](https://github.com/sbb-design-systems/lyne-components/commit/25dbd7863f37a81dbfd179c37166574a0b0502bb))
+* **sbb-form-field:** fix disabled state for borderless variant ([#2994](https://github.com/sbb-design-systems/lyne-components/issues/2994)) ([c31cc89](https://github.com/sbb-design-systems/lyne-components/commit/c31cc89e212f02579c2bde8997f49b95e6698d1e))
+* **sbb-form-field:** fix textarea bottom padding ([#2997](https://github.com/sbb-design-systems/lyne-components/issues/2997)) ([1540f46](https://github.com/sbb-design-systems/lyne-components/commit/1540f46eac791e985c6262e5ad25fba9dbd01c5c))
+
+
+### Miscellaneous Chores
+
+* release 1.7.0 ([b486bb4](https://github.com/sbb-design-systems/lyne-components/commit/b486bb465af2b6dc0200e6033d51ce6941f8eac1))
+
 ## [1.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.5.0...v1.6.0) (2024-07-26)
 
 
