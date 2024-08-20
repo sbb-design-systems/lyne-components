@@ -1,34 +1,4 @@
-const IGNORED_ELEMENTS = ['script', 'head', 'template'];
-
-/** Set the inert and the data-sbb-inert attributes. */
-const setSbbInert = (el: HTMLElement): void => {
-  if (!el.inert) {
-    el.inert = true;
-    el.toggleAttribute('data-sbb-inert', true);
-  }
-
-  if (!el.hasAttribute('aria-hidden')) {
-    el.setAttribute('aria-hidden', 'true');
-    el.toggleAttribute('data-sbb-aria-hidden', true);
-  }
-};
-
-/** Removes the inert and the data-sbb-inert attributes. */
-const removeSbbInert = (el: HTMLElement): void => {
-  if (!el) {
-    return;
-  }
-
-  if (el.hasAttribute('data-sbb-inert')) {
-    el.inert = false;
-    el.removeAttribute('data-sbb-inert');
-  }
-
-  if (el.hasAttribute('data-sbb-aria-hidden')) {
-    el.removeAttribute('aria-hidden');
-    el.removeAttribute('data-sbb-aria-hidden');
-  }
-};
+const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style'];
 
 export class SbbInertHandler {
   private _modifiedElements = new Set<HTMLElement>();
@@ -79,7 +49,21 @@ export class SbbInertHandler {
   }
 
   private _removeInertAttributes(): void {
-    this._modifiedElements.forEach(removeSbbInert);
+    this._modifiedElements.forEach((element: HTMLElement): void => {
+      if (!element) {
+        return;
+      }
+
+      if (element.hasAttribute('data-sbb-inert')) {
+        element.inert = false;
+        element.removeAttribute('data-sbb-inert');
+      }
+
+      if (element.hasAttribute('data-sbb-aria-hidden')) {
+        element.removeAttribute('aria-hidden');
+        element.removeAttribute('data-sbb-aria-hidden');
+      }
+    });
     this._modifiedElements.clear();
   }
 
@@ -94,9 +78,18 @@ export class SbbInertHandler {
             child instanceof window.HTMLElement &&
             !IGNORED_ELEMENTS.includes(child.localName),
         )
-        .forEach((el) => {
-          this._modifiedElements.add(el);
-          setSbbInert(el);
+        .forEach((element) => {
+          this._modifiedElements.add(element);
+
+          if (!element.inert) {
+            element.inert = true;
+            element.toggleAttribute('data-sbb-inert', true);
+          }
+
+          if (!element.hasAttribute('aria-hidden')) {
+            element.setAttribute('aria-hidden', 'true');
+            element.toggleAttribute('data-sbb-aria-hidden', true);
+          }
         });
 
       // We need to pierce through Shadow DOM boundary
