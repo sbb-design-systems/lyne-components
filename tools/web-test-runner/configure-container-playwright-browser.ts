@@ -2,7 +2,10 @@ import type { PlaywrightLauncher, ProductType } from '@web/test-runner-playwrigh
 import type { Browser, LaunchOptions } from 'playwright';
 import * as playwright from 'playwright';
 
-import { playwrightWebsocketAddress } from './container-playwright-browser-plugin.js';
+import {
+  playwrightWebsocketAddress,
+  startPlaywrightServerCommand,
+} from './container-playwright-browser-plugin.js';
 
 interface PlaywrightLauncherPrivate {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -45,12 +48,12 @@ export function configureRemotePlaywrightBrowser(browser: PlaywrightLauncher): v
 
   // Inside the container the dev server from `@web/test-runner` is not available
   // so we need to adapt the address to point to the host machine.
+  const hostName =
+    startPlaywrightServerCommand[0] === 'docker'
+      ? 'http://host.docker.internal:'
+      : 'http://host.containers.internal:';
   const startSession = browser.startSession;
   browser.startSession = async function (sessionId: string, url: string): Promise<void> {
-    await startSession.call(
-      this,
-      sessionId,
-      url.replace('http://localhost:', 'http://host.containers.internal:'),
-    );
+    await startSession.call(this, sessionId, url.replace('http://localhost:', hostName));
   };
 }
