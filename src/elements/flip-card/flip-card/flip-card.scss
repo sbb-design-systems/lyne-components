@@ -109,6 +109,8 @@
     background-color: var(--sbb-color-midnight);
     width: var(--sbb-size-element-xs);
     height: var(--sbb-size-element-xs);
+
+    // Use this large border radius to improve the appearance of the expanding dark background.
     border-radius: #{sbb.px-to-rem-build(256)};
     transition: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-3x)) ease-out;
 
