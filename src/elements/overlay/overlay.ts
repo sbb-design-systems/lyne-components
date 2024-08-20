@@ -116,7 +116,9 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
       this.focusHandler.disconnect();
       this.removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the overlay if no overlay is open
-      !overlayRefs.length && this.scrollHandler.enableScroll();
+      if (!overlayRefs.length) {
+        this.scrollHandler.enableScroll();
+      }
       this.didClose.emit({
         returnValue: this.returnValue,
         closeTarget: this.overlayCloseElement,

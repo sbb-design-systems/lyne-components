@@ -133,7 +133,11 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
       return;
     }
 
-    this.forceOpen || this._checked ? this._open(!this._initialized) : this._close();
+    if (this.forceOpen || this._checked) {
+      this._open(!this._initialized);
+    } else {
+      this._close();
+    }
     this._updateExpandedLabel(this.forceOpen || this._checked);
   }
 

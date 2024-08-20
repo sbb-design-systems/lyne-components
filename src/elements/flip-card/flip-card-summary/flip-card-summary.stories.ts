@@ -54,8 +54,7 @@ const Template = (args: Args): TemplateResult => html`
       <sbb-image
         slot="image"
         image-src=${sampleImages[0]}
-        border-radius="none"
-        aspect-ratio="free"
+        alt="Conductor controlling a ticket"
       ></sbb-image>
     </sbb-flip-card-summary>
   </div>

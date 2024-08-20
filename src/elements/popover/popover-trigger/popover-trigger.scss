@@ -4,12 +4,13 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-popover-color: inherit;
+  display: inline-block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
-  display: inline-block;
+
+  --sbb-popover-color: inherit;
 
   @include sbb.if-forced-colors {
     --sbb-popover-color: ButtonText !important;
@@ -39,13 +40,13 @@
 }
 
 :host([disabled]) {
+  pointer-events: none;
+
   --sbb-popover-color: var(--sbb-color-graphite);
 
   @include sbb.if-forced-colors {
     --sbb-popover-color: GrayText !important;
   }
-
-  pointer-events: none;
 }
 
 :host([disabled][negative]) {

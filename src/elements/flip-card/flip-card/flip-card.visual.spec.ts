@@ -4,15 +4,17 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
+  visualDiffHover,
 } from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
+import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
+
 import './flip-card.js';
 import '../flip-card-summary.js';
 import '../flip-card-details.js';
 import '../../title.js';
 import '../../link.js';
 import '../../image.js';
-import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
@@ -21,17 +23,12 @@ const content = (
   imageAlignment: SbbFlipCardImageAlignment = 'after',
   longContent: boolean = false,
 ): TemplateResult =>
-  html` <sbb-flip-card-summary slot="summary" image-alignment=${imageAlignment}>
+  html`<sbb-flip-card-summary image-alignment=${imageAlignment}>
       <sbb-title level="4">${title}</sbb-title>
-      <sbb-image
-        slot="image"
-        image-src=${imageUrl}
-        border-radius="none"
-        aspect-ratio="free"
-      ></sbb-image>
+      <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
     </sbb-flip-card-summary>
-    <sbb-flip-card-details slot="details"
-      >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
+    <sbb-flip-card-details>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
       Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh.
       ${longContent
         ? `Duis dapibus vitae
@@ -42,25 +39,28 @@ const content = (
       luctus ornare condimentum. Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis
       in nibh. Duis dapibus vitae tortor ullamcorper maximus. In convallis consectetur felis.`
         : nothing}
-      <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link></sbb-flip-card-details
-    >`;
+      <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link>
+    </sbb-flip-card-details>`;
 
 describe(`sbb-flip-card`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const imageAlignment of ['after', 'below']) {
-      for (const state of [visualDiffDefault, visualDiffFocus]) {
-        it(
-          `image-alignment=${imageAlignment} ${state.name}`,
-          state.with(async (setup) => {
-            await setup.withFixture(html`
-              <sbb-flip-card>
-                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment)}
-              </sbb-flip-card>
-            `);
-            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
-          }),
-        );
-      }
+      describe(`image-alignment=${imageAlignment}`, () => {
+        for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+          it(
+            state.name,
+            state.with(async (setup) => {
+              await setup.withFixture(html`
+                <sbb-flip-card>
+                  ${content('Summary', imageAlignment as SbbFlipCardImageAlignment)}
+                </sbb-flip-card>
+              `);
+
+              await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+            }),
+          );
+        }
+      });
     }
 
     it(
@@ -98,5 +98,20 @@ describe(`sbb-flip-card`, () => {
         }),
       );
     }
+
+    describe('forcedColors=true', () => {
+      for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(html`<sbb-flip-card>${content('Summary')}</sbb-flip-card>`, {
+              forcedColors: true,
+            });
+
+            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          }),
+        );
+      }
+    });
   });
 });

@@ -9,8 +9,12 @@ snapshots["sbb-container renders DOM"] =
 
 snapshots["sbb-container renders Shadow DOM"] = 
 `<div class="sbb-container">
-  <slot>
+  <slot name="image">
   </slot>
+  <div class="sbb-container__content">
+    <slot>
+    </slot>
+  </div>
 </div>
 <slot name="sticky-bar">
 </slot>

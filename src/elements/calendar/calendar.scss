@@ -4,6 +4,11 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
+  // We add width definition to host, to make overwriting easy for consumers.
+  width: max-content;
+
   --sbb-calendar-cell-size: #{sbb.px-to-rem-build(40)};
   --sbb-calendar-hover-shift: #{sbb.px-to-rem-build(1)};
   --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(70)};
@@ -34,11 +39,6 @@
     --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(77)};
     --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(48)};
   }
-
-  display: block;
-
-  // We add width definition to host, to make overwriting easy for consumers.
-  width: max-content;
 }
 
 .sbb-calendar__wrapper {
@@ -116,6 +116,7 @@
 .sbb-calendar__table-container {
   display: flex;
   gap: var(--sbb-calendar-tables-gap);
+  margin-inline: var(--sbb-calendar-margin);
 
   // The padding of the first and last column should not be visible if calendar is stretched.
   // Therefore we need a negative inline margin.
@@ -140,8 +141,6 @@
     );
     --sbb-calendar-margin: calc(0.5 * var(--sbb-calendar-start-offset));
   }
-
-  margin-inline: var(--sbb-calendar-margin);
 }
 
 .sbb-calendar__table {
