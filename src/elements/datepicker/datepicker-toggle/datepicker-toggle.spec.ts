@@ -3,6 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbCalendarElement } from '../../calendar.js';
+import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
@@ -221,7 +222,7 @@ describe(`sbb-datepicker-toggle`, () => {
     await waitForCondition(() => !calendar.hasAttribute('data-transition'));
 
     // Expect selected date and closed calendar
-    expect(calendar.selected!.toISOString()).to.be.equal('2020-05-04T22:00:00.000Z');
+    expect(defaultDateAdapter.toIso8601(calendar.selected!)).to.be.equal('2020-05-05');
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
 
     // Open again
