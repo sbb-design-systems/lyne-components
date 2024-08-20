@@ -42,7 +42,7 @@ Default values are `300px` and `4/3`. Consumers can change these values on their
 
 ## Accessibility
 
-It's important to set the `aria-label` on the `<sbb-teaser>`, which describes the `sbb-teaser` for screen-reader users.
+It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which describes the `sbb-teaser` for screen-reader users.
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
 

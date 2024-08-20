@@ -28,7 +28,7 @@ try {
   const response = await fetch(`${baselineUrl}${metaFileName}`);
   baselineMeta = JSON.parse(await response.text()) satisfies Meta;
   meta = { ...meta, baselineGitSha: baselineMeta.gitSha ?? 'N/A' };
-} catch (e) {
+} catch {
   meta = { ...meta, baselineGitSha: 'N/A' };
 }
 
@@ -74,7 +74,7 @@ export const visualRegressionConfig = {
 
         return buffer;
       }
-    } catch (e) {
+    } catch {
       return undefined;
     }
   },

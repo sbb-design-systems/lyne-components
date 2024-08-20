@@ -11,6 +11,11 @@ import '../../screen-reader-only.js';
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
 const SLOTNAME_PREFIX = 'li';
 
+export type SbbNamedSlotProperties = {
+  name: string;
+  ariaHidden: boolean;
+};
+
 /**
  * Helper type for willUpdate or similar checks.
  * Allows the usage of the string literal 'listChildren'.
@@ -32,12 +37,17 @@ export declare abstract class SbbNamedSlotListMixinType<
 > extends SbbHydrationMixinType {
   protected abstract readonly listChildLocalNames: string[];
   @state() protected listChildren: C[];
-  protected renderList(attributes?: {
-    class?: string;
-    ariaLabel?: string;
-    ariaLabelledby?: string;
-  }): TemplateResult;
-  protected listSlotNames(): string[];
+  protected renderList(
+    attributes?: {
+      class?: string;
+      ariaLabel?: string;
+      ariaLabelledby?: string;
+    },
+    listItemAttributes?: {
+      localNameVisualOnly?: string[];
+    },
+  ): TemplateResult;
+  protected listSlotEntries(): SbbNamedSlotProperties[];
   protected renderHiddenSlot(): TemplateResult;
 }
 
@@ -51,18 +61,18 @@ export const SbbNamedSlotListMixin = <
   /**
    * This base class provides named slot list observer functionality.
    * This allows using the pattern of rendering a named slot for each child, which allows
-   * wrapping children in a ul/li list.
+   * wrapping children in an ul/li list.
    */
   abstract class NamedSlotListElement<C extends HTMLElement = HTMLElement>
     extends SbbHydrationMixin(superClass)
     implements Partial<SbbNamedSlotListMixinType<C>>
   {
-    /** A list of upper-cased tag names to match against. (e.g. SBB-LINK) */
+    /** A list of lower-cased tag names to match against. (e.g. `sbb-link`) */
     protected abstract readonly listChildLocalNames: string[];
 
     /**
      * A list of children with the defined tag names.
-     * This array is only updated, if there is an actual change
+     * This array is only updated if there is an actual change
      * to the child elements.
      */
     @state() protected listChildren: C[] = [];
@@ -103,18 +113,19 @@ export const SbbNamedSlotListMixin = <
     };
 
     /**
-     * Renders list and list slots for slotted children or an amount of list slots
+     * Renders list and list slots for slotted children or a number of list slots
      * corresponding to the `data-ssr-child-count` attribute value.
      *
      * This is a possible optimization for SSR, as in an SSR Lit environment
      * other elements are not available, but might be available in the meta
-     * framework wrapper (like e.g. React). This allows to provide the amount of
+     * framework wrapper (like e.g. React). This allows to provide the number of
      * children to be passed via the `data-ssr-child-count` attribute value.
      */
     protected renderList(
       attributes: { class?: string; ariaLabel?: string; ariaLabelledby?: string } = {},
+      listItemAttributes: { localNameVisualOnly?: string[] } = {},
     ): TemplateResult {
-      const listSlotNames = this.listSlotNames();
+      const listSlotNames: SbbNamedSlotProperties[] = this.listSlotEntries(listItemAttributes);
 
       if (listSlotNames.length >= 2) {
         return html`
@@ -123,14 +134,20 @@ export const SbbNamedSlotListMixin = <
             aria-label=${attributes.ariaLabel || nothing}
             aria-labelledby=${attributes.ariaLabelledby || nothing}
           >
-            ${listSlotNames.map((name) => html`<li><slot name=${name}></slot></li>`)}
+            ${listSlotNames.map(
+              (slot) => html`
+                <li aria-hidden=${slot.ariaHidden || nothing}>
+                  <slot name=${slot.name}></slot>
+                </li>
+              `,
+            )}
           </ul>
           ${this.renderHiddenSlot()}
         `;
       } else if (listSlotNames.length === 1) {
         return html`<sbb-screen-reader-only>${attributes.ariaLabel}</sbb-screen-reader-only>
           <span class=${attributes.class || (this.localName ?? getLocalName(this))}>
-            <span><slot name=${listSlotNames[0]}></slot></span>
+            <span><slot name=${listSlotNames[0].name}></slot></span>
           </span>
           ${this.renderHiddenSlot()} `;
       } else {
@@ -139,19 +156,28 @@ export const SbbNamedSlotListMixin = <
     }
 
     /**
-     * Returns an array of list slot names with the length corresponding to the amount of matched
-     * children or the `data-ssr-child-count` attribute value.
+     * Returns an array of SbbNamedSlotProperties, which holds the list slot names and the hidden property;
+     * its length corresponds to the number of matched children or the `data-ssr-child-count` attribute value.
      *
      * This is a possible optimization for SSR, as in an SSR Lit environment
      * other elements are not available, but might be available in the meta
-     * framework wrapper (like e.g. React). This allows to provide the amount of
+     * framework wrapper (like e.g. React). This allows to provide the number of
      * children to be passed via the `data-ssr-child-count` attribute value.
      */
-    protected listSlotNames(): string[] {
+    protected listSlotEntries(listItemAttributes: {
+      localNameVisualOnly?: string[];
+    }): SbbNamedSlotProperties[] {
       const listChildren = this.listChildren.length
         ? this.listChildren
         : Array.from({ length: +(this.getAttribute(SSR_CHILD_COUNT_ATTRIBUTE) ?? 0) });
-      return listChildren.map((_, i) => `${SLOTNAME_PREFIX}-${i}`);
+      return listChildren.map((e, i) => {
+        return {
+          name: `${SLOTNAME_PREFIX}-${i}`,
+          ariaHidden:
+            listItemAttributes?.localNameVisualOnly?.includes((e as HTMLElement).localName) ??
+            false,
+        };
+      });
     }
 
     /**

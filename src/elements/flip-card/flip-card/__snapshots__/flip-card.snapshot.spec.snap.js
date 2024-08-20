@@ -40,9 +40,9 @@ snapshots["sbb-flip-card DOM"] =
       Summary
     </sbb-title>
     <sbb-image
-      aspect-ratio="free"
-      border-radius="none"
-      image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
+      aspect-ratio="16-9"
+      border-radius="default"
+      image-src="http://localhost:8000/src/elements/core/testing/assets/placeholder-image.png"
       slot="image"
     >
     </sbb-image>
@@ -74,27 +74,28 @@ snapshots["sbb-flip-card DOM"] =
 
 snapshots["sbb-flip-card Shadow DOM"] = 
 `<div class="sbb-flip-card">
-  <slot name="summary">
-  </slot>
   <button
     aria-expanded="false"
-    aria-label="Click on this card for details"
+    class="sbb-flip-card-button"
+    type="button"
   >
+    <sbb-screen-reader-only>
+      Summary, Click on this card for details
+    </sbb-screen-reader-only>
   </button>
+  <slot name="summary">
+  </slot>
   <slot name="details">
   </slot>
-  <sbb-secondary-button
+  <sbb-secondary-button-static
     class="sbb-flip-card--toggle-button"
     data-action=""
-    data-button=""
     data-sbb-button=""
     dir="ltr"
     icon-name="plus-small"
-    role="button"
     size="s"
-    tabindex="0"
   >
-  </sbb-secondary-button>
+  </sbb-secondary-button-static>
 </div>
 `;
 /* end snapshot sbb-flip-card Shadow DOM */
@@ -106,17 +107,13 @@ snapshots["sbb-flip-card A11y tree Chrome"] =
   "name": "",
   "children": [
     {
+      "role": "button",
+      "name": "Summary, Click on this card for details"
+    },
+    {
       "role": "heading",
       "name": "Summary",
       "level": 4
-    },
-    {
-      "role": "button",
-      "name": "Click on this card for details"
-    },
-    {
-      "role": "button",
-      "name": ""
     }
   ]
 }
@@ -131,17 +128,13 @@ snapshots["sbb-flip-card A11y tree Firefox"] =
   "name": "",
   "children": [
     {
+      "role": "button",
+      "name": "Summary, Click on this card for details"
+    },
+    {
       "role": "heading",
       "name": "Summary",
       "level": 4
-    },
-    {
-      "role": "button",
-      "name": "Click on this card for details"
-    },
-    {
-      "role": "button",
-      "name": ""
     }
   ]
 }

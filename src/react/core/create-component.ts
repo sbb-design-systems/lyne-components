@@ -1,8 +1,8 @@
 /* eslint-disable
   @typescript-eslint/explicit-function-return-type,
-  @typescript-eslint/ban-types,
   @typescript-eslint/naming-convention,
   @typescript-eslint/naming-convention,
+  @typescript-eslint/no-empty-object-type,
   import-x/default,
   import-x/no-named-as-default-member
 */

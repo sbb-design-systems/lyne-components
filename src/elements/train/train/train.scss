@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
   --sbb-train-direction-spacing: var(--sbb-spacing-fixed-4x);
   --sbb-train-direction-label-padding: var(--sbb-spacing-fixed-1x);
   --sbb-train-direction-station-padding: var(--sbb-spacing-fixed-3x);
@@ -25,8 +27,6 @@
   @include sbb.if-forced-colors {
     --sbb-train-direction-line-color: CanvasText;
   }
-
-  display: block;
 }
 
 .sbb-train {

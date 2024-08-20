@@ -4,6 +4,11 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
+  // Setting the height here reserves the space for the header which will else be lost with fixed position.
+  height: var(--sbb-header-height);
+
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
   --sbb-header-position: fixed;
@@ -16,11 +21,6 @@
   @include sbb.mq($from: medium) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
   }
-
-  display: block;
-
-  // Setting the height here reserves the space for the header which will else be lost with fixed position.
-  height: var(--sbb-header-height);
 }
 
 :host([hide-on-scroll]) {
