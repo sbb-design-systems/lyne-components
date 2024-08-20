@@ -54,7 +54,7 @@ jobs:
       - name: Install browser dependencies
         run: yarn playwright install-deps
       - name: Run tests
-        run: yarn test
+        run: yarn test --container
         env:
           NODE_ENV: production
       - name: Assert no new snapshots (run `yarn test --ci` if this fails)
