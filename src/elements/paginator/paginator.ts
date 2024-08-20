@@ -19,6 +19,8 @@ import type { SbbSelectElement } from '../select.js';
 import style from './paginator.scss?lit&inline';
 
 import '../button/mini-button.js';
+import '../button/mini-button-group.js';
+import '../divider.js';
 import '../form-field.js';
 import '../select.js';
 import '../option.js';
@@ -228,26 +230,26 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
-  // FIXME add sbb-mini-button-group when merged
   private _renderPrevNextButtons(): TemplateResult {
     return html`
       <div class="sbb-paginator__buttons">
-        <sbb-mini-button
-          id="sbb-paginator-prev-page"
-          aria-label=${i18nPreviousPage[this._language.current]}
-          icon-name="chevron-left-small"
-          ?negative=${this.negative}
-          ?disabled=${this.pageIndex === 0}
-          @click=${() => this._changePage(this.pageIndex - 1)}
-        ></sbb-mini-button>
-        <sbb-mini-button
-          id="sbb-paginator-next-page"
-          aria-label=${i18nNextPage[this._language.current]}
-          icon-name="chevron-right-small"
-          ?negative=${this.negative}
-          ?disabled=${this.pageIndex === this._numberOfPages() - 1}
-          @click=${() => this._changePage(this.pageIndex + 1)}
-        ></sbb-mini-button>
+        <sbb-mini-button-group ?negative=${this.negative}>
+          <sbb-mini-button
+            id="sbb-paginator-prev-page"
+            aria-label=${i18nPreviousPage[this._language.current]}
+            icon-name="chevron-small-left-small"
+            ?disabled=${this.pageIndex === 0}
+            @click=${() => this._changePage(this.pageIndex - 1)}
+          ></sbb-mini-button>
+          <sbb-divider orientation="vertical"></sbb-divider>
+          <sbb-mini-button
+            id="sbb-paginator-next-page"
+            aria-label=${i18nNextPage[this._language.current]}
+            icon-name="chevron-small-right-small"
+            ?disabled=${this.pageIndex === this._numberOfPages() - 1}
+            @click=${() => this._changePage(this.pageIndex + 1)}
+          ></sbb-mini-button>
+        </sbb-mini-button-group>
       </div>
     `;
   }

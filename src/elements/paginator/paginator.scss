@@ -6,37 +6,21 @@
 :host {
   display: block;
 
-  --sbb-paginator-label-color: var(--sbb-color-metal);
-  --sbb-paginator-marker-color: inherit;
-  --sbb-paginator-marker-transform: scale(0);
+  --sbb-paginator-height: var(--sbb-size-element-m);
+  --sbb-paginator-page-color: var(--sbb-color-metal);
+  --sbb-paginator-page-background-color: transparent;
+  --sbb-paginator-page-border: none;
+  --sbb-paginator-page-inset: 0;
+  --sbb-paginator-animation-easing: var(--sbb-animation-easing);
   --sbb-paginator-animation-duration: var(
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-paginator-animation-easing: var(--sbb-animation-easing);
-  --sbb-paginator-height: var(--sbb-size-element-m);
 }
 
 :host([negative]) {
-  --sbb-paginator-label-color: var(--sbb-color-smoke);
+  --sbb-paginator-page-color: var(--sbb-color-smoke);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-
-  .sbb-paginator__page--number {
-    &:hover {
-      @include sbb.hover-mq($hover: true) {
-        --sbb-paginator-label-color: var(--sbb-color-silver);
-        --sbb-paginator-marker-color: var(--sbb-color-silver);
-        --sbb-paginator-marker-transform: scale(1);
-      }
-    }
-
-    &:active,
-    &[data-selected] {
-      --sbb-paginator-label-color: var(--sbb-color-white);
-      --sbb-paginator-marker-color: var(--sbb-color-white);
-      --sbb-paginator-marker-transform: scale(1);
-    }
-  }
 }
 
 .sbb-paginator {
@@ -53,13 +37,14 @@
   align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
   white-space: nowrap;
-  color: var(--sbb-paginator-label-color);
+  color: var(--sbb-paginator-page-color);
 }
 
 .sbb-paginator__pages {
   display: flex;
-  height: 100%;
-  gap: var(--sbb-spacing-fixed-4x);
+  align-items: center;
+  justify-content: center;
+  gap: var(--sbb-spacing-fixed-1x);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -69,76 +54,91 @@
 
 .sbb-paginator__page--ellipsis,
 .sbb-paginator__page--number {
+  @include sbb.text-s--regular;
+
   position: relative;
-  color: var(--sbb-paginator-label-color);
+  color: var(--sbb-paginator-page-color);
+  cursor: default;
 }
 
 .sbb-paginator__page--number {
+  cursor: pointer;
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
+
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: var(--sbb-paginator-page-background-color);
+    border: var(--sbb-paginator-page-border);
+    border-radius: var(--sbb-border-radius-infinity);
+    inset: var(--sbb-paginator-page-inset);
+    z-index: -1;
+    transition: {
+      property: background-color, border;
+      duration: var(--sbb-paginator-animation-duration);
+      timing-function: var(--sbb-paginator-animation-easing);
+    }
+  }
 
   &:hover {
     @include sbb.hover-mq($hover: true) {
-      --sbb-paginator-label-color: var(--sbb-color-granite);
-      --sbb-paginator-marker-color: var(--sbb-color-granite);
-      --sbb-paginator-marker-transform: scale(1);
+      --sbb-paginator-page-color: var(--sbb-color-granite);
+      --sbb-paginator-page-background-color: var(--sbb-color-milk);
+      --sbb-paginator-page-inset: calc(var(--sbb-border-width-2x) * -1);
+
+      :host([negative]) & {
+        --sbb-paginator-page-background-color: var(--sbb-color-charcoal);
+      }
     }
   }
 
-  &:active,
+  &:active {
+    --sbb-paginator-page-color: var(--sbb-color-charcoal);
+    --sbb-paginator-page-background-color: var(--sbb-color-cloud);
+    --sbb-paginator-page-inset: 0;
+
+    :host([negative]) & {
+      --sbb-paginator-page-color: var(--sbb-color-milk);
+      --sbb-paginator-page-background-color: var(--sbb-color-iron);
+    }
+  }
+
   &[data-selected] {
-    --sbb-paginator-label-color: var(--sbb-color-charcoal);
-    --sbb-paginator-marker-color: var(--sbb-color-charcoal);
-    --sbb-paginator-marker-transform: scale(1);
-  }
+    @include sbb.text-s--bold;
 
-  &::before {
-    position: absolute;
-    content: '';
-    inset-inline: 0;
-    inset-block-end: 0;
-    height: #{sbb.px-to-rem-build(3)};
-    background-color: var(--sbb-paginator-marker-color);
-    transform: var(--sbb-paginator-marker-transform);
-    transition: {
-      duration: var(--sbb-paginator-animation-duration);
-      timing-function: var(--sbb-paginator-animation-easing);
-      property: transform, background-color;
+    --sbb-paginator-page-color: var(--sbb-color-charcoal);
+    --sbb-paginator-page-border: var(--sbb-border-width-2x) solid var(--sbb-color-charcoal);
+
+    :host([negative]) & {
+      --sbb-paginator-page-color: var(--sbb-color-milk);
+      --sbb-paginator-page-border: var(--sbb-border-width-2x) solid var(--sbb-color-white);
     }
-
-    z-index: 1;
   }
 }
 
 .sbb-paginator__page--ellipsis-item,
 .sbb-paginator__page--number-item {
-  @include sbb.text-s--regular;
-
-  height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding-inline: var(--sbb-spacing-fixed-2x);
-  color: var(--sbb-paginator-label-color);
-}
-
-.sbb-paginator__page--ellipsis-item {
-  cursor: default;
+  width: var(--sbb-size-element-xxs);
+  height: var(--sbb-size-element-xxs);
 }
 
 .sbb-paginator__page--number-item {
-  cursor: pointer;
-  transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
   outline: none !important;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
     &::before {
+      @include sbb.focus-outline;
+
       content: '';
       position: absolute;
       display: block;
-      inset: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
-      border: var(--sbb-focus-outline-width) solid var(--sbb-focus-outline-color);
-      border-radius: var(--sbb-border-radius-2x);
-      z-index: 1;
+      inset: 0;
+      outline-offset: var(--sbb-border-width-2x);
+      border-radius: var(--sbb-border-radius-infinity);
     }
   }
 }
