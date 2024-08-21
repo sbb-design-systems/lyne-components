@@ -4,14 +4,14 @@ import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-e
 import type { SbbOpenedClosedState } from '../interfaces/types.js';
 
 const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style'];
-const sbbInertElements = new Set<HTMLElement>();
-const sbbInertOverlays: HTMLElement[] = [];
+const inertElements = new Set<HTMLElement>();
+const inertOverlays: HTMLElement[] = [];
 
 export class SbbInertController implements ReactiveController {
   public constructor(
     private _host: ReactiveControllerHost & SbbOpenCloseBaseElement,
-    private _modifiedElements = sbbInertElements,
-    private _inertOverlays = sbbInertOverlays,
+    private _inertElements = inertElements,
+    private _inertOverlays = inertOverlays,
   ) {
     this._host.addController?.(this);
   }
@@ -78,7 +78,7 @@ export class SbbInertController implements ReactiveController {
   }
 
   private _removeInertAttributes(): void {
-    this._modifiedElements.forEach((element: HTMLElement): void => {
+    this._inertElements.forEach((element: HTMLElement): void => {
       if (!element) {
         return;
       }
@@ -93,7 +93,7 @@ export class SbbInertController implements ReactiveController {
         element.removeAttribute('data-sbb-aria-hidden');
       }
     });
-    this._modifiedElements.clear();
+    this._inertElements.clear();
   }
 
   private _addInertAttributes(): void {
@@ -108,7 +108,7 @@ export class SbbInertController implements ReactiveController {
             !IGNORED_ELEMENTS.includes(child.localName),
         )
         .forEach((element) => {
-          this._modifiedElements.add(element);
+          this._inertElements.add(element);
 
           if (!element.inert) {
             element.inert = true;
