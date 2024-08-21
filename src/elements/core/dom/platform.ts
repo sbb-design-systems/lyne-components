@@ -60,12 +60,9 @@ export const isAndroid = !isServer && /android/i.test(navigator.userAgent) && !i
 export const isSafari = !isServer && /safari/i.test(navigator.userAgent) && isWebkit;
 
 /**
- * Note: `userAgentData` is still experimental. If possible, avoid to use it.
- * https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
+ * window.chrome is available on all Chromium based browsers.
  */
-export const isChromium =
-  !isServer &&
-  (navigator as any).userAgentData?.brands?.some((data: any) => data.brand == 'Chromium');
+export const isChromium = !isServer && !!(window as any).chrome;
 
 /** Whether the application is being rendered in a Next.js environment. */
 export const isNextjs = (): boolean => !!(globalThis as { next?: object }).next;
