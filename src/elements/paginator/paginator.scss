@@ -9,7 +9,9 @@
   --sbb-paginator-height: var(--sbb-size-element-m);
   --sbb-paginator-page-color: var(--sbb-color-metal);
   --sbb-paginator-page-background-color: transparent;
-  --sbb-paginator-page-border: none;
+  --sbb-paginator-page-border-width: 0;
+  --sbb-paginator-page-border-style: none;
+  --sbb-paginator-page-border-color: none;
   --sbb-paginator-page-inset: 0;
   --sbb-paginator-animation-easing: var(--sbb-animation-easing);
   --sbb-paginator-animation-duration: var(
@@ -69,10 +71,10 @@
     content: '';
     position: absolute;
     background-color: var(--sbb-paginator-page-background-color);
-    border: var(--sbb-paginator-page-border);
+    border: var(--sbb-paginator-page-border-width) var(--sbb-paginator-page-border-style)
+      var(--sbb-paginator-page-border-color);
     border-radius: var(--sbb-border-radius-infinity);
     inset: var(--sbb-paginator-page-inset);
-    z-index: -1;
     transition: {
       property: background-color, border;
       duration: var(--sbb-paginator-animation-duration);
@@ -107,11 +109,15 @@
     @include sbb.text-s--bold;
 
     --sbb-paginator-page-color: var(--sbb-color-charcoal);
-    --sbb-paginator-page-border: var(--sbb-border-width-2x) solid var(--sbb-color-charcoal);
+    --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
+    --sbb-paginator-page-border-style: solid;
+    --sbb-paginator-page-border-color: var(--sbb-color-charcoal);
 
     :host([negative]) & {
       --sbb-paginator-page-color: var(--sbb-color-milk);
-      --sbb-paginator-page-border: var(--sbb-border-width-2x) solid var(--sbb-color-white);
+      --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
+      --sbb-paginator-page-border-style: solid;
+      --sbb-paginator-page-border-color: var(--sbb-color-white);
     }
   }
 }
@@ -126,7 +132,9 @@
 }
 
 .sbb-paginator__page--number-item {
+  position: relative;
   outline: none !important;
+  z-index: 1;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
