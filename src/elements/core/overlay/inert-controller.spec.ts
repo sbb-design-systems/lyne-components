@@ -4,7 +4,7 @@ import { html, LitElement, type ReactiveControllerHost, type TemplateResult } fr
 import type { SbbOpenCloseBaseElement } from '../base-elements.js';
 import { fixture } from '../testing/private.js';
 
-import { SbbInertController } from './inert.js';
+import { SbbInertController } from './inert-controller.js';
 
 class ShadowElement extends LitElement {
   protected override render(): TemplateResult {
