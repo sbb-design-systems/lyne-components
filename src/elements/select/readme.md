@@ -107,6 +107,7 @@ Opened panel:
 | Name          | Attribute     | Privacy | Type                              | Default | Description                                                              |
 | ------------- | ------------- | ------- | --------------------------------- | ------- | ------------------------------------------------------------------------ |
 | `disabled`    | `disabled`    | public  | `boolean`                         | `false` | Whether the component is disabled.                                       |
+| `isOpen`      | -             | public  | `boolean`                         |         | Whether the element is open.                                             |
 | `multiple`    | `multiple`    | public  | `boolean`                         | `false` | Whether the select allows for multiple selection.                        |
 | `negative`    | `negative`    | public  | `boolean`                         | `false` | Negative coloring variant flag.                                          |
 | `placeholder` | `placeholder` | public  | `string \| undefined`             |         | The placeholder used if no value has been selected.                      |
