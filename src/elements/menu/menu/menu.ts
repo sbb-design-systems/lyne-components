@@ -16,9 +16,9 @@ import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../cor
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
-  sbbInertHandler,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
+  SbbInertController,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
 import type { SbbMenuButtonElement } from '../menu-button.js';
@@ -89,6 +89,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   private _abort = new SbbConnectedAbortController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
+  private _inertController = new SbbInertController(this);
 
   /**
    * Opens the menu on trigger click.
@@ -197,10 +198,6 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     });
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-
-    if (this.state === 'opened') {
-      sbbInertHandler.apply(this);
-    }
   }
 
   public override disconnectedCallback(): void {
@@ -208,7 +205,6 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     this._menuController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
-    sbbInertHandler.remove(this, true);
     this._scrollHandler.enableScroll();
   }
 
@@ -304,14 +300,14 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     if (event.animationName === 'open' && this.state === 'opening') {
       this.state = 'opened';
       this.didOpen.emit();
-      sbbInertHandler.apply(this);
+      this._inertController.activate();
       this._setMenuFocus();
       this._focusHandler.trap(this);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.state = 'closed';
       this._menu?.firstElementChild?.scrollTo(0, 0);
-      sbbInertHandler.remove(this);
+      this._inertController.deactivate();
       setModalityOnNextFocus(this._triggerElement);
       // Manually focus last focused element
       this._triggerElement?.focus({

@@ -12,9 +12,9 @@ import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import {
-  sbbInertHandler,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
+  SbbInertController,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
@@ -90,6 +90,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   private _windowEventsController!: AbortController;
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
+  private _inertController = new SbbInertController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
@@ -195,7 +196,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
       this.state = 'opened';
       this.didOpen.emit();
       this._navigationResizeObserver.observe(this);
-      sbbInertHandler.apply(this);
+      this._inertController.activate();
       this._focusHandler.trap(this, { filter: this._trapFocusFilter });
       this._attachWindowEvents();
       this._setNavigationFocus();
@@ -203,7 +204,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
       this.state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
-      sbbInertHandler.remove(this);
+      this._inertController.deactivate();
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
       this.didClose.emit();
@@ -325,10 +326,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this._navigationObserver.observe(this, navigationObserverConfig);
     this.addEventListener('pointerup', (event) => this._closeOnBackdropClick(event), { signal });
     this.addEventListener('pointerdown', (event) => this._pointerDownListener(event), { signal });
-
-    if (this.state === 'opened') {
-      sbbInertHandler.apply(this);
-    }
   }
 
   public override disconnectedCallback(): void {
@@ -338,7 +335,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this._focusHandler.disconnect();
     this._navigationObserver.disconnect();
     this._navigationResizeObserver.disconnect();
-    sbbInertHandler.remove(this, true);
     this._scrollHandler.enableScroll();
   }
 
