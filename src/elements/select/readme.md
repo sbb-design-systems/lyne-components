@@ -70,6 +70,18 @@ the selected values will be displayed in selection order, separated by a comma.
 </sbb-form-field>
 ```
 
+## Style
+
+The component has no `size` property but, when slotted in a `sbb-form-field`,
+the height of the panel's trigger adapts based on the parent `size` property.
+
+```html
+<sbb-form-field size="s">
+  <label>Train types</label>
+  <sbb-select> ... </sbb-select>
+</sbb-form-field>
+```
+
 ## Events
 
 Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
