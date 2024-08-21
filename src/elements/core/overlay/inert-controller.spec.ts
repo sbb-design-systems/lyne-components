@@ -22,7 +22,7 @@ customElements.define('shadow-element', ShadowElement);
 describe('inert', () => {
   let element: HTMLElement;
   let inertElements: Set<HTMLElement>;
-  let inertOverlays: HTMLElement[] = [];
+  let inertOverlays: Set<HTMLElement>;
   let inertControllerOverlay: SbbInertController;
   let inertControllerOverlay2: SbbInertController;
 
@@ -36,7 +36,7 @@ describe('inert', () => {
   // Reset state for each test
   beforeEach(() => {
     inertElements = new Set<HTMLElement>();
-    inertOverlays = [];
+    inertOverlays = new Set<HTMLElement>();
   });
 
   describe('light DOM', () => {

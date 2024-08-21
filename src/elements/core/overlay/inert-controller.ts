@@ -1,11 +1,10 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.js';
-import type { SbbOpenedClosedState } from '../interfaces/types.js';
 
 const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style'];
 const inertElements = new Set<HTMLElement>();
-const inertOverlays: HTMLElement[] = [];
+const inertOverlays = new Set<HTMLElement>();
 
 export class SbbInertController implements ReactiveController {
   public constructor(
@@ -17,13 +16,7 @@ export class SbbInertController implements ReactiveController {
   }
 
   public hostConnected(): void {
-    if (
-      // TODO: Find a better solution than type cheating (`state` is protected)
-      (
-        this._host as ReactiveControllerHost &
-          SbbOpenCloseBaseElement & { state: SbbOpenedClosedState }
-      ).state === 'opened'
-    ) {
+    if (this._host.isOpen) {
       this.activate();
     }
   }
@@ -35,11 +28,11 @@ export class SbbInertController implements ReactiveController {
   /** Applies inert state to every other element on the page except the overlay. */
   public activate(): void {
     // Remove inert state from previous opened overlay
-    if (this._inertOverlays.length) {
+    if (this._inertOverlays.size) {
       this._removeInertAttributes();
     }
 
-    this._inertOverlays.push(this._host);
+    this._inertOverlays.add(this._host);
     this._addInertAttributes();
   }
 
@@ -48,8 +41,8 @@ export class SbbInertController implements ReactiveController {
     if (this._currentOverlay() !== this._host) {
       // If e.g. a component gets disconnected, it could be that it is not the top most.
       // In this case, we can directly remove it, as there is currently no inert state applied.
-      if (this._inertOverlays.includes(this._host)) {
-        this._inertOverlays.splice(this._inertOverlays.indexOf(this._host), 1);
+      if (this._inertOverlays.has(this._host)) {
+        this._inertOverlays.delete(this._host);
       } else if (import.meta.env.DEV && !silent) {
         console.warn(
           'Trying to remove inert state of an overlay which never had an applied inert state.',
@@ -61,20 +54,16 @@ export class SbbInertController implements ReactiveController {
     }
 
     this._removeInertAttributes();
-    this._inertOverlays.splice(this._currentOverlayIndex(), 1);
+    this._inertOverlays.delete(this._host);
 
     // If there is as previous opened overlay, set its inert state again.
-    if (this._inertOverlays.length) {
+    if (this._inertOverlays.size) {
       this._addInertAttributes();
     }
   }
 
-  private _currentOverlayIndex(): number {
-    return this._inertOverlays.length - 1;
-  }
-
-  private _currentOverlay(): HTMLElement {
-    return this._inertOverlays[this._currentOverlayIndex()];
+  private _currentOverlay(): HTMLElement | null {
+    return [...this._inertOverlays].pop() ?? null;
   }
 
   private _removeInertAttributes(): void {

@@ -27,6 +27,11 @@ export abstract class SbbOpenCloseBaseElement extends LitElement {
     return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
+  /** Whether the element is open. */
+  public get isOpen(): boolean {
+    return this.state === 'opened';
+  }
+
   /** Emits whenever the component starts the opening transition. */
   protected willOpen: EventEmitter = new EventEmitter(
     this,
