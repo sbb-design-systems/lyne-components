@@ -1,4 +1,3 @@
-export * from './overlay/inert-controller.js';
 export * from './overlay/overlay.js';
 export * from './overlay/overlay-option-panel.js';
 export * from './overlay/overlay-trigger-attributes.js';

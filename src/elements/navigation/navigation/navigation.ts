@@ -5,7 +5,11 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import {
+  SbbConnectedAbortController,
+  SbbInertController,
+  SbbLanguageController,
+} from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
@@ -14,7 +18,6 @@ import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/obs
 import {
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
-  SbbInertController,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';

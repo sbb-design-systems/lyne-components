@@ -3,13 +3,12 @@ import { property } from 'lit/decorators.js';
 
 import { SbbFocusHandler } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbLanguageController } from '../core/controllers.js';
+import { SbbInertController, SbbLanguageController } from '../core/controllers.js';
 import { hostContext, SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
 import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
-import { SbbInertController } from '../core/overlay.js';
 import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
 
 // A global collection of existing overlays.

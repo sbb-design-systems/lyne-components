@@ -11,14 +11,13 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { SbbConnectedAbortController, SbbInertController } from '../../core/controllers.js';
 import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
-  SbbInertController,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
 import type { SbbMenuButtonElement } from '../menu-button.js';
