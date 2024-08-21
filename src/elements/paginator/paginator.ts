@@ -233,7 +233,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   private _renderPrevNextButtons(): TemplateResult {
     return html`
       <div class="sbb-paginator__buttons">
-        <sbb-mini-button-group ?negative=${this.negative}>
+        <sbb-mini-button-group ?negative=${this.negative} size="l">
           <sbb-mini-button
             id="sbb-paginator-prev-page"
             aria-label=${i18nPreviousPage[this._language.current]}

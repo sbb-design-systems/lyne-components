@@ -13,7 +13,7 @@ snapshots["sbb-paginator renders DOM"] =
 snapshots["sbb-paginator renders Shadow DOM"] = 
 `<div class="sbb-paginator">
   <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="m">
+    <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-disabled="true"
         aria-label="Previous page"
@@ -83,7 +83,7 @@ snapshots["sbb-paginator renders ellipsis on end side DOM"] =
 snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] = 
 `<div class="sbb-paginator">
   <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="m">
+    <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-disabled="true"
         aria-label="Previous page"
@@ -202,7 +202,7 @@ snapshots["sbb-paginator renders ellipsis on start side DOM"] =
 snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] = 
 `<div class="sbb-paginator">
   <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="m">
+    <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-label="Previous page"
         data-action=""
@@ -320,7 +320,7 @@ snapshots["sbb-paginator renders ellipsis on both side DOM"] =
 snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] = 
 `<div class="sbb-paginator">
   <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="m">
+    <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-label="Previous page"
         data-action=""
@@ -442,7 +442,7 @@ snapshots["sbb-paginator renders with options Safari DOM"] =
 snapshots["sbb-paginator renders with options Safari Shadow DOM"] = 
 `<div class="sbb-paginator">
   <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="m">
+    <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-disabled="true"
         aria-label="Previous page"
@@ -637,32 +637,6 @@ snapshots["sbb-paginator renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-paginator renders A11y tree Chrome */
 
-snapshots["sbb-paginator renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Page 1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-paginator renders A11y tree Firefox */
-
 snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] = 
 `<sbb-paginator
   length="50"
@@ -675,7 +649,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] =
 snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-paginator">
   <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="m">
+    <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-disabled="true"
         aria-label="Previous page"
@@ -841,4 +815,30 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
+
+snapshots["sbb-paginator renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Page 1"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-paginator renders A11y tree Firefox */
 
