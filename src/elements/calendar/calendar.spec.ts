@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button/secondary-button.js';
 import { fixture } from '../core/testing/private.js';
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
 import { SbbCalendarElement } from './calendar.js';
 
@@ -243,6 +243,44 @@ describe(`sbb-calendar`, () => {
     const firstDisabledMaxDate = page.shadowRoot!.querySelector("[data-day='30 1 2023']");
     expect(firstDisabledMaxDate).to.have.attribute('disabled');
     expect(firstDisabledMaxDate).to.have.attribute('aria-disabled', 'true');
+  });
+
+  it('opens year view', async () => {
+    element.view = 'year';
+    await waitForLitRender(element);
+
+    expect(element.shadowRoot!.querySelector('.sbb-calendar__table-year-view')).not.to.be.null;
+  });
+
+  it('opens month view', async () => {
+    element.view = 'month';
+    await waitForLitRender(element);
+
+    expect(element.shadowRoot!.querySelector('.sbb-calendar__table-month-view')).not.to.be.null;
+    expect(
+      element.shadowRoot!.querySelector('#sbb-calendar__month-selection')!.textContent!.trim(),
+    ).to.be.equal('2023');
+  });
+
+  it('opens month view with selected date', async () => {
+    element.selected = '2017-01-22';
+    element.view = 'month';
+    await waitForLitRender(element);
+
+    expect(
+      element.shadowRoot!.querySelector('#sbb-calendar__month-selection')!.textContent!.trim(),
+    ).to.be.equal('2017');
+  });
+
+  it('opens month view with current date', async () => {
+    element.selected = undefined;
+    element.now = '2022-08-15';
+    element.view = 'month';
+    await waitForLitRender(element);
+
+    expect(
+      element.shadowRoot!.querySelector('#sbb-calendar__month-selection')!.textContent!.trim(),
+    ).to.be.equal('2022');
   });
 
   describe('navigation', () => {

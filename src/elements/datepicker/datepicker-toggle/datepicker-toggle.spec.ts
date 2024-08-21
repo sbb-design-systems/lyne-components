@@ -1,7 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbCalendarElement } from '../../calendar.js';
+import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
@@ -180,5 +182,77 @@ describe(`sbb-datepicker-toggle`, () => {
     expect(input.value).to.be.equal('Sa, 01.01.2022');
     expect(changeSpy.count).to.be.equal(1);
     expect(blurSpy.count).to.be.equal(1);
+  });
+
+  it('handles view property', async () => {
+    const element: SbbDatepickerToggleElement = await fixture(
+      html`<sbb-form-field>
+        <sbb-datepicker-toggle view="year"></sbb-datepicker-toggle>
+        <sbb-datepicker now="2022-04-01"></sbb-datepicker>
+        <input />
+      </sbb-form-field>`,
+    );
+
+    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+    const datepickerToggle =
+      element.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+
+    // Open calendar
+    datepickerToggle.open();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+
+    // Year view should be active
+    const calendar = datepickerToggle.shadowRoot!.querySelector('sbb-calendar')!;
+    expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-year-view')!).not.to.be.null;
+
+    // Select year
+    calendar.shadowRoot!.querySelectorAll('button')[5].click();
+    await waitForLitRender(element);
+    await waitForCondition(() => !calendar.hasAttribute('data-transition'));
+
+    // Select month
+    calendar.shadowRoot!.querySelectorAll('button')[5].click();
+    await waitForLitRender(element);
+    await waitForCondition(() => !calendar.hasAttribute('data-transition'));
+
+    // Select day
+    calendar.shadowRoot!.querySelectorAll('button')[5].click();
+    await waitForLitRender(element);
+    await waitForCondition(() => !calendar.hasAttribute('data-transition'));
+
+    // Expect selected date and closed calendar
+    expect(defaultDateAdapter.toIso8601(calendar.selected!)).to.be.equal('2020-05-05');
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+
+    // Open again
+    datepickerToggle.open();
+    await waitForCondition(() => didOpenEventSpy.events.length === 2);
+
+    // Should open with year view again
+    expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-year-view')!).not.to.be.null;
+    expect(
+      calendar.shadowRoot!.querySelector('.sbb-calendar__selected')!.textContent!.trim(),
+    ).to.be.equal('2020');
+
+    // Close again
+    await sendKeys({ press: 'Escape' });
+    await waitForCondition(() => didCloseEventSpy.events.length === 2);
+
+    // Changing to month view
+    datepickerToggle.view = 'month';
+    await waitForLitRender(element);
+
+    // Open again
+    datepickerToggle.open();
+    await waitForCondition(() => didOpenEventSpy.events.length === 3);
+
+    // Month view should be active and correct year preselected
+    expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-month-view')!).not.to.be.null;
+    expect(
+      calendar
+        .shadowRoot!.querySelector('.sbb-calendar__controls-change-date')!
+        .textContent!.trim(),
+    ).to.be.equal('2020');
   });
 });

@@ -31,12 +31,21 @@ const negative: InputType = {
   },
 };
 
+const view: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['day', 'month', 'year'],
+};
+
 const defaultArgTypes: ArgTypes = {
   negative,
+  view: view,
 };
 
 const defaultArgs: Args = {
   negative: false,
+  view: view.options![0],
 };
 
 // Story interaction executed after the story renders
@@ -101,6 +110,13 @@ export const InFormFieldNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const InitialYearSelection: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, view: view.options![2] },
   play: isChromatic() ? playStory : undefined,
 };
 

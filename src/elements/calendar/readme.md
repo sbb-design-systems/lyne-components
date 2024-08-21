@@ -70,6 +70,7 @@ For accessibility purposes, the component is rendered as a native table element 
 | `min`        | `min`         | public  | `T \| null`                                 |         | The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).         |
 | `now`        | `now`         | public  | `T`                                         | `null`  | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. |
 | `selected`   | `selected`    | public  | `T \| null`                                 |         | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).              |
+| `view`       | `view`        | public  | `CalendarView`                              | `'day'` | The initial view of the calendar which should be displayed on opening.                                               |
 | `wide`       | `wide`        | public  | `boolean`                                   | `false` | If set to true, two months are displayed                                                                             |
 
 ## Methods
