@@ -55,7 +55,7 @@ const size: InputType = {
   },
   options: ['m', 's'],
   table: {
-    category: 'Form-field',
+    category: 'Form field',
   },
 };
 

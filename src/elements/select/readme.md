@@ -72,8 +72,7 @@ the selected values will be displayed in selection order, separated by a comma.
 
 ## Style
 
-The component has no `size` property but, when slotted in a `sbb-form-field`,
-the height of the panel's trigger adapts based on the parent `size` property.
+The component has no `size` property but, when slotted in a `sbb-form-field`, it adapts to the parent `size`.
 
 ```html
 <sbb-form-field size="s">
