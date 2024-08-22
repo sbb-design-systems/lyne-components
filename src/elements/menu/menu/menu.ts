@@ -11,15 +11,13 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { SbbConnectedAbortController, SbbInertController } from '../../core/controllers.js';
 import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
-  applyInertMechanism,
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
-  removeInertMechanism,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
 import type { SbbMenuButtonElement } from '../menu-button.js';
@@ -90,6 +88,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   private _abort = new SbbConnectedAbortController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
+  private _inertController = new SbbInertController(this);
 
   /**
    * Opens the menu on trigger click.
@@ -198,10 +197,6 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     });
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-
-    if (this.state === 'opened') {
-      applyInertMechanism(this);
-    }
   }
 
   public override disconnectedCallback(): void {
@@ -209,7 +204,6 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     this._menuController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
-    removeInertMechanism();
     this._scrollHandler.enableScroll();
   }
 
@@ -305,14 +299,14 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     if (event.animationName === 'open' && this.state === 'opening') {
       this.state = 'opened';
       this.didOpen.emit();
-      applyInertMechanism(this);
+      this._inertController.activate();
       this._setMenuFocus();
       this._focusHandler.trap(this);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.state = 'closed';
       this._menu?.firstElementChild?.scrollTo(0, 0);
-      removeInertMechanism();
+      this._inertController.deactivate();
       setModalityOnNextFocus(this._triggerElement);
       // Manually focus last focused element
       this._triggerElement?.focus({

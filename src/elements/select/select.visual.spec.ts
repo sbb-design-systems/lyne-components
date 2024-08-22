@@ -11,6 +11,7 @@ describe('sbb-select', () => {
   const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';
   const defaultArgs = {
     borderless: false,
+    size: 'm',
     negative: false,
     disableOption: false,
     withOptionGroup: false,
@@ -53,6 +54,7 @@ describe('sbb-select', () => {
 
   const template = ({
     borderless,
+    size,
     negative,
     disableOption,
     withOptionGroup,
@@ -64,7 +66,7 @@ describe('sbb-select', () => {
       args.value = [args.value as string];
     }
     return html`
-      <sbb-form-field ?borderless=${borderless} ?negative=${negative}>
+      <sbb-form-field ?borderless=${borderless} ?negative=${negative} size=${size}>
         <label>Select</label>
         <sbb-select
           value=${args.value || nothing}
@@ -194,6 +196,30 @@ describe('sbb-select', () => {
           }),
         );
 
+        for (const value of [undefined, 'Option 1']) {
+          it(
+            `negative=${negative} multiple=${multiple} value=${value} size=s`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                template({
+                  ...defaultArgs,
+                  negative,
+                  multiple,
+                  size: 's',
+                  value,
+                }),
+                {
+                  minHeight: '600px',
+                  backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                },
+              );
+              setup.withPostSetupAction(() => {
+                const select = setup.snapshotElement.querySelector('sbb-select')!;
+                select.open();
+              });
+            }),
+          );
+        }
         it(
           `negative=${negative} multiple=${multiple} disableOption=true`,
           visualDiffDefault.with(async (setup) => {

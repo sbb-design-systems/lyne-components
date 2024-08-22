@@ -28,6 +28,10 @@
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
   --sbb-calendar-table-animation-shift: #{sbb.px-to-rem-build(0.1)};
+
+  // While changing views, there would be a few frames where the height of the calendar collapses to just
+  // the height of the controls and then grow back to the height of the next view.
+  // By using 0.1ms this can be avoided.
   --sbb-calendar-table-animation-duration: 0.1ms;
   --sbb-calendar-table-column-spaces: 12;
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};

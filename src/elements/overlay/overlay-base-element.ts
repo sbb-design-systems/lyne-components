@@ -3,13 +3,12 @@ import { property } from 'lit/decorators.js';
 
 import { SbbFocusHandler } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbLanguageController } from '../core/controllers.js';
+import { SbbInertController, SbbLanguageController } from '../core/controllers.js';
 import { hostContext, SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
 import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
-import { applyInertMechanism, removeInertMechanism } from '../core/overlay.js';
 import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
 
 // A global collection of existing overlays.
@@ -36,6 +35,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected ariaLiveRefToggle = false;
   protected ariaLiveRef!: SbbScreenReaderOnlyElement;
   protected language = new SbbLanguageController(this);
+  protected inertController = new SbbInertController(this);
 
   protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
   protected abstract setOverlayFocus(): void;
@@ -65,10 +65,6 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     super.connectedCallback();
     this.overlayController?.abort();
     this.overlayController = new AbortController();
-
-    if (this.state === 'opened') {
-      applyInertMechanism(this);
-    }
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -84,7 +80,6 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     this.openOverlayController?.abort();
     this.focusHandler.disconnect();
     this.removeInstanceFromGlobalCollection();
-    removeInertMechanism();
     this.scrollHandler.enableScroll();
   }
 

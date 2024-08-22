@@ -70,6 +70,17 @@ the selected values will be displayed in selection order, separated by a comma.
 </sbb-form-field>
 ```
 
+## Style
+
+The component has no `size` property but, when slotted in a `sbb-form-field`, it adapts to the parent `size`.
+
+```html
+<sbb-form-field size="s">
+  <label>Train types</label>
+  <sbb-select> ... </sbb-select>
+</sbb-form-field>
+```
+
 ## Events
 
 Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
@@ -107,6 +118,7 @@ Opened panel:
 | Name          | Attribute     | Privacy | Type                              | Default | Description                                                              |
 | ------------- | ------------- | ------- | --------------------------------- | ------- | ------------------------------------------------------------------------ |
 | `disabled`    | `disabled`    | public  | `boolean`                         | `false` | Whether the component is disabled.                                       |
+| `isOpen`      | -             | public  | `boolean`                         |         | Whether the element is open.                                             |
 | `multiple`    | `multiple`    | public  | `boolean`                         | `false` | Whether the select allows for multiple selection.                        |
 | `negative`    | `negative`    | public  | `boolean`                         | `false` | Negative coloring variant flag.                                          |
 | `placeholder` | `placeholder` | public  | `string \| undefined`             |         | The placeholder used if no value has been selected.                      |

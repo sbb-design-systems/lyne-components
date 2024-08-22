@@ -94,6 +94,7 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 | -------------------- | --------------------- | ------- | --------------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined` |           | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. |
 | `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`   | `'close'` | Backdrop click action.                                                                                      |
+| `isOpen`             | -                     | public  | `boolean`             |           | Whether the element is open.                                                                                |
 | `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                                                             |
 
 ## Methods

@@ -77,6 +77,7 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
 
   private _uncheckOtherOptions(): void {
     this._toggle?.options.filter((o) => o !== this).forEach((o) => (o.checked = false));
+    this._toggle?.updatePillPosition(false);
   }
 
   private _handleDisabledChange(): void {
