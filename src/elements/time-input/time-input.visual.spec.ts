@@ -21,11 +21,17 @@ describe(`sbb-time-input`, () => {
     withError: [false, true],
   };
 
+  const sizeCases = {
+    size: ['s', 'm', 'l'],
+    noIcons: [false, true],
+  };
+
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
+    [K in keyof typeof sizeCases]: (typeof sizeCases)[K][number];
+  } & {
     readonly?: boolean;
     borderless?: boolean;
     disabled?: boolean;
-    noIcons?: boolean;
   };
   const template = (args: Partial<ParamsType>): TemplateResult => html`
     <sbb-form-field ?borderless=${args.borderless} ?negative=${args.negative} width="collapse">
@@ -62,6 +68,16 @@ describe(`sbb-time-input`, () => {
         );
       });
 
+      // Size and icons cases
+      describeEach(sizeCases, (params) => {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(template(params));
+          }),
+        );
+      });
+
       it(
         `disabled_${state.name}`,
         state.with(async (setup) => {
@@ -80,13 +96,6 @@ describe(`sbb-time-input`, () => {
         `borderless_${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(template({ borderless: true }));
-        }),
-      );
-
-      it(
-        `no icon_${state.name}`,
-        state.with(async (setup) => {
-          await setup.withFixture(template({ noIcons: true }));
         }),
       );
     }
