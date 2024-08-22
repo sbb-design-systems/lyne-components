@@ -167,6 +167,7 @@ export default {
       : [minimalReporter()],
   browsers: browsers,
   concurrentBrowsers: 3,
+  testsStartTimeout: !cliArgs.ci ? 20000 : 60000,
   plugins: [
     a11ySnapshotPlugin(),
     litSsrPlugin(),

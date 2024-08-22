@@ -60,9 +60,9 @@ export const isAndroid = !isServer && /android/i.test(navigator.userAgent) && !i
 export const isSafari = !isServer && /safari/i.test(navigator.userAgent) && isWebkit;
 
 /**
- * window.chrome is available on all Chromium based browsers.
+ * We just check for the blink engine.
  */
-export const isChromium = !isServer && !!(window as any).chrome;
+export const isChromium = isBlink;
 
 /** Whether the application is being rendered in a Next.js environment. */
 export const isNextjs = (): boolean => !!(globalThis as { next?: object }).next;
