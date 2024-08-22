@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.7.0...v1.8.0) (2024-08-22)
+
+
+### Features
+
+* **datepicker:** add size s ([#3006](https://github.com/sbb-design-systems/lyne-components/issues/3006)) ([b75c4c5](https://github.com/sbb-design-systems/lyne-components/commit/b75c4c5587897deff318c245029136dd1a3b7f2f))
+* **sbb-calendar, sbb-datepicker-toggle:** allow choosing initial calendar view ([#2990](https://github.com/sbb-design-systems/lyne-components/issues/2990)) ([7c8a690](https://github.com/sbb-design-systems/lyne-components/commit/7c8a6900060e3b918f30f98f6da0d7d6b9525287)), closes [#2822](https://github.com/sbb-design-systems/lyne-components/issues/2822)
+* **sbb-container:** support background-expanded for images ([#3004](https://github.com/sbb-design-systems/lyne-components/issues/3004)) ([298b335](https://github.com/sbb-design-systems/lyne-components/commit/298b3352e42966747237d043690a90671987faa0))
+* **sbb-lead-container:** add spacing class support for notification ([#3019](https://github.com/sbb-design-systems/lyne-components/issues/3019)) ([2f4c817](https://github.com/sbb-design-systems/lyne-components/commit/2f4c8179b5c0f7fc9b807057da16e255ec7890cb)), closes [#2932](https://github.com/sbb-design-systems/lyne-components/issues/2932)
+* **sbb-select:** introduce size s ([#3011](https://github.com/sbb-design-systems/lyne-components/issues/3011)) ([b614923](https://github.com/sbb-design-systems/lyne-components/commit/b614923e994ac406318caf7f6e129bb4a103c681))
+
+
+### Bug Fixes
+
+* fix inert mechanism for overlays ([#2986](https://github.com/sbb-design-systems/lyne-components/issues/2986)) ([92992d2](https://github.com/sbb-design-systems/lyne-components/commit/92992d2e5915a7d44b163240f41f7bd32f254289)), closes [#2969](https://github.com/sbb-design-systems/lyne-components/issues/2969)
+* **sbb-flip-card:** fix animation ([#3001](https://github.com/sbb-design-systems/lyne-components/issues/3001)) ([9885dfc](https://github.com/sbb-design-systems/lyne-components/commit/9885dfc31e3c24b7a23353d99877333b4f2021ab))
+* **sbb-popover:** ensure correct trigger connection after hydration ([#3016](https://github.com/sbb-design-systems/lyne-components/issues/3016)) ([5e59b8f](https://github.com/sbb-design-systems/lyne-components/commit/5e59b8ff491029385d7708ea62f39514285c6f5a)), closes [#3012](https://github.com/sbb-design-systems/lyne-components/issues/3012) [#3014](https://github.com/sbb-design-systems/lyne-components/issues/3014)
+* **sbb-toggle:** fix pill position on value change and initial rendering ([#3015](https://github.com/sbb-design-systems/lyne-components/issues/3015)) ([bd03798](https://github.com/sbb-design-systems/lyne-components/commit/bd03798f96ba7a1e83266e800ed3d12f971a2612)), closes [#3013](https://github.com/sbb-design-systems/lyne-components/issues/3013)
+
 ## [1.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.6.0...v1.7.0) (2024-08-15)
 
 
