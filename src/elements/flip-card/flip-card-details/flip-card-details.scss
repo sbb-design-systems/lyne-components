@@ -6,7 +6,6 @@
 :host {
   --sbb-flip-card-details-opacity: 0;
   --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-2x);
-  --sbb-flip-card-details-max-height: var(--sbb-flip-card-details-min-height);
   --sbb-flip-card-details-transition-delay: var(
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-5x)
@@ -19,26 +18,25 @@
   display: contents;
 }
 
-:host([data-flipped]) {
-  --sbb-flip-card-details-max-height: calc(
-    var(--sbb-flip-card-details-min-height) + var(--sbb-flip-card-details-padding) +
-      var(--sbb-flip-card-details-padding-block-end)
-  );
-}
-
-.sbb-flip-card-details {
+.sbb-flip-card-details--wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
   pointer-events: none;
   color: var(--sbb-color-milk);
   opacity: var(--sbb-flip-card-details-opacity);
-  padding: var(--sbb-flip-card-details-padding);
-  padding-block-end: var(--sbb-flip-card-details-padding-block-end);
-  max-height: var(--sbb-flip-card-details-max-height);
   transform: translateY(var(--sbb-flip-card-details-translate-y));
-  transition-property: max-height, transform, opacity;
+  transition-property: grid-template-rows, transform, opacity;
   transition-duration: var(--sbb-flip-card-details-transition-duration);
 
   :host([data-flipped]) & {
+    grid-template-rows: 1fr;
     transition-delay: 0s, var(--sbb-flip-card-details-transition-delay),
       var(--sbb-flip-card-details-transition-delay);
   }
+}
+
+.sbb-flip-card-details {
+  overflow: hidden;
+  padding: var(--sbb-flip-card-details-padding);
+  padding-block-end: var(--sbb-flip-card-details-padding-block-end);
 }

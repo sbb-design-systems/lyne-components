@@ -8,7 +8,6 @@
   --sbb-flip-card-background-color: var(--sbb-color-cloud);
   --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
   --sbb-flip-card-min-height: #{sbb.px-to-rem-build(280)};
-  --sbb-flip-card-details-min-height: var(--sbb-flip-card-min-height);
   --sbb-flip-card-summary-transition-duration: var(
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-5x)
@@ -44,7 +43,6 @@
     var(--sbb-animation-duration-2x)
   );
   --sbb-flip-card-summary-transition-delay: 0s;
-  --sbb-flip-card-details-min-height: var(--sbb-flip-card-details-scroll-height);
 
   ::slotted(sbb-flip-card-summary) {
     --sbb-flip-card-summary-opacity: 0;
