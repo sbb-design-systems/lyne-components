@@ -5,6 +5,7 @@ snapshots["sbb-paginator renders DOM"] =
 `<sbb-paginator
   length="4"
   page-size="4"
+  size="m"
 >
 </sbb-paginator>
 `;
@@ -75,6 +76,7 @@ snapshots["sbb-paginator renders ellipsis on end side DOM"] =
 `<sbb-paginator
   length="50"
   page-size="4"
+  size="m"
 >
 </sbb-paginator>
 `;
@@ -194,6 +196,7 @@ snapshots["sbb-paginator renders ellipsis on start side DOM"] =
   length="50"
   page-index="10"
   page-size="4"
+  size="m"
 >
 </sbb-paginator>
 `;
@@ -312,6 +315,7 @@ snapshots["sbb-paginator renders ellipsis on both side DOM"] =
   length="50"
   page-index="7"
   page-size="4"
+  size="m"
 >
 </sbb-paginator>
 `;
@@ -434,6 +438,7 @@ snapshots["sbb-paginator renders with options Safari DOM"] =
 `<sbb-paginator
   length="50"
   page-size="10"
+  size="m"
 >
 </sbb-paginator>
 `;
@@ -611,6 +616,32 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
 
+snapshots["sbb-paginator renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Page 1"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-paginator renders A11y tree Firefox */
+
 snapshots["sbb-paginator renders A11y tree Chrome"] = 
 `<p>
   {
@@ -641,6 +672,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] =
 `<sbb-paginator
   length="50"
   page-size="10"
+  size="m"
 >
 </sbb-paginator>
 `;
@@ -815,30 +847,4 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
-
-snapshots["sbb-paginator renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Page 1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-paginator renders A11y tree Firefox */
 
