@@ -21,6 +21,8 @@ describe('sbb-autocomplete', () => {
     preserveIconSpace: true,
     disableOption: false,
     borderless: false,
+    size: 'm',
+    value: undefined as undefined | string,
     withGroup: false,
     disableGroup: false,
     withMixedOptionAndGroup: false,
@@ -86,7 +88,7 @@ describe('sbb-autocomplete', () => {
     disableOption: boolean,
     disableGroup: boolean,
   ): TemplateResult => html`
-    <sbb-option value="Option 1">
+    <sbb-option value="Option 1" selected>
       <sbb-icon slot="icon" name="clock-small" style="color: var(--sbb-color-sky)"></sbb-icon>
       Option Value
     </sbb-option>
@@ -94,7 +96,7 @@ describe('sbb-autocomplete', () => {
   `;
 
   const template = (args: typeof defaultArgs): TemplateResult => html`
-    <sbb-form-field ?negative=${args.negative} ?borderless=${args.borderless}>
+    <sbb-form-field ?negative=${args.negative} ?borderless=${args.borderless} size=${args.size}>
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
       <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
@@ -152,13 +154,15 @@ describe('sbb-autocomplete', () => {
         backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
       };
 
-      for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
-        it(
-          `state=${visualDiffState.name} negative=${negative}`,
-          visualDiffState.with(async (setup) => {
-            await setup.withFixture(template({ ...defaultArgs, negative }), style);
-          }),
-        );
+      for (const size of ['m', 's']) {
+        for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            `state=${visualDiffState.name} negative=${negative} size=${size}`,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(template({ ...defaultArgs, negative, size }), style);
+            }),
+          );
+        }
       }
 
       it(
@@ -263,6 +267,26 @@ describe('sbb-autocomplete', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             template({ ...defaultArgs, negative, withGroup: true, withMixedOptionAndGroup: true }),
+            {
+              minHeight: '800px',
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            },
+          );
+          setup.withPostSetupAction(() => openAutocomplete(setup));
+        }),
+      );
+
+      it(
+        `negative=${negative} withGroup=true withMixedOptionAndGroup=true size=s`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            template({
+              ...defaultArgs,
+              negative,
+              withGroup: true,
+              withMixedOptionAndGroup: true,
+              size: 's',
+            }),
             {
               minHeight: '800px',
               backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
