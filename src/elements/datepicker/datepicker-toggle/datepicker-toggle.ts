@@ -80,7 +80,15 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
       this.negative = formField.hasAttribute('negative');
     }
 
-    this.addEventListener('click', () => this.open(), { signal: this._abort.signal });
+    this.addEventListener(
+      'click',
+      (event) => {
+        if (event.composedPath()[0] === this) {
+          this.open();
+        }
+      },
+      { signal: this._abort.signal },
+    );
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
