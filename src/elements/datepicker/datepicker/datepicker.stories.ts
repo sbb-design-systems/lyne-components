@@ -175,7 +175,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 'l'],
+  options: ['s', 'm', 'l'],
   table: {
     category: 'Form-field attribute',
   },
@@ -268,7 +268,7 @@ const formFieldBasicArgsTypes: ArgTypes = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options![0],
+  size: size.options![1],
   negative: false,
   optional: false,
   borderless: false,
@@ -446,10 +446,16 @@ export const InFormFieldWithDateParser: StoryObj = {
   args: { ...formFieldBasicArgs, value: '2023-02-12', dateHandling: dateHandling.options![1] },
 };
 
+export const InFormFieldSmall: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, size: size.options![0] },
+};
+
 export const InFormFieldLarge: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, size: size.options![1] },
+  args: { ...formFieldBasicArgs, size: size.options![2] },
 };
 
 export const InFormFieldOptional: StoryObj = {

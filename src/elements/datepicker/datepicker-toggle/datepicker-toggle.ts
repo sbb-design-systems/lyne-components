@@ -3,7 +3,7 @@ import { html, isServer, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbCalendarElement } from '../../calendar.js';
+import type { CalendarView, SbbCalendarElement } from '../../calendar.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
@@ -32,6 +32,9 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
 
   /** Datepicker reference. */
   @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
+
+  /** The initial view of calendar which should be displayed on opening. */
+  @property() public view: CalendarView = 'day';
 
   @state() private _disabled = false;
 
@@ -204,6 +207,7 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
       >
         ${this._renderCalendar
           ? html`<sbb-calendar
+              .view=${this.view}
               .min=${this._min}
               .max=${this._max}
               .now=${this._nowOrUndefined()}

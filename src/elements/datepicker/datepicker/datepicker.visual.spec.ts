@@ -25,6 +25,8 @@ describe(`sbb-datepicker`, () => {
     ],
   };
 
+  const sizes = ['s', 'l'];
+
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     describeEach(cases, ({ negative, states }) => {
       beforeEach(async function () {
@@ -71,5 +73,23 @@ describe(`sbb-datepicker`, () => {
         }),
       );
     });
+
+    for (const size of sizes) {
+      it(
+        `size=${size}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-form-field width="collapse" size=${size as 's' | 'm' | 'l'}>
+              <label>Label</label>
+              <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+              <sbb-datepicker-next-day></sbb-datepicker-next-day>
+              <sbb-datepicker-toggle></sbb-datepicker-toggle>
+              <input value="12.02.2023" />
+              <sbb-datepicker now="2023-02-12T00:00:00Z"></sbb-datepicker>
+            </sbb-form-field>
+          `);
+        }),
+      );
+    }
   });
 });
