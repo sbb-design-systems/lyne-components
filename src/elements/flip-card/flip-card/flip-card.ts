@@ -75,10 +75,6 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
     );
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-  }
-
   /** Toggles the state of the sbb-flip-card. */
   public toggle(): void {
     this._flipped = !this._flipped;
