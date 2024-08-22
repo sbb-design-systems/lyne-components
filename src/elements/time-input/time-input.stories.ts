@@ -72,7 +72,7 @@ const value: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Native input attribute',
+    category: 'Native input',
   },
 };
 
@@ -81,7 +81,7 @@ const readonly: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Native input attribute',
+    category: 'Native input',
   },
 };
 
@@ -90,7 +90,7 @@ const disabled: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Native input attribute',
+    category: 'Native input',
   },
 };
 
@@ -99,7 +99,7 @@ const required: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Native input attribute',
+    category: 'Native input',
   },
 };
 
@@ -107,9 +107,9 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 'l'],
+  options: ['s', 'm', 'l'],
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -118,7 +118,7 @@ const negative: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -127,7 +127,7 @@ const label: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -136,7 +136,7 @@ const optional: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -145,7 +145,7 @@ const borderless: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -154,7 +154,7 @@ const iconStart: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -163,7 +163,7 @@ const iconEnd: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -196,7 +196,7 @@ const basicArgs: Args = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options![0],
+  size: size.options![1],
   optional: false,
   borderless: false,
   iconStart: undefined,
@@ -206,7 +206,7 @@ const formFieldBasicArgs = {
 const formFieldBasicArgsWithIcons = {
   ...basicArgs,
   label: 'Label',
-  size: size.options![0],
+  size: size.options![1],
   optional: false,
   borderless: false,
   iconStart: 'clock-small',
