@@ -80,9 +80,7 @@ export class SbbToggleElement extends LitElement {
   }
 
   private _loaded: boolean = false;
-  private _toggleResizeObserver = new AgnosticResizeObserver(() =>
-    this._setCheckedPillPosition(true),
-  );
+  private _toggleResizeObserver = new AgnosticResizeObserver(() => this.updatePillPosition(true));
 
   private _valueChanged(value: any | undefined): void {
     const options = this.options;
@@ -104,7 +102,7 @@ export class SbbToggleElement extends LitElement {
     if (!selectedOption.checked) {
       selectedOption.checked = true;
     }
-    this._setCheckedPillPosition(false);
+    this.updatePillPosition(false);
   }
 
   private _updateDisabled(): void {
@@ -130,7 +128,8 @@ export class SbbToggleElement extends LitElement {
 
   private _abort = new SbbConnectedAbortController(this);
 
-  private _setCheckedPillPosition(resizing: boolean): void {
+  /** @internal */
+  public updatePillPosition(resizing: boolean): void {
     if (!this._loaded) {
       return;
     }
@@ -173,6 +172,7 @@ export class SbbToggleElement extends LitElement {
 
     await this.updateComplete;
     this._loaded = true;
+    this.updatePillPosition(false);
   }
 
   public override disconnectedCallback(): void {
@@ -186,7 +186,7 @@ export class SbbToggleElement extends LitElement {
   }
 
   private _handleInput(): void {
-    this._setCheckedPillPosition(false);
+    this.updatePillPosition(false);
     this._change.emit();
     this._didChange.emit();
   }
