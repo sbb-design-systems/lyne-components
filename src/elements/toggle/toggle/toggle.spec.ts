@@ -15,6 +15,24 @@ describe(`sbb-toggle`, () => {
     firstOption: SbbToggleOptionElement,
     secondOption: SbbToggleOptionElement;
 
+  function assertPillLeft(): void {
+    expect(
+      parseInt(window.getComputedStyle(element).getPropertyValue('--sbb-toggle-option-left'), 10),
+    ).to.be.equal(0);
+    expect(
+      parseInt(window.getComputedStyle(element).getPropertyValue('--sbb-toggle-option-right'), 10),
+    ).to.be.greaterThan(0);
+  }
+
+  function assertPillRight(): void {
+    expect(
+      parseInt(window.getComputedStyle(element).getPropertyValue('--sbb-toggle-option-left'), 10),
+    ).to.be.greaterThan(0);
+    expect(
+      parseInt(window.getComputedStyle(element).getPropertyValue('--sbb-toggle-option-right'), 10),
+    ).to.be.equal(0);
+  }
+
   describe('basics', () => {
     beforeEach(async () => {
       element = await fixture(html`
@@ -45,13 +63,17 @@ describe(`sbb-toggle`, () => {
         `);
         secondOption = element.querySelectorAll('sbb-toggle-option')[1];
         expect(secondOption).to.have.attribute('checked');
+
+        assertPillRight();
       });
 
       it('should select the correct option by setting value programmatically', async () => {
         element.value = 'Value two';
         await waitForLitRender(element);
 
+        expect(firstOption).not.to.have.attribute('checked');
         expect(secondOption).to.have.attribute('checked');
+        assertPillRight();
       });
 
       it('should update the value of the sbb-toggle when the value of a checked option changes', async () => {
@@ -59,6 +81,7 @@ describe(`sbb-toggle`, () => {
         await waitForLitRender(element);
 
         expect(element.value).to.be.equal(firstOption.value);
+        assertPillLeft();
       });
 
       it('should not update the value of the sbb-toggle when the value of a unchecked option changes', async () => {
@@ -72,10 +95,12 @@ describe(`sbb-toggle`, () => {
     describe('checked', () => {
       it('should initially have the checked attributes on the first option by default', async () => {
         expect(firstOption).to.have.attribute('checked');
+        assertPillLeft();
       });
 
       it('should initially have the checked property set to true on the first option by default', async () => {
         expect(firstOption.checked).to.be.equal(true);
+        assertPillLeft();
       });
 
       it('should select the correct option by setting checked on the option', async () => {
@@ -83,6 +108,8 @@ describe(`sbb-toggle`, () => {
         await waitForLitRender(secondOption);
 
         expect(secondOption).to.have.attribute('checked');
+        expect(firstOption).not.to.have.attribute('checked');
+        assertPillRight();
       });
 
       it('should select the correct option by setting the checked attribute on the option', async () => {
@@ -95,6 +122,7 @@ describe(`sbb-toggle`, () => {
         secondOption = element.querySelectorAll('sbb-toggle-option')[1];
 
         expect(secondOption.checked).to.be.equal(true);
+        assertPillRight();
       });
 
       it('should check first option when unchecking all options', async () => {
@@ -102,6 +130,7 @@ describe(`sbb-toggle`, () => {
         await waitForLitRender(firstOption);
 
         expect(firstOption.checked).to.be.equal(true);
+        assertPillLeft();
       });
     });
 
@@ -160,32 +189,38 @@ describe(`sbb-toggle`, () => {
 
     it('selects option on click', async () => {
       expect(firstOption).to.have.attribute('checked');
+      assertPillLeft();
 
       secondOption.click();
       await waitForLitRender(secondOption);
 
       expect(secondOption).to.have.attribute('checked');
       expect(firstOption).not.to.have.attribute('checked');
+      assertPillRight();
     });
 
     it('selects option on checked attribute change', async () => {
       expect(firstOption).to.have.attribute('checked');
+      assertPillLeft();
 
       secondOption.toggleAttribute('checked', true);
       await waitForLitRender(element);
 
       expect(secondOption).to.have.attribute('checked');
       expect(firstOption).not.to.have.attribute('checked');
+      assertPillRight();
     });
 
     it('selects option on checked property change', async () => {
       expect(firstOption.checked).to.equal(true);
+      assertPillLeft();
 
       secondOption.checked = true;
       await waitForLitRender(element);
 
       expect(firstOption.checked).to.equal(false);
       expect(secondOption.checked).to.equal(true);
+      assertPillRight();
     });
 
     it('dispatches event on option change', async () => {
