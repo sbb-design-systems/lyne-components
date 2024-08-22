@@ -3,6 +3,7 @@ import { html } from 'lit';
 
 import { defaultDateAdapter } from '../../core/datetime.js';
 import { ssrHydratedFixture } from '../../core/testing/private.js';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 
 import { SbbDatepickerElement } from './datepicker.js';
 
@@ -42,12 +43,22 @@ describe(`sbb-datepicker ssr`, () => {
         ],
       },
     );
-    const datepicker = root.querySelector('sbb-datepicker')!;
+
+    const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
     expect(asIso8601(datepicker.valueAsDate!)).to.equal(asIso8601(new Date(2023, 0, 1)));
 
-    const datepickerToggle = root.querySelector('sbb-datepicker-toggle')!;
+    const datepickerToggle =
+      root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
     await datepickerToggle.hydrationComplete;
     await datepickerToggle.updateComplete;
     expect(datepickerToggle.shadowRoot?.querySelector('sbb-calendar')).to.not.be.null;
+
+    // When opening the calendar
+    datepickerToggle.open();
+
+    // Then the calendar should be displayed
+    expect(
+      datepickerToggle.shadowRoot?.querySelector('sbb-popover')?.getAttribute('data-state'),
+    ).not.to.be.equal('closed');
   });
 });

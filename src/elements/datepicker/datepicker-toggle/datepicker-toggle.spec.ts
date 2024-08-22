@@ -82,6 +82,26 @@ describe(`sbb-datepicker-toggle`, () => {
     expect(popover).to.have.attribute('data-state', 'opened');
   });
 
+  it('renders and opens popover programmatically by click', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+        <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
+        <input id="datepicker-input" />
+      </div>
+    `);
+    const element: SbbDatepickerToggleElement =
+      root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+    const popover: SbbPopoverElement =
+      element.shadowRoot!.querySelector<SbbPopoverElement>('sbb-popover')!;
+
+    expect(popover).to.have.attribute('data-state', 'closed');
+
+    element.click();
+
+    expect(popover).not.to.have.attribute('data-state', 'closed');
+  });
+
   it('datepicker is created after the component', async () => {
     const root = await fixture(html`
       <div id="parent">

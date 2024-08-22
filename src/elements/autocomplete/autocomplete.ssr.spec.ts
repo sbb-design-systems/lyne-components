@@ -1,4 +1,4 @@
-import { assert } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
@@ -30,5 +30,13 @@ describe(`sbb-autocomplete ssr`, () => {
 
   it('renders', () => {
     assert.instanceOf(root.querySelector('sbb-autocomplete'), SbbAutocompleteElement);
+  });
+
+  it('opens autocomplete', () => {
+    root.querySelector('input')!.focus();
+
+    expect(root.querySelector('sbb-autocomplete')!.getAttribute('data-state')).not.to.be.equal(
+      'closed',
+    );
   });
 });
