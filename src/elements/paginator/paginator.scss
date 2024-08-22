@@ -20,6 +20,10 @@
   );
 }
 
+:host([size='s']) {
+  --sbb-paginator-height: var(--sbb-size-element-xs);
+}
+
 :host([negative]) {
   --sbb-paginator-page-color: var(--sbb-color-smoke);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
@@ -29,6 +33,7 @@
   display: flex;
   gap: var(--sbb-spacing-fixed-6x);
   height: var(--sbb-paginator-height);
+  flex-wrap: wrap;
 }
 
 .sbb-paginator__buttons,

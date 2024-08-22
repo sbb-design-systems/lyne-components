@@ -85,6 +85,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** Position of the prev/next buttons. */
   @property({ attribute: 'pager-position' }) public pagerPosition: 'start' | 'end' = 'start';
 
+  /** Size variant, either m or s. */
+  @property({ reflect: true }) public size: 'm' | 's' = 'm';
+
   private _pageChanged: EventEmitter<SbbPaginatorPageChanged> = new EventEmitter(
     this,
     SbbPaginatorElement.events.pageChanged,
@@ -233,7 +236,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   private _renderPrevNextButtons(): TemplateResult {
     return html`
       <div class="sbb-paginator__buttons">
-        <sbb-mini-button-group ?negative=${this.negative} size="l">
+        <sbb-mini-button-group ?negative=${this.negative} size=${this.size === 's' ? 's' : 'l'}>
           <sbb-mini-button
             id="sbb-paginator-prev-page"
             aria-label=${i18nPreviousPage[this._language.current]}
@@ -259,7 +262,12 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       ? html`
           <div class="sbb-paginator__page-size-options">
             Items per page
-            <sbb-form-field borderless width="collapse" ?negative=${this.negative}>
+            <sbb-form-field
+              borderless
+              width="collapse"
+              ?negative=${this.negative}
+              size=${this.size}
+            >
               <sbb-select
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}
