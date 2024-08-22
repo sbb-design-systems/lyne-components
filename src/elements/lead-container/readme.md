@@ -7,6 +7,8 @@ However, consumers can use the predefined classes
 As per design rules, the spacings are defined as following:
 
 ```html
+<sbb-alert-group></sbb-alert-group>
+<!-- var(--sbb-spacing-responsive-m) -->
 <sbb-breadcrump-group></sbb-breadcrump-group>
 <!-- var(--sbb-spacing-4x) -->
 <sbb-block-link></sbb-block-link>
@@ -15,6 +17,8 @@ As per design rules, the spacings are defined as following:
 <!-- var(--sbb-spacing-responsive-s) -->
 <p></p>
 <!-- var(--sbb-spacing-responsive-s) -->
+<sbb-notification></sbb-notification>
+<!-- var(--sbb-spacing-responsive-xxxs) -->
 ...
 <!-- The last element should have zero block-end spacing to the container -->
 ```
@@ -25,7 +29,7 @@ Full example with applied spacings (CSS classes) in content:
 <sbb-lead-container>
   <style>
     p.other-content {
-      margin-block-end: 0;
+      margin-block: 0;
     }
   </style>
   <sbb-image
@@ -57,6 +61,11 @@ Full example with applied spacings (CSS classes) in content:
   </sbb-block-link>
   <sbb-title class="sbb-lead-container-spacing">Title</sbb-title>
   <p class="sbb-text-xl sbb-lead-container-lead-text">Lead text.</p>
+  <sbb-notification type="info" class="sbb-lead-container-spacing">
+    Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at
+    augue quis tellus vulputate tempor. Vivamus urna velit, varius nec est ac, mollis efficitur
+    lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat metus.
+  </sbb-notification>
   <p class="sbb-text-m other-content">Other content.</p>
 </sbb-lead-container>
 ```
