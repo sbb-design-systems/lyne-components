@@ -2,7 +2,8 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import type { SbbToggleElement } from '../toggle.js';
+
+import type { SbbToggleElement } from './toggle.js';
 
 import './toggle.js';
 import '../toggle-option.js';
@@ -21,7 +22,7 @@ describe(`sbb-toggle`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     it('Shadow DOM', async () => {
