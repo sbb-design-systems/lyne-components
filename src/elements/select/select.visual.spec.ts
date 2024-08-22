@@ -196,20 +196,30 @@ describe('sbb-select', () => {
           }),
         );
 
-        it(
-          `negative=${negative} multiple=${multiple} size=s`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(template({ ...defaultArgs, negative, multiple, size: 's' }), {
-              minHeight: '600px',
-              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-            });
-            setup.withPostSetupAction(() => {
-              const select = setup.snapshotElement.querySelector('sbb-select')!;
-              select.open();
-            });
-          }),
-        );
-
+        for (const value of [undefined, 'Option 1']) {
+          it(
+            `negative=${negative} multiple=${multiple} value=${value} size=s`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                template({
+                  ...defaultArgs,
+                  negative,
+                  multiple,
+                  size: 's',
+                  value,
+                }),
+                {
+                  minHeight: '600px',
+                  backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                },
+              );
+              setup.withPostSetupAction(() => {
+                const select = setup.snapshotElement.querySelector('sbb-select')!;
+                select.open();
+              });
+            }),
+          );
+        }
         it(
           `negative=${negative} multiple=${multiple} disableOption=true`,
           visualDiffDefault.with(async (setup) => {
