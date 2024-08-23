@@ -67,6 +67,17 @@ const browsers =
       (['chromium', 'firefox', 'webkit'] as const).map((product) =>
         playwrightLauncher({
           product,
+          createPage: ({ context }) =>
+            context.newPage().then((page) => {
+              page.on('console', (message) => {
+                if (message.type() === 'error') {
+                  console.error(message.location());
+                  console.error(message.text());
+                }
+              });
+              page.on('pageerror', (err) => console.error(err));
+              return page;
+            }),
           ...concurrency,
           ...launchOptions,
         }),
@@ -167,7 +178,6 @@ export default {
       : [minimalReporter()],
   browsers: browsers,
   concurrentBrowsers: 3,
-  testsStartTimeout: !cliArgs.ci ? 20000 : 60000,
   plugins: [
     a11ySnapshotPlugin(),
     litSsrPlugin(),
