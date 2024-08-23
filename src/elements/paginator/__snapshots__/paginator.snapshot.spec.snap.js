@@ -53,7 +53,7 @@ snapshots["sbb-paginator renders Shadow DOM"] =
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
-      data-selected="true"
+      data-selected=""
     >
       <span
         aria-current="true"
@@ -123,7 +123,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
-      data-selected="true"
+      data-selected=""
     >
       <span
         aria-current="true"
@@ -269,7 +269,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
     </li>
     <li
       class="sbb-paginator__page--number"
-      data-selected="true"
+      data-selected=""
     >
       <span
         aria-current="true"
@@ -388,7 +388,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
     </li>
     <li
       class="sbb-paginator__page--number"
-      data-selected="true"
+      data-selected=""
     >
       <span
         aria-current="true"
@@ -485,7 +485,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
-      data-selected="true"
+      data-selected=""
     >
       <span
         aria-current="true"
@@ -616,32 +616,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
 
-snapshots["sbb-paginator renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Page 1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-paginator renders A11y tree Firefox */
-
 snapshots["sbb-paginator renders A11y tree Chrome"] = 
 `<p>
   {
@@ -719,7 +693,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
-      data-selected="true"
+      data-selected=""
     >
       <span
         aria-current="true"
@@ -847,4 +821,30 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
+
+snapshots["sbb-paginator renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Page 1"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-paginator renders A11y tree Firefox */
 

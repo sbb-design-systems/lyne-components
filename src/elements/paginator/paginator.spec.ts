@@ -48,6 +48,37 @@ describe('sbb-paginator', () => {
     expect(element.pageIndex).to.be.equal(0);
   });
 
+  it('changes to the correct selected page when pageSize changes', async () => {
+    // go to page 5 / pageIndex=4, which includes items 21-25
+    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+    element.setAttribute('page-index', '4');
+    await waitForLitRender(element);
+    expect(pageChangedEventSpy.count).to.be.equal(1);
+    let selectedElement = element
+      .shadowRoot!.querySelector('[data-selected]')!
+      .querySelector('span')!;
+    expect(selectedElement.getAttribute('data-index')).to.be.equal('4');
+
+    // switching to pageSize=10, item 21 should be on page 3 / pageIndex=2
+    element.setAttribute('page-size', '10');
+    await waitForLitRender(element);
+    selectedElement = element.shadowRoot!.querySelector('[data-selected]')!.querySelector('span')!;
+    expect(selectedElement.getAttribute('data-index')).to.be.equal('2');
+
+    // go to page 4 / pageIndex=3, which now includes items 31-40
+    element.setAttribute('page-index', '3');
+    await waitForLitRender(element);
+    expect(pageChangedEventSpy.count).to.be.equal(3);
+    selectedElement = element.shadowRoot!.querySelector('[data-selected]')!.querySelector('span')!;
+    expect(selectedElement.getAttribute('data-index')).to.be.equal('3');
+
+    // switching to pageSize=2, item 31 should be on page 16 / pageIndex=15
+    element.setAttribute('page-size', '2');
+    await waitForLitRender(element);
+    selectedElement = element.shadowRoot!.querySelector('[data-selected]')!.querySelector('span')!;
+    expect(selectedElement.getAttribute('data-index')).to.be.equal('15');
+  });
+
   it('emits on click', async () => {
     const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
     const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item');

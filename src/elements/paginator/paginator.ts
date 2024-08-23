@@ -57,8 +57,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** Number of items per page. */
   @property({ attribute: 'page-size', type: Number })
   public set pageSize(value: number) {
+    const previousPageSize = this._pageSize;
     this._pageSize = Math.max(value, 0);
-    this.pageIndex = Math.floor((this.pageIndex * this.pageSize) / this._pageSize) || 0;
+    this.pageIndex = Math.floor((this.pageIndex * previousPageSize) / this._pageSize) || 0;
   }
   public get pageSize(): number {
     return this._pageSize;
@@ -300,7 +301,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
               : html`
                   <li
                     class="sbb-paginator__page--number"
-                    data-selected=${this.pageIndex === item || nothing}
+                    ?data-selected=${this.pageIndex === item || nothing}
                   >
                     <span
                       role="button"
