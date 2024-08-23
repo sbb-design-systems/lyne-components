@@ -71,11 +71,15 @@ const browsers =
             context.newPage().then((page) => {
               page.on('console', (message) => {
                 if (message.type() === 'error') {
+                  console.error('CONSOLE: ' + product);
                   console.error(message.location());
                   console.error(message.text());
                 }
               });
-              page.on('pageerror', (err) => console.error(err));
+              page.on('pageerror', (err) => {
+                console.error('PAGEERROR: ' + product);
+                console.error(err);
+              });
               return page;
             }),
           ...concurrency,
