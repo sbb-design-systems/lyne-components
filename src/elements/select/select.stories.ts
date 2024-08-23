@@ -49,6 +49,16 @@ const borderless: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+  table: {
+    category: 'Form field',
+  },
+};
+
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -160,6 +170,7 @@ const disableGroup: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   borderless,
+  size,
   negative,
   floatingLabel,
   value,
@@ -176,6 +187,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   borderless: false,
+  size: size.options![0],
   negative: false,
   floatingLabel: false,
   value: undefined,
@@ -280,6 +292,7 @@ const createOptionsGroup = (
 
 const FormFieldTemplate = ({
   borderless,
+  size,
   negative,
   floatingLabel,
   numberOfOptions,
@@ -291,6 +304,7 @@ const FormFieldTemplate = ({
   <div>
     <sbb-form-field
       ?borderless=${borderless}
+      size=${size}
       ?negative=${negative}
       ?floating-label=${floatingLabel}
       data-testid="form-field"
@@ -313,6 +327,7 @@ const FormFieldTemplate = ({
 
 const SelectEllipsisTemplate = ({
   borderless,
+  size,
   negative,
   floatingLabel,
   numberOfOptions,
@@ -330,6 +345,7 @@ const SelectEllipsisTemplate = ({
     <div>
       <sbb-form-field
         ?borderless=${borderless}
+        size=${size}
         ?negative=${negative}
         ?floating-label=${floatingLabel}
         data-testid="form-field"
@@ -359,6 +375,7 @@ const SelectEllipsisTemplate = ({
 
 const FormFieldTemplateWithError = ({
   borderless,
+  size,
   negative,
   floatingLabel,
   numberOfOptions,
@@ -377,6 +394,7 @@ const FormFieldTemplateWithError = ({
     <div>
       <sbb-form-field
         ?borderless=${borderless}
+        size=${size}
         ?negative=${negative}
         ?floating-label=${floatingLabel}
         id="sbb-form-field"
@@ -411,12 +429,14 @@ const FormFieldTemplateWithError = ({
 
 const KeyboardInteractionTemplate = ({
   borderless,
+  size,
   negative,
   floatingLabel,
   ...args
 }: Args): TemplateResult => html`
   <sbb-form-field
     ?borderless=${borderless}
+    size=${size}
     ?negative=${negative}
     ?floating-label=${floatingLabel}
     data-testid="form-field"
@@ -467,6 +487,34 @@ export const MultipleSelectNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true, negative: true },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const SingleSelectSizeS: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const SingleSelectNegativeSizeS: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true, size: size.options![1] },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const MultipleSelectSizeS: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, multiple: true, size: size.options![1] },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const MultipleSelectNegativeSizeS: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, multiple: true, negative: true, size: size.options![1] },
   play: isChromatic() ? playStory : undefined,
 };
 

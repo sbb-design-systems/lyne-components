@@ -214,7 +214,7 @@ export class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement
     if (isServer) {
       return;
     } else if (this.hydrationRequired) {
-      this.hydrationComplete.then(() => this._configure);
+      this.hydrationComplete.then(() => this._configure());
       return;
     }
 

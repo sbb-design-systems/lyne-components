@@ -22,12 +22,13 @@ const content = (
   title: string = 'Summary',
   imageAlignment: SbbFlipCardImageAlignment = 'after',
   longContent: boolean = false,
+  flipped = false,
 ): TemplateResult =>
   html`<sbb-flip-card-summary image-alignment=${imageAlignment}>
       <sbb-title level="4">${title}</sbb-title>
       <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
     </sbb-flip-card-summary>
-    <sbb-flip-card-details>
+    <sbb-flip-card-details ?data-flipped=${flipped}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
       Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh.
       ${longContent
@@ -66,7 +67,11 @@ describe(`sbb-flip-card`, () => {
     it(
       'flipped',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`<sbb-flip-card data-flipped> ${content()}</sbb-flip-card>`);
+        await setup.withFixture(
+          html`<sbb-flip-card data-flipped>
+            ${content('Summary', 'after', false, true)}</sbb-flip-card
+          >`,
+        );
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
