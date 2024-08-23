@@ -80,10 +80,6 @@ const browsers =
                 console.error(`PAGEERROR: ${product} ${page.url()}`);
                 console.error(err);
               });
-
-              page.evaluate(() => {
-                console.error(`TEST FILE: ${(window as any).__WTR_CONFIG__.testFile}`);
-              });
               return page;
             }),
           ...concurrency,
@@ -127,6 +123,7 @@ const testRunnerHtml = (
     <link rel="preload" as="script" crossorigin="anonymous" href="/src/elements/core/testing/test-setup.ts" />
     <style type="text/css">${renderStyles()}</style>
     <script>
+      console.error('TEST FILE: ' + window.__WTR_CONFIG__.testFile);
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
       globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : (group?.name ?? 'default')}';
       globalThis.testRunScript = '${testFramework}';
