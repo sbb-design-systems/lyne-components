@@ -57,6 +57,10 @@
   }
 }
 
+:host([data-size='s']) {
+  --sbb-step-label-prefix-size: var(--sbb-size-element-xxxs);
+}
+
 :host([disabled]) {
   --sbb-step-label-color: var(--sbb-color-granite);
   --sbb-step-label-prefix-border-style: dashed;
@@ -102,6 +106,10 @@
   display: flex;
   gap: var(--sbb-spacing-fixed-4x);
   color: var(--sbb-step-label-color);
+
+  :host([data-size='s']) & {
+    @include sbb.text-m--bold;
+  }
 }
 
 .sbb-step-label__prefix {

@@ -25,12 +25,14 @@ describe(`sbb-stepper`, () => {
     orientation?: string,
     longLabel?: boolean,
     horizontalFrom?: string,
+    size: 's' | 'm' = 'm',
   ): TemplateResult => html`
     <sbb-stepper
       selected-index="0"
       ?linear=${linear}
       orientation=${orientation || nothing}
       horizontal-from=${horizontalFrom || nothing}
+      size=${size}
     >
       <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
       <sbb-step>
@@ -85,6 +87,13 @@ describe(`sbb-stepper`, () => {
         `orientation=${orientation}_long labels`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template(false, orientation, true));
+        }),
+      );
+
+      it(
+        `orientation=${orientation} size=s`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template(false, orientation, true, undefined, 's'));
         }),
       );
     }

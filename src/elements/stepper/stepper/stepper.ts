@@ -48,6 +48,9 @@ export class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   @property({ reflect: true })
   public orientation: SbbOrientation = 'horizontal';
 
+  /** Size variant, either l or m. */
+  @property({ reflect: true }) public size: 's' | 'm' = 'm';
+
   /** The currently selected step. */
   @property({ attribute: false })
   public set selected(step: SbbStepElement) {
@@ -200,6 +203,7 @@ export class SbbStepperElement extends SbbHydrationMixin(LitElement) {
         label.configure(i + 1, array.length, this._loaded);
       });
     this._select(this.selected || this._enabledSteps[0]);
+    this._proxySize();
   }
 
   private _updateLabels(): void {
@@ -271,6 +275,17 @@ export class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     if (changedProperties.has('linear') && this._loaded) {
       this._configureLinearMode();
     }
+
+    if (changedProperties.has('size')) {
+      this._proxySize();
+      this._setMarkerSize();
+    }
+  }
+
+  private _proxySize(): void {
+    this.steps.forEach((step) => {
+      step.label?.setAttribute('data-size', this.size);
+    });
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
