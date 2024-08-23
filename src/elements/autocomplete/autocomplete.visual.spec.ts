@@ -22,7 +22,6 @@ describe('sbb-autocomplete', () => {
     disableOption: false,
     borderless: false,
     size: 'm',
-    value: undefined as undefined | string,
     withGroup: false,
     disableGroup: false,
     withMixedOptionAndGroup: false,
@@ -126,7 +125,7 @@ describe('sbb-autocomplete', () => {
       for (const borderless of [false, true]) {
         for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
           it(
-            `state=above negative=${negative} borderless=${borderless} ${visualDiffState.name}`,
+            `negative=${negative} state=above-${visualDiffState.name} borderless=${borderless}`,
             visualDiffState.with(async (setup) => {
               await setup.withFixture(
                 html`
@@ -157,7 +156,7 @@ describe('sbb-autocomplete', () => {
       for (const size of ['m', 's']) {
         for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
           it(
-            `state=${visualDiffState.name} negative=${negative} size=${size}`,
+            `negative=${negative} state=${visualDiffState.name} size=${size}`,
             visualDiffState.with(async (setup) => {
               await setup.withFixture(template({ ...defaultArgs, negative, size }), style);
             }),
@@ -166,35 +165,35 @@ describe('sbb-autocomplete', () => {
       }
 
       it(
-        `state=required negative=${negative}`,
+        `negative=${negative} state=required`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, required: true }), style);
         }),
       );
 
       it(
-        `state=disabled negative=${negative}`,
+        `negative=${negative} state=disabled`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, disabled: true }), style);
         }),
       );
 
       it(
-        `state=readonly negative=${negative}`,
+        `negative=${negative} state=readonly`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, readonly: true }), style);
         }),
       );
 
       it(
-        `state=borderless negative=${negative}`,
+        `negative=${negative} state=borderless`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, borderless: true }), style);
         }),
       );
 
       it(
-        `state=noIcon negative=${negative}`,
+        `negative=${negative} state=noIcon`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, withIcon: false }), style);
           setup.withPostSetupAction(() => openAutocomplete(setup));
@@ -203,7 +202,7 @@ describe('sbb-autocomplete', () => {
 
       for (const withIcon of [false, true]) {
         it(
-          `state=noSpace negative=${negative} withIcon=${withIcon}`,
+          `negative=${negative} state=noSpace withIcon=${withIcon}`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
               template({ ...defaultArgs, negative, withIcon, preserveIconSpace: false }),
@@ -262,39 +261,27 @@ describe('sbb-autocomplete', () => {
         }),
       );
 
-      it(
-        `negative=${negative} withGroup=true withMixedOptionAndGroup=true`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            template({ ...defaultArgs, negative, withGroup: true, withMixedOptionAndGroup: true }),
-            {
-              minHeight: '800px',
-              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-            },
-          );
-          setup.withPostSetupAction(() => openAutocomplete(setup));
-        }),
-      );
-
-      it(
-        `negative=${negative} withGroup=true withMixedOptionAndGroup=true size=s`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            template({
-              ...defaultArgs,
-              negative,
-              withGroup: true,
-              withMixedOptionAndGroup: true,
-              size: 's',
-            }),
-            {
-              minHeight: '800px',
-              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-            },
-          );
-          setup.withPostSetupAction(() => openAutocomplete(setup));
-        }),
-      );
+      for (const size of ['m', 's']) {
+        it(
+          `negative=${negative} withGroup=true size=${size} withMixedOptionAndGroup=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              template({
+                ...defaultArgs,
+                negative,
+                size,
+                withGroup: true,
+                withMixedOptionAndGroup: true,
+              }),
+              {
+                minHeight: '800px',
+                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              },
+            );
+            setup.withPostSetupAction(() => openAutocomplete(setup));
+          }),
+        );
+      }
     }
   });
 });
