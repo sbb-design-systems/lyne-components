@@ -23,8 +23,6 @@ describe(`sbb-paginator`, () => {
     it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot();
   });
 
   describe('renders ellipsis on end side', () => {
@@ -108,5 +106,7 @@ describe(`sbb-paginator`, () => {
         await expect(element).shadowDom.to.be.equalSnapshot();
       });
     });
+
+    testA11yTreeSnapshot();
   });
 });

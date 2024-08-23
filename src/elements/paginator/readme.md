@@ -1,9 +1,10 @@
-The `sbb-paginator` is a component used to split content across multiple pages, instead than scrolling it.
+The `sbb-paginator` is a component which provides navigation for content split across multiple pages,
+e.g. a table with many rows.
 
 It can be controlled via the following properties:
 
-- `length`: the total number of items that will be split between pages;
-- `pageSize`: the number of items in a single page (default: `10`);
+- `length`: the total number of items being paged;
+- `pageSize`: the number of items per page (default: `10`);
 - `pageIndex`: the index of the current displayed page (default: `0`).
 
 ```html
