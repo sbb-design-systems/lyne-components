@@ -11,16 +11,17 @@ import {
 import './paginator.js';
 
 describe('sbb-paginator', () => {
-  describeViewports({ viewports: ['small', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const negative of [false, true]) {
       const wrapperStyle = {
+        minHeight: '300px',
         backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
         focusOutlineDark: negative,
       };
 
       for (const state of [visualDiffDefault, visualDiffFocus]) {
         it(
-          `${state.name} negative=${negative}`,
+          `negative=${negative} state=${state.name}`,
           state.with(async (setup) => {
             await setup.withFixture(
               html` <sbb-paginator
@@ -43,7 +44,7 @@ describe('sbb-paginator', () => {
       for (const state of [visualDiffActive, visualDiffHover]) {
         for (const selected of [false, true]) {
           it(
-            `${state.name} negative=${negative} selected=${selected}`,
+            `negative=${negative} state=${state.name} selected=${selected}`,
             state.with(async (setup) => {
               await setup.withFixture(
                 html` <sbb-paginator
@@ -68,7 +69,7 @@ describe('sbb-paginator', () => {
 
       for (const pageIndex of [0, 2, 5, 7, 9]) {
         it(
-          `pageIndex=${pageIndex} negative=${negative}`,
+          `negative=${negative} pageIndex=${pageIndex}`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
               html` <sbb-paginator
@@ -82,36 +83,24 @@ describe('sbb-paginator', () => {
         );
       }
 
-      it(
-        `pageSizeOptions negative=${negative}`,
-        visualDiffDefault.with(async (setup) => {
-          const pageSizeOptions = [10, 20, 50];
-          await setup.withFixture(
-            html` <sbb-paginator
-              length="50"
-              page-size="4"
-              .pageSizeOptions="${pageSizeOptions}"
-              ?negative=${negative || nothing}
-            ></sbb-paginator>`,
-            wrapperStyle,
-          );
-        }),
-      );
-
-      it(
-        `size=s negative=${negative}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html` <sbb-paginator
-              length="50"
-              page-size="4"
-              size="s"
-              ?negative=${negative || nothing}
-            ></sbb-paginator>`,
-            wrapperStyle,
-          );
-        }),
-      );
+      for (const size of ['s', 'm']) {
+        it(
+          `negative=${negative} size=${size} pageSizeOptions`,
+          visualDiffDefault.with(async (setup) => {
+            const pageSizeOptions = [10, 20, 50];
+            await setup.withFixture(
+              html` <sbb-paginator
+                length="50"
+                page-size="4"
+                size=${size}
+                .pageSizeOptions="${pageSizeOptions}"
+                ?negative=${negative || nothing}
+              ></sbb-paginator>`,
+              wrapperStyle,
+            );
+          }),
+        );
+      }
     }
   });
 });

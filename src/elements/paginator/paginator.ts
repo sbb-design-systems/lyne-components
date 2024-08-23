@@ -70,7 +70,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   @property({ attribute: 'page-index', type: Number })
   public set pageIndex(value: number) {
     const previousPageIndex = this._pageIndex;
-    this._pageIndex = this._calculatePageIndex(value);
+    this._pageIndex = this._validatePageIndex(value);
     if (previousPageIndex !== this._pageIndex) {
       this._pageChanged.emit({ previousPageIndex, currentPageIndex: value });
     }
@@ -136,8 +136,8 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   }
 
   /** Evaluate `pageIndex` by excluding edge cases. */
-  private _calculatePageIndex(pageIndex: number): number {
-    if (isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages()) {
+  private _validatePageIndex(pageIndex: number): number {
+    if (isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages) {
       return 0;
     }
     return pageIndex;
@@ -147,7 +147,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
    * Calculates the current number of pages based on the `length` and the `pageSize`;
    * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
    */
-  private _numberOfPages(): number {
+  private get _numberOfPages(): number {
     if (!this.pageSize) {
       return 0;
     }
@@ -161,7 +161,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
    *  - if there are more than `MAX_PAGE_NUMBERS_DISPLAYED` other pages, ellipsis button must be used.
    */
   private _getVisiblePagesIndex(): (number | null)[] {
-    const totalPages: number = this._numberOfPages();
+    const totalPages: number = this._numberOfPages;
     const currentPageIndex: number = this.pageIndex;
 
     if (totalPages <= MAX_PAGE_NUMBERS_DISPLAYED + 2) {
@@ -250,7 +250,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
             id="sbb-paginator-next-page"
             aria-label=${i18nNextPage[this._language.current]}
             icon-name="chevron-small-right-small"
-            ?disabled=${this.pageIndex === this._numberOfPages() - 1}
+            ?disabled=${this.pageIndex === this._numberOfPages - 1}
             @click=${() => this._changePage(this.pageIndex + 1)}
           ></sbb-mini-button>
         </sbb-mini-button-group>

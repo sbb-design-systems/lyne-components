@@ -48,13 +48,12 @@
 }
 
 .sbb-paginator__pages {
+  @include sbb.list-reset;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--sbb-spacing-fixed-1x);
-  list-style: none;
-  margin: 0;
-  padding: 0;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
