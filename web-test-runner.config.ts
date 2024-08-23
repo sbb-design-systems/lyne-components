@@ -71,13 +71,13 @@ const browsers =
             context.newPage().then((page) => {
               page.on('console', (message) => {
                 if (message.type() === 'error') {
-                  console.error('CONSOLE: ' + product);
+                  console.error(`CONSOLE: ${product} ${page.url()}`);
                   console.error(message.location());
                   console.error(message.text());
                 }
               });
               page.on('pageerror', (err) => {
-                console.error('PAGEERROR: ' + product);
+                console.error(`PAGEERROR: ${product} ${page.url()}`);
                 console.error(err);
               });
               return page;
