@@ -120,9 +120,9 @@ const testRunnerHtml = (
     />`,
     )
     .join('')}
-    <link rel="preload" as="script" crossorigin="anonymous" href="/src/elements/core/testing/test-setup.ts" />
+    <link rel="modulepreload" href="/src/elements/core/testing/test-setup.ts" />
     <style type="text/css">${renderStyles()}</style>
-    <script>
+    <script type="module">
       console.error('TEST FILE: ' + window.__WTR_CONFIG__.testFile);
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
       globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : (group?.name ?? 'default')}';
