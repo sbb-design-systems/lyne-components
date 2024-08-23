@@ -12,10 +12,13 @@ which accepts the id of the native input, or directly its reference.
 
 ## In `sbb-form-field`
 
-If the `sbb-time-input` is used within a `sbb-form-field` with a native input, they are automatically linked.
+If the `sbb-time-input` is used within a `sbb-form-field`:
+
+- It links to the native input automatically.
+- It adapts to the form-field `size`.
 
 ```html
-<sbb-form-field width="collapse">
+<sbb-form-field width="collapse" size="s">
   <input value="13:30" />
   <sbb-time-input></sbb-time-input>
 </sbb-form-field>
