@@ -123,7 +123,9 @@ const testRunnerHtml = (
     <link rel="modulepreload" href="/src/elements/core/testing/test-setup.ts" />
     <style type="text/css">${renderStyles()}</style>
     <script type="module">
+      // TODO: Remove
       console.error('TEST FILE: ' + window.__WTR_CONFIG__.testFile);
+
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
       globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : (group?.name ?? 'default')}';
       globalThis.testRunScript = '${testFramework}';
