@@ -2,6 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
+import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
@@ -9,7 +10,12 @@ import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
 import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
-import { SbbDisabledMixin, SbbNegativeMixin, SbbUpdateSchedulerMixin } from '../core/mixins.js';
+import {
+  SbbDisabledMixin,
+  SbbHydrationMixin,
+  SbbNegativeMixin,
+  SbbUpdateSchedulerMixin,
+} from '../core/mixins.js';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
@@ -49,7 +55,7 @@ export interface SelectChange {
   role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbSelectElement extends SbbUpdateSchedulerMixin(
-  SbbDisabledMixin(SbbNegativeMixin(SbbOpenCloseBaseElement)),
+  SbbDisabledMixin(SbbNegativeMixin(SbbHydrationMixin(SbbOpenCloseBaseElement))),
 ) {
   public static override styles: CSSResultGroup = style;
 
@@ -163,7 +169,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Gets the current displayed value. */
   public getDisplayValue(): string {
-    return !this._displayValue ? '' : this._displayValue;
+    return this._displayValue ?? '';
   }
 
   /** Listens to option changes. */
@@ -679,7 +685,18 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
   }
 
+  private async _deferredDisplayValue(placeholder: TemplateResult): Promise<TemplateResult | null> {
+    if (this.hydrationRequired) {
+      await this.hydrationComplete;
+    }
+    return this._displayValue ? html`${this._displayValue}` : placeholder;
+  }
+
   protected override render(): TemplateResult {
+    const placeholder = html`<span class="sbb-select__trigger--placeholder">
+      ${this.placeholder}
+    </span>`;
+
     return html`
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
@@ -696,14 +713,12 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
         @click=${this._toggleOpening}
         ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
       >
-        ${this._displayValue ? html`${this._displayValue}` : html`<span>${this.placeholder}</span>`}
+        ${until(this._deferredDisplayValue(placeholder), placeholder)}
       </div>
 
       <!-- Visually display the value -->
       <div class="sbb-select__trigger" aria-hidden="true">
-        ${this._displayValue
-          ? html`${this._displayValue}`
-          : html`<span class="sbb-select__trigger--placeholder">${this.placeholder}</span>`}
+        ${until(this._deferredDisplayValue(placeholder), placeholder)}
       </div>
 
       <div class="sbb-select__gap-fix"></div>
