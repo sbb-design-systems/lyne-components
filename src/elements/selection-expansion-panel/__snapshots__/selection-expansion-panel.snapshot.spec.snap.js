@@ -3,6 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-selection-expansion-panel renders DOM"] = 
 `<sbb-selection-expansion-panel
+  data-size="m"
   data-slot-names="content unnamed"
   data-state="closed"
 >

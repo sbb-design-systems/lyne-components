@@ -34,6 +34,11 @@
   outline: none !important;
 }
 
+:host([size='s']) {
+  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xxs)
+    var(--sbb-spacing-responsive-xxxs);
+}
+
 :host([color='milk']) {
   --sbb-selection-panel-background: var(
     --sbb-selection-expansion-panel-inner-background,
@@ -98,6 +103,15 @@
   inset: 0;
   border-radius: var(--sbb-selection-panel-border-radius);
   overflow: hidden;
+}
+
+slot[name='suffix'],
+slot[name='subtext'] {
+  @include sbb.text-m--regular;
+
+  :host([size='s']) & {
+    @include sbb.text-s--regular;
+  }
 }
 
 slot[name='suffix'] {

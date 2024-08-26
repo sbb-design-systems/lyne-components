@@ -59,6 +59,12 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
     if (changedProperties.has('checked')) {
       this.toggleAttribute('data-checked', this.checked);
     }
+
+    if (changedProperties.has('size')) {
+      if (!this.group) {
+        this.closest?.('sbb-selection-expansion-panel')?.setAttribute('data-size', this.size);
+      }
+    }
   }
 
   protected override render(): TemplateResult {

@@ -45,6 +45,13 @@ const borderless: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+};
+
 const checkedInput: InputType = {
   control: {
     type: 'boolean',
@@ -64,9 +71,10 @@ const disabledInput: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
-  color: color,
+  color,
   'force-open': forceOpen,
-  borderless: borderless,
+  borderless,
+  size,
   checkedInput,
   disabledInput,
 };
@@ -75,6 +83,7 @@ const basicArgs: Args = {
   color: color.options![0],
   'force-open': false,
   borderless: false,
+  size: size.options![0],
   checkedInput: false,
   disabledInput: false,
 };
@@ -91,7 +100,7 @@ const suffixAndSubtext = (): TemplateResult => html`
   <span slot="subtext">Subtext</span>
   <span slot="suffix" style=${styleMap(suffixStyle)}>
     <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-    <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
+    <span class="sbb-text--bold">CHF 40.00</span>
   </span>
 `;
 
@@ -107,10 +116,11 @@ const innerContent = (): TemplateResult => html`
 const WithCheckboxTemplate = ({
   checkedInput,
   disabledInput,
+  size,
   ...args
 }: Args): TemplateResult => html`
   <sbb-selection-expansion-panel ${sbbSpread(args)}>
-    <sbb-checkbox-panel ?checked=${checkedInput} ?disabled=${disabledInput}>
+    <sbb-checkbox-panel ?checked=${checkedInput} ?disabled=${disabledInput} size=${size}>
       Value one ${suffixAndSubtext()} ${cardBadge()}
     </sbb-checkbox-panel>
     ${innerContent()}
@@ -120,10 +130,16 @@ const WithCheckboxTemplate = ({
 const WithRadioButtonTemplate = ({
   checkedInput,
   disabledInput,
+  size,
   ...args
 }: Args): TemplateResult => html`
   <sbb-selection-expansion-panel ${sbbSpread(args)}>
-    <sbb-radio-button-panel value="Value one" ?checked=${checkedInput} ?disabled=${disabledInput}>
+    <sbb-radio-button-panel
+      value="Value one"
+      ?checked=${checkedInput}
+      ?disabled=${disabledInput}
+      size=${size}
+    >
       Value one ${suffixAndSubtext()} ${cardBadge()}
     </sbb-radio-button-panel>
     ${innerContent()}
@@ -133,9 +149,10 @@ const WithRadioButtonTemplate = ({
 const WithCheckboxGroupTemplate = ({
   checkedInput,
   disabledInput,
+  size,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?checked=${checkedInput}>
         Value one ${suffixAndSubtext()} ${cardBadge()}
@@ -161,12 +178,14 @@ const WithRadioButtonGroupTemplate = ({
   checkedInput,
   disabledInput,
   allowEmptySelection,
+  size,
   ...args
 }: Args): TemplateResult => html`
   <sbb-radio-button-group
     orientation="vertical"
     horizontal-from="large"
     ?allow-empty-selection=${allowEmptySelection}
+    size=${size}
   >
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-radio-button-panel value="Value one" ?checked=${checkedInput}>
@@ -194,9 +213,10 @@ const WithRadioButtonGroupTemplate = ({
 const TicketsOptionsExampleTemplate = ({
   checkedInput,
   disabledInput,
+  size,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?checked=${checkedInput}>
         Saving ${suffixAndSubtext()} ${cardBadge()}
@@ -284,9 +304,10 @@ const TicketsOptionsExampleTemplate = ({
 const NestedRadioTemplate = ({
   checkedInput,
   disabledInput,
+  size,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+  <sbb-radio-button-group orientation="vertical" horizontal-from="large" size=${size}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-radio-button-panel value="mainoption1" ?checked=${checkedInput}>
         Main Option 1
@@ -312,9 +333,10 @@ const NestedRadioTemplate = ({
 const NestedCheckboxTemplate = ({
   checkedInput,
   disabledInput,
+  size,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel value="mainoption1" ?checked=${checkedInput}>
         Main Option 1
@@ -340,6 +362,7 @@ const NestedCheckboxTemplate = ({
 const WithCheckboxesErrorMessageTemplate = ({
   checkedInput,
   disabledInput,
+  size,
   ...args
 }: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -350,6 +373,7 @@ const WithCheckboxesErrorMessageTemplate = ({
     <sbb-checkbox-group
       orientation="vertical"
       horizontal-from="large"
+      size=${size}
       @change=${(event: Event) => {
         const checkboxGroup = event.currentTarget as HTMLElement;
         const hasChecked = Array.from(checkboxGroup.querySelectorAll('sbb-checkbox')).some(
@@ -388,6 +412,7 @@ const WithCheckboxesErrorMessageTemplate = ({
 const WithRadiosErrorMessageTemplate = ({
   checkedInput,
   disabledInput,
+  size,
   ...args
 }: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -398,6 +423,7 @@ const WithRadiosErrorMessageTemplate = ({
     <sbb-radio-button-group
       orientation="vertical"
       horizontal-from="large"
+      size=${size}
       allow-empty-selection
       id="sbb-radio-group"
       @change=${(event: CustomEvent<SbbRadioButtonGroupEventDetail>) => {
@@ -443,6 +469,18 @@ export const WithRadioButton: StoryObj = {
   render: WithRadioButtonTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
+};
+
+export const WithCheckboxSizeS: StoryObj = {
+  render: WithCheckboxTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, size: size.options![1] },
+};
+
+export const WithRadioButtonSizeS: StoryObj = {
+  render: WithRadioButtonTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, size: size.options![1] },
 };
 
 export const WithCheckboxChecked: StoryObj = {
@@ -491,6 +529,18 @@ export const WithRadioButtonGroup: StoryObj = {
   render: WithRadioButtonGroupTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, checkedInput: true, disabledInput: true },
+};
+
+export const WithCheckboxGroupSizeS: StoryObj = {
+  render: WithCheckboxGroupTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, disabledInput: true, size: size.options![1] },
+};
+
+export const WithRadioButtonGroupSizeS: StoryObj = {
+  render: WithRadioButtonGroupTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, disabledInput: true, size: size.options![1] },
 };
 
 export const WithCheckboxGroupForceOpen: StoryObj = {
@@ -630,6 +680,18 @@ export const NestedCheckboxes: StoryObj = {
   render: NestedCheckboxTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, checkedInput: true },
+};
+
+export const NestedRadiosSizeS: StoryObj = {
+  render: NestedRadioTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, size: size.options![1] },
+};
+
+export const NestedCheckboxesSizeS: StoryObj = {
+  render: NestedCheckboxTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, size: size.options![1] },
 };
 
 const meta: Meta = {

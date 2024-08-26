@@ -9,7 +9,7 @@ import { EventEmitter } from '../core/eventing.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
-import type { SbbRadioButtonPanelElement } from '../radio-button.js';
+import type { SbbRadioButtonGroupElement, SbbRadioButtonPanelElement } from '../radio-button.js';
 
 import style from './selection-expansion-panel.scss?lit&inline';
 
@@ -169,7 +169,17 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 
     this._checked = input.checked;
     this._disabled = input.disabled;
+    this._setDataSize(input);
     this._updateState();
+  }
+
+  private _setDataSize(input: SbbCheckboxPanelElement | SbbRadioButtonPanelElement): void {
+    const group = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
+    if (group) {
+      this.setAttribute('data-size', group.size === 'xs' ? 's' : group.size);
+    } else {
+      this.setAttribute('data-size', input.size);
+    }
   }
 
   private _onInputStateChange(event: CustomEvent<SbbStateChange>): void {

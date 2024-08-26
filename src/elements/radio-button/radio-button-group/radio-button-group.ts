@@ -14,6 +14,8 @@ import type { SbbRadioButtonElement } from '../radio-button.js';
 
 import style from './radio-button-group.scss?lit&inline';
 
+import type { SbbSelectionExpansionPanelElement } from '@sbb-esta/lyne-elements/selection-expansion-panel/selection-expansion-panel';
+
 export type SbbRadioButtonGroupEventDetail = {
   value: any | null;
   radioButton: SbbRadioButtonElement | SbbRadioButtonPanelElement;
@@ -84,6 +86,15 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
         | SbbRadioButtonPanelElement
       )[]
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
+  }
+
+  /** List of contained selection-expansion-panel elements. */
+  public get expansionPanels(): SbbSelectionExpansionPanelElement[] {
+    return <SbbSelectionExpansionPanelElement[]>(
+      Array.from(this.querySelectorAll?.('sbb-selection-expansion-panel') ?? []).filter(
+        (el) => el.closest('sbb-radio-button-group') === this,
+      )
+    );
   }
 
   private get _enabledRadios(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] | undefined {
@@ -170,6 +181,9 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
     if (changedProperties.has('size')) {
       this.radioButtons.forEach((r) => r.requestUpdate?.('size'));
+      this.expansionPanels.forEach((e) =>
+        e.setAttribute('data-size', this.size === 'xs' ? 's' : this.size),
+      );
     }
   }
 
