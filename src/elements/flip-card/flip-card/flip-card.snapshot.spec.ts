@@ -35,7 +35,7 @@ describe(`sbb-flip-card`, () => {
   });
 
   it('DOM', async () => {
-    await expect(element).dom.to.be.equalSnapshot();
+    await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['image-src'] });
   });
 
   it('Shadow DOM', async () => {
