@@ -11,7 +11,7 @@ export async function waitForImageReady(
       element.addEventListener('load', () => {
         clearTimeout(timeout);
         if (isSafari) {
-          setTimeout(resolve, 100);
+          setTimeout(resolve, 1000);
         } else {
           resolve();
         }
@@ -22,6 +22,6 @@ export async function waitForImageReady(
       });
     });
   } else if (isSafari) {
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 }
