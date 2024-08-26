@@ -18,6 +18,6 @@ export async function waitForImageReady(
       });
     });
   } else if (isSafari) {
-    await new Promise((resolve) => setTimeout(resolve, 20));
+    await new Promise((resolve) => setTimeout(resolve, 100));
   }
 }
