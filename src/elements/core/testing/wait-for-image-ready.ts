@@ -1,4 +1,5 @@
 import type { SbbImageElement } from '../../image.js';
+import { isSafari } from '../dom.js';
 
 export async function waitForImageReady(
   element: HTMLImageElement | SbbImageElement,
@@ -16,5 +17,7 @@ export async function waitForImageReady(
         reject('image error');
       });
     });
+  } else if (isSafari) {
+    await new Promise((resolve) => setTimeout(resolve, 20));
   }
 }
