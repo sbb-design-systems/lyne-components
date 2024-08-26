@@ -10,7 +10,11 @@ export async function waitForImageReady(
       const timeout = setTimeout(() => reject('image loading timeout'), timeoutInMilliseconds);
       element.addEventListener('load', () => {
         clearTimeout(timeout);
-        resolve();
+        if (isSafari) {
+          setTimeout(resolve, 100);
+        } else {
+          resolve();
+        }
       });
       element.addEventListener('error', () => {
         clearTimeout(timeout);
