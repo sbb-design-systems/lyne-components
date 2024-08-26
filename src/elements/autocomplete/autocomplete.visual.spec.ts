@@ -119,166 +119,177 @@ describe('sbb-autocomplete', () => {
 
   describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
     for (const negative of [false, true]) {
-      for (const borderless of [false, true]) {
+      describe(`negative=${negative}`, () => {
         for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+          describe(`state=above-${visualDiffState.name}`, () => {
+            for (const borderless of [false, true]) {
+              it(
+                `borderless=${borderless}`,
+                visualDiffState.with(async (setup) => {
+                  await setup.withFixture(
+                    html`
+                      <div style="position: absolute; inset-block-end: 2rem;">
+                        ${template({ ...defaultArgs, negative, borderless })}
+                      </div>
+                    `,
+                    {
+                      minHeight: '500px',
+                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    },
+                  );
+                  setup.withPostSetupAction(() => openAutocomplete(setup));
+                }),
+              );
+            }
+          });
+        }
+      });
+    }
+  });
+
+  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+    for (const negative of [false, true]) {
+      describe(`negative=${negative}`, () => {
+        const style = {
+          minHeight: '400px',
+          backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+        };
+
+        for (const size of ['m', 's']) {
+          for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+            it(
+              `state=${visualDiffState.name} size=${size}`,
+              visualDiffState.with(async (setup) => {
+                await setup.withFixture(template({ ...defaultArgs, negative, size }), style);
+              }),
+            );
+          }
+        }
+
+        it(
+          `state=required`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template({ ...defaultArgs, negative, required: true }), style);
+          }),
+        );
+
+        it(
+          `state=disabled`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template({ ...defaultArgs, negative, disabled: true }), style);
+          }),
+        );
+
+        it(
+          `state=readonly`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template({ ...defaultArgs, negative, readonly: true }), style);
+          }),
+        );
+
+        it(
+          `state=borderless`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              template({ ...defaultArgs, negative, borderless: true }),
+              style,
+            );
+          }),
+        );
+
+        it(
+          `state=noIcon`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template({ ...defaultArgs, negative, withIcon: false }), style);
+            setup.withPostSetupAction(() => openAutocomplete(setup));
+          }),
+        );
+
+        for (const withIcon of [false, true]) {
           it(
-            `negative=${negative} state=above-${visualDiffState.name} borderless=${borderless}`,
-            visualDiffState.with(async (setup) => {
+            `state=noSpace withIcon=${withIcon}`,
+            visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
-                html`
-                  <div style="position: absolute; inset-block-end: 2rem;">
-                    ${template({ ...defaultArgs, negative, borderless })}
-                  </div>
-                `,
+                template({ ...defaultArgs, negative, withIcon, preserveIconSpace: false }),
+                style,
+              );
+              setup.withPostSetupAction(() => openAutocomplete(setup));
+            }),
+          );
+        }
+
+        for (const withGroup of [false, true]) {
+          const wrapperStyle = {
+            minHeight: withGroup ? '800px' : '400px',
+            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+          };
+
+          it(
+            `withGroup=${withGroup}`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                template({ ...defaultArgs, negative, withGroup }),
+                wrapperStyle,
+              );
+              setup.withPostSetupAction(() => openAutocomplete(setup));
+            }),
+          );
+
+          it(
+            `withGroup=${withGroup} disableOption=true`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                template({ ...defaultArgs, negative, withGroup, disableOption: true }),
+                wrapperStyle,
+              );
+              setup.withPostSetupAction(() => openAutocomplete(setup));
+            }),
+          );
+        }
+
+        describe('withGroup=true ', () => {
+          it(
+            `disableGroup=true`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                template({
+                  ...defaultArgs,
+                  negative,
+                  disableGroup: true,
+                  withGroup: true,
+                }),
                 {
-                  minHeight: '500px',
+                  minHeight: '800px',
                   backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
                 },
               );
               setup.withPostSetupAction(() => openAutocomplete(setup));
             }),
           );
-        }
-      }
-    }
-  });
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const negative of [false, true]) {
-      const style = {
-        minHeight: '400px',
-        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-      };
-
-      for (const size of ['m', 's']) {
-        for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
-          it(
-            `negative=${negative} state=${visualDiffState.name} size=${size}`,
-            visualDiffState.with(async (setup) => {
-              await setup.withFixture(template({ ...defaultArgs, negative, size }), style);
-            }),
-          );
-        }
-      }
-
-      it(
-        `negative=${negative} state=required`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, required: true }), style);
-        }),
-      );
-
-      it(
-        `negative=${negative} state=disabled`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, disabled: true }), style);
-        }),
-      );
-
-      it(
-        `negative=${negative} state=readonly`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, readonly: true }), style);
-        }),
-      );
-
-      it(
-        `negative=${negative} state=borderless`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, borderless: true }), style);
-        }),
-      );
-
-      it(
-        `negative=${negative} state=noIcon`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, withIcon: false }), style);
-          setup.withPostSetupAction(() => openAutocomplete(setup));
-        }),
-      );
-
-      for (const withIcon of [false, true]) {
-        it(
-          `negative=${negative} state=noSpace withIcon=${withIcon}`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(
-              template({ ...defaultArgs, negative, withIcon, preserveIconSpace: false }),
-              style,
-            );
-            setup.withPostSetupAction(() => openAutocomplete(setup));
-          }),
-        );
-      }
-
-      for (const withGroup of [false, true]) {
-        const wrapperStyle = {
-          minHeight: withGroup ? '800px' : '400px',
-          backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-        };
-
-        it(
-          `negative=${negative} withGroup=${withGroup}`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(
-              template({ ...defaultArgs, negative, withGroup }),
-              wrapperStyle,
-            );
-            setup.withPostSetupAction(() => openAutocomplete(setup));
-          }),
-        );
-
-        it(
-          `negative=${negative} withGroup=${withGroup} disableOption=true`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(
-              template({ ...defaultArgs, negative, withGroup, disableOption: true }),
-              wrapperStyle,
-            );
-            setup.withPostSetupAction(() => openAutocomplete(setup));
-          }),
-        );
-      }
-
-      it(
-        `negative=${negative} withGroup=true disableGroup=true`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            template({
-              ...defaultArgs,
-              negative,
-              disableGroup: true,
-              withGroup: true,
-            }),
-            {
-              minHeight: '800px',
-              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-            },
-          );
-          setup.withPostSetupAction(() => openAutocomplete(setup));
-        }),
-      );
-
-      for (const size of ['m', 's']) {
-        it(
-          `negative=${negative} withGroup=true size=${size} withMixedOptionAndGroup=true`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(
-              template({
-                ...defaultArgs,
-                negative,
-                size,
-                withGroup: true,
-                withMixedOptionAndGroup: true,
+          for (const size of ['m', 's']) {
+            it(
+              `size=${size} withMixedOptionAndGroup=true`,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  template({
+                    ...defaultArgs,
+                    negative,
+                    size,
+                    withGroup: true,
+                    withMixedOptionAndGroup: true,
+                  }),
+                  {
+                    minHeight: '800px',
+                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                  },
+                );
+                setup.withPostSetupAction(() => openAutocomplete(setup));
               }),
-              {
-                minHeight: '800px',
-                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-              },
             );
-            setup.withPostSetupAction(() => openAutocomplete(setup));
-          }),
-        );
-      }
+          }
+        });
+      });
     }
   });
 });
