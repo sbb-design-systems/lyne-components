@@ -49,7 +49,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   /** List of contained selection-expansion-panel elements. */
-  public get expansionPanels(): SbbSelectionExpansionPanelElement[] {
+  private get _expansionPanels(): SbbSelectionExpansionPanelElement[] {
     return <SbbSelectionExpansionPanelElement[]>(
       Array.from(this.querySelectorAll?.('sbb-selection-expansion-panel') ?? []).filter(
         (el) => el.closest('sbb-checkbox-group') === this,
@@ -80,7 +80,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
     }
     if (changedProperties.has('size')) {
       this.checkboxes.forEach((c) => c.requestUpdate?.('size'));
-      this.expansionPanels.forEach((e) =>
+      this._expansionPanels.forEach((e) =>
         e.setAttribute('data-size', this.size === 'xs' ? 's' : this.size),
       );
     }
