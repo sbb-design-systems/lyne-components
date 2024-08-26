@@ -55,7 +55,10 @@
 }
 
 .sbb-container__content {
-  position: relative;
+  :host([data-slot-names~='image']) & {
+    // With position: relative we ensure the content is in front of the image.
+    position: relative;
+  }
 }
 
 ::slotted([slot='image']) {
