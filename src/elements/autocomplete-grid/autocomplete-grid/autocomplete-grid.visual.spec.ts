@@ -1,6 +1,5 @@
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
-import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import type { VisualDiffSetupBuilder } from '../../core/testing/private.js';
@@ -47,48 +46,61 @@ describe('sbb-autocomplete-grid', () => {
   `;
 
   const createOptionBlockOne = (withIcon: boolean, disableOption: boolean): TemplateResult => html`
-    ${repeat(
-      new Array(3),
-      (_, i) => html`
-        <sbb-autocomplete-grid-row>
-          <sbb-autocomplete-grid-option
-            value="Option ${i}"
-            icon-name=${withIcon && i !== 2 ? 'clock-small' : nothing}
-            ?disabled=${i === 1 && disableOption}
-          >
-            ${withIcon && i === 2
-              ? html`<sbb-icon slot="icon" name="clock-small"></sbb-icon>`
-              : nothing}
-            Option ${i}
-          </sbb-autocomplete-grid-option>
-          <sbb-autocomplete-grid-cell>
-            <sbb-autocomplete-grid-button
-              icon-name="pen-small"
-              ?disabled=${i === 1 && disableOption}
-            ></sbb-autocomplete-grid-button>
-          </sbb-autocomplete-grid-cell>
-        </sbb-autocomplete-grid-row>
-      `,
-    )}
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option
+        value="Option 1"
+        icon-name=${withIcon ? 'clock-small' : nothing}
+      >
+        Option 1
+      </sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-cell>
+        <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-cell>
+    </sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option
+        value="Option 2"
+        icon-name=${withIcon ? 'clock-small' : nothing}
+        ?disabled=${disableOption}
+      >
+        Option 2
+      </sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-cell>
+        <sbb-autocomplete-grid-button
+          icon-name="pen-small"
+          ?disabled=${disableOption}
+        ></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-cell>
+    </sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="Option 3">
+        ${withIcon ? html`<sbb-icon slot="icon" name="clock-small"></sbb-icon>` : nothing} Option 3
+      </sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-cell>
+        <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-cell>
+    </sbb-autocomplete-grid-row>
   `;
 
   const createOptionBlockTwo = (): TemplateResult => html`
-    ${repeat(
-      new Array(2),
-      (_, i) => html`
-        <sbb-autocomplete-grid-row>
-          <sbb-autocomplete-grid-option value="Option ${i + 3}"
-            >Option ${i + 3}</sbb-autocomplete-grid-option
-          >
-          <sbb-autocomplete-grid-cell>
-            <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
-          </sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-cell>
-            <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
-          </sbb-autocomplete-grid-cell>
-        </sbb-autocomplete-grid-row>
-      `,
-    )}
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="Option 4">Option 4</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-cell>
+        <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-cell>
+      <sbb-autocomplete-grid-cell>
+        <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-cell>
+    </sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="Option 5">Option 5</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-cell>
+        <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-cell>
+      <sbb-autocomplete-grid-cell>
+        <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-cell>
+    </sbb-autocomplete-grid-row>
   `;
 
   const createOptions = (withIcon: boolean, disableOption: boolean): TemplateResult => html`
