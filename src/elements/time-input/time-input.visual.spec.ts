@@ -34,7 +34,12 @@ describe(`sbb-time-input`, () => {
     disabled?: boolean;
   };
   const template = (args: Partial<ParamsType>): TemplateResult => html`
-    <sbb-form-field ?borderless=${args.borderless} ?negative=${args.negative} width="collapse">
+    <sbb-form-field
+      ?borderless=${args.borderless}
+      ?negative=${args.negative}
+      size=${args.size || nothing}
+      width="collapse"
+    >
       <label>Label</label>
       ${!args.noIcons ? html`<sbb-icon slot="prefix" name="clock-small"></sbb-icon>` : nothing}
       <sbb-time-input></sbb-time-input>
