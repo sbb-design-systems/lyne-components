@@ -1,7 +1,7 @@
 import type { SbbImageElement } from '../../image.js';
 import { isSafari } from '../dom.js';
 
-const safariAdditionalWaitTime = 500;
+const safariAdditionalWaitTime = 1000;
 
 export async function waitForImageReady(
   element: HTMLImageElement | SbbImageElement,
