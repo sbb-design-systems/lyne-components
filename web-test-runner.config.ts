@@ -69,17 +69,15 @@ const browsers =
           product,
           createPage: ({ context }) =>
             context.newPage().then((page) => {
-              page.on('console', async (message) => {
-                const testFile = await page.evaluate(() => (window as any).__WTR_CONFIG__.testFile);
+              page.on('console', (message) => {
                 if (message.type() === 'error' && !message.location().url.includes('dummy.png')) {
-                  console.error(`CONSOLE: ${product} ${testFile}`);
+                  console.error(`CONSOLE: ${product} ${page.url()}`);
                   console.error(message.location());
                   console.error(message.text());
                 }
               });
-              page.on('pageerror', async (err) => {
-                const testFile = await page.evaluate(() => (window as any).__WTR_CONFIG__.testFile);
-                console.error(`PAGEERROR: ${product} ${testFile}`);
+              page.on('pageerror', (err) => {
+                console.error(`PAGEERROR: ${product} ${page.url()}`);
                 console.error(err);
               });
               return page;
