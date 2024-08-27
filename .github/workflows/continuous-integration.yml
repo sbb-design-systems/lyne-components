@@ -50,7 +50,6 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-
       - name: Install browser dependencies
         run: yarn playwright install-deps
       - name: Run tests

@@ -2,7 +2,7 @@ The `sbb-teaser-product` is a component that can display a text and a footnote, 
 The whole component behaves like a link, and it is clickable; on small screens, the content follows the image.
 
 The component can have at most a single interactive element in its static version (e.g. `sbb-button-static`).
-If it has to include more than one interactive element, use the [sbb-teaser-product-static](docs/elements-sbb-teaser-sbb-teaser-product-static) instead.
+If it has to include more than one interactive element, use the [sbb-teaser-product-static](/docs/elements-sbb-teaser-sbb-teaser-product-static--docs) instead.
 
 ```html
 <sbb-teaser-product href="...">

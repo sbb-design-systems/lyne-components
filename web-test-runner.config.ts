@@ -67,6 +67,21 @@ const browsers =
       (['chromium', 'firefox', 'webkit'] as const).map((product) =>
         playwrightLauncher({
           product,
+          createPage: ({ context }) =>
+            context.newPage().then((page) => {
+              page.on('console', (message) => {
+                if (message.type() === 'error' && !message.location().url.includes('dummy.png')) {
+                  console.error(`CONSOLE: ${product} ${page.url()}`);
+                  console.error(message.location());
+                  console.error(message.text());
+                }
+              });
+              page.on('pageerror', (err) => {
+                console.error(`PAGEERROR: ${product} ${page.url()}`);
+                console.error(err);
+              });
+              return page;
+            }),
           ...concurrency,
           ...launchOptions,
         }),
@@ -105,9 +120,9 @@ const testRunnerHtml = (
     />`,
     )
     .join('')}
-    <link rel="preload" as="script" crossorigin="anonymous" href="/src/elements/core/testing/test-setup.ts">
+    <link rel="modulepreload" href="/src/elements/core/testing/test-setup.ts" />
     <style type="text/css">${renderStyles()}</style>
-    <script>
+    <script type="module">
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
       globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : (group?.name ?? 'default')}';
       globalThis.testRunScript = '${testFramework}';
