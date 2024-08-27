@@ -110,6 +110,7 @@ Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-s
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'horizontal'` | Steps orientation, either horizontal or vertical.                                 |
 | `selected`       | -                 | public  | `SbbStepElement \| undefined`    |                | The currently selected step.                                                      |
 | `selectedIndex`  | `selected-index`  | public  | `number \| undefined`            |                | The currently selected step index.                                                |
+| `size`           | `size`            | public  | `'s' \| 'm'`                     | `'m'`          | Size variant, either l or m.                                                      |
 | `steps`          | -                 | public  | `SbbStepElement[]`               |                | The steps of the stepper.                                                         |
 
 ## Methods
