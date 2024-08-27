@@ -1,3 +1,5 @@
+import { aTimeout } from '@open-wc/testing';
+
 import type { SbbImageElement } from '../../image.js';
 import { isSafari } from '../dom.js';
 
@@ -7,9 +9,9 @@ async function triggerImageRendering(
   imgElement: HTMLImageElement | SbbImageElement,
 ): Promise<void> {
   imgElement.style.width = '1px';
-  await new Promise((resolve) => setTimeout(resolve, 0));
+  await aTimeout(0);
   imgElement.style.removeProperty('width');
-  await new Promise((resolve) => setTimeout(resolve, 0));
+  await aTimeout(0);
 }
 
 export async function waitForImageReady(
@@ -23,8 +25,9 @@ export async function waitForImageReady(
         clearTimeout(timeout);
         if (isSafari && element instanceof HTMLImageElement) {
           triggerImageRendering(element).then(resolve);
+        } else {
+          resolve();
         }
-        resolve();
       });
       element.addEventListener('error', () => {
         clearTimeout(timeout);
