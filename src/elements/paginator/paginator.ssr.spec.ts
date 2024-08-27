@@ -10,7 +10,11 @@ describe(`sbb-paginator ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(
-      html`<sbb-paginator length="50" page-size="4"></sbb-paginator>`,
+      html`<sbb-paginator
+        length="50"
+        page-size="10"
+        page-size-options="[10, 25, 50]"
+      ></sbb-paginator>`,
       {
         modules: ['./paginator.js'],
       },
