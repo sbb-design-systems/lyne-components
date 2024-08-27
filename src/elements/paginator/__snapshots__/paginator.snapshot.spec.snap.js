@@ -562,7 +562,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         aria-required="false"
         class="sbb-screen-reader-only"
         role="combobox"
-        style="top: 0px; height: 48px; width: 75px;"
+        style="top: 0px; height: 48px; width: 56px;"
         tabindex="0"
       >
         10
@@ -613,61 +613,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
-
-snapshots["sbb-paginator renders with options A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page"
-    },
-    {
-      "role": "button",
-      "name": "Page 1"
-    },
-    {
-      "role": "button",
-      "name": "Page 2"
-    },
-    {
-      "role": "button",
-      "name": "Page 3"
-    },
-    {
-      "role": "button",
-      "name": "Page 4"
-    },
-    {
-      "role": "button",
-      "name": "Page 5"
-    },
-    {
-      "role": "text",
-      "name": "Items per page"
-    },
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "haspopup": "listbox",
-      "value": "10"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-paginator renders with options A11y tree Chrome */
 
 snapshots["sbb-paginator renders with options Safari DOM"] = 
 `<sbb-paginator
@@ -797,7 +742,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         aria-required="false"
         class="sbb-screen-reader-only"
         role="combobox"
-        style="top: 0px; height: 48px; width: 75px;"
+        style="top: 0px; height: 48px; width: 56px;"
         tabindex="0"
       >
         10
@@ -850,6 +795,61 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
+
+snapshots["sbb-paginator renders with options A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page"
+    },
+    {
+      "role": "button",
+      "name": "Page 1"
+    },
+    {
+      "role": "button",
+      "name": "Page 2"
+    },
+    {
+      "role": "button",
+      "name": "Page 3"
+    },
+    {
+      "role": "button",
+      "name": "Page 4"
+    },
+    {
+      "role": "button",
+      "name": "Page 5"
+    },
+    {
+      "role": "text",
+      "name": "Items per page"
+    },
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "combobox",
+      "name": "",
+      "haspopup": "listbox",
+      "value": "10"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-paginator renders with options A11y tree Chrome */
 
 snapshots["sbb-paginator renders with options A11y tree Firefox"] = 
 `<p>
