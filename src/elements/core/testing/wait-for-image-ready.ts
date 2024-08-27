@@ -1,4 +1,4 @@
-import { aTimeout } from '@open-wc/testing';
+// TODO(breaking-change): Move to private testing and use aTimeout()
 
 import type { SbbImageElement } from '../../image.js';
 import { isSafari } from '../dom.js';
@@ -9,9 +9,9 @@ async function triggerImageRendering(
   imgElement: HTMLImageElement | SbbImageElement,
 ): Promise<void> {
   imgElement.style.width = '1px';
-  await aTimeout(0);
+  await new Promise((resolve) => setTimeout(resolve, 0));
   imgElement.style.removeProperty('width');
-  await aTimeout(0);
+  await new Promise((resolve) => setTimeout(resolve, 0));
 }
 
 export async function waitForImageReady(
