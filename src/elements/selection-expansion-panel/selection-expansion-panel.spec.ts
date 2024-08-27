@@ -693,4 +693,96 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(checkboxes[5]).not.to.have.attribute('disabled');
     });
   });
+
+  describe.only('size s', () => {
+    it('checkbox group', async () => {
+      const root = await fixture(html`
+        <sbb-checkbox-group size="s">
+          <sbb-selection-expansion-panel id="one">
+            <sbb-checkbox-panel> Value 1 </sbb-checkbox-panel>
+            <div slot="content">Inner content</div>
+          </sbb-selection-expansion-panel>
+          <sbb-selection-expansion-panel id="two">
+            <sbb-checkbox-panel> Value 2 </sbb-checkbox-panel>
+            <div slot="content">Inner content</div>
+          </sbb-selection-expansion-panel>
+        </sbb-checkbox-group>
+      `);
+      await waitForLitRender(root);
+      expect(
+        root.querySelector('sbb-selection-expansion-panel#one')!.getAttribute('data-size'),
+      ).to.be.equal('s');
+      expect(
+        root.querySelector('sbb-selection-expansion-panel#two')!.getAttribute('data-size'),
+      ).to.be.equal('s');
+      root.setAttribute('size', 'm');
+      await waitForLitRender(root);
+      expect(
+        root.querySelector('sbb-selection-expansion-panel#one')!.getAttribute('data-size'),
+      ).to.be.equal('m');
+      expect(
+        root.querySelector('sbb-selection-expansion-panel#two')!.getAttribute('data-size'),
+      ).to.be.equal('m');
+    });
+
+    it('checkbox panel', async () => {
+      const root = await fixture(html`
+        <sbb-selection-expansion-panel>
+          <sbb-checkbox-panel size="s"> Value </sbb-checkbox-panel>
+          <div slot="content">Inner content</div>
+        </sbb-selection-expansion-panel>
+      `);
+      await waitForLitRender(root);
+      expect(root.getAttribute('data-size')).to.be.equal('s');
+      const panel = root.querySelector('sbb-checkbox-panel')!;
+      panel.setAttribute('size', 'm');
+      await waitForLitRender(root);
+      expect(root.getAttribute('data-size')).to.be.equal('m');
+    });
+
+    it('radio group', async () => {
+      const root = await fixture(html`
+        <sbb-radio-button-group size="s">
+          <sbb-selection-expansion-panel id="one">
+            <sbb-radio-button-panel> Value 1 </sbb-radio-button-panel>
+            <div slot="content">Inner content</div>
+          </sbb-selection-expansion-panel>
+          <sbb-selection-expansion-panel id="two">
+            <sbb-radio-button-panel> Value 2 </sbb-radio-button-panel>
+            <div slot="content">Inner content</div>
+          </sbb-selection-expansion-panel>
+        </sbb-radio-button-group>
+      `);
+      await waitForLitRender(root);
+      expect(
+        root.querySelector('sbb-selection-expansion-panel#one')!.getAttribute('data-size'),
+      ).to.be.equal('s');
+      expect(
+        root.querySelector('sbb-selection-expansion-panel#two')!.getAttribute('data-size'),
+      ).to.be.equal('s');
+      root.setAttribute('size', 'm');
+      await waitForLitRender(root);
+      expect(
+        root.querySelector('sbb-selection-expansion-panel#one')!.getAttribute('data-size'),
+      ).to.be.equal('m');
+      expect(
+        root.querySelector('sbb-selection-expansion-panel#two')!.getAttribute('data-size'),
+      ).to.be.equal('m');
+    });
+
+    it('radio panel', async () => {
+      const root = await fixture(html`
+        <sbb-selection-expansion-panel>
+          <sbb-radio-button-panel size="s"> Value </sbb-radio-button-panel>
+          <div slot="content">Inner content</div>
+        </sbb-selection-expansion-panel>
+      `);
+      await waitForLitRender(root);
+      expect(root.getAttribute('data-size')).to.be.equal('s');
+      const panel = root.querySelector('sbb-radio-button-panel')!;
+      panel.setAttribute('size', 'm');
+      await waitForLitRender(root);
+      expect(root.getAttribute('data-size')).to.be.equal('m');
+    });
+  });
 });
