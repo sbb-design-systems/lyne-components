@@ -685,7 +685,13 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
   }
 
-  private async _deferredDisplayValue(placeholder: TemplateResult): Promise<TemplateResult | null> {
+  private _spreadDeferredDisplayValue(
+    placeholder: TemplateResult,
+  ): (TemplateResult | Promise<TemplateResult>)[] {
+    return [this._deferredDisplayValue(placeholder), placeholder];
+  }
+
+  private async _deferredDisplayValue(placeholder: TemplateResult): Promise<TemplateResult> {
     if (this.hydrationRequired) {
       await this.hydrationComplete;
     }
@@ -693,10 +699,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   protected override render(): TemplateResult {
-    const placeholder = html`<span class="sbb-select__trigger--placeholder">
-      ${this.placeholder}
-    </span>`;
-
     return html`
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
@@ -713,12 +715,16 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
         @click=${this._toggleOpening}
         ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
       >
-        ${until(this._deferredDisplayValue(placeholder), placeholder)}
+        ${until(...this._spreadDeferredDisplayValue(html`<span>${this.placeholder}</span>`))}
       </div>
 
       <!-- Visually display the value -->
       <div class="sbb-select__trigger" aria-hidden="true">
-        ${until(this._deferredDisplayValue(placeholder), placeholder)}
+        ${until(
+          ...this._spreadDeferredDisplayValue(
+            html`<span class="sbb-select__trigger--placeholder">${this.placeholder}</span>`,
+          ),
+        )}
       </div>
 
       <div class="sbb-select__gap-fix"></div>
