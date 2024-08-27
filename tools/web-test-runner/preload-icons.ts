@@ -22,8 +22,6 @@ const preloadIconList = [
   'bicycle-medium',
   'calendar-small',
   'cancellation',
-  'chevron-left-small',
-  'chevron-right-small',
   'chevron-small-down-medium',
   'chevron-small-down-small',
   'chevron-small-left-small',
