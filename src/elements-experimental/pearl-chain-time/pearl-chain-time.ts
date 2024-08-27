@@ -54,6 +54,11 @@ export class SbbPearlChainTimeElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
+  /**
+   * TODO: comment
+   */
+  @property({ attribute: 'a11y-footpath', type: Boolean }) public a11yFootpath?: boolean;
+
   /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
   @property()
   public set now(value: SbbDateLike | undefined) {

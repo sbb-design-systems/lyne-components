@@ -227,6 +227,11 @@ export class SbbTimetableRowElement extends LitElement {
   @property({ attribute: 'loading-trip', type: Boolean }) public loadingTrip = false;
 
   /**
+   * The Footpath attribute for rendering different icons
+   */
+  @property({ attribute: 'a11y-footpath', type: Boolean }) public a11yFootpath?: boolean;
+
+  /**
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
@@ -539,6 +544,7 @@ export class SbbTimetableRowElement extends LitElement {
             .departureWalk=${departureWalk}
             .arrivalWalk=${arrivalWalk}
             ?disable-animation=${this.disableAnimation}
+            ?a11y-footpath=${this.a11yFootpath}
             .now=${this.now}
           ></sbb-pearl-chain-time>
           <div class="sbb-timetable__row-footer" role="gridcell">

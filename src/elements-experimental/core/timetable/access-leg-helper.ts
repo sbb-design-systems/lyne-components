@@ -158,6 +158,7 @@ export function getDepartureArrivalTimeAttribute(
   departureWalk: number,
   arrivalWalk: number,
   currentLanguage: string,
+  a11yFootpath?: boolean,
 ): {
   renderDepartureTimeAttribute: () => TemplateResult;
   renderArrivalTimeAttribute: () => TemplateResult;
@@ -195,6 +196,16 @@ export function getDepartureArrivalTimeAttribute(
   };
 
   function renderDepartureTimeAttribute(): TemplateResult {
+    if (a11yFootpath) {
+      renderTransferTime(
+        connectionFirstLeg?.duration || 0,
+        'wheelchair-small',
+        currentLanguage,
+        connectionFirstLeg?.text || '',
+        'departure',
+      );
+    }
+
     return html`
       ${connectionFirstLeg
         ? renderWalkTime(connectionFirstLeg.duration, connectionFirstLeg.text, 'left')
