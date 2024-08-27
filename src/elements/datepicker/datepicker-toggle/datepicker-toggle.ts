@@ -159,8 +159,8 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
 
   private _datePickerChanged(event: Event): void {
     this._datePickerElement = event.target as SbbDatepickerElement<T>;
-    if (this._calendarElement && this._datePickerElement.valueAsDate) {
-      this._calendarElement.selected = this._datePickerElement.valueAsDate;
+    if (this._calendarElement) {
+      this._calendarElement.selected = this._datePickerElement.valueAsDate || undefined;
     }
   }
 
