@@ -48,7 +48,7 @@ export class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   @property({ reflect: true })
   public orientation: SbbOrientation = 'horizontal';
 
-  /** Size variant, either l or m. */
+  /** Size variant, either s or m. */
   @property({ reflect: true }) public size: 's' | 'm' = 'm';
 
   /** The currently selected step. */
