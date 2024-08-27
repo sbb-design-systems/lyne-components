@@ -93,7 +93,7 @@ describe(`sbb-stepper`, () => {
       it(
         `orientation=${orientation} size=s`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(false, orientation, true, undefined, 's'));
+          await setup.withFixture(template(false, orientation, false, undefined, 's'));
         }),
       );
     }
