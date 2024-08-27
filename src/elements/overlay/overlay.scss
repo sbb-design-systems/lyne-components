@@ -9,9 +9,7 @@
   --sbb-overlay-background-color: var(--sbb-color-milk);
   --sbb-overlay-height: 100%;
   --sbb-overlay-inset: 0 auto auto 0;
-  --sbb-overlay-padding-block: calc(
-    var(--sbb-spacing-responsive-xxl) + var(--sbb-spacing-responsive-l)
-  );
+  --sbb-overlay-padding-block: calc(var(--sbb-spacing-fixed-14x) + var(--sbb-spacing-responsive-l));
   --sbb-overlay-animation-duration: var(
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-6x)
@@ -23,10 +21,6 @@
   position: fixed;
   inset: var(--sbb-overlay-inset);
   z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-default-z-index));
-
-  @include sbb.mq($from: large) {
-    --sbb-overlay-padding-block: var(--sbb-spacing-responsive-xl);
-  }
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {

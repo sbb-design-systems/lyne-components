@@ -12,6 +12,7 @@ import '../alert.js';
 import '../breadcrumb.js';
 import '../image.js';
 import '../link/block-link/block-link.js';
+import '../notification.js';
 import '../title.js';
 import './lead-container.js';
 
@@ -27,7 +28,7 @@ describe(`sbb-lead-container`, () => {
     <sbb-lead-container>
       <style>
         p.other-content {
-          margin-block-end: 0;
+          margin-block: 0;
         }
       </style>
       ${image}
@@ -59,6 +60,11 @@ describe(`sbb-lead-container`, () => {
         tincidunt quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit
         risus.
       </p>
+      <sbb-notification type="info" class="sbb-lead-container-spacing">
+        Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at
+        augue quis tellus vulputate tempor. Vivamus urna velit, varius nec est ac, mollis efficitur
+        lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat metus.
+      </sbb-notification>
       <p class="sbb-text-m other-content">
         Other content. Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula.
         Suspendisse at augue quis tellus vulputate tempor. Vivamus urna velit, varius nec est ac,

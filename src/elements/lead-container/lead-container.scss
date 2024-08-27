@@ -52,6 +52,10 @@
   margin-block-start: 0;
 }
 
+::slotted(sbb-notification.sbb-lead-container-spacing) {
+  margin-block-end: var(--sbb-spacing-responsive-xxxs);
+}
+
 ::slotted(.sbb-lead-container-lead-text) {
   margin-block: 0 var(--sbb-spacing-responsive-s);
 }

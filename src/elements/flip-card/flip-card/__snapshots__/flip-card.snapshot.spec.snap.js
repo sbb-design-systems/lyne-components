@@ -42,7 +42,6 @@ snapshots["sbb-flip-card DOM"] =
     <sbb-image
       aspect-ratio="16-9"
       border-radius="default"
-      image-src="http://localhost:8000/src/elements/core/testing/assets/placeholder-image.png"
       slot="image"
     >
     </sbb-image>
@@ -91,10 +90,19 @@ snapshots["sbb-flip-card Shadow DOM"] =
     class="sbb-flip-card--toggle-button"
     data-action=""
     data-sbb-button=""
+    data-slot-names="icon"
     dir="ltr"
-    icon-name="plus-small"
     size="s"
   >
+    <sbb-icon
+      aria-hidden="true"
+      class="sbb-flip-card--toggle-button-icon"
+      data-namespace="default"
+      name="plus-small"
+      role="img"
+      slot="icon"
+    >
+    </sbb-icon>
   </sbb-secondary-button-static>
 </div>
 `;

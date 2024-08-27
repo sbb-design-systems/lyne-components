@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { CalendarView, SbbCalendarElement } from '../../calendar.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { SbbLanguageController } from '../../core/controllers.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
@@ -45,16 +45,12 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
   @state() private _renderCalendar = false;
 
   private _datePickerElement: SbbDatepickerElement<T> | null | undefined;
-
   private _calendarElement!: SbbCalendarElement<T>;
-
   private _triggerElement!: SbbPopoverTriggerElement;
-
   private _popoverElement!: SbbPopoverElement;
-
   private _datePickerController!: AbortController;
-
   private _language = new SbbLanguageController(this);
+  private _abort = new SbbConnectedAbortController(this);
 
   public constructor() {
     super();
@@ -83,6 +79,16 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
     if (formField) {
       this.negative = formField.hasAttribute('negative');
     }
+
+    this.addEventListener(
+      'click',
+      (event) => {
+        if (event.composedPath()[0] === this) {
+          this.open();
+        }
+      },
+      { signal: this._abort.signal },
+    );
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
