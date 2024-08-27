@@ -2,8 +2,15 @@ import type { SbbImageElement } from '../../image.js';
 import { isSafari } from '../dom.js';
 
 // Images in Safari are sometimes not displayed, even if it is complete or the load event was fired.
-// With an additional waiting time, it gets more stable.
-const safariAdditionalWaitTime = 250;
+// After resizing, the image does render.
+async function triggerImageRendering(
+  imgElement: HTMLImageElement | SbbImageElement,
+): Promise<void> {
+  imgElement.style.width = '1px';
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  imgElement.style.removeProperty('width');
+  await new Promise((resolve) => setTimeout(resolve, 0));
+}
 
 export async function waitForImageReady(
   element: HTMLImageElement | SbbImageElement,
@@ -14,18 +21,17 @@ export async function waitForImageReady(
       const timeout = setTimeout(() => reject('image loading timeout'), timeoutInMilliseconds);
       element.addEventListener('load', () => {
         clearTimeout(timeout);
-        if (isSafari) {
-          setTimeout(resolve, safariAdditionalWaitTime);
-        } else {
-          resolve();
+        if (isSafari && element instanceof HTMLImageElement) {
+          triggerImageRendering(element).then(resolve);
         }
+        resolve();
       });
       element.addEventListener('error', () => {
         clearTimeout(timeout);
         reject('image error');
       });
     });
-  } else if (isSafari) {
-    await new Promise((resolve) => setTimeout(resolve, safariAdditionalWaitTime));
+  } else if (isSafari && element instanceof HTMLImageElement) {
+    await triggerImageRendering(element);
   }
 }

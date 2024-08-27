@@ -56,7 +56,7 @@ const template = ({
   <sbb-teaser-product ?negative=${negative} image-alignment=${imageAlignment || nothing} href="#">
     ${slottedImg
       ? html`<img slot="image" src=${imageBase64} alt="" />`
-      : html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`}
+      : html`<sbb-image slot="image" image-src=${imageUrl} skip-lqip></sbb-image>`}
     ${content(longContent)} ${showFooter ? footer() : nothing}
   </sbb-teaser-product>
 `;
