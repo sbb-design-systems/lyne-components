@@ -1,7 +1,9 @@
 import type { SbbImageElement } from '../../image.js';
 import { isSafari } from '../dom.js';
 
-const safariAdditionalWaitTime = 1000;
+// Images in Safari are sometimes not displayed, even if it is complete or the load event was fired.
+// With an additional waiting time, it gets more stable.
+const safariAdditionalWaitTime = 250;
 
 export async function waitForImageReady(
   element: HTMLImageElement | SbbImageElement,

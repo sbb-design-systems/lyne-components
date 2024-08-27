@@ -82,20 +82,16 @@ describe('sbb-teaser-product', () => {
             }
           });
         }
-
-        it(
-          `imageAlignment=before`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(
-              template({ imageAlignment: 'before', showFooter: true, slottedImg }),
-            );
-            await waitForImageReady(
-              setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
-            );
-          }),
-        );
       });
     }
+
+    it(
+      `imageAlignment=before`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ imageAlignment: 'before', showFooter: true }));
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+      }),
+    );
 
     it(
       'no footer',
