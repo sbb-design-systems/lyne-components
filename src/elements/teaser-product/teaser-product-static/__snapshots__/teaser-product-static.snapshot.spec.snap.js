@@ -11,7 +11,6 @@ snapshots["sbb-teaser-product-static renders DOM"] =
   <sbb-image
     aspect-ratio="16-9"
     border-radius="default"
-    image-src="http://localhost:8000/src/elements/core/testing/assets/placeholder-image.png"
     slot="image"
   >
   </sbb-image>
