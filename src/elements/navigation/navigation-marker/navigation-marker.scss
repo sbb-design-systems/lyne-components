@@ -50,7 +50,7 @@
     opacity: 0;
     inset-inline-start: var(--sbb-navigation-marker-position-x);
     inset-block-start: var(--sbb-navigation-marker-position-y);
-    width: var(--sbb-navigation-marker-width);
+    inline-size: var(--sbb-navigation-marker-width);
     border-block-start: var(--sbb-navigation-marker-border) solid var(--sbb-color-storm);
     margin-block: var(--sbb-navigation-marker-margin-block);
     transition: {

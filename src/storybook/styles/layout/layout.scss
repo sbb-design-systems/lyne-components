@@ -5,7 +5,7 @@
 .visualized-grid div {
   @include sbb.development-style;
 
-  height: 100px;
+  block-size: 100px;
 }
 
 .visualized-grid div {

@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: var(--sbb-train-wagon-width);
+  inline-size: var(--sbb-train-wagon-width);
   gap: var(--sbb-train-wagon-gap);
 }
 
@@ -38,7 +38,7 @@
     'label label' auto
     'occupancy class' 1fr / 1fr 1fr;
   position: relative;
-  width: 100%;
+  inline-size: 100%;
 
   // Reserve space because there is no content in the closed wagon
   &::before {
@@ -46,7 +46,7 @@
     :host(:not([data-has-visible-wagon-content])) & {
       content: '';
       grid-area: occupancy / span 2;
-      height: var(--sbb-train-wagon-height);
+      block-size: var(--sbb-train-wagon-height);
     }
   }
 
@@ -56,8 +56,8 @@
     position: absolute;
     inset-inline: 0;
     inset-block: auto 0;
-    width: var(--sbb-train-wagon-width);
-    height: var(--sbb-train-wagon-height);
+    inline-size: var(--sbb-train-wagon-width);
+    block-size: var(--sbb-train-wagon-height);
     border-radius: var(--sbb-train-wagon-shape-border-radius);
 
     :host([type='wagon']) & {
@@ -72,7 +72,7 @@
 
 .sbb-train-wagon__occupancy,
 .sbb-train-wagon__class {
-  height: var(--sbb-train-wagon-height);
+  block-size: var(--sbb-train-wagon-height);
   display: flex;
   align-items: center;
 }
@@ -83,7 +83,7 @@
   grid-area: label;
   text-align: center;
   display: var(--sbb-train-formation-wagon-label-display, inline-block);
-  min-height: calc(1em * var(--sbb-typo-line-height-body-text));
+  min-block-size: calc(1em * var(--sbb-typo-line-height-body-text));
 }
 
 .sbb-train-wagon__occupancy {

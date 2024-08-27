@@ -46,9 +46,9 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--sbb-expansion-panel-header-gap);
-  width: 100%;
-  padding: var(--sbb-expansion-panel-header-padding-block)
-    var(--sbb-expansion-panel-header-padding-inline);
+  inline-size: 100%;
+  padding-block: var(--sbb-expansion-panel-header-padding-block);
+  padding-inline: var(--sbb-expansion-panel-header-padding-inline);
   text-align: start;
   cursor: var(--sbb-expansion-panel-header-cursor);
   color: var(--sbb-expansion-panel-header-text-color);
@@ -62,7 +62,7 @@
 }
 
 .sbb-expansion-panel-header__icon {
-  width: var(--sbb-expansion-panel-icon-size);
+  inline-size: var(--sbb-expansion-panel-icon-size);
 
   --sbb-icon-svg-width: var(--sbb-expansion-panel-icon-size);
   --sbb-icon-svg-height: var(--sbb-expansion-panel-icon-size);

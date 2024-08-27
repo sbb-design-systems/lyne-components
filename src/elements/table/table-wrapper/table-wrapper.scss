@@ -10,7 +10,7 @@
 }
 
 ::slotted(.sbb-table) {
-  width: 100%;
+  inline-size: 100%;
 }
 
 .sbb-table-wrapper {
@@ -23,6 +23,6 @@
   }
 
   :host([data-has-horizontal-scrollbar]) & {
-    padding-bottom: var(--sbb-spacing-fixed-1x);
+    padding-block-end: var(--sbb-spacing-fixed-1x);
   }
 }

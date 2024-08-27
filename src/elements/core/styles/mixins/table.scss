@@ -53,36 +53,36 @@
 @mixin table-header-cell {
   @include typo.text-xs--bold;
 
-  border-bottom: var(--sbb-table-border);
-  border-right: var(--sbb-table-border);
+  border-block-end: var(--sbb-table-border);
+  border-inline-end: var(--sbb-table-border);
   padding-block: var(--sbb-table-header-padding-block);
   padding-inline: var(--sbb-table-header-padding-inline);
-  text-align: left;
+  text-align: start;
 
   // To avoid double border
   &:last-of-type {
-    border-right: none;
+    border-inline-end: none;
   }
 }
 
 @mixin table-data-row {
   // To avoid double borders
   &:first-of-type td {
-    border-top: none;
+    border-block-start: none;
   }
 }
 
 @mixin table-data-cell {
   @include typo.text-s--regular;
 
-  border-top: var(--sbb-table-border);
-  border-right: var(--sbb-table-border);
+  border-block-start: var(--sbb-table-border);
+  border-inline-end: var(--sbb-table-border);
   padding-block: var(--sbb-table-cell-padding-block);
   padding-inline: var(--sbb-table-cell-padding-inline);
 
   // To avoid double border
   &:last-of-type {
-    border-right: none;
+    border-inline-end: none;
   }
 }
 
@@ -92,7 +92,7 @@
   // Defaults are needed for cases where the caption is used outside a table
   color: var(--sbb-table-caption-color, var(--sbb-color-granite));
   margin-block-start: var(--sbb-table-caption-margin-block-start, var(--sbb-spacing-fixed-4x));
-  text-align: left;
+  text-align: start;
 }
 
 @mixin table--striped {

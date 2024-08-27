@@ -32,17 +32,17 @@
 }
 
 @mixin pearl-chain-bullet-start-end {
-  min-height: var(--sbb-pearl-chain-bullet-size-start-end);
-  min-width: var(--sbb-pearl-chain-bullet-size-start-end);
-  height: var(--sbb-pearl-chain-bullet-size-start-end);
-  width: var(--sbb-pearl-chain-bullet-size-start-end);
+  min-block-size: var(--sbb-pearl-chain-bullet-size-start-end);
+  min-inline-size: var(--sbb-pearl-chain-bullet-size-start-end);
+  block-size: var(--sbb-pearl-chain-bullet-size-start-end);
+  inline-size: var(--sbb-pearl-chain-bullet-size-start-end);
 }
 
 @mixin pearl-chain-bullet-stop {
-  min-height: var(--sbb-pearl-chain-bullet-size-stop);
-  min-width: var(--sbb-pearl-chain-bullet-size-stop);
-  height: var(--sbb-pearl-chain-bullet-size-stop);
-  width: var(--sbb-pearl-chain-bullet-size-stop);
+  min-block-size: var(--sbb-pearl-chain-bullet-size-stop);
+  min-inline-size: var(--sbb-pearl-chain-bullet-size-stop);
+  block-size: var(--sbb-pearl-chain-bullet-size-stop);
+  inline-size: var(--sbb-pearl-chain-bullet-size-stop);
   border: var(--sbb-pearl-chain-bullet-border-width) solid currentcolor;
   background: Canvas;
 }
@@ -78,8 +78,8 @@
     transform: translate(-50%, -50%) rotate(45deg);
     border-block-start: var(--sbb-pearl-chain-bullet-crossed-border-width) solid canvas;
     background: var(--sbb-pearl-chain-bullet-color-disruption);
-    height: var(--sbb-pearl-chain-bullet-crossed-height);
-    width: var(--sbb-pearl-chain-bullet-crossed-width);
+    block-size: var(--sbb-pearl-chain-bullet-crossed-height);
+    inline-size: var(--sbb-pearl-chain-bullet-crossed-width);
 
     @include a11y.if-forced-colors {
       background: Highlight;

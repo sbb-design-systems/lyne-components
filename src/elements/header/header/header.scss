@@ -7,7 +7,7 @@
   display: block;
 
   // Setting the height here reserves the space for the header which will else be lost with fixed position.
-  height: var(--sbb-header-height);
+  block-size: var(--sbb-header-height);
 
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
@@ -54,7 +54,8 @@
 
 .sbb-header {
   position: var(--sbb-header-position);
-  inset: 0 var(--sbb-header-inset-inline-end) auto 0;
+  inset-block: 0 auto;
+  inset-inline: 0 var(--sbb-header-inset-inline-end);
   background: var(--sbb-color-white);
   z-index: var(--sbb-header-z-index, 10);
   transform: var(--sbb-header-transform);
@@ -82,7 +83,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: var(--sbb-header-height);
+  block-size: var(--sbb-header-height);
 
   :host(:not([expanded])) & {
     @include sbb.page-spacing;
@@ -111,7 +112,7 @@
 
 ::slotted(.sbb-header-shrinkable) {
   flex-shrink: 1;
-  min-width: 0;
+  min-inline-size: 0;
 }
 
 ::slotted(.sbb-header-spacer) {
@@ -134,7 +135,8 @@
   content: '';
   display: block;
   position: absolute;
-  inset: var(--sbb-spacing-fixed-3x) 0;
+  inset-block: var(--sbb-spacing-fixed-3x);
+  inset-inline: 0;
 }
 
 // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.

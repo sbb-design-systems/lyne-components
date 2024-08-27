@@ -48,7 +48,7 @@
 
 ::slotted(sbb-autocomplete-grid-option) {
   flex: 1 1 auto;
-  margin-right: calc(-1 * var(--sbb-spacing-fixed-2x));
+  margin-inline-end: calc(-1 * var(--sbb-spacing-fixed-2x));
 }
 
 .sbb-autocomplete-grid-row {

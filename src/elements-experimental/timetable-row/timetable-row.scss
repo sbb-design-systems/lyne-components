@@ -37,7 +37,7 @@
 }
 
 .sbb-timetable__row--quay-type {
-  float: left;
+  float: inline-start;
 }
 
 // resets lists
@@ -138,12 +138,12 @@ li {
 }
 
 .sbb-loading__row {
-  width: 100%;
+  inline-size: 100%;
   border-radius: var(--sbb-border-radius-1x);
-  height: var(--sbb-timetable-row-height);
+  block-size: var(--sbb-timetable-row-height);
 
   @include sbb.mq($from: medium) {
-    height: #{sbb.px-to-rem-build(28)};
+    block-size: #{sbb.px-to-rem-build(28)};
   }
 
   @include sbb.if-forced-colors {
@@ -158,12 +158,12 @@ li {
 }
 
 .sbb-loading__row:first-of-type {
-  height: var(--sbb-timetable-row-height-header);
-  width: 50%;
+  block-size: var(--sbb-timetable-row-height-header);
+  inline-size: 50%;
 }
 
 .sbb-loading__row:last-of-type {
-  height: var(--sbb-timetable-row-height-footer);
+  block-size: var(--sbb-timetable-row-height-footer);
 }
 
 .sbb-loading__badge {
@@ -171,8 +171,8 @@ li {
   padding-inline-end: var(--sbb-spacing-fixed-6x);
   border-end-start-radius: var(--sbb-border-radius-4x);
   transform: skew(16deg, 0deg);
-  width: #{sbb.px-to-rem-build(115)};
-  height: #{sbb.px-to-rem-build(20)};
+  inline-size: #{sbb.px-to-rem-build(115)};
+  block-size: #{sbb.px-to-rem-build(20)};
 }
 
 @keyframes skeleton-pulse {

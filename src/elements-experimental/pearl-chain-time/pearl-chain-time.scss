@@ -22,7 +22,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  height: var(--sbb-pearl-chain-time-height);
+  block-size: var(--sbb-pearl-chain-time-height);
 }
 
 .sbb-pearl-chain__time-walktime,
@@ -43,7 +43,7 @@
 }
 
 .sbb-pearl-chain__time-walktime-prime-symbol {
-  float: right;
+  float: inline-end;
 }
 
 .sbb-pearl-chain__time-transfer {

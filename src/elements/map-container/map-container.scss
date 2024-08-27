@@ -38,13 +38,13 @@
     grid-template-columns: max(var(--sbb-map-container-sidebar-width)) calc(
         100% - var(--sbb-map-container-sidebar-width)
       );
-    height: calc(100vh - var(--sbb-map-container-margin-start, var(--sbb-header-height)));
+    block-size: calc(100vh - var(--sbb-map-container-margin-start, var(--sbb-header-height)));
   }
 }
 
 .sbb-map-container__sidebar-button {
   position: fixed;
-  left: 50%;
+  inset-inline-start: 50%;
   inset-block-end: var(--sbb-spacing-fixed-5x);
   visibility: hidden;
   opacity: 0;
@@ -79,7 +79,7 @@
   & {
     grid-column: 1 / 3;
     grid-row: 2 / 3;
-    width: 100%;
+    inline-size: 100%;
     overflow: hidden auto;
     position: relative;
     border-start-end-radius: var(--sbb-map-container-border-radius);
@@ -106,7 +106,7 @@
 
   // We use "to: medium" to avoid resetting the styles
   @include sbb.mq($to: medium) {
-    height: var(--sbb-map-container-map-height);
+    block-size: var(--sbb-map-container-map-height);
   }
 
   @include sbb.mq($from: medium) {

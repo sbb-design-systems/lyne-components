@@ -7,7 +7,7 @@
   display: block;
 
   // We add width definition to host, to make overwriting easy for consumers.
-  width: max-content;
+  inline-size: max-content;
 
   --sbb-calendar-cell-size: #{sbb.px-to-rem-build(40)};
   --sbb-calendar-hover-shift: #{sbb.px-to-rem-build(1)};
@@ -46,13 +46,13 @@
 }
 
 .sbb-calendar__wrapper {
-  width: 100%;
+  inline-size: 100%;
   display: block;
   transition-duration: var(--sbb-calendar-cell-transition-duration);
 }
 
 .sbb-calendar__controls {
-  width: 100%;
+  inline-size: 100%;
   display: inline-flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
@@ -60,7 +60,7 @@
 }
 
 .sbb-calendar__controls-month {
-  width: 100%;
+  inline-size: 100%;
   display: flex;
   gap: var(--sbb-calendar-tables-gap);
 }
@@ -77,7 +77,7 @@
   display: flex;
   align-items: center;
   margin: auto;
-  height: var(--sbb-calendar-control-view-change-height);
+  block-size: var(--sbb-calendar-control-view-change-height);
   text-transform: capitalize;
   cursor: pointer;
   padding-inline: var(--sbb-spacing-fixed-5x) var(--sbb-spacing-fixed-2x);
@@ -148,9 +148,9 @@
 }
 
 .sbb-calendar__table {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
-  height: max-content;
+  block-size: max-content;
 
   animation: {
     name: show;
@@ -169,7 +169,7 @@
   :host(:not([data-wide])) & {
     // Due to a Safari iOS rendering bug we need to define min-width as well.
     // Otherwise, after orientation change, there is a wrong width if placed in an sbb-dialog.
-    min-width: 100%;
+    min-inline-size: 100%;
   }
 }
 
@@ -177,7 +177,7 @@
   @include sbb.text-xs--regular;
 
   color: var(--sbb-calendar-header-color);
-  width: var(--sbb-calendar-cell-size);
+  inline-size: var(--sbb-calendar-cell-size);
   padding: 0;
   padding-block-end: var(--sbb-spacing-fixed-4x);
 
@@ -195,7 +195,7 @@
   @include sbb.button-reset;
   @include sbb.text-s--regular;
 
-  height: var(--sbb-calendar-cell-size);
+  block-size: var(--sbb-calendar-cell-size);
   color: var(--sbb-calendar-cell-color);
   cursor: pointer;
   position: relative;
@@ -250,7 +250,7 @@
 
 .sbb-calendar__day {
   border-radius: 50%;
-  width: var(--sbb-calendar-cell-size);
+  inline-size: var(--sbb-calendar-cell-size);
 
   &::before {
     border-radius: 50%;
@@ -258,7 +258,7 @@
 }
 
 .sbb-calendar__pill {
-  width: var(--sbb-calendar-wide-cell-size);
+  inline-size: var(--sbb-calendar-wide-cell-size);
   border-radius: var(--sbb-border-radius-infinity);
 
   &::before {
@@ -268,12 +268,12 @@
 
 .sbb-calendar__crossed-out::after {
   content: '';
-  height: var(--sbb-calendar-cell-disabled-height);
-  width: var(--sbb-calendar-cell-disabled-width);
+  block-size: var(--sbb-calendar-cell-disabled-height);
+  inline-size: var(--sbb-calendar-cell-disabled-width);
   position: absolute;
   background-color: var(--sbb-calendar-cell-disabled-color);
-  top: 50%;
-  left: 50%;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 

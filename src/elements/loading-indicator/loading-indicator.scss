@@ -40,8 +40,8 @@
 
 :host([variant='circle']) .sbb-loading-indicator {
   display: inline-flex;
-  height: auto;
-  width: auto;
+  block-size: auto;
+  inline-size: auto;
   padding-inline: var(--sbb-loading-indicator-padding);
   padding-block: var(--sbb-loading-indicator-padding);
   vertical-align: middle;
@@ -49,12 +49,13 @@
 }
 
 :host([variant='circle']) .sbb-loading-indicator__animated-element {
-  width: 1.25em;
-  height: 1.25em;
+  inline-size: 1.25em;
+  block-size: 1.25em;
   display: inline-block;
   color: transparent;
   position: relative;
-  margin: 0 auto;
+  margin-block: 0;
+  margin-inline: auto;
   overflow: hidden;
   border-radius: 50%;
   background: var(--sbb-loading-indicator-circle-background);
@@ -69,13 +70,13 @@
 
   &::after {
     content: '';
-    width: var(--sbb-loading-indicator-circle-animated-width);
-    height: var(--sbb-loading-indicator-circle-animated-height);
+    inline-size: var(--sbb-loading-indicator-circle-animated-width);
+    block-size: var(--sbb-loading-indicator-circle-animated-height);
     background: var(--sbb-loading-indicator-color);
     border-radius: var(--sbb-loading-indicator-circle-animated-border-radius);
     position: absolute;
-    top: 50%;
-    right: 0;
+    inset-block-start: 50%;
+    inset-inline-end: 0;
     transform: translateY(-50%);
     overflow: hidden;
     margin: auto;
@@ -143,18 +144,19 @@
 
 :host([variant='window']) .sbb-loading-indicator {
   display: flex;
-  height: var(--sbb-loading-indicator-window-height);
+  block-size: var(--sbb-loading-indicator-window-height);
   padding-block-start: var(--sbb-loading-indicator-window-padding-block-start);
 }
 
 :host([variant='window']) .sbb-loading-indicator__animated-element {
-  margin: 0 auto;
+  margin-block: 0;
+  margin-inline: auto;
   transform-origin: center;
   transform: translate3d(-3em, 0, 0);
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  width: var(--sbb-loading-indicator-window-element-width);
-  height: var(--sbb-loading-indicator-window-element-height);
+  inline-size: var(--sbb-loading-indicator-window-element-width);
+  block-size: var(--sbb-loading-indicator-window-element-height);
   perspective: var(--sbb-loading-indicator-window-element-perspective);
 }
 
@@ -178,9 +180,9 @@
   background: var(--sbb-loading-indicator-color);
   backface-visibility: hidden;
   outline: var(--sbb-border-width-1x) solid rgb(0 0 0 / 0%);
-  width: var(--sbb-loading-indicator-window-last-span-width);
-  height: var(--sbb-loading-indicator-window-last-span-height);
-  margin-right: var(--sbb-loading-indicator-window-last-span-margin);
+  inline-size: var(--sbb-loading-indicator-window-last-span-width);
+  block-size: var(--sbb-loading-indicator-window-last-span-height);
+  margin-inline-end: var(--sbb-loading-indicator-window-last-span-margin);
   transform: var(--sbb-loading-indicator-window-last-span-transform);
 
   &:nth-child(1) {
@@ -204,7 +206,7 @@
   }
 
   &:last-child {
-    margin-right: 0;
+    margin-inline-end: 0;
   }
 }
 

@@ -45,7 +45,7 @@
 
   padding-block: var(--sbb-spacing-fixed-1x);
   padding-inline: var(--sbb-spacing-fixed-1x);
-  height: var(--sbb-size-icon-ui-small);
+  block-size: var(--sbb-size-icon-ui-small);
 }
 
 .sbb-mini-button-group {
@@ -55,8 +55,8 @@
   flex-wrap: nowrap;
   align-items: center;
   gap: var(--sbb-mini-button-group-gap);
-  width: fit-content;
-  min-height: var(--sbb-mini-button-group-min-height);
+  inline-size: fit-content;
+  min-block-size: var(--sbb-mini-button-group-min-height);
   background-color: var(--sbb-mini-button-group-background);
   border: var(--sbb-mini-button-group-border);
   border-radius: var(--sbb-border-radius-infinity);

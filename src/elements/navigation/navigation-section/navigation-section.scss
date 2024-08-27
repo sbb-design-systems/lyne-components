@@ -27,8 +27,8 @@
   grid-column: var(--sbb-navigation-section-column);
   inset-inline-start: 0;
   inset-block-start: 0;
-  width: var(--sbb-navigation-section-width);
-  height: var(--sbb-navigation-section-height);
+  inline-size: var(--sbb-navigation-section-width);
+  block-size: var(--sbb-navigation-section-height);
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
 
   // Needed for backwards compatibility
@@ -100,15 +100,15 @@
 
 .sbb-navigation-section__container {
   pointer-events: var(--sbb-navigation-section-pointer-events);
-  height: var(--sbb-navigation-section-height);
+  block-size: var(--sbb-navigation-section-height);
 }
 
 .sbb-navigation-section {
   display: none;
   border: none;
   margin: 0;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   color: var(--sbb-color-white);
   background-color: transparent;
   padding: 0;
@@ -137,7 +137,7 @@
   @include sbb.scrollbar($negative: true);
 
   & {
-    height: 100%;
+    block-size: 100%;
     padding-block: var(--sbb-navigation-section-padding-block);
     outline: none;
     overflow-y: auto;

@@ -32,11 +32,11 @@ slot[name='right'],
 }
 
 slot[name='right'] {
-  width: var(--sbb-pearl-chain-vertical-right-item-width);
+  inline-size: var(--sbb-pearl-chain-vertical-right-item-width);
 }
 
 .sbb-pearl-chain-vertical-item__column--middle {
-  min-width: var(
+  min-inline-size: var(
     --sbb-pearl-chain-vertical-middle-item-min-width,
     --sbb-pearl-chain-vertical-middle-min-width
   );
@@ -61,19 +61,18 @@ slot[name='right']::slotted(*) {
 
 .sbb-pearl-chain-vertical-item__line {
   position: absolute;
-  bottom: 0;
+  inset-block: calc(var(--sbb-pearl-chain-bullet-size-start-end) / 2) 0;
   inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
   transform: var(--sbb-pearl-chain-vertical-item-transform);
-  width: var(--sbb-border-width-2x);
-  inset-block-start: calc(var(--sbb-pearl-chain-bullet-size-start-end) / 2);
+  inline-size: var(--sbb-border-width-2x);
 
   &::after {
     content: '';
     position: absolute;
     inset-inline-start: 0;
     inset-block-start: 0;
-    height: var(--sbb-pearl-chain-vertical-item-leg-status);
-    width: var(--sbb-pearl-chain-vertical-item-border-width);
+    block-size: var(--sbb-pearl-chain-vertical-item-leg-status);
+    inline-size: var(--sbb-pearl-chain-vertical-item-border-width);
     background-color: var(--sbb-pearl-chain-vertical-item-color-past);
 
     @include sbb.if-forced-colors {
@@ -98,7 +97,7 @@ slot[name='right']::slotted(*) {
 }
 
 .sbb-pearl-chain-vertical-item__line--thin {
-  width: var(--sbb-pearl-chain-vertical-item-border-width-thin);
+  inline-size: var(--sbb-pearl-chain-vertical-item-border-width-thin);
 }
 
 .sbb-pearl-chain-vertical-item__line--default {

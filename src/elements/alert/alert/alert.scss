@@ -101,7 +101,7 @@ $open-anim-opacity-to: 1;
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: var(--sbb-alert-gap);
-  min-width: fit-content;
+  min-inline-size: fit-content;
   padding: var(--sbb-alert-padding);
   overflow: hidden;
   color: var(--sbb-alert-color);
@@ -118,7 +118,7 @@ $open-anim-opacity-to: 1;
   display: flex;
   align-items: start;
   padding-block: var(--sbb-spacing-fixed-1x);
-  min-width: var(--sbb-alert-icon-size);
+  min-inline-size: var(--sbb-alert-icon-size);
 
   --sbb-icon-svg-width: var(--sbb-alert-icon-size);
   --sbb-icon-svg-height: var(--sbb-alert-icon-size);
@@ -151,7 +151,7 @@ $open-anim-opacity-to: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: 100%;
+  block-size: 100%;
 }
 
 .sbb-alert__close-button {
@@ -165,7 +165,7 @@ $open-anim-opacity-to: 1;
 
   @include sbb.mq($from: small) {
     display: block;
-    height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
+    block-size: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
   }
 }
 

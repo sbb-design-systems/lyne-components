@@ -25,7 +25,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-checkbox-group-checkbox-width: 100%;
 
   ::slotted(sbb-checkbox-panel) {
-    width: 100%;
+    inline-size: 100%;
   }
 }
 
@@ -49,7 +49,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
       // We need to unset the 100% width of the vertical mode if it starts to be horizontal
       ::slotted(sbb-checkbox-panel) {
-        width: initial;
+        inline-size: initial;
       }
     }
 
@@ -64,7 +64,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   flex-direction: var(--sbb-checkbox-group-orientation);
   gap: var(--sbb-checkbox-group-gap);
   align-items: flex-start;
-  width: var(--sbb-checkbox-group-width);
+  inline-size: var(--sbb-checkbox-group-width);
 }
 
 .sbb-checkbox-group__error {
@@ -77,5 +77,5 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 ::slotted(sbb-checkbox) {
-  width: var(--sbb-checkbox-group-checkbox-width);
+  inline-size: var(--sbb-checkbox-group-checkbox-width);
 }

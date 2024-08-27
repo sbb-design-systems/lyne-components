@@ -67,7 +67,7 @@
 .sbb-select__trigger {
   @include sbb.ellipsis;
 
-  height: calc(1em * var(--sbb-typo-line-height-body-text));
+  block-size: calc(1em * var(--sbb-typo-line-height-body-text));
 }
 
 .sbb-select__trigger--placeholder {

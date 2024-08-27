@@ -19,5 +19,5 @@
 // is handled in the component base class.
 .sbb-tag-group__list > :is(li, span) {
   display: flex;
-  max-width: 100%;
+  max-inline-size: 100%;
 }

@@ -64,19 +64,19 @@
   flex-flow: var(--sbb-teaser-flex-direction) nowrap;
   align-items: var(--sbb-teaser-align-items);
   gap: var(--sbb-teaser-gap);
-  max-width: 100%;
+  max-inline-size: 100%;
 }
 
 .sbb-teaser__text {
   overflow: hidden;
-  max-width: 100%;
+  max-inline-size: 100%;
 }
 
 ::slotted([slot='image']) {
   will-change: transform;
   display: block;
   object-fit: cover;
-  width: sbb.px-to-rem-build(300);
+  inline-size: sbb.px-to-rem-build(300);
   filter: brightness(var(--sbb-teaser-brightness, 1));
   transition: var(--sbb-teaser-animation-duration) var(--sbb-animation-easing);
   aspect-ratio: 4/3;
@@ -105,7 +105,7 @@
 
 .sbb-teaser__chip {
   display: block;
-  max-width: fit-content;
+  max-inline-size: fit-content;
   margin-block-end: var(--sbb-spacing-fixed-1x);
 
   :host(:not([data-slot-names~='chip'], [chip-content])) & {

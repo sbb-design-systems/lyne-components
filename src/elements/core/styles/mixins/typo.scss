@@ -227,11 +227,11 @@
 @mixin sub {
   @extend %sub-sup;
 
-  bottom: -0.36em;
+  inset-block-end: -0.36em;
 }
 
 @mixin sup {
   @extend %sub-sup;
 
-  top: -0.5em;
+  inset-block-start: -0.5em;
 }

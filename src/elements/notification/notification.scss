@@ -117,20 +117,20 @@ $open-anim-height-to: calc(
   inset-inline-start: calc(
     var(--sbb-notification-base-radius) - var(--sbb-notification-border-width)
   );
-  width: calc(
+  inline-size: calc(
     100% - calc(var(--sbb-notification-base-radius) - var(--sbb-notification-border-width))
   );
   border: var(--sbb-notification-border);
   border-radius: var(--sbb-notification-border-radius);
   opacity: #{$open-anim-opacity-from};
-  max-height: #{$open-anim-height-from};
+  max-block-size: #{$open-anim-height-from};
   margin: #{$open-anim-margin-from};
 
   &::before {
     content: '';
     position: absolute;
-    inset: calc(var(--sbb-notification-border-width) * -1) var(--sbb-notification-base-radius)
-      calc(var(--sbb-notification-border-width) * -1) calc(var(--sbb-notification-base-radius) * -1);
+    inset-block: calc(var(--sbb-notification-border-width) * -1);
+    inset-inline: calc(var(--sbb-notification-base-radius) * -1) var(--sbb-notification-base-radius);
     background-color: var(--sbb-notification-type-color);
     border: var(--sbb-notification-border);
     border-radius: var(--sbb-notification-base-radius);
@@ -138,7 +138,7 @@ $open-anim-height-to: calc(
 
   :host(:is([data-state='opened'], [data-state='closing'])) & {
     opacity: #{$open-anim-opacity-to};
-    max-height: #{$open-anim-height-to};
+    max-block-size: #{$open-anim-height-to};
     margin: #{$open-anim-margin-to};
   }
 
@@ -227,7 +227,7 @@ $open-anim-height-to: calc(
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-responsive-xxs);
-  height: 100%;
+  block-size: 100%;
 }
 
 .sbb-notification__divider {
@@ -240,20 +240,20 @@ $open-anim-height-to: calc(
 
   @include sbb.mq($from: small) {
     display: block;
-    height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
+    block-size: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
   }
 }
 
 @keyframes open {
   from {
     opacity: #{$open-anim-opacity-from};
-    max-height: #{$open-anim-height-from};
+    max-block-size: #{$open-anim-height-from};
     margin: #{$open-anim-margin-from};
   }
 
   to {
     opacity: #{$open-anim-opacity-to};
-    max-height: #{$open-anim-height-to};
+    max-block-size: #{$open-anim-height-to};
     margin: #{$open-anim-margin-to};
   }
 }
@@ -272,10 +272,10 @@ $open-anim-height-to: calc(
 
 @keyframes close-height {
   from {
-    max-height: #{$open-anim-height-to};
+    max-block-size: #{$open-anim-height-to};
   }
 
   to {
-    max-height: #{$open-anim-height-from};
+    max-block-size: #{$open-anim-height-from};
   }
 }

@@ -27,6 +27,27 @@ const withBackgroundDecorator = makeDecorator({
   },
 });
 
+const withDirectionDecorator = makeDecorator({
+  name: 'withDirection',
+  parameterName: 'direction',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context, { parameters }) => {
+    const direction = context.globals.direction as string;
+    const directionFactory = parameters as (context: StoryContext) => string;
+
+    const rootElement = (context.canvasElement as unknown as HTMLElement).closest('html')!;
+
+    // If no background function is set, remove background color.
+    if (!direction && !directionFactory) {
+      rootElement.removeAttribute('dir');
+    } else {
+      rootElement.setAttribute('dir', directionFactory?.(context) ?? direction);
+    }
+
+    return getStory(context);
+  },
+});
+
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
 
@@ -78,9 +99,19 @@ const parameters: Parameters = {
 };
 
 const preview: Preview = {
-  decorators: [withBackgroundDecorator],
+  decorators: [withBackgroundDecorator, withDirectionDecorator],
   parameters,
   tags: ['autodocs'],
+  globalTypes: {
+    direction: {
+      description: 'Change direction',
+      defaultValue: 'ltr',
+      toolbar: {
+        icon: 'transfer',
+        items: ['ltr', 'rtl'],
+      },
+    },
+  },
 };
 
 export default preview;

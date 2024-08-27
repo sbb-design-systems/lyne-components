@@ -20,7 +20,7 @@ sbb-title {
 
 sbb-icon {
   // Avoid layout shift after loading the icon
-  min-width: var(--sbb-size-icon-ui-small);
+  min-inline-size: var(--sbb-size-icon-ui-small);
 }
 
 .sbb-journey-header {
@@ -28,7 +28,7 @@ sbb-icon {
   flex-wrap: wrap;
   align-items: center;
   column-gap: var(--sbb-journey-header-gap);
-  width: fit-content;
+  inline-size: fit-content;
 
   &[dir='rtl'] {
     sbb-icon {

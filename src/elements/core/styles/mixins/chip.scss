@@ -48,7 +48,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: calc(
+  block-size: calc(
     var(--sbb-typo-line-height-body-text) * var(--sbb-text-font-size) +
       var(--sbb-chip-padding-block) * 2
   );

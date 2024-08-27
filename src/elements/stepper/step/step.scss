@@ -36,17 +36,17 @@
   :host([data-orientation='vertical']) & {
     margin-inline-start: var(--sbb-spacing-fixed-4x);
     opacity: 0;
-    height: 0;
+    block-size: 0;
     transition:
-      height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+      block-size var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       opacity var(--sbb-step-animation-duration) var(--sbb-animation-easing);
   }
 
   :host([data-selected][data-orientation='vertical']) & {
     opacity: 1;
-    height: var(--sbb-stepper-content-height);
+    block-size: var(--sbb-stepper-content-height);
     transition:
-      height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+      block-size var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       opacity var(--sbb-step-animation-duration) var(--sbb-stepper-animation-duration)
         var(--sbb-animation-easing);
   }
@@ -56,11 +56,11 @@
   @include sbb.text-m--regular;
 
   position: var(--sbb-step-position);
-  width: 100%;
+  inline-size: 100%;
   inset-block-start: var(--sbb-step-inset-block-start);
   opacity: var(--sbb-step-opacity);
   visibility: var(--sbb-step-visibility);
-  height: var(--sbb-step-height);
+  block-size: var(--sbb-step-height);
   color: var(--sbb-step-color);
   transition: {
     property: opacity, visibility;

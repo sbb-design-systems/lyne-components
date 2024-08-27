@@ -8,8 +8,8 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
   display: inline-block;
-  min-width: #{sbb.px-to-rem-build(150)};
-  width: min(#{sbb.px-to-rem-build(400)}, 100%);
+  min-inline-size: #{sbb.px-to-rem-build(150)};
+  inline-size: min(#{sbb.px-to-rem-build(400)}, 100%);
 
   --sbb-slider-line-height: #{sbb.px-to-rem-build(4)};
   --sbb-slider-value-fraction: 0;
@@ -71,13 +71,13 @@
 
 .sbb-slider__container {
   position: relative;
-  min-height: var(--sbb-size-icon-ui-small);
+  min-block-size: var(--sbb-size-icon-ui-small);
   flex-grow: 1;
 }
 
 .sbb-slider__range-input {
   position: absolute;
-  width: 100%;
+  inline-size: 100%;
   inset: 0;
   opacity: 0;
   margin: 0;
@@ -86,8 +86,8 @@
 .sbb-slider__line {
   @include sbb.absolute-center-y;
 
-  height: var(--sbb-slider-line-height);
-  width: 100%;
+  block-size: var(--sbb-slider-line-height);
+  inline-size: 100%;
   background-color: var(--sbb-slider-line-color);
   border-radius: var(--sbb-slider-line-height);
   overflow: hidden;
@@ -96,22 +96,22 @@
 
 .sbb-slider__selected-line {
   position: relative;
-  height: 100%;
+  block-size: 100%;
   background-color: var(--sbb-slider-selected-line-color);
-  width: calc(var(--sbb-slider-value-fraction) * 100%);
+  inline-size: calc(var(--sbb-slider-value-fraction) * 100%);
 }
 
 .sbb-slider__knob {
   @include sbb.absolute-center-y;
   @include sbb.shadow-level-5-hard;
 
-  width: var(--sbb-slider-knob-size);
-  height: var(--sbb-slider-knob-size);
+  inline-size: var(--sbb-slider-knob-size);
+  block-size: var(--sbb-slider-knob-size);
   inset-inline-start: calc(
     calc(var(--sbb-slider-value-fraction) * 100%) - var(--sbb-slider-knob-size) *
       var(--sbb-slider-value-fraction)
   );
-  transition-property: width, height;
+  transition-property: inline-size, block-size;
   transition-duration: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-1x));
   transition-timing-function: ease-in;
   background-color: var(--sbb-slider-knob-color);

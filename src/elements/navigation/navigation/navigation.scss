@@ -131,7 +131,7 @@
   @include transition(width);
 
   display: none;
-  width: var(--sbb-navigation-width);
+  inline-size: var(--sbb-navigation-width);
   grid-column: var(--sbb-navigation-grid-column);
   padding: 0;
   margin: 0;
@@ -140,7 +140,7 @@
   inset-block-start: 0;
   border: none;
   pointer-events: none;
-  height: var(--sbb-navigation-height);
+  block-size: var(--sbb-navigation-height);
   color: var(--sbb-color-white);
   background-color: var(--sbb-color-midnight);
 
@@ -149,8 +149,8 @@
 
     content: '';
     position: absolute;
-    width: var(--sbb-navigation-expanded-width);
-    height: var(--sbb-navigation-height);
+    inline-size: var(--sbb-navigation-expanded-width);
+    block-size: var(--sbb-navigation-height);
     background: var(--sbb-color-midnight);
   }
 
@@ -185,7 +185,7 @@
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  width: var(--sbb-navigation-expanded-width);
+  inline-size: var(--sbb-navigation-expanded-width);
   pointer-events: none;
   padding: var(--sbb-spacing-responsive-xs);
   z-index: calc(var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index)) + 1);
@@ -204,7 +204,7 @@
     flex-direction: column;
     gap: var(--sbb-spacing-responsive-xxl);
     position: relative;
-    height: var(--sbb-navigation-height);
+    block-size: var(--sbb-navigation-height);
     padding-inline: var(--sbb-navigation-padding-inline);
     padding-block: var(--sbb-navigation-padding-block-start) var(--sbb-navigation-padding-block-end);
     overflow-y: auto;

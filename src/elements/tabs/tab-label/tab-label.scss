@@ -22,7 +22,7 @@
   --sbb-tab-label-amount-color: var(--sbb-color-metal);
 
   display: inline-block;
-  max-width: 100%;
+  max-inline-size: 100%;
   pointer-events: var(--sbb-tab-label-pointer-events);
   -webkit-tap-highlight-color: transparent;
 
@@ -103,7 +103,7 @@
 .sbb-tab-label {
   position: relative;
   margin: 0;
-  min-height: var(--sbb-tab-label-height);
+  min-block-size: var(--sbb-tab-label-height);
   display: flex;
   align-items: center;
   padding-inline: var(--sbb-tab-label-inline-padding);
@@ -120,8 +120,8 @@
       position: absolute;
       inset-inline-start: 0;
       inset-block-end: 0;
-      width: var(--sbb-tab-group-width);
-      height: var(--sbb-border-width-1x);
+      inline-size: var(--sbb-tab-group-width);
+      block-size: var(--sbb-border-width-1x);
       background-color: var(--sbb-color-cloud);
     }
   }
@@ -131,7 +131,7 @@
     content: '';
     inset-inline: 0;
     inset-block-end: 0;
-    height: #{sbb.px-to-rem-build(3)};
+    block-size: #{sbb.px-to-rem-build(3)};
     background-color: var(--sbb-tab-label-color);
     transform: var(--sbb-tab-label-marker-transform);
     transition: {

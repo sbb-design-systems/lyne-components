@@ -81,7 +81,7 @@
   padding-block: var(--sbb-toast-padding-block);
   padding-inline: var(--sbb-toast-padding-inline);
   border-radius: var(--sbb-toast-border-radius);
-  max-width: var(--sbb-toast-max-width);
+  max-inline-size: var(--sbb-toast-max-width);
   display: flex;
   color: var(--sbb-toast-color);
   background-color: var(--sbb-toast-background-color);
@@ -123,7 +123,7 @@
   position: relative;
 
   // Since the action button has an absolute position, we have to "reserve" space
-  min-width: #{sbb.px-to-rem-build(40)};
+  min-inline-size: #{sbb.px-to-rem-build(40)};
 
   :host(:not([data-slot-names~='action'], [dismissible])) & {
     display: none;
@@ -134,7 +134,7 @@
 .sbb-toast__action-button {
   margin-inline: var(--sbb-spacing-fixed-2x);
   position: absolute;
-  top: #{sbb.px-to-rem-build(-10)}; // Center vertically the element
+  inset-block-start: #{sbb.px-to-rem-build(-10)}; // Center vertically the element
 }
 
 ::slotted(:is(sbb-link, sbb-link-button, sbb-link-static)) {

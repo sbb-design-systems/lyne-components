@@ -39,7 +39,7 @@ Grouping content
 */
 
 hr {
-  height: 0; /* 1 */
+  block-size: 0; /* 1 */
   color: inherit; /* 2 */
 }
 
@@ -171,7 +171,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 
 ::-webkit-inner-spin-button,
 ::-webkit-outer-spin-button {
-  height: auto;
+  block-size: auto;
 }
 
 /**

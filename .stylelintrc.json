@@ -1,5 +1,6 @@
 {
   "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"],
+  "plugins": ["stylelint-use-logical-spec"],
   "ignoreFiles": ["dist/**/*", "tools/generate-component/**/*.scss"],
   "rules": {
     "custom-property-pattern": "^_?(?:(?:o|c|u|t|s|is|has|_|js|qa)-)?[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:--[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:\\[.+\\])?$",
@@ -49,6 +50,7 @@
     ],
     "number-max-precision": 12,
     "value-no-vendor-prefix": [true, { "ignoreValues": ["box"] }],
-    "no-duplicate-selectors": null
+    "no-duplicate-selectors": null,
+    "liberty/use-logical-spec": true
   }
 }

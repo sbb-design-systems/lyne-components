@@ -47,9 +47,10 @@
 :is(.sbb-menu-button, .sbb-menu-link) {
   text-decoration: none;
   display: block;
-  width: 100%;
+  inline-size: 100%;
   color: var(--sbb-menu-action-color);
-  padding: var(--sbb-spacing-fixed-1x) var(--sbb-menu-action-outer-horizontal-padding);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  padding-inline: var(--sbb-menu-action-outer-horizontal-padding);
   cursor: var(--sbb-menu-action-cursor);
   outline: none;
 }
@@ -60,7 +61,8 @@
   display: flex;
   align-items: center;
   gap: var(--sbb-menu-action-gap);
-  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  padding-inline: var(--sbb-spacing-fixed-2x);
   border-radius: var(--sbb-menu-action-border-radius);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -83,8 +85,8 @@
 
 .sbb-menu-action__icon {
   display: flex;
-  min-width: var(--sbb-size-icon-ui-small);
-  min-height: var(--sbb-size-icon-ui-small);
+  min-inline-size: var(--sbb-size-icon-ui-small);
+  min-block-size: var(--sbb-size-icon-ui-small);
 }
 
 .sbb-menu-action__label {
@@ -99,8 +101,8 @@
   @include sbb.badge;
 
   margin-inline-start: auto;
-  width: var(--sbb-spacing-fixed-4x);
-  max-height: var(--sbb-spacing-fixed-4x);
+  inline-size: var(--sbb-spacing-fixed-4x);
+  max-block-size: var(--sbb-spacing-fixed-4x);
 
   @include sbb.if-forced-colors {
     color: var(--sbb-menu-action-color);

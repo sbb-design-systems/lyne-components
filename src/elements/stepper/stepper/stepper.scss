@@ -32,7 +32,7 @@
 }
 
 .sbb-stepper {
-  width: 100%;
+  inline-size: 100%;
 }
 
 .sbb-stepper__labels {
@@ -56,9 +56,9 @@
 
     &::before {
       inset-block-end: calc(var(--sbb-stepper-border-width) * -1);
-      height: var(--sbb-stepper-marker-width);
-      width: var(--sbb-stepper-marker-size);
-      transition: width var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+      block-size: var(--sbb-stepper-marker-width);
+      inline-size: var(--sbb-stepper-marker-size);
+      transition: inline-size var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
     }
   }
 
@@ -68,9 +68,9 @@
 
     &::before {
       inset-block-start: 0;
-      width: var(--sbb-stepper-marker-width);
-      height: var(--sbb-stepper-marker-size);
-      transition: height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+      inline-size: var(--sbb-stepper-marker-width);
+      block-size: var(--sbb-stepper-marker-size);
+      transition: block-size var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
     }
   }
 }
@@ -79,8 +79,8 @@
   position: relative;
 
   :host([orientation='horizontal']) & {
-    height: var(--sbb-stepper-content-height);
-    transition: height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+    block-size: var(--sbb-stepper-content-height);
+    transition: block-size var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
   }
 }
 
