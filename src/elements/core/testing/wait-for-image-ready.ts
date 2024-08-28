@@ -25,6 +25,9 @@ export async function waitForImageReady(
         clearTimeout(timeout);
         if (isSafari && element instanceof HTMLImageElement) {
           triggerImageRendering(element).then(resolve);
+        } else if (isSafari && element.localName === 'sbb-image') {
+          // On a test this is only happening once (first time an image is loaded). Therefore, the impact is very small.
+          setTimeout(resolve, 200);
         } else {
           resolve();
         }
