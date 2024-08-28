@@ -200,8 +200,17 @@ describe(`sbb-datepicker-toggle`, () => {
     await waitForLitRender(element);
 
     expect(input.value).to.be.equal('Sa, 01.01.2022');
+    expect(defaultDateAdapter.toIso8601(calendar.selected!)).to.be.equal('2022-01-01');
     expect(changeSpy.count).to.be.equal(1);
     expect(blurSpy.count).to.be.equal(1);
+
+    // Clear the input value and expect the calendar to clear the previous selected date
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    input.dispatchEvent(new Event('change'));
+
+    expect(input.value).to.be.equal('');
+    expect(calendar.selected).to.be.null;
   });
 
   it('handles view property', async () => {
