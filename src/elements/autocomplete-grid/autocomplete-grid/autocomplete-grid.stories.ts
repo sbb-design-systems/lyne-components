@@ -141,6 +141,16 @@ const borderless: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+  table: {
+    category: 'Form field',
+  },
+};
+
 const floatingLabel: InputType = {
   control: {
     type: 'boolean',
@@ -190,6 +200,7 @@ const defaultArgTypes: ArgTypes = {
   // Form field args
   negative,
   borderless,
+  size,
   floatingLabel,
 
   // Input args
@@ -218,6 +229,7 @@ const defaultArgs: Args = {
   // Form field args
   negative: false,
   borderless: false,
+  size: size.options![0],
   floatingLabel: false,
 
   // Input args
@@ -304,6 +316,7 @@ const Template = (args: Args): TemplateResult => html`
     <sbb-form-field
       ?negative=${args.negative}
       ?borderless=${args.borderless}
+      size=${args.size}
       ?floating-label=${args.floatingLabel}
       data-testid="form-field"
     >
@@ -337,6 +350,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
+      size=${args.size}
       data-testid="form-field"
     >
       <label>Label</label>
@@ -386,6 +400,13 @@ export const Negative: StoryObj = {
   play: isChromatic() ? playStory : undefined,
 };
 
+export const BasicSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
+  play: isChromatic() ? playStory : undefined,
+};
+
 export const Disabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -426,6 +447,27 @@ export const BorderlessNegative: StoryObj = {
   play: isChromatic() ? playStory : undefined,
 };
 
+export const BorderlessSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true, size: size.options![1] },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const FloatingLabel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, floatingLabel: true },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const FloatingLabelSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, floatingLabel: true, size: size.options![1] },
+  play: isChromatic() ? playStory : undefined,
+};
+
 export const BasicOpenAbove: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -460,6 +502,13 @@ export const WithOptionGroup: StoryObj = {
   render: OptionGroupTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const WithOptionGroupSizeS: StoryObj = {
+  render: OptionGroupTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs, size: size.options![1] },
   play: isChromatic() ? playStory : undefined,
 };
 
