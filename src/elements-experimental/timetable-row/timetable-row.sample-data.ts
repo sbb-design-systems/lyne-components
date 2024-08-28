@@ -582,6 +582,8 @@ export const walkTimeTrip: DeepPartial<ITripItem> = {
   },
 };
 
+export const a11yFootpathTrip: DeepPartial<ITripItem> = { ...walkTimeTrip };
+
 export const extendedEnterTimeTrip: DeepPartial<ITripItem> = {
   legs: [extendedLeg, futureLeg, longFutureLeg],
   notices: [],

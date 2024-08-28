@@ -228,6 +228,9 @@ export class SbbTimetableRowElement extends LitElement {
 
   /**
    * The Footpath attribute for rendering different icons
+   * true: render a11y-icon
+   * false: render walk-icon
+   * default: render walk-icon
    */
   @property({ attribute: 'a11y-footpath', type: Boolean }) public a11yFootpath?: boolean;
 
@@ -342,6 +345,7 @@ export class SbbTimetableRowElement extends LitElement {
       departureWalk || 0,
       arrivalWalk || 0,
       this._language.current,
+      this.a11yFootpath,
     );
 
     const departureTime: Date | undefined = departure?.time

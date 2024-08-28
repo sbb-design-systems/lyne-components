@@ -130,10 +130,13 @@ function renderWalkTime(
   duration: number | string,
   label: string,
   variant: 'left' | 'right',
+  icon: string,
 ): TemplateResult {
   return html`
-    <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${variant}">
-      <sbb-icon name="walk-small"></sbb-icon>
+    <span
+      class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${icon + '-' + variant}"
+    >
+      <sbb-icon name=${icon}></sbb-icon>
       <time datetime=${duration + 'M'}>
         <span class="sbb-screen-reader-only">${label}</span>
         ${duration}
@@ -196,22 +199,26 @@ export function getDepartureArrivalTimeAttribute(
   };
 
   function renderDepartureTimeAttribute(): TemplateResult {
-    if (a11yFootpath) {
-      renderTransferTime(
-        connectionFirstLeg?.duration || 0,
+    if (a11yFootpath && departureWalkAttribute) {
+      return html`${renderWalkTime(
+        departureWalkAttribute.duration,
+        departureWalkAttribute.text,
+        'left',
         'wheelchair-small',
-        currentLanguage,
-        connectionFirstLeg?.text || '',
-        'departure',
-      );
+      )}`;
     }
 
     return html`
       ${connectionFirstLeg
-        ? renderWalkTime(connectionFirstLeg.duration, connectionFirstLeg.text, 'left')
+        ? renderWalkTime(connectionFirstLeg.duration, connectionFirstLeg.text, 'left', 'walk-small')
         : nothing}
       ${departureWalkAttribute && !extendedFirstLeg && !connectionFirstLeg
-        ? renderWalkTime(departureWalkAttribute.duration, departureWalkAttribute.text, 'left')
+        ? renderWalkTime(
+            departureWalkAttribute.duration,
+            departureWalkAttribute.text,
+            'left',
+            'walk-small',
+          )
         : nothing}
       ${extendedFirstLeg
         ? renderTransferTime(
@@ -254,12 +261,26 @@ export function getDepartureArrivalTimeAttribute(
   };
 
   function renderArrivalTimeAttribute(): TemplateResult {
+    if (a11yFootpath && arrivalWalkAttribute) {
+      return html`${renderWalkTime(
+        arrivalWalkAttribute.duration,
+        arrivalWalkAttribute.text,
+        'right',
+        'wheelchair-small',
+      )}`;
+    }
+
     return html`
       ${connectionLastLeg
-        ? renderWalkTime(connectionLastLeg.duration, connectionLastLeg.text, 'right')
+        ? renderWalkTime(connectionLastLeg.duration, connectionLastLeg.text, 'right', 'walk-small')
         : nothing}
       ${arrivalWalkAttribute && !extendedLastLeg && !connectionLastLeg
-        ? renderWalkTime(arrivalWalkAttribute.duration, arrivalWalkAttribute.text, 'right')
+        ? renderWalkTime(
+            arrivalWalkAttribute.duration,
+            arrivalWalkAttribute.text,
+            'right',
+            'walk-small',
+          )
         : nothing}
       ${extendedLastLeg
         ? renderTransferTime(

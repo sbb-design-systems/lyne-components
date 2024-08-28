@@ -54,9 +54,7 @@ export class SbbPearlChainTimeElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  /**
-   * TODO: comment
-   */
+  /** Optional prop to render wheelchair-small instead of walk-small */
   @property({ attribute: 'a11y-footpath', type: Boolean }) public a11yFootpath?: boolean;
 
   /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
@@ -85,6 +83,7 @@ export class SbbPearlChainTimeElement extends LitElement {
         this.departureWalk || 0,
         this.arrivalWalk || 0,
         this._language.current,
+        this.a11yFootpath,
       );
 
     const rideLegs = this.legs?.filter((leg) => isRideLeg(leg));
