@@ -13,6 +13,7 @@
   --sbb-step-label-prefix-border-style: solid;
   --sbb-step-label-prefix-border-color: var(--sbb-color-cloud);
   --sbb-step-label-prefix-background-color: var(--sbb-color-white);
+  --sbb-step-label-gap: var(--sbb-spacing-fixed-4x);
 
   position: relative;
   min-width: 0;
@@ -58,7 +59,17 @@
 }
 
 :host([data-size='s']) {
+  --sbb-step-label-gap: var(--sbb-spacing-fixed-3x);
   --sbb-step-label-prefix-size: var(--sbb-size-element-xxxs);
+
+  &::before {
+    // The `--sbb-font-size-text-m` is beign used here to align the bubble's inner text to
+    // the label text which includes the `sbb.text-m--bold` mixin.
+    inset-block-start: calc(
+      var(--sbb-font-size-text-m) * (var(--sbb-typo-line-height-body-text) / 2) +
+        (var(--sbb-border-width-1x) / 2)
+    );
+  }
 }
 
 :host([disabled]) {
@@ -104,7 +115,7 @@
   cursor: var(--sbb-step-label-cursor);
   position: relative;
   display: flex;
-  gap: var(--sbb-spacing-fixed-4x);
+  gap: var(--sbb-step-label-gap);
   color: var(--sbb-step-label-color);
 
   :host([data-size='s']) & {
