@@ -2619,10 +2619,10 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.34.tgz#10964ba0dee6ac4cd462e2795b6bebd407303433"
   integrity sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==
 
-"@types/node@*", "@types/node@20.16.1", "@types/node@^16.0.0", "@types/node@^18.0.0":
-  version "20.16.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.16.1.tgz#0b44b15271d0e2191ca68faf1fbe506e06aed732"
-  integrity sha512-zJDo7wEadFtSyNz5QITDfRcrhqDvQI1xQNQ0VoizPjM/dVAODqqIUWbJPkvsxmTI0MYRGRikcdjMPhOssnPejQ==
+"@types/node@*", "@types/node@20.16.2", "@types/node@^16.0.0", "@types/node@^18.0.0":
+  version "20.16.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.16.2.tgz#9e388f503a5af306e8c63319334887390966a11e"
+  integrity sha512-91s/n4qUPV/wg8eE9KHYW1kouTfDk2FPGjXbBMfRWP/2vg1rCXNQL1OCabwGs0XSdukuK+MwCDXE30QpSeMUhQ==
   dependencies:
     undici-types "~6.19.2"
 
@@ -5103,10 +5103,10 @@ eslint-module-utils@^2.8.1:
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-import-x@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.0.0.tgz#c367c27dfab458c92da59e3ff21768cad4e99a09"
-  integrity sha512-5bWZ+2p3DKlpLSP830cAUmRUoYEnnvuBmSOSlURffEUuXL68uQUX0v2JpoXxyoDRIQWApzbqhnFeHA0XoQWosA==
+eslint-plugin-import-x@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.1.0.tgz#4e7689c32685291d58f08cdd0bffa2dc1c6c9470"
+  integrity sha512-1BYJU0C5NBJLY4qukmwDbFrf2w8fLGEU9zZV3viWa7gNnbn4o4meQy5O4LVXn56eFh9Y4fQxu3udhIqQuVITvw==
   dependencies:
     "@typescript-eslint/typescript-estree" "^8.1.0"
     "@typescript-eslint/utils" "^8.1.0"
