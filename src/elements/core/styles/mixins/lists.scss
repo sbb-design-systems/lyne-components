@@ -76,103 +76,6 @@
   }
 }
 
-@mixin step-list {
-  --sbb-step-list-marker-dimensions: #{functions.px-to-rem-build(34)};
-  --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
-  --sbb-step-list-padding-inline: var(--sbb-spacing-responsive-xxs);
-  --sbb-step-list-marker-to-text-gap: var(--sbb-spacing-responsive-xxxs);
-  --sbb-step-list-border-radius: var(--sbb-border-radius-4x);
-
-  // Additional space from overall li padding to the text because text
-  // has to be centered to marker number.
-  --sbb-step-list-text-to-marker-block-offset: calc(
-    0.5 *
-      (
-        var(--sbb-step-list-marker-dimensions) - var(--sbb-typo-line-height-body-text) *
-          var(--sbb-text-font-size)
-      )
-  );
-  --sbb-step-list-vertical-gap: var(--sbb-spacing-fixed-1x);
-
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  counter-reset: steps;
-
-  &:where(.sbb-text-s) {
-    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-4x);
-  }
-
-  &:where(.sbb-text-m, .sbb-text-l, .sbb-text-xl) {
-    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-5x);
-  }
-
-  &:where(.sbb-text-xl) {
-    @include mediaqueries.mq($from: medium) {
-      --sbb-step-list-marker-dimensions: #{functions.px-to-rem-build(41)};
-    }
-  }
-
-  /* stylelint-disable-next-line no-descending-specificity */
-  > li {
-    position: relative;
-    counter-increment: steps;
-    background-color: var(--sbb-color-milk);
-    padding-block: calc(
-        var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
-      )
-      var(--sbb-step-list-padding-block);
-    padding-inline: calc(
-        var(--sbb-step-list-padding-inline) + var(--sbb-step-list-marker-dimensions) +
-          var(--sbb-step-list-marker-to-text-gap)
-      )
-      var(--sbb-step-list-padding-inline);
-    min-height: calc(
-      var(--sbb-step-list-marker-dimensions) + 2 * var(--sbb-step-list-padding-block)
-    );
-
-    &:first-of-type {
-      border-start-start-radius: var(--sbb-step-list-border-radius);
-      border-start-end-radius: var(--sbb-step-list-border-radius);
-    }
-
-    &:last-of-type {
-      border-end-start-radius: var(--sbb-step-list-border-radius);
-      border-end-end-radius: var(--sbb-step-list-border-radius);
-    }
-
-    &::before {
-      @include typo.text-xxs--bold;
-
-      content: counter(steps);
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: var(--sbb-step-list-marker-dimensions);
-      width: var(--sbb-step-list-marker-dimensions);
-      margin-block-start: calc(-1 * var(--sbb-step-list-text-to-marker-block-offset));
-      inset-inline-start: var(--sbb-step-list-padding-inline);
-      border: var(--sbb-border-width-1x) solid var(--sbb-color-cement);
-      border-radius: 50%;
-      color: var(--sbb-color-charcoal);
-    }
-
-    + li {
-      margin-block-start: var(--sbb-step-list-vertical-gap);
-    }
-
-    p {
-      margin-block: 0;
-    }
-
-    // P has to be redefined to be more specific
-    > * + p {
-      margin-block-start: var(--sbb-spacing-responsive-xxxs);
-    }
-  }
-}
-
 @mixin description-list {
   // Support both top level usage (& is empty / falsy)
   // and applied to a selector usage.
@@ -191,6 +94,126 @@
     :is(dt, dd) {
       margin: 0;
       padding: 0;
+    }
+  }
+}
+
+@mixin base-marker-list {
+  --sbb-list-marker-dimensions: #{functions.px-to-rem-build(34)};
+  --sbb-list-marker-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-list-marker-to-text-gap: var(--sbb-spacing-responsive-xxxs);
+
+  // Additional space from overall li padding to the text because text
+  // has to be centered to marker number.
+  --sbb-list-text-to-marker-block-offset: calc(
+    0.5 *
+      (
+        var(--sbb-list-marker-dimensions) - var(--sbb-typo-line-height-body-text) *
+          var(--sbb-text-font-size)
+      )
+  );
+
+  &:where(.sbb-text-xl) {
+    @include mediaqueries.mq($from: medium) {
+      --sbb-list-marker-dimensions: #{functions.px-to-rem-build(41)};
+    }
+  }
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  > li {
+    position: relative;
+    padding-inline: calc(
+        var(--sbb-list-marker-padding-inline) + var(--sbb-list-marker-dimensions) +
+          var(--sbb-list-marker-to-text-gap)
+      )
+      var(--sbb-list-marker-padding-inline);
+    min-height: var(--sbb-list-marker-dimensions);
+
+    &::before {
+      @include typo.text-xxs--bold;
+
+      position: absolute;
+      height: var(--sbb-list-marker-dimensions);
+      width: var(--sbb-list-marker-dimensions);
+      margin-block-start: calc(-1 * var(--sbb-list-text-to-marker-block-offset));
+      inset-inline-start: var(--sbb-list-marker-padding-inline);
+      border-radius: 50%;
+    }
+
+    + li {
+      margin-block-start: var(--sbb-list-marker-vertical-gap);
+    }
+
+    p {
+      margin-block: 0;
+    }
+
+    // P has to be redefined to be more specific
+    > * + p {
+      margin-block-start: var(--sbb-spacing-responsive-xxxs);
+    }
+  }
+}
+
+@mixin checkup-list {
+  @include base-marker-list;
+
+  --sbb-checkup-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-tick-medium.svg');
+  --sbb-checkup-list-marker-icon-color: var(--sbb-color-black);
+  --sbb-list-marker-vertical-gap: var(--sbb-spacing-fixed-2x);
+
+  > li::before {
+    content: '';
+    background-color: var(--sbb-checkup-list-marker-icon-color);
+    mask-image: var(--sbb-checkup-list-marker-icon);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 100%;
+  }
+}
+
+@mixin step-list {
+  @include base-marker-list;
+
+  --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-list-marker-vertical-gap: var(--sbb-spacing-fixed-1x);
+
+  &:where(.sbb-text-s) {
+    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-4x);
+  }
+
+  &:where(.sbb-text-m, .sbb-text-l, .sbb-text-xl) {
+    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-5x);
+  }
+
+  counter-reset: steps;
+
+  > li {
+    counter-increment: steps;
+    background-color: var(--sbb-color-milk);
+    border-radius: var(--sbb-border-radius-4x);
+    padding-block: calc(
+        var(--sbb-step-list-padding-block) + var(--sbb-list-text-to-marker-block-offset)
+      )
+      var(--sbb-step-list-padding-block);
+    padding-inline: calc(
+        var(--sbb-list-marker-padding-inline) + var(--sbb-list-marker-dimensions) +
+          var(--sbb-list-marker-to-text-gap)
+      )
+      var(--sbb-list-marker-padding-inline);
+    min-height: calc(var(--sbb-list-marker-dimensions) + 2 * var(--sbb-step-list-padding-block));
+
+    &::before {
+      content: counter(steps);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: var(--sbb-border-width-1x) solid var(--sbb-color-cement);
+      color: var(--sbb-color-charcoal);
     }
   }
 }

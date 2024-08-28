@@ -8,3 +8,7 @@
 .sbb-step-list {
   @include lists.step-list;
 }
+
+.sbb-checkup-list {
+  @include lists.checkup-list;
+}
