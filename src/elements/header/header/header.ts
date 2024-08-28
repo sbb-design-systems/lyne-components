@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, isServer, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
@@ -44,6 +44,9 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   /** Whether the header should hide and show on scroll. */
   @property({ attribute: 'hide-on-scroll', reflect: true, type: Boolean }) public hideOnScroll =
     false;
+
+  /** Size of the header. */
+  @property({ reflect: true }) public size: 'm' | 's' = 'm';
 
   @state() private _headerOnTop = true;
 
@@ -126,7 +129,7 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
     ) {
       this._closeOpenOverlays();
     }
-    // Check if header is scrolled out of sight, scroll position > header height * 2.
+    // Check if the header is scrolled out of sight, scroll position > header height * 2.
     if (currentScroll > this.offsetHeight * 2) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
@@ -182,7 +185,10 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
           <slot></slot>
           <div class="sbb-header__logo">
             <slot name="logo">
-              <sbb-logo protective-room="none"></sbb-logo>
+              <sbb-logo
+                protective-room="none"
+                ?hide-text=${this.size === 's' || nothing}
+              ></sbb-logo>
             </slot>
           </div>
         </div>

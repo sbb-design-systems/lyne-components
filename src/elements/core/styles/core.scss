@@ -25,6 +25,10 @@
     // Header
     --sbb-header-height: var(--sbb-spacing-fixed-14x);
 
+    &:has(sbb-header[size='s']) {
+      --sbb-header-height: #{functions.px-to-rem-build(52)};
+    }
+
     // Time Input
     --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
 
@@ -38,6 +42,10 @@
     @include mediaqueries.mq($from: medium) {
       // Header
       --sbb-header-height: var(--sbb-spacing-fixed-24x);
+
+      &:has(sbb-header[size='s']) {
+        --sbb-header-height: var(--sbb-spacing-fixed-14x);
+      }
 
       // Time Input
       --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};

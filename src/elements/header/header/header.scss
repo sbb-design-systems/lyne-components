@@ -105,6 +105,12 @@
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
 }
 
+::slotted(:is(sbb-header-button, sbb-header-link)) {
+  :host([size='s']) & {
+    --sbb-header-action-min-height: var(--sbb-size-element-xs);
+  }
+}
+
 ::slotted(*) {
   flex: 0 0 auto;
 }

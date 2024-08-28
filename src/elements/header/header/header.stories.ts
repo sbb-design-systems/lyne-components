@@ -119,17 +119,11 @@ const expanded: InputType = {
   control: {
     type: 'boolean',
   },
-  table: {
-    category: 'Header attribute',
-  },
 };
 
 const hideOnScroll: InputType = {
   control: {
     type: 'boolean',
-  },
-  table: {
-    category: 'Header attribute',
   },
 };
 
@@ -137,21 +131,27 @@ const scrollOrigin: InputType = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'Header attribute',
+};
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
   },
+  options: ['m', 's'],
 };
 
 const argTypes: ArgTypes = {
   expanded,
   'hide-on-scroll': hideOnScroll,
   'scroll-origin': scrollOrigin,
+  size,
 };
 
 const basicArgs: Args = {
   expanded: false,
   'hide-on-scroll': false,
   'scroll-origin': undefined,
+  size: size.options![0],
   attributes: { class: 'sbb-page-spacing' },
 };
 
@@ -169,6 +169,12 @@ export const Expanded: StoryObj = {
     expanded: true,
     attributes: { class: 'sbb-page-spacing-expanded' },
   },
+};
+
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes,
+  args: { ...basicArgs, size: size.options![1] },
 };
 
 export const WithUserMenu: StoryObj = {
