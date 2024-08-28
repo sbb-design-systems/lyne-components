@@ -31,6 +31,7 @@
 
     // Time Input
     --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
+    --sbb-time-input-s-max-width: #{functions.px-to-rem-build(51)};
 
     // Overlay
     --sbb-overlay-default-z-index: 1000;
@@ -49,6 +50,7 @@
 
       // Time Input
       --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
+      --sbb-time-input-s-max-width: #{functions.px-to-rem-build(58)};
     }
   }
 }
@@ -131,4 +133,8 @@ sbb-title + p {
 
 input[data-sbb-time-input] {
   max-width: var(--sbb-time-input-max-width);
+
+  sbb-form-field[size='s'] & {
+    max-width: var(--sbb-time-input-s-max-width);
+  }
 }

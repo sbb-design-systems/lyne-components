@@ -29,13 +29,13 @@ export const startPlaywrightServerCommand = [
   `${port}:${port}`,
   '--rm',
   '--init',
-  '--add-host=host.containers.internal=host-gateway',
+  containerRuntime === 'docker' ? '--add-host=host.containers.internal=host-gateway' : undefined,
   '--workdir=/home/pwuser',
   '--entrypoint=/bin/sh',
   containerImage,
   `-c`,
   `npx -y playwright@${playwrightVersion} run-server --port ${port} --host 0.0.0.0`,
-];
+].filter(Boolean);
 
 // Reference: https://github.com/remcovaes/web-test-runner-vite-plugin
 export function containerPlaywrightBrowserPlugin(): TestRunnerPlugin {
