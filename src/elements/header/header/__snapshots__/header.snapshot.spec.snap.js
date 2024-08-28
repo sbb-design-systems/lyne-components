@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-header renders DOM"] = 
-`<sbb-header>
+`<sbb-header size="m">
 </sbb-header>
 `;
 /* end snapshot sbb-header renders DOM */
@@ -14,7 +14,10 @@ snapshots["sbb-header renders Shadow DOM"] =
     </slot>
     <div class="sbb-header__logo">
       <slot name="logo">
-        <sbb-logo protective-room="none">
+        <sbb-logo
+          hide-text="false"
+          protective-room="none"
+        >
         </sbb-logo>
       </slot>
     </div>
@@ -24,7 +27,7 @@ snapshots["sbb-header renders Shadow DOM"] =
 /* end snapshot sbb-header renders Shadow DOM */
 
 snapshots["sbb-header renders actions and logo DOM"] = 
-`<sbb-header>
+`<sbb-header size="m">
   <sbb-header-link
     data-action=""
     data-link=""
@@ -54,7 +57,10 @@ snapshots["sbb-header renders actions and logo Shadow DOM"] =
     </slot>
     <div class="sbb-header__logo">
       <slot name="logo">
-        <sbb-logo protective-room="none">
+        <sbb-logo
+          hide-text="false"
+          protective-room="none"
+        >
         </sbb-logo>
       </slot>
     </div>
