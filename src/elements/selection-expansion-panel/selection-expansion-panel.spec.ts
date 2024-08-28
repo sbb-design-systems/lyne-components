@@ -694,7 +694,7 @@ describe(`sbb-selection-expansion-panel`, () => {
     });
   });
 
-  describe.only('size s', () => {
+  describe('size s', () => {
     it('checkbox group', async () => {
       const root = await fixture(html`
         <sbb-checkbox-group size="s">

@@ -7,7 +7,6 @@ import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { slotState } from '../../core/decorators.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
-import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel.js';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.js';
 import type { SbbCheckboxElement } from '../checkbox.js';
 import type { SbbCheckboxSize } from '../common.js';
@@ -48,15 +47,6 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
     );
   }
 
-  /** List of contained selection-expansion-panel elements. */
-  private get _expansionPanels(): SbbSelectionExpansionPanelElement[] {
-    return <SbbSelectionExpansionPanelElement[]>(
-      Array.from(this.querySelectorAll?.('sbb-selection-expansion-panel') ?? []).filter(
-        (el) => el.closest('sbb-checkbox-group') === this,
-      )
-    );
-  }
-
   private _abort: SbbConnectedAbortController = new SbbConnectedAbortController(this);
 
   public override connectedCallback(): void {
@@ -80,9 +70,6 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
     }
     if (changedProperties.has('size')) {
       this.checkboxes.forEach((c) => c.requestUpdate?.('size'));
-      this._expansionPanels.forEach((e) =>
-        e.setAttribute('data-size', this.size === 'xs' ? 's' : this.size),
-      );
     }
   }
 

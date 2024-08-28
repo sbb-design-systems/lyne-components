@@ -2,13 +2,14 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbCheckboxPanelElement } from '../checkbox.js';
+import type { SbbCheckboxGroupElement, SbbCheckboxPanelElement } from '../checkbox.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import { slotState } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
+import { AgnosticMutationObserver } from '../core/observers.js';
 import type { SbbRadioButtonGroupElement, SbbRadioButtonPanelElement } from '../radio-button.js';
 
 import style from './selection-expansion-panel.scss?lit&inline';
@@ -95,13 +96,20 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   private _language = new SbbLanguageController(this);
   private _abort = new SbbConnectedAbortController(this);
   private _initialized: boolean = false;
+  private _sizeAttributeObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
+    this._onSizeAttributesChange(mutationsList),
+  );
 
-  /**
-   * Whether it has an expandable content
-   */
+  /** Whether it has an expandable content */
   private get _hasContent(): boolean {
     // We cannot use the NamedSlots because it's too slow to initialize
     return this.querySelectorAll?.('[slot="content"]').length > 0;
+  }
+
+  private get _group(): SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null {
+    return this.closest('sbb-radio-button-group, sbb-checkbox-group') as
+      | SbbRadioButtonGroupElement
+      | SbbCheckboxGroupElement;
   }
 
   public override connectedCallback(): void {
@@ -112,6 +120,11 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
     });
 
     this._state ||= 'closed';
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._sizeAttributeObserver.disconnect();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -169,16 +182,19 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 
     this._checked = input.checked;
     this._disabled = input.disabled;
-    this._setDataSize(input);
+    this._sizeAttributeObserver.observe(input, { attributeFilter: ['size'] });
     this._updateState();
   }
 
-  private _setDataSize(input: SbbCheckboxPanelElement | SbbRadioButtonPanelElement): void {
-    const group = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
-    if (group) {
-      this.setAttribute('data-size', group.size === 'xs' ? 's' : group.size);
-    } else {
-      this.setAttribute('data-size', input.size);
+  private _onSizeAttributesChange(mutationsList: MutationRecord[]): void {
+    for (const mutation of mutationsList) {
+      if (mutation.attributeName === 'size') {
+        const group = this._group;
+        const size = (mutation.target as HTMLElement).getAttribute('size')!;
+        if (!group || group.size === size) {
+          this.setAttribute('data-size', size);
+        }
+      }
     }
   }
 

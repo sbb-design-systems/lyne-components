@@ -93,12 +93,6 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
         this.stateChange.emit({ type: 'disabled', disabled: this.disabled });
       }
     }
-
-    if (changedProperties.has('size')) {
-      if (!this.group) {
-        this.closest?.('sbb-selection-expansion-panel')?.setAttribute('data-size', this.size);
-      }
-    }
   }
 
   protected override render(): TemplateResult {

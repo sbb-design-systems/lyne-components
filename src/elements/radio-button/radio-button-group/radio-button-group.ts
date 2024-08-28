@@ -8,7 +8,6 @@ import { hostAttributes, slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
-import type { SbbSelectionExpansionPanelElement } from '../../selection-expansion-panel.js';
 import type { SbbRadioButtonStateChange, SbbRadioButtonSize } from '../common.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
@@ -85,15 +84,6 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
         | SbbRadioButtonPanelElement
       )[]
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
-  }
-
-  /** List of contained selection-expansion-panel elements. */
-  private get _expansionPanels(): SbbSelectionExpansionPanelElement[] {
-    return <SbbSelectionExpansionPanelElement[]>(
-      Array.from(this.querySelectorAll?.('sbb-selection-expansion-panel') ?? []).filter(
-        (el) => el.closest('sbb-radio-button-group') === this,
-      )
-    );
   }
 
   private get _enabledRadios(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] | undefined {
@@ -180,9 +170,6 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
     if (changedProperties.has('size')) {
       this.radioButtons.forEach((r) => r.requestUpdate?.('size'));
-      this._expansionPanels.forEach((e) =>
-        e.setAttribute('data-size', this.size === 'xs' ? 's' : this.size),
-      );
     }
   }
 
