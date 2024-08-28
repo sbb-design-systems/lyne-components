@@ -11,7 +11,7 @@ export async function waitForImageReady(
       : (element as HTMLImageElement);
 
   if (!imgElement) {
-    return Promise.reject('img tag not found');
+    throw new Error('img tag not found');
   }
 
   if (!element.complete) {
