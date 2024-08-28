@@ -14,9 +14,7 @@ import '../../title.js';
 import '../../image.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
-const imageBase64 = await loadAssetAsBase64(
-  import.meta.resolve('../../core/testing/assets/lucerne.png'),
-);
+const imageBase64 = await loadAssetAsBase64(imageUrl);
 
 const images = [
   {
