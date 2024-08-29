@@ -36,7 +36,8 @@
 }
 
 .sbb-clock__hand-minutes {
-  transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+  transition: transform var(--sbb-disable-animation-zero-time, 0.2s)
+    cubic-bezier(0.4, 2.08, 0.55, 0.44);
 
   @supports not (aspect-ratio: 1 / 1) {
     transform-origin: 50% 49.625%;
