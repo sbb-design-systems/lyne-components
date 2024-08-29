@@ -17,7 +17,7 @@
   --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
   --sbb-teaser-width: fit-content;
   --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
-  --sbb-teaser-brightness-hover: 1.075;
+  --sbb-teaser-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-animation-duration: var(
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-4x)
