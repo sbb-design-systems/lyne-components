@@ -20,6 +20,7 @@
   );
   --sbb-tab-label-animation-easing: var(--sbb-animation-easing);
   --sbb-tab-label-amount-color: var(--sbb-color-metal);
+  --sbb-tab-label-font-size: var(--sbb-font-size-text-m);
 
   display: inline-block;
   max-width: 100%;
@@ -40,6 +41,11 @@
 :host([data-size='s']) {
   --sbb-tab-label-height: var(--sbb-size-element-xs);
   --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xxxs);
+  --sbb-tab-label-font-size: var(--sbb-font-size-text-s);
+}
+
+:host([data-size='xl']) {
+  --sbb-tab-label-font-size: var(--sbb-font-size-text-xl);
 }
 
 :host([disabled]) {
@@ -83,20 +89,34 @@
   --sbb-tab-label-color: var(--sbb-color-charcoal);
 }
 
+// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
+  --sbb-tab-label-focus-visible-display: block;
+}
+
+:host([data-has-divider]) {
+  --sbb-tab-label-divider-display: block;
+}
+
+:host(:not([data-slot-names~='icon'], [icon-name])) {
+  --sbb-tab-label-icon-display: flex;
+}
+
+:host(:not([data-slot-names~='amount'], [amount])) {
+  --sbb-tab-label-amount-display: flex;
+}
+
 .sbb-tab-label__wrapper {
   position: relative;
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-    &::before {
-      content: '';
-      position: absolute;
-      display: block;
-      inset: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
-      border: var(--sbb-focus-outline-width) solid var(--sbb-focus-outline-color);
-      border-radius: var(--sbb-border-radius-2x);
-      z-index: 1;
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    display: var(--sbb-tab-label-focus-visible-display, none);
+    inset: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
+    border: var(--sbb-focus-outline-width) solid var(--sbb-focus-outline-color);
+    border-radius: var(--sbb-border-radius-2x);
+    z-index: 1;
   }
 }
 
@@ -114,16 +134,15 @@
   color: var(--sbb-tab-label-icon-color);
 
   // Show a border under the tab-group and between flex rows when the tab titles wrap to a new line
-  :host([data-has-divider]) & {
-    &::after {
-      content: '';
-      position: absolute;
-      inset-inline-start: 0;
-      inset-block-end: 0;
-      width: var(--sbb-tab-group-width);
-      height: var(--sbb-border-width-1x);
-      background-color: var(--sbb-color-cloud);
-    }
+  &::after {
+    content: '';
+    position: absolute;
+    display: var(--sbb-tab-label-divider-display, none);
+    inset-inline-start: 0;
+    inset-block-end: 0;
+    width: var(--sbb-tab-group-width);
+    height: var(--sbb-border-width-1x);
+    background-color: var(--sbb-color-cloud);
   }
 
   &::before {
@@ -150,51 +169,29 @@
   text-decoration: var(--sbb-tab-label-text-decoration);
 }
 
+.sbb-tab-label__text,
+.sbb-tab-label__amount {
+  @include sbb.text($font-size: var(--sbb-tab-label-font-size));
+  @include sbb.font-smoothing;
+}
+
 .sbb-tab-label__icon {
-  display: flex;
+  display: var(--sbb-tab-label-icon-display, none);
   flex-shrink: 0;
   color: var(--sbb-tab-label-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
-
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
-    display: none;
-  }
 }
 
 .sbb-tab-label__text {
   color: var(--sbb-tab-label-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 
-  @include sbb.font-smoothing;
   @include sbb.ellipsis;
-  @include sbb.text-m--bold;
-
-  :host([data-size='s']) & {
-    @include sbb.text-s--bold;
-  }
-
-  :host([data-size='xl']) & {
-    @include sbb.text-xl--bold;
-  }
+  @include sbb.text--bold;
 }
 
 .sbb-tab-label__amount {
-  display: flex;
+  display: var(--sbb-tab-label-amount-display, none);
   color: var(--sbb-tab-label-amount-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
-
-  @include sbb.text-m--regular;
-  @include sbb.font-smoothing;
-
-  :host(:not([data-slot-names~='amount'], [amount])) & {
-    display: none;
-  }
-
-  :host([data-size='s']) & {
-    @include sbb.text-s--regular;
-  }
-
-  :host([data-size='xl']) & {
-    @include sbb.text-xl--regular;
-  }
 }
