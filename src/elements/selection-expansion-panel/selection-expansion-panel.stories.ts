@@ -50,6 +50,9 @@ const size: InputType = {
     type: 'inline-radio',
   },
   options: ['m', 's'],
+  table: {
+    category: 'Group / Input',
+  },
 };
 
 const checkedInput: InputType = {

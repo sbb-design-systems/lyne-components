@@ -182,10 +182,19 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 
     this._checked = input.checked;
     this._disabled = input.disabled;
+    this._sizeAttributeObserver.disconnect();
+    // The size of the inner panel can change due direct change on the panel or due to change of the input-group size.
     this._sizeAttributeObserver.observe(input, { attributeFilter: ['size'] });
     this._updateState();
   }
 
+  /**
+   * Set the data-size in two cases:
+   * - if there's no group, so the size change comes directly from a change on the inner panel;
+   * - if there's a wrapper group and its size changes, syncing it with the panel size.
+   *
+   * On the other hand, if there's a wrapper group and the size changes on the inner panel, the data-size doesn't change.
+   */
   private _onSizeAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'size') {
