@@ -121,8 +121,8 @@ snapshots["sbb-step-label A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "tab",
-      "name": "Label"
+      "role": "text",
+      "name": ""
     }
   ]
 }

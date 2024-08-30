@@ -68,6 +68,18 @@ The displayed `sbb-option` can be collected into groups using `sbb-optgroup` ele
 </sbb-form-field>
 ```
 
+### Size
+
+The component has no `size` property but, when slotted in a `sbb-form-field`, it adapts to the parent `size`.
+
+```html
+<sbb-form-field size="s">
+  <label>Label</label>
+  <input placeholder="Trigger element" />
+  <sbb-autocomplete> ... </sbb-autocomplete>
+</sbb-form-field>
+```
+
 ## Events
 
 The `sbb-option` emits the `optionSelected` event when selected via user interaction.

@@ -19,20 +19,23 @@ const pkgJson = JSON.parse(readFileSync(new URL('../../package.json', import.met
 const playwrightVersion = pkgJson.devDependencies.playwright;
 const port = 3000;
 export const playwrightWebsocketAddress = `ws://localhost:${port}`;
+const containerRuntime = containerCmd ?? 'docker';
+const containerImage = `mcr.microsoft.com/playwright:v${playwrightVersion}`;
 // See https://github.com/microsoft/playwright/issues/26482
 export const startPlaywrightServerCommand = [
-  containerCmd ?? 'docker',
+  containerRuntime,
   'run',
   '-p',
   `${port}:${port}`,
   '--rm',
   '--init',
+  containerRuntime === 'docker' ? '--add-host=host.containers.internal=host-gateway' : undefined,
   '--workdir=/home/pwuser',
   '--entrypoint=/bin/sh',
-  `mcr.microsoft.com/playwright:v${playwrightVersion}-jammy`,
+  containerImage,
   `-c`,
   `npx -y playwright@${playwrightVersion} run-server --port ${port} --host 0.0.0.0`,
-];
+].filter(Boolean);
 
 // Reference: https://github.com/remcovaes/web-test-runner-vite-plugin
 export function containerPlaywrightBrowserPlugin(): TestRunnerPlugin {
@@ -47,9 +50,19 @@ export function containerPlaywrightBrowserPlugin(): TestRunnerPlugin {
     name: 'remote-playwright-browser-plugin',
 
     async serverStart({ logger }) {
-      logger.log('Starting playwright browsers in a container');
+      logger.log(
+        `Starting playwright browsers in a container (${startPlaywrightServerCommand[0]})`,
+      );
       abortController = new AbortController();
+
       await new Promise<void>((resolve, reject) => {
+        console.log('Pulling playwright container image if necessary');
+        spawn(containerRuntime, ['pull', containerImage], {
+          signal: abortController.signal,
+        }).on('close', (code) => (code ? reject(code) : resolve()));
+      });
+      await new Promise<void>((resolve, reject) => {
+        console.log('Starting playwright container');
         let id: NodeJS.Timeout | undefined = undefined;
         spawn(startPlaywrightServerCommand[0], startPlaywrightServerCommand.slice(1), {
           signal: abortController.signal,
@@ -72,7 +85,7 @@ export function containerPlaywrightBrowserPlugin(): TestRunnerPlugin {
             { signal: timeout },
           );
         }, 1000);
-        AbortSignal.timeout(60000).addEventListener('abort', () => {
+        AbortSignal.timeout(120000).addEventListener('abort', () => {
           clearInterval(id);
           reject('Failed to start container');
         });

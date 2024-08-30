@@ -88,6 +88,16 @@ const borderless: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+  table: {
+    category: 'Form field',
+  },
+};
+
 const floatingLabel: InputType = {
   control: {
     type: 'boolean',
@@ -119,6 +129,7 @@ const defaultArgTypes: ArgTypes = {
 
   // Form field args
   borderless,
+  size,
   floatingLabel,
 };
 
@@ -142,6 +153,7 @@ const defaultArgs: Args = {
 
   // Form field args
   borderless: false,
+  size: size.options![0],
   floatingLabel: false,
 };
 
@@ -238,6 +250,7 @@ const Template = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
+      size=${args.size}
       data-testid="form-field"
     >
       <label>Label</label>
@@ -262,6 +275,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
+      size=${args.size}
       data-testid="form-field"
     >
       <label>Label</label>
@@ -289,6 +303,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
+      size=${args.size}
       data-testid="form-field"
     >
       <label>Label</label>
@@ -329,6 +344,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
         ?negative=${args.negative}
         ?borderless=${args.borderless}
         ?floating-label=${args.floatingLabel}
+        size=${args.size}
         data-testid="form-field"
         id="sbb-form-field"
       >
@@ -378,6 +394,13 @@ export const BasicNegative: StoryObj = {
   play: isChromatic() ? playStory : undefined,
 };
 
+export const BasicSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
+  play: isChromatic() ? playStory : undefined,
+};
+
 export const BasicOpenAbove: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -400,10 +423,24 @@ export const BorderlessNegative: StoryObj = {
   play: isChromatic() ? playStory : undefined,
 };
 
+export const BorderlessSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true, size: size.options![1] },
+  play: isChromatic() ? playStory : undefined,
+};
+
 export const FloatingLabel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, floatingLabel: true },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const FloatingLabelSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, floatingLabel: true, size: size.options![1] },
   play: isChromatic() ? playStory : undefined,
 };
 
@@ -478,6 +515,13 @@ export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
   render: MixedTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs, negative: true },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const MixedSingleOptionWithOptionGroupSizeS: StoryObj = {
+  render: MixedTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs, size: size.options![1] },
   play: isChromatic() ? playStory : undefined,
 };
 
