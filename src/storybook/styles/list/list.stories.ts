@@ -83,13 +83,33 @@ const CheckupTemplate = (): TemplateResult => html`
   )}
 `;
 
-const CheckupCustomColorAndIconTemplate = (): TemplateResult => html`
+const CheckupCustomIconTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol
         class=${`sbb-checkup-list sbb-text-${textSize}`}
         style="--sbb-checkup-list-marker-icon-color: var(--sbb-color-red); --sbb-checkup-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-medium.svg')"
+      >
+        ${ListContent()}
+        <li>
+          Nested list
+          <ol class="sbb-list">
+            ${ListContent()}
+          </ol>
+        </li>
+      </ol>
+    `,
+  )}
+`;
+
+const CheckupCustomColorTemplate = (): TemplateResult => html`
+  ${['xs', 's', 'm', 'l', 'xl'].map(
+    (textSize) => html`
+      <sbb-title level="5">Text size ${textSize}</sbb-title>
+      <ol
+        class=${`sbb-checkup-list sbb-text-${textSize}`}
+        style="--sbb-checkup-list-color: var(--sbb-color-green);"
       >
         ${ListContent()}
         <li>
@@ -137,8 +157,12 @@ export const CheckupList: StoryObj = {
   render: CheckupTemplate,
 };
 
-export const CheckupListCustomColorAndIcon: StoryObj = {
-  render: CheckupCustomColorAndIconTemplate,
+export const CheckupListCustomIcon: StoryObj = {
+  render: CheckupCustomIconTemplate,
+};
+
+export const CheckupListCustomColor: StoryObj = {
+  render: CheckupCustomColorTemplate,
 };
 
 export const DescriptionList: StoryObj = {

@@ -165,10 +165,17 @@
   --sbb-checkup-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-tick-medium.svg');
   --sbb-checkup-list-marker-icon-color: var(--sbb-color-black);
   --sbb-list-marker-vertical-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-list-marker-dimensions: var(--sbb-size-icon-ui-small);
+  --sbb-list-marker-to-text-gap: var(--sbb-spacing-fixed-2x);
+
+  > li,
+  :is(ol, ul) {
+    color: var(--sbb-checkup-list-color);
+  }
 
   > li::before {
     content: '';
-    background-color: var(--sbb-checkup-list-marker-icon-color);
+    background-color: var(--sbb-checkup-list-color, var(--sbb-checkup-list-marker-icon-color));
     mask-image: var(--sbb-checkup-list-marker-icon);
     mask-repeat: no-repeat;
     mask-position: center;
