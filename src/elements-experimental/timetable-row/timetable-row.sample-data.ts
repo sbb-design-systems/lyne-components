@@ -1,6 +1,7 @@
 import type { ITripItem } from '../core/timetable.js';
 import {
   cancelledLeg,
+  connectionLeg,
   defaultBusLeg,
   defaultShipLeg,
   defaultTramLeg,
@@ -40,6 +41,11 @@ export const defaultTrip: DeepPartial<ITripItem> = {
       corporateIdentityPictogram: 'train-right',
     },
   },
+};
+
+export const connectionTrip: DeepPartial<ITripItem> = {
+  ...defaultTrip,
+  legs: [connectionLeg],
 };
 
 export const cancelledTrip: DeepPartial<ITripItem> = {

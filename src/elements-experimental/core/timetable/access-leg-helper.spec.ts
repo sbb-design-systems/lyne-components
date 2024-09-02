@@ -1,6 +1,7 @@
 import { expect } from '@open-wc/testing';
 
 import {
+  connectionTrip,
   defaultTrip,
   extendedEnterTimeTrip,
 } from '../../timetable-row/timetable-row.sample-data.js';
@@ -57,6 +58,22 @@ describe('getDepartureArrivalTimeAttribute', () => {
       duration: 10,
       icon: 'wheelchair-small',
       text: 'minutes of walking time after arrival:',
+    });
+  });
+
+  it('should return correct time attribute for connection-leg', () => {
+    const { departureTimeAttribute } = getDepartureArrivalTimeAttribute(
+      connectionTrip.legs as Leg[],
+      10,
+      0,
+      'en',
+      true,
+    );
+
+    expect(departureTimeAttribute).to.be.deep.equal({
+      duration: 30,
+      icon: 'walk-small',
+      text: 'Zu Fuss',
     });
   });
 
