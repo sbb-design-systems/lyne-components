@@ -1938,10 +1938,10 @@
     argparse "~1.0.9"
     string-argv "~0.3.1"
 
-"@sbb-esta/lyne-design-tokens@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.2.0.tgz#db2ceae53e6aa4e43680b6d9945d0d1fc82a10b4"
-  integrity sha512-XRJG7u7rjwp0s0isBb1AE+urRhxHGfa+WuIXYUc8AkzlWWl0N2xDI/l+SrVelZYfhQWWu/AR3JPc8I2fDpLxCA==
+"@sbb-esta/lyne-design-tokens@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.2.1.tgz#678e560d5c78e03f35c39e07c4e59039938eabf0"
+  integrity sha512-IcOl5Bm3bUBdO33LmffezBHfcXGAvckzoUGdaD7aoLTivrZy3q8lfjdJJShYBvfmOmb6gRtX6A9XpAhEPFtlTg==
 
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
