@@ -71,7 +71,7 @@ Finally, the following custom CSS has been added(\*). The result can be seen in 
   }
 }
 
-@media screen and (width < 1023px) {
+@media screen and (width < 1024px) {
   .sbb-header-spacer {
     display: none;
   }
