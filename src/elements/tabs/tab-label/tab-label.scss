@@ -98,11 +98,11 @@
   --sbb-tab-label-divider-display: block;
 }
 
-:host(:not([data-slot-names~='icon'], [icon-name])) {
+:host(:is([data-slot-names~='icon'], [icon-name])) {
   --sbb-tab-label-icon-display: flex;
 }
 
-:host(:not([data-slot-names~='amount'], [amount])) {
+:host(:is([data-slot-names~='amount'], [amount])) {
   --sbb-tab-label-amount-display: flex;
 }
 
