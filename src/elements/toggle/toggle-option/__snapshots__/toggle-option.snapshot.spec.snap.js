@@ -17,6 +17,7 @@ snapshots["sbb-toggle-option renders Shadow DOM"] =
 `<input
   aria-hidden="true"
   id="sbb-toggle-option-id"
+  inert=""
   tabindex="-1"
   type="radio"
   value="Option 1"
@@ -87,6 +88,7 @@ snapshots["sbb-toggle-option renders checked disabled Shadow DOM"] =
   aria-hidden="true"
   disabled=""
   id="sbb-toggle-option-id"
+  inert=""
   tabindex="-1"
   type="radio"
   value="Option 1"

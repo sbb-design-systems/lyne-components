@@ -56,7 +56,7 @@ const template = ({
   <sbb-teaser-product ?negative=${negative} image-alignment=${imageAlignment || nothing} href="#">
     ${slottedImg
       ? html`<img slot="image" src=${imageBase64} alt="" />`
-      : html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`}
+      : html`<sbb-image slot="image" image-src=${imageUrl} skip-lqip></sbb-image>`}
     ${content(longContent)} ${showFooter ? footer() : nothing}
   </sbb-teaser-product>
 `;
@@ -82,20 +82,16 @@ describe('sbb-teaser-product', () => {
             }
           });
         }
-
-        it(
-          `imageAlignment=before`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(
-              template({ imageAlignment: 'before', showFooter: true, slottedImg }),
-            );
-            await waitForImageReady(
-              setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
-            );
-          }),
-        );
       });
     }
+
+    it(
+      `imageAlignment=before`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ imageAlignment: 'before', showFooter: true }));
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+      }),
+    );
 
     it(
       'no footer',

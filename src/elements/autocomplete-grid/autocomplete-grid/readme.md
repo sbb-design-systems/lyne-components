@@ -107,6 +107,18 @@ The displayed `sbb-autocomplete-grid-option` can be collected into groups using 
 </sbb-form-field>
 ```
 
+### Size
+
+The component has no `size` property but, when slotted in a `sbb-form-field`, it adapts to the parent `size`.
+
+```html
+<sbb-form-field size="s">
+  <label>Label</label>
+  <input placeholder="Trigger element" />
+  <sbb-autocomplete-grid> ... </sbb-autocomplete-grid>
+</sbb-form-field>
+```
+
 ## Events
 
 The `sbb-autocomplete-grid-option` emits the `optionSelected` event when selected via user interaction.
