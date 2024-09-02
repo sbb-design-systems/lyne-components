@@ -62,6 +62,12 @@ sbb-button {
 
 Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-button` for screen-reader users.
 
+### Disabled buttons
+
+Generally speaking, `disabled` elements are considered a bad pattern for a11y. They are invisible to assistive technology and do not provide the reason for which they are disabled.
+To partially address the problem, disabled elements are kept focusable (other interactions are still prevented).
+Still, the consumer's responsible for providing the reason for a disabled element.
+
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -74,6 +74,12 @@ and the header's `id` is set as `aria-labelledby` attribute on the content.
 The `expanded` attribute is used to correctly set the `aria-expanded` attribute on the header
 and the `aria-hidden` attribute on the content.
 
+### Disabled elements
+
+Generally speaking, `disabled` elements are considered a bad pattern for a11y. They are invisible to assistive technology and do not provide the reason for which they are disabled.
+To partially address the problem, disabled elements are kept focusable (other interactions are still prevented).
+Still, the consumer's responsible for providing the reason for a disabled element.
+
 <!-- Auto Generated Below -->
 
 ## Properties

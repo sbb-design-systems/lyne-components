@@ -53,6 +53,12 @@ It's recommended to check the parent's `sbb-tag-group` for the value.
 The component imitates an `button` element to provide an accessible experience.
 The state is reflected via `aria-pressed` attribute.
 
+### Disabled elements
+
+Generally speaking, `disabled` elements are considered a bad pattern for a11y. They are invisible to assistive technology and do not provide the reason for which they are disabled.
+To partially address the problem, disabled elements are kept focusable (other interactions are still prevented).
+Still, the consumer's responsible for providing the reason for a disabled element.
+
 <!-- Auto Generated Below -->
 
 ## Properties

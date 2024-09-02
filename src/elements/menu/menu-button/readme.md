@@ -26,6 +26,14 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 <sbb-menu-button value="menu" name="menu">Button</sbb-menu-button>
 ```
 
+## Accessibility
+
+### Disabled buttons
+
+Generally speaking, `disabled` elements are considered a bad pattern for a11y. They are invisible to assistive technology and do not provide the reason for which they are disabled.
+To partially address the problem, disabled elements are kept focusable (other interactions are still prevented).
+Still, the consumer's responsible for providing the reason for a disabled element.
+
 <!-- Auto Generated Below -->
 
 ## Properties
