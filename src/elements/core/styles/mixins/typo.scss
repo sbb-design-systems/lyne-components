@@ -88,12 +88,14 @@
 // ----------------------------------------------------------------------------------------------------
 // Typo: Text Style Mixins
 // ----------------------------------------------------------------------------------------------------
-@mixin text($font-size: var(--sbb-text-font-size), $font-weight: normal) {
+@mixin text($exclude-font-size: false) {
   font-family: var(--sbb-typo-font-family);
-  font-weight: $font-weight;
+  font-weight: normal;
   line-height: var(--sbb-typo-line-height-body-text);
   letter-spacing: var(--sbb-typo-letter-spacing-body-text);
-  font-size: $font-size;
+  @if not($exclude-font-size) {
+    font-size: var(--sbb-text-font-size);
+  }
 }
 
 @mixin text--bold {

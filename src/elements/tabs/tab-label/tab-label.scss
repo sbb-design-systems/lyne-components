@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-tab-label-height: var(--sbb-size-element-m);
   --sbb-tab-label-color: var(--sbb-color-granite);
@@ -132,6 +129,7 @@
   cursor: var(--sbb-tab-label-cursor);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
   color: var(--sbb-tab-label-icon-color);
+  @include sbb.text--bold;
 
   // Show a border under the tab-group and between flex rows when the tab titles wrap to a new line
   &::after {
@@ -171,7 +169,7 @@
 
 .sbb-tab-label__text,
 .sbb-tab-label__amount {
-  @include sbb.text($font-size: var(--sbb-tab-label-font-size));
+  font-size: var(--sbb-tab-label-font-size);
   @include sbb.font-smoothing;
 }
 
@@ -187,11 +185,11 @@
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 
   @include sbb.ellipsis;
-  @include sbb.text--bold;
 }
 
 .sbb-tab-label__amount {
   display: var(--sbb-tab-label-amount-display, none);
   color: var(--sbb-tab-label-amount-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
+  font-weight: normal;
 }
