@@ -151,6 +151,7 @@ function renderWalkTime(
  * @param departureWalk: The walking distance in minutes from the departure point to the first leg.
  * @param arrivalWalk: The walking distance in minutes from the last leg to the arrival point.
  * @param currentLanguage: The current language for localization.
+ * @param a11yFootpath: If the a11y-icon should be shown.
  * @returns renderDepartureTimeAttribute: A function that renders the element for the departure time attribute.
  * @returns renderArrivalTimeAttribute: A function that renders the element for the arrival time attribute.
  * @returns arrivalTimeAttribute: The access attribute for the arrival time.
@@ -182,7 +183,7 @@ export function getDepartureArrivalTimeAttribute(
     ? {
         text: i18nWalkingDistanceDeparture[currentLanguage],
         duration: departureWalk,
-        icon: 'walk-small',
+        icon: a11yFootpath ? 'wheelchair-small' : 'walk-small',
       }
     : null;
 
@@ -199,25 +200,21 @@ export function getDepartureArrivalTimeAttribute(
   };
 
   function renderDepartureTimeAttribute(): TemplateResult {
-    if (a11yFootpath && departureWalkAttribute) {
-      return html`${renderWalkTime(
-        departureWalkAttribute.duration,
-        departureWalkAttribute.text,
-        'left',
-        'wheelchair-small',
-      )}`;
-    }
-
     return html`
       ${connectionFirstLeg
-        ? renderWalkTime(connectionFirstLeg.duration, connectionFirstLeg.text, 'left', 'walk-small')
+        ? renderWalkTime(
+            connectionFirstLeg.duration,
+            connectionFirstLeg.text,
+            'left',
+            connectionFirstLeg.icon,
+          )
         : nothing}
       ${departureWalkAttribute && !extendedFirstLeg && !connectionFirstLeg
         ? renderWalkTime(
             departureWalkAttribute.duration,
             departureWalkAttribute.text,
             'left',
-            'walk-small',
+            departureWalkAttribute.icon,
           )
         : nothing}
       ${extendedFirstLeg
@@ -244,7 +241,7 @@ export function getDepartureArrivalTimeAttribute(
     ? {
         text: i18nWalkingDistanceArrival[currentLanguage],
         duration: arrivalWalk,
-        icon: 'walk-small',
+        icon: a11yFootpath ? 'wheelchair-small' : 'walk-small',
       }
     : null;
 
@@ -261,25 +258,21 @@ export function getDepartureArrivalTimeAttribute(
   };
 
   function renderArrivalTimeAttribute(): TemplateResult {
-    if (a11yFootpath && arrivalWalkAttribute) {
-      return html`${renderWalkTime(
-        arrivalWalkAttribute.duration,
-        arrivalWalkAttribute.text,
-        'right',
-        'wheelchair-small',
-      )}`;
-    }
-
     return html`
       ${connectionLastLeg
-        ? renderWalkTime(connectionLastLeg.duration, connectionLastLeg.text, 'right', 'walk-small')
+        ? renderWalkTime(
+            connectionLastLeg.duration,
+            connectionLastLeg.text,
+            'right',
+            connectionLastLeg.icon,
+          )
         : nothing}
       ${arrivalWalkAttribute && !extendedLastLeg && !connectionLastLeg
         ? renderWalkTime(
             arrivalWalkAttribute.duration,
             arrivalWalkAttribute.text,
             'right',
-            'walk-small',
+            arrivalWalkAttribute.icon,
           )
         : nothing}
       ${extendedLastLeg

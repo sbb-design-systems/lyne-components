@@ -39,6 +39,27 @@ describe('getDepartureArrivalTimeAttribute', () => {
     });
   });
 
+  it('should return correct a11y time attributes', () => {
+    const { departureTimeAttribute, arrivalTimeAttribute } = getDepartureArrivalTimeAttribute(
+      defaultTrip.legs as Leg[],
+      10,
+      10,
+      'en',
+      true,
+    );
+
+    expect(departureTimeAttribute).to.be.deep.equal({
+      duration: 10,
+      icon: 'wheelchair-small',
+      text: 'minutes of walking time before departure:',
+    });
+    expect(arrivalTimeAttribute).to.be.deep.equal({
+      duration: 10,
+      icon: 'wheelchair-small',
+      text: 'minutes of walking time after arrival:',
+    });
+  });
+
   it('should returns extended departure time attribute', () => {
     const { departureTimeAttribute } = getDepartureArrivalTimeAttribute(
       extendedEnterTimeTrip.legs as Leg[],
