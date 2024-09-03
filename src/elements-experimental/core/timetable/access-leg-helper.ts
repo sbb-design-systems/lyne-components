@@ -104,7 +104,9 @@ function renderTransferTime(
   type?: 'departure' | 'arrival',
 ): TemplateResult {
   return html`
-    <span class="sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${type}">
+    <span
+      class="sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${icon + '-' + type}"
+    >
       <sbb-icon name=${icon}></sbb-icon>
       <time datetime=${duration + 'M'}>
         <span class="sbb-screen-reader-only">
@@ -186,12 +188,22 @@ export function getDepartureArrivalTimeAttribute(
         icon: a11yFootpath ? 'wheelchair-small' : 'walk-small',
       }
     : null;
+  const extendedA11yFirstLeg =
+    extendedFirstLeg && a11yFootpath
+      ? {
+          text: i18nWalkingDistanceDeparture[currentLanguage],
+          duration: extendedFirstLeg.duration,
+          icon: 'wheelchair-small',
+        }
+      : null;
 
   const getDepartureType = (): IAccessAttribute | null => {
     if (connectionFirstLeg) {
       return connectionFirstLeg;
     } else if (departureWalkAttribute && !extendedFirstLeg && !connectionFirstLeg) {
       return departureWalkAttribute;
+    } else if (extendedA11yFirstLeg) {
+      return extendedA11yFirstLeg;
     } else if (extendedFirstLeg) {
       return extendedFirstLeg;
     } else {
@@ -217,7 +229,15 @@ export function getDepartureArrivalTimeAttribute(
             departureWalkAttribute.icon,
           )
         : nothing}
-      ${extendedFirstLeg
+      ${extendedA11yFirstLeg
+        ? renderWalkTime(
+            extendedA11yFirstLeg.duration,
+            extendedA11yFirstLeg.text,
+            'left',
+            extendedA11yFirstLeg.icon,
+          )
+        : nothing}
+      ${!extendedA11yFirstLeg && extendedFirstLeg
         ? renderTransferTime(
             extendedFirstLeg.duration,
             extendedFirstLeg.icon,
@@ -278,7 +298,7 @@ export function getDepartureArrivalTimeAttribute(
       ${extendedLastLeg
         ? renderTransferTime(
             extendedLastLeg.duration,
-            extendedLastLeg.icon,
+            a11yFootpath ? 'wheelchair-small' : extendedLastLeg.icon,
             currentLanguage,
             extendedLastLeg.text,
             'arrival',

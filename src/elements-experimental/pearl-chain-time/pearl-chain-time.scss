@@ -59,11 +59,11 @@
   gap: var(--sbb-spacing-fixed-1x);
 }
 
-.sbb-pearl-chain__time-transfer--departure {
+.sbb-pearl-chain__time-transfer--sa-ci-departure {
   margin-inline-end: var(--sbb-spacing-fixed-2x);
 }
 
-.sbb-pearl-chain__time-transfer--arrival {
+.sbb-pearl-chain__time-transfer--sa-ci-arrival {
   margin-inline-start: calc(var(--sbb-spacing-fixed-2x) - #{sbb.px-to-rem-build(4)});
 }
 

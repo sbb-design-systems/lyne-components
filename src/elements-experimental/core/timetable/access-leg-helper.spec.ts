@@ -106,4 +106,20 @@ describe('getDepartureArrivalTimeAttribute', () => {
       text: 'Extended boarding time ',
     });
   });
+
+  it('should return correct a11y time attribute with extended departure time', () => {
+    const { departureTimeAttribute } = getDepartureArrivalTimeAttribute(
+      extendedEnterTimeTrip.legs as Leg[],
+      0,
+      0,
+      'en',
+      true,
+    );
+
+    expect(departureTimeAttribute).to.be.deep.equal({
+      duration: 45,
+      icon: 'wheelchair-small',
+      text: 'minutes of walking time before departure:',
+    });
+  });
 });
