@@ -13,43 +13,41 @@ snapshots["sbb-paginator renders DOM"] =
 
 snapshots["sbb-paginator renders Shadow DOM"] = 
 `<div class="sbb-paginator">
-  <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="l">
-      <sbb-mini-button
-        aria-disabled="true"
-        aria-label="Previous page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        disabled=""
-        icon-name="chevron-small-left-small"
-        id="sbb-paginator-prev-page"
-        role="button"
-        slot="li-0"
-      >
-      </sbb-mini-button>
-      <sbb-divider
-        aria-orientation="vertical"
-        orientation="vertical"
-        role="separator"
-        slot="li-1"
-      >
-      </sbb-divider>
-      <sbb-mini-button
-        aria-disabled="true"
-        aria-label="Next page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        disabled=""
-        icon-name="chevron-small-right-small"
-        id="sbb-paginator-next-page"
-        role="button"
-        slot="li-2"
-      >
-      </sbb-mini-button>
-    </sbb-mini-button-group>
-  </div>
+  <sbb-mini-button-group size="l">
+    <sbb-mini-button
+      aria-disabled="true"
+      aria-label="Previous page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-small-left-small"
+      id="sbb-paginator-prev-page"
+      role="button"
+      slot="li-0"
+    >
+    </sbb-mini-button>
+    <sbb-divider
+      aria-orientation="vertical"
+      orientation="vertical"
+      role="separator"
+      slot="li-1"
+    >
+    </sbb-divider>
+    <sbb-mini-button
+      aria-disabled="true"
+      aria-label="Next page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-small-right-small"
+      id="sbb-paginator-next-page"
+      role="button"
+      slot="li-2"
+    >
+    </sbb-mini-button>
+  </sbb-mini-button-group>
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
@@ -84,42 +82,40 @@ snapshots["sbb-paginator renders ellipsis on end side DOM"] =
 
 snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] = 
 `<div class="sbb-paginator">
-  <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="l">
-      <sbb-mini-button
-        aria-disabled="true"
-        aria-label="Previous page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        disabled=""
-        icon-name="chevron-small-left-small"
-        id="sbb-paginator-prev-page"
-        role="button"
-        slot="li-0"
-      >
-      </sbb-mini-button>
-      <sbb-divider
-        aria-orientation="vertical"
-        orientation="vertical"
-        role="separator"
-        slot="li-1"
-      >
-      </sbb-divider>
-      <sbb-mini-button
-        aria-label="Next page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        icon-name="chevron-small-right-small"
-        id="sbb-paginator-next-page"
-        role="button"
-        slot="li-2"
-        tabindex="0"
-      >
-      </sbb-mini-button>
-    </sbb-mini-button-group>
-  </div>
+  <sbb-mini-button-group size="l">
+    <sbb-mini-button
+      aria-disabled="true"
+      aria-label="Previous page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-small-left-small"
+      id="sbb-paginator-prev-page"
+      role="button"
+      slot="li-0"
+    >
+    </sbb-mini-button>
+    <sbb-divider
+      aria-orientation="vertical"
+      orientation="vertical"
+      role="separator"
+      slot="li-1"
+    >
+    </sbb-divider>
+    <sbb-mini-button
+      aria-label="Next page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-small-right-small"
+      id="sbb-paginator-next-page"
+      role="button"
+      slot="li-2"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </sbb-mini-button-group>
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
@@ -204,41 +200,39 @@ snapshots["sbb-paginator renders ellipsis on start side DOM"] =
 
 snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] = 
 `<div class="sbb-paginator">
-  <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="l">
-      <sbb-mini-button
-        aria-label="Previous page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        icon-name="chevron-small-left-small"
-        id="sbb-paginator-prev-page"
-        role="button"
-        slot="li-0"
-        tabindex="0"
-      >
-      </sbb-mini-button>
-      <sbb-divider
-        aria-orientation="vertical"
-        orientation="vertical"
-        role="separator"
-        slot="li-1"
-      >
-      </sbb-divider>
-      <sbb-mini-button
-        aria-label="Next page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        icon-name="chevron-small-right-small"
-        id="sbb-paginator-next-page"
-        role="button"
-        slot="li-2"
-        tabindex="0"
-      >
-      </sbb-mini-button>
-    </sbb-mini-button-group>
-  </div>
+  <sbb-mini-button-group size="l">
+    <sbb-mini-button
+      aria-label="Previous page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-small-left-small"
+      id="sbb-paginator-prev-page"
+      role="button"
+      slot="li-0"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+    <sbb-divider
+      aria-orientation="vertical"
+      orientation="vertical"
+      role="separator"
+      slot="li-1"
+    >
+    </sbb-divider>
+    <sbb-mini-button
+      aria-label="Next page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-small-right-small"
+      id="sbb-paginator-next-page"
+      role="button"
+      slot="li-2"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </sbb-mini-button-group>
   <ul class="sbb-paginator__pages">
     <li class="sbb-paginator__page--number">
       <span
@@ -323,41 +317,39 @@ snapshots["sbb-paginator renders ellipsis on both side DOM"] =
 
 snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] = 
 `<div class="sbb-paginator">
-  <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="l">
-      <sbb-mini-button
-        aria-label="Previous page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        icon-name="chevron-small-left-small"
-        id="sbb-paginator-prev-page"
-        role="button"
-        slot="li-0"
-        tabindex="0"
-      >
-      </sbb-mini-button>
-      <sbb-divider
-        aria-orientation="vertical"
-        orientation="vertical"
-        role="separator"
-        slot="li-1"
-      >
-      </sbb-divider>
-      <sbb-mini-button
-        aria-label="Next page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        icon-name="chevron-small-right-small"
-        id="sbb-paginator-next-page"
-        role="button"
-        slot="li-2"
-        tabindex="0"
-      >
-      </sbb-mini-button>
-    </sbb-mini-button-group>
-  </div>
+  <sbb-mini-button-group size="l">
+    <sbb-mini-button
+      aria-label="Previous page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-small-left-small"
+      id="sbb-paginator-prev-page"
+      role="button"
+      slot="li-0"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+    <sbb-divider
+      aria-orientation="vertical"
+      orientation="vertical"
+      role="separator"
+      slot="li-1"
+    >
+    </sbb-divider>
+    <sbb-mini-button
+      aria-label="Next page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-small-right-small"
+      id="sbb-paginator-next-page"
+      role="button"
+      slot="li-2"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </sbb-mini-button-group>
   <ul class="sbb-paginator__pages">
     <li class="sbb-paginator__page--number">
       <span
@@ -446,42 +438,40 @@ snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] =
 
 snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-paginator">
-  <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="l">
-      <sbb-mini-button
-        aria-disabled="true"
-        aria-label="Previous page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        disabled=""
-        icon-name="chevron-small-left-small"
-        id="sbb-paginator-prev-page"
-        role="button"
-        slot="li-0"
-      >
-      </sbb-mini-button>
-      <sbb-divider
-        aria-orientation="vertical"
-        orientation="vertical"
-        role="separator"
-        slot="li-1"
-      >
-      </sbb-divider>
-      <sbb-mini-button
-        aria-label="Next page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        icon-name="chevron-small-right-small"
-        id="sbb-paginator-next-page"
-        role="button"
-        slot="li-2"
-        tabindex="0"
-      >
-      </sbb-mini-button>
-    </sbb-mini-button-group>
-  </div>
+  <sbb-mini-button-group size="l">
+    <sbb-mini-button
+      aria-disabled="true"
+      aria-label="Previous page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-small-left-small"
+      id="sbb-paginator-prev-page"
+      role="button"
+      slot="li-0"
+    >
+    </sbb-mini-button>
+    <sbb-divider
+      aria-orientation="vertical"
+      orientation="vertical"
+      role="separator"
+      slot="li-1"
+    >
+    </sbb-divider>
+    <sbb-mini-button
+      aria-label="Next page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-small-right-small"
+      id="sbb-paginator-next-page"
+      role="button"
+      slot="li-2"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </sbb-mini-button-group>
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
@@ -626,42 +616,40 @@ snapshots["sbb-paginator renders with options Safari DOM"] =
 
 snapshots["sbb-paginator renders with options Safari Shadow DOM"] = 
 `<div class="sbb-paginator">
-  <div class="sbb-paginator__buttons">
-    <sbb-mini-button-group size="l">
-      <sbb-mini-button
-        aria-disabled="true"
-        aria-label="Previous page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        disabled=""
-        icon-name="chevron-small-left-small"
-        id="sbb-paginator-prev-page"
-        role="button"
-        slot="li-0"
-      >
-      </sbb-mini-button>
-      <sbb-divider
-        aria-orientation="vertical"
-        orientation="vertical"
-        role="separator"
-        slot="li-1"
-      >
-      </sbb-divider>
-      <sbb-mini-button
-        aria-label="Next page"
-        data-action=""
-        data-button=""
-        dir="ltr"
-        icon-name="chevron-small-right-small"
-        id="sbb-paginator-next-page"
-        role="button"
-        slot="li-2"
-        tabindex="0"
-      >
-      </sbb-mini-button>
-    </sbb-mini-button-group>
-  </div>
+  <sbb-mini-button-group size="l">
+    <sbb-mini-button
+      aria-disabled="true"
+      aria-label="Previous page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      disabled=""
+      icon-name="chevron-small-left-small"
+      id="sbb-paginator-prev-page"
+      role="button"
+      slot="li-0"
+    >
+    </sbb-mini-button>
+    <sbb-divider
+      aria-orientation="vertical"
+      orientation="vertical"
+      role="separator"
+      slot="li-1"
+    >
+    </sbb-divider>
+    <sbb-mini-button
+      aria-label="Next page"
+      data-action=""
+      data-button=""
+      dir="ltr"
+      icon-name="chevron-small-right-small"
+      id="sbb-paginator-next-page"
+      role="button"
+      slot="li-2"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </sbb-mini-button-group>
   <ul class="sbb-paginator__pages">
     <li
       class="sbb-paginator__page--number"
@@ -888,7 +876,7 @@ snapshots["sbb-paginator renders with options A11y tree Firefox"] =
     },
     {
       "role": "text leaf",
-      "name": "Items per page "
+      "name": "Items per page"
     },
     {
       "role": "statictext",

@@ -12,7 +12,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../core/a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import { EventEmitter } from '../core/eventing.js';
-import { i18nPreviousPage, i18nNextPage, i18nPage } from '../core/i18n.js';
+import { i18nPreviousPage, i18nNextPage, i18nPage, i18nItemsPerPage } from '../core/i18n.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 import type { SbbSelectElement } from '../select.js';
 
@@ -25,8 +25,10 @@ import '../form-field.js';
 import '../select.js';
 import '../option.js';
 
-export type SbbPaginatorPageChanged = {
-  currentPageIndex: number;
+export type SbbPaginatorPageChangedEventDetails = {
+  length: number;
+  pageSize: number;
+  pageIndex: number;
   previousPageIndex: number;
 };
 
@@ -72,7 +74,12 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     const previousPageIndex = this._pageIndex;
     this._pageIndex = this._validatePageIndex(value);
     if (previousPageIndex !== this._pageIndex) {
-      this._pageChanged.emit({ previousPageIndex, currentPageIndex: value });
+      this._pageChanged.emit({
+        previousPageIndex,
+        pageIndex: value,
+        length: this.length,
+        pageSize: this.pageSize,
+      });
     }
   }
   public get pageIndex(): number {
@@ -83,13 +90,16 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** The available `pageSize` choices. */
   @property({ attribute: 'page-size-options', type: Array }) public pageSizeOptions?: number[];
 
-  /** Position of the prev/next buttons. */
+  /**
+   * Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change
+   * will be positioned oppositely with the page numbers always in the center.
+   */
   @property({ attribute: 'pager-position' }) public pagerPosition: 'start' | 'end' = 'start';
 
   /** Size variant, either m or s. */
   @property({ reflect: true }) public size: 'm' | 's' = 'm';
 
-  private _pageChanged: EventEmitter<SbbPaginatorPageChanged> = new EventEmitter(
+  private _pageChanged: EventEmitter<SbbPaginatorPageChangedEventDetails> = new EventEmitter(
     this,
     SbbPaginatorElement.events.pageChanged,
     { composed: true, bubbles: true },
@@ -128,11 +138,6 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** Returns the displayed page elements. */
   private _getVisiblePages(): Element[] {
     return Array.from(this.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item'));
-  }
-
-  /** Change page by setting the `pageIndex`. */
-  private _changePage(value: number): void {
-    this.pageIndex = value;
   }
 
   /** Evaluate `pageIndex` by excluding edge cases. */
@@ -236,25 +241,23 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   private _renderPrevNextButtons(): TemplateResult {
     return html`
-      <div class="sbb-paginator__buttons">
-        <sbb-mini-button-group ?negative=${this.negative} size=${this.size === 's' ? 's' : 'l'}>
-          <sbb-mini-button
-            id="sbb-paginator-prev-page"
-            aria-label=${i18nPreviousPage[this._language.current]}
-            icon-name="chevron-small-left-small"
-            ?disabled=${this.pageIndex === 0}
-            @click=${() => this._changePage(this.pageIndex - 1)}
-          ></sbb-mini-button>
-          <sbb-divider orientation="vertical"></sbb-divider>
-          <sbb-mini-button
-            id="sbb-paginator-next-page"
-            aria-label=${i18nNextPage[this._language.current]}
-            icon-name="chevron-small-right-small"
-            ?disabled=${this.pageIndex === this._numberOfPages - 1}
-            @click=${() => this._changePage(this.pageIndex + 1)}
-          ></sbb-mini-button>
-        </sbb-mini-button-group>
-      </div>
+      <sbb-mini-button-group ?negative=${this.negative} size=${this.size === 's' ? 's' : 'l'}>
+        <sbb-mini-button
+          id="sbb-paginator-prev-page"
+          aria-label=${i18nPreviousPage[this._language.current]}
+          icon-name="chevron-small-left-small"
+          ?disabled=${this.pageIndex === 0}
+          @click=${() => (this.pageIndex -= 1)}
+        ></sbb-mini-button>
+        <sbb-divider orientation="vertical"></sbb-divider>
+        <sbb-mini-button
+          id="sbb-paginator-next-page"
+          aria-label=${i18nNextPage[this._language.current]}
+          icon-name="chevron-small-right-small"
+          ?disabled=${this.pageIndex === this._numberOfPages - 1}
+          @click=${() => (this.pageIndex += 1)}
+        ></sbb-mini-button>
+      </sbb-mini-button-group>
     `;
   }
 
@@ -262,7 +265,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
           <div class="sbb-paginator__page-size-options">
-            Items per page
+            ${i18nItemsPerPage[this._language.current]}
             <sbb-form-field
               borderless
               width="collapse"
@@ -311,7 +314,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
                       aria-selected=${this.pageIndex === item ? 'true' : nothing}
                       tabindex=${this.pageIndex === item ? '0' : '-1'}
-                      @click=${() => this._changePage(item)}
+                      @click=${() => (this.pageIndex = item)}
                     >
                       ${item + 1}
                     </span>

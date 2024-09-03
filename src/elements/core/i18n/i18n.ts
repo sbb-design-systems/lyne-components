@@ -701,3 +701,10 @@ export const i18nPage: Record<string, string> = {
   fr: 'Page',
   it: 'Pagina',
 };
+
+export const i18nItemsPerPage: Record<string, string> = {
+  de: 'Einträge pro Seite',
+  en: 'Items per page',
+  fr: 'Entrées par page',
+  it: 'Elementi per pagina',
+};
