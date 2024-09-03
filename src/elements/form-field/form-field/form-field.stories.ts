@@ -155,12 +155,7 @@ const TemplateInputWithIcons = (args: Args): TemplateResult =>
       ${PopoverTrigger()}`,
   );
 
-const TemplateInputWithMiniButton = ({
-  disabled,
-  readonly,
-  active,
-  ...args
-}: Args): TemplateResult =>
+const TemplateInputWithMiniButton = ({ disabled, readonly, ...args }: Args): TemplateResult =>
   formField(
     args,
     html`${TemplateBasicInput({ disabled, readonly, ...args })}
@@ -169,16 +164,11 @@ const TemplateInputWithMiniButton = ({
         icon-name="pie-small"
         ?disabled=${disabled || readonly}
         aria-label="Input button"
-        ?data-active=${active}
       ></sbb-mini-button>`,
   );
 
-const TemplateInputWithClearButton = ({ active, ...args }: Args): TemplateResult =>
-  formField(
-    args,
-    html`${TemplateBasicInput(args)}
-      <sbb-form-field-clear ?data-active=${active}></sbb-form-field-clear>`,
-  );
+const TemplateInputWithClearButton = (args: Args): TemplateResult =>
+  formField(args, html`${TemplateBasicInput(args)} <sbb-form-field-clear></sbb-form-field-clear>`);
 
 const TemplateSelect = (args: Args): TemplateResult => formField(args, TemplateBasicSelect(args));
 
@@ -423,15 +413,6 @@ const negative: InputType = {
   },
 };
 
-const active: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    disable: true,
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   'error-space': errorSpace,
   label,
@@ -448,7 +429,6 @@ const basicArgTypes: ArgTypes = {
   value,
   errorText,
   width,
-  active,
 };
 
 const basicArgs: Args = {
@@ -467,7 +447,6 @@ const basicArgs: Args = {
   readonly: false,
   errorText: 'This is a required field.',
   width: width.options![0],
-  active: false,
 };
 
 export const Input: StoryObj = {
@@ -558,12 +537,6 @@ export const InputWithMiniButtonDisabled: StoryObj = {
   args: { ...basicArgs, disabled: true },
 };
 
-export const InputWithMiniButtonActive: StoryObj = {
-  render: TemplateInputWithMiniButton,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, active: true },
-};
-
 export const InputWithClearButton: StoryObj = {
   render: TemplateInputWithClearButton,
   argTypes: basicArgTypes,
@@ -574,12 +547,6 @@ export const InputWithClearButtonDisabled: StoryObj = {
   render: TemplateInputWithClearButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true },
-};
-
-export const InputWithClearButtonActive: StoryObj = {
-  render: TemplateInputWithClearButton,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, active: true },
 };
 
 export const InputLongLabelAndErrorSpace: StoryObj = {
@@ -820,12 +787,6 @@ export const InputWithMiniButtonDisabledNegative: StoryObj = {
   args: { ...basicArgs, disabled: true, negative: true },
 };
 
-export const InputWithMiniButtonActiveNegative: StoryObj = {
-  render: TemplateInputWithMiniButton,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, active: true, negative: true },
-};
-
 export const InputWithClearButtonNegative: StoryObj = {
   render: TemplateInputWithClearButton,
   argTypes: basicArgTypes,
@@ -836,12 +797,6 @@ export const InputWithClearButtonDisabledNegative: StoryObj = {
   render: TemplateInputWithClearButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true, negative: true },
-};
-
-export const InputWithClearButtonActiveNegative: StoryObj = {
-  render: TemplateInputWithClearButton,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, active: true, negative: true },
 };
 
 export const InputLongLabelAndErrorSpaceNegative: StoryObj = {
@@ -1024,7 +979,6 @@ export const TextareaFloatingWithIconNegative: StoryObj = {
 };
 
 const meta: Meta = {
-  excludeStories: /.*(Active|ActiveNegative)$/,
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

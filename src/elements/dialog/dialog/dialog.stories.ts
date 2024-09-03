@@ -1,22 +1,11 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 import { breakpoints } from '../../core/dom/breakpoint.js';
 import sampleImages from '../../core/images.js';
 import type { SbbTitleLevel } from '../../title.js';
@@ -32,20 +21,6 @@ import '../../image.js';
 import '../../popover.js';
 import '../dialog-content.js';
 import '../dialog-actions.js';
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('dialog').shadowRoot!.querySelector('.sbb-dialog'),
-  );
-
-  await waitForStablePosition(() => canvas.getByTestId('dialog-trigger'));
-
-  const button = canvas.getByTestId('dialog-trigger');
-  await userEvent.click(button);
-};
 
 const level: InputType = {
   control: {
@@ -282,7 +257,6 @@ const LongContentTemplate = ({
         image-src=${sampleImages[1]}
         alt="Natural landscape"
         data-testid="image"
-        data-chromatic="ignore"
       ></sbb-image>
       He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels
       of blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
@@ -409,7 +383,6 @@ export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: basicArgs,
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Negative: StoryObj = {
@@ -419,21 +392,18 @@ export const Negative: StoryObj = {
     ...basicArgs,
     negative: true,
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const AllowBackdropClick: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, 'backdrop-action': backdropAction.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const HiddenTitle: StoryObj = {
@@ -446,7 +416,6 @@ export const Form: StoryObj = {
   render: FormTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const NoBackButton: StoryObj = {
@@ -457,27 +426,23 @@ export const NoBackButton: StoryObj = {
     backButton: false,
     accessibilityBackLabel: undefined,
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const NoFooter: StoryObj = {
   render: NoFooterTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Nested: StoryObj = {
   render: NestedTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { disableSnapshot: false },
     actions: {
       handles: [
         SbbDialogElement.events.willOpen,

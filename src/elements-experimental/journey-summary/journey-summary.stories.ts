@@ -1,6 +1,5 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -75,7 +74,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  'disable-animation': isChromatic(),
+  'disable-animation': false,
   'round-trip': false,
   'header-level': headerLevel.options![2],
   now: new Date('2022-12-05T12:11:00').valueOf(),

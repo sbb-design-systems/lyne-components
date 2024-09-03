@@ -1,20 +1,10 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { userEvent, waitFor, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
 
 import { SbbNavigationElement } from './navigation.js';
 import readme from './readme.md?raw';
@@ -25,33 +15,6 @@ import '../navigation-button.js';
 import '../navigation-link.js';
 import '../../button/button.js';
 import '../../button/secondary-button.js';
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('navigation').shadowRoot?.querySelector('.sbb-navigation'),
-  );
-
-  const button = canvas.getByTestId('navigation-trigger');
-  await userEvent.click(button);
-
-  await waitFor(() => canvas.getByTestId('navigation').getAttribute('data-state') === 'opened');
-};
-
-const playStoryWithSection = async ({ canvasElement }: StoryContext): Promise<void> => {
-  await playStory({ canvasElement } as StoryContext);
-  const canvas = within(canvasElement);
-
-  await waitFor(() =>
-    canvas.getByTestId('navigation-section').shadowRoot?.querySelector('.sbb-navigation-section'),
-  );
-
-  await waitFor(
-    () => canvas.getByTestId('navigation-section').getAttribute('data-state') === 'opened',
-  );
-};
 
 const ariaLabel: InputType = {
   control: {
@@ -206,27 +169,23 @@ export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithNavigationSection: StoryObj = {
   render: WithNavigationSectionTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStoryWithSection : undefined,
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { disableSnapshot: false },
     actions: {
       handles: [
         SbbNavigationElement.events.willOpen,

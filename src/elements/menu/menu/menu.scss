@@ -29,7 +29,7 @@
   --sbb-menu-visibility: hidden;
   --sbb-menu-backdrop-color: transparent;
 
-  // Needed for backwards compatibility on Chromatic
+  // Needed for backwards compatibility
   // TODO: Remove once not needed
   @supports (height: 100dvh) {
     --sbb-menu-container-height: 100dvh;

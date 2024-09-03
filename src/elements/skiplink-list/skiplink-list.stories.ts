@@ -1,13 +1,9 @@
-import { within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
 
 import readme from './readme.md?raw';
 
@@ -99,16 +95,6 @@ const defaultArgs: Args = {
   hrefSecondLink: hrefSecondLink.options![1],
 };
 
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('skiplink')?.shadowRoot?.querySelectorAll('.sbb-skiplink-list__wrapper'),
-  );
-  await waitForStablePosition(() => canvas.getByTestId('skiplink'));
-  document.querySelector('sbb-block-link')?.focus();
-};
-
 const Template = ({
   labelFirstLink,
   hrefFirstLink,
@@ -126,7 +112,6 @@ export const SkiplinkList: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const SkiplinkListWithTitle: StoryObj = {
@@ -137,7 +122,6 @@ export const SkiplinkListWithTitle: StoryObj = {
     'title-level': titleLevel.options![0],
     'title-content': 'Skip',
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
@@ -148,7 +132,6 @@ const meta: Meta = {
     `,
   ],
   parameters: {
-    chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,
     },
