@@ -208,7 +208,6 @@ const meta: Meta = {
     actions: {
       handles: [SbbImageElement.events.load, SbbImageElement.events.error],
     },
-    chromatic: { diffThreshold: 0.11, delay: 8000 },
     docs: {
       extractComponentDescription: () => readme,
     },

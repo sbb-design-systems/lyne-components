@@ -113,18 +113,6 @@ const BackgroundImageTemplate = ({ 'image-src': imageSrc, ...args }: Args): Temp
   </sbb-container>
 `;
 
-// Only for visual regression
-const NestedContainerTemplate = (): TemplateResult => html`
-  <sbb-container color="white">
-    ${containerContent('Example title')}
-    <div style="background-color: var(--sbb-color-milk);">
-      <sbb-container color="transparent">
-        ${containerContent('And another one', true)}
-      </sbb-container>
-    </div>
-  </sbb-container>
-`;
-
 export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
@@ -158,12 +146,6 @@ export const Expanded: StoryObj = {
   args: { ...defaultArgs, expanded: true },
 };
 
-export const NestedContainer: StoryObj = {
-  render: NestedContainerTemplate,
-  argTypes: { defaultArgTypes },
-  args: { ...defaultArgs, expanded: true },
-};
-
 export const MilkBackgroundExpanded: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
@@ -171,7 +153,6 @@ export const MilkBackgroundExpanded: StoryObj = {
 };
 
 const meta: Meta = {
-  excludeStories: /^(NestedContainer)$/,
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

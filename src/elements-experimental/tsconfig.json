@@ -8,6 +8,5 @@
       "@sbb-esta/lyne-elements-experimental/*": ["./*"]
     }
   },
-  "include": ["./**/*.ts", "../vite-env.d.ts"],
-  "exclude": ["./**/*.chromatic.stories.ts"]
+  "include": ["./**/*.ts", "../vite-env.d.ts"]
 }
