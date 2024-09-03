@@ -31,7 +31,7 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-:host([active]) {
+:host([data-active]) {
   --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
 }
 
@@ -97,7 +97,7 @@
   -webkit-tap-highlight-color: transparent;
   -webkit-text-fill-color: var(--sbb-option-color);
 
-  :host([active]) & {
+  :host([data-active]) & {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-option-border-radius);

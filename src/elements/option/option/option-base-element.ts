@@ -44,8 +44,20 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     return this.getAttribute('value') ?? '';
   }
 
-  /** Whether the option is currently active. */
-  @property({ reflect: true, type: Boolean }) public active?: boolean;
+  /**
+   * Whether the option is currently active.
+   * @internal
+   */
+  public set active(value: boolean) {
+    this.toggleAttribute('data-active', value);
+  }
+  /**
+   * TODO: Remove getter with next major version (keep setter or change to method).
+   * @internal
+   */
+  public get active(): string {
+    return this.getAttribute('value') ?? '';
+  }
 
   /** Whether the option is selected. */
   @property({ type: Boolean })
