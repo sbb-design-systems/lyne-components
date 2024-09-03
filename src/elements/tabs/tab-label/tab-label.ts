@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { slotState } from '../../core/decorators.js';
+import { boxSizingStyles, typoStyles } from '../../core/host.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
@@ -20,7 +21,7 @@ import style from './tab-label.scss?lit&inline';
 @customElement('sbb-tab-label')
 @slotState()
 export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, typoStyles, style];
 
   /**
    * The level will correspond to the heading tag generated in the title.

@@ -1,0 +1,9 @@
+@use '../styles/mixins/typo';
+
+:host {
+  @include typo.text($exclude-font-size: true);
+}
+
+* {
+  letter-spacing: var(--sbb-typo-letter-spacing-body-text);
+}
