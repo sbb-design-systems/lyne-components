@@ -18,6 +18,9 @@
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-2x)
   );
+  --sbb-paginator-justify-content: start;
+  --sbb-paginator-wrapping-group-wrap: wrap-reverse;
+  --sbb-paginator-wrap: wrap;
   --sbb-paginator-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
 }
 
@@ -30,11 +33,26 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-.sbb-paginator {
+:host([pager-position='end']) {
+  --sbb-paginator-justify-content: end;
+  --sbb-paginator-wrapping-group-wrap: wrap;
+  --sbb-paginator-wrap: wrap-reverse;
+}
+
+.sbb-paginator,
+.sbb-paginator__wrapping-group {
   display: flex;
   gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
+  justify-content: var(--sbb-paginator-justify-content);
+}
+
+.sbb-paginator {
+  flex-wrap: var(--sbb-paginator-wrap);
   min-height: var(--sbb-paginator-height);
-  flex-wrap: wrap;
+}
+
+.sbb-paginator__wrapping-group {
+  flex-wrap: var(--sbb-paginator-wrapping-group-wrap);
 }
 
 .sbb-paginator__page-size-options {

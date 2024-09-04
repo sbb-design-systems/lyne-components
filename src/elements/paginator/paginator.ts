@@ -98,7 +98,8 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
    * Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change
    * will be positioned oppositely with the page numbers always in the center.
    */
-  @property({ attribute: 'pager-position' }) public pagerPosition: 'start' | 'end' = 'start';
+  @property({ attribute: 'pager-position', reflect: true }) public pagerPosition: 'start' | 'end' =
+    'start';
 
   /** Size variant, either m or s. */
   @property({ reflect: true }) public size: 'm' | 's' = 'm';
@@ -291,13 +292,17 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-paginator">
-        ${this.pagerPosition === 'start'
-          ? this._renderPrevNextButtons()
-          : this._renderItemPerPageTemplate()}
-        ${this._renderPageNumbers()}
-        ${this.pagerPosition === 'start'
-          ? this._renderItemPerPageTemplate()
-          : this._renderPrevNextButtons()}
+        ${
+          this.pagerPosition === 'start'
+            ? html`<span class="sbb-paginator__wrapping-group">
+                  ${this._renderPrevNextButtons()} ${this._renderPageNumbers()}
+                </span>
+                ${this._renderItemPerPageTemplate()}`
+            : html`${this._renderItemPerPageTemplate()}
+                <span class="sbb-paginator__wrapping-group">
+                  ${this._renderPageNumbers()} ${this._renderPrevNextButtons()}
+                </span>`
+        }</span>
       </div>
     `;
   }
