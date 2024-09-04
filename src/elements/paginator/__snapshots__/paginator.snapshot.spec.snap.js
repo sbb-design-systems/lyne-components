@@ -60,7 +60,7 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         1
       </span>
@@ -128,7 +128,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         1
       </span>
@@ -139,7 +139,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="1"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         2
       </span>
@@ -150,7 +150,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="2"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         3
       </span>
@@ -161,7 +161,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="3"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         4
       </span>
@@ -177,7 +177,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="12"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         13
       </span>
@@ -241,7 +241,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         1
       </span>
@@ -257,7 +257,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="9"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         10
       </span>
@@ -272,7 +272,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="10"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         11
       </span>
@@ -283,7 +283,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="11"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         12
       </span>
@@ -294,7 +294,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="12"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         13
       </span>
@@ -358,7 +358,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         1
       </span>
@@ -374,7 +374,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="6"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         7
       </span>
@@ -389,7 +389,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="7"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         8
       </span>
@@ -400,7 +400,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="8"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         9
       </span>
@@ -416,7 +416,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="12"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         13
       </span>
@@ -484,7 +484,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         1
       </span>
@@ -495,7 +495,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="1"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         2
       </span>
@@ -506,7 +506,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="2"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         3
       </span>
@@ -517,7 +517,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="3"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         4
       </span>
@@ -528,7 +528,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="4"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         5
       </span>
@@ -606,6 +606,61 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
 
+snapshots["sbb-paginator renders with options A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page"
+    },
+    {
+      "role": "button",
+      "name": "Page 1"
+    },
+    {
+      "role": "button",
+      "name": "Page 2"
+    },
+    {
+      "role": "button",
+      "name": "Page 3"
+    },
+    {
+      "role": "button",
+      "name": "Page 4"
+    },
+    {
+      "role": "button",
+      "name": "Page 5"
+    },
+    {
+      "role": "text",
+      "name": "Items per page"
+    },
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "combobox",
+      "name": "",
+      "haspopup": "listbox",
+      "value": "10"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-paginator renders with options A11y tree Chrome */
+
 snapshots["sbb-paginator renders with options Safari DOM"] = 
 `<sbb-paginator
   length="50"
@@ -664,7 +719,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
-        tabindex="0"
+        tabindex="-1"
       >
         1
       </span>
@@ -675,7 +730,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="1"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         2
       </span>
@@ -686,7 +741,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="2"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         3
       </span>
@@ -697,7 +752,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="3"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         4
       </span>
@@ -708,7 +763,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         class="sbb-paginator__page--number-item"
         data-index="4"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         5
       </span>
@@ -787,61 +842,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
-
-snapshots["sbb-paginator renders with options A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page"
-    },
-    {
-      "role": "button",
-      "name": "Page 1"
-    },
-    {
-      "role": "button",
-      "name": "Page 2"
-    },
-    {
-      "role": "button",
-      "name": "Page 3"
-    },
-    {
-      "role": "button",
-      "name": "Page 4"
-    },
-    {
-      "role": "button",
-      "name": "Page 5"
-    },
-    {
-      "role": "text",
-      "name": "Items per page"
-    },
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "haspopup": "listbox",
-      "value": "10"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-paginator renders with options A11y tree Chrome */
 
 snapshots["sbb-paginator renders with options A11y tree Firefox"] = 
 `<p>

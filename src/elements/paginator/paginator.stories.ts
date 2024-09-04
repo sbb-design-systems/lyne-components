@@ -90,6 +90,7 @@ const defaultArgs: Args = {
 
 const Template = ({ pageSizeOptions, ...args }: Args): TemplateResult => {
   return html` <sbb-paginator
+    aria-label="Select page"
     .pageSizeOptions=${pageSizeOptions}
     ${sbbSpread(args)}
   ></sbb-paginator>`;

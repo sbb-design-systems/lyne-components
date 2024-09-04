@@ -9,8 +9,8 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../core/a11y.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { sbbInputModalityDetector } from '../core/a11y.js';
+import { SbbLanguageController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nPreviousPage, i18nNextPage, i18nPage, i18nItemsPerPage } from '../core/i18n.js';
@@ -109,19 +109,8 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     { composed: true, bubbles: true },
   );
 
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
   private _markForFocus: number | null = null;
-
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-    const signal = this._abort.signal;
-    this.shadowRoot!.querySelector('.sbb-paginator__pages')!.addEventListener(
-      'keydown',
-      (e) => this._handleKeydown(e as KeyboardEvent),
-      { signal },
-    );
-  }
 
   protected override updated(changedProperties: PropertyValues<this>): void {
     super.updated(changedProperties);
@@ -201,45 +190,16 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return Array.from({ length }, (_, k) => k + offset);
   }
 
-  /** Move to a specific page or calculate the next element from event. */
-  private _moveToPage(event: KeyboardEvent, index?: number): void {
-    event.preventDefault();
-    const pages = this._getVisiblePages();
-    const nextIndex =
-      index ??
-      getNextElementIndex(
-        event,
-        pages.findIndex((e: Element) => e === event.target),
-        pages.length,
-      );
-    (pages[nextIndex] as HTMLElement).focus();
-  }
-
   private _handleKeydown(event: KeyboardEvent): void {
-    if (isArrowKeyPressed(event)) {
-      this._moveToPage(event);
+    if (event.key !== ' ') {
+      return;
     }
 
-    switch (event.key) {
-      case 'Home':
-      case 'PageUp':
-        this._moveToPage(event, 0);
-        break;
-
-      case 'End':
-      case 'PageDown':
-        this._moveToPage(event, this._getVisiblePages().length - 1);
-        break;
-
-      case ' ': {
-        event.preventDefault();
-        const current = this._getVisiblePages().find((e: Element) => e === event.target);
-        if (current) {
-          this.pageIndex = +current.getAttribute('data-index')!;
-          this._markForFocus = this.pageIndex;
-        }
-        break;
-      }
+    event.preventDefault();
+    const current = this._getVisiblePages().find((e: Element) => e === event.target);
+    if (current) {
+      this.pageIndex = +current.getAttribute('data-index')!;
+      this._markForFocus = this.pageIndex;
     }
   }
 
@@ -295,7 +255,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   private _renderPageNumbers(): TemplateResult {
     return html`
-      <ul class="sbb-paginator__pages">
+      <ul class="sbb-paginator__pages" @keydown=${this._handleKeydown}>
         ${repeat(
           this._getVisiblePagesIndex(),
           (item: number | 'ellipsis'): TemplateResult =>
@@ -316,7 +276,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                       data-index=${item}
                       aria-label="${i18nPage[this._language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
-                      tabindex=${this.pageIndex === item ? '0' : '-1'}
+                      tabindex=${this.pageIndex === item ? '-1' : '0'}
                       @click=${() => (this.pageIndex = item)}
                     >
                       ${item + 1}

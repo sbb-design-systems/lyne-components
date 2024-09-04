@@ -18,6 +18,7 @@
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-2x)
   );
+  --sbb-paginator-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
 }
 
 :host([size='s']) {
@@ -90,6 +91,12 @@
       --sbb-paginator-page-color: var(--sbb-color-granite);
       --sbb-paginator-page-background-color: var(--sbb-color-milk);
       --sbb-paginator-page-inset: calc(var(--sbb-border-width-2x) * -1);
+
+      transition: transform var(--sbb-paginator-animation-duration)
+        var(--sbb-paginator-animation-easing);
+      transform: translateY(
+        var(--sbb-paginator-translate-y-content-hover, #{sbb.px-to-rem-build(0)})
+      );
 
       :host([negative]) & {
         --sbb-paginator-page-background-color: var(--sbb-color-charcoal);
