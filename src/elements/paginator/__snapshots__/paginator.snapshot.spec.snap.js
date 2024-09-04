@@ -535,7 +535,9 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
     </li>
   </ul>
   <div class="sbb-paginator__page-size-options">
-    Items per page
+    <label>
+      Items per page
+    </label>
     <sbb-form-field
       borderless=""
       data-input-type="sbb-select"
@@ -713,7 +715,9 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
     </li>
   </ul>
   <div class="sbb-paginator__page-size-options">
-    Items per page
+    <label>
+      Items per page
+    </label>
     <sbb-form-field
       borderless=""
       data-input-type="sbb-select"

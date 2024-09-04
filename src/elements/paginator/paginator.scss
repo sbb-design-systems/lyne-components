@@ -31,8 +31,8 @@
 
 .sbb-paginator {
   display: flex;
-  gap: var(--sbb-spacing-fixed-6x);
-  height: var(--sbb-paginator-height);
+  gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
+  min-height: var(--sbb-paginator-height);
   flex-wrap: wrap;
 }
 

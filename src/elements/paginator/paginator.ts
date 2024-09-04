@@ -142,7 +142,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   /** Evaluate `pageIndex` by excluding edge cases. */
   private _validatePageIndex(pageIndex: number): number {
-    if (isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages) {
+    if (isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages - 1) {
       return 0;
     }
     return pageIndex;
@@ -165,28 +165,28 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
    *  - the last page must always be visible;
    *  - if there are more than `MAX_PAGE_NUMBERS_DISPLAYED` other pages, ellipsis button must be used.
    */
-  private _getVisiblePagesIndex(): (number | null)[] {
+  private _getVisiblePagesIndex(): (number | 'ellipsis')[] {
     const totalPages: number = this._numberOfPages;
     const currentPageIndex: number = this.pageIndex;
 
     if (totalPages <= MAX_PAGE_NUMBERS_DISPLAYED + 2) {
       return this._range(totalPages);
     } else if (currentPageIndex < MAX_PAGE_NUMBERS_DISPLAYED) {
-      return [...this._range(MAX_PAGE_NUMBERS_DISPLAYED + 1), null, totalPages - 1];
+      return [...this._range(MAX_PAGE_NUMBERS_DISPLAYED + 1), 'ellipsis', totalPages - 1];
     } else if (currentPageIndex >= totalPages - MAX_PAGE_NUMBERS_DISPLAYED) {
       return [
         0,
-        null,
+        'ellipsis',
         ...this._range(MAX_PAGE_NUMBERS_DISPLAYED + 1, totalPages - 1 - MAX_PAGE_NUMBERS_DISPLAYED),
       ];
     } else {
       return [
         0,
-        null,
+        'ellipsis',
         currentPageIndex - 1,
         currentPageIndex,
         currentPageIndex + 1,
-        null,
+        'ellipsis',
         totalPages - 1,
       ];
     }
@@ -265,7 +265,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
           <div class="sbb-paginator__page-size-options">
-            ${i18nItemsPerPage[this._language.current]}
+            <label>${i18nItemsPerPage[this._language.current]}</label>
             <sbb-form-field
               borderless
               width="collapse"
@@ -294,8 +294,8 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       <ul class="sbb-paginator__pages">
         ${repeat(
           this._getVisiblePagesIndex(),
-          (item): TemplateResult =>
-            item === null
+          (item: number | 'ellipsis'): TemplateResult =>
+            item === 'ellipsis'
               ? html`
                   <li class="sbb-paginator__page--ellipsis">
                     <span class="sbb-paginator__page--ellipsis-item">…</span>
