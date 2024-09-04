@@ -61,10 +61,6 @@
   padding: 0;
 }
 
-.sbb-teaser-hero__panel-link {
-  @include sbb.font-smoothing;
-}
-
 ::slotted([slot='image']),
 sbb-image {
   will-change: filter;
