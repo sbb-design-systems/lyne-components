@@ -76,7 +76,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   @property({ attribute: 'page-index', type: Number })
   public set pageIndex(value: number) {
     const previousPageIndex = this._pageIndex;
-    this._pageIndex = this._validatePageIndex(value);
+    this._pageIndex = this._coercePageIndexInRange(value);
     if (previousPageIndex !== this._pageIndex) {
       this._pageChanged.emit({
         previousPageIndex,
@@ -134,7 +134,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   }
 
   /** Evaluate `pageIndex` by excluding edge cases. */
-  private _validatePageIndex(pageIndex: number): number {
+  private _coercePageIndexInRange(pageIndex: number): number {
     if (isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages - 1) {
       return 0;
     }
