@@ -598,7 +598,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     lastActiveOption: SbbOptionElement | null = null,
     setActiveDescendant = true,
   ): void {
-    nextActiveOption.active = true;
+    nextActiveOption.setActive(true);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     if (setActiveDescendant) {
@@ -607,7 +607,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
     // Reset the previous
     if (lastActiveOption && lastActiveOption !== nextActiveOption) {
-      lastActiveOption.active = false;
+      lastActiveOption.setActive(false);
     }
   }
 
@@ -626,7 +626,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     const activeElement = this._filteredOptions[this._activeItemIndex];
 
     if (activeElement) {
-      activeElement.active = false;
+      activeElement.setActive(false);
     }
     this._activeItemIndex = -1;
     this._triggerElement.removeAttribute('aria-activedescendant');
