@@ -10,7 +10,7 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
@@ -39,6 +39,15 @@ const LoremIpsumTemplate = (): TemplateResult => html`
   <br />
 `;
 
+const appName = (): TemplateResult => html`
+  <span
+    style="padding-inline: var(--sbb-spacing-fixed-4x); font-size: var(--sbb-font-size-text-xs)"
+  >
+    <span class="sbb-text--bold">Name</span>
+    V. 1.1
+  </span>
+`;
+
 const HeaderBasicTemplate = (
   { attributes, ...args }: Args,
   template: TemplateResult,
@@ -47,6 +56,7 @@ const HeaderBasicTemplate = (
     <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
       Menu
     </sbb-header-button>
+    ${args.size === 's' ? appName() : nothing}
     <div class="sbb-header-spacer"></div>
     <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small"
       >Search</sbb-header-link

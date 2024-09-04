@@ -19,13 +19,13 @@ describe(`sbb-header`, () => {
       ante, mollis eu lorem id, commodo cursus risus.
   `;
 
-  const template = ({ expanded }: { expanded?: boolean }): TemplateResult => html`
+  const template = (expanded: boolean = false, size: 'm' | 's' = 'm'): TemplateResult => html`
     <style>
       ${' .last-element {display: none;} '}
       ${' @media screen and (width >= 840px) { .last-element { display: block; } }'}
       ${' @media screen and (width < 1023px) { .sbb-header-spacer { display: none; } }'}
     </style>
-    <sbb-header ?expanded=${expanded}>
+    <sbb-header ?expanded=${expanded} size=${size}>
       <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-button>
@@ -48,7 +48,7 @@ describe(`sbb-header`, () => {
       it(
         `expanded=${expanded}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ expanded }), { padding: '0' });
+          await setup.withFixture(template(expanded), { padding: '0' });
         }),
       );
     }
@@ -56,10 +56,17 @@ describe(`sbb-header`, () => {
     it(
       `scroll`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({}), { padding: '0' });
+        await setup.withFixture(template(), { padding: '0' });
 
         // Scroll page down
         setup.withPostSetupAction(() => window.scrollTo(0, document.body.scrollHeight));
+      }),
+    );
+
+    it(
+      `size=s`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(false, 's'), { padding: '0' });
       }),
     );
   });

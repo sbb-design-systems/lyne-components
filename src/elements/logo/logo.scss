@@ -24,7 +24,7 @@
   }
 }
 
-:host([hide-text]) {
+:host([signet-only]) {
   --sbb-logo-aspect-ratio: 143 / 48;
 }
 

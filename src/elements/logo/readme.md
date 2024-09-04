@@ -32,7 +32,6 @@ Possible values are `ideal` (default), `minimal` and `none`.
 | Name                 | Attribute             | Privacy | Type                             | Default   | Description                                                  |
 | -------------------- | --------------------- | ------- | -------------------------------- | --------- | ------------------------------------------------------------ |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the SVG logo. |
-| `hideText`           | `hide-text`           | public  | `boolean`                        | `false`   | Display the logo without text.                               |
 | `negative`           | `negative`            | public  | `boolean`                        | `false`   | Negative coloring variant flag.                              |
 | `protectiveRoom`     | `protective-room`     | public  | `SbbProtectiveRoom \| undefined` | `'ideal'` | Visual protective room around logo.                          |
 

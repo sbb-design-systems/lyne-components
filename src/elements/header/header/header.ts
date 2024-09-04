@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, isServer, LitElement, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
@@ -185,10 +185,7 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
           <slot></slot>
           <div class="sbb-header__logo">
             <slot name="logo">
-              <sbb-logo
-                protective-room="none"
-                ?hide-text=${this.size === 's' || nothing}
-              ></sbb-logo>
+              <sbb-logo protective-room="none" ?signet-only=${this.size === 's'}></sbb-logo>
             </slot>
           </div>
         </div>
