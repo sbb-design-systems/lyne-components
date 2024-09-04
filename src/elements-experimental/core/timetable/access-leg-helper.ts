@@ -264,12 +264,22 @@ export function getDepartureArrivalTimeAttribute(
         icon: a11yFootpath ? 'wheelchair-small' : 'walk-small',
       }
     : null;
+  const extendedA11yLastLeg =
+    extendedLastLeg && a11yFootpath
+      ? {
+          text: i18nWalkingDistanceArrival[currentLanguage],
+          duration: extendedLastLeg.duration,
+          icon: 'wheelchair-small',
+        }
+      : null;
 
   const getArrivalType = (): IAccessAttribute | null => {
     if (connectionLastLeg) {
       return connectionLastLeg;
     } else if (arrivalWalkAttribute && !extendedLastLeg && !connectionLastLeg) {
       return arrivalWalkAttribute;
+    } else if (extendedA11yLastLeg) {
+      return extendedA11yLastLeg;
     } else if (extendedLastLeg) {
       return extendedLastLeg;
     } else {
@@ -295,7 +305,15 @@ export function getDepartureArrivalTimeAttribute(
             arrivalWalkAttribute.icon,
           )
         : nothing}
-      ${extendedLastLeg
+      ${extendedA11yLastLeg
+        ? renderWalkTime(
+            extendedA11yLastLeg.duration,
+            extendedA11yLastLeg.text,
+            'right',
+            extendedA11yLastLeg.icon,
+          )
+        : nothing}
+      ${!extendedA11yFirstLeg && extendedLastLeg
         ? renderTransferTime(
             extendedLastLeg.duration,
             a11yFootpath ? 'wheelchair-small' : extendedLastLeg.icon,
