@@ -21,6 +21,7 @@ snapshots["sbb-datepicker-toggle renders Shadow DOM"] =
   disabled=""
   icon-name="calendar-small"
   role="button"
+  tabindex="-1"
 >
 </sbb-popover-trigger>
 <sbb-popover
@@ -86,6 +87,7 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] =
   disabled=""
   icon-name="calendar-small"
   role="button"
+  tabindex="-1"
 >
 </sbb-popover-trigger>
 <sbb-popover

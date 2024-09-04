@@ -196,6 +196,7 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
         icon-name="calendar-small"
         aria-label=${i18nShowCalendar[this._language.current]}
         ?disabled=${!isServer && (!this._datePickerElement || this._disabled)}
+        tabindex=${!isServer && (!this._datePickerElement || this._disabled) ? -1 : 0}
         ?negative=${this.negative}
         data-icon-small
         ${ref((el?: Element) => (this._triggerElement = el as SbbPopoverTriggerElement))}

@@ -1,8 +1,6 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../decorators.js';
-
 import type { AbstractConstructor } from './constructor.js';
 
 export declare class SbbDisabledMixinType {
@@ -73,16 +71,13 @@ export const SbbDisabledTabIndexActionMixin = <T extends AbstractConstructor<Lit
 };
 
 /**
- *  Extends `SbbDisabledMixin` with the `aria-disabled` and the `tabindex` handling.
- *  For a11y purposes, keeps the element focusable even when disabled
+ *  Extends `SbbDisabledMixin` with the `aria-disabled` attribute.
+ *  For a11y purposes, keeps the element focusable even when disabled.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbFocusableDisabledActionMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType> & T => {
-  @hostAttributes({
-    tabindex: '0',
-  })
   abstract class SbbFocusableDisabledAction
     extends SbbDisabledMixin(superClass)
     implements SbbDisabledMixinType

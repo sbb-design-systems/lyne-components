@@ -7,10 +7,10 @@ function applyAttributes(
   attributes: Record<string, string | null>,
 ): void {
   for (const [name, value] of Object.entries(attributes)) {
-    if (value) {
-      instance.setAttribute(name, value);
-    } else {
+    if (!value) {
       instance.toggleAttribute(name, value !== null);
+    } else if (!instance.hasAttribute(name)) {
+      instance.setAttribute(name, value);
     }
   }
 }
