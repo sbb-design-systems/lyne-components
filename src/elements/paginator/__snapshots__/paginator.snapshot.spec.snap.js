@@ -5,6 +5,7 @@ snapshots["sbb-paginator renders DOM"] =
 `<sbb-paginator
   length="4"
   page-size="4"
+  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -56,7 +57,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
       <span
         aria-current="true"
         aria-label="Page 1"
-        aria-selected="true"
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
@@ -74,6 +74,7 @@ snapshots["sbb-paginator renders ellipsis on end side DOM"] =
 `<sbb-paginator
   length="50"
   page-size="4"
+  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -124,7 +125,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
       <span
         aria-current="true"
         aria-label="Page 1"
-        aria-selected="true"
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
@@ -192,6 +192,7 @@ snapshots["sbb-paginator renders ellipsis on start side DOM"] =
   length="50"
   page-index="10"
   page-size="4"
+  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -268,7 +269,6 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
       <span
         aria-current="true"
         aria-label="Page 11"
-        aria-selected="true"
         class="sbb-paginator__page--number-item"
         data-index="10"
         role="button"
@@ -309,6 +309,7 @@ snapshots["sbb-paginator renders ellipsis on both side DOM"] =
   length="50"
   page-index="7"
   page-size="4"
+  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -385,7 +386,6 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
       <span
         aria-current="true"
         aria-label="Page 8"
-        aria-selected="true"
         class="sbb-paginator__page--number-item"
         data-index="7"
         role="button"
@@ -430,6 +430,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] =
 `<sbb-paginator
   length="50"
   page-size="10"
+  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -480,7 +481,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
       <span
         aria-current="true"
         aria-label="Page 1"
-        aria-selected="true"
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"
@@ -610,6 +610,7 @@ snapshots["sbb-paginator renders with options Safari DOM"] =
 `<sbb-paginator
   length="50"
   page-size="10"
+  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -660,7 +661,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
       <span
         aria-current="true"
         aria-label="Page 1"
-        aria-selected="true"
         class="sbb-paginator__page--number-item"
         data-index="0"
         role="button"

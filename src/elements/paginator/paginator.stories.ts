@@ -42,8 +42,8 @@ const pageSizeOptions: InputType = {
     type: 'select',
     labels: {
       0: 'none',
-      1: 'default',
-      2: 'wider',
+      1: '10, 20, 50, 100',
+      2: '10, 50, 100, 500',
     },
   },
 };

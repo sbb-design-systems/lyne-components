@@ -11,6 +11,7 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../core/a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { hostAttributes } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nPreviousPage, i18nNextPage, i18nPage, i18nItemsPerPage } from '../core/i18n.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
@@ -37,9 +38,12 @@ const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 /**
  * It displays a paginator component.
  *
- * @event {CustomEvent<SbbPaginatorPageChanged>} pageChanged - Emits when the pageIndex changes.
+ * @event {CustomEvent<SbbPaginatorPageChangedEventDetails>} pageChanged - Emits when the pageIndex changes.
  */
 @customElement('sbb-paginator')
+@hostAttributes({
+  role: 'group',
+})
 export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
@@ -312,7 +316,6 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                       data-index=${item}
                       aria-label="${i18nPage[this._language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
-                      aria-selected=${this.pageIndex === item ? 'true' : nothing}
                       tabindex=${this.pageIndex === item ? '0' : '-1'}
                       @click=${() => (this.pageIndex = item)}
                     >
