@@ -1,8 +1,6 @@
 import type { Args } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { nothing } from 'lit/html.js';
 
 import '../../../elements/button.js';
 import '../../../elements/card.js';
@@ -209,7 +207,6 @@ export const liberoProduct = (): TemplateResult => html`
 export const teaserHero = (): TemplateResult => html`
   <section class="sbb-page-spacing">
     <sbb-teaser-hero
-      data-chromatic="ignore"
       class="teaser-hero"
       link-content="Learn more"
       image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
@@ -310,7 +307,7 @@ export const footer = (args: Args): TemplateResult => html`
         Subscribe
       </sbb-secondary-button-link>
     </div>
-    <sbb-clock now=${isChromatic() ? '01:59:27' : nothing}></sbb-clock>
+    <sbb-clock></sbb-clock>
     <sbb-divider ?negative=${args.negative}></sbb-divider>
     <sbb-link-list horizontal-from="large" ?negative=${args.negative}>
       <sbb-block-link

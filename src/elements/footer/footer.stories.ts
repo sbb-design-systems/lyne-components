@@ -1,8 +1,6 @@
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
@@ -188,7 +186,7 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
         Subscribe
       </sbb-secondary-button-link>
     </div>
-    <sbb-clock now=${isChromatic() ? '01:59:27' : nothing}></sbb-clock>
+    <sbb-clock></sbb-clock>
     <sbb-divider ?negative=${args.negative}></sbb-divider>
     <sbb-link-list horizontal-from="large" ?negative=${args.negative}>
       <sbb-block-link

@@ -39,6 +39,7 @@ writeFileSync(new URL(`./${metaFileName}`, screenshotsDir), JSON.stringify(meta)
 
 export const visualRegressionConfig = {
   baseDir: 'dist/screenshots',
+  diffOptions: { threshold: 0.03 },
   async getBaseline({ filePath, name }) {
     const baselineFileUrl = baselineUrl + name + extname(filePath);
     const infoFilePath = filePath + '.json';

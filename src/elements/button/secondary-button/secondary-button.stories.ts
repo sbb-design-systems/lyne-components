@@ -14,11 +14,8 @@ import {
   loadingIndicator,
   noIcon,
   primary,
-  primaryActive,
   primaryDisabled,
-  primaryFocusVisible,
   primaryNegative,
-  primaryNegativeActive,
   primaryNegativeDisabled,
   sizeM,
   sizeS,
@@ -49,9 +46,6 @@ export const SizeM: StoryObj = sizeM;
 export const SizeS: StoryObj = sizeS;
 export const FixedWidth: StoryObj = fixedWidth;
 export const WithSlottedIcon: StoryObj = withSlottedIcon;
-export const Active: StoryObj = primaryActive;
-export const NegativeActive: StoryObj = primaryNegativeActive;
-export const FocusVisible: StoryObj = primaryFocusVisible;
 export const LoadingIndicator: StoryObj = loadingIndicator;
 export const RequestSubmit: StoryObj = requestSubmit;
 
@@ -60,7 +54,6 @@ export const WithHiddenSlottedIcon: StoryObj = withHiddenSlottedIcon;
 const meta: Meta = {
   args: defaultArgs,
   argTypes: defaultArgTypes,
-  excludeStories: /.*(Active|FocusVisible)$/,
   decorators: commonDecorators,
   parameters: {
     backgroundColor: (context: StoryContext) =>

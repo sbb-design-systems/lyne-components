@@ -10,7 +10,7 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  --sbb-teaser-hero-brightness-hover: 1.075;
+  --sbb-teaser-hero-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-hero-chip-inset: var(--sbb-spacing-responsive-xxxs) auto auto
     var(--sbb-spacing-responsive-xxxs);
 
@@ -59,10 +59,6 @@
   display: inline;
   margin: 0;
   padding: 0;
-}
-
-.sbb-teaser-hero__panel-link {
-  @include sbb.font-smoothing;
 }
 
 ::slotted([slot='image']),

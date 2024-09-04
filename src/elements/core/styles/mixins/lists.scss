@@ -81,6 +81,7 @@
   --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-step-list-padding-inline: var(--sbb-spacing-responsive-xxs);
   --sbb-step-list-marker-to-text-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-step-list-border-radius: var(--sbb-border-radius-4x);
 
   // Additional space from overall li padding to the text because text
   // has to be centered to marker number.
@@ -117,7 +118,6 @@
     position: relative;
     counter-increment: steps;
     background-color: var(--sbb-color-milk);
-    border-radius: var(--sbb-border-radius-4x);
     padding-block: calc(
         var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
       )
@@ -130,6 +130,16 @@
     min-height: calc(
       var(--sbb-step-list-marker-dimensions) + 2 * var(--sbb-step-list-padding-block)
     );
+
+    &:first-of-type {
+      border-start-start-radius: var(--sbb-step-list-border-radius);
+      border-start-end-radius: var(--sbb-step-list-border-radius);
+    }
+
+    &:last-of-type {
+      border-end-start-radius: var(--sbb-step-list-border-radius);
+      border-end-end-radius: var(--sbb-step-list-border-radius);
+    }
 
     &::before {
       @include typo.text-xxs--bold;

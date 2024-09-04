@@ -1,12 +1,31 @@
 import * as tokens from '@sbb-esta/lyne-design-tokens';
+import { makeDecorator } from '@storybook/preview-api';
 import type { Parameters, StoryContext } from '@storybook/types';
-import type { Decorator, Preview } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
-import { html } from 'lit';
-
-import { withBackgroundDecorator } from '../src/storybook/testing/with-background-decorator.js';
+import type { Preview } from '@storybook/web-components';
 
 import '../src/elements/core/styles/standard-theme.scss';
+
+const withBackgroundDecorator = makeDecorator({
+  name: 'withContextSpecificBackgroundColor',
+  parameterName: 'backgroundColor',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context, { parameters }) => {
+    const backgroundColor = parameters as (context: StoryContext) => string;
+
+    const rootElement = (context.canvasElement as unknown as HTMLElement).closest<HTMLElement>(
+      '.docs-story, .sb-show-main',
+    )!;
+
+    // If no background function is set, remove background color.
+    if (!backgroundColor) {
+      rootElement.style.removeProperty('background-color');
+    } else {
+      rootElement.style.backgroundColor = backgroundColor(context);
+    }
+
+    return getStory(context);
+  },
+});
 
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
@@ -16,13 +35,6 @@ const breakpoints = Object.entries(tokens)
   .map(([key, value]) => ({ key: getViewportName(key), value: value as number }))
   .sort((a, b) => a.value - b.value);
 
-/**
- * https://www.chromatic.com/docs/viewports/
- * CHROMATIC RESTRICTIONS:
- * - min allowed value = 320
- * - max allowed value = 1800
- */
-const viewports = breakpoints.map(({ value }) => (value < 320 ? 320 : value > 1800 ? 1800 : value));
 const breakpointNames: Record<string, number> = breakpoints.reduce(
   (current, next) => Object.assign(current, { [next.key]: next.value }),
   {} as Record<string, number>,
@@ -42,12 +54,6 @@ const storybookViewports = breakpoints.reduce(
 );
 
 const parameters: Parameters = {
-  // Set the viewports in Chromatic globally.
-  chromatic: {
-    delay: 2000,
-    viewports,
-    disableSnapshot: true,
-  },
   breakpoints: {
     breakpointNames,
     debounceTimeout: 10,
@@ -71,17 +77,8 @@ const parameters: Parameters = {
   },
 };
 
-const decorators: Decorator[] = [
-  (story, context: StoryContext) =>
-    isChromatic() && context.parameters.layout !== 'fullscreen'
-      ? html`<div style="padding: 2rem;min-height: 100vh">${story()}</div>`
-      : story(),
-  withBackgroundDecorator,
-  (story) => (isChromatic() ? html`<div class="sbb-disable-animation">${story()}</div>` : story()),
-];
-
 const preview: Preview = {
-  decorators,
+  decorators: [withBackgroundDecorator],
   parameters,
   tags: ['autodocs'],
 };

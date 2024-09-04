@@ -397,4 +397,15 @@ describe('sbb-stepper', () => {
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
   });
+
+  it('proxy size to step children', async () => {
+    const stepLabels = Array.from(element.querySelectorAll<SbbStepLabelElement>('sbb-step-label')!);
+
+    expect(stepLabels.every((l) => l.getAttribute('data-size') === element.size)).to.be.true;
+
+    element.size = 's';
+    await waitForLitRender(element);
+
+    expect(stepLabels.every((l) => l.getAttribute('data-size') === element.size)).to.be.true;
+  });
 });
