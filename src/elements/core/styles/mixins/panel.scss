@@ -67,8 +67,6 @@
 }
 
 @mixin panel-text {
-  @include typo.font-smoothing;
-
   font-family: var(--sbb-typo-font-family);
   font-size: var(--sbb-panel-font-size);
   font-weight: 300;

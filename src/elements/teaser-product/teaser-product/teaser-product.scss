@@ -1,7 +1,7 @@
 @use '../../core/styles/index' as sbb;
 
 :host {
-  --sbb-teaser-product-brightness-hover: 1.075;
+  --sbb-teaser-product-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-product-animation-duration: var(
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-4x)

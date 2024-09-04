@@ -40,7 +40,7 @@
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
   overflow: hidden;
 
-  // Needed for backwards compatibility on Chromatic
+  // Needed for backwards compatibility
   // TODO: Remove once not needed
   @supports (height: 100dvh) {
     --sbb-navigation-height: 100dvh;
@@ -91,7 +91,7 @@
     --sbb-navigation-expanded-width: 100vw;
     --sbb-navigation-content-transform: translateX(0%);
 
-    // Needed for backwards compatibility on Chromatic
+    // Needed for backwards compatibility
     // TODO: Remove once not needed
     @supports (height: 100dvw) {
       --sbb-navigation-expanded-width: 100dvw;

@@ -31,13 +31,13 @@
   height: var(--sbb-navigation-section-height);
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
 
-  // Needed for backwards compatibility on Chromatic
+  // Needed for backwards compatibility
   // TODO: Remove once not needed
   @supports (width: 100dvw) {
     --sbb-navigation-section-width: 100dvw;
   }
 
-  // Needed for backwards compatibility on Chromatic
+  // Needed for backwards compatibility
   // TODO: Remove once not needed
   @supports (height: 100dvh) {
     --sbb-navigation-section-height: 100dvh;

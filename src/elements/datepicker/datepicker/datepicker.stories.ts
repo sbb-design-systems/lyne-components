@@ -1,23 +1,17 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
   Decorator,
   Meta,
-  StoryObj,
   StoryContext,
+  StoryObj,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
-import type { SbbPopoverTriggerElement } from '../../popover.js';
 
 import { SbbDatepickerElement } from './datepicker.js';
 import readme from './readme.md?raw';
@@ -252,7 +246,7 @@ const basicArgs: Args = {
   wide: false,
   dateFilter: dateFilter.options![0],
   dateHandling: dateHandling.options![0],
-  now: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
+  now: undefined,
   'aria-label': undefined,
 };
 
@@ -276,24 +270,6 @@ const formFieldBasicArgs = {
 
 const convertMillisecondsToSeconds = (milliseconds: number): number | typeof nothing => {
   return milliseconds ? milliseconds / 1000 : nothing;
-};
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-popover-trigger'),
-  );
-
-  await waitForStablePosition(
-    () => canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-popover-trigger')!,
-  );
-
-  const toggle = (await canvas
-    .getByTestId('toggle')
-    .shadowRoot!.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger'))!;
-  userEvent.click(toggle);
 };
 
 const changeEventHandler = async (event: Event): Promise<void> => {
@@ -385,7 +361,6 @@ export const InFormField: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const InFormFieldDisabled: StoryObj = {
@@ -479,7 +454,6 @@ export const WithoutFormField: StoryObj = {
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { disableSnapshot: false },
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {

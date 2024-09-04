@@ -30,7 +30,6 @@ export default [
   },
   {
     ignores: [
-      '**/*.chromatic.stories.*',
       'dist/**/*',
       'coverage/**/*',
       'tools/generate-component/**/*',

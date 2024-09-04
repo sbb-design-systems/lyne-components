@@ -12,8 +12,6 @@
     --sbb-title-margin-block-end: var(--sbb-spacing-responsive-s);
   }
 
-  @include font-smoothing;
-
   margin: 0;
   margin-block: var(--sbb-title-margin-block-start) var(--sbb-title-margin-block-end);
   font-family: var(--sbb-typo-font-family);
@@ -167,34 +165,6 @@
   letter-spacing: inherit;
   font-size: inherit;
   text-align: inherit;
-}
-
-// ----------------------------------------------------------------------------------------------------
-// Typo: Font Smoothing Mixins
-// ----------------------------------------------------------------------------------------------------
-
-/**
- * Better font rendering (on OS X)
- * http://maximilianhoffmann.com/posts/better-font-rendering-on-osx
- *
- * Usage:
- *
- * .var_dark_on_light {
- * 	@include font-smoothing;
- * }
- * .var_light_on_dark {
- * 	@include font-smoothing-reset;
- * }
- */
-
-@mixin font-smoothing {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-@mixin font-smoothing-reset {
-  -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: auto;
 }
 
 @mixin placeholder {

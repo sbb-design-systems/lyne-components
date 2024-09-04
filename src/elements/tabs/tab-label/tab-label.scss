@@ -165,7 +165,6 @@
   color: var(--sbb-tab-label-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 
-  @include sbb.font-smoothing;
   @include sbb.ellipsis;
   @include sbb.text-m--bold;
 
@@ -184,7 +183,6 @@
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 
   @include sbb.text-m--regular;
-  @include sbb.font-smoothing;
 
   :host(:not([data-slot-names~='amount'], [amount])) & {
     display: none;

@@ -1,21 +1,10 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
 import readme from './readme.md?raw';
 
@@ -111,20 +100,6 @@ const TemplateWithUserMenu = (args: Args): TemplateResult => html`
   )}
 `;
 
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('user-menu').shadowRoot!.querySelector('.sbb-menu'),
-  );
-
-  await waitForStablePosition(() => canvas.getByTestId('user-menu-trigger'));
-
-  const button = canvas.getByTestId('user-menu-trigger');
-  await userEvent.click(button);
-};
-
 const expanded: InputType = {
   control: {
     type: 'boolean',
@@ -191,7 +166,6 @@ export const WithUserMenu: StoryObj = {
   render: TemplateWithUserMenu,
   argTypes,
   args: basicArgs,
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const BasicScrollHide: StoryObj = {
@@ -229,7 +203,6 @@ export const ContainerScrollOriginScrollHide: StoryObj = {
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { disableSnapshot: false },
     actions: {
       handles: ['click'],
     },
