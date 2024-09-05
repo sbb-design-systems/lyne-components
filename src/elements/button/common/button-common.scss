@@ -64,6 +64,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 
 .sbb-action-base {
   @include sbb.text-xs--bold;
+  @include sbb.button-base;
 
   // Reset for link variant
   text-decoration: none;
