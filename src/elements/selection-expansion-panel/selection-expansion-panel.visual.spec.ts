@@ -80,6 +80,7 @@ describe(`sbb-selection-expansion-panel`, () => {
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
+        size=${params.size || 'm'}
       >
         ${inputPanelContent(params.size || 'm')}
       </sbb-radio-button-panel>
@@ -131,7 +132,7 @@ describe(`sbb-selection-expansion-panel`, () => {
       });
 
       describe('checkbox-group', () => {
-        for (const size of ['m', 's']) {
+        for (const size of ['m', 's'] as ('m' | 's')[]) {
           describe(`size=${size}`, () => {
             for (const error of [true, false]) {
               it(
@@ -143,8 +144,8 @@ describe(`sbb-selection-expansion-panel`, () => {
                       horizontal-from="medium"
                       size=${size}
                     >
-                      ${withCheckboxPanel({ checked: true })} ${withCheckboxPanel({})}
-                      ${withCheckboxPanel({})}
+                      ${withCheckboxPanel({ checked: true, size })} ${withCheckboxPanel({ size })}
+                      ${withCheckboxPanel({ size })}
                     </sbb-checkbox-group>
                     ${error
                       ? html`<sbb-form-error slot="error">Error message</sbb-form-error>`
@@ -158,7 +159,7 @@ describe(`sbb-selection-expansion-panel`, () => {
       });
 
       describe('radio-button-group', () => {
-        for (const size of ['m', 's']) {
+        for (const size of ['m', 's'] as ('m' | 's')[]) {
           describe(`size=${size}`, () => {
             for (const error of [true, false]) {
               it(
@@ -170,8 +171,9 @@ describe(`sbb-selection-expansion-panel`, () => {
                       horizontal-from="medium"
                       size=${size}
                     >
-                      ${withRadioPanel({ checked: true, value: '1' })}
-                      ${withRadioPanel({ value: '2' })} ${withRadioPanel({ value: '3' })}
+                      ${withRadioPanel({ checked: true, value: '1', size })}
+                      ${withRadioPanel({ value: '2', size })}
+                      ${withRadioPanel({ value: '3', size })}
                     </sbb-radio-button-group>
                     ${error
                       ? html`<sbb-form-error slot="error">Error message</sbb-form-error>`
