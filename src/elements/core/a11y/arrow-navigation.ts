@@ -1,12 +1,10 @@
-import { getDocumentWritingMode } from '../dom.js';
-
 interface PrevAndNextKeys {
   prevKey: string;
   nextKey: string;
 }
 
-function getPrevAndNextKeys(): PrevAndNextKeys {
-  if (getDocumentWritingMode() === 'rtl') {
+function getPrevAndNextKeys(target: HTMLElement): PrevAndNextKeys {
+  if (target.matches(':dir(rtl)')) {
     return { prevKey: 'ArrowRight', nextKey: 'ArrowLeft' };
   } else {
     return { prevKey: 'ArrowLeft', nextKey: 'ArrowRight' };
@@ -26,7 +24,9 @@ export function isArrowKeyPressed(event: KeyboardEvent): boolean {
  * @param event The keyboard event to check.
  */
 export function isPreviousArrowKeyPressed(event: KeyboardEvent): boolean {
-  return event.key === 'ArrowUp' || event.key === getPrevAndNextKeys().prevKey;
+  return (
+    event.key === 'ArrowUp' || event.key === getPrevAndNextKeys(event.target as HTMLElement).prevKey
+  );
 }
 
 /**
@@ -34,7 +34,10 @@ export function isPreviousArrowKeyPressed(event: KeyboardEvent): boolean {
  * @param event The keyboard event to check.
  */
 export function isNextArrowKeyPressed(event: KeyboardEvent): boolean {
-  return event.key === 'ArrowDown' || event.key === getPrevAndNextKeys().nextKey;
+  return (
+    event.key === 'ArrowDown' ||
+    event.key === getPrevAndNextKeys(event.target as HTMLElement).nextKey
+  );
 }
 
 /**
@@ -72,7 +75,7 @@ const firstIndex = 0;
  * or the index of the first one, if the current is the last in the list.
  */
 export function getNextElementIndex(event: KeyboardEvent, current: number, size: number): number {
-  const { prevKey, nextKey } = getPrevAndNextKeys();
+  const { prevKey, nextKey } = getPrevAndNextKeys(event.target as HTMLElement);
 
   if (event.key === prevKey || event.key === 'ArrowUp') {
     return current < firstIndex ? getLastIndex(size) : calcNextIndexInRange(current, size, -1);

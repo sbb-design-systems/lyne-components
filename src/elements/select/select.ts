@@ -8,7 +8,7 @@ import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
-import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom.js';
+import { isNextjs, isSafari } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
   SbbDisabledMixin,
@@ -51,7 +51,6 @@ export interface SelectChange {
  */
 @customElement('sbb-select')
 @hostAttributes({
-  dir: getDocumentWritingMode(),
   role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbSelectElement extends SbbUpdateSchedulerMixin(

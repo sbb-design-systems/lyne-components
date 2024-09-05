@@ -3,7 +3,6 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { getDocumentWritingMode } from '../core/dom.js';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 import type { SbbTitleLevel } from '../title.js';
@@ -55,7 +54,7 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
         ?negative=${this.negative}
         visual-level=${sizeToLevel.get(this.size)!}
       >
-        <span class="sbb-journey-header" dir=${getDocumentWritingMode()}>
+        <span class="sbb-journey-header">
           <span class="sbb-journey-header__origin">
             <sbb-screen-reader-only>
               ${i18nConnectionFrom[this._language.current]}&nbsp;
