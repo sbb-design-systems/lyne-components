@@ -21,7 +21,6 @@
   --sbb-paginator-justify-content: start;
   --sbb-paginator-wrapping-group-wrap: wrap-reverse;
   --sbb-paginator-wrap: wrap;
-  --sbb-paginator-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
 }
 
 :host([size='s']) {
@@ -109,12 +108,7 @@
       --sbb-paginator-page-color: var(--sbb-color-granite);
       --sbb-paginator-page-background-color: var(--sbb-color-milk);
       --sbb-paginator-page-inset: calc(var(--sbb-border-width-2x) * -1);
-
-      transition: transform var(--sbb-paginator-animation-duration)
-        var(--sbb-paginator-animation-easing);
-      transform: translateY(
-        var(--sbb-paginator-translate-y-content-hover, #{sbb.px-to-rem-build(0)})
-      );
+      --sbb-paginator-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
 
       :host([negative]) & {
         --sbb-paginator-page-background-color: var(--sbb-color-charcoal);
@@ -163,6 +157,9 @@
   position: relative;
   outline: none !important;
   z-index: 1;
+  transition: transform var(--sbb-paginator-animation-duration)
+    var(--sbb-paginator-animation-easing);
+  transform: translateY(var(--sbb-paginator-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
