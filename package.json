@@ -98,7 +98,7 @@
     "@storybook/web-components-vite": "8.2.9",
     "@types/glob": "8.1.0",
     "@types/mocha": "10.0.7",
-    "@types/node": "20.16.4",
+    "@types/node": "20.16.5",
     "@types/react": "18.3.5",
     "@typescript-eslint/eslint-plugin": "8.4.0",
     "@typescript-eslint/parser": "8.4.0",
@@ -145,7 +145,7 @@
     "vite-plugin-dts": "4.1.0"
   },
   "resolutions": {
-    "@types/node": "20.16.4",
+    "@types/node": "20.16.5",
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "0.7.1",
     "jackspeak": "2.1.1",
