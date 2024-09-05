@@ -3,20 +3,22 @@ import { html, isServer, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import type { SbbMiniButtonElement } from '../../button/mini-button.js';
 import type { CalendarView, SbbCalendarElement } from '../../calendar.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
-import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover.js';
+import type { SbbPopoverElement } from '../../popover/popover.js';
 import type { SbbDatepickerElement, SbbInputUpdateEvent } from '../datepicker.js';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker.js';
 
 import style from './datepicker-toggle.scss?lit&inline';
 
 import '../../calendar.js';
-import '../../popover.js';
+import '../../popover/popover.js';
+import '../../button/mini-button.js';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
@@ -46,7 +48,7 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
 
   private _datePickerElement: SbbDatepickerElement<T> | null | undefined;
   private _calendarElement!: SbbCalendarElement<T>;
-  private _triggerElement!: SbbPopoverTriggerElement;
+  private _triggerElement!: SbbMiniButtonElement;
   private _popoverElement!: SbbPopoverElement;
   private _datePickerController!: AbortController;
   private _language = new SbbLanguageController(this);
@@ -64,7 +66,7 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
    */
   public open(): void {
     if (!this._triggerElement) {
-      this._triggerElement = this.shadowRoot!.querySelector('sbb-popover-trigger')!;
+      this._triggerElement = this.shadowRoot!.querySelector('sbb-mini-button')!;
     }
     this._triggerElement.click();
   }
@@ -106,7 +108,7 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
 
   public override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-    // We have to rewrite the tabindex of the popover-trigger as the popover trigger itself sets the tabindex to always 0.
+    // We have to rewrite the tabindex of the mini-button as the popover trigger itself sets the tabindex to always 0.
     this._triggerElement.tabIndex = this._isDisabled() ? -1 : 0;
   }
 
@@ -202,15 +204,15 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <sbb-popover-trigger
+      <sbb-mini-button
+        class="sbb-datepicker-toggle__trigger"
         icon-name="calendar-small"
         aria-label=${i18nShowCalendar[this._language.current]}
         ?disabled=${this._isDisabled()}
         tabindex=${this._isDisabled() ? -1 : 0}
         ?negative=${this.negative}
-        data-icon-small
-        ${ref((el?: Element) => (this._triggerElement = el as SbbPopoverTriggerElement))}
-      ></sbb-popover-trigger>
+        ${ref((el?: Element) => (this._triggerElement = el as SbbMiniButtonElement))}
+      ></sbb-mini-button>
       <sbb-popover
         @willOpen=${() => this._calendarElement.resetPosition()}
         @didOpen=${() => {

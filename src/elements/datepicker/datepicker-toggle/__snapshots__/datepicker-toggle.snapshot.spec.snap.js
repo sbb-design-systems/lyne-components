@@ -8,22 +8,22 @@ snapshots["sbb-datepicker-toggle renders DOM"] =
 /* end snapshot sbb-datepicker-toggle renders DOM */
 
 snapshots["sbb-datepicker-toggle renders Shadow DOM"] = 
-`<sbb-popover-trigger
+`<sbb-mini-button
   aria-controls="sbb-popover-2"
   aria-disabled="true"
   aria-expanded="false"
   aria-haspopup="dialog"
   aria-label="Show calendar"
+  class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  data-icon-small=""
   dir="ltr"
   disabled=""
   icon-name="calendar-small"
   role="button"
   tabindex="-1"
 >
-</sbb-popover-trigger>
+</sbb-mini-button>
 <sbb-popover
   data-state="closed"
   hide-close-button=""
@@ -42,20 +42,20 @@ snapshots["sbb-datepicker-toggle in form-field renders DOM"] =
 /* end snapshot sbb-datepicker-toggle in form-field renders DOM */
 
 snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] = 
-`<sbb-popover-trigger
+`<sbb-mini-button
   aria-controls="sbb-popover-4"
   aria-expanded="false"
   aria-haspopup="dialog"
   aria-label="Show calendar"
+  class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  data-icon-small=""
   dir="ltr"
   icon-name="calendar-small"
   role="button"
   tabindex="0"
 >
-</sbb-popover-trigger>
+</sbb-mini-button>
 <sbb-popover
   data-state="closed"
   hide-close-button=""
@@ -74,22 +74,22 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled DOM"] =
 /* end snapshot sbb-datepicker-toggle in form-field renders disabled DOM */
 
 snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] = 
-`<sbb-popover-trigger
+`<sbb-mini-button
   aria-controls="sbb-popover-6"
   aria-disabled="true"
   aria-expanded="false"
   aria-haspopup="dialog"
   aria-label="Show calendar"
+  class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  data-icon-small=""
   dir="ltr"
   disabled=""
   icon-name="calendar-small"
   role="button"
   tabindex="-1"
 >
-</sbb-popover-trigger>
+</sbb-mini-button>
 <sbb-popover
   data-state="closed"
   hide-close-button=""
@@ -108,20 +108,20 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters DOM"] =
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters DOM */
 
 snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM"] = 
-`<sbb-popover-trigger
+`<sbb-mini-button
   aria-controls="sbb-popover-8"
   aria-expanded="false"
   aria-haspopup="dialog"
   aria-label="Show calendar"
+  class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  data-icon-small=""
   dir="ltr"
   icon-name="calendar-small"
   role="button"
   tabindex="0"
 >
-</sbb-popover-trigger>
+</sbb-mini-button>
 <sbb-popover
   data-state="closed"
   hide-close-button=""
