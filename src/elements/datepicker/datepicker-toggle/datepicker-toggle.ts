@@ -108,8 +108,10 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
 
   public override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-    // We have to rewrite the tabindex of the mini-button as the popover trigger itself sets the tabindex to always 0.
-    this._triggerElement.tabIndex = this._isDisabled() ? -1 : 0;
+    this._triggerElement.updateComplete.then(() => {
+      // We have to rewrite the tabindex of the mini-button as the popover trigger itself sets the tabindex to always 0.
+      this._triggerElement.tabIndex = this._isDisabled() ? -1 : 0;
+    });
   }
 
   private _init(datePicker?: string | SbbDatepickerElement): void {
