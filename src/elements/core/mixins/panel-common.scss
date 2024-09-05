@@ -105,15 +105,6 @@
   overflow: hidden;
 }
 
-slot[name='suffix'],
-slot[name='subtext'] {
-  @include sbb.text-m--regular;
-
-  :host([size='s']) & {
-    @include sbb.text-s--regular;
-  }
-}
-
 slot[name='suffix'] {
   color: var(--sbb-selection-panel-suffix-color);
 }

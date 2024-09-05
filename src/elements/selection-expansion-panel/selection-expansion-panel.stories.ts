@@ -99,11 +99,11 @@ const suffixStyle: Readonly<StyleInfo> = {
 
 const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
 
-const suffixAndSubtext = (): TemplateResult => html`
+const suffixAndSubtext = (size: string): TemplateResult => html`
   <span slot="subtext">Subtext</span>
   <span slot="suffix" style=${styleMap(suffixStyle)}>
     <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-    <span class="sbb-text--bold">CHF 40.00</span>
+    <span class=${`sbb-text--bold sbb-text-${size}`}>CHF 40.00</span>
   </span>
 `;
 
@@ -124,7 +124,7 @@ const WithCheckboxTemplate = ({
 }: Args): TemplateResult => html`
   <sbb-selection-expansion-panel ${sbbSpread(args)}>
     <sbb-checkbox-panel ?checked=${checkedInput} ?disabled=${disabledInput} size=${size}>
-      Value one ${suffixAndSubtext()} ${cardBadge()}
+      Value one ${suffixAndSubtext(size)} ${cardBadge()}
     </sbb-checkbox-panel>
     ${innerContent()}
   </sbb-selection-expansion-panel>
@@ -143,7 +143,7 @@ const WithRadioButtonTemplate = ({
       ?disabled=${disabledInput}
       size=${size}
     >
-      Value one ${suffixAndSubtext()} ${cardBadge()}
+      Value one ${suffixAndSubtext(size)} ${cardBadge()}
     </sbb-radio-button-panel>
     ${innerContent()}
   </sbb-selection-expansion-panel>
@@ -158,20 +158,22 @@ const WithCheckboxGroupTemplate = ({
   <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?checked=${checkedInput}>
-        Value one ${suffixAndSubtext()} ${cardBadge()}
+        Value one ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-checkbox-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?disabled=${disabledInput}>
-        Value two ${suffixAndSubtext()} ${cardBadge()}
+        Value two ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-checkbox-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
-      <sbb-checkbox-panel> Value three ${suffixAndSubtext()} ${cardBadge()} </sbb-checkbox-panel>
+      <sbb-checkbox-panel>
+        Value three ${suffixAndSubtext(size)} ${cardBadge()}
+      </sbb-checkbox-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
   </sbb-checkbox-group>
@@ -192,21 +194,21 @@ const WithRadioButtonGroupTemplate = ({
   >
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-radio-button-panel value="Value one" ?checked=${checkedInput}>
-        Value one ${suffixAndSubtext()} ${cardBadge()}
+        Value one ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-radio-button-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-radio-button-panel value="Value two" ?disabled=${disabledInput}>
-        Value two ${suffixAndSubtext()} ${cardBadge()}
+        Value two ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-radio-button-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-radio-button-panel value="Value three">
-        Value three ${suffixAndSubtext()} ${cardBadge()}
+        Value three ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-radio-button-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
@@ -222,7 +224,7 @@ const TicketsOptionsExampleTemplate = ({
   <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?checked=${checkedInput}>
-        Saving ${suffixAndSubtext()} ${cardBadge()}
+        Saving ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-checkbox-panel>
       <div slot="content">
         <sbb-radio-button-group orientation="vertical" value="non-flex">
@@ -263,7 +265,7 @@ const TicketsOptionsExampleTemplate = ({
 
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?disabled=${disabledInput}>
-        City offer ${suffixAndSubtext()} ${cardBadge()}
+        City offer ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-checkbox-panel>
       <div slot="content">
         <sbb-checkbox-group orientation="vertical">
@@ -391,20 +393,22 @@ const WithCheckboxesErrorMessageTemplate = ({
     >
       <sbb-selection-expansion-panel ${sbbSpread(args)}>
         <sbb-checkbox-panel ?checked=${checkedInput}>
-          Value one ${suffixAndSubtext()} ${cardBadge()}
+          Value one ${suffixAndSubtext(size)} ${cardBadge()}
         </sbb-checkbox-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
 
       <sbb-selection-expansion-panel ${sbbSpread(args)}>
         <sbb-checkbox-panel ?disabled=${disabledInput}>
-          Value two ${suffixAndSubtext()} ${cardBadge()}
+          Value two ${suffixAndSubtext(size)} ${cardBadge()}
         </sbb-checkbox-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
 
       <sbb-selection-expansion-panel ${sbbSpread(args)}>
-        <sbb-checkbox-panel> Value three ${suffixAndSubtext()} ${cardBadge()} </sbb-checkbox-panel>
+        <sbb-checkbox-panel>
+          Value three ${suffixAndSubtext(size)} ${cardBadge()}
+        </sbb-checkbox-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
       ${sbbFormError}
@@ -439,21 +443,21 @@ const WithRadiosErrorMessageTemplate = ({
     >
       <sbb-selection-expansion-panel ${sbbSpread(args)}>
         <sbb-radio-button-panel value="Value one" ?checked=${checkedInput}>
-          Value one ${suffixAndSubtext()} ${cardBadge()}
+          Value one ${suffixAndSubtext(size)} ${cardBadge()}
         </sbb-radio-button-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
 
       <sbb-selection-expansion-panel ${sbbSpread(args)}>
         <sbb-radio-button-panel value="Value two" ?disabled=${disabledInput}>
-          Value two ${suffixAndSubtext()} ${cardBadge()}
+          Value two ${suffixAndSubtext(size)} ${cardBadge()}
         </sbb-radio-button-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
 
       <sbb-selection-expansion-panel ${sbbSpread(args)}>
         <sbb-radio-button-panel value="Value three">
-          Value three ${suffixAndSubtext()} ${cardBadge()}
+          Value three ${suffixAndSubtext(size)} ${cardBadge()}
         </sbb-radio-button-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
