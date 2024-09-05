@@ -85,10 +85,6 @@ export const SbbFocusableDisabledActionMixin = <T extends AbstractConstructor<Li
     extends SbbDisabledMixin(superClass)
     implements SbbDisabledMixinType
   {
-    public override connectedCallback(): void {
-      super.connectedCallback();
-    }
-
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
