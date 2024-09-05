@@ -28,6 +28,7 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         id="sbb-paginator-prev-page"
         role="button"
         slot="li-0"
+        tabindex="0"
       >
       </sbb-mini-button>
       <sbb-divider
@@ -48,6 +49,7 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         id="sbb-paginator-next-page"
         role="button"
         slot="li-2"
+        tabindex="0"
       >
       </sbb-mini-button>
     </sbb-mini-button-group>
@@ -100,6 +102,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         id="sbb-paginator-prev-page"
         role="button"
         slot="li-0"
+        tabindex="0"
       >
       </sbb-mini-button>
       <sbb-divider
@@ -465,6 +468,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         id="sbb-paginator-prev-page"
         role="button"
         slot="li-0"
+        tabindex="0"
       >
       </sbb-mini-button>
       <sbb-divider
@@ -550,7 +554,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
     </ul>
   </span>
   <div class="sbb-paginator__page-size-options">
-    <label>
+    <label id="sbb-paginator-options-label-10">
       Items per page
     </label>
     <sbb-form-field
@@ -565,6 +569,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         aria-controls="sbb-select-2"
         aria-expanded="false"
         aria-haspopup="listbox"
+        aria-labelledby="sbb-paginator-options-label-10"
         aria-owns="sbb-select-2"
         aria-required="false"
         class="sbb-screen-reader-only"
@@ -575,6 +580,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         10
       </div>
       <sbb-select
+        aria-labelledby="sbb-paginator-options-label-10"
         data-option-panel-origin-borderless=""
         data-state="closed"
         dir="ltr"
@@ -621,61 +627,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
 
-snapshots["sbb-paginator renders with options A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page"
-    },
-    {
-      "role": "button",
-      "name": "Page 1"
-    },
-    {
-      "role": "button",
-      "name": "Page 2"
-    },
-    {
-      "role": "button",
-      "name": "Page 3"
-    },
-    {
-      "role": "button",
-      "name": "Page 4"
-    },
-    {
-      "role": "button",
-      "name": "Page 5"
-    },
-    {
-      "role": "text",
-      "name": "Items per page"
-    },
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "haspopup": "listbox",
-      "value": "10"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-paginator renders with options A11y tree Chrome */
-
 snapshots["sbb-paginator renders with options Safari DOM"] = 
 `<sbb-paginator
   length="50"
@@ -703,6 +654,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         id="sbb-paginator-prev-page"
         role="button"
         slot="li-0"
+        tabindex="0"
       >
       </sbb-mini-button>
       <sbb-divider
@@ -788,7 +740,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
     </ul>
   </span>
   <div class="sbb-paginator__page-size-options">
-    <label>
+    <label id="sbb-paginator-options-label-10">
       Items per page
     </label>
     <sbb-form-field
@@ -803,6 +755,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         aria-controls="sbb-select-2"
         aria-expanded="false"
         aria-haspopup="listbox"
+        aria-labelledby="sbb-paginator-options-label-10"
         aria-owns="sbb-select-2"
         aria-required="false"
         class="sbb-screen-reader-only"
@@ -813,6 +766,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         10
       </div>
       <sbb-select
+        aria-labelledby="sbb-paginator-options-label-10"
         data-option-panel-origin-borderless=""
         data-state="closed"
         dir="ltr"
@@ -861,6 +815,61 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
 
+snapshots["sbb-paginator renders with options A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page"
+    },
+    {
+      "role": "button",
+      "name": "Page 1"
+    },
+    {
+      "role": "button",
+      "name": "Page 2"
+    },
+    {
+      "role": "button",
+      "name": "Page 3"
+    },
+    {
+      "role": "button",
+      "name": "Page 4"
+    },
+    {
+      "role": "button",
+      "name": "Page 5"
+    },
+    {
+      "role": "text",
+      "name": "Items per page"
+    },
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "combobox",
+      "name": "Items per page",
+      "haspopup": "listbox",
+      "value": "10"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-paginator renders with options A11y tree Chrome */
+
 snapshots["sbb-paginator renders with options A11y tree Firefox"] = 
 `<p>
   {
@@ -906,14 +915,8 @@ snapshots["sbb-paginator renders with options A11y tree Firefox"] =
     },
     {
       "role": "combobox",
-      "name": "",
+      "name": "Items per page",
       "haspopup": "listbox",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "10"
-        }
-      ],
       "value": "10"
     }
   ]

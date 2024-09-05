@@ -35,6 +35,8 @@ export type SbbPaginatorPageChangedEventDetails = {
 
 const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 
+let optionsLabelNextId = 0;
+
 /**
  * It displays a paginator component.
  *
@@ -110,6 +112,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     { composed: true, bubbles: true },
   );
 
+  private _paginatorOptionsLabel = `sbb-paginator-options-label-${++optionsLabelNextId}`;
   private _language = new SbbLanguageController(this);
   private _markForFocus: number | null = null;
 
@@ -127,6 +130,15 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       // Reset mark for focus
       this._markForFocus = null;
     }
+  }
+
+  protected override firstUpdated(_changedProperties: PropertyValues): void {
+    super.firstUpdated(_changedProperties);
+
+    this.shadowRoot!.querySelector('sbb-select')?.setAttribute(
+      'aria-labelledby',
+      this._paginatorOptionsLabel,
+    );
   }
 
   /** Returns the displayed page elements. */
@@ -242,7 +254,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
           <div class="sbb-paginator__page-size-options">
-            <label>${i18nItemsPerPage[this._language.current]}</label>
+            <label id=${this._paginatorOptionsLabel}
+              >${i18nItemsPerPage[this._language.current]}</label
+            >
             <sbb-form-field
               borderless
               width="collapse"

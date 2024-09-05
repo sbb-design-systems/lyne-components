@@ -16,6 +16,7 @@ import {
   SbbNegativeMixin,
   SbbUpdateSchedulerMixin,
 } from '../core/mixins.js';
+import { AgnosticMutationObserver } from '../core/observers.js';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
@@ -122,6 +123,10 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _isPointerDownEventOnMenu: boolean = false;
   private _abort = new SbbConnectedAbortController(this);
 
+  private _selectAttributeObserver = new AgnosticMutationObserver(
+    (mutationsList: MutationRecord[]) => this._onSelectAttributesChange(mutationsList),
+  );
+
   /**
    * The 'combobox' input element
    * @internal
@@ -139,6 +144,14 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     return this._options.filter(
       (opt: SbbOptionElement) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
+  }
+
+  private _onSelectAttributesChange(mutationsList: MutationRecord[]): void {
+    for (const mutation of mutationsList) {
+      if (mutation.attributeName === 'aria-labelledby') {
+        this._triggerElement.setAttribute('aria-labelledby', this.getAttribute('aria-labelledby')!);
+      }
+    }
   }
 
   /** Opens the selection panel. */
@@ -263,6 +276,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
     if (formField) {
       this.negative = formField.hasAttribute('negative');
+      this._selectAttributeObserver.observe(this, { attributeFilter: ['aria-labelledby'] });
     }
     this._syncProperties();
 
@@ -303,6 +317,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.prepend(this._triggerElement); // Take back the trigger element previously moved to the light DOM
+    this._selectAttributeObserver.disconnect();
     this._openPanelEventsController?.abort();
   }
 
