@@ -141,7 +141,7 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
       return;
     }
     const nextActiveOption = filteredOptions[next];
-    nextActiveOption.active = true;
+    nextActiveOption.setActive(true);
     this.triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
@@ -153,7 +153,7 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     } else {
       const lastActiveOption = filteredOptions[this._activeItemIndex];
       if (lastActiveOption) {
-        lastActiveOption.active = false;
+        lastActiveOption.setActive(false);
       }
     }
     this._activeItemIndex = next;
@@ -178,7 +178,7 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     const nextElement: SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement =
       elementsInRow[next];
     if (nextElement instanceof SbbAutocompleteGridOptionElement) {
-      nextElement.active = true;
+      nextElement.setActive(true);
     } else {
       nextElement.toggleAttribute('data-focus-visible', true);
     }
@@ -186,7 +186,7 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     const lastActiveElement: SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement =
       elementsInRow[this._activeColumnIndex];
     if (lastActiveElement instanceof SbbAutocompleteGridOptionElement) {
-      lastActiveElement.active = false;
+      lastActiveElement.setActive(false);
     } else {
       lastActiveElement.toggleAttribute('data-focus-visible', false);
     }
@@ -205,7 +205,7 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
         (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
       )[this._activeItemIndex];
       if (activeElement) {
-        activeElement.active = false;
+        activeElement.setActive(false);
       }
     }
     this._activeItemIndex = -1;

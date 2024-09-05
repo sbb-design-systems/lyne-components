@@ -208,30 +208,30 @@ describe(`sbb-autocomplete-grid`, () => {
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'ArrowDown' });
     await waitForLitRender(element);
-    expect(optTwo).to.have.attribute('active');
+    expect(optTwo).to.have.attribute('data-active');
     expect(buttonTwo).not.to.have.attribute('data-focus-visible');
     expect(buttonThree).not.to.have.attribute('data-focus-visible');
     expect(input).to.have.attribute('aria-activedescendant', 'option-2');
 
     await sendKeys({ press: 'ArrowRight' });
     await waitForLitRender(element);
-    expect(optTwo).not.to.have.attribute('active');
+    expect(optTwo).not.to.have.attribute('data-active');
     expect(buttonTwo).to.have.attribute('data-focus-visible');
     expect(buttonThree).not.to.have.attribute('data-focus-visible');
     expect(input).to.have.attribute('aria-activedescendant', 'button-2');
 
     await sendKeys({ press: 'ArrowRight' });
     await waitForLitRender(element);
-    expect(optTwo).not.to.have.attribute('active');
+    expect(optTwo).not.to.have.attribute('data-active');
     expect(buttonTwo).not.to.have.attribute('data-focus-visible');
     expect(buttonThree).to.have.attribute('data-focus-visible');
     expect(input).to.have.attribute('aria-activedescendant', 'button-3');
 
     await sendKeys({ press: 'ArrowDown' });
     await waitForLitRender(element);
-    expect(optOne).to.have.attribute('active');
+    expect(optOne).to.have.attribute('data-active');
     expect(buttonOne).not.to.have.attribute('data-focus-visible');
-    expect(optTwo).not.to.have.attribute('active');
+    expect(optTwo).not.to.have.attribute('data-active');
     expect(buttonTwo).not.to.have.attribute('data-focus-visible');
     expect(buttonThree).not.to.have.attribute('data-focus-visible');
     expect(input).to.have.attribute('aria-activedescendant', 'option-1');
@@ -253,9 +253,9 @@ describe(`sbb-autocomplete-grid`, () => {
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'ArrowDown' });
     await waitForLitRender(element);
-    expect(optOne).not.to.have.attribute('active');
+    expect(optOne).not.to.have.attribute('data-active');
     expect(optOne).not.to.have.attribute('selected');
-    expect(optTwo).to.have.attribute('active');
+    expect(optTwo).to.have.attribute('data-active');
     expect(optTwo).not.to.have.attribute('selected');
     expect(input).to.have.attribute('aria-activedescendant', 'option-2');
 
@@ -263,7 +263,7 @@ describe(`sbb-autocomplete-grid`, () => {
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
 
-    expect(optTwo).not.to.have.attribute('active');
+    expect(optTwo).not.to.have.attribute('data-active');
     expect(optTwo).to.have.attribute('selected');
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
@@ -283,10 +283,10 @@ describe(`sbb-autocomplete-grid`, () => {
 
     await sendKeys({ press: 'ArrowDown' });
     await waitForLitRender(element);
-    expect(optOne).to.have.attribute('active');
+    expect(optOne).to.have.attribute('data-active');
     expect(buttonOne).not.to.have.attribute('data-focus-visible');
     await sendKeys({ press: 'ArrowRight' });
-    expect(optOne).not.to.have.attribute('active');
+    expect(optOne).not.to.have.attribute('data-active');
     expect(buttonOne).to.have.attribute('data-focus-visible');
     expect(input).to.have.attribute('aria-activedescendant', 'button-1');
     await sendKeys({ press: 'Enter' });
@@ -296,7 +296,7 @@ describe(`sbb-autocomplete-grid`, () => {
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'ArrowRight' });
     await waitForLitRender(element);
-    expect(optOne).not.to.have.attribute('active');
+    expect(optOne).not.to.have.attribute('data-active');
     expect(buttonOne).not.to.have.attribute('data-focus-visible');
     expect(buttonTwo).to.have.attribute('data-focus-visible');
     expect(input).to.have.attribute('aria-activedescendant', 'button-2');
