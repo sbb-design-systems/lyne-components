@@ -544,7 +544,7 @@ export class SbbImageElement extends LitElement {
                 "conditionFeature": "max-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "sbb-breakpoint-zero-max"
+                  "value": "sbb-breakpoint-micro-max"
                 },
                 "conditionOperator": false
               }
