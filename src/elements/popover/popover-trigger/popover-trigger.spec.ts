@@ -86,18 +86,15 @@ describe(`sbb-popover-trigger`, () => {
     expect(popover).to.have.attribute('data-state', 'opened');
   });
 
-  it("doesn't focus popover-trigger on keyboard event when disabled", async () => {
-    const changeSpy = new EventSpy('focus', element);
-
+  it("doesn't open popover when disabled", async () => {
     element.disabled = true;
     popover.hoverTrigger = true;
     await waitForLitRender(element);
 
-    element.focus();
+    element.click();
 
     await waitForLitRender(element);
 
-    expect(changeSpy.count).not.to.be.greaterThan(0);
     expect(popover).to.have.attribute('data-state', 'closed');
   });
 });

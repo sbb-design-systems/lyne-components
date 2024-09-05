@@ -6,7 +6,7 @@ import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
+import { SbbFocusableDisabledActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTagGroupElement } from '../tag-group.js';
 
@@ -27,7 +27,7 @@ export type SbbTagSize = 's' | 'm';
 @customElement('sbb-tag')
 @slotState()
 export class SbbTagElement extends SbbIconNameMixin(
-  SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
+  SbbFocusableDisabledActionMixin(SbbButtonBaseElement),
 ) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
