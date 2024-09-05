@@ -35,22 +35,41 @@ function applyAttributes(
 export const hostAttributes =
   (attributes: Record<string, string | null>) => (target: AbstractConstructor<ReactiveElement>) =>
     (target as typeof ReactiveElement).addInitializer((instance: ReactiveElement) => {
+      const instanceWithHostAttributes = instance as ReactiveElement & {
+        hostAttributes: Record<string, string | null>;
+        hostAttributeControllers: any[];
+      };
+      instanceWithHostAttributes.hostAttributes = {
+        ...(instanceWithHostAttributes.hostAttributes ?? {}),
+        ...attributes,
+      };
+      if (!instanceWithHostAttributes.hostAttributeControllers) {
+        instanceWithHostAttributes.hostAttributeControllers = [];
+      }
+
       if (isServer) {
-        applyAttributes(instance, attributes);
+        // TODO: Check whether we can accept having potential wrong attributes on SSR
+        applyAttributes(instanceWithHostAttributes, instanceWithHostAttributes.hostAttributes);
       } else {
         // It is not allowed to set attributes during constructor phase. Due to this we use a
         // controller to assign the attributes during lit initialization phase.
         // HostConnected or hostUpdate can be called either order. Due to that we apply in the
         // first occurrence and directly remove the controller, so it's only called once.
-        instance.addController({
+        const controller = {
           hostConnected() {
-            applyAttributes(instance, attributes);
-            instance.removeController(this);
+            applyAttributes(instanceWithHostAttributes, instanceWithHostAttributes.hostAttributes);
+            instanceWithHostAttributes.hostAttributeControllers.forEach((cont) =>
+              instanceWithHostAttributes.removeController(cont),
+            );
           },
           hostUpdate() {
-            applyAttributes(instance, attributes);
-            instance.removeController(this);
+            applyAttributes(instanceWithHostAttributes, instanceWithHostAttributes.hostAttributes);
+            instanceWithHostAttributes.hostAttributeControllers.forEach((cont) =>
+              instanceWithHostAttributes.removeController(cont),
+            );
           },
-        });
+        };
+        instanceWithHostAttributes.addController(controller);
+        instanceWithHostAttributes.hostAttributeControllers.push(controller);
       }
     });
