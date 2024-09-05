@@ -14,10 +14,7 @@ snapshots["sbb-header renders Shadow DOM"] =
     </slot>
     <div class="sbb-header__logo">
       <slot name="logo">
-        <sbb-logo
-          hide-text="false"
-          protective-room="none"
-        >
+        <sbb-logo protective-room="none">
         </sbb-logo>
       </slot>
     </div>
@@ -57,10 +54,7 @@ snapshots["sbb-header renders actions and logo Shadow DOM"] =
     </slot>
     <div class="sbb-header__logo">
       <slot name="logo">
-        <sbb-logo
-          hide-text="false"
-          protective-room="none"
-        >
+        <sbb-logo protective-room="none">
         </sbb-logo>
       </slot>
     </div>
