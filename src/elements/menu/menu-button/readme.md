@@ -30,7 +30,7 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ### Disabled buttons
 
-Generally speaking, `disabled` elements are considered a bad pattern for a11y. They are invisible to assistive
+Generally speaking, `disabled` elements are considered a bad pattern for accessibility. They are invisible to assistive
 technology and do not provide the reason for which they are disabled.
 To partially address the problem, disabled elements are kept focusable (other interactions are still prevented).
 However, it is still the consumers responsibility to provide a reason for the element being disabled.
