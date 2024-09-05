@@ -108,14 +108,14 @@ export class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
     // Get and activate the next active option
     const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
     const nextActiveOption = filteredOptions[next];
-    nextActiveOption.active = true;
+    nextActiveOption.setActive(true);
     this.triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous active option
     const lastActiveOption = filteredOptions[this._activeItemIndex];
     if (lastActiveOption) {
-      lastActiveOption.active = false;
+      lastActiveOption.setActive(false);
     }
 
     this._activeItemIndex = next;
@@ -125,7 +125,7 @@ export class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
     const activeElement = this.options[this._activeItemIndex];
 
     if (activeElement) {
-      activeElement.active = false;
+      activeElement.setActive(false);
     }
     this._activeItemIndex = -1;
     this.triggerElement?.removeAttribute('aria-activedescendant');

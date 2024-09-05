@@ -12,12 +12,12 @@ describe(`sbb-option`, () => {
   describe('autocomplete', () => {
     let element: SbbOptionElement;
 
-    describe('renders selected and active', async () => {
+    describe('renders selected', async () => {
       beforeEach(async () => {
         element = (
           await fixture(html`
             <sbb-autocomplete origin="anchor">
-              <sbb-option value="1" selected active>Option 1</sbb-option>
+              <sbb-option value="1" selected>Option 1</sbb-option>
             </sbb-autocomplete>
             <div id="anchor"></div>
           `)
@@ -55,10 +55,7 @@ describe(`sbb-option`, () => {
     });
   });
 
-  testA11yTreeSnapshot(
-    html`<sbb-option value="1" selected active></sbb-option>`,
-    'selected active',
-  );
+  testA11yTreeSnapshot(html`<sbb-option value="1" selected></sbb-option>`, 'selected');
 
   testA11yTreeSnapshot(html`<sbb-option value="1" disabled></sbb-option>`, 'disabled');
 });

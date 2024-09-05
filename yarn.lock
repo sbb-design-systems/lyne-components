@@ -2619,10 +2619,10 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.34.tgz#10964ba0dee6ac4cd462e2795b6bebd407303433"
   integrity sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==
 
-"@types/node@*", "@types/node@20.16.4", "@types/node@^16.0.0", "@types/node@^18.0.0":
-  version "20.16.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.16.4.tgz#2e3d9e1da4761a0fdb725d9497df4bb091e9c2f1"
-  integrity sha512-ioyQ1zK9aGEomJ45zz8S8IdzElyxhvP1RVWnPrXDf6wFaUb+kk1tEcVVJkF7RPGM0VWI7cp5U57oCPIn5iN1qg==
+"@types/node@*", "@types/node@20.16.5", "@types/node@^16.0.0", "@types/node@^18.0.0":
+  version "20.16.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.16.5.tgz#d43c7f973b32ffdf9aa7bd4f80e1072310fd7a53"
+  integrity sha512-VwYCweNo3ERajwy0IUlqqcyZ8/A7Zwa9ZP3MnENWcB11AejO+tLy3pu850goUW2FC/IJMdZUfKpX/yxL1gymCA==
   dependencies:
     undici-types "~6.19.2"
 
@@ -2842,7 +2842,7 @@
     semver "^7.3.7"
     tsutils "^3.21.0"
 
-"@typescript-eslint/typescript-estree@8.3.0", "@typescript-eslint/typescript-estree@^8.1.0":
+"@typescript-eslint/typescript-estree@8.3.0":
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-8.3.0.tgz#3e3d38af101ba61a8568f034733b72bfc9f176b9"
   integrity sha512-Mq7FTHl0R36EmWlCJWojIC1qn/ZWo2YiWYc1XVtasJ7FIgjo0MVv9rZWXEE7IK2CGrtwe1dVOxWwqXUdNgfRCA==
@@ -5127,12 +5127,11 @@ eslint-module-utils@^2.8.1:
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-import-x@4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.1.1.tgz#715efe257eddeb5986c68cda73908d019c954280"
-  integrity sha512-dBEM8fACIFNt4H7GoOaRmnH6evJW6JSTJTYYgmRd3vI4geBTjgDM/JyUDKUwIw0HDSyI+u7Vs3vFRXUo/BOAtA==
+eslint-plugin-import-x@4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.2.1.tgz#575f311d51d960f46609dfa3fea9f027cd0cf60b"
+  integrity sha512-WWi2GedccIJa0zXxx3WDnTgouGQTtdYK1nhXMwywbqqAgB0Ov+p1pYBsWh3VaB0bvBOwLse6OfVII7jZD9xo5Q==
   dependencies:
-    "@typescript-eslint/typescript-estree" "^8.1.0"
     "@typescript-eslint/utils" "^8.1.0"
     debug "^4.3.4"
     doctrine "^3.0.0"
