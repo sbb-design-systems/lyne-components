@@ -32,9 +32,10 @@ describe(`sbb-expansion-panel`, () => {
   const titleLevelCases = ['1', '4'];
 
   const iconCases = [
-    { name: 'none', icon: undefined, slotted: false },
-    { name: 'prop', icon: 'arrow-right-small', slotted: false },
-    { name: 'slotted', icon: 'arrow-right-small', slotted: true },
+    { name: 'none', icon: undefined, slotted: false, disabled: false },
+    { name: 'none-disabled', icon: undefined, slotted: false, disabled: true },
+    { name: 'prop', icon: 'arrow-right-small', slotted: false, disabled: false },
+    { name: 'slotted', icon: 'arrow-right-small', slotted: true, disabled: false },
   ];
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
@@ -51,7 +52,7 @@ describe(`sbb-expansion-panel`, () => {
             <sbb-expansion-panel-header icon-name="arrow-right-small">
               Header
             </sbb-expansion-panel-header>
-            <sbb-expansion-panel-content> Content </sbb-expansion-panel-content>
+            <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
           </sbb-expansion-panel>
         `);
       });
@@ -74,7 +75,7 @@ describe(`sbb-expansion-panel`, () => {
             <sbb-expansion-panel-header icon-name="arrow-right-small">
               Header
             </sbb-expansion-panel-header>
-            <sbb-expansion-panel-content> Content </sbb-expansion-panel-content>
+            <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
           </sbb-expansion-panel>
         `);
       });
@@ -97,7 +98,7 @@ describe(`sbb-expansion-panel`, () => {
               <sbb-expansion-panel-header icon-name="arrow-right-small">
                 Header
               </sbb-expansion-panel-header>
-              <sbb-expansion-panel-content> Content </sbb-expansion-panel-content>
+              <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
             </sbb-expansion-panel>
           `);
         }),
@@ -110,11 +111,11 @@ describe(`sbb-expansion-panel`, () => {
         `icon=${state.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-expansion-panel>
+            <sbb-expansion-panel ?disabled=${state.disabled}>
               <sbb-expansion-panel-header .iconName=${!state.slotted ? state.icon : undefined}>
                 ${state.slotted ? html`<sbb-icon name=${state.icon!}></sbb-icon>` : nothing} Label
               </sbb-expansion-panel-header>
-              <sbb-expansion-panel-content> Content </sbb-expansion-panel-content>
+              <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
             </sbb-expansion-panel>
           `);
         }),

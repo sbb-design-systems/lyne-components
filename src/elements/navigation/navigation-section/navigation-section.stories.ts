@@ -1,12 +1,9 @@
-import { userEvent, waitFor, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
 
 import readme from './readme.md?raw';
 import '../../button.js';
@@ -16,25 +13,6 @@ import '../navigation-link.js';
 import '../navigation-marker.js';
 import '../navigation.js';
 import './navigation-section.js';
-
-// Story interaction executed after the story renders
-const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('navigation').shadowRoot?.querySelector('.sbb-navigation'),
-  );
-
-  const button = canvas.getByTestId('navigation-trigger');
-  await userEvent.click(button);
-  await waitFor(() => canvas.getByTestId('navigation').getAttribute('data-state') === 'opened');
-
-  await waitFor(() =>
-    canvas.getByTestId('navigation-section').shadowRoot?.querySelector('.sbb-navigation-section'),
-  );
-  const action = canvas.getByTestId(trigger);
-  await userEvent.click(action);
-};
 
 const accessibilityLabel: InputType = {
   control: {
@@ -118,23 +96,16 @@ export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic()
-    ? ({ canvasElement }) => playStory('navigation-section-trigger-1', canvasElement)
-    : undefined,
 };
 
 export const LongContent: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic()
-    ? ({ canvasElement }) => playStory('navigation-section-trigger-2', canvasElement)
-    : undefined,
 };
 
 const meta: Meta = {
   parameters: {
-    chromatic: { disableSnapshot: false },
     docs: {
       // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },

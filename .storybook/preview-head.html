@@ -54,7 +54,7 @@
 
 <script>
   const windowRef = typeof window !== 'undefined' && window;
-  if (!inIframe() && !isChromatic() && !isDev()) {
+  if (!inIframe() && !isDev()) {
     setTimeout(() => {
       const div = document.createElement('div');
       div.textContent = 'EXAMPLE / BEISPIEL / EXEMPLE / ESEMPIO ';
@@ -101,13 +101,6 @@
     };
   }
 
-  if (isChromatic()) {
-    const sheet = new CSSStyleSheet();
-    sheet.insertRule(`.sb-show-main.sb-main-padded { padding: 0rem; }`);
-
-    document.adoptedStyleSheets.push(sheet);
-  }
-
   function inIframe() {
     try {
       return windowRef.self !== windowRef.top;
@@ -115,13 +108,7 @@
       return true;
     }
   }
-  function isChromatic() {
-    return !!(
-      windowRef &&
-      (windowRef.navigator.userAgent.match(/Chromatic/) ||
-        windowRef.location.href.match(/chromatic=true/))
-    );
-  }
+
   function isDev() {
     return window.location.hostname === 'localhost';
   }

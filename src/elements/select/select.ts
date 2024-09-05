@@ -443,20 +443,20 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     });
   }
 
-  private async _onKeyDown(event: KeyboardEvent): Promise<void> {
+  private _onKeyDown(event: KeyboardEvent): void {
     if (this.disabled || this.readonly) {
       return;
     }
 
     if (this.state === 'opened') {
-      await this._openedPanelKeyboardInteraction(event);
+      this._openedPanelKeyboardInteraction(event);
     }
     if (this.state === 'closed') {
-      await this._closedPanelKeyboardInteraction(event);
+      this._closedPanelKeyboardInteraction(event);
     }
   }
 
-  private async _closedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
+  private _closedPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this._checkForLetterSelection(event)) {
       return this._setNextActiveOptionByText(event);
     }
@@ -467,12 +467,12 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
       case 'ArrowDown':
       case 'ArrowUp':
         event.preventDefault();
-        await this.open();
+        this.open();
         break;
     }
   }
 
-  private async _openedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
+  private _openedPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this.disabled || this.readonly || this.state !== 'opened') {
       return;
     }
@@ -484,31 +484,31 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     switch (event.key) {
       case 'Escape':
       case 'Tab':
-        await this.close();
+        this.close();
         break;
 
       case 'Enter':
       case ' ':
         event.preventDefault();
-        await this._selectByKeyboard();
+        this._selectByKeyboard();
         break;
 
       case 'ArrowDown':
       case 'ArrowUp':
         event.preventDefault();
-        await this._setNextActiveOption(event);
+        this._setNextActiveOption(event);
         break;
 
       case 'Home':
       case 'PageUp':
         event.preventDefault();
-        await this._setNextActiveOption(event, 0);
+        this._setNextActiveOption(event, 0);
         break;
 
       case 'End':
       case 'PageDown':
         event.preventDefault();
-        await this._setNextActiveOption(event, this._filteredOptions.length - 1);
+        this._setNextActiveOption(event, this._filteredOptions.length - 1);
         break;
     }
   }
@@ -525,7 +525,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     );
   }
 
-  private async _setNextActiveOptionByText(event: KeyboardEvent): Promise<void> {
+  private _setNextActiveOptionByText(event: KeyboardEvent): void {
     // Set timeout and the string to search.
     if (typeof this._searchTimeout === typeof setTimeout) {
       clearTimeout(this._searchTimeout);
@@ -546,7 +546,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     );
     if (match) {
       // If an exact match has been found, go to that option.
-      await this._setNextActiveOption(event, this._filteredOptions.indexOf(match));
+      this._setNextActiveOption(event, this._filteredOptions.indexOf(match));
     } else if (
       this._searchString.length > 1 &&
       new RegExp(`^${this._searchString.charAt(0)}*$`).test(this._searchString)
@@ -558,7 +558,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
           option.textContent?.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0,
       );
       if (firstMatch) {
-        await this._setNextActiveOption(event, this._filteredOptions.indexOf(firstMatch));
+        this._setNextActiveOption(event, this._filteredOptions.indexOf(firstMatch));
       }
     } else {
       // No match found, clear the timeout and the search term.
@@ -567,17 +567,17 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
   }
 
-  private async _selectByKeyboard(): Promise<void> {
+  private _selectByKeyboard(): void {
     const activeOption: SbbOptionElement = this._filteredOptions[this._activeItemIndex];
 
     if (this.multiple) {
-      await activeOption.setSelectedViaUserInteraction(!activeOption.selected);
+      activeOption.setSelectedViaUserInteraction(!activeOption.selected);
     } else {
-      await this.close();
+      this.close();
     }
   }
 
-  private async _setNextActiveOption(event: KeyboardEvent, index?: number): Promise<void> {
+  private _setNextActiveOption(event: KeyboardEvent, index?: number): void {
     const nextIndex =
       index ?? getNextElementIndex(event, this._activeItemIndex, this._filteredOptions.length);
     const nextOption = this._filteredOptions[nextIndex];
@@ -586,9 +586,9 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this._setActiveElement(nextOption, activeOption);
 
     if (!this.multiple) {
-      await this._setSelectedElement(nextOption, activeOption);
+      this._setSelectedElement(nextOption, activeOption);
     } else if (event?.shiftKey) {
-      await nextOption.setSelectedViaUserInteraction(!nextOption.selected);
+      nextOption.setSelectedViaUserInteraction(!nextOption.selected);
     }
     this._activeItemIndex = nextIndex;
   }
@@ -598,7 +598,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     lastActiveOption: SbbOptionElement | null = null,
     setActiveDescendant = true,
   ): void {
-    nextActiveOption.active = true;
+    nextActiveOption.setActive(true);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     if (setActiveDescendant) {
@@ -607,18 +607,18 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
     // Reset the previous
     if (lastActiveOption && lastActiveOption !== nextActiveOption) {
-      lastActiveOption.active = false;
+      lastActiveOption.setActive(false);
     }
   }
 
-  private async _setSelectedElement(
+  private _setSelectedElement(
     nextActiveOption: SbbOptionElement,
     lastActiveOption: SbbOptionElement,
-  ): Promise<void> {
-    await nextActiveOption.setSelectedViaUserInteraction(true);
+  ): void {
+    nextActiveOption.setSelectedViaUserInteraction(true);
 
     if (lastActiveOption && lastActiveOption !== nextActiveOption) {
-      await lastActiveOption.setSelectedViaUserInteraction(false);
+      lastActiveOption.setSelectedViaUserInteraction(false);
     }
   }
 
@@ -626,7 +626,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     const activeElement = this._filteredOptions[this._activeItemIndex];
 
     if (activeElement) {
-      activeElement.active = false;
+      activeElement.setActive(false);
     }
     this._activeItemIndex = -1;
     this._triggerElement.removeAttribute('aria-activedescendant');
@@ -638,9 +638,9 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   };
 
   // Close menu on backdrop click.
-  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._overlay, event)) {
-      await this.close();
+      this.close();
     }
   };
 

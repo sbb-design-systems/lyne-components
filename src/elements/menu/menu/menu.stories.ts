@@ -1,21 +1,9 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
-
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready.js';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
 import { SbbMenuElement } from './menu.js';
 import readme from './readme.md?raw';
@@ -25,20 +13,6 @@ import '../../divider.js';
 import '../../link.js';
 import '../menu-button.js';
 import '../menu-link.js';
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('menu').shadowRoot!.querySelector('.sbb-menu'),
-  );
-
-  await waitForStablePosition(() => canvas.getByTestId('menu-trigger'));
-
-  const button = canvas.getByTestId('menu-trigger');
-  await userEvent.click(button);
-};
 
 const iconName: InputType = {
   control: {
@@ -203,41 +177,35 @@ export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const List: StoryObj = {
   render: ListTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const CustomContent: StoryObj = {
   render: CustomContentTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, amount: '2' },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'icon-name': 'tick-small', amount: undefined },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Ellipsis: StoryObj = {
   render: EllipsisTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { disableSnapshot: false },
     actions: {
       handles: [
         SbbMenuElement.events.willOpen,

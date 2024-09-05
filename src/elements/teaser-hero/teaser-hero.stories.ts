@@ -188,7 +188,6 @@ export const withSlots: StoryObj = {
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { diffThreshold: 0.11, delay: 5000 },
     actions: {
       handles: ['click'],
     },

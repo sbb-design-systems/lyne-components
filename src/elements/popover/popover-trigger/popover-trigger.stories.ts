@@ -40,21 +40,11 @@ const disabled: InputType = {
   },
 };
 
-const active: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    disable: true,
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   negative,
   'aria-label': ariaLabel,
   'icon-name': iconName,
   disabled,
-  active,
 };
 
 const defaultArgs: Args = {
@@ -62,7 +52,6 @@ const defaultArgs: Args = {
   'aria-label': 'Click to open the popover',
   'icon-name': 'circle-information-small',
   disabled: false,
-  active: false,
 };
 
 const popover = (): TemplateResult => html`
@@ -84,14 +73,10 @@ const popover = (): TemplateResult => html`
   </sbb-popover>
 `;
 
-const Template = ({ active, ...args }: Args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   <span class="sbb-text-s" style="display: flex; align-items: center;">
     <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);"> This is a demo text. </span>
-    <sbb-popover-trigger
-      id="popover-trigger"
-      ?data-active=${active}
-      ${sbbSpread(args)}
-    ></sbb-popover-trigger>
+    <sbb-popover-trigger id="popover-trigger" ${sbbSpread(args)}></sbb-popover-trigger>
   </span>
   ${popover()}
 `;
@@ -154,20 +139,7 @@ export const DisabledNegative: StoryObj = {
   args: { ...defaultArgs, disabled: true, negative: true },
 };
 
-export const IconSizeSActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, active: true },
-};
-
-export const IconSizeSNegativeActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true, active: true },
-};
-
 const meta: Meta = {
-  excludeStories: /.*Active$/,
   decorators: [
     (story, context) => html`
       <div style=${styleMap({ ...wrapperStyle(context) })}>${story()}</div>

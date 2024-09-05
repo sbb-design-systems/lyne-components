@@ -42,6 +42,16 @@ The component has three sizes (`xs`, `s`, which is the default, and `m`).
 <sbb-block-link-button size="m">Refunds</sbb-block-link-button>
 ```
 
+## Accessibility
+
+### Disabled buttons
+
+Generally speaking, `disabled` elements are considered a bad pattern for accessibility. They are invisible to assistive
+technology and do not provide the reason for which they are disabled.
+To partially address the problem, disabled elements are kept focusable (other interactions are still prevented).
+However, it is still the consumers responsibility to provide a reason for the element being disabled.
+This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-describedby` attribute.
+
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -1,8 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
@@ -33,9 +31,9 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  hours: isChromatic() ? 9 : undefined,
-  minutes: isChromatic() ? 10 : undefined,
-  seconds: isChromatic() ? 30 : undefined,
+  hours: undefined,
+  minutes: undefined,
+  seconds: undefined,
 };
 
 export const Default: StoryObj = {

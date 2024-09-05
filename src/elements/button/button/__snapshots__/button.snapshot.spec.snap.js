@@ -15,6 +15,7 @@ snapshots["sbb-button renders a sbb-button without icon DOM"] =
   negative=""
   role="button"
   size="m"
+  tabindex="0"
   type="button"
   value="value"
 >

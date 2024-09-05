@@ -1,21 +1,17 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
   Args,
+  ArgTypes,
   Decorator,
+  Meta,
   StoryContext,
+  StoryObj,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
 import type { SbbFormErrorElement } from '../form-error.js';
 import { SbbOptionElement } from '../option.js';
 
@@ -188,19 +184,6 @@ const scrollDecorator: Decorator = (story) => html`
     ${story()}
   </div>
 `;
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('form-field').shadowRoot!.querySelector('div.sbb-form-field__space-wrapper'),
-  );
-
-  await waitForStablePosition(() => canvas.getByTestId('autocomplete-input'));
-  await userEvent.type(canvas.getByTestId('autocomplete-input'), 'Opt');
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-};
 
 const createOptionGroup1 = (iconName: string, disableOption: boolean): TemplateResult => {
   return html`
@@ -384,21 +367,18 @@ export const Basic: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const BasicNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const BasicSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const BasicOpenAbove: StoryObj = {
@@ -406,70 +386,60 @@ export const BasicOpenAbove: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
   decorators: [aboveDecorator],
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Borderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const BorderlessNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true, negative: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const BorderlessSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true, size: size.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const FloatingLabel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, floatingLabel: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const FloatingLabelSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, floatingLabel: true, size: size.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithError: StoryObj = {
   render: RequiredTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithErrorNegative: StoryObj = {
   render: RequiredTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs, negative: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Disabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Readonly: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const BorderlessOpenAbove: StoryObj = {
@@ -477,14 +447,12 @@ export const BorderlessOpenAbove: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
   decorators: [aboveDecorator],
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const NoIconSpace: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, preserveIconSpace: false },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Scroll: StoryObj = {
@@ -492,43 +460,35 @@ export const Scroll: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
   decorators: [scrollDecorator],
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
 };
 
 export const WithOptionGroup: StoryObj = {
   render: OptionGroupTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const MixedSingleOptionWithOptionGroup: StoryObj = {
   render: MixedTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
   render: MixedTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs, negative: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const MixedSingleOptionWithOptionGroupSizeS: StoryObj = {
   render: MixedTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs, size: size.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { disableSnapshot: false },
     actions: {
       handles: [
         SbbAutocompleteElement.events.willOpen,

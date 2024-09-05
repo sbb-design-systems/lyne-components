@@ -129,7 +129,7 @@ const defaultArgs: Args = {
   rel: undefined,
   download: false,
   disabled: false,
-  'accessibility-label': accessibilityLabel,
+  'accessibility-label': '',
 };
 
 export const menuLink: StoryObj = {

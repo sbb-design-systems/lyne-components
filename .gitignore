@@ -9,7 +9,6 @@
 log.txt
 *.sublime-project
 *.sublime-workspace
-**/*.chromatic.stories.*
 package-lock.json
 
 .idea/

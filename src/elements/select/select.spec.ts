@@ -169,10 +169,10 @@ describe(`sbb-select`, () => {
     await waitForLitRender(element);
 
     firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
-    expect(firstOption).not.to.have.attribute('active');
+    expect(firstOption).not.to.have.attribute('data-active');
     expect(firstOption).to.have.attribute('selected');
     secondOption = element.querySelector<SbbOptionElement>('#option-2')!;
-    expect(secondOption).not.to.have.attribute('active');
+    expect(secondOption).not.to.have.attribute('data-active');
     expect(secondOption).not.to.have.attribute('selected');
 
     const selectionChange = new EventSpy(SbbOptionElement.events.selectionChange);
@@ -210,9 +210,9 @@ describe(`sbb-select`, () => {
     await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen.count).to.be.equal(1);
     await waitForLitRender(element);
-    expect(firstOption).not.to.have.attribute('active');
+    expect(firstOption).not.to.have.attribute('data-active');
     expect(firstOption).not.to.have.attribute('selected');
-    expect(secondOption).not.to.have.attribute('active');
+    expect(secondOption).not.to.have.attribute('data-active');
     expect(secondOption).not.to.have.attribute('selected');
 
     const selectionChange = new EventSpy(SbbOptionElement.events.selectionChange);
@@ -288,12 +288,12 @@ describe(`sbb-select`, () => {
     await sendKeys({ press: ' ' });
     await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen.count).to.be.equal(1);
-    expect(firstOption).not.to.have.attribute('active');
+    expect(firstOption).not.to.have.attribute('data-active');
     expect(firstOption).not.to.have.attribute('selected');
 
     focusableElement.focus();
     await sendKeys({ press: 'ArrowDown' });
-    expect(firstOption).to.have.attribute('active');
+    expect(firstOption).to.have.attribute('data-active');
     expect(firstOption).to.have.attribute('selected');
     expect(element.value).to.be.equal('1');
     expect(displayValue).to.have.trimmed.text('First');
@@ -304,7 +304,7 @@ describe(`sbb-select`, () => {
     await waitForLitRender(element);
     expect(didOpen.count).to.be.equal(1);
     expect(displayValue).to.have.trimmed.text('Third');
-    expect(thirdOption).to.have.attribute('active');
+    expect(thirdOption).to.have.attribute('data-active');
     expect(thirdOption).to.have.attribute('selected');
     expect(element.value).to.be.equal('3');
 
@@ -315,7 +315,7 @@ describe(`sbb-select`, () => {
     await waitForLitRender(element);
     expect(didOpen.count).to.be.equal(1);
     expect(displayValue).to.have.trimmed.text('Second');
-    expect(secondOption).to.have.attribute('active');
+    expect(secondOption).to.have.attribute('data-active');
     expect(secondOption).to.have.attribute('selected');
     expect(element.value).to.be.equal('2');
   });
@@ -331,13 +331,13 @@ describe(`sbb-select`, () => {
     await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen.count).to.be.equal(1);
 
-    expect(secondOption).not.to.have.attribute('active');
+    expect(secondOption).not.to.have.attribute('data-active');
     expect(secondOption).not.to.have.attribute('selected');
     focusableElement.focus();
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'Enter' });
-    expect(secondOption).to.have.attribute('active');
+    expect(secondOption).to.have.attribute('data-active');
     expect(secondOption).to.have.attribute('selected');
     expect(element.value).to.be.eql(['2']);
     expect(displayValue).to.have.trimmed.text('Second');
@@ -351,7 +351,7 @@ describe(`sbb-select`, () => {
     await waitForLitRender(element);
     await waitForCondition(() => didOpen.events.length === 2);
     expect(didOpen.count).to.be.equal(2);
-    expect(secondOption).not.to.have.attribute('active');
+    expect(secondOption).not.to.have.attribute('data-active');
     expect(secondOption).to.have.attribute('selected');
     expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
   });
