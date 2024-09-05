@@ -28,12 +28,12 @@ describe(`sbb-selection-expansion-panel`, () => {
     disabled: [false, true],
   };
 
-  const inputPanelContent = (): TemplateResult => html`
+  const inputPanelContent = (size: 'm' | 's'): TemplateResult => html`
     Value one
     <span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto; display: flex; align-items: center">
       <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-      <span class="sbb-text-m sbb-text--bold">CHF 40.00</span>
+      <span class="sbb-text-${size} sbb-text--bold">CHF 40.00</span>
     </span>
     <sbb-card-badge>%</sbb-card-badge>
   `;
@@ -50,6 +50,7 @@ describe(`sbb-selection-expansion-panel`, () => {
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
     forceOpen?: boolean;
     value?: string;
+    size: 'm' | 's';
   };
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
     <sbb-selection-expansion-panel
@@ -61,8 +62,9 @@ describe(`sbb-selection-expansion-panel`, () => {
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
+        size=${params.size || 'm'}
       >
-        ${inputPanelContent()}
+        ${inputPanelContent(params.size || 'm')}
       </sbb-checkbox-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
@@ -79,7 +81,7 @@ describe(`sbb-selection-expansion-panel`, () => {
         ?disabled=${params.disabled}
         value=${params.value || nothing}
       >
-        ${inputPanelContent()}
+        ${inputPanelContent(params.size || 'm')}
       </sbb-radio-button-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
@@ -115,33 +117,72 @@ describe(`sbb-selection-expansion-panel`, () => {
             }),
           );
         }
+
+        it(
+          `size=s`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              ${input === 'checkbox'
+                ? withCheckboxPanel({ size: 's' })
+                : withRadioPanel({ size: 's' })}
+            `);
+          }),
+        );
       });
 
-      it(
-        `checkbox group with error`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-checkbox-group orientation="vertical" horizontal-from="medium">
-              ${withCheckboxPanel({ checked: true })} ${withCheckboxPanel({})}
-              ${withCheckboxPanel({})}
-            </sbb-checkbox-group>
-            <sbb-form-error slot="error">Error message</sbb-form-error>
-          `);
-        }),
-      );
+      describe('checkbox-group', () => {
+        for (const size of ['m', 's']) {
+          describe(`size=${size}`, () => {
+            for (const error of [true, false]) {
+              it(
+                error ? `with error` : '',
+                visualDiffDefault.with(async (setup) => {
+                  await setup.withFixture(html`
+                    <sbb-checkbox-group
+                      orientation="vertical"
+                      horizontal-from="medium"
+                      size=${size}
+                    >
+                      ${withCheckboxPanel({ checked: true })} ${withCheckboxPanel({})}
+                      ${withCheckboxPanel({})}
+                    </sbb-checkbox-group>
+                    ${error
+                      ? html`<sbb-form-error slot="error">Error message</sbb-form-error>`
+                      : nothing}
+                  `);
+                }),
+              );
+            }
+          });
+        }
+      });
 
-      it(
-        `radio button group with error`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-radio-button-group orientation="vertical" horizontal-from="medium">
-              ${withRadioPanel({ checked: true, value: '1' })} ${withRadioPanel({ value: '2' })}
-              ${withRadioPanel({ value: '3' })}
-            </sbb-radio-button-group>
-            <sbb-form-error slot="error">Error message</sbb-form-error>
-          `);
-        }),
-      );
+      describe('radio-button-group', () => {
+        for (const size of ['m', 's']) {
+          describe(`size=${size}`, () => {
+            for (const error of [true, false]) {
+              it(
+                error ? `with error` : '',
+                visualDiffDefault.with(async (setup) => {
+                  await setup.withFixture(html`
+                    <sbb-radio-button-group
+                      orientation="vertical"
+                      horizontal-from="medium"
+                      size=${size}
+                    >
+                      ${withRadioPanel({ checked: true, value: '1' })}
+                      ${withRadioPanel({ value: '2' })} ${withRadioPanel({ value: '3' })}
+                    </sbb-radio-button-group>
+                    ${error
+                      ? html`<sbb-form-error slot="error">Error message</sbb-form-error>`
+                      : nothing}
+                  `);
+                }),
+              );
+            }
+          });
+        }
+      });
     }
   });
 });
