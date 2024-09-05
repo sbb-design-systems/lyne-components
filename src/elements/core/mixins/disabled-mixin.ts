@@ -41,6 +41,9 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
   return SbbDisabledElement as unknown as AbstractConstructor<SbbDisabledMixinType> & T;
 };
 
+/**
+ * @deprecated Will be removed with next major version
+ */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbDisabledTabIndexActionMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
