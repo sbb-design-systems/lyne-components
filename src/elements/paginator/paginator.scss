@@ -116,7 +116,8 @@
     }
   }
 
-  &:active {
+  &:active,
+  &[data-active] {
     --sbb-paginator-page-color: var(--sbb-color-charcoal);
     --sbb-paginator-page-background-color: var(--sbb-color-cloud);
     --sbb-paginator-page-inset: 0;

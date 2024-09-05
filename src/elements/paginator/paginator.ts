@@ -191,7 +191,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return Array.from({ length }, (_, k) => k + offset);
   }
 
-  private _handleKeydown(event: KeyboardEvent): void {
+  private _handleKeyUp(event: KeyboardEvent): void {
     if (event.key !== ' ') {
       return;
     }
@@ -199,9 +199,21 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     event.preventDefault();
     const current = this._getVisiblePages().find((e: Element) => e === event.target);
     if (current) {
+      (event.target as HTMLElement).parentElement!.removeAttribute('data-active');
       this.pageIndex = +current.getAttribute('data-index')!;
       this._markForFocus = this.pageIndex;
     }
+  }
+
+  private _handleKeydown(event: KeyboardEvent): void {
+    if (event.key !== ' ') {
+      return;
+    }
+
+    event.preventDefault();
+    this._getVisiblePages()
+      .find((e: Element) => e === event.target)
+      ?.parentElement!.toggleAttribute('data-active', true);
   }
 
   private _renderPrevNextButtons(): TemplateResult {
@@ -256,7 +268,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   private _renderPageNumbers(): TemplateResult {
     return html`
-      <ul class="sbb-paginator__pages" @keydown=${this._handleKeydown}>
+      <ul class="sbb-paginator__pages" @keyup=${this._handleKeyUp} @keydown=${this._handleKeydown}>
         ${repeat(
           this._getVisiblePagesIndex(),
           (item: number | 'ellipsis'): TemplateResult =>
