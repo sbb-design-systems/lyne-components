@@ -23,6 +23,21 @@ export abstract class SbbActionBaseElement extends LitElement {
     return maybeDisabled.disabled || maybeDisabled.formDisabled;
   }
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    if (
+      import.meta.env.DEV &&
+      (this.hasAttribute('data-link') || this.hasAttribute('data-button')) &&
+      this.parentElement?.closest('[data-link], [data-button], a, button')
+    ) {
+      console.warn(
+        `Nested action element detected (${this.localName} inside ${this.parentElement!.closest('[data-link], [data-button], a, button')!.localName}). Maybe use a static variant for the inner action element?`,
+        this,
+      );
+    }
+  }
+
   protected setupBaseEventHandlers(): void {
     this.addEventListener(
       'click',
