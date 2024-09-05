@@ -17,8 +17,8 @@ import '../../icon.js';
 import '../../loading-indicator.js';
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
-const Template = ({ tag, text, active, focusVisible, ...args }: Args): TemplateResult => html`
-  <${unsafeStatic(tag)} ${sbbSpread(args)} ?data-active=${active} ?data-focus-visible=${focusVisible}>
+const Template = ({ tag, text, ...args }: Args): TemplateResult => html`
+  <${unsafeStatic(tag)} ${sbbSpread(args)}>
     ${text}
   </${unsafeStatic(tag)}>
 `;
@@ -192,21 +192,6 @@ export const withSlottedIcon: StoryObj = {
   args: {
     'icon-name': 'chevron-small-right-small',
   },
-};
-
-export const primaryActive: StoryObj = {
-  render: Template,
-  args: { active: true },
-};
-
-export const primaryNegativeActive: StoryObj = {
-  render: Template,
-  args: { negative: true, active: true },
-};
-
-export const primaryFocusVisible: StoryObj = {
-  render: Template,
-  args: { focusVisible: true },
 };
 
 export const loadingIndicator: StoryObj = {

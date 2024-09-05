@@ -1,20 +1,10 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
 import type { SbbButtonElement } from '../button.js';
 
 import readme from './readme.md?raw';
@@ -22,19 +12,6 @@ import { SbbToastElement } from './toast.js';
 import '../button/button.js';
 import '../button/transparent-button.js';
 import '../link/link.js';
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('sbb-toast').shadowRoot!.querySelector('.sbb-toast'),
-  );
-
-  const toast = canvas.getByTestId('sbb-toast') as SbbToastElement;
-  toast.open();
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-};
 
 const position: InputType = {
   control: {
@@ -138,41 +115,35 @@ export const Basic: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Dismissible: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, dismissible: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithActionButton: StoryObj = {
   render: ActionButtonTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithActionLink: StoryObj = {
   render: ActionLinkTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { disableSnapshot: false },
     actions: {
       handles: [
         SbbToastElement.events.willOpen,

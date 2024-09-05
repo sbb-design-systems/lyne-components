@@ -218,7 +218,6 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: { disableSnapshot: true },
   },
   title: 'elements/timetable/sbb-timetable-occupancy',
 };

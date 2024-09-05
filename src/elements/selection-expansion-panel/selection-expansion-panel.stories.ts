@@ -700,7 +700,6 @@ export const NestedCheckboxesSizeS: StoryObj = {
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { delay: 9000, fixedHeight: '14500px' },
     actions: {
       handles: [
         SbbSelectionExpansionPanelElement.events.didOpen,

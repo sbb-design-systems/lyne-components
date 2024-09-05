@@ -34,7 +34,7 @@ Depending on the circumstances, additional options might be considered.
 
 - ⚠️ Were changes made that affect existing code (e.g. new dependencies, changed global code sections)?
 - ⚠️ Is the build green?
-- ⚠️ Are the chromatic tests green or don't affect existing stories in an undesired way?
+- ⚠️ Are the visual regression tests green or don't affect existing tests in an undesired way?
 
 #### Architecture
 
@@ -74,7 +74,7 @@ Depending on the circumstances, additional options might be considered.
 - Is there a story for each visual representation?
 - Are the story templates reused and divided into small vars if necessary?
 - Are the controls working and as consistent as possible through all stories?
-- Are the stories working on chromatic and give a value?
+- Are the test working on visual regression execution and give a value?
 - Are all texts written in English language?
 
 #### Styles

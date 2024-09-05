@@ -209,7 +209,6 @@ export const MultipleNotifications: StoryObj = {
   args: { ...basicArgs },
 };
 
-// We set the height of the div in Chromatic to avoid cropped snapshots
 const meta: Meta = {
   decorators: [
     (story, context) =>
@@ -227,7 +226,6 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    chromatic: { fixedHeight: '7500px' },
     actions: {
       handles: [
         SbbNotificationElement.events.didOpen,

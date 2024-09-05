@@ -14,7 +14,7 @@
   display: block;
 }
 
-:host([active]) {
+:host([data-active]) {
   --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
 }
 
@@ -41,7 +41,7 @@
   padding-inline: var(--sbb-option-padding-inline);
   color: var(--sbb-option-color);
 
-  :host([active]) & {
+  :host([data-active]) & {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-option-border-radius);

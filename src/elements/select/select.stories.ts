@@ -1,23 +1,19 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
 import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
   Args,
+  ArgTypes,
   Decorator,
+  Meta,
   StoryContext,
+  StoryObj,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
 import type { SbbFormErrorElement } from '../form-error.js';
 import { SbbOptionElement } from '../option.js';
 
@@ -25,20 +21,6 @@ import readme from './readme.md?raw';
 import { SbbSelectElement } from './select.js';
 import '../form-error.js';
 import '../form-field.js';
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('form-field').shadowRoot!.querySelector('div.sbb-form-field__space-wrapper'),
-  );
-
-  await waitForStablePosition(() => canvas.getByTestId('select'));
-  const select = await canvas.getByTestId('select');
-  userEvent.click(select);
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-};
 
 const borderless: InputType = {
   control: {
@@ -466,70 +448,60 @@ export const SingleSelect: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const SingleSelectNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelect: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelectNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true, negative: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const SingleSelectSizeS: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const SingleSelectNegativeSizeS: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true, size: size.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelectSizeS: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true, size: size.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelectNegativeSizeS: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true, negative: true, size: size.options![1] },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const SingleSelectWithGrouping: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, withOptionGroup: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelectWithGrouping: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true, withOptionGroup: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const SingleSelectEllipsis: StoryObj = {
@@ -539,7 +511,6 @@ export const SingleSelectEllipsis: StoryObj = {
     value: { ...value, options: [...value.options!, valueEllipsis] },
   },
   args: { ...defaultArgs, value: valueEllipsis },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelectEllipsis: StoryObj = {
@@ -549,42 +520,36 @@ export const MultipleSelectEllipsis: StoryObj = {
     value: { ...value, options: [...value.options!, valueEllipsis] },
   },
   args: { ...defaultArgs, multiple: true, value: valueEllipsis },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Required: StoryObj = {
   render: FormFieldTemplateWithError,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, required: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Disabled: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Readonly: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Borderless: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const BorderlessNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true, negative: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const BorderlessOpenAbove: StoryObj = {
@@ -592,7 +557,6 @@ export const BorderlessOpenAbove: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
   decorators: [aboveDecorator],
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const InScrollableContainer: StoryObj = {
@@ -600,30 +564,24 @@ export const InScrollableContainer: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
   decorators: [scrollDecorator],
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
 };
 
 export const DisableOption: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disableOption: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const DisableOptionGroup: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, withOptionGroup: true, disableGroup: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const DisableOptionGroupNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, withOptionGroup: true, disableGroup: true, negative: true },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const DisableMultipleOption: StoryObj = {
@@ -635,7 +593,6 @@ export const DisableMultipleOption: StoryObj = {
     withOptionGroup: true,
     disableOption: true,
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const DisableMultipleOptionNegative: StoryObj = {
@@ -648,16 +605,12 @@ export const DisableMultipleOptionNegative: StoryObj = {
     disableOption: true,
     negative: true,
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const KeyboardInteraction: StoryObj = {
   render: KeyboardInteractionTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
 };
 
 const meta: Meta = {
@@ -665,7 +618,6 @@ const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-    chromatic: { disableSnapshot: false },
     actions: {
       handles: [
         SbbSelectElement.events.change,

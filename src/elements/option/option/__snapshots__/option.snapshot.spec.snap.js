@@ -1,9 +1,8 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-option autocomplete renders selected and active DOM"] = 
+snapshots["sbb-option autocomplete renders selected DOM"] = 
 `<sbb-option
-  active=""
   aria-selected="true"
   data-slot-names="unnamed"
   data-variant="autocomplete"
@@ -15,9 +14,9 @@ snapshots["sbb-option autocomplete renders selected and active DOM"] =
   Option 1
 </sbb-option>
 `;
-/* end snapshot sbb-option autocomplete renders selected and active DOM */
+/* end snapshot sbb-option autocomplete renders selected DOM */
 
-snapshots["sbb-option autocomplete renders selected and active Shadow DOM"] = 
+snapshots["sbb-option autocomplete renders selected Shadow DOM"] = 
 `<div class="sbb-option__container">
   <div class="sbb-option">
     <span class="sbb-option__icon">
@@ -32,7 +31,7 @@ snapshots["sbb-option autocomplete renders selected and active Shadow DOM"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-option autocomplete renders selected and active Shadow DOM */
+/* end snapshot sbb-option autocomplete renders selected Shadow DOM */
 
 snapshots["sbb-option autocomplete renders disabled DOM"] = 
 `<sbb-option
@@ -67,7 +66,7 @@ snapshots["sbb-option autocomplete renders disabled Shadow DOM"] =
 `;
 /* end snapshot sbb-option autocomplete renders disabled Shadow DOM */
 
-snapshots["sbb-option selected active Chrome"] = 
+snapshots["sbb-option selected Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -75,7 +74,17 @@ snapshots["sbb-option selected active Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-option selected active Chrome */
+/* end snapshot sbb-option selected Chrome */
+
+snapshots["sbb-option selected Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-option selected Firefox */
 
 snapshots["sbb-option disabled Chrome"] = 
 `<p>
@@ -86,16 +95,6 @@ snapshots["sbb-option disabled Chrome"] =
 </p>
 `;
 /* end snapshot sbb-option disabled Chrome */
-
-snapshots["sbb-option selected active Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-option selected active Firefox */
 
 snapshots["sbb-option disabled Firefox"] = 
 `<p>

@@ -1,6 +1,5 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -69,7 +68,7 @@ const defaultArgs: Args = {
   hideLine: false,
   bulletSize: bulletSize.options![0],
   position: 0,
-  disableAnimation: isChromatic(),
+  disableAnimation: false,
 };
 
 const Template = ({ disableAnimation, ...args }: Args): TemplateResult => {

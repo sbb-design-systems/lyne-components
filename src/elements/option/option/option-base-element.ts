@@ -44,7 +44,12 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     return this.getAttribute('value') ?? '';
   }
 
-  /** Whether the option is currently active. */
+  /**
+   * Whether the option is currently active.
+   * TODO: remove with next major version.
+   * @deprecated
+   * @internal
+   */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
 
   /** Whether the option is selected. */
@@ -164,6 +169,14 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._optionAttributeObserver.disconnect();
+  }
+
+  /**
+   * Whether the option is currently active.
+   * @internal
+   */
+  public setActive(value: boolean): void {
+    this.toggleAttribute('data-active', value);
   }
 
   protected init(): void {
