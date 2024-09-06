@@ -88,8 +88,11 @@ describe('sbb-paginator', () => {
   });
 
   it('keyboard selection', async () => {
-    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+    // start sbb-mini-button-group
     await sendKeys({ press: tabKey });
+    await sendKeys({ press: tabKey });
+    // end sbb-mini-button-group
+
     await sendKeys({ press: tabKey });
     expect(document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-index')).to.equal(
       '1',
@@ -98,6 +101,8 @@ describe('sbb-paginator', () => {
     expect(document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-index')).to.equal(
       '2',
     );
+
+    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
     await sendKeys({ press: 'Space' });
     await waitForLitRender(element);
     expect(pageChangedEventSpy.count).to.be.equal(1);
