@@ -23,14 +23,22 @@ const accessibilityLabel: InputType = {
   },
 };
 
+const padded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   'protective-room': protectiveRoom,
   'accessibility-label': accessibilityLabel,
+  padded,
 };
 
 const defaultArgs: Args = {
   'protective-room': protectiveRoom.options![0],
   'accessibility-label': undefined,
+  padded: false,
 };
 
 export const NoProtectiveRoom: StoryObj = {
@@ -49,6 +57,12 @@ export const IdealProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options![2] },
+};
+
+export const Padded: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, padded: true },
 };
 
 const meta: Meta = {

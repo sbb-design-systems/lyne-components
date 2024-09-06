@@ -13,6 +13,7 @@ import '../header-button.js';
 import '../header-link.js';
 import '../../divider.js';
 import '../../menu.js';
+import '../../signet.js';
 
 const LoremIpsumTemplate = (): TemplateResult => html`
   <div>
@@ -60,6 +61,9 @@ const HeaderBasicTemplate = (
       <sbb-menu-button>Italiano</sbb-menu-button>
       <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
     </sbb-menu>
+    ${args.size === 's'
+      ? html`<sbb-signet slot="logo" protective-room="none" padded></sbb-signet>`
+      : nothing}
   </sbb-header>
   <div ${sbbSpread(attributes)}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
 `;

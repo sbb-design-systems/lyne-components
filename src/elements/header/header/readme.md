@@ -26,6 +26,8 @@ To avoid that tabbed/focused elements get hidden behind the header,
 it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top` to `var(--sbb-header-height)` or to a greater value.
 With this, it's ensured that content will be visible all the time.
 
+The component has two sizes, named `m` (default) and `s`.
+
 ### Positioning and visibility
 
 By default, the `sbb-header` has a fixed position at the top of the page;

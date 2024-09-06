@@ -24,10 +24,6 @@
   }
 }
 
-:host([signet-only]) {
-  --sbb-logo-aspect-ratio: 143 / 48;
-}
-
 :host([negative]) {
   --sbb-logo-word-mark-color: var(--sbb-color-white);
 }

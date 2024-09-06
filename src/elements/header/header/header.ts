@@ -185,7 +185,7 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
           <slot></slot>
           <div class="sbb-header__logo">
             <slot name="logo">
-              <sbb-logo protective-room="none" ?signet-only=${this.size === 's'}></sbb-logo>
+              <sbb-logo protective-room="none"></sbb-logo>
             </slot>
           </div>
         </div>
