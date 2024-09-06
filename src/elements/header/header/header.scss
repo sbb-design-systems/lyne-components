@@ -107,21 +107,10 @@
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
 }
 
-:host([size='s']) {
-  ::slotted(:is(sbb-header-button, sbb-header-link)) {
+::slotted(:is(sbb-header-button, sbb-header-link)) {
+  :host([size='s']) & {
     --sbb-header-action-min-height: var(--sbb-size-element-xs);
-  }
-
-  // The padding for header-action elements in size=s changes from `sbb-spacing-fixed-5x` to `sbb-spacing-fixed-4x`;
-  // however this is valid until the text is not hidden due to the `expandFrom` property, when the padding goes to 0.
-  // The following rule is applied in a complementary way to the rule in header-action.scss:L138
-  // using the $from keyword to apply the correct pad.
-  @each $breakpoint, $value in sbb.$mq-breakpoints {
-    @include sbb.mq($from: #{$breakpoint}) {
-      ::slotted(:is(sbb-header-button, sbb-header-link)[expand-from='#{$breakpoint}']) {
-        --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-4x);
-      }
-    }
+    --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-4x);
   }
 }
 

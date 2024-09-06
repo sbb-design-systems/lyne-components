@@ -72,7 +72,10 @@
   text-decoration: none;
   min-height: var(--sbb-header-action-min-height);
   min-width: var(--sbb-header-action-min-width);
-  padding-inline: var(--sbb-header-action-padding-inline);
+  padding-inline: var(
+    --sbb-header-action-padding-inline-zero,
+    var(--sbb-header-action-padding-inline)
+  );
   cursor: pointer;
   user-select: none;
   outline: none;
@@ -145,7 +148,7 @@
       //
       // Move it left by 12px in collapsed width.
       --sbb-header-first-item-margin-inline-start: #{sbb.px-to-rem-build(-12)};
-      --sbb-header-action-padding-inline: 0;
+      --sbb-header-action-padding-inline-zero: 0;
 
       .sbb-header-action__text {
         @include sbb.screen-reader-only;
