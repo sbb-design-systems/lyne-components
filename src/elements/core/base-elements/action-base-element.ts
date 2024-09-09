@@ -59,7 +59,6 @@ export abstract class SbbActionBaseElement extends LitElement {
   }
 
   /** Default render method for button-like components. */
-
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-action-base ${this.localName ?? getLocalName(this)}">
