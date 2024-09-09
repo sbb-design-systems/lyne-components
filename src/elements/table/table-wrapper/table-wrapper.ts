@@ -1,3 +1,4 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -8,7 +9,6 @@ import {
 import { customElement } from 'lit/decorators.js';
 
 import { SbbNegativeMixin } from '../../core/mixins.js';
-import { AgnosticResizeObserver } from '../../core/observers.js';
 
 import style from './table-wrapper.scss?lit&inline';
 
@@ -21,13 +21,12 @@ import style from './table-wrapper.scss?lit&inline';
 export class SbbTableWrapperElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  private _resizeObserver = new AgnosticResizeObserver(() => this._checkHorizontalScrollbar());
+  private _resizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => this._checkHorizontalScrollbar(),
+  });
   private _tableWrapper!: HTMLElement;
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._resizeObserver.disconnect();
-  }
 
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);

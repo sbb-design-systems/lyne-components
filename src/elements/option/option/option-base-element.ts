@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -6,8 +7,8 @@ import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import type { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
-import { AgnosticMutationObserver } from '../../core/observers.js';
 import { SbbIconNameMixin } from '../../icon.js';
+
 import '../../screen-reader-only.js';
 
 let nextId = 0;
@@ -86,13 +87,13 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   private _abort = new SbbConnectedAbortController(this);
 
-  /** MutationObserver on data attributes. */
-  private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
-    this.onOptionAttributesChange(mutationsList),
-  );
-
   public constructor() {
     super();
+
+    new MutationController(this, {
+      config: optionObserverConfig,
+      callback: (mutationsList) => this.onOptionAttributesChange(mutationsList),
+    });
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {
@@ -159,11 +160,6 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     this._updateAriaSelected();
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._optionAttributeObserver.disconnect();
-  }
-
   protected abstract selectByClick(event: MouseEvent): void;
   protected abstract setAttributeFromParent(): void;
 
@@ -182,7 +178,6 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   protected init(): void {
     this.setAttributeFromParent();
-    this._optionAttributeObserver.observe(this, optionObserverConfig);
     const signal = this._abort.signal;
     this.addEventListener('click', (e: MouseEvent) => this.selectByClick(e), {
       signal,

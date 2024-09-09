@@ -1,3 +1,4 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -12,7 +13,6 @@ import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '..
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbToggleOptionElement } from '../toggle-option.js';
 
 import style from './toggle.scss?lit&inline';
@@ -80,7 +80,11 @@ export class SbbToggleElement extends LitElement {
   }
 
   private _loaded: boolean = false;
-  private _toggleResizeObserver = new AgnosticResizeObserver(() => this.updatePillPosition(true));
+  private _toggleResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => this.updatePillPosition(true),
+  });
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -144,11 +148,6 @@ export class SbbToggleElement extends LitElement {
     await this.updateComplete;
     this._loaded = true;
     this.updatePillPosition(false);
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._toggleResizeObserver.disconnect();
   }
 
   private _updateToggle(): void {
