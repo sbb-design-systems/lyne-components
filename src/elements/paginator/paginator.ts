@@ -94,7 +94,15 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   private _pageIndex: number = 0;
 
   /** The available `pageSize` choices. */
-  @property({ attribute: 'page-size-options', type: Array }) public pageSizeOptions?: number[];
+  @property({ attribute: 'page-size-options', type: Array })
+  public set pageSizeOptions(value: number[]) {
+    this._pageSizeOptions = value;
+    this._updateSelectAriaLabelledBy = true;
+  }
+  public get pageSizeOptions(): number[] | undefined {
+    return this._pageSizeOptions;
+  }
+  private _pageSizeOptions?: number[];
 
   /**
    * Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change
@@ -115,6 +123,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   private _paginatorOptionsLabel = `sbb-paginator-options-label-${++optionsLabelNextId}`;
   private _language = new SbbLanguageController(this);
   private _markForFocus: number | null = null;
+  private _updateSelectAriaLabelledBy: boolean = false;
 
   protected override updated(changedProperties: PropertyValues<this>): void {
     super.updated(changedProperties);
@@ -130,15 +139,12 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       // Reset mark for focus
       this._markForFocus = null;
     }
-  }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
-
-    this.shadowRoot!.querySelector('sbb-select')?.setAttribute(
-      'aria-labelledby',
-      this._paginatorOptionsLabel,
-    );
+    const select = this.shadowRoot!.querySelector('sbb-select');
+    if (select && this._updateSelectAriaLabelledBy) {
+      select.setAttribute('aria-labelledby', this._paginatorOptionsLabel);
+      this._updateSelectAriaLabelledBy = false;
+    }
   }
 
   /** Returns the displayed page elements. */
