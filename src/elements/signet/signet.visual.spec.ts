@@ -1,23 +1,26 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import './signet.js';
 
 describe(`sbb-signet`, () => {
-  const protectiveRooms = ['none', 'minimal', 'ideal'];
+  const cases = {
+    protectiveRooms: ['none', 'minimal', 'ideal'],
+    forcedColors: [false, true],
+  };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    for (const protectiveRoom of protectiveRooms) {
+    describeEach(cases, ({ protectiveRooms, forcedColors }) => {
       it(
-        `protectiveRoom=${protectiveRoom}`,
+        ``,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-signet protective-room=${protectiveRoom}></sbb-signet>`,
-            { padding: '0', maxWidth: '300px' },
+            html`<sbb-signet protective-room=${protectiveRooms}></sbb-signet>`,
+            { padding: '0', maxWidth: '300px', forcedColors },
           );
         }),
       );
-    }
+    });
   });
 });

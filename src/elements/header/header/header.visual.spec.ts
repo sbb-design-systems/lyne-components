@@ -1,4 +1,4 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
@@ -6,6 +6,7 @@ import './header.js';
 import '../header-link.js';
 import '../header-button.js';
 import '../../menu.js';
+import '../../signet.js';
 
 describe(`sbb-header`, () => {
   const loremIpsumTemplate = `
@@ -37,6 +38,9 @@ describe(`sbb-header`, () => {
         Christina Müller
       </sbb-header-button>
       <sbb-header-button icon-name="globe-small" class="last-element"> English </sbb-header-button>
+      ${size === 's'
+        ? html`<sbb-signet slot="logo" protective-room="none" padded></sbb-signet>`
+        : nothing}
     </sbb-header>
     <div class=${expanded ? 'sbb-page-spacing-expanded' : 'sbb-page-spacing'}>
       ${loremIpsumTemplate}
