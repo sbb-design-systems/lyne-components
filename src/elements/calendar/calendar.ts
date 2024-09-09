@@ -141,7 +141,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     if (
       !!this._selectedDate &&
       (!this._isDayInRange(this._dateAdapter.toIso8601(this._selectedDate)) ||
-        this._dateFilter()(this._selectedDate))
+        this._dateFilter(this._selectedDate))
     ) {
       this._selected = this._dateAdapter.toIso8601(this._selectedDate);
     } else {
@@ -235,8 +235,8 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     this._setWeekdays();
   }
 
-  private _dateFilter(): (date: T) => boolean {
-    return this.dateFilter ?? (() => true);
+  private _dateFilter(date: T): boolean {
+    return this.dateFilter?.(date) ?? true;
   }
 
   /** Resets the active month according to the new state of the calendar. */
@@ -966,7 +966,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   private _createDayCells(week: Day[], today: string): TemplateResult[] {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this._dateFilter()(this._dateAdapter.deserialize(day.value)!);
+      const isFilteredOut = !this._dateFilter(this._dateAdapter.deserialize(day.value)!);
       const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;
