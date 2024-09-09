@@ -85,13 +85,6 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   @state() private _inertAriaGroups = false;
 
   private _abort = new SbbConnectedAbortController(this);
-  protected abstract selectByClick(event: MouseEvent): void;
-  protected abstract setAttributeFromParent(): void;
-
-  protected updateDisableHighlight(disabled: boolean): void {
-    this.disableLabelHighlight = disabled;
-    this.toggleAttribute('data-disable-highlight', disabled);
-  }
 
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
@@ -169,6 +162,14 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._optionAttributeObserver.disconnect();
+  }
+
+  protected abstract selectByClick(event: MouseEvent): void;
+  protected abstract setAttributeFromParent(): void;
+
+  protected updateDisableHighlight(disabled: boolean): void {
+    this.disableLabelHighlight = disabled;
+    this.toggleAttribute('data-disable-highlight', disabled);
   }
 
   /**

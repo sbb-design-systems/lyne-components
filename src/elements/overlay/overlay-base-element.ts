@@ -37,9 +37,9 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected language = new SbbLanguageController(this);
   protected inertController = new SbbInertController(this);
 
+  protected abstract closeAttribute: string;
   protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
   protected abstract setOverlayFocus(): void;
-  protected abstract closeAttribute: string;
 
   /** Closes the component. */
   public close(result?: any, target?: HTMLElement): any {

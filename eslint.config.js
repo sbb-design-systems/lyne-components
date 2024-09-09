@@ -146,6 +146,30 @@ export default [
       // TODO Discuss this with the team
       'lit/no-invalid-html': 'off',
       camelcase: 'off',
+      '@typescript-eslint/member-ordering': [
+        'error',
+        {
+          default: {
+            memberTypes: [
+              // Index signature
+              'signature',
+              'call-signature',
+
+              'static-field',
+
+              // Static initialization
+              'static-initialization',
+
+              ['set', 'get', 'field', 'accessor'],
+
+              'constructor',
+
+              'static-method',
+              ['method', 'decorated-method'],
+            ],
+          },
+        },
+      ],
     },
   },
   {
