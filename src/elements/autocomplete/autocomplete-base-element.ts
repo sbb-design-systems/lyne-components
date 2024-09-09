@@ -87,7 +87,12 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   /** Opens the autocomplete. */
   public open(): void {
-    if (this.state !== 'closed' || !this._overlay || this.options.length === 0 || this._readonly) {
+    if (
+      this.state !== 'closed' ||
+      !this._overlay ||
+      this.options.length === 0 ||
+      this._readonly()
+    ) {
       return;
     }
     if (!this.willOpen.emit()) {
@@ -187,7 +192,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   }
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
-  private get _readonly(): boolean {
+  private _readonly(): boolean {
     return this.triggerElement?.hasAttribute('readonly') ?? false;
   }
 

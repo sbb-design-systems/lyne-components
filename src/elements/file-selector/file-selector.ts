@@ -77,13 +77,6 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
     return this._files || [];
   }
 
-  /**
-   * @deprecated use 'files' property instead
-   */
-  public getFiles(): File[] {
-    return this._files || [];
-  }
-
   // Safari has a peculiar behavior when dragging files on the inner button in 'dropzone' variant;
   // this will require a counter to correctly handle the dragEnter/dragLeave.
   private _counter: number = 0;
@@ -95,6 +88,13 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   private _liveRegion!: HTMLParagraphElement;
 
   private _language = new SbbLanguageController(this);
+
+  /**
+   * @deprecated use 'files' property instead
+   */
+  public getFiles(): File[] {
+    return this._files || [];
+  }
 
   private _blockEvent(event: DragEvent): void {
     event.stopPropagation();

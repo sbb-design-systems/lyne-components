@@ -141,7 +141,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     if (
       !!this._selectedDate &&
       (!this._isDayInRange(this._dateAdapter.toIso8601(this._selectedDate)) ||
-        this._dateFilter(this._selectedDate))
+        this._dateFilter()(this._selectedDate))
     ) {
       this._selected = this._dateAdapter.toIso8601(this._selectedDate);
     } else {
@@ -235,7 +235,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     this._setWeekdays();
   }
 
-  private get _dateFilter(): (date: T) => boolean {
+  private _dateFilter(): (date: T) => boolean {
     return this.dateFilter ?? (() => true);
   }
 
@@ -966,7 +966,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   private _createDayCells(week: Day[], today: string): TemplateResult[] {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this._dateFilter(this._dateAdapter.deserialize(day.value)!);
+      const isFilteredOut = !this._dateFilter()(this._dateAdapter.deserialize(day.value)!);
       const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;
@@ -1252,7 +1252,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     this._startTableTransition();
   }
 
-  private get _getView(): TemplateResult {
+  private _getView(): TemplateResult {
     if (isServer || this.hydrationRequired) {
       // TODO: We disable SSR for calendar for now. Figure our, if there is a way
       // to enable it, while considering i18n and date information.
@@ -1288,7 +1288,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   }
 
   protected override render(): TemplateResult {
-    return html`<div class="sbb-calendar__wrapper">${this._getView}</div>`;
+    return html`<div class="sbb-calendar__wrapper">${this._getView()}</div>`;
   }
 }
 

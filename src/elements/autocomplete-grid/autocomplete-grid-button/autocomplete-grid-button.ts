@@ -47,10 +47,6 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
   private _disabledFromGroup = false;
 
-  protected override isDisabledExternally(): boolean {
-    return this._disabledFromGroup ?? false;
-  }
-
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
@@ -67,6 +63,10 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._handleButtonClick);
     }
+  }
+
+  protected override isDisabledExternally(): boolean {
+    return this._disabledFromGroup ?? false;
   }
 
   protected override renderTemplate(): TemplateResult {

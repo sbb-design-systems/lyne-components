@@ -18,6 +18,9 @@ import style from './accordion.scss?lit&inline';
 export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
+  /** Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. */
+  @property({ reflect: true }) public size: 's' | 'l' = 'l';
+
   /**
    * The heading level for the sbb-expansion-panel-headers within the component.
    * @controls SbbExpansionPanelElement.titleLevel
@@ -44,10 +47,21 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
   private _multi: boolean = false;
 
-  /** Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. */
-  @property({ reflect: true }) public size: 's' | 'l' = 'l';
+  private get _expansionPanels(): SbbExpansionPanelElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
+  }
 
   private _abort = new SbbConnectedAbortController(this);
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener(
+      SbbExpansionPanelElement.events.willOpen,
+      (e: CustomEvent<void>) => this._closePanels(e),
+      { signal },
+    );
+  }
 
   private _closePanels(e: CustomEvent): void {
     if ((e.target as HTMLElement)?.localName !== 'sbb-expansion-panel' || this.multi) {
@@ -57,6 +71,14 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
     this._expansionPanels
       .filter((panel) => panel !== e.target)
       .forEach((panel) => (panel.expanded = false));
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('size')) {
+      this._expansionPanels.forEach((panel: SbbExpansionPanelElement) => (panel.size = this.size));
+    }
   }
 
   private _resetExpansionPanels(newValue: boolean, oldValue: boolean): void {
@@ -74,28 +96,6 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
     this._expansionPanels.forEach(
       (panel: SbbExpansionPanelElement) => (panel.titleLevel = this.titleLevel),
     );
-  }
-
-  private get _expansionPanels(): SbbExpansionPanelElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener(
-      SbbExpansionPanelElement.events.willOpen,
-      (e: CustomEvent<void>) => this._closePanels(e),
-      { signal },
-    );
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('size')) {
-      this._expansionPanels.forEach((panel: SbbExpansionPanelElement) => (panel.size = this.size));
-    }
   }
 
   private _handleSlotchange(): void {

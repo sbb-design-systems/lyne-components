@@ -41,8 +41,6 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
   private _negativeObserver = new AgnosticMutationObserver(() => this._onNegativeChange());
 
   protected abstract get options(): SbbOptionBaseElement[];
-  protected abstract setAttributeFromParent(): void;
-  protected abstract getAutocompleteParent(): SbbAutocompleteBaseElement | null;
 
   public constructor() {
     super();
@@ -87,6 +85,9 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
     super.disconnectedCallback();
     this._negativeObserver?.disconnect();
   }
+
+  protected abstract setAttributeFromParent(): void;
+  protected abstract getAutocompleteParent(): SbbAutocompleteBaseElement | null;
 
   private _handleSlotchange(): void {
     this.proxyDisabledToOptions();

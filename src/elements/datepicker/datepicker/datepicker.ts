@@ -174,6 +174,10 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
  */
 @customElement('sbb-datepicker')
 export class SbbDatepickerElement<T = Date> extends LitElement {
+  /* eslint-disable @typescript-eslint/member-ordering --
+   * We deactivate member-ordering because of the @property decorated methods dateFilter, dateParser and format.
+   */
+
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -476,6 +480,7 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
   protected override render(): TemplateResult {
     return html`<p id="status-container" role="status"></p>`;
   }
+  /* eslint-enable @typescript-eslint/member-ordering */
 }
 
 declare global {
