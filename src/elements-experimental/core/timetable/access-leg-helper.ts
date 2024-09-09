@@ -115,9 +115,7 @@ function renderTransferTime(
   type?: 'departure' | 'arrival',
 ): TemplateResult {
   return html`
-    <span
-      class="sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${icon + '-' + type}"
-    >
+    <span class="sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${icon}-${type}">
       <sbb-icon name=${icon}></sbb-icon>
       <time datetime=${duration + 'M'}>
         <span class="sbb-screen-reader-only">
@@ -146,9 +144,7 @@ function renderWalkTime(
   icon: string,
 ): TemplateResult {
   return html`
-    <span
-      class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${icon + '-' + variant}"
-    >
+    <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${icon}-${variant}">
       <sbb-icon name=${icon}></sbb-icon>
       <time datetime=${duration + 'M'}>
         <span class="sbb-screen-reader-only">${label}</span>
