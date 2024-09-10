@@ -110,7 +110,7 @@ describe(`sbb-slider`, () => {
       expect(element.value).to.be.equal('100');
       compareToNativeInput();
 
-      element.value = input.value = '-20';
+      element.valueAsNumber = input.valueAsNumber = -20;
       await waitForLitRender(form);
 
       expect(element.value).to.be.equal('0');

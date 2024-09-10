@@ -199,9 +199,6 @@ export class SbbSliderElement extends SbbFocusableDisabledActionMixin(
   }
 
   private _calculateValueFraction(): void {
-    if (!this.value) {
-      return;
-    }
     const value = this.valueAsNumber!;
     const min = +this.min;
     const max = +this.max;
