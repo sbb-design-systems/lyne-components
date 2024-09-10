@@ -4,6 +4,10 @@ import { sbbInputModalityDetector } from './input-modality-detector.js';
 
 // Determine whether the element has a visible focus within.
 export class SbbFocusVisibleWithinController implements ReactiveController {
+  public constructor(private _host: ReactiveControllerHost & HTMLElement) {
+    this._host.addController(this);
+  }
+
   private _focusinHandler = (): void => {
     this._host.toggleAttribute(
       'data-has-visible-focus-within',
@@ -14,10 +18,6 @@ export class SbbFocusVisibleWithinController implements ReactiveController {
   private _focusoutHandler = (): void => {
     this._host.removeAttribute('data-has-visible-focus-within');
   };
-
-  public constructor(private _host: ReactiveControllerHost & HTMLElement) {
-    this._host.addController(this);
-  }
 
   public hostConnected(): void {
     this._host.addEventListener('focusin', this._focusinHandler);

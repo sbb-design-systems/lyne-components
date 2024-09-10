@@ -91,17 +91,26 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
    */
   @property({ attribute: 'initial-selected-index', type: Number }) public initialSelectedIndex = 0;
 
-  private _updateSize(): void {
-    for (const tab of this._tabs) {
-      tab.setAttribute('data-size', this.size);
-    }
-  }
-
   /** Emits an event on selected tab change. */
   private _selectedTabChanged: EventEmitter<SbbTabChangedEventDetails> = new EventEmitter(
     this,
     SbbTabGroupElement.events.didChange,
   );
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    this._tabs = this._getTabs();
+    this._tabs.forEach((tab) => this._configure(tab));
+    this._initSelection();
+    this._tabGroupResizeObserver.observe(this._tabGroupElement);
+  }
 
   /**
    * Disables a tab by index.
@@ -133,23 +142,8 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     ) as InterfaceSbbTabGroupTab[];
   }
 
-  private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
+  private _enabledTabs(): InterfaceSbbTabGroupTab[] {
     return this._tabs.filter((t) => !t.hasAttribute('disabled'));
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    this._tabs = this._getTabs();
-    this._tabs.forEach((tab) => this._configure(tab));
-    this._initSelection();
-    this._tabGroupResizeObserver.observe(this._tabGroupElement);
   }
 
   public override disconnectedCallback(): void {
@@ -157,6 +151,12 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     this._tabAttributeObserver.disconnect();
     this._tabContentResizeObserver.disconnect();
     this._tabGroupResizeObserver.disconnect();
+  }
+
+  private _updateSize(): void {
+    for (const tab of this._tabs) {
+      tab.setAttribute('data-size', this.size);
+    }
   }
 
   private _onContentSlotChange = (): void => {
@@ -197,7 +197,7 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     ) {
       this._tabs[this.initialSelectedIndex].tabGroupActions?.select();
     } else {
-      this._enabledTabs[0]?.tabGroupActions?.select();
+      this._enabledTabs()[0]?.tabGroupActions?.select();
     }
   }
 
@@ -279,7 +279,7 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
         if (tabLabel.active) {
           tabLabel.removeAttribute('active');
           tabLabel.active = false;
-          this._enabledTabs[0]?.tabGroupActions?.select();
+          this._enabledTabs()[0]?.tabGroupActions?.select();
         }
       },
       enable: (): void => {
@@ -348,7 +348,7 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    const enabledTabs: InterfaceSbbTabGroupTab[] = this._enabledTabs;
+    const enabledTabs: InterfaceSbbTabGroupTab[] = this._enabledTabs();
 
     if (
       !enabledTabs ||
