@@ -105,6 +105,17 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   private _pageSizeOptions?: number[];
 
   /**
+   * Calculates the current number of pages based on the `length` and the `pageSize`;
+   * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
+   */
+  private get _numberOfPages(): number {
+    if (!this.pageSize) {
+      return 0;
+    }
+    return Math.ceil(this.length / this.pageSize);
+  }
+
+  /**
    * Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change
    * will be positioned oppositely with the page numbers always in the center.
    */
@@ -181,17 +192,6 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       return 0;
     }
     return pageIndex;
-  }
-
-  /**
-   * Calculates the current number of pages based on the `length` and the `pageSize`;
-   * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
-   */
-  private get _numberOfPages(): number {
-    if (!this.pageSize) {
-      return 0;
-    }
-    return Math.ceil(this.length / this.pageSize);
   }
 
   /**
