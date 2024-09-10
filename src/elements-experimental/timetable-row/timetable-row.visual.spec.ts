@@ -71,7 +71,7 @@ describe(`sbb-timetable-row`, () => {
     { name: 'bus', trip: busTrip },
     { name: 'ship', trip: shipTrip },
     { name: 'walkTime', trip: walkTimeTrip },
-    { name: 'a11yFootpath', trip: a11yFootpathTrip },
+    { name: 'a11yFootpath', trip: a11yFootpathTrip, a11yFootpath: true },
     { name: 'extended enter time', trip: extendedEnterTimeTrip },
     { name: 'notices', trip: noticesTrip, boarding: { name: 'sa-rs', text: 'boarding' } },
   ];
