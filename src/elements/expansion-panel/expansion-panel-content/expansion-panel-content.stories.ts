@@ -19,7 +19,6 @@ export const ExpansionPanelContent: StoryObj = {
 
 const meta: Meta = {
   parameters: {
-    chromatic: { disableSnapshot: true },
     docs: {
       extractComponentDescription: () => readme,
     },

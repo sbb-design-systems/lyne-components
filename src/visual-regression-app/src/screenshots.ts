@@ -8,6 +8,12 @@ const viewportOrder = ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ult
 export class ScreenshotStatistics {
   public static readonly empty = new ScreenshotStatistics(0, 0, 0);
 
+  public constructor(
+    public readonly failedTests: number,
+    public readonly newTests: number,
+    public readonly baselines: number,
+  ) {}
+
   public static fromScreenshotFiles(screenshotsFiles: ScreenshotFiles[]): ScreenshotStatistics {
     return screenshotsFiles.reduce(
       (current, next) =>
@@ -25,12 +31,6 @@ export class ScreenshotStatistics {
   public static fromList(list: { stats: ScreenshotStatistics }[]): ScreenshotStatistics {
     return list.reduce((current, next) => current.sum(next.stats), ScreenshotStatistics.empty);
   }
-
-  public constructor(
-    public readonly failedTests: number,
-    public readonly newTests: number,
-    public readonly baselines: number,
-  ) {}
 
   public sum(other: ScreenshotStatistics): ScreenshotStatistics {
     return new ScreenshotStatistics(

@@ -643,9 +643,10 @@ When it is not super obvious, include a brief description of what a class repres
 
 #### Variants of stories
 
-In order to avoid chromatic detected regressions, it's recommended to create separate stories for all visual variants.
+We recommend to create some visual stories, showing the most important cases.
 It's also recommended to include stories for the most important side cases,
 e.g. for a label that receives ellipsis if it is too long to fit in a container.
+It should be decided case by case.
 
 #### Controls
 

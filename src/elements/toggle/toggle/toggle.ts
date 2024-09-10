@@ -82,35 +82,6 @@ export class SbbToggleElement extends LitElement {
   private _loaded: boolean = false;
   private _toggleResizeObserver = new AgnosticResizeObserver(() => this.updatePillPosition(true));
 
-  private _valueChanged(value: any | undefined): void {
-    const options = this.options;
-    // If options are not yet defined web components, we can check if attribute is already set as a fallback.
-    // We do this by checking whether value property is available (defined component).
-    const selectedOption =
-      options.find(
-        (o) => value === ('value' in o ? o.value : (o as HTMLElement).getAttribute('value')),
-      ) ??
-      options.find((o) => o.checked) ??
-      options[0];
-
-    if (!selectedOption) {
-      if (import.meta.env.DEV && !isServer) {
-        console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
-      }
-      return;
-    }
-    if (!selectedOption.checked) {
-      selectedOption.checked = true;
-    }
-    this.updatePillPosition(false);
-  }
-
-  private _updateDisabled(): void {
-    for (const toggleOption of this.options) {
-      toggleOption.disabled = this.disabled;
-    }
-  }
-
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    * Emits whenever the toggle value changes.
@@ -183,6 +154,35 @@ export class SbbToggleElement extends LitElement {
   private _updateToggle(): void {
     this._valueChanged(this.value);
     this._updateDisabled();
+  }
+
+  private _valueChanged(value: any | undefined): void {
+    const options = this.options;
+    // If options are not yet defined web components, we can check if attribute is already set as a fallback.
+    // We do this by checking whether value property is available (defined component).
+    const selectedOption =
+      options.find(
+        (o) => value === ('value' in o ? o.value : (o as HTMLElement).getAttribute('value')),
+      ) ??
+      options.find((o) => o.checked) ??
+      options[0];
+
+    if (!selectedOption) {
+      if (import.meta.env.DEV && !isServer) {
+        console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
+      }
+      return;
+    }
+    if (!selectedOption.checked) {
+      selectedOption.checked = true;
+    }
+    this.updatePillPosition(false);
+  }
+
+  private _updateDisabled(): void {
+    for (const toggleOption of this.options) {
+      toggleOption.disabled = this.disabled;
+    }
   }
 
   private _handleInput(): void {

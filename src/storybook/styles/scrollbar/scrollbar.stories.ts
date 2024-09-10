@@ -121,7 +121,6 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: { disableSnapshot: true },
   },
   title: 'styles/scrollbar',
 };

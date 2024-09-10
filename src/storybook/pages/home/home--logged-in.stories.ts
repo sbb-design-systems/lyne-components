@@ -289,7 +289,6 @@ const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
-    chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,
     },

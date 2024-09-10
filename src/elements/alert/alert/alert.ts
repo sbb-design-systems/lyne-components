@@ -89,12 +89,6 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
 
   private _language = new SbbLanguageController(this);
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
-    super.firstUpdated(changedProperties);
-
-    this.open();
-  }
-
   /** Requests dismissal of the alert.
    * @deprecated in favour of 'willClose' and 'didClose' events
    */
@@ -113,6 +107,12 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     if (this.willClose.emit()) {
       this.state = 'closing';
     }
+  }
+
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
+    this.open();
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {

@@ -80,12 +80,6 @@ class SbbInputModalityDetector {
     return this._mostRecentModality;
   }
 
-  public reset(): void {
-    this._mostRecentModality = 'mouse';
-    this._mostRecentTarget = null;
-    this._lastTouchMs = 0;
-  }
-
   /**
    * The most recent modality must be initialised with the value 'mouse' to cover the case where an action is
    * performed but no mouse or keyboard event has yet occurred on the page (e.g. `sbb-popover` with hover trigger).
@@ -111,6 +105,20 @@ class SbbInputModalityDetector {
    * should be attributed to mouse or touch.
    */
   private _lastTouchMs = 0;
+
+  public constructor() {
+    if (!isServer) {
+      document.addEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
+      document.addEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
+      document.addEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
+    }
+  }
+
+  public reset(): void {
+    this._mostRecentModality = 'mouse';
+    this._mostRecentTarget = null;
+    this._lastTouchMs = 0;
+  }
 
   /**
    * Handles keydown events. Must be an arrow function in order to preserve the context when it gets
@@ -165,14 +173,6 @@ class SbbInputModalityDetector {
     this._mostRecentModality = 'touch';
     this._mostRecentTarget = getEventTarget(event);
   };
-
-  public constructor() {
-    if (!isServer) {
-      document.addEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
-      document.addEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
-      document.addEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
-    }
-  }
 }
 
 export const sbbInputModalityDetector = new SbbInputModalityDetector();

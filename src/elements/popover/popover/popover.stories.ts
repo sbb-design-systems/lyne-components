@@ -1,54 +1,17 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position.js';
 
 import { SbbPopoverElement } from './popover.js';
 import readme from './readme.md?raw';
 import '../../link.js';
 import '../../title.js';
 import '../popover-trigger.js';
-
-async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
-  const canvas = within(canvasElement);
-
-  await Promise.all([
-    customElements.whenDefined('sbb-link'),
-    customElements.whenDefined('sbb-popover'),
-    customElements.whenDefined('sbb-popover-trigger'),
-    customElements.whenDefined('sbb-title'),
-  ]);
-
-  await waitForStablePosition(() => canvas.getByTestId('popover-trigger'));
-
-  return canvas.getByTestId('popover-trigger');
-}
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const button = await commonPlayStory(canvasElement);
-  await userEvent.click(button);
-};
-
-// Hover story interaction executed after the story renders
-const playStoryHover = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const button = await commonPlayStory(canvasElement);
-  await userEvent.hover(button);
-};
 
 const hoverTrigger: InputType = {
   control: {
@@ -180,49 +143,42 @@ export const StartBelow: StoryObj = {
   render: StartBelowTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const CenterBelow: StoryObj = {
   render: CenterBelowTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const EndBelow: StoryObj = {
   render: EndBelowTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const StartAbove: StoryObj = {
   render: StartAboveTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const CenterAbove: StoryObj = {
   render: CenterAboveTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const EndAbove: StoryObj = {
   render: EndAboveTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const HoverTrigger: StoryObj = {
@@ -234,7 +190,6 @@ export const HoverTrigger: StoryObj = {
     'open-delay': 0,
     'close-delay': 0,
   },
-  play: isChromatic() ? playStoryHover : undefined,
 };
 
 export const WithoutCloseButton: StoryObj = {
@@ -244,7 +199,6 @@ export const WithoutCloseButton: StoryObj = {
     ...defaultArgs,
     'hide-close-button': true,
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithoutCloseButtonHover: StoryObj = {
@@ -255,13 +209,11 @@ export const WithoutCloseButtonHover: StoryObj = {
     'hide-close-button': true,
     'hover-trigger': true,
   },
-  play: isChromatic() ? playStoryHover : undefined,
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { disableSnapshot: false },
     actions: {
       handles: [
         SbbPopoverElement.events.willOpen,

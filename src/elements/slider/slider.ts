@@ -11,7 +11,7 @@ import { EventEmitter, forwardEventToHost } from '../core/eventing.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
-  SbbDisabledTabIndexActionMixin,
+  SbbFocusableDisabledActionMixin,
   SbbFormAssociatedMixin,
 } from '../core/mixins.js';
 
@@ -30,7 +30,7 @@ import '../icon.js';
 @hostAttributes({
   role: 'slider',
 })
-export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(
+export class SbbSliderElement extends SbbFocusableDisabledActionMixin(
   SbbFormAssociatedMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -139,6 +139,13 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
+    if (changedProperties.has('disabled')) {
+      if (this.disabled) {
+        this.removeAttribute('tabindex');
+      } else {
+        this.setAttribute('tabindex', '0');
+      }
+    }
     if (changedProperties.has('min')) {
       setOrRemoveAttribute(this, 'aria-valuemin', this.min);
     }

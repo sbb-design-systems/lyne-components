@@ -44,7 +44,12 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     return this.getAttribute('value') ?? '';
   }
 
-  /** Whether the option is currently active. */
+  /**
+   * Whether the option is currently active.
+   * TODO: remove with next major version.
+   * @deprecated
+   * @internal
+   */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
 
   /** Whether the option is selected. */
@@ -80,13 +85,6 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   @state() private _inertAriaGroups = false;
 
   private _abort = new SbbConnectedAbortController(this);
-  protected abstract selectByClick(event: MouseEvent): void;
-  protected abstract setAttributeFromParent(): void;
-
-  protected updateDisableHighlight(disabled: boolean): void {
-    this.disableLabelHighlight = disabled;
-    this.toggleAttribute('data-disable-highlight', disabled);
-  }
 
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
@@ -164,6 +162,22 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._optionAttributeObserver.disconnect();
+  }
+
+  protected abstract selectByClick(event: MouseEvent): void;
+  protected abstract setAttributeFromParent(): void;
+
+  protected updateDisableHighlight(disabled: boolean): void {
+    this.disableLabelHighlight = disabled;
+    this.toggleAttribute('data-disable-highlight', disabled);
+  }
+
+  /**
+   * Whether the option is currently active.
+   * @internal
+   */
+  public setActive(value: boolean): void {
+    this.toggleAttribute('data-active', value);
   }
 
   protected init(): void {

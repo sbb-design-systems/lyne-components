@@ -82,6 +82,10 @@ export class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     return this.steps.filter((s) => !s.label?.hasAttribute('disabled'));
   }
 
+  private _loaded: boolean = false;
+  private _abort = new SbbConnectedAbortController(this);
+  private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
+
   /** Selects the next step. */
   public next(): void {
     if (this.selectedIndex !== undefined) {
@@ -110,10 +114,6 @@ export class SbbStepperElement extends SbbHydrationMixin(LitElement) {
       this.selected?.label?.focus();
     }
   }
-
-  private _loaded: boolean = false;
-  private _abort = new SbbConnectedAbortController(this);
-  private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
 
   private _isValidStep(step: SbbStepElement): boolean {
     if (!step || (!this.linear && step.label?.hasAttribute('disabled'))) {
