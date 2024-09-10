@@ -25,7 +25,7 @@ export
 @customElement('sbb-dialog-title')
 class SbbDialogTitleElement extends SbbTitleBase {
   public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
-  public static readonly events: Record<string, string> = {
+  public static readonly events = {
     backClick: 'requestBackAction',
   } as const;
 

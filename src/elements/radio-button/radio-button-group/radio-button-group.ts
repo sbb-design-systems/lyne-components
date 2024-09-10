@@ -91,9 +91,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   private get _enabledRadios(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] | undefined {
-    if (!this.disabled) {
-      return this.radioButtons.filter((r) => !r.disabled);
-    }
+    return !this.disabled ? this.radioButtons.filter((r) => !r.disabled) : undefined;
   }
 
   private _hasSelectionExpansionPanelElement: boolean = false;

@@ -20,6 +20,8 @@
       "@sbb-esta/lyne-elements/*": ["src/elements/*"],
       "@sbb-esta/lyne-elements-experimental": ["src/elements-experimental"],
       "@sbb-esta/lyne-elements-experimental/*": ["src/elements-experimental/*"],
+      "@sbb-esta/lyne-angular": ["src/angular"],
+      "@sbb-esta/lyne-angular/*": ["src/angular/*"],
       "@sbb-esta/lyne-react": ["src/react"],
       "@sbb-esta/lyne-react/*": ["src/react/*"]
     },
@@ -32,6 +34,8 @@
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
 
     "types": ["mocha"],
 

@@ -31,7 +31,7 @@ export
 class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
+  public static readonly events = {
     willOpen: 'willOpen',
     didOpen: 'didOpen',
     willClose: 'willClose',

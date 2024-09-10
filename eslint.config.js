@@ -66,6 +66,13 @@ export default [
     },
   },
   {
+    files: ['src/angular/**/*.ts'],
+    rules: {
+      'lyne/import-extension-rule': 'off',
+      'import-x/no-unresolved': 'off',
+    },
+  },
+  {
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-unused-expressions': 'off',

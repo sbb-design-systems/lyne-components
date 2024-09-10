@@ -75,6 +75,7 @@ export default defineConfig((config) =>
             }
             return true;
           }
+          return undefined;
         },
       },
     },
