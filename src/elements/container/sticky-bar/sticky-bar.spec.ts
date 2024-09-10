@@ -46,12 +46,15 @@ describe(`sbb-sticky-bar`, () => {
   it('stops sticking when scrolling to bottom', async () => {
     await waitForCondition(async () => getIsSticking());
     expect(getIsSticking()).to.equal(true);
+    expect(stickyBar).to.have.attribute('data-fade-vertically');
 
     window.scrollTo(0, 400);
 
     await waitForCondition(async () => !getIsSticking());
+    await waitForLitRender(container);
 
     expect(getIsSticking()).to.equal(false);
+    expect(stickyBar).not.to.have.attribute('data-fade-vertically');
   });
 
   it('is settled when content is not long enough', async () => {
