@@ -34,6 +34,11 @@
   outline: none !important;
 }
 
+:host([size='s']) {
+  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xxs)
+    var(--sbb-spacing-responsive-xxxs);
+}
+
 :host([color='milk']) {
   --sbb-selection-panel-background: var(
     --sbb-selection-expansion-panel-inner-background,

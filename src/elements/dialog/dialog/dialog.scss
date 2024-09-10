@@ -55,11 +55,11 @@
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
   --sbb-dialog-pointer-events: all;
+  --sbb-dialog-backdrop-color: var(--sbb-color-milk);
 
   @include sbb.mq($from: medium) {
     --sbb-dialog-backdrop-visibility: visible;
     --sbb-dialog-backdrop-pointer-events: all;
-    --sbb-dialog-backdrop-color: var(--sbb-color-milk);
   }
 }
 

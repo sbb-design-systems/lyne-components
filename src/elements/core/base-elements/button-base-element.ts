@@ -50,6 +50,28 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   /** The <form> element to associate the button with. */
   @property() public form?: string;
 
+  public constructor() {
+    super();
+    if (!isServer) {
+      this.setupBaseEventHandlers();
+
+      const passiveOptions = { passive: true };
+      this.addEventListener('click', this._handleButtonClick);
+      this.addEventListener('keydown', this._preventScrollOnSpaceKeydown);
+      this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
+      this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
+      this.addEventListener(
+        'keypress',
+        (event: KeyboardEvent): void => {
+          if (event.key === 'Enter' || event.key === '\n') {
+            this._dispatchClickEvent(event);
+          }
+        },
+        passiveOptions,
+      );
+    }
+  }
+
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {
     if (this.type === 'button' || (await isEventPrevented(event))) {
       return;
@@ -116,28 +138,6 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
       }),
     );
   };
-
-  public constructor() {
-    super();
-    if (!isServer) {
-      this.setupBaseEventHandlers();
-
-      const passiveOptions = { passive: true };
-      this.addEventListener('click', this._handleButtonClick);
-      this.addEventListener('keydown', this._preventScrollOnSpaceKeydown);
-      this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
-      this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
-      this.addEventListener(
-        'keypress',
-        (event: KeyboardEvent): void => {
-          if (event.key === 'Enter' || event.key === '\n') {
-            this._dispatchClickEvent(event);
-          }
-        },
-        passiveOptions,
-      );
-    }
-  }
 
   public override attributeChangedCallback(
     name: string,

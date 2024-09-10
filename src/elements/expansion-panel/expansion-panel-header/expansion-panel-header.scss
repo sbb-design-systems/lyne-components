@@ -76,6 +76,9 @@
   align-items: center;
   gap: var(--sbb-expansion-panel-title-gap);
   overflow: hidden;
+
+  // Align with toggle icon
+  min-height: var(--sbb-size-icon-ui-medium);
 }
 
 .sbb-expansion-panel-header__toggle-icon {
