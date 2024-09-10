@@ -67,7 +67,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   public set pageSize(value: number) {
     const previousPageSize = this._pageSize;
     this._pageSize = Math.max(value, 0);
-    this.pageIndex = Math.floor((this.pageIndex * previousPageSize) / this._pageSize) || 0;
+    this._pageIndex = Math.floor((this.pageIndex * previousPageSize) / this._pageSize) || 0;
   }
   public get pageSize(): number {
     return this._pageSize;
@@ -145,6 +145,24 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       select.setAttribute('aria-labelledby', this._paginatorOptionsLabel);
       this._updateSelectAriaLabelledBy = false;
     }
+  }
+
+  /**
+   * If the `pageSize` changes due to user interaction with the `pageSizeOptions` select,
+   * emit the `pageChanged` event and then update the `pageSize`.
+   */
+  private _pageSizeChanged(value: number): void {
+    const previousPageSize = this._pageSize;
+    const newPageSize = Math.max(value, 0);
+    if (previousPageSize !== newPageSize) {
+      this._pageChanged.emit({
+        previousPageIndex: this._pageIndex,
+        pageIndex: Math.floor((this.pageIndex * previousPageSize) / newPageSize) || 0,
+        length: this.length,
+        pageSize: newPageSize,
+      });
+    }
+    this.pageSize = newPageSize;
   }
 
   /** Returns the displayed page elements. */
@@ -273,7 +291,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}
                 @change=${(e: CustomEvent) =>
-                  (this.pageSize = +((e.target as SbbSelectElement).value as string))}
+                  this._pageSizeChanged(+((e.target as SbbSelectElement).value as string))}
               >
                 ${repeat(
                   this.pageSizeOptions!,
