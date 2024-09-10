@@ -39,7 +39,7 @@ describe(`sbb-header`, () => {
       </sbb-header-button>
       <sbb-header-button icon-name="globe-small" class="last-element"> English </sbb-header-button>
       ${size === 's'
-        ? html`<sbb-signet slot="logo" protective-room="none" padded></sbb-signet>`
+        ? html`<sbb-signet slot="logo" protective-room="panel"></sbb-signet>`
         : nothing}
     </sbb-header>
     <div class=${expanded ? 'sbb-page-spacing-expanded' : 'sbb-page-spacing'}>

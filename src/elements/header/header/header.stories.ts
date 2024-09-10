@@ -62,7 +62,7 @@ const HeaderBasicTemplate = (
       <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
     </sbb-menu>
     ${args.size === 's'
-      ? html`<sbb-signet slot="logo" protective-room="none" padded></sbb-signet>`
+      ? html`<sbb-signet slot="logo" protective-room="panel"></sbb-signet>`
       : nothing}
   </sbb-header>
   <div ${sbbSpread(attributes)}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>

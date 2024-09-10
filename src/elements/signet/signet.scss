@@ -8,14 +8,12 @@
   height: var(--sbb-signet-height);
 
   --sbb-signet-background-color: var(--sbb-color-red);
-  --sbb-signet-panel-color: var(--sbb-color-red);
   --sbb-signet-icon-color: var(--sbb-color-white);
   --sbb-signet-aspect-ratio: 2 / 1;
   --sbb-signet-svg-container-height: auto;
 
   @include sbb.if-forced-colors {
     --sbb-signet-background-color: ButtonText !important;
-    --sbb-signet-panel-color: ButtonText !important;
     --sbb-signet-icon-color: Canvas !important;
   }
 }
@@ -25,15 +23,13 @@
   --sbb-signet-svg-container-height: calc(44 / 64 * 100%);
 }
 
-:host([padded]) {
-  --sbb-signet-aspect-ratio: 143 / 48;
-  --sbb-signet-svg-container-height: auto;
-  --sbb-signet-background-color: none;
-}
-
 :host([protective-room='ideal']) {
   --sbb-signet-aspect-ratio: 128 / 84;
   --sbb-signet-svg-container-height: calc(44 / 84 * 100%);
+}
+
+:host([protective-room='panel']) {
+  --sbb-signet-aspect-ratio: 143 / 48;
 }
 
 .sbb-signet {
@@ -57,8 +53,8 @@
 }
 
 #sbb-signet__panel {
-  fill: var(--sbb-signet-panel-color);
-  stroke: var(--sbb-signet-panel-color);
+  fill: var(--sbb-signet-background-color);
+  stroke: var(--sbb-signet-background-color);
 }
 
 #sbb-signet__icon {

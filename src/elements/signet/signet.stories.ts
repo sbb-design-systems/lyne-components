@@ -14,7 +14,7 @@ const protectiveRoom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['none', 'minimal', 'ideal'],
+  options: ['none', 'minimal', 'ideal', 'panel'],
 };
 
 const accessibilityLabel: InputType = {
@@ -23,22 +23,14 @@ const accessibilityLabel: InputType = {
   },
 };
 
-const padded: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   'protective-room': protectiveRoom,
   'accessibility-label': accessibilityLabel,
-  padded,
 };
 
 const defaultArgs: Args = {
   'protective-room': protectiveRoom.options![0],
   'accessibility-label': undefined,
-  padded: false,
 };
 
 export const NoProtectiveRoom: StoryObj = {
@@ -59,10 +51,10 @@ export const IdealProtectiveRoom: StoryObj = {
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options![2] },
 };
 
-export const Padded: StoryObj = {
+export const PanelProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, padded: true },
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![3] },
 };
 
 const meta: Meta = {

@@ -6,7 +6,7 @@ import './signet.js';
 
 describe(`sbb-signet`, () => {
   const cases = {
-    protectiveRooms: ['none', 'minimal', 'ideal'],
+    protectiveRooms: ['none', 'minimal', 'ideal', 'panel'],
     forcedColors: [false, true],
   };
 

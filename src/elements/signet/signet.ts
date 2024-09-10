@@ -6,6 +6,8 @@ import type { SbbProtectiveRoom } from '../core/interfaces.js';
 
 import style from './signet.scss?lit&inline';
 
+export type SbbSignetProtectiveRoom = SbbProtectiveRoom | 'panel';
+
 /**
  * It displays the SBB signet.
  *
@@ -17,23 +19,19 @@ export class SbbSignetElement extends LitElement {
 
   /** Visual protective room around signet. */
   @property({ attribute: 'protective-room', reflect: true })
-  public protectiveRoom?: SbbProtectiveRoom = 'ideal';
+  public protectiveRoom?: SbbSignetProtectiveRoom = 'ideal';
 
   /** Accessibility label which will be forwarded to the inner SVG signet. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel = 'Logo';
-
-  /** Display a padded signet. */
-  @property({ reflect: true, type: Boolean }) public padded: boolean = false;
 
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-signet">
         <span class="sbb-signet__svg-container">
-          ${this.padded
+          ${this.protectiveRoom === 'panel'
             ? html`
                 <svg focusable="false" viewBox="0 0 143 48" xmlns="http://www.w3.org/2000/svg">
                   <title .textContent=${this.accessibilityLabel}></title>
-                  <path id="sbb-signet__panel" d="M1 47h141V1H1v46z"></path>
                   <path
                     id="sbb-signet__icon"
                     d="M87 40h9.3L83.8 27.7h15.5V40h7.4V27.7h15.6L109.7 40h9.3l16-16-15.9-16h-9.3l12.5 12.3h-15.6V8h-7.4v12.3H83.8L96.3 8H87L71 24l16 16z"
