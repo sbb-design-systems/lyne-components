@@ -7,7 +7,7 @@ the first one can contain one or more action ([sbb-header-button](/docs/elements
 [sbb-header-link](/docs/elements-sbb-header-sbb-header-link--docs))
 or other action items like [sbb-button](/docs/elements-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link--docs),
 and it is displayed at the left end of the component; the second slot is displayed at the right end,
-and it can contain a logo, which by default is the [sbb-logo](/docs/elements-sbb-logo--docs).
+and it can contain a logo or a signet, which by default is the [sbb-logo](/docs/elements-sbb-logo--docs).
 
 ```html
 <sbb-header>
@@ -15,6 +15,9 @@ and it can contain a logo, which by default is the [sbb-logo](/docs/elements-sbb
     >Menu</sbb-header-link
   >
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
+  <a slot="logo" href="/">
+    <sbb-logo protective-room="none"></sbb-logo>
+  </a>
 </sbb-header>
 ```
 
@@ -27,6 +30,17 @@ it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top
 With this, it's ensured that content will be visible all the time.
 
 The component has two sizes, named `m` (default) and `s`.
+For the latter, the usage of the `sbb-signet` with `protective-room='panel'` is suggested.
+
+```html
+<sbb-header size="s">
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere"
+    >Menu</sbb-header-link
+  >
+  <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
+  <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+</sbb-header>
+```
 
 ### Positioning and visibility
 

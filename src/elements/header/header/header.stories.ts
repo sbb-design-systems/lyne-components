@@ -63,7 +63,11 @@ const HeaderBasicTemplate = (
     </sbb-menu>
     ${args.size === 's'
       ? html`<sbb-signet slot="logo" protective-room="panel"></sbb-signet>`
-      : nothing}
+      : html`
+          <a slot="logo" aria-label="Homepage" href="/">
+            <sbb-logo protective-room="none"></sbb-logo>
+          </a>
+        `}
   </sbb-header>
   <div ${sbbSpread(attributes)}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
 `;
