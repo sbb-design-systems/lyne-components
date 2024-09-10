@@ -140,6 +140,11 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       this._markForFocus = null;
     }
 
+    /**
+     * TODO
+     *  Accessibility fix required to correctly read the label;
+     *  can be possibly removed after the merge of https://github.com/sbb-design-systems/lyne-components/issues/3062
+     */
     const select = this.shadowRoot!.querySelector('sbb-select');
     if (select && this._updateSelectAriaLabelledBy) {
       select.setAttribute('aria-labelledby', this._paginatorOptionsLabel);
