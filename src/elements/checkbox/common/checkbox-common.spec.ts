@@ -153,7 +153,7 @@ describe(`checkbox common behaviors`, () => {
         expect(snapshot.required).not.to.be.ok;
       });
 
-      it('should should restore form state on formStateRestoreCallback()', async () => {
+      it('should restore form state on formStateRestoreCallback()', async () => {
         // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
         element.formStateRestoreCallback('true', 'restore');
         await waitForLitRender(element);

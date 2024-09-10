@@ -44,16 +44,16 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(
    */
   @property()
   public override set value(value: string | null) {
-    if (value) {
-      super.value = value;
+    if (value && this._isValidNumber(value!)) {
+      super.value = this._boundBetweenMinMax(value);
     } else {
       super.value = this._getDefaultValue().toString();
     }
     setOrRemoveAttribute(this, 'aria-valuenow', this.value);
     this._calculateValueFraction();
   }
-  public override get value(): string | null {
-    return super.value;
+  public override get value(): string {
+    return super.value!;
   }
 
   /** Numeric value for the inner HTMLInputElement. */
@@ -68,12 +68,12 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(
   /** Minimum acceptable value for the inner HTMLInputElement. */
   @property()
   public set min(value: string) {
-    if (!value) {
+    if (!value || !this._isValidNumber(value!)) {
       return;
     }
 
     this._min = value;
-    this._calculateValueFraction();
+    this.value = this._boundBetweenMinMax(this.value);
   }
   public get min(): string {
     return this._min;
@@ -83,12 +83,12 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(
   /** Maximum acceptable value for the inner HTMLInputElement. */
   @property()
   public set max(value: string) {
-    if (!value) {
+    if (!value || !this._isValidNumber(value!)) {
       return;
     }
 
     this._max = value;
-    this._calculateValueFraction();
+    this.value = this._boundBetweenMinMax(this.value);
   }
   public get max(): string {
     return this._max;
@@ -151,10 +151,11 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(
   }
 
   /**
+   * The reset value is the attribute value (the setup value). If not present, calculates the default.
    * @internal
    */
   public formResetCallback(): void {
-    this.value = this._getDefaultValue();
+    this.value = this.hasAttribute('value') ? this.getAttribute('value') : this._getDefaultValue();
   }
 
   /**
@@ -177,6 +178,17 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(
    */
   private _getDefaultValue(): string {
     return (+this.min + (+this.max - +this.min) / 2).toString();
+  }
+
+  private _isValidNumber(value: string): boolean {
+    return !isNaN(Number(value));
+  }
+
+  /**
+   * Restrains the value between the min and max
+   */
+  private _boundBetweenMinMax(value: string): string {
+    return Math.max(+this.min, Math.min(+this.max, +value)).toString();
   }
 
   private _calculateValueFraction(): void {
