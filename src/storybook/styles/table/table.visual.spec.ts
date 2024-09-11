@@ -18,7 +18,7 @@ describe(`table`, () => {
   };
 
   const sizeCases = {
-    size: ['m', 's'],
+    size: ['xs', 's', 'm'],
   };
 
   const tableTemplate = (classInfo: ClassInfo): TemplateResult => html`
@@ -78,6 +78,7 @@ describe(`table`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             tableTemplate({
+              'sbb-table-xs': size === 'xs',
               'sbb-table-s': size === 's',
               'sbb-table-m': size === 'm',
             }),
