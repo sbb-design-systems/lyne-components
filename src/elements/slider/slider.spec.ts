@@ -50,8 +50,8 @@ describe(`sbb-slider`, () => {
     // event spies
     elemChangeEvent = new EventSpy('change', element);
     elemInputEvent = new EventSpy('input', element);
-    nativeChangeEvent = new EventSpy('change', element);
-    nativeInputEvent = new EventSpy('input', element);
+    nativeChangeEvent = new EventSpy('change', input);
+    nativeInputEvent = new EventSpy('input', input);
   });
 
   function compareToNativeInput(): void {
