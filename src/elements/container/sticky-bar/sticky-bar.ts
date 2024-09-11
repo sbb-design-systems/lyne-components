@@ -63,16 +63,19 @@ export class SbbStickyBarElement extends LitElement {
   private _toggleShadowVisibility(entry: IntersectionObserverEntry): void {
     const isSticky = !entry.isIntersecting && entry.boundingClientRect.top > 0;
 
+    this.toggleAttribute('data-sticking', isSticky);
+
+    // To optimize the visual perception of the sticky bar, we have certain cases (e.g. on page load)
+    // where we want to have it fade in from the bottom.
+    // To decide whether the fade in should happen from bottom up,
+    // we check how far away the sticky bar is from the intersector. When scrolling fast, the
+    // difference can vary slightly. From this perspective we add a height tolerance.
+    // This value was found by trial and error.
     const intersectorRect = this._intersector?.getBoundingClientRect();
     const stickyBarRect = this.shadowRoot!.querySelector(
       '.sbb-sticky-bar__wrapper',
     )!.getBoundingClientRect();
     const HEIGHT_TOLERANCE = 30;
-
-    // To decide whether the fade in should happen from bottom up,
-    // we check how far away the sticky bar from the intersector is. When scrolling fast, the
-    // difference can slightly vary. From this perspective we add a height tolerance.
-    // This value was found by trial and error.
 
     this.toggleAttribute(
       'data-fade-vertically',
@@ -80,8 +83,6 @@ export class SbbStickyBarElement extends LitElement {
         this._intersector &&
         Math.abs(intersectorRect!.bottom - stickyBarRect.bottom) > HEIGHT_TOLERANCE,
     );
-
-    this.toggleAttribute('data-sticking', isSticky);
   }
 
   public override disconnectedCallback(): void {
