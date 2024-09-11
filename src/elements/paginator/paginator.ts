@@ -13,7 +13,7 @@ import { sbbInputModalityDetector } from '../core/a11y.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
-import { i18nPreviousPage, i18nNextPage, i18nPage, i18nItemsPerPage } from '../core/i18n.js';
+import { i18nItemsPerPage, i18nNextPage, i18nPage, i18nPreviousPage } from '../core/i18n.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 import type { SbbSelectElement } from '../select.js';
 
@@ -105,17 +105,6 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   private _pageSizeOptions?: number[];
 
   /**
-   * Calculates the current number of pages based on the `length` and the `pageSize`;
-   * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
-   */
-  private get _numberOfPages(): number {
-    if (!this.pageSize) {
-      return 0;
-    }
-    return Math.ceil(this.length / this.pageSize);
-  }
-
-  /**
    * Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change
    * will be positioned oppositely with the page numbers always in the center.
    */
@@ -164,6 +153,17 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   }
 
   /**
+   * Calculates the current number of pages based on the `length` and the `pageSize`;
+   * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
+   */
+  private _numberOfPages(): number {
+    if (!this.pageSize) {
+      return 0;
+    }
+    return Math.ceil(this.length / this.pageSize);
+  }
+
+  /**
    * If the `pageSize` changes due to user interaction with the `pageSizeOptions` select,
    * emit the `pageChanged` event and then update the `pageSize`.
    */
@@ -188,7 +188,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   /** Evaluate `pageIndex` by excluding edge cases. */
   private _coercePageIndexInRange(pageIndex: number): number {
-    if (isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages - 1) {
+    if (isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages() - 1) {
       return 0;
     }
     return pageIndex;
@@ -201,7 +201,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
    *  - if there are more than `MAX_PAGE_NUMBERS_DISPLAYED` other pages, ellipsis button must be used.
    */
   private _getVisiblePagesIndex(): (number | 'ellipsis')[] {
-    const totalPages: number = this._numberOfPages;
+    const totalPages: number = this._numberOfPages();
     const currentPageIndex: number = this.pageIndex;
 
     if (totalPages <= MAX_PAGE_NUMBERS_DISPLAYED + 2) {
@@ -272,7 +272,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
           id="sbb-paginator-next-page"
           aria-label=${i18nNextPage[this._language.current]}
           icon-name="chevron-small-right-small"
-          ?disabled=${this.pageIndex === this._numberOfPages - 1}
+          ?disabled=${this.pageIndex === this._numberOfPages() - 1}
           @click=${() => (this.pageIndex += 1)}
         ></sbb-mini-button>
       </sbb-mini-button-group>
@@ -283,9 +283,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
           <div class="sbb-paginator__page-size-options">
-            <label id=${this._paginatorOptionsLabel}
-              >${i18nItemsPerPage[this._language.current]}</label
-            >
+            <label id=${this._paginatorOptionsLabel}>
+              ${i18nItemsPerPage[this._language.current]}
+            </label>
             <sbb-form-field
               borderless
               width="collapse"
