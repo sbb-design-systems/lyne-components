@@ -39,7 +39,7 @@ The component has two `size`, named `s` and `m` (default).
 
 ## Events
 
-Consumers can listen to the `pageChanged` event on the `sbb-paginator` component to intercept the page change event.
+Consumers can listen to the `page` event on the `sbb-paginator` component to intercept the page change event.
 The `event.detail` contains both the information about the `pageIndex` and the `previousPageIndex`,
 as well as the `length` and the `pageSize`.
 
@@ -69,6 +69,6 @@ that describes the content controlled by the paginator.
 
 ## Events
 
-| Name          | Type                                               | Description                       | Inherited From |
-| ------------- | -------------------------------------------------- | --------------------------------- | -------------- |
-| `pageChanged` | `CustomEvent<SbbPaginatorPageChangedEventDetails>` | Emits when the pageIndex changes. |                |
+| Name   | Type                                        | Description                       | Inherited From |
+| ------ | ------------------------------------------- | --------------------------------- | -------------- |
+| `page` | `CustomEvent<SbbPaginatorPageEventDetails>` | Emits when the pageIndex changes. |                |

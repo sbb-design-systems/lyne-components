@@ -26,7 +26,7 @@ import '../form-field.js';
 import '../select.js';
 import '../option.js';
 
-export type SbbPaginatorPageChangedEventDetails = {
+export type SbbPaginatorPageEventDetails = {
   length: number;
   pageSize: number;
   pageIndex: number;
@@ -40,7 +40,7 @@ let optionsLabelNextId = 0;
 /**
  * It displays a paginator component.
  *
- * @event {CustomEvent<SbbPaginatorPageChangedEventDetails>} pageChanged - Emits when the pageIndex changes.
+ * @event {CustomEvent<SbbPaginatorPageEventDetails>} page - Emits when the pageIndex changes.
  */
 @customElement('sbb-paginator')
 @hostAttributes({
@@ -49,7 +49,7 @@ let optionsLabelNextId = 0;
 export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
-    pageChanged: 'pageChanged',
+    page: 'page',
   } as const;
 
   /** Total number of items. */
@@ -80,7 +80,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     const previousPageIndex = this._pageIndex;
     this._pageIndex = this._coercePageIndexInRange(value);
     if (previousPageIndex !== this._pageIndex) {
-      this._pageChanged.emit({
+      this._page.emit({
         previousPageIndex,
         pageIndex: value,
         length: this.length,
@@ -114,9 +114,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** Size variant, either m or s. */
   @property({ reflect: true }) public size: 'm' | 's' = 'm';
 
-  private _pageChanged: EventEmitter<SbbPaginatorPageChangedEventDetails> = new EventEmitter(
+  private _page: EventEmitter<SbbPaginatorPageEventDetails> = new EventEmitter(
     this,
-    SbbPaginatorElement.events.pageChanged,
+    SbbPaginatorElement.events.page,
     { composed: true, bubbles: true },
   );
 
@@ -141,9 +141,8 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     }
 
     /**
-     * TODO
-     *  Accessibility fix required to correctly read the label;
-     *  can be possibly removed after the merge of https://github.com/sbb-design-systems/lyne-components/issues/3062
+     * TODO: Accessibility fix required to correctly read the label;
+     * can be possibly removed after the merge of https://github.com/sbb-design-systems/lyne-components/issues/3062
      */
     const select = this.shadowRoot!.querySelector('sbb-select');
     if (select && this._updateSelectAriaLabelledBy) {
@@ -165,13 +164,13 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   /**
    * If the `pageSize` changes due to user interaction with the `pageSizeOptions` select,
-   * emit the `pageChanged` event and then update the `pageSize`.
+   * emit the `page` event and then update the `pageSize`.
    */
   private _pageSizeChanged(value: number): void {
     const previousPageSize = this._pageSize;
     const newPageSize = Math.max(value, 0);
     if (previousPageSize !== newPageSize) {
-      this._pageChanged.emit({
+      this._page.emit({
         previousPageIndex: this._pageIndex,
         pageIndex: Math.floor((this.pageIndex * previousPageSize) / newPageSize) || 0,
         length: this.length,

@@ -6,6 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { describeIf } from '../core/testing.js';
 
 import type { SbbPaginatorElement } from './paginator.js';
+
 import './paginator.js';
 
 describe(`sbb-paginator`, () => {

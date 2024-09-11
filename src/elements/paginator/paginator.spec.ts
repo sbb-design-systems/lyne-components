@@ -23,7 +23,7 @@ describe('sbb-paginator', () => {
   });
 
   it('change pages via buttons', async () => {
-    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+    const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
     const goToPrev: SbbMiniButtonElement = element.shadowRoot!.querySelector(
       '#sbb-paginator-prev-page',
     )!;
@@ -34,28 +34,28 @@ describe('sbb-paginator', () => {
     expect(goToPrev).to.have.attribute('disabled');
     goToPrev.click();
     await waitForLitRender(element);
-    expect(pageChangedEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy.count).to.be.equal(0);
 
     expect(goToNext).not.to.have.attribute('disabled');
     goToNext.click();
     await waitForLitRender(element);
-    expect(pageChangedEventSpy.count).to.be.equal(1);
+    expect(pageEventSpy.count).to.be.equal(1);
     expect(element.pageIndex).to.be.equal(1);
     expect(goToPrev).not.to.have.attribute('disabled');
     expect(goToNext).not.to.have.attribute('disabled');
 
     goToPrev.click();
     await waitForLitRender(element);
-    expect(pageChangedEventSpy.count).to.be.equal(2);
+    expect(pageEventSpy.count).to.be.equal(2);
     expect(element.pageIndex).to.be.equal(0);
   });
 
   it('changes to the correct selected page when pageSize changes', async () => {
     // go to page 5 / pageIndex=4, which includes items 21-25
-    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+    const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
     element.setAttribute('page-index', '4');
     await waitForLitRender(element);
-    expect(pageChangedEventSpy.count).to.be.equal(1);
+    expect(pageEventSpy.count).to.be.equal(1);
     let selectedElement = element
       .shadowRoot!.querySelector('[data-selected]')!
       .querySelector('span')!;
@@ -64,14 +64,14 @@ describe('sbb-paginator', () => {
     // switching to pageSize=10, item 21 should be on page 3 / pageIndex=2
     element.setAttribute('page-size', '10');
     await waitForLitRender(element);
-    expect(pageChangedEventSpy.count).to.be.equal(1);
+    expect(pageEventSpy.count).to.be.equal(1);
     selectedElement = element.shadowRoot!.querySelector('[data-selected]')!.querySelector('span')!;
     expect(selectedElement.getAttribute('data-index')).to.be.equal('2');
 
     // go to page 4 / pageIndex=3, which now includes items 31-40
     element.setAttribute('page-index', '3');
     await waitForLitRender(element);
-    expect(pageChangedEventSpy.count).to.be.equal(2);
+    expect(pageEventSpy.count).to.be.equal(2);
     selectedElement = element.shadowRoot!.querySelector('[data-selected]')!.querySelector('span')!;
     expect(selectedElement.getAttribute('data-index')).to.be.equal('3');
 
@@ -83,15 +83,15 @@ describe('sbb-paginator', () => {
   });
 
   it('emits on click', async () => {
-    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+    const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
     const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item');
     pages[2].dispatchEvent(new Event('click'));
     await waitForLitRender(element);
-    expect(pageChangedEventSpy.count).to.be.equal(1);
+    expect(pageEventSpy.count).to.be.equal(1);
   });
 
-  it('emits pageChanged event when pageSize changes via select', async () => {
-    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+  it('emits page event when pageSize changes via select', async () => {
+    const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
     element.setAttribute('page-size-options', '[10, 20, 50]');
     await waitForLitRender(element);
     const select: SbbSelectElement = element.shadowRoot!.querySelector('sbb-select')!;
@@ -110,13 +110,11 @@ describe('sbb-paginator', () => {
     expect(firstOption).not.to.be.null;
     firstOption.click();
     await waitForLitRender(element);
-    expect(pageChangedEventSpy.count).to.be.equal(1);
-    expect((pageChangedEventSpy.lastEvent as CustomEvent).detail['pageSize']).to.be.equal(10);
-    expect((pageChangedEventSpy.lastEvent as CustomEvent).detail['pageIndex']).to.be.equal(0);
-    expect((pageChangedEventSpy.lastEvent as CustomEvent).detail['previousPageIndex']).to.be.equal(
-      0,
-    );
-    expect((pageChangedEventSpy.lastEvent as CustomEvent).detail['length']).to.be.equal(50);
+    expect(pageEventSpy.count).to.be.equal(1);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageSize']).to.be.equal(10);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageIndex']).to.be.equal(0);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['previousPageIndex']).to.be.equal(0);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['length']).to.be.equal(50);
   });
 
   it('keyboard selection', async () => {
@@ -134,9 +132,9 @@ describe('sbb-paginator', () => {
       '2',
     );
 
-    const pageChangedEventSpy = new EventSpy(SbbPaginatorElement.events.pageChanged);
+    const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
     await sendKeys({ press: 'Space' });
     await waitForLitRender(element);
-    expect(pageChangedEventSpy.count).to.be.equal(1);
+    expect(pageEventSpy.count).to.be.equal(1);
   });
 });

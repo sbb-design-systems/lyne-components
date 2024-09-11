@@ -147,9 +147,8 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   /**
-   * TODO
-   *  Accessibility fix required to correctly read the label;
-   *  can be possibly removed after the merge of https://github.com/sbb-design-systems/lyne-components/issues/3062
+   * TODO: Accessibility fix required to correctly read the label;
+   * can be possibly removed after the merge of https://github.com/sbb-design-systems/lyne-components/issues/3062
    */
   private _onSelectAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
