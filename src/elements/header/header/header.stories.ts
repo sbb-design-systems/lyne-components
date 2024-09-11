@@ -62,7 +62,11 @@ const HeaderBasicTemplate = (
       <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
     </sbb-menu>
     ${args.size === 's'
-      ? html`<sbb-signet slot="logo" protective-room="panel"></sbb-signet>`
+      ? html`
+          <a slot="logo" aria-label="Homepage" href="/">
+            <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+          </a>
+        `
       : html`
           <a slot="logo" aria-label="Homepage" href="/">
             <sbb-logo protective-room="none"></sbb-logo>
