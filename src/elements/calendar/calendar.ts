@@ -235,8 +235,8 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     this._setWeekdays();
   }
 
-  private get _dateFilter(): (date: T) => boolean {
-    return this.dateFilter ?? (() => true);
+  private _dateFilter(date: T): boolean {
+    return this.dateFilter?.(date) ?? true;
   }
 
   /** Resets the active month according to the new state of the calendar. */
@@ -1252,7 +1252,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     this._startTableTransition();
   }
 
-  private get _getView(): TemplateResult {
+  private _getView(): TemplateResult {
     if (isServer || this.hydrationRequired) {
       // TODO: We disable SSR for calendar for now. Figure our, if there is a way
       // to enable it, while considering i18n and date information.
@@ -1288,7 +1288,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   }
 
   protected override render(): TemplateResult {
-    return html`<div class="sbb-calendar__wrapper">${this._getView}</div>`;
+    return html`<div class="sbb-calendar__wrapper">${this._getView()}</div>`;
   }
 }
 

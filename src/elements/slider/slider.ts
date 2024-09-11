@@ -8,7 +8,7 @@ import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
 import { setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter, forwardEventToHost } from '../core/eventing.js';
-import { SbbDisabledTabIndexActionMixin } from '../core/mixins.js';
+import { SbbFocusableDisabledActionMixin } from '../core/mixins.js';
 
 import style from './slider.scss?lit&inline';
 
@@ -25,7 +25,7 @@ import '../icon.js';
 @hostAttributes({
   role: 'slider',
 })
-export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(LitElement) {
+export class SbbSliderElement extends SbbFocusableDisabledActionMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -89,6 +89,14 @@ export class SbbSliderElement extends SbbDisabledTabIndexActionMixin(LitElement)
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
+    if (changedProperties.has('disabled')) {
+      if (this.disabled) {
+        this.removeAttribute('tabindex');
+      } else {
+        this.setAttribute('tabindex', '0');
+      }
+    }
 
     if (changedProperties.has('value')) {
       this._handleChange(Number(this.value));

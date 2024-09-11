@@ -96,14 +96,6 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   private _didLoad = false;
   private _abort = new SbbConnectedAbortController(this);
 
-  private _valueChanged(value: any | undefined): void {
-    for (const radio of this.radioButtons) {
-      radio.checked = radio.value === value;
-      radio.tabIndex = this._getRadioTabIndex(radio);
-    }
-    this._setFocusableRadio();
-  }
-
   /**
    * Emits whenever the `sbb-radio-group` value changes.
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -171,6 +163,14 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     if (changedProperties.has('size')) {
       this.radioButtons.forEach((r) => r.requestUpdate?.('size'));
     }
+  }
+
+  private _valueChanged(value: any | undefined): void {
+    for (const radio of this.radioButtons) {
+      radio.checked = radio.value === value;
+      radio.tabIndex = this._getRadioTabIndex(radio);
+    }
+    this._setFocusableRadio();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {

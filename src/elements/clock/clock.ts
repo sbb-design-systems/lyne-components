@@ -77,14 +77,14 @@ export class SbbClockElement extends LitElement {
   /** Seconds value for the current date. */
   private _seconds!: number;
 
+  /** Move the minutes hand every minute. */
+  private _handMovement?: ReturnType<typeof setInterval>;
+
   /** Callback function for hours hand. */
   private _moveHoursHandFn = (): void => this._moveHoursHand();
 
   /** Callback function for minutes hand. */
   private _moveMinutesHandFn = (): void => this._moveMinutesHand();
-
-  /** Move the minutes hand every minute. */
-  private _handMovement?: ReturnType<typeof setInterval>;
 
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);

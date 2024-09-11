@@ -36,38 +36,6 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
     return this._step;
   }
 
-  /**
-   * Selects and configures the step label.
-   * @internal
-   */
-  public select(): void {
-    this.tabIndex = 0;
-    this._internals.ariaSelected = 'true';
-    this.toggleAttribute('data-selected', true);
-  }
-
-  /**
-   * Deselects and configures the step label.
-   * @internal
-   */
-  public deselect(): void {
-    this.tabIndex = -1;
-    this._internals.ariaSelected = 'false';
-    this.toggleAttribute('data-selected', false);
-  }
-
-  /**
-   * Configures the step label.
-   * @internal
-   */
-  public configure(posInSet: number, setSize: number, stepperLoaded: boolean): void {
-    if (stepperLoaded) {
-      this._step = this._getStep();
-    }
-    this._internals.ariaPosInSet = `${posInSet}`;
-    this._internals.ariaSetSize = `${setSize}`;
-  }
-
   private _abort = new SbbConnectedAbortController(this);
   private _stepper: SbbStepperElement | null = null;
   private _step: SbbStepElement | null = null;
@@ -106,6 +74,38 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
     if (this.step) {
       this.setAttribute('aria-controls', this.step.id);
     }
+  }
+
+  /**
+   * Selects and configures the step label.
+   * @internal
+   */
+  public select(): void {
+    this.tabIndex = 0;
+    this._internals.ariaSelected = 'true';
+    this.toggleAttribute('data-selected', true);
+  }
+
+  /**
+   * Deselects and configures the step label.
+   * @internal
+   */
+  public deselect(): void {
+    this.tabIndex = -1;
+    this._internals.ariaSelected = 'false';
+    this.toggleAttribute('data-selected', false);
+  }
+
+  /**
+   * Configures the step label.
+   * @internal
+   */
+  public configure(posInSet: number, setSize: number, stepperLoaded: boolean): void {
+    if (stepperLoaded) {
+      this._step = this._getStep();
+    }
+    this._internals.ariaPosInSet = `${posInSet}`;
+    this._internals.ariaSetSize = `${setSize}`;
   }
 
   protected override render(): TemplateResult {

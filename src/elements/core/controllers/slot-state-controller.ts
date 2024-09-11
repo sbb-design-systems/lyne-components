@@ -22,12 +22,6 @@ import type { ReactiveController, ReactiveControllerHost } from 'lit';
 export class SbbSlotStateController implements ReactiveController {
   public readonly slots = new Set<string>();
 
-  // We avoid using AbortController here, as it would mean creating
-  // a new instance for every NamedSlotStateController instance.
-  private _slotchangeHandler = (event: Event): void => {
-    this._syncSlots(event.target as HTMLSlotElement);
-  };
-
   public constructor(
     private _host: ReactiveControllerHost & HTMLElement,
     private _onChangeCallback: (() => void) | null = null,
@@ -44,6 +38,12 @@ export class SbbSlotStateController implements ReactiveController {
   public hostDisconnected(): void {
     this._host.shadowRoot?.removeEventListener('slotchange', this._slotchangeHandler);
   }
+
+  // We avoid using AbortController here, as it would mean creating
+  // a new instance for every NamedSlotStateController instance.
+  private _slotchangeHandler = (event: Event): void => {
+    this._syncSlots(event.target as HTMLSlotElement);
+  };
 
   private _syncSlots(...slots: HTMLSlotElement[]): void {
     for (const slot of slots) {
