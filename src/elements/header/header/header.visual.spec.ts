@@ -1,11 +1,14 @@
-import { html, nothing, type TemplateResult } from 'lit';
+import { sendKeys } from '@web/test-runner-commands';
+import { html, type TemplateResult } from 'lit';
 
+import { tabKey } from '../../core/testing/private/keys.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import './header.js';
 import '../header-link.js';
 import '../header-button.js';
 import '../../menu.js';
+import '../../logo.js';
 import '../../signet.js';
 
 describe(`sbb-header`, () => {
@@ -31,16 +34,16 @@ describe(`sbb-header`, () => {
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small"
-        >Search
+      <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small">
+        Search
       </sbb-header-link>
       <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
         Christina Müller
       </sbb-header-button>
       <sbb-header-button icon-name="globe-small" class="last-element"> English </sbb-header-button>
       ${size === 's'
-        ? html`<sbb-signet slot="logo" protective-room="panel"></sbb-signet>`
-        : nothing}
+        ? html`<a href="#" slot="logo"><sbb-signet protective-room="panel"></sbb-signet></a>`
+        : html`<a href="#" slot="logo"><sbb-logo protective-room="none"></sbb-logo></a>`}
     </sbb-header>
     <div class=${expanded ? 'sbb-page-spacing-expanded' : 'sbb-page-spacing'}>
       ${loremIpsumTemplate}
@@ -55,6 +58,23 @@ describe(`sbb-header`, () => {
           await setup.withFixture(template(expanded), { padding: '0' });
         }),
       );
+    }
+
+    for (const logoOrSignet of ['logo', 'signet']) {
+      describe(logoOrSignet, () => {
+        it(
+          'focus',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template(false, logoOrSignet === 'signet' ? 's' : 'm'), {
+              padding: '0',
+            });
+            setup.snapshotElement.querySelector<HTMLAnchorElement>(`a[slot='logo']`)!.focus();
+            // We focus the logo and then tab left and right again to activate the focus visible state on the link
+            await sendKeys({ press: `Shift+${tabKey}` });
+            await sendKeys({ press: `${tabKey}` });
+          }),
+        );
+      });
     }
 
     it(
