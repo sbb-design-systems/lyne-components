@@ -365,6 +365,12 @@
   --sbb-button-box-shadow: var(--sbb-button-box-shadow-definition);
 }
 
+/**
+  * FIXME
+  *  An example of a mixin that can be applied on a native button (using dataset attributes for size and negative)
+  *  in order to be rendered as a `sbb-button` in primary variant.
+  *  In a similar way the other variants can be obtained.
+  */
 @mixin button {
   @include button-reset;
   @include button-primary;
