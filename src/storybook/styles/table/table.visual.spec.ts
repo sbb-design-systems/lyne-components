@@ -18,7 +18,7 @@ describe(`table`, () => {
   };
 
   const sizeCases = {
-    size: ['xs', 's', 'm'],
+    size: ['m', 's', 'xs'],
   };
 
   const tableTemplate = (classInfo: ClassInfo): TemplateResult => html`
