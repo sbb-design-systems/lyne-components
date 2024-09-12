@@ -2,10 +2,8 @@ import { html, nothing } from 'lit';
 
 import {
   describeViewports,
-  visualDiffActive,
   visualDiffDefault,
-  visualDiffFocus,
-  visualDiffHover,
+  visualDiffStandardStates,
 } from '../core/testing/private.js';
 
 import './paginator.js';
@@ -19,7 +17,7 @@ describe('sbb-paginator', () => {
           focusOutlineDark: negative,
         };
 
-        for (const state of [visualDiffDefault, visualDiffFocus]) {
+        for (const state of visualDiffStandardStates) {
           it(
             `state=${state.name}`,
             state.with(async (setup) => {
@@ -35,38 +33,10 @@ describe('sbb-paginator', () => {
               setup.withStateElement(
                 setup.snapshotElement
                   .querySelector('sbb-paginator')!
-                  .shadowRoot!.querySelector(`.sbb-paginator__page--number-item[data-index="0"]`)!,
+                  .shadowRoot!.querySelector(`.sbb-paginator__page--number-item[data-index="1"]`)!,
               );
             }),
           );
-        }
-
-        for (const state of [visualDiffActive, visualDiffHover]) {
-          describe(`state=${state.name}`, () => {
-            for (const selected of [false, true]) {
-              it(
-                `selected=${selected}`,
-                state.with(async (setup) => {
-                  await setup.withFixture(
-                    html` <sbb-paginator
-                      ?negative=${negative || nothing}
-                      length="50"
-                      page-size="10"
-                      pager-position="end"
-                    ></sbb-paginator>`,
-                    wrapperStyle,
-                  );
-                  setup.withStateElement(
-                    setup.snapshotElement
-                      .querySelector('sbb-paginator')!
-                      .shadowRoot!.querySelector(
-                        `.sbb-paginator__page--number-item[data-index="${selected ? 0 : 2}"]`,
-                      )!,
-                  );
-                }),
-              );
-            }
-          });
         }
 
         for (const pageIndex of [0, 2, 5, 7, 9]) {

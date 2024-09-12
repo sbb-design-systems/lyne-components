@@ -21,6 +21,7 @@
   --sbb-paginator-justify-content: start;
   --sbb-paginator-wrapping-group-wrap: wrap-reverse;
   --sbb-paginator-wrap: wrap;
+  --sbb-paginator-cursor: pointer;
 }
 
 :host([size='s']) {
@@ -81,11 +82,10 @@
 
   position: relative;
   color: var(--sbb-paginator-page-color);
-  cursor: default;
 }
 
 .sbb-paginator__page--number {
-  cursor: pointer;
+  cursor: var(--sbb-paginator-cursor);
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
 
   &::before {
@@ -103,7 +103,7 @@
     }
   }
 
-  &:hover {
+  &:hover:not([data-selected]) {
     @include sbb.hover-mq($hover: true) {
       --sbb-paginator-page-color: var(--sbb-color-granite);
       --sbb-paginator-page-background-color: var(--sbb-color-milk);
@@ -116,8 +116,7 @@
     }
   }
 
-  &:active,
-  &[data-active] {
+  &:is(:active, [data-active]):not([data-selected]) {
     --sbb-paginator-page-color: var(--sbb-color-charcoal);
     --sbb-paginator-page-background-color: var(--sbb-color-cloud);
     --sbb-paginator-page-inset: 0;
@@ -131,6 +130,7 @@
   &[data-selected] {
     @include sbb.text-s--bold;
 
+    --sbb-paginator-cursor: default;
     --sbb-paginator-page-color: var(--sbb-color-charcoal);
     --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
     --sbb-paginator-page-border-style: solid;
