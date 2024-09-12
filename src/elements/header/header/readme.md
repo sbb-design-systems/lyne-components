@@ -108,7 +108,7 @@ a helper class named `sbb-header-info` is provided to achieve the correct visual
 
   <span class="sbb-header-info">
     <strong>Application name</strong>
-    V. 1.1
+    <span>V. 1.1</span>
   </span>
 
   <a slot="logo" aria-label="Homepage" href="/">

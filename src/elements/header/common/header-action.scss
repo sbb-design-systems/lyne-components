@@ -24,10 +24,11 @@
   --sbb-header-action-background-inset: 0;
   --sbb-header-action-translate-y: 0;
   --sbb-header-action-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-header-action-icon-dimension: var(--sbb-size-icon-ui-small);
 
   // If expanded, move it left by left padding.
   // As result, the icon should be aligned with the left side of the page wrapper.
-  --sbb-header-first-item-margin-inline-start: calc(-1 * var(--sbb-spacing-fixed-5x));
+  --sbb-header-first-item-margin-inline-start: calc(-1 * var(--sbb-header-action-padding-inline));
 
   @include sbb.if-forced-colors {
     --sbb-header-action-border-color: CanvasText;
@@ -124,8 +125,8 @@
   --sbb-icon-svg-stroke-color: currentcolor;
   --sbb-icon-svg-stroke-width: 1px;
 
-  min-width: var(--sbb-size-icon-ui-small);
-  min-height: var(--sbb-size-icon-ui-small);
+  min-width: var(--sbb-header-action-icon-dimension);
+  min-height: var(--sbb-header-action-icon-dimension);
   line-height: 0;
 }
 
@@ -146,10 +147,12 @@
       // To avoid duplicated css definitions, the value itself is assigned here in
       // sbb-header-button/sbb-header-link instead of sbb-header.
       //
-      // Move it left by 12px in collapsed width.
-      --sbb-header-first-item-margin-inline-start: var(
-        --sbb-header-first-item-margin-inline-start-size-s,
-        #{sbb.px-to-rem-build(-12)}
+      // Move it left by padding of header action to the icon itself.
+      // To the calculated offset there must be added another 2px to optically align the icon.
+      --sbb-header-first-item-margin-inline-start: calc(
+        -0.5 * (var(--sbb-header-action-min-width) - var(--sbb-header-action-icon-dimension)) - #{sbb.px-to-rem-build(
+            2
+          )}
       );
       --sbb-header-action-padding-inline-zero: 0;
 

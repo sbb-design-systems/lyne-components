@@ -111,7 +111,6 @@
   :host([size='s']) & {
     --sbb-header-action-min-height: var(--sbb-size-element-xs);
     --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-4x);
-    --sbb-header-first-item-margin-inline-start-size-s: #{sbb.px-to-rem-build(-10)};
   }
 }
 

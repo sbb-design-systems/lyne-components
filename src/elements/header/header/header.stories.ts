@@ -32,7 +32,7 @@ const LoremIpsumTemplate = (): TemplateResult => html`
 const appName = (): TemplateResult => html`
   <span class="sbb-header-info">
     <strong>Name</strong>
-    V. 1.1
+    <span>V. 1.1</span>
   </span>
 `;
 
