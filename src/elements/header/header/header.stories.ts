@@ -30,10 +30,8 @@ const LoremIpsumTemplate = (): TemplateResult => html`
 `;
 
 const appName = (): TemplateResult => html`
-  <span
-    style="padding-inline: var(--sbb-spacing-fixed-4x); font-size: var(--sbb-font-size-text-xs)"
-  >
-    <span class="sbb-text--bold">Name</span>
+  <span class="sbb-header-info">
+    <strong>Name</strong>
     V. 1.1
   </span>
 `;

@@ -27,7 +27,7 @@
 
   // If expanded, move it left by left padding.
   // As result, the icon should be aligned with the left side of the page wrapper.
-  --sbb-header-first-item-margin-inline-start: calc(-1 * var(--sbb-header-action-padding-inline));
+  --sbb-header-first-item-margin-inline-start: calc(-1 * var(--sbb-spacing-fixed-5x));
 
   @include sbb.if-forced-colors {
     --sbb-header-action-border-color: CanvasText;
@@ -147,7 +147,10 @@
       // sbb-header-button/sbb-header-link instead of sbb-header.
       //
       // Move it left by 12px in collapsed width.
-      --sbb-header-first-item-margin-inline-start: #{sbb.px-to-rem-build(-12)};
+      --sbb-header-first-item-margin-inline-start: var(
+        --sbb-header-first-item-margin-inline-start-size-s,
+        #{sbb.px-to-rem-build(-12)}
+      );
       --sbb-header-action-padding-inline-zero: 0;
 
       .sbb-header-action__text {

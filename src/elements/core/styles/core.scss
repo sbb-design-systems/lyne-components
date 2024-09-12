@@ -124,6 +124,21 @@ sbb-breadcrumb-group:not(:defined) {
   pointer-events: all;
 }
 
+// Helper class for the application name and version in sbb-header.
+.sbb-header-info {
+  @include typo.text-xs--regular;
+
+  display: flex;
+  padding-inline: var(--sbb-spacing-fixed-4x);
+  gap: var(--sbb-spacing-fixed-1x);
+
+  strong + * {
+    --sbb-text-font-size: var(--sbb-font-size-text-xxs);
+
+    color: var(--sbb-color-granite);
+  }
+}
+
 // In smaller title font-sizes, the space after the title is smaller than the default paragraph space before.
 // Due to margin collapsing, the wrong paragraph space wins.
 // To prevent the mistakenly large gap, we reset the paragraph space.

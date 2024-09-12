@@ -76,7 +76,8 @@ by adding classes to `sbb-header-button`/`sbb-header-link` elements and then def
 
 To achieve this result, a `div` tag with a CSS class named `sbb-header-spacer` was added between the first
 and the second `sbb-header-button` item, then a class named `last-element` was added to the last one.
-Finally, the following custom CSS has been added(\*). The result can be seen in the home and home--logged-in stories.
+Finally, the following custom CSS has been added(\*).
+The result can be seen in the [home](/story/pages-home--home) and [home-logged-in](/story/pages-home--home-logged-in) stories.
 
 ```css
 .last-element {
@@ -94,6 +95,26 @@ Finally, the following custom CSS has been added(\*). The result can be seen in 
     display: none;
   }
 }
+```
+
+The `sbb-header` can be also customized by adding the application's name and version:
+a helper class named `sbb-header-info` is provided to achieve the correct visual result.
+
+```html
+<sbb-header size="s">
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
+    Menu
+  </sbb-header-link>
+
+  <span class="sbb-header-info">
+    <strong>Application name</strong>
+    V. 1.1
+  </span>
+
+  <a slot="logo" aria-label="Homepage" href="/">
+    <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+  </a>
+</sbb-header>
 ```
 
 ### Content overflow
