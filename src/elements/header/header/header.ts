@@ -45,6 +45,9 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   @property({ attribute: 'hide-on-scroll', reflect: true, type: Boolean }) public hideOnScroll =
     false;
 
+  /** Size of the header. */
+  @property({ reflect: true }) public size: 'm' | 's' = 'm';
+
   @state() private _headerOnTop = true;
 
   private _scrollElement: HTMLElement | Document | null | undefined;
@@ -126,7 +129,7 @@ export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
     ) {
       this._closeOpenOverlays();
     }
-    // Check if header is scrolled out of sight, scroll position > header height * 2.
+    // Check if the header is scrolled out of sight, scroll position > header height * 2.
     if (currentScroll > this.offsetHeight * 2) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
