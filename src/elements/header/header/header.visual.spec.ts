@@ -71,7 +71,7 @@ describe(`sbb-header`, () => {
             setup.snapshotElement.querySelector<HTMLAnchorElement>(`a[slot='logo']`)!.focus();
             // We focus the logo and then tab left and right again to activate the focus visible state on the link
             await sendKeys({ press: `Shift+${tabKey}` });
-            await sendKeys({ press: `${tabKey}` });
+            await sendKeys({ press: tabKey });
           }),
         );
       });
