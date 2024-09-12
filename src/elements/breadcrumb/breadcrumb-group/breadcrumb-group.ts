@@ -167,7 +167,8 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
       this.listChildren.length >= MIN_BREADCRUMBS_TO_COLLAPSE
     ) {
       this._state = 'collapsed';
-      this._resizeObserver.unobserve(this);
+      this._resizeObserver.hostDisconnected();
+      this.removeController(this._resizeObserver);
     }
   }
 
