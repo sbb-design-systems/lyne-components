@@ -70,7 +70,7 @@
   position: fixed;
   pointer-events: none;
   inset: var(--sbb-menu-inset);
-  height: var(--sbb-menu-container-height);
+  block-size: var(--sbb-menu-container-height);
   z-index: var(--sbb-menu-z-index, var(--sbb-overlay-default-z-index));
 
   // Menu backdrop (only visible on mobile)
@@ -80,7 +80,7 @@
     pointer-events: all;
     position: fixed;
     inset: var(--sbb-menu-inset);
-    height: var(--sbb-menu-container-height);
+    block-size: var(--sbb-menu-container-height);
     background-color: var(--sbb-menu-backdrop-color);
     transition: {
       duration: var(--sbb-menu-animation-duration);
@@ -94,8 +94,8 @@
   display: none;
   opacity: 0;
   pointer-events: none;
-  max-width: var(--sbb-menu-max-width);
-  min-width: var(--sbb-menu-min-width);
+  max-inline-size: var(--sbb-menu-max-width);
+  min-inline-size: var(--sbb-menu-min-width);
   text-align: start;
   position: absolute;
   inset-inline-start: 0;
@@ -130,18 +130,22 @@
   }
 
   @include sbb.mq($from: medium) {
+    /* stylelint-disable liberty/use-logical-spec */
     top: 0;
     bottom: unset;
     left: 0;
     right: unset;
-    max-height: fit-content;
+    /* stylelint-enable liberty/use-logical-spec */
+    max-block-size: fit-content;
     border-radius: var(--sbb-menu-border-radius);
 
     :host(:not([data-state='closed'])) & {
+      /* stylelint-disable liberty/use-logical-spec */
       top: var(--sbb-menu-position-y);
       left: var(--sbb-menu-position-x);
-      max-height: var(--sbb-menu-max-height);
-      min-height: var(--sbb-menu-min-height);
+      /* stylelint-enable liberty/use-logical-spec */
+      max-block-size: var(--sbb-menu-max-height);
+      min-block-size: var(--sbb-menu-min-height);
     }
   }
 }
@@ -150,7 +154,7 @@
   @include sbb.scrollbar($negative: true);
 
   & {
-    max-height: var(--sbb-menu-max-height);
+    max-block-size: var(--sbb-menu-max-height);
     padding-block: var(--sbb-spacing-fixed-1x);
     overflow: auto;
     outline: none;
@@ -160,15 +164,15 @@
   &::after {
     content: '';
     display: block;
-    height: var(--sbb-spacing-fixed-8x);
+    block-size: var(--sbb-spacing-fixed-8x);
   }
 
   @include sbb.mq($from: medium) {
-    max-height: fit-content;
+    max-block-size: fit-content;
 
     :host(:not([data-state='closed'])) & {
-      max-height: var(--sbb-menu-max-height);
-      min-height: var(--sbb-menu-min-height);
+      max-block-size: var(--sbb-menu-max-height);
+      min-block-size: var(--sbb-menu-min-height);
     }
 
     &::after {

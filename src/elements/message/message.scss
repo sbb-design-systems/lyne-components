@@ -27,7 +27,7 @@
 
 ::slotted([slot='image']) {
   margin-block: var(--sbb-message-image-margin-block);
-  width: 100%;
+  inline-size: 100%;
 }
 
 ::slotted([slot='subtitle']) {

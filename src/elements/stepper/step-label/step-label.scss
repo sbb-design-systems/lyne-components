@@ -16,8 +16,8 @@
   --sbb-step-label-gap: var(--sbb-spacing-fixed-4x);
 
   position: relative;
-  min-width: 0;
-  max-width: fit-content;
+  min-inline-size: 0;
+  max-inline-size: fit-content;
 
   &::before {
     @include sbb.text-xxs--regular;
@@ -129,8 +129,8 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: var(--sbb-step-label-prefix-size);
-  height: var(--sbb-step-label-prefix-size);
+  inline-size: var(--sbb-step-label-prefix-size);
+  block-size: var(--sbb-step-label-prefix-size);
   inset-block-start: calc(
     1em * (var(--sbb-typo-line-height-body-text) / 2) + (var(--sbb-border-width-1x) / 2) -
       (var(--sbb-step-label-prefix-size) / 2)

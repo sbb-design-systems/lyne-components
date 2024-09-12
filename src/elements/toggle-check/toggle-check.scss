@@ -108,7 +108,7 @@
   flex-direction: var(--sbb-toggle-check-flex-direction);
   gap: var(--sbb-toggle-check-gap);
   align-items: start;
-  width: 100%;
+  inline-size: 100%;
 
   :host([size='m']) & {
     @include sbb.text-m--regular;
@@ -133,8 +133,8 @@
 .sbb-toggle-check__track {
   display: inline-block;
   position: relative;
-  min-width: var(--sbb-toggle-check-width);
-  height: var(--sbb-toggle-check-height);
+  min-inline-size: var(--sbb-toggle-check-width);
+  block-size: var(--sbb-toggle-check-height);
   border-radius: var(--sbb-border-radius-infinity);
   background-color: var(--sbb-toggle-check-background-color);
 
@@ -146,8 +146,8 @@
   @include sbb.shadow-level-5-hard;
   @include sbb.absolute-center-y;
 
-  width: var(--sbb-toggle-check-circle-diameter);
-  height: var(--sbb-toggle-check-circle-diameter);
+  inline-size: var(--sbb-toggle-check-circle-diameter);
+  block-size: var(--sbb-toggle-check-circle-diameter);
   border: var(--sbb-border-width-1x) var(--sbb-toggle-check-circle-border-style)
     var(--sbb-toggle-check-circle-border-color);
   border-radius: 50%;
@@ -161,8 +161,8 @@
 .sbb-toggle-check__icon {
   @include sbb.absolute-center-x-y;
 
-  width: var(--sbb-size-icon-ui-small);
-  height: var(--sbb-size-icon-ui-small);
+  inline-size: var(--sbb-size-icon-ui-small);
+  block-size: var(--sbb-size-icon-ui-small);
   opacity: var(--sbb-toggle-check-icon-opacity);
   transition: opacity ease var(--sbb-toggle-check-animation-duration);
 }

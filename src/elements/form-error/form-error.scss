@@ -15,7 +15,7 @@
   display: flex;
   align-items: flex-start;
   color: var(--sbb-form-error-color);
-  min-height: var(--sbb-form-error-height);
+  min-block-size: var(--sbb-form-error-height);
 
   @include sbb.text-xs--regular;
 
@@ -31,7 +31,7 @@
 .form-error__icon {
   display: flex;
   align-items: center;
-  height: var(--sbb-form-error-height);
+  block-size: var(--sbb-form-error-height);
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
@@ -43,5 +43,5 @@
 
 .form-error__icon-svg {
   stroke: currentcolor;
-  height: var(--sbb-form-error-height);
+  block-size: var(--sbb-form-error-height);
 }

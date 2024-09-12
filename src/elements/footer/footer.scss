@@ -71,7 +71,7 @@
     }
 
     @include sbb.mq($from: wide) {
-      max-width: var(--sbb-footer-content-max-width);
+      max-inline-size: var(--sbb-footer-content-max-width);
       margin-inline: auto;
       grid-template-columns: repeat(4, 1fr);
     }
@@ -82,7 +82,7 @@
   }
 
   ::slotted(sbb-clock) {
-    width: var(--sbb-footer-clock-width);
+    inline-size: var(--sbb-footer-clock-width);
     grid-row: 1;
 
     @include sbb.mq($from: small) {
@@ -104,7 +104,7 @@
     @include sbb.mq($from: small) {
       grid-row: 3;
       grid-column: 1 / 4;
-      width: 100%;
+      inline-size: 100%;
     }
 
     @include sbb.mq($from: wide) {

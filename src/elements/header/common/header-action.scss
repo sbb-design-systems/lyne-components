@@ -70,8 +70,8 @@
   justify-content: center;
   color: var(--sbb-header-action-color);
   text-decoration: none;
-  min-height: var(--sbb-header-action-min-height);
-  min-width: var(--sbb-header-action-min-width);
+  min-block-size: var(--sbb-header-action-min-height);
+  min-inline-size: var(--sbb-header-action-min-width);
   padding-inline: var(--sbb-header-action-padding-inline);
   cursor: pointer;
   user-select: none;
@@ -113,7 +113,7 @@
   transition: transform var(--sbb-header-action-transition-duration)
     var(--sbb-header-action-transition-easing);
   will-change: transform;
-  max-width: 100%;
+  max-inline-size: 100%;
 }
 
 .sbb-header-action__icon {
@@ -121,8 +121,8 @@
   --sbb-icon-svg-stroke-color: currentcolor;
   --sbb-icon-svg-stroke-width: 1px;
 
-  min-width: var(--sbb-size-icon-ui-small);
-  min-height: var(--sbb-size-icon-ui-small);
+  min-inline-size: var(--sbb-size-icon-ui-small);
+  min-block-size: var(--sbb-size-icon-ui-small);
   line-height: 0;
 }
 

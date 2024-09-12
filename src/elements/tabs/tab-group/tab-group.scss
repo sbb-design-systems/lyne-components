@@ -19,12 +19,12 @@
 
 .tab-content {
   margin-block-start: var(--sbb-spacing-responsive-m);
-  transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
+  transition: block-size var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
 
   ::slotted(*) {
     visibility: hidden;
     opacity: 0;
-    height: 0;
+    block-size: 0;
     overflow: hidden;
 
     // If e.g. a block link with an absolute positioned element is slotted, there would be an visible space
@@ -35,7 +35,7 @@
   ::slotted(*[active]) {
     visibility: visible;
     opacity: 1;
-    height: fit-content;
+    block-size: fit-content;
     overflow: unset;
     transition: {
       duration: var(--sbb-tab-group-animation-duration);

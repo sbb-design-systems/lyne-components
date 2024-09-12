@@ -24,7 +24,7 @@
 .sbb-card-badge-wrapper {
   display: flex;
   position: relative;
-  height: fit-content;
+  block-size: fit-content;
   justify-content: end;
 
   // Divider line to content

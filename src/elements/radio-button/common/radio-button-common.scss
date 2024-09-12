@@ -93,8 +93,8 @@
   &::after {
     content: '';
     flex-shrink: 0;
-    width: var(--sbb-radio-button-dimension);
-    height: var(--sbb-radio-button-dimension);
+    inline-size: var(--sbb-radio-button-dimension);
+    block-size: var(--sbb-radio-button-dimension);
     border-radius: 50%;
     margin-block-start: var(--sbb-radio-button-icon-align);
 

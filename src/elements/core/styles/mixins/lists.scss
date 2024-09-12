@@ -61,8 +61,8 @@
           content: '\2022'; // •
           position: absolute;
           display: flex;
-          height: 1em;
-          width: 1em;
+          block-size: 1em;
+          inline-size: 1em;
           align-items: center;
           justify-content: center;
           inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-body-text) * 1em - 1em));
@@ -127,7 +127,7 @@
           var(--sbb-step-list-marker-to-text-gap)
       )
       var(--sbb-step-list-padding-inline);
-    min-height: calc(
+    min-block-size: calc(
       var(--sbb-step-list-marker-dimensions) + 2 * var(--sbb-step-list-padding-block)
     );
 
@@ -149,8 +149,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: var(--sbb-step-list-marker-dimensions);
-      width: var(--sbb-step-list-marker-dimensions);
+      block-size: var(--sbb-step-list-marker-dimensions);
+      inline-size: var(--sbb-step-list-marker-dimensions);
       margin-block-start: calc(-1 * var(--sbb-step-list-text-to-marker-block-offset));
       inset-inline-start: var(--sbb-step-list-padding-inline);
       border: var(--sbb-border-width-1x) solid var(--sbb-color-cement);

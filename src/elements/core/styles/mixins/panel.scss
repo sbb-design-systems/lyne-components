@@ -46,8 +46,8 @@
   flex-direction: column;
   justify-content: center;
   gap: var(--sbb-panel-gap);
-  width: var(--sbb-panel-width);
-  height: var(--sbb-panel-height);
+  inline-size: var(--sbb-panel-width);
+  block-size: var(--sbb-panel-height);
   padding-block: var(--sbb-panel-triangle-height);
   padding-inline: var(--sbb-panel-padding-inline);
   clip-path: polygon(

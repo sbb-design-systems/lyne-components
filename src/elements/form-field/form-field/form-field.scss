@@ -63,8 +63,8 @@
 }
 
 :host(:where(:not([width='collapse']))) {
-  min-width: #{sbb.px-to-rem-build(150)};
-  width: min(#{sbb.px-to-rem-build(300)}, 100%);
+  min-inline-size: #{sbb.px-to-rem-build(150)};
+  inline-size: min(#{sbb.px-to-rem-build(300)}, 100%);
 }
 
 :host([negative]) {
@@ -221,8 +221,8 @@
   gap: var(--sbb-form-field-gap);
   padding-inline: var(--sbb-form-field-padding-inline);
   border-radius: var(--sbb-form-field-border-radius);
-  min-height: var(--sbb-form-field-min-height);
-  max-height: var(--sbb-form-field-max-height);
+  min-block-size: var(--sbb-form-field-min-height);
+  max-block-size: var(--sbb-form-field-max-height);
   background-color: var(--sbb-form-field-background-color);
   position: relative;
 
@@ -270,7 +270,7 @@
 ::slotted(*[slot='prefix']),
 ::slotted(*[slot='suffix']) {
   display: flex;
-  min-width: var(--sbb-icon-svg-width);
+  min-inline-size: var(--sbb-icon-svg-width);
   margin-block-start: calc((var(--sbb-form-field-min-height) - var(--sbb-size-icon-ui-small)) / 2);
 }
 
@@ -282,7 +282,7 @@
 
 // As the calendar should be shown below the form field border, we have to stretch the toggle's height.
 ::slotted(sbb-datepicker-toggle) {
-  height: calc((var(--sbb-form-field-min-height) + var(--sbb-size-icon-ui-small)) / 2);
+  block-size: calc((var(--sbb-form-field-min-height) + var(--sbb-size-icon-ui-small)) / 2);
 }
 
 @include sbb.if-forced-colors {
@@ -308,12 +308,12 @@
   margin-block-start: var(--sbb-form-field-margin-block-start);
 
   // Prevents overflowing parent
-  min-width: 0;
+  min-inline-size: 0;
 }
 
 .sbb-form-field__label-spacer {
   display: flex;
-  height: calc(var(--sbb-form-field-label-text-size) * var(--sbb-typo-line-height-body-text));
+  block-size: calc(var(--sbb-form-field-label-text-size) * var(--sbb-typo-line-height-body-text));
 
   // Moves label down and input up to meet positioning requirements
   margin-block-end: var(--sbb-form-field-spacer-margin-block-end);
@@ -332,7 +332,7 @@
 
 .sbb-form-field__label {
   display: flex;
-  max-width: 100%;
+  max-inline-size: 100%;
   cursor: default;
   position: absolute;
   inset-block-start: 0;
@@ -413,7 +413,7 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
   overflow: var(--sbb-form-field-overflow);
-  width: 100%;
+  inline-size: 100%;
   box-sizing: border-box;
   color: var(--sbb-form-field-text-color);
 
@@ -467,7 +467,7 @@
     // White-space break needed for Firefox
     white-space: break-spaces;
     overflow-y: auto;
-    min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+    min-block-size: calc((var(--sbb-typo-line-height-body-text) * 1em));
   }
 
   :host([size='l']) & {
@@ -481,7 +481,7 @@
 
 .sbb-form-field__error {
   display: flex;
-  min-height: var(--sbb-form-field-error-min-height);
+  min-block-size: var(--sbb-form-field-error-min-height);
   margin-block-start: var(
     --sbb-form-field-error-padding-block-start-override,
     var(--sbb-form-field-error-padding-block-start)

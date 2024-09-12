@@ -33,18 +33,18 @@
   justify-content: center;
   background-color: var(--sbb-signet-background-color);
   aspect-ratio: var(--sbb-signet-aspect-ratio);
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 .sbb-signet .sbb-signet__svg-container {
   display: flex;
-  height: var(--sbb-signet-svg-container-height);
+  block-size: var(--sbb-signet-svg-container-height);
 }
 
 .sbb-signet svg {
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 #sbb-signet__icon {

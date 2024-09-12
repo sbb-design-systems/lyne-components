@@ -68,11 +68,11 @@
 .sbb-flip-card {
   position: relative;
   display: flex;
-  height: 100%;
+  block-size: 100%;
   flex-flow: wrap;
   flex-direction: column;
   gap: var(--sbb-spacing-responsive-xs);
-  min-height: var(--sbb-flip-card-min-height);
+  min-block-size: var(--sbb-flip-card-min-height);
   background-color: var(--sbb-flip-card-background-color);
   border-radius: var(--sbb-flip-card-border-radius);
   transition: var(--sbb-flip-card-summary-transition-duration) ease-out;
@@ -105,8 +105,8 @@
     inset-inline-start: var(--sbb-spacing-responsive-s);
     inset-block-end: var(--sbb-spacing-responsive-s);
     background-color: var(--sbb-color-midnight);
-    width: var(--sbb-size-element-xs);
-    height: var(--sbb-size-element-xs);
+    inline-size: var(--sbb-size-element-xs);
+    block-size: var(--sbb-size-element-xs);
 
     // Use this large border radius to improve the appearance of the expanding dark background.
     border-radius: #{sbb.px-to-rem-build(256)};
@@ -116,8 +116,8 @@
       opacity: 1;
       inset-inline-start: 0;
       inset-block-end: 0;
-      width: 100%;
-      height: 100%;
+      inline-size: 100%;
+      block-size: 100%;
       border-radius: var(--sbb-flip-card-border-radius);
       transition-duration: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-5x));
     }
@@ -144,7 +144,7 @@
 
   position: absolute;
   inset: 0;
-  width: 100%;
+  inline-size: 100%;
   border-radius: var(--sbb-flip-card-border-radius);
   cursor: pointer;
 

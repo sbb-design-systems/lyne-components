@@ -24,21 +24,21 @@
   &::before {
     content: '';
     display: var(--sbb-train-formation-wagon-label-display, block);
-    height: calc(var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text));
+    block-size: calc(var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text));
   }
 }
 
 .sbb-train-blocked-passage__wrapper {
-  width: var(--sbb-train-blocked-passage-icon-dimension);
+  inline-size: var(--sbb-train-blocked-passage-icon-dimension);
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: var(--sbb-train-blocked-passage-height);
+  block-size: var(--sbb-train-blocked-passage-height);
 }
 
 .sbb-train-blocked-passage__icon {
-  width: 100%;
-  height: var(--sbb-train-blocked-passage-icon-dimension);
+  inline-size: 100%;
+  block-size: var(--sbb-train-blocked-passage-icon-dimension);
   border-radius: 50%;
   background-color: var(--sbb-train-blocked-passage-background-color);
   position: relative;
@@ -48,10 +48,11 @@
 
   &::before {
     content: '';
-    width: var(--sbb-train-blocked-passage-icon-bar-width);
-    height: var(--sbb-train-blocked-passage-icon-bar-height);
+    inline-size: var(--sbb-train-blocked-passage-icon-bar-width);
+    block-size: var(--sbb-train-blocked-passage-icon-bar-height);
     border-radius: var(--sbb-train-blocked-passage-icon-bar-border-radius);
     background-color: var(--sbb-train-blocked-passage-bar-color);
-    margin: auto 0;
+    margin-block: auto;
+    margin-inline: 0;
   }
 }

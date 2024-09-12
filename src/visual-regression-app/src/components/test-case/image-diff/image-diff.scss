@@ -27,7 +27,7 @@
 }
 
 .app-image-container {
-  width: 100%;
+  inline-size: 100%;
   display: flex;
   align-items: start;
   justify-content: stretch;
@@ -43,12 +43,12 @@
 .app-image-failed {
   display: flex;
   flex: 1;
-  width: 100%;
+  inline-size: 100%;
   background-color: var(--sbb-color-white);
 }
 
 .app-image {
-  max-width: 100%;
+  max-inline-size: 100%;
 }
 
 .app-new-test-case-info {
@@ -59,8 +59,8 @@
   @include sbb.button-reset;
 
   display: flex;
-  width: 100%;
-  text-align: left;
+  inline-size: 100%;
+  text-align: start;
   cursor: pointer;
 
   &:focus-visible {

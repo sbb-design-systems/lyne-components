@@ -25,12 +25,12 @@
   & > :is(li, span) {
     @include sbb.shadow-level-5-hard;
 
-    height: var(--sbb-skiplink-list-height);
+    block-size: var(--sbb-skiplink-list-height);
     overflow: var(--sbb-skiplink-list-overflow);
     border-radius: var(--sbb-border-radius-4x);
     background-color: var(--sbb-skiplink-list-background);
     border: var(--sbb-skiplink-list-border);
-    width: fit-content;
+    inline-size: fit-content;
 
     &:focus-within {
       --sbb-skiplink-list-height: auto;

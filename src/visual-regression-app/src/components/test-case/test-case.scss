@@ -3,7 +3,7 @@
 @include sbb.box-sizing;
 
 sbb-chip {
-  width: fit-content;
+  inline-size: fit-content;
 }
 
 sbb-title {
@@ -43,9 +43,9 @@ sbb-title {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
-  height: var(--sbb-border-radius-2x);
+  block-size: var(--sbb-border-radius-2x);
   background-color: var(--sbb-color-black);
-  width: calc(var(--app-progress) * 100%);
+  inline-size: calc(var(--app-progress) * 100%);
 }
 
 .app-filter-and-toggle {

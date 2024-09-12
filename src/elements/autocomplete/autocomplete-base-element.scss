@@ -137,7 +137,7 @@
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;
-    border-top: none;
+    border-block-start: none;
   }
 }
 

@@ -106,7 +106,7 @@ sbb-form-field {
 // Ensure stable breadcrumb height during hydrating
 sbb-breadcrumb-group:not(:defined) {
   display: block;
-  height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
+  block-size: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
   overflow: hidden;
 }
 
@@ -124,9 +124,9 @@ sbb-title + p {
 }
 
 input[data-sbb-time-input] {
-  max-width: var(--sbb-time-input-max-width);
+  max-inline-size: var(--sbb-time-input-max-width);
 
   sbb-form-field[size='s'] & {
-    max-width: var(--sbb-time-input-s-max-width);
+    max-inline-size: var(--sbb-time-input-s-max-width);
   }
 }

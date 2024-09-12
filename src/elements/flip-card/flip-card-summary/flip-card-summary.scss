@@ -19,8 +19,8 @@
   overflow: hidden;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   transition: all var(--sbb-flip-card-summary-transition-duration) ease-out;
   transition-delay: var(--sbb-flip-card-summary-transition-delay);
 
@@ -61,7 +61,7 @@
 }
 
 .sbb-flip-card-summary--image-wrapper {
-  max-height: var(--sbb-flip-card-min-height);
+  max-block-size: var(--sbb-flip-card-min-height);
   grid-area: 2 / 1 / 3 / 2;
 
   :host([image-alignment='after']) & {
@@ -77,14 +77,14 @@
 
 ::slotted(img) {
   object-fit: cover;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 ::slotted(sbb-image) {
   --sbb-image-border-radius: 0;
   --sbb-image-aspect-ratio: auto;
 
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 }

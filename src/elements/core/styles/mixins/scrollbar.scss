@@ -5,8 +5,8 @@
 
   &::-webkit-scrollbar {
     // Total width
-    width: var(--sbb-scrollbar-width);
-    height: var(--sbb-scrollbar-width);
+    inline-size: var(--sbb-scrollbar-width);
+    block-size: var(--sbb-scrollbar-width);
     background-color: var(--sbb-scrollbar-track-color, transparent);
   }
 

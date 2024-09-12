@@ -30,8 +30,8 @@
 
 .sbb-link__icon {
   position: relative;
-  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
-  width: var(--sbb-size-icon-ui-small);
+  block-size: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  inline-size: var(--sbb-size-icon-ui-small);
   flex: 0 0 auto;
   align-self: start;
 

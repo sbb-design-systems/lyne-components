@@ -34,7 +34,7 @@
 
 ::slotted(:is(img[slot='image'], picture[slot='image'])) {
   display: block;
-  width: 100%;
+  inline-size: 100%;
   object-fit: cover;
   aspect-ratio: var(--sbb-lead-container-image-ratio);
   border-radius: var(--sbb-lead-container-image-border-radius);
@@ -62,7 +62,7 @@
 
 .sbb-lead-container-image {
   @include sbb.mq($from: ultra) {
-    max-width: calc(
+    max-inline-size: calc(
       var(--sbb-layout-base-page-max-width) + 2 * var(--sbb-layout-base-offset-responsive)
     );
     margin-inline: auto;

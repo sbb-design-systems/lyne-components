@@ -11,7 +11,7 @@
 }
 
 :host([orientation='vertical']) {
-  height: 100%;
+  block-size: 100%;
 }
 
 :host([negative]) {
@@ -20,11 +20,11 @@
 
 .sbb-divider {
   :host([orientation='horizontal']) & {
-    border-top: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
+    border-block-start: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
   }
 
   :host([orientation='vertical']) & {
-    height: 100%;
-    border-left: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
+    block-size: 100%;
+    border-inline-start: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
   }
 }

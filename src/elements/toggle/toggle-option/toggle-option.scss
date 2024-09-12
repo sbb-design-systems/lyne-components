@@ -11,7 +11,7 @@
   --sbb-toggle-option-line-height: calc(1em * var(--sbb-typo-line-height-body-text));
 
   display: inline-block;
-  min-width: var(--sbb-toggle-min-width);
+  min-inline-size: var(--sbb-toggle-min-width);
   overflow: hidden;
   z-index: 1;
 }
@@ -43,7 +43,7 @@ input[type='radio'] {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: var(--sbb-toggle-height);
+  block-size: var(--sbb-toggle-height);
   padding-inline: var(--sbb-toggle-padding-inline);
   border-radius: var(--sbb-toggle-option-border-radius);
   color: var(--sbb-toggle-option-color);
@@ -74,6 +74,6 @@ input[type='radio'] {
 
 sbb-icon,
 ::slotted(sbb-icon) {
-  min-width: var(--sbb-toggle-option-icon-min-size);
-  min-height: var(--sbb-toggle-option-icon-min-size);
+  min-inline-size: var(--sbb-toggle-option-icon-min-size);
+  min-block-size: var(--sbb-toggle-option-icon-min-size);
 }

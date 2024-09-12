@@ -9,7 +9,7 @@
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
-  max-width: 100%;
+  max-inline-size: 100%;
 
   --sbb-tag-border-radius: var(--sbb-border-radius-infinity);
   --sbb-tag-background-color: var(--sbb-color-white);
@@ -102,8 +102,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  height: var(--sbb-tag-height);
-  max-width: 100%;
+  block-size: var(--sbb-tag-height);
+  max-inline-size: 100%;
   gap: var(--sbb-tag-gap);
   padding-inline: var(--sbb-tag-padding-inline);
   cursor: pointer;
@@ -139,7 +139,7 @@
 .sbb-tag__icon {
   display: flex;
   align-items: center;
-  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  block-size: calc(var(--sbb-typo-line-height-body-text) * 1em);
   flex-shrink: 0;
 
   :host(:not([data-slot-names~='icon'], [icon-name])) & {

@@ -102,6 +102,6 @@
 }
 
 sbb-icon {
-  min-width: var(--sbb-size-icon-ui-small);
-  min-height: var(--sbb-size-icon-ui-small);
+  min-inline-size: var(--sbb-size-icon-ui-small);
+  min-block-size: var(--sbb-size-icon-ui-small);
 }

@@ -39,7 +39,7 @@
   &::after {
     content: '';
     display: block;
-    width: var(--sbb-train-formation-inline-padding);
+    inline-size: var(--sbb-train-formation-inline-padding);
     background-color: var(--sbb-train-formation-background-color);
   }
 
@@ -76,14 +76,15 @@
   position: relative;
   display: inline-block;
   margin-block-end: var(--sbb-spacing-fixed-4x);
-  max-width: var(--_sector-width);
+  max-inline-size: var(--_sector-width);
 
   // Line behind the sector-label
   &::before {
     content: '';
     position: absolute;
-    inset: 50% 0;
-    height: 1px;
+    inset-block: 50%;
+    inset-inline: 0;
+    block-size: 1px;
     background-color: var(--sbb-train-formation-sector-line-color);
   }
 }
@@ -91,9 +92,12 @@
 .sbb-train-formation__sector-sticky-wrapper {
   background-color: var(--sbb-train-formation-background-color);
   position: sticky;
-  inset: auto 0;
-  padding: 0 var(--sbb-spacing-fixed-1x);
-  margin: 0 var(--sbb-spacing-fixed-2x);
+  inset-block: auto;
+  inset-inline: 0;
+  padding-block: 0;
+  padding-inline: var(--sbb-spacing-fixed-1x);
+  margin-block: 0;
+  margin-inline: var(--sbb-spacing-fixed-2x);
   overflow: hidden;
   white-space: nowrap;
 }

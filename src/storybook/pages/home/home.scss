@@ -7,7 +7,7 @@ section sbb-title {
 }
 
 .navigation-button {
-  width: fit-content;
+  inline-size: fit-content;
 }
 
 .timetable-section {
@@ -19,8 +19,8 @@ section sbb-title {
 
   background-color: var(--sbb-color-white);
   border-radius: var(--sbb-border-radius-4x);
-  height: 21vh;
-  width: 100%;
+  block-size: 21vh;
+  inline-size: 100%;
   margin-block: $timetable-margin-block (-$timetable-margin-block);
 }
 
@@ -50,8 +50,8 @@ section sbb-title {
 .card-product {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   gap: var(--sbb-spacing-responsive-xxxs);
 
   sbb-icon {
@@ -71,7 +71,7 @@ section sbb-title {
   }
 
   [data-sbb-button] {
-    width: fit-content;
+    inline-size: fit-content;
   }
 
   @include sbb.mq($from: small) {
@@ -83,8 +83,8 @@ section sbb-title {
 .card-product-big {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  block-size: 100%;
+  inline-size: 100%;
   column-gap: var(--sbb-spacing-responsive-xxxs);
 
   [data-sbb-button] {
@@ -141,17 +141,17 @@ section sbb-title {
 }
 
 .avatar-mock {
-  min-width: 72px;
-  width: 72px;
-  height: 72px;
+  min-inline-size: 72px;
+  inline-size: 72px;
+  block-size: 72px;
   background-color: var(--sbb-color-cloud);
   border-radius: 50%;
   display: flex;
 
   @include sbb.mq($from: small) {
-    min-width: 80px;
-    width: 80px;
-    height: 80px;
+    min-inline-size: 80px;
+    inline-size: 80px;
+    block-size: 80px;
   }
 }
 
@@ -170,7 +170,7 @@ section sbb-title {
 }
 
 .all-purchased-tickets-button {
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 
 .tickets-container {
@@ -194,7 +194,7 @@ section sbb-title {
   display: flex;
   flex-direction: column;
   gap: var(--sbb-spacing-fixed-3x);
-  height: fit-content;
+  block-size: fit-content;
 }
 
 .teaser-hero {
@@ -202,7 +202,8 @@ section sbb-title {
 }
 
 .footer-title {
-  margin: 0 0 var(--sbb-spacing-fixed-3x);
+  margin-block: 0 var(--sbb-spacing-fixed-3x);
+  margin-inline: 0;
 }
 
 .footer-text {

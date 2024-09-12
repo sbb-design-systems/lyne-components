@@ -73,8 +73,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--sbb-visual-checkbox-dimension);
-  height: var(--sbb-visual-checkbox-dimension);
+  inline-size: var(--sbb-visual-checkbox-dimension);
+  block-size: var(--sbb-visual-checkbox-dimension);
   border-radius: var(--sbb-border-radius-2x);
   border: var(--sbb-visual-checkbox-border-width) var(--sbb-visual-checkbox-border-style)
     var(--sbb-visual-checkbox-border-color);
@@ -102,8 +102,8 @@
 
 .sbb-visual-checkbox__icon {
   display: inline-flex;
-  width: var(--sbb-visual-checkbox-dimension);
-  height: var(--sbb-visual-checkbox-dimension);
+  inline-size: var(--sbb-visual-checkbox-dimension);
+  block-size: var(--sbb-visual-checkbox-dimension);
 
   svg {
     margin: auto;

@@ -26,8 +26,8 @@
 }
 
 svg {
-  width: var(--sbb-icon-svg-width, var(--sbb-icon-default-dimension));
-  height: var(--sbb-icon-svg-height, var(--sbb-icon-default-dimension));
+  inline-size: var(--sbb-icon-svg-width, var(--sbb-icon-default-dimension));
+  block-size: var(--sbb-icon-svg-height, var(--sbb-icon-default-dimension));
   stroke: var(--sbb-icon-svg-stroke-color);
   stroke-width: var(--sbb-icon-svg-stroke-width);
 

@@ -39,11 +39,11 @@
 
 .overflow-container {
   padding: var(--sbb-spacing-responsive-xs);
-  width: 400px;
-  height: 300px;
+  inline-size: 400px;
+  block-size: 300px;
   overflow: auto;
 }
 
 .inner-box {
-  width: 500px;
+  inline-size: 500px;
 }

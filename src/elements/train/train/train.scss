@@ -33,7 +33,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 100%;
+  block-size: 100%;
 }
 
 .sbb-train__wagons {
@@ -50,17 +50,18 @@
   margin-block: auto var(--sbb-train-direction-spacing);
   display: flex;
   position: relative;
-  width: 100%;
+  inline-size: 100%;
 }
 
 .sbb-train__direction-heading {
   z-index: 1;
   display: flex;
   position: sticky;
-  inset: auto 0;
+  inset-block: auto;
+  inset-inline: 0;
   flex-direction: column;
-  width: 100%;
-  max-width: var(--sbb-train-direction-width);
+  inline-size: 100%;
+  max-inline-size: var(--sbb-train-direction-width);
   margin: 0;
   color: var(--sbb-train-direction-label-color);
   font-size: inherit;
@@ -70,9 +71,11 @@
 .sbb-train__direction-indicator {
   z-index: 0;
   position: absolute;
-  top: calc(((0.5em * var(--sbb-typo-line-height-body-text))) + var(--sbb-train-direction-spacing));
+  inset-block-start: calc(
+    ((0.5em * var(--sbb-typo-line-height-body-text))) + var(--sbb-train-direction-spacing)
+  );
   inset-inline: 0;
-  height: var(--sbb-train-direction-line-width);
+  block-size: var(--sbb-train-direction-line-width);
   background-color: var(--sbb-train-direction-line-color);
 }
 
@@ -91,10 +94,11 @@
 
 .sbb-train__sticky-wrapper {
   position: sticky;
-  inset: auto 0;
-  width: 100%;
-  max-width: var(--sbb-train-direction-width);
-  height: var(--sbb-train-direction-line-width);
+  inset-block: auto;
+  inset-inline: 0;
+  inline-size: 100%;
+  max-inline-size: var(--sbb-train-direction-width);
+  block-size: var(--sbb-train-direction-line-width);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -102,8 +106,8 @@
   // Direction indicator end-shape
   &::after {
     content: '';
-    width: var(--sbb-train-direction-line-width);
-    height: var(--sbb-train-direction-indicator-end-height);
+    inline-size: var(--sbb-train-direction-line-width);
+    block-size: var(--sbb-train-direction-indicator-end-height);
     background-color: var(--sbb-train-direction-line-color);
     display: block;
   }
@@ -111,21 +115,24 @@
 
 .sbb-train__direction-label,
 .sbb-train__direction-station {
-  margin: 0 auto;
+  margin-block: 0;
+  margin-inline: auto;
 }
 
 .sbb-train__direction-label {
-  padding: 0 var(--sbb-train-direction-label-padding);
+  padding-block: 0;
+  padding-inline: var(--sbb-train-direction-label-padding);
   background-color: var(--sbb-train-direction-label-background);
 }
 
 .sbb-train__direction-station {
   @include sbb.text-xxs--regular;
 
-  max-width: 100%;
+  max-inline-size: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
-  padding: 0 var(--sbb-train-direction-station-padding);
+  padding-block: 0;
+  padding-inline: var(--sbb-train-direction-station-padding);
 }
 
 .sbb-train__direction-label-sr {

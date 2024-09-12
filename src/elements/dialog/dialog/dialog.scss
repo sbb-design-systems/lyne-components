@@ -115,10 +115,10 @@
   margin: auto;
   padding: 0;
   border: none;
-  width: var(--sbb-dialog-width);
-  height: var(--sbb-dialog-height);
-  max-width: var(--sbb-dialog-max-width);
-  max-height: var(--sbb-dialog-max-height);
+  inline-size: var(--sbb-dialog-width);
+  block-size: var(--sbb-dialog-height);
+  max-inline-size: var(--sbb-dialog-max-width);
+  max-block-size: var(--sbb-dialog-max-height);
   overflow: auto;
   color: var(--sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
@@ -145,17 +145,17 @@
   @include sbb.mq($from: medium) {
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
-    height: fit-content;
+    block-size: fit-content;
   }
 }
 
 .sbb-dialog__wrapper {
   display: flex;
   flex-direction: column;
-  width: var(--sbb-dialog-width);
-  height: var(--sbb-dialog-height);
-  max-width: var(--sbb-dialog-max-width);
-  max-height: var(--sbb-dialog-max-height);
+  inline-size: var(--sbb-dialog-width);
+  block-size: var(--sbb-dialog-height);
+  max-inline-size: var(--sbb-dialog-max-width);
+  max-block-size: var(--sbb-dialog-max-height);
   outline: none;
   position: fixed;
   word-break: break-word;
@@ -163,7 +163,7 @@
   @include sbb.mq($from: medium) {
     position: sticky;
     inset-block-start: 0;
-    height: auto;
+    block-size: auto;
   }
 }
 

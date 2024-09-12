@@ -49,8 +49,8 @@
   // line height and letter-spacing needed to match squares drawn in Figma.
   line-height: 0;
   letter-spacing: 0.01em;
-  width: var(--sbb-size-icon-ui-small);
-  height: var(--sbb-size-icon-ui-small);
+  inline-size: var(--sbb-size-icon-ui-small);
+  block-size: var(--sbb-size-icon-ui-small);
   border: var(--sbb-breadcrumb-group-ellipsis-border-width) solid
     var(--sbb-breadcrumb-group-ellipsis-border-color);
   border-radius: 50%;

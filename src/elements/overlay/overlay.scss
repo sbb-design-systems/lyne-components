@@ -68,7 +68,7 @@
   margin: auto;
   padding: 0;
   border: none;
-  height: var(--sbb-overlay-height);
+  block-size: var(--sbb-overlay-height);
   overflow: auto;
   color: var(--sbb-overlay-color);
 
@@ -88,15 +88,15 @@
 .sbb-overlay__wrapper {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: var(--sbb-overlay-height);
+  inline-size: 100%;
+  block-size: var(--sbb-overlay-height);
   outline: none;
   position: fixed;
 
   @include sbb.mq($from: medium) {
     position: sticky;
     inset-block-start: 0;
-    height: auto;
+    block-size: auto;
   }
 }
 
@@ -107,7 +107,7 @@
   pointer-events: none;
   align-items: start;
   justify-content: space-between;
-  width: 100%;
+  inline-size: 100%;
   padding: var(--sbb-spacing-responsive-xs);
   padding-block-end: 0;
   z-index: 1;
@@ -125,7 +125,7 @@
   @include sbb.scrollbar-rules;
 
   & {
-    height: 100vh;
+    block-size: 100vh;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
   }

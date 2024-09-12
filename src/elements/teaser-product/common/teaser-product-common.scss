@@ -54,8 +54,8 @@
 
 ::slotted(img) {
   display: flex;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   object-fit: cover;
   aspect-ratio: 16 / 9;
 }
@@ -64,7 +64,7 @@
 ::slotted(sbb-image) {
   --sbb-image-border-radius: 0;
 
-  height: 100%;
+  block-size: 100%;
 }
 
 ::slotted(p.sbb-teaser-product--spacing) {
@@ -132,7 +132,7 @@
 
   @include sbb.mq($from: large) {
     align-content: center;
-    min-height: calc(
+    min-block-size: calc(
       var(--sbb-teaser-product-min-height) - 2 * var(--sbb-teaser-product-container-padding-block)
     );
   }
@@ -151,7 +151,7 @@
   }
 
   @include sbb.mq($from: large) {
-    min-height: var(--sbb-teaser-product-container-padding-block);
+    min-block-size: var(--sbb-teaser-product-container-padding-block);
     padding-block: var(--sbb-spacing-responsive-xs);
   }
 }
