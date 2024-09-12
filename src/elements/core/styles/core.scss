@@ -131,6 +131,7 @@ sbb-breadcrumb-group:not(:defined) {
   display: flex;
   padding-inline: var(--sbb-spacing-fixed-4x);
   gap: var(--sbb-spacing-fixed-1x);
+  align-items: baseline;
 
   strong + * {
     font-size: var(--sbb-font-size-text-xxs);
