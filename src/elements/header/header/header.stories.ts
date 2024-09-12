@@ -46,9 +46,9 @@ const HeaderBasicTemplate = (
     </sbb-header-button>
     ${args.size === 's' ? appName() : nothing}
     <div class="sbb-header-spacer"></div>
-    <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small"
-      >Search</sbb-header-link
-    >
+    <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small">
+      Search
+    </sbb-header-link>
     ${template}
     <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
       English
@@ -71,7 +71,12 @@ const HeaderBasicTemplate = (
           </a>
         `}
   </sbb-header>
-  <div ${sbbSpread(attributes)}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
+  <div
+    class=${args.expanded ? `sbb-page-spacing-expanded` : `sbb-page-spacing`}
+    ${sbbSpread(attributes)}
+  >
+    ${new Array(12).fill(null).map(LoremIpsumTemplate)}
+  </div>
 `;
 
 const Template = (args: Args): TemplateResult => html`
@@ -147,7 +152,6 @@ const basicArgs: Args = {
   'hide-on-scroll': false,
   'scroll-origin': undefined,
   size: size.options![0],
-  attributes: { class: 'sbb-page-spacing' },
 };
 
 export const Basic: StoryObj = {
@@ -162,7 +166,6 @@ export const Expanded: StoryObj = {
   args: {
     ...basicArgs,
     expanded: true,
-    attributes: { class: 'sbb-page-spacing-expanded' },
   },
 };
 
@@ -191,7 +194,6 @@ export const ExpandedScrollHide: StoryObj = {
     ...basicArgs,
     expanded: true,
     'hide-on-scroll': true,
-    attributes: { class: 'sbb-page-spacing-expanded' },
   },
 };
 
@@ -204,7 +206,6 @@ export const ContainerScrollOriginScrollHide: StoryObj = {
     'scroll-origin': 'container',
     attributes: {
       id: 'container',
-      class: 'sbb-page-spacing',
       style: 'height: 200px; overflow: auto;',
     },
   },
