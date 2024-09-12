@@ -1,8 +1,10 @@
-import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { tabKey } from '../../core/testing/private/keys.js';
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import {
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../../core/testing/private.js';
 
 import './header.js';
 import '../header-link.js';
@@ -64,14 +66,13 @@ describe(`sbb-header`, () => {
       describe(logoOrSignet, () => {
         it(
           'focus',
-          visualDiffDefault.with(async (setup) => {
+          visualDiffFocus.with(async (setup) => {
             await setup.withFixture(template(false, logoOrSignet === 'signet' ? 's' : 'm'), {
               padding: '0',
             });
-            setup.snapshotElement.querySelector<HTMLAnchorElement>(`a[slot='logo']`)!.focus();
-            // We focus the logo and then tab left and right again to activate the focus visible state on the link
-            await sendKeys({ press: `Shift+${tabKey}` });
-            await sendKeys({ press: tabKey });
+            setup.withStateElement(
+              setup.snapshotElement.querySelector<HTMLAnchorElement>(`a[slot='logo']`)!,
+            );
           }),
         );
       });
