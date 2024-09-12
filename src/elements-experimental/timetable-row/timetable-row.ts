@@ -227,6 +227,14 @@ export class SbbTimetableRowElement extends LitElement {
   @property({ attribute: 'loading-trip', type: Boolean }) public loadingTrip = false;
 
   /**
+   * The Footpath attribute for rendering different icons
+   * true: render a11y-icon
+   * false: render walk-icon
+   * default: render walk-icon
+   */
+  @property({ attribute: 'a11y-footpath', type: Boolean }) public a11yFootpath?: boolean;
+
+  /**
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
@@ -337,6 +345,7 @@ export class SbbTimetableRowElement extends LitElement {
       departureWalk || 0,
       arrivalWalk || 0,
       this._language.current,
+      this.a11yFootpath,
     );
 
     const departureTime: Date | undefined = departure?.time
@@ -539,6 +548,7 @@ export class SbbTimetableRowElement extends LitElement {
             .departureWalk=${departureWalk}
             .arrivalWalk=${arrivalWalk}
             ?disable-animation=${this.disableAnimation}
+            ?a11y-footpath=${this.a11yFootpath}
             .now=${this.now}
           ></sbb-pearl-chain-time>
           <div class="sbb-timetable__row-footer" role="gridcell">

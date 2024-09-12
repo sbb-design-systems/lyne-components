@@ -28,6 +28,7 @@ import {
   skippedLastArrivalStopTrip,
   trainTrip,
   walkTimeTrip,
+  a11yFootpathTrip,
 } from './timetable-row.sample-data.js';
 
 const samplePrice: Price = { price: '39.90', text: 'ab CHF', isDiscount: false };
@@ -39,6 +40,7 @@ interface Args {
   now?: number;
   active?: boolean;
   loadingTrip?: boolean;
+  a11yFootpath?: boolean;
   loadingPrice?: boolean;
 }
 
@@ -69,6 +71,7 @@ describe(`sbb-timetable-row`, () => {
     { name: 'bus', trip: busTrip },
     { name: 'ship', trip: shipTrip },
     { name: 'walkTime', trip: walkTimeTrip },
+    { name: 'a11yFootpath', trip: a11yFootpathTrip, a11yFootpath: true },
     { name: 'extended enter time', trip: extendedEnterTimeTrip },
     { name: 'notices', trip: noticesTrip, boarding: { name: 'sa-rs', text: 'boarding' } },
   ];
@@ -80,6 +83,7 @@ describe(`sbb-timetable-row`, () => {
       .boarding=${args.boarding}
       ?active=${args.active}
       ?loading-trip=${args.loadingTrip}
+      ?a11y-footpath=${args.a11yFootpath}
       ?loading-price=${args.loadingPrice}
       now=${(args.now ?? new Date('2022-12-01T12:11:00').valueOf()) / 1000}
       disable-animation
