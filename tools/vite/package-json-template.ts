@@ -27,6 +27,8 @@ export function packageJsonTemplate(
       const packageJsonTemplatePath = options.templatePath ?? './package.json';
       const rootPackageJson = JSON.parse(readFileSync(new URL(rootPackageJsonPath, root), 'utf8'));
       const litMajorVersion = +rootPackageJson.dependencies.lit.match(/\d+/);
+      const litObserversMajorVersion =
+        +rootPackageJson.dependencies['@lit-labs/observers'].match(/\d+/);
       const reactMajorVersion = +rootPackageJson.devDependencies.react.match(/\d+/);
       const litReactMajorVersion = +rootPackageJson.devDependencies['@lit/react'].match(/\d+/);
       const packageJsonTemplate = readFileSync(
@@ -37,7 +39,8 @@ export function packageJsonTemplate(
         .replaceAll('0.0.0-PLACEHOLDER', rootPackageJson.version)
         .replaceAll('0.0.0-LITREACT', `^${litReactMajorVersion}.0.0`)
         .replaceAll('0.0.0-REACT', `^${reactMajorVersion}.0.0`)
-        .replaceAll('0.0.0-LIT', `^${litMajorVersion}.0.0`);
+        .replaceAll('0.0.0-LIT', `^${litMajorVersion}.0.0`)
+        .replaceAll('0.0.0-LITOBSERVERS', `^${litObserversMajorVersion}.0.0`);
       const packageJson = JSON.parse(packageJsonContent);
       for (const key of ['author', 'license', 'repository', 'bugs']) {
         packageJson[key] = rootPackageJson[key];
