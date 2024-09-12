@@ -114,8 +114,12 @@ export const visualDiffFocus: VisualDiffState = {
     return async function (this: Mocha.Context) {
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       builder.stateElement.focus();
-      // We focus the state element and then tab left and right again to activate the focus visible state on the desired element
-      await sendKeys({ press: `Shift+${tabKey}` });
+
+      if (builder.stateElement !== builder.snapshotElement) {
+        // We focus one element before the state element by tabbing left. The next tab will then focus the state element.
+        await sendKeys({ press: `Shift+${tabKey}` });
+      }
+
       await sendKeys({ press: tabKey });
       await visualDiff(builder.snapshotElement, imageName(this.test!));
     };
