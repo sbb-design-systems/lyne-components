@@ -36,7 +36,7 @@ By default, tables are styled with alternating row stripes to enhance readabilit
 
 ### Size
 
-The available sizes are `m` (default) and `s`. Use the respective `sbb-table-*size*` classes to specify it:
+The available sizes are `m` (default), `s` and `xs`. Use the respective `sbb-table-*size*` classes to specify it:
 
 ```html
 <table class="sbb-table-s">
@@ -46,6 +46,12 @@ The available sizes are `m` (default) and `s`. Use the respective `sbb-table-*si
 <!-- Or -->
 
 <table class="sbb-table-m">
+  ...
+</table>
+
+<!-- Or -->
+
+<table class="sbb-table-xs">
   ...
 </table>
 ```
@@ -81,6 +87,7 @@ Therefore, we provide mixins you can build on top of:
 | `table`              | `sbb-table`              | The table style (equivalent to `table-m`) |
 | `table--m`           | `sbb-table-m`            | Medium size table style                   |
 | `table--s`           | `sbb-table-s`            | Small size table style                    |
+| `table--xs`          | `sbb-table-xs`           | Smallest size table style                 |
 | `table--negative`    | `sbb-table--negative`    | Negative variant style                    |
 | `table--striped`     | `sbb-table--striped`     | Striped table style                       |
 | `table--unstriped`   | `sbb-table--unstriped`   | Non-striped table style                   |
