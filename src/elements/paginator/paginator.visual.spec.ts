@@ -41,11 +41,11 @@ describe('sbb-paginator', () => {
           );
         }
 
-        for (const selected of [false, true]) {
-          describe(`selected=${selected}`, () => {
-            for (const state of [visualDiffActive, visualDiffHover]) {
+        for (const state of [visualDiffActive, visualDiffHover]) {
+          describe(`state=${state.name}`, () => {
+            for (const selected of [false, true]) {
               it(
-                `state=${state.name}`,
+                `selected=${selected}`,
                 state.with(async (setup) => {
                   await setup.withFixture(
                     html` <sbb-paginator
@@ -85,23 +85,28 @@ describe('sbb-paginator', () => {
           );
         }
 
-        for (const size of ['s', 'm']) {
-          it(
-            `size=${size} pageSizeOptions`,
-            visualDiffDefault.with(async (setup) => {
-              const pageSizeOptions = [10, 20, 50];
-              await setup.withFixture(
-                html` <sbb-paginator
-                  length="50"
-                  page-size="4"
-                  size=${size}
-                  .pageSizeOptions="${pageSizeOptions}"
-                  ?negative=${negative || nothing}
-                ></sbb-paginator>`,
-                wrapperStyle,
+        for (const pagerPosition of ['start', 'end']) {
+          describe(`pagerPosition=${pagerPosition}`, () => {
+            for (const size of ['s', 'm']) {
+              it(
+                `size=${size}`,
+                visualDiffDefault.with(async (setup) => {
+                  const pageSizeOptions = [10, 20, 50];
+                  await setup.withFixture(
+                    html` <sbb-paginator
+                      length="50"
+                      page-size="4"
+                      size=${size}
+                      pager-position=${pagerPosition}
+                      .pageSizeOptions="${pageSizeOptions}"
+                      ?negative=${negative || nothing}
+                    ></sbb-paginator>`,
+                    wrapperStyle,
+                  );
+                }),
               );
-            }),
-          );
+            }
+          });
         }
       });
     }

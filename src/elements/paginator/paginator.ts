@@ -77,16 +77,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** Current page index. */
   @property({ attribute: 'page-index', type: Number })
   public set pageIndex(value: number) {
-    const previousPageIndex = this._pageIndex;
     this._pageIndex = this._coercePageIndexInRange(value);
-    if (previousPageIndex !== this._pageIndex) {
-      this._page.emit({
-        previousPageIndex,
-        pageIndex: value,
-        length: this.length,
-        pageSize: this.pageSize,
-      });
-    }
   }
   public get pageIndex(): number {
     return this._pageIndex;
@@ -164,7 +155,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   /**
    * If the `pageSize` changes due to user interaction with the `pageSizeOptions` select,
-   * emit the `page` event and then update the `pageSize`.
+   * emit the `page` event and then update the `pageSize` value.
    */
   private _pageSizeChanged(value: number): void {
     const previousPageSize = this._pageSize;
@@ -178,6 +169,23 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       });
     }
     this.pageSize = newPageSize;
+  }
+
+  /**
+   * If the `pageIndex` changes due to user interaction,
+   * emit the `page` event and then update the `pageIndex` value.
+   */
+  private _pageIndexChanged(value: number): void {
+    const newPageIndex = this._coercePageIndexInRange(value);
+    if (this._pageIndex !== newPageIndex) {
+      this._page.emit({
+        previousPageIndex: this._pageIndex,
+        pageIndex: newPageIndex,
+        length: this.length,
+        pageSize: this.pageSize,
+      });
+    }
+    this.pageIndex = newPageIndex;
   }
 
   /** Returns the displayed page elements. */
@@ -240,8 +248,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     const current = this._getVisiblePages().find((e: Element) => e === event.target);
     if (current) {
       (event.target as HTMLElement).parentElement!.removeAttribute('data-active');
-      this.pageIndex = +current.getAttribute('data-index')!;
-      this._markForFocus = this.pageIndex;
+      const newPageIndex = +current.getAttribute('data-index')!;
+      this._pageIndexChanged(newPageIndex);
+      this._markForFocus = newPageIndex;
     }
   }
 
@@ -264,7 +273,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
           aria-label=${i18nPreviousPage[this._language.current]}
           icon-name="chevron-small-left-small"
           ?disabled=${this.pageIndex === 0}
-          @click=${() => (this.pageIndex -= 1)}
+          @click=${() => this._pageIndexChanged(this._pageIndex - 1)}
         ></sbb-mini-button>
         <sbb-divider orientation="vertical"></sbb-divider>
         <sbb-mini-button
@@ -272,7 +281,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
           aria-label=${i18nNextPage[this._language.current]}
           icon-name="chevron-small-right-small"
           ?disabled=${this.pageIndex === this._numberOfPages() - 1}
-          @click=${() => (this.pageIndex += 1)}
+          @click=${() => this._pageIndexChanged(this._pageIndex + 1)}
         ></sbb-mini-button>
       </sbb-mini-button-group>
     `;
@@ -332,7 +341,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                       aria-label="${i18nPage[this._language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
                       tabindex=${this.pageIndex === item ? '-1' : '0'}
-                      @click=${() => (this.pageIndex = item)}
+                      @click=${() => this._pageIndexChanged(item)}
                     >
                       ${item + 1}
                     </span>
