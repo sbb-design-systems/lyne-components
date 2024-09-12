@@ -115,6 +115,7 @@ const preloadIconList = [
   'walk-fast-small',
   'walk-slow-small',
   'walk-small',
+  'wheelchair-small',
   'picto:bus-right',
   'picto:train-right',
 ];
