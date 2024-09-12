@@ -8,12 +8,14 @@
   height: var(--sbb-signet-height);
 
   --sbb-signet-background-color: var(--sbb-color-red);
+  --sbb-signet-panel-color: var(--sbb-color-red);
   --sbb-signet-icon-color: var(--sbb-color-white);
   --sbb-signet-aspect-ratio: 2 / 1;
   --sbb-signet-svg-container-height: auto;
 
   @include sbb.if-forced-colors {
     --sbb-signet-background-color: ButtonText !important;
+    --sbb-signet-panel-color: ButtonText !important;
     --sbb-signet-icon-color: Canvas !important;
   }
 }
@@ -30,6 +32,11 @@
 
 :host([protective-room='panel']) {
   --sbb-signet-aspect-ratio: 143 / 48;
+  --sbb-signet-background-color: unset;
+
+  @include sbb.if-forced-colors {
+    --sbb-signet-background-color: unset !important;
+  }
 }
 
 .sbb-signet {
@@ -53,8 +60,8 @@
 }
 
 #sbb-signet__panel {
-  fill: var(--sbb-signet-background-color);
-  stroke: var(--sbb-signet-background-color);
+  fill: var(--sbb-signet-panel-color);
+  stroke: var(--sbb-signet-panel-color);
 }
 
 #sbb-signet__icon {

@@ -11,11 +11,11 @@ and it can contain a logo or a signet, which by default is the [sbb-logo](/docs/
 
 ```html
 <sbb-header>
-  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere"
-    >Menu</sbb-header-link
-  >
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
+    Menu
+  </sbb-header-link>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
-  <a slot="logo" href="/">
+  <a slot="logo" aria-label="Homepage" href="/">
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
 </sbb-header>
@@ -34,9 +34,9 @@ For the latter, the usage of the `sbb-signet` with `protective-room='panel'` is 
 
 ```html
 <sbb-header size="s">
-  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere"
-    >Menu</sbb-header-link
-  >
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
+    Menu
+  </sbb-header-link>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
   <a slot="logo" aria-label="Homepage" href="/">
     <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
@@ -56,7 +56,7 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 ```html
 <sbb-header expanded hideOnScroll>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
-  <a href="https://www.sbb.ch" slot="logo">
+  <a slot="logo" aria-label="Homepage" href="/">
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
 </sbb-header>
@@ -102,13 +102,16 @@ If a certain `sbb-header-button`/`sbb-header-link` should be shrunken (receive e
 set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-button`/`sbb-header-link`.
 
 ```html
-<sbb-header shadow="true">
+<sbb-header>
   <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere" target="_blank">
     Menu
   </sbb-header-link>
   <sbb-header-button class="sbb-header-shrinkable">
     Christina Müller has a long name
   </sbb-header-button>
+  <a slot="logo" aria-label="Homepage" href="/">
+    <sbb-logo protective-room="none"></sbb-logo>
+  </a>
 </sbb-header>
 ```
 

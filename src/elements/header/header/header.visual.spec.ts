@@ -93,5 +93,12 @@ describe(`sbb-header`, () => {
         await setup.withFixture(template(false, 's'), { padding: '0' });
       }),
     );
+
+    it(
+      `forcedColors=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(), { padding: '0', forcedColors: true });
+      }),
+    );
   });
 });
