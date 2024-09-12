@@ -25,7 +25,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
       <sbb-autocomplete-grid-option
         style=${styleMap(style)}
         icon-name=${iconName || nothing}
-        ?active=${active && i === 0}
+        ?data-active=${active && i === 0}
         ?disabled=${disabled && i === 0}
         value=${`Value ${i + 1}`}
         >Value ${i + 1}</sbb-autocomplete-grid-option

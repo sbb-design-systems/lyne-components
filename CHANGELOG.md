@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.8.0...v1.9.0) (2024-08-29)
+
+
+### Features
+
+* **sbb-autocomplete:** introduce size s ([#3020](https://github.com/sbb-design-systems/lyne-components/issues/3020)) ([aa55e7f](https://github.com/sbb-design-systems/lyne-components/commit/aa55e7fc01f44735ff96a04ceace94c34ddf5ed1))
+* **sbb-stepper:** add size 's' ([#3026](https://github.com/sbb-design-systems/lyne-components/issues/3026)) ([6c965c5](https://github.com/sbb-design-systems/lyne-components/commit/6c965c503bda51c3f646eb1400fdf4620883870f))
+* **sbb-time-input:** add size 's' ([#3018](https://github.com/sbb-design-systems/lyne-components/issues/3018)) ([375bdad](https://github.com/sbb-design-systems/lyne-components/commit/375bdad9f8413ce00cbc1f50c6a815bb0d6e5016))
+
+
+### Bug Fixes
+
+* **sbb-container:** remove relative positioning for non-image case ([#3024](https://github.com/sbb-design-systems/lyne-components/issues/3024)) ([d0d928f](https://github.com/sbb-design-systems/lyne-components/commit/d0d928f8107b3e799185357f675fd2c27498bca4))
+* **sbb-datepicker-toggle:** fix datepicker toggle empty state synchronization ([#3032](https://github.com/sbb-design-systems/lyne-components/issues/3032)) ([cae910b](https://github.com/sbb-design-systems/lyne-components/commit/cae910b1e93b19e680c98967af4646617c1d9f1d))
+* **sbb-overlay:** fix padding block ([#3028](https://github.com/sbb-design-systems/lyne-components/issues/3028)) ([6b95be6](https://github.com/sbb-design-systems/lyne-components/commit/6b95be6871d5b18f50d1011ac0c9ad5ab608f384))
+* **sbb-select:** fix display value in SSR context ([#3027](https://github.com/sbb-design-systems/lyne-components/issues/3027)) ([f733b38](https://github.com/sbb-design-systems/lyne-components/commit/f733b38e2aa3f4fe5eef73749d6611f748f3f17e))
+* **sbb-toggle:** avoid console error on checked option click ([#3034](https://github.com/sbb-design-systems/lyne-components/issues/3034)) ([94fa2b6](https://github.com/sbb-design-systems/lyne-components/commit/94fa2b64a2691cea45322dd521da74eb4e29b7e1))
+* **step-list:** fix border radius of step list elements ([#3036](https://github.com/sbb-design-systems/lyne-components/issues/3036)) ([cf26d07](https://github.com/sbb-design-systems/lyne-components/commit/cf26d0703f15e84cd79da9d8ddac597ac8650b15))
+
 ## [1.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.7.0...v1.8.0) (2024-08-22)
 
 

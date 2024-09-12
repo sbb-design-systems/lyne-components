@@ -57,9 +57,6 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: {
-      viewports: [320],
-    },
   },
   title: 'elements/sbb-signet',
 };

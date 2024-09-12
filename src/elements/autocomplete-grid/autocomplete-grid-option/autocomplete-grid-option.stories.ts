@@ -46,12 +46,6 @@ const value: InputType = {
   },
 };
 
-const active: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const disabled: InputType = {
   control: {
     type: 'boolean',
@@ -67,7 +61,6 @@ const numberOfOptions: InputType = {
 const defaultArgTypes: ArgTypes = {
   value,
   'icon-name': iconName,
-  active,
   disabled,
   numberOfOptions,
   preserveIconSpace,
@@ -76,7 +69,6 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   value: 'Value',
   'icon-name': undefined,
-  active: false,
   disabled: false,
   numberOfOptions: 5,
   preserveIconSpace: false,
@@ -84,7 +76,6 @@ const defaultArgs: Args = {
 
 const createOptions = ({
   value,
-  active,
   disabled,
   numberOfOptions,
   preserveIconSpace,
@@ -99,7 +90,6 @@ const createOptions = ({
         <sbb-autocomplete-grid-row>
           <sbb-autocomplete-grid-option
             style=${styleMap(style)}
-            ?active=${active && i === 0}
             ?disabled=${disabled && i === 0}
             value=${`${value} ${i + 1}`}
             ${sbbSpread(args)}
@@ -150,13 +140,6 @@ export const WithDisabledState: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  decorators: [borderDecorator],
-};
-
-export const WithActiveState: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, active: true },
   decorators: [borderDecorator],
 };
 

@@ -150,9 +150,9 @@ describe(`sbb-autocomplete`, () => {
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'ArrowDown' });
     await waitForLitRender(element);
-    expect(optOne).not.to.have.attribute('active');
+    expect(optOne).not.to.have.attribute('data-active');
     expect(optOne).not.to.have.attribute('selected');
-    expect(optTwo).to.have.attribute('active');
+    expect(optTwo).to.have.attribute('data-active');
     expect(optTwo).not.to.have.attribute('selected');
     expect(input).to.have.attribute('aria-activedescendant', 'option-2');
 
@@ -160,7 +160,7 @@ describe(`sbb-autocomplete`, () => {
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
 
-    expect(optTwo).not.to.have.attribute('active');
+    expect(optTwo).not.to.have.attribute('data-active');
     expect(optTwo).to.have.attribute('selected');
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');

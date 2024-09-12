@@ -86,6 +86,7 @@ snapshots["sbb-tag renders disabled with icon and amount DOM"] =
   icon-name="circle-information-small"
   role="button"
   size="m"
+  tabindex="0"
   value="information"
 >
   Info

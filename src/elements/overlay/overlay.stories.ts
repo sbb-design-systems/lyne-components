@@ -1,22 +1,11 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { userEvent, within } from '@storybook/test';
 import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
+import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready.js';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position.js';
 import sampleImages from '../core/images.js';
 
 import { SbbOverlayElement } from './overlay.js';
@@ -27,20 +16,6 @@ import '../form-field.js';
 import '../image.js';
 import '../link.js';
 import '../title.js';
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('overlay').shadowRoot!.querySelector('.sbb-overlay'),
-  );
-
-  await waitForStablePosition(() => canvas.getByTestId('overlay-trigger'));
-
-  const button = canvas.getByTestId('overlay-trigger');
-  await userEvent.click(button);
-};
 
 const expanded: InputType = {
   control: {
@@ -179,7 +154,6 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
         style="margin-block: 1rem"
         image-src=${sampleImages[1]}
         alt="Natural landscape"
-        data-chromatic="ignore"
       ></sbb-image>
       He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels
       of blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
@@ -260,7 +234,6 @@ export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Negative: StoryObj = {
@@ -270,7 +243,6 @@ export const Negative: StoryObj = {
     ...basicArgs,
     negative: true,
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Expanded: StoryObj = {
@@ -280,7 +252,6 @@ export const Expanded: StoryObj = {
     ...basicArgs,
     expanded: true,
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithBackButton: StoryObj = {
@@ -290,27 +261,23 @@ export const WithBackButton: StoryObj = {
     ...basicArgs,
     'back-button': true,
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Form: StoryObj = {
   render: FormTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const Nested: StoryObj = {
   render: NestedTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    chromatic: { disableSnapshot: false },
     actions: {
       handles: [
         SbbOverlayElement.events.willOpen,

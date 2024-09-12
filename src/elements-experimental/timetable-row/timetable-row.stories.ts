@@ -1,7 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -108,7 +107,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'card-action-label': '',
-  'disable-animation': isChromatic(),
+  'disable-animation': false,
   'loading-trip': false,
   'loading-price': false,
   'accessibility-expanded': false,

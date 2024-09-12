@@ -17,7 +17,6 @@ export const SbbCardLinkElement: StoryObj = {
 
 const meta: Meta = {
   parameters: {
-    chromatic: { disableSnapshot: true },
     docs: {
       extractComponentDescription: () => readme,
     },

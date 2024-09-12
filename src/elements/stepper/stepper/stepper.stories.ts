@@ -47,16 +47,25 @@ const horizontalFrom: InputType = {
   options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm'],
+};
+
 const defaultArgTypes: ArgTypes = {
   linear,
   orientation,
   'horizontal-from': horizontalFrom,
+  size,
 };
 
 const defaultArgs: Args = {
   linear: false,
   orientation: 'horizontal',
   'horizontal-from': 'unset',
+  size: size.options![1],
 };
 
 const codeStyle: Args = {
@@ -354,6 +363,12 @@ export const Vertical: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, orientation: orientation.options![1] },
+};
+
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const HorizontalFromSmall: StoryObj = {

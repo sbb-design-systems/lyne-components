@@ -62,6 +62,26 @@ It's also possible to display the `sbb-selection-expansion-panel` without border
 <sbb-selection-expansion-panel borderless> ... </sbb-selection-expansion-panel>
 ```
 
+The component has no `size` property but, when slotted in a `sbb-radio-button-group` or in a `sbb-checkbox-group`,
+it adapts to the parent `size` (`m` or `s`); if there's no wrapping group component,
+it adapts its `size` to the slotted `sbb-radio-button-panel` or in a `sbb-checkbox-panel`.
+
+```html
+<!-- Adapts to the size of the `sbb-checkbox-group`-->
+<sbb-checkbox-group size="s">
+  <sbb-selection-expansion-panel>
+    <sbb-checkbox-panel> ... </sbb-checkbox-panel>
+    <div slot="content">Inner Content</div>
+  </sbb-selection-expansion-panel>
+</sbb-checkbox-group>
+
+<!-- Adapts to the size of the `sbb-checkbox-panel`-->
+<sbb-selection-expansion-panel>
+  <sbb-checkbox-panel size="s"> ... </sbb-checkbox-panel>
+  <div slot="content">Inner Content</div>
+</sbb-selection-expansion-panel>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -54,12 +54,6 @@ export class SbbActionGroupElement extends LitElement {
   @property({ attribute: 'link-size', reflect: true })
   public linkSize: SbbLinkSize = 'm';
 
-  private _syncButtons(): void {
-    this.querySelectorAll?.<SbbButtonCommonElement>('[data-sbb-button]').forEach(
-      (b) => (b.size = this.buttonSize),
-    );
-  }
-
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
@@ -69,6 +63,12 @@ export class SbbActionGroupElement extends LitElement {
     if (changedProperties.has('linkSize')) {
       this._syncLinks();
     }
+  }
+
+  private _syncButtons(): void {
+    this.querySelectorAll?.<SbbButtonCommonElement>('[data-sbb-button]').forEach(
+      (b) => (b.size = this.buttonSize),
+    );
   }
 
   private _syncLinks(): void {

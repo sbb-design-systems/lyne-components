@@ -93,7 +93,6 @@ const meta: Meta = {
     `,
   ],
   parameters: {
-    chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,
     },

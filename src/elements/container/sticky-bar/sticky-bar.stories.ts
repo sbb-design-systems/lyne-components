@@ -1,6 +1,5 @@
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
-import isChromatic from 'chromatic/isChromatic';
 import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
@@ -97,12 +96,6 @@ const containerContent = (title: string): TemplateResult => html`
   <sbb-secondary-button style="margin-block-end: 0.75rem;">See more</sbb-secondary-button>
 `;
 
-const containerContentChromatic = (title: string): TemplateResult => html`
-  <sbb-title level="4">${title}</sbb-title>
-  <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
-  <sbb-secondary-button style="margin-block-end: 0.75rem;" size="m">See more</sbb-secondary-button>
-`;
-
 const Template = (): TemplateResult =>
   html` <sbb-sticky-bar>
     <sbb-secondary-button>Example</sbb-secondary-button>
@@ -137,10 +130,7 @@ const ShortTemplate = ({
     ?expanded=${containerExpanded}
     ?background-expanded=${containerBackgroundExpanded}
   >
-    ${isChromatic()
-      ? containerContentChromatic('Example title')
-      : containerContent('Example title')}
-
+    ${containerContent('Example title')}
     <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
@@ -155,7 +145,6 @@ const WithContentAfterTemplate = ({
     color=${containerColor}
     ?expanded=${containerExpanded}
     ?background-expanded=${containerBackgroundExpanded}
-    style=${isChromatic() ? 'max-height: 400px; overflow-y: scroll;' : nothing}
   >
     ${containerContent('Example title')} ${containerContent('Another one')}
     ${containerContent('And another one')} ${containerContent('And a last one')}

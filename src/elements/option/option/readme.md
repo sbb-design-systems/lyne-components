@@ -16,14 +16,12 @@ at the component start using the `iconName` property or via custom content using
 
 Like the native `option`, the component has a `value` property.
 
-The `selected`, `disabled` and `active` properties are connected to the self-named states.
+The `selected` and `disabled` properties are connected to the self-named states.
 When disabled, the selection via click is prevented.
 If the `sbb-option` is nested in a `sbb-optgroup` component, it inherits from the parent the `disabled` state.
 
 ```html
 <sbb-option value="value" selected>Option label</sbb-option>
-
-<sbb-option value="value" active>Option label</sbb-option>
 
 <sbb-option value="value" disabled>Option label</sbb-option>
 ```
@@ -58,13 +56,12 @@ If the label slot contains only a **text node**, it is possible to search for te
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `active`   | `active`    | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                          |
-| `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                               |
-| `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `selected` | `selected`  | public  | `boolean`              |         | Whether the option is selected.                                                                                                  |
-| `value`    | `value`     | public  | `string`               |         | Value of the option.                                                                                                             |
+| Name       | Attribute   | Privacy | Type                  | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`             | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `selected` | `selected`  | public  | `boolean`             |         | Whether the option is selected.                                                                                                  |
+| `value`    | `value`     | public  | `string`              |         | Value of the option.                                                                                                             |
 
 ## Events
 
