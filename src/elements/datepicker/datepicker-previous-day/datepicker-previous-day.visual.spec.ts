@@ -42,11 +42,12 @@ describe(`sbb-datepicker-previous-day`, () => {
               `,
               { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
             );
-            setup.withStateElement(
-              value
-                ? setup.snapshotElement.querySelector('sbb-datepicker-previous-day')!
-                : setup.snapshotElement,
-            );
+
+            if (value) {
+              setup.withStateElement(
+                setup.snapshotElement.querySelector('sbb-datepicker-previous-day')!,
+              );
+            }
           }),
         );
       });

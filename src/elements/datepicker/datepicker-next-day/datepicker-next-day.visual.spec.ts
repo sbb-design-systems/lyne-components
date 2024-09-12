@@ -40,11 +40,12 @@ describe(`sbb-datepicker-next-day`, () => {
               `,
               { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
             );
-            setup.withStateElement(
-              value
-                ? setup.snapshotElement.querySelector('sbb-datepicker-next-day')!
-                : setup.snapshotElement,
-            );
+
+            if (value) {
+              setup.withStateElement(
+                setup.snapshotElement.querySelector('sbb-datepicker-next-day')!,
+              );
+            }
           }),
         );
       });

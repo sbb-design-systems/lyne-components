@@ -119,6 +119,8 @@ export const visualDiffFocus: VisualDiffState = {
       const link = document.createElement(`a`);
       link.href = '#';
       link.classList.add('sbb-screen-reader-only');
+      // We need to copy the slot so we can ensure it's landing at the right position
+      link.slot = builder.stateElement.slot;
       builder.stateElement.insertAdjacentElement('beforebegin', link);
       link.focus();
       await sendKeys({ press: tabKey });
