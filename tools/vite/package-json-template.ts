@@ -28,7 +28,7 @@ export function packageJsonTemplate(
       const rootPackageJson = JSON.parse(readFileSync(new URL(rootPackageJsonPath, root), 'utf8'));
       const litMajorVersion = +rootPackageJson.dependencies.lit.match(/\d+/);
       const litObserversMajorVersion =
-        +rootPackageJson.dependencies['@lit-labs/observers'].match(/\d+/);
+        +rootPackageJson.devDependencies['@lit-labs/observers'].match(/\d+/);
       const reactMajorVersion = +rootPackageJson.devDependencies.react.match(/\d+/);
       const litReactMajorVersion = +rootPackageJson.devDependencies['@lit/react'].match(/\d+/);
       const packageJsonTemplate = readFileSync(
