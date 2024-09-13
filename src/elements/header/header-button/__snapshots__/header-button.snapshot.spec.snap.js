@@ -6,7 +6,6 @@ snapshots["sbb-header-button renders DOM"] =
   aria-label="a11y label"
   data-action=""
   data-button=""
-  dir="ltr"
   expand-from="zero"
   icon-name="pie-small"
   name="test"

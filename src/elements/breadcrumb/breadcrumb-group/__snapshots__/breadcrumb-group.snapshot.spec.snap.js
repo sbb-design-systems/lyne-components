@@ -9,7 +9,6 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
   <sbb-breadcrumb
     data-action=""
     data-link=""
-    dir="ltr"
     href="https://example.com"
     icon-name="pie-small"
     slot="li-0"
@@ -18,7 +17,6 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
   <sbb-breadcrumb
     data-action=""
     data-link=""
-    dir="ltr"
     href="https://example.com/one"
     slot="li-1"
   >
@@ -28,7 +26,6 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
     aria-current="page"
     data-action=""
     data-link=""
-    dir="ltr"
     href="https://example.com/one"
     slot="li-2"
   >

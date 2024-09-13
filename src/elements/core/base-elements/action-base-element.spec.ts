@@ -25,7 +25,7 @@ describe(`SbbActionBaseElement`, () => {
     });
 
     it('check host attributes and content', () => {
-      expect(element.getAttribute('dir')).to.be.equal('ltr');
+      expect(element.matches(':dir(ltr)')).to.be.equal(true);
       expect(element.shadowRoot!.firstElementChild!.classList.contains('generic-action')).to.be
         .true;
       expect(element.shadowRoot!.textContent!.trim()).to.be.equal('Action');

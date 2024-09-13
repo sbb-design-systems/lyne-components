@@ -27,7 +27,6 @@ snapshots["sbb-navigation-section renders Shadow DOM"] =
             data-action=""
             data-button=""
             data-sbb-button=""
-            dir="ltr"
             icon-name="chevron-small-left-small"
             id="sbb-navigation-section-back-button"
             negative=""

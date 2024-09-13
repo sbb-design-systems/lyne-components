@@ -5,7 +5,6 @@ snapshots["sbb-breadcrumb renders with text DOM"] =
 `<sbb-breadcrumb
   data-action=""
   data-link=""
-  dir="ltr"
   download=""
   href="https://example.com/test"
   rel="subsection"
@@ -41,7 +40,6 @@ snapshots["sbb-breadcrumb renders with icon DOM"] =
 `<sbb-breadcrumb
   data-action=""
   data-link=""
-  dir="ltr"
   href="/"
   icon-name="house-small"
 >
@@ -79,7 +77,6 @@ snapshots["sbb-breadcrumb renders with icon and text DOM"] =
 `<sbb-breadcrumb
   data-action=""
   data-link=""
-  dir="ltr"
   href="/"
   icon-name="house-small"
 >
