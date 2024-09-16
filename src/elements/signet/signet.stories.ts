@@ -14,7 +14,7 @@ const protectiveRoom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['none', 'minimal', 'ideal'],
+  options: ['none', 'minimal', 'ideal', 'panel'],
 };
 
 const accessibilityLabel: InputType = {
@@ -49,6 +49,12 @@ export const IdealProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options![2] },
+};
+
+export const PanelProtectiveRoom: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![3] },
 };
 
 const meta: Meta = {

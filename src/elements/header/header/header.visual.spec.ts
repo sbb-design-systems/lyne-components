@@ -1,11 +1,15 @@
+import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
+import { tabKey } from '../../core/testing/private/keys.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import './header.js';
 import '../header-link.js';
 import '../header-button.js';
 import '../../menu.js';
+import '../../logo.js';
+import '../../signet.js';
 
 describe(`sbb-header`, () => {
   const loremIpsumTemplate = `
@@ -19,24 +23,27 @@ describe(`sbb-header`, () => {
       ante, mollis eu lorem id, commodo cursus risus.
   `;
 
-  const template = ({ expanded }: { expanded?: boolean }): TemplateResult => html`
+  const template = (expanded: boolean = false, size: 'm' | 's' = 'm'): TemplateResult => html`
     <style>
       ${' .last-element {display: none;} '}
       ${' @media screen and (width >= 840px) { .last-element { display: block; } }'}
       ${' @media screen and (width < 1023px) { .sbb-header-spacer { display: none; } }'}
     </style>
-    <sbb-header ?expanded=${expanded}>
+    <sbb-header ?expanded=${expanded} size=${size}>
       <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small"
-        >Search
+      <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small">
+        Search
       </sbb-header-link>
       <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
         Christina Müller
       </sbb-header-button>
       <sbb-header-button icon-name="globe-small" class="last-element"> English </sbb-header-button>
+      ${size === 's'
+        ? html`<a href="#" slot="logo"><sbb-signet protective-room="panel"></sbb-signet></a>`
+        : html`<a href="#" slot="logo"><sbb-logo protective-room="none"></sbb-logo></a>`}
     </sbb-header>
     <div class=${expanded ? 'sbb-page-spacing-expanded' : 'sbb-page-spacing'}>
       ${loremIpsumTemplate}
@@ -48,18 +55,49 @@ describe(`sbb-header`, () => {
       it(
         `expanded=${expanded}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ expanded }), { padding: '0' });
+          await setup.withFixture(template(expanded), { padding: '0' });
         }),
       );
+    }
+
+    for (const logoOrSignet of ['logo', 'signet']) {
+      describe(logoOrSignet, () => {
+        it(
+          'focus',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template(false, logoOrSignet === 'signet' ? 's' : 'm'), {
+              padding: '0',
+            });
+            setup.snapshotElement.querySelector<HTMLAnchorElement>(`a[slot='logo']`)!.focus();
+            // We focus the logo and then tab left and right again to activate the focus visible state on the link
+            await sendKeys({ press: `Shift+${tabKey}` });
+            await sendKeys({ press: tabKey });
+          }),
+        );
+      });
     }
 
     it(
       `scroll`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({}), { padding: '0' });
+        await setup.withFixture(template(), { padding: '0' });
 
         // Scroll page down
         setup.withPostSetupAction(() => window.scrollTo(0, document.body.scrollHeight));
+      }),
+    );
+
+    it(
+      `size=s`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(false, 's'), { padding: '0' });
+      }),
+    );
+
+    it(
+      `forcedColors=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(), { padding: '0', forcedColors: true });
       }),
     );
   });

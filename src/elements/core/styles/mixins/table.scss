@@ -137,6 +137,17 @@
   }
 }
 
+@mixin table--xs {
+  --sbb-table-header-padding-block: 0;
+  --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-1x);
+  --sbb-table-cell-padding-block: 0;
+  --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-1x);
+
+  tbody > tr > td {
+    @include typo.text-xs--regular;
+  }
+}
+
 @mixin table--theme-iron {
   --sbb-table-cell-color: var(--sbb-color-iron);
 
