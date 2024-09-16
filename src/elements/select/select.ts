@@ -11,7 +11,10 @@ import { hostAttributes } from '../core/decorators.js';
 import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
+  type FormRestoreReason,
+  type FormRestoreState,
   SbbDisabledMixin,
+  SbbFormAssociatedMixin,
   SbbHydrationMixin,
   SbbNegativeMixin,
   SbbUpdateSchedulerMixin,
@@ -55,7 +58,15 @@ export interface SelectChange {
   role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbSelectElement extends SbbUpdateSchedulerMixin(
-  SbbDisabledMixin(SbbNegativeMixin(SbbHydrationMixin(SbbOpenCloseBaseElement))),
+  SbbDisabledMixin(
+    SbbNegativeMixin(
+      SbbHydrationMixin(
+        SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
+          SbbOpenCloseBaseElement,
+        ),
+      ),
+    ),
+  ),
 ) {
   public static override styles: CSSResultGroup = style;
 
@@ -71,14 +82,11 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     didClose: 'didClose',
   } as const;
 
-  /** The value of the select component. If `multiple` is true, it's an array. */
-  @property() public value?: string | string[];
-
   /** The placeholder used if no value has been selected. */
   @property() public placeholder?: string;
 
   /** Whether the select allows for multiple selection. */
-  @property({ type: Boolean, reflect: true }) public multiple = false;
+  @property({ reflect: true, type: Boolean }) public multiple = false;
 
   /** Whether the select is required. */
   @property({ reflect: true, type: Boolean }) public required = false;
@@ -292,7 +300,8 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('value')) {
+    // On initialization, the '_onValueChanged' is called by the connectedCallback
+    if (changedProperties.has('value') && this._didLoad) {
       this._onValueChanged(this.value!);
     }
     if (changedProperties.has('negative') || changedProperties.has('multiple')) {
@@ -304,6 +313,50 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     super.disconnectedCallback();
     this.prepend(this._triggerElement); // Take back the trigger element previously moved to the light DOM
     this._openPanelEventsController?.abort();
+  }
+
+  protected override updateFormValue(): void {
+    let formValue: string | FormData | null;
+
+    if (this.multiple && this.value instanceof Array) {
+      formValue = new FormData();
+      (this.value as string[]).forEach((el) => (formValue as FormData).append(this.name, el));
+    } else {
+      formValue = this.value as string | null;
+    }
+    this.internals.setFormValue(formValue);
+  }
+
+  /**
+   * The reset value is the attribute value (the setup value), null otherwise.
+   * @internal
+   */
+  public formResetCallback(): void {
+    this.value = this.hasAttribute('value') ? this.getAttribute('value') : null;
+  }
+
+  /**
+   * @internal
+   */
+  public formStateRestoreCallback(
+    state: FormRestoreState | null,
+    _reason: FormRestoreReason,
+  ): void {
+    if (!state) {
+      this.value = null;
+      return;
+    }
+
+    if (this.multiple) {
+      // if multiple, the state format is ['field-name', 'value'][]
+      this.value = (state as [string, string][]).map((entries) => entries[1]);
+    } else {
+      this.value = state as string;
+    }
+  }
+
+  protected override isDisabledExternally(): boolean {
+    return this.formDisabled;
   }
 
   private _syncProperties(): void {
