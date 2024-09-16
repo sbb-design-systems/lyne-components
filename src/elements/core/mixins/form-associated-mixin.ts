@@ -1,15 +1,15 @@
 import type { LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import type { Constructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.js';
 
-export declare abstract class SbbFormAssociatedMixinType {
+export declare abstract class SbbFormAssociatedMixinType<V> {
   public get form(): HTMLFormElement | null;
   public get name(): string;
   public set name(value: string);
   public get type(): string;
-  public get value(): string | null;
-  public set value(value: string | null);
+  public get value(): V | null;
+  public set value(value: V | null);
 
   public get validity(): ValidityState;
   public get validationMessage(): string;
@@ -36,17 +36,17 @@ export declare abstract class SbbFormAssociatedMixinType {
  * The FormAssociatedMixin enables native form support for custom controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
+export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>, V = string>(
   superClass: T,
-): Constructor<SbbFormAssociatedMixinType> & T => {
+): AbstractConstructor<SbbFormAssociatedMixinType<V>> & T => {
   abstract class SbbFormAssociatedElement
     extends superClass
-    implements Partial<SbbFormAssociatedMixinType>
+    implements Partial<SbbFormAssociatedMixinType<V>>
   {
     public static formAssociated = true;
 
     /**
-     * Returns the form owner of internals target element.
+     * Returns the form owner of the internals of the target element.
      */
     public get form(): HTMLFormElement | null {
       return this.internals.form;
@@ -73,14 +73,14 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
 
     /** Value of the form element. */
     @property()
-    public set value(value: string | null) {
+    public set value(value: V | null) {
       this._value = value;
       this.updateFormValue();
     }
-    public get value(): string | null {
+    public get value(): V | null {
       return this._value;
     }
-    private _value: string | null = null;
+    private _value: V | null = null;
 
     /**
      * Returns the ValidityState object for internals target element.
@@ -192,12 +192,16 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
       reason: FormRestoreReason,
     ): void;
 
-    /** Should be called when form value is changed. */
+    /**
+     * Should be called when form value is changed.
+     * TODO this should probably be abstract
+     */
     protected updateFormValue(): void {
-      this.internals.setFormValue(this.value);
+      this.internals.setFormValue(this.value ? this.value.toString() : null);
     }
   }
-  return SbbFormAssociatedElement as unknown as Constructor<SbbFormAssociatedMixinType> & T;
+  return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType<V>> &
+    T;
 };
 
 /**
