@@ -29,7 +29,6 @@ describe(`SbbButtonBaseElement`, () => {
     });
 
     it('check host attributes and content', () => {
-      expect(element.matches(':dir(ltr)')).to.be.equal(true);
       expect(element.getAttribute('role')).to.be.equal('button');
       expect(element.getAttribute('tabindex')).to.be.equal('0');
       expect(element.shadowRoot!.firstElementChild!.classList.contains('generic-button')).to.be
