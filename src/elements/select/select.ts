@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -16,7 +17,6 @@ import {
   SbbNegativeMixin,
   SbbUpdateSchedulerMixin,
 } from '../core/mixins.js';
-import { AgnosticMutationObserver } from '../core/observers.js';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
@@ -123,9 +123,14 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _isPointerDownEventOnMenu: boolean = false;
   private _abort = new SbbConnectedAbortController(this);
 
-  private _selectAttributeObserver = new AgnosticMutationObserver(
-    (mutationsList: MutationRecord[]) => this._onSelectAttributesChange(mutationsList),
-  );
+  // Although `this` is observed, we have to postpone observing
+  // into firstUpdated() to achieve a correct initial state.
+  private _selectAttributeObserver = new MutationController(this, {
+    config: { attributeFilter: ['aria-labelledby'] },
+    target: null,
+    skipInitial: true,
+    callback: (mutationsList: MutationRecord[]) => this._onSelectAttributesChange(mutationsList),
+  });
 
   /**
    * The 'combobox' input element
@@ -153,7 +158,10 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _onSelectAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'aria-labelledby') {
-        this._triggerElement.setAttribute('aria-labelledby', this.getAttribute('aria-labelledby')!);
+        this._triggerElement?.setAttribute(
+          'aria-labelledby',
+          this.getAttribute('aria-labelledby')!,
+        );
       }
     }
   }
@@ -238,6 +246,8 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
+    this._selectAttributeObserver.observe(this);
+
     // Override the default focus behavior
     this.focus = () => this._triggerElement.focus();
     this.blur = () => this._triggerElement.blur();
@@ -280,7 +290,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
     if (formField) {
       this.negative = formField.hasAttribute('negative');
-      this._selectAttributeObserver.observe(this, { attributeFilter: ['aria-labelledby'] });
     }
     this._syncProperties();
 
@@ -321,7 +330,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.prepend(this._triggerElement); // Take back the trigger element previously moved to the light DOM
-    this._selectAttributeObserver.disconnect();
     this._openPanelEventsController?.abort();
   }
 
