@@ -1,3 +1,4 @@
+import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -8,7 +9,6 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
-import { AgnosticIntersectionObserver } from '../../core/observers.js';
 
 import style from './sticky-bar.scss?lit&inline';
 
@@ -34,9 +34,12 @@ export class SbbStickyBarElement extends LitElement {
   @property({ reflect: true }) public color?: 'white' | 'milk';
 
   private _intersector?: HTMLSpanElement;
-  private _observer = new AgnosticIntersectionObserver((entries) =>
-    this._toggleShadowVisibility(entries[0]),
-  );
+  private _observer = new IntersectionController(this, {
+    // Although `this` is observed, we have to postpone observing
+    // into firstUpdated() to achieve a correct initial state.
+    target: null,
+    callback: (entries) => this._toggleShadowVisibility(entries[0]),
+  });
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -82,11 +85,6 @@ export class SbbStickyBarElement extends LitElement {
     );
 
     this.toggleAttribute('data-sticking', isSticky);
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._observer.disconnect();
   }
 
   protected override render(): TemplateResult {
