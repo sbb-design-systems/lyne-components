@@ -7,14 +7,17 @@ the first one can contain one or more action ([sbb-header-button](/docs/elements
 [sbb-header-link](/docs/elements-sbb-header-sbb-header-link--docs))
 or other action items like [sbb-button](/docs/elements-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link--docs),
 and it is displayed at the left end of the component; the second slot is displayed at the right end,
-and it can contain a logo, which by default is the [sbb-logo](/docs/elements-sbb-logo--docs).
+and it can contain a logo or a signet, which by default is the [sbb-logo](/docs/elements-sbb-logo--docs).
 
 ```html
 <sbb-header>
-  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere"
-    >Menu</sbb-header-link
-  >
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
+    Menu
+  </sbb-header-link>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
+  <a slot="logo" aria-label="Homepage" href="/">
+    <sbb-logo protective-room="none"></sbb-logo>
+  </a>
 </sbb-header>
 ```
 
@@ -25,6 +28,21 @@ Setting the `expanded` property will cause the `sbb-header` component to take up
 To avoid that tabbed/focused elements get hidden behind the header,
 it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top` to `var(--sbb-header-height)` or to a greater value.
 With this, it's ensured that content will be visible all the time.
+
+The component has two sizes, named `m` (default) and `s`.
+For the latter, the usage of the `sbb-signet` with `protective-room='panel'` is suggested.
+
+```html
+<sbb-header size="s">
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
+    Menu
+  </sbb-header-link>
+  <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
+  <a slot="logo" aria-label="Homepage" href="/">
+    <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+  </a>
+</sbb-header>
+```
 
 ### Positioning and visibility
 
@@ -38,7 +56,7 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 ```html
 <sbb-header expanded hideOnScroll>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
-  <a href="https://www.sbb.ch" slot="logo">
+  <a slot="logo" aria-label="Homepage" href="/">
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
 </sbb-header>
@@ -58,7 +76,8 @@ by adding classes to `sbb-header-button`/`sbb-header-link` elements and then def
 
 To achieve this result, a `div` tag with a CSS class named `sbb-header-spacer` was added between the first
 and the second `sbb-header-button` item, then a class named `last-element` was added to the last one.
-Finally, the following custom CSS has been added(\*). The result can be seen in the home and home--logged-in stories.
+Finally, the following custom CSS has been added(\*).
+The result can be seen in the [home](/story/pages-home--home) and [home-logged-in](/story/pages-home--home-logged-in) stories.
 
 ```css
 .last-element {
@@ -78,19 +97,42 @@ Finally, the following custom CSS has been added(\*). The result can be seen in 
 }
 ```
 
+The `sbb-header` can be also customized by adding the application's name and version:
+a helper class named `sbb-header-info` is provided to achieve the correct visual result.
+
+```html
+<sbb-header size="s">
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
+    Menu
+  </sbb-header-link>
+
+  <span class="sbb-header-info">
+    <strong>Application name</strong>
+    <span>V. 1.1</span>
+  </span>
+
+  <a slot="logo" aria-label="Homepage" href="/">
+    <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+  </a>
+</sbb-header>
+```
+
 ### Content overflow
 
 If a certain `sbb-header-button`/`sbb-header-link` should be shrunken (receive ellipsis) when there is too little space,
 set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-button`/`sbb-header-link`.
 
 ```html
-<sbb-header shadow="true">
+<sbb-header>
   <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere" target="_blank">
     Menu
   </sbb-header-link>
   <sbb-header-button class="sbb-header-shrinkable">
     Christina Müller has a long name
   </sbb-header-button>
+  <a slot="logo" aria-label="Homepage" href="/">
+    <sbb-logo protective-room="none"></sbb-logo>
+  </a>
 </sbb-header>
 ```
 
@@ -107,6 +149,7 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 | `expanded`     | `expanded`       | public  | `boolean`                           | `false` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. |
 | `hideOnScroll` | `hide-on-scroll` | public  | `boolean`                           | `false` | Whether the header should hide and show on scroll.                                                                   |
 | `scrollOrigin` | `scroll-origin`  | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                            |
+| `size`         | `size`           | public  | `'m' \| 's'`                        | `'m'`   | Size of the header.                                                                                                  |
 
 ## CSS Properties
 
