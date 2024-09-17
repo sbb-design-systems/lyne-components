@@ -123,15 +123,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _isPointerDownEventOnMenu: boolean = false;
   private _abort = new SbbConnectedAbortController(this);
 
-  // Although `this` is observed, we have to postpone observing
-  // into firstUpdated() to achieve a correct initial state.
-  private _selectAttributeObserver = new MutationController(this, {
-    config: { attributeFilter: ['aria-labelledby'] },
-    target: null,
-    skipInitial: true,
-    callback: (mutationsList: MutationRecord[]) => this._onSelectAttributesChange(mutationsList),
-  });
-
   /**
    * The 'combobox' input element
    * @internal
@@ -149,6 +140,15 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     return this._options.filter(
       (opt: SbbOptionElement) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
+  }
+
+  public constructor() {
+    super();
+
+    new MutationController(this, {
+      config: { attributeFilter: ['aria-labelledby'] },
+      callback: (mutationsList: MutationRecord[]) => this._onSelectAttributesChange(mutationsList),
+    });
   }
 
   /**
@@ -245,8 +245,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-
-    this._selectAttributeObserver.observe(this);
 
     // Override the default focus behavior
     this.focus = () => this._triggerElement.focus();
