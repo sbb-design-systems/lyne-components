@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
@@ -9,7 +9,6 @@ import { slotState } from '../../core/decorators.js';
 import { isFirefox, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
-import { AgnosticMutationObserver } from '../../core/observers.js';
 import type { SbbSelectElement } from '../../select.js';
 
 import style from './form-field.scss?lit&inline';
@@ -114,13 +113,13 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitE
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
    */
-  private _formFieldAttributeObserver = new AgnosticMutationObserver(
-    (mutations: MutationRecord[]) => {
-      if (mutations.some((m) => m.type === 'attributes')) {
-        this._readInputState();
-      }
-    },
-  );
+  private _formFieldAttributeObserver = !isServer
+    ? new MutationObserver((mutations: MutationRecord[]) => {
+        if (mutations.some((m) => m.type === 'attributes')) {
+          this._readInputState();
+        }
+      })
+    : null;
 
   private _inputAbortController = new AbortController();
 
@@ -143,7 +142,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitE
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._formFieldAttributeObserver.disconnect();
+    this._formFieldAttributeObserver?.disconnect();
     this._inputAbortController.abort();
   }
 
@@ -215,8 +214,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitE
       this._input.setAttribute('rows', this._input.getAttribute('rows') || '3');
     }
 
-    this._formFieldAttributeObserver.disconnect();
-    this._formFieldAttributeObserver.observe(this._input, {
+    this._formFieldAttributeObserver?.disconnect();
+    this._formFieldAttributeObserver?.observe(this._input, {
       attributes: true,
       attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid'],
     });

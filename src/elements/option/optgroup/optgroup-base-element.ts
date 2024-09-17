@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -11,7 +12,6 @@ import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
-import { AgnosticMutationObserver } from '../../core/observers.js';
 import type { SbbOptionBaseElement } from '../option.js';
 
 import style from './optgroup-base-element.scss?lit&inline';
@@ -38,12 +38,18 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
 
   @state() private _inertAriaGroups = false;
 
-  private _negativeObserver = new AgnosticMutationObserver(() => this._onNegativeChange());
-
   protected abstract get options(): SbbOptionBaseElement[];
 
   public constructor() {
     super();
+
+    new MutationController(this, {
+      config: {
+        attributes: true,
+        attributeFilter: ['data-negative'],
+      },
+      callback: () => this._onNegativeChange(),
+    });
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {
@@ -56,13 +62,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._negativeObserver?.disconnect();
     this.setAttributeFromParent();
-    this._negativeObserver.observe(this, {
-      attributes: true,
-      attributeFilter: ['data-negative'],
-    });
-
     this._proxyGroupLabelToOptions();
   }
 
@@ -79,11 +79,6 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
     if (changedProperties.has('label')) {
       this._proxyGroupLabelToOptions();
     }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._negativeObserver?.disconnect();
   }
 
   protected abstract setAttributeFromParent(): void;

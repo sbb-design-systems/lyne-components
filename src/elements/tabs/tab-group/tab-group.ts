@@ -1,3 +1,5 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -7,7 +9,6 @@ import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { EventEmitter, throttle } from '../../core/eventing.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
-import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 import { SbbTabElement } from '../tab.js';
 
@@ -64,15 +65,21 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   private _tabGroupElement!: HTMLElement;
   private _tabContentElement!: HTMLElement;
   private _abort = new SbbConnectedAbortController(this);
-  private _tabAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
-    this._onTabAttributesChange(mutationsList),
-  );
-  private _tabGroupResizeObserver = new AgnosticResizeObserver((entries) =>
-    this._onTabGroupElementResize(entries),
-  );
-  private _tabContentResizeObserver = new AgnosticResizeObserver((entries) =>
-    this._onTabContentElementResize(entries),
-  );
+  private _tabAttributeObserver = new MutationController(this, {
+    target: null,
+    config: tabObserverConfig,
+    callback: (mutationsList) => this._onTabAttributesChange(mutationsList),
+  });
+  private _tabGroupResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: (entries) => this._onTabGroupElementResize(entries),
+  });
+  private _tabContentResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: (entries) => this._onTabContentElementResize(entries),
+  });
 
   /** Size variant, either s, l or xl. */
   @property()
@@ -144,13 +151,6 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
 
   private _enabledTabs(): InterfaceSbbTabGroupTab[] {
     return this._tabs.filter((t) => !t.hasAttribute('disabled'));
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._tabAttributeObserver.disconnect();
-    this._tabContentResizeObserver.disconnect();
-    this._tabGroupResizeObserver.disconnect();
   }
 
   private _updateSize(): void {
@@ -343,7 +343,7 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
       tabLabel.tab.toggleAttribute('active', tabLabel.active);
     }
 
-    this._tabAttributeObserver.observe(tabLabel, tabObserverConfig);
+    this._tabAttributeObserver.observe(tabLabel);
     tabLabel.slot = 'tab-bar';
   }
 
