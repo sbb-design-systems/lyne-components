@@ -1,7 +1,6 @@
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
 import { readConfig } from '../config.js';
-import { AgnosticMutationObserver } from '../observers.js';
 
 /**
  * The LanguageController is a reactive controller that observes the "lang" attribute
@@ -19,11 +18,13 @@ export class SbbLanguageController implements ReactiveController {
   private static readonly _listeners = new Set<SbbLanguageController>();
 
   /** MutationObserver that observes the "lang" attribute of the <html> element. */
-  private static readonly _observer = new AgnosticMutationObserver((mutations) => {
-    if (mutations[0].oldValue !== document.documentElement.getAttribute('lang')) {
-      SbbLanguageController._listeners.forEach((l) => l._callHandlers());
-    }
-  });
+  private static readonly _observer = !isServer
+    ? new MutationObserver((mutations) => {
+        if (mutations[0].oldValue !== document.documentElement.getAttribute('lang')) {
+          SbbLanguageController._listeners.forEach((l) => l._callHandlers());
+        }
+      })
+    : null;
   private static readonly _observerConfig = {
     attributeFilter: ['lang'],
     attributeOldValue: true,
@@ -66,8 +67,11 @@ export class SbbLanguageController implements ReactiveController {
   }
 
   public hostConnected(): void {
+    if (isServer) {
+      return;
+    }
     if (!SbbLanguageController._listeners.size) {
-      SbbLanguageController._observer.observe(
+      SbbLanguageController._observer!.observe(
         document.documentElement,
         SbbLanguageController._observerConfig,
       );
@@ -80,10 +84,13 @@ export class SbbLanguageController implements ReactiveController {
   }
 
   public hostDisconnected(): void {
+    if (isServer) {
+      return;
+    }
     this._previousLanguage = this.current;
     SbbLanguageController._listeners.delete(this);
     if (!SbbLanguageController._listeners.size) {
-      SbbLanguageController._observer.disconnect();
+      SbbLanguageController._observer!.disconnect();
     }
   }
 

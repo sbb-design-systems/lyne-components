@@ -1,12 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
-import type { SbbTertiaryButtonElement } from '../button.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import { i18nMapContainerButtonLabel } from '../core/i18n.js';
-import { AgnosticIntersectionObserver } from '../core/observers.js';
 
 import style from './map-container.scss?lit&inline';
 
@@ -33,11 +31,36 @@ export class SbbMapContainerElement extends LitElement {
 
   @state() private _scrollUpButtonVisible = false;
 
-  private _intersector?: HTMLSpanElement;
   private _language = new SbbLanguageController(this);
-  private _observer = new AgnosticIntersectionObserver((entries) =>
-    this._toggleButtonVisibilityOnIntersect(entries),
-  );
+  private _observer = new IntersectionController(this, {
+    target: null,
+    callback: (entries) => this._toggleButtonVisibilityOnIntersect(entries),
+  });
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('hideScrollUpButton')) {
+      const intersectorElement = this._intersector();
+
+      if (!this.hideScrollUpButton && intersectorElement) {
+        this._observer.observe(intersectorElement);
+      } else if (intersectorElement) {
+        this._observer.unobserve(intersectorElement);
+      }
+    }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    if (!this.hideScrollUpButton) {
+      this._observer.observe(this._intersector()!);
+    }
+  }
+
+  private _intersector(): HTMLElement | null {
+    return this.shadowRoot?.querySelector('#intersector') ?? null;
+  }
 
   /**
    * Button click callback to trigger the scroll to container top
@@ -46,6 +69,7 @@ export class SbbMapContainerElement extends LitElement {
   private _onScrollButtonClick(): void {
     this.scrollIntoView({ behavior: 'smooth' });
   }
+
   /**
    * Intersection callback. Toggles the visibility.
    * @param entries
@@ -59,23 +83,6 @@ export class SbbMapContainerElement extends LitElement {
     });
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._updateIntersectionObserver();
-  }
-
-  private _updateIntersectionObserver(): void {
-    this._observer.disconnect();
-    if (!this.hideScrollUpButton && this._intersector) {
-      this._observer.observe(this._intersector);
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._observer.disconnect();
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-map-container">
@@ -83,17 +90,7 @@ export class SbbMapContainerElement extends LitElement {
           <slot name="map"></slot>
         </div>
         <div class="sbb-map-container__sidebar">
-          ${!this.hideScrollUpButton
-            ? html`<span
-                ${ref((el?: Element): void => {
-                  if (this._intersector === el) {
-                    return;
-                  }
-                  this._intersector = el as HTMLSpanElement;
-                  this._updateIntersectionObserver();
-                })}
-              ></span>`
-            : nothing}
+          <span id="intersector"></span>
 
           <slot></slot>
 
@@ -104,11 +101,7 @@ export class SbbMapContainerElement extends LitElement {
                 icon-name="location-pin-map-small"
                 type="button"
                 @click=${() => this._onScrollButtonClick()}
-                ${ref((ref?: Element) => {
-                  if (ref) {
-                    (ref as SbbTertiaryButtonElement).inert = !this._scrollUpButtonVisible;
-                  }
-                })}
+                .inert=${!this._scrollUpButtonVisible}
               >
                 ${i18nMapContainerButtonLabel[this._language.current]}
               </sbb-tertiary-button>`
