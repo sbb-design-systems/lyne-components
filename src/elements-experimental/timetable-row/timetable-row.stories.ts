@@ -19,6 +19,7 @@ import {
   quayChangeTrip,
   shipTrip,
   walkTimeTrip,
+  a11yFootpathTrip,
   extendedEnterTimeTrip,
   noticesTrip,
   skippedDepartureStopTrip,
@@ -58,6 +59,12 @@ const accessibilityExpanded: InputType = {
   },
 };
 
+const a11yFootpath: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const active: InputType = {
   control: {
     type: 'boolean',
@@ -91,6 +98,7 @@ const defaultArgTypes: ArgTypes = {
   'loading-trip': loadingTrip,
   'loading-price': loadingPrice,
   'accessibility-expanded': accessibilityExpanded,
+  'a11y-footpath': a11yFootpath,
   active,
   now,
   boarding,
@@ -103,6 +111,7 @@ const defaultArgs: Args = {
   'loading-trip': false,
   'loading-price': false,
   'accessibility-expanded': false,
+  'a11y-footpath': false,
   active: false,
   now: new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
@@ -344,6 +353,16 @@ export const WalkTime: StoryObj = {
   args: {
     ...defaultArgs,
     trip: walkTimeTrip,
+  },
+};
+
+export const A11yFootpath: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    trip: a11yFootpathTrip,
+    'a11y-footpath': 'true',
   },
 };
 

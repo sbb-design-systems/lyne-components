@@ -9,6 +9,15 @@ import { SbbIconBase } from './icon-base.js';
 @customElement('sbb-icon')
 export class SbbIconElement extends SbbIconBase {
   /**
+   * We need to additionally observe the svgicon attribute
+   * for sbb-angular compatibility.
+   * @internal
+   */
+  public static override get observedAttributes(): string[] {
+    return super.observedAttributes.concat('svgicon');
+  }
+
+  /**
    * The provided name consisting of the namespace and the name of the icon.
    * If the namespace is missing, the default namespace "sbb" will be used.
    * E.g. `name` (will use "sbb" as namespace) or `namespace:name`.

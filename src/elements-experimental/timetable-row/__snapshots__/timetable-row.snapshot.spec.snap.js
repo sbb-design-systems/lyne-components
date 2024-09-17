@@ -276,6 +276,7 @@ snapshots["sbb-timetable-row renders bus strip Shadow DOM"] =
 
 snapshots["sbb-timetable-row renders loading state DOM"] = 
 `<sbb-timetable-row
+  a11y-footpath=""
   loading-price=""
   loading-trip=""
 >
