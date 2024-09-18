@@ -92,14 +92,14 @@ describe(`sbb-form-field`, () => {
     ></textarea>`;
 
   const icons: TemplateResult = html`
-    <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
+    <sbb-icon slot="prefix" name="face-smiling-small"></sbb-icon>
     <sbb-icon slot="suffix" name="dog-small"></sbb-icon>
   `;
 
   const buttonsAndPopover = ({ disabled, readonly }: any): TemplateResult => html`
     <sbb-mini-button
       slot="prefix"
-      icon-name="pie-small"
+      icon-name="face-smiling-small"
       ?disabled=${disabled || readonly}
       aria-label="Input button"
     ></sbb-mini-button>

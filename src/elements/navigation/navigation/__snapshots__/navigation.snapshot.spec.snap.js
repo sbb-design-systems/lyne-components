@@ -12,7 +12,6 @@ snapshots["sbb-navigation renders DOM"] =
     <sbb-navigation-button
       data-action=""
       data-button=""
-      dir="ltr"
       id="nav-1"
       role="button"
       size="l"
@@ -24,7 +23,6 @@ snapshots["sbb-navigation renders DOM"] =
     <sbb-navigation-button
       data-action=""
       data-button=""
-      dir="ltr"
       id="nav-2"
       role="button"
       size="l"
@@ -52,7 +50,6 @@ snapshots["sbb-navigation renders Shadow DOM"] =
         data-action=""
         data-button=""
         data-sbb-button=""
-        dir="ltr"
         icon-name="cross-small"
         id="sbb-navigation-close-button"
         negative=""

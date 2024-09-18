@@ -6,7 +6,6 @@ snapshots["sbb-button-static renders without icon DOM"] =
   data-action=""
   data-sbb-button=""
   data-slot-names="unnamed"
-  dir="ltr"
   disabled=""
   negative=""
   size="m"
@@ -33,7 +32,6 @@ snapshots["sbb-button-static renders with slotted icon DOM"] =
   data-action=""
   data-sbb-button=""
   data-slot-names="icon unnamed"
-  dir="ltr"
   size="l"
 >
   <sbb-icon

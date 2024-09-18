@@ -1,12 +1,10 @@
-import { getDocumentWritingMode } from '../dom.js';
-
 interface PrevAndNextKeys {
   prevKey: string;
   nextKey: string;
 }
 
 function getPrevAndNextKeys(): PrevAndNextKeys {
-  if (getDocumentWritingMode() === 'rtl') {
+  if (document.documentElement.matches(':dir(rtl)')) {
     return { prevKey: 'ArrowRight', nextKey: 'ArrowLeft' };
   } else {
     return { prevKey: 'ArrowLeft', nextKey: 'ArrowRight' };

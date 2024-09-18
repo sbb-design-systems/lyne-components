@@ -31,7 +31,7 @@ describe('sbb-autocomplete-grid-row', () => {
                 () => html`
                   <sbb-autocomplete-grid-cell>
                     <sbb-autocomplete-grid-button
-                      icon-name="pie-small"
+                      icon-name="face-smiling-small"
                       ?negative=${negative}
                     ></sbb-autocomplete-grid-button>
                   </sbb-autocomplete-grid-cell>

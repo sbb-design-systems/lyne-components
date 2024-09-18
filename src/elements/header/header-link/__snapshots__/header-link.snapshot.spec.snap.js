@@ -6,7 +6,6 @@ snapshots["sbb-header-link renders DOM"] =
   accessibility-label="a11y label"
   data-action=""
   data-link=""
-  dir="ltr"
   expand-from="small"
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="pie-small"

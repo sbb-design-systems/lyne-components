@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-autocomplete renders standalone Safari DOM"] = 
 `<sbb-autocomplete
   data-state="closed"
-  dir="ltr"
   id="sbb-autocomplete-1"
   origin="origin"
   role="listbox"
@@ -86,7 +85,6 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
   >
   <sbb-autocomplete
     data-state="closed"
-    dir="ltr"
     id="sbb-autocomplete-3"
     role="listbox"
   >
@@ -154,7 +152,6 @@ snapshots["sbb-autocomplete renders in form field Safari Shadow DOM"] =
 snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] = 
 `<sbb-autocomplete
   data-state="closed"
-  dir="ltr"
   origin="origin"
   trigger="trigger"
 >
@@ -236,10 +233,7 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
     autocomplete="off"
     role="combobox"
   >
-  <sbb-autocomplete
-    data-state="closed"
-    dir="ltr"
-  >
+  <sbb-autocomplete data-state="closed">
     <sbb-option
       aria-selected="false"
       data-slot-names="unnamed"

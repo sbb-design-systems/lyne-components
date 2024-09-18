@@ -8,7 +8,6 @@ snapshots["sbb-block-link renders DOM"] =
   data-link=""
   data-sbb-link=""
   data-slot-names="unnamed"
-  dir="ltr"
   download=""
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-placement="start"

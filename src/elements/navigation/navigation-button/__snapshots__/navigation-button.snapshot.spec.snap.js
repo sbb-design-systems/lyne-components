@@ -5,7 +5,6 @@ snapshots["sbb-navigation-button renders DOM"] =
 `<sbb-navigation-button
   data-action=""
   data-button=""
-  dir="ltr"
   role="button"
   size="l"
   tabindex="0"
