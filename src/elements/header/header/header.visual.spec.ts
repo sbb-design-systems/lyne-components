@@ -79,16 +79,6 @@ describe(`sbb-header`, () => {
     }
 
     it(
-      `scroll`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(), { padding: '0' });
-
-        // Scroll page down
-        setup.withPostSetupAction(() => window.scrollTo(0, document.body.scrollHeight));
-      }),
-    );
-
-    it(
       `size=s`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template(false, 's'), { padding: '0' });
@@ -99,6 +89,17 @@ describe(`sbb-header`, () => {
       `forcedColors=true`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template(), { padding: '0', forcedColors: true });
+      }),
+    );
+
+    // Scroll should be the last test as it can influence the scrolling for other tests
+    it(
+      `scroll`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(), { padding: '0' });
+
+        // Scroll page down
+        setup.withPostSetupAction(() => window.scrollTo(0, document.body.scrollHeight));
       }),
     );
   });
