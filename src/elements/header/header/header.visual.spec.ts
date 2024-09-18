@@ -53,6 +53,11 @@ describe(`sbb-header`, () => {
   `;
 
   describeViewports({ viewports: ['zero', 'ultra'], viewportHeight: 300 }, () => {
+    beforeEach(() => {
+      // Reset scrolling
+      window.scrollTo(0, 0);
+    });
+
     for (const expanded of [true, false]) {
       it(
         `expanded=${expanded}`,
@@ -92,7 +97,6 @@ describe(`sbb-header`, () => {
       }),
     );
 
-    // Scroll should be the last test as it can influence the scrolling for other tests
     it(
       `scroll`,
       visualDiffDefault.with(async (setup) => {
