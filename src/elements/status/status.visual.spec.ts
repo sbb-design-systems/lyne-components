@@ -51,7 +51,7 @@ describe(`sbb-status`, () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-status
-                icon-name="pie-small"
+                icon-name="face-smiling-small"
                 title-content=${titleContent || nothing}
                 type="success"
               >
@@ -66,7 +66,7 @@ describe(`sbb-status`, () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-status title-content=${titleContent || nothing} type="success">
-                <sbb-icon slot="icon" name="pie-small"></sbb-icon>
+                <sbb-icon slot="icon" name="face-smiling-small"></sbb-icon>
                 Status text.
               </sbb-status>
             `);
