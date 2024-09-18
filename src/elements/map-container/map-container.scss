@@ -18,6 +18,7 @@
   --sbb-map-container-map-height: calc(
     var(--sbb-map-container-map-height-zero) + var(--sbb-map-container-border-radius)
   );
+  --sbb-map-container-mobile-sticky-block-start: 0;
 
   @include sbb.mq($from: small) {
     --sbb-map-container-map-height: calc(
@@ -106,6 +107,7 @@
 
   // We use "to: medium" to avoid resetting the styles
   @include sbb.mq($to: medium) {
+    inset-block-start: var(--sbb-map-container-mobile-sticky-block-start);
     height: var(--sbb-map-container-map-height);
   }
 
