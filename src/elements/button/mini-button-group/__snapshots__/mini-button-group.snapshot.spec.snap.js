@@ -9,7 +9,6 @@ snapshots["sbb-mini-button-group renders DOM"] =
   <sbb-mini-button
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="pen-small"
     role="button"
     slot="li-0"
@@ -26,7 +25,6 @@ snapshots["sbb-mini-button-group renders DOM"] =
   <sbb-mini-button
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="pen-small"
     role="button"
     slot="li-2"
@@ -70,7 +68,6 @@ snapshots["sbb-mini-button-group renders negative DOM"] =
   <sbb-mini-button
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="pen-small"
     negative=""
     role="button"
@@ -81,7 +78,6 @@ snapshots["sbb-mini-button-group renders negative DOM"] =
   <sbb-mini-button
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="pen-small"
     negative=""
     role="button"
