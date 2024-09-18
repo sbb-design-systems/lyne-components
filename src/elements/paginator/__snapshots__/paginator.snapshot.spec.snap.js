@@ -22,7 +22,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         aria-label="Previous page"
         data-action=""
         data-button=""
-        dir="ltr"
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
@@ -43,7 +42,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         aria-label="Next page"
         data-action=""
         data-button=""
-        dir="ltr"
         disabled=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
@@ -54,24 +52,25 @@ snapshots["sbb-paginator renders Shadow DOM"] =
       </sbb-mini-button>
     </sbb-mini-button-group>
     <ul class="sbb-paginator__pages">
-      <li
-        class="sbb-paginator__page--number"
-        data-selected=""
-      >
-        <span
+      <li class="sbb-paginator__page--number">
+        <button
           aria-current="true"
           aria-label="Page 1"
           class="sbb-paginator__page--number-item"
           data-index="0"
-          role="button"
-          tabindex="-1"
+          data-selected=""
         >
-          1
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            1
+          </span>
+        </button>
       </li>
     </ul>
   </span>
 </div>
+<sbb-screen-reader-only role="status">
+  Page 1 selected
+</sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders Shadow DOM */
 
@@ -96,7 +95,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         aria-label="Previous page"
         data-action=""
         data-button=""
-        dir="ltr"
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
@@ -116,7 +114,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         aria-label="Next page"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         role="button"
@@ -126,53 +123,51 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
       </sbb-mini-button>
     </sbb-mini-button-group>
     <ul class="sbb-paginator__pages">
-      <li
-        class="sbb-paginator__page--number"
-        data-selected=""
-      >
-        <span
+      <li class="sbb-paginator__page--number">
+        <button
           aria-current="true"
           aria-label="Page 1"
           class="sbb-paginator__page--number-item"
           data-index="0"
-          role="button"
-          tabindex="-1"
+          data-selected=""
         >
-          1
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            1
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 2"
           class="sbb-paginator__page--number-item"
           data-index="1"
-          role="button"
-          tabindex="0"
         >
-          2
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            2
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 3"
           class="sbb-paginator__page--number-item"
           data-index="2"
-          role="button"
-          tabindex="0"
         >
-          3
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            3
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 4"
           class="sbb-paginator__page--number-item"
           data-index="3"
-          role="button"
-          tabindex="0"
         >
-          4
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            4
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--ellipsis">
         <span class="sbb-paginator__page--ellipsis-item">
@@ -180,19 +175,22 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         </span>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 13"
           class="sbb-paginator__page--number-item"
           data-index="12"
-          role="button"
-          tabindex="0"
         >
-          13
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            13
+          </span>
+        </button>
       </li>
     </ul>
   </span>
 </div>
+<sbb-screen-reader-only role="status">
+  Page 1 selected
+</sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders ellipsis on end side Shadow DOM */
 
@@ -217,7 +215,6 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         aria-label="Previous page"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
         role="button"
@@ -236,7 +233,6 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         aria-label="Next page"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         role="button"
@@ -247,15 +243,15 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
     </sbb-mini-button-group>
     <ul class="sbb-paginator__pages">
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 1"
           class="sbb-paginator__page--number-item"
           data-index="0"
-          role="button"
-          tabindex="0"
         >
-          1
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            1
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--ellipsis">
         <span class="sbb-paginator__page--ellipsis-item">
@@ -263,56 +259,57 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         </span>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 10"
           class="sbb-paginator__page--number-item"
           data-index="9"
-          role="button"
-          tabindex="0"
         >
-          10
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            10
+          </span>
+        </button>
       </li>
-      <li
-        class="sbb-paginator__page--number"
-        data-selected=""
-      >
-        <span
+      <li class="sbb-paginator__page--number">
+        <button
           aria-current="true"
           aria-label="Page 11"
           class="sbb-paginator__page--number-item"
           data-index="10"
-          role="button"
-          tabindex="-1"
+          data-selected=""
         >
-          11
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            11
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 12"
           class="sbb-paginator__page--number-item"
           data-index="11"
-          role="button"
-          tabindex="0"
         >
-          12
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            12
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 13"
           class="sbb-paginator__page--number-item"
           data-index="12"
-          role="button"
-          tabindex="0"
         >
-          13
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            13
+          </span>
+        </button>
       </li>
     </ul>
   </span>
 </div>
+<sbb-screen-reader-only role="status">
+  Page 11 selected
+</sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders ellipsis on start side Shadow DOM */
 
@@ -337,7 +334,6 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         aria-label="Previous page"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
         role="button"
@@ -356,7 +352,6 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         aria-label="Next page"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         role="button"
@@ -367,15 +362,15 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
     </sbb-mini-button-group>
     <ul class="sbb-paginator__pages">
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 1"
           class="sbb-paginator__page--number-item"
           data-index="0"
-          role="button"
-          tabindex="0"
         >
-          1
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            1
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--ellipsis">
         <span class="sbb-paginator__page--ellipsis-item">
@@ -383,41 +378,39 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         </span>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 7"
           class="sbb-paginator__page--number-item"
           data-index="6"
-          role="button"
-          tabindex="0"
         >
-          7
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            7
+          </span>
+        </button>
       </li>
-      <li
-        class="sbb-paginator__page--number"
-        data-selected=""
-      >
-        <span
+      <li class="sbb-paginator__page--number">
+        <button
           aria-current="true"
           aria-label="Page 8"
           class="sbb-paginator__page--number-item"
           data-index="7"
-          role="button"
-          tabindex="-1"
+          data-selected=""
         >
-          8
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            8
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 9"
           class="sbb-paginator__page--number-item"
           data-index="8"
-          role="button"
-          tabindex="0"
         >
-          9
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            9
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--ellipsis">
         <span class="sbb-paginator__page--ellipsis-item">
@@ -425,19 +418,22 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         </span>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 13"
           class="sbb-paginator__page--number-item"
           data-index="12"
-          role="button"
-          tabindex="0"
         >
-          13
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            13
+          </span>
+        </button>
       </li>
     </ul>
   </span>
 </div>
+<sbb-screen-reader-only role="status">
+  Page 8 selected
+</sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders ellipsis on both side Shadow DOM */
 
@@ -462,7 +458,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         aria-label="Previous page"
         data-action=""
         data-button=""
-        dir="ltr"
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
@@ -482,7 +477,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         aria-label="Next page"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         role="button"
@@ -492,64 +486,62 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
       </sbb-mini-button>
     </sbb-mini-button-group>
     <ul class="sbb-paginator__pages">
-      <li
-        class="sbb-paginator__page--number"
-        data-selected=""
-      >
-        <span
+      <li class="sbb-paginator__page--number">
+        <button
           aria-current="true"
           aria-label="Page 1"
           class="sbb-paginator__page--number-item"
           data-index="0"
-          role="button"
-          tabindex="-1"
+          data-selected=""
         >
-          1
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            1
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 2"
           class="sbb-paginator__page--number-item"
           data-index="1"
-          role="button"
-          tabindex="0"
         >
-          2
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            2
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 3"
           class="sbb-paginator__page--number-item"
           data-index="2"
-          role="button"
-          tabindex="0"
         >
-          3
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            3
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 4"
           class="sbb-paginator__page--number-item"
           data-index="3"
-          role="button"
-          tabindex="0"
         >
-          4
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            4
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 5"
           class="sbb-paginator__page--number-item"
           data-index="4"
-          role="button"
-          tabindex="0"
         >
-          5
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            5
+          </span>
+        </button>
       </li>
     </ul>
   </span>
@@ -583,7 +575,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         aria-labelledby="sbb-paginator-options-label-10"
         data-option-panel-origin-borderless=""
         data-state="closed"
-        dir="ltr"
         value="10"
       >
         <sbb-option
@@ -624,6 +615,9 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
     </sbb-form-field>
   </div>
 </div>
+<sbb-screen-reader-only role="status">
+  Page 1 selected
+</sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
 
@@ -648,7 +642,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         aria-label="Previous page"
         data-action=""
         data-button=""
-        dir="ltr"
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
@@ -668,7 +661,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         aria-label="Next page"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         role="button"
@@ -678,64 +670,62 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
       </sbb-mini-button>
     </sbb-mini-button-group>
     <ul class="sbb-paginator__pages">
-      <li
-        class="sbb-paginator__page--number"
-        data-selected=""
-      >
-        <span
+      <li class="sbb-paginator__page--number">
+        <button
           aria-current="true"
           aria-label="Page 1"
           class="sbb-paginator__page--number-item"
           data-index="0"
-          role="button"
-          tabindex="-1"
+          data-selected=""
         >
-          1
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            1
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 2"
           class="sbb-paginator__page--number-item"
           data-index="1"
-          role="button"
-          tabindex="0"
         >
-          2
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            2
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 3"
           class="sbb-paginator__page--number-item"
           data-index="2"
-          role="button"
-          tabindex="0"
         >
-          3
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            3
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 4"
           class="sbb-paginator__page--number-item"
           data-index="3"
-          role="button"
-          tabindex="0"
         >
-          4
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            4
+          </span>
+        </button>
       </li>
       <li class="sbb-paginator__page--number">
-        <span
+        <button
           aria-label="Page 5"
           class="sbb-paginator__page--number-item"
           data-index="4"
-          role="button"
-          tabindex="0"
         >
-          5
-        </span>
+          <span class="sbb-paginator__page--number-item-label">
+            5
+          </span>
+        </button>
       </li>
     </ul>
   </span>
@@ -769,7 +759,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         aria-labelledby="sbb-paginator-options-label-10"
         data-option-panel-origin-borderless=""
         data-state="closed"
-        dir="ltr"
         id="sbb-select-2"
         role="listbox"
         value="10"
@@ -812,6 +801,9 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
     </sbb-form-field>
   </div>
 </div>
+<sbb-screen-reader-only role="status">
+  Page 1 selected
+</sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
 
@@ -863,6 +855,10 @@ snapshots["sbb-paginator renders with options A11y tree Chrome"] =
       "name": "Items per page",
       "haspopup": "listbox",
       "value": "10"
+    },
+    {
+      "role": "text",
+      "name": "Page 1 selected"
     }
   ]
 }
@@ -918,6 +914,10 @@ snapshots["sbb-paginator renders with options A11y tree Firefox"] =
       "name": "Items per page",
       "haspopup": "listbox",
       "value": "10"
+    },
+    {
+      "role": "text leaf",
+      "name": "Page 1 selected"
     }
   ]
 }

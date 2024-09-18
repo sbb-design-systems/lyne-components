@@ -21,7 +21,6 @@
   --sbb-paginator-justify-content: start;
   --sbb-paginator-wrapping-group-wrap: wrap-reverse;
   --sbb-paginator-wrap: wrap;
-  --sbb-paginator-cursor: pointer;
 }
 
 :host([size='s']) {
@@ -84,8 +83,23 @@
   color: var(--sbb-paginator-page-color);
 }
 
-.sbb-paginator__page--number {
-  cursor: var(--sbb-paginator-cursor);
+.sbb-paginator__page--ellipsis-item,
+.sbb-paginator__page--number-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--sbb-size-element-xxs);
+  height: var(--sbb-size-element-xxs);
+}
+
+.sbb-paginator__page--number-item {
+  @include sbb.button-reset;
+  @include sbb.text-s--regular;
+
+  position: relative;
+  cursor: pointer;
+  outline: none !important;
+  color: var(--sbb-paginator-page-color);
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
 
   &::before {
@@ -103,34 +117,18 @@
     }
   }
 
-  &:hover:not([data-selected]) {
-    @include sbb.hover-mq($hover: true) {
-      --sbb-paginator-page-color: var(--sbb-color-granite);
-      --sbb-paginator-page-background-color: var(--sbb-color-milk);
-      --sbb-paginator-page-inset: calc(var(--sbb-border-width-2x) * -1);
-      --sbb-paginator-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+    &::before {
+      @include sbb.focus-outline;
 
-      :host([negative]) & {
-        --sbb-paginator-page-background-color: var(--sbb-color-charcoal);
-      }
-    }
-  }
-
-  &:is(:active, [data-active]):not([data-selected]) {
-    --sbb-paginator-page-color: var(--sbb-color-charcoal);
-    --sbb-paginator-page-background-color: var(--sbb-color-cloud);
-    --sbb-paginator-page-inset: 0;
-
-    :host([negative]) & {
-      --sbb-paginator-page-color: var(--sbb-color-milk);
-      --sbb-paginator-page-background-color: var(--sbb-color-iron);
+      outline-offset: var(--sbb-border-width-2x);
     }
   }
 
   &[data-selected] {
-    @include sbb.text-s--bold;
+    @include sbb.text--bold;
 
-    --sbb-paginator-cursor: default;
     --sbb-paginator-page-color: var(--sbb-color-charcoal);
     --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
     --sbb-paginator-page-border-style: solid;
@@ -143,40 +141,39 @@
       --sbb-paginator-page-border-color: var(--sbb-color-white);
     }
   }
-}
 
-.sbb-paginator__page--ellipsis-item,
-.sbb-paginator__page--number-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: var(--sbb-size-element-xxs);
-  height: var(--sbb-size-element-xxs);
-}
+  &:hover {
+    @include sbb.hover-mq($hover: true) {
+      --sbb-paginator-page-background-color: var(--sbb-color-milk);
+      --sbb-paginator-page-inset: calc(var(--sbb-border-width-2x) * -1);
+      --sbb-paginator-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
 
-.sbb-paginator__page--number-item {
-  position: relative;
-  outline: none !important;
-  z-index: 1;
-  transition: transform var(--sbb-paginator-animation-duration)
-    var(--sbb-paginator-animation-easing);
-  transform: translateY(var(--sbb-paginator-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
+      :host([negative]) & {
+        --sbb-paginator-page-background-color: var(--sbb-color-charcoal);
+      }
+    }
+  }
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
-    &::before {
-      @include sbb.focus-outline;
+  &:active {
+    --sbb-paginator-page-color: var(--sbb-color-charcoal);
+    --sbb-paginator-page-background-color: var(--sbb-color-cloud);
+    --sbb-paginator-page-inset: 0;
+    --sbb-paginator-translate-y-content-hover: 0;
 
-      content: '';
-      position: absolute;
-      display: block;
-      inset: 0;
-      outline-offset: var(--sbb-border-width-2x);
-      border-radius: var(--sbb-border-radius-infinity);
+    :host([negative]) & {
+      --sbb-paginator-page-color: var(--sbb-color-milk);
+      --sbb-paginator-page-background-color: var(--sbb-color-iron);
     }
   }
 }
 
+.sbb-paginator__page--number-item-label {
+  transition: transform var(--sbb-paginator-animation-duration)
+    var(--sbb-paginator-animation-easing);
+  transform: translateY(var(--sbb-paginator-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
+}
+
+// Needed for the sbb-select
 .sbb-screen-reader-only {
   @include sbb.screen-reader-only;
 }

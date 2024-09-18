@@ -25,6 +25,7 @@ import '../divider.js';
 import '../form-field.js';
 import '../select.js';
 import '../option.js';
+import '../screen-reader-only.js';
 
 export type SbbPaginatorPageEventDetails = {
   length: number;
@@ -244,25 +245,12 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
       return;
     }
 
-    event.preventDefault();
     const current = this._getVisiblePages().find((e: Element) => e === event.target);
     if (current) {
-      (event.target as HTMLElement).parentElement!.removeAttribute('data-active');
       const newPageIndex = +current.getAttribute('data-index')!;
       this._pageIndexChanged(newPageIndex);
       this._markForFocus = newPageIndex;
     }
-  }
-
-  private _handleKeydown(event: KeyboardEvent): void {
-    if (event.key !== ' ') {
-      return;
-    }
-
-    event.preventDefault();
-    this._getVisiblePages()
-      .find((e: Element) => e === event.target)
-      ?.parentElement!.toggleAttribute('data-active', true);
   }
 
   private _renderPrevNextButtons(): TemplateResult {
@@ -319,7 +307,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   private _renderPageNumbers(): TemplateResult {
     return html`
-      <ul class="sbb-paginator__pages" @keyup=${this._handleKeyUp} @keydown=${this._handleKeydown}>
+      <ul class="sbb-paginator__pages" @keyup=${this._handleKeyUp}>
         ${repeat(
           this._getVisiblePagesIndex(),
           (item: number | 'ellipsis'): TemplateResult =>
@@ -330,26 +318,26 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                   </li>
                 `
               : html`
-                  <li
-                    class="sbb-paginator__page--number"
-                    ?data-selected=${this.pageIndex === item || nothing}
-                  >
-                    <span
-                      role="button"
+                  <li class="sbb-paginator__page--number">
+                    <button
+                      ?data-selected=${this.pageIndex === item || nothing}
                       class="sbb-paginator__page--number-item"
                       data-index=${item}
                       aria-label="${i18nPage[this._language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
-                      tabindex=${this.pageIndex === item ? '-1' : '0'}
                       @click=${() => this._pageIndexChanged(item)}
                     >
-                      ${item + 1}
-                    </span>
+                      <span class="sbb-paginator__page--number-item-label">${item + 1}</span>
+                    </button>
                   </li>
                 `,
         )}
       </ul>
     `;
+  }
+
+  private _currentPageLabel(): string {
+    return `Page ${this.pageIndex + 1} selected`;
   }
 
   protected override render(): TemplateResult {
@@ -367,6 +355,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                 </span>`
         }</span>
       </div>
+      <sbb-screen-reader-only role='status'>${this._currentPageLabel()}</sbb-screen-reader-only>
     `;
   }
 }
