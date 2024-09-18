@@ -28,23 +28,24 @@ $intersector-overlapping: 1px;
   display: contents;
 }
 
-:host([data-sticking]) {
+:host([data-sticking]:not([data-state='closed'])) {
   --sbb-sticky-bar-sticky-background-color: var(
     --sbb-container-background-color,
     var(--sbb-color-white)
   );
 }
 
-:host([data-sticking][color='white']) {
+:host([data-sticking][color='white']:not([data-state='closed'])) {
   --sbb-sticky-bar-sticky-background-color: var(--sbb-color-white);
 }
 
-:host([data-sticking][color='milk']) {
+:host([data-sticking][color='milk']:not([data-state='closed'])) {
   --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk);
 }
 
-:host([data-sticking][data-fade-vertically]) {
+:host([data-sticking]:is([data-fade-vertically], [data-state='opening'], [data-state='closing'])) {
   --sbb-sticky-bar-fade-in-animation-duration: 0s;
+  --sbb-sticky-bar-fade-out-animation-duration: 0s;
 }
 
 .sbb-sticky-bar__wrapper {
@@ -53,9 +54,28 @@ $intersector-overlapping: 1px;
   display: block;
   z-index: var(--sbb-sticky-bar-z-index);
 
-  :host([data-sticking][data-fade-vertically]) & {
+  :host([data-state='closed']) & {
+    position: relative;
+  }
+
+  :host(
+      [data-sticking]:is(
+          [data-fade-vertically]:not([data-state='closed'], [data-state='closing']),
+          [data-state='opening']
+        )
+    )
+    & {
     animation: {
-      name: fadein;
+      name: open;
+      duration: var(--sbb-sticky-bar-fade-from-bottom-animation-duration);
+      timing-function: var(--sbb-sticky-bar-fade-from-bottom-animation-easing);
+      delay: var(--sbb-sticky-bar-fade-from-bottom-animation-delay);
+    }
+  }
+
+  :host([data-sticking][data-state='closing']) & {
+    animation: {
+      name: close;
       duration: var(--sbb-sticky-bar-fade-from-bottom-animation-duration);
       timing-function: var(--sbb-sticky-bar-fade-from-bottom-animation-easing);
       delay: var(--sbb-sticky-bar-fade-from-bottom-animation-delay);
@@ -169,12 +189,22 @@ $intersector-overlapping: 1px;
   }
 }
 
-@keyframes fadein {
+@keyframes open {
   from {
     transform: translateY(100%);
   }
 
   to {
     transform: translateY(0%);
+  }
+}
+
+@keyframes close {
+  from {
+    transform: translateY(0%);
+  }
+
+  to {
+    transform: translateY(100%);
   }
 }
