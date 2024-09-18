@@ -17,7 +17,6 @@ snapshots["sbb-datepicker-toggle renders Shadow DOM"] =
   class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  dir="ltr"
   disabled=""
   icon-name="calendar-small"
   role="button"
@@ -50,7 +49,6 @@ snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] =
   class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  dir="ltr"
   icon-name="calendar-small"
   role="button"
   tabindex="0"
@@ -83,7 +81,6 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] =
   class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  dir="ltr"
   disabled=""
   icon-name="calendar-small"
   role="button"
@@ -116,7 +113,6 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow D
   class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  dir="ltr"
   icon-name="calendar-small"
   role="button"
   tabindex="0"
@@ -133,7 +129,7 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow D
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM */
 
-snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome"] = 
+snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

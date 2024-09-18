@@ -7,7 +7,6 @@ snapshots["sbb-block-link-button renders DOM"] =
   data-button=""
   data-sbb-link=""
   data-slot-names="icon unnamed"
-  dir="ltr"
   form="formid"
   icon-placement="end"
   name="name"

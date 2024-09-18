@@ -5,7 +5,6 @@ snapshots["sbb-step-label renders DOM"] =
 `<sbb-step-label
   data-action=""
   data-button=""
-  dir="ltr"
   id="sbb-step-label-0"
   role="tab"
   slot="step-label"
@@ -34,7 +33,6 @@ snapshots["sbb-step-label renders with icon DOM"] =
 `<sbb-step-label
   data-action=""
   data-button=""
-  dir="ltr"
   icon-name="tick-small"
   id="sbb-step-label-2"
   role="tab"
@@ -72,7 +70,6 @@ snapshots["sbb-step-label renders disabled DOM"] =
   data-action=""
   data-button=""
   data-disabled=""
-  dir="ltr"
   disabled=""
   id="sbb-step-label-4"
   role="tab"

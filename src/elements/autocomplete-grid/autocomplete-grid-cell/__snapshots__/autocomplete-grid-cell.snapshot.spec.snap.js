@@ -7,7 +7,6 @@ snapshots["sbb-autocomplete-grid-cell renders DOM"] =
     aria-disabled="false"
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="pie-small"
     id="sbb-autocomplete-grid-button-1"
     role="button"

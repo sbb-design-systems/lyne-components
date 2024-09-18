@@ -69,7 +69,7 @@
   margin-inline-end: calc(var(--sbb-spacing-fixed-3x) * -1);
   transform: skew(16deg, 0deg);
 
-  :host([dir='rtl']) & {
+  :host(:dir(rtl)) & {
     transform: skew(-16deg, 0deg);
   }
 

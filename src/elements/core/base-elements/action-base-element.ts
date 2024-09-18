@@ -1,7 +1,7 @@
 import { html, LitElement, type TemplateResult } from 'lit';
 
 import { hostAttributes } from '../decorators.js';
-import { getDocumentWritingMode, getLocalName } from '../dom.js';
+import { getLocalName } from '../dom.js';
 
 /**
  * Whenever an element can be disabled it has disabled property
@@ -14,7 +14,6 @@ type MaybeDisabled = {
 };
 
 @hostAttributes({
-  dir: getDocumentWritingMode(),
   'data-action': '',
 })
 export abstract class SbbActionBaseElement extends LitElement {

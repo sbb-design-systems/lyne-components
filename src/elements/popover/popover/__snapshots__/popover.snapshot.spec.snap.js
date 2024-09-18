@@ -23,7 +23,6 @@ snapshots["sbb-popover renders Shadow DOM"] =
           data-action=""
           data-button=""
           data-sbb-button=""
-          dir="ltr"
           icon-name="cross-small"
           role="button"
           sbb-popover-close=""

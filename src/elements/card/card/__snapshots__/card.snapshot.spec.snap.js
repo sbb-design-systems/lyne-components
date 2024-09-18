@@ -13,7 +13,6 @@ snapshots["sbb-card should render with sbb-card-badge - DOM"] =
   Content text
   <sbb-card-badge
     color="charcoal"
-    dir="ltr"
     role="text"
     slot="badge"
   >
