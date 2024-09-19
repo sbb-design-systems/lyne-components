@@ -98,54 +98,56 @@
   }
 }
 
-@mixin base-marker-list {
-  --sbb-list-marker-dimensions: #{functions.px-to-rem-build(34)};
-  --sbb-list-marker-padding-inline: var(--sbb-spacing-responsive-xxs);
-  --sbb-list-marker-to-text-gap: var(--sbb-spacing-responsive-xxxs);
+@mixin base-marker-list($name) {
+  & {
+    --sbb-#{$name}-dimensions: #{functions.px-to-rem-build(34)};
+    --sbb-#{$name}-padding-inline: var(--sbb-spacing-responsive-xxs);
+    --sbb-#{$name}-to-text-gap: var(--sbb-spacing-responsive-xxxs);
 
-  // Additional space from overall li padding to the text because text
-  // has to be centered to marker number.
-  --sbb-list-text-to-marker-block-offset: calc(
-    0.5 *
-      (
-        var(--sbb-list-marker-dimensions) - var(--sbb-typo-line-height-body-text) *
-          var(--sbb-text-font-size)
-      )
-  );
+    // Additional space from overall li padding to the text because text
+    // has to be centered to marker number.
+    --sbb-list-text-to-marker-block-offset: calc(
+      0.5 *
+        (
+          var(--sbb-#{$name}-dimensions) - var(--sbb-typo-line-height-body-text) *
+            var(--sbb-text-font-size)
+        )
+    );
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
   &:where(.sbb-text-xl) {
     @include mediaqueries.mq($from: medium) {
-      --sbb-list-marker-dimensions: #{functions.px-to-rem-build(41)};
+      --sbb-#{$name}-dimensions: #{functions.px-to-rem-build(41)};
     }
   }
-
-  list-style: none;
-  margin: 0;
-  padding: 0;
 
   /* stylelint-disable-next-line no-descending-specificity */
   > li {
     position: relative;
     padding-inline: calc(
-        var(--sbb-list-marker-padding-inline) + var(--sbb-list-marker-dimensions) +
-          var(--sbb-list-marker-to-text-gap)
+        var(--sbb-#{$name}-padding-inline) + var(--sbb-#{$name}-dimensions) +
+          var(--sbb-#{$name}-to-text-gap)
       )
-      var(--sbb-list-marker-padding-inline);
-    min-height: var(--sbb-list-marker-dimensions);
+      var(--sbb-#{$name}-padding-inline);
+    min-height: var(--sbb-#{$name}-dimensions);
 
     &::before {
       @include typo.text-xxs--bold;
 
       position: absolute;
-      height: var(--sbb-list-marker-dimensions);
-      width: var(--sbb-list-marker-dimensions);
+      height: var(--sbb-#{$name}-dimensions);
+      width: var(--sbb-#{$name}-dimensions);
       margin-block-start: calc(-1 * var(--sbb-list-text-to-marker-block-offset));
-      inset-inline-start: var(--sbb-list-marker-padding-inline);
+      inset-inline-start: var(--sbb-#{$name}-padding-inline);
       border-radius: 50%;
     }
 
     + li {
-      margin-block-start: var(--sbb-list-marker-vertical-gap);
+      margin-block-start: var(--sbb-#{$name}-vertical-gap);
     }
 
     p {
@@ -160,22 +162,19 @@
 }
 
 @mixin checkup-list {
-  @include base-marker-list;
+  @include base-marker-list($name: 'checkup-list');
 
-  --sbb-checkup-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-tick-medium.svg');
-  --sbb-checkup-list-marker-icon-color: var(--sbb-color-black);
-  --sbb-list-marker-vertical-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-list-marker-dimensions: var(--sbb-size-icon-ui-small);
-  --sbb-list-marker-to-text-gap: var(--sbb-spacing-fixed-2x);
-
-  > li,
-  :is(ol, ul) {
-    color: var(--sbb-checkup-list-color);
+  & {
+    --sbb-checkup-list-marker-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' fill='none' viewBox='0 0 36 36'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M4.25 18c0-7.595 6.156-13.75 13.75-13.75S31.75 10.405 31.75 18 25.594 31.75 18 31.75 4.25 25.594 4.25 18M18 3.25C9.853 3.25 3.25 9.853 3.25 18S9.853 32.75 18 32.75 32.75 26.146 32.75 18 26.147 3.25 18 3.25m-1.854 19.555 7.5-9.75-.792-.61-7.19 9.346-3.352-2.681-.624.78 3.75 3 .398.319z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    --sbb-checkup-list-marker-icon-color: currentcolor;
+    --sbb-checkup-list-vertical-gap: var(--sbb-spacing-fixed-2x);
+    --sbb-checkup-list-dimensions: var(--sbb-size-icon-ui-small);
+    --sbb-checkup-list-to-text-gap: var(--sbb-spacing-fixed-2x);
   }
 
   > li::before {
     content: '';
-    background-color: var(--sbb-checkup-list-color, var(--sbb-checkup-list-marker-icon-color));
+    background-color: var(--sbb-checkup-list-marker-icon-color);
     mask-image: var(--sbb-checkup-list-marker-icon);
     mask-repeat: no-repeat;
     mask-position: center;
@@ -184,10 +183,15 @@
 }
 
 @mixin step-list {
-  @include base-marker-list;
+  @include base-marker-list($name: 'step-list');
 
-  --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
-  --sbb-list-marker-vertical-gap: var(--sbb-spacing-fixed-1x);
+  & {
+    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
+    --sbb-step-list-border-radius: var(--sbb-border-radius-4x);
+    --sbb-step-list-vertical-gap: var(--sbb-spacing-fixed-1x);
+
+    counter-reset: steps;
+  }
 
   &:where(.sbb-text-s) {
     --sbb-step-list-padding-block: var(--sbb-spacing-fixed-4x);
@@ -196,8 +200,6 @@
   &:where(.sbb-text-m, .sbb-text-l, .sbb-text-xl) {
     --sbb-step-list-padding-block: var(--sbb-spacing-fixed-5x);
   }
-
-  counter-reset: steps;
 
   > li {
     counter-increment: steps;
@@ -208,11 +210,11 @@
       )
       var(--sbb-step-list-padding-block);
     padding-inline: calc(
-        var(--sbb-list-marker-padding-inline) + var(--sbb-list-marker-dimensions) +
-          var(--sbb-list-marker-to-text-gap)
+        var(--sbb-step-list-padding-inline) + var(--sbb-step-list-dimensions) +
+          var(--sbb-step-list-to-text-gap)
       )
-      var(--sbb-list-marker-padding-inline);
-    min-height: calc(var(--sbb-list-marker-dimensions) + 2 * var(--sbb-step-list-padding-block));
+      var(--sbb-step-list-padding-inline);
+    min-height: calc(var(--sbb-step-list-dimensions) + 2 * var(--sbb-step-list-padding-block));
 
     &::before {
       content: counter(steps);
