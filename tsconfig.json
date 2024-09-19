@@ -57,6 +57,7 @@
         },
         "globalAttributes": [
           "align-self",
+          "inert",
           "sbb-dialog-close",
           "sbb-navigation-close",
           "sbb-navigation-section-close",
