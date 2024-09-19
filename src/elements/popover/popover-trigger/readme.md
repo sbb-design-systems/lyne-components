@@ -67,7 +67,7 @@ associate the popover trigger with the popover via `aria-describedby` and an `id
 </sbb-popover>
 ```
 
-### Interactive disabled button
+### Interactive disabled buttons
 
 Native disabled elements cannot receive focus and do not dispatch any events. This can
 be problematic in some cases because it can prevent the app from telling the user why the button is

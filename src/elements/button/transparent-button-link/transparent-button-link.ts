@@ -17,7 +17,7 @@ import {
  */
 @customElement('sbb-transparent-button-link')
 export class SbbTransparentButtonLinkElement extends SbbButtonCommonElementMixin(
-  SbbDisabledMixin(SbbDisabledInteractiveMixin(SbbLinkBaseElement)),
+  SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement)),
 ) {
   public static override styles: CSSResultGroup = [buttonCommonStyle, buttonTransparentStyle];
 }

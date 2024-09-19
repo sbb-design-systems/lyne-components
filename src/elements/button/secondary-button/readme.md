@@ -67,7 +67,7 @@ sbb-secondary-button {
 
 Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-secondary-button` for screen-reader users.
 
-### Interactive disabled button
+### Interactive disabled buttons
 
 Native disabled elements cannot receive focus and do not dispatch any events. This can
 be problematic in some cases because it can prevent the app from telling the user why the button is

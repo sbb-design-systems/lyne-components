@@ -13,7 +13,7 @@ import { buttonCommonStyle, buttonTertiaryStyle, SbbButtonCommonElementMixin } f
  */
 @customElement('sbb-tertiary-button-link')
 export class SbbTertiaryButtonLinkElement extends SbbButtonCommonElementMixin(
-  SbbDisabledMixin(SbbDisabledInteractiveMixin(SbbLinkBaseElement)),
+  SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement)),
 ) {
   public static override styles: CSSResultGroup = [buttonCommonStyle, buttonTertiaryStyle];
 }

@@ -13,8 +13,8 @@ import { SbbMenuActionCommonElementMixin } from '../common.js';
  * to modify horizontal padding.
  */
 @customElement('sbb-menu-link')
-export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(
-  SbbDisabledInteractiveMixin(SbbLinkBaseElement),
+export class SbbMenuLinkElement extends SbbDisabledInteractiveMixin(
+  SbbMenuActionCommonElementMixin(SbbLinkBaseElement),
 ) {}
 
 declare global {

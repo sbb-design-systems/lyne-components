@@ -49,7 +49,9 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
  * Enhance your component with a disabled interactive property.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbDisabledInteractiveMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbDisabledInteractiveMixin = <
+  T extends AbstractConstructor<LitElement & SbbDisabledMixinType>,
+>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledInteractiveMixinType> & T => {
   abstract class SbbDisabledInteractiveElement
@@ -70,7 +72,7 @@ export const SbbDisabledTabIndexActionMixin = <T extends AbstractConstructor<Lit
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType & SbbDisabledInteractiveMixinType> & T => {
   abstract class SbbDisabledTabIndexAction
-    extends SbbDisabledMixin(SbbDisabledInteractiveMixin(superClass))
+    extends SbbDisabledInteractiveMixin(SbbDisabledMixin(superClass))
     implements SbbDisabledMixinType, SbbDisabledInteractiveMixinType
   {
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
