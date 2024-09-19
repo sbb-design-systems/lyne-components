@@ -708,3 +708,10 @@ export const i18nItemsPerPage: Record<string, string> = {
   fr: 'Entrées par page',
   it: 'Elementi per pagina',
 };
+
+export const i18nSelectedPage = (pageNumber: number): Record<string, string> => ({
+  de: `Seite ${pageNumber} ausgewählt.`,
+  en: `Page ${pageNumber} selected.`,
+  fr: `Page ${pageNumber} sélectionnée.`,
+  it: `Pagina ${pageNumber} selezionata.`,
+});

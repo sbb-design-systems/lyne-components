@@ -27,7 +27,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         id="sbb-paginator-prev-page"
         role="button"
         slot="li-0"
-        tabindex="0"
       >
       </sbb-mini-button>
       <sbb-divider
@@ -47,7 +46,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
         id="sbb-paginator-next-page"
         role="button"
         slot="li-2"
-        tabindex="0"
       >
       </sbb-mini-button>
     </sbb-mini-button-group>
@@ -59,6 +57,7 @@ snapshots["sbb-paginator renders Shadow DOM"] =
           class="sbb-paginator__page--number-item"
           data-index="0"
           data-selected=""
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             1
@@ -69,7 +68,7 @@ snapshots["sbb-paginator renders Shadow DOM"] =
   </span>
 </div>
 <sbb-screen-reader-only role="status">
-  Page 1 selected
+  Page 1 selected.
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders Shadow DOM */
@@ -100,7 +99,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         id="sbb-paginator-prev-page"
         role="button"
         slot="li-0"
-        tabindex="0"
       >
       </sbb-mini-button>
       <sbb-divider
@@ -130,6 +128,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
           class="sbb-paginator__page--number-item"
           data-index="0"
           data-selected=""
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             1
@@ -141,6 +140,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
           aria-label="Page 2"
           class="sbb-paginator__page--number-item"
           data-index="1"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             2
@@ -152,6 +152,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
           aria-label="Page 3"
           class="sbb-paginator__page--number-item"
           data-index="2"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             3
@@ -163,6 +164,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
           aria-label="Page 4"
           class="sbb-paginator__page--number-item"
           data-index="3"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             4
@@ -179,6 +181,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
           aria-label="Page 13"
           class="sbb-paginator__page--number-item"
           data-index="12"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             13
@@ -189,7 +192,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
   </span>
 </div>
 <sbb-screen-reader-only role="status">
-  Page 1 selected
+  Page 1 selected.
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders ellipsis on end side Shadow DOM */
@@ -247,6 +250,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
           aria-label="Page 1"
           class="sbb-paginator__page--number-item"
           data-index="0"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             1
@@ -263,6 +267,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
           aria-label="Page 10"
           class="sbb-paginator__page--number-item"
           data-index="9"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             10
@@ -276,6 +281,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
           class="sbb-paginator__page--number-item"
           data-index="10"
           data-selected=""
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             11
@@ -287,6 +293,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
           aria-label="Page 12"
           class="sbb-paginator__page--number-item"
           data-index="11"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             12
@@ -298,6 +305,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
           aria-label="Page 13"
           class="sbb-paginator__page--number-item"
           data-index="12"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             13
@@ -308,7 +316,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
   </span>
 </div>
 <sbb-screen-reader-only role="status">
-  Page 11 selected
+  Page 11 selected.
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders ellipsis on start side Shadow DOM */
@@ -366,6 +374,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
           aria-label="Page 1"
           class="sbb-paginator__page--number-item"
           data-index="0"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             1
@@ -382,6 +391,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
           aria-label="Page 7"
           class="sbb-paginator__page--number-item"
           data-index="6"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             7
@@ -395,6 +405,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
           class="sbb-paginator__page--number-item"
           data-index="7"
           data-selected=""
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             8
@@ -406,6 +417,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
           aria-label="Page 9"
           class="sbb-paginator__page--number-item"
           data-index="8"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             9
@@ -422,6 +434,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
           aria-label="Page 13"
           class="sbb-paginator__page--number-item"
           data-index="12"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             13
@@ -432,7 +445,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
   </span>
 </div>
 <sbb-screen-reader-only role="status">
-  Page 8 selected
+  Page 8 selected.
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders ellipsis on both side Shadow DOM */
@@ -463,7 +476,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         id="sbb-paginator-prev-page"
         role="button"
         slot="li-0"
-        tabindex="0"
       >
       </sbb-mini-button>
       <sbb-divider
@@ -493,6 +505,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           class="sbb-paginator__page--number-item"
           data-index="0"
           data-selected=""
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             1
@@ -504,6 +517,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           aria-label="Page 2"
           class="sbb-paginator__page--number-item"
           data-index="1"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             2
@@ -515,6 +529,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           aria-label="Page 3"
           class="sbb-paginator__page--number-item"
           data-index="2"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             3
@@ -526,6 +541,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           aria-label="Page 4"
           class="sbb-paginator__page--number-item"
           data-index="3"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             4
@@ -537,6 +553,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           aria-label="Page 5"
           class="sbb-paginator__page--number-item"
           data-index="4"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             5
@@ -616,7 +633,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
   </div>
 </div>
 <sbb-screen-reader-only role="status">
-  Page 1 selected
+  Page 1 selected.
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
@@ -647,7 +664,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         id="sbb-paginator-prev-page"
         role="button"
         slot="li-0"
-        tabindex="0"
       >
       </sbb-mini-button>
       <sbb-divider
@@ -677,6 +693,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           class="sbb-paginator__page--number-item"
           data-index="0"
           data-selected=""
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             1
@@ -688,6 +705,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           aria-label="Page 2"
           class="sbb-paginator__page--number-item"
           data-index="1"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             2
@@ -699,6 +717,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           aria-label="Page 3"
           class="sbb-paginator__page--number-item"
           data-index="2"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             3
@@ -710,6 +729,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           aria-label="Page 4"
           class="sbb-paginator__page--number-item"
           data-index="3"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             4
@@ -721,6 +741,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           aria-label="Page 5"
           class="sbb-paginator__page--number-item"
           data-index="4"
+          tabindex="0"
         >
           <span class="sbb-paginator__page--number-item-label">
             5
@@ -802,7 +823,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
   </div>
 </div>
 <sbb-screen-reader-only role="status">
-  Page 1 selected
+  Page 1 selected.
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
@@ -858,7 +879,7 @@ snapshots["sbb-paginator renders with options A11y tree Chrome"] =
     },
     {
       "role": "text",
-      "name": "Page 1 selected"
+      "name": "Page 1 selected."
     }
   ]
 }
@@ -917,7 +938,7 @@ snapshots["sbb-paginator renders with options A11y tree Firefox"] =
     },
     {
       "role": "text leaf",
-      "name": "Page 1 selected"
+      "name": "Page 1 selected."
     }
   ]
 }

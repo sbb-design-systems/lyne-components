@@ -131,19 +131,36 @@ describe('sbb-paginator', () => {
   it('keyboard selection', async () => {
     // start sbb-mini-button-group
     await sendKeys({ press: tabKey });
-    await sendKeys({ press: tabKey });
     // end sbb-mini-button-group
 
     await sendKeys({ press: tabKey });
-    expect(document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-index')).to.equal(
-      '0',
-    );
+    expect(document.activeElement!.shadowRoot!.activeElement!).to.have.attribute('data-index', '0');
+
     await sendKeys({ press: tabKey });
-    expect(document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-index')).to.equal(
-      '1',
-    );
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.shadowRoot!.activeElement!).to.have.attribute('data-index', '1');
+
+    await sendKeys({ press: tabKey });
+    await sendKeys({ press: 'Space' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.shadowRoot!.activeElement!).to.have.attribute('data-index', '2');
+
+    await sendKeys({ press: tabKey });
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.shadowRoot!.activeElement!).to.have.attribute('data-index', '3');
+
+    await sendKeys({ press: tabKey });
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.shadowRoot!.activeElement!).to.have.attribute('data-index', '4');
+    expect(
+      element.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent?.trim(),
+    ).to.be.equal('Page 5 selected.');
 
     const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
+    await sendKeys({ press: tabKey });
     await sendKeys({ press: 'Space' });
     await waitForLitRender(element);
     expect(pageEventSpy.count).to.be.equal(1);

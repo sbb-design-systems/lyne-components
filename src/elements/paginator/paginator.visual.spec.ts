@@ -50,7 +50,7 @@ describe('sbb-paginator', () => {
             `pageIndex=${pageIndex}`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
-                html` <sbb-paginator
+                html`<sbb-paginator
                   length="100"
                   page-index="${pageIndex}"
                   ?negative=${negative || nothing}
@@ -69,7 +69,7 @@ describe('sbb-paginator', () => {
                 visualDiffDefault.with(async (setup) => {
                   const pageSizeOptions = [10, 20, 50];
                   await setup.withFixture(
-                    html` <sbb-paginator
+                    html`<sbb-paginator
                       length="50"
                       page-size="4"
                       size=${size}
