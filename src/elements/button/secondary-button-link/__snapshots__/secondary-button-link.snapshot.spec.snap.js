@@ -67,6 +67,7 @@ snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-lin
   aria-disabled="true"
   class="sbb-action-base sbb-secondary-button-link"
   href="https://www.sbb.ch"
+  tabindex="-1"
 >
   <slot name="icon">
   </slot>

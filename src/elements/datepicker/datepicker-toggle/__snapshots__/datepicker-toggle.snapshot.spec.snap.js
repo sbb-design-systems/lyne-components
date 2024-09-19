@@ -20,7 +20,6 @@ snapshots["sbb-datepicker-toggle renders Shadow DOM"] =
   disabled=""
   icon-name="calendar-small"
   role="button"
-  tabindex="-1"
 >
 </sbb-mini-button>
 <sbb-popover
@@ -84,7 +83,6 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] =
   disabled=""
   icon-name="calendar-small"
   role="button"
-  tabindex="-1"
 >
 </sbb-mini-button>
 <sbb-popover
@@ -129,7 +127,7 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow D
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM */
 
-snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome"] =
+snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",

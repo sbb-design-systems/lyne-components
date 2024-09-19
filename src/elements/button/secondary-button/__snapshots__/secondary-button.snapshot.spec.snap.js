@@ -14,7 +14,6 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button without icon DOM"
   negative=""
   role="button"
   size="m"
-  tabindex="0"
   type="button"
   value="value"
 >
