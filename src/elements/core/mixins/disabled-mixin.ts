@@ -45,18 +45,34 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
   return SbbDisabledElement as unknown as AbstractConstructor<SbbDisabledMixinType> & T;
 };
 
+/**
+ * Enhance your component with a disabled interactive property.
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const SbbDisabledInteractiveMixin = <T extends AbstractConstructor<LitElement>>(
+  superClass: T,
+): AbstractConstructor<SbbDisabledInteractiveMixinType> & T => {
+  abstract class SbbDisabledInteractiveElement
+    extends superClass
+    implements Partial<SbbDisabledInteractiveMixinType>
+  {
+    /** Whether disabled buttons should be interactive. */
+    @property({ attribute: 'disabled-interactive', type: Boolean }) public disabledInteractive =
+      false;
+  }
+
+  return SbbDisabledInteractiveElement as unknown as AbstractConstructor<SbbDisabledInteractiveMixinType> &
+    T;
+};
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbDisabledTabIndexActionMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType & SbbDisabledInteractiveMixinType> & T => {
   abstract class SbbDisabledTabIndexAction
-    extends SbbDisabledMixin(superClass)
+    extends SbbDisabledMixin(SbbDisabledInteractiveMixin(superClass))
     implements SbbDisabledMixinType, SbbDisabledInteractiveMixinType
   {
-    /** Whether disabled buttons should be interactive. */
-    @property({ attribute: 'disabled-interactive', type: Boolean }) public disabledInteractive =
-      false;
-
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 

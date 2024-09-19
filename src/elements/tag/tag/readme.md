@@ -53,14 +53,18 @@ It's recommended to check the parent's `sbb-tag-group` for the value.
 The component imitates an `button` element to provide an accessible experience.
 The state is reflected via `aria-pressed` attribute.
 
-### Interactive disabled buttons
+### Interactive disabled button
 
-Native disabled `<button>` elements cannot receive focus and do not dispatch any events. This can
+Native disabled elements cannot receive focus and do not dispatch any events. This can
 be problematic in some cases because it can prevent the app from telling the user why the button is
 disabled. Consumers can use the `disabledInteractive` property to style the button as disabled but allow for
 it to receive focus and dispatch events. The button will have `aria-disabled="true"` for assistive
 technology. It is the consumers responsibility to provide a reason for the element being disabled.
 This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-describedby` attribute.
+
+**Note:** Using the `disabledInteractive` property can result in buttons that previously prevented
+actions to no longer do so, for example a submit button in a form. When using this input, you should
+guard against such cases in your component.
 
 ### Disabled elements
 

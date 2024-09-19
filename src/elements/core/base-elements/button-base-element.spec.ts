@@ -1,6 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 
 import { fixture } from '../testing/private.js';
 import { EventSpy, waitForLitRender } from '../testing.js';
@@ -8,7 +9,8 @@ import { EventSpy, waitForLitRender } from '../testing.js';
 import { SbbButtonBaseElement } from './button-base-element.js';
 
 class GenericButton extends SbbButtonBaseElement {
-  public disabled = false;
+  @property() public disabled = false;
+  @property() public disabledInteractive = false;
 
   protected override renderTemplate(): TemplateResult {
     return html`Button`;
@@ -51,6 +53,19 @@ describe(`SbbButtonBaseElement`, () => {
       element.click();
       await waitForLitRender(element);
       expect(clickSpy.count).not.to.be.greaterThan(0);
+    });
+
+    it('dispatch click if disabled and disabledInteractive', async () => {
+      const clickSpy = new EventSpy('click');
+
+      element.disabled = true;
+      element.disabledInteractive = true;
+      await waitForLitRender(element);
+
+      element.click();
+      await waitForLitRender(element);
+
+      expect(clickSpy.count).to.be.equal(1);
     });
 
     it('dispatch click if type button', async () => {

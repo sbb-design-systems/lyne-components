@@ -11,6 +11,7 @@ import { getLocalName } from '../dom.js';
 type MaybeDisabled = {
   disabled?: boolean;
   formDisabled?: boolean;
+  disabledInteractive?: boolean;
 };
 
 @hostAttributes({
@@ -20,6 +21,10 @@ export abstract class SbbActionBaseElement extends LitElement {
   protected get maybeDisabled(): boolean | undefined {
     const maybeDisabled = this as MaybeDisabled;
     return maybeDisabled.disabled || maybeDisabled.formDisabled;
+  }
+
+  protected get maybeDisabledInteractive(): boolean | undefined {
+    return (this as MaybeDisabled).disabledInteractive;
   }
 
   public override connectedCallback(): void {
@@ -41,7 +46,7 @@ export abstract class SbbActionBaseElement extends LitElement {
     this.addEventListener(
       'click',
       (event) => {
-        if (this.maybeDisabled) {
+        if (this.maybeDisabled && !this.maybeDisabledInteractive) {
           event.preventDefault();
           event.stopImmediatePropagation();
         }

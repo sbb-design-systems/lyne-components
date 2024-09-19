@@ -149,11 +149,7 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
         'sbb-menu-button, sbb-menu-link',
       ),
     ).filter(
-      (el: SbbMenuButtonElement | SbbMenuLinkElement) =>
-        (!el.disabled ||
-          (el.localName === 'sbb-button-element' &&
-            (el as SbbMenuButtonElement).disabledInteractive)) &&
-        interactivityChecker.isVisible(el),
+      (el) => (!el.disabled || el.disabledInteractive) && interactivityChecker.isVisible(el),
     );
 
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
