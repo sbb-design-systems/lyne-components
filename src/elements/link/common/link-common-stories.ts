@@ -63,6 +63,15 @@ const disabled: InputType = {
   },
 };
 
+const disabledInteractive: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
 const tag: InputType = {
   control: {
     type: 'text',
@@ -182,6 +191,7 @@ export const linkDefaultArgTypes: ArgTypes = {
   rel,
   download,
   disabled,
+  'disabled-interactive': disabledInteractive,
   'accessibility-label': accessibilityLabel,
 };
 
@@ -192,6 +202,7 @@ export const linkDefaultArgs: Args = {
   rel: undefined,
   download: false,
   disabled: false,
+  'disabled-interactive': false,
   'accessibility-label': undefined,
 };
 
@@ -244,6 +255,7 @@ export const linkButtonDefaultArgTypes: ArgTypes = {
   ...linkCommonDefaultArgTypes,
   type,
   disabled,
+  'disabled-interactive': disabledInteractive,
   name,
   value,
   form,
@@ -254,6 +266,7 @@ export const linkButtonDefaultArgs: Args = {
   ...linkCommonDefaultArgs,
   type: type.options![0],
   disabled: false,
+  'disabled-interactive': false,
   name: 'Button name',
   value: undefined,
   form: undefined,

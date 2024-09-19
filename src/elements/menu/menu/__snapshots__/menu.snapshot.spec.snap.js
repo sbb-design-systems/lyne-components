@@ -35,7 +35,6 @@ snapshots["sbb-menu renders DOM"] =
     disabled=""
     icon-name="pen-small"
     role="button"
-    tabindex="0"
   >
     Edit
   </sbb-menu-button>
@@ -105,7 +104,6 @@ snapshots["sbb-menu renders with list DOM"] =
     icon-name="pen-small"
     role="button"
     slot="li-1"
-    tabindex="0"
   >
     Edit
   </sbb-menu-button>

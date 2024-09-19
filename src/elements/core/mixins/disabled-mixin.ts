@@ -9,6 +9,10 @@ export declare class SbbDisabledMixinType {
   protected isDisabledExternally(): boolean;
 }
 
+export declare class SbbDisabledInteractiveMixinType {
+  public disabledInteractive: boolean;
+}
+
 /**
  * Enhance your component with a disabled property.
  */
@@ -41,41 +45,48 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
   return SbbDisabledElement as unknown as AbstractConstructor<SbbDisabledMixinType> & T;
 };
 
-/**
- * @deprecated Will be removed with next major version
- */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbDisabledTabIndexActionMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): AbstractConstructor<SbbDisabledMixinType> & T => {
+): AbstractConstructor<SbbDisabledMixinType & SbbDisabledInteractiveMixinType> & T => {
   abstract class SbbDisabledTabIndexAction
     extends SbbDisabledMixin(superClass)
-    implements SbbDisabledMixinType
+    implements SbbDisabledMixinType, SbbDisabledInteractiveMixinType
   {
+    /** Whether disabled buttons should be interactive. */
+    @property({ attribute: 'disabled-interactive', type: Boolean }) public disabledInteractive =
+      false;
+
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
-      if (!changedProperties.has('disabled')) {
+      if (!changedProperties.has('disabled') && !changedProperties.has('disabledInteractive')) {
         return;
       }
 
-      // FIXME if tabindex is not needed in combination with aria-disabled,
-      //  use the SbbDisabledMixin and implement a different willUpdate method.
+      if (!this.disabled || this.disabledInteractive) {
+        this.setAttribute('tabindex', '0');
+      } else {
+        this.removeAttribute('tabindex');
+      }
+
       if (this.disabled) {
         this.setAttribute('aria-disabled', 'true');
-        this.removeAttribute('tabindex');
       } else {
         this.removeAttribute('aria-disabled');
-        this.setAttribute('tabindex', '0');
       }
     }
   }
-  return SbbDisabledTabIndexAction as AbstractConstructor<SbbDisabledMixinType> & T;
+  return SbbDisabledTabIndexAction as AbstractConstructor<
+    SbbDisabledMixinType & SbbDisabledInteractiveMixinType
+  > &
+    T;
 };
 
 /**
- *  Extends `SbbDisabledMixin` with the `aria-disabled` attribute.
- *  For a11y purposes, keeps the element focusable even when disabled.
+ * Extends `SbbDisabledMixin` with the `aria-disabled` attribute.
+ * For a11y purposes, keeps the element focusable even when disabled.
+ * @deprecated Will be removed with next major version
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbFocusableDisabledActionMixin = <T extends AbstractConstructor<LitElement>>(

@@ -148,7 +148,13 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
       this.querySelectorAll<SbbMenuButtonElement | SbbMenuLinkElement>(
         'sbb-menu-button, sbb-menu-link',
       ),
-    ).filter((el: SbbMenuButtonElement | SbbMenuLinkElement) => interactivityChecker.isVisible(el));
+    ).filter(
+      (el: SbbMenuButtonElement | SbbMenuLinkElement) =>
+        (!el.disabled ||
+          (el.localName === 'sbb-button-element' &&
+            (el as SbbMenuButtonElement).disabledInteractive)) &&
+        interactivityChecker.isVisible(el),
+    );
 
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
     const nextIndex = getNextElementIndex(evt, current, enabledActions.length);

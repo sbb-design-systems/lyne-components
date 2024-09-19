@@ -71,6 +71,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
         target=${this.target || nothing}
         rel=${this._evaluateRelAttribute()}
         aria-label=${this.accessibilityLabel || nothing}
+        tabindex=${this.maybeDisabled ? '-1' : nothing}
         aria-disabled=${this.maybeDisabled ? 'true' : nothing}
       >
         ${this.renderTemplate()}
