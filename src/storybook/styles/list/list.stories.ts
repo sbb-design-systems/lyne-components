@@ -70,7 +70,7 @@ const CheckupTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
-      <ol class=${`sbb-checkup-list sbb-text-${textSize}`}>
+      <ol class=${`sbb-icon-list sbb-text-${textSize}`}>
         ${ListContent()}
         <li>
           Nested list
@@ -88,7 +88,7 @@ const CheckupCustomIconTemplate = (): TemplateResult => html`
     (textSize) => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol
-        class=${`sbb-checkup-list sbb-text-${textSize}`}
+        class=${`sbb-icon-list sbb-text-${textSize}`}
         style="--sbb-checkup-list-marker-icon-color: var(--sbb-color-red); --sbb-checkup-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-medium.svg')"
       >
         ${ListContent()}
@@ -107,10 +107,7 @@ const CheckupCustomColorTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
-      <ol
-        class=${`sbb-checkup-list sbb-text-${textSize}`}
-        style="--sbb-checkup-list-color: var(--sbb-color-green);"
-      >
+      <ol class=${`sbb-icon-list sbb-text-${textSize}`} style="color: var(--sbb-color-green);">
         ${ListContent()}
         <li>
           Nested list
