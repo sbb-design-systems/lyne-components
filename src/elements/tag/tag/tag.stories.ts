@@ -21,6 +21,12 @@ const disabled: InputType = {
   },
 };
 
+const disabledInteractive: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const label: InputType = {
   control: {
     type: 'text',
@@ -61,6 +67,7 @@ const size: InputType = {
 const defaultArgTypes: ArgTypes = {
   checked,
   disabled,
+  'disabled-interactive': disabledInteractive,
   label,
   value,
   'icon-name': icon,
@@ -72,6 +79,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   checked: false,
   disabled: false,
+  'disabled-interactive': false,
   label: 'Label',
   value: 'Value',
   'icon-name': undefined,

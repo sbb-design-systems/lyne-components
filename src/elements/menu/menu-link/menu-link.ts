@@ -1,6 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.js';
+import { SbbDisabledInteractiveMixin } from '../../core/mixins.js';
 import { SbbMenuActionCommonElementMixin } from '../common.js';
 
 /**
@@ -12,7 +13,9 @@ import { SbbMenuActionCommonElementMixin } from '../common.js';
  * to modify horizontal padding.
  */
 @customElement('sbb-menu-link')
-export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(SbbLinkBaseElement) {}
+export class SbbMenuLinkElement extends SbbDisabledInteractiveMixin(
+  SbbMenuActionCommonElementMixin(SbbLinkBaseElement),
+) {}
 
 declare global {
   interface HTMLElementTagNameMap {

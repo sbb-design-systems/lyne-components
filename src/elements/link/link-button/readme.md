@@ -30,27 +30,33 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ## Accessibility
 
-### Disabled buttons
+### Interactive disabled buttons
 
-Generally speaking, `disabled` elements are considered a bad pattern for accessibility. They are invisible to assistive
-technology and do not provide the reason for which they are disabled.
-To partially address the problem, disabled elements are kept focusable (other interactions are still prevented).
-However, it is still the consumers responsibility to provide a reason for the element being disabled.
+Native disabled elements cannot receive focus and do not dispatch any events. This can
+be problematic in some cases because it can prevent the app from telling the user why the button is
+disabled. Consumers can use the `disabledInteractive` property to receive focus and dispatch events.
+The button will have `aria-disabled="true"` for assistive technology.
+It is the consumers responsibility to provide a reason for the element being disabled.
 This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-describedby` attribute.
+
+**Note:** Using the `disabledInteractive` property can result in buttons that previously prevented
+actions to no longer do so, for example a submit button in a form. When using this input, you should
+guard against such cases in your component.
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type                  | Default    | Description                                                                                                                |
-| ---------- | ---------- | ------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `disabled` | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                         |
-| `form`     | `form`     | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                           |
-| `name`     | `name`     | public  | `string`              |            | The name of the button element.                                                                                            |
-| `negative` | `negative` | public  | `boolean`             | `false`    | Negative coloring variant flag.                                                                                            |
-| `size`     | `size`     | public  | `SbbLinkSize`         | `'s'`      | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
-| `type`     | `type`     | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                  |
-| `value`    | `value`    | public  | `string`              |            | The value of the button element.                                                                                           |
+| Name                  | Attribute              | Privacy | Type                  | Default    | Description                                                                                                                |
+| --------------------- | ---------------------- | ------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`            | `disabled`             | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                         |
+| `disabledInteractive` | `disabled-interactive` | public  | `boolean`             | `false`    | Whether disabled buttons should be interactive.                                                                            |
+| `form`                | `form`                 | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                           |
+| `name`                | `name`                 | public  | `string`              |            | The name of the button element.                                                                                            |
+| `negative`            | `negative`             | public  | `boolean`             | `false`    | Negative coloring variant flag.                                                                                            |
+| `size`                | `size`                 | public  | `SbbLinkSize`         | `'s'`      | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
+| `type`                | `type`                 | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                  |
+| `value`               | `value`                | public  | `string`              |            | The value of the button element.                                                                                           |
 
 ## Slots
 

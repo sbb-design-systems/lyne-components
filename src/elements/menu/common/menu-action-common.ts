@@ -13,10 +13,10 @@ import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon.js';
 import style from './menu-action.scss?lit&inline';
 
 export declare class SbbMenuActionCommonElementMixinType
-  implements Partial<SbbDisabledMixinType>, Partial<SbbIconNameMixinType>
+  extends SbbDisabledMixinType
+  implements Partial<SbbIconNameMixinType>
 {
   public amount?: string;
-  public disabled: boolean;
   public iconName?: string;
 }
 

@@ -14,7 +14,6 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button without icon 
   negative=""
   role="button"
   size="m"
-  tabindex="0"
   type="button"
   value="value"
 >

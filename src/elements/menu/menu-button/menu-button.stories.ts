@@ -68,6 +68,15 @@ const disabled: InputType = {
   },
 };
 
+const disabledInteractive: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
 const name: InputType = {
   control: {
     type: 'text',
@@ -107,6 +116,7 @@ const defaultArgTypes: ArgTypes = {
   'icon-name': iconName,
   type,
   disabled,
+  'disabled-interactive': disabledInteractive,
   name,
   value,
   form,
@@ -118,6 +128,7 @@ const defaultArgs: Args = {
   amount: '99',
   'icon-name': 'tick-small',
   disabled: false,
+  'disabled-interactive': false,
   type: type.options![0],
   name: 'detail',
   value: 'Value',
