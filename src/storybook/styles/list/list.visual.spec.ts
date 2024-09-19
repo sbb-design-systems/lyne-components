@@ -66,6 +66,63 @@ describe(`list`, () => {
             `);
           }),
         );
+
+        it(
+          'checkup list',
+          visualDiffDefault.with((setup) => {
+            setup.withFixture(html`
+              <ol class=${`sbb-icon-list sbb-text-${textSize}`}>
+                ${listContent()}
+                <li>
+                  Nested list
+                  <ol class="sbb-list">
+                    ${listContent()}
+                  </ol>
+                </li>
+              </ol>
+            `);
+          }),
+        );
+
+        it(
+          'custom icon list',
+          visualDiffDefault.with((setup) => {
+            setup.withFixture(html`
+              <ol
+                class=${`sbb-icon-list sbb-text-${textSize}`}
+                style="--sbb-checkup-list-marker-icon-color: var(--sbb-color-red); --sbb-checkup-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-medium.svg')"
+              >
+                ${listContent()}
+                <li>
+                  Nested list
+                  <ol class="sbb-list">
+                    ${listContent()}
+                  </ol>
+                </li>
+              </ol>
+            `);
+          }),
+        );
+
+        it(
+          'checkup list custom color',
+          visualDiffDefault.with((setup) => {
+            setup.withFixture(html`
+              <ol
+                class=${`sbb-icon-list sbb-text-${textSize}`}
+                style="color: var(--sbb-color-green);"
+              >
+                ${listContent()}
+                <li>
+                  Nested list
+                  <ol class="sbb-list">
+                    ${listContent()}
+                  </ol>
+                </li>
+              </ol>
+            `);
+          }),
+        );
       });
     }
 
