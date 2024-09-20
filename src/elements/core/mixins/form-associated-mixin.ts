@@ -3,7 +3,7 @@ import { property, state } from 'lit/decorators.js';
 
 import type { AbstractConstructor } from './constructor.js';
 
-export declare abstract class SbbFormAssociatedMixinType<V> {
+export declare abstract class SbbFormAssociatedMixinType<V = string> {
   public get form(): HTMLFormElement | null;
   public get name(): string;
   public set name(value: string);
@@ -194,11 +194,10 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
 
     /**
      * Should be called when form value is changed.
-     * TODO this should probably be abstract
+     * Adapts and sets the formValue in the supported format (string | FormData | File | null)
+     * https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/setFormValue
      */
-    protected updateFormValue(): void {
-      this.internals.setFormValue(this.value ? this.value.toString() : null);
-    }
+    protected abstract updateFormValue(): void;
   }
   return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType<V>> &
     T;
