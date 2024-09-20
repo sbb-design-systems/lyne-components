@@ -74,7 +74,7 @@ describe('sbb-slider', () => {
           'disabled fieldset',
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              <fieldset disabled>${variant.template({ ...defaultArgs, disabled: true })}</fieldset>
+              <fieldset disabled>${variant.template({ ...defaultArgs })}</fieldset>
             `);
           }),
         );
