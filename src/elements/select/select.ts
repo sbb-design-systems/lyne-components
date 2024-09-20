@@ -17,6 +17,7 @@ import {
   SbbFormAssociatedMixin,
   SbbHydrationMixin,
   SbbNegativeMixin,
+  SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
 } from '../core/mixins.js';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
@@ -61,8 +62,10 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   SbbDisabledMixin(
     SbbNegativeMixin(
       SbbHydrationMixin(
-        SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
-          SbbOpenCloseBaseElement,
+        SbbRequiredMixin(
+          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
+            SbbOpenCloseBaseElement,
+          ),
         ),
       ),
     ),
@@ -87,9 +90,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Whether the select allows for multiple selection. */
   @property({ reflect: true, type: Boolean }) public multiple = false;
-
-  /** Whether the select is required. */
-  @property({ reflect: true, type: Boolean }) public required = false;
 
   /** Whether the select is readonly. */
   @property({ type: Boolean }) public readonly = false;

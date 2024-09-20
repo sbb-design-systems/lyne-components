@@ -128,7 +128,7 @@ Opened panel:
 | `negative`    | `negative`    | public  | `boolean`                    | `false` | Negative coloring variant flag.                                |
 | `placeholder` | `placeholder` | public  | `string \| undefined`        |         | The placeholder used if no value has been selected.            |
 | `readonly`    | `readonly`    | public  | `boolean`                    | `false` | Whether the select is readonly.                                |
-| `required`    | `required`    | public  | `boolean`                    | `false` | Whether the select is required.                                |
+| `required`    | `required`    | public  | `boolean`                    | `false` | Whether the component is required.                             |
 | `value`       | `value`       | public  | `string \| string[] \| null` | `null`  | Value of the form element.                                     |
 
 ## Methods
