@@ -107,7 +107,7 @@
     "@web/test-runner-commands": "0.9.0",
     "@web/test-runner-playwright": "0.11.0",
     "@web/test-runner-puppeteer": "0.17.0",
-    "@web/test-runner-visual-regression": "0.9.0",
+    "@web/test-runner-visual-regression": "0.10.0",
     "custom-elements-manifest": "2.1.0",
     "date-fns": "4.1.0",
     "esbuild": "0.23.1",
