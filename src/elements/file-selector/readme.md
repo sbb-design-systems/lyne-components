@@ -93,24 +93,31 @@ It's suggested to have a different value for each variant, e.g.:
 | `accept`             | `accept`              | public  | `string \| undefined`       |             | A comma-separated list of allowed unique file type specifiers.           |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`       |             | This will be forwarded as aria-label to the native input element.        |
 | `disabled`           | `disabled`            | public  | `boolean`                   | `false`     | Whether the component is disabled.                                       |
-| `files`              | -                     | public  | `File[]`                    |             | Gets the currently selected files.                                       |
+| `files`              | -                     | public  | `File[]`                    |             | The list of selected files.                                              |
+| `form`               | -                     | public  | `HTMLFormElement \| null`   |             | Returns the form owner of the internals of the target element.           |
 | `multiple`           | `multiple`            | public  | `boolean`                   | `false`     | Whether more than one file can be selected.                              |
 | `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` | `'default'` | Whether the newly added files should override the previously added ones. |
+| `name`               | `name`                | public  | `string`                    |             | Name of the form element. Will be read from name attribute.              |
 | `size`               | `size`                | public  | `'s' \| 'm'`                | `'m'`       | Size variant, either s or m.                                             |
 | `titleContent`       | `title-content`       | public  | `string \| undefined`       |             | The title displayed in `dropzone` variant.                               |
+| `value`              | `value`               | public  | `V \| null`                 | `null`      | Value of the form element.                                               |
 | `variant`            | `variant`             | public  | `'default' \| 'dropzone'`   | `'default'` | Whether the component has a dropzone area or not.                        |
 
 ## Methods
 
-| Name       | Privacy | Description | Parameters | Return   | Inherited From |
-| ---------- | ------- | ----------- | ---------- | -------- | -------------- |
-| `getFiles` | public  |             |            | `File[]` |                |
+| Name                       | Privacy | Description | Parameters                                                    | Return   | Inherited From |
+| -------------------------- | ------- | ----------- | ------------------------------------------------------------- | -------- | -------------- |
+| `formResetCallback`        | public  |             |                                                               | `void`   |                |
+| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void`   |                |
+| `getFiles`                 | public  |             |                                                               | `File[]` |                |
 
 ## Events
 
 | Name          | Type                  | Description                                                | Inherited From |
 | ------------- | --------------------- | ---------------------------------------------------------- | -------------- |
+| `change`      | `Event`               |                                                            |                |
 | `fileChanged` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes. |                |
+| `input`       | `Event`               |                                                            |                |
 
 ## Slots
 

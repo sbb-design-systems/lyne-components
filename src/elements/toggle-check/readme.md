@@ -68,13 +68,13 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 | --------------- | ---------------- | ------- | ---------------------------------- | -------------- | -------------------------------------------------------------- |
 | `checked`       | `checked`        | public  | `boolean`                          | `false`        | Whether the checkbox is checked.                               |
 | `disabled`      | `disabled`       | public  | `boolean`                          | `false`        | Whether the component is disabled.                             |
-| `form`          | -                | public  | `HTMLFormElement \| null`          |                | Returns the form owner of internals target element.            |
+| `form`          | -                | public  | `HTMLFormElement \| null`          |                | Returns the form owner of the internals of the target element. |
 | `iconName`      | `icon-name`      | public  | `string \| undefined`              | `'tick-small'` | The svg name for the true state - default -> 'tick-small'      |
 | `labelPosition` | `label-position` | public  | `'before' \| 'after' \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |
 | `name`          | `name`           | public  | `string`                           |                | Name of the form element. Will be read from name attribute.    |
 | `required`      | `required`       | public  | `boolean`                          | `false`        | Whether the component is required.                             |
 | `size`          | `size`           | public  | `'xs' \| 's' \| 'm'`               | `'s'`          | Size variant, either m, s or xs.                               |
-| `value`         | `value`          | public  | `string \| null`                   | `null`         | Value of the form element.                                     |
+| `value`         | `value`          | public  | `V \| null`                        | `null`         | Value of the form element.                                     |
 
 ## Events
 
