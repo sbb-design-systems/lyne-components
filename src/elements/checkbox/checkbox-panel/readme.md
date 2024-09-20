@@ -71,6 +71,9 @@ The component provides the same accessibility features as the native checkbox.
 Always provide an accessible label via `aria-label` for checkboxes without descriptive text content.
 If you don't want the label to appear next to the checkbox, you can use `aria-label` to specify an appropriate label.
 
+<!-- Override
+  @type value => string \| null
+-->
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -87,7 +90,7 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `name`          | `name`          | public  | `string`                          |           | Name of the form element. Will be read from name attribute.    |
 | `required`      | `required`      | public  | `boolean`                         | `false`   | Whether the component is required.                             |
 | `size`          | `size`          | public  | `SbbPanelSize`                    | `'m'`     | Size variant.                                                  |
-| `value`         | `value`         | public  | `V \| null`                       | `null`    | Value of the form element.                                     |
+| `value`         | `value`         | public  | `string \| null`                  | `null`    | Value of the form element.                                     |
 
 ## Events
 
