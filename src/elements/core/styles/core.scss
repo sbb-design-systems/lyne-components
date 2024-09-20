@@ -36,6 +36,10 @@
     // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
     --sbb-border-radius-infinity: 10000000em;
 
+    &:has(sbb-header[size='s']) {
+      --sbb-header-height: #{functions.px-to-rem-build(52)};
+    }
+
     @include mediaqueries.mq($from: medium) {
       // Header
       --sbb-header-height: var(--sbb-spacing-fixed-24x);
@@ -43,6 +47,10 @@
       // Time Input
       --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
       --sbb-time-input-s-max-width: #{functions.px-to-rem-build(58)};
+
+      &:has(sbb-header[size='s']) {
+        --sbb-header-height: var(--sbb-spacing-fixed-14x);
+      }
     }
   }
 }
@@ -114,6 +122,21 @@ sbb-breadcrumb-group:not(:defined) {
 // This style enables accessing focusable elements inside an sbb-card.
 [data-card-focusable] {
   pointer-events: all;
+}
+
+// Helper class for the application name and version in sbb-header.
+.sbb-header-info {
+  @include typo.text-xs--regular;
+
+  display: flex;
+  padding-inline: var(--sbb-spacing-fixed-4x);
+  gap: var(--sbb-spacing-fixed-1x);
+  align-items: baseline;
+
+  strong + * {
+    font-size: var(--sbb-font-size-text-xxs);
+    color: var(--sbb-color-granite);
+  }
 }
 
 // In smaller title font-sizes, the space after the title is smaller than the default paragraph space before.

@@ -41,6 +41,35 @@ export const futureLeg: any = {
   serviceJourney: defaultService,
 };
 
+export const connectionLeg: any = {
+  duration: 30,
+  id: '3',
+  __typename: 'PTConnectionLeg',
+  start: {
+    __typename: 'StopPlace',
+    id: '8722326',
+    name: 'Lille-Europe',
+  },
+  end: {
+    __typename: 'StopPlace',
+    id: '8798949',
+    name: 'Lille-Europe EST',
+  },
+  notices: [
+    {
+      name: 'Y',
+      text: {
+        template: 'Zu Fuss',
+        arguments: [],
+        __typename: 'LinkedText',
+      },
+      type: 'ATTRIBUTE',
+      priority: 5,
+      __typename: 'Notice',
+    },
+  ],
+};
+
 export const extendedLeg = {
   __typename: 'PTRideLeg',
   arrival: { time: future2 },

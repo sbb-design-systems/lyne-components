@@ -1,8 +1,5 @@
-import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import type { SbbMiniButtonElement } from '../../button/mini-button.js';
-import { tabKey } from '../../core/testing/private/keys.js';
 import {
   describeEach,
   describeViewports,
@@ -95,14 +92,14 @@ describe(`sbb-form-field`, () => {
     ></textarea>`;
 
   const icons: TemplateResult = html`
-    <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
+    <sbb-icon slot="prefix" name="face-smiling-small"></sbb-icon>
     <sbb-icon slot="suffix" name="dog-small"></sbb-icon>
   `;
 
   const buttonsAndPopover = ({ disabled, readonly }: any): TemplateResult => html`
     <sbb-mini-button
       slot="prefix"
-      icon-name="pie-small"
+      icon-name="face-smiling-small"
       ?disabled=${disabled || readonly}
       aria-label="Input button"
     ></sbb-mini-button>
@@ -221,7 +218,7 @@ describe(`sbb-form-field`, () => {
 
                 it(
                   `slot=buttons focus`,
-                  visualDiffDefault.with(async (setup) => {
+                  visualDiffFocus.with(async (setup) => {
                     const templateResult: TemplateResult = html`${template(args)}
                     ${buttonsAndPopover(args)}`;
                     await setup.withFixture(html`${formField(args, templateResult)}`, {
@@ -229,11 +226,7 @@ describe(`sbb-form-field`, () => {
                       focusOutlineDark: negative,
                       forcedColors,
                     });
-                    (
-                      setup.snapshotElement.querySelector(name)!
-                        .nextElementSibling as SbbMiniButtonElement
-                    ).focus();
-                    await sendKeys({ press: tabKey });
+                    setup.withStateElement(setup.snapshotElement.querySelector('sbb-mini-button')!);
                   }),
                 );
               });

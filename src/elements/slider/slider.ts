@@ -11,7 +11,7 @@ import { EventEmitter, forwardEventToHost } from '../core/eventing.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
-  SbbFocusableDisabledActionMixin,
+  SbbDisabledMixin,
   SbbFormAssociatedMixin,
 } from '../core/mixins.js';
 
@@ -30,9 +30,7 @@ import '../icon.js';
 @hostAttributes({
   role: 'slider',
 })
-export class SbbSliderElement extends SbbFocusableDisabledActionMixin(
-  SbbFormAssociatedMixin(LitElement),
-) {
+export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -139,13 +137,6 @@ export class SbbSliderElement extends SbbFocusableDisabledActionMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('disabled')) {
-      if (this.disabled) {
-        this.removeAttribute('tabindex');
-      } else {
-        this.setAttribute('tabindex', '0');
-      }
-    }
     if (changedProperties.has('min')) {
       setOrRemoveAttribute(this, 'aria-valuemin', this.min);
     }
@@ -154,6 +145,15 @@ export class SbbSliderElement extends SbbFocusableDisabledActionMixin(
     }
     if (changedProperties.has('readonly')) {
       setOrRemoveAttribute(this, 'aria-readonly', this.readonly ? 'true' : null);
+    }
+    if (changedProperties.has('disabled')) {
+      if (this.disabled) {
+        this.setAttribute('aria-disabled', 'true');
+        this.removeAttribute('tabindex');
+      } else {
+        this.removeAttribute('aria-disabled');
+        this.setAttribute('tabindex', '0');
+      }
     }
   }
 

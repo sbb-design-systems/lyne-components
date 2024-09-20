@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { hostAttributes } from '../core/decorators.js';
-import { getDocumentWritingMode, isSafari } from '../core/dom.js';
+import { isSafari } from '../core/dom.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
@@ -30,7 +30,6 @@ const ariaRoleOnHost = isSafari;
  */
 @customElement('sbb-autocomplete')
 @hostAttributes({
-  dir: getDocumentWritingMode(),
   role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbAutocompleteElement extends SbbAutocompleteBaseElement {

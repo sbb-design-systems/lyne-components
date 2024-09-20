@@ -65,7 +65,12 @@ describe(`sbb-timetable-row`, () => {
   describe('renders loading state', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-timetable-row loading-trip loading-price .now=${now}></sbb-timetable-row>`,
+        html`<sbb-timetable-row
+          loading-trip
+          a11y-footpath
+          loading-price
+          .now=${now}
+        ></sbb-timetable-row>`,
       );
     });
 

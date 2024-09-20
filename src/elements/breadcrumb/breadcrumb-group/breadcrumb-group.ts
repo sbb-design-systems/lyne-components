@@ -1,8 +1,9 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
-  nothing,
   LitElement,
+  nothing,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
@@ -18,7 +19,6 @@ import { hostAttributes } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
-import { AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
 import style from './breadcrumb-group.scss?lit&inline';
@@ -52,7 +52,11 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
     return this.getAttribute('data-state') as 'collapsed' | 'manually-expanded' | null;
   }
 
-  private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
+  private _resizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => this._evaluateCollapsedState(),
+  });
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
   private _markForFocus = false;
@@ -85,11 +89,6 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
 
     this._resizeObserver.observe(this);
     this.toggleAttribute('data-loaded', true);
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._resizeObserver.disconnect();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
@@ -168,7 +167,8 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
       this.listChildren.length >= MIN_BREADCRUMBS_TO_COLLAPSE
     ) {
       this._state = 'collapsed';
-      this._resizeObserver.disconnect();
+      this._resizeObserver.hostDisconnected();
+      this.removeController(this._resizeObserver);
     }
   }
 

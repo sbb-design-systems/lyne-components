@@ -1,10 +1,10 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
 import { hostAttributes } from '../../core/decorators.js';
-import { AgnosticMutationObserver } from '../../core/observers.js';
 
 import style from './flip-card-details.scss?lit&inline';
 
@@ -20,9 +20,17 @@ import style from './flip-card-details.scss?lit&inline';
 export class SbbFlipCardDetailsElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  private _flipCardMutationObserver = new AgnosticMutationObserver(() =>
-    this._checkForSlottedActions(),
-  );
+  public constructor() {
+    super();
+
+    new MutationController(this, {
+      config: {
+        childList: true,
+        subtree: true,
+      },
+      callback: () => this._checkForSlottedActions(),
+    });
+  }
 
   private _checkForSlottedActions(): void {
     const cardFocusableAttributeName = 'data-card-focusable';
@@ -30,25 +38,6 @@ export class SbbFlipCardDetailsElement extends LitElement {
     Array.from(this.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
       .filter((el) => !el.hasAttribute(cardFocusableAttributeName))
       .forEach((el: Element) => el.setAttribute(cardFocusableAttributeName, ''));
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._checkForSlottedActions();
-    this._flipCardMutationObserver.observe(this, {
-      childList: true,
-      subtree: true,
-    });
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
-    this._checkForSlottedActions();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._flipCardMutationObserver.disconnect();
   }
 
   protected override render(): TemplateResult {

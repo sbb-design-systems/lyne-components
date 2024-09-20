@@ -39,6 +39,15 @@ const disabled: InputType = {
   },
 };
 
+const disabledInteractive: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
 const name: InputType = {
   control: {
     type: 'text',
@@ -76,6 +85,7 @@ export const buttonDefaultArgTypes: ArgTypes = {
   ...commonDefaultArgTypes,
   type,
   disabled,
+  'disabled-interactive': disabledInteractive,
   name,
   value,
   form,
@@ -86,6 +96,7 @@ export const buttonDefaultArgs: Args = {
   ...commonDefaultArgs,
   type: type.options![0],
   disabled: false,
+  'disabled-interactive': false,
   name: 'Button Name',
   value: undefined,
   form: undefined,

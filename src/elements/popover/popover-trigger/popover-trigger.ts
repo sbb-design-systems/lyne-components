@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { hostContext } from '../../core/dom.js';
-import { SbbFocusableDisabledActionMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './popover-trigger.scss?lit&inline';
@@ -14,7 +14,7 @@ import style from './popover-trigger.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the `sbb-popover-trigger`.
  */
 @customElement('sbb-popover-trigger')
-export class SbbPopoverTriggerElement extends SbbFocusableDisabledActionMixin(
+export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
 ) {
   public static override styles: CSSResultGroup = style;

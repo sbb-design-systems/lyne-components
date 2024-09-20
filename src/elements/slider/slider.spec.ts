@@ -222,4 +222,21 @@ describe(`sbb-slider`, () => {
       expect(element.value).to.be.equal('40');
     });
   });
+
+  it('should not be focused when disabled', async () => {
+    expect(element.tabIndex).to.be.equal(0);
+    expect(element.getAttribute('aria-disabled')).to.be.null;
+
+    element.toggleAttribute('disabled', true);
+    await waitForLitRender(element);
+
+    expect(element.tabIndex).to.be.equal(-1);
+    expect(element.getAttribute('aria-disabled')).to.be.equal('true');
+
+    element.toggleAttribute('disabled', false);
+    await waitForLitRender(element);
+
+    expect(element.tabIndex).to.be.equal(0);
+    expect(element.getAttribute('aria-disabled')).to.be.null;
+  });
 });

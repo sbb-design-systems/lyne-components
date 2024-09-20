@@ -1,10 +1,10 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y.js';
 import { isBreakpoint } from '../../core/dom.js';
-import { AgnosticResizeObserver } from '../../core/observers.js';
 import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
 import type { SbbDialogActionsElement } from '../dialog-actions.js';
 import type { SbbDialogTitleElement } from '../dialog-title.js';
@@ -38,9 +38,11 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
   // For more details:
   // - https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
   // - https://github.com/juggle/resize-observer/issues/103#issuecomment-1711148285
-  private _dialogContentResizeObserver = new AgnosticResizeObserver(() =>
-    setTimeout(() => this._onContentResize()),
-  );
+  private _dialogContentResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => setTimeout(() => this._onContentResize()),
+  });
 
   private _dialogTitleElement: SbbDialogTitleElement | null = null;
   private _dialogTitleHeight?: number;
@@ -107,11 +109,6 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
     }
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._dialogContentResizeObserver.disconnect();
-  }
-
   protected override attachOpenOverlayEvents(): void {
     super.attachOpenOverlayEvents();
 
@@ -152,7 +149,9 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
       this.lastFocusedElement?.focus();
       this.openOverlayController?.abort();
       this.focusHandler.disconnect();
-      this._dialogContentResizeObserver.disconnect();
+      if (this._dialogContentElement) {
+        this._dialogContentResizeObserver.unobserve(this._dialogContentElement);
+      }
       this.removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the dialog if no dialog is open
       if (!overlayRefs.length) {

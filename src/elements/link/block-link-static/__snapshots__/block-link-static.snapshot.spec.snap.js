@@ -6,7 +6,6 @@ snapshots["sbb-block-link-static renders DOM"] =
   data-action=""
   data-sbb-link=""
   data-slot-names="icon unnamed"
-  dir="ltr"
   icon-placement="end"
   size="m"
 >

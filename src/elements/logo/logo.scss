@@ -8,7 +8,6 @@
   height: var(--sbb-logo-height);
 
   --sbb-logo-panel-color: var(--sbb-color-red);
-  --sbb-logo-panel-stroke-color: var(--sbb-color-red);
   --sbb-logo-signet-color: var(--sbb-color-white);
   --sbb-logo-word-mark-color: var(--sbb-color-black);
   --sbb-logo-aspect-ratio: 454 / 48;
@@ -18,7 +17,6 @@
 
   @include sbb.if-forced-colors {
     --sbb-logo-panel-color: ButtonText !important;
-    --sbb-logo-panel-stroke-color: ButtonText !important;
     --sbb-logo-signet-color: Canvas !important;
     --sbb-logo-word-mark-color: ButtonText !important;
   }
@@ -64,7 +62,7 @@
 
 #sbb-logo__panel {
   fill: var(--sbb-logo-panel-color);
-  stroke: var(--sbb-logo-panel-stroke-color);
+  stroke: var(--sbb-logo-panel-color);
 }
 
 #sbb-logo__signet {

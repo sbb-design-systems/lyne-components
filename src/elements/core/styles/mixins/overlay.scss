@@ -137,7 +137,7 @@
   .sbb-gap-fix-corner#left {
     left: calc(($radius / 2) * -1);
 
-    :host([dir='rtl']) & {
+    :host(:dir(rtl)) & {
       right: calc(($radius / 2) * -1);
       left: unset;
     }
@@ -146,7 +146,7 @@
   .sbb-gap-fix-corner#right {
     right: calc(($radius / 2) * -1);
 
-    :host([dir='rtl']) & {
+    :host(:dir(rtl)) & {
       left: calc(($radius / 2) * -1);
       right: unset;
     }

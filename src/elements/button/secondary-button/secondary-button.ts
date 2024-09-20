@@ -2,7 +2,7 @@ import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbFocusableDisabledActionMixin } from '../../core/mixins.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { buttonCommonStyle, buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common.js';
 
 /**
@@ -13,7 +13,7 @@ import { buttonCommonStyle, buttonSecondaryStyle, SbbButtonCommonElementMixin } 
  */
 @customElement('sbb-secondary-button')
 export class SbbSecondaryButtonElement extends SbbButtonCommonElementMixin(
-  SbbFocusableDisabledActionMixin(SbbButtonBaseElement),
+  SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
   public static override styles: CSSResultGroup = [buttonCommonStyle, buttonSecondaryStyle];
 }

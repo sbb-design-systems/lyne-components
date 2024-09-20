@@ -12,7 +12,9 @@ describe('sbb-autocomplete-grid-cell', () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
           <sbb-autocomplete-grid-cell>
-            <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
+            <sbb-autocomplete-grid-button
+              icon-name="face-smiling-small"
+            ></sbb-autocomplete-grid-button>
           </sbb-autocomplete-grid-cell>
         `);
       }),

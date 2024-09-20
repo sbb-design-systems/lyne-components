@@ -8,7 +8,6 @@ snapshots["sbb-link-button renders DOM"] =
   data-button=""
   data-sbb-link=""
   data-slot-names="unnamed"
-  dir="ltr"
   form="form"
   name="name"
   role="button"

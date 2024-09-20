@@ -1,3 +1,4 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -7,7 +8,6 @@ import { slotState } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
-import { AgnosticResizeObserver } from '../core/observers.js';
 import type { SbbTitleLevel } from '../title.js';
 
 import style from './notification.scss?lit&inline';
@@ -82,9 +82,11 @@ export class SbbNotificationElement extends LitElement {
   private _notificationElement!: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
   private _language = new SbbLanguageController(this);
-  private _notificationResizeObserver = new AgnosticResizeObserver(() =>
-    this._onNotificationResize(),
-  );
+  private _notificationResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => this._onNotificationResize(),
+  });
 
   /** Emits whenever the `sbb-notification` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
@@ -141,11 +143,6 @@ export class SbbNotificationElement extends LitElement {
     await this.updateComplete;
     this._setNotificationHeight();
     this._open();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._notificationResizeObserver.disconnect();
   }
 
   private _setNotificationHeight(): void {

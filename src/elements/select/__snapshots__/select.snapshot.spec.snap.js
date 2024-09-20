@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-select renders Safari DOM"] = 
 `<sbb-select
   data-state="closed"
-  dir="ltr"
   id="sbb-select-1"
   role="listbox"
 >
@@ -87,7 +86,6 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
 snapshots["sbb-select renders multiple Safari DOM"] = 
 `<sbb-select
   data-state="closed"
-  dir="ltr"
   id="sbb-select-3"
   multiple=""
   role="listbox"
@@ -175,10 +173,7 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 /* end snapshot sbb-select renders multiple Safari Shadow DOM */
 
 snapshots["sbb-select renders Chrome-Firefox DOM"] = 
-`<sbb-select
-  data-state="closed"
-  dir="ltr"
->
+`<sbb-select data-state="closed">
   <sbb-option
     aria-selected="false"
     data-disable-highlight=""
@@ -279,7 +274,6 @@ snapshots["sbb-select renders A11y tree Chrome"] =
 snapshots["sbb-select renders multiple Chrome-Firefox DOM"] = 
 `<sbb-select
   data-state="closed"
-  dir="ltr"
   multiple=""
 >
   <sbb-option

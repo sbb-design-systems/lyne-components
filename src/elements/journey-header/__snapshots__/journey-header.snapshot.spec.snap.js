@@ -18,10 +18,7 @@ snapshots["sbb-journey-header renders Shadow DOM"] =
   role="heading"
   visual-level="5"
 >
-  <span
-    class="sbb-journey-header"
-    dir="ltr"
-  >
+  <span class="sbb-journey-header">
     <span class="sbb-journey-header__origin">
       <sbb-screen-reader-only>
         Connection from
@@ -67,10 +64,7 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative Shadow DOM"
   role="heading"
   visual-level="4"
 >
-  <span
-    class="sbb-journey-header"
-    dir="ltr"
-  >
+  <span class="sbb-journey-header">
     <span class="sbb-journey-header__origin">
       <sbb-screen-reader-only>
         Connection from
