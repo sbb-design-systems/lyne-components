@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.0...v1.11.1) (2024-09-20)
+
+
+### Bug Fixes
+
+* assign correct dependency versions for published packages ([#3102](https://github.com/sbb-design-systems/lyne-components/issues/3102)) ([ed99ce9](https://github.com/sbb-design-systems/lyne-components/commit/ed99ce9d3bea5b49c4919908b5c9680feb5fd2ab)), closes [#3100](https://github.com/sbb-design-systems/lyne-components/issues/3100)
+
 ## [1.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.10.0...v1.11.0) (2024-09-19)
 
 
