@@ -470,7 +470,6 @@ describe(`sbb-select`, () => {
       element.value = nativeSelect.value = '4';
       await waitForLitRender(form);
 
-      // TODO There is a difference between the native and our implementation
       /**
        * Custom implementation
        * If an invalid value is set, we keep it and show the empty placeholder.
