@@ -44,10 +44,10 @@ export class SbbSliderElement extends SbbFocusableDisabledActionMixin(
    */
   @property()
   public override set value(value: string | null) {
-    if (value && this._isValidNumber(value!)) {
-      super.value = this._boundBetweenMinMax(value);
+    if (this._isValidNumber(value)) {
+      super.value = this._boundBetweenMinMax(value!);
     } else {
-      super.value = this._getDefaultValue().toString();
+      super.value = this._getDefaultValue();
     }
     setOrRemoveAttribute(this, 'aria-valuenow', this.value);
     this._calculateValueFraction();
@@ -68,7 +68,7 @@ export class SbbSliderElement extends SbbFocusableDisabledActionMixin(
   /** Minimum acceptable value for the inner HTMLInputElement. */
   @property()
   public set min(value: string) {
-    if (!value || !this._isValidNumber(value!)) {
+    if (!this._isValidNumber(value!)) {
       return;
     }
 
@@ -83,7 +83,7 @@ export class SbbSliderElement extends SbbFocusableDisabledActionMixin(
   /** Maximum acceptable value for the inner HTMLInputElement. */
   @property()
   public set max(value: string) {
-    if (!value || !this._isValidNumber(value!)) {
+    if (!this._isValidNumber(value!)) {
       return;
     }
 
@@ -187,8 +187,8 @@ export class SbbSliderElement extends SbbFocusableDisabledActionMixin(
     return (+this.min + (+this.max - +this.min) / 2).toString();
   }
 
-  private _isValidNumber(value: string): boolean {
-    return !isNaN(Number(value));
+  private _isValidNumber(value: string | null): boolean {
+    return !!value && !isNaN(Number(value));
   }
 
   /**
