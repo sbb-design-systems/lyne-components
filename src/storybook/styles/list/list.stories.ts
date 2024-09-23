@@ -66,7 +66,7 @@ const StepsTemplate = (): TemplateResult => html`
   )}
 `;
 
-const CheckupTemplate = (): TemplateResult => html`
+const IconListTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
@@ -83,13 +83,13 @@ const CheckupTemplate = (): TemplateResult => html`
   )}
 `;
 
-const CheckupCustomIconTemplate = (): TemplateResult => html`
+const IconListCustomIconTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol
         class=${`sbb-icon-list sbb-text-${textSize}`}
-        style="--sbb-checkup-list-marker-icon-color: var(--sbb-color-red); --sbb-checkup-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-medium.svg')"
+        style="--sbb-icon-list-marker-icon-color: var(--sbb-color-red); --sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-medium.svg')"
       >
         ${ListContent()}
         <li>
@@ -103,7 +103,7 @@ const CheckupCustomIconTemplate = (): TemplateResult => html`
   )}
 `;
 
-const CheckupCustomColorTemplate = (): TemplateResult => html`
+const IconListCustomColorTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
@@ -150,16 +150,16 @@ export const StepList: StoryObj = {
   render: StepsTemplate,
 };
 
-export const CheckupList: StoryObj = {
-  render: CheckupTemplate,
+export const IconList: StoryObj = {
+  render: IconListTemplate,
 };
 
-export const CheckupListCustomIcon: StoryObj = {
-  render: CheckupCustomIconTemplate,
+export const IconListCustomIcon: StoryObj = {
+  render: IconListCustomIconTemplate,
 };
 
-export const CheckupListCustomColor: StoryObj = {
-  render: CheckupCustomColorTemplate,
+export const IconListCustomColor: StoryObj = {
+  render: IconListCustomColorTemplate,
 };
 
 export const DescriptionList: StoryObj = {

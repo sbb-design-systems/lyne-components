@@ -68,7 +68,7 @@ describe(`list`, () => {
         );
 
         it(
-          'checkup list',
+          'icon list',
           visualDiffDefault.with((setup) => {
             setup.withFixture(html`
               <ol class=${`sbb-icon-list sbb-text-${textSize}`}>
@@ -87,10 +87,11 @@ describe(`list`, () => {
         it(
           'custom icon list',
           visualDiffDefault.with((setup) => {
+            const url = `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="%23000" fill-rule="evenodd" d="M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 9 9 0 0 0 9-9 9 9 0 0 0-9-9M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12m10 .707-3.646 3.646-.708-.707L11.293 12 7.646 8.353l.708-.707L12 11.293l3.646-3.647.708.707L12.707 12l3.647 3.646-.708.707z" clip-rule="evenodd"/></svg>')`;
             setup.withFixture(html`
               <ol
                 class=${`sbb-icon-list sbb-text-${textSize}`}
-                style="--sbb-checkup-list-marker-icon-color: var(--sbb-color-red); --sbb-checkup-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-medium.svg')"
+                style=${`--sbb-icon-list-marker-icon-color: var(--sbb-color-red); --sbb-icon-list-marker-icon: ${url}`}
               >
                 ${listContent()}
                 <li>
@@ -105,7 +106,7 @@ describe(`list`, () => {
         );
 
         it(
-          'checkup list custom color',
+          'icon list custom color',
           visualDiffDefault.with((setup) => {
             setup.withFixture(html`
               <ol
