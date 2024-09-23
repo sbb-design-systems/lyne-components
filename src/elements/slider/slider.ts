@@ -29,6 +29,7 @@ import '../icon.js';
 @customElement('sbb-slider')
 @hostAttributes({
   role: 'slider',
+  tabindex: '0',
 })
 export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
@@ -138,22 +139,13 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('min')) {
-      setOrRemoveAttribute(this, 'aria-valuemin', this.min);
+      this.internals.ariaValueMin = this.min;
     }
     if (changedProperties.has('max')) {
-      setOrRemoveAttribute(this, 'aria-valuemax', this.max);
+      this.internals.ariaValueMax = this.max;
     }
     if (changedProperties.has('readonly')) {
-      setOrRemoveAttribute(this, 'aria-readonly', this.readonly ? 'true' : null);
-    }
-    if (changedProperties.has('disabled') || changedProperties.has('formDisabled')) {
-      if (this.disabled || this.formDisabled) {
-        this.setAttribute('aria-disabled', 'true');
-        this.removeAttribute('tabindex');
-      } else {
-        this.removeAttribute('aria-disabled');
-        this.setAttribute('tabindex', '0');
-      }
+      this.internals.ariaReadOnly = Boolean(this.readonly).toString();
     }
   }
 
@@ -208,7 +200,7 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
       event.preventDefault();
     }
 
-    if (this.disabled || this.formDisabled || this.readonly) {
+    if (this.readonly) {
       return;
     }
 

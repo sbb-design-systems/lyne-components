@@ -139,33 +139,30 @@ describe(`sbb-slider`, () => {
       element.disabled = true;
       await waitForLitRender(form);
 
-      const disabledElements = Array.from(form.querySelectorAll(':disabled'));
+      let disabledElements = Array.from(form.querySelectorAll(':disabled'));
       expect(disabledElements.includes(element), ':disabled selector').to.be.true;
-      expect(element.tabIndex).to.be.equal(-1);
-      expect(element.getAttribute('aria-disabled')).to.be.equal('true');
 
       element.disabled = false;
       await waitForLitRender(element);
 
-      expect(element.tabIndex).to.be.equal(0);
-      expect(element.getAttribute('aria-disabled')).to.be.null;
+      disabledElements = Array.from(form.querySelectorAll(':disabled'));
+      expect(disabledElements.includes(element), ':disabled selector').to.be.false;
     });
 
     it('should result :disabled if a fieldSet is', async () => {
       fieldSet.disabled = true;
       await waitForLitRender(form);
 
-      const disabledElements = Array.from(form.querySelectorAll(':disabled'));
+      let disabledElements = Array.from(form.querySelectorAll(':disabled'));
       expect(disabledElements.includes(element), ':disabled selector').to.be.true;
-      expect(element.tabIndex).to.be.equal(-1);
-      expect(element.getAttribute('aria-disabled')).to.be.equal('true');
       compareToNativeInput();
 
       fieldSet.disabled = false;
       await waitForLitRender(element);
 
-      expect(element.tabIndex).to.be.equal(0);
-      expect(element.getAttribute('aria-disabled')).to.be.null;
+      disabledElements = Array.from(form.querySelectorAll(':disabled'));
+      expect(disabledElements.includes(element), ':disabled selector').to.be.false;
+      compareToNativeInput();
     });
 
     it('should restore form state on formStateRestoreCallback()', async () => {

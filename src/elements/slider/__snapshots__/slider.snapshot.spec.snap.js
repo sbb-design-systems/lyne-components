@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-slider renders DOM"] = 
 `<sbb-slider
-  aria-valuemax="100"
-  aria-valuemin="0"
   aria-valuenow="1"
   role="slider"
   tabindex="0"
@@ -47,8 +45,6 @@ snapshots["sbb-slider renders Shadow DOM"] =
 
 snapshots["sbb-slider renders with properties DOM"] = 
 `<sbb-slider
-  aria-valuemax="500"
-  aria-valuemin="0"
   aria-valuenow="100"
   end-icon="walk-fast-small"
   max="500"
@@ -109,9 +105,6 @@ snapshots["sbb-slider renders with properties Shadow DOM"] =
 
 snapshots["sbb-slider renders disabled DOM"] = 
 `<sbb-slider
-  aria-disabled="true"
-  aria-valuemax="500"
-  aria-valuemin="0"
   aria-valuenow="100"
   disabled=""
   end-icon="walk-fast-small"
@@ -119,6 +112,7 @@ snapshots["sbb-slider renders disabled DOM"] =
   min="0"
   role="slider"
   start-icon="walk-slow-small"
+  tabindex="0"
   value="100"
 >
 </sbb-slider>
@@ -173,9 +167,6 @@ snapshots["sbb-slider renders disabled Shadow DOM"] =
 
 snapshots["sbb-slider renders readonly DOM"] = 
 `<sbb-slider
-  aria-readonly="true"
-  aria-valuemax="500"
-  aria-valuemin="0"
   aria-valuenow="100"
   end-icon="walk-fast-small"
   max="500"
@@ -396,8 +387,6 @@ snapshots["sbb-slider renders readonly A11y tree Firefox"] =
 
 snapshots["sbb-slider renders in form DOM"] = 
 `<sbb-slider
-  aria-valuemax="10"
-  aria-valuemin="0"
   aria-valuenow="1"
   max="10"
   min="0"
