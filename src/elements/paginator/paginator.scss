@@ -140,6 +140,10 @@
       --sbb-paginator-page-border-style: solid;
       --sbb-paginator-page-border-color: var(--sbb-color-white);
     }
+
+    @include sbb.if-forced-colors {
+      --sbb-paginator-page-border-color: Highlight !important;
+    }
   }
 
   &:hover {
@@ -150,6 +154,10 @@
 
       :host([negative]) & {
         --sbb-paginator-page-background-color: var(--sbb-color-charcoal);
+      }
+
+      @include sbb.if-forced-colors {
+        --sbb-paginator-page-background-color: Highlight !important;
       }
     }
   }
@@ -163,6 +171,10 @@
     :host([negative]) & {
       --sbb-paginator-page-color: var(--sbb-color-milk);
       --sbb-paginator-page-background-color: var(--sbb-color-iron);
+    }
+
+    @include sbb.if-forced-colors {
+      --sbb-paginator-page-background-color: Highlight !important;
     }
   }
 }

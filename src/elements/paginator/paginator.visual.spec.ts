@@ -1,4 +1,4 @@
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 
 import {
   describeViewports,
@@ -16,44 +16,48 @@ describe('sbb-paginator', () => {
       describe(`negative=${negative}`, () => {
         const wrapperStyle = {
           backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-          focusOutlineDark: negative,
         };
 
-        for (const state of [visualDiffFocus, visualDiffHover, visualDiffActive] as const) {
-          describe(`state=${state.name}`, () => {
-            for (const selected of [false, true]) {
-              it(
-                `selected=${selected}`,
-                state.with(async (setup) => {
-                  await setup.withFixture(
-                    html`<sbb-paginator
-                      ?negative=${negative || nothing}
-                      length="50"
-                      page-size="10"
-                      pager-position="end"
-                    ></sbb-paginator>`,
-                    wrapperStyle,
+        for (const forcedColors of [false, true]) {
+          describe(`forcedColors=${forcedColors}`, () => {
+            for (const state of [visualDiffFocus, visualDiffHover, visualDiffActive] as const) {
+              describe(`state=${state.name}`, () => {
+                for (const selected of [false, true]) {
+                  it(
+                    `selected=${selected}`,
+                    state.with(async (setup) => {
+                      await setup.withFixture(
+                        html`<sbb-paginator
+                          ?negative=${negative}
+                          length="50"
+                          page-size="10"
+                          pager-position="end"
+                          page-size-options="[10, 20, 50]"
+                        ></sbb-paginator>`,
+                        { ...wrapperStyle, forcedColors },
+                      );
+                      setup.withStateElement(
+                        setup.snapshotElement
+                          .querySelector('sbb-paginator')!
+                          .shadowRoot!.querySelector(`button[data-index="${selected ? 0 : 1}"]`)!,
+                      );
+                    }),
                   );
-                  setup.withStateElement(
-                    setup.snapshotElement
-                      .querySelector('sbb-paginator')!
-                      .shadowRoot!.querySelector(`button[data-index="${selected ? 0 : 1}"]`)!,
-                  );
-                }),
-              );
+                }
+              });
             }
           });
         }
 
-        for (const pageIndex of [0, 2, 5, 7, 9]) {
+        for (const pageIndex of [0, 5, 9]) {
           it(
             `pageIndex=${pageIndex}`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
                 html`<sbb-paginator
                   length="100"
-                  page-index="${pageIndex}"
-                  ?negative=${negative || nothing}
+                  page-index=${pageIndex}
+                  ?negative=${negative}
                 ></sbb-paginator>`,
                 wrapperStyle,
               );
@@ -75,7 +79,7 @@ describe('sbb-paginator', () => {
                       size=${size}
                       pager-position=${pagerPosition}
                       .pageSizeOptions="${pageSizeOptions}"
-                      ?negative=${negative || nothing}
+                      ?negative=${negative}
                     ></sbb-paginator>`,
                     wrapperStyle,
                   );

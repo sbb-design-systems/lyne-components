@@ -339,9 +339,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
                       @click=${() => this._pageIndexChanged(item)}
                       @keyup=${this._handleKeyUp}
-                      tabindex="0"
                     >
-                      <!-- tabindex=0 needed for Safari -->
                       <span class="sbb-paginator__page--number-item-label">${item + 1}</span>
                     </button>
                   </li>
