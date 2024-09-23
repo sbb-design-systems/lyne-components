@@ -133,22 +133,39 @@ describe(`sbb-slider`, () => {
     });
 
     it('should result as :disabled', async () => {
-      element.disabled = true;
+      expect(element.tabIndex).to.be.equal(0);
+      expect(element.getAttribute('aria-disabled')).to.be.null;
 
+      element.disabled = true;
       await waitForLitRender(form);
 
       const disabledElements = Array.from(form.querySelectorAll(':disabled'));
       expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+      expect(element.tabIndex).to.be.equal(-1);
+      expect(element.getAttribute('aria-disabled')).to.be.equal('true');
+
+      element.disabled = false;
+      await waitForLitRender(element);
+
+      expect(element.tabIndex).to.be.equal(0);
+      expect(element.getAttribute('aria-disabled')).to.be.null;
     });
 
-    it('should result disabled if a fieldSet is', async () => {
+    it('should result :disabled if a fieldSet is', async () => {
       fieldSet.disabled = true;
-
       await waitForLitRender(form);
 
       const disabledElements = Array.from(form.querySelectorAll(':disabled'));
       expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+      expect(element.tabIndex).to.be.equal(-1);
+      expect(element.getAttribute('aria-disabled')).to.be.equal('true');
       compareToNativeInput();
+
+      fieldSet.disabled = false;
+      await waitForLitRender(element);
+
+      expect(element.tabIndex).to.be.equal(0);
+      expect(element.getAttribute('aria-disabled')).to.be.null;
     });
 
     it('should restore form state on formStateRestoreCallback()', async () => {
@@ -221,22 +238,5 @@ describe(`sbb-slider`, () => {
       expect(elemChangeEvent.count).not.to.be.greaterThan(0);
       expect(element.value).to.be.equal('40');
     });
-  });
-
-  it('should not be focused when disabled', async () => {
-    expect(element.tabIndex).to.be.equal(0);
-    expect(element.getAttribute('aria-disabled')).to.be.null;
-
-    element.toggleAttribute('disabled', true);
-    await waitForLitRender(element);
-
-    expect(element.tabIndex).to.be.equal(-1);
-    expect(element.getAttribute('aria-disabled')).to.be.equal('true');
-
-    element.toggleAttribute('disabled', false);
-    await waitForLitRender(element);
-
-    expect(element.tabIndex).to.be.equal(0);
-    expect(element.getAttribute('aria-disabled')).to.be.null;
   });
 });

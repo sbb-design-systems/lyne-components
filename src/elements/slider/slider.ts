@@ -146,8 +146,8 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
     if (changedProperties.has('readonly')) {
       setOrRemoveAttribute(this, 'aria-readonly', this.readonly ? 'true' : null);
     }
-    if (changedProperties.has('disabled')) {
-      if (this.disabled) {
+    if (changedProperties.has('disabled') || changedProperties.has('formDisabled')) {
+      if (this.disabled || this.formDisabled) {
         this.setAttribute('aria-disabled', 'true');
         this.removeAttribute('tabindex');
       } else {
@@ -173,10 +173,6 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
     _reason: FormRestoreReason,
   ): void {
     this.value = state as string | null;
-  }
-
-  protected override isDisabledExternally(): boolean {
-    return this.formDisabled;
   }
 
   /**
@@ -212,7 +208,7 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
       event.preventDefault();
     }
 
-    if (this.disabled || this.readonly) {
+    if (this.disabled || this.formDisabled || this.readonly) {
       return;
     }
 
@@ -260,7 +256,7 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
               tabindex="-1"
               min=${this.min}
               max=${this.max}
-              ?disabled=${this.disabled || this.readonly || nothing}
+              ?disabled=${this.disabled || this.formDisabled || this.readonly || nothing}
               value=${this.value || nothing}
               class="sbb-slider__range-input"
               type="range"
