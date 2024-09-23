@@ -187,8 +187,8 @@
 
   & {
     --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
-    --sbb-step-list-border-radius: var(--sbb-border-radius-4x);
     --sbb-step-list-vertical-gap: var(--sbb-spacing-fixed-1x);
+    --sbb-step-list-border-radius: var(--sbb-border-radius-4x);
 
     counter-reset: steps;
   }
@@ -204,7 +204,6 @@
   > li {
     counter-increment: steps;
     background-color: var(--sbb-color-milk);
-    border-radius: var(--sbb-border-radius-4x);
     padding-block: calc(
         var(--sbb-step-list-padding-block) + var(--sbb-list-text-to-marker-block-offset)
       )
@@ -223,6 +222,16 @@
       justify-content: center;
       border: var(--sbb-border-width-1x) solid var(--sbb-color-cement);
       color: var(--sbb-color-charcoal);
+    }
+
+    &:first-of-type {
+      border-start-start-radius: var(--sbb-step-list-border-radius);
+      border-start-end-radius: var(--sbb-step-list-border-radius);
+    }
+
+    &:last-of-type {
+      border-end-start-radius: var(--sbb-step-list-border-radius);
+      border-end-end-radius: var(--sbb-step-list-border-radius);
     }
   }
 }
