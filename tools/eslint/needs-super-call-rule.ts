@@ -1,15 +1,6 @@
-import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
-import { ESLintUtils } from '@typescript-eslint/utils';
-
-const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://github.com/sbb-design-systems/lyne-components/blob/main/tools/eslint/${name}.ts`,
-);
-
-type MessageIds = 'needsSuperCall' | 'needsSuperCallSuggestion';
+import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 
 const hasChangedProperties = ['shouldUpdate', 'willUpdate', 'update', 'firstUpdated', 'updated'];
-
 const methodsToCheckForSuperCall = [
   'connectedCallback',
   'disconnectedCallback',
@@ -18,8 +9,7 @@ const methodsToCheckForSuperCall = [
   ...hasChangedProperties,
 ];
 
-export const name = 'needs-super-call-rule';
-export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[], MessageIds>({
+export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     return {
       // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -70,11 +60,9 @@ export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[]
       },
     };
   },
-  name,
   meta: {
     docs: {
       description: 'method needs super call',
-      recommended: 'recommended',
     },
     messages: {
       needsSuperCall: 'Method needs super call.',
