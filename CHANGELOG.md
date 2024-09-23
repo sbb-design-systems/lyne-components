@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.2](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.1...v1.11.2) (2024-09-23)
+
+
+### Bug Fixes
+
+* prevent using HTMLElement in SSR context ([#3107](https://github.com/sbb-design-systems/lyne-components/issues/3107)) ([333e90e](https://github.com/sbb-design-systems/lyne-components/commit/333e90e867729bdb73fb2d3b150ce1b96c407be3))
+* respect disabled interactive elements in focus trap ([#3108](https://github.com/sbb-design-systems/lyne-components/issues/3108)) ([fb0a1bb](https://github.com/sbb-design-systems/lyne-components/commit/fb0a1bba0aa4b83c8fe91b892af7d5baa6e8adba)), closes [#3109](https://github.com/sbb-design-systems/lyne-components/issues/3109)
+
+## [1.11.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.0...v1.11.1) (2024-09-20)
+
+
+### Bug Fixes
+
+* assign correct dependency versions for published packages ([#3102](https://github.com/sbb-design-systems/lyne-components/issues/3102)) ([ed99ce9](https://github.com/sbb-design-systems/lyne-components/commit/ed99ce9d3bea5b49c4919908b5c9680feb5fd2ab)), closes [#3100](https://github.com/sbb-design-systems/lyne-components/issues/3100)
+
+## [1.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.10.0...v1.11.0) (2024-09-19)
+
+
+### Features
+
+* **sbb-header:** introduce size s ([#3047](https://github.com/sbb-design-systems/lyne-components/issues/3047)) ([cd60922](https://github.com/sbb-design-systems/lyne-components/commit/cd60922f59af898f5875a3d6e9d378a1cf118080))
+* **sbb-map-container:** allow config of sticky offset on mobile ([#3092](https://github.com/sbb-design-systems/lyne-components/issues/3092)) ([520d812](https://github.com/sbb-design-systems/lyne-components/commit/520d8122899ba0281cf60f07f697002dbde407de)), closes [#3091](https://github.com/sbb-design-systems/lyne-components/issues/3091)
+
+
+### Bug Fixes
+
+* introduce disabledInteractive property and revert focusing disabled actions in general ([#3096](https://github.com/sbb-design-systems/lyne-components/issues/3096)) ([74b3e6f](https://github.com/sbb-design-systems/lyne-components/commit/74b3e6f880cf22e5868ff6619855fafd73f60b2e))
+
 ## [1.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.9.0...v1.10.0) (2024-09-12)
 
 

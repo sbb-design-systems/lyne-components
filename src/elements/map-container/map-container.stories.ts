@@ -82,14 +82,12 @@ export const MapContainer: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div>
-        <sbb-header expanded hide-on-scroll>
-          <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
-            Menu
-          </sbb-header-button>
-        </sbb-header>
-        ${story()}
-      </div>
+      <sbb-header expanded>
+        <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+          Menu
+        </sbb-header-button>
+      </sbb-header>
+      ${story()}
     `,
   ],
   parameters: {

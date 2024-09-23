@@ -106,14 +106,6 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
     this._datePickerController?.abort();
   }
 
-  public override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-    this._triggerElement.updateComplete.then(() => {
-      // We have to rewrite the tabindex of the mini-button as the popover trigger itself sets the tabindex to always 0.
-      this._triggerElement.tabIndex = this._isDisabled() ? -1 : 0;
-    });
-  }
-
   private _init(datePicker?: string | SbbDatepickerElement): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
@@ -200,18 +192,13 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
     return this._datePickerElement?.hasCustomNow() ? this._datePickerElement.now : undefined;
   }
 
-  private _isDisabled(): boolean {
-    return !isServer && (!this._datePickerElement || this._disabled);
-  }
-
   protected override render(): TemplateResult {
     return html`
       <sbb-mini-button
         class="sbb-datepicker-toggle__trigger"
         icon-name="calendar-small"
         aria-label=${i18nShowCalendar[this._language.current]}
-        ?disabled=${this._isDisabled()}
-        tabindex=${this._isDisabled() ? -1 : 0}
+        ?disabled=${!isServer && (!this._datePickerElement || this._disabled)}
         ?negative=${this.negative}
         ${ref((el?: Element) => (this._triggerElement = el as SbbMiniButtonElement))}
       ></sbb-mini-button>

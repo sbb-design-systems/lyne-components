@@ -20,6 +20,10 @@ import '../button/tertiary-button.js';
  * For specific use cases, this variable can be used to modify the preset height.
  * @cssprop [--sbb-map-container-sidebar-width=zero-large:400px;wide-ultra:480px] - Can be used
  * to modify the width of the left sidebar.
+ * @cssprop [--sbb-map-container-mobile-sticky-block-start=0] - If e.g. a header with a fixed height
+ * is placed before the map-container, the map should be sticky respecting
+ * this offset from the document's top. Only applied on mobile views.
+ * Most commonly it can be set to `var(--sbb-header-height)`.
  */
 @customElement('sbb-map-container')
 export class SbbMapContainerElement extends LitElement {
@@ -101,7 +105,7 @@ export class SbbMapContainerElement extends LitElement {
                 icon-name="location-pin-map-small"
                 type="button"
                 @click=${() => this._onScrollButtonClick()}
-                .inert=${!this._scrollUpButtonVisible}
+                ?inert=${!this._scrollUpButtonVisible}
               >
                 ${i18nMapContainerButtonLabel[this._language.current]}
               </sbb-tertiary-button>`
