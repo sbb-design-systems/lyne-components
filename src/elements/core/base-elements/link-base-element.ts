@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../controllers.js';
 import { hostAttributes } from '../decorators.js';
-import { getLocalName } from '../dom.js';
 import { i18nTargetOpensInNewWindow } from '../i18n.js';
 
 import { SbbActionBaseElement } from './action-base-element.js';
@@ -65,7 +64,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   protected override render(): TemplateResult {
     return html`
       <a
-        class="sbb-action-base ${this.localName ?? getLocalName(this)}"
+        class="sbb-action-base ${this.localName}"
         href=${this.href || nothing}
         ?download=${this.download}
         target=${this.target || nothing}

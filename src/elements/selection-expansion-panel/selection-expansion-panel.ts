@@ -258,7 +258,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
         </div>
         <div
           class="sbb-selection-expansion-panel__content--wrapper"
-          .inert=${this._state !== 'opened'}
+          ?inert=${this._state !== 'opened'}
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
         >
           <div class="sbb-selection-expansion-panel__content">

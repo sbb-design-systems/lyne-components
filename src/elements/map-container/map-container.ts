@@ -105,7 +105,7 @@ export class SbbMapContainerElement extends LitElement {
                 icon-name="location-pin-map-small"
                 type="button"
                 @click=${() => this._onScrollButtonClick()}
-                .inert=${!this._scrollUpButtonVisible}
+                ?inert=${!this._scrollUpButtonVisible}
               >
                 ${i18nMapContainerButtonLabel[this._language.current]}
               </sbb-tertiary-button>`

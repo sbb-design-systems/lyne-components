@@ -1,8 +1,6 @@
 import { html, type LitElement, nothing, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { getLocalName } from '../dom.js';
-
 import type { AbstractConstructor } from './constructor.js';
 import { SbbHydrationMixin, type SbbHydrationMixinType } from './hydration-mixin.js';
 
@@ -130,7 +128,7 @@ export const SbbNamedSlotListMixin = <
       if (listSlotNames.length >= 2) {
         return html`
           <ul
-            class=${attributes.class || (this.localName ?? getLocalName(this))}
+            class=${attributes.class || this.localName}
             aria-label=${attributes.ariaLabel || nothing}
             aria-labelledby=${attributes.ariaLabelledby || nothing}
           >
@@ -146,7 +144,7 @@ export const SbbNamedSlotListMixin = <
         `;
       } else if (listSlotNames.length === 1) {
         return html`<sbb-screen-reader-only>${attributes.ariaLabel}</sbb-screen-reader-only>
-          <span class=${attributes.class || (this.localName ?? getLocalName(this))}>
+          <span class=${attributes.class || this.localName}>
             <span><slot name=${listSlotNames[0].name}></slot></span>
           </span>
           ${this.renderHiddenSlot()} `;
