@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.2](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.1...v1.11.2) (2024-09-23)
+
+
+### Bug Fixes
+
+* prevent using HTMLElement in SSR context ([#3107](https://github.com/sbb-design-systems/lyne-components/issues/3107)) ([333e90e](https://github.com/sbb-design-systems/lyne-components/commit/333e90e867729bdb73fb2d3b150ce1b96c407be3))
+* respect disabled interactive elements in focus trap ([#3108](https://github.com/sbb-design-systems/lyne-components/issues/3108)) ([fb0a1bb](https://github.com/sbb-design-systems/lyne-components/commit/fb0a1bba0aa4b83c8fe91b892af7d5baa6e8adba)), closes [#3109](https://github.com/sbb-design-systems/lyne-components/issues/3109)
+
 ## [1.11.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.0...v1.11.1) (2024-09-20)
 
 
