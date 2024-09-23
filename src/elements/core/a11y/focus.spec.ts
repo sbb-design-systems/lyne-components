@@ -103,6 +103,8 @@ describe('focus', () => {
             <button style="visibility: hidden" id="hidden-button">Button</button>
           </div>
           <slot></slot>
+          <button id="disabled-button" disabled>Disabled button</button>
+          <span id="disabled-interactive-button" disabled disabled-interactive tabindex="0">Disabled interactive button</span>
       `;
         }
       },
@@ -126,12 +128,15 @@ describe('focus', () => {
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-link');
 
       await sendKeys({ press: tabKey });
-
       expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
 
       await sendKeys({ press: tabKey });
-
       expect(document.activeElement!.id).to.equal('slotted-button');
+
+      await sendKeys({ press: tabKey });
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal(
+        'disabled-interactive-button',
+      );
 
       // Wrap around
       await sendKeys({ press: tabKey });

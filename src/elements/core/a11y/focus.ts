@@ -10,7 +10,7 @@ export const IS_FOCUSABLE_QUERY = [
   'summary:not(:disabled)',
   '[tabindex]',
 ]
-  .map((selector) => `${selector}:not([disabled],[tabindex="-1"])`)
+  .map((selector) => `${selector}:not([disabled]:not([disabled-interactive]),[tabindex="-1"])`)
   .join(',');
 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
