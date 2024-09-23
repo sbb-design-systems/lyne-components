@@ -151,7 +151,13 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Opens the selection panel. */
   public open(): void {
-    if (this.state !== 'closed' || !this._overlay || this._options.length === 0) {
+    if (
+      this.state !== 'closed' ||
+      !this._overlay ||
+      this._options.length === 0 ||
+      this.disabled ||
+      this.formDisabled
+    ) {
       return;
     }
 
@@ -355,10 +361,6 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
   }
 
-  protected override isDisabledExternally(): boolean {
-    return this.formDisabled;
-  }
-
   private _syncProperties(): void {
     this.querySelectorAll?.('sbb-divider').forEach((element) => (element.negative = this.negative));
 
@@ -497,7 +499,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private _onKeyDown(event: KeyboardEvent): void {
-    if (this.disabled || this.readonly) {
+    if (this.readonly) {
       return;
     }
 
@@ -526,7 +528,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private _openedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this.disabled || this.readonly || this.state !== 'opened') {
+    if (this.readonly || this.state !== 'opened') {
       return;
     }
 
@@ -719,7 +721,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private _toggleOpening(): void {
-    if (this.disabled || this.readonly) {
+    if (this.disabled || this.formDisabled || this.readonly) {
       return;
     }
     this._triggerElement?.focus();
@@ -757,7 +759,7 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
       readers to work properly -->
       <div
         class="sbb-screen-reader-only"
-        tabindex=${this.disabled ? nothing : '0'}
+        tabindex=${this.disabled || this.formDisabled ? nothing : '0'}
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded="false"

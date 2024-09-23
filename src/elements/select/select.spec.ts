@@ -406,6 +406,7 @@ describe(`sbb-select`, () => {
   describe('form association', () => {
     let form: HTMLFormElement;
     let element: SbbSelectElement;
+    let comboBoxElement: HTMLElement;
     let nativeSelect: HTMLSelectElement;
     let fieldSet: HTMLFieldSetElement;
     let elemChangeEvent: EventSpy<Event>,
@@ -432,6 +433,7 @@ describe(`sbb-select`, () => {
         </form>
       `);
       element = form.querySelector('sbb-select')!;
+      comboBoxElement = form.querySelector('[role="combobox"]')!;
       nativeSelect = form.querySelector('select')!;
       fieldSet = form.querySelector('fieldset')!;
 
@@ -497,9 +499,17 @@ describe(`sbb-select`, () => {
 
       await waitForLitRender(form);
 
-      const disabledElements = Array.from(form.querySelectorAll(':disabled'));
+      let disabledElements = Array.from(form.querySelectorAll(':disabled'));
       expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+      expect(comboBoxElement.tabIndex).to.be.equal(-1);
       compareToNative();
+
+      element.disabled = false;
+      await waitForLitRender(element);
+
+      disabledElements = Array.from(form.querySelectorAll(':disabled'));
+      expect(disabledElements.includes(element), ':disabled selector').to.be.false;
+      expect(comboBoxElement.tabIndex).to.be.equal(0);
     });
 
     it('should result :disabled if a fieldSet is', async () => {
@@ -507,9 +517,17 @@ describe(`sbb-select`, () => {
 
       await waitForLitRender(form);
 
-      const disabledElements = Array.from(form.querySelectorAll(':disabled'));
+      let disabledElements = Array.from(form.querySelectorAll(':disabled'));
       expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+      expect(comboBoxElement.tabIndex).to.be.equal(-1);
       compareToNative();
+
+      fieldSet.disabled = false;
+      await waitForLitRender(element);
+
+      disabledElements = Array.from(form.querySelectorAll(':disabled'));
+      expect(disabledElements.includes(element), ':disabled selector').to.be.false;
+      expect(comboBoxElement.tabIndex).to.be.equal(0);
     });
 
     it('should restore form state on formStateRestoreCallback()', async () => {
