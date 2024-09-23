@@ -128,10 +128,6 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
     this.internals.setFormValue(formValue);
   }
 
-  protected override isDisabledExternally(): boolean {
-    return this.formDisabled;
-  }
-
   private _blockEvent(event: DragEvent): void {
     event.stopPropagation();
     event.preventDefault();
@@ -147,7 +143,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
 
   private _onDragEnter(event: DragEvent): void {
     this._counter++;
-    if (!this.disabled) {
+    if (!this.disabled && !this.formDisabled) {
       this._setDragState(event.target as HTMLElement, true);
       this._blockEvent(event);
     }
@@ -155,7 +151,12 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
 
   private _onDragLeave(event: DragEvent): void {
     this._counter--;
-    if (!this.disabled && event.target === this._dragTarget && this._counter === 0) {
+    if (
+      !this.disabled &&
+      !this.formDisabled &&
+      event.target === this._dragTarget &&
+      this._counter === 0
+    ) {
       this._setDragState();
       this._blockEvent(event);
     }
@@ -163,7 +164,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
 
   private _onFileDrop(event: DragEvent): void {
     this._counter = 0;
-    if (!this.disabled) {
+    if (!this.disabled && !this.formDisabled) {
       this._setDragState();
       this._blockEvent(event);
       this._createFileList(event.dataTransfer!.files);
@@ -243,7 +244,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
       <sbb-secondary-button-static
         size=${this.size}
         icon-name="folder-open-small"
-        ?disabled=${this.disabled}
+        ?disabled=${this.disabled || this.formDisabled}
         ${ref((el?: Element): void => {
           this._loadButton = el as SbbSecondaryButtonStaticElement;
         })}
@@ -268,7 +269,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
         <span class="sbb-file-selector__dropzone-area--button">
           <sbb-secondary-button-static
             size=${this.size}
-            ?disabled=${this.disabled}
+            ?disabled=${this.disabled || this.formDisabled}
             ${ref((el?: Element): void => {
               this._loadButton = el as SbbSecondaryButtonStaticElement;
             })}
@@ -326,7 +327,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
             <input
               class="sbb-file-selector__visually-hidden"
               type="file"
-              ?disabled=${this.disabled}
+              ?disabled=${this.disabled || this.formDisabled}
               ?multiple=${this.multiple}
               accept=${this.accept || nothing}
               aria-label=${ariaLabel || nothing}
