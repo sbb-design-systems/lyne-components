@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { slotState } from '../../core/decorators.js';
+import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -24,11 +24,10 @@ export type SbbTagSize = 's' | 'm';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Change event emitter
  */
+export
 @customElement('sbb-tag')
 @slotState()
-export class SbbTagElement extends SbbIconNameMixin(
-  SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
-) {
+class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbButtonBaseElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     input: 'input',
@@ -37,20 +36,19 @@ export class SbbTagElement extends SbbIconNameMixin(
   } as const;
 
   /** Amount displayed inside the tag. */
-  @property({ reflect: true }) public amount?: string;
+  @forceType()
+  @property({ reflect: true, converter: omitEmptyConverter })
+  public accessor amount: string = '';
 
   /** Whether the tag is checked. */
-  @property({ reflect: true, type: Boolean }) public checked = false;
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor checked: boolean = false;
 
   /** Tag size. */
   @property({ reflect: true })
-  public set size(value: SbbTagSize) {
-    this._size = value;
-  }
-  public get size(): SbbTagSize {
-    return this._group?.size ?? this._size;
-  }
-  private _size: SbbTagSize = 'm';
+  @getOverride((i, v) => i._group?.size ?? v)
+  public accessor size: SbbTagSize = 'm';
 
   /** Reference to the connected tag group. */
   private _group: SbbTagGroupElement | null = null;

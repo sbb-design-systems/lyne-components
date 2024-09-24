@@ -3,14 +3,19 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { forceType } from '../decorators.js';
 import { fixture } from '../testing/private.js';
 import { EventSpy, waitForLitRender } from '../testing.js';
 
 import { SbbButtonBaseElement } from './button-base-element.js';
 
 class GenericButton extends SbbButtonBaseElement {
-  @property() public disabled = false;
-  @property() public disabledInteractive = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor disabled: boolean = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor disabledInteractive: boolean = false;
 
   protected override renderTemplate(): TemplateResult {
     return html`Button`;

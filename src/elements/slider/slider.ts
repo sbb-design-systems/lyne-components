@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { SbbConnectedAbortController } from '../core/controllers.js';
-import { hostAttributes } from '../core/decorators.js';
+import { forceType, hostAttributes } from '../core/decorators.js';
 import { EventEmitter, forwardEventToHost } from '../core/eventing.js';
 import {
   type FormRestoreReason,
@@ -25,11 +25,12 @@ import '../icon.js';
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
+export
 @customElement('sbb-slider')
 @hostAttributes({
   tabindex: '0',
 })
-export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
+class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -96,19 +97,25 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
    * Readonly state for the inner HTMLInputElement.
    * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
    */
-  @property({ type: Boolean }) public readonly?: boolean = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor readonly: boolean = false;
 
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
-  @property({ attribute: 'start-icon' }) public startIcon?: string;
+  @forceType()
+  @property({ attribute: 'start-icon' })
+  public accessor startIcon: string = '';
 
   /** Name of the icon at component's end, which will be forward to the nested `sbb-icon`. */
-  @property({ attribute: 'end-icon' }) public endIcon?: string;
+  @forceType()
+  @property({ attribute: 'end-icon' })
+  public accessor endIcon: string = '';
 
   /**
    * The ratio between the absolute value and the validity interval.
    * E.g. given `min=0`, `max=100` and `value=50`, then `_valueFraction=0.5`
    */
-  @state() private _valueFraction = 0;
+  @state() private accessor _valueFraction = 0;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.

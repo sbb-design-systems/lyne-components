@@ -45,13 +45,13 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
 
 | Name                          | Attribute                       | Privacy | Type                                       | Default   | Description                                                                |
 | ----------------------------- | ------------------------------- | ------- | ------------------------------------------ | --------- | -------------------------------------------------------------------------- |
-| `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string \| undefined`                      |           | Additional accessibility text which will be appended to the end.           |
+| `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string`                                   | `''`      | Additional accessibility text which will be appended to the end.           |
 | `blockedPassage`              | `blocked-passage`               | public  | `'previous' \| 'next' \| 'both' \| 'none'` | `'none'`  | Accessibility text for blocked passages of the wagon.                      |
-| `label`                       | `label`                         | public  | `string \| undefined`                      |           | Visible label for the wagon number. Not used by type locomotive or closed. |
-| `occupancy`                   | `occupancy`                     | public  | `SbbOccupancy \| undefined`                | `'none'`  | Occupancy of a wagon.                                                      |
-| `sector`                      | `sector`                        | public  | `string \| null`                           | `null`    | Sector in which to wagon stops.                                            |
+| `label`                       | `label`                         | public  | `string`                                   | `''`      | Visible label for the wagon number. Not used by type locomotive or closed. |
+| `occupancy`                   | `occupancy`                     | public  | `SbbOccupancy`                             | `'none'`  | Occupancy of a wagon.                                                      |
+| `sector`                      | `sector`                        | public  | `string`                                   | `''`      | Sector in which to wagon stops.                                            |
 | `type`                        | `type`                          | public  | `'locomotive' \| 'closed' \| 'wagon'`      | `'wagon'` | Wagon type.                                                                |
-| `wagonClass`                  | `wagon-class`                   | public  | `'1' \| '2' \| undefined`                  |           | Visible class label of a wagon.                                            |
+| `wagonClass`                  | `wagon-class`                   | public  | `'1' \| '2' \| null`                       | `null`    | Visible class label of a wagon.                                            |
 
 ## Slots
 

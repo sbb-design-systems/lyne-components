@@ -15,7 +15,7 @@ import style from './link.scss?lit&inline';
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
 export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixinType {
-  public size?: SbbLinkSize;
+  public accessor size: SbbLinkSize;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -34,7 +34,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
      * Text size, the link should get in the non-button variation.
      * With inline variant, the text size adapts to where it is used.
      */
-    @property({ reflect: true }) public size: SbbLinkSize = 's';
+    @property({ reflect: true }) public accessor size: SbbLinkSize = 's';
 
     protected override renderTemplate(): TemplateResult {
       return html`<slot></slot>`;

@@ -14,13 +14,15 @@ import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-b
 /**
  * Displays two images in fullscreen to overlay them.
  */
+export
 @customElement('app-fullscreen-diff')
-export class FullscreenDiff extends LitElement {
+class FullscreenDiff extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public screenshotFiles?: ScreenshotFiles;
+  @property() public accessor screenshotFiles: ScreenshotFiles | null = null;
 
-  @property() public selectedFile: 'baselineFile' | 'failedFile' | 'diffFile' = 'failedFile';
+  @property() public accessor selectedFile: 'baselineFile' | 'failedFile' | 'diffFile' =
+    'failedFile';
 
   public override render(): TemplateResult {
     if (!this.screenshotFiles) {

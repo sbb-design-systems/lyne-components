@@ -1,16 +1,17 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { forceType, getOverride } from '../decorators.js';
+
 import type { AbstractConstructor } from './constructor.js';
 
 export declare class SbbDisabledMixinType {
-  public set disabled(value: boolean);
-  public get disabled(): boolean;
+  public accessor disabled: boolean;
   protected isDisabledExternally(): boolean;
 }
 
 export declare class SbbDisabledInteractiveMixinType {
-  public disabledInteractive: boolean;
+  public accessor disabledInteractive: boolean;
 }
 
 /**
@@ -22,16 +23,10 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
 ): AbstractConstructor<SbbDisabledMixinType> & T => {
   abstract class SbbDisabledElement extends superClass implements Partial<SbbDisabledMixinType> {
     /** Whether the component is disabled. */
+    @forceType()
     @property({ reflect: true, type: Boolean })
-    public set disabled(value: boolean) {
-      // To provide the same behavior as the native disabled state,
-      // any value is converted to a boolean.
-      this._disabled = Boolean(value);
-    }
-    public get disabled(): boolean {
-      return this._disabled || this.isDisabledExternally();
-    }
-    private _disabled: boolean = false;
+    @getOverride((e, v) => v || e.isDisabledExternally())
+    public accessor disabled: boolean = false;
 
     /**
      * Will be used as 'or' check to the current disabled state.
@@ -59,8 +54,9 @@ export const SbbDisabledInteractiveMixin = <
     implements Partial<SbbDisabledInteractiveMixinType>
   {
     /** Whether disabled buttons should be interactive. */
-    @property({ attribute: 'disabled-interactive', type: Boolean }) public disabledInteractive =
-      false;
+    @forceType()
+    @property({ attribute: 'disabled-interactive', type: Boolean })
+    public accessor disabledInteractive: boolean = false;
   }
 
   return SbbDisabledInteractiveElement as unknown as AbstractConstructor<SbbDisabledInteractiveMixinType> &

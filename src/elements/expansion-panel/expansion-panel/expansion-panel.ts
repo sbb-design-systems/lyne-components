@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
@@ -24,8 +25,9 @@ let nextId = 0;
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-expansion-panel` begins the closing transition.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-expansion-panel` is closed.
  */
+export
 @customElement('sbb-expansion-panel')
-export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
+class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -35,10 +37,10 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   } as const;
 
   /** Heading level; if unset, a `div` will be rendered. */
-  @property({ attribute: 'title-level' }) public titleLevel?: SbbTitleLevel | null;
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel | null = null;
 
   /** The background color of the panel. */
-  @property() public color: 'white' | 'milk' = 'white';
+  @property() public accessor color: 'white' | 'milk' = 'white';
 
   /** Whether the panel is expanded. */
   @property({ reflect: true, type: Boolean })
@@ -63,10 +65,12 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _disabled: boolean = false;
 
   /** Whether the panel has no border. */
-  @property({ reflect: true, type: Boolean }) public borderless = false;
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor borderless: boolean = false;
 
   /** Size variant, either l or s. */
-  @property({ reflect: true }) public size: 's' | 'l' = 'l';
+  @property({ reflect: true }) public accessor size: 's' | 'l' = 'l';
 
   /**
    * The state of the notification.

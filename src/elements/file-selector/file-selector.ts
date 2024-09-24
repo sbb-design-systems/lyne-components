@@ -7,7 +7,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import type { SbbSecondaryButtonStaticElement } from '../button.js';
 import { sbbInputModalityDetector } from '../core/a11y.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { slotState } from '../core/decorators.js';
+import { forceType, slotState } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
   i18nFileSelectorButtonLabel,
@@ -31,38 +31,47 @@ export type DOMEvent = globalThis.Event;
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  * @event {CustomEvent<File[]>} fileChanged - An event which is emitted each time the file list changes.
  */
+export
 @customElement('sbb-file-selector')
 @slotState()
-export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
+class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     fileChangedEvent: 'fileChanged',
   } as const;
 
   /** Whether the component has a dropzone area or not. */
-  @property() public variant: 'default' | 'dropzone' = 'default';
+  @property() public accessor variant: 'default' | 'dropzone' = 'default';
 
   /** Size variant, either s or m. */
-  @property({ reflect: true }) public size: 's' | 'm' = 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' = 'm';
 
   /** Whether more than one file can be selected. */
-  @property({ type: Boolean }) public multiple: boolean = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor multiple: boolean = false;
 
   /** Whether the newly added files should override the previously added ones. */
   @property({ attribute: 'multiple-mode' })
-  public multipleMode: 'default' | 'persistent' = 'default';
+  public accessor multipleMode: 'default' | 'persistent' = 'default';
 
   /** A comma-separated list of allowed unique file type specifiers. */
-  @property() public accept?: string;
+  @forceType()
+  @property()
+  public accessor accept: string = '';
 
   /** The title displayed in `dropzone` variant. */
-  @property({ attribute: 'title-content' }) public titleContent?: string;
+  @forceType()
+  @property({ attribute: 'title-content' })
+  public accessor titleContent: string = '';
 
   /** This will be forwarded as aria-label to the native input element. */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
+  @forceType()
+  @property({ attribute: 'accessibility-label' })
+  public accessor accessibilityLabel: string = '';
 
   /** The list of selected files. */
-  @state() private _files?: File[];
+  @state() private accessor _files!: File[];
 
   /** An event which is emitted each time the file list changes. */
   private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(

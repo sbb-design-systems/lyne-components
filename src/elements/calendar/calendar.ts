@@ -21,6 +21,7 @@ import {
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
 } from '../core/datetime.js';
+import { forceType } from '../core/decorators.js';
 import { isBreakpoint } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
@@ -91,18 +92,21 @@ export type CalendarView = 'day' | 'month' | 'year';
  *
  * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
+export
 @customElement('sbb-calendar')
-export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
+class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     dateSelected: 'dateSelected',
   } as const;
 
   /** If set to true, two months are displayed */
-  @property({ type: Boolean }) public wide = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor wide: boolean = false;
 
   /** The initial view of the calendar which should be displayed on opening. */
-  @property() public view: CalendarView = 'day';
+  @property() public accessor view: CalendarView = 'day';
 
   /** The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
   @property()
@@ -154,7 +158,9 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   private _selectedDate?: T | null;
 
   /** A function used to filter out dates. */
-  @property({ attribute: 'date-filter' }) public dateFilter?: (date: T | null) => boolean;
+  @property({ attribute: 'date-filter' }) public accessor dateFilter:
+    | ((date: T | null) => boolean)
+    | null = null;
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
@@ -165,10 +171,10 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   );
 
   /** The currently active date. */
-  @state() private _activeDate: T = this.now;
+  @state() private accessor _activeDate: T = this.now;
 
   /** The selected date as ISOString. */
-  @state() private _selected?: string;
+  @state() private accessor _selected: string | undefined;
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state()
@@ -179,7 +185,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     return this.hasAttribute('data-wide');
   }
 
-  @state() private _calendarView: CalendarView = 'day';
+  @state() private accessor _calendarView: CalendarView = 'day';
 
   private _nextCalendarView: CalendarView = 'day';
 
@@ -221,7 +227,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   private _resetFocus = false;
 
   @state()
-  private _initialized = false;
+  private accessor _initialized = false;
 
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this).withHandler(() => {

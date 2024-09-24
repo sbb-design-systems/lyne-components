@@ -13,10 +13,11 @@ type MaybeDisabled = {
   disabledInteractive?: boolean;
 };
 
+export
 @hostAttributes({
   'data-action': '',
 })
-export abstract class SbbActionBaseElement extends LitElement {
+abstract class SbbActionBaseElement extends LitElement {
   protected get maybeDisabled(): boolean | undefined {
     const maybeDisabled = this as MaybeDisabled;
     return maybeDisabled.disabled || maybeDisabled.formDisabled;

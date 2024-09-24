@@ -18,41 +18,42 @@ import style from './action-group.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-action-group`.
  */
+export
 @customElement('sbb-action-group')
-export class SbbActionGroupElement extends LitElement {
+class SbbActionGroupElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
    * Set the slotted `<sbb-action-group>` children's alignment.
    */
   @property({ attribute: 'align-group', reflect: true })
-  public alignGroup: 'start' | 'center' | 'stretch' | 'end' = 'start';
+  public accessor alignGroup: 'start' | 'center' | 'stretch' | 'end' = 'start';
 
   /**
    * Overrides the behaviour of `orientation` property.
    */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public horizontalFrom: SbbHorizontalFrom = 'medium';
+  public accessor horizontalFrom: SbbHorizontalFrom = 'medium';
 
   /**
    * Indicates the orientation of the components inside the `<sbb-action-group>`.
    */
   @property({ reflect: true })
-  public orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: SbbOrientation = 'horizontal';
 
   /**
    * Size of the nested sbb-button instances. This will overwrite the size attribute of nested
    * sbb-button instances.
    */
   @property({ attribute: 'button-size', reflect: true })
-  public buttonSize: SbbButtonSize = 'l';
+  public accessor buttonSize: SbbButtonSize = 'l';
 
   /**
    * Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested
    * sbb-block-link instances.
    */
   @property({ attribute: 'link-size', reflect: true })
-  public linkSize: SbbLinkSize = 'm';
+  public accessor linkSize: SbbLinkSize = 'm';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

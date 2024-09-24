@@ -12,11 +12,12 @@ import style from './datepicker-next-day.scss?lit&inline';
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
  */
+export
 @customElement('sbb-datepicker-next-day')
 @hostAttributes({
   slot: 'suffix',
 })
-export class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
+class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
   public static override styles: CSSResultGroup = style;
 
   protected iconName: string = 'chevron-small-right-small';

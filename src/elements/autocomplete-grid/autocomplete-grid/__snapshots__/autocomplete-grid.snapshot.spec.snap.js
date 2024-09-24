@@ -21,7 +21,6 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell role="gridcell">
       <sbb-autocomplete-grid-button
-        aria-disabled="false"
         data-action=""
         data-button=""
         icon-name="dog-small"
@@ -45,7 +44,6 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell role="gridcell">
       <sbb-autocomplete-grid-button
-        aria-disabled="false"
         data-action=""
         data-button=""
         icon-name="dog-small"
@@ -107,7 +105,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell role="gridcell">
       <sbb-autocomplete-grid-button
-        aria-disabled="false"
         data-action=""
         data-button=""
         icon-name="dog-small"
@@ -131,7 +128,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell role="gridcell">
       <sbb-autocomplete-grid-button
-        aria-disabled="false"
         data-action=""
         data-button=""
         icon-name="dog-small"

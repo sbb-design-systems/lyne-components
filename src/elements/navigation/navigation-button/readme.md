@@ -34,11 +34,11 @@ The component has three different sizes, which can be changed using the `size` p
 | Name               | Attribute | Privacy | Type                                       | Default    | Description                                                 |
 | ------------------ | --------- | ------- | ------------------------------------------ | ---------- | ----------------------------------------------------------- |
 | `connectedSection` | -         | public  | `SbbNavigationSectionElement \| undefined` |            | The section that is beign controlled by the action, if any. |
-| `form`             | `form`    | public  | `string \| undefined`                      |            | The <form> element to associate the button with.            |
+| `form`             | `form`    | public  | `string`                                   | `''`       | The <form> element to associate the button with.            |
 | `marker`           | -         | public  | `SbbNavigationMarkerElement \| null`       |            | The navigation marker in which the action is nested.        |
 | `name`             | `name`    | public  | `string`                                   |            | The name of the button element.                             |
 | `section`          | -         | public  | `SbbNavigationSectionElement \| null`      |            | The section in which the action is nested.                  |
-| `size`             | `size`    | public  | `SbbNavigationActionSize \| undefined`     | `'l'`      | Action size variant.                                        |
+| `size`             | `size`    | public  | `SbbNavigationActionSize`                  | `'l'`      | Action size variant.                                        |
 | `type`             | `type`    | public  | `SbbButtonType`                            | `'button'` | The type attribute to use for the button.                   |
 | `value`            | `value`   | public  | `string`                                   |            | The value of the button element.                            |
 

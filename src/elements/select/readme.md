@@ -126,7 +126,7 @@ Opened panel:
 | `multiple`    | `multiple`    | public  | `boolean`                    | `false` | Whether the select allows for multiple selection.              |
 | `name`        | `name`        | public  | `string`                     |         | Name of the form element. Will be read from name attribute.    |
 | `negative`    | `negative`    | public  | `boolean`                    | `false` | Negative coloring variant flag.                                |
-| `placeholder` | `placeholder` | public  | `string \| undefined`        |         | The placeholder used if no value has been selected.            |
+| `placeholder` | `placeholder` | public  | `string`                     | `''`    | The placeholder used if no value has been selected.            |
 | `readonly`    | `readonly`    | public  | `boolean`                    | `false` | Whether the select is readonly.                                |
 | `required`    | `required`    | public  | `boolean`                    | `false` | Whether the component is required.                             |
 | `value`       | `value`       | public  | `string \| string[] \| null` | `null`  | Value of the form element.                                     |

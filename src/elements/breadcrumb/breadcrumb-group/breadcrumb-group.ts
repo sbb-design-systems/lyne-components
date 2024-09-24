@@ -32,11 +32,12 @@ const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
  *
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
+export
 @customElement('sbb-breadcrumb-group')
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
+class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   SbbBreadcrumbElement,
   typeof LitElement
 >(LitElement) {

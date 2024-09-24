@@ -18,10 +18,13 @@ import '../../icon.js';
 
 export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(SbbButtonBaseElement) {
   /** Datepicker reference. */
-  @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement<T>;
+  @property({ attribute: 'date-picker' }) public accessor datePicker:
+    | string
+    | SbbDatepickerElement<T>
+    | null = null;
 
   /** The boundary date (min/max) as set in the date-picker's input. */
-  @state() protected boundary: string | number | null = null;
+  @state() protected accessor boundary: string | number | null = null;
 
   /** Whether the component is disabled due date equals to boundary date. */
   private _disabled = false;
@@ -59,7 +62,7 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('datePicker')) {
-      this._init(this.datePicker);
+      this._init(this.datePicker!);
     }
   }
 
