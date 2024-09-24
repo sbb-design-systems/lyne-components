@@ -6,7 +6,6 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
-import { setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter, forwardEventToHost } from '../core/eventing.js';
 import {
   type FormRestoreReason,
@@ -28,7 +27,6 @@ import '../icon.js';
  */
 @customElement('sbb-slider')
 @hostAttributes({
-  role: 'slider',
   tabindex: '0',
 })
 export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
@@ -48,7 +46,7 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
     } else {
       super.value = this._getDefaultValue();
     }
-    setOrRemoveAttribute(this, 'aria-valuenow', this.value);
+    this.internals.ariaValueNow = this.value;
     this._calculateValueFraction();
   }
   public override get value(): string {
@@ -125,6 +123,12 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
 
   private _abort = new SbbConnectedAbortController(this);
 
+  public constructor() {
+    super();
+    /** @internal */
+    this.internals.role = 'slider';
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
@@ -154,7 +158,7 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
    * @internal
    */
   public formResetCallback(): void {
-    this.value = this.hasAttribute('value') ? this.getAttribute('value') : this._getDefaultValue();
+    this.value = this.getAttribute('value') ?? this._getDefaultValue();
   }
 
   /**
@@ -248,7 +252,7 @@ export class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Li
               tabindex="-1"
               min=${this.min}
               max=${this.max}
-              ?disabled=${this.disabled || this.formDisabled || this.readonly || nothing}
+              ?disabled=${this.disabled || this.formDisabled || this.readonly}
               value=${this.value || nothing}
               class="sbb-slider__range-input"
               type="range"

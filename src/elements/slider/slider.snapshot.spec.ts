@@ -12,7 +12,14 @@ describe(`sbb-slider`, () => {
 
   describe('renders', async () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-slider value="1"></sbb-slider>`);
+      element = (
+        await fixture(html`
+          <div>
+            <label for="slider-1">Label</label>
+            <sbb-slider value="1" id="slider-1"></sbb-slider>
+          </div>
+        `)
+      ).querySelector('sbb-slider')!;
     });
 
     it('DOM', async () => {

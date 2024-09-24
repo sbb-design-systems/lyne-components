@@ -134,34 +134,29 @@ describe(`sbb-slider`, () => {
 
     it('should result as :disabled', async () => {
       expect(element.tabIndex).to.be.equal(0);
-      expect(element.getAttribute('aria-disabled')).to.be.null;
 
       element.disabled = true;
       await waitForLitRender(form);
 
-      let disabledElements = Array.from(form.querySelectorAll(':disabled'));
-      expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+      expect(element).to.match(':disabled');
 
       element.disabled = false;
       await waitForLitRender(element);
 
-      disabledElements = Array.from(form.querySelectorAll(':disabled'));
-      expect(disabledElements.includes(element), ':disabled selector').to.be.false;
+      expect(element).not.to.match(':disabled');
     });
 
     it('should result :disabled if a fieldSet is', async () => {
       fieldSet.disabled = true;
       await waitForLitRender(form);
 
-      let disabledElements = Array.from(form.querySelectorAll(':disabled'));
-      expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+      expect(element).to.match(':disabled');
       compareToNativeInput();
 
       fieldSet.disabled = false;
       await waitForLitRender(element);
 
-      disabledElements = Array.from(form.querySelectorAll(':disabled'));
-      expect(disabledElements.includes(element), ':disabled selector').to.be.false;
+      expect(element).not.to.match(':disabled');
       compareToNativeInput();
     });
 

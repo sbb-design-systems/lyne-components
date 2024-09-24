@@ -3,8 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-slider renders DOM"] = 
 `<sbb-slider
-  aria-valuenow="1"
-  role="slider"
+  id="slider-1"
   tabindex="0"
   value="1"
 >
@@ -45,11 +44,9 @@ snapshots["sbb-slider renders Shadow DOM"] =
 
 snapshots["sbb-slider renders with properties DOM"] = 
 `<sbb-slider
-  aria-valuenow="100"
   end-icon="walk-fast-small"
   max="500"
   min="0"
-  role="slider"
   start-icon="walk-slow-small"
   tabindex="0"
   value="100"
@@ -105,12 +102,10 @@ snapshots["sbb-slider renders with properties Shadow DOM"] =
 
 snapshots["sbb-slider renders disabled DOM"] = 
 `<sbb-slider
-  aria-valuenow="100"
   disabled=""
   end-icon="walk-fast-small"
   max="500"
   min="0"
-  role="slider"
   start-icon="walk-slow-small"
   tabindex="0"
   value="100"
@@ -167,12 +162,10 @@ snapshots["sbb-slider renders disabled Shadow DOM"] =
 
 snapshots["sbb-slider renders readonly DOM"] = 
 `<sbb-slider
-  aria-valuenow="100"
   end-icon="walk-fast-small"
   max="500"
   min="0"
   readonly=""
-  role="slider"
   start-icon="walk-slow-small"
   tabindex="0"
   value="100"
@@ -234,8 +227,12 @@ snapshots["sbb-slider renders A11y tree Chrome"] =
   "name": "",
   "children": [
     {
+      "role": "text",
+      "name": "Label"
+    },
+    {
       "role": "slider",
-      "name": "",
+      "name": "Label",
       "valuetext": "",
       "valuemin": 0,
       "valuemax": 100,
@@ -319,8 +316,12 @@ snapshots["sbb-slider renders A11y tree Firefox"] =
   "name": "",
   "children": [
     {
+      "role": "text leaf",
+      "name": "Label"
+    },
+    {
       "role": "slider",
-      "name": "",
+      "name": "Label",
       "valuetext": "1",
       "value": "1"
     }
@@ -387,11 +388,9 @@ snapshots["sbb-slider renders readonly A11y tree Firefox"] =
 
 snapshots["sbb-slider renders in form DOM"] = 
 `<sbb-slider
-  aria-valuenow="1"
   max="10"
   min="0"
   name="sbb-slider"
-  role="slider"
   tabindex="0"
   value="1"
 >
