@@ -270,14 +270,12 @@ describe(`sbb-file-selector`, () => {
     element.disabled = true;
     await waitForLitRender(form);
 
-    let disabledElements = Array.from(form.querySelectorAll(':disabled'));
-    expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+    expect(element).to.match(':disabled');
 
     element.disabled = false;
     await waitForLitRender(form);
 
-    disabledElements = Array.from(form.querySelectorAll(':disabled'));
-    expect(disabledElements.includes(element), ':disabled selector').to.be.false;
+    expect(element).not.to.match(':disabled');
   });
 
   it('should result :disabled if a fieldSet is', async () => {
@@ -285,13 +283,11 @@ describe(`sbb-file-selector`, () => {
 
     await waitForLitRender(form);
 
-    let disabledElements = Array.from(form.querySelectorAll(':disabled'));
-    expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+    expect(element).to.match(':disabled');
 
     fieldSet.disabled = false;
     await waitForLitRender(form);
 
-    disabledElements = Array.from(form.querySelectorAll(':disabled'));
-    expect(disabledElements.includes(element), ':disabled selector').to.be.false;
+    expect(element).not.to.match(':disabled');
   });
 });
