@@ -16,8 +16,8 @@ export declare class SbbMenuActionCommonElementMixinType
   extends SbbDisabledMixinType
   implements Partial<SbbIconNameMixinType>
 {
-  public amount?: string;
-  public iconName?: string;
+  public accessor amount: string | null;
+  public accessor iconName: string | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -33,7 +33,7 @@ export const SbbMenuActionCommonElementMixin = <
     public static styles: CSSResultGroup = style;
 
     /** Value shown as badge at component end. */
-    @property() public amount: string | undefined;
+    @property() public accessor amount: string | null = null;
 
     protected override renderTemplate(): TemplateResult {
       return html`

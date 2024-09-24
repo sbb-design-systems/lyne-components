@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { slotState } from '../../core/decorators.js';
+import { forceType, slotState } from '../../core/decorators.js';
 
 import style from './container.scss?lit&inline';
 
@@ -18,20 +18,24 @@ import style from './container.scss?lit&inline';
  * @slot sticky-bar - The slot used by the sbb-sticky-bar component.
  * @slot image - The slot used to slot an `sbb-image` to use as background.
  */
+export
 @customElement('sbb-container')
 @slotState()
-export class SbbContainerElement extends LitElement {
+class SbbContainerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Whether the container is expanded. */
-  @property({ type: Boolean, reflect: true }) public expanded = false;
+  @property({ type: Boolean, reflect: true })
+  @forceType(Boolean)
+  public accessor expanded: boolean = false;
 
   /** Whether the background color is shown on full container width on large screens. */
   @property({ type: Boolean, reflect: true, attribute: 'background-expanded' })
-  public backgroundExpanded = false;
+  @forceType(Boolean)
+  public accessor backgroundExpanded: boolean = false;
 
   /** Color of the container, like transparent, white etc. */
-  @property({ reflect: true }) public color: 'transparent' | 'white' | 'milk' = 'white';
+  @property({ reflect: true }) public accessor color: 'transparent' | 'white' | 'milk' = 'white';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

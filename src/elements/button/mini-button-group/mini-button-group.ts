@@ -16,18 +16,19 @@ export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl';
  *
  * @slot - Use the unnamed slot to add `sbb-mini-button` and `sbb-divider` elements.
  */
+export
 @customElement('sbb-mini-button-group')
-export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
+class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<SbbMiniButtonElement, typeof LitElement>(LitElement),
 ) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-mini-button', 'sbb-divider'];
 
   /** This will be forwarded as aria-label to the list that contains the buttons. */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel?: string;
+  @property({ attribute: 'accessibility-label' }) public accessor accessibilityLabel: string = '';
 
   /** Size variant, either s, m, l or xl. */
-  @property({ reflect: true }) public size: SbbMiniButtonGroupSize = 'm';
+  @property({ reflect: true }) public accessor size: SbbMiniButtonGroupSize = 'm';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

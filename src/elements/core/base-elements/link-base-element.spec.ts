@@ -3,14 +3,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { forceType } from '../decorators.js';
 import { fixture } from '../testing/private.js';
 import { EventSpy, waitForLitRender } from '../testing.js';
 
 import { SbbLinkBaseElement } from './link-base-element.js';
 
 class GenericLink extends SbbLinkBaseElement {
-  @property() public disabled = false;
-  @property() public disabledInteractive = false;
+  @property() @forceType(Boolean) public accessor disabled: boolean = false;
+  @property() @forceType(Boolean) public accessor disabledInteractive: boolean = false;
 
   protected override renderTemplate(): TemplateResult {
     return html`<span>Link</span>`;

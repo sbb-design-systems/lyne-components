@@ -2,7 +2,7 @@ import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../controllers.js';
-import { hostAttributes } from '../decorators.js';
+import { forceType, hostAttributes } from '../decorators.js';
 import { i18nTargetOpensInNewWindow } from '../i18n.js';
 
 import { SbbActionBaseElement } from './action-base-element.js';
@@ -13,24 +13,33 @@ import '../../screen-reader-only.js';
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
 /** Link base class. */
+export
 @hostAttributes({
   'data-link': '',
 })
-export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
+abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** The href value you want to link to. */
-  @property() public href?: string;
+  @property()
+  @forceType(String)
+  public accessor href: string = '';
 
   /** Where to display the linked URL. */
-  @property() public target?: LinkTargetType | string;
+  @property()
+  @forceType(String)
+  public accessor target: LinkTargetType | string = '';
 
   /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel?: string;
+  @property()
+  @forceType(String)
+  public accessor rel: string = '';
 
   /** Whether the browser will show the download dialog on click. */
-  @property({ type: Boolean }) public download?: boolean;
+  @property({ type: Boolean })
+  @forceType(Boolean)
+  public accessor download: boolean = false;
 
   /** This will be forwarded as aria-label to the inner anchor element. */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
+  @property({ attribute: 'accessibility-label' }) public accessor accessibilityLabel: string = '';
 
   protected language = new SbbLanguageController(this);
 
@@ -65,7 +74,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
     return html`
       <a
         class="sbb-action-base ${this.localName}"
-        href=${this.href || nothing}
+        href=${this.href || (nothing as unknown as string)}
         ?download=${this.download}
         target=${this.target || nothing}
         rel=${this._evaluateRelAttribute()}

@@ -26,9 +26,10 @@ import '../title.js';
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
+export
 @customElement('sbb-skiplink-list')
 @slotState()
-export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
+class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   SbbBlockLinkElement | SbbBlockLinkButtonElement,
   typeof LitElement
 >(LitElement) {
@@ -36,10 +37,12 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
   /** The title text we want to place before the list. */
-  @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
+  @property({ attribute: 'title-content', reflect: true }) public accessor titleContent:
+    | string
+    | null = null;
 
   /** The semantic level of the title, e.g. 2 = h2. */
-  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '2';
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '2';
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);

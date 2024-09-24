@@ -25,8 +25,9 @@ import '../../icon.js';
  *
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
+export
 @customElement('sbb-train')
-export class SbbTrainElement extends SbbNamedSlotListMixin<
+class SbbTrainElement extends SbbNamedSlotListMixin<
   SbbTrainWagonElement | SbbTrainBlockedPassageElement,
   typeof LitElement
 >(LitElement) {
@@ -40,19 +41,20 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
   ];
 
   /** General label for "driving direction". */
-  @property({ attribute: 'direction-label' }) public directionLabel!: string;
+  @property({ attribute: 'direction-label' }) public accessor directionLabel: string = '';
 
   /** Heading level of the direction label, used for screen readers. */
-  @property({ attribute: 'direction-label-level' }) public directionLabelLevel: SbbTitleLevel = '6';
+  @property({ attribute: 'direction-label-level' })
+  public accessor directionLabelLevel: SbbTitleLevel = '6';
 
   /** Label for the destination station of the train. */
-  @property() public station?: string;
+  @property() public accessor station: string = '';
 
   /** Accessibility label for additional information regarding the leaving direction of the train. */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel?: string;
+  @property({ attribute: 'accessibility-label' }) public accessor accessibilityLabel: string = '';
 
   /** Controls the direction indicator to show the arrow left or right. Default is left.  */
-  @property({ reflect: true }) public direction: 'left' | 'right' = 'left';
+  @property({ reflect: true }) public accessor direction: 'left' | 'right' = 'left';
 
   private _language = new SbbLanguageController(this);
 

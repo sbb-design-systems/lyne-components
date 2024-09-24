@@ -6,7 +6,7 @@ import type { AbstractConstructor } from '../core/mixins.js';
 import './icon.js';
 
 export declare class SbbIconNameMixinType {
-  public iconName?: string;
+  public accessor iconName: string | null;
   protected renderIconSlot(classname?: string): TemplateResult;
 }
 
@@ -23,7 +23,8 @@ export const SbbIconNameMixin = <T extends AbstractConstructor<LitElement>>(
      * from the ui-icons category from here
      * https://icons.app.sbb.ch.
      */
-    @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
+    @property({ attribute: 'icon-name', reflect: true })
+    public accessor iconName: string | null = null;
 
     protected renderIconSlot(classname?: string): TemplateResult {
       return html`

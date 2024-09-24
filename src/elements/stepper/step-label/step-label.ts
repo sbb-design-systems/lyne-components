@@ -19,13 +19,14 @@ let nextId = 0;
  * @slot - Use the unnamed slot to provide a label.
  * @slot icon - Use this to display an icon in the label bubble.
  */
+export
 @customElement('sbb-step-label')
 @hostAttributes({
   slot: 'step-label',
   tabindex: '-1',
   role: 'tab',
 })
-export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
+class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** @internal */

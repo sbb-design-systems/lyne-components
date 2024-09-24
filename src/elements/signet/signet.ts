@@ -13,16 +13,18 @@ export type SbbSignetProtectiveRoom = SbbProtectiveRoom | 'panel';
  *
  * @cssprop [--sbb-signet-height=auto] - Can be used to set the height of the signet.
  */
+export
 @customElement('sbb-signet')
-export class SbbSignetElement extends LitElement {
+class SbbSignetElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Visual protective room around signet. */
   @property({ attribute: 'protective-room', reflect: true })
-  public protectiveRoom?: SbbSignetProtectiveRoom = 'ideal';
+  public accessor protectiveRoom: SbbSignetProtectiveRoom = 'ideal';
 
   /** Accessibility label which will be forwarded to the inner SVG signet. */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel = 'Logo';
+  @property({ attribute: 'accessibility-label' }) public accessor accessibilityLabel: string =
+    'Logo';
 
   protected override render(): TemplateResult {
     return html`

@@ -23,28 +23,30 @@ import '../../button/mini-button.js';
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
  */
+export
 @customElement('sbb-datepicker-toggle')
 @hostAttributes({
   slot: 'prefix',
 })
-export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
-  SbbHydrationMixin(LitElement),
-) {
+class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** Datepicker reference. */
-  @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
+  @property({ attribute: 'date-picker' }) public accessor datePicker:
+    | string
+    | SbbDatepickerElement
+    | null = null;
 
   /** The initial view of calendar which should be displayed on opening. */
-  @property() public view: CalendarView = 'day';
+  @property() public accessor view: CalendarView = 'day';
 
-  @state() private _disabled = false;
+  @state() private accessor _disabled = false;
 
-  @state() private _min: string | number | null | undefined = null;
+  @state() private accessor _min: string | number | null | undefined = null;
 
-  @state() private _max: string | number | null | undefined = null;
+  @state() private accessor _max: string | number | null | undefined = null;
 
-  @state() private _renderCalendar = false;
+  @state() private accessor _renderCalendar = false;
 
   private _datePickerElement: SbbDatepickerElement<T> | null | undefined;
   private _calendarElement!: SbbCalendarElement<T>;
@@ -97,7 +99,7 @@ export class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('datePicker')) {
-      this._init(this.datePicker);
+      this._init(this.datePicker!);
     }
   }
 

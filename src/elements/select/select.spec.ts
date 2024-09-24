@@ -72,7 +72,7 @@ describe(`sbb-select`, () => {
   });
 
   it('displays placeholder if no value is set and there is no selected element', async () => {
-    expect(element.value).to.be.undefined;
+    expect(element.value).to.be.equal('');
     const placeholder = element.shadowRoot!.querySelector('.sbb-select__trigger--placeholder');
     expect(placeholder).not.to.be.null;
     expect(placeholder).to.have.trimmed.text('Placeholder');

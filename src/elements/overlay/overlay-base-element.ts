@@ -16,7 +16,7 @@ export const overlayRefs: SbbOverlayBaseElement[] = [];
 
 export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
   /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
+  @property({ attribute: 'accessibility-label' }) public accessor accessibilityLabel: string = '';
 
   /** Emits whenever the component is closed. */
   protected override didClose: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
