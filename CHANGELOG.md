@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.3](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.2...v1.11.3) (2024-09-24)
+
+
+### Bug Fixes
+
+* provide jsdom support for focus trap mechanism ([#3113](https://github.com/sbb-design-systems/lyne-components/issues/3113)) ([57179c1](https://github.com/sbb-design-systems/lyne-components/commit/57179c186aa28cb651ad3386059fbe2a95ee2082))
+
 ## [1.11.2](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.1...v1.11.2) (2024-09-23)
 
 
