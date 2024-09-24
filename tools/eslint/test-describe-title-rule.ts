@@ -1,15 +1,6 @@
-import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 
-const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://github.com/sbb-design-systems/lyne-components/blob/main/tools/eslint/${name}.ts`,
-);
-
-type MessageIds = 'testDescribeTitle';
-
-export const name = 'test-describe-title';
-export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[], MessageIds>({
+export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     return {
       ['Program > ExpressionStatement > CallExpression > Identifier[name="describe"]'](
@@ -59,11 +50,9 @@ export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[]
       },
     };
   },
-  name,
   meta: {
     docs: {
       description: 'describe() title has to be aligned with component name.',
-      recommended: 'recommended',
     },
     messages: {
       testDescribeTitle:
