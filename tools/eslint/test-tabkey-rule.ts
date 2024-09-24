@@ -1,15 +1,6 @@
-import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 
-const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://github.com/sbb-design-systems/lyne-components/blob/main/tools/eslint/${name}.ts`,
-);
-
-type MessageIds = 'testTabKey';
-
-export const name = 'test-tab-key';
-export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[], MessageIds>({
+export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     return {
       ['CallExpression > Identifier[name="sendKeys"]'](node: TSESTree.Identifier) {
@@ -44,11 +35,9 @@ export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[]
       },
     };
   },
-  name,
   meta: {
     docs: {
       description: 'Avoid using `Tab`, use provided `tabKey` constant instead.',
-      recommended: 'recommended',
     },
     messages: {
       testTabKey: 'Avoid using `Tab`, use provided `tabKey` constant instead.',
