@@ -98,7 +98,13 @@
   }
 }
 
-@mixin base-marker-list($dimensions, $padding-inline, $to-text-gap, $vertical-gap) {
+@mixin base-marker-list(
+  $dimensions,
+  $padding-inline,
+  $to-text-gap,
+  $vertical-gap,
+  $text-to-marker-block-offset
+) {
   & {
     #{$dimensions}: #{functions.px-to-rem-build(34)};
     #{$padding-inline}: var(--sbb-spacing-responsive-xxs);
@@ -106,11 +112,10 @@
 
     // Additional space from overall li padding to the text because text
     // has to be centered to marker number.
-    --sbb-list-text-to-marker-block-offset: calc(
+    #{$text-to-marker-block-offset}: calc(
       0.5 *
         (var(#{$dimensions}) - var(--sbb-typo-line-height-body-text) * var(--sbb-text-font-size))
     );
-
     list-style: none;
     margin: 0;
     padding: 0;
@@ -135,7 +140,7 @@
       position: absolute;
       height: var(#{$dimensions});
       width: var(#{$dimensions});
-      margin-block-start: calc(-1 * var(--sbb-list-text-to-marker-block-offset));
+      margin-block-start: calc(-1 * var(#{$text-to-marker-block-offset}));
       inset-inline-start: var(#{$padding-inline});
       border-radius: 50%;
     }
@@ -160,7 +165,8 @@
     $dimensions: '--sbb-icon-list-dimensions',
     $padding-inline: '--sbb-icon-list-padding-inline',
     $to-text-gap: '--sbb-icon-list-to-text-gap',
-    $vertical-gap: '--sbb-icon-list-vertical-gap'
+    $vertical-gap: '--sbb-icon-list-vertical-gap',
+    $text-to-marker-block-offset: '--sbb-icon-list-text-to-marker-block-offset'
   );
 
   & {
@@ -186,7 +192,8 @@
     $dimensions: '--sbb-step-list-dimensions',
     $padding-inline: '--sbb-step-list-padding-inline',
     $to-text-gap: '--sbb-step-list-to-text-gap',
-    $vertical-gap: '--sbb-step-list-vertical-gap'
+    $vertical-gap: '--sbb-step-list-vertical-gap',
+    $text-to-marker-block-offset: '--sbb-step-list-text-to-marker-block-offset'
   );
 
   & {
@@ -209,7 +216,7 @@
     counter-increment: steps;
     background-color: var(--sbb-color-milk);
     padding-block: calc(
-        var(--sbb-step-list-padding-block) + var(--sbb-list-text-to-marker-block-offset)
+        var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
       )
       var(--sbb-step-list-padding-block);
     padding-inline: calc(
