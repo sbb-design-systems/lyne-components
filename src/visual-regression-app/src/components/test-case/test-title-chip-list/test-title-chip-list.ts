@@ -27,8 +27,9 @@ type DescribeEachItem = {
  *  - If param is undefined, show nothing;
  *  - Else, show a default chip with "key = value";
  */
+export
 @customElement('app-test-title-chip-list')
-export class TestTitleChipList extends LitElement {
+class TestTitleChipList extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   @property()

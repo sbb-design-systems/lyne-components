@@ -13,8 +13,9 @@ if (!('URLPattern' in globalThis)) {
 /**
  * Main app containing the router outlet.
  */
+export
 @customElement('app-main')
-export class Main extends LitElement {
+class Main extends LitElement {
   private _router = new Router(this, [
     {
       path: '/',

@@ -12,11 +12,12 @@ import style from './datepicker-previous-day.scss?lit&inline';
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
  */
+export
 @customElement('sbb-datepicker-previous-day')
 @hostAttributes({
   slot: 'prefix',
 })
-export class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
+class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
   public static override styles: CSSResultGroup = style;
 
   protected iconName: string = 'chevron-small-left-small';

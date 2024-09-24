@@ -8,6 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { forceType } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbTagElement, SbbTagSize } from '../tag.js';
@@ -19,8 +20,9 @@ import style from './tag-group.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
  */
+export
 @customElement('sbb-tag-group')
-export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(
+class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(
   LitElement,
 ) {
   public static override styles: CSSResultGroup = style;
@@ -30,7 +32,9 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
   /**
    * This will be forwarded as aria-label to the inner list.
    */
-  @property({ attribute: 'list-accessibility-label' }) public listAccessibilityLabel?: string;
+  @forceType()
+  @property({ attribute: 'list-accessibility-label' })
+  public accessor listAccessibilityLabel: string = '';
 
   /**
    * If set multiple to false, the selection is exclusive and the value is a string (or null).
@@ -38,10 +42,12 @@ export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typ
    *
    * Changing multiple during run time is not supported.
    */
-  @property({ type: Boolean }) public multiple = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor multiple: boolean = false;
 
   /** Tag group size. */
-  @property({ reflect: true }) public size: SbbTagSize = 'm';
+  @property({ reflect: true }) public accessor size: SbbTagSize = 'm';
 
   /**
    * Value of the sbb-tag-group.

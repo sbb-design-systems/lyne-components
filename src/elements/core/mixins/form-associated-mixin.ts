@@ -118,7 +118,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     protected readonly internals: ElementInternals = this.attachInternals();
 
     /** Whenever a surrounding form or fieldset is changing its disabled state. */
-    @state() protected formDisabled: boolean = false;
+    @state() protected accessor formDisabled: boolean = false;
 
     public override attributeChangedCallback(
       name: string,

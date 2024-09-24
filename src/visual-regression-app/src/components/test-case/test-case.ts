@@ -35,16 +35,17 @@ interface Filter {
  * Displays a test case with its images.
  * Provides filtering functions.
  */
+export
 @customElement('app-test-case')
-export class TestCase extends LitElement {
+class TestCase extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public params?: { componentName: string; testCaseName: string };
+  @property() public accessor params: { componentName: string; testCaseName: string } | null = null;
 
-  @state() private _testCase?: ScreenshotTestCase;
-  @state() private _testCaseIndex: number = -1;
-  @state() private _filter: Filter = {};
-  @state() private _showGlobalDiff = true;
+  @state() private accessor _testCase!: ScreenshotTestCase;
+  @state() private accessor _testCaseIndex: number = -1;
+  @state() private accessor _filter: Filter = {};
+  @state() private accessor _showGlobalDiff = true;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -60,7 +61,7 @@ export class TestCase extends LitElement {
         this.params!.testCaseName!,
       );
       if (this._testCaseIndex >= 0) {
-        this._testCase = screenshots.getByTestCaseIndex(this._testCaseIndex);
+        this._testCase = screenshots.getByTestCaseIndex(this._testCaseIndex)!;
       }
     }
   }
