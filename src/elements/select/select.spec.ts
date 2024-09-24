@@ -499,16 +499,14 @@ describe(`sbb-select`, () => {
 
       await waitForLitRender(form);
 
-      let disabledElements = Array.from(form.querySelectorAll(':disabled'));
-      expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+      expect(element).to.match(':disabled');
       expect(comboBoxElement.tabIndex).to.be.equal(-1);
       compareToNative();
 
       element.disabled = false;
       await waitForLitRender(element);
 
-      disabledElements = Array.from(form.querySelectorAll(':disabled'));
-      expect(disabledElements.includes(element), ':disabled selector').to.be.false;
+      expect(element).not.to.match(':disabled');
       expect(comboBoxElement.tabIndex).to.be.equal(0);
     });
 
@@ -517,16 +515,14 @@ describe(`sbb-select`, () => {
 
       await waitForLitRender(form);
 
-      let disabledElements = Array.from(form.querySelectorAll(':disabled'));
-      expect(disabledElements.includes(element), ':disabled selector').to.be.true;
+      expect(element).to.match(':disabled');
       expect(comboBoxElement.tabIndex).to.be.equal(-1);
       compareToNative();
 
       fieldSet.disabled = false;
       await waitForLitRender(element);
 
-      disabledElements = Array.from(form.querySelectorAll(':disabled'));
-      expect(disabledElements.includes(element), ':disabled selector').to.be.false;
+      expect(element).not.to.match(':disabled');
       expect(comboBoxElement.tabIndex).to.be.equal(0);
     });
 
