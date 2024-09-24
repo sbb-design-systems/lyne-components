@@ -105,6 +105,7 @@ describe('focus', () => {
           <slot></slot>
           <button id="disabled-button" disabled>Disabled button</button>
           <span id="disabled-interactive-button" disabled disabled-interactive tabindex="0">Disabled interactive button</span>
+          <span id="disabled-interactive-button" tabindex="0" inert>Disabled interactive button</span>
       `;
         }
       },
