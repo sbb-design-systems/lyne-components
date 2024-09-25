@@ -47,11 +47,11 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 }
 
 :host([size='m']) {
-  @include sbb.button-size-m;
+  @include sbb.button--size-m;
 }
 
 :host([size='s']) {
-  @include sbb.button-size-s;
+  @include sbb.button--size-s;
 }
 
 :host(#{$icon-only}) {
@@ -59,12 +59,12 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 }
 
 :host(:not([disabled], :active, [data-active]):hover) {
-  @include sbb.button-hover;
+  @include sbb.button--hover;
 }
 
 .sbb-action-base {
   @include sbb.text-xs--bold;
-  @include sbb.button-base;
+  @include sbb.button-base-rules;
 
   // Reset for link variant
   text-decoration: none;
@@ -76,18 +76,18 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 
   // Renders background and border in the background absolute to enable the hover animation
   &::before {
-    @include sbb.button-base-before;
+    @include sbb.button-base-before-rules;
 
     :host([disabled]) & {
-      @include sbb.button-disabled-before;
+      @include sbb.button-disabled-before-rules;
     }
 
     :host(:not([disabled], :active, [data-active]):hover) & {
-      @include sbb.button-hover-before;
+      @include sbb.button-hover-before-rules;
     }
 
     :host(:not([disabled]):is(:active, [data-active])) & {
-      @include sbb.button-active;
+      @include sbb.button-active-rules;
     }
   }
 
@@ -97,7 +97,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   }
 
   :host([disabled]) & {
-    @include sbb.button-disabled;
+    @include sbb.button-disabled-rules;
   }
 
   :host(:not([disabled], :active, [data-active]):hover) & {
