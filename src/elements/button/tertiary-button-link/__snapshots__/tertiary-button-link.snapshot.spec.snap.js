@@ -28,10 +28,8 @@ snapshots["sbb-tertiary-button-link renders a sbb-tertiary-button-link without i
 >
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
   <sbb-screen-reader-only>
     . Link target opens in a new window.
   </sbb-screen-reader-only>
@@ -71,10 +69,8 @@ snapshots["sbb-tertiary-button-link renders a disabled sbb-tertiary-button-link 
 >
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
 </a>
 `;
 /* end snapshot sbb-tertiary-button-link renders a disabled sbb-tertiary-button-link with slotted icon Shadow DOM */

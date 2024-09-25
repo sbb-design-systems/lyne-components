@@ -26,10 +26,8 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button without icon Shad
 `<span class="sbb-action-base sbb-secondary-button">
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
 </span>
 `;
 /* end snapshot sbb-secondary-button renders a sbb-secondary-button without icon Shadow DOM */
@@ -61,10 +59,8 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon
 `<span class="sbb-action-base sbb-secondary-button">
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
 </span>
 `;
 /* end snapshot sbb-secondary-button renders a sbb-secondary-button with slotted icon Shadow DOM */

@@ -28,10 +28,8 @@ snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link wit
 >
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
   <sbb-screen-reader-only>
     . Link target opens in a new window.
   </sbb-screen-reader-only>
@@ -71,10 +69,8 @@ snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button
 >
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
 </a>
 `;
 /* end snapshot sbb-transparent-button-link renders a disabled sbb-transparent-button-link with slotted icon Shadow DOM */

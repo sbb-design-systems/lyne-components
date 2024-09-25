@@ -28,10 +28,8 @@ snapshots["sbb-button-link renders a sbb-button-link without icon Shadow DOM"] =
 >
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
   <sbb-screen-reader-only>
     . Link target opens in a new window.
   </sbb-screen-reader-only>
@@ -71,10 +69,8 @@ snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon 
 >
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
 </a>
 `;
 /* end snapshot sbb-button-link renders a disabled sbb-button-link with slotted icon Shadow DOM */

@@ -19,10 +19,8 @@ snapshots["sbb-tertiary-button-static renders without icon Shadow DOM"] =
 `<span class="sbb-action-base sbb-tertiary-button-static">
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
 </span>
 `;
 /* end snapshot sbb-tertiary-button-static renders without icon Shadow DOM */
@@ -51,10 +49,8 @@ snapshots["sbb-tertiary-button-static renders with slotted icon Shadow DOM"] =
 `<span class="sbb-action-base sbb-tertiary-button-static">
   <slot name="icon">
   </slot>
-  <span class="sbb-button__label">
-    <slot>
-    </slot>
-  </span>
+  <slot>
+  </slot>
 </span>
 `;
 /* end snapshot sbb-tertiary-button-static renders with slotted icon Shadow DOM */
