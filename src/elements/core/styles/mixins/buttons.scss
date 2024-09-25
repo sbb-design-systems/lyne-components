@@ -164,7 +164,7 @@
 }
 
 @mixin button-focus-visible-rules {
-  &::before {
+  &::after {
     @include a11y.focus-outline;
   }
 }
@@ -201,7 +201,7 @@
   background-color: var(--sbb-button-color-default-background);
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
-  transition-property: inset, background-color, border-color, box-shadow;
+  transition-property: inset, background-color, border-color, box-shadow, transform;
   box-shadow: var(--sbb-button-box-shadow);
 }
 
@@ -235,16 +235,14 @@
   }
 
   // Renders background and border in the background absolute to enable the hover animation
-  &::before {
+  &::after {
     @include button-base-before-rules;
-
-    z-index: -1;
   }
 
   &[disabled] {
     @include button-disabled-rules;
 
-    &::before {
+    &::after {
       @include button-disabled-before-rules;
     }
   }
@@ -255,7 +253,7 @@
     &:hover {
       @include button--hover;
 
-      &::before {
+      &::after {
         @include button-hover-before-rules;
       }
     }

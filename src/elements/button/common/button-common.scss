@@ -72,11 +72,14 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   gap: var(--sbb-button-gap);
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
-  transition-property: color;
+  transition-property: color, transform;
+  transform: translateY(var(--sbb-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
 
   // Renders background and border in the background absolute to enable the hover animation
-  &::before {
+  &::after {
     @include sbb.button-base-before-rules;
+
+    z-index: -1;
 
     :host([disabled]) & {
       @include sbb.button-disabled-before-rules;
@@ -89,6 +92,10 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     :host(:not([disabled]):is(:active, [data-active])) & {
       @include sbb.button-active-rules;
     }
+
+    transform: translateY(
+      calc(-1 * var(--sbb-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)}))
+    );
   }
 
   :host(#{$icon-only}) & {
@@ -113,19 +120,11 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
   // Handle focus on the action (link variant)
   :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
-    &::before {
+    &::after {
       @include sbb.focus-outline;
     }
   }
   /* stylelint-enable no-descending-specificity */
-}
-
-.sbb-button__label,
-::slotted([slot='icon']),
-sbb-icon {
-  transition: transform var(--sbb-button-transition-duration)
-    var(--sbb-button-transition-easing-function);
-  transform: translateY(var(--sbb-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
 }
 
 .sbb-button__label {
