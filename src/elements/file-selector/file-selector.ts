@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { type SbbSecondaryButtonStaticElement } from '../button.js';
+import type { SbbSecondaryButtonStaticElement } from '../button.js';
 import { sbbInputModalityDetector } from '../core/a11y.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import { slotState } from '../core/decorators.js';
@@ -34,6 +34,8 @@ export type DOMEvent = globalThis.Event;
  *
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  * @event {CustomEvent<File[]>} fileChanged - An event which is emitted each time the file list changes.
+ * @event change - An event which is emitted each time the user modifies the value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value
+ * @event input - An event which is emitted each time the value changes as a direct result of a user action.
  */
 @customElement('sbb-file-selector')
 @slotState()

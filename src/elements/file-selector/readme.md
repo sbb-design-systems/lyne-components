@@ -116,11 +116,11 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Events
 
-| Name          | Type                  | Description                                                | Inherited From |
-| ------------- | --------------------- | ---------------------------------------------------------- | -------------- |
-| `change`      | `Event`               |                                                            |                |
-| `fileChanged` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes. |                |
-| `input`       | `Event`               |                                                            |                |
+| Name          | Type                  | Description                                                                                                                                                                  | Inherited From |
+| ------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change`      | `Event`               | An event which is emitted each time the user modifies the value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value |                |
+| `fileChanged` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes.                                                                                                                   |                |
+| `input`       | `Event`               | An event which is emitted each time the value changes as a direct result of a user action.                                                                                   |                |
 
 ## Slots
 
