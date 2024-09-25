@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -6,7 +7,6 @@ import { hostAttributes, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { isEventPrevented } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
-import { AgnosticMutationObserver } from '../../core/observers.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
@@ -47,21 +47,27 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
   private _disabledFromGroup = false;
 
-  /** MutationObserver on data attributes. */
-  private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) => {
-    for (const mutation of mutationsList) {
-      if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = this.hasAttribute('data-group-disabled');
-        setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
-      }
-    }
-  });
-
   public constructor() {
     super();
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._handleButtonClick);
+
+      new MutationController(this, {
+        config: buttonObserverConfig,
+        callback: (mutationsList) => {
+          for (const mutation of mutationsList) {
+            if (mutation.attributeName === 'data-group-disabled') {
+              this._disabledFromGroup = this.hasAttribute('data-group-disabled');
+              setOrRemoveAttribute(
+                this,
+                'aria-disabled',
+                `${this.disabled || this._disabledFromGroup}`,
+              );
+            }
+          }
+        },
+      });
     }
   }
 
@@ -81,7 +87,6 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
       this._disabledFromGroup = parentGroup.disabled;
       setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
     }
-    this._optionAttributeObserver.observe(this, buttonObserverConfig);
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -89,11 +94,6 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
     if (changedProperties.has('disabled')) {
       setOrRemoveAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
     }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._optionAttributeObserver.disconnect();
   }
 
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {

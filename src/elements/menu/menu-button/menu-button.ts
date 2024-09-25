@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbFocusableDisabledActionMixin } from '../../core/mixins.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbMenuActionCommonElementMixin } from '../common.js';
 
 /**
@@ -13,7 +13,7 @@ import { SbbMenuActionCommonElementMixin } from '../common.js';
  * to modify horizontal padding.
  */
 @customElement('sbb-menu-button')
-export class SbbMenuButtonElement extends SbbFocusableDisabledActionMixin(
+export class SbbMenuButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbMenuActionCommonElementMixin(SbbButtonBaseElement),
 ) {}
 

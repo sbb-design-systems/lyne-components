@@ -22,7 +22,6 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
     </span>
     <sbb-card-badge
       color="charcoal"
-      dir="ltr"
       role="text"
       slot="badge"
     >

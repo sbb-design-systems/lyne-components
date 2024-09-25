@@ -15,7 +15,6 @@ snapshots["sbb-file-selector renders Shadow DOM"] =
         data-action=""
         data-sbb-button=""
         data-slot-names="unnamed"
-        dir="ltr"
         icon-name="folder-open-small"
         size="m"
       >
@@ -73,7 +72,6 @@ snapshots["sbb-file-selector renders with dropzone area and size s Shadow DOM"] 
             data-action=""
             data-sbb-button=""
             data-slot-names="unnamed"
-            dir="ltr"
             size="s"
           >
             Choose a file

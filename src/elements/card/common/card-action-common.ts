@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
@@ -6,7 +7,6 @@ import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { hostAttributes } from '../../core/decorators.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
-import { AgnosticMutationObserver } from '../../core/observers.js';
 import type { SbbCardElement } from '../card.js';
 
 import style from './card-action.scss?lit&inline';
@@ -47,9 +47,11 @@ export const SbbCardActionCommonElementMixin = <
     protected abstract actionRole: 'link' | 'button';
 
     private _card: SbbCardElement | null = null;
-    private _cardMutationObserver = new AgnosticMutationObserver(() =>
-      this._checkForSlottedActions(),
-    );
+    private _cardMutationObserver = new MutationController(this, {
+      target: null,
+      config: { childList: true, subtree: true },
+      callback: () => this._checkForSlottedActions(),
+    });
 
     private _onActiveChange(): void {
       if (this._card) {
@@ -79,10 +81,7 @@ export const SbbCardActionCommonElementMixin = <
         this._card.setAttribute('data-action-role', this.actionRole);
 
         this._checkForSlottedActions();
-        this._cardMutationObserver.observe(this._card, {
-          childList: true,
-          subtree: true,
-        });
+        this._cardMutationObserver.observe(this._card);
       }
     }
 
@@ -97,7 +96,6 @@ export const SbbCardActionCommonElementMixin = <
           .forEach((el) => el.removeAttribute('data-card-focusable'));
         this._card = null;
       }
-      this._cardMutationObserver.disconnect();
     }
 
     protected override renderTemplate(): TemplateResult {

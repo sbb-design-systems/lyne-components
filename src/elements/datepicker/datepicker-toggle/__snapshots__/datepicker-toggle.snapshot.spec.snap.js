@@ -17,11 +17,9 @@ snapshots["sbb-datepicker-toggle renders Shadow DOM"] =
   class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  dir="ltr"
   disabled=""
   icon-name="calendar-small"
   role="button"
-  tabindex="-1"
 >
 </sbb-mini-button>
 <sbb-popover
@@ -50,7 +48,6 @@ snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] =
   class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  dir="ltr"
   icon-name="calendar-small"
   role="button"
   tabindex="0"
@@ -83,11 +80,9 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] =
   class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  dir="ltr"
   disabled=""
   icon-name="calendar-small"
   role="button"
-  tabindex="-1"
 >
 </sbb-mini-button>
 <sbb-popover
@@ -116,7 +111,6 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow D
   class="sbb-datepicker-toggle__trigger"
   data-action=""
   data-button=""
-  dir="ltr"
   icon-name="calendar-small"
   role="button"
   tabindex="0"

@@ -45,6 +45,7 @@ export default [
     'plugin:import-x/recommended',
     'plugin:import-x/typescript',
   ),
+  // @ts-expect-error The returned config will exist.
   eslintPluginLyne.default.configs.recommended,
   {
     files: ['src/visual-regression-app/**/*.ts'],
@@ -56,7 +57,7 @@ export default [
   {
     files: ['src/storybook/**/*.ts'],
     rules: {
-      'lyne/test-describe-title': 'off',
+      'lyne/test-describe-title-rule': 'off',
     },
   },
   {
@@ -170,6 +171,8 @@ export default [
           },
         },
       ],
+      // TODO: Activate with standard decorators
+      'lyne/property-decorator-accessor-rule': 'off',
     },
   },
   {

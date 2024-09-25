@@ -7,7 +7,6 @@ snapshots["sbb-teaser renders after centered DOM"] =
   alignment="after-centered"
   data-action=""
   data-link=""
-  dir="ltr"
   href="https://github.com/sbb-design-systems/lyne-components"
 >
 </sbb-teaser>
@@ -60,7 +59,6 @@ snapshots["sbb-teaser renders after with title level set DOM"] =
   alignment="after"
   data-action=""
   data-link=""
-  dir="ltr"
   href="https://github.com/sbb-design-systems/lyne-components"
   title-level="2"
 >
@@ -115,7 +113,6 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
   data-action=""
   data-link=""
   data-slot-names="chip image title unnamed"
-  dir="ltr"
   href="https://github.com/sbb-design-systems/lyne-components"
 >
   <img

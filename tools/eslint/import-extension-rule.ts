@@ -1,18 +1,9 @@
 import { existsSync, statSync } from 'fs';
 import { dirname, resolve } from 'path';
 
-import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 
-const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://github.com/sbb-design-systems/lyne-components/blob/main/tools/eslint/${name}.ts`,
-);
-
-type MessageIds = 'importExtensionRule' | 'importIndexExtensionRule';
-
-export const name = 'import-extension-rule';
-export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[], MessageIds>({
+export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     function rule(originalNode: TSESTree.Node): void {
       const node = originalNode as
@@ -52,11 +43,9 @@ export const rule: TSESLint.RuleModule<MessageIds, never[]> = createRule<never[]
       ImportDeclaration: rule,
     };
   },
-  name,
   meta: {
     docs: {
       description: 'Relative imports and exports must end with .js',
-      recommended: 'recommended',
     },
     messages: {
       importExtensionRule: 'Missing .js extension in import/export path ({{ import }})',

@@ -1,6 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 
 import { fixture } from '../testing/private.js';
 import { EventSpy, waitForLitRender } from '../testing.js';
@@ -8,7 +9,8 @@ import { EventSpy, waitForLitRender } from '../testing.js';
 import { SbbLinkBaseElement } from './link-base-element.js';
 
 class GenericLink extends SbbLinkBaseElement {
-  public disabled = false;
+  @property() public disabled = false;
+  @property() public disabledInteractive = false;
 
   protected override renderTemplate(): TemplateResult {
     return html`<span>Link</span>`;
@@ -29,7 +31,6 @@ describe(`SbbLinkBaseElement`, () => {
     });
 
     it('check host attributes and content', () => {
-      expect(element.getAttribute('dir')).to.be.equal('ltr');
       expect(element.shadowRoot!.firstElementChild!.classList.contains('generic-link')).to.be.true;
       expect(element.shadowRoot!.textContent!.trim()).to.be.equal('Link');
     });
@@ -49,6 +50,31 @@ describe(`SbbLinkBaseElement`, () => {
       element.click();
       await waitForLitRender(element);
       expect(clickSpy.count).not.to.be.greaterThan(0);
+    });
+
+    it('dispatch click if disabled and disabledInteractive', async () => {
+      const clickSpy = new EventSpy('click');
+      const a = element.shadowRoot!.querySelector('a');
+
+      expect(a).not.to.have.attribute('tabindex');
+      expect(a).not.to.have.attribute('aria-disabled');
+
+      element.disabled = true;
+      await waitForLitRender(element);
+
+      expect(a).to.have.attribute('tabindex', '-1');
+      expect(a).to.have.attribute('aria-disabled', 'true');
+
+      element.disabledInteractive = true;
+      await waitForLitRender(element);
+
+      expect(a).not.to.have.attribute('tabindex');
+      expect(a).to.have.attribute('aria-disabled', 'true');
+
+      element.click();
+      await waitForLitRender(element);
+
+      expect(clickSpy.count).to.be.equal(1);
     });
 
     it('dispatch event', async () => {

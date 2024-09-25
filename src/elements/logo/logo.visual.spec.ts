@@ -1,39 +1,30 @@
 import { html } from 'lit';
 
-import {
-  describeEach,
-  describeViewports,
-  visualDiffDefault,
-  visualRegressionFixture,
-} from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import './logo.js';
 
 describe(`sbb-logo`, () => {
-  let root: HTMLElement;
-
   const cases = {
     negative: [false, true],
     protectiveRoom: ['none', 'minimal', 'ideal'],
+    forcedColors: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ negative, protectiveRoom }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html` <sbb-logo ?negative=${negative} protective-room=${protectiveRoom}></sbb-logo> `,
-          {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
-            padding: '0',
-            maxWidth: '300px',
-          },
-        );
-      });
-
+    describeEach(cases, ({ negative, protectiveRoom, forcedColors }) => {
       it(
-        visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
+        ``,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-logo ?negative=${negative} protective-room=${protectiveRoom}></sbb-logo>`,
+            {
+              backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+              padding: '0',
+              maxWidth: '300px',
+              forcedColors,
+            },
+          );
         }),
       );
     });

@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbFocusableDisabledActionMixin } from '../../core/mixins.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbInlineLinkCommonElementMixin } from '../common.js';
 
 /**
@@ -11,7 +11,7 @@ import { SbbInlineLinkCommonElementMixin } from '../common.js';
  */
 @customElement('sbb-link-button')
 export class SbbLinkButtonElement extends SbbInlineLinkCommonElementMixin(
-  SbbFocusableDisabledActionMixin(SbbButtonBaseElement),
+  SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {}
 
 declare global {

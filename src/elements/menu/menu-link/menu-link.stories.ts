@@ -102,6 +102,15 @@ const disabled: InputType = {
   },
 };
 
+const disabledInteractive: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
 const accessibilityLabel: InputType = {
   control: {
     type: 'text',
@@ -117,6 +126,7 @@ const defaultArgTypes: ArgTypes = {
   rel,
   download,
   disabled,
+  'disabled-interactive': disabledInteractive,
   'accessibility-label': accessibilityLabel,
 };
 
@@ -129,6 +139,7 @@ const defaultArgs: Args = {
   rel: undefined,
   download: false,
   disabled: false,
+  'disabled-interactive': false,
   'accessibility-label': '',
 };
 

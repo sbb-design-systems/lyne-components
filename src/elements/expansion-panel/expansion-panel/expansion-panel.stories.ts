@@ -85,6 +85,12 @@ const disabled: InputType = {
   },
 };
 
+const disabledInteractive: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const size: InputType = {
   control: {
     type: 'inline-radio',
@@ -101,6 +107,7 @@ const defaultArgTypes: ArgTypes = {
   color,
   borderless,
   disabled,
+  'disabled-interactive': disabledInteractive,
   size,
 };
 
@@ -113,14 +120,24 @@ const defaultArgs: Args = {
   color: color.options![0],
   borderless: false,
   disabled: false,
+  'disabled-interactive': false,
   size: size.options![0],
 };
 
-const Template = ({ headerText, iconName, contentText, ...args }: Args): TemplateResult => html`
+const Template = ({
+  headerText,
+  iconName,
+  contentText,
+  'disabled-interactive': disabledInteractive,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-expansion-panel ${sbbSpread(args)}>
-    <sbb-expansion-panel-header icon-name=${iconName ?? nothing}
-      >${headerText}</sbb-expansion-panel-header
+    <sbb-expansion-panel-header
+      icon-name=${iconName ?? nothing}
+      ?disabled-interactive=${disabledInteractive}
     >
+      ${headerText}
+    </sbb-expansion-panel-header>
     <sbb-expansion-panel-content>${contentText}</sbb-expansion-panel-content>
   </sbb-expansion-panel>
 `;
@@ -129,10 +146,11 @@ const TemplateSlottedIcon = ({
   headerText,
   iconName,
   contentText,
+  'disabled-interactive': disabledInteractive,
   ...args
 }: Args): TemplateResult => html`
   <sbb-expansion-panel ${sbbSpread(args)}>
-    <sbb-expansion-panel-header>
+    <sbb-expansion-panel-header ?disabled-interactive=${disabledInteractive}>
       ${headerText}
       <sbb-icon slot="icon" name=${iconName}></sbb-icon>
     </sbb-expansion-panel-header>

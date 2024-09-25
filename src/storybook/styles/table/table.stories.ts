@@ -10,7 +10,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm'],
+  options: ['xs', 's', 'm'],
 };
 
 const negative: InputType = {
@@ -91,6 +91,7 @@ const Template = (args: Args): TemplateResult => html`
   <table
     class=${classMap({
       'sbb-table--negative': args.negative,
+      'sbb-table-xs': args.size === 'xs',
       'sbb-table-s': args.size === 's',
       'sbb-table-m': args.size === 'm',
       'sbb-table--unstriped': !args.striped,
@@ -111,6 +112,12 @@ export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: 's' },
+};
+
+export const SizeXS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: 'xs' },
 };
 
 export const Negative: StoryObj = {
