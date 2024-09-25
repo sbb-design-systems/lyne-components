@@ -266,6 +266,22 @@ describe(`sbb-file-selector`, () => {
     expect(filesSize[1]).dom.text('15 B');
   });
 
+  it('should update formValue on name change', async () => {
+    addFiles(element, 1);
+    await waitForLitRender(form);
+
+    let formData = new FormData(form);
+    const fileSelectorFormData = formData.getAll('fs');
+    expect(fileSelectorFormData.length).to.be.equal(1);
+
+    element.name = 'new-fs';
+    await waitForLitRender(form);
+
+    formData = new FormData(form);
+    expect(formData.getAll('fs').length).to.be.equal(0);
+    expect(formData.getAll('new-fs').length).to.be.equal(1);
+  });
+
   it('should result as :disabled', async () => {
     element.disabled = true;
     await waitForLitRender(form);

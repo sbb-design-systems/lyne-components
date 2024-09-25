@@ -39,9 +39,7 @@ export type DOMEvent = globalThis.Event;
  */
 @customElement('sbb-file-selector')
 @slotState()
-export class SbbFileSelectorElement extends SbbDisabledMixin(
-  SbbFormAssociatedMixin<typeof LitElement, File[]>(LitElement),
-) {
+export class SbbFileSelectorElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     fileChangedEvent: 'fileChanged',
@@ -69,15 +67,37 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
   /** This will be forwarded as aria-label to the native input element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
+  /** The path of the first selected file. '' no file is selected */
+  @property({ attribute: false })
+  public override set value(value: string | null) {
+    this._hiddenInput.value = value ?? '';
+
+    if (!value) {
+      this.files = [];
+    }
+  }
+  public override get value(): string | null {
+    return this._hiddenInput?.value;
+  }
+
   /**
    * The list of selected files.
    */
+  @property({ attribute: false })
+  public set files(value: File[]) {
+    this._files = value ?? [];
+
+    // update the inner input
+    const dt: DataTransfer = new DataTransfer();
+    this.files.forEach((e: File) => dt.items.add(e));
+    this._hiddenInput.files = dt.files;
+
+    this.updateFormValue();
+  }
   public get files(): File[] {
-    return this.value || [];
+    return this._files;
   }
-  private set _files(value: File[]) {
-    this.value = value;
-  }
+  private _files: File[] = [];
 
   /** An event which is emitted each time the file list changes. */
   private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(
@@ -98,15 +118,14 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
   private _language = new SbbLanguageController(this);
 
   /**
-   * @deprecated use 'files' property instead
+   * @deprecated use the 'files' property instead
    */
   public getFiles(): File[] {
     return this.files;
   }
 
   public override formResetCallback(): void {
-    this._files = [];
-    this._hiddenInput.files = new DataTransfer().files;
+    this.files = [];
   }
 
   public override formStateRestoreCallback(
@@ -116,12 +135,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
     if (!state) {
       return;
     }
-    this._files = (state as [string, FormDataEntryValue][]).map(([_, value]) => value as File);
-
-    // Manually add files in the native input
-    const dataTransfer = new DataTransfer();
-    this.files.forEach((f) => dataTransfer.items.add(f));
-    this._hiddenInput.files = dataTransfer.files;
+    this.files = (state as [string, FormDataEntryValue][]).map(([_, value]) => value as File);
   }
 
   protected override updateFormValue(): void {
@@ -204,31 +218,25 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
 
   private _createFileList(files: FileList): void {
     if (!this.multiple || this.multipleMode !== 'persistent' || this.files.length === 0) {
-      this._files = Array.from(files);
+      this.files = Array.from(files);
     } else {
-      this._files = Array.from(files)
+      this.files = Array.from(files)
         .filter(
+          // Remove duplicates
           (newFile: File): boolean =>
             this.files!.findIndex((oldFile: File) => this._checkFileEquality(newFile, oldFile)) ===
             -1,
         )
         .concat(this.files);
     }
-    this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this.files.map((e) => e.name))[
-      this._language.current
-    ];
+    this._updateA11yLiveRegion();
     this._fileChangedEvent.emit(this.files);
   }
 
   private _removeFile(file: File): void {
-    this._files = this.files.filter((f: File) => !this._checkFileEquality(file, f));
-    // The item must be removed from the hidden file input too; the FileList API is flawed, so the DataTransfer object is used.
-    const dt: DataTransfer = new DataTransfer();
-    this.files.forEach((e: File) => dt.items.add(e));
-    this._hiddenInput.files = dt.files;
-    this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this.files.map((e) => e.name))[
-      this._language.current
-    ];
+    this.files = this.files.filter((f: File) => !this._checkFileEquality(file, f));
+    this._updateA11yLiveRegion();
+
     // Dispatch native events as if the reset is done via the file selection window.
     this.dispatchEvent(new Event('input', { composed: true, bubbles: true }));
     this.dispatchEvent(new Event('change', { bubbles: true }));
@@ -239,6 +247,12 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(
   private _formatFileSize(size: number): string {
     const i: number = Math.floor(Math.log(size) / Math.log(1024));
     return `${(size / Math.pow(1024, i)).toFixed(0)} ${this._suffixes[i]}`;
+  }
+
+  private _updateA11yLiveRegion(): void {
+    this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this.files.map((e) => e.name))[
+      this._language.current
+    ];
   }
 
   private _renderDefaultMode(): TemplateResult {
