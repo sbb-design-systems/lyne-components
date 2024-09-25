@@ -61,6 +61,9 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     @property()
     public set name(name: string) {
       this.setAttribute('name', `${name}`);
+
+      // For `FormData` values, we have to manually update the fieldName key
+      this.updateFormValue();
     }
     public get name(): string {
       return this.getAttribute('name') ?? '';
