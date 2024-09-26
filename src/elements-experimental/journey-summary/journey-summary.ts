@@ -60,6 +60,14 @@ export class SbbJourneySummaryElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
+  /**
+   * The Footpath attribute for rendering different icons
+   * true: render a11y-icon
+   * false: render walk-icon
+   * default: render walk-icon
+   */
+  @property({ attribute: 'a11y-footpath', type: Boolean }) public a11yFootpath?: boolean;
+
   /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
   @property()
   public set now(value: SbbDateLike | undefined) {
@@ -138,6 +146,7 @@ export class SbbJourneySummaryElement extends LitElement {
           .arrivalWalk=${arrivalWalk}
           .legs=${legs}
           .disableAnimation=${this.disableAnimation}
+          .a11yFootpath=${this.a11yFootpath}
           .now=${this.now}
         ></sbb-pearl-chain-time>
       </div>
