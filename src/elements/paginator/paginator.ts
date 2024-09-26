@@ -63,6 +63,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   @property({ type: Number })
   public set length(value: number) {
     this._length = isNaN(value) || value < 0 ? 0 : value;
+    // Call setter of pageIndex to ensure bounds
+    // eslint-disable-next-line no-self-assign
+    this.pageIndex = this.pageIndex;
   }
   public get length(): number {
     return this._length;
@@ -72,9 +75,11 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** Number of items per page. */
   @property({ attribute: 'page-size', type: Number })
   public set pageSize(value: number) {
-    const previousPageSize = this._pageSize;
+    // Current page needs to be updated to reflect the new page size. Navigate to the page
+    // containing the previous page's first item.
+    const previousPageSize = this.pageSize;
     this._pageSize = Math.max(value, 0);
-    this._pageIndex = Math.floor((this.pageIndex * previousPageSize) / this._pageSize) || 0;
+    this.pageIndex = Math.floor((this.pageIndex * previousPageSize) / this.pageSize) || 0;
   }
   public get pageSize(): number {
     return this._pageSize;
@@ -204,9 +209,10 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   /** Evaluate `pageIndex` by excluding edge cases. */
   private _coercePageIndexInRange(pageIndex: number): number {
-    return isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages() - 1
-      ? 0
-      : pageIndex;
+    return Math.max(
+      Math.min(Math.max(isNaN(pageIndex) ? 0 : pageIndex, 0), this._numberOfPages() - 1),
+      0,
+    );
   }
 
   /**

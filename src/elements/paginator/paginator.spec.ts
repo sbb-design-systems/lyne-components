@@ -141,6 +141,48 @@ describe('sbb-paginator', () => {
     expect(pageEventSpy.count).to.be.equal(0);
   });
 
+  it('handles length change', () => {
+    element.pageIndex = 9;
+    element.length = 100;
+    expect(element.pageIndex).to.be.equal(9);
+
+    element.length = 10;
+    expect(element.pageIndex).to.be.equal(1);
+
+    element.length = -1;
+    expect(element.length).to.be.equal(0);
+    expect(element.pageIndex).to.be.equal(0);
+  });
+
+  it('handles pageSize change', () => {
+    element.pageIndex = 9;
+    expect(element.pageIndex).to.be.equal(9);
+
+    element.pageSize = 1;
+    expect(element.pageIndex).to.be.equal(45);
+
+    element.pageSize = 10;
+    expect(element.pageIndex).to.be.equal(4);
+
+    element.pageSize = -1;
+    expect(element.pageSize).to.be.equal(0);
+    expect(element.pageIndex).to.be.equal(0);
+  });
+
+  it('handles pageIndex change', () => {
+    element.pageIndex = 10;
+    expect(element.pageIndex).to.be.equal(9);
+
+    element.pageIndex = -1;
+    expect(element.pageIndex).to.be.equal(0);
+
+    element.pageIndex = 0;
+    expect(element.pageIndex).to.be.equal(0);
+
+    element.pageIndex = 5;
+    expect(element.pageIndex).to.be.equal(5);
+  });
+
   it('keyboard selection', async () => {
     // start sbb-mini-button-group
     await sendKeys({ press: tabKey });
