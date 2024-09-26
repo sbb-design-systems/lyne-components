@@ -22,7 +22,6 @@ describe(`sbb-journey-summary`, () => {
     trip: undefined as object | undefined,
     tripBack: undefined as object | undefined,
     hasSlot: true,
-    a11yFootpath: false,
   };
 
   const template = ({
@@ -31,14 +30,12 @@ describe(`sbb-journey-summary`, () => {
     trip,
     tripBack,
     hasSlot,
-    a11yFootpath,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-journey-summary
       ?round-trip=${roundTrip}
       .trip=${trip}
       .tripBack=${tripBack}
       .now=${now}
-      .a11yFootpath=${a11yFootpath}
       disable-animation
     >
       ${hasSlot
