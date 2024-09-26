@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.3...v1.12.0) (2024-09-26)
+
+
+### Features
+
+* add sbb-icon-list styles ([#3038](https://github.com/sbb-design-systems/lyne-components/issues/3038)) ([d081288](https://github.com/sbb-design-systems/lyne-components/commit/d08128823044eef07722bec574628839e826d599))
+* **sbb-journey-summary:** provide a11y footpath property ([#3104](https://github.com/sbb-design-systems/lyne-components/issues/3104)) ([05c6d1a](https://github.com/sbb-design-systems/lyne-components/commit/05c6d1a7828f4c4aad23f5a9aca5ef5cf047d5b3))
+* **sbb-paginator:** initial implementation ([#2982](https://github.com/sbb-design-systems/lyne-components/issues/2982)) ([8306362](https://github.com/sbb-design-systems/lyne-components/commit/83063628c88a6db6cc01acbaf6d9c04083b9c8a6))
+* **sbb-slider:** implement native form support ([#3071](https://github.com/sbb-design-systems/lyne-components/issues/3071)) ([ad35f2f](https://github.com/sbb-design-systems/lyne-components/commit/ad35f2f8169768fd52ee08fad9aba45d0f5c315b))
+
+
+### Bug Fixes
+
+* **sbb-radio-group:** disable focus when disabling radio ([#3116](https://github.com/sbb-design-systems/lyne-components/issues/3116)) ([6453b6b](https://github.com/sbb-design-systems/lyne-components/commit/6453b6b9c77e8032171e04698f8ed7658e7869d5))
+
 ## [1.11.3](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.2...v1.11.3) (2024-09-24)
 
 
