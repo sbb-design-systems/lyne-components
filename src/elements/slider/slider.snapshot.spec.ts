@@ -12,7 +12,14 @@ describe(`sbb-slider`, () => {
 
   describe('renders', async () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-slider value="1"></sbb-slider>`);
+      element = (
+        await fixture(html`
+          <div>
+            <label for="slider-1">Label</label>
+            <sbb-slider value="1" id="slider-1"></sbb-slider>
+          </div>
+        `)
+      ).querySelector('sbb-slider')!;
     });
 
     it('DOM', async () => {
@@ -87,6 +94,28 @@ describe(`sbb-slider`, () => {
           readonly
         ></sbb-slider>`,
       );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
+
+  describe('renders in form', async () => {
+    beforeEach(async () => {
+      const form = await fixture(
+        html` <form>
+          <sbb-slider name="sbb-slider" min="0" max="10" value="1"></sbb-slider>
+          <input type="range" name="input-range" min="0" max="10" value="1" />
+        </form>`,
+      );
+      element = form.querySelector('sbb-slider')!;
     });
 
     it('DOM', async () => {

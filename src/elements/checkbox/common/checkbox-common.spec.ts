@@ -153,7 +153,7 @@ describe(`checkbox common behaviors`, () => {
         expect(snapshot.required).not.to.be.ok;
       });
 
-      it('should should restore form state on formStateRestoreCallback()', async () => {
+      it('should restore form state on formStateRestoreCallback()', async () => {
         // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
         element.formStateRestoreCallback('true', 'restore');
         await waitForLitRender(element);
@@ -537,11 +537,11 @@ describe(`checkbox common behaviors`, () => {
                 expect(element).not.to.have.attribute('disabled');
               }
 
-              const disabledElements = Array.from(form.querySelectorAll(':disabled'));
-
-              expect(disabledElements.includes(element), ':disabled selector').to.be.equal(
-                assertions.disabledSelector,
-              );
+              if (assertions.disabledSelector) {
+                expect(element).to.match(':disabled');
+              } else {
+                expect(element).not.to.match(':disabled');
+              }
 
               const snapshot = (await a11ySnapshot({
                 selector: element.localName,

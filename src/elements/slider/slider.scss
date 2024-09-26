@@ -31,7 +31,7 @@
   }
 }
 
-:host([disabled]) {
+:host(:disabled) {
   --sbb-slider-icon-color: var(--sbb-color-graphite);
   --sbb-slider-knob-border-color: var(--sbb-color-smoke);
   --sbb-slider-knob-border-size: var(--sbb-border-width-2x);
@@ -43,7 +43,7 @@
   --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
 }
 
-:host([disabled]),
+:host(:disabled),
 :host([readonly]) {
   --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
   --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
@@ -128,7 +128,7 @@
   }
 
   // slider knob resize on click (active / focus)
-  :host(:not(:is([disabled], [readonly]))) .sbb-slider__range-input:active ~ & {
+  :host(:not(:is(:disabled, [readonly]))) .sbb-slider__range-input:active ~ & {
     --sbb-slider-knob-size: var(--sbb-slider-knob-size-active);
   }
 }
