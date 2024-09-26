@@ -49,11 +49,65 @@ const OrderedListTemplate = (): TemplateResult => html`
   )}
 `;
 
-const StepsTemplate = (): TemplateResult => html`
+const StepListTemplate = (): TemplateResult => html`
   ${['xs', 's', 'm', 'l', 'xl'].map(
     (textSize) => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol class=${`sbb-step-list sbb-text-${textSize}`}>
+        ${ListContent()}
+        <li>
+          Nested list
+          <ol class="sbb-list">
+            ${ListContent()}
+          </ol>
+        </li>
+      </ol>
+    `,
+  )}
+`;
+
+const IconListTemplate = (): TemplateResult => html`
+  ${['xs', 's', 'm', 'l', 'xl'].map(
+    (textSize) => html`
+      <sbb-title level="5">Text size ${textSize}</sbb-title>
+      <ol class=${`sbb-icon-list sbb-text-${textSize}`}>
+        ${ListContent()}
+        <li>
+          Nested list
+          <ol class="sbb-list">
+            ${ListContent()}
+          </ol>
+        </li>
+      </ol>
+    `,
+  )}
+`;
+
+const IconListCustomIconTemplate = (): TemplateResult => html`
+  ${['xs', 's', 'm', 'l', 'xl'].map(
+    (textSize) => html`
+      <sbb-title level="5">Text size ${textSize}</sbb-title>
+      <ol
+        class=${`sbb-icon-list sbb-text-${textSize}`}
+        style="--sbb-icon-list-marker-icon-color: var(--sbb-color-red); --sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-small.svg')"
+      >
+        ${ListContent()}
+        <li>
+          Nested list
+          <ol class="sbb-list">
+            ${ListContent()}
+          </ol>
+        </li>
+      </ol>
+    `,
+  )}
+`;
+
+const IconListCustomColorTemplate = (): TemplateResult => html`
+  ${['xs', 's', 'm', 'l', 'xl'].map(
+    (textSize) => html`
+      <sbb-title level="5">Text size ${textSize}</sbb-title>
+      <ol class=${`sbb-icon-list sbb-text-${textSize}`} style="color: var(--sbb-color-green);">
         ${ListContent()}
         <li>
           Nested list
@@ -93,7 +147,19 @@ export const OrderedList: StoryObj = {
 };
 
 export const StepList: StoryObj = {
-  render: StepsTemplate,
+  render: StepListTemplate,
+};
+
+export const IconList: StoryObj = {
+  render: IconListTemplate,
+};
+
+export const IconListCustomIcon: StoryObj = {
+  render: IconListCustomIconTemplate,
+};
+
+export const IconListCustomColor: StoryObj = {
+  render: IconListCustomColorTemplate,
 };
 
 export const DescriptionList: StoryObj = {

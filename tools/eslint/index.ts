@@ -1,36 +1,36 @@
-import type { TSESLint } from '@typescript-eslint/utils';
+import type { ESLintUtils, TSESLint } from '@typescript-eslint/utils';
 
-import * as customElementClassName from './custom-element-class-name-rule.js';
-import * as customElementDecoratorPosition from './custom-element-decorator-position-rule.js';
-import * as importExtensionRule from './import-extension-rule.js';
-import * as useLocalName from './local-name-rule.js';
-import * as missingComponentDocumentation from './missing-component-documentation-rule.js';
-import * as needsSuperCall from './needs-super-call-rule.js';
-import * as testDescribeTitle from './test-describe-title.js';
-import * as tabKeyRule from './test-tabkey-rule.js';
+const rules = (
+  await Promise.all(
+    [
+      'custom-element-class-name-rule',
+      'custom-element-decorator-position-rule',
+      'import-extension-rule',
+      'local-name-rule',
+      'missing-component-documentation-rule',
+      'needs-super-call-rule',
+      'property-decorator-accessor-rule',
+      'test-describe-title-rule',
+      'test-tabkey-rule',
+    ].map((name) =>
+      import(`./${name}.js`).then((m) => ({ [name]: m.default as ESLintUtils.RuleModule<any> })),
+    ),
+  )
+).reduce((current, next) => Object.assign(current, next));
 
-const plugin: Omit<Required<TSESLint.FlatConfig.Plugin>, 'processors'> = {
+const plugin: TSESLint.FlatConfig.Plugin = {
   meta: {
     name: 'lyne',
   },
   configs: {},
-  rules: {
-    [missingComponentDocumentation.name]: missingComponentDocumentation.rule,
-    [customElementClassName.name]: customElementClassName.rule,
-    [importExtensionRule.name]: importExtensionRule.rule,
-    [useLocalName.name]: useLocalName.rule,
-    [customElementDecoratorPosition.name]: customElementDecoratorPosition.rule,
-    [needsSuperCall.name]: needsSuperCall.rule,
-    [tabKeyRule.name]: tabKeyRule.rule,
-    [testDescribeTitle.name]: testDescribeTitle.rule,
-  },
+  rules,
 };
 
 plugin.configs!.recommended = {
   plugins: {
     lyne: plugin,
   },
-  rules: Object.keys(plugin.rules!).reduce(
+  rules: Object.keys(rules).reduce(
     (current, next) => Object.assign(current, { [`lyne/${next}`]: 'error' }),
     {} as TSESLint.FlatConfig.Rules,
   ),

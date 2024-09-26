@@ -113,6 +113,25 @@ import { SbbRadioButtonGroupElement } from './radio-button-group.js';
           expect(firstRadio).to.have.attribute('checked');
         });
 
+        it('should update tabIndex on disabled child change', async () => {
+          const firstRadio = element.querySelector('#sbb-radio-1') as
+            | SbbRadioButtonElement
+            | SbbRadioButtonPanelElement;
+
+          const secondRadio = element.querySelector('#sbb-radio-2') as
+            | SbbRadioButtonElement
+            | SbbRadioButtonPanelElement;
+
+          expect(firstRadio.tabIndex).to.be.equal(0);
+          expect(secondRadio.tabIndex).to.be.equal(-1);
+
+          firstRadio.disabled = true;
+          await waitForLitRender(element);
+
+          expect(firstRadio.tabIndex).to.be.equal(-1);
+          expect(secondRadio.tabIndex).to.be.equal(0);
+        });
+
         it('preserves radio button disabled state after being disabled from group', async () => {
           const firstRadio = element.querySelector('#sbb-radio-1') as
             | SbbRadioButtonElement
