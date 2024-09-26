@@ -1,6 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import { spy } from 'sinon';
 
 import type { SbbMiniButtonElement } from '../button/mini-button.js';
 import { tabKey } from '../core/testing/private/keys.js';
@@ -23,7 +24,7 @@ describe('sbb-paginator', () => {
   });
 
   it('change pages via prev/next buttons and emits `page` event', async () => {
-    const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
+    const pageEventSpy = spy();
     const goToPrev: SbbMiniButtonElement = element.shadowRoot!.querySelector(
       '#sbb-paginator-prev-page',
     )!;
@@ -31,22 +32,27 @@ describe('sbb-paginator', () => {
       '#sbb-paginator-next-page',
     )!;
 
+    element.addEventListener('page', (event) => {
+      expect(event.detail.pageIndex).to.be.equal(element.pageIndex);
+      pageEventSpy();
+    });
+
     expect(goToPrev).to.have.attribute('disabled');
     goToPrev.click();
     await waitForLitRender(element);
-    expect(pageEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy).not.to.have.been.called;
 
     expect(goToNext).not.to.have.attribute('disabled');
     goToNext.click();
     await waitForLitRender(element);
-    expect(pageEventSpy.count).to.be.equal(1);
+    expect(pageEventSpy).to.have.been.calledOnce;
     expect(element.pageIndex).to.be.equal(1);
     expect(goToPrev).not.to.have.attribute('disabled');
     expect(goToNext).not.to.have.attribute('disabled');
 
     goToPrev.click();
     await waitForLitRender(element);
-    expect(pageEventSpy.count).to.be.equal(2);
+    expect(pageEventSpy).to.have.been.calledTwice;
     expect(element.pageIndex).to.be.equal(0);
   });
 
@@ -77,15 +83,22 @@ describe('sbb-paginator', () => {
   });
 
   it('emits `page` event when pageIndex changes via page button click', async () => {
-    const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
+    const pageEventSpy = spy();
+
+    element.addEventListener('page', (event) => {
+      expect(event.detail.pageSize).to.be.equal(element.pageSize);
+      expect(event.detail.pageSize).to.be.equal(5);
+      expect(event.detail.pageIndex).to.be.equal(2);
+      expect(event.detail.previousPageIndex).to.be.equal(0);
+      expect(event.detail.length).to.be.equal(50);
+
+      pageEventSpy();
+    });
+
     const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item');
     pages[2].dispatchEvent(new Event('click'));
     await waitForLitRender(element);
-    expect(pageEventSpy.count).to.be.equal(1);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageSize']).to.be.equal(5);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageIndex']).to.be.equal(2);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['previousPageIndex']).to.be.equal(0);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['length']).to.be.equal(50);
+    expect(pageEventSpy).to.have.been.calledOnce;
   });
 
   it('emits `page` event when pageSize changes via select', async () => {

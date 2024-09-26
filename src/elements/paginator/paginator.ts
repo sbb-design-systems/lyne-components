@@ -42,7 +42,7 @@ export type SbbPaginatorPageEventDetails = {
 
 const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 
-let optionsLabelNextId = 0;
+let nextId = 0;
 
 /**
  * It displays a paginator component.
@@ -62,7 +62,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
   /** Total number of items. */
   @property({ type: Number })
   public set length(value: number) {
-    this._length = isNaN(value) ? 0 : Math.max(value, 0);
+    this._length = isNaN(value) || value < 0 ? 0 : value;
   }
   public get length(): number {
     return this._length;
@@ -118,7 +118,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
     { composed: true, bubbles: true },
   );
 
-  private _paginatorOptionsLabel = `sbb-paginator-options-label-${++optionsLabelNextId}`;
+  private _paginatorOptionsLabel = `sbb-paginator-options-label-${++nextId}`;
   private _language = new SbbLanguageController(this);
   private _markForFocus: number | null = null;
   private _updateSelectAriaLabelledBy: boolean = false;
@@ -158,10 +158,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
    * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
    */
   private _numberOfPages(): number {
-    if (!this.pageSize) {
-      return 0;
-    }
-    return Math.ceil(this.length / this.pageSize);
+    return this.pageSize ? Math.ceil(this.length / this.pageSize) : 0;
   }
 
   /**
@@ -169,17 +166,13 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
    * emit the `page` event and then update the `pageSize` value.
    */
   private _pageSizeChanged(value: number): void {
-    const previousPageSize = this._pageSize;
-    const newPageSize = Math.max(value, 0);
-    if (previousPageSize !== newPageSize) {
-      this._page.emit({
-        previousPageIndex: this._pageIndex,
-        pageIndex: Math.floor((this.pageIndex * previousPageSize) / newPageSize) || 0,
-        length: this.length,
-        pageSize: newPageSize,
-      });
+    const previousPageSize = this.pageSize;
+    const previousPageIndex = this.pageIndex;
+    this.pageSize = value;
+
+    if (previousPageSize !== this.pageSize) {
+      this._emitPageEvent(previousPageIndex);
     }
-    this.pageSize = newPageSize;
   }
 
   /**
@@ -187,16 +180,21 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
    * emit the `page` event and then update the `pageIndex` value.
    */
   private _pageIndexChanged(value: number): void {
-    const newPageIndex = this._coercePageIndexInRange(value);
-    if (this._pageIndex !== newPageIndex) {
-      this._page.emit({
-        previousPageIndex: this._pageIndex,
-        pageIndex: newPageIndex,
-        length: this.length,
-        pageSize: this.pageSize,
-      });
+    const previousPageIndex = this.pageIndex;
+    this.pageIndex = value;
+
+    if (previousPageIndex !== this.pageIndex) {
+      this._emitPageEvent(previousPageIndex);
     }
-    this.pageIndex = newPageIndex;
+  }
+
+  private _emitPageEvent(previousPageIndex: number): void {
+    this._page.emit({
+      previousPageIndex,
+      pageIndex: this.pageIndex,
+      length: this.length,
+      pageSize: this.pageSize,
+    });
   }
 
   /** Returns the displayed page elements. */
@@ -206,10 +204,9 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
 
   /** Evaluate `pageIndex` by excluding edge cases. */
   private _coercePageIndexInRange(pageIndex: number): number {
-    if (isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages() - 1) {
-      return 0;
-    }
-    return pageIndex;
+    return isNaN(pageIndex) || pageIndex < 0 || pageIndex > this._numberOfPages() - 1
+      ? 0
+      : pageIndex;
   }
 
   /**
@@ -373,5 +370,8 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-paginator': SbbPaginatorElement;
+  }
+  interface HTMLElementEventMap {
+    page: CustomEvent<SbbPaginatorPageEventDetails>;
   }
 }
