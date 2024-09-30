@@ -127,7 +127,7 @@
     }
   }
 
-  /* stylelint-disable-next-line no-descending-specificity */
+  // stylelint-disable-next-line no-descending-specificity
   > li {
     position: relative;
     padding-inline: calc(var(#{$padding-inline}) + var(#{$dimensions}) + var(#{$to-text-gap}))
