@@ -9032,10 +9032,10 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-dts@4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-4.2.2.tgz#96fd412827e545564a6dfe2de678feec5ddbed5c"
-  integrity sha512-USwTMReZFf8yXV+cKkm4WOMqmFjbReAvkyxON5xzdnZzJEBnFgax6BBDZIGGr9WMJYvhHdpaIHLrOjXDcla4OA==
+vite-plugin-dts@4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-4.2.3.tgz#e0d9616eb574700111dbd19ae98e166541433263"
+  integrity sha512-O5NalzHANQRwVw1xj8KQun3Bv8OSDAlNJXrnqoAz10BOuW8FVvY5g4ygj+DlJZL5mtSPuMu9vd3OfrdW5d4k6w==
   dependencies:
     "@microsoft/api-extractor" "7.47.7"
     "@rollup/pluginutils" "^5.1.0"
