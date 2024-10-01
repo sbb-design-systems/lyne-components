@@ -12,6 +12,7 @@
   --sbb-paginator-page-border-width: 0;
   --sbb-paginator-page-border-style: none;
   --sbb-paginator-page-border-color: none;
+  --sbb-paginator-page-cursor: pointer;
   --sbb-paginator-page-inset: 0;
   --sbb-paginator-animation-easing: var(--sbb-animation-easing);
   --sbb-paginator-animation-duration: var(
@@ -97,7 +98,7 @@
   @include sbb.text-s--regular;
 
   position: relative;
-  cursor: pointer;
+  cursor: var(--sbb-paginator-page-cursor);
   outline: none !important;
   color: var(--sbb-paginator-page-color);
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
@@ -146,7 +147,32 @@
     }
   }
 
-  &:hover {
+  &:disabled {
+    --sbb-paginator-page-color: var(--sbb-color-smoke);
+    --sbb-paginator-page-border-width: var(--sbb-border-width-1x);
+    --sbb-paginator-page-border-style: dashed;
+    --sbb-paginator-page-border-color: var(--sbb-color-smoke);
+    --sbb-paginator-page-background-color: var(--sbb-color-milk);
+    --sbb-paginator-page-cursor: default;
+
+    &[data-selected] {
+      --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
+    }
+
+    @include sbb.if-forced-colors {
+      --sbb-paginator-page-border-color: GrayText;
+      --sbb-paginator-page-color: GrayText;
+      --sbb-paginator-page-background-color: Canvas;
+    }
+
+    :host([negative]) & {
+      --sbb-paginator-page-color: var(--sbb-color-aluminium);
+      --sbb-paginator-page-border-style: dashed;
+      --sbb-paginator-page-background-color: var(--sbb-color-anthracite);
+    }
+  }
+
+  &:not(:disabled):hover {
     @include sbb.hover-mq($hover: true) {
       --sbb-paginator-page-background-color: var(--sbb-color-milk);
       --sbb-paginator-page-inset: calc(var(--sbb-border-width-2x) * -1);
@@ -162,7 +188,7 @@
     }
   }
 
-  &:active {
+  &:not(:disabled):active {
     --sbb-paginator-page-color: var(--sbb-color-charcoal);
     --sbb-paginator-page-background-color: var(--sbb-color-cloud);
     --sbb-paginator-page-inset: 0;

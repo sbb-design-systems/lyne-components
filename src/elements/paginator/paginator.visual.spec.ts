@@ -46,6 +46,16 @@ describe('sbb-paginator', () => {
                 }
               });
             }
+
+            it(
+              'disabled=true',
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  html`<sbb-paginator length="100" disabled ?negative=${negative}></sbb-paginator>`,
+                  { ...wrapperStyle, forcedColors },
+                );
+              }),
+            );
           });
         }
 
