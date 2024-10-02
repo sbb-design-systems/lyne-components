@@ -26,6 +26,7 @@ import {
   visualRegressionConfig,
   vitePlugin,
   preloadIcons,
+  preloadFonts,
 } from './tools/web-test-runner/index.js';
 
 const { values: cliArgs } = parseArgs({
@@ -100,6 +101,7 @@ const browsers =
           : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
 
 const preloadedIcons = await preloadIcons();
+const preloadedFonts = await preloadFonts();
 
 const testRunnerHtml = (
   testFramework: string,
@@ -108,20 +110,22 @@ const testRunnerHtml = (
 ): string => `
 <!DOCTYPE html>
 <html lang='en'>
-  <head>${['Roman', 'Bold', 'Light']
-    .map(
-      (type) => `
-    <link
-      rel="preload"
-      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-${type}.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />`,
-    )
-    .join('')}
+  <head>
     <link rel="modulepreload" href="/src/elements/core/testing/test-setup.ts" />
     <style type="text/css">${renderStyles()}</style>
+    <style type="text/css">
+      ${preloadedFonts
+        .map(
+          (f) => `
+      @font-face {
+        font-family: SBB;
+        src: ${f.font};
+        font-display: fallback;
+        font-weight: ${f.weight};
+      }`,
+        )
+        .join('')}
+    </style>
     <script type="module">
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
       globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : (group?.name ?? 'default')}';
