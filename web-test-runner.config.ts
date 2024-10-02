@@ -183,7 +183,7 @@ export default {
   browsers: browsers,
   concurrentBrowsers: 3,
   // https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories
-  concurrency: process.env.CI ? 4 : undefined,
+  concurrency: process.env.CI ? 8 : undefined,
   plugins: [
     a11ySnapshotPlugin(),
     litSsrPlugin(),
