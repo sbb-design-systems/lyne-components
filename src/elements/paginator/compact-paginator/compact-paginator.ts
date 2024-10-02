@@ -1,0 +1,55 @@
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
+import { customElement } from 'lit/decorators.js';
+
+import { hostAttributes } from '../../core/decorators.js';
+import { SbbPaginatorCommonElementMixin } from '../common.js';
+import '../../divider.js';
+
+import style from './compact-paginator.scss?lit&inline';
+
+/**
+ * It displays a paginator component in compact mode.
+ *
+ * @event {CustomEvent<SbbPaginatorPageEventDetails>} page - Emits when the pageIndex changes.
+ */
+@customElement('sbb-compact-paginator')
+@hostAttributes({
+  role: 'group',
+})
+export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
+  public static override styles: CSSResultGroup = style;
+  public static readonly events: Record<string, string> = {
+    page: 'page',
+  } as const;
+
+  private _renderPageNumbers(): TemplateResult {
+    return html`
+      <span class="sbb-paginator__pages"
+        >${this.pageIndex + 1}<sbb-divider
+          orientation="vertical"
+          ?negative=${this.negative}
+        ></sbb-divider
+        >${this.numberOfPages()}</span
+      >
+    `;
+  }
+
+  protected override render(): TemplateResult {
+    return html`
+      <div class="sbb-compact-paginator">
+        ${this.pagerPosition === 'start'
+          ? html`${this.renderPrevNextButtons()} ${this._renderPageNumbers()}`
+          : html`${this._renderPageNumbers()} ${this.renderPrevNextButtons()}`}
+      </div>
+      <sbb-screen-reader-only role="status"></sbb-screen-reader-only>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-compact-paginator': SbbCompactPaginatorElement;
+  }
+}

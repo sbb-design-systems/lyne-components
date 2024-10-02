@@ -1,10 +1,10 @@
-import { html, type LitElement, type TemplateResult } from 'lit';
+import { html, type LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { i18nNextPage, i18nPreviousPage } from '../../core/i18n.js';
+import { i18nNextPage, i18nPreviousPage, i18nSelectedPage } from '../../core/i18n.js';
 import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
@@ -102,6 +102,18 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     );
     protected language = new SbbLanguageController(this);
 
+    protected override updated(changedProperties: PropertyValues<this>): void {
+      super.updated(changedProperties);
+
+      // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
+      this.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent =
+        this._currentPageLabel();
+    }
+
+    private _currentPageLabel(): string {
+      return i18nSelectedPage(this.pageIndex + 1)[this.language.current];
+    }
+
     /** Evaluate `pageIndex` by excluding edge cases. */
     private _coercePageIndexInRange(pageIndex: number): number {
       return Math.max(
@@ -165,3 +177,9 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
   return SbbPaginatorCommonElement as unknown as AbstractConstructor<SbbPaginatorCommonElementMixinType> &
     T;
 };
+
+declare global {
+  interface HTMLElementEventMap {
+    page: CustomEvent<SbbPaginatorPageEventDetails>;
+  }
+}

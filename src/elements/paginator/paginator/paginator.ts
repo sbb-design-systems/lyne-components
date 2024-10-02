@@ -11,9 +11,9 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { hostAttributes } from '../../core/decorators.js';
-import { i18nItemsPerPage, i18nPage, i18nSelectedPage } from '../../core/i18n.js';
+import { i18nItemsPerPage, i18nPage } from '../../core/i18n.js';
 import type { SbbSelectElement } from '../../select.js';
-import { SbbPaginatorCommonElementMixin, type SbbPaginatorPageEventDetails } from '../common.js';
+import { SbbPaginatorCommonElementMixin } from '../common.js';
 
 import style from './paginator.scss?lit&inline';
 
@@ -80,10 +80,6 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
       select.setAttribute('aria-labelledby', this._paginatorOptionsLabel);
       this._updateSelectAriaLabelledBy = false;
     }
-
-    // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
-    this.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent =
-      this._currentPageLabel();
   }
 
   /**
@@ -152,10 +148,6 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
     if (current) {
       this._markForFocus = this.pageIndex;
     }
-  }
-
-  private _currentPageLabel(): string {
-    return i18nSelectedPage(this.pageIndex + 1)[this.language.current];
   }
 
   private _renderItemPerPageTemplate(): TemplateResult | typeof nothing {
@@ -244,8 +236,5 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-paginator': SbbPaginatorElement;
-  }
-  interface HTMLElementEventMap {
-    page: CustomEvent<SbbPaginatorPageEventDetails>;
   }
 }
