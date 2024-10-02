@@ -6,7 +6,7 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../core/testing/private.js';
+} from '../../core/testing/private.js';
 
 import './paginator.js';
 
