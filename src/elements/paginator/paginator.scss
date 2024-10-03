@@ -137,8 +137,6 @@
 
     :host([negative]) & {
       --sbb-paginator-page-color: var(--sbb-color-milk);
-      --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
-      --sbb-paginator-page-border-style: solid;
       --sbb-paginator-page-border-color: var(--sbb-color-white);
     }
 
@@ -159,16 +157,15 @@
       --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
     }
 
+    :host([negative]) & {
+      --sbb-paginator-page-color: var(--sbb-color-aluminium);
+      --sbb-paginator-page-background-color: var(--sbb-color-charcoal);
+    }
+
     @include sbb.if-forced-colors {
       --sbb-paginator-page-border-color: GrayText;
       --sbb-paginator-page-color: GrayText;
       --sbb-paginator-page-background-color: Canvas;
-    }
-
-    :host([negative]) & {
-      --sbb-paginator-page-color: var(--sbb-color-aluminium);
-      --sbb-paginator-page-border-style: dashed;
-      --sbb-paginator-page-background-color: var(--sbb-color-anthracite);
     }
   }
 
