@@ -27,9 +27,10 @@ export type SbbStatusType =
  * @slot title - Use this to provide a title for the status (optional).
  * @slot icon - Use this slot to override the default status icon.
  */
+export
 @customElement('sbb-status')
 @slotState()
-export class SbbStatusElement extends SbbIconNameMixin(LitElement) {
+class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   private readonly _statusTypes: Map<SbbStatusType, string> = new Map([
@@ -44,13 +45,15 @@ export class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   ]);
 
   /** The type of the status. */
-  @property({ reflect: true }) public type: SbbStatusType = 'info';
+  @property({ reflect: true }) public accessor type: SbbStatusType = 'info';
 
   /** Content of title. */
-  @property({ reflect: true, attribute: 'title-content' }) public titleContent?: string;
+  @property({ reflect: true, attribute: 'title-content' }) public accessor titleContent:
+    | string
+    | null = null;
 
   /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '3';
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
 
   protected override renderIconSlot(): TemplateResult {
     return html`

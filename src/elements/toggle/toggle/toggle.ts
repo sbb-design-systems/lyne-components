@@ -11,7 +11,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbToggleOptionElement } from '../toggle-option.js';
 
@@ -24,11 +24,12 @@ import style from './toggle.scss?lit&inline';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
  */
+export
 @customElement('sbb-toggle')
 @hostAttributes({
   role: 'radiogroup',
 })
-export class SbbToggleElement extends LitElement {
+class SbbToggleElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -50,10 +51,11 @@ export class SbbToggleElement extends LitElement {
    * If true, set the width of the component fixed; if false,
    * the width is dynamic based on the label of the sbb-toggle-option.
    */
-  @property({ reflect: true, type: Boolean }) public even: boolean = false;
+  @property({ reflect: true, type: Boolean }) @forceType(Boolean) public accessor even: boolean =
+    false;
 
   /** Size variant, either m or s. */
-  @property({ reflect: true }) public size?: 's' | 'm' = 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' = 'm';
 
   /**
    * The value of the toggle. It needs to be mutable since it is updated whenever

@@ -49,11 +49,12 @@ const DEBOUNCE_TIME = 150;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
+export
 @customElement('sbb-navigation')
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -74,14 +75,13 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   /**
    * This will be forwarded as aria-label to the close button element.
    */
-  @property({ attribute: 'accessibility-close-label' }) public accessibilityCloseLabel:
-    | string
-    | undefined;
+  @property({ attribute: 'accessibility-close-label' })
+  public accessor accessibilityCloseLabel: string = '';
 
   /**
    * Whether a navigation section is displayed.
    */
-  @state() private _activeNavigationSection: HTMLElement | null = null;
+  @state() private accessor _activeNavigationSection: HTMLElement | null = null;
 
   public get activeNavigationSection(): HTMLElement | null {
     return this._activeNavigationSection;

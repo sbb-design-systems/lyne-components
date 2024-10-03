@@ -13,12 +13,13 @@ import style from './timetable-occupancy-icon.scss?lit&inline';
 /**
  * It displays a wagon's occupancy icon.
  */
+export
 @customElement('sbb-timetable-occupancy-icon')
-export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
+class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
   public static override styles: CSSResultGroup = [SbbIconBase.styles, style];
 
   /** Wagon occupancy. */
-  @property() public occupancy!: SbbOccupancy;
+  @property() public accessor occupancy: SbbOccupancy = 'none';
 
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());

@@ -115,16 +115,16 @@ Opened panel:
 
 ## Properties
 
-| Name          | Attribute     | Privacy | Type                              | Default | Description                                                              |
-| ------------- | ------------- | ------- | --------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `disabled`    | `disabled`    | public  | `boolean`                         | `false` | Whether the component is disabled.                                       |
-| `isOpen`      | -             | public  | `boolean`                         |         | Whether the element is open.                                             |
-| `multiple`    | `multiple`    | public  | `boolean`                         | `false` | Whether the select allows for multiple selection.                        |
-| `negative`    | `negative`    | public  | `boolean`                         | `false` | Negative coloring variant flag.                                          |
-| `placeholder` | `placeholder` | public  | `string \| undefined`             |         | The placeholder used if no value has been selected.                      |
-| `readonly`    | `readonly`    | public  | `boolean`                         | `false` | Whether the select is readonly.                                          |
-| `required`    | `required`    | public  | `boolean`                         | `false` | Whether the select is required.                                          |
-| `value`       | `value`       | public  | `string \| string[] \| undefined` |         | The value of the select component. If `multiple` is true, it's an array. |
+| Name          | Attribute     | Privacy | Type                 | Default | Description                                                              |
+| ------------- | ------------- | ------- | -------------------- | ------- | ------------------------------------------------------------------------ |
+| `disabled`    | `disabled`    | public  | `boolean`            | `false` | Whether the component is disabled.                                       |
+| `isOpen`      | -             | public  | `boolean`            |         | Whether the element is open.                                             |
+| `multiple`    | `multiple`    | public  | `boolean`            | `false` | Whether the select allows for multiple selection.                        |
+| `negative`    | `negative`    | public  | `boolean`            | `false` | Negative coloring variant flag.                                          |
+| `placeholder` | `placeholder` | public  | `string`             | `''`    | The placeholder used if no value has been selected.                      |
+| `readonly`    | `readonly`    | public  | `boolean`            | `false` | Whether the select is readonly.                                          |
+| `required`    | `required`    | public  | `boolean`            | `false` | Whether the select is required.                                          |
+| `value`       | `value`       | public  | `string \| string[]` | `''`    | The value of the select component. If `multiple` is true, it's an array. |
 
 ## Methods
 

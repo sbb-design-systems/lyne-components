@@ -1,16 +1,17 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { forceType } from '../decorators.js';
+
 import type { AbstractConstructor } from './constructor.js';
 
 export declare class SbbDisabledMixinType {
-  public set disabled(value: boolean);
-  public get disabled(): boolean;
+  public accessor disabled: boolean;
   protected isDisabledExternally(): boolean;
 }
 
 export declare class SbbDisabledInteractiveMixinType {
-  public disabledInteractive: boolean;
+  public accessor disabledInteractive: boolean;
 }
 
 /**
@@ -59,8 +60,9 @@ export const SbbDisabledInteractiveMixin = <
     implements Partial<SbbDisabledInteractiveMixinType>
   {
     /** Whether disabled buttons should be interactive. */
-    @property({ attribute: 'disabled-interactive', type: Boolean }) public disabledInteractive =
-      false;
+    @property({ attribute: 'disabled-interactive', type: Boolean })
+    @forceType(Boolean)
+    public accessor disabledInteractive: boolean = false;
   }
 
   return SbbDisabledInteractiveElement as unknown as AbstractConstructor<SbbDisabledInteractiveMixinType> &

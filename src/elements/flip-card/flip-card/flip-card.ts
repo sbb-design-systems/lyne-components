@@ -22,8 +22,9 @@ import '../../screen-reader-only.js';
  * @event {CustomEvent<void>} flip - Emits when the flip card flips.
  *
  */
+export
 @customElement('sbb-flip-card')
-export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
+class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     flip: 'flip',
@@ -33,7 +34,7 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
    * This will be forwarded as aria-label to the action in the non flipped state.
    * If not set, the textContent of the `sbb-flip-card-summary` is taken.
    */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
+  @property({ attribute: 'accessibility-label' }) public accessor accessibilityLabel: string = '';
 
   /** Emits whenever the component is flipped. */
   protected flip: EventEmitter = new EventEmitter(this, SbbFlipCardElement.events.flip);
@@ -54,7 +55,7 @@ export class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
   }
 
   /** Whether the card is flipped or not. */
-  @state() private _flipped = false;
+  @state() private accessor _flipped = false;
 
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);

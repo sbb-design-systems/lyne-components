@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@lit/react": "0.0.0-LITREACT",
-    "react": "0.0.0-REACT"
+    "react": "0.0.0-REACT",
+    "tslib": "^2.7.0"
   },
   "publishConfig": {
     "access": "public"

@@ -18,19 +18,22 @@ import '../link/block-link-static.js';
  * @slot image - The background image that can be a `sbb-image`
  * @slot chip - The `sbb-chip` component that will be displayed on top-left corner
  */
+export
 @customElement('sbb-teaser-hero')
 @slotState()
-export class SbbTeaserHeroElement extends SbbLinkBaseElement {
+class SbbTeaserHeroElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
   /** Panel link text. */
-  @property({ attribute: 'link-content', reflect: true }) public linkContent?: string;
+  @property({ attribute: 'link-content', reflect: true }) public accessor linkContent:
+    | string
+    | null = null;
 
   /** Image src will be passed to `sbb-image`. */
-  @property({ attribute: 'image-src' }) public imageSrc?: string;
+  @property({ attribute: 'image-src' }) public accessor imageSrc: string = '';
 
   /** Image alt text will be passed to `sbb-image`. */
-  @property({ attribute: 'image-alt' }) public imageAlt?: string;
+  @property({ attribute: 'image-alt' }) public accessor imageAlt: string | null = null;
 
   private _chipSlotChanged(): void {
     this.querySelector('sbb-chip')?.setAttribute('color', 'charcoal');

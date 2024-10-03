@@ -66,10 +66,10 @@ The component has a `disabled` property which sets all the `sbb-autocomplete-gri
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type      | Default | Description                        |
-| ---------- | ---------- | ------- | --------- | ------- | ---------------------------------- |
-| `disabled` | `disabled` | public  | `boolean` | `false` | Whether the component is disabled. |
-| `label`    | `label`    | public  | `string`  |         | Option group label.                |
+| Name       | Attribute  | Privacy | Type             | Default | Description                        |
+| ---------- | ---------- | ------- | ---------------- | ------- | ---------------------------------- |
+| `disabled` | `disabled` | public  | `boolean`        | `false` | Whether the component is disabled. |
+| `label`    | `label`    | public  | `string \| null` | `null`  | Option group label.                |
 
 ## Slots
 

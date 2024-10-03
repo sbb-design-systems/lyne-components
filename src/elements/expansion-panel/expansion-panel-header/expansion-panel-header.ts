@@ -18,11 +18,12 @@ import style from './expansion-panel-header.scss?lit&inline';
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
  * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
+export
 @customElement('sbb-expansion-panel-header')
 @hostAttributes({
   slot: 'header',
 })
-export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
+class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
   public static override styles: CSSResultGroup = style;

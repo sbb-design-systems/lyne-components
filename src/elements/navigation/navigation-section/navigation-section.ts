@@ -33,18 +33,21 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add content into the `sbb-navigation-section`.
  */
+export
 @customElement('sbb-navigation-section')
 @hostAttributes({
   slot: 'navigation-section',
 })
 @slotState()
-export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
+class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
    * The label to be shown before the action list.
    */
-  @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
+  @property({ attribute: 'title-content', reflect: true }) public accessor titleContent:
+    | string
+    | null = null;
 
   /**
    * The element that will trigger the navigation section.
@@ -64,14 +67,13 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElem
   /**
    * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
    */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
+  @property({ attribute: 'accessibility-label' }) public accessor accessibilityLabel: string = '';
 
   /**
    * This will be forwarded as aria-label to the back button element.
    */
-  @property({ attribute: 'accessibility-back-label' }) public accessibilityBackLabel:
-    | string
-    | undefined;
+  @property({ attribute: 'accessibility-back-label' })
+  public accessor accessibilityBackLabel: string = '';
 
   /**
    * The state of the navigation section.

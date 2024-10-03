@@ -10,14 +10,15 @@ import { SbbActionBaseElement } from './action-base-element.js';
 export type SbbButtonType = 'button' | 'reset' | 'submit';
 
 /** Button base class. */
+export
 @hostAttributes({
   role: 'button',
   tabindex: '0',
   'data-button': '',
 })
-export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
+abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   /** The type attribute to use for the button. */
-  @property() public type: SbbButtonType = 'button';
+  @property() public accessor type: SbbButtonType = 'button';
 
   /**
    * The name of the button element.
@@ -48,7 +49,7 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   }
 
   /** The <form> element to associate the button with. */
-  @property() public form?: string;
+  @property() public accessor form: string = '';
 
   public constructor() {
     super();

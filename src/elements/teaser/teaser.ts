@@ -19,23 +19,26 @@ import '../title.js';
  * @slot title - Slot used to render the title.
  * @slot - Use the unnamed slot to render the description.
  */
+export
 @customElement('sbb-teaser')
 @slotState()
-export class SbbTeaserElement extends SbbLinkBaseElement {
+class SbbTeaserElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
   /** Teaser variant - define the position and the alignment of the text block. */
-  @property({ reflect: true }) public alignment: 'after-centered' | 'after' | 'below' =
+  @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
     'after-centered';
 
   /** Heading level of the sbb-title element (e.g. h1-h6). */
-  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '5';
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '5';
 
   /** Content of title. */
-  @property({ attribute: 'title-content' }) public titleContent?: string;
+  @property({ attribute: 'title-content' }) public accessor titleContent: string | null = null;
 
   /** Content of chip. */
-  @property({ attribute: 'chip-content', reflect: true }) public chipContent?: string;
+  @property({ attribute: 'chip-content', reflect: true }) public accessor chipContent:
+    | string
+    | null = null;
 
   protected override renderTemplate(): TemplateResult {
     return html`

@@ -9,17 +9,18 @@ import style from './chip.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-chip`.
  */
+export
 @customElement('sbb-chip')
-export class SbbChipElement extends LitElement {
+class SbbChipElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Size of the chip. */
   @property({ reflect: true })
-  public size: 'xxs' | 'xs' | 's' = 'xxs';
+  public accessor size: 'xxs' | 'xs' | 's' = 'xxs';
 
   /** Color of the chip. */
   @property({ reflect: true })
-  public color: 'milk' | 'charcoal' | 'white' | 'granite' = 'milk';
+  public accessor color: 'milk' | 'charcoal' | 'white' | 'granite' = 'milk';
 
   protected override render(): TemplateResult {
     return html`

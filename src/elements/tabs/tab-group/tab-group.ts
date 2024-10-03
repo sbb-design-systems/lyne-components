@@ -32,7 +32,7 @@ export interface InterfaceSbbTabGroupActions {
 }
 
 export interface InterfaceSbbTabGroupTab extends SbbTabLabelElement {
-  active?: boolean;
+  active: boolean;
   disabled: boolean;
   tab?: SbbTabElement;
   index?: number;
@@ -53,8 +53,9 @@ let nextId = 0;
  * `sbb-tab-label` and `sbb-tab` instances.
  * @event {CustomEvent<SbbTabChangedEventDetails>} didChange - Emits an event on selected tab change.
  */
+export
 @customElement('sbb-tab-group')
-export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
+class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -96,7 +97,8 @@ export class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
    * the tab group, the first enabled tab will be selected.
    */
-  @property({ attribute: 'initial-selected-index', type: Number }) public initialSelectedIndex = 0;
+  @property({ attribute: 'initial-selected-index', type: Number })
+  public accessor initialSelectedIndex: number = 0;
 
   /** Emits an event on selected tab change. */
   private _selectedTabChanged: EventEmitter<SbbTabChangedEventDetails> = new EventEmitter(
