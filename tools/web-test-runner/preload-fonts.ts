@@ -18,7 +18,7 @@ export interface PreloadedFont {
 }
 
 async function downloadFont(fontUrl: string): Promise<ArrayBuffer> {
-  // Performing too many HTTP requestsin parallel or sequence causes fetch to fail.
+  // Performing too many HTTP requests in parallel or sequence causes fetch to fail.
   // We add a delay for each request to prevent the request failure.
   await new Promise((r) => setTimeout(r, 20));
   const r = await fetch(fontUrl);
@@ -46,7 +46,7 @@ export async function preloadFonts(): Promise<PreloadedFont[]> {
     }
     preloadedFonts.push({
       weight,
-      font: `url(data:application/font-woff2;charset=utf-8;base64,${readFileSync(fontCachePath).toString('base64')}) format('woff2')`,
+      font: `url(data:font-woff2;charset=utf-8;base64,${readFileSync(fontCachePath).toString('base64')}) format('woff2')`,
     });
   }
   console.log(`Finished preloading fonts`);

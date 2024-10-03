@@ -110,7 +110,22 @@ const testRunnerHtml = (
 ): string => `
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
+  <head>${
+    // Although we provide the fonts as base64, we preload the original
+    // files which prevents a bug in Safari rendering special characters.
+    ['Roman', 'Bold', 'Light']
+      .map(
+        (type) => `
+    <link
+      rel="preload"
+      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-${type}.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />`,
+      )
+      .join('')
+  }
     <link rel="modulepreload" href="/src/elements/core/testing/test-setup.ts" />
     <style type="text/css">${renderStyles()}</style>
     <style type="text/css">
