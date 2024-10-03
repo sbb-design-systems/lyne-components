@@ -191,7 +191,7 @@ export class SbbImageElement extends LitElement {
    * the idea of lqip here:
    * https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
    */
-  @property({ attribute: 'skip-lqip', type: Boolean }) public skipLqip = false;
+  @property({ attribute: 'skip-lqip', type: Boolean, reflect: true }) public skipLqip = false;
 
   /**
    * A caption can provide additional context to the image (e.g.

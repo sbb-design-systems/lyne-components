@@ -146,5 +146,16 @@ describe(`sbb-image`, () => {
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
+
+    it(
+      'skipLqip=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-image skip-lqip image-src=${imageUrl} aspect-ratio="1-1"></sbb-image>`,
+        );
+
+        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+      }),
+    );
   });
 });
