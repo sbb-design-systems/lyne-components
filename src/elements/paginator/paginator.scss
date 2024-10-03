@@ -147,14 +147,13 @@
 
   &:disabled {
     --sbb-paginator-page-color: var(--sbb-color-smoke);
-    --sbb-paginator-page-border-width: var(--sbb-border-width-1x);
     --sbb-paginator-page-border-style: dashed;
     --sbb-paginator-page-border-color: var(--sbb-color-smoke);
     --sbb-paginator-page-background-color: var(--sbb-color-milk);
     --sbb-paginator-page-cursor: default;
 
-    &[data-selected] {
-      --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
+    &:not([data-selected]) {
+      --sbb-paginator-page-border-width: var(--sbb-border-width-1x);
     }
 
     :host([negative]) & {
