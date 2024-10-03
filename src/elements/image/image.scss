@@ -85,12 +85,15 @@
 }
 
 .sbb-image__img {
-  position: absolute;
-  inset: 0;
   opacity: 0.000001;
 
   :host([data-loaded]) & {
     opacity: 0.999999;
+  }
+
+  :host(:not([skip-lqip])) & {
+    position: absolute;
+    inset: 0;
   }
 }
 
@@ -98,6 +101,11 @@
   :host([data-loaded]) & {
     opacity: 0;
   }
+}
+
+// Avoids unwanted space or small cropping
+picture {
+  display: contents;
 }
 
 // After successful loading an image, the loaded image is faded in over the blurred lqip image with a short transition.
