@@ -5,18 +5,12 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nNextPage, i18nPreviousPage, i18nSelectedPage } from '../../core/i18n.js';
+import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
 import '../../button/mini-button-group.js';
 import '../../divider.js';
-
-export type SbbPaginatorPageEventDetails = {
-  length: number;
-  pageSize: number;
-  pageIndex: number;
-  previousPageIndex: number;
-};
 
 export declare class SbbPaginatorCommonElementMixinType {
   public negative: boolean;
