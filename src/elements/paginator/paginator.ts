@@ -20,7 +20,7 @@ import {
   i18nPreviousPage,
   i18nSelectedPage,
 } from '../core/i18n.js';
-import { SbbNegativeMixin } from '../core/mixins.js';
+import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.js';
 import type { SbbSelectElement } from '../select.js';
 
 import style from './paginator.scss?lit&inline';
@@ -53,7 +53,7 @@ let nextId = 0;
 @hostAttributes({
   role: 'group',
 })
-export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
+export class SbbPaginatorElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     page: 'page',
@@ -275,7 +275,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
           id="sbb-paginator-prev-page"
           aria-label=${i18nPreviousPage[this._language.current]}
           icon-name="chevron-small-left-small"
-          ?disabled=${this.pageIndex === 0}
+          ?disabled=${this.disabled || this.pageIndex === 0}
           @click=${() => this._pageIndexChanged(this._pageIndex - 1)}
         ></sbb-mini-button>
         <sbb-divider orientation="vertical"></sbb-divider>
@@ -283,7 +283,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
           id="sbb-paginator-next-page"
           aria-label=${i18nNextPage[this._language.current]}
           icon-name="chevron-small-right-small"
-          ?disabled=${this.pageIndex === this._numberOfPages() - 1}
+          ?disabled=${this.disabled || this.pageIndex === this._numberOfPages() - 1}
           @click=${() => this._pageIndexChanged(this._pageIndex + 1)}
         ></sbb-mini-button>
       </sbb-mini-button-group>
@@ -308,6 +308,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                 this.pageSizeOptions![0]}
                 @change=${(e: CustomEvent) =>
                   this._pageSizeChanged(+((e.target as SbbSelectElement).value as string))}
+                ?disabled=${this.disabled}
               >
                 ${repeat(
                   this.pageSizeOptions!,
@@ -336,6 +337,7 @@ export class SbbPaginatorElement extends SbbNegativeMixin(LitElement) {
                   <li class="sbb-paginator__page--number">
                     <button
                       ?data-selected=${this.pageIndex === item}
+                      ?disabled=${this.disabled}
                       class="sbb-paginator__page--number-item"
                       data-index=${item}
                       aria-label="${i18nPage[this._language.current]} ${item + 1}"

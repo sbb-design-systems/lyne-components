@@ -29,6 +29,14 @@ The dropdown menu and the previous / next buttons are facing each other with the
 <sbb-paginator length="100" page-size="20" page-size-options="[10, 20, 50]"></sbb-paginator>
 ```
 
+## States
+
+The component can be disabled by using the `disabled` property.
+
+```html
+<sbb-paginator length="100" page-size="20" disabled></sbb-paginator>
+```
+
 ## Style
 
 The component has two `size`, named `s` and `m` (default).
@@ -59,6 +67,7 @@ that describes the content controlled by the paginator.
 
 | Name              | Attribute           | Privacy | Type                    | Default   | Description                                                                                                                                                                      |
 | ----------------- | ------------------- | ------- | ----------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`        | `disabled`          | public  | `boolean`               | `false`   | Whether the component is disabled.                                                                                                                                               |
 | `length`          | `length`            | public  | `number`                | `0`       | Total number of items.                                                                                                                                                           |
 | `negative`        | `negative`          | public  | `boolean`               | `false`   | Negative coloring variant flag.                                                                                                                                                  |
 | `pageIndex`       | `page-index`        | public  | `number`                | `0`       | Current page index.                                                                                                                                                              |

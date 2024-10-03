@@ -68,6 +68,12 @@ const negative: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   length,
   'page-size': pageSize,
@@ -76,6 +82,7 @@ const defaultArgTypes: ArgTypes = {
   'pager-position': pagerPosition,
   size,
   negative,
+  disabled,
 };
 
 const defaultArgs: Args = {
@@ -86,6 +93,7 @@ const defaultArgs: Args = {
   'pager-position': pagerPosition.options![0],
   size: size.options![0],
   negative: false,
+  disabled: false,
 };
 
 const Template = ({ pageSizeOptions, ...args }: Args): TemplateResult => {
@@ -108,6 +116,12 @@ export const Negative: StoryObj = {
   args: { ...defaultArgs, negative: true },
 };
 
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
 export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -124,6 +138,17 @@ export const WithPageSizeOptions: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, length: 1000, pageSizeOptions: pageSizeOptions.options![1] },
+};
+
+export const WithPageSizeOptionsDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    length: 1000,
+    disabled: true,
+    pageSizeOptions: pageSizeOptions.options![1],
+  },
 };
 
 export const WithPageSizeOptionsNegative: StoryObj = {
