@@ -122,9 +122,12 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
       old: string | null,
       value: string | null,
     ): void {
-      if (name !== 'name' || old !== value) {
-        super.attributeChangedCallback(name, old, value);
+      // For the 'name' changes we have to handle updates manually
+      if (name === 'name') {
+        this.requestUpdate(name, old);
+        return;
       }
+      super.attributeChangedCallback(name, old, value);
     }
 
     /**

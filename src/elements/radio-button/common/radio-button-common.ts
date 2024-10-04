@@ -2,15 +2,18 @@ import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
-import { setOrRemoveAttribute } from '../../core/dom.js';
 import { EventEmitter, HandlerRepository, formElementHandlerAspect } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces.js';
-import type { AbstractConstructor } from '../../core/mixins.js';
+import {
+  type AbstractConstructor,
+  type Constructor,
+  SbbFormAssociatedRadioButtonMixin,
+  type SbbFormAssociatedRadioButtonMixinType,
+} from '../../core/mixins.js';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
@@ -20,29 +23,19 @@ export type SbbRadioButtonStateChange = Extract<
   SbbDisabledStateChange | SbbCheckedStateChange
 >;
 
-export declare class SbbRadioButtonCommonElementMixinType {
+export declare class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixinType {
   public get allowEmptySelection(): boolean;
   public set allowEmptySelection(boolean);
-  public value?: string;
-  public get disabled(): boolean;
-  public set disabled(boolean);
-  public get required(): boolean;
-  public set required(boolean);
   public get group(): SbbRadioButtonGroupElement | null;
-  public get checked(): boolean;
-  public set checked(boolean);
   public select(): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbRadioButtonCommonElementMixinType> & T => {
-  @hostAttributes({
-    role: 'radio',
-  })
   abstract class SbbRadioButtonCommonElement
-    extends superClass
+    extends SbbFormAssociatedRadioButtonMixin(superClass)
     implements Partial<SbbRadioButtonCommonElementMixinType>
   {
     public static readonly events = {
@@ -62,35 +55,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     private _allowEmptySelection = false;
 
     /**
-     * Value of radio button.
-     */
-    @property() public value?: string;
-
-    /**
-     * Whether the radio button is disabled.
-     */
-    @property({ reflect: true, type: Boolean })
-    public set disabled(value: boolean) {
-      this._disabled = Boolean(value);
-    }
-    public get disabled(): boolean {
-      return this._disabled || (this.group?.disabled ?? false);
-    }
-    private _disabled = false;
-
-    /**
-     * Whether the radio button is required.
-     */
-    @property({ reflect: true, type: Boolean })
-    public set required(value: boolean) {
-      this._required = Boolean(value);
-    }
-    public get required(): boolean {
-      return this._required || (this.group?.required ?? false);
-    }
-    private _required = false;
-
-    /**
      * Reference to the connected radio button group.
      */
     public get group(): SbbRadioButtonGroupElement | null {
@@ -98,20 +62,8 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     }
     private _group: SbbRadioButtonGroupElement | null = null;
 
-    /**
-     * Whether the radio button is checked.
-     */
-    @property({ reflect: true, type: Boolean })
-    public set checked(value: boolean) {
-      this._checked = Boolean(value);
-    }
-    public get checked(): boolean {
-      return this._checked;
-    }
-    private _checked = false;
-
     private _abort = new SbbConnectedAbortController(this);
-    private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
+    private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect); // TODO remove this
 
     /**
      * @internal
@@ -123,18 +75,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
       SbbRadioButtonCommonElement.events.stateChange,
       { bubbles: true },
     );
-
-    public select(): void {
-      if (this.disabled) {
-        return;
-      }
-
-      if (this.allowEmptySelection) {
-        this.checked = !this.checked;
-      } else if (!this.checked) {
-        this.checked = true;
-      }
-    }
 
     public override connectedCallback(): void {
       super.connectedCallback();
@@ -154,24 +94,39 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
       this._handlerRepository.disconnect();
     }
 
+    public select(): void {
+      if (this.disabled) {
+        return;
+      }
+
+      if (this.allowEmptySelection) {
+        this.checked = !this.checked;
+      } else if (!this.checked) {
+        this.checked = true;
+      }
+    }
+
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
       if (changedProperties.has('checked')) {
-        this.setAttribute('aria-checked', `${this.checked}`);
         if (this.checked !== changedProperties.get('checked')!) {
           this._stateChange.emit({ type: 'checked', checked: this.checked });
         }
       }
       if (changedProperties.has('disabled')) {
-        setOrRemoveAttribute(this, 'aria-disabled', this.disabled ? 'true' : null);
         if (this.disabled !== changedProperties.get('disabled')!) {
           this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
         }
       }
-      if (changedProperties.has('required')) {
-        this.setAttribute('aria-required', `${this.required}`);
-      }
+    }
+
+    protected override isDisabledExternally(): boolean {
+      return this.group?.disabled ?? false;
+    }
+
+    protected override isRequiredExternally(): boolean {
+      return this.group?.required ?? false;
     }
 
     private _handleClick(event: Event): void {
