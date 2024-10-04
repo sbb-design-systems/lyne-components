@@ -1,3 +1,5 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -14,7 +16,6 @@ import { hostAttributes } from '../../core/decorators.js';
 import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers.js';
 import {
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
@@ -98,10 +99,20 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
-  private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
-    this._onNavigationSectionChange(mutationsList),
-  );
-  private _navigationResizeObserver = new AgnosticResizeObserver(() => this._onNavigationResize());
+  private _navigationResizeObserver = new ResizeController(this, {
+    skipInitial: true,
+    callback: () => this._onNavigationResize(),
+  });
+
+  public constructor() {
+    super();
+
+    new MutationController(this, {
+      skipInitial: true,
+      config: navigationObserverConfig,
+      callback: (mutationsList: MutationRecord[]) => this._onNavigationSectionChange(mutationsList),
+    });
+  }
 
   /**
    * Opens the navigation.
@@ -326,7 +337,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this._navigationObserver.observe(this, navigationObserverConfig);
     this.addEventListener('pointerup', (event) => this._closeOnBackdropClick(event), { signal });
     this.addEventListener('pointerdown', (event) => this._pointerDownListener(event), { signal });
   }
@@ -336,8 +346,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     this._navigationController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
-    this._navigationObserver.disconnect();
-    this._navigationResizeObserver.disconnect();
     this._scrollHandler.enableScroll();
   }
 

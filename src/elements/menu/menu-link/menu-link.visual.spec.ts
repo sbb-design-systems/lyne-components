@@ -38,7 +38,9 @@ describe(`sbb-menu-link`, () => {
           ?disabled=${disabled}
         >
           ${label} ${index}
-          ${slottedIcon ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
+          ${slottedIcon
+            ? html`<sbb-icon slot="icon" name="face-smiling-small"></sbb-icon>`
+            : nothing}
         </sbb-menu-link>
       `,
     )}`;

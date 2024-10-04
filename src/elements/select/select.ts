@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -8,7 +9,7 @@ import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { hostAttributes } from '../core/decorators.js';
-import { getDocumentWritingMode, isNextjs, isSafari } from '../core/dom.js';
+import { isNextjs, isSafari } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
   type FormRestoreReason,
@@ -55,7 +56,6 @@ export interface SelectChange {
  */
 @customElement('sbb-select')
 @hostAttributes({
-  dir: getDocumentWritingMode(),
   role: ariaRoleOnHost ? 'listbox' : null,
 })
 export class SbbSelectElement extends SbbUpdateSchedulerMixin(
@@ -147,6 +147,30 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
     return this._options.filter(
       (opt: SbbOptionElement) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
+  }
+
+  public constructor() {
+    super();
+
+    new MutationController(this, {
+      config: { attributeFilter: ['aria-labelledby'] },
+      callback: (mutationsList: MutationRecord[]) => this._onSelectAttributesChange(mutationsList),
+    });
+  }
+
+  /**
+   * TODO: Accessibility fix required to correctly read the label;
+   * can be possibly removed after the merge of https://github.com/sbb-design-systems/lyne-components/issues/3062
+   */
+  private _onSelectAttributesChange(mutationsList: MutationRecord[]): void {
+    for (const mutation of mutationsList) {
+      if (mutation.attributeName === 'aria-labelledby') {
+        this._triggerElement?.setAttribute(
+          'aria-labelledby',
+          this.getAttribute('aria-labelledby')!,
+        );
+      }
+    }
   }
 
   /** Opens the selection panel. */

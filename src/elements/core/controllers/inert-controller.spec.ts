@@ -44,7 +44,7 @@ describe('inert', () => {
       element = await fixture(
         html`<div>
           <div></div>
-          <div .inert=${true}></div>
+          <div inert></div>
           <div aria-hidden="true"></div>
           <div id="overlay"></div>
           <div>
@@ -117,7 +117,7 @@ describe('inert', () => {
       element = await fixture(
         html`<div>
           <div></div>
-          <div .inert=${true}></div>
+          <div inert></div>
           <div aria-hidden="true"></div>
           <shadow-element></shadow-element>
           <div>

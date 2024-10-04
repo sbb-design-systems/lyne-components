@@ -1,11 +1,9 @@
 @use './typo';
 
-/*
- * SBB table mixin
- * Notes:
- * We cannot use `border-collapse` because it is not compatible with the `border-radius` property.
- * Therefore, we have to build the grid avoiding double borders.
- */
+// SBB table mixin
+// Notes:
+// We cannot use `border-collapse` because it is not compatible with the `border-radius` property.
+// Therefore, we have to build the grid avoiding double borders.
 @mixin table {
   @include table--m;
   @include table--striped;
@@ -131,6 +129,17 @@
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-table-cell-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-2x);
+
+  tbody > tr > td {
+    @include typo.text-xs--regular;
+  }
+}
+
+@mixin table--xs {
+  --sbb-table-header-padding-block: 0;
+  --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-1x);
+  --sbb-table-cell-padding-block: 0;
+  --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-1x);
 
   tbody > tr > td {
     @include typo.text-xs--regular;

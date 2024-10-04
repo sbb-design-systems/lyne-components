@@ -12,7 +12,6 @@ snapshots["sbb-menu renders DOM"] =
     data-link=""
     data-sbb-link=""
     data-slot-names="unnamed"
-    dir="ltr"
     href="https://www.sbb.ch/en"
     icon-placement="start"
     size="s"
@@ -22,7 +21,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="tick-small"
     role="button"
     tabindex="0"
@@ -34,11 +32,9 @@ snapshots["sbb-menu renders DOM"] =
     aria-disabled="true"
     data-action=""
     data-button=""
-    dir="ltr"
     disabled=""
     icon-name="pen-small"
     role="button"
-    tabindex="0"
   >
     Edit
   </sbb-menu-button>
@@ -46,7 +42,6 @@ snapshots["sbb-menu renders DOM"] =
     amount="2"
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="swisspass-small"
     role="button"
     tabindex="0"
@@ -62,7 +57,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="cross-small"
     role="button"
     tabindex="0"
@@ -94,7 +88,6 @@ snapshots["sbb-menu renders with list DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="tick-small"
     role="button"
     slot="li-0"
@@ -107,12 +100,10 @@ snapshots["sbb-menu renders with list DOM"] =
     aria-disabled="true"
     data-action=""
     data-button=""
-    dir="ltr"
     disabled=""
     icon-name="pen-small"
     role="button"
     slot="li-1"
-    tabindex="0"
   >
     Edit
   </sbb-menu-button>
@@ -120,7 +111,6 @@ snapshots["sbb-menu renders with list DOM"] =
     amount="2"
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="swisspass-small"
     role="button"
     slot="li-2"
@@ -131,7 +121,6 @@ snapshots["sbb-menu renders with list DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    dir="ltr"
     icon-name="cross-small"
     role="button"
     slot="li-3"

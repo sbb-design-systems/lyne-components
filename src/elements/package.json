@@ -11,6 +11,7 @@
   "type": "module",
   "customElements": "custom-elements.json",
   "dependencies": {
+    "@lit-labs/observers": "0.0.0-LITOBSERVERS",
     "lit": "0.0.0-LIT"
   },
   "publishConfig": {

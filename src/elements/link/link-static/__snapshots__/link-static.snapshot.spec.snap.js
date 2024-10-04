@@ -6,7 +6,6 @@ snapshots["sbb-link-static renders DOM"] =
   data-action=""
   data-sbb-link=""
   data-slot-names="unnamed"
-  dir="ltr"
   size="m"
 >
   Travelcards & tickets.
