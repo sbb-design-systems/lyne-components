@@ -322,15 +322,13 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   protected override updateFormValue(): void {
-    let formValue: string | FormData | null;
-
     if (this.multiple && this.value instanceof Array) {
-      formValue = new FormData();
-      (this.value as string[]).forEach((el) => (formValue as FormData).append(this.name, el));
+      const data = new FormData();
+      (this.value as string[]).forEach((el) => data.append(this.name, el));
+      this.internals.setFormValue(data);
     } else {
-      formValue = this.value as string | null;
+      this.internals.setFormValue(this.value as string | null);
     }
-    this.internals.setFormValue(formValue);
   }
 
   /**
