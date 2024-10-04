@@ -205,7 +205,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     }
   }
 
-  /* stylelint-disable no-descending-specificity */
+  // stylelint-disable no-descending-specificity
   :host([data-focus-visible]) &,
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   // Handle focus on the host (button variant)
@@ -216,7 +216,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
       @include sbb.focus-outline;
     }
   }
-  /* stylelint-enable no-descending-specificity */
+  // stylelint-enable no-descending-specificity
 }
 
 .sbb-button__label,

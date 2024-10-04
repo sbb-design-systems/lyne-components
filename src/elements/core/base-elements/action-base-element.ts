@@ -1,7 +1,6 @@
 import { html, LitElement, type TemplateResult } from 'lit';
 
 import { hostAttributes } from '../decorators.js';
-import { getLocalName } from '../dom.js';
 
 /**
  * Whenever an element can be disabled it has disabled property
@@ -64,10 +63,6 @@ export abstract class SbbActionBaseElement extends LitElement {
 
   /** Default render method for button-like components. */
   protected override render(): TemplateResult {
-    return html`
-      <span class="sbb-action-base ${this.localName ?? getLocalName(this)}">
-        ${this.renderTemplate()}
-      </span>
-    `;
+    return html` <span class="sbb-action-base ${this.localName}">${this.renderTemplate()}</span> `;
   }
 }

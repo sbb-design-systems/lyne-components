@@ -4,6 +4,15 @@ import postcssLit from 'rollup-plugin-postcss-lit';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // https://vitejs.dev/config/shared-options#css-preprocessoroptions
+        // TODO: api: 'modern',
+        silenceDeprecations: ['legacy-js-api'],
+      },
+    },
+  },
   plugins: [
     // We apply the postcssLit plugin (which transforms .scss files to Lit
     // css tagged templates) as this should apply in almost all cases.

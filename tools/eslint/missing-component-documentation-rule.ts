@@ -1,20 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 import { parse, stringify } from 'comment-parser';
 
-const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://github.com/sbb-design-systems/lyne-components/blob/main/tools/eslint/${name}.ts`,
-);
-
-type MessageIds = 'missingJsDoc' | 'malformedJsDoc' | 'missingEventDocs';
-
-export const name = 'missing-component-documentation-rule';
-export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule<
-  never[],
-  MessageIds
->({
+export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     const isComponentClass = (node: TSESTree.ClassDeclaration): boolean =>
       !!node.decorators?.some(
@@ -83,11 +71,11 @@ export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule
         } else if (node.callee.name === 'EventEmitter') {
           const eventNames = findClassEventNames(node);
           const typeNode =
-            node.typeParameters?.params[0] ??
+            node.typeArguments?.params[0] ??
             (
               (node.parent as TSESTree.PropertyDefinition).typeAnnotation
                 ?.typeAnnotation as TSESTree.TSTypeReference
-            ).typeParameters?.params[0];
+            ).typeArguments?.params[0];
           const type = typeNode ? context.getSourceCode().getText(typeNode) : 'void';
           const eventVariable = (
             (node.arguments[1] as TSESTree.MemberExpression).property as TSESTree.Identifier
@@ -213,11 +201,9 @@ export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule
       },
     };
   },
-  name,
   meta: {
     docs: {
       description: 'Components should have jsdoc documentation.',
-      recommended: 'recommended',
     },
     messages: {
       missingJsDoc: 'jsdoc is missing',
