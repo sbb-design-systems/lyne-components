@@ -74,7 +74,7 @@
 }
 
 ::slotted([slot='image']) {
-  width: sbb.px-to-rem-build(300);
+  width: #{sbb.px-to-rem-build(300)};
   will-change: transform;
   display: block;
   filter: brightness(var(--sbb-teaser-brightness, 1));
