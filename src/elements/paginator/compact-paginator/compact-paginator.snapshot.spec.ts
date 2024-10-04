@@ -12,7 +12,7 @@ describe(`sbb-compact-paginator`, () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-compact-paginator length="4" page-size="4"></sbb-compact-paginator>`,
+        html`<sbb-compact-paginator length="50" page-size="5"></sbb-compact-paginator>`,
       );
     });
 

@@ -1,45 +1,49 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-compact-paginator` provides an alternative to the `sbb-paginator`
+as a navigation for content split across multiple pages, e.g. a table with many rows.
+Differently from the `sbb-paginator`, it displays only the current page and the total number of pages
+together with the `sbb-mini-button-group` to move to previous or next page.
 
-The `sbb-compact-paginator` is a component . . .
+It can be controlled via the following properties:
+
+- `length`: the total number of items being paged;
+- `pageSize`: the number of items per page (default: `10`);
+- `pageIndex`: the index of the current displayed page (default: `0`).
 
 ```html
-<sbb-compact-paginator></sbb-compact-paginator>
+<sbb-compact-paginator length="100" page-size="20"></sbb-compact-paginator>
 ```
 
-## Slots
+By default, a [sbb-mini-button-group](/docs/elements-sbb-button-sbb-mini-button-group--docs) with two buttons is displayed,
+which allows moving to the previous/next pages.
+The positioning of this element relative to the page numbers is set using the `pagerPosition` property (default: `start`):
 
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+```html
+<sbb-compact-paginator length="100" page-size="20" pager-position="end"></sbb-compact-paginator>
+```
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+The component has two `size`, named `s` and `m` (default).
 
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+```html
+<sbb-compact-paginator length="100" page-size="20" size="s"></sbb-compact-paginator>
+```
 
 ## Events
 
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+Consumers can listen to the `page` event on the `sbb-compact-paginator` component to intercept the page change event.
+The `event.detail` contains both the information about the `pageIndex` and the `previousPageIndex`,
+as well as the `length` and the `pageSize`.
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+The component has `role="group"` to semantically group its child controls;
+consumers should add an appropriate `aria-label` attribute with a text
+that describes the content controlled by the paginator.
+
+```html
+<sbb-compact-paginator aria-label="Select page" length="100" page-size="20"></sbb-compact-paginator>
+```
 
 <!-- Auto Generated Below -->
 

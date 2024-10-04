@@ -1,8 +1,9 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
+import { i18nPageOnTotal } from '../../core/i18n.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
 import '../../divider.js';
 
@@ -23,10 +24,23 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(L
     page: 'page',
   } as const;
 
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
+    // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
+    this.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent =
+      this._currentPageLabel();
+  }
+
+  private _currentPageLabel(): string {
+    return i18nPageOnTotal(this.pageIndex + 1, this.numberOfPages())[this.language.current];
+  }
+
   private _renderPageNumbers(): TemplateResult {
     return html`
-      <span class="sbb-paginator__pages"
+      <span class="sbb-paginator__pages" aria-label=${this._currentPageLabel()}
         >${this.pageIndex + 1}<sbb-divider
+          aria-hidden="true"
           orientation="vertical"
           ?negative=${this.negative}
         ></sbb-divider

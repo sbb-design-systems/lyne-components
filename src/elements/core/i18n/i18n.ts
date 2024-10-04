@@ -715,3 +715,13 @@ export const i18nSelectedPage = (pageNumber: number): Record<string, string> => 
   fr: `Page ${pageNumber} sélectionnée.`,
   it: `Pagina ${pageNumber} selezionata.`,
 });
+
+export const i18nPageOnTotal = (
+  pageNumber: number,
+  totalPages: number,
+): Record<string, string> => ({
+  de: `Seite ${pageNumber} von ${totalPages}.`,
+  en: `Page ${pageNumber} of ${totalPages}.`,
+  fr: `Page ${pageNumber} de ${totalPages}.`,
+  it: `Pagina ${pageNumber} di ${totalPages}.`,
+});
