@@ -52,6 +52,14 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
   }
   private _pageSizeOptions?: number[];
 
+  /**
+   * Position of the prev/next buttons: if `pageSizeOptions` is set,
+   * the sbb-select for the pageSize change will be positioned oppositely, with the page numbers always in the center.
+   */
+  @property({ attribute: 'pager-position', reflect: true }) public override pagerPosition:
+    | 'start'
+    | 'end' = 'start';
+
   private _paginatorOptionsLabel = `sbb-paginator-options-label-${++nextId}`;
   private _markForFocus: number | null = null;
   private _updateSelectAriaLabelledBy: boolean = false;
@@ -80,10 +88,6 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
       select.setAttribute('aria-labelledby', this._paginatorOptionsLabel);
       this._updateSelectAriaLabelledBy = false;
     }
-
-    // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
-    this.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent =
-      this._currentPageLabel();
   }
 
   /**
@@ -154,7 +158,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
     }
   }
 
-  private _currentPageLabel(): string {
+  protected currentPageLabel(): string {
     return i18nSelectedPage(this.pageIndex + 1)[this.language.current];
   }
 
@@ -220,7 +224,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
     `;
   }
 
-  protected override render(): TemplateResult {
+  protected override renderPaginator(): TemplateResult {
     return html`
       <div class="sbb-paginator">
         ${
@@ -235,7 +239,6 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
                 </span>`
         }</span>
       </div>
-      <sbb-screen-reader-only role='status'></sbb-screen-reader-only>
     `;
   }
 }

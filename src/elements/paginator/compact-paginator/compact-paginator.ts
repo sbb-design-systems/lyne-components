@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -24,21 +24,13 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(L
     page: 'page',
   } as const;
 
-  protected override updated(changedProperties: PropertyValues<this>): void {
-    super.updated(changedProperties);
-
-    // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
-    this.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent =
-      this._currentPageLabel();
-  }
-
-  private _currentPageLabel(): string {
+  protected currentPageLabel(): string {
     return i18nPageOnTotal(this.pageIndex + 1, this.numberOfPages())[this.language.current];
   }
 
   private _renderPageNumbers(): TemplateResult {
     return html`
-      <span class="sbb-paginator__pages" aria-label=${this._currentPageLabel()}
+      <span class="sbb-paginator__pages" aria-label=${this.currentPageLabel()}
         >${this.pageIndex + 1}<sbb-divider
           aria-hidden="true"
           orientation="vertical"
@@ -49,14 +41,13 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(L
     `;
   }
 
-  protected override render(): TemplateResult {
+  protected override renderPaginator(): TemplateResult {
     return html`
       <div class="sbb-compact-paginator">
         ${this.pagerPosition === 'start'
           ? html`${this.renderPrevNextButtons()} ${this._renderPageNumbers()}`
           : html`${this._renderPageNumbers()} ${this.renderPrevNextButtons()}`}
       </div>
-      <sbb-screen-reader-only role="status"></sbb-screen-reader-only>
     `;
   }
 }

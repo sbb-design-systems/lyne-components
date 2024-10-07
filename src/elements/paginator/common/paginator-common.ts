@@ -1,4 +1,4 @@
-import { html, type LitElement, type TemplateResult } from 'lit';
+import { html, type LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
@@ -12,7 +12,7 @@ import '../../button/mini-button.js';
 import '../../button/mini-button-group.js';
 import '../../divider.js';
 
-export declare class SbbPaginatorCommonElementMixinType {
+export declare abstract class SbbPaginatorCommonElementMixinType {
   public negative: boolean;
   public length: number;
   public pageSize: number;
@@ -24,6 +24,8 @@ export declare class SbbPaginatorCommonElementMixinType {
   protected pageIndexChanged(value: number): void;
   protected emitPageEvent(previousPageIndex: number): void;
   protected renderPrevNextButtons(): TemplateResult;
+  protected abstract currentPageLabel(): string;
+  protected abstract renderPaginator(): TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -78,10 +80,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     }
     private _pageIndex: number = 0;
 
-    /**
-     * Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change
-     * will be positioned oppositely with the page numbers always in the center.
-     */
+    /** Position of the prev/next buttons. */
     @property({ attribute: 'pager-position', reflect: true }) public pagerPosition:
       | 'start'
       | 'end' = 'start';
@@ -95,6 +94,16 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       { composed: true, bubbles: true },
     );
     protected language = new SbbLanguageController(this);
+    protected abstract currentPageLabel(): string;
+    protected abstract renderPaginator(): string;
+
+    protected override updated(changedProperties: PropertyValues<this>): void {
+      super.updated(changedProperties);
+
+      // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
+      this.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent =
+        this.currentPageLabel();
+    }
 
     /** Evaluate `pageIndex` by excluding edge cases. */
     private _coercePageIndexInRange(pageIndex: number): number {
@@ -153,6 +162,13 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             @click=${() => this.pageIndexChanged(this._pageIndex + 1)}
           ></sbb-mini-button>
         </sbb-mini-button-group>
+      `;
+    }
+
+    protected override render(): TemplateResult {
+      return html`
+        ${this.renderPaginator()}
+        <sbb-screen-reader-only role="status"></sbb-screen-reader-only>
       `;
     }
   }
