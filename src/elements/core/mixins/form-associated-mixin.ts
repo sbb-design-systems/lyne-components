@@ -3,7 +3,7 @@ import { property, state } from 'lit/decorators.js';
 
 import type { Constructor } from './constructor.js';
 
-export declare abstract class SbbFormAssociatedMixinType {
+export declare abstract class SbbFormAssociatedMixinType extends LitElement {
   public get form(): HTMLFormElement | null;
   public get name(): string;
   public set name(value: string);

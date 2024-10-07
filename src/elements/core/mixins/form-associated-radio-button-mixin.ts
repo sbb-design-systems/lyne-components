@@ -1,6 +1,9 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { getNextElementIndex, isArrowKeyPressed } from '../a11y.js';
+import { SbbConnectedAbortController } from '../controllers.js';
+
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
 import {
@@ -18,6 +21,8 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   public checked: boolean;
   public disabled: boolean;
   public required: boolean;
+
+  protected abort: SbbConnectedAbortController;
 
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
@@ -43,6 +48,10 @@ export class RadioButtonRegistry {
     if (!this._registry[groupName]) {
       this._registry[groupName] = [];
     }
+    // Check for duplicates
+    if (this._registry[groupName].indexOf(radio) !== -1) {
+      return;
+    }
     this._registry[groupName].push(radio);
   }
 
@@ -50,7 +59,15 @@ export class RadioButtonRegistry {
     radio: SbbFormAssociatedRadioButtonMixinType,
     groupName: string,
   ): void {
-    this._registry[groupName].splice(this._registry[groupName].indexOf(radio), 1);
+    const index = this._registry[groupName]?.indexOf(radio);
+    if (!this._registry[groupName] || index === -1) {
+      return;
+    }
+    this._registry[groupName].splice(index, 1);
+
+    if (this._registry[groupName].length === 0) {
+      delete this._registry[groupName];
+    }
   }
 
   public static getRadios(groupName: string): SbbFormAssociatedRadioButtonMixinType[] {
@@ -81,7 +98,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     }
     private _checked: boolean = false;
 
-    private _initialized: boolean = false;
+    protected abort = new SbbConnectedAbortController(this);
 
     protected constructor() {
       super();
@@ -92,6 +109,9 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     public override connectedCallback(): void {
       super.connectedCallback();
       this._connectToRegistry();
+
+      const signal = this.abort.signal;
+      this.addEventListener('keydown', (e) => this._handleArrowKeyDown(e), { signal });
     }
 
     public override disconnectedCallback(): void {
@@ -111,9 +131,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      *  Called when the browser is trying to restore element’s state to state in which case
      *  reason is “restore”, or when the browser is trying to fulfill autofill on behalf of
      *  user in which case reason is “autocomplete”.
-     *  In the case of “restore”, state is a string, File, or FormData object
-     *  previously set as the second argument to setFormValue.
-     *
      * @internal
      */
     public override formStateRestoreCallback(
@@ -130,18 +147,20 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
       if (changedProperties.has('disabled')) {
         // this.internals.ariaDisabled = this.disabled.toString(); // TODO probably not needed
+        this._setFocusableRadio();
       }
       if (changedProperties.has('required')) {
         this.internals.ariaRequired = this.required.toString();
       }
 
       // On 'name' change, move 'this' to the new registry
-      if (changedProperties.has('name') && this._initialized) {
+      if (changedProperties.has('name')) {
         const oldName = changedProperties.get('name')!;
         this._disconnectFromRegistry(oldName);
         this._connectToRegistry();
         if (this.checked) {
           this._deselectGroupedRadios();
+          this._setFocusableRadio();
         }
       }
 
@@ -151,13 +170,9 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         this.updateFormValueOnCheckedChange();
         if (this.checked) {
           this._deselectGroupedRadios();
+          this._setFocusableRadio();
         }
       }
-    }
-
-    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-      super.firstUpdated(changedProperties);
-      this._initialized = true;
     }
 
     /**
@@ -213,8 +228,64 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         .forEach((r) => (r.checked = false));
     }
 
-    // TODO Keyboard interaction
-    // Suggestion: query for (this.form ?? document).queryAll('radio-button[name="this.name"]') and cycle through them
+    /**
+     * Return the grouped radios in DOM order
+     */
+    private _orderedGrouperRadios(groupName = this.name): SbbFormAssociatedRadioButtonElement[] {
+      return Array.from(
+        (this.form ?? document).querySelectorAll<SbbFormAssociatedRadioButtonElement>(
+          `:is(sbb-radio-button, sbb-radio-button-panel)[name="${groupName}"]`,
+        ),
+      );
+    }
+
+    /**
+     * The focusable radio is the checked one or the first in DOM order
+     * TODO handle radio-button panel exception (they are always focusable? check _hasSelectionExpansionPanelElement in the group)
+     */
+    private _setFocusableRadio(): void {
+      const radios = this._orderedGrouperRadios();
+      const checkedIndex = radios.findIndex(
+        (radio) => radio.checked && !radio.disabled && !radio.formDisabled,
+      );
+
+      radios.forEach((r) => r.removeAttribute('tabindex'));
+      radios[checkedIndex !== -1 ? checkedIndex : 0].tabIndex = 0;
+    }
+
+    private async _handleArrowKeyDown(evt: KeyboardEvent): Promise<void> {
+      if (!isArrowKeyPressed(evt)) {
+        return;
+      }
+
+      const enabledRadios = this._orderedGrouperRadios().filter(
+        (r) => !r.disabled && !r.formDisabled,
+      );
+      const current: number = enabledRadios.indexOf(this);
+      const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
+
+      // if (
+      //   !enabledRadios ||
+      //   !enabledRadios.length ||
+      //   // don't trap nested handling
+      //   ((evt.target as HTMLElement) !== this &&
+      //     (evt.target as HTMLElement).parentElement !== this &&
+      //     (evt.target as HTMLElement).parentElement?.localName !== 'sbb-selection-expansion-panel')
+      // ) {
+      //   return;
+      // }
+
+      // TODO
+      // if (!this._hasSelectionExpansionPanelElement) {
+      //   enabledRadios[nextIndex].checked = true;
+      // }
+
+      enabledRadios[nextIndex].checked = true;
+      evt.preventDefault();
+
+      await enabledRadios[nextIndex].updateComplete;
+      enabledRadios[nextIndex].focus();
+    }
   }
 
   return SbbFormAssociatedRadioButtonElement as unknown as Constructor<SbbFormAssociatedRadioButtonMixinType> &

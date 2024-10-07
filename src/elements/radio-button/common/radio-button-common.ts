@@ -1,7 +1,6 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { EventEmitter, HandlerRepository, formElementHandlerAspect } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
@@ -62,7 +61,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
     }
     private _group: SbbRadioButtonGroupElement | null = null;
 
-    private _abort = new SbbConnectedAbortController(this);
     private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect); // TODO remove this
 
     /**
@@ -80,7 +78,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       super.connectedCallback();
       this._group = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
 
-      const signal = this._abort.signal;
+      const signal = this.abort.signal;
       this.addEventListener('click', (e) => this._handleClick(e), { signal });
       this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
       this._handlerRepository.connect();
