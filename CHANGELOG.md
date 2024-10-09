@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.2](https://github.com/sbb-design-systems/lyne-components/compare/v1.12.1...v1.12.2) (2024-10-09)
+
+
+### Bug Fixes
+
+* **sbb-loading-indicator:** center component into his box ([#3144](https://github.com/sbb-design-systems/lyne-components/issues/3144)) ([22978f6](https://github.com/sbb-design-systems/lyne-components/commit/22978f6776598c7a457adcee4e9665229550caed))
+* **sbb-teaser:** css variable typo ([#3143](https://github.com/sbb-design-systems/lyne-components/issues/3143)) ([d3e4fb3](https://github.com/sbb-design-systems/lyne-components/commit/d3e4fb3c527059574195cf58686ca6bf3a599cdc))
+
 ## [1.12.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.12.0...v1.12.1) (2024-10-03)
 
 
