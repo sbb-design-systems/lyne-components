@@ -1,6 +1,7 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { setModalityOnNextFocus } from '../../core/a11y.js';
 import { EventEmitter, HandlerRepository, formElementHandlerAspect } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
@@ -93,7 +94,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
     }
 
     public select(): void {
-      if (this.disabled) {
+      if (this.disabled || this.formDisabled) {
         return;
       }
 
@@ -127,9 +128,13 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       return this.group?.required ?? false;
     }
 
-    private _handleClick(event: Event): void {
+    private async _handleClick(event: Event): Promise<void> {
       event.preventDefault();
       this.select();
+
+      await this.updateComplete; // wait for 'tabindex' to be updated
+      setModalityOnNextFocus(this);
+      this.focus();
     }
 
     private _handleKeyDown(evt: KeyboardEvent): void {

@@ -30,6 +30,7 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   protected isDisabledExternally(): boolean;
   protected isRequiredExternally(): boolean;
   protected withUserInteraction?(): void;
+  protected updateFocusableRadios(): void;
 }
 
 /**
@@ -147,7 +148,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
       if (changedProperties.has('disabled')) {
         // this.internals.ariaDisabled = this.disabled.toString(); // TODO probably not needed
-        this._setFocusableRadio();
+        this.updateFocusableRadios();
       }
       if (changedProperties.has('required')) {
         this.internals.ariaRequired = this.required.toString();
@@ -160,7 +161,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         this._connectToRegistry();
         if (this.checked) {
           this._deselectGroupedRadios();
-          this._setFocusableRadio();
+          this.updateFocusableRadios();
         }
       }
 
@@ -170,7 +171,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         this.updateFormValueOnCheckedChange();
         if (this.checked) {
           this._deselectGroupedRadios();
-          this._setFocusableRadio();
+          this.updateFocusableRadios();
         }
       }
     }
@@ -191,6 +192,27 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      */
     protected updateFormValueOnCheckedChange(): void {
       this.internals.setFormValue(this.checked ? this.value : null);
+    }
+
+    /**
+     * Only a single radio should be focusable in the group. Defined as:
+     * - the checked radios;
+     * - the first non-disabled radio in DOM order;
+     */
+    protected updateFocusableRadios(): void {
+      const radios = this._orderedGrouperRadios();
+      radios.forEach((r) => r.removeAttribute('tabindex'));
+
+      const checkedIndex = radios.findIndex((r) => r.checked && !r.disabled && !r.formDisabled);
+      if (checkedIndex !== -1) {
+        radios[checkedIndex].tabIndex = 0;
+        return;
+      }
+
+      const firstFocusable = radios.findIndex((r) => !r.disabled && !r.formDisabled);
+      if (firstFocusable !== -1) {
+        radios[firstFocusable].tabIndex = 0;
+      }
     }
 
     /**
@@ -239,20 +261,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       );
     }
 
-    /**
-     * The focusable radio is the checked one or the first in DOM order
-     * TODO handle radio-button panel exception (they are always focusable? check _hasSelectionExpansionPanelElement in the group)
-     */
-    private _setFocusableRadio(): void {
-      const radios = this._orderedGrouperRadios();
-      const checkedIndex = radios.findIndex(
-        (radio) => radio.checked && !radio.disabled && !radio.formDisabled,
-      );
-
-      radios.forEach((r) => r.removeAttribute('tabindex'));
-      radios[checkedIndex !== -1 ? checkedIndex : 0].tabIndex = 0;
-    }
-
     private async _handleArrowKeyDown(evt: KeyboardEvent): Promise<void> {
       if (!isArrowKeyPressed(evt)) {
         return;
@@ -263,22 +271,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       );
       const current: number = enabledRadios.indexOf(this);
       const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
-
-      // if (
-      //   !enabledRadios ||
-      //   !enabledRadios.length ||
-      //   // don't trap nested handling
-      //   ((evt.target as HTMLElement) !== this &&
-      //     (evt.target as HTMLElement).parentElement !== this &&
-      //     (evt.target as HTMLElement).parentElement?.localName !== 'sbb-selection-expansion-panel')
-      // ) {
-      //   return;
-      // }
-
-      // TODO
-      // if (!this._hasSelectionExpansionPanelElement) {
-      //   enabledRadios[nextIndex].checked = true;
-      // }
 
       enabledRadios[nextIndex].checked = true;
       evt.preventDefault();
