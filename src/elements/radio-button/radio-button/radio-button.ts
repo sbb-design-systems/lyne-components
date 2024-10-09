@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { slotState } from '../../core/decorators.js';
@@ -39,16 +39,6 @@ export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitE
   protected override render(): TemplateResult {
     return html`
       <label class="sbb-radio-button">
-        <input
-          type="radio"
-          aria-hidden="true"
-          tabindex="-1"
-          ?disabled=${this.disabled}
-          ?required=${this.required}
-          ?checked=${this.checked}
-          value=${this.value || nothing}
-          class="sbb-screen-reader-only"
-        />
         <span class="sbb-radio-button__label-slot">
           <slot></slot>
         </span>

@@ -11,6 +11,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { slotState } from '../../core/decorators.js';
 import {
   panelCommonStyle,
+  RadioButtonRegistry,
   SbbPanelMixin,
   type SbbPanelSize,
   SbbUpdateSchedulerMixin,
@@ -53,12 +54,29 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
   }
   private _size: SbbPanelSize = 'm';
 
+  private _hasSelectionExpansionPanelElement: boolean = false;
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._hasSelectionExpansionPanelElement = !!this.closest?.('sbb-selection-expansion-panel');
+  }
+
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
       this.toggleAttribute('data-checked', this.checked);
     }
+  }
+
+  /**
+   * As an exception, panels with an expansion-panel attached are always focusable
+   */
+  protected override updateFocusableRadios(): void {
+    super.updateFocusableRadios();
+    const radios = RadioButtonRegistry.getRadios(this.name) as SbbRadioButtonPanelElement[];
+
+    radios.filter((r) => r._hasSelectionExpansionPanelElement).forEach((r) => (r.tabIndex = 0));
   }
 
   protected override render(): TemplateResult {
@@ -68,16 +86,6 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
           <slot name="badge"></slot>
         </div>
         <span class="sbb-radio-button">
-          <input
-            type="radio"
-            aria-hidden="true"
-            tabindex="-1"
-            ?disabled=${this.disabled}
-            ?required=${this.required}
-            ?checked=${this.checked}
-            value=${this.value || nothing}
-            class="sbb-screen-reader-only"
-          />
           <span class="sbb-radio-button__label-slot">
             <slot></slot>
             <slot name="suffix"></slot>
