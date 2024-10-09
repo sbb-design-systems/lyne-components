@@ -168,10 +168,11 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changedProperties);
     this._didLoad = true;
 
+    await this.updateComplete;
     if (this._initValue) {
       this.value = this._initValue;
     }

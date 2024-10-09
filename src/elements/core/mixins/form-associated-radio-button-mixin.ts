@@ -72,7 +72,7 @@ export class RadioButtonRegistry {
   }
 
   public static getRadios(groupName: string): SbbFormAssociatedRadioButtonMixinType[] {
-    return this._registry[groupName];
+    return this._registry[groupName] ?? [];
   }
 }
 
