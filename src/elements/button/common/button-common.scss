@@ -82,7 +82,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 }
 
 :host([negative]) {
-  --sbb-button-color-disabled-background: var(--sbb-color-anthracite);
+  --sbb-button-color-disabled-background: var(--sbb-color-charcoal);
   --sbb-button-color-disabled-text: var(--sbb-color-aluminium);
 }
 
