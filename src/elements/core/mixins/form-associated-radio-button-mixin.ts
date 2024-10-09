@@ -265,6 +265,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       if (!isArrowKeyPressed(evt)) {
         return;
       }
+      evt.preventDefault();
 
       const enabledRadios = this._orderedGrouperRadios().filter(
         (r) => !r.disabled && !r.formDisabled,
@@ -273,7 +274,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
 
       enabledRadios[nextIndex].checked = true;
-      evt.preventDefault();
 
       await enabledRadios[nextIndex].updateComplete;
       enabledRadios[nextIndex].focus();

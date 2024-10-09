@@ -2,7 +2,7 @@ import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { setModalityOnNextFocus } from '../../core/a11y.js';
-import { EventEmitter, HandlerRepository, formElementHandlerAspect } from '../../core/eventing.js';
+import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
@@ -62,8 +62,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
     }
     private _group: SbbRadioButtonGroupElement | null = null;
 
-    private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect); // TODO remove this
-
     /**
      * @internal
      * Internal event that emits whenever the state of the radio option
@@ -82,15 +80,9 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       const signal = this.abort.signal;
       this.addEventListener('click', (e) => this._handleClick(e), { signal });
       this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-      this._handlerRepository.connect();
 
       // We need to call requestUpdate to update the reflected attributes
       ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
-    }
-
-    public override disconnectedCallback(): void {
-      super.disconnectedCallback();
-      this._handlerRepository.disconnect();
     }
 
     public select(): void {
@@ -139,6 +131,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
 
     private _handleKeyDown(evt: KeyboardEvent): void {
       if (evt.code === 'Space') {
+        evt.preventDefault();
         this.select();
       }
     }
