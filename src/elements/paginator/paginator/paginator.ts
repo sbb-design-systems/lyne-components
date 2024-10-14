@@ -10,7 +10,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { i18nItemsPerPage, i18nPage, i18nSelectedPage } from '../../core/i18n.js';
 import type { SbbSelectElement } from '../../select.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
@@ -32,9 +31,6 @@ let nextId = 0;
  * @event {CustomEvent<SbbPaginatorPageEventDetails>} page - Emits when the pageIndex changes.
  */
 @customElement('sbb-paginator')
-@hostAttributes({
-  role: 'group',
-})
 export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {

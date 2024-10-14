@@ -21,7 +21,7 @@ describe('sbb-compact-paginator', () => {
                   visualDiffDefault.with(async (setup) => {
                     await setup.withFixture(
                       html` <sbb-compact-paginator
-                        ?negative="${negative}"
+                        ?negative=${negative}
                         pager-position=${pagerPosition}
                         length="50"
                         page-size="5"
@@ -46,8 +46,8 @@ describe('sbb-compact-paginator', () => {
                       length="50"
                       page-size="5"
                       page-index=${pageIndex}
-                      size="${size}"
-                      ?negative="${negative}"
+                      size=${size}
+                      ?negative=${negative}
                     ></sbb-compact-paginator>`,
                     wrapperStyle,
                   );

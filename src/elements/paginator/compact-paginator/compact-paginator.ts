@@ -2,7 +2,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
 import { i18nPageOnTotal } from '../../core/i18n.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
 import '../../divider.js';
@@ -15,9 +14,6 @@ import style from './compact-paginator.scss?lit&inline';
  * @event {CustomEvent<SbbPaginatorPageEventDetails>} page - Emits when the pageIndex changes.
  */
 @customElement('sbb-compact-paginator')
-@hostAttributes({
-  role: 'group',
-})
 export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
