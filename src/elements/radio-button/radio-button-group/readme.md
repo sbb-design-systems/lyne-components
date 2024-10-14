@@ -69,16 +69,17 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 
 ## Properties
 
-| Name                  | Attribute               | Privacy | Type                                                      | Default        | Description                                               |
-| --------------------- | ----------------------- | ------- | --------------------------------------------------------- | -------------- | --------------------------------------------------------- |
-| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                                                 | `false`        | Whether the radios can be deselected.                     |
-| `disabled`            | `disabled`              | public  | `boolean`                                                 | `false`        | Whether the component is disabled.                        |
-| `horizontalFrom`      | `horizontal-from`       | public  | `SbbHorizontalFrom \| undefined`                          |                | Overrides the behaviour of `orientation` property.        |
-| `orientation`         | `orientation`           | public  | `SbbOrientation`                                          | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
-| `radioButtons`        | -                       | public  | `(SbbRadioButtonElement \| SbbRadioButtonPanelElement)[]` |                | List of contained radio buttons.                          |
-| `required`            | `required`              | public  | `boolean`                                                 | `false`        | Whether the radio group is required.                      |
-| `size`                | `size`                  | public  | `SbbRadioButtonSize`                                      | `'m'`          | Size variant.                                             |
-| `value`               | `value`                 | public  | `any \| null \| undefined`                                |                | The value of the radio group.                             |
+| Name                  | Attribute               | Privacy | Type                                                      | Default                                    | Description                                               |
+| --------------------- | ----------------------- | ------- | --------------------------------------------------------- | ------------------------------------------ | --------------------------------------------------------- |
+| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                                                 | `false`                                    | Whether the radios can be deselected.                     |
+| `disabled`            | `disabled`              | public  | `boolean`                                                 | `false`                                    | Whether the component is disabled.                        |
+| `horizontalFrom`      | `horizontal-from`       | public  | `SbbHorizontalFrom \| undefined`                          |                                            | Overrides the behaviour of `orientation` property.        |
+| `name`                | `name`                  | public  | `string`                                                  | `` `sbb-radio-button-group-${++nextId}` `` |                                                           |
+| `orientation`         | `orientation`           | public  | `SbbOrientation`                                          | `'horizontal'`                             | Radio group's orientation, either horizontal or vertical. |
+| `radioButtons`        | -                       | public  | `(SbbRadioButtonElement \| SbbRadioButtonPanelElement)[]` |                                            | List of contained radio buttons.                          |
+| `required`            | `required`              | public  | `boolean`                                                 | `false`                                    | Whether the radio group is required.                      |
+| `size`                | `size`                  | public  | `SbbRadioButtonSize`                                      | `'m'`                                      | Size variant.                                             |
+| `value`               | `value`                 | public  | `any \| null`                                             |                                            | The value of the radio group.                             |
 
 ## Events
 
