@@ -77,10 +77,10 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 
 ## Events
 
-| Name     | Type         | Description | Inherited From                    |
-| -------- | ------------ | ----------- | --------------------------------- |
-| `change` | `Event`      |             | SbbFormAssociatedRadioButtonMixin |
-| `input`  | `InputEvent` |             | SbbFormAssociatedRadioButtonMixin |
+| Name     | Type         | Description      | Inherited From                    |
+| -------- | ------------ | ---------------- | --------------------------------- |
+| `change` | `Event`      | Fired on change. | SbbFormAssociatedRadioButtonMixin |
+| `input`  | `InputEvent` | Fired on input.  | SbbFormAssociatedRadioButtonMixin |
 
 ## Slots
 

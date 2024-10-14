@@ -28,6 +28,8 @@ import '../../screen-reader-only.js';
  * @slot subtext - Slot used to render a subtext under the label.
  * @slot suffix - Slot used to render additional content after the label.
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
+ * @event {Event} change - Fired on change.
+ * @event {InputEvent} input - Fired on input.
  */
 @customElement('sbb-radio-button-panel')
 @slotState()
@@ -39,6 +41,8 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
   // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
     stateChange: 'stateChange',
+    change: 'change',
+    input: 'input',
     panelConnected: 'panelConnected',
   } as const;
 

@@ -39,6 +39,8 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
     implements Partial<SbbRadioButtonCommonElementMixinType>
   {
     public static readonly events = {
+      change: 'change',
+      input: 'input',
       stateChange: 'stateChange',
     } as const;
 
@@ -92,8 +94,10 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
 
       if (this.allowEmptySelection) {
         this.checked = !this.checked;
+        this.emitChangeEvents();
       } else if (!this.checked) {
         this.checked = true;
+        this.emitChangeEvents();
       }
     }
 
@@ -101,13 +105,11 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       super.willUpdate(changedProperties);
 
       if (changedProperties.has('checked')) {
-        // TODO check if they are needed
         if (this.checked !== changedProperties.get('checked')!) {
           this._stateChange.emit({ type: 'checked', checked: this.checked });
         }
       }
       if (changedProperties.has('disabled')) {
-        // TODO check if they are needed
         if (this.disabled !== changedProperties.get('disabled')!) {
           this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
         }
@@ -126,8 +128,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       event.preventDefault();
       this.select();
 
-      this.emitChangeEvents();
-
       await this.updateComplete; // wait for 'tabindex' to be updated
       setModalityOnNextFocus(this);
       this.focus();
@@ -137,8 +137,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       if (evt.code === 'Space') {
         evt.preventDefault();
         this.select();
-
-        this.emitChangeEvents();
       }
     }
   }

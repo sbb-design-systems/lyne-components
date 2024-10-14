@@ -15,6 +15,8 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  * It displays a radio button enhanced with the SBB Design.
  *
  * @slot - Use the unnamed slot to add content to the radio label.
+ * @event {Event} change - Fired on change.
+ * @event {InputEvent} input - Fired on input.
  */
 @customElement('sbb-radio-button')
 @slotState()
@@ -22,6 +24,8 @@ export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitE
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonStyle];
   public static readonly events = {
     stateChange: 'stateChange',
+    change: 'change',
+    input: 'input',
   } as const;
 
   /**
