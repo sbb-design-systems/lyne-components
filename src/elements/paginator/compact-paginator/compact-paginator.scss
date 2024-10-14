@@ -7,15 +7,27 @@
   display: block;
 
   --sbb-compact-paginator-height: var(--sbb-size-element-m);
+  --sbb-compact-paginator-color: var(--sbb-color-granite);
+  --sbb-paginator-compact-justify-content: start;
 }
 
 :host([size='s']) {
   --sbb-compact-paginator-height: var(--sbb-size-element-xs);
 }
 
+:host([negative]) {
+  --sbb-compact-paginator-color: var(--sbb-color-storm);
+}
+
+:host([pager-position='end']) {
+  --sbb-paginator-compact-justify-content: end;
+}
+
 .sbb-compact-paginator {
   display: flex;
   gap: var(--sbb-spacing-fixed-5x);
+  justify-content: var(--sbb-paginator-compact-justify-content);
+  min-height: var(--sbb-compact-paginator-height);
 }
 
 .sbb-paginator__pages {
@@ -25,7 +37,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--sbb-spacing-fixed-2x);
-  color: var(--sbb-color-storm);
+  color: var(--sbb-compact-paginator-color);
 }
 
 sbb-divider {
