@@ -1,5 +1,6 @@
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
@@ -178,6 +179,7 @@ export const StandaloneGroup: StoryObj = {
 
 const meta: Meta = {
   parameters: {
+    decorators: [withActions as Decorator],
     actions: {
       handles: ['change', 'input'],
     },
