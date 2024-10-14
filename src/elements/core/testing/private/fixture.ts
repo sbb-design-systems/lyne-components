@@ -19,21 +19,11 @@ interface FixtureOptions {
   base?: string;
 }
 
-// PlayWright with WebKit does not include wtr-session-id in stack trace.
-// As an alternative, we look for the first file in the stack trace that is not part of
-// node_modules and not in /core/testing/.
-// See https://github.com/lit/lit/issues/4067
-const tryFindBase = (stack: string): string | undefined =>
-  [...stack.matchAll(/http:\/\/(localhost|host.containers.internal):?[^:)]+/gm)]
-    .map((m) => m[0])
-    .find((u) => !u.includes('/node_modules/') && !u.includes('/core/testing/private/fixture'));
-
 const internalFixture = async <T extends HTMLElement>(
   type: 'csrFixture' | 'ssrHydratedFixture' | 'ssrNonHydratedFixture',
   template: TemplateResult,
   options: FixtureOptions = { modules: [] },
 ): Promise<T> => {
-  options.base ??= tryFindBase(new Error().stack!);
   if (type !== 'csrFixture') {
     options.modules.unshift('/src/elements/core/testing/test-setup-ssr.ts');
   }
@@ -94,7 +84,6 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     forcedColors?: boolean;
   },
 ): Promise<T> {
-  const base = tryFindBase(new Error().stack!);
   const { html } = await import('lit-html');
 
   await emulateMedia({
@@ -119,6 +108,6 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     >
       ${template}
     </div>`,
-    { base, modules: [] },
+    { modules: [] },
   );
 }
