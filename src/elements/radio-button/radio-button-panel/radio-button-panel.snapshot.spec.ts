@@ -55,6 +55,14 @@ describe('sbb-radio-button-panel', () => {
 
   testA11yTreeSnapshot(
     html`<sbb-radio-button-panel name="radio" disabled>Label</sbb-radio-button-panel>`,
-    'Disabled - A11y tree',
+    'renders disabled - A11y tree',
+  );
+  testA11yTreeSnapshot(
+    html`<sbb-radio-button-panel
+      value="radio-value"
+      name="radio"
+      required
+    ></sbb-radio-button-panel>`,
+    'renders required - A11y tree',
   );
 });

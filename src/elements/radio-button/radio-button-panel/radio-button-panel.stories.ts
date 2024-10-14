@@ -178,6 +178,9 @@ export const StandaloneGroup: StoryObj = {
 
 const meta: Meta = {
   parameters: {
+    actions: {
+      handles: ['change', 'input'],
+    },
     docs: {
       extractComponentDescription: () => readme,
     },

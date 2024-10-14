@@ -30,7 +30,8 @@ describe(`sbb-radio-button`, () => {
     element.click();
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('checked');
+    expect(element.checked).to.be.true;
+    expect(element).to.have.attribute('data-checked');
     await waitForCondition(() => stateChange.events.length === 1);
     expect(stateChange.count).to.be.equal(1);
   });
@@ -40,13 +41,13 @@ describe(`sbb-radio-button`, () => {
 
     element.click();
     await waitForLitRender(element);
-    expect(element).to.have.attribute('checked');
+    expect(element.checked).to.be.true;
     await waitForCondition(() => stateChange.events.length === 1);
     expect(stateChange.count).to.be.equal(1);
 
     element.click();
     await waitForLitRender(element);
-    expect(element).to.have.attribute('checked');
+    expect(element.checked).to.be.true;
     await waitForCondition(() => stateChange.events.length === 1);
     expect(stateChange.count).to.be.equal(1);
   });
@@ -57,13 +58,13 @@ describe(`sbb-radio-button`, () => {
     element.allowEmptySelection = true;
     element.click();
     await waitForLitRender(element);
-    expect(element).to.have.attribute('checked');
+    expect(element.checked).to.be.true;
     await waitForCondition(() => stateChange.events.length === 1);
     expect(stateChange.count).to.be.equal(1);
 
     element.click();
     await waitForLitRender(element);
-    expect(element).not.to.have.attribute('checked');
+    expect(element.checked).to.be.false;
     await waitForCondition(() => stateChange.events.length === 2);
     expect(stateChange.count).to.be.equal(2);
   });

@@ -157,3 +157,37 @@ snapshots["sbb-radio-button native - A11y tree Firefox"] =
 `;
 /* end snapshot sbb-radio-button native - A11y tree Firefox */
 
+snapshots["sbb-radio-button renders required - A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-radio-button renders required - A11y tree Chrome */
+
+snapshots["sbb-radio-button renders required - A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "required": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-radio-button renders required - A11y tree Firefox */
+

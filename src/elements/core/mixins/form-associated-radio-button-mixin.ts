@@ -31,6 +31,7 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   protected isRequiredExternally(): boolean;
   protected withUserInteraction?(): void;
   protected updateFocusableRadios(): void;
+  protected emitChangeEvents(): void;
 }
 
 /**
@@ -92,7 +93,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      */
     @property({ type: Boolean })
     public set checked(value: boolean) {
-      this._checked = value;
+      this._checked = Boolean(value);
     }
     public get checked(): boolean {
       return this._checked;
@@ -146,14 +147,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
-      if (changedProperties.has('disabled')) {
-        // this.internals.ariaDisabled = this.disabled.toString(); // TODO probably not needed
-        this.updateFocusableRadios();
-      }
-      if (changedProperties.has('required')) {
-        this.internals.ariaRequired = this.required.toString();
-      }
-
       // On 'name' change, move 'this' to the new registry
       if (changedProperties.has('name')) {
         const oldName = changedProperties.get('name')!;
@@ -161,8 +154,8 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         this._connectToRegistry();
         if (this.checked) {
           this._deselectGroupedRadios();
-          this.updateFocusableRadios();
         }
+        this.updateFocusableRadios();
       }
 
       if (changedProperties.has('checked')) {
@@ -171,8 +164,8 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         this.updateFormValueOnCheckedChange();
         if (this.checked) {
           this._deselectGroupedRadios();
-          this.updateFocusableRadios();
         }
+        this.updateFocusableRadios();
       }
     }
 
@@ -213,6 +206,14 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       if (firstFocusable !== -1) {
         radios[firstFocusable].tabIndex = 0;
       }
+    }
+
+    protected emitChangeEvents(): void {
+      // Manually dispatch events to simulate a user interaction
+      this.dispatchEvent(
+        new InputEvent('input', { bubbles: true, cancelable: true, composed: true }),
+      );
+      this.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
     /**
@@ -274,6 +275,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
 
       enabledRadios[nextIndex].checked = true;
+      this.emitChangeEvents();
 
       await enabledRadios[nextIndex].updateComplete;
       enabledRadios[nextIndex].focus();

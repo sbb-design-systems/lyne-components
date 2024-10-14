@@ -36,4 +36,8 @@ describe(`sbb-radio-button`, () => {
     html`<sbb-radio-button value="radio-value" name="radio" disabled></sbb-radio-button>`,
     'renders disabled - A11y tree',
   );
+  testA11yTreeSnapshot(
+    html`<sbb-radio-button value="radio-value" name="radio" required></sbb-radio-button>`,
+    'renders required - A11y tree',
+  );
 });
