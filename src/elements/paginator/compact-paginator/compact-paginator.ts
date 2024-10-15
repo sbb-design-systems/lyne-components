@@ -26,7 +26,7 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(L
 
   private _renderPageNumbers(): TemplateResult {
     return html`
-      <span class="sbb-paginator__pages" aria-label=${this.currentPageLabel()}
+      <span class="sbb-paginator__pages" aria-label=${this.currentPageLabel()} role="group"
         >${this.pageIndex + 1}<sbb-divider
           aria-hidden="true"
           orientation="vertical"

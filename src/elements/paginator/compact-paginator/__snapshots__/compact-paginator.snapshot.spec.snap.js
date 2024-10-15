@@ -50,6 +50,7 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
   <span
     aria-label="Page 1 of 10."
     class="sbb-paginator__pages"
+    role="group"
   >
     1
     <sbb-divider
