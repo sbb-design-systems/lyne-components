@@ -16,18 +16,29 @@ export const forceType = <C extends Interface<ReactiveElement>, V>(): PropertyDe
     const type = (globalThis.litPropertyMetadata.get(metadata)?.get(name)?.type ?? String) as (
       v: unknown,
     ) => V;
+    let convert = type;
+    if ((type as unknown) === String) {
+      // In case of String, we want to handle null/undefined differently
+      // from the native behavior in that we want to treat these values
+      // as empty strings.
+      convert = (v) => (v == null ? '' : String(v)) as V;
+    } else if ((type as unknown) === Number) {
+      // In case of Number, we want to handle null differently
+      // from the native behavior in that we want to treat null as NaN.
+      convert = (v) => (v == null ? NaN : Number(v)) as V;
+    }
     if (kind === 'accessor') {
       return {
         set(this: C, value) {
           (target as ClassAccessorDecoratorTarget<C, V>).set.call(
             this as unknown as C,
-            type!(value) as V,
+            convert(value) as V,
           );
         },
       } satisfies ClassAccessorDecoratorResult<C, V>;
     } else if (kind === 'setter') {
       return function (value: unknown) {
-        (target as (value: unknown) => void)(type!(value));
+        (target as (value: unknown) => void)(convert(value));
       } satisfies (this: C, value: V) => void;
     }
 
