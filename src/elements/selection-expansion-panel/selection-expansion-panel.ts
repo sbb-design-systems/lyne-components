@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxGroupElement, SbbCheckboxPanelElement } from '../checkbox.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
-import { slotState } from '../core/decorators.js';
+import { forceType, slotState } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
@@ -25,9 +25,10 @@ import '../divider.js';
  * @event {CustomEvent<void>} willClose - Emits whenever the content section begins the closing transition.
  * @event {CustomEvent<void>} didClose - Emits whenever the content section is closed.
  */
+export
 @customElement('sbb-selection-expansion-panel')
 @slotState()
-export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
+class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
@@ -38,13 +39,17 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   } as const;
 
   /** The background color of the panel. */
-  @property() public color: 'white' | 'milk' = 'white';
+  @property() public accessor color: 'white' | 'milk' = 'white';
 
   /** Whether the content section is always visible. */
-  @property({ attribute: 'force-open', type: Boolean }) public forceOpen = false;
+  @forceType()
+  @property({ attribute: 'force-open', type: Boolean })
+  public accessor forceOpen: boolean = false;
 
   /** Whether the unselected panel has a border. */
-  @property({ reflect: true, type: Boolean }) public borderless = false;
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor borderless: boolean = false;
 
   /** The state of the selection panel. */
   @state()

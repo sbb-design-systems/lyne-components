@@ -5,8 +5,9 @@ import { slotState } from '../../core/decorators.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
+export
 @slotState()
-export abstract class SbbMiniButtonBaseElement extends SbbNegativeMixin(
+abstract class SbbMiniButtonBaseElement extends SbbNegativeMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
   protected override renderTemplate(): TemplateResult {

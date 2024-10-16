@@ -19,10 +19,10 @@ export type SbbButtonSize = 'l' | 'm' | 's';
 export declare class SbbButtonCommonElementMixinType
   implements SbbNegativeMixinType, Partial<SbbDisabledMixinType>, Partial<SbbIconNameMixinType>
 {
-  public size?: SbbButtonSize;
-  public disabled: boolean;
-  public iconName?: string;
-  public negative: boolean;
+  public accessor size: SbbButtonSize;
+  public accessor disabled: boolean;
+  public accessor iconName: string;
+  public accessor negative: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -38,7 +38,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     implements Partial<SbbButtonCommonElementMixinType>
   {
     /** Size variant, either l or m. */
-    @property({ reflect: true }) public size?: SbbButtonSize = 'l';
+    @property({ reflect: true }) public accessor size: SbbButtonSize = 'l';
 
     protected override renderTemplate(): TemplateResult {
       return html`

@@ -3,7 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { hostAttributes, slotState } from '../../core/decorators.js';
+import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbToggleElement } from '../toggle.js';
@@ -16,21 +16,24 @@ import style from './toggle-option.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the label of the toggle option.
  * @slot icon - Slot used to render the `sbb-icon`.
  */
+export
 @customElement('sbb-toggle-option')
 @hostAttributes({
   role: 'radio',
 })
 @slotState()
-export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
+class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Whether the toggle-option is checked. */
+  @forceType()
   @property({ reflect: true, type: Boolean })
-  public checked = false;
+  public accessor checked: boolean = false;
 
   /** Whether the toggle option is disabled. */
+  @forceType()
   @property({ reflect: true, type: Boolean })
-  public disabled: boolean = false;
+  public accessor disabled: boolean = false;
 
   /** Value of toggle-option. */
   @property()

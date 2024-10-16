@@ -17,7 +17,7 @@ import '../../icon.js';
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
 
 export declare class SbbNavigationActionCommonElementMixinType {
-  public size?: SbbNavigationActionSize;
+  public accessor size: SbbNavigationActionSize;
   public get marker(): SbbNavigationMarkerElement | null;
   public get section(): SbbNavigationSectionElement | null;
   public connectedSection: SbbNavigationSectionElement | null;
@@ -36,7 +36,7 @@ export const SbbNavigationActionCommonElementMixin = <
     public static styles: CSSResultGroup = style;
 
     /** Action size variant. */
-    @property({ reflect: true }) public size?: SbbNavigationActionSize = 'l';
+    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = 'l';
 
     /** The section that is beign controlled by the action, if any. */
     public connectedSection?: SbbNavigationSectionElement;

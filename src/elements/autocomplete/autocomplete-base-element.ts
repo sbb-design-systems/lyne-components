@@ -11,6 +11,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
+import { forceType } from '../core/decorators.js';
 import { findReferencedElement, isSafari } from '../core/dom.js';
 import { SbbNegativeMixin, SbbHydrationMixin } from '../core/mixins.js';
 import {
@@ -38,18 +39,19 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
    * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.
    * If not set, it will search for the first 'sbb-form-field' ancestor.
    */
-  @property() public origin?: string | HTMLElement;
+  @property() public accessor origin: string | HTMLElement | null = null;
 
   /**
    * The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement.
    * By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element.
    * If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
    */
-  @property() public trigger?: string | HTMLInputElement;
+  @property() public accessor trigger: string | HTMLInputElement | null = null;
 
   /** Whether the icon space is preserved when no icon is set. */
+  @forceType()
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
-  public preserveIconSpace?: boolean;
+  public accessor preserveIconSpace: boolean = false;
 
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement {
@@ -139,11 +141,11 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('origin')) {
-      this._resetOriginClickListener(this.origin, changedProperties.get('origin'));
-    }
-    if (changedProperties.has('trigger')) {
-      this._resetTriggerClickListener(this.trigger, changedProperties.get('trigger'));
+    if (
+      (changedProperties.has('origin') && this.origin !== changedProperties.get('origin')) ||
+      (changedProperties.has('trigger') && this.trigger !== changedProperties.get('trigger'))
+    ) {
+      this._componentSetup();
     }
     if (changedProperties.has('negative')) {
       this.syncNegative();
@@ -194,26 +196,6 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   /** The autocomplete should inherit 'readonly' state from the trigger. */
   private _readonly(): boolean {
     return this.triggerElement?.hasAttribute('readonly') ?? false;
-  }
-
-  /** Removes trigger click listener on trigger change. */
-  private _resetOriginClickListener(
-    newValue?: string | HTMLElement,
-    oldValue?: string | HTMLElement,
-  ): void {
-    if (newValue !== oldValue) {
-      this._componentSetup();
-    }
-  }
-
-  /** Removes trigger click listener on trigger change. */
-  private _resetTriggerClickListener(
-    newValue?: string | HTMLElement,
-    oldValue?: string | HTMLElement,
-  ): void {
-    if (newValue !== oldValue) {
-      this._componentSetup();
-    }
   }
 
   private _componentSetup(): void {

@@ -171,8 +171,6 @@ export default [
           },
         },
       ],
-      // TODO: Activate with standard decorators
-      'lyne/property-decorator-accessor-rule': 'off',
     },
   },
   {

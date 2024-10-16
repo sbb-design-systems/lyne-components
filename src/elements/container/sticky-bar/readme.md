@@ -22,9 +22,9 @@ Optionally the user can set the `color` property on the `sbb-sticky-bar` in orde
 
 ## Properties
 
-| Name    | Attribute | Privacy | Type                             | Default | Description                                          |
-| ------- | --------- | ------- | -------------------------------- | ------- | ---------------------------------------------------- |
-| `color` | `color`   | public  | `'white' \| 'milk' \| undefined` |         | Color of the container, like transparent, white etc. |
+| Name    | Attribute | Privacy | Type                        | Default | Description                                          |
+| ------- | --------- | ------- | --------------------------- | ------- | ---------------------------------------------------- |
+| `color` | `color`   | public  | `'white' \| 'milk' \| null` | `null`  | Color of the container, like transparent, white etc. |
 
 ## CSS Properties
 

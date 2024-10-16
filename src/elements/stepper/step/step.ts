@@ -31,12 +31,13 @@ export type SbbStepValidateEventDetails = {
  * @slot - Use the unnamed slot to provide content.
  * @event {CustomEvent<SbbStepValidateEventDetails>} validate - Emits whenever step switch is triggered. Can be canceled.
  */
+export
 @customElement('sbb-step')
 @hostAttributes({
   slot: 'step',
   role: 'tabpanel',
 })
-export class SbbStepElement extends LitElement {
+class SbbStepElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     validate: 'validate',

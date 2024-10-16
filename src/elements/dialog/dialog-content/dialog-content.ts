@@ -9,8 +9,9 @@ import style from './dialog-content.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to provide a dialog content.
  */
+export
 @customElement('sbb-dialog-content')
-export class SbbDialogContentElement extends LitElement {
+class SbbDialogContentElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {

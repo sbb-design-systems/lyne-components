@@ -12,8 +12,9 @@ import style from './mini-button.scss?lit&inline';
  *
  * @slot icon - Slot used to display the icon, if one is set
  */
+export
 @customElement('sbb-mini-button')
-export class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(SbbMiniButtonBaseElement) {
+class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(SbbMiniButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 }
 

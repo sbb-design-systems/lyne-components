@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
-import { slotState } from '../core/decorators.js';
+import { forceType, slotState } from '../core/decorators.js';
 import { isFirefox } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
@@ -38,28 +38,33 @@ const toastRefs = new Set<SbbToastElement>();
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
+export
 @customElement('sbb-toast')
 @slotState()
-export class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBaseElement)) {
+class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBaseElement)) {
   public static override styles: CSSResultGroup = style;
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
    * If 0, it stays open indefinitely.
    */
-  @property({ type: Number }) public timeout = 6000;
+  @forceType()
+  @property({ type: Number })
+  public accessor timeout: number = 6000;
 
   /** The position where to place the toast. */
-  @property({ reflect: true }) public position: SbbToastPosition = 'bottom-center';
+  @property({ reflect: true }) public accessor position: SbbToastPosition = 'bottom-center';
 
   /** Whether the toast has a close button. */
-  @property({ type: Boolean, reflect: true }) public dismissible = false;
+  @forceType()
+  @property({ type: Boolean, reflect: true })
+  public accessor dismissible: boolean = false;
 
   /**
    * The ARIA politeness level.
    * Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
    */
-  @property() public politeness: 'polite' | 'assertive' | 'off' = 'polite';
+  @property() public accessor politeness: 'polite' | 'assertive' | 'off' = 'polite';
 
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _abort = new SbbConnectedAbortController(this);

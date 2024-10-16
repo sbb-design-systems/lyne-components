@@ -2,7 +2,7 @@ import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { EventEmitter, HandlerRepository, formElementHandlerAspect } from '../../core/eventing.js';
 import type {
@@ -23,7 +23,7 @@ export type SbbRadioButtonStateChange = Extract<
 export declare class SbbRadioButtonCommonElementMixinType {
   public get allowEmptySelection(): boolean;
   public set allowEmptySelection(boolean);
-  public value?: string;
+  public accessor value: string;
   public get disabled(): boolean;
   public set disabled(boolean);
   public get required(): boolean;
@@ -64,7 +64,9 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     /**
      * Value of radio button.
      */
-    @property() public value?: string;
+    @forceType()
+    @property()
+    public accessor value: string = '';
 
     /**
      * Whether the radio button is disabled.
@@ -101,14 +103,9 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     /**
      * Whether the radio button is checked.
      */
+    @forceType()
     @property({ reflect: true, type: Boolean })
-    public set checked(value: boolean) {
-      this._checked = Boolean(value);
-    }
-    public get checked(): boolean {
-      return this._checked;
-    }
-    private _checked = false;
+    public accessor checked: boolean = false;
 
     private _abort = new SbbConnectedAbortController(this);
     private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
