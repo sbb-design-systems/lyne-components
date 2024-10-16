@@ -113,8 +113,19 @@ export const visualDiffFocus: VisualDiffState = {
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
-      builder.snapshotElement.focus();
+
+      // We create a focusable element (<a>) right before the state element.
+      // We can tab once to land on the desired element.
+      const link = document.createElement(`a`);
+      link.href = '#';
+      link.classList.add('sbb-screen-reader-only');
+      // We need to copy the slot so we can ensure it's landing at the right position
+      link.slot = builder.stateElement.slot;
+      builder.stateElement.insertAdjacentElement('beforebegin', link);
+      link.focus();
       await sendKeys({ press: tabKey });
+      link.remove();
+
       await visualDiff(builder.snapshotElement, imageName(this.test!));
     };
   },

@@ -3,7 +3,6 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
-import { getDocumentWritingMode } from '../../core/dom.js';
 
 import style from './card-badge.scss?lit&inline';
 
@@ -17,7 +16,6 @@ import style from './card-badge.scss?lit&inline';
 @hostAttributes({
   slot: 'badge',
   role: 'text',
-  dir: getDocumentWritingMode(),
 })
 export class SbbCardBadgeElement extends LitElement {
   public static override styles: CSSResultGroup = style;

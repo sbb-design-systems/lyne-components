@@ -71,6 +71,9 @@ The component provides the same accessibility features as the native checkbox.
 Always provide an accessible label via `aria-label` for checkboxes without descriptive text content.
 If you don't want the label to appear next to the checkbox, you can use `aria-label` to specify an appropriate label.
 
+<!-- Override
+  @type value => string \| null
+-->
 <!-- Auto Generated Below -->
 
 ## Properties

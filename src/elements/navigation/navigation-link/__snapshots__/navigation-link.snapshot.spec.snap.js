@@ -6,7 +6,6 @@ snapshots["sbb-navigation-link renders DOM"] =
   accessibility-label="a11y label"
   data-action=""
   data-link=""
-  dir="ltr"
   href="https://www.sbb.ch"
   size="l"
   target="_blank"

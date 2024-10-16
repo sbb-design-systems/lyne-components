@@ -29,7 +29,7 @@ export declare abstract class SbbFormAssociatedMixinType<V = string> {
     reason: FormRestoreReason,
   ): void;
 
-  protected updateFormValue(): void;
+  protected abstract updateFormValue(): void;
 }
 
 /**

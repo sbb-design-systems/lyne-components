@@ -60,6 +60,9 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 <sbb-toggle-check aria-label="Subscribed to email message"></sbb-toggle-check>
 ```
 
+<!-- Override
+  @type value => string \| null
+-->
 <!-- Auto Generated Below -->
 
 ## Properties

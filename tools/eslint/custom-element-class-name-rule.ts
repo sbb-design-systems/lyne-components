@@ -1,18 +1,6 @@
-import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
-import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 
-const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://github.com/sbb-design-systems/lyne-components/blob/main/tools/eslint/${name}.ts`,
-);
-
-type MessageIds = 'customElementClassName';
-
-export const name = 'custom-element-class-name-rule';
-export const rule: TSESLint.RuleModule<'customElementClassName', never[]> = createRule<
-  never[],
-  MessageIds
->({
+export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     return {
       ['ClassDeclaration > Decorator[expression.callee.name="customElement"]'](
@@ -44,11 +32,9 @@ export const rule: TSESLint.RuleModule<'customElementClassName', never[]> = crea
       },
     };
   },
-  name,
   meta: {
     docs: {
       description: 'Components class name should start with `Sbb` and end with `Element`',
-      recommended: 'recommended',
     },
     messages: {
       customElementClassName:

@@ -20,7 +20,6 @@ snapshots["sbb-message renders DOM"] =
     data-action=""
     data-button=""
     data-sbb-button=""
-    dir="ltr"
     icon-name="arrows-circle-small"
     role="button"
     size="l"

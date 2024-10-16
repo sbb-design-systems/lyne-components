@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-autocomplete-grid Safari DOM"] = 
 `<sbb-autocomplete-grid
   data-state="closed"
-  dir="ltr"
   id="sbb-autocomplete-grid-1"
   role="grid"
 >
@@ -25,7 +24,6 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
         aria-disabled="false"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-1"
         role="button"
@@ -50,7 +48,6 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
         aria-disabled="false"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-2"
         role="button"
@@ -95,10 +92,7 @@ snapshots["sbb-autocomplete-grid Safari Shadow DOM"] =
 /* end snapshot sbb-autocomplete-grid Safari Shadow DOM */
 
 snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] = 
-`<sbb-autocomplete-grid
-  data-state="closed"
-  dir="ltr"
->
+`<sbb-autocomplete-grid data-state="closed">
   <sbb-autocomplete-grid-row
     id="sbb-autocomplete-grid-row-1"
     role="row"
@@ -116,7 +110,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
         aria-disabled="false"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-1"
         role="button"
@@ -141,7 +134,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
         aria-disabled="false"
         data-action=""
         data-button=""
-        dir="ltr"
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-2"
         role="button"

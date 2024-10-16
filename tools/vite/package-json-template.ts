@@ -26,18 +26,21 @@ export function packageJsonTemplate(
       const rootPackageJsonPath = './package.json';
       const packageJsonTemplatePath = options.templatePath ?? './package.json';
       const rootPackageJson = JSON.parse(readFileSync(new URL(rootPackageJsonPath, root), 'utf8'));
-      const litMajorVersion = +rootPackageJson.dependencies.lit.match(/\d+/);
+      const litVersion = rootPackageJson.dependencies.lit.match(/\d+\.\d+\.\d+/);
+      const litObserversVersion =
+        rootPackageJson.devDependencies['@lit-labs/observers'].match(/\d+\.\d+\.\d+/);
       const reactMajorVersion = +rootPackageJson.devDependencies.react.match(/\d+/);
-      const litReactMajorVersion = +rootPackageJson.devDependencies['@lit/react'].match(/\d+/);
+      const litReactVersion = rootPackageJson.devDependencies['@lit/react'].match(/\d+\.\d+\.\d+/);
       const packageJsonTemplate = readFileSync(
         join(viteConfig.root, packageJsonTemplatePath),
         'utf8',
       );
       const packageJsonContent = packageJsonTemplate
         .replaceAll('0.0.0-PLACEHOLDER', rootPackageJson.version)
-        .replaceAll('0.0.0-LITREACT', `^${litReactMajorVersion}.0.0`)
+        .replaceAll('0.0.0-LITOBSERVERS', `^${litObserversVersion}`)
+        .replaceAll('0.0.0-LITREACT', `^${litReactVersion}`)
         .replaceAll('0.0.0-REACT', `^${reactMajorVersion}.0.0`)
-        .replaceAll('0.0.0-LIT', `^${litMajorVersion}.0.0`);
+        .replaceAll('0.0.0-LIT', `^${litVersion}`);
       const packageJson = JSON.parse(packageJsonContent);
       for (const key of ['author', 'license', 'repository', 'bugs']) {
         packageJson[key] = rootPackageJson[key];

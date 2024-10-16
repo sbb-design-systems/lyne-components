@@ -11,7 +11,6 @@ snapshots["sbb-card-link renders DOM"] =
   <sbb-card-link
     data-action=""
     data-link=""
-    dir="ltr"
     href="https://github.com/sbb-design-systems/lyne-components"
     slot="action"
     target="_blank"

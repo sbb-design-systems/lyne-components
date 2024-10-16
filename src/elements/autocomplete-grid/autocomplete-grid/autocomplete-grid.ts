@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { getNextElementIndex } from '../../core/a11y.js';
 import { hostAttributes } from '../../core/decorators.js';
-import { getDocumentWritingMode, isSafari } from '../../core/dom.js';
+import { isSafari } from '../../core/dom.js';
 import { setAriaComboBoxAttributes } from '../../core/overlay.js';
 import type { SbbDividerElement } from '../../divider.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../../option.js';
@@ -33,7 +33,6 @@ const ariaRoleOnHost = isSafari;
  */
 @customElement('sbb-autocomplete-grid')
 @hostAttributes({
-  dir: getDocumentWritingMode(),
   role: ariaRoleOnHost ? 'grid' : null,
 })
 export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {

@@ -127,7 +127,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     this.addEventListener(
       'stateChange',
       (e: CustomEvent<SbbStateChange>) =>
-        this._onRadioButtonSelect(e as CustomEvent<SbbRadioButtonStateChange>),
+        this._onRadioButtonChange(e as CustomEvent<SbbRadioButtonStateChange>),
       {
         signal,
         passive: true,
@@ -184,21 +184,26 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  private _onRadioButtonSelect(event: CustomEvent<SbbRadioButtonStateChange>): void {
+  private _onRadioButtonChange(event: CustomEvent<SbbRadioButtonStateChange>): void {
     event.stopPropagation();
-    if (event.detail.type !== 'checked' || !this._didLoad) {
+
+    if (!this._didLoad) {
       return;
     }
 
-    const radioButton = event.target as SbbRadioButtonElement;
+    if (event.detail.type === 'disabled') {
+      this._updateRadios(this.value);
+    } else if (event.detail.type === 'checked') {
+      const radioButton = event.target as SbbRadioButtonElement;
 
-    if (event.detail.checked) {
-      this.value = radioButton.value;
-      this._emitChange(radioButton, this.value);
-    } else if (this.allowEmptySelection) {
-      this.value = this.radioButtons.find((radio) => radio.checked)?.value;
-      if (!this.value) {
-        this._emitChange(radioButton);
+      if (event.detail.checked) {
+        this.value = radioButton.value;
+        this._emitChange(radioButton, this.value);
+      } else if (this.allowEmptySelection) {
+        this.value = this.radioButtons.find((radio) => radio.checked)?.value;
+        if (!this.value) {
+          this._emitChange(radioButton);
+        }
       }
     }
   }
@@ -236,9 +241,9 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   private _getRadioTabIndex(radio: SbbRadioButtonElement | SbbRadioButtonPanelElement): number {
-    const isSelected: boolean = radio.checked && !radio.disabled && !this.disabled;
+    const isEnabled = !radio.disabled && !this.disabled;
 
-    return isSelected || this._hasSelectionExpansionPanelElement ? 0 : -1;
+    return (radio.checked || this._hasSelectionExpansionPanelElement) && isEnabled ? 0 : -1;
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {

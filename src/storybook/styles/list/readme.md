@@ -6,6 +6,7 @@
 
 The list styling can be applied to any ordered or unordered list.
 Nesting lists is also supported without redefining the css class.
+The list styling doesn't define any color itself but inherits it.
 
 ### Sass usage
 
@@ -38,6 +39,60 @@ by using the predefined classes (e.g. `sbb-text-s`).
 </ol>
 ```
 
+## sbb-icon-list
+
+| css class       | sass mixin  |
+| --------------- | ----------- |
+| `sbb-icon-list` | `icon-list` |
+
+To achieve a correct styling, it is important to define the font-size
+by using the predefined classes (e.g. `sbb-text-s`).
+
+As predefined icon the `circle-tick-small` is used. To define a custom icon, the CSS variable
+`--sbb-icon-list-marker-icon` can be used by providing a CSS URL.
+The CSS URL can be an inlined image or an external url.
+
+To define a color, the CSS `color` property can be used. However, if the icon should receive a different color
+than the text, the CSS variable `--sbb-icon-list-marker-icon-color` can be used.
+
+### Basic example
+
+```html
+<ul class="sbb-icon-list sbb-text-m">
+  <li>Content</li>
+</ul>
+```
+
+### Custom icon
+
+```html
+<ul
+  class="sbb-icon-list sbb-text-m"
+  style="--sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-small.svg')"
+>
+  <li>Content</li>
+</ul>
+```
+
+### Custom color
+
+```html
+<ul class="sbb-icon-list sbb-text-m" style="color: var(--sbb-color-iron)">
+  <li>Content</li>
+</ul>
+```
+
+### Custom icon color
+
+```html
+<ul
+  class="sbb-icon-list sbb-text-m"
+  style="color: var(--sbb-color-iron); --sbb-icon-list-marker-icon-color: var(--sbb-color-green)"
+>
+  <li>Content</li>
+</ul>
+```
+
 ## sbb-description-list
 
 | css class  | sass mixin         |
@@ -45,6 +100,7 @@ by using the predefined classes (e.g. `sbb-text-s`).
 | `sbb-list` | `description-list` |
 
 The description list is meant to be used with the native `<dl>`.
+The description list doesn't define any color itself but inherits it.
 
 ### Sass usage
 

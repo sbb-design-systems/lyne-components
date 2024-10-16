@@ -7,7 +7,6 @@ snapshots["sbb-link renders DOM"] =
   data-link=""
   data-sbb-link=""
   data-slot-names="unnamed"
-  dir="ltr"
   href="https://sbb.ch"
   size="m"
   target="_blank"

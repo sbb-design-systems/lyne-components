@@ -17,7 +17,7 @@ describe(`sbb-tag`, () => {
 
   const visualCases = {
     size: ['s', 'm'],
-    icon: [undefined, 'pie-small'],
+    icon: [undefined, 'face-smiling-small'],
     amount: [undefined, 123],
   };
 
@@ -36,7 +36,11 @@ describe(`sbb-tag`, () => {
         '',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-tag ?checked=${checked} ?disabled=${disabled} icon-name="pie-small" amount="123"
+            <sbb-tag
+              ?checked=${checked}
+              ?disabled=${disabled}
+              icon-name="face-smiling-small"
+              amount="123"
               >Tag label</sbb-tag
             >
           `);

@@ -5,7 +5,7 @@ import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { SbbFocusableDisabledActionMixin } from '../../core/mixins.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbExpansionPanelElement } from '../expansion-panel.js';
 
@@ -22,7 +22,7 @@ import style from './expansion-panel-header.scss?lit&inline';
 @hostAttributes({
   slot: 'header',
 })
-export class SbbExpansionPanelHeaderElement extends SbbFocusableDisabledActionMixin(
+export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
   public static override styles: CSSResultGroup = style;

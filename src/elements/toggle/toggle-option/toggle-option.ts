@@ -113,7 +113,7 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
         id="sbb-toggle-option-id"
         aria-hidden="true"
         tabindex="-1"
-        .inert=${this.checked}
+        ?inert=${this.checked}
         ?disabled=${this.disabled}
         .checked=${this.checked || nothing}
         .value=${this.value || nothing}

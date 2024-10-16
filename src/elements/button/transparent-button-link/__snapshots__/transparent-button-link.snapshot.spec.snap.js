@@ -7,7 +7,6 @@ snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link wit
   data-link=""
   data-sbb-button=""
   data-slot-names="unnamed"
-  dir="ltr"
   download=""
   href="https://www.sbb.ch"
   rel="noopener"
@@ -46,7 +45,6 @@ snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button
   data-link=""
   data-sbb-button=""
   data-slot-names="icon unnamed"
-  dir="ltr"
   disabled=""
   href="https://www.sbb.ch"
   size="l"
@@ -69,6 +67,7 @@ snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button
   aria-disabled="true"
   class="sbb-action-base sbb-transparent-button-link"
   href="https://www.sbb.ch"
+  tabindex="-1"
 >
   <slot name="icon">
   </slot>
