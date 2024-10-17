@@ -67,7 +67,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(SbbFormAssociatedMi
   /** This will be forwarded as aria-label to the native input element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
-  /** The path of the first selected file. '' no file is selected */
+  /** The path of the first selected file. Empty string ('') if no file is selected */
   @property({ attribute: false })
   public override set value(value: string | null) {
     this._hiddenInput.value = value ?? '';
