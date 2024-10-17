@@ -46,7 +46,13 @@ const HeaderBasicTemplate = (
     </sbb-header-button>
     ${args.size === 's' ? appName() : nothing}
     <div class="sbb-header-spacer"></div>
-    <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small">
+    <sbb-header-link
+      href="https://www.sbb.ch"
+      target="_blank"
+      icon-name="magnifying-glass-small"
+      class="sbb-active"
+      aria-current="page"
+    >
       Search
     </sbb-header-link>
     ${template}
