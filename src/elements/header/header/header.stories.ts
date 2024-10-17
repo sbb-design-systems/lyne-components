@@ -97,12 +97,11 @@ const TemplateWithUserMenu = (args: Args): TemplateResult => html`
       <sbb-header-button
         icon-name="user-small"
         id="user-menu-trigger"
-        data-testid="user-menu-trigger"
         class="sbb-header-shrinkable"
       >
         Christina Müller
       </sbb-header-button>
-      <sbb-menu trigger="user-menu-trigger" data-testid="user-menu">
+      <sbb-menu trigger="user-menu-trigger">
         <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
         <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
         <sbb-menu-button icon-name="shopping-cart-small" amount="1">
