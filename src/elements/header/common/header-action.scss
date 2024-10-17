@@ -43,7 +43,7 @@
     --sbb-header-action-color: LinkText;
 
     // Hide border with forced colors, as state is displayed on border
-    --sbb-header-action-active-border-width: 0rem;
+    --sbb-header-action-active-border-width: 0;
   }
 }
 
@@ -183,7 +183,7 @@
       --_sbb-header-first-item-padding-shift: calc(
         -0.5 * (var(--sbb-header-action-min-width) - var(--sbb-header-action-icon-dimension))
       );
-      --sbb-header-action-padding-inline-zero: 0rem;
+      --sbb-header-action-padding-inline-zero: 0;
       --sbb-header-action-active-border-margin-inline: calc(
         0.5 * (100% - var(--sbb-size-icon-ui-small))
       );
