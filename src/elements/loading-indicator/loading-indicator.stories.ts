@@ -35,7 +35,7 @@ const TemplateAccessibility = (args: Args): TemplateResult => html`
     Turn on your screen-reader and click the button to make the loading indicator appear.
   </sbb-card>
   <br />
-  <sbb-button data-testid="trigger" @click=${(event: Event) => createLoadingIndicator(event, args)}>
+  <sbb-button @click=${(event: Event) => createLoadingIndicator(event, args)}>
     Show loader
   </sbb-button>
   <div class="loader-container" aria-live="polite"></div>
