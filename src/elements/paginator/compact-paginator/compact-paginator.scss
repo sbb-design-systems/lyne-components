@@ -7,7 +7,7 @@
   display: block;
 
   --sbb-compact-paginator-height: var(--sbb-size-element-m);
-  --sbb-compact-paginator-color: var(--sbb-color-granite);
+  --sbb-compact-paginator-color: var(--sbb-color-metal);
   --sbb-paginator-compact-justify-content: start;
 }
 
@@ -38,8 +38,4 @@
   justify-content: center;
   gap: var(--sbb-spacing-fixed-2x);
   color: var(--sbb-compact-paginator-color);
-}
-
-sbb-divider {
-  height: var(--sbb-font-size-text-m);
 }
