@@ -172,6 +172,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
               size=${this.size}
             >
               <sbb-select
+                ?disabled=${this.disabled}
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}
                 @change=${(e: CustomEvent) =>
@@ -204,6 +205,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
                   <li class="sbb-paginator__page--number">
                     <button
                       ?data-selected=${this.pageIndex === item}
+                      ?disabled=${this.disabled}
                       class="sbb-paginator__page--number-item"
                       data-index=${item}
                       aria-label="${i18nPage[this.language.current]} ${item + 1}"

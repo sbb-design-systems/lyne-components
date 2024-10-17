@@ -12,10 +12,10 @@ describe('sbb-compact-paginator', () => {
           backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
         };
 
-        for (const pagerPosition of ['start', 'end']) {
-          describe(`pagerPosition=${pagerPosition}`, () => {
-            for (const forcedColors of [false, true]) {
-              describe(`forcedColors=${forcedColors}`, () => {
+        for (const forcedColors of [false, true]) {
+          describe(`forcedColors=${forcedColors}`, () => {
+            for (const pagerPosition of ['start', 'end']) {
+              describe(`pagerPosition=${pagerPosition}`, () => {
                 it(
                   visualDiffDefault.name,
                   visualDiffDefault.with(async (setup) => {
@@ -32,6 +32,20 @@ describe('sbb-compact-paginator', () => {
                 );
               });
             }
+
+            it(
+              'disabled=true',
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  html`<sbb-compact-paginator
+                    length="100"
+                    disabled
+                    ?negative=${negative}
+                  ></sbb-compact-paginator>`,
+                  { ...wrapperStyle, forcedColors },
+                );
+              }),
+            );
           });
         }
 

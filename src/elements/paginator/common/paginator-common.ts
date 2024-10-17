@@ -6,7 +6,7 @@ import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nNextPage, i18nPreviousPage } from '../../core/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
-import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.js';
+import { type AbstractConstructor, SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
 import '../../button/mini-button-group.js';
@@ -14,6 +14,7 @@ import '../../divider.js';
 
 export declare abstract class SbbPaginatorCommonElementMixinType {
   public negative: boolean;
+  public disabled: boolean;
   public length: number;
   public pageSize: number;
   public pageIndex: number;
@@ -36,7 +37,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     role: 'group',
   })
   abstract class SbbPaginatorCommonElement
-    extends SbbNegativeMixin(superClass)
+    extends SbbNegativeMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
     public static readonly events: Record<string, string> = {
@@ -150,7 +151,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             id="sbb-paginator-prev-page"
             aria-label=${i18nPreviousPage[this.language.current]}
             icon-name="chevron-small-left-small"
-            ?disabled=${this.pageIndex === 0}
+            ?disabled=${this.disabled || this.pageIndex === 0}
             @click=${() => this.pageIndexChanged(this._pageIndex - 1)}
           ></sbb-mini-button>
           <sbb-divider orientation="vertical"></sbb-divider>
@@ -158,7 +159,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             id="sbb-paginator-next-page"
             aria-label=${i18nNextPage[this.language.current]}
             icon-name="chevron-small-right-small"
-            ?disabled=${this.pageIndex === this.numberOfPages() - 1}
+            ?disabled=${this.disabled || this.pageIndex === this.numberOfPages() - 1}
             @click=${() => this.pageIndexChanged(this._pageIndex + 1)}
           ></sbb-mini-button>
         </sbb-mini-button-group>

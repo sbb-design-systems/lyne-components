@@ -18,6 +18,23 @@ from which the label is displayed; below that, only the icon is visible.
 <sbb-header-button expand-from="medium">Text</sbb-header-button>
 ```
 
+### Style
+
+To indicate an active state, the CSS class `sbb-active` should be set.
+
+From accessibility perspective `aria-current="page"` should be set whenever the CSS class `sbb-active` is set.
+
+```html
+<sbb-header-button
+  icon-name="magnifying-glass-small"
+  href="#"
+  class="sbb-active"
+  aria-current="page"
+>
+  Overview
+</sbb-header-button>
+```
+
 ## Button properties
 
 The component is internally rendered as a button,
