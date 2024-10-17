@@ -88,7 +88,13 @@ function updateFieldsTable(
   }
 
   // Create a matrix 'table[row][column]' structure for the fields table
-  const fieldsSection = newDocs.original.substring(startIndex!, endIndex);
+  const fieldsSection = newDocs.original
+    .substring(startIndex!, endIndex)
+    // Remove leading pipes (prettier artifacts in ts files)
+    .replaceAll('`\\| ', '`')
+    // Remove doubled spaces (unwanted artifacts)
+    .replace(/  +/g, ' ');
+
   const tableRows = Array.from(fieldsSection.matchAll(/^\|.*\|$/gm))
     .map((match) => match[0])
     .map((row) => row.split(/(?<!\\)\|/g)); // Split by not escaped '|'
