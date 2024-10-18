@@ -1,10 +1,20 @@
-The `sbb-radio-button-panel` component provides the same functionality as a native `<input type="radio"/>` enhanced with the selection panel design and functionalities. Use multiple `sbb-radio-button-panel` components inside a [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs) component in order to display a radio input within a group.
+The `sbb-radio-button-panel` component provides the same functionality as a native `<input type="radio"/>` enhanced with the selection panel design and functionalities.
+
+Radio-buttons should typically be placed inside a [sbb-radio-button-group](/docs/elements-sbb-radio-button-sbb-radio-button-group--docs) component
+in order to display a radio input within a group. Individual radio-buttons inside of a radio-group will inherit the `name` of the group.
 
 ```html
-<sbb-radio-button-group value="Value one" aria-label="Radio group label">
+<sbb-radio-button-group name="radio-group" value="Value one" aria-label="Radio group label">
   <sbb-radio-button-panel value="Value one">Option one</sbb-radio-button-panel>
   <sbb-radio-button-panel value="Value two">Option two</sbb-radio-button-panel>
 </sbb-radio-button-group>
+```
+
+In cases where that's not possible, you can define a group of radios using the same `name` property
+
+```html
+<sbb-radio-button-panel name="radio-group" value="Value one">Option one</sbb-radio-button-panel>
+<sbb-radio-button-panel name="radio-group" value="Value two">Option two</sbb-radio-button-panel>
 ```
 
 ## Slots
@@ -71,9 +81,9 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 
 ## Methods
 
-| Name     | Privacy | Description | Parameters | Return | Inherited From                   |
-| -------- | ------- | ----------- | ---------- | ------ | -------------------------------- |
-| `select` | public  |             |            | `void` | SbbRadioButtonCommonElementMixin |
+| Name     | Privacy | Description                                                                                            | Parameters | Return | Inherited From                   |
+| -------- | ------- | ------------------------------------------------------------------------------------------------------ | ---------- | ------ | -------------------------------- |
+| `select` | public  | Set the radio-button as 'checked'. If 'allowEmptySelection', toggle the checked property. Emits events |            | `void` | SbbRadioButtonCommonElementMixin |
 
 ## Events
 
