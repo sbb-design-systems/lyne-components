@@ -32,6 +32,7 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   protected withUserInteraction?(): void;
   protected updateFocusableRadios(): void;
   protected emitChangeEvents(): void;
+  protected navigateByKeyboard(radio: SbbFormAssociatedRadioButtonMixinType): Promise<void>;
 }
 
 /**
@@ -212,6 +213,14 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       }
     }
 
+    protected async navigateByKeyboard(next: SbbFormAssociatedRadioButtonElement): Promise<void> {
+      next.checked = true;
+      this.emitChangeEvents();
+
+      await next.updateComplete;
+      next.focus();
+    }
+
     protected emitChangeEvents(): void {
       // Manually dispatch events to simulate a user interaction
       this.dispatchEvent(
@@ -278,11 +287,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       const current: number = enabledRadios.indexOf(this);
       const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
 
-      enabledRadios[nextIndex].checked = true;
-      this.emitChangeEvents();
-
-      await enabledRadios[nextIndex].updateComplete;
-      enabledRadios[nextIndex].focus();
+      await this.navigateByKeyboard(enabledRadios[nextIndex]);
     }
   }
 

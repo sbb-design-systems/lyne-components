@@ -12,6 +12,7 @@ import { slotState } from '../../core/decorators.js';
 import {
   panelCommonStyle,
   RadioButtonRegistry,
+  type SbbFormAssociatedRadioButtonMixinType,
   SbbPanelMixin,
   type SbbPanelSize,
   SbbUpdateSchedulerMixin,
@@ -80,7 +81,22 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
     super.updateFocusableRadios();
     const radios = (RadioButtonRegistry.getRadios(this.name) || []) as SbbRadioButtonPanelElement[];
 
-    radios.filter((r) => r._hasSelectionExpansionPanelElement).forEach((r) => (r.tabIndex = 0));
+    radios
+      .filter((r) => !r.disabled && r._hasSelectionExpansionPanelElement)
+      .forEach((r) => (r.tabIndex = 0));
+  }
+
+  /**
+   * As an exception, radio-panels with an expansion-panel attached are not checked automatically when navigating by keyboard
+   */
+  protected override async navigateByKeyboard(
+    next: SbbFormAssociatedRadioButtonMixinType,
+  ): Promise<void> {
+    if (!this._hasSelectionExpansionPanelElement) {
+      await super.navigateByKeyboard(next);
+    } else {
+      next.focus();
+    }
   }
 
   protected override render(): TemplateResult {

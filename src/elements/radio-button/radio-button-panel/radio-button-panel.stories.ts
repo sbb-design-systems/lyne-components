@@ -110,15 +110,22 @@ const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>
 const StandaloneTemplate = ({ value, ...args }: Args): TemplateResult => html`
   <form>
     <sbb-title level="6" style="margin-block-start: 0">Group 1</sbb-title>
-    ${repeat(
-      new Array(3),
-      (_, i) => html` ${DefaultTemplate({ ...args, value: `value-${i + 1}`, name: `group-1` })} `,
-    )}
+      ${repeat(
+        new Array(3),
+        (_, i) =>
+          html` <div style="margin-block-start: .5rem">
+            ${DefaultTemplate({ ...args, value: `value-${i + 1}`, name: `group-1` })}
+          </div>`,
+      )}
+    </div>
 
     <sbb-title level="6">Group 2</sbb-title>
     ${repeat(
       new Array(4),
-      (_, i) => html` ${DefaultTemplate({ ...args, value: `value-${i + 1}`, name: `group-2` })} `,
+      (_, i) =>
+        html` <div style="margin-block-start: .5rem">
+          ${DefaultTemplate({ ...args, value: `value-${i + 1}`, name: `group-2` })}
+        </div>`,
     )}
   </form>
 `;
