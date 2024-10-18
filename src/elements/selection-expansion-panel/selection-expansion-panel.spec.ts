@@ -311,6 +311,7 @@ describe(`sbb-selection-expansion-panel`, () => {
       await sendKeys({ press: ' ' });
       expect(secondInput.checked).to.be.true;
       expect(firstInput.checked).to.be.false;
+      expect(document.activeElement!.id).to.be.equal(secondInput.id);
     });
 
     it('wraps around on arrow key navigation', async () => {
