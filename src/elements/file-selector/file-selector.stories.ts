@@ -96,7 +96,7 @@ const multipleDefaultArgsSizeS: Args = {
 };
 
 const Template = (args: Args): TemplateResult =>
-  html`<sbb-file-selector ${sbbSpread(args)} data-testid="sbb-file-selector"></sbb-file-selector>`;
+  html`<sbb-file-selector ${sbbSpread(args)}></sbb-file-selector>`;
 
 const TemplateWithError = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
@@ -107,7 +107,6 @@ const TemplateWithError = (args: Args): TemplateResult => {
     <sbb-file-selector
       ${sbbSpread(args)}
       id="sbb-file-selector"
-      data-testid="sbb-file-selector"
       @fileChanged=${(event: CustomEvent<File[]>) => {
         if (event.detail && event.detail.length > 0) {
           (event.target as SbbFileSelectorElement)!.append(sbbFormError);

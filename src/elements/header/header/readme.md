@@ -44,6 +44,29 @@ For the latter, the usage of the `sbb-signet` with `protective-room='panel'` is 
 </sbb-header>
 ```
 
+### Active state
+
+To indicate an active state of the `sbb-header-link` or `sbb-header-button`,
+the CSS class `sbb-active` should be set on the corresponding element.
+
+From accessibility perspective `aria-current="page"` should be set whenever the CSS class `sbb-active` is set.
+
+```html
+<sbb-header size="s">
+  <sbb-header-link
+    icon-name="magnifying-glass-small"
+    href="https://sbb.ch/somewhere"
+    class="sbb-active"
+    aria-current="page"
+  >
+    Overview
+  </sbb-header-link>
+  <a slot="logo" aria-label="Homepage" href="/">
+    <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+  </a>
+</sbb-header>
+```
+
 ### Positioning and visibility
 
 By default, the `sbb-header` has a fixed position at the top of the page;

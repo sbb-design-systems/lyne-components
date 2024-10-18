@@ -282,7 +282,7 @@ const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateR
   return html`
     <div style=${styleMap({ display: 'flex', gap: '0.25rem' })}>
       <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
-      <sbb-datepicker-toggle date-picker="datepicker" data-testid="toggle"></sbb-datepicker-toggle>
+      <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
       <input
         ${sbbSpread(args)}
         id="datepicker-input"
@@ -333,7 +333,7 @@ const TemplateFormField = ({
       ${label ? html`<label>${label}</label>` : nothing}
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-datepicker-next-day></sbb-datepicker-next-day>
-      <sbb-datepicker-toggle data-testid="toggle"></sbb-datepicker-toggle>
+      <sbb-datepicker-toggle></sbb-datepicker-toggle>
       <input
         ${sbbSpread(args)}
         min=${convertMillisecondsToSeconds(min)}
