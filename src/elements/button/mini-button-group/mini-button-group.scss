@@ -43,9 +43,9 @@
 ::slotted(sbb-divider) {
   --sbb-divider-border-width: var(--sbb-border-width-1x);
 
-  height: #{sbb.px-to-rem-build(16)};
   padding-block: var(--sbb-spacing-fixed-1x);
   padding-inline: var(--sbb-spacing-fixed-1x);
+  height: var(--sbb-size-icon-ui-small);
 }
 
 .sbb-mini-button-group {
