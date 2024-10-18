@@ -153,11 +153,11 @@ function renderTemplate(
       .map((e) => e.type.text.substring(12).slice(0, -1))
       .sort()
       .filter((v, i, a) => a.indexOf(v) === i && v.length > 1) ?? [];
-  // If a type or interface needs to be imported, the custom elements analyzer will not
-  // detect/extract these and therefore we need to have a manual list of required
-  // types/interfaces.
+  // If a type or interface needs to be imported, the custom elements analyzer will not detect/extract these,
+  // and therefore we need to have a manual list of required types/interfaces.
   const interfaces = new Map<string, string>()
     .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
+    .set('SbbPaginatorPageEventDetails', 'core/interfaces.js')
     .set('SbbValidationChangeEvent', 'core/interfaces.js');
   for (const customEventType of customEventTypes) {
     const exportModule = exports.find((e) => e.name === customEventType);
