@@ -432,6 +432,25 @@ describe(`radio-button common behaviors`, () => {
             }
           });
 
+          it('should handle keyboard interaction outside of a form', async () => {
+            // Move the radios outside the form
+            form.parentElement!.append(fieldset);
+            await waitForLitRender(fieldset);
+
+            elements[0].focus();
+            await sendKeys({ press: 'ArrowDown' });
+            await waitForLitRender(fieldset);
+            expect(elements[0].checked).to.be.false;
+            expect(elements[1].checked).to.be.true;
+            expect(document.activeElement === elements[1]).to.be.true;
+
+            await sendKeys({ press: 'ArrowDown' });
+            await sendKeys({ press: 'ArrowDown' });
+            await waitForLitRender(fieldset);
+            expect(elements[0].checked).to.be.true;
+            expect(document.activeElement === elements[0]).to.be.true;
+          });
+
           it('should skip disabled elements on arrow keys', async () => {
             elements[1].disabled = true;
             await waitForLitRender(form);
