@@ -200,18 +200,19 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      */
     protected updateFocusableRadios(): void {
       const radios = this._orderedGrouperRadios();
-      radios.forEach((r) => r.removeAttribute('tabindex'));
-
       const checkedIndex = radios.findIndex((r) => r.checked && !r.disabled && !r.formDisabled);
-      if (checkedIndex !== -1) {
-        radios[checkedIndex].tabIndex = 0;
-        return;
+      const focusableIndex =
+        checkedIndex !== -1
+          ? checkedIndex
+          : radios.findIndex((r) => !r.disabled && !r.formDisabled); // Get the first focusable radio
+
+      if (focusableIndex !== -1) {
+        radios[focusableIndex].tabIndex = 0;
+        radios.splice(focusableIndex, 1);
       }
 
-      const firstFocusable = radios.findIndex((r) => !r.disabled && !r.formDisabled);
-      if (firstFocusable !== -1) {
-        radios[firstFocusable].tabIndex = 0;
-      }
+      // Reset tabIndex on other radios
+      radios.forEach((r) => r.removeAttribute('tabindex'));
     }
 
     protected async navigateByKeyboard(next: SbbFormAssociatedRadioButtonElement): Promise<void> {
