@@ -30,7 +30,6 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(L
         >${this.pageIndex + 1}<sbb-divider
           aria-hidden="true"
           orientation="vertical"
-          class="sbb-compact-paginator__divider"
           ?negative=${this.negative}
         ></sbb-divider
         >${this.numberOfPages()}</span
