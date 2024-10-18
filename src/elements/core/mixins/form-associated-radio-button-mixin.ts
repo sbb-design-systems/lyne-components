@@ -30,6 +30,7 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   protected isDisabledExternally(): boolean;
   protected isRequiredExternally(): boolean;
   protected withUserInteraction?(): void;
+  protected updateFormValue(): void;
   protected updateFocusableRadios(): void;
   protected emitChangeEvents(): void;
   protected navigateByKeyboard(radio: SbbFormAssociatedRadioButtonMixinType): Promise<void>;
