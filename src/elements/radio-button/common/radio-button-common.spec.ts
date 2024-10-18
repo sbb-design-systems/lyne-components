@@ -3,7 +3,7 @@ import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { isChromium } from '../../core/dom.js';
+import { isChromium, isWebkit } from '../../core/dom.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
@@ -426,7 +426,10 @@ describe(`radio-button common behaviors`, () => {
             await sendKeys({ press: 'ArrowLeft' });
             await sendKeys({ press: 'ArrowUp' });
 
-            await compareToNative();
+            // On webkit, native radios do not wrap
+            if (!isWebkit) {
+              await compareToNative();
+            }
           });
 
           it('should skip disabled elements on arrow keys', async () => {
@@ -474,6 +477,15 @@ describe(`radio-button common behaviors`, () => {
             await waitForLitRender(form);
 
             expect(elements[0].checked).to.be.false;
+          });
+
+          it('should update tabindex when the first element is disabled', async () => {
+            expect(elements[0].tabIndex).to.be.equal(0);
+            elements[0].disabled = true;
+            await waitForLitRender(form);
+
+            expect(elements[0].tabIndex).to.be.equal(-1);
+            expect(elements[1].tabIndex).to.be.equal(0);
           });
         });
       });

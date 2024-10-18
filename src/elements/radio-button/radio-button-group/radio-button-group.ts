@@ -66,10 +66,15 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       this.radioButtons.forEach((r) => (r.checked = false));
       return;
     }
-    this.radioButtons.find((r) => r.value === val)?.select();
+    const toCheck = this.radioButtons.find((r) => r.value === val);
+    if (toCheck) {
+      toCheck.checked = true;
+    }
   }
   public get value(): any | null {
-    return this.radioButtons.find((r) => r.checked && !r.disabled)?.value;
+    return (
+      this.radioButtons.find((r) => r.checked && !r.disabled)?.value ?? this.getAttribute('value')
+    );
   }
   private _initValue: any | null;
 
@@ -184,16 +189,16 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     const target = event.target! as HTMLElement;
 
     // Only filter radio-buttons event
-    if (target.localName !== 'sbb-radio-button' && target.localName !== 'sbb-radio-button-group') {
+    if (target.localName !== 'sbb-radio-button' && target.localName !== 'sbb-radio-button-panel') {
       return;
     }
 
     event.stopPropagation();
     if (eventName === 'change') {
-      this._change.emit({ value: this.value, target: event.target });
-      this._didChange.emit({ value: this.value, target: event.target });
+      this._change.emit({ value: this.value, radioButton: event.target });
+      this._didChange.emit({ value: this.value, radioButton: event.target });
     } else if (eventName === 'input') {
-      this._input.emit({ value: this.value, target: event.target });
+      this._input.emit({ value: this.value, radioButton: event.target });
     }
   }
 

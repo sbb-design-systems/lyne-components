@@ -87,6 +87,10 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
     }
 
+    /**
+     * Set the radio-button as 'checked'. If 'allowEmptySelection', toggle the checked property.
+     * Emits events
+     */
     public select(): void {
       if (this.disabled || this.formDisabled) {
         return;

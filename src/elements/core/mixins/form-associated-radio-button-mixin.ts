@@ -167,6 +167,10 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         }
         this.updateFocusableRadios();
       }
+
+      if (changedProperties.has('disabled')) {
+        this.updateFocusableRadios();
+      }
     }
 
     /**
