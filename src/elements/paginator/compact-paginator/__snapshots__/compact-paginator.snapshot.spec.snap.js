@@ -103,3 +103,36 @@ snapshots["sbb-compact-paginator renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-compact-paginator renders A11y tree Chrome */
 
+snapshots["sbb-compact-paginator renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page"
+    },
+    {
+      "role": "text leaf",
+      "name": "1"
+    },
+    {
+      "role": "text leaf",
+      "name": "10"
+    },
+    {
+      "role": "text leaf",
+      "name": "Page 1 of 10."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-compact-paginator renders A11y tree Firefox */
+
