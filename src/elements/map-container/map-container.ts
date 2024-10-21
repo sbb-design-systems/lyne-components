@@ -4,6 +4,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
+import { forceType } from '../core/decorators.js';
 import { i18nMapContainerButtonLabel } from '../core/i18n.js';
 
 import style from './map-container.scss?lit&inline';
@@ -25,15 +26,17 @@ import '../button/tertiary-button.js';
  * this offset from the document's top. Only applied on mobile views.
  * Most commonly it can be set to `var(--sbb-header-height)`.
  */
+export
 @customElement('sbb-map-container')
-export class SbbMapContainerElement extends LitElement {
+class SbbMapContainerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
+  @forceType()
   @property({ attribute: 'hide-scroll-up-button', reflect: true, type: Boolean })
-  public hideScrollUpButton = false;
+  public accessor hideScrollUpButton: boolean = false;
 
-  @state() private _scrollUpButtonVisible = false;
+  @state() private accessor _scrollUpButtonVisible = false;
 
   private _language = new SbbLanguageController(this);
   private _observer = new IntersectionController(this, {

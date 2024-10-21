@@ -13,8 +13,9 @@ import style from './navigation-marker.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the `sbb-navigation-marker`.
  */
+export
 @customElement('sbb-navigation-marker')
-export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
+class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   SbbNavigationButtonElement | SbbNavigationLinkElement,
   typeof LitElement
 >(LitElement) {
@@ -27,7 +28,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   /**
    * Marker size variant.
    */
-  @property({ reflect: true }) public size?: 'l' | 's' = 'l';
+  @property({ reflect: true }) public accessor size: 'l' | 's' = 'l';
 
   private _currentActiveAction?: SbbNavigationButtonElement | SbbNavigationLinkElement;
 

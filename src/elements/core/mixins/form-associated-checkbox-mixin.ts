@@ -86,7 +86,7 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
     public get checked(): boolean {
       return this._checked;
     }
-    private _checked = false;
+    private _checked: boolean = false;
 
     protected constructor() {
       super();

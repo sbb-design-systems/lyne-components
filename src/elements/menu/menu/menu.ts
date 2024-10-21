@@ -12,6 +12,7 @@ import {
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController, SbbInertController } from '../../core/controllers.js';
+import { forceType } from '../../core/decorators.js';
 import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
@@ -51,8 +52,9 @@ let nextId = 0;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
+export
 @customElement('sbb-menu')
-export class SbbMenuElement extends SbbNamedSlotListMixin<
+class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
   typeof SbbOpenCloseBaseElement
 >(SbbOpenCloseBaseElement) {
@@ -78,7 +80,9 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
    * This will be forwarded as aria-label to the inner list.
    * Used only if the menu automatically renders the actions inside as a list.
    */
-  @property({ attribute: 'list-accessibility-label' }) public listAccessibilityLabel?: string;
+  @forceType()
+  @property({ attribute: 'list-accessibility-label' })
+  public accessor listAccessibilityLabel: string = '';
 
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;

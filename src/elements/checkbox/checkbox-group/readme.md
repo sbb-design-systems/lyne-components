@@ -77,7 +77,7 @@ Two values are available, `s` and `m`, which is the default
 | ---------------- | ----------------- | ------- | --------------------------------------------------- | -------------- | ------------------------------------------------------------------------------ |
 | `checkboxes`     | -                 | public  | `(SbbCheckboxElement \| SbbCheckboxPanelElement)[]` |                | List of contained checkbox elements.                                           |
 | `disabled`       | `disabled`        | public  | `boolean`                                           | `false`        | Whether the component is disabled.                                             |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined`                    |                | Overrides the behaviour of `orientation` property.                             |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| null`                         | `null`         | Overrides the behaviour of `orientation` property.                             |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                                    | `'horizontal'` | Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. |
 | `required`       | `required`        | public  | `boolean`                                           | `false`        | Whether the checkbox group is required.                                        |
 | `size`           | `size`            | public  | `SbbCheckboxSize`                                   | `'m'`          | Size variant, either m or s.                                                   |
