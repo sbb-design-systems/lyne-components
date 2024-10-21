@@ -26,6 +26,7 @@ import {
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { forceType } from '../core/decorators.js';
 import { hostContext } from '../core/dom.js';
 
 import style from './image.scss?lit&inline';
@@ -160,8 +161,9 @@ const breakpointMap: Record<string, number> = {
  * @cssprop [--sbb-image-object-position] - Can be used to set the object-position css property of the image itself if the image itself is cropped.
  * @cssprop [--sbb-image-object-fit=cover] - Can be used to set the object-fit css property of the image itself if the image itself is cropped.
  */
+export
 @customElement('sbb-image')
-export class SbbImageElement extends LitElement {
+class SbbImageElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     error: 'error',
@@ -182,7 +184,9 @@ export class SbbImageElement extends LitElement {
    * still needs to be present. That way we can signal assistive
    * technology, that they can skip the image.
    */
-  @property() public alt?: string;
+  @forceType()
+  @property()
+  public accessor alt: string = '';
 
   /**
    * If set to false, we show a blurred version of the image as
@@ -191,7 +195,9 @@ export class SbbImageElement extends LitElement {
    * the idea of lqip here:
    * https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
    */
-  @property({ attribute: 'skip-lqip', type: Boolean, reflect: true }) public skipLqip = false;
+  @forceType()
+  @property({ attribute: 'skip-lqip', type: Boolean, reflect: true })
+  public accessor skipLqip: boolean = false;
 
   /**
    * A caption can provide additional context to the image (e.g.
@@ -199,27 +205,33 @@ export class SbbImageElement extends LitElement {
    * Links will automatically receive tabindex=-1 if hideFromScreenreader
    * is set to true. That way they will no longer become focusable.
    */
-  @property() public caption?: string;
+  @forceType()
+  @property()
+  public accessor caption: string = '';
 
   /**
    * If a copyright text is provided, we will add it to the caption
    * and create a structured data json-ld block with the copyright
    * information.
    */
-  @property() public copyright?: string;
+  @forceType()
+  @property()
+  public accessor copyright: string = '';
 
   /**
    * Copyright holder can either be an Organization or a Person
    */
   @property({ attribute: 'copyright-holder' })
-  public copyrightHolder: 'Organization' | 'Person' = 'Organization';
+  public accessor copyrightHolder: 'Organization' | 'Person' = 'Organization';
 
   /**
    * Set this to true, if you want to pass a custom focal point
    * for the image. See full documentation here:
    * https://docs.imgix.com/apis/rendering/focalpoint-crop
    */
-  @property({ attribute: 'custom-focal-point', type: Boolean }) public customFocalPoint = false;
+  @forceType()
+  @property({ attribute: 'custom-focal-point', type: Boolean })
+  public accessor customFocalPoint: boolean = false;
 
   /**
    * If the lazy property is set to true, the module will automatically
@@ -228,23 +240,29 @@ export class SbbImageElement extends LitElement {
    * decoding attribute here:
    * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
    */
-  @property() public decoding: 'sync' | 'async' | 'auto' = 'auto';
+  @property() public accessor decoding: 'sync' | 'async' | 'auto' = 'auto';
 
   /**
    * Set this to true, to receive visual guidance where the custom focal
    * point is currently set.
    */
-  @property({ attribute: 'focal-point-debug', type: Boolean }) public focalPointDebug = false;
+  @forceType()
+  @property({ attribute: 'focal-point-debug', type: Boolean })
+  public accessor focalPointDebug: boolean = false;
 
   /**
    * Pass in a floating number between 0 (left) and 1 (right).
    */
-  @property({ attribute: 'focal-point-x', type: Number }) public focalPointX = 1;
+  @forceType()
+  @property({ attribute: 'focal-point-x', type: Number })
+  public accessor focalPointX: number = 1;
 
   /**
    * Pass in a floating number between 0 (top) and 1 (bottom).
    */
-  @property({ attribute: 'focal-point-y', type: Number }) public focalPointY = 1;
+  @forceType()
+  @property({ attribute: 'focal-point-y', type: Number })
+  public accessor focalPointY: number = 1;
 
   /**
    * Right now the module is heavily coupled with the image delivery
@@ -256,7 +274,9 @@ export class SbbImageElement extends LitElement {
    * images coming from a different source, please contact the
    * LYNE Core Team.
    */
-  @property({ attribute: 'image-src' }) public imageSrc?: string;
+  @forceType()
+  @property({ attribute: 'image-src' })
+  public accessor imageSrc: string = '';
 
   /**
    * The importance attribute is fairly new attribute which should
@@ -267,7 +287,7 @@ export class SbbImageElement extends LitElement {
    * attribute value to 'high'. 'lazy', which we use for images below
    * the fold, will set the attribute value to 'low'.
    */
-  @property() public importance: 'auto' | 'high' | 'low' = 'high';
+  @property() public accessor importance: 'auto' | 'high' | 'low' = 'high';
 
   /**
    * With the support of native image lazy loading, we can now
@@ -279,7 +299,7 @@ export class SbbImageElement extends LitElement {
    * which are further down the page or invisible during the loading
    * of the initial viewport.
    */
-  @property() public loading: 'eager' | 'lazy' = 'eager';
+  @property() public accessor loading: 'eager' | 'lazy' = 'eager';
 
   /**
    * With performance.mark you can log a timestamp associated with
@@ -294,7 +314,9 @@ export class SbbImageElement extends LitElement {
    * increases or decreases over time. Best to use lowercase strings
    * here, separate words with underscores or dashes.
    */
-  @property({ attribute: 'performance-mark' }) public performanceMark?: string;
+  @forceType()
+  @property({ attribute: 'performance-mark' })
+  public accessor performanceMark: string = '';
 
   /**
    * With the pictureSizesConfig object, you can pass in information
@@ -364,12 +386,14 @@ export class SbbImageElement extends LitElement {
    *    ]
    *  }
    */
-  @property({ attribute: 'picture-sizes-config' }) public pictureSizesConfig?: string;
+  @forceType()
+  @property({ attribute: 'picture-sizes-config' })
+  public accessor pictureSizesConfig: string = '';
 
   /**
    * Border radius of the image. Choose between a default radius, no radius and a completely round image.
    */
-  @property({ attribute: 'border-radius', reflect: true }) public borderRadius:
+  @property({ attribute: 'border-radius', reflect: true }) public accessor borderRadius:
     | 'default'
     | 'none'
     | 'round' = 'default';
@@ -380,7 +404,7 @@ export class SbbImageElement extends LitElement {
    * other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
    */
   @property({ attribute: 'aspect-ratio', reflect: true })
-  public aspectRatio:
+  public accessor aspectRatio:
     | 'free'
     | '1-1'
     | '1-2'

@@ -16,11 +16,12 @@ import '../../icon.js';
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
  */
+export
 @customElement('sbb-form-field-clear')
 @hostAttributes({
   slot: 'suffix',
 })
-export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
+class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   private _formField?: SbbFormFieldElement | null;

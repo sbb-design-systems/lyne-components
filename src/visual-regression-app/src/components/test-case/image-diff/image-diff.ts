@@ -7,6 +7,7 @@ import type { ScreenshotFiles } from '../../../interfaces.js';
 
 import style from './image-diff.scss?lit&inline';
 
+import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.js';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.js';
 
@@ -23,16 +24,19 @@ const getImageDimension = (img: HTMLImageElement): string =>
 /**
  * Displays two images to compare them.
  */
+export
 @customElement('app-image-diff')
-export class ImageDiff extends LitElement {
+class ImageDiff extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public screenshotFiles?: ScreenshotFiles;
+  @property({ attribute: false }) public accessor screenshotFiles: ScreenshotFiles | null = null;
 
-  @state() private _baselineDimension?: string;
-  @state() private _failedDimension?: string;
+  @state() private accessor _baselineDimension: string | null = null;
+  @state() private accessor _failedDimension: string | null = null;
 
-  @property() public showDiff: boolean = true;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor showDiff: boolean = true;
 
   private _toggleDiff(event: Event): void {
     this.showDiff = (event.target as SbbToggleCheckElement).checked;

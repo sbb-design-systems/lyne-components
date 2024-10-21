@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../a11y.js';
 import { SbbConnectedAbortController } from '../controllers.js';
+import { forceType } from '../decorators.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
@@ -93,14 +94,9 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     /**
      * Whether the radio button is checked.
      */
+    @forceType()
     @property({ type: Boolean })
-    public set checked(value: boolean) {
-      this._checked = Boolean(value);
-    }
-    public get checked(): boolean {
-      return this._checked;
-    }
-    private _checked: boolean = false;
+    public accessor checked: boolean = false;
 
     protected abort = new SbbConnectedAbortController(this);
 

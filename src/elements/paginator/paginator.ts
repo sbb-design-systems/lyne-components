@@ -49,11 +49,12 @@ let nextId = 0;
  *
  * @event {CustomEvent<SbbPaginatorPageEventDetails>} page - Emits when the pageIndex changes.
  */
+export
 @customElement('sbb-paginator')
 @hostAttributes({
   role: 'group',
 })
-export class SbbPaginatorElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
+class SbbPaginatorElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     page: 'page',
@@ -111,11 +112,12 @@ export class SbbPaginatorElement extends SbbNegativeMixin(SbbDisabledMixin(LitEl
    * Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change
    * will be positioned oppositely with the page numbers always in the center.
    */
-  @property({ attribute: 'pager-position', reflect: true }) public pagerPosition: 'start' | 'end' =
-    'start';
+  @property({ attribute: 'pager-position', reflect: true }) public accessor pagerPosition:
+    | 'start'
+    | 'end' = 'start';
 
   /** Size variant, either m or s. */
-  @property({ reflect: true }) public size: 'm' | 's' = 'm';
+  @property({ reflect: true }) public accessor size: 'm' | 's' = 'm';
 
   private _page: EventEmitter<SbbPaginatorPageEventDetails> = new EventEmitter(
     this,

@@ -31,11 +31,12 @@ const ariaRoleOnHost = isSafari;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
+export
 @customElement('sbb-autocomplete-grid')
 @hostAttributes({
   role: ariaRoleOnHost ? 'grid' : null,
 })
-export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
+class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
   protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
   private _activeItemIndex = -1;

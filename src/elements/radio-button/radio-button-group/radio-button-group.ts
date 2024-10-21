@@ -3,7 +3,7 @@ import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { hostAttributes, slotState } from '../../core/decorators.js';
+import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
@@ -29,12 +29,13 @@ let nextId = 0;
  * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} change - Emits whenever the `sbb-radio-group` value changes.
  * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} input - Emits whenever the `sbb-radio-group` value changes.
  */
+export
 @customElement('sbb-radio-button-group')
 @hostAttributes({
   role: 'radiogroup',
 })
 @slotState()
-export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
+class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -45,13 +46,16 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   /**
    * Whether the radios can be deselected.
    */
+  @forceType()
   @property({ attribute: 'allow-empty-selection', type: Boolean })
-  public allowEmptySelection: boolean = false;
+  public accessor allowEmptySelection: boolean = false;
 
   /**
    * Whether the radio group is required.
    */
-  @property({ type: Boolean }) public required: boolean = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor required: boolean = false;
 
   /**
    * The value of the radio group.
@@ -82,22 +86,23 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   /**
    * Size variant.
    */
-  @property() public size: SbbRadioButtonSize = 'm';
+  @property() public accessor size: SbbRadioButtonSize = 'm';
 
   /**
    * Overrides the behaviour of `orientation` property.
    */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public horizontalFrom?: SbbHorizontalFrom;
+  public accessor horizontalFrom: SbbHorizontalFrom | null = null;
 
   /**
    * Radio group's orientation, either horizontal or vertical.
    */
   @property({ reflect: true })
-  public orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: SbbOrientation = 'horizontal';
 
+  @forceType()
   @property()
-  public name: string = `sbb-radio-button-group-${++nextId}`;
+  public accessor name: string = `sbb-radio-button-group-${++nextId}`;
 
   /**
    * List of contained radio buttons.

@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { slotState } from '../../core/decorators.js';
+import { getOverride, slotState } from '../../core/decorators.js';
 import {
   panelCommonStyle,
   RadioButtonRegistry,
@@ -32,9 +32,10 @@ import '../../screen-reader-only.js';
  * @event {Event} change - Fired on change.
  * @event {InputEvent} input - Fired on input.
  */
+export
 @customElement('sbb-radio-button-panel')
 @slotState()
-export class SbbRadioButtonPanelElement extends SbbPanelMixin(
+class SbbRadioButtonPanelElement extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, panelCommonStyle];
@@ -47,17 +48,10 @@ export class SbbRadioButtonPanelElement extends SbbPanelMixin(
     panelConnected: 'panelConnected',
   } as const;
 
-  /**
-   * Size variant.
-   */
+  /** Size variant. */
   @property({ reflect: true })
-  public set size(value: SbbPanelSize) {
-    this._size = value;
-  }
-  public get size(): SbbPanelSize {
-    return this.group?.size ? (this.group.size === 'xs' ? 's' : this.group.size) : this._size;
-  }
-  private _size: SbbPanelSize = 'm';
+  @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
+  public accessor size: SbbPanelSize = 'm';
 
   private _hasSelectionExpansionPanelElement: boolean = false;
 
