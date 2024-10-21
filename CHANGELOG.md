@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.13.0...v1.13.1) (2024-10-21)
+
+
+### Bug Fixes
+
+* switch to standard decorators and tighten property types ([#3121](https://github.com/sbb-design-systems/lyne-components/issues/3121)) ([e61bca5](https://github.com/sbb-design-systems/lyne-components/commit/e61bca5ccb1c1c339a8e989bb0fd9ad33e27df34))
+
 ## [1.13.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.12.1...v1.13.0) (2024-10-21)
 
 
