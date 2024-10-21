@@ -58,8 +58,8 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
    */
   @property()
   public set value(val: any | null) {
+    this._fallbackValue = val;
     if (!this._didLoad) {
-      this._initValue = val;
       return;
     }
     if (!val) {
@@ -72,11 +72,12 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
   }
   public get value(): any | null {
-    return (
-      this.radioButtons.find((r) => r.checked && !r.disabled)?.value ?? this.getAttribute('value')
-    );
+    return this.radioButtons.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue;
   }
-  private _initValue: any | null;
+  /**
+   * Used to preserve the `value` in case the radios are not yet 'loaded'
+   */
+  private _fallbackValue: any | null = null;
 
   /**
    * Size variant.
@@ -176,9 +177,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     this._didLoad = true;
 
     await this.updateComplete;
-    if (this._initValue) {
-      this.value = this._initValue;
-    }
+    this._updateRadioState();
   }
 
   /**
@@ -186,7 +185,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
    * Made to maintain retro compatibility.
    */
   private _onRadioChange(eventName: 'change' | 'input', event: Event): void {
-    const target = event.target! as HTMLElement;
+    const target = event.target! as SbbRadioButtonElement | SbbRadioButtonPanelElement;
 
     // Only filter radio-buttons event
     if (target.localName !== 'sbb-radio-button' && target.localName !== 'sbb-radio-button-panel') {
@@ -194,6 +193,8 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
 
     event.stopPropagation();
+    this._fallbackValue = null; // Since the user interacted, the fallbackValue logic does not apply anymore
+
     if (eventName === 'change') {
       this._change.emit({ value: this.value, radioButton: event.target });
       this._didChange.emit({ value: this.value, radioButton: event.target });
@@ -209,10 +210,26 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     this.radioButtons.forEach((r) => (r.name = this.name));
   }
 
+  /**
+   * Re-trigger the setter and update the checked state of the radios.
+   * Mainly used to cover cases where the setter is called before the radios are loaded
+   */
+  private _updateRadioState(): void {
+    if (this._fallbackValue) {
+      // eslint-disable-next-line no-self-assign
+      this.value = this.value;
+    }
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-radio-group">
-        <slot @slotchange=${() => this._updateRadiosName()}></slot>
+        <slot
+          @slotchange=${() => {
+            this._updateRadiosName();
+            this._updateRadioState();
+          }}
+        ></slot>
       </div>
       <div class="sbb-radio-group__error">
         <slot name="error"></slot>

@@ -197,34 +197,63 @@ import '../radio-button-panel.js';
       });
     });
 
-    // TODO Discuss the 'value' preservation
-    describe.skip('initialization', () => {
+    describe('value preservation', () => {
       beforeEach(async () => {
         element = await fixture(html`
           <sbb-radio-button-group value="Value one">
+            <sbb-radio-button value="42"></sbb-radio-button>
             <p>Other content</p>
           </sbb-radio-button-group>
         `);
       });
 
-      it('should preserve value when no radios were slotted but slotchange was triggered', () => {
+      it('should preserve value when no radios match the group value', () => {
         expect(element.value).to.equal('Value one');
       });
 
       it('should restore value when radios are slotted', async () => {
+        const radioTwo = document.createElement('sbb-radio-button');
+        radioTwo.value = 'Value two';
+        element.appendChild(radioTwo);
+        await waitForLitRender(element);
+        expect(element.value).to.equal('Value one');
+
+        const radioOne = document.createElement('sbb-radio-button');
+        radioOne.value = 'Value one';
+        element.appendChild(radioOne);
+        await waitForLitRender(element);
+
+        expect(element.value).to.equal('Value one');
+        expect(radioOne.checked).to.be.true;
+      });
+
+      it('checked radios should have priority over group value', async () => {
         const radioOne = document.createElement('sbb-radio-button');
         radioOne.value = 'Value one';
 
         const radioTwo = document.createElement('sbb-radio-button');
         radioTwo.value = 'Value two';
+        radioTwo.checked = true;
 
         element.appendChild(radioTwo);
         element.appendChild(radioOne);
 
         await waitForLitRender(element);
 
-        expect(element.value).to.equal('Value one');
-        expect(radioOne).to.have.attribute('checked');
+        expect(element.value).to.equal('Value two');
+        expect(radioOne.checked).to.be.false;
+        expect(radioTwo.checked).to.be.true;
+      });
+
+      it('user interaction should have priority over group value', async () => {
+        const radioOne = element.querySelector<SbbRadioButtonElement>(
+          'sbb-radio-button[value="42"]',
+        )!;
+        radioOne.click();
+
+        await waitForLitRender(element);
+
+        expect(element.value).to.equal('42');
       });
     });
   });
