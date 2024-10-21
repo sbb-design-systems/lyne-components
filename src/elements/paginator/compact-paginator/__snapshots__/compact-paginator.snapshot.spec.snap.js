@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-compact-paginator renders DOM"] =
+snapshots["sbb-compact-paginator renders DOM"] = 
 `<sbb-compact-paginator
   length="50"
   page-size="5"
@@ -13,7 +13,7 @@ snapshots["sbb-compact-paginator renders DOM"] =
 `;
 /* end snapshot sbb-compact-paginator renders DOM */
 
-snapshots["sbb-compact-paginator renders Shadow DOM"] =
+snapshots["sbb-compact-paginator renders Shadow DOM"] = 
 `<div class="sbb-compact-paginator">
   <sbb-mini-button-group size="l">
     <sbb-mini-button
@@ -70,7 +70,40 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
 `;
 /* end snapshot sbb-compact-paginator renders Shadow DOM */
 
-snapshots["sbb-compact-paginator renders A11y tree Chrome"] =
+snapshots["sbb-compact-paginator renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page"
+    },
+    {
+      "role": "text leaf",
+      "name": "1"
+    },
+    {
+      "role": "text leaf",
+      "name": "10"
+    },
+    {
+      "role": "text leaf",
+      "name": "Page 1 selected."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-compact-paginator renders A11y tree Firefox */
+
+snapshots["sbb-compact-paginator renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -102,37 +135,4 @@ snapshots["sbb-compact-paginator renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-compact-paginator renders A11y tree Chrome */
-
-snapshots["sbb-compact-paginator renders A11y tree Firefox"] =
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page"
-    },
-    {
-      "role": "text leaf",
-      "name": "1"
-    },
-    {
-      "role": "text leaf",
-      "name": "10"
-    },
-    {
-      "role": "text leaf",
-      "name": "Page 1 of 10."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-compact-paginator renders A11y tree Firefox */
 
