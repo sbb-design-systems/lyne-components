@@ -36,11 +36,11 @@ export default [
     },
   },
   {
-    ignores: ignores,
+    ignores,
   },
   {
     rules: eslint.configs.recommended.rules,
-    ignores: ignores,
+    ignores,
   },
   ...tseslint.configs.recommended,
   ...eslintPluginYml.configs['flat/standard'],
