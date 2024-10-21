@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-compact-paginator renders DOM"] = 
+snapshots["sbb-compact-paginator renders DOM"] =
 `<sbb-compact-paginator
   length="50"
   page-size="5"
@@ -13,7 +13,7 @@ snapshots["sbb-compact-paginator renders DOM"] =
 `;
 /* end snapshot sbb-compact-paginator renders DOM */
 
-snapshots["sbb-compact-paginator renders Shadow DOM"] = 
+snapshots["sbb-compact-paginator renders Shadow DOM"] =
 `<div class="sbb-compact-paginator">
   <sbb-mini-button-group size="l">
     <sbb-mini-button
@@ -48,7 +48,7 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
     </sbb-mini-button>
   </sbb-mini-button-group>
   <span
-    aria-label="Page 1 of 10."
+    aria-label="Page 1 selected."
     class="sbb-paginator__pages"
     role="group"
   >
@@ -65,12 +65,12 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
   </span>
 </div>
 <sbb-screen-reader-only role="status">
-  Page 1 of 10.
+  Page 1 selected.
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-compact-paginator renders Shadow DOM */
 
-snapshots["sbb-compact-paginator renders A11y tree Chrome"] = 
+snapshots["sbb-compact-paginator renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -95,7 +95,7 @@ snapshots["sbb-compact-paginator renders A11y tree Chrome"] =
     },
     {
       "role": "text",
-      "name": "Page 1 of 10."
+      "name": "Page 1 selected."
     }
   ]
 }
@@ -103,7 +103,7 @@ snapshots["sbb-compact-paginator renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-compact-paginator renders A11y tree Chrome */
 
-snapshots["sbb-compact-paginator renders A11y tree Firefox"] = 
+snapshots["sbb-compact-paginator renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
