@@ -53,4 +53,4 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 | --------- | --------- | ------- | --------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |
 | `color`   | `color`   | public  | `'default' \| 'smoke' \| 'white'` | `'default'` | Color variant.                                                                                    |
 | `size`    | `size`    | public  | `'s' \| 'l'`                      | `'s'`       | Size variant, either s or m.                                                                      |
-| `variant` | `variant` | public  | `'window' \| 'circle'`            | `'circle'`  | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. |
+| `variant` | `variant` | public  | `'window' \| 'circle'`            | `'window'`  | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. |
