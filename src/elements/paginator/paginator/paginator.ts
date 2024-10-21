@@ -10,7 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { i18nItemsPerPage, i18nPage, i18nSelectedPage } from '../../core/i18n.js';
+import { i18nItemsPerPage, i18nPage } from '../../core/i18n.js';
 import type { SbbSelectElement } from '../../select.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
 
@@ -152,10 +152,6 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
     if (current) {
       this._markForFocus = this.pageIndex;
     }
-  }
-
-  protected currentPageLabel(): string {
-    return i18nSelectedPage(this.pageIndex + 1)[this.language.current];
   }
 
   private _renderItemPerPageTemplate(): TemplateResult | typeof nothing {

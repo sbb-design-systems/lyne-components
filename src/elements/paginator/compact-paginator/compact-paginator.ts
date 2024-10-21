@@ -2,7 +2,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { i18nPageOnTotal } from '../../core/i18n.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
 import '../../divider.js';
 
@@ -19,10 +18,6 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(L
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;
-
-  protected currentPageLabel(): string {
-    return i18nPageOnTotal(this.pageIndex + 1, this.numberOfPages())[this.language.current];
-  }
 
   private _renderPageNumbers(): TemplateResult {
     return html`

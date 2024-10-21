@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { i18nNextPage, i18nPreviousPage } from '../../core/i18n.js';
+import { i18nNextPage, i18nPreviousPage, i18nSelectedPage } from '../../core/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import { type AbstractConstructor, SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 
@@ -25,7 +25,7 @@ export declare abstract class SbbPaginatorCommonElementMixinType {
   protected pageIndexChanged(value: number): void;
   protected emitPageEvent(previousPageIndex: number): void;
   protected renderPrevNextButtons(): TemplateResult;
-  protected abstract currentPageLabel(): string;
+  protected currentPageLabel(): string;
   protected abstract renderPaginator(): TemplateResult;
 }
 
@@ -95,7 +95,6 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       { composed: true, bubbles: true },
     );
     protected language = new SbbLanguageController(this);
-    protected abstract currentPageLabel(): string;
     protected abstract renderPaginator(): string;
 
     protected override updated(changedProperties: PropertyValues<this>): void {
@@ -112,6 +111,10 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
         Math.min(Math.max(isNaN(pageIndex) ? 0 : pageIndex, 0), this.numberOfPages() - 1),
         0,
       );
+    }
+
+    protected currentPageLabel(): string {
+      return i18nSelectedPage(this.pageIndex + 1)[this.language.current];
     }
 
     /**
