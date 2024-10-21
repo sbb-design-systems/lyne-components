@@ -14,6 +14,13 @@ const compat = new FlatCompat({
   baseDirectory: import.meta.resolve('.'),
 });
 
+const ignores = [
+  'dist/**/*',
+  'coverage/**/*',
+  'tools/generate-component/**/*',
+  '**/__snapshots__/**/*',
+];
+
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigFile} */
 export default [
   {
@@ -29,14 +36,12 @@ export default [
     },
   },
   {
-    ignores: [
-      'dist/**/*',
-      'coverage/**/*',
-      'tools/generate-component/**/*',
-      '**/__snapshots__/**/*',
-    ],
+    ignores: ignores,
   },
-  eslint.configs.recommended,
+  {
+    rules: eslint.configs.recommended.rules,
+    ignores: ignores,
+  },
   ...tseslint.configs.recommended,
   ...eslintPluginYml.configs['flat/standard'],
   ...eslintPluginYml.configs['flat/prettier'],
