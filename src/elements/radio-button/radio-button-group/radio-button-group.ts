@@ -2,13 +2,12 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
-import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces.js';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
-import type { SbbRadioButtonStateChange, SbbRadioButtonSize } from '../common.js';
+import type { SbbRadioButtonSize } from '../common.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
 
@@ -18,6 +17,8 @@ export type SbbRadioButtonGroupEventDetail = {
   value: any | null;
   radioButton: SbbRadioButtonElement | SbbRadioButtonPanelElement;
 };
+
+let nextId = 0;
 
 /**
  * It can be used as a container for one or more `sbb-radio-button`.
@@ -59,7 +60,28 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   /**
    * The value of the radio group.
    */
-  @property() public accessor value: any | null;
+  @property()
+  public set value(val: any | null) {
+    this._fallbackValue = val;
+    if (!this._didLoad) {
+      return;
+    }
+    if (!val) {
+      this.radioButtons.forEach((r) => (r.checked = false));
+      return;
+    }
+    const toCheck = this.radioButtons.find((r) => r.value === val);
+    if (toCheck) {
+      toCheck.checked = true;
+    }
+  }
+  public get value(): any | null {
+    return this.radioButtons.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue;
+  }
+  /**
+   * Used to preserve the `value` in case the radios are not yet 'loaded'
+   */
+  private _fallbackValue: any | null = null;
 
   /**
    * Size variant.
@@ -78,6 +100,10 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   @property({ reflect: true })
   public accessor orientation: SbbOrientation = 'horizontal';
 
+  @forceType()
+  @property()
+  public accessor name: string = `sbb-radio-button-group-${++nextId}`;
+
   /**
    * List of contained radio buttons.
    */
@@ -90,13 +116,6 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }
 
-  private get _enabledRadios(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] | undefined {
-    if (!this.disabled) {
-      return this.radioButtons.filter((r) => !r.disabled);
-    }
-  }
-
-  private _hasSelectionExpansionPanelElement: boolean = false;
   private _didLoad = false;
   private _abort = new SbbConnectedAbortController(this);
 
@@ -128,38 +147,24 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener(
-      'stateChange',
-      (e: CustomEvent<SbbStateChange>) =>
-        this._onRadioButtonChange(e as CustomEvent<SbbRadioButtonStateChange>),
-      {
-        signal,
-        passive: true,
-      },
-    );
-    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._hasSelectionExpansionPanelElement = !!this.querySelector?.(
-      'sbb-selection-expansion-panel',
-    );
     this.toggleAttribute(
       'data-has-panel',
       !!this.querySelector?.('sbb-selection-expansion-panel, sbb-radio-button-panel'),
     );
-    this._updateRadios(this.value);
+
+    this.addEventListener('input', (e: Event) => this._onRadioChange('input', e), {
+      signal,
+    });
+    this.addEventListener('change', (e: Event) => this._onRadioChange('change', e), {
+      signal,
+    });
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('value')) {
-      this._valueChanged(this.value);
-    }
     if (changedProperties.has('disabled')) {
-      for (const radio of this.radioButtons) {
-        radio.tabIndex = this._getRadioTabIndex(radio);
-        radio.requestUpdate?.('disabled');
-      }
-      this._setFocusableRadio();
+      this.radioButtons.forEach((r) => r.requestUpdate?.('disabled'));
     }
     if (changedProperties.has('required')) {
       this.radioButtons.forEach((r) => r.requestUpdate?.('required'));
@@ -167,124 +172,69 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     if (changedProperties.has('size')) {
       this.radioButtons.forEach((r) => r.requestUpdate?.('size'));
     }
-  }
-
-  private _valueChanged(value: any | undefined): void {
-    for (const radio of this.radioButtons) {
-      radio.checked = radio.value === value;
-      radio.tabIndex = this._getRadioTabIndex(radio);
+    if (changedProperties.has('name')) {
+      this._updateRadiosName();
     }
-    this._setFocusableRadio();
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changedProperties);
-
     this._didLoad = true;
-    this._updateRadios(this.value);
+
+    await this.updateComplete;
+    this._updateRadioState();
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-  }
+  /**
+   * Blocks native 'input' and 'change' events fired by the radio-buttons to fire an enriched version of them.
+   * Made to maintain retro compatibility.
+   */
+  private _onRadioChange(eventName: 'change' | 'input', event: Event): void {
+    const target = event.target! as SbbRadioButtonElement | SbbRadioButtonPanelElement;
 
-  private _onRadioButtonChange(event: CustomEvent<SbbRadioButtonStateChange>): void {
+    // Only filter radio-buttons event
+    if (target.localName !== 'sbb-radio-button' && target.localName !== 'sbb-radio-button-panel') {
+      return;
+    }
+
     event.stopPropagation();
+    this._fallbackValue = null; // Since the user interacted, the fallbackValue logic does not apply anymore
 
-    if (!this._didLoad) {
-      return;
-    }
-
-    if (event.detail.type === 'disabled') {
-      this._updateRadios(this.value);
-    } else if (event.detail.type === 'checked') {
-      const radioButton = event.target as SbbRadioButtonElement;
-
-      if (event.detail.checked) {
-        this.value = radioButton.value;
-        this._emitChange(radioButton, this.value);
-      } else if (this.allowEmptySelection) {
-        this.value = this.radioButtons.find((radio) => radio.checked)?.value;
-        if (!this.value) {
-          this._emitChange(radioButton);
-        }
-      }
+    if (eventName === 'change') {
+      this._change.emit({ value: this.value, radioButton: event.target });
+      this._didChange.emit({ value: this.value, radioButton: event.target });
+    } else if (eventName === 'input') {
+      this._input.emit({ value: this.value, radioButton: event.target });
     }
   }
 
-  private _emitChange(radioButton: SbbRadioButtonElement, value?: string): void {
-    this._change.emit({ value, radioButton });
-    this._input.emit({ value, radioButton });
-    this._didChange.emit({ value, radioButton });
+  /**
+   * Proxy 'name' to child radio-buttons
+   */
+  private _updateRadiosName(): void {
+    this.radioButtons.forEach((r) => (r.name = this.name));
   }
 
-  private _updateRadios(initValue?: string): void {
-    if (!this._didLoad) {
-      return;
+  /**
+   * Re-trigger the setter and update the checked state of the radios.
+   * Mainly used to cover cases where the setter is called before the radios are loaded
+   */
+  private _updateRadioState(): void {
+    if (this._fallbackValue) {
+      // eslint-disable-next-line no-self-assign
+      this.value = this.value;
     }
-
-    const radioButtons = this.radioButtons;
-
-    this.value = initValue ?? radioButtons.find((radio) => radio.checked)?.value ?? this.value;
-
-    for (const radio of radioButtons) {
-      radio.checked = radio.value === this.value;
-      radio.tabIndex = this._getRadioTabIndex(radio);
-    }
-
-    this._setFocusableRadio();
-  }
-
-  private _setFocusableRadio(): void {
-    const checked = this.radioButtons.find((radio) => radio.checked && !radio.disabled);
-
-    const enabledRadios = this._enabledRadios;
-    if (!checked && enabledRadios?.length) {
-      enabledRadios[0].tabIndex = 0;
-    }
-  }
-
-  private _getRadioTabIndex(radio: SbbRadioButtonElement | SbbRadioButtonPanelElement): number {
-    const isEnabled = !radio.disabled && !this.disabled;
-
-    return (radio.checked || this._hasSelectionExpansionPanelElement) && isEnabled ? 0 : -1;
-  }
-
-  private _handleKeyDown(evt: KeyboardEvent): void {
-    const enabledRadios = this._enabledRadios;
-
-    if (
-      !enabledRadios ||
-      !enabledRadios.length ||
-      // don't trap nested handling
-      ((evt.target as HTMLElement) !== this &&
-        (evt.target as HTMLElement).parentElement !== this &&
-        (evt.target as HTMLElement).parentElement?.localName !== 'sbb-selection-expansion-panel')
-    ) {
-      return;
-    }
-
-    if (!isArrowKeyPressed(evt)) {
-      return;
-    }
-
-    const current: number = enabledRadios.findIndex(
-      (e: SbbRadioButtonElement | SbbRadioButtonPanelElement) => e === evt.target,
-    );
-    const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
-
-    if (!this._hasSelectionExpansionPanelElement) {
-      enabledRadios[nextIndex].select();
-    }
-
-    enabledRadios[nextIndex].focus();
-    evt.preventDefault();
   }
 
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-radio-group">
-        <slot @slotchange=${() => this._updateRadios()}></slot>
+        <slot
+          @slotchange=${() => {
+            this._updateRadiosName();
+            this._updateRadioState();
+          }}
+        ></slot>
       </div>
       <div class="sbb-radio-group__error">
         <slot name="error"></slot>
