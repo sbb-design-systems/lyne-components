@@ -2,7 +2,7 @@ import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../controllers.js';
-import { forceType, hostAttributes, omitEmptyConverter } from '../decorators.js';
+import { forceType, hostAttributes } from '../decorators.js';
 import { i18nTargetOpensInNewWindow } from '../i18n.js';
 
 import { SbbActionBaseElement } from './action-base-element.js';
@@ -20,17 +20,17 @@ export
 abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** The href value you want to link to. */
   @forceType()
-  @property({ converter: omitEmptyConverter })
+  @property()
   public accessor href: string = '';
 
   /** Where to display the linked URL. */
   @forceType()
-  @property({ converter: omitEmptyConverter })
+  @property()
   public accessor target: LinkTargetType | string = '';
 
   /** The relationship of the linked URL as space-separated link types. */
   @forceType()
-  @property({ converter: omitEmptyConverter })
+  @property()
   public accessor rel: string = '';
 
   /** Whether the browser will show the download dialog on click. */
@@ -76,7 +76,7 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
     return html`
       <a
         class="sbb-action-base ${this.localName}"
-        href=${this.href || (nothing as unknown as string)}
+        href=${this.href || nothing}
         ?download=${this.download}
         target=${this.target || nothing}
         rel=${this._evaluateRelAttribute()}

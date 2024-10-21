@@ -12,7 +12,7 @@ import {
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController, SbbInertController } from '../../core/controllers.js';
-import { forceType, omitEmptyConverter } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
@@ -81,7 +81,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    * Used only if the menu automatically renders the actions inside as a list.
    */
   @forceType()
-  @property({ attribute: 'list-accessibility-label', converter: omitEmptyConverter })
+  @property({ attribute: 'list-accessibility-label' })
   public accessor listAccessibilityLabel: string = '';
 
   private _menu!: HTMLDivElement;

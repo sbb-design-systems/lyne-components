@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { forceType, omitEmptyConverter } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import {
   SbbDisabledMixin,
   type AbstractConstructor,
@@ -35,7 +35,7 @@ export const SbbMenuActionCommonElementMixin = <
 
     /** Value shown as badge at component end. */
     @forceType()
-    @property({ converter: omitEmptyConverter })
+    @property()
     public accessor amount: string = '';
 
     protected override renderTemplate(): TemplateResult {

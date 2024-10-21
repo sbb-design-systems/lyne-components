@@ -3,7 +3,7 @@ import type { ReactiveElement } from 'lit';
 import type { Interface } from './base.js';
 
 /**
- * This is a decorator that calls the given callback when the value
+ * Decorator that calls the given callback when the value
  * of the associated property is changed.
  */
 export const handleDistinctChange = <C extends Interface<ReactiveElement>, V>(

@@ -12,7 +12,7 @@ import {
   SbbInertController,
   SbbLanguageController,
 } from '../../core/controllers.js';
-import { forceType, hostAttributes, omitEmptyConverter } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
@@ -76,7 +76,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
    * This will be forwarded as aria-label to the close button element.
    */
   @forceType()
-  @property({ attribute: 'accessibility-close-label', converter: omitEmptyConverter })
+  @property({ attribute: 'accessibility-close-label' })
   public accessor accessibilityCloseLabel: string = '';
 
   /**

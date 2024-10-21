@@ -3,7 +3,7 @@ import type { ReactiveElement } from 'lit';
 import type { Interface } from './base.js';
 
 /**
- * This is a decorator that overrides the underlying getter of the accessor.
+ * Decorator that overrides the underlying getter of the accessor.
  */
 export const getOverride = <C extends Interface<ReactiveElement>, V>(
   callback: (instance: C, innerValue: V) => V,

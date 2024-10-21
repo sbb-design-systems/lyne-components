@@ -3,7 +3,7 @@ import type { ReactiveElement } from 'lit';
 import type { Interface, PropertyDecorator } from './base.js';
 
 /**
- * This is a decorator that forces the value of a property or getter/setter
+ * Decorator that forces the value of a property or getter/setter
  * to the defined type.
  */
 export const forceType = <C extends Interface<ReactiveElement>, V>(): PropertyDecorator => {

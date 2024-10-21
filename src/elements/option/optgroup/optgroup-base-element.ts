@@ -9,7 +9,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
-import { forceType, hostAttributes, omitEmptyConverter } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import { isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbOptionBaseElement } from '../option.js';
@@ -32,7 +32,7 @@ abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbHydrationMixin
 
   /** Option group label. */
   @forceType()
-  @property({ converter: omitEmptyConverter })
+  @property()
   public accessor label: string = '';
 
   @state() protected accessor negative = false;

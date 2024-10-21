@@ -25,7 +25,7 @@ describe('sbb-breadcrumb', () => {
             <sbb-breadcrumb
               href="https://www.sbb.ch"
               target="_blank"
-              icon-name=${singleCase.icon || (nothing as unknown as string)}
+              icon-name=${singleCase.icon || nothing}
               >${singleCase.text || nothing}</sbb-breadcrumb
             >
           `);

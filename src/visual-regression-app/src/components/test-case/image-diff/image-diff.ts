@@ -29,13 +29,13 @@ export
 class ImageDiff extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public accessor screenshotFiles: ScreenshotFiles | null = null;
+  @property({ attribute: false }) public accessor screenshotFiles: ScreenshotFiles | null = null;
 
-  @state() private accessor _baselineDimension!: string;
-  @state() private accessor _failedDimension!: string;
+  @state() private accessor _baselineDimension: string | null = null;
+  @state() private accessor _failedDimension: string | null = null;
 
   @forceType()
-  @property()
+  @property({ type: Boolean })
   public accessor showDiff: boolean = true;
 
   private _toggleDiff(event: Event): void {

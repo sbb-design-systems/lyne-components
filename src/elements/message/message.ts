@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter } from '../core/decorators.js';
+import { forceType } from '../core/decorators.js';
 import type { SbbTitleLevel } from '../title.js';
 import '../title.js';
 
@@ -24,7 +24,7 @@ class SbbMessageElement extends LitElement {
 
   /** Content of title. */
   @forceType()
-  @property({ attribute: 'title-content', converter: omitEmptyConverter })
+  @property({ attribute: 'title-content' })
   public accessor titleContent: string = '';
 
   /** Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3. */

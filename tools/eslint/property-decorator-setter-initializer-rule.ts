@@ -32,7 +32,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
             ![null, false].includes(backingProperty.value.value as any))
         ) {
           context.report({
-            node: propertySetter,
+            node: backingProperty,
             messageId: 'propertyDecoratorSetterInitializer',
           });
         }
@@ -41,11 +41,12 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   },
   meta: {
     docs: {
-      description: 'Setters with the @property decorators must be initialized in the constructor',
+      description:
+        'Backing fields for setters with the @property decorators must be initialized in the constructor via setter',
     },
     messages: {
       propertyDecoratorSetterInitializer:
-        'Setters with the @property decorators must be initialized in the constructor',
+        'Backing fields for setters with the @property decorators must be initialized in the constructor via setter',
     },
     fixable: 'code',
     type: 'problem',

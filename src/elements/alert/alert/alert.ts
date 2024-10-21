@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { type LinkTargetType, SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType, omitEmptyConverter } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -57,12 +57,12 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
    * Styling is optimized for icons of type HIM-CUS.
    */
   @forceType()
-  @property({ attribute: 'icon-name', converter: omitEmptyConverter })
+  @property({ attribute: 'icon-name' })
   public override accessor iconName: string = 'info';
 
   /** Content of title. */
   @forceType()
-  @property({ attribute: 'title-content', converter: omitEmptyConverter })
+  @property({ attribute: 'title-content' })
   public accessor titleContent: string = '';
 
   /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
@@ -70,27 +70,27 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
 
   /** Content of the link. */
   @forceType()
-  @property({ attribute: 'link-content', converter: omitEmptyConverter })
+  @property({ attribute: 'link-content' })
   public accessor linkContent: string = '';
 
   /** The href value you want to link to. */
   @forceType()
-  @property({ converter: omitEmptyConverter })
+  @property()
   public accessor href: string = '';
 
   /** Where to display the linked URL. */
   @forceType()
-  @property({ converter: omitEmptyConverter })
+  @property()
   public accessor target: LinkTargetType | string = '';
 
   /** The relationship of the linked URL as space-separated link types. */
   @forceType()
-  @property({ converter: omitEmptyConverter })
+  @property()
   public accessor rel: string = '';
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @forceType()
-  @property({ attribute: 'accessibility-label', converter: omitEmptyConverter })
+  @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = '';
 
   /** The enabled animations. */

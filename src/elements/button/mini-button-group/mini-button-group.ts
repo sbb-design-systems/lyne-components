@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import type { SbbDividerElement } from '../../divider/divider.js';
 import type { SbbMiniButtonElement } from '../mini-button/mini-button.js';
@@ -27,7 +27,7 @@ class SbbMiniButtonGroupElement extends SbbNegativeMixin(
 
   /** This will be forwarded as aria-label to the list that contains the buttons. */
   @forceType()
-  @property({ attribute: 'accessibility-label', converter: omitEmptyConverter })
+  @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = '';
 
   /** Size variant, either s, m, l or xl. */

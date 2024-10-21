@@ -40,9 +40,12 @@ export
 class TestCase extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public accessor params: { componentName: string; testCaseName: string } | null = null;
+  @property({ attribute: false }) public accessor params: {
+    componentName: string;
+    testCaseName: string;
+  } | null = null;
 
-  @state() private accessor _testCase!: ScreenshotTestCase;
+  @state() private accessor _testCase: ScreenshotTestCase | null = null;
   @state() private accessor _testCaseIndex: number = -1;
   @state() private accessor _filter: Filter = {};
   @state() private accessor _showGlobalDiff = true;
@@ -127,7 +130,7 @@ class TestCase extends LitElement {
         ? html`<div class="app-testcase">
             <sbb-container expanded>
               <app-test-title-chip-list
-                .testCaseName=${this.params?.testCaseName}
+                .testCaseName=${this.params!.testCaseName}
               ></app-test-title-chip-list>
               <div class="app-filter-and-toggle">
                 <app-test-case-filter

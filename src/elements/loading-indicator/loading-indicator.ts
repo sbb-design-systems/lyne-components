@@ -19,7 +19,7 @@ class SbbLoadingIndicatorElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. */
-  @property({ reflect: true }) public accessor variant: 'window' | 'circle' = 'circle';
+  @property({ reflect: true }) public accessor variant: 'window' | 'circle' = 'window';
 
   /** Size variant, either s or m. */
   @property({ reflect: true }) public accessor size: 's' | 'l' = 's';

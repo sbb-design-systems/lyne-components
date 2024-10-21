@@ -49,7 +49,7 @@ class SbbStatusElement extends SbbIconNameMixin(LitElement) {
 
   /** Content of title. */
   @forceType()
-  @property({ reflect: true, attribute: 'title-content', converter: omitEmptyConverter })
+  @property({ attribute: 'title-content', reflect: true, converter: omitEmptyConverter })
   public accessor titleContent: string = '';
 
   /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
