@@ -133,6 +133,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     }
 
     // Check if the target is a submission element within a form and return the form, if present
+    // TODO: Check if needed
     const closestForm =
       overlayCloseElement.getAttribute('type') === 'submit'
         ? (hostContext('form', overlayCloseElement) as HTMLFormElement)

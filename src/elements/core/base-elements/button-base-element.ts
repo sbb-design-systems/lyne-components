@@ -1,8 +1,13 @@
 import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType, hostAttributes } from '../decorators.js';
+import { hostAttributes } from '../decorators.js';
 import { isEventPrevented } from '../eventing.js';
+import {
+  type FormRestoreReason,
+  type FormRestoreState,
+  SbbFormAssociatedMixin,
+} from '../mixins.js';
 
 import { SbbActionBaseElement } from './action-base-element.js';
 
@@ -12,49 +17,32 @@ export type SbbButtonType = 'button' | 'reset' | 'submit';
 /** Button base class. */
 export
 @hostAttributes({
-  role: 'button',
   tabindex: '0',
   'data-button': '',
 })
-abstract class SbbButtonBaseElement extends SbbActionBaseElement {
+abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
   /** The type attribute to use for the button. */
-  @property() public accessor type: SbbButtonType = 'button';
-
-  /**
-   * The name of the button element.
-   *
-   * @description Developer note: In this case updating the attribute must be synchronous.
-   * Due to this it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
-   */
-  @property()
-  public set name(name: string) {
-    this.setAttribute('name', `${name}`);
-  }
-  public get name(): string {
-    return this.getAttribute('name') ?? '';
-  }
-
-  /**
-   * The value of the button element.
-   *
-   * @description Developer note: In this case updating the attribute must be synchronous.
-   * Due to this it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
-   */
-  @property()
-  public set value(value: string) {
-    this.setAttribute('value', `${value}`);
-  }
-  public get value(): string {
-    return this.getAttribute('value') ?? '';
-  }
+  @property() public override accessor type: SbbButtonType = 'button';
 
   /** The <form> element to associate the button with. */
-  @forceType()
   @property()
-  public accessor form: string = '';
+  public override set form(value: string) {
+    this._formId = value;
+  }
+  public override get form(): HTMLFormElement | null {
+    // Use querySelector with form and id selector, as the form property must
+    // reference a valid <form> element
+    return this._formId
+      ? (this.ownerDocument.querySelector(`form#${this._formId}`) as HTMLFormElement)
+      : this.internals.form;
+  }
+  private _formId: string = '';
 
   public constructor() {
     super();
+
+    this.internals.role = 'button';
+
     if (!isServer) {
       this.setupBaseEventHandlers();
 
@@ -74,23 +62,21 @@ abstract class SbbButtonBaseElement extends SbbActionBaseElement {
       );
     }
   }
-
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {
     if (this.type === 'button' || (await isEventPrevented(event))) {
       return;
     }
 
-    // Use querySelector with form and id selector, as the form property must
-    // reference a valid <form> element
-    const form = this.form
-      ? (this.ownerDocument.querySelector(`form#${this.form}`) as HTMLFormElement)
-      : this.closest('form');
+    const form = this.form;
     if (!form) {
       return;
     } else if (this.type === 'submit') {
       // `form.requestSubmit(element);` seems not to work for CustomElements, so the `element` parameter has been removed;
       // TODO: Check if solved in any way, see https://github.com/WICG/webcomponents/issues/814#issuecomment-1218452137
+      // TODO: support form* attributes
+      this.internals.setFormValue(this.value);
       form.requestSubmit();
+      this.internals.setFormValue(null);
     } else if (this.type === 'reset') {
       form.reset();
     }
@@ -151,4 +137,20 @@ abstract class SbbButtonBaseElement extends SbbActionBaseElement {
       super.attributeChangedCallback(name, old, value);
     }
   }
+
+  public override formResetCallback(): void {
+    // TODO: implement
+    //throw new Error('Method not implemented.');
+  }
+
+  public override formStateRestoreCallback(
+    _state: FormRestoreState | null,
+    _reason: FormRestoreReason,
+  ): void {
+    // TODO: implement
+    //throw new Error('Method not implemented.');
+  }
+
+  // Intentionally empty
+  protected updateFormValue(): void {}
 }

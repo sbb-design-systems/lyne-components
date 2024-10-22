@@ -1,22 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
-import { property } from 'lit/decorators.js';
+import { spy } from 'sinon';
 
-import { forceType } from '../decorators.js';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.js';
 import { fixture } from '../testing/private.js';
 import { EventSpy, waitForLitRender } from '../testing.js';
 
 import { SbbButtonBaseElement } from './button-base-element.js';
 
-class GenericButton extends SbbButtonBaseElement {
-  @forceType()
-  @property({ type: Boolean })
-  public accessor disabled: boolean = false;
-  @forceType()
-  @property({ type: Boolean })
-  public accessor disabledInteractive: boolean = false;
-
+class GenericButton extends SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
   protected override renderTemplate(): TemplateResult {
     return html`Button`;
   }
@@ -110,6 +103,123 @@ describe(`SbbButtonBaseElement`, () => {
       expect(clickSpy.count).to.be.equal(1);
     });
   });
+
+  describe('form association', () => {
+    let form: HTMLFormElement;
+
+    let submitButton: GenericButton | HTMLButtonElement;
+    let resetButton: GenericButton | HTMLButtonElement;
+    let fieldSet: HTMLFieldSetElement;
+    const submitEventSpy = spy();
+    const resetEventSpy = spy();
+
+    for (const entry of [
+      {
+        selector: 'generic-button',
+        resetButton: html`<generic-button name="reset-button" value="reset" type="reset">
+          Reset
+        </generic-button>`,
+        button: html`<generic-button name="submit-button" value="submit" type="submit">
+          Submit
+        </generic-button>`,
+      },
+      {
+        selector: 'button',
+        resetButton: html`<button name="reset-button" value="reset" type="reset">Reset</button>`,
+        button: html`<button name="submit-button" value="submit" type="submit">Submit</button>`,
+      },
+    ]) {
+      describe(entry.selector, () => {
+        beforeEach(async () => {
+          form = await fixture(html`
+            <form
+              @submit=${(e: SubmitEvent) => submitEventSpy(e)}
+              @reset=${(e: Event) => resetEventSpy(e)}
+            >
+              <fieldset>
+                <input type="hidden" name="hidden" value="input" />
+
+                ${entry.resetButton} ${entry.button}
+              </fieldset>
+            </form>
+          `);
+          submitButton = form.querySelector(`[type="submit"]`)!;
+          resetButton = form.querySelector(`[type="reset"]`)!;
+          fieldSet = form.querySelector('fieldset')!;
+        });
+
+        it('should set default value', async () => {
+          expect(submitButton.value).to.be.equal('submit');
+        });
+
+        it('should result :disabled', async () => {
+          submitButton.disabled = true;
+          await waitForLitRender(form);
+          expect(submitButton).to.match(':disabled');
+
+          submitButton.disabled = false;
+          await waitForLitRender(form);
+          expect(submitButton).not.to.match(':disabled');
+        });
+
+        it('should result :disabled if a fieldSet is', async () => {
+          fieldSet.disabled = true;
+
+          await waitForLitRender(form);
+
+          expect(submitButton).to.match(':disabled');
+
+          fieldSet.disabled = false;
+          await waitForLitRender(form);
+
+          expect(submitButton).not.to.match(':disabled');
+        });
+
+        it('should reset on form reset', async () => {
+          submitButton.value = 'changed-value';
+
+          form.reset();
+
+          await waitForLitRender(form);
+
+          expect(submitButton.value).to.be.equal('changed-value');
+        });
+
+        it('should reset on button reset', async () => {
+          submitButton.value = 'changed-value';
+
+          resetButton.click();
+          await waitForLitRender(form);
+
+          expect(submitButton.value).to.be.equal('changed-value');
+        });
+      });
+    }
+  });
+
+  /*
+  // TODO: implement
+   it('should restore form state on formStateRestoreCallback()', async () => {
+          // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
+          submitButton.formStateRestoreCallback('3', 'restore');
+          await waitForLitRender(element);
+
+          expect(element.value).to.be.equal('3');
+
+          element.multiple = true;
+          await waitForLitRender(element);
+
+          const formData = new FormData();
+          formData.append(element.name, '1');
+          formData.append(element.name, '2');
+
+          element.formStateRestoreCallback(Array.from(formData.entries()), 'restore');
+          await waitForLitRender(element);
+
+          expect(element.value).to.be.eql(['1', '2']);
+        });
+
+   */
 });
 
 declare global {

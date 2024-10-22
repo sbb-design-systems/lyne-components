@@ -318,6 +318,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     if (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) {
       return this._input.form;
     }
+    // TODO: Check if migration is possible
     return this._input?.closest('form');
   }
 

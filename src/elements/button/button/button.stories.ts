@@ -19,6 +19,7 @@ import {
   primaryNegativeDisabled,
   sizeM,
   sizeS,
+  withForm,
   withHiddenSlottedIcon,
   withSlottedIcon,
 } from '../common/common-stories.js';
@@ -49,6 +50,7 @@ export const WithSlottedIcon: StoryObj = withSlottedIcon;
 export const LoadingIndicator: StoryObj = loadingIndicator;
 export const RequestSubmit: StoryObj = requestSubmit;
 export const WithHiddenSlottedIcon: StoryObj = withHiddenSlottedIcon;
+export const WithForm: StoryObj = withForm;
 
 const meta: Meta = {
   args: defaultArgs,
