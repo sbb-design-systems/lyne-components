@@ -48,7 +48,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
     </sbb-mini-button>
   </sbb-mini-button-group>
   <span
-    aria-label="Page 1 selected."
     class="sbb-paginator__pages"
     role="group"
   >
@@ -69,39 +68,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-compact-paginator renders Shadow DOM */
-
-snapshots["sbb-compact-paginator renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page"
-    },
-    {
-      "role": "text leaf",
-      "name": "1"
-    },
-    {
-      "role": "text leaf",
-      "name": "10"
-    },
-    {
-      "role": "text leaf",
-      "name": "Page 1 selected."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-compact-paginator renders A11y tree Firefox */
 
 snapshots["sbb-compact-paginator renders A11y tree Chrome"] = 
 `<p>
@@ -135,4 +101,37 @@ snapshots["sbb-compact-paginator renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-compact-paginator renders A11y tree Chrome */
+
+snapshots["sbb-compact-paginator renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page"
+    },
+    {
+      "role": "text leaf",
+      "name": "1"
+    },
+    {
+      "role": "text leaf",
+      "name": "10"
+    },
+    {
+      "role": "text leaf",
+      "name": "Page 1 selected."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-compact-paginator renders A11y tree Firefox */
 
