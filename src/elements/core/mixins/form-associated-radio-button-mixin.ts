@@ -38,7 +38,8 @@ export declare class SbbFormAssociatedRadioButtonMixinType
 }
 
 /**
- * TODO add docs (maybe move to new file)
+ * A static registry that holds a collection of `radio-buttons`, grouped by `name`.
+ * It is mainly used to support the standalone groups of radios.
  * @internal
  */
 export class RadioButtonRegistry {
@@ -46,6 +47,9 @@ export class RadioButtonRegistry {
 
   private constructor() {}
 
+  /**
+   * Adds @radio to the @groupName group. Checks for duplicates
+   */
   public static addRadioToGroup(
     radio: SbbFormAssociatedRadioButtonMixinType,
     groupName: string,
@@ -60,6 +64,9 @@ export class RadioButtonRegistry {
     this._registry[groupName].push(radio);
   }
 
+  /**
+   * Removes @radio from the @groupName group.
+   */
   public static removeRadioFromGroup(
     radio: SbbFormAssociatedRadioButtonMixinType,
     groupName: string,
@@ -75,6 +82,9 @@ export class RadioButtonRegistry {
     }
   }
 
+  /**
+   * Return an array of radios that belong to @groupName
+   */
   public static getRadios(groupName: string): SbbFormAssociatedRadioButtonMixinType[] {
     return this._registry[groupName] ?? [];
   }
@@ -180,7 +190,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
     /**
      * Called on `value` change
-     * If I'm checked, update the value. Otherwise, do nothing.
+     * If 'checked', update the value. Otherwise, do nothing.
      */
     protected override updateFormValue(): void {
       if (this.checked) {
@@ -190,7 +200,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
     /**
      * Called on `checked` change
-     * If I'm checked, set the value. Otherwise, reset it.
+     * If 'checked', update the value. Otherwise, reset it.
      */
     protected updateFormValueOnCheckedChange(): void {
       this.internals.setFormValue(this.checked ? this.value : null);
@@ -198,14 +208,14 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
     /**
      * Only a single radio should be focusable in the group. Defined as:
-     * - the checked radios;
+     * - the checked radio;
      * - the first non-disabled radio in DOM order;
      */
     protected updateFocusableRadios(): void {
       if (!this._didLoad) {
         return;
       }
-      const radios = this._orderedGrouperRadios();
+      const radios = this._orderedGroupedRadios();
       const checkedIndex = radios.findIndex((r) => r.checked && !r.disabled && !r.formDisabled);
       const focusableIndex =
         checkedIndex !== -1
@@ -275,7 +285,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     /**
      * Return the grouped radios in DOM order
      */
-    private _orderedGrouperRadios(groupName = this.name): SbbFormAssociatedRadioButtonElement[] {
+    private _orderedGroupedRadios(groupName = this.name): SbbFormAssociatedRadioButtonElement[] {
       return Array.from(
         (this.form ?? document).querySelectorAll<SbbFormAssociatedRadioButtonElement>(
           `:is(sbb-radio-button, sbb-radio-button-panel)[name="${groupName}"]`,
@@ -289,7 +299,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       }
       evt.preventDefault();
 
-      const enabledRadios = this._orderedGrouperRadios().filter(
+      const enabledRadios = this._orderedGroupedRadios().filter(
         (r) => !r.disabled && !r.formDisabled,
       );
       const current: number = enabledRadios.indexOf(this);

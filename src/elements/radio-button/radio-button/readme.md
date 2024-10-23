@@ -75,9 +75,9 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 
 ## Methods
 
-| Name     | Privacy | Description                                                                                            | Parameters | Return | Inherited From                   |
-| -------- | ------- | ------------------------------------------------------------------------------------------------------ | ---------- | ------ | -------------------------------- |
-| `select` | public  | Set the radio-button as 'checked'. If 'allowEmptySelection', toggle the checked property. Emits events |            | `void` | SbbRadioButtonCommonElementMixin |
+| Name     | Privacy | Description                                                                                                                         | Parameters | Return | Inherited From                   |
+| -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------ | -------------------------------- |
+| `select` | public  | Set the radio-button as 'checked'; if 'allowEmptySelection', toggle the checked property. In both cases it emits the change events. |            | `void` | SbbRadioButtonCommonElementMixin |
 
 ## Events
 

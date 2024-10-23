@@ -88,8 +88,8 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
     }
 
     /**
-     * Set the radio-button as 'checked'. If 'allowEmptySelection', toggle the checked property.
-     * Emits events
+     * Set the radio-button as 'checked'; if 'allowEmptySelection', toggle the checked property.
+     * In both cases it emits the change events.
      */
     public select(): void {
       if (this.disabled || this.formDisabled) {
