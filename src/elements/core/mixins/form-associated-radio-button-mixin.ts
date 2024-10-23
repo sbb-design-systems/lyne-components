@@ -99,6 +99,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     public accessor checked: boolean = false;
 
     protected abort = new SbbConnectedAbortController(this);
+    private _didLoad: boolean = false;
 
     protected constructor() {
       super();
@@ -171,6 +172,12 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       }
     }
 
+    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+      super.firstUpdated(changedProperties);
+      this._didLoad = true;
+      this.updateFocusableRadios();
+    }
+
     /**
      * Called on `value` change
      * If I'm checked, update the value. Otherwise, do nothing.
@@ -195,6 +202,9 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      * - the first non-disabled radio in DOM order;
      */
     protected updateFocusableRadios(): void {
+      if (!this._didLoad) {
+        return;
+      }
       const radios = this._orderedGrouperRadios();
       const checkedIndex = radios.findIndex((r) => r.checked && !r.disabled && !r.formDisabled);
       const focusableIndex =
