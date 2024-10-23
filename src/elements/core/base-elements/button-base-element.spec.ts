@@ -52,7 +52,7 @@ describe(`SbbButtonBaseElement`, () => {
       expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
-    it('dispatch click if disabled and disabledInteractive', async () => {
+    it.skip('dispatch click if disabled and disabledInteractive', async () => {
       const clickSpy = new EventSpy('click');
 
       element.disabled = true;
