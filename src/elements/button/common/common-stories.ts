@@ -8,7 +8,7 @@ import type {
   StoryObj,
   WebComponentsRenderer,
 } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
+import { type TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
@@ -63,38 +63,6 @@ const FixedWidthTemplate = ({ tag, text, ...args }: Args): TemplateResult => htm
   </div>
 `;
 
-const FormTemplate = ({
-  tag,
-  name,
-  value,
-  type: _type,
-  reset: _reset,
-  ...args
-}: Args): TemplateResult => html`
-<form style="display: flex; gap: 1rem; flex-direction: column;"
-      @submit=${(e: SubmitEvent) => {
-        e.preventDefault();
-        const form = (e.target as HTMLFormElement)!;
-        form.querySelector('#form-data')!.innerHTML = JSON.stringify(
-          Object.fromEntries(new FormData(form, e.submitter)),
-        );
-      }}>
-  <sbb-form-field>
-    <input name="test" value="hi">
-  </sbb-form-field>
-  <fieldset>
-    <sbb-action-group>
-    <${unsafeStatic(tag)} ${sbbSpread(args)} type="reset">
-      Reset
-    </${unsafeStatic(tag)}>
-    <${unsafeStatic(tag)} ${sbbSpread(args)} value=${value ?? nothing} name=${name ?? nothing} type="submit">
-      Submit
-    </${unsafeStatic(tag)}>
-      <button type="submit" name='native' value='native'>native</button>
-    </sbb-action-group>
-  </fieldset>
-  <div id='form-data'></div>
-</form>`;
 /* eslint-enable lit/binding-positions, @typescript-eslint/naming-convention */
 
 const text: InputType = {
@@ -239,15 +207,6 @@ export const withHiddenSlottedIcon: StoryObj = {
   args: {
     hiddenIcon: true,
     'icon-name': 'chevron-small-right-small',
-  },
-};
-
-export const withForm: StoryObj = {
-  render: FormTemplate,
-  args: {
-    type: undefined,
-    text: undefined,
-    value: 'submit value',
   },
 };
 
