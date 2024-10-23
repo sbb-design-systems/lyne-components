@@ -22,7 +22,6 @@ snapshots["sbb-menu renders DOM"] =
     data-action=""
     data-button=""
     icon-name="tick-small"
-    role="button"
     tabindex="0"
   >
     View
@@ -34,7 +33,6 @@ snapshots["sbb-menu renders DOM"] =
     data-button=""
     disabled=""
     icon-name="pen-small"
-    role="button"
   >
     Edit
   </sbb-menu-button>
@@ -43,7 +41,6 @@ snapshots["sbb-menu renders DOM"] =
     data-action=""
     data-button=""
     icon-name="swisspass-small"
-    role="button"
     tabindex="0"
   >
     Details
@@ -58,7 +55,6 @@ snapshots["sbb-menu renders DOM"] =
     data-action=""
     data-button=""
     icon-name="cross-small"
-    role="button"
     tabindex="0"
   >
     Cancel
@@ -89,7 +85,6 @@ snapshots["sbb-menu renders with list DOM"] =
     data-action=""
     data-button=""
     icon-name="tick-small"
-    role="button"
     slot="li-0"
     tabindex="0"
   >
@@ -102,7 +97,6 @@ snapshots["sbb-menu renders with list DOM"] =
     data-button=""
     disabled=""
     icon-name="pen-small"
-    role="button"
     slot="li-1"
   >
     Edit
@@ -112,7 +106,6 @@ snapshots["sbb-menu renders with list DOM"] =
     data-action=""
     data-button=""
     icon-name="swisspass-small"
-    role="button"
     slot="li-2"
     tabindex="0"
   >
@@ -122,7 +115,6 @@ snapshots["sbb-menu renders with list DOM"] =
     data-action=""
     data-button=""
     icon-name="cross-small"
-    role="button"
     slot="li-3"
     tabindex="0"
   >

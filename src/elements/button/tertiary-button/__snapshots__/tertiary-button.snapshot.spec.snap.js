@@ -12,7 +12,6 @@ snapshots["sbb-tertiary-button renders a sbb-tertiary-button without icon DOM"] 
   form="formid"
   name="name"
   negative=""
-  role="button"
   size="m"
   type="button"
   value="value"
@@ -40,7 +39,6 @@ snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon D
   data-button=""
   data-sbb-button=""
   data-slot-names="icon unnamed"
-  role="button"
   size="l"
   tabindex="0"
 >

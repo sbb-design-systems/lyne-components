@@ -41,6 +41,7 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
   public constructor() {
     super();
 
+    /** @internal */
     this.internals.role = 'button';
 
     if (!isServer) {
@@ -73,10 +74,17 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
     } else if (this.type === 'submit') {
       // `form.requestSubmit(element);` seems not to work for CustomElements, so the `element` parameter has been removed;
       // TODO: Check if solved in any way, see https://github.com/WICG/webcomponents/issues/814#issuecomment-1218452137
-      // TODO: support form* attributes
-      this.internals.setFormValue(this.value);
-      form.requestSubmit();
-      this.internals.setFormValue(null);
+      // We use the workaround described in the github issue by cloning the submit button and pass this one as an argument.
+
+      const submitButtonClone = document.createElement('button');
+      submitButtonClone.inert = true;
+      submitButtonClone.hidden = true;
+      submitButtonClone.name = this.name;
+      submitButtonClone.value = this.value ?? '';
+
+      form.append(submitButtonClone);
+      form.requestSubmit(submitButtonClone);
+      submitButtonClone.remove();
     } else if (this.type === 'reset') {
       form.reset();
     }
@@ -138,19 +146,25 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
     }
   }
 
-  public override formResetCallback(): void {
-    // TODO: implement
-    //throw new Error('Method not implemented.');
-  }
+  /**
+   * Intentionally empty, as buttons are not targeted by form reset
+   * @internal
+   */
+  public override formResetCallback(): void {}
 
+  /**
+   * Intentionally empty, as buttons are not targeted by form restore
+   * @internal
+   */
   public override formStateRestoreCallback(
     _state: FormRestoreState | null,
     _reason: FormRestoreReason,
-  ): void {
-    // TODO: implement
-    //throw new Error('Method not implemented.');
-  }
+  ): void {}
 
-  // Intentionally empty
+  /**
+   * Intentionally empty, as button does not write its data in form.
+   * The data is only applied on submit button click as submitter of requestSubmit();
+   * @internal
+   */
   protected updateFormValue(): void {}
 }

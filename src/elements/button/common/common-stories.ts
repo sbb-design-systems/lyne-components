@@ -76,7 +76,7 @@ const FormTemplate = ({
         e.preventDefault();
         const form = (e.target as HTMLFormElement)!;
         form.querySelector('#form-data')!.innerHTML = JSON.stringify(
-          Object.fromEntries(new FormData(form)),
+          Object.fromEntries(new FormData(form, e.submitter)),
         );
       }}>
   <sbb-form-field>
