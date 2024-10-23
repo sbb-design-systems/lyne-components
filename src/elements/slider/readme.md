@@ -66,9 +66,6 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | End         | Set the value to the maximum.                     |
 | Home        | Set the value to the minimum.                     |
 
-<!-- Override
-  @type value => string \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties

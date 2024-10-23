@@ -1,3 +1,5 @@
+const overrideTypeKey = 'overrideType';
+
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
  */
@@ -34,6 +36,25 @@ export function createManifestConfig(library = '') {
               classNode = classNode.parent;
             }
           }
+
+          if (node.kind === ts.SyntaxKind.ClassDeclaration) {
+            node.jsDoc?.forEach((doc) => {
+              doc?.tags?.forEach((tag) => {
+                // eslint-disable-next-line lyne/local-name-rule
+                if (tag.tagName.getText() === overrideTypeKey) {
+                  const [memberName, memberOverrideType] = tag.comment.split(' - ');
+                  const classDeclaration = moduleDoc.declarations.find(
+                    (declaration) => declaration.name === node.name.getText(),
+                  );
+                  if (!classDeclaration[overrideTypeKey]) {
+                    classDeclaration[overrideTypeKey] = [{ memberName, memberOverrideType }];
+                  } else {
+                    classDeclaration[overrideTypeKey].push({ memberName, memberOverrideType });
+                  }
+                }
+              });
+            });
+          }
         },
         packageLinkPhase({ customElementsManifest }) {
           function fixModulePaths(node, pathAction) {
@@ -56,6 +77,22 @@ export function createManifestConfig(library = '') {
               if (declaration.name.includes('Base')) {
                 delete declaration.customElement;
               }
+
+              if (declaration[overrideTypeKey]) {
+                declaration[overrideTypeKey].forEach((overrideObj) => {
+                  const memberToOverride = declaration.members.find(
+                    (member) => member.name === overrideObj.memberName,
+                  );
+                  if (memberToOverride) {
+                    memberToOverride.type = {
+                      ...memberToOverride.type,
+                      text: overrideObj.memberOverrideType,
+                    };
+                  }
+                });
+              }
+              delete declaration[overrideTypeKey];
+
               for (const member of declaration.members) {
                 if (member.name.startsWith('_') && member.default) {
                   const publicName = member.name.replace(/^_/, '');
