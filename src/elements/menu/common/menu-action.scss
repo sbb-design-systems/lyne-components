@@ -18,14 +18,14 @@
   display: block;
 }
 
-:host(:hover:not([disabled])) {
+:host(:hover:not(:disabled)) {
   @include sbb.hover-mq($hover: true) {
     --sbb-menu-background-color: var(--sbb-color-iron);
     --sbb-menu-action-forced-color-border-color: Highlight;
   }
 }
 
-:host([disabled]) {
+:host(:disabled) {
   --sbb-menu-action-cursor: default;
   --sbb-menu-action-color: var(--sbb-color-graphite);
   --sbb-menu-action-forced-color-border-color: GrayText;
@@ -90,7 +90,7 @@
 .sbb-menu-action__label {
   @include sbb.ellipsis;
 
-  :host([disabled]) & {
+  :host(:disabled) & {
     text-decoration: line-through;
   }
 }

@@ -48,7 +48,7 @@
   }
 }
 
-:host([disabled]) {
+:host(:disabled) {
   --sbb-tag-text-color: var(--sbb-color-granite);
   --sbb-tag-amount-color: var(--sbb-tag-text-color);
   --sbb-tag-background-color: var(--sbb-color-milk);
@@ -62,11 +62,11 @@
   }
 }
 
-:host([checked][disabled]) {
+:host([checked]:disabled) {
   --sbb-tag-border-color: var(--sbb-color-metal);
 }
 
-:host(:hover:not([disabled], :active, [data-active])) {
+:host(:hover:not(:disabled, :active, [data-active])) {
   @include sbb.hover-mq($hover: true) {
     --sbb-tag-background-color: var(--sbb-color-milk);
     --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
@@ -79,7 +79,7 @@
 }
 
 // Pressed state
-:host(:is(:active, [data-active]):not([disabled])) {
+:host(:is(:active, [data-active]):not(:disabled)) {
   --sbb-tag-background-color: var(--sbb-color-milk);
   --sbb-tag-border-color: var(--sbb-color-iron);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
@@ -130,7 +130,7 @@
     }
   }
 
-  :host([disabled]) & {
+  :host(:disabled) & {
     cursor: unset;
     pointer-events: none;
   }

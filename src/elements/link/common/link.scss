@@ -26,7 +26,7 @@
     outline: none;
   }
 
-  :host([disabled]) & {
+  :host(:is([disabled], :disabled)) & {
     pointer-events: none;
     cursor: default;
 
@@ -45,11 +45,11 @@
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
-  :host(:hover:not([disabled])) & {
+  :host(:hover:not([disabled], :disabled)) & {
     @include sbb.link-hover-rules;
   }
 
-  :host(:is(:active, [data-active]):not([disabled])) & {
+  :host(:is(:active, [data-active]):not([disabled], :disabled)) & {
     // Active definitions have to be after :hover definitions
     @include sbb.link-active-rules;
   }

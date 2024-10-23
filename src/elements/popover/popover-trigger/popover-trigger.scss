@@ -39,7 +39,7 @@
   --sbb-popover-color: var(--sbb-color-cement);
 }
 
-:host([disabled]) {
+:host(:disabled) {
   pointer-events: none;
 
   --sbb-popover-color: var(--sbb-color-graphite);
@@ -49,7 +49,7 @@
   }
 }
 
-:host([disabled][negative]) {
+:host(:disabled[negative]) {
   --sbb-popover-color: var(--sbb-color-smoke);
 }
 
@@ -59,7 +59,7 @@
   @include sbb.icon-button-variables-negative;
 }
 
-:host([data-icon-small][disabled]) {
+:host([data-icon-small]:disabled) {
   @include sbb.icon-button-disabled('.sbb-popover-trigger');
 }
 
@@ -69,7 +69,7 @@
   @include sbb.icon-button-focus-visible('.sbb-popover-trigger');
 }
 
-:host([data-icon-small]:not([disabled], :active, [data-active]):hover) {
+:host([data-icon-small]:not(:disabled, :active, [data-active]):hover) {
   @include sbb.icon-button-hover('.sbb-popover-trigger');
 }
 
