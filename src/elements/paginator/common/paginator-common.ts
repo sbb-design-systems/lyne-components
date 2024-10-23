@@ -13,13 +13,13 @@ import '../../button/mini-button-group.js';
 import '../../divider.js';
 
 export declare abstract class SbbPaginatorCommonElementMixinType {
-  public negative: boolean;
-  public disabled: boolean;
-  public length: number;
-  public pageSize: number;
-  public pageIndex: number;
+  public accessor negative: boolean;
+  public accessor disabled: boolean;
+  public accessor length: number;
+  public accessor pageSize: number;
+  public accessor pageIndex: number;
   public accessor pagerPosition: 'start' | 'end';
-  public size: 'm' | 's';
+  public accessor size: 'm' | 's';
   protected language: SbbLanguageController;
   protected numberOfPages(): number;
   protected pageIndexChanged(value: number): void;
@@ -101,7 +101,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
 
       // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
       this.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent =
-        this.currentPageLabel();
+        this._currentPageLabel();
     }
 
     /** Evaluate `pageIndex` by excluding edge cases. */
@@ -112,7 +112,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       );
     }
 
-    protected currentPageLabel(): string {
+    private _currentPageLabel(): string {
       return i18nSelectedPage(this.pageIndex + 1)[this.language.current];
     }
 
