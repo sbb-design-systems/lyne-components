@@ -35,16 +35,20 @@ interface Filter {
  * Displays a test case with its images.
  * Provides filtering functions.
  */
+export
 @customElement('app-test-case')
-export class TestCase extends LitElement {
+class TestCase extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @property() public params?: { componentName: string; testCaseName: string };
+  @property({ attribute: false }) public accessor params: {
+    componentName: string;
+    testCaseName: string;
+  } | null = null;
 
-  @state() private _testCase?: ScreenshotTestCase;
-  @state() private _testCaseIndex: number = -1;
-  @state() private _filter: Filter = {};
-  @state() private _showGlobalDiff = true;
+  @state() private accessor _testCase: ScreenshotTestCase | null = null;
+  @state() private accessor _testCaseIndex: number = -1;
+  @state() private accessor _filter: Filter = {};
+  @state() private accessor _showGlobalDiff = true;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -60,7 +64,7 @@ export class TestCase extends LitElement {
         this.params!.testCaseName!,
       );
       if (this._testCaseIndex >= 0) {
-        this._testCase = screenshots.getByTestCaseIndex(this._testCaseIndex);
+        this._testCase = screenshots.getByTestCaseIndex(this._testCaseIndex)!;
       }
     }
   }
@@ -126,7 +130,7 @@ export class TestCase extends LitElement {
         ? html`<div class="app-testcase">
             <sbb-container expanded>
               <app-test-title-chip-list
-                .testCaseName=${this.params?.testCaseName}
+                .testCaseName=${this.params!.testCaseName}
               ></app-test-title-chip-list>
               <div class="app-filter-and-toggle">
                 <app-test-case-filter

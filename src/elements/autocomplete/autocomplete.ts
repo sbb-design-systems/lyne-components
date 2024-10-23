@@ -28,11 +28,12 @@ const ariaRoleOnHost = isSafari;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
+export
 @customElement('sbb-autocomplete')
 @hostAttributes({
   role: ariaRoleOnHost ? 'listbox' : null,
 })
-export class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
+class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
   protected overlayId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';
   private _activeItemIndex = -1;

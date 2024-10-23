@@ -73,14 +73,14 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 | Name                 | Attribute             | Privacy | Type                                     | Default            | Description                                                               |
 | -------------------- | --------------------- | ------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                    |                    | This will be forwarded as aria-label to the inner anchor element.         |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                                 | `''`               | This will be forwarded as aria-label to the inner anchor element.         |
 | `alignment`          | `alignment`           | public  | `'after-centered' \| 'after' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
-| `chipContent`        | `chip-content`        | public  | `string \| undefined`                    |                    | Content of chip.                                                          |
-| `download`           | `download`            | public  | `boolean \| undefined`                   |                    | Whether the browser will show the download dialog on click.               |
-| `href`               | `href`                | public  | `string \| undefined`                    |                    | The href value you want to link to.                                       |
-| `rel`                | `rel`                 | public  | `string \| undefined`                    |                    | The relationship of the linked URL as space-separated link types.         |
-| `target`             | `target`              | public  | `LinkTargetType \| string \| undefined`  |                    | Where to display the linked URL.                                          |
-| `titleContent`       | `title-content`       | public  | `string \| undefined`                    |                    | Content of title.                                                         |
+| `chipContent`        | `chip-content`        | public  | `string`                                 | `''`               | Content of chip.                                                          |
+| `download`           | `download`            | public  | `boolean`                                | `false`            | Whether the browser will show the download dialog on click.               |
+| `href`               | `href`                | public  | `string`                                 | `''`               | The href value you want to link to.                                       |
+| `rel`                | `rel`                 | public  | `string`                                 | `''`               | The relationship of the linked URL as space-separated link types.         |
+| `target`             | `target`              | public  | `LinkTargetType \| string`               | `''`               | Where to display the linked URL.                                          |
+| `titleContent`       | `title-content`       | public  | `string`                                 | `''`               | Content of title.                                                         |
 | `titleLevel`         | `title-level`         | public  | `SbbTitleLevel`                          | `'5'`              | Heading level of the sbb-title element (e.g. h1-h6).                      |
 
 ## Slots

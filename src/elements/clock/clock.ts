@@ -49,15 +49,16 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 /**
  * It displays an analog clock with the classic SBB face.
  */
+export
 @customElement('sbb-clock')
-export class SbbClockElement extends LitElement {
+class SbbClockElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
    * Define a specific time which the clock should show statically.
    * @param value HH:MM:ss
    */
-  @property() public now: SbbTime | null = null;
+  @property() public accessor now: SbbTime | null = null;
 
   /** Reference to the hour hand. */
   private _clockHandHours!: HTMLElement;

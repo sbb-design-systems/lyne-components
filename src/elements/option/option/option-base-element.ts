@@ -3,7 +3,7 @@ import { html, LitElement, nothing, type PropertyValues, type TemplateResult } f
 import { property, state } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { slotState } from '../../core/decorators.js';
+import { forceType, slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import type { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
@@ -25,8 +25,9 @@ const optionObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-disabled', 'data-negative'],
 };
 
+export
 @slotState()
-export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
+abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   SbbIconNameMixin(SbbHydrationMixin(LitElement)),
 ) {
   protected abstract optionId: string;
@@ -51,7 +52,9 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
    * @deprecated
    * @internal
    */
-  @property({ reflect: true, type: Boolean }) public active?: boolean;
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor active: boolean = false;
 
   /** Whether the option is selected. */
   @property({ type: Boolean })
@@ -70,20 +73,20 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   protected abstract optionSelected: EventEmitter;
 
   /** Whether to apply the negative styling */
-  @state() protected negative = false;
+  @state() protected accessor negative = false;
 
   /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
-  @state() protected disabledFromGroup = false;
+  @state() protected accessor disabledFromGroup = false;
 
-  @state() protected label?: string;
+  @state() protected accessor label!: string;
 
   /** Disable the highlight of the label. */
-  @state() protected disableLabelHighlight: boolean = false;
+  @state() protected accessor disableLabelHighlight: boolean = false;
 
   /** The portion of the highlighted label. */
-  @state() private _highlightString: string | null = null;
+  @state() private accessor _highlightString: string | null = null;
 
-  @state() private _inertAriaGroups = false;
+  @state() private accessor _inertAriaGroups = false;
 
   private _abort = new SbbConnectedAbortController(this);
 
@@ -186,11 +189,11 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   }
 
   protected updateAriaDisabled(): void {
-    setOrRemoveAttribute(
-      this,
-      'aria-disabled',
-      this.disabled || this.disabledFromGroup ? 'true' : null,
-    );
+    if (this.disabled || this.disabledFromGroup) {
+      this.setAttribute('aria-disabled', 'true');
+    } else {
+      this.removeAttribute('aria-disabled');
+    }
   }
 
   private _updateAriaSelected(): void {

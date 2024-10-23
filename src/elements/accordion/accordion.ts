@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../core/controllers.js';
+import { forceType, handleDistinctChange } from '../core/decorators.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
 import { SbbExpansionPanelElement } from '../expansion-panel.js';
 import type { SbbTitleLevel } from '../title.js';
@@ -14,42 +15,28 @@ import style from './accordion.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-expansion-panel` elements.
  */
+export
 @customElement('sbb-accordion')
-export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
+class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. */
-  @property({ reflect: true }) public size: 's' | 'l' = 'l';
+  @property({ reflect: true })
+  public accessor size: 's' | 'l' = 'l';
 
   /**
    * The heading level for the sbb-expansion-panel-headers within the component.
    * @controls SbbExpansionPanelElement.titleLevel
    */
+  @handleDistinctChange((e) => e._setTitleLevelOnChildren())
   @property({ attribute: 'title-level' })
-  public set titleLevel(value: SbbTitleLevel | null) {
-    this._titleLevel = value;
-    this._setTitleLevelOnChildren();
-  }
-  public get titleLevel(): SbbTitleLevel | null {
-    return this._titleLevel;
-  }
-  private _titleLevel: SbbTitleLevel | null = null;
+  public accessor titleLevel: SbbTitleLevel | null = null;
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
+  @forceType()
+  @handleDistinctChange((e, newValue, oldValue) => e._resetExpansionPanels(newValue, !!oldValue))
   @property({ type: Boolean })
-  public set multi(value: boolean) {
-    const oldValue = this._multi;
-    this._multi = value;
-    this._resetExpansionPanels(this._multi, oldValue);
-  }
-  public get multi(): boolean {
-    return this._multi;
-  }
-  private _multi: boolean = false;
-
-  private get _expansionPanels(): SbbExpansionPanelElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
-  }
+  public accessor multi: boolean = false;
 
   private _abort = new SbbConnectedAbortController(this);
 
@@ -63,12 +50,16 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
     );
   }
 
+  private _expansionPanels(): SbbExpansionPanelElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
+  }
+
   private _closePanels(e: CustomEvent): void {
     if ((e.target as HTMLElement)?.localName !== 'sbb-expansion-panel' || this.multi) {
       return;
     }
 
-    this._expansionPanels
+    this._expansionPanels()
       .filter((panel) => panel !== e.target)
       .forEach((panel) => (panel.expanded = false));
   }
@@ -77,13 +68,15 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('size')) {
-      this._expansionPanels.forEach((panel: SbbExpansionPanelElement) => (panel.size = this.size));
+      this._expansionPanels().forEach(
+        (panel: SbbExpansionPanelElement) => (panel.size = this.size),
+      );
     }
   }
 
   private _resetExpansionPanels(newValue: boolean, oldValue: boolean): void {
     // If it's changing from "multi = true" to "multi = false", open the first panel and close all the others.
-    const expansionPanels = this._expansionPanels;
+    const expansionPanels = this._expansionPanels();
     if (expansionPanels.length > 1 && oldValue && !newValue) {
       expansionPanels[0].expanded = true;
       expansionPanels
@@ -93,13 +86,13 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
 
   private _setTitleLevelOnChildren(): void {
-    this._expansionPanels.forEach(
+    this._expansionPanels().forEach(
       (panel: SbbExpansionPanelElement) => (panel.titleLevel = this.titleLevel),
     );
   }
 
   private _handleSlotchange(): void {
-    this._expansionPanels.forEach(
+    this._expansionPanels().forEach(
       (panel: SbbExpansionPanelElement, index: number, array: SbbExpansionPanelElement[]) => {
         panel.titleLevel = this.titleLevel;
         panel.size = this.size;

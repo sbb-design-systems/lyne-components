@@ -11,8 +11,9 @@ import { buttonCommonStyle, buttonTertiaryStyle, SbbButtonCommonElementMixin } f
  * @slot - Use the unnamed slot to add content to the tertiary-button-static.
  * @slot icon - Slot used to display the icon, if one is set
  */
+export
 @customElement('sbb-tertiary-button-static')
-export class SbbTertiaryButtonStaticElement extends SbbButtonCommonElementMixin(
+class SbbTertiaryButtonStaticElement extends SbbButtonCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
   public static override styles: CSSResultGroup = [buttonCommonStyle, buttonTertiaryStyle];
