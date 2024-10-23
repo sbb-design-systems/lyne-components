@@ -39,7 +39,7 @@ export function createManifestConfig(library = '') {
 
           if (node.kind === ts.SyntaxKind.ClassDeclaration) {
             node.jsDoc?.forEach((doc) => {
-              doc?.tags?.forEach((tag) => {
+              doc.tags?.forEach((tag) => {
                 // eslint-disable-next-line lyne/local-name-rule
                 if (tag.tagName.getText() === overrideTypeKey) {
                   const [memberName, memberOverrideType] = tag.comment.split(' - ');
@@ -90,8 +90,8 @@ export function createManifestConfig(library = '') {
                     };
                   }
                 });
+                delete declaration[overrideTypeKey];
               }
-              delete declaration[overrideTypeKey];
 
               for (const member of declaration.members) {
                 if (member.name.startsWith('_') && member.default) {
