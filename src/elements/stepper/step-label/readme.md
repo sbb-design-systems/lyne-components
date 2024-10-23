@@ -32,6 +32,9 @@ If it is used in an `sbb-stepper` and no `icon-name` is specified, it displays a
 
 The accessibility properties `aria-controls`, `aria-setsize`, `aria-posinset` are set automatically.
 
+<!-- Override
+  @type value => string \| null
+-->
 <!-- Auto Generated Below -->
 
 ## Properties
