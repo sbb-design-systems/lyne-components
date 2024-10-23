@@ -12,8 +12,9 @@ import style from './compact-paginator.scss?lit&inline';
  *
  * @event {CustomEvent<SbbPaginatorPageEventDetails>} page - Emits when the pageIndex changes.
  */
+export
 @customElement('sbb-compact-paginator')
-export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
+class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     page: 'page',

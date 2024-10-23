@@ -18,14 +18,13 @@ export declare abstract class SbbPaginatorCommonElementMixinType {
   public length: number;
   public pageSize: number;
   public pageIndex: number;
-  public pagerPosition: 'start' | 'end';
+  public accessor pagerPosition: 'start' | 'end';
   public size: 'm' | 's';
   protected language: SbbLanguageController;
   protected numberOfPages(): number;
   protected pageIndexChanged(value: number): void;
   protected emitPageEvent(previousPageIndex: number): void;
   protected renderPrevNextButtons(): TemplateResult;
-  protected currentPageLabel(): string;
   protected abstract renderPaginator(): TemplateResult;
 }
 
@@ -82,12 +81,12 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     private _pageIndex: number = 0;
 
     /** Position of the prev/next buttons. */
-    @property({ attribute: 'pager-position', reflect: true }) public pagerPosition:
+    @property({ attribute: 'pager-position', reflect: true }) public accessor pagerPosition:
       | 'start'
       | 'end' = 'start';
 
     /** Size variant, either m or s. */
-    @property({ reflect: true }) public size: 'm' | 's' = 'm';
+    @property({ reflect: true }) public accessor size: 'm' | 's' = 'm';
 
     private _page: EventEmitter<SbbPaginatorPageEventDetails> = new EventEmitter(
       this,

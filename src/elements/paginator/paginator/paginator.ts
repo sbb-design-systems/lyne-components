@@ -30,8 +30,9 @@ let nextId = 0;
  *
  * @event {CustomEvent<SbbPaginatorPageEventDetails>} page - Emits when the pageIndex changes.
  */
+export
 @customElement('sbb-paginator')
-export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
+class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     page: 'page',
@@ -52,7 +53,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
    * Position of the prev/next buttons: if `pageSizeOptions` is set,
    * the sbb-select for the pageSize change will be positioned oppositely, with the page numbers always in the center.
    */
-  @property({ attribute: 'pager-position', reflect: true }) public override pagerPosition:
+  @property({ attribute: 'pager-position', reflect: true }) public override accessor pagerPosition:
     | 'start'
     | 'end' = 'start';
 
