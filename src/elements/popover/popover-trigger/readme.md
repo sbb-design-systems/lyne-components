@@ -80,9 +80,6 @@ This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-descr
 actions to no longer do so, for example a submit button in a form. When using this input, you should
 guard against such cases in your component.
 
-<!-- Override
-  @type value => string \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -96,7 +93,7 @@ guard against such cases in your component.
 | `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                      |
 | `negative`            | `negative`             | public  | `boolean`                 | `false`    | Negative coloring variant flag.                                                                                                  |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                        |
-| `value`               | `value`                | public  | `string \| null`          | `null`     | Value of the form element.                                                                                                       |
+| `value`               | `value`                | public  | `V \| null`               | `null`     | Value of the form element.                                                                                                       |
 
 ## Slots
 

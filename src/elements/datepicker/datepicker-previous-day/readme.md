@@ -31,9 +31,6 @@ if it is disabled, or if the selected date is equal to the input's `min` attribu
 NOTE: Since the component needs the `sbb-datepicker` to work properly,
 both standalone or within the `sbb-form-field`, they must have the same parent element to be correctly connected.
 
-<!-- Override
-  @type value => string \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -45,4 +42,4 @@ both standalone or within the `sbb-form-field`, they must have the same parent e
 | `name`       | `name`        | public  | `string`                                    |            | Name of the form element. Will be read from name attribute.    |
 | `negative`   | `negative`    | public  | `boolean`                                   | `false`    | Negative coloring variant flag.                                |
 | `type`       | `type`        | public  | `SbbButtonType`                             | `'button'` | The type attribute to use for the button.                      |
-| `value`      | `value`       | public  | `string \| null`                            | `null`     | Value of the form element.                                     |
+| `value`      | `value`       | public  | `V \| null`                                 | `null`     | Value of the form element.                                     |

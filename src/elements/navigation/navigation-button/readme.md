@@ -27,9 +27,6 @@ The component has three different sizes, which can be changed using the `size` p
 <sbb-navigation-button value="menu" name="menu" size="m">Button</sbb-navigation-button>
 ```
 
-<!-- Override
-  @type value => string \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -43,7 +40,7 @@ The component has three different sizes, which can be changed using the `size` p
 | `section`          | -         | public  | `SbbNavigationSectionElement \| null`      |            | The section in which the action is nested.                     |
 | `size`             | `size`    | public  | `SbbNavigationActionSize`                  | `'l'`      | Action size variant.                                           |
 | `type`             | `type`    | public  | `SbbButtonType`                            | `'button'` | The type attribute to use for the button.                      |
-| `value`            | `value`   | public  | `string \| null`                           | `null`     | Value of the form element.                                     |
+| `value`            | `value`   | public  | `V \| null`                                | `null`     | Value of the form element.                                     |
 
 ## Slots
 

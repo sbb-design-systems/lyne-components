@@ -74,9 +74,6 @@ To partially address the problem, disabled elements are kept focusable (other in
 However, it is still the consumers responsibility to provide a reason for the element being disabled.
 This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-describedby` attribute.
 
-<!-- Override
-  @type value => string \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -92,7 +89,7 @@ This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-descr
 | `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                      |
 | `size`                | `size`                 | public  | `SbbTagSize`              | `'m'`      | Tag size.                                                                                                                        |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                        |
-| `value`               | `value`                | public  | `string \| null`          | `null`     | Value of the form element.                                                                                                       |
+| `value`               | `value`                | public  | `V \| null`               | `null`     | Value of the form element.                                                                                                       |
 
 ## Events
 
