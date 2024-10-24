@@ -37,6 +37,14 @@ export function createManifestConfig(library = '') {
             }
           }
 
+          /**
+           * When a generic T type is used in a superclass declaration, it overrides the type defined in derived class
+           * during the doc generation (as the `value` property in the `SbbFormAssociatedMixinType`).
+           * Using the `@overrideType` annotation in the jsDoc's derived class allows to override the type with the correct one.
+           *
+           * In this phase, the script looks for all the `@overrideType` annotations,
+           * and it saves them in the `classDeclaration` object as a pair <property name> / <correct type>.
+           */
           if (node.kind === ts.SyntaxKind.ClassDeclaration) {
             node.jsDoc?.forEach((doc) => {
               doc.tags?.forEach((tag) => {
@@ -78,6 +86,14 @@ export function createManifestConfig(library = '') {
                 delete declaration.customElement;
               }
 
+              /**
+               * When a generic T type is used in a superclass declaration, it overrides the type defined in derived class
+               * during the doc generation (as the `value` property in the `SbbFormAssociatedMixinType`).
+               * Using the `@overrideType` annotation in the jsDoc's derived class allows to override the type with the correct one.
+               *
+               * In this phase, the script looks for all the `classDeclaration` which have the `overrideTypeKey` property,
+               * and it cycles through them updating the provided property with the provided type.
+               */
               if (declaration[overrideTypeKey]) {
                 declaration[overrideTypeKey].forEach((overrideObj) => {
                   const memberToOverride = declaration.members.find(
