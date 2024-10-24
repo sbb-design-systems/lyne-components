@@ -21,7 +21,10 @@ export
   'data-button': '',
 })
 abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
-  /** The type attribute to use for the button. */
+  /**
+   * The type attribute to use for the button.
+   * @default 'button'
+   */
   @property()
   public override set type(name: SbbButtonType) {
     this.setAttribute('type', `${name}`);

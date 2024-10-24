@@ -24,7 +24,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
       disabled=""
       icon-name="chevron-small-left-small"
       id="sbb-paginator-prev-page"
-      role="button"
       slot="li-0"
     >
     </sbb-mini-button>
@@ -41,7 +40,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
       data-button=""
       icon-name="chevron-small-right-small"
       id="sbb-paginator-next-page"
-      role="button"
       slot="li-2"
       tabindex="0"
     >

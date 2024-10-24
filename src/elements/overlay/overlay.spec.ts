@@ -133,7 +133,7 @@ describe('sbb-overlay', () => {
   it('closes the overlay on close button click with linked form', async () => {
     element = await fixture(html`
       <div>
-        <form id="formid" @submit=${(event: SubmitEvent) => event.preventDefault()}></form>
+        <form id="formid" method="dialog"></form>
         <sbb-overlay id="my-overlay-3">
           <p>Overlay content</p>
           <sbb-button sbb-overlay-close type="submit" form="formid">Close</sbb-button>

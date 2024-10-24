@@ -201,8 +201,7 @@ describe(`sbb-datepicker-toggle`, () => {
     expect(input.value).to.be.equal('Sa, 01.01.2022');
     expect(defaultDateAdapter.toIso8601(calendar.selected!)).to.be.equal('2022-01-01');
     expect(changeSpy.count).to.be.equal(1);
-    // TODO: Check why increasing from 1 to is needed.
-    expect(blurSpy.count).to.be.equal(2);
+    expect(blurSpy.count).to.be.equal(1);
 
     // Clear the input value and expect the calendar to clear the previous selected date
     input.value = '';

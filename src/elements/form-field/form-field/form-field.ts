@@ -184,7 +184,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       .composedPath()
       .some(
         (el) =>
-          (el instanceof window.HTMLElement && el.getAttribute('role') === 'button') ||
+          (el instanceof window.HTMLElement && el.getAttribute('tabindex') === '0') ||
           this._excludedFocusElements.includes((el as HTMLElement).localName),
       );
   }
