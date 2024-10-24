@@ -3,12 +3,12 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
 
-import type { SbbMiniButtonElement } from '../button/mini-button.js';
-import { tabKey } from '../core/testing/private/keys.js';
-import { fixture } from '../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
-import type { SbbOptionElement } from '../option.js';
-import { SbbSelectElement } from '../select.js';
+import type { SbbMiniButtonElement } from '../../button/mini-button.js';
+import { tabKey } from '../../core/testing/private/keys.js';
+import { fixture } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbOptionElement } from '../../option.js';
+import { SbbSelectElement } from '../../select.js';
 
 import { SbbPaginatorElement } from './paginator.js';
 
