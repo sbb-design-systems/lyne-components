@@ -120,7 +120,7 @@ class SbbPearlChainTimeElement extends LitElement {
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
           .legs=${this.legs}
-          .disableAnimation=${this.disableAnimation}
+          ?disable-animation=${this.disableAnimation}
           .now=${this.now}
         ></sbb-pearl-chain>
         ${arrival
