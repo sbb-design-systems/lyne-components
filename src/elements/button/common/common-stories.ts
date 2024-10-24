@@ -8,15 +8,13 @@ import type {
   StoryObj,
   WebComponentsRenderer,
 } from '@storybook/web-components';
-import { type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import '../../action-group.js';
 import '../../icon.js';
 import '../../loading-indicator.js';
-import '../../form-field.js';
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
 const Template = ({ tag, text, ...args }: Args): TemplateResult => html`
@@ -62,7 +60,6 @@ const FixedWidthTemplate = ({ tag, text, ...args }: Args): TemplateResult => htm
     </p>
   </div>
 `;
-
 /* eslint-enable lit/binding-positions, @typescript-eslint/naming-convention */
 
 const text: InputType = {

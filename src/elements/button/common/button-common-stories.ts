@@ -7,6 +7,9 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories.js';
 
+import '../../action-group.js';
+import '../../form-field.js';
+
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
 const FormTemplate = ({
   tag,
