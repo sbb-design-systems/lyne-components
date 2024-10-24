@@ -18,7 +18,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
   <span class="sbb-paginator__wrapping-group">
     <sbb-mini-button-group size="l">
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Previous page"
         data-action=""
         data-button=""
@@ -36,7 +35,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
       >
       </sbb-divider>
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Next page"
         data-action=""
         data-button=""
@@ -87,7 +85,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
   <span class="sbb-paginator__wrapping-group">
     <sbb-mini-button-group size="l">
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Previous page"
         data-action=""
         data-button=""
@@ -443,7 +440,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
   <span class="sbb-paginator__wrapping-group">
     <sbb-mini-button-group size="l">
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Previous page"
         data-action=""
         data-button=""
@@ -624,7 +620,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
   <span class="sbb-paginator__wrapping-group">
     <sbb-mini-button-group size="l">
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Previous page"
         data-action=""
         data-button=""

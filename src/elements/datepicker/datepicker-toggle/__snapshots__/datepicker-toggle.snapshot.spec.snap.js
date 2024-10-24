@@ -10,7 +10,6 @@ snapshots["sbb-datepicker-toggle renders DOM"] =
 snapshots["sbb-datepicker-toggle renders Shadow DOM"] = 
 `<sbb-mini-button
   aria-controls="sbb-popover-2"
-  aria-disabled="true"
   aria-expanded="false"
   aria-haspopup="dialog"
   aria-label="Show calendar"
@@ -71,7 +70,6 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled DOM"] =
 snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] = 
 `<sbb-mini-button
   aria-controls="sbb-popover-6"
-  aria-disabled="true"
   aria-expanded="false"
   aria-haspopup="dialog"
   aria-label="Show calendar"

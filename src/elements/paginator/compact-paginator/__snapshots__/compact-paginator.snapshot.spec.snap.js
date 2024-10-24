@@ -17,7 +17,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
 `<div class="sbb-compact-paginator">
   <sbb-mini-button-group size="l">
     <sbb-mini-button
-      aria-disabled="true"
       aria-label="Previous page"
       data-action=""
       data-button=""

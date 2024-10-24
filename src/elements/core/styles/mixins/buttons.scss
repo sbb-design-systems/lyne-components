@@ -29,7 +29,9 @@
     @include icon-button-variables-negative;
   }
 
-  :host(:is([disabled], :disabled, [data-disabled], [data-group-disabled])) {
+  :host(
+      :is([disabled], :disabled, [disabled-interactive], [data-disabled], [data-group-disabled])
+    ) {
     @include icon-button-disabled(#{$button-selector});
   }
 
@@ -46,6 +48,7 @@
       :not(
           [disabled],
           :disabled,
+          [disabled-interactive],
           [data-disabled],
           [data-group-disabled],
           :active,
@@ -56,7 +59,13 @@
   }
 
   :host(
-      :not([disabled], :disabled, [data-disabled], [data-group-disabled]):is(:active, [data-active])
+      :not(
+          [disabled],
+          :disabled,
+          [disabled-interactive],
+          [data-disabled],
+          [data-group-disabled]
+        ):is(:active, [data-active])
     ) {
     @include icon-button-active(#{$button-selector});
   }

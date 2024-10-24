@@ -72,7 +72,6 @@ snapshots["sbb-tag renders checked Shadow DOM"] =
 snapshots["sbb-tag renders disabled with icon and amount DOM"] = 
 `<sbb-tag
   amount="123"
-  aria-disabled="true"
   aria-pressed="false"
   data-action=""
   data-button=""

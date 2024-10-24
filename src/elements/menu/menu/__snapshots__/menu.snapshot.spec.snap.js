@@ -28,7 +28,6 @@ snapshots["sbb-menu renders DOM"] =
   </sbb-menu-button>
   <sbb-menu-button
     amount="1"
-    aria-disabled="true"
     data-action=""
     data-button=""
     disabled=""
@@ -92,7 +91,6 @@ snapshots["sbb-menu renders with list DOM"] =
   </sbb-menu-button>
   <sbb-menu-button
     amount="1"
-    aria-disabled="true"
     data-action=""
     data-button=""
     disabled=""

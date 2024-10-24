@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-button renders a sbb-button without icon DOM"] = 
 `<sbb-button
-  aria-disabled="true"
   data-action=""
   data-button=""
   data-sbb-button=""
