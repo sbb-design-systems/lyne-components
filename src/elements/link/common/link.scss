@@ -9,7 +9,7 @@
   outline: none !important;
 }
 
-:host([role='button']) {
+:host([data-button]) {
   @include sbb.link-variables--button;
 }
 

@@ -18,14 +18,14 @@
   display: block;
 }
 
-:host(:hover:not(:disabled)) {
+:host(:hover:not([disabled], :disabled)) {
   @include sbb.hover-mq($hover: true) {
     --sbb-menu-background-color: var(--sbb-color-iron);
     --sbb-menu-action-forced-color-border-color: Highlight;
   }
 }
 
-:host(:disabled) {
+:host(:is([disabled], :disabled)) {
   --sbb-menu-action-cursor: default;
   --sbb-menu-action-color: var(--sbb-color-graphite);
   --sbb-menu-action-forced-color-border-color: GrayText;
@@ -38,7 +38,7 @@
   }
 }
 
-:host([role='button']) {
+:host([data-button]) {
   @include sbb.if-forced-colors {
     --sbb-menu-action-color: ButtonText;
   }
@@ -90,7 +90,7 @@
 .sbb-menu-action__label {
   @include sbb.ellipsis;
 
-  :host(:disabled) & {
+  :host(:is([disabled], :disabled)) & {
     text-decoration: line-through;
   }
 }

@@ -40,7 +40,7 @@ sbb-icon {
   }
 }
 
-:host([role='button']) {
+:host([data-button]) {
   @include sbb.if-forced-colors {
     --sbb-navigation-action-color: ButtonText;
   }
