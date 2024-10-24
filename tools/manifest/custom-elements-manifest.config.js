@@ -18,10 +18,7 @@ export function createManifestConfig(library = '') {
     plugins: [
       {
         analyzePhase({ ts, node, moduleDoc }) {
-          if (
-            ts.isNewExpression(node) &&
-            node.expression.getText() === 'NamedSlotStateController'
-          ) {
+          if (ts.isNewExpression(node) && node.expression.getText() === 'SbbSlotStateController') {
             let classNode = node;
             while (classNode) {
               if (ts.isClassDeclaration(classNode)) {
