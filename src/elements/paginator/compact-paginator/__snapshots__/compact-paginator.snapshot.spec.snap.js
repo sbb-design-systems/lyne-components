@@ -47,10 +47,7 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
     >
     </sbb-mini-button>
   </sbb-mini-button-group>
-  <span
-    class="sbb-paginator__pages"
-    role="group"
-  >
+  <span class="sbb-paginator__pages">
     1
     <sbb-divider
       aria-hidden="true"
@@ -68,39 +65,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-compact-paginator renders Shadow DOM */
-
-snapshots["sbb-compact-paginator renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page"
-    },
-    {
-      "role": "text",
-      "name": "1"
-    },
-    {
-      "role": "text",
-      "name": "10"
-    },
-    {
-      "role": "text",
-      "name": "Page 1 selected."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-compact-paginator renders A11y tree Chrome */
 
 snapshots["sbb-compact-paginator renders A11y tree Firefox"] = 
 `<p>
@@ -134,4 +98,37 @@ snapshots["sbb-compact-paginator renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-compact-paginator renders A11y tree Firefox */
+
+snapshots["sbb-compact-paginator renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page"
+    },
+    {
+      "role": "text",
+      "name": "1"
+    },
+    {
+      "role": "text",
+      "name": "10"
+    },
+    {
+      "role": "text",
+      "name": "Page 1 selected."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-compact-paginator renders A11y tree Chrome */
 
