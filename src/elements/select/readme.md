@@ -111,9 +111,6 @@ Opened panel:
 | <kbd>Shift</kbd><kbd>Up Arrow</kbd>     | If `multiple`, moves to the next non-disabled option and toggle its selection.                                                                    |
 | Any char or number                      | If exists, select the first non-disabled matching option after the selected value.                                                                |
 
-<!-- Override
-  @type value => string \| string[] \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties

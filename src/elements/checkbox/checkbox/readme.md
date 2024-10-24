@@ -77,9 +77,6 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 <sbb-checkbox aria-label="Subscribed to email message"></sbb-checkbox>
 ```
 
-<!-- Override
-  @type value => string \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -1,3 +1,5 @@
+const overrideTypeKey = 'overrideType';
+
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
  */
@@ -34,6 +36,33 @@ export function createManifestConfig(library = '') {
               classNode = classNode.parent;
             }
           }
+
+          /**
+           * When a generic T type is used in a superclass declaration, it overrides the type defined in derived class
+           * during the doc generation (as the `value` property in the `SbbFormAssociatedMixinType`).
+           * Using the `@overrideType` annotation in the jsDoc's derived class allows to override the type with the correct one.
+           *
+           * In this phase, the script looks for all the `@overrideType` annotations,
+           * and it saves them in the `classDeclaration` object as a pair <property name> / <correct type>.
+           */
+          if (node.kind === ts.SyntaxKind.ClassDeclaration) {
+            node.jsDoc?.forEach((doc) => {
+              doc.tags?.forEach((tag) => {
+                // eslint-disable-next-line lyne/local-name-rule
+                if (tag.tagName.getText() === overrideTypeKey) {
+                  const [memberName, memberOverrideType] = tag.comment.split(' - ');
+                  const classDeclaration = moduleDoc.declarations.find(
+                    (declaration) => declaration.name === node.name.getText(),
+                  );
+                  if (!classDeclaration[overrideTypeKey]) {
+                    classDeclaration[overrideTypeKey] = [{ memberName, memberOverrideType }];
+                  } else {
+                    classDeclaration[overrideTypeKey].push({ memberName, memberOverrideType });
+                  }
+                }
+              });
+            });
+          }
         },
         packageLinkPhase({ customElementsManifest }) {
           function fixModulePaths(node, pathAction) {
@@ -56,6 +85,26 @@ export function createManifestConfig(library = '') {
               if (declaration.name.includes('Base')) {
                 delete declaration.customElement;
               }
+
+              /**
+               * Search for all the `classDeclaration` which have the `overrideTypeKey` property,
+               * and update the provided property with the provided type.
+               */
+              if (declaration[overrideTypeKey]) {
+                declaration[overrideTypeKey].forEach((overrideObj) => {
+                  const memberToOverride = declaration.members.find(
+                    (member) => member.name === overrideObj.memberName,
+                  );
+                  if (memberToOverride) {
+                    memberToOverride.type = {
+                      ...memberToOverride.type,
+                      text: overrideObj.memberOverrideType,
+                    };
+                  }
+                });
+                delete declaration[overrideTypeKey];
+              }
+
               for (const member of declaration.members) {
                 if (member.name.startsWith('_') && member.default) {
                   const publicName = member.name.replace(/^_/, '');
