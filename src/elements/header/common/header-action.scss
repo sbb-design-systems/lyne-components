@@ -75,7 +75,7 @@
   }
 }
 
-:host([role='button']) {
+:host([data-button]) {
   @include sbb.if-forced-colors {
     --sbb-header-action-color: ButtonText;
   }

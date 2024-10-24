@@ -18,14 +18,12 @@ snapshots["sbb-paginator renders Shadow DOM"] =
   <span class="sbb-paginator__wrapping-group">
     <sbb-mini-button-group size="l">
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Previous page"
         data-action=""
         data-button=""
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
-        role="button"
         slot="li-0"
       >
       </sbb-mini-button>
@@ -37,14 +35,12 @@ snapshots["sbb-paginator renders Shadow DOM"] =
       >
       </sbb-divider>
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Next page"
         data-action=""
         data-button=""
         disabled=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
-        role="button"
         slot="li-2"
       >
       </sbb-mini-button>
@@ -89,14 +85,12 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
   <span class="sbb-paginator__wrapping-group">
     <sbb-mini-button-group size="l">
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Previous page"
         data-action=""
         data-button=""
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
-        role="button"
         slot="li-0"
       >
       </sbb-mini-button>
@@ -113,7 +107,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
         data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
-        role="button"
         slot="li-2"
         tabindex="0"
       >
@@ -214,7 +207,6 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         data-button=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
-        role="button"
         slot="li-0"
         tabindex="0"
       >
@@ -232,7 +224,6 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
         data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
-        role="button"
         slot="li-2"
         tabindex="0"
       >
@@ -333,7 +324,6 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         data-button=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
-        role="button"
         slot="li-0"
         tabindex="0"
       >
@@ -351,7 +341,6 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
         data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
-        role="button"
         slot="li-2"
         tabindex="0"
       >
@@ -451,14 +440,12 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
   <span class="sbb-paginator__wrapping-group">
     <sbb-mini-button-group size="l">
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Previous page"
         data-action=""
         data-button=""
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
-        role="button"
         slot="li-0"
       >
       </sbb-mini-button>
@@ -475,7 +462,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
-        role="button"
         slot="li-2"
         tabindex="0"
       >
@@ -634,14 +620,12 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
   <span class="sbb-paginator__wrapping-group">
     <sbb-mini-button-group size="l">
       <sbb-mini-button
-        aria-disabled="true"
         aria-label="Previous page"
         data-action=""
         data-button=""
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
-        role="button"
         slot="li-0"
       >
       </sbb-mini-button>
@@ -658,7 +642,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
-        role="button"
         slot="li-2"
         tabindex="0"
       >

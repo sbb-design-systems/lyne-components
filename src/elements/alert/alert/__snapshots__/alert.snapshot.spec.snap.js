@@ -63,7 +63,6 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
           data-sbb-button=""
           icon-name="cross-small"
           negative=""
-          role="button"
           size="m"
           tabindex="0"
         >
@@ -158,7 +157,6 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
           data-sbb-button=""
           icon-name="cross-small"
           negative=""
-          role="button"
           size="m"
           tabindex="0"
         >

@@ -156,7 +156,6 @@ describe(`sbb-file-selector`, () => {
                                 data-action
                                 data-button
                                 data-sbb-button
-                                role="button"
                                 size="m"
                                 tabindex="0">
           </sbb-secondary-button>

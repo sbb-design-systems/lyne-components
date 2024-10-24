@@ -81,7 +81,7 @@ class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof Lit
       }
     }
   }
-  public get value(): string | string[] | null {
+  public get value(): string | (string | null)[] | null {
     return isServer
       ? this._value
       : this.multiple

@@ -101,17 +101,14 @@ describe(`sbb-expansion-panel`, () => {
     const header: SbbExpansionPanelHeaderElement =
       element.querySelector<SbbExpansionPanelHeaderElement>('sbb-expansion-panel-header')!;
     expect(header.disabled).to.be.equal(false);
-    expect(header).not.to.have.attribute('aria-disabled');
 
     element.disabled = true;
     await waitForLitRender(element);
     expect(header.disabled).to.be.equal(true);
-    expect(header).to.have.attribute('aria-disabled', 'true');
 
     element.disabled = false;
     await waitForLitRender(element);
     expect(header.disabled).to.be.equal(false);
-    expect(header).not.to.have.attribute('aria-disabled');
   });
 
   it('size property is proxied to children', async () => {

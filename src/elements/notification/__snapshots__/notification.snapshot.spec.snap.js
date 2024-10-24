@@ -54,7 +54,6 @@ snapshots["sbb-notification renders Shadow DOM"] =
         data-button=""
         data-sbb-button=""
         icon-name="cross-small"
-        role="button"
         size="m"
         tabindex="0"
       >
@@ -120,7 +119,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
         data-button=""
         data-sbb-button=""
         icon-name="cross-small"
-        role="button"
         size="m"
         tabindex="0"
       >
@@ -187,7 +185,6 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
         data-button=""
         data-sbb-button=""
         icon-name="cross-small"
-        role="button"
         size="m"
         tabindex="0"
       >
@@ -299,7 +296,6 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
         data-button=""
         data-sbb-button=""
         icon-name="cross-small"
-        role="button"
         size="s"
         tabindex="0"
       >

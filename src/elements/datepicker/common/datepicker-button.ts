@@ -205,6 +205,6 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
   }
 
   protected override renderTemplate(): TemplateResult {
-    return html` <sbb-icon name=${this.iconName}></sbb-icon> `;
+    return html`<sbb-icon name=${this.iconName}></sbb-icon>`;
   }
 }

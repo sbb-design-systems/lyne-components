@@ -20,7 +20,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
       data-sbb-button=""
       icon-name="chevron-small-left-small"
       id="sbb-calendar__controls-previous"
-      role="button"
       size="m"
       tabindex="0"
     >
@@ -52,7 +51,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
       data-sbb-button=""
       icon-name="chevron-small-right-small"
       id="sbb-calendar__controls-next"
-      role="button"
       size="m"
       tabindex="0"
     >

@@ -29,9 +29,6 @@ export
 class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
   public static override styles: CSSResultGroup = style;
 
-  /** @internal */
-  private readonly _internals: ElementInternals = this.attachInternals();
-
   /** The step controlled by the label. */
   public get step(): SbbStepElement | null {
     return this._step;
@@ -53,7 +50,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     super.connectedCallback();
     const signal = this._abort.signal;
     this.id = this.id || `sbb-step-label-${nextId++}`;
-    this._internals.ariaSelected = 'false';
+    this.internals.ariaSelected = 'false';
     this._stepper = this.closest('sbb-stepper');
     this._step = this._getStep();
     // The `data-disabled` attribute is used to preserve the initial disabled state of
@@ -83,7 +80,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
    */
   public select(): void {
     this.tabIndex = 0;
-    this._internals.ariaSelected = 'true';
+    this.internals.ariaSelected = 'true';
     this.toggleAttribute('data-selected', true);
   }
 
@@ -93,7 +90,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
    */
   public deselect(): void {
     this.tabIndex = -1;
-    this._internals.ariaSelected = 'false';
+    this.internals.ariaSelected = 'false';
     this.toggleAttribute('data-selected', false);
   }
 
@@ -105,8 +102,8 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     if (stepperLoaded) {
       this._step = this._getStep();
     }
-    this._internals.ariaPosInSet = `${posInSet}`;
-    this._internals.ariaSetSize = `${setSize}`;
+    this.internals.ariaPosInSet = `${posInSet}`;
+    this.internals.ariaSetSize = `${setSize}`;
   }
 
   protected override render(): TemplateResult {

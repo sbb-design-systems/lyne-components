@@ -26,7 +26,6 @@ snapshots["sbb-map-container renders Shadow DOM"] =
       data-slot-names="unnamed"
       icon-name="location-pin-map-small"
       inert=""
-      role="button"
       size="l"
       tabindex="0"
       type="button"
