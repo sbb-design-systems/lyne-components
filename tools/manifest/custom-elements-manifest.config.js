@@ -20,29 +20,43 @@ export function createManifestConfig(library = '') {
     plugins: [
       {
         analyzePhase({ ts, node, moduleDoc }) {
+          function setSsrSlotState(classNode) {
+            const classDoc = moduleDoc.declarations.find(
+              (declaration) => declaration.name === classNode.name.getText(),
+            );
+            classDoc['_ssrslotstate'] = true;
+          }
+
           if (ts.isNewExpression(node) && node.expression.getText() === 'SbbSlotStateController') {
             let classNode = node;
             while (classNode) {
               if (ts.isClassDeclaration(classNode)) {
-                const className = classNode.name.getText();
-                const classDoc = moduleDoc.declarations.find(
-                  (declaration) => declaration.name === className,
-                );
-                classDoc['_ssrslotstate'] = true;
+                setSsrSlotState(classNode);
               }
               classNode = classNode.parent;
             }
           }
 
-          /**
-           * When a generic T type is used in a superclass declaration, it overrides the type defined in derived class
-           * during the doc generation (as the `value` property in the `SbbFormAssociatedMixinType`).
-           * Using the `@overrideType` annotation in the jsDoc's derived class allows to override the type with the correct one.
-           *
-           * In this phase, the script looks for all the `@overrideType` annotations,
-           * and it saves them in the `classDeclaration` object as a pair <property name> / <correct type>.
-           */
-          if (node.kind === ts.SyntaxKind.ClassDeclaration) {
+          if (ts.isClassDeclaration(node)) {
+            /**
+             * The usage of the `slotState` decorator breaks the logic in the previous block of code,
+             * since the decorated class has no explicit usage of the `SbbSlotStateController` constructor any more.
+             */
+            const decorators = ts.getDecorators(node);
+            if (decorators && decorators.length > 0) {
+              if (decorators.find((e) => e.getText() === '@slotState()')) {
+                setSsrSlotState(node);
+              }
+            }
+
+            /**
+             * When a generic T type is used in a superclass declaration, it overrides the type defined in derived class
+             * during the doc generation (as the `value` property in the `SbbFormAssociatedMixinType`).
+             * Using the `@overrideType` annotation in the jsDoc's derived class allows to override the type with the correct one.
+             *
+             * In this phase, the script looks for all the `@overrideType` annotations,
+             * and it saves them in the `classDeclaration` object as a pair <property name> / <correct type>.
+             */
             node.jsDoc?.forEach((doc) => {
               doc.tags?.forEach((tag) => {
                 // eslint-disable-next-line lyne/local-name-rule
