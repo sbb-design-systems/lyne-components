@@ -22,7 +22,13 @@ export
 })
 abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
   /** The type attribute to use for the button. */
-  @property() public override accessor type: SbbButtonType = 'button';
+  @property()
+  public override set type(name: SbbButtonType) {
+    this.setAttribute('type', `${name}`);
+  }
+  public override get type(): SbbButtonType {
+    return (this.getAttribute('type') as SbbButtonType) ?? 'button';
+  }
 
   /** The <form> element to associate the button with. */
   @property()

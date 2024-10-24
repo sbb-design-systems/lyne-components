@@ -2,10 +2,10 @@ import { type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbFocusHandler } from '../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
+import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbInertController, SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
-import { hostContext, SbbScrollHandler } from '../core/dom.js';
+import { SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
 import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
@@ -133,11 +133,10 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     }
 
     // Check if the target is a submission element within a form and return the form, if present
-    // TODO: Check if needed
     const closestForm =
       overlayCloseElement.getAttribute('type') === 'submit'
-        ? (hostContext('form', overlayCloseElement) as HTMLFormElement)
-        : undefined;
+        ? ((overlayCloseElement as HTMLButtonElement | SbbButtonBaseElement).form ?? null)
+        : null;
     overlayRefs[overlayRefs.length - 1].close(closestForm, overlayCloseElement);
   }
 
