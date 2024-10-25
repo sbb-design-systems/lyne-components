@@ -71,7 +71,7 @@ guard against such cases in your component.
 | `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                      |
 | `size`                | `size`                 | public  | `SbbLinkSize`             | `'s'`      | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.       |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                        |
-| `value`               | `value`                | public  | `V \| null`               | `null`     | Value of the form element.                                                                                                       |
+| `value`               | `value`                | public  | `string \| null`          | `null`     | Value of the form element.                                                                                                       |
 
 ## Slots
 

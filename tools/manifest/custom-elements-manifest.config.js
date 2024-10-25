@@ -20,6 +20,52 @@ export function createManifestConfig(library = '') {
     plugins: [
       {
         analyzePhase({ ts, node, moduleDoc }) {
+          function replace(typeObj, typeName, typeValue) {
+            if (typeObj && typeObj.text) {
+              typeObj.text = typeObj.text.replace(typeName, typeValue);
+            }
+          }
+
+          /**
+           * Replaces the mixins generics types with the default value.
+           *
+           * Right now works only for SbbFormAssociatedMixin, replacing the generic V with its default (string).
+           * This allows using the jsDoc `@overrideType` annotation only for cases where the default is overridden.
+           */
+          if (ts.isVariableStatement(node)) {
+            node.declarationList?.declarations?.forEach((decl) => {
+              if (decl.initializer?.typeParameters) {
+                const moduleDeclaration = moduleDoc.declarations.find(
+                  (e) => e.name === decl.name?.getText(),
+                );
+                decl.initializer?.typeParameters?.forEach((typeParam) => {
+                  if (typeParam.default) {
+                    const typeName = typeParam.name.getText();
+                    const typeValue = typeParam.default.literal
+                      ? typeParam.default.literal.text
+                      : ts.tokenToString(typeParam.default.kind);
+
+                    moduleDeclaration?.members?.forEach((member) => {
+                      if (member.kind === 'field') {
+                        replace(member.type, typeName, typeValue);
+                      }
+                      if (member.kind === 'method') {
+                        if (member.return) {
+                          replace(member.return.type, typeName, typeValue);
+                        }
+                        if (member.parameters) {
+                          member.parameters.forEach((parameter) => {
+                            replace(parameter.type, typeName, typeValue);
+                          });
+                        }
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+
           if (
             ts.isNewExpression(node) &&
             node.expression.getText() === 'NamedSlotStateController'

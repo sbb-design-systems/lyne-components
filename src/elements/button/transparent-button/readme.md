@@ -94,7 +94,7 @@ guard against such cases in your component.
 | `negative`            | `negative`             | public  | `boolean`                 | `false`    | Negative coloring variant flag.                                                                                                  |
 | `size`                | `size`                 | public  | `SbbButtonSize`           | `'l'`      | Size variant, either l or m.                                                                                                     |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                        |
-| `value`               | `value`                | public  | `V \| null`               | `null`     | Value of the form element.                                                                                                       |
+| `value`               | `value`                | public  | `string \| null`          | `null`     | Value of the form element.                                                                                                       |
 
 ## Slots
 

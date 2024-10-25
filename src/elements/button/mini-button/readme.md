@@ -96,7 +96,7 @@ guard against such cases in your component.
 | `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                      |
 | `negative`            | `negative`             | public  | `boolean`                 | `false`    | Negative coloring variant flag.                                                                                                  |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                        |
-| `value`               | `value`                | public  | `V \| null`               | `null`     | Value of the form element.                                                                                                       |
+| `value`               | `value`                | public  | `string \| null`          | `null`     | Value of the form element.                                                                                                       |
 
 ## Slots
 

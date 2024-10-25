@@ -89,7 +89,7 @@ This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-descr
 | `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                      |
 | `size`                | `size`                 | public  | `SbbTagSize`              | `'m'`      | Tag size.                                                                                                                        |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                        |
-| `value`               | `value`                | public  | `V \| null`               | `null`     | Value of the form element.                                                                                                       |
+| `value`               | `value`                | public  | `string \| null`          | `null`     | Value of the form element.                                                                                                       |
 
 ## Events
 
