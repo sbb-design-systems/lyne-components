@@ -2,7 +2,7 @@ name: Release Please
 on:
   push:
     branches:
-      - main
+      - '*.x'
 
 # Documentation:
 # https://github.com/googleapis/release-please
@@ -26,6 +26,9 @@ jobs:
           release-type: node
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+          # The short ref name of the branch or tag that triggered
+          #  the workflow run. For example, `main` or `1.x`
+          target-branch: ${{ github.ref_name }}
       - name: Release Info
         run: echo "$RELEASE_OUTPUT"
         env:
