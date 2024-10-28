@@ -1,5 +1,8 @@
-import { Octokit } from 'octokit';
 import { fileURLToPath } from 'url';
+
+import { Octokit } from 'octokit';
+
+const maintenanceIssueNumber = 3176;
 
 const githubToken = process.env['GITHUB_TOKEN'];
 const pullRequestNumber = parseInt(process.env['PR_NUMBER']!, 10);
@@ -13,7 +16,7 @@ const repoConfig = {
 
 const issuePath = {
   ...repoConfig,
-  issue_number: 3176,
+  issue_number: maintenanceIssueNumber,
 };
 
 const prPath = {
@@ -22,12 +25,12 @@ const prPath = {
 };
 
 class MaintenanceIssueUpdater {
-  constructor(
+  public constructor(
     private _octokit: Octokit,
     private _now: Date,
   ) {}
 
-  async run() {
+  public async run(): Promise<void> {
     if (!failedBranches && !failedReleaseVersion) {
       throw new Error(
         `Unable to update maintenance issue.

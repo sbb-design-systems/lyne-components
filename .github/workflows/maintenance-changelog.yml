@@ -56,7 +56,7 @@ jobs:
         if: needs.cherry_pick.outputs.failed_release_version
       - name: Update maintenance issue
         if: needs.cherry_pick.outputs.failed_release_version
-        run: node --no-warnings=ExperimentalWarning --loader ts-node/esm/transpile-only scripts/update-maintenance-issue.mts
+        run: yarn ts-hooks scripts/update-maintenance-issue.ts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FAILED_RELEASE: ${{ needs.cherry_pick.outputs.failed_release_version }}
