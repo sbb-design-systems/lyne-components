@@ -1,7 +1,7 @@
 import { LitElement, html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { slotState } from '../../core/decorators.js';
+import { getOverride, slotState } from '../../core/decorators.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import {
@@ -22,12 +22,12 @@ import '../../visual-checkbox.js';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
+ * @overrideType value - string | null
  */
+export
 @customElement('sbb-checkbox')
 @slotState()
-export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
-  SbbIconNameMixin(LitElement),
-) {
+class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxStyle];
 
   public static readonly events = {
@@ -36,17 +36,12 @@ export class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(
 
   /** Size variant. */
   @property({ reflect: true })
-  public set size(value: SbbCheckboxSize) {
-    this._size = value;
-  }
-  public get size(): SbbCheckboxSize {
-    return this.group?.size ?? this._size;
-  }
-  private _size: SbbCheckboxSize = 'm';
+  @getOverride((i, v) => i.group?.size ?? v)
+  public accessor size: SbbCheckboxSize = 'm';
 
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
-  public iconPlacement: SbbIconPlacement = 'end';
+  public accessor iconPlacement: SbbIconPlacement = 'end';
 
   protected override render(): TemplateResult {
     return html`

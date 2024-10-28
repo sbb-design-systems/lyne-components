@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../core/dom.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { describeIf } from '../core/testing.js';
+import { isSafari } from '../../core/dom.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { describeIf } from '../../core/testing.js';
 
 import type { SbbPaginatorElement } from './paginator.js';
 

@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.12.1...v1.13.0) (2024-10-21)
+
+
+### Features
+
+* **sbb-file-selector:** implement native form support ([#3085](https://github.com/sbb-design-systems/lyne-components/issues/3085)) ([449ee6d](https://github.com/sbb-design-systems/lyne-components/commit/449ee6d27667dcd944a4f17c6b91da0a1d250534))
+* **sbb-header:** introduce active state ([#3154](https://github.com/sbb-design-systems/lyne-components/issues/3154)) ([ffdeec4](https://github.com/sbb-design-systems/lyne-components/commit/ffdeec4e6d844b4af5b521c0af3742df207c0f1d))
+* **sbb-paginator:** add disabled property ([#3130](https://github.com/sbb-design-systems/lyne-components/issues/3130)) ([d43f64c](https://github.com/sbb-design-systems/lyne-components/commit/d43f64c3b306633fd1c663c81e7fc7336dbe1cf3))
+* **sbb-select:** implement native form support ([#3101](https://github.com/sbb-design-systems/lyne-components/issues/3101)) ([b9156ab](https://github.com/sbb-design-systems/lyne-components/commit/b9156ab70ffe14d543606194df305f9e7d4a1375))
+
+
+### Bug Fixes
+
+* **sbb-loading-indicator:** center component into his box ([#3144](https://github.com/sbb-design-systems/lyne-components/issues/3144)) ([22978f6](https://github.com/sbb-design-systems/lyne-components/commit/22978f6776598c7a457adcee4e9665229550caed))
+* **sbb-teaser:** css variable typo ([#3143](https://github.com/sbb-design-systems/lyne-components/issues/3143)) ([d3e4fb3](https://github.com/sbb-design-systems/lyne-components/commit/d3e4fb3c527059574195cf58686ca6bf3a599cdc))
+
 ## [1.12.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.12.0...v1.12.1) (2024-10-03)
 
 

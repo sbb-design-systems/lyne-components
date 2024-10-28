@@ -4,11 +4,13 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y.js';
+import { forceType } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseDialog, i18nGoBack } from '../core/i18n.js';
 
 import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.js';
 import style from './overlay.scss?lit&inline';
+
 import '../button/secondary-button.js';
 import '../button/transparent-button.js';
 import '../container.js';
@@ -27,8 +29,9 @@ import '../screen-reader-only.js';
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
+export
 @customElement('sbb-overlay')
-export class SbbOverlayElement extends SbbOverlayBaseElement {
+class SbbOverlayElement extends SbbOverlayBaseElement {
   public static override styles: CSSResultGroup = style;
 
   // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
@@ -44,20 +47,24 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
    * Whether to allow the overlay content to stretch to full width.
    * By default, the content has the appropriate page size.
    */
-  @property({ reflect: true, type: Boolean }) public expanded = false;
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor expanded: boolean = false;
 
   /** Whether a back button is displayed next to the title. */
-  @property({ attribute: 'back-button', type: Boolean }) public backButton = false;
+  @forceType()
+  @property({ attribute: 'back-button', type: Boolean })
+  public accessor backButton: boolean = false;
 
   /** This will be forwarded as aria-label to the close button element. */
-  @property({ attribute: 'accessibility-close-label' }) public accessibilityCloseLabel:
-    | string
-    | undefined;
+  @forceType()
+  @property({ attribute: 'accessibility-close-label' })
+  public accessor accessibilityCloseLabel: string = '';
 
   /** This will be forwarded as aria-label to the back button element. */
-  @property({ attribute: 'accessibility-back-label' }) public accessibilityBackLabel:
-    | string
-    | undefined;
+  @forceType()
+  @property({ attribute: 'accessibility-back-label' })
+  public accessor accessibilityBackLabel: string = '';
 
   protected closeAttribute: string = 'sbb-overlay-close';
 

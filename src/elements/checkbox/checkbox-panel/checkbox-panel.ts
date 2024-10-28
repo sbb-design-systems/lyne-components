@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { slotState } from '../../core/decorators.js';
+import { getOverride, slotState } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
@@ -41,10 +41,12 @@ export type SbbCheckboxPanelStateChange = Extract<
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
+ * @overrideType value - string | null
  */
+export
 @customElement('sbb-checkbox-panel')
 @slotState()
-export class SbbCheckboxPanelElement extends SbbPanelMixin(
+class SbbCheckboxPanelElement extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
@@ -58,13 +60,8 @@ export class SbbCheckboxPanelElement extends SbbPanelMixin(
 
   /** Size variant. */
   @property({ reflect: true })
-  public set size(value: SbbPanelSize) {
-    this._size = value;
-  }
-  public get size(): SbbPanelSize {
-    return this.group?.size ? (this.group.size === 'xs' ? 's' : this.group.size) : this._size;
-  }
-  private _size: SbbPanelSize = 'm';
+  @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
+  public accessor size: SbbPanelSize = 'm';
 
   /**
    * @internal

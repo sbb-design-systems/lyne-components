@@ -11,6 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { forceType } from '../../core/decorators.js';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
@@ -30,19 +31,20 @@ interface AggregatedSector {
  *
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
  */
+export
 @customElement('sbb-train-formation')
-export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
-  SbbTrainElement,
-  typeof LitElement
->(LitElement) {
+class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, typeof LitElement>(
+  LitElement,
+) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-train'];
 
   /** Option to hide all wagon labels. */
-  @property({ attribute: 'hide-wagon-label', reflect: true, type: Boolean }) public hideWagonLabel =
-    false;
+  @forceType()
+  @property({ attribute: 'hide-wagon-label', reflect: true, type: Boolean })
+  public accessor hideWagonLabel: boolean = false;
 
-  @state() private _sectors: AggregatedSector[] = [];
+  @state() private accessor _sectors: AggregatedSector[] = [];
 
   /** Element that defines the visible content width. */
   private _formationDiv?: HTMLDivElement;

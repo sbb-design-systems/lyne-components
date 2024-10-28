@@ -8,7 +8,7 @@ import { until } from 'lit/directives/until.js';
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
-import { hostAttributes } from '../core/decorators.js';
+import { forceType, hostAttributes } from '../core/decorators.js';
 import { isNextjs, isSafari } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
@@ -53,12 +53,14 @@ export interface SelectChange {
  * @cssprop [--sbb-select-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
+ * @overrideType value - string | string[] | null
  */
+export
 @customElement('sbb-select')
 @hostAttributes({
   role: ariaRoleOnHost ? 'listbox' : null,
 })
-export class SbbSelectElement extends SbbUpdateSchedulerMixin(
+class SbbSelectElement extends SbbUpdateSchedulerMixin(
   SbbDisabledMixin(
     SbbNegativeMixin(
       SbbHydrationMixin(
@@ -86,16 +88,22 @@ export class SbbSelectElement extends SbbUpdateSchedulerMixin(
   } as const;
 
   /** The placeholder used if no value has been selected. */
-  @property() public placeholder?: string;
+  @forceType()
+  @property()
+  public accessor placeholder: string = '';
 
   /** Whether the select allows for multiple selection. */
-  @property({ reflect: true, type: Boolean }) public multiple = false;
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor multiple: boolean = false;
 
   /** Whether the select is readonly. */
-  @property({ type: Boolean }) public readonly = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor readonly: boolean = false;
 
   /** The value displayed by the component. */
-  @state() private _displayValue: string | null = null;
+  @state() private accessor _displayValue: string | null = null;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.

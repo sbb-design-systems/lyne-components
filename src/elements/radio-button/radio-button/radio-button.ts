@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { slotState } from '../../core/decorators.js';
+import { getOverride, slotState } from '../../core/decorators.js';
 import {
   SbbRadioButtonCommonElementMixin,
   radioButtonCommonStyle,
@@ -16,25 +16,19 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the radio label.
  */
+export
 @customElement('sbb-radio-button')
 @slotState()
-export class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement) {
+class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonStyle];
   public static readonly events = {
     stateChange: 'stateChange',
   } as const;
 
-  /**
-   * Size variant.
-   */
+  /** Size variant. */
   @property({ reflect: true })
-  public set size(value: SbbRadioButtonSize) {
-    this._size = value;
-  }
-  public get size(): SbbRadioButtonSize {
-    return this.group?.size ?? this._size;
-  }
-  private _size: SbbRadioButtonSize = 'm';
+  @getOverride((i, v) => i.group?.size ?? v)
+  public accessor size: SbbRadioButtonSize = 'm';
 
   protected override render(): TemplateResult {
     return html`

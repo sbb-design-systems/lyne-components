@@ -77,9 +77,6 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 <sbb-checkbox aria-label="Subscribed to email message"></sbb-checkbox>
 ```
 
-<!-- Override
-  @type value => string \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -90,7 +87,7 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `disabled`      | `disabled`       | public  | `boolean`                         | `false` | Whether the component is disabled.                                                                                               |
 | `form`          | -                | public  | `HTMLFormElement \| null`         |         | Returns the form owner of the internals of the target element.                                                                   |
 | `group`         | -                | public  | `SbbCheckboxGroupElement \| null` | `null`  | Reference to the connected checkbox group.                                                                                       |
-| `iconName`      | `icon-name`      | public  | `string \| undefined`             |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `iconName`      | `icon-name`      | public  | `string`                          | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement`                | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                    |
 | `indeterminate` | `indeterminate`  | public  | `boolean`                         | `false` | Whether the checkbox is indeterminate.                                                                                           |
 | `name`          | `name`           | public  | `string`                          |         | Name of the form element. Will be read from name attribute.                                                                      |
