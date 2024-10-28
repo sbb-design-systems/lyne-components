@@ -77,7 +77,7 @@ describe(`sbb-mini-button`, () => {
                     backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
                   },
                 );
-                setup.withStateElement(root.querySelector('sbb-mini-button')!);
+                setup.withStateElement(setup.snapshotElement.querySelector('sbb-mini-button')!);
               }),
             );
           }
