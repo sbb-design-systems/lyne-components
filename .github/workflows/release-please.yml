@@ -39,9 +39,16 @@ jobs:
         env:
           VERSION: ${{ steps.release.outputs.version }}
 
+      - name: Get token
+        id: get_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.MAINTENANCE_APP_ID }}
+          private_key: ${{ secrets.MAINTENANCE_APP_PEM }}
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.get_token.outputs.app_token }}
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -98,3 +105,20 @@ jobs:
           docker push $IMAGE_REPO_STORYBOOK:dev
         env:
           DOCKER_BUILDKIT: 1
+
+      - name: Cherry-pick CHANGELOG.md into ${{ github.event.repository.default_branch }}
+        if: ${{ steps.release.outputs.release_created && github.ref_name != 'main' }}
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "github-actions"
+          git checkout ${{ github.event.repository.default_branch }}
+          git show ${{ github.sha }} -- CHANGELOG.md | git apply -
+          git commit -a -m "chore: update changelog"
+          git push
+
+      - name: Update maintenance issue
+        if: ${{ steps.release.outputs.release_created && failure() }}
+        run: yarn ts-hooks scripts/update-maintenance-issue.ts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FAILED_RELEASE: ${{ steps.release.outputs.version }}
