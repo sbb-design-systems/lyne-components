@@ -4,9 +4,8 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
 import { pageScrollDisabled } from '../../core/dom.js';
-import { tabKey } from '../../core/testing/private/keys.js';
-import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, waitForLitRender, EventSpy, waitForEvent } from '../../core/testing.js';
+import { fixture, tabKey } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition, waitForEvent, waitForLitRender } from '../../core/testing.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
