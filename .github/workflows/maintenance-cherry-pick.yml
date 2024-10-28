@@ -1,8 +1,11 @@
-name: cherry-pick into target branches
+name: Cherry-pick into target branches
 
 on:
   pull_request:
-    types: [closed]
+    types:
+      - closed
+    branches:
+      - main
 
 permissions:
   actions: write
