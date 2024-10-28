@@ -20,8 +20,20 @@ jobs:
     steps:
       - run: echo Labels are not empty, continuing
 
-  cherry_pick:
+  filter_labels:
     needs: [check_labels]
+    runs-on: ubuntu-latest
+    outputs:
+      filtered_labels: ${{ steps.filter.outputs.filtered_labels }}
+    steps:
+      - name: Filter labels
+        id: filter
+        run: |
+          FILTERED_LABELS=$(jq -r '.pull_request.labels | map(select(.name | test("^target: [0-9]+\\.x$"))) | .[].name' <<< "${{ toJSON(github.event) }}")
+          echo "filtered_labels=${FILTERED_LABELS}" >> $GITHUB_OUTPUT
+
+  cherry_pick:
+    needs: [filter_labels]
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true &&
       github.event.pull_request.user.login != 'renovate[bot]'
@@ -29,7 +41,7 @@ jobs:
       failed_branches: ${{ steps.update_failed_branches.outputs.failed_branches }}
     strategy:
       matrix:
-        label: ${{ github.event.pull_request.labels.*.name }}
+        label: ${{ fromJson(needs.filter_labels.outputs.filtered_labels) }}
 
     steps:
       - name: Get token
@@ -49,7 +61,7 @@ jobs:
           token: ${{ steps.get_token.outputs.token }}
           fetch-depth: 0
 
-      - name: Cherry-pick changes into  ${{ steps.branch_name.outputs.branch }}
+      - name: Cherry-pick changes into ${{ steps.branch_name.outputs.branch }}
         if: steps.branch_name.outputs.branch
         run: |
           git checkout ${{ steps.branch_name.outputs.branch }}
