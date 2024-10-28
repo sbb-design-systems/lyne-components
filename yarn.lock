@@ -2667,10 +2667,10 @@
     "@web/test-runner-core" "^0.13.0"
     puppeteer "^23.2.0"
 
-"@web/test-runner-visual-regression@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-visual-regression/-/test-runner-visual-regression-0.9.0.tgz#9875a4871a24f8bf520c97b80ce548e81bce51e6"
-  integrity sha512-06M1WffLy+BJo08s57RumKYUULD/UB8u7DgZ8/MJZYCt+7r4Vt54w34CwSGHCpeDLY8Z/YkxecafvzDjuLnEJQ==
+"@web/test-runner-visual-regression@0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-visual-regression/-/test-runner-visual-regression-0.10.0.tgz#b20e17f0427a8ce0db18c69e34e8d730336b4a85"
+  integrity sha512-fz+OPvPXpGlQdkyEKeIRr1t1/hIWb11JmmFUZWKgrifvheuLlLGko0VwOxIOQ7Ht11RcepsMXl4PzTuxkPv6rA==
   dependencies:
     "@types/mkdirp" "^1.0.1"
     "@types/pixelmatch" "^5.2.2"
