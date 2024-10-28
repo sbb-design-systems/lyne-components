@@ -3,6 +3,7 @@ import type { ESLintUtils, TSESLint } from '@typescript-eslint/utils';
 const rules = (
   await Promise.all(
     [
+      'angular-generator-rule',
       'class-decorator-position-rule',
       'custom-element-class-name-rule',
       'custom-element-decorator-position-rule',
