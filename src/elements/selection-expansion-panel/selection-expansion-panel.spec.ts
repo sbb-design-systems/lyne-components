@@ -8,8 +8,7 @@ import {
   type SbbCheckboxGroupElement,
   SbbCheckboxPanelElement,
 } from '../checkbox.js';
-import { tabKey } from '../core/testing/private/keys.js';
-import { fixture } from '../core/testing/private.js';
+import { fixture, tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 import {
   type SbbRadioButtonElement,

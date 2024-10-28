@@ -2,9 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { tabKey } from '../../core/testing/private/keys.js';
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing.js';
+import { fixture, tabKey } from '../../core/testing/private.js';
+import { EventSpy, mockScrollTo, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbMenuElement } from '../../menu.js';
 import type { SbbHeaderButtonElement } from '../header-button.js';
 

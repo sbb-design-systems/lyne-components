@@ -2,8 +2,7 @@ import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { tabKey } from '../../core/testing/private/keys.js';
-import { fixture } from '../../core/testing/private.js';
+import { fixture, tabKey } from '../../core/testing/private.js';
 import { waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbOptionElement } from '../../option.js';
 import { SbbSelectElement } from '../../select.js';
