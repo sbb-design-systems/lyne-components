@@ -29,8 +29,9 @@ export function createManifestConfig(library = '') {
           /**
            * Replaces the mixins generics types with the default value.
            *
-           * Right now works only for SbbFormAssociatedMixin, replacing the generic V with its default (string).
-           * This allows using the jsDoc `@overrideType` annotation only for cases where the default is overridden.
+           * It has been created mainly referencing the `SbbFormAssociatedMixin`,
+           * in which it is necessary to replace the generic V type with its default (string).
+           * This allows using the jsDoc `@overrideType` annotation only for cases where the default is actually overridden.
            */
           if (ts.isVariableStatement(node)) {
             node.declarationList?.declarations?.forEach((decl) => {
@@ -41,10 +42,38 @@ export function createManifestConfig(library = '') {
                 decl.initializer?.typeParameters?.forEach((typeParam) => {
                   if (typeParam.default) {
                     const typeName = typeParam.name.getText();
-                    const typeValue = typeParam.default.literal
-                      ? typeParam.default.literal.text
-                      : ts.tokenToString(typeParam.default.kind);
-
+                    let typeValue;
+                    switch (typeParam.default.kind) {
+                      case ts.SyntaxKind.StringKeyword:
+                      case ts.SyntaxKind.NumberKeyword: {
+                        typeValue = ts.tokenToString(typeParam.default.kind);
+                        break;
+                      }
+                      case ts.SyntaxKind.TypeReference: {
+                        typeValue = typeParam.default.typeName.getText();
+                        break;
+                      }
+                      case ts.SyntaxKind.LiteralType: {
+                        switch (typeParam.default.literal.kind) {
+                          case ts.SyntaxKind.TrueKeyword:
+                          case ts.SyntaxKind.FalseKeyword:
+                          case ts.SyntaxKind.NullKeyword: {
+                            typeValue = typeParam.default.literal.getText();
+                            break;
+                          }
+                          default: {
+                            typeValue = `'${typeParam.default.literal.getText()}'`;
+                            break;
+                          }
+                        }
+                        break;
+                      }
+                      default: {
+                        // missing cases: intersection types, union types,..?
+                        typeValue = typeParam.default.getText();
+                        break;
+                      }
+                    }
                     moduleDeclaration?.members?.forEach((member) => {
                       if (member.kind === 'field') {
                         replace(member.type, typeName, typeValue);
