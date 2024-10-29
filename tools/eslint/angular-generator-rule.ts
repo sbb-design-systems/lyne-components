@@ -41,7 +41,9 @@ const isPublicProperty = (m: ts.ClassElement): m is ts.PropertyDeclaration =>
   ts.isPropertyDeclaration(m) && isPublic(m);
 const isPublicMethod = (m: ts.ClassElement): m is ts.MethodDeclaration =>
   ts.isMethodDeclaration(m) && isPublic(m);
-const isPublicSetterGetter = (m: ts.ClassElement): m is ts.GetAccessorDeclaration | ts.SetAccessorDeclaration =>
+const isPublicSetterGetter = (
+  m: ts.ClassElement,
+): m is ts.GetAccessorDeclaration | ts.SetAccessorDeclaration =>
   (ts.isSetAccessor(m) || ts.isGetAccessor(m)) && isPublic(m);
 
 export default ESLintUtils.RuleCreator.withoutDocs({
@@ -118,14 +120,12 @@ export default ESLintUtils.RuleCreator.withoutDocs({
 @Directive({
   selector: '${toKebabCase(className)}',
 })
-export ${className} {
+export class ${className} {
 }`,
                 ),
             });
           }
         }
-
-        console.log(node);
       },
       ['ClassDeclaration > Decorator[expression.callee.name="Directive"]'](
         node: TSESTree.Decorator,
@@ -156,8 +156,42 @@ export ${className} {
         const publicProperties = originClass.members.filter(isPublicProperty);
         const publicSetterGetter = originClass.members.filter(isPublicSetterGetter);
         const publicMethods = originClass.members.filter(isPublicMethod);
-        if (publicProperties.length ||publicSetterGetter.length || publicMethods.length) {
+        if (publicProperties.length || publicSetterGetter.length || publicMethods.length) {
           expectedAngularImports.add('ElementRef').add('inject');
+          if (
+            classDeclaration.body.body.every(
+              (n) =>
+                n.type !== 'PropertyDefinition' ||
+                !n.value ||
+                !context.sourceCode.getText(n.value).startsWith('inject(ElementRef'),
+            )
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingElementRef',
+              fix: (fixer) =>
+                fixer.insertTextBefore(
+                  classDeclaration.body,
+                  `\n  #element = inject(ElementRef<${elementClassName}>);`,
+                ),
+            });
+          }
+          if (
+            (publicProperties.length || publicSetterGetter.some((p) => ts.isSetAccessor(p))) &&
+            classDeclaration.body.body.every(
+              (n) =>
+                n.type !== 'PropertyDefinition' ||
+                !n.value ||
+                !context.sourceCode.getText(n.value).startsWith('inject(NgZone'),
+            )
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingNgZone',
+              fix: (fixer) =>
+                fixer.insertTextBefore(classDeclaration.body, `\n  #ngZone = inject(NgZone);`),
+            });
+          }
         }
         if (
           publicProperties.some((p) =>
@@ -167,26 +201,33 @@ export ${className} {
           expectedAngularImports.add('Input').add('NgZone');
         }
 
+        // Getter: this.#element.getter
+        // Setter: this.#ngZone.runOutsideAngular(() => this.#element.value = value)
+        // Method: this.#element.method(...params)
+
+        // TODO: Add @Input() decorators (with alias and maybe converter)
+        // TODO: Events with @Output() eventName = fromEvent(this.#element, 'eventName')
+
         for (const member of publicProperties) {
-          // Add getter/setter
+          // TODO: Add getter/setter
         }
 
         for (const member of publicSetterGetter) {
-          // Add getter or setter
+          // TODO: Add getter or setter
         }
 
         for (const member of publicMethods) {
-          // Add getter or setter
+          // TODO: Add method call
         }
 
         const program = context.sourceCode.ast;
 
         // Add necessary Angular imports
-        if (
-          !program.body.find(
-            (n) => n.type === 'ImportDeclaration' && n.source.value === '@angular/core',
-          )
-        ) {
+        const angularCoreImport = program.body.find(
+          (n): n is TSESTree.ImportDeclaration =>
+            n.type === 'ImportDeclaration' && n.source.value === '@angular/core',
+        );
+        if (!angularCoreImport) {
           const imports = Array.from(expectedAngularImports).sort().join(', ');
           context.report({
             node: program,
@@ -195,9 +236,24 @@ export ${className} {
             fix: (fixer) =>
               fixer.insertTextBefore(node, `import { ${imports} } from '@angular/core';\n`),
           });
+        } else {
+          const existingImports = angularCoreImport.specifiers.map(
+            (s) => ((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
+          );
+          const imports = Array.from(expectedAngularImports)
+            .filter((i) => !existingImports.includes(i))
+            .sort()
+            .join(', ');
+          context.report({
+            node: angularCoreImport,
+            messageId: 'angularMissingImport',
+            data: { symbol: imports },
+            fix: (fixer) =>
+              fixer.insertTextAfter(angularCoreImport.specifiers.at(-1)!, `, ${imports}`),
+          });
         }
 
-        const elementImport = `@sbb-esta/${relative(srcPath, dirname(originFile))}.js`;
+        const elementImport = `@sbb-esta/lyne-${relative(srcPath, dirname(originFile))}.js`;
 
         // Add type import for the element class
         if (
@@ -251,7 +307,10 @@ export ${className} {
     messages: {
       angularMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',
+      angularMissingElementRef: 'Missing ElementRef property',
+      angularMissingNgZone: 'Missing NgZone property',
     },
+    fixable: 'code',
     type: 'suggestion',
     schema: [],
   },

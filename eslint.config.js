@@ -66,8 +66,9 @@ export default [
     },
   },
   {
-    files: ['src/angular/**/*.ts'],
+    files: ['src/angular/**/*.ts', 'src/angular-experimental/**/*.ts'],
     rules: {
+      'lyne/class-decorator-position-rule': 'off',
       'lyne/import-extension-rule': 'off',
       'import-x/no-unresolved': 'off',
     },
