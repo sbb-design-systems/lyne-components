@@ -2,10 +2,9 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 
-import { tabKey } from '../testing/private/keys.js';
-import { fixture } from '../testing/private.js';
+import { fixture, tabKey } from '../testing/private.js';
 
-import { SbbFocusHandler, getFirstFocusableElement, getFocusableElements } from './focus.js';
+import { getFirstFocusableElement, getFocusableElements, SbbFocusHandler } from './focus.js';
 
 describe('focus', () => {
   describe(`getFocusables`, () => {
