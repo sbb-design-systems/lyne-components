@@ -28,6 +28,6 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 
 ## Slots
 
-| Name | Description                                            |
-| ---- | ------------------------------------------------------ |
-|      | Use the unnamed slot to add content to the `sbb-chip`. |
+| Name | Description                                                  |
+| ---- | ------------------------------------------------------------ |
+|      | Use the unnamed slot to add content to the `sbb-chip-label`. |
