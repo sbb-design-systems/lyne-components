@@ -49,9 +49,9 @@ class SbbTeaserElement extends SbbLinkBaseElement {
           <slot name="image"></slot>
         </span>
         <span class="sbb-teaser__text">
-          <sbb-chip size="xxs" color="charcoal" class="sbb-teaser__chip">
+          <sbb-chip-label size="xxs" color="charcoal" class="sbb-teaser__chip">
             <slot name="chip">${this.chipContent}</slot>
-          </sbb-chip>
+          </sbb-chip-label>
           <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
             <slot name="title">${this.titleContent}</slot>
           </sbb-title>
