@@ -309,12 +309,12 @@ class SbbFileSelectorElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Lit
   private _renderFileList(): TemplateResult {
     const TAG_NAME: { wrapper: string; element: string } =
       this.files.length > 1
-        ? { WRAPPER: 'ul', ELEMENT: 'li' }
-        : { WRAPPER: 'div', ELEMENT: 'span' };
+        ? { wrapper: 'ul', element: 'li' }
+        : { wrapper: 'div', element: 'span' };
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAG_NAME.WRAPPER)} class="sbb-file-selector__file-list">
+      <${unsafeStatic(TAG_NAME.wrapper)} class="sbb-file-selector__file-list">
         ${this.files.map(
           (file: File) => html`
           <${unsafeStatic(TAG_NAME.element)} class="sbb-file-selector__file">
