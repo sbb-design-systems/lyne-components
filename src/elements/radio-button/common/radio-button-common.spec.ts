@@ -470,6 +470,26 @@ describe(`radio-button common behaviors`, () => {
             expect(elements[0].checked).to.be.true;
             expect(document.activeElement === elements[0]).to.be.true;
           });
+
+          it('should skip non-visible elements on arrow keys', async () => {
+            elements[1].style.display = 'none';
+            await waitForLitRender(form);
+
+            elements[0].focus();
+            await sendKeys({ press: 'ArrowRight' });
+            await waitForLitRender(form);
+
+            expect(elements[0].checked).to.be.false;
+            expect(elements[2].checked).to.be.true;
+            expect(document.activeElement === elements[2]).to.be.true;
+
+            await sendKeys({ press: 'ArrowLeft' });
+            await waitForLitRender(form);
+
+            expect(elements[2].checked).to.be.false;
+            expect(elements[0].checked).to.be.true;
+            expect(document.activeElement === elements[0]).to.be.true;
+          });
         });
 
         describe('disabled state', () => {

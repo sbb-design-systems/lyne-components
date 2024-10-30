@@ -1,7 +1,7 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../a11y.js';
+import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
 import { SbbConnectedAbortController } from '../controllers.js';
 import { forceType } from '../decorators.js';
 
@@ -290,7 +290,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         (this.form ?? document).querySelectorAll<SbbFormAssociatedRadioButtonElement>(
           `:is(sbb-radio-button, sbb-radio-button-panel)[name="${groupName}"]`,
         ),
-      );
+      ).filter((el) => interactivityChecker.isVisible(el));
     }
 
     private async _handleArrowKeyDown(evt: KeyboardEvent): Promise<void> {
