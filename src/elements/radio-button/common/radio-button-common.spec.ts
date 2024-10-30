@@ -219,312 +219,366 @@ describe(`radio-button common behaviors`, () => {
       describe(selector, () => {
         const tagSingle = unsafeStatic(selector);
 
-        beforeEach(async () => {
-          form = await fixture(html`
-            <form>
-              <fieldset id="sbb-set">
-                <${tagSingle} value="1" name="sbb-group-1">1</${tagSingle}>
-                <${tagSingle} value="2" name="sbb-group-1">2</${tagSingle}>
-                <${tagSingle} value="3" name="sbb-group-1">3</${tagSingle}>
+        describe('general behavior', () => {
+          beforeEach(async () => {
+            form = await fixture(html`
+              <form id="main">
+                <fieldset id="sbb-set">
+                  <${tagSingle} value="1" name="sbb-group-1">1</${tagSingle}>
+                  <${tagSingle} value="2" name="sbb-group-1">2</${tagSingle}>
+                  <${tagSingle} value="3" name="sbb-group-1">3</${tagSingle}>
 
-                <${tagSingle} value="4" name="sbb-group-2">1</${tagSingle}>
-                <${tagSingle} value="5" name="sbb-group-2">2</${tagSingle}>
-              </fieldset>
-              <fieldset id="native-set">
-                <input type="radio" value="1" name="native-group-1">
-                <input type="radio" value="2" name="native-group-1">
-                <input type="radio" value="3" name="native-group-1">
+                  <${tagSingle} value="4" name="sbb-group-2">1</${tagSingle}>
+                  <${tagSingle} value="5" name="sbb-group-2">2</${tagSingle}>
+                </fieldset>
+                <fieldset id="native-set">
+                  <input type="radio" value="1" name="native-group-1">
+                  <input type="radio" value="2" name="native-group-1">
+                  <input type="radio" value="3" name="native-group-1">
 
-                <input type="radio" value="4" name="native-group-2">
-                <input type="radio" value="5" name="native-group-2">
-              </fieldset>
-            </form>`);
+                  <input type="radio" value="4" name="native-group-2">
+                  <input type="radio" value="5" name="native-group-2">
+                </fieldset>
+              </form>`);
 
-          elements = Array.from(form.querySelectorAll(selector));
-          nativeElements = Array.from(form.querySelectorAll('input'));
-          fieldset = form.querySelector<HTMLFieldSetElement>('#sbb-set')!;
-          nativeFieldset = form.querySelector<HTMLFieldSetElement>('#native-set')!;
+            elements = Array.from(form.querySelectorAll(selector));
+            nativeElements = Array.from(form.querySelectorAll('input'));
+            fieldset = form.querySelector<HTMLFieldSetElement>('#sbb-set')!;
+            nativeFieldset = form.querySelector<HTMLFieldSetElement>('#native-set')!;
 
-          inputSpy = new EventSpy('input', fieldset);
-          changeSpy = new EventSpy('change', fieldset);
-          nativeInputSpy = new EventSpy('input', nativeFieldset);
-          nativeChangeSpy = new EventSpy('change', nativeFieldset);
+            inputSpy = new EventSpy('input', fieldset);
+            changeSpy = new EventSpy('change', fieldset);
+            nativeInputSpy = new EventSpy('input', nativeFieldset);
+            nativeChangeSpy = new EventSpy('change', nativeFieldset);
 
-          await waitForLitRender(form);
-        });
-
-        it('should find connected form', () => {
-          expect(elements[0].form).to.be.equal(form);
-        });
-
-        it('first elements of groups should be focusable', async () => {
-          expect(elements[0].tabIndex).to.be.equal(0);
-          expect(elements[1].tabIndex).to.be.equal(-1);
-          expect(elements[2].tabIndex).to.be.equal(-1);
-          expect(elements[3].tabIndex).to.be.equal(0);
-          expect(elements[4].tabIndex).to.be.equal(-1);
-          await compareToNative();
-        });
-
-        it('should select on click', async () => {
-          elements[1].click();
-          await waitForLitRender(form);
-          expect(document.activeElement === elements[1]).to.be.true;
-
-          nativeElements[1].click();
-          await waitForLitRender(form);
-
-          expect(elements[0].tabIndex).to.be.equal(-1);
-          expect(elements[1].tabIndex).to.be.equal(0);
-          expect(elements[1].checked).to.be.true;
-          await compareToNative();
-        });
-
-        it('should reflect state after programmatic change', async () => {
-          elements[1].checked = true;
-          nativeElements[1].checked = true;
-          await waitForLitRender(form);
-
-          expect(elements[0].tabIndex).to.be.equal(-1);
-          expect(elements[1].tabIndex).to.be.equal(0);
-          await compareToNative();
-        });
-
-        it('should reset on form reset', async () => {
-          elements[1].checked = true;
-          nativeElements[1].checked = true;
-          await waitForLitRender(form);
-
-          form.reset();
-          await waitForLitRender(form);
-
-          expect(elements[0].tabIndex).to.be.equal(0);
-          expect(elements[1].tabIndex).to.be.equal(-1);
-          expect(elements[1].checked).to.be.false;
-          await compareToNative();
-        });
-
-        it('should restore default on form reset', async () => {
-          elements[1].toggleAttribute('checked', true);
-          nativeElements[1].toggleAttribute('checked', true);
-          await waitForLitRender(form);
-
-          elements[0].click();
-          nativeElements[0].click();
-          await waitForLitRender(form);
-
-          form.reset();
-          await waitForLitRender(form);
-
-          expect(elements[0].tabIndex).to.be.equal(-1);
-          expect(elements[1].tabIndex).to.be.equal(0);
-          expect(elements[0].checked).to.be.false;
-          expect(elements[1].checked).to.be.true;
-          await compareToNative();
-        });
-
-        it('should restore on form restore', async () => {
-          // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
-          elements[0].formStateRestoreCallback('2', 'restore');
-          elements[1].formStateRestoreCallback('2', 'restore');
-          await waitForLitRender(form);
-
-          expect(elements[0].checked).to.be.false;
-          expect(elements[1].checked).to.be.true;
-          expect(elements[0].tabIndex).to.be.equal(-1);
-          expect(elements[1].tabIndex).to.be.equal(0);
-        });
-
-        it('should handle adding a new radio to the group', async () => {
-          elements[0].checked = true;
-          await waitForLitRender(form);
-
-          // Create and add a new checked radio to the group
-          const newRadio = document.createElement(selector) as
-            | SbbRadioButtonElement
-            | SbbRadioButtonPanelElement;
-          newRadio.setAttribute('name', 'sbb-group-1');
-          newRadio.setAttribute('value', '4');
-          newRadio.toggleAttribute('checked', true);
-          fieldset.appendChild(newRadio);
-
-          await waitForLitRender(form);
-
-          expect(elements[0].checked).to.be.false;
-          expect(newRadio.checked).to.be.true;
-          expect(elements[0].tabIndex).to.be.equal(-1);
-          expect(newRadio.tabIndex).to.be.equal(0);
-        });
-
-        it('should handle moving a radio between the groups', async () => {
-          elements[0].checked = true;
-          nativeElements[0].checked = true;
-          elements[3].checked = true;
-          nativeElements[3].checked = true;
-
-          await waitForLitRender(form);
-
-          elements[3].name = elements[0].name;
-          nativeElements[3].name = nativeElements[0].name;
-
-          await waitForLitRender(form);
-
-          // When moving a checked radio to a group, it has priority and becomes the new checked
-          expect(elements[0].checked).to.be.false;
-          expect(elements[3].checked).to.be.true;
-          expect(elements[0].tabIndex).to.be.equal(-1);
-          expect(elements[3].tabIndex).to.be.equal(0);
-          await compareToNative();
-        });
-
-        describe('keyboard interaction', () => {
-          it('should select on space key', async () => {
-            elements[0].focus();
-            await sendKeys({ press: 'Space' });
             await waitForLitRender(form);
-
-            expect(elements[0].checked).to.be.true;
           });
 
-          it('should select and wrap on arrow keys', async () => {
-            elements[1].checked = true;
-            await waitForLitRender(form);
-            elements[1].focus();
-
-            await sendKeys({ press: 'ArrowRight' });
-            await waitForLitRender(form);
-
-            expect(elements[1].checked).to.be.false;
-            expect(elements[2].checked).to.be.true;
-            expect(document.activeElement === elements[2]).to.be.true;
-
-            await sendKeys({ press: 'ArrowDown' });
-            await waitForLitRender(form);
-
-            expect(elements[2].checked).to.be.false;
-            expect(elements[0].checked).to.be.true;
-            expect(document.activeElement === elements[0]).to.be.true;
-
-            await sendKeys({ press: 'ArrowLeft' });
-            await waitForLitRender(form);
-
-            expect(elements[0].checked).to.be.false;
-            expect(elements[2].checked).to.be.true;
-            expect(document.activeElement === elements[2]).to.be.true;
-
-            await sendKeys({ press: 'ArrowUp' });
-            await waitForLitRender(form);
-
-            expect(elements[2].checked).to.be.false;
-            expect(elements[1].checked).to.be.true;
-            expect(document.activeElement === elements[1]).to.be.true;
-
-            // Execute same steps on native and compare the outcome
-            nativeElements[1].focus();
-            await sendKeys({ press: 'ArrowRight' });
-            await sendKeys({ press: 'ArrowDown' });
-            await sendKeys({ press: 'ArrowLeft' });
-            await sendKeys({ press: 'ArrowUp' });
-
-            // On webkit, native radios do not wrap
-            if (!isWebkit) {
-              await compareToNative();
-            }
+          it('should find connected form', () => {
+            expect(elements[0].form).to.be.equal(form);
           });
 
-          it('should handle keyboard interaction outside of a form', async () => {
-            // Move the radios outside the form
-            form.parentElement!.append(fieldset);
-            await waitForLitRender(fieldset);
-
-            elements[0].focus();
-            await sendKeys({ press: 'ArrowDown' });
-            await waitForLitRender(fieldset);
-            expect(elements[0].checked).to.be.false;
-            expect(elements[1].checked).to.be.true;
-            expect(document.activeElement === elements[1]).to.be.true;
-
-            await sendKeys({ press: 'ArrowDown' });
-            await sendKeys({ press: 'ArrowDown' });
-            await waitForLitRender(fieldset);
-            expect(elements[0].checked).to.be.true;
-            expect(document.activeElement === elements[0]).to.be.true;
-          });
-
-          it('should skip disabled elements on arrow keys', async () => {
-            elements[1].disabled = true;
-            await waitForLitRender(form);
-
-            elements[0].focus();
-            await sendKeys({ press: 'ArrowRight' });
-            await waitForLitRender(form);
-
-            expect(elements[0].checked).to.be.false;
-            expect(elements[2].checked).to.be.true;
-            expect(document.activeElement === elements[2]).to.be.true;
-
-            await sendKeys({ press: 'ArrowLeft' });
-            await waitForLitRender(form);
-
-            expect(elements[2].checked).to.be.false;
-            expect(elements[0].checked).to.be.true;
-            expect(document.activeElement === elements[0]).to.be.true;
-          });
-
-          it('should skip non-visible elements on arrow keys', async () => {
-            elements[1].style.display = 'none';
-            await waitForLitRender(form);
-
-            elements[0].focus();
-            await sendKeys({ press: 'ArrowRight' });
-            await waitForLitRender(form);
-
-            expect(elements[0].checked).to.be.false;
-            expect(elements[2].checked).to.be.true;
-            expect(document.activeElement === elements[2]).to.be.true;
-
-            await sendKeys({ press: 'ArrowLeft' });
-            await waitForLitRender(form);
-
-            expect(elements[2].checked).to.be.false;
-            expect(elements[0].checked).to.be.true;
-            expect(document.activeElement === elements[0]).to.be.true;
-          });
-        });
-
-        describe('disabled state', () => {
-          it('should result :disabled', async () => {
-            elements[0].disabled = true;
-            await waitForLitRender(form);
-
-            expect(elements[0]).to.match(':disabled');
-            expect(elements[1].tabIndex).to.be.equal(0);
-          });
-
-          it('should result :disabled if a fieldSet is', async () => {
-            fieldset.toggleAttribute('disabled', true);
-            await waitForLitRender(form);
-
-            expect(elements[0]).to.match(':disabled');
-          });
-
-          it('should do nothing when clicked', async () => {
-            elements[0].disabled = true;
-            await waitForLitRender(form);
-
-            elements[0].click();
-            await waitForLitRender(form);
-
-            expect(elements[0].checked).to.be.false;
-          });
-
-          it('should update tabindex when the first element is disabled', async () => {
+          it('first elements of groups should be focusable', async () => {
             expect(elements[0].tabIndex).to.be.equal(0);
-            elements[0].disabled = true;
+            expect(elements[1].tabIndex).to.be.equal(-1);
+            expect(elements[2].tabIndex).to.be.equal(-1);
+            expect(elements[3].tabIndex).to.be.equal(0);
+            expect(elements[4].tabIndex).to.be.equal(-1);
+            await compareToNative();
+          });
+
+          it('should select on click', async () => {
+            elements[1].click();
+            await waitForLitRender(form);
+            expect(document.activeElement === elements[1]).to.be.true;
+
+            nativeElements[1].click();
             await waitForLitRender(form);
 
             expect(elements[0].tabIndex).to.be.equal(-1);
             expect(elements[1].tabIndex).to.be.equal(0);
+            expect(elements[1].checked).to.be.true;
+            await compareToNative();
+          });
+
+          it('should reflect state after programmatic change', async () => {
+            elements[1].checked = true;
+            nativeElements[1].checked = true;
+            await waitForLitRender(form);
+
+            expect(elements[0].tabIndex).to.be.equal(-1);
+            expect(elements[1].tabIndex).to.be.equal(0);
+            await compareToNative();
+          });
+
+          it('should reset on form reset', async () => {
+            elements[1].checked = true;
+            nativeElements[1].checked = true;
+            await waitForLitRender(form);
+
+            form.reset();
+            await waitForLitRender(form);
+
+            expect(elements[0].tabIndex).to.be.equal(0);
+            expect(elements[1].tabIndex).to.be.equal(-1);
+            expect(elements[1].checked).to.be.false;
+            await compareToNative();
+          });
+
+          it('should restore default on form reset', async () => {
+            elements[1].toggleAttribute('checked', true);
+            nativeElements[1].toggleAttribute('checked', true);
+            await waitForLitRender(form);
+
+            elements[0].click();
+            nativeElements[0].click();
+            await waitForLitRender(form);
+
+            form.reset();
+            await waitForLitRender(form);
+
+            expect(elements[0].tabIndex).to.be.equal(-1);
+            expect(elements[1].tabIndex).to.be.equal(0);
+            expect(elements[0].checked).to.be.false;
+            expect(elements[1].checked).to.be.true;
+            await compareToNative();
+          });
+
+          it('should restore on form restore', async () => {
+            // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
+            elements[0].formStateRestoreCallback('2', 'restore');
+            elements[1].formStateRestoreCallback('2', 'restore');
+            await waitForLitRender(form);
+
+            expect(elements[0].checked).to.be.false;
+            expect(elements[1].checked).to.be.true;
+            expect(elements[0].tabIndex).to.be.equal(-1);
+            expect(elements[1].tabIndex).to.be.equal(0);
+          });
+
+          it('should handle adding a new radio to the group', async () => {
+            elements[0].checked = true;
+            await waitForLitRender(form);
+
+            // Create and add a new checked radio to the group
+            const newRadio = document.createElement(selector) as
+              | SbbRadioButtonElement
+              | SbbRadioButtonPanelElement;
+            newRadio.setAttribute('name', 'sbb-group-1');
+            newRadio.setAttribute('value', '4');
+            newRadio.toggleAttribute('checked', true);
+            fieldset.appendChild(newRadio);
+
+            await waitForLitRender(form);
+
+            expect(elements[0].checked).to.be.false;
+            expect(newRadio.checked).to.be.true;
+            expect(elements[0].tabIndex).to.be.equal(-1);
+            expect(newRadio.tabIndex).to.be.equal(0);
+          });
+
+          it('should handle moving a radio between the groups', async () => {
+            elements[0].checked = true;
+            nativeElements[0].checked = true;
+            elements[3].checked = true;
+            nativeElements[3].checked = true;
+
+            await waitForLitRender(form);
+
+            elements[3].name = elements[0].name;
+            nativeElements[3].name = nativeElements[0].name;
+
+            await waitForLitRender(form);
+
+            // When moving a checked radio to a group, it has priority and becomes the new checked
+            expect(elements[0].checked).to.be.false;
+            expect(elements[3].checked).to.be.true;
+            expect(elements[0].tabIndex).to.be.equal(-1);
+            expect(elements[3].tabIndex).to.be.equal(0);
+            await compareToNative();
+          });
+
+          describe('keyboard interaction', () => {
+            it('should select on space key', async () => {
+              elements[0].focus();
+              await sendKeys({ press: 'Space' });
+              await waitForLitRender(form);
+
+              expect(elements[0].checked).to.be.true;
+            });
+
+            it('should select and wrap on arrow keys', async () => {
+              elements[1].checked = true;
+              await waitForLitRender(form);
+              elements[1].focus();
+
+              await sendKeys({ press: 'ArrowRight' });
+              await waitForLitRender(form);
+
+              expect(elements[1].checked).to.be.false;
+              expect(elements[2].checked).to.be.true;
+              expect(document.activeElement === elements[2]).to.be.true;
+
+              await sendKeys({ press: 'ArrowDown' });
+              await waitForLitRender(form);
+
+              expect(elements[2].checked).to.be.false;
+              expect(elements[0].checked).to.be.true;
+              expect(document.activeElement === elements[0]).to.be.true;
+
+              await sendKeys({ press: 'ArrowLeft' });
+              await waitForLitRender(form);
+
+              expect(elements[0].checked).to.be.false;
+              expect(elements[2].checked).to.be.true;
+              expect(document.activeElement === elements[2]).to.be.true;
+
+              await sendKeys({ press: 'ArrowUp' });
+              await waitForLitRender(form);
+
+              expect(elements[2].checked).to.be.false;
+              expect(elements[1].checked).to.be.true;
+              expect(document.activeElement === elements[1]).to.be.true;
+
+              // Execute same steps on native and compare the outcome
+              nativeElements[1].focus();
+              await sendKeys({ press: 'ArrowRight' });
+              await sendKeys({ press: 'ArrowDown' });
+              await sendKeys({ press: 'ArrowLeft' });
+              await sendKeys({ press: 'ArrowUp' });
+
+              // On webkit, native radios do not wrap
+              if (!isWebkit) {
+                await compareToNative();
+              }
+            });
+
+            it('should handle keyboard interaction outside of a form', async () => {
+              // Move the radios outside the form
+              form.parentElement!.append(fieldset);
+              await waitForLitRender(fieldset);
+
+              elements[0].focus();
+              await sendKeys({ press: 'ArrowDown' });
+              await waitForLitRender(fieldset);
+              expect(elements[0].checked).to.be.false;
+              expect(elements[1].checked).to.be.true;
+              expect(document.activeElement === elements[1]).to.be.true;
+
+              await sendKeys({ press: 'ArrowDown' });
+              await sendKeys({ press: 'ArrowDown' });
+              await waitForLitRender(fieldset);
+              expect(elements[0].checked).to.be.true;
+              expect(document.activeElement === elements[0]).to.be.true;
+            });
+
+            it('should skip disabled elements on arrow keys', async () => {
+              elements[1].disabled = true;
+              await waitForLitRender(form);
+
+              elements[0].focus();
+              await sendKeys({ press: 'ArrowRight' });
+              await waitForLitRender(form);
+
+              expect(elements[0].checked).to.be.false;
+              expect(elements[2].checked).to.be.true;
+              expect(document.activeElement === elements[2]).to.be.true;
+
+              await sendKeys({ press: 'ArrowLeft' });
+              await waitForLitRender(form);
+
+              expect(elements[2].checked).to.be.false;
+              expect(elements[0].checked).to.be.true;
+              expect(document.activeElement === elements[0]).to.be.true;
+            });
+
+            it('should skip non-visible elements on arrow keys', async () => {
+              elements[1].style.display = 'none';
+              await waitForLitRender(form);
+
+              elements[0].focus();
+              await sendKeys({ press: 'ArrowRight' });
+              await waitForLitRender(form);
+
+              expect(elements[0].checked).to.be.false;
+              expect(elements[2].checked).to.be.true;
+              expect(document.activeElement === elements[2]).to.be.true;
+
+              await sendKeys({ press: 'ArrowLeft' });
+              await waitForLitRender(form);
+
+              expect(elements[2].checked).to.be.false;
+              expect(elements[0].checked).to.be.true;
+              expect(document.activeElement === elements[0]).to.be.true;
+            });
+          });
+
+          describe('disabled state', () => {
+            it('should result :disabled', async () => {
+              elements[0].disabled = true;
+              await waitForLitRender(form);
+
+              expect(elements[0]).to.match(':disabled');
+              expect(elements[1].tabIndex).to.be.equal(0);
+            });
+
+            it('should result :disabled if a fieldSet is', async () => {
+              fieldset.toggleAttribute('disabled', true);
+              await waitForLitRender(form);
+
+              expect(elements[0]).to.match(':disabled');
+            });
+
+            it('should do nothing when clicked', async () => {
+              elements[0].disabled = true;
+              await waitForLitRender(form);
+
+              elements[0].click();
+              await waitForLitRender(form);
+
+              expect(elements[0].checked).to.be.false;
+            });
+
+            it('should update tabindex when the first element is disabled', async () => {
+              expect(elements[0].tabIndex).to.be.equal(0);
+              elements[0].disabled = true;
+              await waitForLitRender(form);
+
+              expect(elements[0].tabIndex).to.be.equal(-1);
+              expect(elements[1].tabIndex).to.be.equal(0);
+            });
+          });
+        });
+
+        describe('multiple groups with the same name', () => {
+          let root: HTMLElement;
+
+          beforeEach(async () => {
+            root = await fixture(html`
+              <div>
+                <form id="main">
+                  <${tagSingle} value="1" name="sbb-group-1">1</${tagSingle}>
+                  <${tagSingle} value="2" name="sbb-group-1">2</${tagSingle}>
+                  <${tagSingle} value="3" name="sbb-group-1">3</${tagSingle}>
+                </form>
+                <form id="secondary">
+                  <${tagSingle} value="1" name="sbb-group-1">1</${tagSingle}>
+                  <${tagSingle} value="2" name="sbb-group-1">2</${tagSingle}>
+                  <${tagSingle} value="3" name="sbb-group-1">3</${tagSingle}>
+                </form>
+              </div>
+            `);
+
+            form = root.querySelector('form#main')!;
+            elements = Array.from(root.querySelectorAll(selector));
+            await waitForLitRender(root);
+          });
+
+          it('groups should be independent', async () => {
+            expect(elements[0].tabIndex).to.be.equal(0);
+            expect(elements[3].tabIndex).to.be.equal(0);
+
+            // Check the first element of each group
+            elements[0].click();
+            elements[3].click();
+            await waitForLitRender(root);
+
+            expect(elements[0].tabIndex).to.be.equal(0);
+            expect(elements[0].checked).to.be.true;
+            expect(elements[3].tabIndex).to.be.equal(0);
+            expect(elements[3].checked).to.be.true;
+          });
+
+          it('groups should be independent when keyboard navigated', async () => {
+            elements[0].focus();
+
+            await sendKeys({ press: 'ArrowUp' });
+            await waitForLitRender(root);
+
+            expect(elements[2].tabIndex).to.be.equal(0);
+            expect(elements[2].checked).to.be.true;
+            expect(elements[5].tabIndex).to.be.equal(-1);
+            expect(elements[5].checked).to.be.false;
           });
         });
       });

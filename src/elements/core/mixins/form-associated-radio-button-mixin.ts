@@ -37,56 +37,74 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   protected navigateByKeyboard(radio: SbbFormAssociatedRadioButtonMixinType): Promise<void>;
 }
 
+type RadioButtonGroup = {
+  name: string;
+  form: HTMLFormElement | null;
+  radios: SbbFormAssociatedRadioButtonMixinType[];
+};
+
 /**
- * A static registry that holds a collection of `radio-buttons`, grouped by `name`.
+ * A static registry that holds a collection of `radio-buttons`, grouped by `name + form`.
  * It is mainly used to support the standalone groups of radios.
+ * The identifier of a group is composed of the couple 'name + form' because multiple radios with the same name can coexist (as long as they belong to different forms)
  * @internal
  */
 export class RadioButtonRegistry {
-  private static _registry: { [x: string]: SbbFormAssociatedRadioButtonMixinType[] } = {};
+  private static _registry: RadioButtonGroup[] = [];
 
   private constructor() {}
 
   /**
-   * Adds @radio to the @groupName group. Checks for duplicates
+   * Adds @radio to the '@groupName + @form' group. Checks for duplicates
    */
   public static addRadioToGroup(
     radio: SbbFormAssociatedRadioButtonMixinType,
     groupName: string,
+    form = radio.form,
   ): void {
-    if (!this._registry[groupName]) {
-      this._registry[groupName] = [];
+    let group = this._registry.find((g) => g.name === groupName && g.form === form);
+
+    // If it does not exist, initializes it
+    if (!group) {
+      group = { name: groupName, form: form, radios: [] };
+      this._registry.push(group);
     }
+
     // Check for duplicates
-    if (this._registry[groupName].indexOf(radio) !== -1) {
+    if (group.radios.indexOf(radio) !== -1) {
       return;
     }
-    this._registry[groupName].push(radio);
+    group.radios.push(radio);
   }
 
   /**
-   * Removes @radio from the @groupName group.
+   * Removes @radio from the group it belongs.
    */
-  public static removeRadioFromGroup(
-    radio: SbbFormAssociatedRadioButtonMixinType,
+  public static removeRadioFromGroup(radio: SbbFormAssociatedRadioButtonMixinType): void {
+    // Find the group where @radio belongs
+    const groupIndex = this._registry.findIndex((g) => g.radios.find((r) => r === radio));
+    const group = this._registry[groupIndex];
+    if (!group) {
+      return;
+    }
+
+    // Remove @radio from the group
+    group.radios.splice(group.radios.indexOf(radio), 1);
+
+    // If the group is empty, clear it
+    if (group.radios.length === 0) {
+      this._registry.splice(groupIndex, 1);
+    }
+  }
+
+  /**
+   * Return an array of radios that belong to the group '@groupName + @form'
+   */
+  public static getRadios(
     groupName: string,
-  ): void {
-    const index = this._registry[groupName]?.indexOf(radio);
-    if (!this._registry[groupName] || index === -1) {
-      return;
-    }
-    this._registry[groupName].splice(index, 1);
-
-    if (this._registry[groupName].length === 0) {
-      delete this._registry[groupName];
-    }
-  }
-
-  /**
-   * Return an array of radios that belong to @groupName
-   */
-  public static getRadios(groupName: string): SbbFormAssociatedRadioButtonMixinType[] {
-    return this._registry[groupName] ?? [];
+    form: HTMLFormElement | null,
+  ): SbbFormAssociatedRadioButtonMixinType[] {
+    return this._registry.find((g) => g.name === groupName && g.form === form)?.radios ?? [];
   }
 }
 
@@ -158,8 +176,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
       // On 'name' change, move 'this' to the new registry
       if (changedProperties.has('name')) {
-        const oldName = changedProperties.get('name')!;
-        this._disconnectFromRegistry(oldName);
+        this._disconnectFromRegistry();
         this._connectToRegistry();
         if (this.checked) {
           this._deselectGroupedRadios();
@@ -263,13 +280,9 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     /**
      * Remove `this` from the radioButton registry
      */
-    private _disconnectFromRegistry(name = this.name): void {
-      if (!name) {
-        return;
-      }
+    private _disconnectFromRegistry(): void {
       RadioButtonRegistry.removeRadioFromGroup(
         this as unknown as SbbFormAssociatedRadioButtonMixinType,
-        name,
       );
     }
 
@@ -277,7 +290,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      * Deselect other radio of the same group
      */
     private _deselectGroupedRadios(): void {
-      RadioButtonRegistry.getRadios(this.name)
+      RadioButtonRegistry.getRadios(this.name, this.form)
         .filter((r) => r !== (this as unknown as SbbFormAssociatedRadioButtonMixinType))
         .forEach((r) => (r.checked = false));
     }

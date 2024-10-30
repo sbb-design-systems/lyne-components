@@ -74,7 +74,8 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
    */
   protected override updateFocusableRadios(): void {
     super.updateFocusableRadios();
-    const radios = (RadioButtonRegistry.getRadios(this.name) || []) as SbbRadioButtonPanelElement[];
+    const radios = (RadioButtonRegistry.getRadios(this.name, this.form) ||
+      []) as SbbRadioButtonPanelElement[];
 
     radios
       .filter((r) => !r.disabled && r._hasSelectionExpansionPanelElement)
