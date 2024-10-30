@@ -56,7 +56,7 @@
 
 ::slotted(*:not([slot='image'])) {
   transform: translateY(var(--sbb-flip-card-translate-title-y-hover, #{sbb.px-to-rem-build(0)}));
-  transition: transform var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-2x))
+  transition: transform var(--sbb-disable-animation-zero-duration, var(--sbb-animation-duration-2x))
     var(--sbb-animation-easing);
 }
 

@@ -7,7 +7,7 @@
   --sbb-flip-card-details-opacity: 0;
   --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-2x);
   --sbb-flip-card-details-transition-delay: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-5x)
   );
   --sbb-flip-card-details-padding: var(--sbb-spacing-responsive-s);
