@@ -1,5 +1,7 @@
 @use '../../core/styles' as sbb;
 
+$disabled: '[disabled], :disabled, [disabled-interactive]';
+
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
@@ -26,7 +28,7 @@
     outline: none;
   }
 
-  :host(:is([disabled], :disabled, [disabled-interactive])) & {
+  :host(:is(#{$disabled})) & {
     pointer-events: none;
     cursor: default;
 
@@ -45,11 +47,11 @@
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
-  :host(:hover:not([disabled], :disabled, [disabled-interactive])) & {
+  :host(:hover:not(#{$disabled})) & {
     @include sbb.link-hover-rules;
   }
 
-  :host(:is(:active, [data-active]):not([disabled], :disabled, [disabled-interactive])) & {
+  :host(:is(:active, [data-active]):not(#{$disabled})) & {
     // Active definitions have to be after :hover definitions
     @include sbb.link-active-rules;
   }

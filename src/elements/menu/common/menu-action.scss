@@ -1,5 +1,7 @@
 @use '../../core/styles' as sbb;
 
+$disabled: '[disabled], :disabled, [disabled-interactive]';
+
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
@@ -18,14 +20,14 @@
   display: block;
 }
 
-:host(:hover:not([disabled], :disabled, [disabled-interactive])) {
+:host(:hover:not(#{$disabled})) {
   @include sbb.hover-mq($hover: true) {
     --sbb-menu-background-color: var(--sbb-color-iron);
     --sbb-menu-action-forced-color-border-color: Highlight;
   }
 }
 
-:host(:is([disabled], :disabled, [disabled-interactive])) {
+:host(:is(#{$disabled})) {
   --sbb-menu-action-cursor: default;
   --sbb-menu-action-color: var(--sbb-color-graphite);
   --sbb-menu-action-forced-color-border-color: GrayText;
@@ -90,7 +92,7 @@
 .sbb-menu-action__label {
   @include sbb.ellipsis;
 
-  :host(:is([disabled], :disabled, [disabled-interactive])) & {
+  :host(:is(#{$disabled})) & {
     text-decoration: line-through;
   }
 }
