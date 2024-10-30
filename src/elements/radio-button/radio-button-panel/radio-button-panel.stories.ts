@@ -88,7 +88,7 @@ const defaultArgs: Args = {
 const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
 
 const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>
-  html`<sbb-radio-button-panel ${sbbSpread(args)} name="${args.name || nothing}"
+  html`<sbb-radio-button-panel ${sbbSpread(args)} name=${args.name || nothing}
     >${labelBoldClass ? html`<span class="sbb-text--bold">Label</span>` : 'Label'}
     <span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">

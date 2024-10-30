@@ -132,7 +132,11 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       event.preventDefault();
       this.select();
 
-      await this.updateComplete; // wait for 'tabindex' to be updated
+      /**
+       * Since only a single radio of a group is focusable at any time, it is possible that the one clicked does not have 'tabindex=0'.
+       * To cover that, we await the next render (which will make the 'checked' radio focusable) and focus the clicked radio
+       */
+      await this.updateComplete; // Wait for 'tabindex' to be updated
       setModalityOnNextFocus(this);
       this.focus();
     }

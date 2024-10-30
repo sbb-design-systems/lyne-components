@@ -31,6 +31,7 @@ import '../../screen-reader-only.js';
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @event {Event} change - Fired on change.
  * @event {InputEvent} input - Fired on input.
+ * @overrideType value - string | null
  */
 export
 @customElement('sbb-radio-button-panel')

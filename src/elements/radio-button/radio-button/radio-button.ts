@@ -17,6 +17,7 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the radio label.
  * @event {Event} change - Fired on change.
  * @event {InputEvent} input - Fired on input.
+ * @overrideType value - string | null
  */
 export
 @customElement('sbb-radio-button')

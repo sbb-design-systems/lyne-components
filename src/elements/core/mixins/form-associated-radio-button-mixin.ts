@@ -120,9 +120,9 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     public override connectedCallback(): void {
       super.connectedCallback();
       this._connectToRegistry();
-
-      const signal = this.abort.signal;
-      this.addEventListener('keydown', (e) => this._handleArrowKeyDown(e), { signal });
+      this.addEventListener('keydown', (e) => this._handleArrowKeyDown(e), {
+        signal: this.abort.signal,
+      });
     }
 
     public override disconnectedCallback(): void {

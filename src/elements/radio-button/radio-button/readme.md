@@ -54,9 +54,6 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 </sbb-radio-button>
 ```
 
-<!-- Override
-  @type value => string \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties
