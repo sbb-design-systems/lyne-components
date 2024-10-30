@@ -76,14 +76,6 @@
   --sbb-image-border-radius: var(--sbb-border-radius-infinity);
 }
 
-.sbb-image__figure {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sbb-spacing-fixed-4x);
-  margin: 0;
-  height: 100%;
-}
-
 .sbb-image__img {
   opacity: 0.000001;
 
@@ -127,8 +119,4 @@ picture {
   height: 100%;
   aspect-ratio: var(--sbb-image-aspect-ratio);
   border-radius: var(--sbb-image-border-radius);
-}
-
-.sbb-image__caption {
-  @include sbb.text-xs--regular;
 }

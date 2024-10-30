@@ -9,8 +9,35 @@ import images from '../core/images.js';
 
 import { SbbImageElement } from './image.js';
 import readme from './readme.md?raw';
+import '../chip.js';
 
-const Template = (args: Args): TemplateResult => html`<sbb-image ${sbbSpread(args)}></sbb-image>`;
+const WithCaptionTemplate = (args: Args): TemplateResult => html`
+  <figure class="sbb-figure">
+    <sbb-image ${sbbSpread(args)}></sbb-image>
+    <figcaption>
+      With the
+      <a href="https://www.sbb.ch/en/tickets-offers/travelcards/half-fare-travelcard.html"
+        >Half Fare Travelcard</a
+      >
+      , you can travel for half price on all SBB routes and most other railways as well as on boats
+      and Postbuses. You also benefit from discounts on urban transport as well as other additional
+      attractive services and discounts.
+    </figcaption>
+  </figure>
+`;
+
+const Template = (args: Args): TemplateResult => html`
+  <figure class="sbb-figure">
+    <sbb-image ${sbbSpread(args)}></sbb-image>
+  </figure>
+`;
+
+const WithChipTemplate = (args: Args): TemplateResult => html`
+  <figure class="sbb-figure">
+    <sbb-image ${sbbSpread(args)}></sbb-image>
+    <sbb-chip class="sbb-figure-overlap-start-start">AI generated</sbb-chip>
+  </figure>
+`;
 
 const imageSrc: InputType = {
   control: {
@@ -34,31 +61,6 @@ const aspectRatio: InputType = {
 const alt: InputType = {
   control: {
     type: 'text',
-  },
-};
-
-const caption: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const copyright: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Legal',
-  },
-};
-
-const copyrightHolder: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['Organization', 'Person'],
-  table: {
-    category: 'Legal',
   },
 };
 
@@ -128,11 +130,8 @@ const performanceMark: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   alt,
-  caption,
   'border-radius': borderRadius,
   'aspect-ratio': aspectRatio,
-  copyright,
-  'copyright-holder': copyrightHolder,
   'custom-focal-point': customFocalPoint,
   'focal-point-debug': focalPointDebug,
   'focal-point-x': focalPointX,
@@ -145,12 +144,9 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   alt: '',
-  caption: undefined,
   // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
   'border-radius': 'default',
   'aspect-ratio': aspectRatio.options![0],
-  copyright: '',
-  'copyright-holder': copyrightHolder.options![0],
   'custom-focal-point': false,
   'focal-point-debug': false,
   'focal-point-x': '',
@@ -162,13 +158,9 @@ const defaultArgs: Args = {
 };
 
 export const Default: StoryObj = {
-  render: Template,
+  render: WithCaptionTemplate,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    caption:
-      'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
-  },
+  args: defaultArgs,
 };
 
 export const TransparentImage: StoryObj = {
@@ -206,6 +198,12 @@ export const SkipLqip: StoryObj = {
     ...defaultArgs,
     'skip-lqip': true,
   },
+};
+
+export const WithChip: StoryObj = {
+  render: WithChipTemplate,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
 };
 
 const meta: Meta = {
