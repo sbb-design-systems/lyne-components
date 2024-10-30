@@ -169,11 +169,13 @@ export class ${className} {
             context.report({
               node: classDeclaration.body,
               messageId: 'angularMissingElementRef',
-              fix: (fixer) =>
-                fixer.insertTextBefore(
-                  classDeclaration.body,
-                  `\n  #element = inject(ElementRef<${elementClassName}>);`,
-                ),
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1; // Get the position before the closing brace
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `  #element = inject(ElementRef<${elementClassName}>);\n`
+                );
+              },
             });
           }
           if (
@@ -188,8 +190,12 @@ export class ${className} {
             context.report({
               node: classDeclaration.body,
               messageId: 'angularMissingNgZone',
-              fix: (fixer) =>
-                fixer.insertTextBefore(classDeclaration.body, `\n  #ngZone = inject(NgZone);`),
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `  #ngZone = inject(NgZone);\n`);
+              },
             });
           }
         }
@@ -240,17 +246,18 @@ export class ${className} {
           const existingImports = angularCoreImport.specifiers.map(
             (s) => ((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
           );
-          const imports = Array.from(expectedAngularImports)
-            .filter((i) => !existingImports.includes(i))
-            .sort()
-            .join(', ');
-          context.report({
-            node: angularCoreImport,
-            messageId: 'angularMissingImport',
-            data: { symbol: imports },
-            fix: (fixer) =>
-              fixer.insertTextAfter(angularCoreImport.specifiers.at(-1)!, `, ${imports}`),
-          });
+          const importsToAdd = Array.from(expectedAngularImports)
+            .filter((i) => !existingImports.includes(i));
+          if (importsToAdd.length > 0) {
+            const imports = importsToAdd.sort().join(', ');
+            context.report({
+              node: angularCoreImport,
+              messageId: 'angularMissingImport',
+              data: { symbol: imports },
+              fix: (fixer) =>
+                fixer.insertTextAfter(angularCoreImport.specifiers.at(-1)!, `, ${imports}`),
+            });
+          }
         }
 
         const elementImport = `@sbb-esta/lyne-${relative(srcPath, dirname(originFile))}.js`;
@@ -275,7 +282,7 @@ export class ${className} {
             fix: (fixer) =>
               fixer.insertTextAfter(
                 lastImport,
-                `\nimport type { ${elementClassName} } from '${elementImport}';\n`,
+                `\nimport type { ${elementClassName} } from '${elementImport}';`,
               ),
           });
         }
@@ -294,7 +301,7 @@ export class ${className} {
             node: lastImport,
             messageId: 'angularMissingImport',
             data: { symbol: 'element side effect' },
-            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';\n`),
+            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
           });
         }
       },
