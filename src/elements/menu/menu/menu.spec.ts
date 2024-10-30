@@ -3,8 +3,7 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
-import { tabKey } from '../../core/testing/private/keys.js';
-import { fixture } from '../../core/testing/private.js';
+import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
 import { SbbMenuElement } from './menu.js';

@@ -19,7 +19,7 @@
   --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
   --sbb-teaser-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-animation-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-4x)
   );
 }

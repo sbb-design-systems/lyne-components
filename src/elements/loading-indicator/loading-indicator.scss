@@ -20,7 +20,7 @@
 
 :host([variant='circle']) {
   --sbb-loading-indicator-padding: var(--sbb-border-width-2x);
-  --sbb-loading-indicator-duration: var(--sbb-disable-animation-zero-time, 1.5s);
+  --sbb-loading-indicator-duration: var(--sbb-disable-animation-zero-duration, 1.5s);
   --sbb-loading-indicator-background-color: var(--sbb-color-white);
   --sbb-loading-indicator-circle-background: conic-gradient(
     from 90deg,
@@ -99,7 +99,7 @@
 :host([variant='window']) {
   --sbb-loading-indicator-padding: 0;
   --sbb-loading-indicator-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-6x)
   );
 }
