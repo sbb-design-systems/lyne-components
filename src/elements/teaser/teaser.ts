@@ -8,7 +8,7 @@ import type { SbbTitleLevel } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
 
-import '../chip.js';
+import '../chip-label.js';
 import '../title.js';
 
 /**

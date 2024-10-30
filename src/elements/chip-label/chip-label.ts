@@ -2,16 +2,16 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import style from './chip.scss?lit&inline';
+import style from './chip-label.scss?lit&inline';
 
 /**
  * It displays brief and compact information.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-chip`.
+ * @slot - Use the unnamed slot to add content to the `sbb-chip-label`.
  */
 export
-@customElement('sbb-chip')
-class SbbChipElement extends LitElement {
+@customElement('sbb-chip-label')
+class SbbChipLabelElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Size of the chip. */
@@ -36,6 +36,6 @@ class SbbChipElement extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-chip': SbbChipElement;
+    'sbb-chip-label': SbbChipLabelElement;
   }
 }

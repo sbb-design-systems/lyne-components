@@ -9,7 +9,7 @@ import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
 import './teaser-hero.js';
-import '../chip.js';
+import '../chip-label.js';
 
 const accessibilityLabel: InputType = {
   control: {
@@ -112,7 +112,7 @@ const defaultArgs: Args = {
 };
 
 const chip = (content: string): TemplateResult => html`
-  <sbb-chip slot="chip">${content}</sbb-chip>
+  <sbb-chip-label slot="chip">${content}</sbb-chip-label>
 `;
 
 const TemplateSbbTeaserHeroDefault = ({
