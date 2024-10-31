@@ -1,11 +1,6 @@
 The `sbb-train-formation` is a component used as a top container element
 for wrapping [sbb-train](/docs/timetable-sbb-train--docs)s.
 
-## Style
-
-It has no properties, and it applies the possible scrollable-width to every given `sbb-train`
-as CSS variable (`--sbb-train-direction-width`) initially and on resize.
-
 ```html
 <sbb-train-formation>
   <sbb-train

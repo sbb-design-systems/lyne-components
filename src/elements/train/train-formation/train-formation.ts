@@ -1,4 +1,3 @@
-import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -8,7 +7,6 @@ import {
   type TemplateResult,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
@@ -46,13 +44,6 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
 
   @state() private accessor _sectors: AggregatedSector[] = [];
 
-  /** Element that defines the visible content width. */
-  private _formationDiv?: HTMLDivElement;
-  private _contentResizeObserver = new ResizeController(this, {
-    target: null,
-    skipInitial: true,
-    callback: () => this._applyCssWidth(),
-  });
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
 
@@ -61,15 +52,6 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
     const signal = this._abort.signal;
     this.addEventListener('trainSlotChange', (e) => this._readSectors(e), { signal });
     this.addEventListener('sectorChange', (e) => this._readSectors(e), { signal });
-  }
-
-  /**
-   * Apply width of the scrollable space of the formation as a css variable. This will be used from
-   * every slotted sbb-train for the direction-label
-   */
-  private _applyCssWidth(): void {
-    const contentWidth = this._formationDiv!.getBoundingClientRect().width;
-    this._formationDiv!.style.setProperty('--sbb-train-direction-width', `${contentWidth}px`);
   }
 
   private _readSectors(event?: Event): void {
@@ -114,22 +96,6 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
     );
   }
 
-  private async _updateFormationDiv(el: Element | undefined): Promise<void> {
-    if (!el) {
-      return;
-    }
-    if (this._formationDiv) {
-      this._contentResizeObserver.unobserve(this._formationDiv);
-    }
-    this._formationDiv = el as HTMLDivElement;
-    this._contentResizeObserver.observe(this._formationDiv);
-    // There seems to be a slight difference between browser, in how the
-    // observer is called. In order to be consistent across browsers
-    // we set the width manually once the component update is complete.
-    await this.updateComplete;
-    this._applyCssWidth();
-  }
-
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
 
@@ -140,7 +106,7 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-train-formation" ${ref(this._updateFormationDiv)}>
+      <div class="sbb-train-formation">
         ${this._sectors.length && this._sectors[0].label !== undefined
           ? html`<div class="sbb-train-formation__sectors" aria-hidden="true">
               ${this._sectors.map(

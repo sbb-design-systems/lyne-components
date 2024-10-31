@@ -153,3 +153,7 @@ input[data-sbb-time-input] {
     max-width: var(--sbb-time-input-s-max-width);
   }
 }
+
+sbb-train-formation:has(sbb-train[direction-label]) {
+  --sbb-train-formation-reserve-spacing-display: block;
+}

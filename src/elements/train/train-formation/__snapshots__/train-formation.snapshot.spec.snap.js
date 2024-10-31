@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-train-formation should render with one train DOM"] = 
+snapshots["sbb-train-formation should render with one train DOM"] =
 `<sbb-train-formation>
   <sbb-train
     direction="left"
@@ -19,10 +19,9 @@ snapshots["sbb-train-formation should render with one train DOM"] =
 `;
 /* end snapshot sbb-train-formation should render with one train DOM */
 
-snapshots["sbb-train-formation should render with one train Shadow DOM"] = 
+snapshots["sbb-train-formation should render with one train Shadow DOM"] =
 `<div
   class="sbb-train-formation"
-  style="--sbb-train-direction-width: 800px;"
 >
   <div
     aria-hidden="true"
@@ -58,7 +57,7 @@ snapshots["sbb-train-formation should render with one train Shadow DOM"] =
 `;
 /* end snapshot sbb-train-formation should render with one train Shadow DOM */
 
-snapshots["sbb-train-formation should render with multiple trains DOM"] = 
+snapshots["sbb-train-formation should render with multiple trains DOM"] =
 `<sbb-train-formation>
   <sbb-train
     direction="left"
@@ -88,10 +87,9 @@ snapshots["sbb-train-formation should render with multiple trains DOM"] =
 `;
 /* end snapshot sbb-train-formation should render with multiple trains DOM */
 
-snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] = 
+snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] =
 `<div
   class="sbb-train-formation"
-  style="--sbb-train-direction-width: 800px;"
 >
   <div
     aria-hidden="true"
@@ -141,7 +139,7 @@ snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] =
 `;
 /* end snapshot sbb-train-formation should render with multiple trains Shadow DOM */
 
-snapshots["sbb-train-formation should render with multiple trains A11y tree Chrome"] = 
+snapshots["sbb-train-formation should render with multiple trains A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -179,7 +177,7 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Chro
 `;
 /* end snapshot sbb-train-formation should render with multiple trains A11y tree Chrome */
 
-snapshots["sbb-train-formation should render with multiple trains A11y tree Firefox"] = 
+snapshots["sbb-train-formation should render with multiple trains A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
