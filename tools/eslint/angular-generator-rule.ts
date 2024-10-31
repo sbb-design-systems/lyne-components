@@ -119,6 +119,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
                   `
 @Directive({
   selector: '${toKebabCase(className)}',
+  standalone: true,
 })
 export class ${className} {
 }`,
@@ -215,7 +216,46 @@ export class ${className} {
         // TODO: Events with @Output() eventName = fromEvent(this.#element, 'eventName')
 
         for (const member of publicProperties) {
-          // TODO: Add getter/setter
+          if (
+            classDeclaration.body.body.every(
+              (n) => {
+                return n.type !== 'MethodDefinition'
+                  || n.kind !== 'set'
+                  || context.sourceCode.getText(n.key) !== member.name.getText()
+                  || !context.sourceCode.getText(n).includes('@Input(')
+              }
+            )
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingInput',
+              data: { symbol: member.name.getText() },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                // FIXME default parser doesn't recognize jsDoc, even if at compile time the member.jsDoc is available - is jsDoc needed?
+                // FIXME how do resolve imports for custom types?
+                // FIXME are default values needed?
+                // FIXME input converter
+
+                let input = '@Input()';
+                const decorator = ts.getDecorators(member)?.find(e => e.getText().includes('attribute'));
+                if (decorator) {
+                  input =`@Input({ alias: ${decorator.getText().match(/['"]([^'"]*)['"]/g)![0]} })`
+                }
+                const value = member.initializer ? `value ?? ${member.initializer.getText()}` : 'value';
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  ${input}
+  public set ${member.name.getText()}(value: ${member.type?.getText() ?? 'any'}) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name.getText()} = ${value}));
+  }
+  public get ${member.name.getText()}(): ${member.type?.getText() ?? 'any'} {
+    return this.#element.nativeElement.${member.name.getText()};
+  }\n`);
+              },
+            });
+          }
         }
 
         for (const member of publicSetterGetter) {
@@ -316,6 +356,7 @@ export class ${className} {
       angularMissingDirective: 'Missing class for {{ className }}',
       angularMissingElementRef: 'Missing ElementRef property',
       angularMissingNgZone: 'Missing NgZone property',
+      angularMissingInput: 'Missing input for property {{ property }}',
     },
     fixable: 'code',
     type: 'suggestion',
