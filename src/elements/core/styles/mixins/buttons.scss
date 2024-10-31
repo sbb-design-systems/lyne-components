@@ -3,6 +3,9 @@
 @use '../core/functions';
 @use './typo';
 
+$disabled: '[disabled], :disabled, [disabled-interactive], [data-disabled], [data-group-disabled]';
+$active: ':active, [data-active]';
+
 // ----------------------------------------------------------------------------------------------------
 // Buttons Mixins
 // ----------------------------------------------------------------------------------------------------
@@ -29,7 +32,7 @@
     @include icon-button-variables-negative;
   }
 
-  :host(:is([disabled], [data-disabled], [data-group-disabled])) {
+  :host(:is(#{$disabled})) {
     @include icon-button-disabled(#{$button-selector});
   }
 
@@ -42,11 +45,11 @@
     @include icon-button-focus-visible(#{$button-selector});
   }
 
-  :host(:not([disabled], [data-disabled], [data-group-disabled], :active, [data-active]):hover) {
+  :host(:not(#{$disabled}, #{$active}):hover) {
     @include icon-button-hover(#{$button-selector});
   }
 
-  :host(:not([disabled], [data-disabled], [data-group-disabled]):is(:active, [data-active])) {
+  :host(:not(#{$disabled}):is(#{$active})) {
     @include icon-button-active(#{$button-selector});
   }
 }

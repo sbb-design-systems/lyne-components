@@ -36,7 +36,6 @@ export type DOMEvent = globalThis.Event;
  * @event {CustomEvent<File[]>} fileChanged - An event which is emitted each time the file list changes.
  * @event change - An event which is emitted each time the user modifies the value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value
  * @event input - An event which is emitted each time the value changes as a direct result of a user action.
- * @overrideType value - string | null
  */
 export
 @customElement('sbb-file-selector')
