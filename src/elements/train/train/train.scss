@@ -6,15 +6,13 @@
 :host {
   display: block;
 
-  --sbb-train-spacing: var(--sbb-spacing-fixed-2x);
-  --sbb-train-direction-label-color: var(--sbb-color-charcoal);
   --sbb-train-direction-label-spacing: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-train {
   display: flex;
   flex-direction: column;
-  gap: var(--sbb-train-spacing);
+  gap: var(--sbb-train-formation-vertical-gap);
 }
 
 .sbb-train__wagons {
@@ -27,7 +25,6 @@
 .sbb-train__direction-heading {
   @include sbb.text-xs--regular;
 
-  color: var(--sbb-train-direction-label-color);
   display: flex;
 }
 

@@ -53,6 +53,12 @@ for wrapping [sbb-train](/docs/timetable-sbb-train--docs)s.
 | ---------------- | ------------------ | ------- | --------- | ------- | -------------------------------- |
 | `hideWagonLabel` | `hide-wagon-label` | public  | `boolean` | `false` | Option to hide all wagon labels. |
 
+## CSS Properties
+
+| Name                                   | Default | Description                                                      |
+| -------------------------------------- | ------- | ---------------------------------------------------------------- |
+| `--sbb-train-formation-inline-padding` | `0px`   | Defines the inline padding inside the horizontal scrolling area. |
+
 ## Slots
 
 | Name | Description                                                                    |

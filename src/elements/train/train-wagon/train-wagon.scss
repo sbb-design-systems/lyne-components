@@ -13,7 +13,6 @@
   --sbb-train-wagon-shape-color: var(--sbb-color-charcoal);
   --sbb-train-wagon-shape-color-closed: var(--sbb-color-metal);
   --sbb-train-wagon-shape-width: var(--sbb-border-width-1x);
-  --sbb-train-wagon-gap: var(--sbb-spacing-fixed-2x);
   --sbb-train-wagon-icons-gap: var(--sbb-spacing-fixed-1x);
   --sbb-train-wagon-icons-height: #{sbb.px-to-rem-build(14)};
 
@@ -27,7 +26,7 @@
   flex-direction: column;
   align-items: center;
   width: var(--sbb-train-wagon-width);
-  gap: var(--sbb-train-wagon-gap);
+  gap: var(--sbb-train-formation-vertical-gap);
 }
 
 .sbb-train-wagon__compartment {
@@ -78,7 +77,7 @@
 }
 
 .sbb-train-wagon__label {
-  @include sbb.text-s--regular;
+  @include sbb.text-xs--regular;
 
   grid-area: label;
   text-align: center;

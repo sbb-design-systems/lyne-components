@@ -28,6 +28,7 @@ interface AggregatedSector {
  * It displays a train composition, acting as a container for one or more `sbb-train` component.
  *
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
+ * @cssprop [--sbb-train-formation-inline-padding=0px] - Defines the inline padding inside the horizontal scrolling area.
  */
 export
 @customElement('sbb-train-formation')
