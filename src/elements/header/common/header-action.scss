@@ -16,7 +16,7 @@
   --sbb-header-action-min-height: var(--sbb-size-element-s);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
   --sbb-header-action-transition-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-header-action-transition-easing: var(--sbb-animation-easing);
@@ -75,7 +75,7 @@
   }
 }
 
-:host([role='button']) {
+:host([data-button]) {
   @include sbb.if-forced-colors {
     --sbb-header-action-color: ButtonText;
   }

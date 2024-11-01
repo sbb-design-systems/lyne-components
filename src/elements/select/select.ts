@@ -53,6 +53,7 @@ export interface SelectChange {
  * @cssprop [--sbb-select-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
+ * @overrideType value - string | string[] | null
  */
 export
 @customElement('sbb-select')

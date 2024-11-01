@@ -84,9 +84,6 @@ It's suggested to have a different value for each variant, e.g.:
 ></sbb-file-selector>
 ```
 
-<!-- Override
-  @type value => string \| null
--->
 <!-- Auto Generated Below -->
 
 ## Properties

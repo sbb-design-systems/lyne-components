@@ -67,7 +67,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   /**
    * The 'data-icon' is used by the 'sbb-expansion-panel'.
    * It needs to be set before the @slotchange event bubbles to the 'expansion-panel'
-   * but after the 'NamedSlotStateController' has run.
+   * but after the 'SbbSlotStateController' has run.
    */
   private _setDataIconAttribute(): void {
     this.toggleAttribute('data-icon', !!(this.iconName || this._namedSlots.slots.has('icon')));

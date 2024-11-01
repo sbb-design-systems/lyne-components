@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
+$disabled: '[disabled], :disabled, [disabled-interactive]';
+$active: ':active, [data-active]';
 
 :host {
   display: inline-block;
@@ -29,7 +31,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-min-height: var(--sbb-size-element-m);
   --sbb-button-transition-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);
@@ -109,7 +111,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-padding-inline: 0;
 }
 
-:host(:not([disabled], :active, [data-active]):hover) {
+:host(:not(#{$disabled}, #{$active}):hover) {
   @include sbb.hover-mq($hover: true) {
     --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
     --sbb-button-shadow-1-offset-y: calc(
@@ -166,14 +168,14 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     transition-property: inset, background-color, border-color, box-shadow;
     box-shadow: var(--sbb-button-box-shadow);
 
-    :host([disabled]) & {
+    :host(:is(#{$disabled})) & {
       background-color: var(--sbb-button-color-disabled-background);
       border-width: var(--sbb-button-border-disabled-width);
       border-color: var(--sbb-button-color-disabled-border);
       border-style: var(--sbb-button-border-disabled-style);
     }
 
-    :host(:not([disabled], :active, [data-active]):hover) & {
+    :host(:not(#{$disabled}, #{$active}):hover) & {
       @include sbb.hover-mq($hover: true) {
         inset: calc(var(--sbb-button-border-width) * -1);
         background-color: var(--sbb-button-color-hover-background);
@@ -181,7 +183,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
       }
     }
 
-    :host(:not([disabled]):is(:active, [data-active])) & {
+    :host(:not(#{$disabled}):is(#{$active})) & {
       color: var(--sbb-button-color-active-text);
       background-color: var(--sbb-button-color-active-background);
       border-color: var(--sbb-button-color-active-border);
@@ -193,13 +195,13 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     justify-content: center;
   }
 
-  :host([disabled]) & {
+  :host(:is(#{$disabled})) & {
     color: var(--sbb-button-color-disabled-text);
     cursor: default;
     pointer-events: none;
   }
 
-  :host(:not([disabled], :active, [data-active]):hover) & {
+  :host(:not(#{$disabled}, #{$active}):hover) & {
     @include sbb.hover-mq($hover: true) {
       color: var(--sbb-button-color-hover-text);
     }
