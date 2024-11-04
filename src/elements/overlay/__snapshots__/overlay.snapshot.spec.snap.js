@@ -19,7 +19,6 @@ snapshots["sbb-overlay renders Shadow DOM"] =
           data-button=""
           data-sbb-button=""
           icon-name="cross-small"
-          role="button"
           sbb-overlay-close=""
           size="m"
           tabindex="0"
