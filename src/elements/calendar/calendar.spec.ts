@@ -18,6 +18,23 @@ describe(`sbb-calendar`, () => {
     await waitForCondition(() => !element.hasAttribute('data-transition'));
   };
 
+  const setWide = async (element: SbbCalendarElement): Promise<void> => {
+    await setViewport({ width: SbbBreakpointMediumMin, height: 1000 });
+    element.wide = true;
+
+    await waitForLitRender(element);
+  };
+
+  const goToNextView = async (element: SbbCalendarElement): Promise<void> => {
+    const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
+      "sbb-secondary-button[icon-name='chevron-small-right-small']",
+    )!;
+
+    nextButton.click();
+    await waitForLitRender(element);
+    await waitForTransition();
+  };
+
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
@@ -211,10 +228,7 @@ describe(`sbb-calendar`, () => {
   });
 
   it('changes to year and month selection views if wide', async () => {
-    await setViewport({ width: SbbBreakpointMediumMin, height: 1000 });
-    element.wide = true;
-
-    await waitForLitRender(element);
+    await setWide(element);
 
     // Open year selection
     element
@@ -237,7 +251,7 @@ describe(`sbb-calendar`, () => {
 
     // Click last available month on right side
     element
-      .shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="December 2062"]')!
+      .shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="December 2063"]')!
       .click();
 
     await waitForLitRender(element);
@@ -248,7 +262,7 @@ describe(`sbb-calendar`, () => {
       element
         .shadowRoot!.querySelector<HTMLButtonElement>('button#sbb-calendar__date-selection')!
         .innerText.trim(),
-    ).to.be.equal('December 2062');
+    ).to.be.equal('December 2063');
   });
 
   it('renders with min and max', async () => {
@@ -285,6 +299,62 @@ describe(`sbb-calendar`, () => {
     const firstDisabledMaxDate = page.shadowRoot!.querySelector("[data-day='30 1 2023']");
     expect(firstDisabledMaxDate).to.have.attribute('disabled');
     expect(firstDisabledMaxDate).to.have.attribute('aria-disabled', 'true');
+  });
+
+  it('renders with min and max if wide', async () => {
+    element = await fixture(
+      html`<sbb-calendar
+        now="2024-11-04"
+        selected="2024-11-20"
+        min="2023-11-04"
+        max="2026-12-31"
+      ></sbb-calendar>`,
+    );
+
+    await setWide(element);
+
+    // Open year selection
+    element
+      .shadowRoot!.querySelector<HTMLButtonElement>('button#sbb-calendar__date-selection')!
+      .click();
+
+    await waitForTransition();
+    await waitForLitRender(element);
+
+    const selectedYear: HTMLElement = Array.from(
+      element.shadowRoot!.querySelectorAll<HTMLTableCellElement>('.sbb-calendar__table-year'),
+    ).find((e) => e.innerText === '2023')!;
+    const yearButton: HTMLElement = selectedYear.querySelector('button')!;
+
+    // Open month selection
+    yearButton.click();
+
+    await waitForLitRender(element);
+    await waitForTransition();
+
+    // Check if January 2024 is clickable (first possible)
+    expect(
+      element.shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="January 2024"]'),
+    ).not.to.have.attribute('disabled');
+
+    // Check if November 2023 is clickable
+    expect(
+      element.shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="November 2023"]'),
+    ).not.to.have.attribute('disabled');
+
+    // Navigate to possible end
+    await goToNextView(element);
+    await goToNextView(element);
+
+    const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
+      "sbb-secondary-button[icon-name='chevron-small-right-small']",
+    )!;
+    expect(nextButton).to.have.attribute('disabled');
+
+    // Check if December 2026 is clickable (last possible)
+    expect(
+      element.shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="December 2026"]'),
+    ).not.to.have.attribute('disabled');
   });
 
   it('opens year view', async () => {
