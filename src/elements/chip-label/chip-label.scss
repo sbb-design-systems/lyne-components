@@ -8,35 +8,35 @@
 }
 
 :host([color='milk']) {
-  @include sbb.chip-variables--color-milk;
+  @include sbb.chip-label-variables--color-milk;
 }
 
 :host([color='charcoal']) {
-  @include sbb.chip-variables--color-charcoal;
+  @include sbb.chip-label-variables--color-charcoal;
 }
 
 :host([color='white']) {
-  @include sbb.chip-variables--color-white;
+  @include sbb.chip-label-variables--color-white;
 }
 
 :host([color='granite']) {
-  @include sbb.chip-variables--color-granite;
+  @include sbb.chip-label-variables--color-granite;
 }
 
 :host([size='xxs']) {
-  @include sbb.chip-variables--size-xxs;
+  @include sbb.chip-label-variables--size-xxs;
 }
 
 :host([size='xs']) {
-  @include sbb.chip-variables--size-xs;
+  @include sbb.chip-label-variables--size-xs;
 }
 
 :host([size='s']) {
-  @include sbb.chip-variables--size-s;
+  @include sbb.chip-label-variables--size-s;
 }
 
-.sbb-chip {
-  @include sbb.chip-rules;
+.sbb-chip-label {
+  @include sbb.chip-label-rules;
 
   & {
     display: flex;
@@ -44,5 +44,5 @@
 }
 
 .sbb-chip__text-wrapper {
-  @include sbb.chip-rules-ellipsis;
+  @include sbb.chip-label-rules-ellipsis;
 }

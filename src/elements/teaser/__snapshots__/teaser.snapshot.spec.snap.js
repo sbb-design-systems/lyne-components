@@ -25,14 +25,14 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <sbb-chip
-        class="sbb-teaser__chip"
+      <sbb-chip-label
+        class="sbb-teaser__chip-label"
         color="charcoal"
         size="xxs"
       >
         <slot name="chip">
         </slot>
-      </sbb-chip>
+      </sbb-chip-label>
       <sbb-title
         aria-level="5"
         class="sbb-teaser__lead"
@@ -78,14 +78,14 @@ snapshots["sbb-teaser renders after with title level set Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <sbb-chip
-        class="sbb-teaser__chip"
+      <sbb-chip-label
+        class="sbb-teaser__chip-label"
         color="charcoal"
         size="xxs"
       >
         <slot name="chip">
         </slot>
-      </sbb-chip>
+      </sbb-chip-label>
       <sbb-title
         aria-level="2"
         class="sbb-teaser__lead"
@@ -143,14 +143,14 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <sbb-chip
-        class="sbb-teaser__chip"
+      <sbb-chip-label
+        class="sbb-teaser__chip-label"
         color="charcoal"
         size="xxs"
       >
         <slot name="chip">
         </slot>
-      </sbb-chip>
+      </sbb-chip-label>
       <sbb-title
         aria-level="5"
         class="sbb-teaser__lead"

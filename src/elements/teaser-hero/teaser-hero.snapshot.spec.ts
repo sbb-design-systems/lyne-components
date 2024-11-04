@@ -7,7 +7,7 @@ import { waitForImageReady } from '../core/testing.js';
 import type { SbbTeaserHeroElement } from './teaser-hero.js';
 import './teaser-hero.js';
 import '../image.js';
-import '../chip.js';
+import '../chip-label.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
@@ -27,7 +27,7 @@ describe(`sbb-teaser-hero`, () => {
           image-alt="SBB CFF FFS Employee"
         >
           Break out and explore castles and palaces.
-          <sbb-chip slot="chip">Label</sbb-chip>
+          <sbb-chip-label slot="chip">Label</sbb-chip-label>
         </sbb-teaser-hero>`,
       );
       await waitForImageReady(element.shadowRoot!.querySelector('sbb-image')!);
@@ -52,7 +52,7 @@ describe(`sbb-teaser-hero`, () => {
           <span slot="link-content">Find out more</span>
           <sbb-image slot="image" image-src=${imageUrl} alt="SBB CFF FFS Employee"></sbb-image>
           </sbb-image>
-          <sbb-chip slot="chip">Label</sbb-chip>
+          <sbb-chip-label slot="chip">Label</sbb-chip-label>
         </sbb-teaser-hero>`,
       );
       await waitForImageReady(element.querySelector('sbb-image')!);

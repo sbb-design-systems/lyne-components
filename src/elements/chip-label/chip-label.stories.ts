@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './chip.js';
+import './chip-label.js';
 
 const size: InputType = {
   control: {
@@ -43,11 +43,13 @@ const defaultArgs: Args = {
 };
 
 const Template = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-chip ${sbbSpread(args)}>${label}</sbb-chip>
+  <sbb-chip-label ${sbbSpread(args)}>${label}</sbb-chip-label>
 `;
 
 const TemplateFixedWidth = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-chip ${sbbSpread(args)} style=${styleMap({ width: '10rem' })}> ${label} </sbb-chip>
+  <sbb-chip-label ${sbbSpread(args)} style=${styleMap({ width: '10rem' })}>
+    ${label}
+  </sbb-chip-label>
 `;
 
 export const MilkXXS: StoryObj = {
@@ -130,7 +132,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-chip',
+  title: 'elements/sbb-chip-label',
 };
 
 export default meta;
