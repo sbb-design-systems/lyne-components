@@ -1,5 +1,6 @@
 import { assert, expect } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { SbbBreakpointMediumMin } from '@sbb-esta/lyne-design-tokens';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button/secondary-button.js';
@@ -207,6 +208,47 @@ describe(`sbb-calendar`, () => {
 
     const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
     expect(dayCells.length).to.be.equal(31);
+  });
+
+  it('changes to year and month selection views if wide', async () => {
+    await setViewport({ width: SbbBreakpointMediumMin, height: 1000 });
+    element.wide = true;
+
+    await waitForLitRender(element);
+
+    // Open year selection
+    element
+      .shadowRoot!.querySelector<HTMLButtonElement>('button#sbb-calendar__date-selection')!
+      .click();
+
+    await waitForTransition();
+    await waitForLitRender(element);
+
+    const selectedYear: HTMLElement = Array.from(
+      element.shadowRoot!.querySelectorAll<HTMLTableCellElement>('.sbb-calendar__table-year'),
+    ).find((e) => e.innerText === '2063')!;
+    const yearButton: HTMLElement = selectedYear.querySelector('button')!;
+
+    // Open month selection
+    yearButton.click();
+
+    await waitForLitRender(element);
+    await waitForTransition();
+
+    // Click last available month on right side
+    element
+      .shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="December 2062"]')!
+      .click();
+
+    await waitForLitRender(element);
+    await waitForTransition();
+
+    // Day view should be opened with December 2062
+    expect(
+      element
+        .shadowRoot!.querySelector<HTMLButtonElement>('button#sbb-calendar__date-selection')!
+        .innerText.trim(),
+    ).to.be.equal('December 2062');
   });
 
   it('renders with min and max', async () => {
