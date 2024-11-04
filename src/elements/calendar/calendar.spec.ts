@@ -31,7 +31,6 @@ describe(`sbb-calendar`, () => {
     )!;
 
     nextButton.click();
-    await waitForLitRender(element);
     await waitForTransition();
   };
 
@@ -236,7 +235,6 @@ describe(`sbb-calendar`, () => {
       .click();
 
     await waitForTransition();
-    await waitForLitRender(element);
 
     const selectedYear: HTMLElement = Array.from(
       element.shadowRoot!.querySelectorAll<HTMLTableCellElement>('.sbb-calendar__table-year'),
@@ -246,7 +244,6 @@ describe(`sbb-calendar`, () => {
     // Open month selection
     yearButton.click();
 
-    await waitForLitRender(element);
     await waitForTransition();
 
     // Click last available month on right side
@@ -254,7 +251,6 @@ describe(`sbb-calendar`, () => {
       .shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="December 2063"]')!
       .click();
 
-    await waitForLitRender(element);
     await waitForTransition();
 
     // Day view should be opened with December 2062
@@ -319,7 +315,6 @@ describe(`sbb-calendar`, () => {
       .click();
 
     await waitForTransition();
-    await waitForLitRender(element);
 
     const selectedYear: HTMLElement = Array.from(
       element.shadowRoot!.querySelectorAll<HTMLTableCellElement>('.sbb-calendar__table-year'),
@@ -329,7 +324,6 @@ describe(`sbb-calendar`, () => {
     // Open month selection
     yearButton.click();
 
-    await waitForLitRender(element);
     await waitForTransition();
 
     // Check if January 2024 is clickable (first possible)
@@ -342,7 +336,7 @@ describe(`sbb-calendar`, () => {
       element.shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="November 2023"]'),
     ).not.to.have.attribute('disabled');
 
-    // Navigate to possible end
+    // Navigate to max page
     await goToNextView(element);
     await goToNextView(element);
 
