@@ -111,7 +111,7 @@ const defaultArgs: Args = {
   'chip-label': undefined,
 };
 
-const chip = (content: string): TemplateResult => html`
+const chipLabelTemplate = (content: string): TemplateResult => html`
   <sbb-chip-label slot="chip">${content}</sbb-chip-label>
 `;
 
@@ -121,7 +121,7 @@ const TemplateSbbTeaserHeroDefault = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-teaser-hero ${sbbSpread(args)}
-    >${content} ${chipLabel ? chip(chipLabel) : nothing}
+    >${content} ${chipLabel ? chipLabelTemplate(chipLabel) : nothing}
   </sbb-teaser-hero>
 `;
 

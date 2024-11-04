@@ -12,7 +12,7 @@ snapshots["sbb-chip-label renders DOM"] =
 /* end snapshot sbb-chip-label renders DOM */
 
 snapshots["sbb-chip-label renders Shadow DOM"] = 
-`<span class="sbb-chip">
+`<span class="sbb-chip-label">
   <span class="sbb-chip__text-wrapper">
     <slot>
     </slot>

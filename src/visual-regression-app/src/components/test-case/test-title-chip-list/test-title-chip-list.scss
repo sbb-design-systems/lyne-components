@@ -12,11 +12,11 @@ sbb-chip-label {
 }
 
 sbb-chip-label[color='custom-green'] {
-  --sbb-chip-color: var(--sbb-color-white);
-  --sbb-chip-background-color: var(--sbb-color-green);
+  --sbb-chip-label-color: var(--sbb-color-white);
+  --sbb-chip-label-background-color: var(--sbb-color-green);
 }
 
 sbb-chip-label[color='custom-red'] {
-  --sbb-chip-color: var(--sbb-color-white);
-  --sbb-chip-background-color: var(--sbb-color-red125);
+  --sbb-chip-label-color: var(--sbb-color-white);
+  --sbb-chip-label-background-color: var(--sbb-color-red125);
 }

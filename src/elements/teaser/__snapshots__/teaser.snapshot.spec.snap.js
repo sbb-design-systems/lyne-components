@@ -26,7 +26,7 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
     </span>
     <span class="sbb-teaser__text">
       <sbb-chip-label
-        class="sbb-teaser__chip"
+        class="sbb-teaser__chip-label"
         color="charcoal"
         size="xxs"
       >
@@ -79,7 +79,7 @@ snapshots["sbb-teaser renders after with title level set Shadow DOM"] =
     </span>
     <span class="sbb-teaser__text">
       <sbb-chip-label
-        class="sbb-teaser__chip"
+        class="sbb-teaser__chip-label"
         color="charcoal"
         size="xxs"
       >
@@ -144,7 +144,7 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
     </span>
     <span class="sbb-teaser__text">
       <sbb-chip-label
-        class="sbb-teaser__chip"
+        class="sbb-teaser__chip-label"
         color="charcoal"
         size="xxs"
       >

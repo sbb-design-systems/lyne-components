@@ -10,11 +10,11 @@ It's possible to choose among three different values for the `size` property (`s
 and four different values for the `color` property (`charcoal`, `granite`, `white` and `milk`, which is the default).
 
 ```html
-<sbb-chip color="charcoal" size="s">Label</sbb-chip>
+<sbb-chip-label color="charcoal" size="s">Label</sbb-chip-label>
 
-<sbb-chip color="granite" size="xs">Label</sbb-chip>
+<sbb-chip-label color="granite" size="xs">Label</sbb-chip-label>
 
-<sbb-chip color="white">Label</sbb-chip>
+<sbb-chip-label color="white">Label</sbb-chip-label>
 ```
 
 <!-- Auto Generated Below -->

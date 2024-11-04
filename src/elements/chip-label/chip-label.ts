@@ -24,7 +24,7 @@ class SbbChipLabelElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-chip">
+      <span class="sbb-chip-label">
         <span class="sbb-chip__text-wrapper">
           <slot></slot>
         </span>
