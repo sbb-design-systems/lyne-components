@@ -4,6 +4,7 @@ import { property } from 'lit/decorators.js';
 import { forceType, getOverride } from '../decorators.js';
 
 import type { AbstractConstructor } from './constructor.js';
+import type { SbbFormAssociatedMixinType } from './form-associated-mixin.js';
 
 export declare class SbbDisabledMixinType {
   public accessor disabled: boolean;
@@ -53,9 +54,9 @@ export const SbbDisabledInteractiveMixin = <
     extends superClass
     implements Partial<SbbDisabledInteractiveMixinType>
   {
-    /** Whether disabled buttons should be interactive. */
+    /** Whether the button should be aria-disabled but stay interactive. */
     @forceType()
-    @property({ attribute: 'disabled-interactive', type: Boolean })
+    @property({ attribute: 'disabled-interactive', type: Boolean, reflect: true })
     public accessor disabledInteractive: boolean = false;
   }
 
@@ -64,7 +65,9 @@ export const SbbDisabledInteractiveMixin = <
 };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbDisabledTabIndexActionMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbDisabledTabIndexActionMixin = <
+  T extends AbstractConstructor<LitElement & SbbFormAssociatedMixinType>,
+>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType & SbbDisabledInteractiveMixinType> & T => {
   abstract class SbbDisabledTabIndexAction
@@ -74,20 +77,18 @@ export const SbbDisabledTabIndexActionMixin = <T extends AbstractConstructor<Lit
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
-      if (!changedProperties.has('disabled') && !changedProperties.has('disabledInteractive')) {
+      if (changedProperties.has('disabledInteractive')) {
+        this.internals.ariaDisabled = this.disabledInteractive ? 'true' : null;
+      }
+
+      if (!changedProperties.has('disabled')) {
         return;
       }
 
-      if (!this.disabled || this.disabledInteractive) {
+      if (!this.disabled) {
         this.setAttribute('tabindex', '0');
       } else {
         this.removeAttribute('tabindex');
-      }
-
-      if (this.disabled) {
-        this.setAttribute('aria-disabled', 'true');
-      } else {
-        this.removeAttribute('aria-disabled');
       }
     }
   }

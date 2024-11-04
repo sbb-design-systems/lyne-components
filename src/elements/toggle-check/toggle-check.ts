@@ -16,7 +16,6 @@ import style from './toggle-check.scss?lit&inline';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
- * @overrideType value - string | null
  */
 export
 @customElement('sbb-toggle-check')

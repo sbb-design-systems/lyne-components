@@ -24,7 +24,6 @@ import {
 } from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
-import '../../loading-indicator.js';
 import './tertiary-button.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonDefaultArgTypes };
