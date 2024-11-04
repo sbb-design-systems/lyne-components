@@ -1,34 +1,25 @@
 @use './mixins/typo';
+@use './mixins/image';
 
 .sbb-figure {
-  display: grid;
-  grid-row-gap: var(--sbb-spacing-fixed-4x);
-  margin: 0;
-  height: 100%;
+  @include image.figure;
 
   img,
   sbb-image,
   .sbb-image {
-    grid-row: 1;
-    grid-column: 1;
+    @include image.figure-image;
   }
 
   figcaption,
   .sbb-caption {
-    grid-row: 2;
-    grid-column: 1;
-    @include typo.text-xs--regular;
+    @include image.figure-caption;
   }
 
   $alignments: start, center, end;
   @each $row-alignment in $alignments {
     @each $column-alignment in $alignments {
       .sbb-figure-overlap-#{$row-alignment}-#{$column-alignment} {
-        z-index: 1;
-        grid-row: 1;
-        grid-column: 1;
-        place-self: #{$row-alignment} #{$column-alignment};
-        margin: 0.75rem;
+        @include image.figure-overlap($row-alignment, $column-alignment);
       }
     }
   }
