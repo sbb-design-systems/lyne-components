@@ -887,8 +887,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return html`
       <button
         type="button"
-        id="sbb-calendar__date-selection"
-        class="sbb-calendar__controls-change-date"
+        class="sbb-calendar__date-selection sbb-calendar__controls-change-date"
         aria-label="${i18nYearMonthSelection[this._language.current]} ${monthLabel}"
         @click=${() => {
           this._resetFocus = true;

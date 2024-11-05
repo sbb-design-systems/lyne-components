@@ -151,7 +151,7 @@ describe(`sbb-calendar`, () => {
 
     it('changes to year and month selection views', async () => {
       const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
-        '#sbb-calendar__date-selection',
+        '.sbb-calendar__date-selection',
       )!;
 
       expect(yearSelectionButton).not.to.be.null;
@@ -233,15 +233,13 @@ describe(`sbb-calendar`, () => {
 
       // Open year selection
       element
-        .shadowRoot!.querySelector<HTMLButtonElement>('button#sbb-calendar__date-selection')!
+        .shadowRoot!.querySelector<HTMLButtonElement>('button.sbb-calendar__date-selection')!
         .click();
 
       await waitForTransition();
 
-      const selectedYear: HTMLElement = Array.from(
-        element.shadowRoot!.querySelectorAll<HTMLTableCellElement>('.sbb-calendar__table-year'),
-      ).find((e) => e.innerText === '2063')!;
-      const yearButton = selectedYear.querySelector('button')!;
+      const yearButton: HTMLButtonElement =
+        element.shadowRoot!.querySelector('[data-year="2063"]')!;
 
       // Open month selection
       yearButton.click();
@@ -258,7 +256,7 @@ describe(`sbb-calendar`, () => {
       // Day view should be opened with December 2062
       expect(
         element
-          .shadowRoot!.querySelector<HTMLButtonElement>('button#sbb-calendar__date-selection')!
+          .shadowRoot!.querySelector<HTMLButtonElement>('button.sbb-calendar__date-selection')!
           .innerText.trim(),
       ).to.be.equal('December 2063');
     });
@@ -466,7 +464,7 @@ describe(`sbb-calendar`, () => {
 
     // Open year selection
     element
-      .shadowRoot!.querySelector<HTMLButtonElement>('button#sbb-calendar__date-selection')!
+      .shadowRoot!.querySelector<HTMLButtonElement>('button.sbb-calendar__date-selection')!
       .click();
 
     await waitForTransition();
@@ -513,7 +511,7 @@ describe(`sbb-calendar`, () => {
       );
 
       const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
-        '#sbb-calendar__date-selection',
+        '.sbb-calendar__date-selection',
       )!;
 
       expect(yearSelectionButton).not.to.be.null;
