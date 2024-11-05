@@ -17,6 +17,7 @@ describe(`sbb-calendar`, () => {
   const waitForTransition = async (): Promise<void> => {
     await waitForLitRender(element);
     await waitForCondition(() => !element.hasAttribute('data-transition'));
+    await waitForLitRender(element);
   };
 
   const setWide = async (element: SbbCalendarElement): Promise<void> => {
@@ -247,9 +248,11 @@ describe(`sbb-calendar`, () => {
       await waitForTransition();
 
       // Click last available month on right side
-      element
-        .shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="December 2063"]')!
-        .click();
+      const lastAvailableYear: HTMLButtonElement = element.shadowRoot!.querySelector(
+        '[aria-label="December 2063"]',
+      )!;
+
+      lastAvailableYear.click();
 
       await waitForTransition();
 
