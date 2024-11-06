@@ -9,12 +9,16 @@ snapshots["sbb-teaser-product renders DOM"] =
   href="https://www.sbb.ch"
   image-alignment="after"
 >
-  <sbb-image
-    aspect-ratio="16-9"
-    border-radius="default"
+  <figure
+    class="sbb-figure"
     slot="image"
   >
-  </sbb-image>
+    <sbb-image
+      aspect-ratio="16-9"
+      border-radius="default"
+    >
+    </sbb-image>
+  </figure>
   <p class="sbb-teaser-product--spacing">
     Content
   </p>

@@ -20,9 +20,13 @@ describe(`sbb-teaser-hero`, () => {
         state.name,
         state.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-teaser-hero href="#" link-content="Find out more" image-src=${imageUrl}>
+            <sbb-teaser-hero href="#" link-content="Find out more">
               Break out and explore castles and palaces.
-              <sbb-chip slot="chip">Label</sbb-chip>
+
+              <figure class="sbb-figure" slot="image">
+                <sbb-image image-src=${imageUrl}></sbb-image>
+                <sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>
+              </figure>
             </sbb-teaser-hero>
           `);
 
@@ -41,8 +45,11 @@ describe(`sbb-teaser-hero`, () => {
             <sbb-teaser-hero href="#">
               Break out and explore castles and palaces.
               <span slot="link-content">Find out more</span>
-              <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
-              <sbb-chip slot="chip">Label</sbb-chip>
+
+              <figure class="sbb-figure" slot="image">
+                <sbb-image image-src=${imageUrl}></sbb-image>
+                <sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>
+              </figure>
             </sbb-teaser-hero>
           `);
 
@@ -54,8 +61,11 @@ describe(`sbb-teaser-hero`, () => {
         `without content ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-teaser-hero href="#" image-src=${imageUrl}>
-              <sbb-chip slot="chip">Label</sbb-chip>
+            <sbb-teaser-hero href="#">
+              <figure class="sbb-figure" slot="image">
+                <sbb-image image-src=${imageUrl}></sbb-image>
+                <sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>
+              </figure>
             </sbb-teaser-hero>
           `);
 

@@ -153,3 +153,30 @@ input[data-sbb-time-input] {
     max-width: var(--sbb-time-input-s-max-width);
   }
 }
+
+// Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
+// Apply the brightness effect on mouse hover
+// TODO Move back to the teaser components when the global css refactoring happens
+:is(sbb-teaser, sbb-teaser-hero, sbb-teaser-product) {
+  & [slot='image']:is(sbb-image, img),
+  & [slot='image'] :is(sbb-image, img) {
+    will-change: filter;
+    filter: brightness(var(--sbb-teaser-image-brightness, 1));
+    transition: filter var(--sbb-teaser-image-animation-duration)
+      var(--sbb-teaser-image-animation-easing);
+  }
+}
+
+:is(sbb-teaser-product, sbb-teaser-product-static) {
+  // Reset sbb-image border radius in order to control it from teaser product.
+  sbb-image {
+    --sbb-image-border-radius: 0;
+  }
+
+  // TODO create and use utility classes
+  img {
+    place-self: stretch;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+  }
+}

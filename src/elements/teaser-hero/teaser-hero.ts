@@ -39,13 +39,12 @@ class SbbTeaserHeroElement extends SbbLinkBaseElement {
   @property({ attribute: 'image-alt' })
   public accessor imageAlt: string = '';
 
-  private _chipSlotChanged(): void {
-    this.querySelector('sbb-chip')?.setAttribute('color', 'charcoal');
+  private _imageSlotChanged(): void {
+    Array.from(this.querySelectorAll('sbb-chip')).forEach((c) => (c.color = 'charcoal'));
   }
 
   protected override renderTemplate(): TemplateResult {
     return html`
-      <slot name="chip" @slotchange=${() => this._chipSlotChanged()}></slot>
       <span class="sbb-teaser-hero__panel">
         <p class="sbb-teaser-hero__panel-text">
           <slot></slot>
@@ -62,11 +61,7 @@ class SbbTeaserHeroElement extends SbbLinkBaseElement {
             </sbb-block-link-static>`
           : nothing}
       </span>
-      <slot name="image">
-        ${this.imageSrc
-          ? html`<sbb-image image-src=${this.imageSrc} alt=${this.imageAlt ?? nothing}></sbb-image>`
-          : nothing}
-      </slot>
+      <slot name="image" @slotchange=${this._imageSlotChanged}></slot>
     `;
   }
 }

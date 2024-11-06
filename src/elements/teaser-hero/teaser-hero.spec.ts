@@ -8,6 +8,7 @@ import type { SbbImageElement } from '../image.js';
 
 import { SbbTeaserHeroElement } from './teaser-hero.js';
 import '../chip.js';
+import '../image.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
@@ -15,9 +16,7 @@ describe(`sbb-teaser-hero`, () => {
   let element: SbbTeaserHeroElement;
 
   it('renders', async () => {
-    element = await fixture(
-      html`<sbb-teaser-hero href="https://www.sbb.ch" image-src=${imageUrl}></sbb-teaser-hero>`,
-    );
+    element = await fixture(html`<sbb-teaser-hero href="https://www.sbb.ch"></sbb-teaser-hero>`);
 
     assert.instanceOf(element, SbbTeaserHeroElement);
   });
@@ -35,13 +34,17 @@ describe(`sbb-teaser-hero`, () => {
 
   it('styles slotted components', async () => {
     element = await fixture(
-      html`<sbb-teaser-hero href="https://www.sbb.ch" image-src=${imageUrl}>
-        <sbb-chip slot="chip">Label</sbb-chip>
+      html`<sbb-teaser-hero href="https://www.sbb.ch">
+        <figure slot="image" class="sbb-figure">
+          <sbb-image image-src=${imageUrl}></sbb-image>
+          <sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>
+        </figure>
       </sbb-teaser-hero>`,
     );
+    await waitForLitRender(element);
 
     const chip = element.querySelector<SbbChipElement>('sbb-chip')!;
-    const image = element.shadowRoot!.querySelector<SbbImageElement>('sbb-image')!;
+    const image = element.querySelector<SbbImageElement>('sbb-image')!;
 
     expect(chip).to.have.attribute('color', 'charcoal');
     expect(image).to.have.attribute('data-teaser');

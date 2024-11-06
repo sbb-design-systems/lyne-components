@@ -52,21 +52,6 @@
   }
 }
 
-::slotted(img) {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 16 / 9;
-}
-
-// Reset sbb-image border radius in order to control it from teaser product.
-::slotted(sbb-image) {
-  --sbb-image-border-radius: 0;
-
-  height: 100%;
-}
-
 ::slotted(p.sbb-teaser-product--spacing) {
   margin: 0;
 }

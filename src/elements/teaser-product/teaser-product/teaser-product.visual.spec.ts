@@ -11,6 +11,7 @@ import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 
 import './teaser-product.js';
 import '../../button/button-static.js';
+import '../../chip.js';
 import '../../image.js';
 import '../../title.js';
 
@@ -46,17 +47,24 @@ const template = ({
   showFooter,
   slottedImg,
   longContent,
+  withChip,
 }: {
   negative?: boolean;
   imageAlignment?: string;
   showFooter?: boolean;
   slottedImg?: boolean;
   longContent?: boolean;
+  withChip?: boolean;
 } = {}): TemplateResult => html`
   <sbb-teaser-product ?negative=${negative} image-alignment=${imageAlignment || nothing} href="#">
-    ${slottedImg
-      ? html`<img slot="image" src=${imageBase64} alt="" />`
-      : html`<sbb-image slot="image" image-src=${imageUrl} skip-lqip></sbb-image>`}
+    <figure class="sbb-figure" slot="image">
+      ${slottedImg
+        ? html`<img src=${imageBase64} alt="" />`
+        : html`<sbb-image image-src=${imageUrl} skip-lqip></sbb-image>`}
+      ${withChip
+        ? html`<sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>`
+        : nothing}
+    </figure>
     ${content(longContent)} ${showFooter ? footer() : nothing}
   </sbb-teaser-product>
 `;
@@ -74,6 +82,21 @@ describe('sbb-teaser-product', () => {
                   await setup.withFixture(template({ negative, showFooter: true, slottedImg }), {
                     backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
                   });
+                  await waitForImageReady(
+                    setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+                  );
+                }),
+              );
+
+              it(
+                `withChip_${visualState.name}`,
+                visualState.with(async (setup) => {
+                  await setup.withFixture(
+                    template({ negative, showFooter: true, slottedImg, withChip: true }),
+                    {
+                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    },
+                  );
                   await waitForImageReady(
                     setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
                   );

@@ -111,36 +111,30 @@ const defaultArgs: Args = {
   'chip-label': undefined,
 };
 
-const chip = (content: string): TemplateResult => html`
-  <sbb-chip slot="chip">${content}</sbb-chip>
-`;
-
-const TemplateSbbTeaserHeroDefault = ({
-  content,
-  'chip-label': chipLabel,
-  ...args
-}: Args): TemplateResult => html`
-  <sbb-teaser-hero ${sbbSpread(args)}
-    >${content} ${chipLabel ? chip(chipLabel) : nothing}
-  </sbb-teaser-hero>
-`;
-
 const TemplateSbbTeaserWithSlots = ({
   content,
+  'chip-label': chipLabel,
   'link-content': linkContent,
   'image-src': imageSrc,
   'image-alt': imageAlt,
   ...args
 }: Args): TemplateResult => html`
   <sbb-teaser-hero ${sbbSpread(args)}>
-    ${content}
-    <span slot="link-content">${linkContent}</span>
-    <sbb-image slot="image" image-src=${imageSrc} alt=${imageAlt}></sbb-image>
+    ${content ? content : nothing}
+    ${linkContent ? html`<span slot="link-content">${linkContent}</span>` : nothing}
+
+    <figure class="sbb-figure" slot="image">
+      <sbb-image image-src=${imageSrc} alt=${imageAlt}></sbb-image>
+
+      ${chipLabel
+        ? html`<sbb-chip class="sbb-figure-overlap-start-start">${chipLabel}</sbb-chip>`
+        : nothing}
+    </figure>
   </sbb-teaser-hero>
 `;
 
 export const defaultTeaser: StoryObj = {
-  render: TemplateSbbTeaserHeroDefault,
+  render: TemplateSbbTeaserWithSlots,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -148,7 +142,7 @@ export const defaultTeaser: StoryObj = {
 };
 
 export const openInNewWindow: StoryObj = {
-  render: TemplateSbbTeaserHeroDefault,
+  render: TemplateSbbTeaserWithSlots,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -157,7 +151,7 @@ export const openInNewWindow: StoryObj = {
 };
 
 export const withChip: StoryObj = {
-  render: TemplateSbbTeaserHeroDefault,
+  render: TemplateSbbTeaserWithSlots,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -166,7 +160,7 @@ export const withChip: StoryObj = {
 };
 
 export const chipOnly: StoryObj = {
-  render: TemplateSbbTeaserHeroDefault,
+  render: TemplateSbbTeaserWithSlots,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,

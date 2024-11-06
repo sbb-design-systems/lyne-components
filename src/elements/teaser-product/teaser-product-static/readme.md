@@ -5,7 +5,9 @@ otherwise, see [sbb-teaser-product](/docs/elements-sbb-teaser-sbb-teaser-product
 
 ```html
 <sbb-teaser-product-static>
-  <sbb-image slot="image" image-src="..."></sbb-image>
+  <figure slot="image" class="sbb-figure">
+    <sbb-image image-src="..."></sbb-image>
+  </figure>
 
   <p class="sbb-teaser-product--spacing">Content ...</p>
 
@@ -15,15 +17,21 @@ otherwise, see [sbb-teaser-product](/docs/elements-sbb-teaser-sbb-teaser-product
 
 ## Slots
 
-Use the `image` slot to pass a `sbb-image` or an `img` that will be used as a background,
-and use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
+Use the `image` slot to pass a `figure` containing an `sbb-image | img` that will be used as background.
+Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure`.
+
+Use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 
 The default slot is reserved for the main content: it could be a simple text or a text combined with more elements,
 like a `sbb-title` or some interactive elements, like buttons or links within the `sbb-action-group` component.
 
 ```html
 <sbb-teaser-product-static>
-  <sbb-image slot="image" image-src="..."></sbb-image>
+  <figure slot="image" class="sbb-figure">
+    <sbb-image image-src="..."></sbb-image>
+    <sbb-chip-label class="sbb-figure-overlap-start-start">Chip label</sbb-chip-label>
+  </figure>
+
   <p class="sbb-teaser-product--spacing">Content ...</p>
 </sbb-teaser-product-static>
 ```
@@ -33,7 +41,9 @@ to display the components with the correct spacings.
 
 ```html
 <sbb-teaser-product-static>
-  <sbb-image slot="image" image-src="..."></sbb-image>
+  <figure slot="image" class="sbb-figure">
+    <sbb-image image-src="..."></sbb-image>
+  </figure>
   <sbb-title level="3" class="sbb-teaser-product--spacing">
     Benefit from up to 70% discount
   </sbb-title>

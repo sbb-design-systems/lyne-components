@@ -17,6 +17,7 @@ import sampleImages from '../../core/images.js';
 import readme from './readme.md?raw';
 import './teaser-product.js';
 import '../../button/button-static.js';
+import '../../chip.js';
 import '../../image.js';
 import '../../title.js';
 
@@ -34,6 +35,12 @@ const negative: InputType = {
 };
 
 const withFooter: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const withChip: InputType = {
   control: {
     type: 'boolean',
   },
@@ -67,6 +74,7 @@ const defaultArgTypes: ArgTypes = {
   'image-alignment': imageAlignment,
   negative,
   withFooter,
+  withChip,
   slottedImg,
   href,
   'accessibility-label': accessibilityLabel,
@@ -76,6 +84,7 @@ const defaultArgs: Args = {
   'image-alignment': imageAlignment.options![0],
   negative: false,
   withFooter: true,
+  withChip: false,
   slottedImg: false,
   href: 'https://www.sbb.ch',
   'accessibility-label': undefined,
@@ -102,11 +111,16 @@ const footer = (): TemplateResult => html`
   </p>
 `;
 
-const Template = ({ withFooter, slottedImg, ...args }: Args): TemplateResult => html`
+const Template = ({ withChip, withFooter, slottedImg, ...args }: Args): TemplateResult => html`
   <sbb-teaser-product ${sbbSpread(args)}>
-    ${slottedImg
-      ? html`<img slot="image" src=${sampleImages[4]} alt="" />`
-      : html`<sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>`}
+    <figure slot="image" class="sbb-figure">
+      ${slottedImg
+        ? html`<img src=${sampleImages[4]} alt="" class="TODO" />`
+        : html`<sbb-image image-src=${sampleImages[4]}></sbb-image>`}
+      ${withChip
+        ? html`<sbb-chip class="sbb-figure-overlap-start-start">AI generated</sbb-chip>`
+        : nothing}
+    </figure>
     ${content()} ${withFooter ? footer() : nothing}
   </sbb-teaser-product>
 `;
@@ -139,6 +153,12 @@ export const SlottedImg: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, slottedImg: true },
+};
+
+export const WithChip: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, withChip: true },
 };
 
 const meta: Meta = {
