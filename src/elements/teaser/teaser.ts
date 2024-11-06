@@ -8,14 +8,14 @@ import type { SbbTitleLevel } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
 
-import '../chip.js';
+import '../chip-label.js';
 import '../title.js';
 
 /**
  * It displays an interactive image with caption.
  *
  * @slot image - Slot used to render the image.
- * @slot chip - Slot used to render the sbb-chip label.
+ * @slot chip - Slot used to render the sbb-chip-label.
  * @slot title - Slot used to render the title.
  * @slot - Use the unnamed slot to render the description.
  */
@@ -37,7 +37,7 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ attribute: 'title-content' })
   public accessor titleContent: string = '';
 
-  /** Content of chip. */
+  /** Content of chip label. */
   @forceType()
   @property({ attribute: 'chip-content', reflect: true, converter: omitEmptyConverter })
   public accessor chipContent: string = '';
@@ -49,9 +49,9 @@ class SbbTeaserElement extends SbbLinkBaseElement {
           <slot name="image"></slot>
         </span>
         <span class="sbb-teaser__text">
-          <sbb-chip size="xxs" color="charcoal" class="sbb-teaser__chip">
+          <sbb-chip-label size="xxs" color="charcoal" class="sbb-teaser__chip-label">
             <slot name="chip">${this.chipContent}</slot>
-          </sbb-chip>
+          </sbb-chip-label>
           <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
             <slot name="title">${this.titleContent}</slot>
           </sbb-title>

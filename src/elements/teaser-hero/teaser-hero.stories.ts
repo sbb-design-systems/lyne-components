@@ -9,7 +9,7 @@ import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
 import './teaser-hero.js';
-import '../chip.js';
+import '../chip-label.js';
 
 const accessibilityLabel: InputType = {
   control: {
@@ -127,7 +127,7 @@ const TemplateSbbTeaserWithSlots = ({
       <sbb-image image-src=${imageSrc} alt=${imageAlt}></sbb-image>
 
       ${chipLabel
-        ? html`<sbb-chip class="sbb-figure-overlap-start-start">${chipLabel}</sbb-chip>`
+        ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">${chipLabel}</sbb-chip-label>`
         : nothing}
     </figure>
   </sbb-teaser-hero>

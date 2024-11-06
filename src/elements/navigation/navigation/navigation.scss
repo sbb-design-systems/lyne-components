@@ -14,7 +14,7 @@
 :host {
   --sbb-navigation-grid-column: 1 / 5;
   --sbb-navigation-animation-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-3x)
   );
   --sbb-navigation-animation-easing: ease-in;
@@ -53,7 +53,7 @@
   @include sbb.mq($from: large) {
     --sbb-navigation-grid-column: 1 / 5;
     --sbb-navigation-animation-duration: var(
-      --sbb-disable-animation-zero-time,
+      --sbb-disable-animation-zero-duration,
       var(--sbb-animation-duration-6x)
     );
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);

@@ -11,7 +11,7 @@ import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 
 import './teaser-product.js';
 import '../../button/button-static.js';
-import '../../chip.js';
+import '../../chip-label.js';
 import '../../image.js';
 import '../../title.js';
 
@@ -62,7 +62,7 @@ const template = ({
         ? html`<img src=${imageBase64} alt="" />`
         : html`<sbb-image image-src=${imageUrl} skip-lqip></sbb-image>`}
       ${withChip
-        ? html`<sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>`
+        ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>`
         : nothing}
     </figure>
     ${content(longContent)} ${showFooter ? footer() : nothing}

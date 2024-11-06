@@ -9,7 +9,7 @@ import images from '../core/images.js';
 
 import { SbbImageElement } from './image.js';
 import readme from './readme.md?raw';
-import '../chip.js';
+import '../chip-label.js';
 
 const WithCaptionTemplate = (args: Args): TemplateResult => html`
   <figure class="sbb-figure">
@@ -35,7 +35,7 @@ const Template = (args: Args): TemplateResult => html`
 const WithChipTemplate = (args: Args): TemplateResult => html`
   <figure class="sbb-figure">
     <sbb-image ${sbbSpread(args)}></sbb-image>
-    <sbb-chip class="sbb-figure-overlap-start-start">AI generated</sbb-chip>
+    <sbb-chip-label class="sbb-figure-overlap-start-start">AI generated</sbb-chip-label>
   </figure>
 `;
 

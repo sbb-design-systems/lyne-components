@@ -43,9 +43,9 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 
 ## Slots
 
-| Name           | Description                                                        |
-| -------------- | ------------------------------------------------------------------ |
-|                | Use the unnamed slot to add text content to the panel              |
-| `chip`         | The `sbb-chip` component that will be displayed on top-left corner |
-| `image`        | The background image that can be a `sbb-image`                     |
-| `link-content` | Link content of the panel                                          |
+| Name           | Description                                                              |
+| -------------- | ------------------------------------------------------------------------ |
+|                | Use the unnamed slot to add text content to the panel                    |
+| `chip`         | The `sbb-chip-label` component that will be displayed on top-left corner |
+| `image`        | The background image that can be a `sbb-image`                           |
+| `link-content` | Link content of the panel                                                |

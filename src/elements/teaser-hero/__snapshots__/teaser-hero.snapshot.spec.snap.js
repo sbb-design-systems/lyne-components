@@ -24,13 +24,13 @@ snapshots["sbb-teaser-hero renders DOM"] =
       data-teaser=""
     >
     </sbb-image>
-    <sbb-chip
+    <sbb-chip-label
       class="sbb-figure-overlap-start-start"
       color="charcoal"
       size="xxs"
     >
       Label
-    </sbb-chip>
+    </sbb-chip-label>
   </figure>
 </sbb-teaser-hero>
 `;
@@ -117,13 +117,13 @@ snapshots["sbb-teaser-hero renders with img DOM"] =
     slot="image"
   >
     <img alt="alt">
-    <sbb-chip
+    <sbb-chip-label
       class="sbb-figure-overlap-start-start"
       color="charcoal"
       size="xxs"
     >
       Label
-    </sbb-chip>
+    </sbb-chip-label>
   </figure>
 </sbb-teaser-hero>
 `;

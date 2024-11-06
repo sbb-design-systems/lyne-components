@@ -9,7 +9,7 @@ import {
 import { waitForImageReady } from '../core/testing.js';
 import './teaser-hero.js';
 import '../image.js';
-import '../chip.js';
+import '../chip-label.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
@@ -25,7 +25,7 @@ describe(`sbb-teaser-hero`, () => {
 
               <figure class="sbb-figure" slot="image">
                 <sbb-image image-src=${imageUrl}></sbb-image>
-                <sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>
+                <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
               </figure>
             </sbb-teaser-hero>
           `);
@@ -48,7 +48,7 @@ describe(`sbb-teaser-hero`, () => {
 
               <figure class="sbb-figure" slot="image">
                 <sbb-image image-src=${imageUrl}></sbb-image>
-                <sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>
+                <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
               </figure>
             </sbb-teaser-hero>
           `);
@@ -64,7 +64,7 @@ describe(`sbb-teaser-hero`, () => {
             <sbb-teaser-hero href="#">
               <figure class="sbb-figure" slot="image">
                 <sbb-image image-src=${imageUrl}></sbb-image>
-                <sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>
+                <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
               </figure>
             </sbb-teaser-hero>
           `);

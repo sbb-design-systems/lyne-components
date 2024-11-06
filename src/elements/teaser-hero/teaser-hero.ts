@@ -16,7 +16,7 @@ import '../link/block-link-static.js';
  * @slot - Use the unnamed slot to add text content to the panel
  * @slot link-content - Link content of the panel
  * @slot image - The background image that can be a `sbb-image`
- * @slot chip - The `sbb-chip` component that will be displayed on top-left corner
+ * @slot chip - The `sbb-chip-label` component that will be displayed on top-left corner
  */
 export
 @customElement('sbb-teaser-hero')
@@ -40,7 +40,7 @@ class SbbTeaserHeroElement extends SbbLinkBaseElement {
   public accessor imageAlt: string = '';
 
   private _imageSlotChanged(): void {
-    Array.from(this.querySelectorAll('sbb-chip')).forEach((c) => (c.color = 'charcoal'));
+    Array.from(this.querySelectorAll('sbb-chip-label')).forEach((c) => (c.color = 'charcoal'));
   }
 
   protected override renderTemplate(): TemplateResult {

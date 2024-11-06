@@ -19,7 +19,7 @@ import './teaser-product-static.js';
 import '../../action-group.js';
 import '../../button/button.js';
 import '../../button/secondary-button.js';
-import '../../chip.js';
+import '../../chip-label.js';
 import '../../image.js';
 import '../../title.js';
 
@@ -101,7 +101,7 @@ const Template = ({ withChip, withFooter, slottedImg, ...args }: Args): Template
         ? html`<img src=${sampleImages[4]} alt="" class="TODO" />`
         : html`<sbb-image image-src=${sampleImages[4]}></sbb-image>`}
       ${withChip
-        ? html`<sbb-chip class="sbb-figure-overlap-start-start">AI generated</sbb-chip>`
+        ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">AI generated</sbb-chip-label>`
         : nothing}
     </figure>
     ${content()} ${withFooter ? footer() : nothing}

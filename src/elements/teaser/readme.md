@@ -17,7 +17,7 @@ Simple teaser example:
 ## Slots
 
 The default slot is reserved for the description. The component displays the `image` and the `title` with the self-named slots.
-It's also possible to display a [sbb-chip](/docs/elements-sbb-chip--docs) using the `chip` slot.
+It's also possible to display a [sbb-chip-label](/docs/elements-sbb-chip-label--docs) using the `chip` slot.
 
 ```html
 <sbb-teaser href="https://www.sbb.ch" title-level="2">
@@ -75,7 +75,7 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | -------------------- | --------------------- | ------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                                 | `''`               | This will be forwarded as aria-label to the inner anchor element.         |
 | `alignment`          | `alignment`           | public  | `'after-centered' \| 'after' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
-| `chipContent`        | `chip-content`        | public  | `string`                                 | `''`               | Content of chip.                                                          |
+| `chipContent`        | `chip-content`        | public  | `string`                                 | `''`               | Content of chip label.                                                    |
 | `download`           | `download`            | public  | `boolean`                                | `false`            | Whether the browser will show the download dialog on click.               |
 | `href`               | `href`                | public  | `string`                                 | `''`               | The href value you want to link to.                                       |
 | `rel`                | `rel`                 | public  | `string`                                 | `''`               | The relationship of the linked URL as space-separated link types.         |
@@ -88,6 +88,6 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | Name    | Description                                     |
 | ------- | ----------------------------------------------- |
 |         | Use the unnamed slot to render the description. |
-| `chip`  | Slot used to render the sbb-chip label.         |
+| `chip`  | Slot used to render the sbb-chip-label.         |
 | `image` | Slot used to render the image.                  |
 | `title` | Slot used to render the title.                  |

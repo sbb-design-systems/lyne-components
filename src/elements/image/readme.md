@@ -19,7 +19,7 @@ Also, you can place overlapping content by using the `sbb-figure-overlap-${horiz
 ```html
 <figure class="sbb-figure">
   <sbb-image ...></sbb-image>
-  <sbb-chip class="sbb-figure-overlap-start-start"></sbb-chip>
+  <sbb-chip-label class="sbb-figure-overlap-start-start"></sbb-chip-label>
 </figure>
 ```
 

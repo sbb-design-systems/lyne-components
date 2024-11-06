@@ -7,7 +7,7 @@ import { waitForImageReady } from '../core/testing.js';
 import type { SbbTeaserHeroElement } from './teaser-hero.js';
 import './teaser-hero.js';
 import '../image.js';
-import '../chip.js';
+import '../chip-label.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
@@ -23,7 +23,7 @@ describe(`sbb-teaser-hero`, () => {
 
           <figure slot="image" class="sbb-figure">
             <sbb-image image-src=${imageUrl}></sbb-image>
-            <sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>
+            <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
           </figure>
         </sbb-teaser-hero>`,
       );
@@ -55,7 +55,7 @@ describe(`sbb-teaser-hero`, () => {
 
           <figure slot="image" class="sbb-figure">
             <img src=${imageUrl} alt="alt"></img>
-            <sbb-chip class="sbb-figure-overlap-start-start">Label</sbb-chip>
+            <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
           </figure>
         </sbb-teaser-hero>`,
       );
@@ -67,7 +67,7 @@ describe(`sbb-teaser-hero`, () => {
     });
 
     it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['src'] });
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
   });
 });

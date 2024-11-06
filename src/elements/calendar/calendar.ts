@@ -1029,7 +1029,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       </div>
       <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
         ${this._createMonthTable(this._months, this._chosenYear!)}
-        ${this._wide ? this._createMonthTable(this._months, this._chosenYear! + 1, true) : nothing}
+        ${this._wide ? this._createMonthTable(this._months, this._chosenYear! + 1) : nothing}
       </div>
     `;
   }
@@ -1050,7 +1050,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Creates the table for the month selection view. */
-  private _createMonthTable(months: Month[][], year: number, shiftRight = false): TemplateResult {
+  private _createMonthTable(months: Month[][], year: number): TemplateResult {
     return html`
       <table
         class="sbb-calendar__table"
@@ -1097,7 +1097,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                         'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                         'sbb-calendar__selected': selected,
                       })}
-                      @click=${() => this._onMonthSelection(month.monthValue, year, shiftRight)}
+                      @click=${() => this._onMonthSelection(month.monthValue, year)}
                       ?disabled=${isOutOfRange || isFilteredOut}
                       aria-label=${`${month.longValue} ${this._chosenYear}`}
                       aria-pressed=${selected}
@@ -1119,8 +1119,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Select the month and change the view to day selection. */
-  private _onMonthSelection(month: number, year: number, shiftRight: boolean): void {
-    this._chosenMonth = shiftRight ? month + 1 : month;
+  private _onMonthSelection(month: number, year: number): void {
+    this._chosenMonth = month;
     this._nextCalendarView = 'day';
     this._init(
       this._dateAdapter.createDate(
