@@ -9,6 +9,7 @@ import './image.js';
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
 const aspectRatios = [
+  'free',
   '1-1',
   '1-2',
   '2-1',
@@ -29,7 +30,9 @@ describe(`sbb-image`, () => {
         `aspect-ratio=${aspectRatio}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-image image-src=${imageUrl} aspect-ratio=${aspectRatio}></sbb-image>`,
+            html`<figure class="sbb-figure">
+              <sbb-image image-src=${imageUrl} class="sbb-image-${aspectRatios}"></sbb-image>
+            </figure>`,
           );
 
           await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
@@ -41,27 +44,30 @@ describe(`sbb-image`, () => {
       `aspect-ratio=free`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-image
-            image-src=${imageUrl}
-            aspect-ratio="free"
-            style="--sbb-image-aspect-ratio: 10 / 1;"
-          ></sbb-image>`,
+          html`<figure class="sbb-figure">
+            <sbb-image
+              image-src=${imageUrl}
+              class="sbb-image-free"
+              style="--sbb-image-aspect-ratio: 10 / 1;"
+            ></sbb-image>
+          </figure>`,
         );
 
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
-    for (const borderRadius of ['none', 'round']) {
+    for (const borderRadius of ['none', 'round', 'default']) {
       it(
         `border-radius=${borderRadius}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-image
-              image-src=${imageUrl}
-              border-radius=${borderRadius}
-              aspect-ratio="1-1"
-            ></sbb-image>`,
+            html`<figure class="sbb-figure">
+              <sbb-image
+                image-src=${imageUrl}
+                class="sbb-image-1-1 sbb-image-border-radius-${borderRadius}"
+              ></sbb-image>
+            </figure>`,
           );
 
           await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
@@ -73,11 +79,16 @@ describe(`sbb-image`, () => {
       'with caption',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-image
-            image-src=${imageUrl}
-            alt="Station of Lucerne from outside"
-            caption=${`A long text which takes several lines and contains a link <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a>. After the link there is more text.`}
-          ></sbb-image>`,
+          html`<figure class="sbb-figure">
+            <sbb-image image-src=${imageUrl} alt="Station of Lucerne from outside"></sbb-image>
+            <figcaption>
+              A long text which takes several lines and contains a link
+              <a
+                href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax"
+                >Gleis 7</a
+              >. After the link there is more text.
+            </figcaption>
+          </figure>`,
         );
 
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
@@ -87,7 +98,11 @@ describe(`sbb-image`, () => {
     it(
       'transparent image from img cdn',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`<sbb-image image-src=${sampleImages[9]}></sbb-image>`);
+        await setup.withFixture(
+          html`<figure class="sbb-figure">
+            <sbb-image image-src=${sampleImages[9]}></sbb-image>
+          </figure>`,
+        );
 
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
@@ -97,7 +112,9 @@ describe(`sbb-image`, () => {
       'cropped',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-image image-src=${imageUrl} style="width: 200px; height: 200px"></sbb-image>`,
+          html`<figure class="sbb-figure" style="width: 200px; height: 200px">
+            <sbb-image image-src=${imageUrl}></sbb-image>
+          </figure>`,
         );
 
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
@@ -108,11 +125,10 @@ describe(`sbb-image`, () => {
       'cropped with caption',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-image
-            image-src=${imageUrl}
-            style="width: 200px; height: 300px"
-            caption="I am a caption below"
-          ></sbb-image>`,
+          html`<figure class="sbb-figure" style="width: 200px; height: 300px">
+            <sbb-image image-src=${imageUrl}></sbb-image>
+            <figcaption>I am a caption below</figcaption>
+          </figure>`,
         );
 
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
@@ -123,10 +139,9 @@ describe(`sbb-image`, () => {
       'cropped with object-position',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-image
-            image-src=${imageUrl}
-            style="width: 200px; height: 300px; --sbb-image-object-position: 0 0"
-          ></sbb-image>`,
+          html`<figure class="sbb-figure" style="width: 200px; height: 300px;">
+            <sbb-image image-src=${imageUrl} style="--sbb-image-object-position: 0 0"></sbb-image>
+          </figure>`,
         );
 
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
@@ -137,10 +152,9 @@ describe(`sbb-image`, () => {
       'cropped with object-fit',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-image
-            image-src=${imageUrl}
-            style="width: 200px; height: 300px; --sbb-image-object-fit: contain"
-          ></sbb-image>`,
+          html`<figure class="sbb-figure" style="width: 200px; height: 300px;">
+            <sbb-image image-src=${imageUrl} style="--sbb-image-object-fit: contain"></sbb-image>
+          </figure>`,
         );
 
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
@@ -151,7 +165,9 @@ describe(`sbb-image`, () => {
       'skipLqip=true',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-image skip-lqip image-src=${imageUrl} aspect-ratio="1-1"></sbb-image>`,
+          html`<figure class="sbb-figure">
+            <sbb-image skip-lqip image-src=${imageUrl} class="sbb-image-1-1"></sbb-image>
+          </figure>`,
         );
 
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);

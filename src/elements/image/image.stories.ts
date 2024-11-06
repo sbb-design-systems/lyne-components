@@ -3,6 +3,7 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import images from '../core/images.js';
@@ -11,9 +12,20 @@ import { SbbImageElement } from './image.js';
 import readme from './readme.md?raw';
 import '../chip-label.js';
 
+const imageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
+  <sbb-image
+    ${sbbSpread(args)}
+    class=${classMap({
+      [`sbb-image-${aspectRatio}`]: true,
+      [`sbb-image-border-radius-${borderRadius}`]: true,
+    })}
+  >
+  </sbb-image>
+`;
+
 const WithCaptionTemplate = (args: Args): TemplateResult => html`
   <figure class="sbb-figure">
-    <sbb-image ${sbbSpread(args)}></sbb-image>
+    ${imageTemplate(args)}
     <figcaption>
       With the
       <a href="https://www.sbb.ch/en/tickets-offers/travelcards/half-fare-travelcard.html"
@@ -27,15 +39,13 @@ const WithCaptionTemplate = (args: Args): TemplateResult => html`
 `;
 
 const Template = (args: Args): TemplateResult => html`
-  <figure class="sbb-figure">
-    <sbb-image ${sbbSpread(args)}></sbb-image>
-  </figure>
+  <figure class="sbb-figure">${imageTemplate(args)}</figure>
 `;
 
-const WithChipTemplate = (args: Args): TemplateResult => html`
+const WithChipTemplate = ({ chipPosition, ...args }: Args): TemplateResult => html`
   <figure class="sbb-figure">
-    <sbb-image ${sbbSpread(args)}></sbb-image>
-    <sbb-chip-label class="sbb-figure-overlap-start-start">AI generated</sbb-chip-label>
+    ${imageTemplate(args)}
+    <sbb-chip-label class="sbb-figure-overlap-${chipPosition}">AI generated</sbb-chip-label>
   </figure>
 `;
 
@@ -51,11 +61,25 @@ const borderRadius: InputType = {
     type: 'select',
   },
   options: ['default', 'none', 'round'],
+  table: {
+    category: 'Utility classes',
+  },
 };
 
 const aspectRatio: InputType = {
   control: { type: 'select' },
   options: ['free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'],
+  table: {
+    category: 'Utility classes',
+  },
+};
+
+const chipPosition: InputType = {
+  control: { type: 'select' },
+  options: ['start-start', 'start-end', 'end-start', 'end-end'],
+  table: {
+    category: 'Utility classes',
+  },
 };
 
 const alt: InputType = {
@@ -130,8 +154,9 @@ const performanceMark: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   alt,
-  'border-radius': borderRadius,
-  'aspect-ratio': aspectRatio,
+  borderRadius,
+  aspectRatio,
+  chipPosition,
   'custom-focal-point': customFocalPoint,
   'focal-point-debug': focalPointDebug,
   'focal-point-x': focalPointX,
@@ -144,9 +169,9 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   alt: '',
-  // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
-  'border-radius': 'default',
-  'aspect-ratio': aspectRatio.options![0],
+  borderRadius: borderRadius.options![0],
+  aspectRatio: aspectRatio.options![0],
+  chipPosition: chipPosition.options![0],
   'custom-focal-point': false,
   'focal-point-debug': false,
   'focal-point-x': '',
@@ -177,7 +202,7 @@ export const NoCaptionNoRadius: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'border-radius': 'none',
+    borderRadius: 'none',
   },
 };
 
@@ -186,8 +211,8 @@ export const RoundBorderRadius: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'border-radius': 'round',
-    'aspect-ratio': '1-1',
+    borderRadius: 'round',
+    aspectRatio: '1-1',
   },
 };
 

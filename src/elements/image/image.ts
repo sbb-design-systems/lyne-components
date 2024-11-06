@@ -364,34 +364,6 @@ class SbbImageElement extends LitElement {
   @property({ attribute: 'picture-sizes-config' })
   public accessor pictureSizesConfig: string = '';
 
-  /**
-   * Border radius of the image. Choose between a default radius, no radius and a completely round image.
-   */
-  @property({ attribute: 'border-radius', reflect: true }) public accessor borderRadius:
-    | 'default'
-    | 'none'
-    | 'round' = 'default';
-
-  /**
-   * Set an aspect ratio
-   * default is '16-9' (16/9)
-   * other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
-   */
-  @property({ attribute: 'aspect-ratio', reflect: true })
-  public accessor aspectRatio:
-    | 'free'
-    | '1-1'
-    | '1-2'
-    | '2-1'
-    | '2-3'
-    | '3-2'
-    | '3-4'
-    | '4-3'
-    | '4-5'
-    | '5-4'
-    | '9-16'
-    | '16-9' = '16-9';
-
   /** Whether the image is finished loading or failed to load. */
   public get complete(): boolean {
     return this.shadowRoot?.querySelector?.<HTMLImageElement>('.sbb-image__img')?.complete ?? false;
@@ -399,11 +371,8 @@ class SbbImageElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    // Check if the current element is nested in an `<sbb-teaser-hero>` element on in an `<sbb-teaser-paid>` element.
-    this.toggleAttribute(
-      'data-teaser',
-      !!hostContext('sbb-teaser-hero', this) || !!this.closest('sbb-teaser-paid'),
-    );
+    // Check if the current element is nested in an `<sbb-teaser-hero>` element.
+    this.toggleAttribute('data-teaser', !!hostContext('sbb-teaser-hero', this));
   }
 
   protected override updated(changedProperties: PropertyValues<this>): void {

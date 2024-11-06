@@ -5,7 +5,7 @@
 
 :host {
   --sbb-image-border-radius: var(--sbb-border-radius-4x);
-  --sbb-image-aspect-ratio: auto;
+  --sbb-image-aspect-ratio: 16 / 9;
   --sbb-image-animation-duration: var(
     --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-4x)
@@ -15,50 +15,6 @@
   display: block;
 }
 
-:host([aspect-ratio='1-1']) {
-  --sbb-image-aspect-ratio: 1 / 1;
-}
-
-:host([aspect-ratio='1-2']) {
-  --sbb-image-aspect-ratio: 1 / 2;
-}
-
-:host([aspect-ratio='2-1']) {
-  --sbb-image-aspect-ratio: 2 / 1;
-}
-
-:host([aspect-ratio='2-3']) {
-  --sbb-image-aspect-ratio: 2 / 3;
-}
-
-:host([aspect-ratio='3-2']) {
-  --sbb-image-aspect-ratio: 3 / 2;
-}
-
-:host([aspect-ratio='3-4']) {
-  --sbb-image-aspect-ratio: 3 / 4;
-}
-
-:host([aspect-ratio='4-3']) {
-  --sbb-image-aspect-ratio: 4 / 3;
-}
-
-:host([aspect-ratio='4-5']) {
-  --sbb-image-aspect-ratio: 4 / 5;
-}
-
-:host([aspect-ratio='5-4']) {
-  --sbb-image-aspect-ratio: 5 / 4;
-}
-
-:host([aspect-ratio='16-9']) {
-  --sbb-image-aspect-ratio: 16 / 9;
-}
-
-:host([aspect-ratio='9-16']) {
-  --sbb-image-aspect-ratio: 9 / 16;
-}
-
 // Variant: Hero Teaser and Paid Teaser
 :host([data-teaser]) {
   --sbb-image-aspect-ratio: 1 / 1;
@@ -66,14 +22,6 @@
   @include sbb.mq($from: small) {
     --sbb-image-aspect-ratio: 16 / 9;
   }
-}
-
-:host(:is([border-radius='none'], [data-teaser])) {
-  --sbb-image-border-radius: 0;
-}
-
-:host([border-radius='round']:not([data-teaser])) {
-  --sbb-image-border-radius: var(--sbb-border-radius-infinity);
 }
 
 .sbb-image__img {
