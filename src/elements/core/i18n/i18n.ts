@@ -102,6 +102,27 @@ export const i18nLocomotiveLabel: Record<string, string> = {
   it: 'Locomotiva',
 };
 
+export const i18nSleepingWagonLabel: Record<string, string> = {
+  de: 'Schlafwagen',
+  en: 'Sleeping car',
+  fr: 'Voiture-lits',
+  it: 'Carrozza letti',
+};
+
+export const i18nCouchetteWagonLabel: Record<string, string> = {
+  de: 'Liegewagen',
+  en: 'Couchette car',
+  fr: 'Voiture-couchettes',
+  it: 'Carrozza cuccette',
+};
+
+export const i18nRestaurantWagonLabel: Record<string, string> = {
+  de: 'Speisewagen',
+  en: 'Dining car',
+  fr: 'Voiture-restaurant',
+  it: 'Carrozza ristorante',
+};
+
 export const i18nBlockedPassage: Record<string, Record<string, string>> = {
   previous: {
     de: 'Kein Durchgang zum vorherigen Wagen',

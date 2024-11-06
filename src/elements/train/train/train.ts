@@ -130,7 +130,7 @@ class SbbTrainElement extends SbbNamedSlotListMixin<
                     : nothing}
                 </span>
               </div>`
-            : html`<div class="sbb-train__direction-placeholder"></div>`
+            : nothing
         }
         ${this.renderList({
           class: 'sbb-train__wagons',

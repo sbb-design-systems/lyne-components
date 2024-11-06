@@ -10,9 +10,19 @@
 }
 
 .sbb-train {
+  @include sbb.text-xs--regular;
+
   display: flex;
   flex-direction: column;
   gap: var(--sbb-train-formation-vertical-gap);
+  position: relative;
+
+  // Placeholder to reserve the height of the direction row
+  &::before {
+    content: '';
+    display: var(--sbb-train-formation-reserve-spacing-display, none);
+    height: calc(max(var(--sbb-size-icon-ui-small), 1em * var(--sbb-typo-line-height-body-text)));
+  }
 }
 
 .sbb-train__wagons {
@@ -23,9 +33,11 @@
 }
 
 .sbb-train__direction-heading {
-  @include sbb.text-xs--regular;
-
   display: flex;
+
+  // We have to position it absolute in order for the ellipsis to work
+  position: absolute;
+  width: 100%;
 }
 
 .sbb-train__direction-sticky-wrapper {
@@ -34,6 +46,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--sbb-train-direction-label-spacing);
+  max-width: 100%;
 }
 
 .sbb-train__direction-label {
@@ -42,9 +55,4 @@
 
 .sbb-train__direction-label-sr {
   @include sbb.screen-reader-only;
-}
-
-.sbb-train__direction-placeholder {
-  display: var(--sbb-train-formation-reserve-spacing-display, none);
-  height: var(--sbb-size-icon-ui-small);
 }

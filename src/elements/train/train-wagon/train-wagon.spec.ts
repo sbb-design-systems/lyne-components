@@ -49,7 +49,7 @@ async function extractAriaLabels(
   // Select all accessibility relevant text parts
   return Array.from(
     element.shadowRoot!.querySelectorAll(
-      '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screen-reader-only:not(.sbb-train-wagon__label > span)',
+      '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__attribute-icon-list), .sbb-screen-reader-only:not(.sbb-train-wagon__label > span)',
     ),
   ).map((entry) =>
     entry.hasAttribute('aria-label')
@@ -97,22 +97,24 @@ describe(`sbb-train-wagon`, () => {
   });
 
   it('should set aria labels correctly', async () => {
-    expect(await extractAriaLabels({})).to.be.eql([]);
+    expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql(['Train coach']);
     expect(await extractAriaLabels({ type: 'locomotive' })).to.be.eql(['Locomotive']);
+    expect(await extractAriaLabels({ type: 'sleeping' })).to.be.eql(['Sleeping car']);
+    expect(await extractAriaLabels({ type: 'restaurant' })).to.be.eql(['Dining car']);
+
     expect(
       await extractAriaLabels({ type: 'closed', additionalAccessibilityText: `Don't enter` }),
     ).to.be.eql(['Closed train coach', `, Don't enter`]);
     expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql(['Train coach']);
 
     expect(await extractAriaLabels({ sector: 'A', type: 'locomotive' })).to.be.eql([
-      'Locomotive , Sector, A',
+      'Locomotive, Sector, A',
     ]);
     expect(await extractAriaLabels({ sector: 'A', type: 'closed' })).to.be.eql([
-      'Closed train coach , Sector, A',
+      'Closed train coach, Sector, A',
     ]);
     expect(await extractAriaLabels({ sector: 'A', type: 'wagon' })).to.be.eql([
-      'Train coach',
-      'Sector, A',
+      'Train coach, Sector, A',
     ]);
 
     expect(

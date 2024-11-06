@@ -9,7 +9,6 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
@@ -28,7 +27,7 @@ interface AggregatedSector {
  * It displays a train composition, acting as a container for one or more `sbb-train` component.
  *
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
- * @cssprop [--sbb-train-formation-inline-padding=0px] - Defines the inline padding inside the horizontal scrolling area.
+ * @cssprop [--sbb-train-formation-padding-inline=0px] - Defines the inline padding inside the horizontal scrolling area.
  */
 export
 @customElement('sbb-train-formation')
@@ -38,10 +37,8 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-train'];
 
-  /** Option to hide all wagon labels. */
-  @forceType()
-  @property({ attribute: 'hide-wagon-label', reflect: true, type: Boolean })
-  public accessor hideWagonLabel: boolean = false;
+  /** Whether the view of the wagons is from side or top perspective. */
+  @property({ reflect: true }) public accessor view: 'side' | 'top' = 'side';
 
   @state() private accessor _sectors: AggregatedSector[] = [];
 

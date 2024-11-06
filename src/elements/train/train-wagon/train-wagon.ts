@@ -1,12 +1,8 @@
-import {
-  type CSSResultGroup,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { choose } from 'lit/directives/choose.js';
+import { when } from 'lit/directives/when.js';
+import { html } from 'lit/static-html.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange, omitEmptyConverter } from '../../core/decorators.js';
@@ -16,8 +12,11 @@ import {
   i18nBlockedPassage,
   i18nClass,
   i18nClosedCompartmentLabel,
+  i18nCouchetteWagonLabel,
   i18nLocomotiveLabel,
+  i18nRestaurantWagonLabel,
   i18nSector,
+  i18nSleepingWagonLabel,
   i18nWagonLabel,
   i18nWagonLabelNumber,
 } from '../../core/i18n.js';
@@ -44,13 +43,25 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
   public static readonly events = {
     sectorChange: 'sectorChange',
   } as const;
+
+  /**
+   * Wagon type.
+   * For `wagon-end-left` and `wagon-end-right`, please set the corresponding value of the `blockedPassage` property.
+   */
+  @property({ reflect: true }) public accessor type:
+    | 'wagon'
+    | 'wagon-end-left'
+    | 'wagon-end-right'
+    | 'couchette'
+    | 'sleeping'
+    | 'restaurant'
+    | 'locomotive'
+    | 'closed' = 'wagon';
+
   protected override readonly listChildLocalNames = ['sbb-icon'];
 
-  /** Wagon type. */
-  @property({ reflect: true }) public accessor type: 'locomotive' | 'closed' | 'wagon' = 'wagon';
-
   /** Occupancy of a wagon. */
-  @property() public accessor occupancy: SbbOccupancy = 'none';
+  @property() public accessor occupancy: SbbOccupancy | null = null;
 
   /** Sector in which to wagon stops. */
   @forceType()
@@ -62,12 +73,12 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
   @property({ attribute: 'blocked-passage' })
   public accessor blockedPassage: 'previous' | 'next' | 'both' | 'none' = 'none';
 
-  /** Visible class label of a wagon. */
+  /** Class label */
   @property({ attribute: 'wagon-class' }) public accessor wagonClass: '1' | '2' | null = null;
 
-  /** Visible label for the wagon number. Not used by type locomotive or closed. */
+  /** Wagon number */
   @forceType()
-  @property()
+  @property({ reflect: true, converter: omitEmptyConverter })
   public accessor label: string = '';
 
   /** Additional accessibility text which will be appended to the end. */
@@ -90,72 +101,98 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
     },
   );
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (
-      changedProperties.has('type') ||
-      changedProperties.has('occupancy') ||
-      changedProperties.has('wagonClass')
-    ) {
-      this.toggleAttribute(
-        'data-has-visible-wagon-content',
-        Boolean((this.type === 'wagon' && this.occupancy) || this.wagonClass),
-      );
-    }
-  }
-
   private _sectorChanged(): void {
     this._sectorChange.emit();
   }
 
   protected override render(): TemplateResult {
-    const label = (tagName: string): TemplateResult => {
-      const TAG_NAME = tagName;
-      /* eslint-disable lit/binding-positions */
-      return html`
-        <${unsafeStatic(TAG_NAME)} class="sbb-train-wagon__label" aria-hidden=${(!this
-          .label).toString()}>
-          ${
-            this.label
-              ? html` <span class="sbb-screen-reader-only">
-                    ${`${i18nWagonLabelNumber[this._language.current]},`}&nbsp;
-                  </span>
-                  ${this.label}`
-              : nothing
-          }
-        </${unsafeStatic(TAG_NAME)}>
-      `;
+    const typeLabel = (): string => {
+      if (
+        this.type === 'wagon' ||
+        this.type === 'wagon-end-left' ||
+        this.type === 'wagon-end-right'
+      ) {
+        return i18nWagonLabel[this._language.current];
+      } else if (this.type === 'closed') {
+        return i18nClosedCompartmentLabel(this.label ? parseInt(this.label) : undefined)[
+          this._language.current
+        ];
+      } else if (this.type === 'locomotive') {
+        return i18nLocomotiveLabel[this._language.current];
+      } else if (this.type === 'couchette') {
+        return i18nCouchetteWagonLabel[this._language.current];
+      } else if (this.type === 'sleeping') {
+        return i18nSleepingWagonLabel[this._language.current];
+      } else if (this.type === 'restaurant') {
+        return i18nRestaurantWagonLabel[this._language.current];
+      }
+      return '';
     };
+
+    // From accessibility perspective we cannot create a list with only one entry.
+    // We need to know what will be presented and switch semantics based on count.
+    const listEntriesCount =
+      +!!this.sector +
+      +(this.label && this.type !== 'closed') +
+      +(!!this.wagonClass && this.type !== 'closed') +
+      +(!!this.occupancy && this.type !== 'closed') +
+      +(this.blockedPassage && this.blockedPassage !== 'none');
 
     const sectorString = `${i18nSector[this._language.current]}, ${this.sector}`;
 
+    const labelContent =
+      this.label && this.type !== 'closed'
+        ? html`<span class="sbb-screen-reader-only">
+              ${i18nWagonLabelNumber[this._language.current]}, &nbsp
+            </span>
+            ${this.label}`
+        : nothing;
+
+    const wagonClassContent = html`<span class="sbb-screen-reader-only">
+        ${this.wagonClass === '1'
+          ? i18nClass['first'][this._language.current]
+          : i18nClass['second'][this._language.current]}
+      </span>
+      <span aria-hidden="true">${this.wagonClass}</span>`;
+
+    const mainIcon = choose(this.type, [
+      [
+        'couchette',
+        () => html`<sbb-icon name="sa-cc" class="sbb-train-wagon__main-icon"></sbb-icon>`,
+      ],
+      [
+        'sleeping',
+        () => html`<sbb-icon name="sa-wl" class="sbb-train-wagon__main-icon"></sbb-icon>`,
+      ],
+      [
+        'restaurant',
+        () => html`<sbb-icon name="sa-wr" class="sbb-train-wagon__main-icon"></sbb-icon>`,
+      ],
+    ]);
+
     return html`
       <div class="sbb-train-wagon">
-        ${this.type === 'wagon'
-          ? html`<ul
-              aria-label=${i18nWagonLabel[this._language.current]}
-              class="sbb-train-wagon__compartment"
-            >
+        ${when(
+          listEntriesCount > 1,
+          () =>
+            html`<ul aria-label=${typeLabel()} class="sbb-train-wagon__compartment">
               ${this.sector
                 ? html`<li class="sbb-screen-reader-only">${sectorString}</li>`
                 : nothing}
-              ${label('li')}
-              ${this.wagonClass
-                ? html`<li class="sbb-train-wagon__class">
-                    <span class="sbb-screen-reader-only">
-                      ${this.wagonClass === '1'
-                        ? i18nClass['first'][this._language.current]
-                        : i18nClass['second'][this._language.current]}
-                    </span>
-                    <span aria-hidden="true">${this.wagonClass}</span>
-                  </li>`
+              <li
+                class="sbb-train-wagon__label"
+                aria-hidden=${`${!this.label || this.type === 'closed'}`}
+              >
+                ${labelContent}
+              </li>
+              ${this.wagonClass && this.type !== 'closed'
+                ? html`<li class="sbb-train-wagon__class">${wagonClassContent}</li>`
                 : nothing}
-              ${this.occupancy
+              ${this.occupancy && this.type !== 'closed'
                 ? html`<sbb-timetable-occupancy-icon
                     class="sbb-train-wagon__occupancy"
                     role="listitem"
-                    .occupancy=${this.occupancy}
+                    occupancy=${this.occupancy}
                   ></sbb-timetable-occupancy-icon>`
                 : nothing}
               ${this.blockedPassage && this.blockedPassage !== 'none'
@@ -163,53 +200,44 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
                     ${i18nBlockedPassage[this.blockedPassage][this._language.current]}
                   </li>`
                 : nothing}
-            </ul>`
-          : nothing}
-        ${this.type === 'closed'
-          ? html`<span class="sbb-train-wagon__compartment">
+              ${mainIcon}
+            </ul>`,
+          () =>
+            html`<div class="sbb-train-wagon__compartment">
               <span class="sbb-screen-reader-only">
-                ${i18nClosedCompartmentLabel(this.label ? parseInt(this.label) : undefined)[
-                  this._language.current
-                ]}
-                ${this.sector ? `, ${sectorString}` : nothing}
+                ${typeLabel()}${this.sector ? html`, ${sectorString}` : nothing}
               </span>
-              ${label('span')}
-            </span>`
-          : nothing}
-        ${this.type === 'locomotive'
-          ? html`<span class="sbb-train-wagon__compartment">
-              <span class="sbb-screen-reader-only">
-                ${i18nLocomotiveLabel[this._language.current]}
-                ${this.sector ? `, ${sectorString}` : nothing}
-              </span>
-              ${label('span')}
-              <svg
-                class="sbb-train-wagon__locomotive"
-                aria-hidden="true"
-                width="80"
-                height="40"
-                viewBox="0 0 80 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="sbb-train-wagon__label"
+                aria-hidden=${`${!this.label || this.type === 'closed'}`}
               >
-                <path
-                  d="M17.7906 4.42719C19.9743 1.93152 23.129 0.5 26.4452 0.5H53.5548C56.871 0.5 60.0257 1.93152 62.2094 4.4272L76.2094 20.4272C82.7157 27.8629 77.4351 39.5 67.5548 39.5H12.4452C2.56489 39.5 -2.71566 27.8629 3.79058 20.4272L17.7906 4.42719Z"
-                  stroke="var(--sbb-train-wagon-shape-color-closed)"
-                />
-              </svg>
-            </span>`
-          : nothing}
+                ${labelContent}
+              </span>
+
+              ${this.wagonClass && this.type !== 'closed'
+                ? html`<span class="sbb-train-wagon__class">${wagonClassContent}</span>`
+                : nothing}
+              ${this.occupancy && this.type !== 'closed'
+                ? html`<sbb-timetable-occupancy-icon
+                    class="sbb-train-wagon__occupancy"
+                    occupancy=${this.occupancy}
+                  ></sbb-timetable-occupancy-icon>`
+                : nothing}
+              ${this.blockedPassage && this.blockedPassage !== 'none'
+                ? html`<span class="sbb-screen-reader-only">
+                    ${i18nBlockedPassage[this.blockedPassage][this._language.current]}
+                  </span>`
+                : nothing}
+              ${mainIcon}
+            </div> `,
+        )}
         ${this.additionalAccessibilityText
           ? html`<span class="sbb-screen-reader-only">, ${this.additionalAccessibilityText}</span>`
           : nothing}
-        ${this.type === 'wagon'
-          ? html`<span class="sbb-train-wagon__icons" ?hidden=${this.listChildren.length === 0}>
-              ${this.renderList({
-                class: 'sbb-train-wagon__icons-list',
-                ariaLabel: i18nAdditionalWagonInformationHeading[this._language.current],
-              })}
-            </span>`
-          : nothing}
+        ${this.renderList({
+          class: 'sbb-train-wagon__attribute-icon-list',
+          ariaLabel: i18nAdditionalWagonInformationHeading[this._language.current],
+        })}
       </div>
     `;
   }

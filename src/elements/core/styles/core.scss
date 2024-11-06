@@ -154,6 +154,17 @@ input[data-sbb-time-input] {
   }
 }
 
+// TODO: move to train formation after css refactoring
 sbb-train-formation:has(sbb-train[direction-label]) {
   --sbb-train-formation-reserve-spacing-display: block;
+}
+
+// TODO: move to train formation after css refactoring
+sbb-train-formation:has(sbb-train-wagon[sector]) {
+  --sbb-train-formation-show-sectors-gap: 1;
+}
+
+// TODO: move to train formation after css refactoring
+sbb-train-formation:not(:has(sbb-train-wagon[label])) {
+  --sbb-train-formation-wagon-label-display: none;
 }

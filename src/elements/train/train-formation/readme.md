@@ -1,5 +1,5 @@
 The `sbb-train-formation` is a component used as a top container element
-for wrapping [sbb-train](/docs/timetable-sbb-train--docs)s.
+for wrapping [sbb-train](/docs/elements-timetable-sbb-train--docs)s.
 
 ```html
 <sbb-train-formation>
@@ -45,19 +45,29 @@ for wrapping [sbb-train](/docs/timetable-sbb-train--docs)s.
 </sbb-train-formation>
 ```
 
+### View
+
+The perspective of the train can be switched with the `view` property between `side` (default) and `top`.
+
+### Inline padding
+
+In certain circumstances there should be a left and right padding applied, but including the scrollbar.
+To achieve the inline padding, set a value to the
+CSS variable `--sbb-train-formation-padding-inline` like `var(--sbb-spacing-fixed-4x)`.
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name             | Attribute          | Privacy | Type      | Default | Description                      |
-| ---------------- | ------------------ | ------- | --------- | ------- | -------------------------------- |
-| `hideWagonLabel` | `hide-wagon-label` | public  | `boolean` | `false` | Option to hide all wagon labels. |
+| Name   | Attribute | Privacy | Type              | Default  | Description                                                     |
+| ------ | --------- | ------- | ----------------- | -------- | --------------------------------------------------------------- |
+| `view` | `view`    | public  | `'side' \| 'top'` | `'side'` | Whether the view of the wagons is from side or top perspective. |
 
 ## CSS Properties
 
 | Name                                   | Default | Description                                                      |
 | -------------------------------------- | ------- | ---------------------------------------------------------------- |
-| `--sbb-train-formation-inline-padding` | `0px`   | Defines the inline padding inside the horizontal scrolling area. |
+| `--sbb-train-formation-padding-inline` | `0px`   | Defines the inline padding inside the horizontal scrolling area. |
 
 ## Slots
 

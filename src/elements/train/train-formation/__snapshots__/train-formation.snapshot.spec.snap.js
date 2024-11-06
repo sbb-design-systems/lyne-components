@@ -1,14 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-train-formation should render with one train DOM"] =
-`<sbb-train-formation>
+snapshots["sbb-train-formation should render with one train DOM"] = 
+`<sbb-train-formation view="side">
   <sbb-train
     direction="left"
     slot="li-0"
   >
     <sbb-train-wagon
-      data-has-visible-wagon-content=""
       sector="A"
       slot="li-0"
       type="wagon"
@@ -19,10 +18,8 @@ snapshots["sbb-train-formation should render with one train DOM"] =
 `;
 /* end snapshot sbb-train-formation should render with one train DOM */
 
-snapshots["sbb-train-formation should render with one train Shadow DOM"] =
-`<div
-  class="sbb-train-formation"
->
+snapshots["sbb-train-formation should render with one train Shadow DOM"] = 
+`<div class="sbb-train-formation">
   <div
     aria-hidden="true"
     class="sbb-train-formation__sectors"
@@ -57,14 +54,13 @@ snapshots["sbb-train-formation should render with one train Shadow DOM"] =
 `;
 /* end snapshot sbb-train-formation should render with one train Shadow DOM */
 
-snapshots["sbb-train-formation should render with multiple trains DOM"] =
-`<sbb-train-formation>
+snapshots["sbb-train-formation should render with multiple trains DOM"] = 
+`<sbb-train-formation view="side">
   <sbb-train
     direction="left"
     slot="li-0"
   >
     <sbb-train-wagon
-      data-has-visible-wagon-content=""
       sector="A"
       slot="li-0"
       type="wagon"
@@ -76,7 +72,6 @@ snapshots["sbb-train-formation should render with multiple trains DOM"] =
     slot="li-1"
   >
     <sbb-train-wagon
-      data-has-visible-wagon-content=""
       sector="B"
       slot="li-0"
       type="wagon"
@@ -87,10 +82,8 @@ snapshots["sbb-train-formation should render with multiple trains DOM"] =
 `;
 /* end snapshot sbb-train-formation should render with multiple trains DOM */
 
-snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] =
-`<div
-  class="sbb-train-formation"
->
+snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] = 
+`<div class="sbb-train-formation">
   <div
     aria-hidden="true"
     class="sbb-train-formation__sectors"
@@ -139,7 +132,7 @@ snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] =
 `;
 /* end snapshot sbb-train-formation should render with multiple trains Shadow DOM */
 
-snapshots["sbb-train-formation should render with multiple trains A11y tree Chrome"] =
+snapshots["sbb-train-formation should render with multiple trains A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -156,6 +149,14 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Chro
     },
     {
       "role": "text",
+      "name": "Train coach"
+    },
+    {
+      "role": "text",
+      "name": ", "
+    },
+    {
+      "role": "text",
       "name": "Sector, A"
     },
     {
@@ -169,6 +170,14 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Chro
     },
     {
       "role": "text",
+      "name": "Train coach"
+    },
+    {
+      "role": "text",
+      "name": ", "
+    },
+    {
+      "role": "text",
       "name": "Sector, B"
     }
   ]
@@ -177,7 +186,7 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Chro
 `;
 /* end snapshot sbb-train-formation should render with multiple trains A11y tree Chrome */
 
-snapshots["sbb-train-formation should render with multiple trains A11y tree Firefox"] =
+snapshots["sbb-train-formation should render with multiple trains A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -194,6 +203,14 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Fire
     },
     {
       "role": "text leaf",
+      "name": "Train coach"
+    },
+    {
+      "role": "text leaf",
+      "name": ", "
+    },
+    {
+      "role": "text leaf",
       "name": "Sector, A"
     },
     {
@@ -204,6 +221,14 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Fire
     {
       "role": "text leaf",
       "name": "Coaches of the train"
+    },
+    {
+      "role": "text leaf",
+      "name": "Train coach"
+    },
+    {
+      "role": "text leaf",
+      "name": ", "
     },
     {
       "role": "text leaf",
