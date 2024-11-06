@@ -16,8 +16,14 @@ describe(`sbb-calendar`, () => {
 
   const waitForTransition = async (): Promise<void> => {
     await waitForLitRender(element);
+
+    //Wait for the transition to be over
     await waitForCondition(() => !element.hasAttribute('data-transition'));
-    await waitForLitRender(element);
+
+    //Wait for the new table to be rendered completely
+    await waitForCondition(
+      () => Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__cell')).length > 0,
+    );
   };
 
   const setWide = async (element: SbbCalendarElement): Promise<void> => {
