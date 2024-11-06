@@ -188,8 +188,8 @@ describe(`sbb-calendar`, () => {
       </td>
     `);
 
-      const selectedYear: HTMLElement = yearCells.find((e) => e.innerText === '2023')!;
-      const yearButton: HTMLElement = selectedYear.querySelector('button')!;
+      const yearButton: HTMLButtonElement =
+        element.shadowRoot!.querySelector<HTMLButtonElement>('[data-year="2023"]')!;
       expect(yearButton).to.have.class('sbb-calendar__selected');
       expect(yearCells[yearCells.length - 1].innerText).to.be.equal('2039');
 
@@ -245,20 +245,12 @@ describe(`sbb-calendar`, () => {
 
       await waitForTransition();
 
-      const yearButton: HTMLButtonElement =
-        element.shadowRoot!.querySelector('[data-year="2063"]')!;
-
       // Open month selection
-      yearButton.click();
+      element.shadowRoot!.querySelector<HTMLButtonElement>('[data-year="2063"]')!.click();
 
       await waitForTransition();
 
-      // Click last available month on right side
-      const lastAvailableYear: HTMLButtonElement = element.shadowRoot!.querySelector(
-        '[aria-label="December 2063"]',
-      )!;
-
-      lastAvailableYear.click();
+      element.shadowRoot!.querySelector<HTMLButtonElement>('[aria-label="December 2063"]')!.click();
 
       await waitForTransition();
 
@@ -478,13 +470,8 @@ describe(`sbb-calendar`, () => {
 
     await waitForTransition();
 
-    const selectedYear: HTMLElement = Array.from(
-      element.shadowRoot!.querySelectorAll<HTMLTableCellElement>('.sbb-calendar__table-year'),
-    ).find((e) => e.innerText.trim() === '2023')!;
-    const yearButton = selectedYear.querySelector('button')!;
-
     // Open month selection
-    yearButton.click();
+    element.shadowRoot!.querySelector<HTMLButtonElement>('[data-year="2023"]')!.click();
 
     await waitForTransition();
 
