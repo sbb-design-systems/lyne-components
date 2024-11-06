@@ -167,6 +167,7 @@ input[data-sbb-time-input] {
   }
 }
 
+// TODO Move back to the teaser components when the global css refactoring happens
 :is(sbb-teaser-product, sbb-teaser-product-static) {
   // Reset sbb-image border radius in order to control it from teaser product.
   sbb-image {
@@ -178,5 +179,26 @@ input[data-sbb-time-input] {
     place-self: stretch;
     object-fit: cover;
     aspect-ratio: 16 / 9;
+  }
+}
+
+// TODO Move back to the teaser components when the global css refactoring happens
+:is(sbb-teaser) {
+  & [slot='image']:is(sbb-image, img),
+  & [slot='image'] :is(sbb-image, img) {
+    transition-property: filter, transform;
+    will-change: filter, transform;
+    transform: scale(var(--sbb-teaser-scale, 1));
+  }
+
+  // TODO create and use utility classes
+  sbb-image {
+    --sbb-image-aspect-ratio: 4 / 3;
+  }
+
+  // TODO create and use utility classes
+  img {
+    object-fit: cover;
+    aspect-ratio: 4/3;
   }
 }
