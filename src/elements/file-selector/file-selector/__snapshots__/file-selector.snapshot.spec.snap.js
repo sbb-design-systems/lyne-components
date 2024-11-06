@@ -146,3 +146,24 @@ snapshots["sbb-file-selector renders with dropzone area and size s A11y tree Fir
 `;
 /* end snapshot sbb-file-selector renders with dropzone area and size s A11y tree Firefox */
 
+snapshots["sbb-file-selector renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Choose a file"
+    },
+    {
+      "role": "button",
+      "name": "Choose a file",
+      "value": "No file chosen"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-file-selector renders A11y tree Chrome */
+

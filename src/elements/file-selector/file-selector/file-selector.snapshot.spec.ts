@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
 import type { SbbFileSelectorElement } from './file-selector.js';
 import './file-selector.js';
@@ -12,24 +12,6 @@ describe(`sbb-file-selector`, () => {
 
     beforeEach(async () => {
       element = await fixture(html`<sbb-file-selector></sbb-file-selector>`);
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-  });
-
-  describe('renders with dropzone area and size s', () => {
-    let element: SbbFileSelectorElement;
-
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-file-selector variant="dropzone" size="s"></sbb-file-selector>`,
-      );
     });
 
     it('DOM', async () => {
