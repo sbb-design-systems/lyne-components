@@ -149,15 +149,7 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Chro
     },
     {
       "role": "text",
-      "name": "Train coach"
-    },
-    {
-      "role": "text",
-      "name": ", "
-    },
-    {
-      "role": "text",
-      "name": "Sector, A"
+      "name": "Train coach, Sector, A"
     },
     {
       "role": "heading",
@@ -170,15 +162,7 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Chro
     },
     {
       "role": "text",
-      "name": "Train coach"
-    },
-    {
-      "role": "text",
-      "name": ", "
-    },
-    {
-      "role": "text",
-      "name": "Sector, B"
+      "name": "Train coach, Sector, B"
     }
   ]
 }
@@ -203,15 +187,7 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Fire
     },
     {
       "role": "text leaf",
-      "name": "Train coach"
-    },
-    {
-      "role": "text leaf",
-      "name": ", "
-    },
-    {
-      "role": "text leaf",
-      "name": "Sector, A"
+      "name": "Train coach, Sector, A"
     },
     {
       "role": "heading",
@@ -224,15 +200,7 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Fire
     },
     {
       "role": "text leaf",
-      "name": "Train coach"
-    },
-    {
-      "role": "text leaf",
-      "name": ", "
-    },
-    {
-      "role": "text leaf",
-      "name": "Sector, B"
+      "name": "Train coach, Sector, B"
     }
   ]
 }

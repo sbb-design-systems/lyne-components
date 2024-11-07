@@ -7,59 +7,58 @@ import type { SbbIconElement } from '../../icon.js';
 
 import { SbbTrainWagonElement } from './train-wagon.js';
 
-async function extractAriaLabels(
-  properties: Partial<
-    Pick<
-      SbbTrainWagonElement,
-      | 'type'
-      | 'occupancy'
-      | 'sector'
-      | 'blockedPassage'
-      | 'wagonClass'
-      | 'label'
-      | 'additionalAccessibilityText'
-    >
-  >,
-): Promise<string[]> {
-  const element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
-
-  // attributes
-  (
-    [
-      'type',
-      'occupancy',
-      'sector',
-      'blockedPassage',
-      'wagonClass',
-      'label',
-      'additionalAccessibilityText',
-    ] as const
-  ).forEach((attr) => {
-    const attributeValue = properties[attr];
-    // Convert camelCase to kebab-case
-    const attributeName = attr.replace(
-      /[A-Z]+(?![a-z])|[A-Z]/g,
-      ($, ofs) => (ofs ? '-' : '') + $.toLowerCase(),
-    );
-    element.setAttribute(attributeName, attributeValue ?? '');
-  });
-
-  await waitForLitRender(element);
-
-  // Select all accessibility relevant text parts
-  return Array.from(
-    element.shadowRoot!.querySelectorAll(
-      '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__attribute-icon-list), .sbb-screen-reader-only:not(.sbb-train-wagon__label > span)',
-    ),
-  ).map((entry) =>
-    entry.hasAttribute('aria-label')
-      ? entry.getAttribute('aria-label')!
-      : entry.textContent!.replace(/\s+/g, ' ').trim(),
-  );
-}
-
 describe(`sbb-train-wagon`, () => {
   let element: SbbTrainWagonElement;
+
+  async function extractAriaLabels(
+    properties: Partial<
+      Pick<
+        SbbTrainWagonElement,
+        | 'type'
+        | 'occupancy'
+        | 'sector'
+        | 'blockedPassage'
+        | 'wagonClass'
+        | 'label'
+        | 'additionalAccessibilityText'
+      >
+    >,
+  ): Promise<string[]> {
+    // attributes
+    (
+      [
+        'type',
+        'occupancy',
+        'sector',
+        'blockedPassage',
+        'wagonClass',
+        'label',
+        'additionalAccessibilityText',
+      ] as const
+    ).forEach((attr) => {
+      const attributeValue = properties[attr];
+      // Convert camelCase to kebab-case
+      const attributeName = attr.replace(
+        /[A-Z]+(?![a-z])|[A-Z]/g,
+        ($, ofs) => (ofs ? '-' : '') + $.toLowerCase(),
+      );
+      element.setAttribute(attributeName, attributeValue ?? '');
+    });
+
+    await waitForLitRender(element);
+
+    // Select all accessibility relevant text parts
+    // The alternative of a11ySnapshot() does not work as the list title can't be extracted reliable.
+    return Array.from(
+      element.shadowRoot!.querySelectorAll(
+        '[aria-label]:not(.sbb-train-wagon__attribute-icon-list), .sbb-screen-reader-only',
+      ),
+    ).map((entry) =>
+      entry.hasAttribute('aria-label')
+        ? entry.getAttribute('aria-label')!
+        : entry.textContent!.replace(/\s+/g, ' ').trim(),
+    );
+  }
 
   it('renders', async () => {
     element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
@@ -97,6 +96,8 @@ describe(`sbb-train-wagon`, () => {
   });
 
   it('should set aria labels correctly', async () => {
+    element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
+
     expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql(['Train coach']);
     expect(await extractAriaLabels({ type: 'locomotive' })).to.be.eql(['Locomotive']);
     expect(await extractAriaLabels({ type: 'sleeping' })).to.be.eql(['Sleeping car']);

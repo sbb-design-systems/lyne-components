@@ -107,13 +107,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
 
   protected override render(): TemplateResult {
     const typeLabel = (): string => {
-      if (
-        this.type === 'wagon' ||
-        this.type === 'wagon-end-left' ||
-        this.type === 'wagon-end-right'
-      ) {
-        return i18nWagonLabel[this._language.current];
-      } else if (this.type === 'closed') {
+      if (this.type === 'closed') {
         return i18nClosedCompartmentLabel(this.label ? parseInt(this.label) : undefined)[
           this._language.current
         ];
@@ -126,7 +120,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
       } else if (this.type === 'restaurant') {
         return i18nRestaurantWagonLabel[this._language.current];
       }
-      return '';
+      return i18nWagonLabel[this._language.current];
     };
 
     // From accessibility perspective we cannot create a list with only one entry.
@@ -143,9 +137,9 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
     const labelContent =
       this.label && this.type !== 'closed'
         ? html`<span class="sbb-screen-reader-only">
-              ${i18nWagonLabelNumber[this._language.current]}, &nbsp
+              ${`${i18nWagonLabelNumber[this._language.current]}, ${this.label}`}
             </span>
-            ${this.label}`
+            <span aria-hidden="true">${this.label}</span>`
         : nothing;
 
     const wagonClassContent = html`<span class="sbb-screen-reader-only">
@@ -205,7 +199,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
           () =>
             html`<div class="sbb-train-wagon__compartment">
               <span class="sbb-screen-reader-only">
-                ${typeLabel()}${this.sector ? html`, ${sectorString}` : nothing}
+                ${`${typeLabel()}${this.sector ? `, ${sectorString}` : ''}`}
               </span>
               <span
                 class="sbb-train-wagon__label"
