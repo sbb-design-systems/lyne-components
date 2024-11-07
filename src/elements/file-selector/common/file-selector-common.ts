@@ -36,7 +36,6 @@ export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbF
   public accessor multiple: boolean;
   public accessor multipleMode: 'default' | 'persistent';
   public accessor accept: string;
-  public accessor titleContent: string;
   public accessor accessibilityLabel: string;
   public accessor disabled: boolean;
   public accessor files: File[];
@@ -80,11 +79,6 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     @forceType()
     @property()
     public accessor accept: string = '';
-
-    /** The title displayed in `dropzone` variant. */
-    @forceType()
-    @property({ attribute: 'title-content' })
-    public accessor titleContent: string = '';
 
     /** This will be forwarded as aria-label to the native input element. */
     @forceType()

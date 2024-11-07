@@ -42,12 +42,7 @@ describe(`sbb-file-selector`, () => {
     describeEach(states, ({ state }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
-          <sbb-file-selector
-            id="fs"
-            title-content="Title"
-            multiple
-            ?disabled=${state.disabled}
-          ></sbb-file-selector>
+          <sbb-file-selector id="fs" multiple ?disabled=${state.disabled}></sbb-file-selector>
           ${state.error
             ? html`<sbb-form-error slot="error">There has been an error.</sbb-form-error>`
             : nothing}
@@ -68,12 +63,7 @@ describe(`sbb-file-selector`, () => {
     describeEach({ size: ['s', 'm'] }, ({ size }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
-          <sbb-file-selector
-            id="fs"
-            title-content="Title"
-            multiple
-            size=${size}
-          ></sbb-file-selector>
+          <sbb-file-selector id="fs" multiple size=${size}></sbb-file-selector>
         `);
       });
 
