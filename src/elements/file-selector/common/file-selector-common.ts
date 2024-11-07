@@ -1,4 +1,5 @@
-import { type CSSResultGroup, LitElement, nothing, type TemplateResult } from 'lit';
+import type { CSSResultGroup, LitElement, TemplateResult } from 'lit';
+import { nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -18,6 +19,8 @@ import {
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
+  type SbbFormAssociatedMixinType,
+  type Constructor,
 } from '../../core/mixins.js';
 
 import style from './file-selector-common.scss?lit&inline';
@@ -28,188 +31,214 @@ import '../../icon.js';
 
 export type DOMEvent = globalThis.Event;
 
-export abstract class SbbFileSelectorBaseElement extends SbbDisabledMixin(
-  SbbFormAssociatedMixin(LitElement),
-) {
-  public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    fileChangedEvent: 'fileChanged',
-  } as const;
+export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbFormAssociatedMixinType {
+  public accessor size: 's' | 'm';
+  public accessor multiple: boolean;
+  public accessor multipleMode: 'default' | 'persistent';
+  public accessor accept: string;
+  public accessor titleContent: string;
+  public accessor accessibilityLabel: string;
+  public accessor disabled: boolean;
+  public accessor files: File[];
+  protected formDisabled: boolean;
+  protected loadButton: SbbSecondaryButtonStaticElement;
+  protected language: SbbLanguageController;
+  protected abstract renderTemplate(input: TemplateResult): TemplateResult;
+  protected createFileList(files: FileList): void;
+  protected updateFormValue(): void;
+  public formResetCallback(): void;
+  public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
+  public getFiles(): File[];
+}
 
-  /** Size variant, either s or m. */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = 'm';
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitElement>>(
+  superclass: T,
+): Constructor<SbbFileSelectorCommonElementMixinType> & T => {
+  abstract class SbbFileSelectorCommonElement
+    extends SbbDisabledMixin(SbbFormAssociatedMixin(superclass))
+    implements Partial<SbbFileSelectorCommonElementMixinType>
+  {
+    public static styles: CSSResultGroup = style;
+    public static readonly events = {
+      fileChangedEvent: 'fileChanged',
+    } as const;
 
-  /** Whether more than one file can be selected. */
-  @forceType()
-  @property({ type: Boolean })
-  public accessor multiple: boolean = false;
+    /** Size variant, either s or m. */
+    @property({ reflect: true }) public accessor size: 's' | 'm' = 'm';
 
-  /** Whether the newly added files should override the previously added ones. */
-  @property({ attribute: 'multiple-mode' })
-  public accessor multipleMode: 'default' | 'persistent' = 'default';
+    /** Whether more than one file can be selected. */
+    @forceType()
+    @property({ type: Boolean })
+    public accessor multiple: boolean = false;
 
-  /** A comma-separated list of allowed unique file type specifiers. */
-  @forceType()
-  @property()
-  public accessor accept: string = '';
+    /** Whether the newly added files should override the previously added ones. */
+    @property({ attribute: 'multiple-mode' })
+    public accessor multipleMode: 'default' | 'persistent' = 'default';
 
-  /** The title displayed in `dropzone` variant. */
-  @forceType()
-  @property({ attribute: 'title-content' })
-  public accessor titleContent: string = '';
+    /** A comma-separated list of allowed unique file type specifiers. */
+    @forceType()
+    @property()
+    public accessor accept: string = '';
 
-  /** This will be forwarded as aria-label to the native input element. */
-  @forceType()
-  @property({ attribute: 'accessibility-label' })
-  public accessor accessibilityLabel: string = '';
+    /** The title displayed in `dropzone` variant. */
+    @forceType()
+    @property({ attribute: 'title-content' })
+    public accessor titleContent: string = '';
 
-  /** The path of the first selected file. Empty string ('') if no file is selected */
-  @property({ attribute: false })
-  public override set value(value: string | null) {
-    this._hiddenInput.value = value ?? '';
+    /** This will be forwarded as aria-label to the native input element. */
+    @forceType()
+    @property({ attribute: 'accessibility-label' })
+    public accessor accessibilityLabel: string = '';
 
-    if (!value) {
+    /** The path of the first selected file. Empty string ('') if no file is selected */
+    @property({ attribute: false })
+    public override set value(value: string | null) {
+      this._hiddenInput.value = value ?? '';
+
+      if (!value) {
+        this.files = [];
+      }
+    }
+
+    public override get value(): string | null {
+      return this._hiddenInput?.value;
+    }
+
+    /** The list of selected files. */
+    @property({ attribute: false })
+    public set files(value: File[]) {
+      this._files = value ?? [];
+
+      // update the inner input
+      const dt: DataTransfer = new DataTransfer();
+      this.files.forEach((e: File) => dt.items.add(e));
+      this._hiddenInput.files = dt.files;
+
+      this.updateFormValue();
+    }
+
+    public get files(): File[] {
+      return this._files;
+    }
+
+    private _files: File[] = [];
+
+    /** An event which is emitted each time the file list changes. */
+    private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(
+      this,
+      SbbFileSelectorCommonElement.events.fileChangedEvent,
+    );
+
+    private _hiddenInput!: HTMLInputElement;
+    private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
+    private _liveRegion!: HTMLParagraphElement;
+    protected loadButton!: SbbSecondaryButtonStaticElement;
+    protected language = new SbbLanguageController(this);
+
+    protected abstract renderTemplate(input: TemplateResult): TemplateResult;
+
+    /** @deprecated use the 'files' property instead */
+    public getFiles(): File[] {
+      return this.files;
+    }
+
+    public override formResetCallback(): void {
       this.files = [];
     }
-  }
 
-  public override get value(): string | null {
-    return this._hiddenInput?.value;
-  }
-
-  /** The list of selected files. */
-  @property({ attribute: false })
-  public set files(value: File[]) {
-    this._files = value ?? [];
-
-    // update the inner input
-    const dt: DataTransfer = new DataTransfer();
-    this.files.forEach((e: File) => dt.items.add(e));
-    this._hiddenInput.files = dt.files;
-
-    this.updateFormValue();
-  }
-
-  public get files(): File[] {
-    return this._files;
-  }
-
-  private _files: File[] = [];
-
-  /** An event which is emitted each time the file list changes. */
-  private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(
-    this,
-    SbbFileSelectorBaseElement.events.fileChangedEvent,
-  );
-
-  private _hiddenInput!: HTMLInputElement;
-  private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
-  private _liveRegion!: HTMLParagraphElement;
-  protected loadButton!: SbbSecondaryButtonStaticElement;
-  protected language = new SbbLanguageController(this);
-
-  protected abstract renderTemplate(input: TemplateResult): TemplateResult;
-
-  /** @deprecated use the 'files' property instead */
-  public getFiles(): File[] {
-    return this.files;
-  }
-
-  public override formResetCallback(): void {
-    this.files = [];
-  }
-
-  public override formStateRestoreCallback(
-    state: FormRestoreState | null,
-    _reason?: FormRestoreReason,
-  ): void {
-    if (!state) {
-      return;
+    public override formStateRestoreCallback(
+      state: FormRestoreState | null,
+      _reason?: FormRestoreReason,
+    ): void {
+      if (!state) {
+        return;
+      }
+      this.files = (state as [string, FormDataEntryValue][]).map(([_, value]) => value as File);
     }
-    this.files = (state as [string, FormDataEntryValue][]).map(([_, value]) => value as File);
-  }
 
-  protected override updateFormValue(): void {
-    const formValue = new FormData();
-    this.files.forEach((file) => formValue.append(this.name, file));
-    this.internals.setFormValue(formValue);
-  }
-
-  private _checkFileEquality(file1: File, file2: File): boolean {
-    return (
-      file1.name === file2.name &&
-      file1.size === file2.size &&
-      file1.lastModified === file2.lastModified
-    );
-  }
-
-  private _onFocus(): void {
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this.loadButton.toggleAttribute('data-focus-visible', true);
+    protected override updateFormValue(): void {
+      const formValue = new FormData();
+      this.files.forEach((file) => formValue.append(this.name, file));
+      this.internals.setFormValue(formValue);
     }
-  }
 
-  private _onBlur(): void {
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this.loadButton.removeAttribute('data-focus-visible');
+    private _checkFileEquality(file1: File, file2: File): boolean {
+      return (
+        file1.name === file2.name &&
+        file1.size === file2.size &&
+        file1.lastModified === file2.lastModified
+      );
     }
-  }
 
-  private _readFiles(event: DOMEvent): void {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files) {
-      this.createFileList(fileInput.files);
+    private _onFocus(): void {
+      if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+        this.loadButton.toggleAttribute('data-focus-visible', true);
+      }
     }
-    forwardEventToHost(event, this);
-  }
 
-  protected createFileList(files: FileList): void {
-    if (!this.multiple || this.multipleMode !== 'persistent' || this.files.length === 0) {
-      this.files = Array.from(files);
-    } else {
-      this.files = Array.from(files)
-        .filter(
-          // Remove duplicates
-          (newFile: File): boolean =>
-            this.files!.findIndex((oldFile: File) => this._checkFileEquality(newFile, oldFile)) ===
-            -1,
-        )
-        .concat(this.files);
+    private _onBlur(): void {
+      if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+        this.loadButton.removeAttribute('data-focus-visible');
+      }
     }
-    this._updateA11yLiveRegion();
-    this._fileChangedEvent.emit(this.files);
-  }
 
-  private _removeFile(file: File): void {
-    this.files = this.files.filter((f: File) => !this._checkFileEquality(file, f));
-    this._updateA11yLiveRegion();
+    private _readFiles(event: DOMEvent): void {
+      const fileInput = event.target as HTMLInputElement;
+      if (fileInput.files) {
+        this.createFileList(fileInput.files);
+      }
+      forwardEventToHost(event, this);
+    }
 
-    // Dispatch native events as if the reset is done via the file selection window.
-    this.dispatchEvent(new Event('input', { composed: true, bubbles: true }));
-    this.dispatchEvent(new Event('change', { bubbles: true }));
-    this._fileChangedEvent.emit(this.files);
-  }
+    protected createFileList(files: FileList): void {
+      if (!this.multiple || this.multipleMode !== 'persistent' || this.files.length === 0) {
+        this.files = Array.from(files);
+      } else {
+        this.files = Array.from(files)
+          .filter(
+            // Remove duplicates
+            (newFile: File): boolean =>
+              this.files!.findIndex((oldFile: File) =>
+                this._checkFileEquality(newFile, oldFile),
+              ) === -1,
+          )
+          .concat(this.files);
+      }
+      this._updateA11yLiveRegion();
+      this._fileChangedEvent.emit(this.files);
+    }
 
-  /** Calculates the correct unit for the file's size. */
-  private _formatFileSize(size: number): string {
-    const i: number = Math.floor(Math.log(size) / Math.log(1024));
-    return `${(size / Math.pow(1024, i)).toFixed(0)} ${this._suffixes[i]}`;
-  }
+    private _removeFile(file: File): void {
+      this.files = this.files.filter((f: File) => !this._checkFileEquality(file, f));
+      this._updateA11yLiveRegion();
 
-  private _updateA11yLiveRegion(): void {
-    this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this.files.map((e) => e.name))[
-      this.language.current
-    ];
-  }
+      // Dispatch native events as if the reset is done via the file selection window.
+      this.dispatchEvent(new Event('input', { composed: true, bubbles: true }));
+      this.dispatchEvent(new Event('change', { bubbles: true }));
+      this._fileChangedEvent.emit(this.files);
+    }
 
-  private _renderFileList(): TemplateResult {
-    const TAG_NAME: Record<string, string> =
-      this.files.length > 1
-        ? { WRAPPER: 'ul', ELEMENT: 'li' }
-        : { WRAPPER: 'div', ELEMENT: 'span' };
+    /** Calculates the correct unit for the file's size. */
+    private _formatFileSize(size: number): string {
+      const i: number = Math.floor(Math.log(size) / Math.log(1024));
+      return `${(size / Math.pow(1024, i)).toFixed(0)} ${this._suffixes[i]}`;
+    }
 
-    /* eslint-disable lit/binding-positions */
-    return html`
+    private _updateA11yLiveRegion(): void {
+      this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this.files.map((e) => e.name))[
+        this.language.current
+      ];
+    }
+
+    private _renderFileList(): TemplateResult {
+      const TAG_NAME: Record<string, string> =
+        this.files.length > 1
+          ? { WRAPPER: 'ul', ELEMENT: 'li' }
+          : { WRAPPER: 'div', ELEMENT: 'span' };
+
+      /* eslint-disable lit/binding-positions */
+      return html`
       <${unsafeStatic(TAG_NAME.WRAPPER)} class='sbb-file-selector__file-list'>
         ${this.files.map(
           (file: File) => html`
@@ -228,41 +257,44 @@ export abstract class SbbFileSelectorBaseElement extends SbbDisabledMixin(
         )}
       </${unsafeStatic(TAG_NAME.WRAPPER)}>
     `;
-    /* eslint-enable lit/binding-positions */
-  }
+      /* eslint-enable lit/binding-positions */
+    }
 
-  protected override render(): TemplateResult {
-    const ariaLabel = this.accessibilityLabel
-      ? `${i18nFileSelectorButtonLabel[this.language.current]} - ${this.accessibilityLabel}`
-      : undefined;
-    return html`
-      <div class="sbb-file-selector">
-        ${this.renderTemplate(
-          html`<input
+    protected override render(): TemplateResult {
+      const ariaLabel = this.accessibilityLabel
+        ? `${i18nFileSelectorButtonLabel[this.language.current]} - ${this.accessibilityLabel}`
+        : undefined;
+      return html`
+        <div class="sbb-file-selector">
+          ${this.renderTemplate(
+            html`<input
+              class="sbb-file-selector__visually-hidden"
+              type="file"
+              ?disabled="${this.disabled || this.formDisabled}"
+              ?multiple="${this.multiple}"
+              accept="${this.accept || nothing}"
+              aria-label="${ariaLabel || nothing}"
+              @change="${this._readFiles}"
+              @focus="${this._onFocus}"
+              @blur="${this._onBlur}"
+              ${ref((el?: Element): void => {
+                this._hiddenInput = el as HTMLInputElement;
+              })}
+            />`,
+          )}
+          <p
+            role="status"
             class="sbb-file-selector__visually-hidden"
-            type="file"
-            ?disabled="${this.disabled || this.formDisabled}"
-            ?multiple="${this.multiple}"
-            accept="${this.accept || nothing}"
-            aria-label="${ariaLabel || nothing}"
-            @change="${this._readFiles}"
-            @focus="${this._onFocus}"
-            @blur="${this._onBlur}"
-            ${ref((el?: Element): void => {
-              this._hiddenInput = el as HTMLInputElement;
-            })}
-          />`,
-        )}
-        <p
-          role="status"
-          class="sbb-file-selector__visually-hidden"
-          ${ref((p?: Element) => (this._liveRegion = p as HTMLParagraphElement))}
-        ></p>
-        ${this.files.length > 0 ? this._renderFileList() : nothing}
-        <div class="sbb-file-selector__error">
-          <slot name="error"></slot>
+            ${ref((p?: Element) => (this._liveRegion = p as HTMLParagraphElement))}
+          ></p>
+          ${this.files.length > 0 ? this._renderFileList() : nothing}
+          <div class="sbb-file-selector__error">
+            <slot name="error"></slot>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
   }
-}
+  return SbbFileSelectorCommonElement as unknown as Constructor<SbbFileSelectorCommonElementMixinType> &
+    T;
+};

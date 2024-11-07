@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import { LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
@@ -6,7 +6,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { slotState } from '../../core/decorators.js';
 import { i18nFileSelectorButtonLabel } from '../../core/i18n.js';
-import { SbbFileSelectorBaseElement } from '../common/file-selector-common.js';
+import { SbbFileSelectorCommonElementMixin } from '../common/file-selector-common.js';
 
 import '../../button/secondary-button.js';
 import '../../button/secondary-button-static.js';
@@ -23,7 +23,11 @@ import '../../icon.js';
 export
 @customElement('sbb-file-selector')
 @slotState()
-class SbbFileSelectorElement extends SbbFileSelectorBaseElement {
+class SbbFileSelectorElement extends SbbFileSelectorCommonElementMixin(LitElement) {
+  public static readonly events = {
+    fileChangedEvent: 'fileChanged',
+  } as const;
+
   protected override renderTemplate(input: TemplateResult): TemplateResult {
     return html`
       <div class="sbb-file-selector__input-container">

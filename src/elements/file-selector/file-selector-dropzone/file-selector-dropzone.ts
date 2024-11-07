@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
@@ -6,7 +6,10 @@ import { html } from 'lit/static-html.js';
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { slotState } from '../../core/decorators.js';
 import { i18nFileSelectorButtonLabel, i18nFileSelectorSubtitleLabel } from '../../core/i18n.js';
-import { fileSelectorCommonStyle, SbbFileSelectorBaseElement } from '../file-selector-common.js';
+import {
+  fileSelectorCommonStyle,
+  SbbFileSelectorCommonElementMixin,
+} from '../file-selector-common.js';
 
 import '../../button/secondary-button.js';
 import '../../button/secondary-button-static.js';
@@ -25,8 +28,11 @@ import style from './file-selector-dropzone.scss?lit&inline';
 export
 @customElement('sbb-file-selector-dropzone')
 @slotState()
-class SbbFileSelectorDropzoneElement extends SbbFileSelectorBaseElement {
+class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [fileSelectorCommonStyle, style];
+  public static readonly events = {
+    fileChangedEvent: 'fileChanged',
+  } as const;
 
   // Safari has a peculiar behavior when dragging files on the inner button in 'dropzone' variant;
   // this will require a counter to correctly handle the dragEnter/dragLeave.
