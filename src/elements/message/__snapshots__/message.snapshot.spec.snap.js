@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-message renders DOM"] = 
 `<sbb-message title-content="Title.">
   <sbb-image
-    aspect-ratio="16-9"
-    border-radius="default"
     data-loaded=""
     slot="image"
   >

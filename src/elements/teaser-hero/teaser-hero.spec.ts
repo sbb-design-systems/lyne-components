@@ -43,7 +43,7 @@ describe(`sbb-teaser-hero`, () => {
     );
     await waitForLitRender(element);
 
-    const chip = element.querySelector<SbbChipLabelElement>('sbb-chip')!;
+    const chip = element.querySelector<SbbChipLabelElement>('sbb-chip-label')!;
     const image = element.querySelector<SbbImageElement>('sbb-image')!;
 
     expect(chip).to.have.attribute('color', 'charcoal');

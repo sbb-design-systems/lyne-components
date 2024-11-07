@@ -113,8 +113,8 @@ const TemplateDefaultFixedWidth = ({ description, ...remainingArgs }: Args): Tem
 const TemplateCustom = ({ description, ...remainingArgs }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
-      <figure slot="image" class="sbb-figure">
-        <img src=${placeholderImage} alt="200x100" style="width: 200px; aspect-ratio: 2/1;" />
+      <figure slot="image" class="sbb-figure" style="width: 200px;">
+        <img src=${placeholderImage} alt="200x100" class="sbb-image-2-1" />
       </figure>
       ${description}
     </sbb-teaser>

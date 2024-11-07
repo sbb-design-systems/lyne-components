@@ -18,8 +18,6 @@ snapshots["sbb-teaser-hero renders DOM"] =
     slot="image"
   >
     <sbb-image
-      aspect-ratio="16-9"
-      border-radius="default"
       data-loaded=""
       data-teaser=""
     >

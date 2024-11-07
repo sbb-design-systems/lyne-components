@@ -13,10 +13,7 @@ snapshots["sbb-teaser-product renders DOM"] =
     class="sbb-figure"
     slot="image"
   >
-    <sbb-image
-      aspect-ratio="16-9"
-      border-radius="default"
-    >
+    <sbb-image>
     </sbb-image>
   </figure>
   <p class="sbb-teaser-product--spacing">
