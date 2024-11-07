@@ -6,7 +6,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { slotState } from '../../core/decorators.js';
 import { i18nFileSelectorButtonLabel } from '../../core/i18n.js';
-import { SbbFileSelectorCommonElementMixin } from '../common/file-selector-common.js';
+import { SbbFileSelectorCommonElementMixin } from '../common.js';
 
 import '../../button/secondary-button.js';
 import '../../button/secondary-button-static.js';
