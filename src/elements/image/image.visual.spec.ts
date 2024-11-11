@@ -112,8 +112,8 @@ describe(`sbb-image`, () => {
       'cropped',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<figure class="sbb-figure" style="width: 200px; height: 200px">
-            <sbb-image image-src=${imageUrl}></sbb-image>
+          html`<figure class="sbb-figure">
+            <sbb-image image-src=${imageUrl} style="width: 200px; height: 200px"></sbb-image>
           </figure>`,
         );
 
@@ -125,8 +125,8 @@ describe(`sbb-image`, () => {
       'cropped with caption',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<figure class="sbb-figure" style="width: 200px; height: 300px">
-            <sbb-image image-src=${imageUrl}></sbb-image>
+          html`<figure class="sbb-figure">
+            <sbb-image image-src=${imageUrl} style="width: 200px; height: 300px"></sbb-image>
             <figcaption>I am a caption below</figcaption>
           </figure>`,
         );
@@ -139,8 +139,11 @@ describe(`sbb-image`, () => {
       'cropped with object-position',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<figure class="sbb-figure" style="width: 200px; height: 300px;">
-            <sbb-image image-src=${imageUrl} style="--sbb-image-object-position: 0 0"></sbb-image>
+          html`<figure class="sbb-figure">
+            <sbb-image
+              image-src=${imageUrl}
+              style="width: 200px; height: 300px; --sbb-image-object-position: 0 0"
+            ></sbb-image>
           </figure>`,
         );
 
@@ -152,8 +155,11 @@ describe(`sbb-image`, () => {
       'cropped with object-fit',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<figure class="sbb-figure" style="width: 200px; height: 300px;">
-            <sbb-image image-src=${imageUrl} style="--sbb-image-object-fit: contain"></sbb-image>
+          html`<figure class="sbb-figure">
+            <sbb-image
+              image-src=${imageUrl}
+              style="width: 200px; height: 300px; --sbb-image-object-fit: contain"
+            ></sbb-image>
           </figure>`,
         );
 

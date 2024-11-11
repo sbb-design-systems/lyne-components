@@ -24,5 +24,5 @@
   grid-row: 1;
   grid-column: 1;
   place-self: #{$row-alignment} #{$column-alignment};
-  margin: 0.75rem;
+  margin: var(--sbb-spacing-responsive-xxxs);
 }

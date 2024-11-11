@@ -12,7 +12,12 @@ import { SbbImageElement } from './image.js';
 import readme from './readme.md?raw';
 import '../chip-label.js';
 
-const imageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
+const imageTemplate = ({
+  aspectRatio,
+  borderRadius,
+  _chipPosition,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-image
     ${sbbSpread(args)}
     class=${classMap({
