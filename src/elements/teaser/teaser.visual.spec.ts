@@ -168,8 +168,8 @@ describe(`sbb-teaser`, () => {
                     alignment="below"
                     style="--sbb-teaser-align-items: stretch;"
                   >
-                    <figure slot="image" class="sbb-figure">
-                      <sbb-image image-src=${imageUrl} style="width: 100%"></sbb-image>
+                    <figure slot="image" class="sbb-figure" style="width: 100%">
+                      <sbb-image image-src=${imageUrl}></sbb-image>
                       <sbb-chip-label class="sbb-figure-overlap-start-start"
                         >AI chip</sbb-chip-label
                       >

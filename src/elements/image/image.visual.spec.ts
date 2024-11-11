@@ -31,7 +31,7 @@ describe(`sbb-image`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`<figure class="sbb-figure">
-              <sbb-image image-src=${imageUrl} class="sbb-image-${aspectRatios}"></sbb-image>
+              <sbb-image image-src=${imageUrl} class="sbb-image-${aspectRatio}"></sbb-image>
             </figure>`,
           );
 
