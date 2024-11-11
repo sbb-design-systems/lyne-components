@@ -6,10 +6,7 @@ import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
 
-import {
-  SbbRadioButtonGroupElement,
-  type SbbRadioButtonGroupEventDetail,
-} from './radio-button-group.js';
+import { SbbRadioButtonGroupElement } from './radio-button-group.js';
 
 import '../radio-button.js';
 import '../radio-button-panel.js';
@@ -140,15 +137,13 @@ import '../radio-button-panel.js';
           await waitForCondition(() => changeSpy.events.length === 1);
           await waitForCondition(() => inputSpy.events.length === 1);
 
-          const changeEvent = changeSpy.lastEvent as CustomEvent<SbbRadioButtonGroupEventDetail>;
+          const changeEvent = changeSpy.lastEvent!;
           expect(changeSpy.count).to.be.equal(1);
-          expect(changeEvent.detail.value).to.be.equal(radio.value);
-          expect(changeEvent.detail.radioButton === radio).to.be.true;
+          expect(changeEvent.target === radio).to.be.true;
 
-          const inputEvent = changeSpy.lastEvent as CustomEvent<SbbRadioButtonGroupEventDetail>;
+          const inputEvent = changeSpy.lastEvent!;
           expect(inputSpy.count).to.be.equal(1);
-          expect(inputEvent.detail.value).to.be.equal(radio.value);
-          expect(inputEvent.detail.radioButton === radio).to.be.true;
+          expect(inputEvent.target === radio).to.be.true;
 
           // A click on a checked radio should not emit any event
           radio.click();

@@ -13,11 +13,6 @@ import type { SbbRadioButtonElement } from '../radio-button.js';
 
 import style from './radio-button-group.scss?lit&inline';
 
-export type SbbRadioButtonGroupEventDetail = {
-  value: any | null;
-  radioButton: SbbRadioButtonElement | SbbRadioButtonPanelElement;
-};
-
 let nextId = 0;
 
 /**
@@ -26,8 +21,6 @@ let nextId = 0;
  * @slot - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} didChange - Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes.
- * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} change - Emits whenever the `sbb-radio-group` value changes.
- * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} input - Emits whenever the `sbb-radio-group` value changes.
  */
 export
 @customElement('sbb-radio-button-group')
@@ -123,25 +116,9 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
    * Emits whenever the `sbb-radio-group` value changes.
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter<SbbRadioButtonGroupEventDetail>(
+  private _didChange: EventEmitter = new EventEmitter(
     this,
     SbbRadioButtonGroupElement.events.didChange,
-  );
-
-  /**
-   * Emits whenever the `sbb-radio-group` value changes.
-   */
-  private _change: EventEmitter = new EventEmitter<SbbRadioButtonGroupEventDetail>(
-    this,
-    SbbRadioButtonGroupElement.events.change,
-  );
-
-  /**
-   * Emits whenever the `sbb-radio-group` value changes.
-   */
-  private _input: EventEmitter = new EventEmitter<SbbRadioButtonGroupEventDetail>(
-    this,
-    SbbRadioButtonGroupElement.events.input,
   );
 
   public override connectedCallback(): void {
@@ -152,10 +129,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       !!this.querySelector?.('sbb-selection-expansion-panel, sbb-radio-button-panel'),
     );
 
-    this.addEventListener('input', (e: Event) => this._onRadioChange('input', e), {
-      signal,
-    });
-    this.addEventListener('change', (e: Event) => this._onRadioChange('change', e), {
+    this.addEventListener('change', (e: Event) => this._onRadioChange(e), {
       signal,
     });
   }
@@ -185,11 +159,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     this._updateRadioState();
   }
 
-  /**
-   * Blocks native 'input' and 'change' events fired by the radio-buttons to fire an enriched version of them.
-   * Made to maintain retro compatibility.
-   */
-  private _onRadioChange(eventName: 'change' | 'input', event: Event): void {
+  private _onRadioChange(event: Event): void {
     const target = event.target! as SbbRadioButtonElement | SbbRadioButtonPanelElement;
 
     // Only filter radio-buttons event
@@ -197,15 +167,8 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       return;
     }
 
-    event.stopPropagation();
     this._fallbackValue = null; // Since the user interacted, the fallbackValue logic does not apply anymore
-
-    if (eventName === 'change') {
-      this._change.emit({ value: this.value, radioButton: event.target });
-      this._didChange.emit({ value: this.value, radioButton: event.target });
-    } else if (eventName === 'input') {
-      this._input.emit({ value: this.value, radioButton: event.target });
-    }
+    this._didChange.emit();
   }
 
   /**
