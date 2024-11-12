@@ -21,9 +21,7 @@
   }
 }
 
-:host(
-    :is([type='closed'], [type='locomotive'], [type='wagon-end-left'], [type='wagon-end-right'])
-  ) {
+:host(:is([type='closed'], [type='locomotive'])) {
   --sbb-train-wagon-shape-color: var(--sbb-color-metal);
 
   @include sbb.if-forced-colors {
