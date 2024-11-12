@@ -5,9 +5,7 @@ It is used inside the [sbb-train](/docs/elements-timetable-sbb-train--docs) elem
 ## Variants
 
 With the `type` property, the component can visualize different types of wagons and locomotives.
-Set the `blockedPassage` corresponding to the `type`.
-E.g. for `wagon-end-left` in between a train, `blockedPassage` should be `previous`.
-If the `wagon-end-left` is the very first compartment of the train, there should be the `additionalAccessibilityText` set like `Top of the train` but without any `blockedPassage` information.
+For the types `wagon-end-left` and `wagon-end-right` the blocked passage information is set automatically.
 
 ```html
 <sbb-train-wagon type="wagon"></sbb-train-wagon>

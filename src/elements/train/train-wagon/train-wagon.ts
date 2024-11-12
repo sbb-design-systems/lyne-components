@@ -1,6 +1,5 @@
 import { type CSSResultGroup, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { choose } from 'lit/directives/choose.js';
 import { when } from 'lit/directives/when.js';
 import { html } from 'lit/static-html.js';
 
@@ -28,6 +27,12 @@ import style from './train-wagon.scss?lit&inline';
 
 import '../../icon.js';
 import '../../timetable-occupancy-icon.js';
+
+const typeToIconMap: Record<string, string> = {
+  couchette: 'sa-cc',
+  sleeping: 'sa-wl',
+  restaurant: 'sa-wr',
+};
 
 /**
  * It displays a train compartment within a `sbb-train` component.
@@ -63,7 +68,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
   /** Occupancy of a wagon. */
   @property() public accessor occupancy: SbbOccupancy | null = null;
 
-  /** Sector in which to wagon stops. */
+  /** Sector in which the wagon stops. */
   @forceType()
   @handleDistinctChange((e) => e._sectorChanged())
   @property({ reflect: true, converter: omitEmptyConverter })
@@ -123,6 +128,15 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
       return i18nWagonLabel[this._language.current];
     };
 
+    const blockedPassage =
+      this.type === 'wagon-end-left' && this.blockedPassage === 'none'
+        ? 'previous'
+        : this.type === 'wagon-end-right' && this.blockedPassage === 'none'
+          ? 'next'
+          : (this.blockedPassage ?? 'none');
+
+    const hasBlockedPassageEntry = blockedPassage !== 'none';
+
     // From accessibility perspective we cannot create a list with only one entry.
     // We need to know what will be presented and switch semantics based on count.
     const listEntriesCount =
@@ -130,7 +144,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
       +(this.label && this.type !== 'closed') +
       +(!!this.wagonClass && this.type !== 'closed') +
       +(!!this.occupancy && this.type !== 'closed') +
-      +(this.blockedPassage && this.blockedPassage !== 'none');
+      +hasBlockedPassageEntry;
 
     const sectorString = `${i18nSector[this._language.current]}, ${this.sector}`;
 
@@ -149,20 +163,12 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
       </span>
       <span aria-hidden="true">${this.wagonClass}</span>`;
 
-    const mainIcon = choose(this.type, [
-      [
-        'couchette',
-        () => html`<sbb-icon name="sa-cc" class="sbb-train-wagon__main-icon"></sbb-icon>`,
-      ],
-      [
-        'sleeping',
-        () => html`<sbb-icon name="sa-wl" class="sbb-train-wagon__main-icon"></sbb-icon>`,
-      ],
-      [
-        'restaurant',
-        () => html`<sbb-icon name="sa-wr" class="sbb-train-wagon__main-icon"></sbb-icon>`,
-      ],
-    ]);
+    const mainIcon = typeToIconMap[this.type]
+      ? html`<sbb-icon
+          name=${typeToIconMap[this.type]}
+          class="sbb-train-wagon__main-icon"
+        ></sbb-icon>`
+      : nothing;
 
     return html`
       <div class="sbb-train-wagon">
@@ -189,9 +195,9 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
                     occupancy=${this.occupancy}
                   ></sbb-timetable-occupancy-icon>`
                 : nothing}
-              ${this.blockedPassage && this.blockedPassage !== 'none'
+              ${hasBlockedPassageEntry
                 ? html`<li class="sbb-screen-reader-only">
-                    ${i18nBlockedPassage[this.blockedPassage][this._language.current]}
+                    ${i18nBlockedPassage[blockedPassage][this._language.current]}
                   </li>`
                 : nothing}
               ${mainIcon}
@@ -217,9 +223,9 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
                     occupancy=${this.occupancy}
                   ></sbb-timetable-occupancy-icon>`
                 : nothing}
-              ${this.blockedPassage && this.blockedPassage !== 'none'
+              ${hasBlockedPassageEntry
                 ? html`<span class="sbb-screen-reader-only">
-                    ${i18nBlockedPassage[this.blockedPassage][this._language.current]}
+                    ${i18nBlockedPassage[blockedPassage][this._language.current]}
                   </span>`
                 : nothing}
               ${mainIcon}

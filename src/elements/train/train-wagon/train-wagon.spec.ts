@@ -1,6 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { setOrRemoveAttribute } from '../../core/dom.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbIconElement } from '../../icon.js';
@@ -36,13 +37,23 @@ describe(`sbb-train-wagon`, () => {
         'additionalAccessibilityText',
       ] as const
     ).forEach((attr) => {
+      const defaultValueMap = new Map<string, string | null>();
+
+      defaultValueMap.set('type', 'wagon');
+      defaultValueMap.set('occupancy', null);
+      defaultValueMap.set('sector', '');
+      defaultValueMap.set('blockedPassage', 'none');
+      defaultValueMap.set('wagonClass', null);
+      defaultValueMap.set('label', '');
+      defaultValueMap.set('additionalAccessibilityText', '');
+
       const attributeValue = properties[attr];
       // Convert camelCase to kebab-case
       const attributeName = attr.replace(
         /[A-Z]+(?![a-z])|[A-Z]/g,
         ($, ofs) => (ofs ? '-' : '') + $.toLowerCase(),
       );
-      element.setAttribute(attributeName, attributeValue ?? '');
+      setOrRemoveAttribute(element, attributeName, attributeValue ?? defaultValueMap.get(attr));
     });
 
     await waitForLitRender(element);
@@ -165,5 +176,36 @@ describe(`sbb-train-wagon`, () => {
     expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'none' })).to.be.eql([
       'Train coach',
     ]);
+
+    expect(await extractAriaLabels({ type: 'wagon-end-left' })).to.be.eql([
+      'Train coach',
+      'No passage to the previous train coach',
+    ]);
+
+    expect(await extractAriaLabels({ type: 'wagon-end-right' })).to.be.eql([
+      'Train coach',
+      'No passage to the next train coach',
+    ]);
+
+    expect(await extractAriaLabels({ type: 'wagon-end-right', blockedPassage: 'both' })).to.be.eql([
+      'Train coach',
+      'No passage to the next and previous train coach',
+    ]);
+
+    expect(await extractAriaLabels({ type: 'wagon-end-left', sector: 'A' })).to.be.eql([
+      'Train coach',
+      'Sector, A',
+      'No passage to the previous train coach',
+    ]);
+
+    expect(await extractAriaLabels({ type: 'wagon-end-right', sector: 'A' })).to.be.eql([
+      'Train coach',
+      'Sector, A',
+      'No passage to the next train coach',
+    ]);
+
+    expect(
+      await extractAriaLabels({ type: 'wagon-end-right', blockedPassage: 'both', sector: 'A' }),
+    ).to.be.eql(['Train coach', 'Sector, A', 'No passage to the next and previous train coach']);
   });
 });

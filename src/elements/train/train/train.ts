@@ -43,7 +43,6 @@ class SbbTrainElement extends SbbNamedSlotListMixin<
 
   /** General label for "driving direction". */
   @forceType()
-  // Has to be reflected as it is used in core.scss as selector.
   @property({ attribute: 'direction-label', reflect: true, converter: omitEmptyConverter })
   public accessor directionLabel: string = '';
 
