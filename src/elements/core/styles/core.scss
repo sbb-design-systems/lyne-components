@@ -174,7 +174,6 @@ input[data-sbb-time-input] {
     --sbb-image-border-radius: 0;
   }
 
-  // TODO create and use utility classes
   img {
     place-self: stretch;
     object-fit: cover;
@@ -191,12 +190,10 @@ input[data-sbb-time-input] {
     transform: scale(var(--sbb-teaser-scale, 1));
   }
 
-  // TODO create and use utility classes
   sbb-image {
     --sbb-image-aspect-ratio: 4 / 3;
   }
 
-  // TODO create and use utility classes
   img {
     object-fit: cover;
     aspect-ratio: 4/3;
