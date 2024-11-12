@@ -350,24 +350,27 @@ snapshots["sbb-train-wagon should render as type wagon-end-right with only one p
 
 snapshots["sbb-train-wagon should render as type wagon-end-right with only one property Shadow DOM"] = 
 `<div class="sbb-train-wagon">
-  <div class="sbb-train-wagon__compartment">
-    <span class="sbb-screen-reader-only">
-      Train coach
-    </span>
-    <span
+  <ul
+    aria-label="Train coach"
+    class="sbb-train-wagon__compartment"
+  >
+    <li
       aria-hidden="true"
       class="sbb-train-wagon__label"
     >
-    </span>
-    <span class="sbb-train-wagon__class">
+    </li>
+    <li class="sbb-train-wagon__class">
       <span class="sbb-screen-reader-only">
         First Class
       </span>
       <span aria-hidden="true">
         1
       </span>
-    </span>
-  </div>
+    </li>
+    <li class="sbb-screen-reader-only">
+      No passage to the next train coach
+    </li>
+  </ul>
   <span hidden="">
     <slot>
     </slot>
@@ -384,11 +387,11 @@ snapshots["sbb-train-wagon should render as type wagon-end-right with only one p
   "children": [
     {
       "role": "text",
-      "name": "Train coach"
+      "name": "First Class"
     },
     {
       "role": "text",
-      "name": "First Class"
+      "name": "No passage to the next train coach"
     }
   ]
 }
@@ -404,11 +407,11 @@ snapshots["sbb-train-wagon should render as type wagon-end-right with only one p
   "children": [
     {
       "role": "text leaf",
-      "name": "Train coach"
+      "name": "First Class"
     },
     {
       "role": "text leaf",
-      "name": "First Class"
+      "name": "No passage to the next train coach"
     }
   ]
 }
@@ -490,4 +493,73 @@ snapshots["sbb-train-wagon should render with only label A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-train-wagon should render with only label A11y tree Chrome */
+
+snapshots["sbb-train-wagon should render as type wagon-end-left DOM"] = 
+`<sbb-train-wagon type="wagon-end-left">
+</sbb-train-wagon>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon-end-left DOM */
+
+snapshots["sbb-train-wagon should render as type wagon-end-left Shadow DOM"] = 
+`<div class="sbb-train-wagon">
+  <div class="sbb-train-wagon__compartment">
+    <span class="sbb-screen-reader-only">
+      Train coach
+    </span>
+    <span
+      aria-hidden="true"
+      class="sbb-train-wagon__label"
+    >
+    </span>
+    <span class="sbb-screen-reader-only">
+      No passage to the previous train coach
+    </span>
+  </div>
+  <span hidden="">
+    <slot>
+    </slot>
+  </span>
+</div>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon-end-left Shadow DOM */
+
+snapshots["sbb-train-wagon should render as type wagon-end-left A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Train coach"
+    },
+    {
+      "role": "text",
+      "name": "No passage to the previous train coach"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon-end-left A11y tree Chrome */
+
+snapshots["sbb-train-wagon should render as type wagon-end-left A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Train coach"
+    },
+    {
+      "role": "text leaf",
+      "name": "No passage to the previous train coach"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-train-wagon should render as type wagon-end-left A11y tree Firefox */
 

@@ -113,9 +113,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
   protected override render(): TemplateResult {
     const typeLabel = (): string => {
       if (this.type === 'closed') {
-        return i18nClosedCompartmentLabel(this.label ? parseInt(this.label) : undefined)[
-          this._language.current
-        ];
+        return i18nClosedCompartmentLabel[this._language.current];
       } else if (this.type === 'locomotive') {
         return i18nLocomotiveLabel[this._language.current];
       } else if (this.type === 'couchette') {
@@ -141,20 +139,19 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
     // We need to know what will be presented and switch semantics based on count.
     const listEntriesCount =
       +!!this.sector +
-      +(this.label && this.type !== 'closed') +
+      +!!this.label +
       +(!!this.wagonClass && this.type !== 'closed') +
       +(!!this.occupancy && this.type !== 'closed') +
       +hasBlockedPassageEntry;
 
     const sectorString = `${i18nSector[this._language.current]}, ${this.sector}`;
 
-    const labelContent =
-      this.label && this.type !== 'closed'
-        ? html`<span class="sbb-screen-reader-only">
-              ${`${i18nWagonLabelNumber[this._language.current]}, ${this.label}`}
-            </span>
-            <span aria-hidden="true">${this.label}</span>`
-        : nothing;
+    const labelContent = this.label
+      ? html`<span class="sbb-screen-reader-only">
+            ${`${i18nWagonLabelNumber[this._language.current]}, ${this.label}`}
+          </span>
+          <span aria-hidden="true">${this.label}</span>`
+      : nothing;
 
     const wagonClassContent = html`<span class="sbb-screen-reader-only">
         ${this.wagonClass === '1'
@@ -179,10 +176,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
               ${this.sector
                 ? html`<li class="sbb-screen-reader-only">${sectorString}</li>`
                 : nothing}
-              <li
-                class="sbb-train-wagon__label"
-                aria-hidden=${`${!this.label || this.type === 'closed'}`}
-              >
+              <li class="sbb-train-wagon__label" aria-hidden=${`${!this.label}`}>
                 ${labelContent}
               </li>
               ${this.wagonClass && this.type !== 'closed'
@@ -207,10 +201,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
               <span class="sbb-screen-reader-only">
                 ${`${typeLabel()}${this.sector ? `, ${sectorString}` : ''}`}
               </span>
-              <span
-                class="sbb-train-wagon__label"
-                aria-hidden=${`${!this.label || this.type === 'closed'}`}
-              >
+              <span class="sbb-train-wagon__label" aria-hidden=${`${!this.label}`}>
                 ${labelContent}
               </span>
 

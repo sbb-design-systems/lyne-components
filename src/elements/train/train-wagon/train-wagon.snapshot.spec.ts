@@ -54,6 +54,22 @@ describe(`sbb-train-wagon`, () => {
     testA11yTreeSnapshot();
   });
 
+  describe('should render as type wagon-end-left', async () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-train-wagon type="wagon-end-left"></sbb-train-wagon>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
+
   describe('should render with only label', async () => {
     beforeEach(async () => {
       element = await fixture(html`<sbb-train-wagon label="1"></sbb-train-wagon>`);

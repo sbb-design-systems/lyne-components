@@ -78,21 +78,11 @@ export const i18nWagonLabelNumber: Record<string, string> = {
   it: `Numero`,
 };
 
-export const i18nClosedCompartmentLabel = (wagonNumber?: number): Record<string, string> => {
-  if (wagonNumber) {
-    return {
-      de: `Geschlossener Wagen mit der Nummer ${wagonNumber}`,
-      en: `Closed train coach with the number ${wagonNumber}`,
-      fr: `Wagon de train fermé avec le numéro ${wagonNumber}`,
-      it: `Carrozza del treno chiuso con il numero ${wagonNumber}`,
-    };
-  }
-  return {
-    de: 'Geschlossener Zugwaggon',
-    en: 'Closed train coach',
-    fr: 'Wagon de train fermé',
-    it: 'Carrozza del treno chiuso',
-  };
+export const i18nClosedCompartmentLabel: Record<string, string> = {
+  de: 'Geschlossener Zugwaggon',
+  en: 'Closed train coach',
+  fr: 'Wagon de train fermé',
+  it: 'Carrozza del treno chiuso',
 };
 
 export const i18nLocomotiveLabel: Record<string, string> = {
