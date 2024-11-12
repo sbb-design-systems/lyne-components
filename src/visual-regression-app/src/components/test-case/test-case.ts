@@ -11,7 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { screenshots, type ScreenshotTestCase } from '../../screenshots.js';
 
 import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
-import '@sbb-esta/lyne-elements/chip.js';
+import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/container.js';
 import '@sbb-esta/lyne-elements/header.js';
 import '@sbb-esta/lyne-elements/notification.js';
@@ -104,7 +104,7 @@ class TestCase extends LitElement {
       <sbb-header expanded>
         <div class="app-progress" style="--app-progress: ${this._progressFraction()}"></div>
         <div class="app-file-name-box sbb-header-shrinkable">
-          <sbb-chip color="charcoal">${this.params?.componentName}</sbb-chip>
+          <sbb-chip-label color="charcoal">${this.params?.componentName}</sbb-chip-label>
           <sbb-title level="2" visual-level="6">
             <span class="app-file-name-ellipsis">${this.params?.testCaseName}</span>
           </sbb-title>

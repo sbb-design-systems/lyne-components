@@ -9,7 +9,7 @@ import {
 import { waitForImageReady } from '../core/testing.js';
 import './teaser-hero.js';
 import '../image.js';
-import '../chip.js';
+import '../chip-label.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
@@ -22,7 +22,7 @@ describe(`sbb-teaser-hero`, () => {
           await setup.withFixture(html`
             <sbb-teaser-hero href="#" link-content="Find out more" image-src=${imageUrl}>
               Break out and explore castles and palaces.
-              <sbb-chip slot="chip">Label</sbb-chip>
+              <sbb-chip-label slot="chip">Label</sbb-chip-label>
             </sbb-teaser-hero>
           `);
 
@@ -42,7 +42,7 @@ describe(`sbb-teaser-hero`, () => {
               Break out and explore castles and palaces.
               <span slot="link-content">Find out more</span>
               <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
-              <sbb-chip slot="chip">Label</sbb-chip>
+              <sbb-chip-label slot="chip">Label</sbb-chip-label>
             </sbb-teaser-hero>
           `);
 
@@ -55,7 +55,7 @@ describe(`sbb-teaser-hero`, () => {
         state.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-teaser-hero href="#" image-src=${imageUrl}>
-              <sbb-chip slot="chip">Label</sbb-chip>
+              <sbb-chip-label slot="chip">Label</sbb-chip-label>
             </sbb-teaser-hero>
           `);
 

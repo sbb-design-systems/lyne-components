@@ -7,7 +7,7 @@ import type { ScreenshotFiles } from '../../../../interfaces.js';
 
 import style from './fullscreen-diff.scss?lit&inline';
 
-import '@sbb-esta/lyne-elements/chip.js';
+import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/radio-button.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group/radio-button-group.js';
 
@@ -29,8 +29,10 @@ class FullscreenDiff extends LitElement {
       return html``;
     }
     return html`<div class="app-labels">
-        <sbb-chip size="xxs" color="white">${this.screenshotFiles.browserName}</sbb-chip>
-        <sbb-chip size="xxs" color="white">${this.screenshotFiles.viewport}</sbb-chip>
+        <sbb-chip-label size="xxs" color="white"
+          >${this.screenshotFiles.browserName}</sbb-chip-label
+        >
+        <sbb-chip-label size="xxs" color="white">${this.screenshotFiles.viewport}</sbb-chip-label>
       </div>
       <sbb-radio-button-group
         class="app-radio-button-group"

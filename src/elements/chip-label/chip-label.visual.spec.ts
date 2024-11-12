@@ -2,9 +2,9 @@ import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './chip.js';
+import './chip-label.js';
 
-describe(`sbb-chip`, () => {
+describe(`sbb-chip-label`, () => {
   const sizeCases = ['xxs', 'xs', 's'];
   const colorCases = ['milk', 'charcoal', 'white', 'granite'];
 
@@ -14,7 +14,9 @@ describe(`sbb-chip`, () => {
       it(
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html` <sbb-chip size=${size}> Label </sbb-chip> `);
+          await setup.withFixture(html`
+            <sbb-chip-label size=${size as 'xxs' | 'xs' | 's'}> Label </sbb-chip-label>
+          `);
         }),
       );
     }
@@ -24,9 +26,16 @@ describe(`sbb-chip`, () => {
       it(
         `color=${color}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html` <sbb-chip color=${color}> Label </sbb-chip> `, {
-            backgroundColor: color === 'white' ? 'var(--sbb-color-granite)' : undefined,
-          });
+          await setup.withFixture(
+            html`
+              <sbb-chip-label color=${color as 'milk' | 'charcoal' | 'white' | 'granite'}>
+                Label
+              </sbb-chip-label>
+            `,
+            {
+              backgroundColor: color === 'white' ? 'var(--sbb-color-granite)' : undefined,
+            },
+          );
         }),
       );
     }
@@ -35,7 +44,9 @@ describe(`sbb-chip`, () => {
       `fixed width`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-chip style="width: 10rem"> This is a very long label which will be cut. </sbb-chip>
+          <sbb-chip-label style="width: 10rem">
+            This is a very long label which will be cut.
+          </sbb-chip-label>
         `);
       }),
     );

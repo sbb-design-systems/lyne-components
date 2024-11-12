@@ -11,7 +11,7 @@
   outline: none !important;
 
   --sbb-teaser-hero-brightness-hover: var(--sbb-hover-image-brightness);
-  --sbb-teaser-hero-chip-inset: var(--sbb-spacing-responsive-xxxs) auto auto
+  --sbb-teaser-hero-chip-label-inset: var(--sbb-spacing-responsive-xxxs) auto auto
     var(--sbb-spacing-responsive-xxxs);
 
   @include sbb.panel-variables;
@@ -70,6 +70,6 @@ sbb-image {
 
 ::slotted([slot='chip']) {
   position: absolute;
-  inset: var(--sbb-teaser-hero-chip-inset);
+  inset: var(--sbb-teaser-hero-chip-label-inset);
   z-index: 2;
 }

@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.14.0...v1.14.1) (2024-11-07)
+
+
+### Bug Fixes
+
+* **sbb-calendar:** fix disabled month selection on wide view ([#3195](https://github.com/sbb-design-systems/lyne-components/issues/3195)) ([99b9a26](https://github.com/sbb-design-systems/lyne-components/commit/99b9a26e49a4aa6967775702b7d043203d984b09))
+* **sbb-calendar:** fix month selection on wide view ([#3192](https://github.com/sbb-design-systems/lyne-components/issues/3192)) ([#3193](https://github.com/sbb-design-systems/lyne-components/issues/3193)) ([4365e39](https://github.com/sbb-design-systems/lyne-components/commit/4365e39c74c91985d4021f94fb81c77e30517fc8))
+
 ## [1.14.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.13.0...v1.14.0) (2024-10-28)
 
 
