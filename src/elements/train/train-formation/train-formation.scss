@@ -6,8 +6,8 @@
 :host {
   display: block;
 
-  --sbb-train-formation-background-color: var(--sbb-color-white);
   --sbb-train-formation-sector-line-color: var(--sbb-color-cement);
+  --sbb-train-formation-sector-line-width: var(--sbb-border-width-1x);
   --sbb-train-formation-blocked-passage-width: #{sbb.px-to-rem-build(16)};
   --sbb-train-formation-text-color: var(--sbb-color-charcoal);
   --sbb-train-formation-vertical-gap: var(--sbb-spacing-fixed-2x);
@@ -15,6 +15,24 @@
   @include sbb.if-forced-colors {
     --sbb-train-formation-sector-line-color: CanvasText;
   }
+}
+
+// TODO: Move to sbb-train-wagon after CSS refactoring
+:host([view='side']) {
+  --sbb-train-formation-wagon-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M12.5,0.5 h55 a12,12 0 0 1 12,12 v15 a12,12 0 0 1 -12,12 h-55 a12,12 0 0 1 -12,-12 v-15 a12,12 0 0 1 12,-12 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
+  --sbb-train-formation-wagon-closed-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Crect x='0.5' y='0.5' width='79' height='39' rx='11.5' stroke='%23000000'/%3E%3Cpath d='M76 4L4 36' stroke='%23000000'/%3E%3Cpath d='M76 36L4 4' stroke='%23000000'/%3E%3C/svg%3E");
+  --sbb-train-formation-wagon-end-left-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M10.745 7.90416C13.5624 3.30431 18.5686 0.5 23.9627 0.5H68C74.3513 0.5 79.5 5.64873 79.5 12V28C79.5 34.3513 74.3513 39.5 68 39.5H11.922C2.93614 39.5 -2.57807 29.6562 2.11537 21.9934L10.745 7.90416Z' stroke='%23000000'/%3E%3C/svg%3E");
+  --sbb-train-formation-locomotive-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M10.745 7.90416C13.5624 3.30431 18.5686 0.5 23.9627 0.5H56.0373C61.4314 0.5 66.4376 3.30432 69.255 7.90416L77.8846 21.9934C82.5781 29.6562 77.0639 39.5 68.078 39.5H11.922C2.93615 39.5 -2.57807 29.6562 2.11537 21.9934L10.745 7.90416Z' stroke='%23000000'/%3E%3C/svg%3E");
+  --sbb-train-formation-wagon-end-right-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M0.5 12C0.5 5.64873 5.64873 0.5 12 0.5H56.0373C61.4314 0.5 66.4376 3.30432 69.255 7.90416L77.8846 21.9934C82.5781 29.6562 77.0638 39.5 68.0779 39.5H12C5.64873 39.5 0.5 34.3513 0.5 28V12Z' stroke='%23000000'/%3E%3C/svg%3E");
+}
+
+// TODO: Move to sbb-train-wagon after CSS refactoring
+:host([view='top']) {
+  --sbb-train-formation-wagon-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M8.5,0.5 h63 a8,8 0 0 1 8,8 v23 a8,8 0 0 1 -8,8 h-63 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E%0A");
+  --sbb-train-formation-wagon-closed-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Crect x='0.5' y='0.5' width='79' height='39' rx='7.5' stroke='%23000000'/%3E%3Cpath d='M77.5 2.5L2.5 37.5' stroke='%23000000'/%3E%3Cpath d='M77.5 37.5L2.5 2.5' stroke='%23000000'/%3E%3C/svg%3E");
+  --sbb-train-formation-wagon-end-left-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath transform='translate(80,40) rotate(180)' d='M8.5,0.5 h51.5 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-51.5 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
+  --sbb-train-formation-locomotive-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M20,0.5 h40 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-40 a19.5,19.5 0 0 1 -19.5,-19.5 v0 a19.5,19.5 0 0 1 19.5,-19.5 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E%0A");
+  --sbb-train-formation-wagon-end-right-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M8.5,0.5 h51.5 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-51.5 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
 }
 
 .sbb-train-formation {
@@ -71,28 +89,34 @@
 
   flex: 0 0 var(--_sector-width);
   text-align: center;
-  position: relative;
-  display: inline-block;
-  max-width: var(--_sector-width);
-
-  // Line behind the sector-label
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 50% 0;
-    height: 1px;
-    background-color: var(--sbb-train-formation-sector-line-color);
-  }
+  overflow-x: clip;
 }
 
 .sbb-train-formation__sector-sticky-wrapper {
-  background-color: var(--sbb-train-formation-background-color);
   position: sticky;
   inset: auto 0;
   padding: 0 var(--sbb-spacing-fixed-1x);
   margin: 0 var(--sbb-spacing-fixed-2x);
   overflow: hidden;
   white-space: nowrap;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset-block: calc(50% - var(--sbb-train-formation-sector-line-width) / 2);
+    border-block-end: var(--sbb-train-formation-sector-line-width) solid
+      var(--sbb-train-formation-sector-line-color);
+    width: calc(0.5 * var(--_sector-width));
+  }
+
+  &::before {
+    inset-inline-end: 100%;
+  }
+
+  &::after {
+    inset-inline-start: 100%;
+  }
 }
 
 .sbb-train-formation__trains {
@@ -110,21 +134,4 @@
 // is handled in the component base class.
 .sbb-train-formation__train-list > :is(li, span) {
   display: inline-flex;
-}
-
-// TODO: Move to sbb-train-wagon after CSS refactoring
-:host([view='side']) {
-  --sbb-train-formation-wagon-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M12.5,0.5 h55 a12,12 0 0 1 12,12 v15 a12,12 0 0 1 -12,12 h-55 a12,12 0 0 1 -12,-12 v-15 a12,12 0 0 1 12,-12 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
-  --sbb-train-formation-wagon-closed-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Crect x='0.5' y='0.5' width='79' height='39' rx='11.5' stroke='%23000000'/%3E%3Cpath d='M76 4L4 36' stroke='%23000000'/%3E%3Cpath d='M76 36L4 4' stroke='%23000000'/%3E%3C/svg%3E");
-  --sbb-train-formation-wagon-end-left-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M10.745 7.90416C13.5624 3.30431 18.5686 0.5 23.9627 0.5H68C74.3513 0.5 79.5 5.64873 79.5 12V28C79.5 34.3513 74.3513 39.5 68 39.5H11.922C2.93614 39.5 -2.57807 29.6562 2.11537 21.9934L10.745 7.90416Z' stroke='%23000000'/%3E%3C/svg%3E");
-  --sbb-train-formation-locomotive-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M10.745 7.90416C13.5624 3.30431 18.5686 0.5 23.9627 0.5H56.0373C61.4314 0.5 66.4376 3.30432 69.255 7.90416L77.8846 21.9934C82.5781 29.6562 77.0639 39.5 68.078 39.5H11.922C2.93615 39.5 -2.57807 29.6562 2.11537 21.9934L10.745 7.90416Z' stroke='%23000000'/%3E%3C/svg%3E");
-  --sbb-train-formation-wagon-end-right-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M0.5 12C0.5 5.64873 5.64873 0.5 12 0.5H56.0373C61.4314 0.5 66.4376 3.30432 69.255 7.90416L77.8846 21.9934C82.5781 29.6562 77.0638 39.5 68.0779 39.5H12C5.64873 39.5 0.5 34.3513 0.5 28V12Z' stroke='%23000000'/%3E%3C/svg%3E");
-}
-
-:host([view='top']) {
-  --sbb-train-formation-wagon-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M8.5,0.5 h63 a8,8 0 0 1 8,8 v23 a8,8 0 0 1 -8,8 h-63 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E%0A");
-  --sbb-train-formation-wagon-closed-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Crect x='0.5' y='0.5' width='79' height='39' rx='7.5' stroke='%23000000'/%3E%3Cpath d='M77.5 2.5L2.5 37.5' stroke='%23000000'/%3E%3Cpath d='M77.5 37.5L2.5 2.5' stroke='%23000000'/%3E%3C/svg%3E");
-  --sbb-train-formation-wagon-end-left-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath transform='translate(80,40) rotate(180)' d='M8.5,0.5 h51.5 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-51.5 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
-  --sbb-train-formation-locomotive-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M20,0.5 h40 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-40 a19.5,19.5 0 0 1 -19.5,-19.5 v0 a19.5,19.5 0 0 1 19.5,-19.5 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E%0A");
-  --sbb-train-formation-wagon-end-right-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M8.5,0.5 h51.5 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-51.5 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
 }
