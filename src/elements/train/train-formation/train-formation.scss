@@ -105,6 +105,7 @@
   &::after {
     content: '';
     position: absolute;
+    // Exactly center the line by subtracting half of the border width
     inset-block: calc(50% - var(--sbb-train-formation-sector-line-width) / 2);
     border-block-end: var(--sbb-train-formation-sector-line-width) solid
       var(--sbb-train-formation-sector-line-color);
