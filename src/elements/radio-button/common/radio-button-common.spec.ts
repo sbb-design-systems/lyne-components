@@ -524,6 +524,7 @@ describe(`radio-button common behaviors`, () => {
               elements[0].disabled = true;
               await waitForLitRender(form);
 
+              expect(elements[0].tabIndex).to.be.equal(-1);
               expect(elements[1].tabIndex).to.be.equal(0);
             });
           });

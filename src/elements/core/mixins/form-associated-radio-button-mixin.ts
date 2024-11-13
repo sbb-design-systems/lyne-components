@@ -180,10 +180,13 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         return;
       }
       const radios = this._interactableGroupedRadios();
-      const checkedIndex = radios.findIndex((r) => r.checked);
-      const focusableIndex = checkedIndex !== -1 ? checkedIndex : 0;
+      const checkedIndex = radios.findIndex((r) => r.checked && !r.disabled && !r.formDisabled);
+      const focusableIndex =
+        checkedIndex !== -1
+          ? checkedIndex
+          : radios.findIndex((r) => !r.disabled && !r.formDisabled); // Get the first focusable radio
 
-      if (radios[focusableIndex]) {
+      if (focusableIndex !== -1) {
         radios[focusableIndex].tabIndex = 0;
         radios.splice(focusableIndex, 1);
       }
@@ -269,8 +272,8 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      * Return a list of 'interactable' grouped radios, ordered in DOM order
      */
     private _interactableGroupedRadios(): SbbFormAssociatedRadioButtonElement[] {
-      return Array.from(this.associatedRadioButtons!).filter(
-        (el) => interactivityChecker.isVisible(el) && !el.disabled && !el.formDisabled,
+      return Array.from(this.associatedRadioButtons ?? []).filter((el) =>
+        interactivityChecker.isVisible(el),
       );
     }
 
@@ -278,7 +281,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      * Deselect other radio of the same group
      */
     private _deselectGroupedRadios(): void {
-      Array.from(this.associatedRadioButtons!)
+      Array.from(this.associatedRadioButtons ?? [])
         .filter((r) => r !== this)
         .forEach((r) => (r.checked = false));
     }
@@ -289,7 +292,9 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       }
       evt.preventDefault();
 
-      const enabledRadios = this._interactableGroupedRadios();
+      const enabledRadios = this._interactableGroupedRadios().filter(
+        (r) => !r.disabled && !r.formDisabled,
+      );
       const current: number = enabledRadios.indexOf(this);
       const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
 
