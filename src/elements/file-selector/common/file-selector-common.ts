@@ -38,7 +38,7 @@ export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbF
   public accessor accept: string;
   public accessor accessibilityLabel: string;
   public accessor disabled: boolean;
-  public accessor files: File[];
+  public accessor files: Readonly<File>[];
   protected formDisabled: boolean;
   protected loadButton: SbbSecondaryButtonStaticElement;
   protected language: SbbLanguageController;
@@ -47,7 +47,7 @@ export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbF
   protected updateFormValue(): void;
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
-  public getFiles(): File[];
+  public getFiles(): Readonly<File>[];
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -101,25 +101,23 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
 
     /** The list of selected files. */
     @property({ attribute: false })
-    public set files(value: File[]) {
+    public set files(value: Readonly<File>[]) {
       this._files = value ?? [];
 
       // update the inner input
       const dt: DataTransfer = new DataTransfer();
-      this.files.forEach((e: File) => dt.items.add(e));
+      this.files.forEach((e: Readonly<File>) => dt.items.add(e));
       this._hiddenInput.files = dt.files;
 
       this.updateFormValue();
     }
-
-    public get files(): File[] {
+    public get files(): Readonly<File>[] {
       return this._files;
     }
-
-    private _files: File[] = [];
+    private _files: Readonly<File>[] = [];
 
     /** An event which is emitted each time the file list changes. */
-    private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(
+    private _fileChangedEvent: EventEmitter<Readonly<File>[]> = new EventEmitter(
       this,
       SbbFileSelectorCommonElement.events.fileChangedEvent,
     );
@@ -133,7 +131,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     protected abstract renderTemplate(input: TemplateResult): TemplateResult;
 
     /** @deprecated use the 'files' property instead */
-    public getFiles(): File[] {
+    public getFiles(): Readonly<File>[] {
       return this.files;
     }
 
@@ -148,7 +146,9 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       if (!state) {
         return;
       }
-      this.files = (state as [string, FormDataEntryValue][]).map(([_, value]) => value as File);
+      this.files = (state as [string, FormDataEntryValue][]).map(
+        ([_, value]) => value as Readonly<File>,
+      );
     }
 
     protected override updateFormValue(): void {
@@ -157,7 +157,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       this.internals.setFormValue(formValue);
     }
 
-    private _checkFileEquality(file1: File, file2: File): boolean {
+    private _checkFileEquality(file1: Readonly<File>, file2: Readonly<File>): boolean {
       return (
         file1.name === file2.name &&
         file1.size === file2.size &&
@@ -192,8 +192,8 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
         this.files = Array.from(files)
           .filter(
             // Remove duplicates
-            (newFile: File): boolean =>
-              this.files!.findIndex((oldFile: File) =>
+            (newFile: Readonly<File>): boolean =>
+              this.files!.findIndex((oldFile: Readonly<File>) =>
                 this._checkFileEquality(newFile, oldFile),
               ) === -1,
           )
@@ -203,8 +203,8 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       this._fileChangedEvent.emit(this.files);
     }
 
-    private _removeFile(file: File): void {
-      this.files = this.files.filter((f: File) => !this._checkFileEquality(file, f));
+    private _removeFile(file: Readonly<File>): void {
+      this.files = this.files.filter((f: Readonly<File>) => !this._checkFileEquality(file, f));
       this._updateA11yLiveRegion();
 
       // Dispatch native events as if the reset is done via the file selection window.
@@ -235,7 +235,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       return html`
       <${unsafeStatic(TAG_NAME.WRAPPER)} class='sbb-file-selector__file-list'>
         ${this.files.map(
-          (file: File) => html`
+          (file: Readonly<File>) => html`
             <${unsafeStatic(TAG_NAME.ELEMENT)} class='sbb-file-selector__file'>
                 <span class='sbb-file-selector__file-details'>
                   <span class='sbb-file-selector__file-name'>${file.name}</span>

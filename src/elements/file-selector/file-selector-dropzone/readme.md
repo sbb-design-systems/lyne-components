@@ -88,7 +88,7 @@ It's suggested to have a different value for each variant, e.g.:
 | `accept`             | `accept`              | public  | `string`                    | `''`        | A comma-separated list of allowed unique file type specifiers.                |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                    | `''`        | This will be forwarded as aria-label to the native input element.             |
 | `disabled`           | `disabled`            | public  | `boolean`                   | `false`     | Whether the component is disabled.                                            |
-| `files`              | -                     | public  | `File[]`                    | `[]`        | The list of selected files.                                                   |
+| `files`              | -                     | public  | `Readonly<File>[]`          | `[]`        | The list of selected files.                                                   |
 | `form`               | -                     | public  | `HTMLFormElement \| null`   |             | Returns the form owner of the internals of the target element.                |
 | `multiple`           | `multiple`            | public  | `boolean`                   | `false`     | Whether more than one file can be selected.                                   |
 | `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` | `'default'` | Whether the newly added files should override the previously added ones.      |
@@ -99,19 +99,19 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Methods
 
-| Name                       | Privacy | Description | Parameters                                                    | Return   | Inherited From                    |
-| -------------------------- | ------- | ----------- | ------------------------------------------------------------- | -------- | --------------------------------- |
-| `formResetCallback`        | public  |             |                                                               | `void`   | SbbFileSelectorCommonElementMixin |
-| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void`   | SbbFileSelectorCommonElementMixin |
-| `getFiles`                 | public  |             |                                                               | `File[]` | SbbFileSelectorCommonElementMixin |
+| Name                       | Privacy | Description | Parameters                                                    | Return             | Inherited From                    |
+| -------------------------- | ------- | ----------- | ------------------------------------------------------------- | ------------------ | --------------------------------- |
+| `formResetCallback`        | public  |             |                                                               | `void`             | SbbFileSelectorCommonElementMixin |
+| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void`             | SbbFileSelectorCommonElementMixin |
+| `getFiles`                 | public  |             |                                                               | `Readonly<File>[]` | SbbFileSelectorCommonElementMixin |
 
 ## Events
 
-| Name          | Type                  | Description                                                                                                                                                                  | Inherited From                    |
-| ------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `change`      | `Event`               | An event which is emitted each time the user modifies the value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value | SbbFileSelectorCommonElementMixin |
-| `fileChanged` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes.                                                                                                                   |                                   |
-| `input`       | `Event`               | An event which is emitted each time the value changes as a direct result of a user action.                                                                                   | SbbFileSelectorCommonElementMixin |
+| Name          | Type                            | Description                                                                                                                                                                  | Inherited From                    |
+| ------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `change`      | `Event`                         | An event which is emitted each time the user modifies the value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value | SbbFileSelectorCommonElementMixin |
+| `fileChanged` | `CustomEvent<Readonly<File>[]>` | An event which is emitted each time the file list changes.                                                                                                                   |                                   |
+| `input`       | `Event`                         | An event which is emitted each time the value changes as a direct result of a user action.                                                                                   | SbbFileSelectorCommonElementMixin |
 
 ## Slots
 

@@ -137,7 +137,7 @@ describe('sbb-file-selector common', () => {
         expect(elemInputEvent.count, 'input event').to.be.equal(nativeInputEvent.count);
       }
 
-      it.only('renders', () => {
+      it('renders', () => {
         compareToNativeInput();
       });
 
