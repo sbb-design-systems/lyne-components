@@ -17,44 +17,53 @@ describe(`sbb-sticky-bar`, () => {
     return stickyBar.hasAttribute('data-sticking');
   };
 
-  beforeEach(async () => {
-    await setViewport({ width: 320, height: 500 });
-    container = await fixture(html`
-      <sbb-container>
-        <div><p>Situation 1</p></div>
-        <div><p>Situation 2</p></div>
-        <div><p>Situation 3</p></div>
-        <div><p>Situation 4</p></div>
-        <div><p>Situation 5</p></div>
-        <div><p>Situation 6</p></div>
-        <div><p>Situation 7</p></div>
-        <div><p>Situation 8</p></div>
-        <div><p>Situation 9</p></div>
-        <div><p>Situation 10</p></div>
-        <div><p>Situation 11</p></div>
-        <div><p>Situation 12</p></div>
-        <sbb-sticky-bar></sbb-sticky-bar>
-      </sbb-container>
-    `);
-    stickyBar = container.querySelector('sbb-sticky-bar')!;
-  });
+  describe('sticky', () => {
+    beforeEach(async () => {
+      await setViewport({ width: 320, height: 500 });
+      container = await fixture(html`
+        <sbb-container>
+          <div><p>Situation 1</p></div>
+          <div><p>Situation 2</p></div>
+          <div><p>Situation 3</p></div>
+          <div><p>Situation 4</p></div>
+          <div><p>Situation 5</p></div>
+          <div><p>Situation 6</p></div>
+          <div><p>Situation 7</p></div>
+          <div><p>Situation 8</p></div>
+          <div><p>Situation 9</p></div>
+          <div><p>Situation 10</p></div>
+          <div><p>Situation 11</p></div>
+          <div><p>Situation 12</p></div>
+          <sbb-sticky-bar></sbb-sticky-bar>
+        </sbb-container>
+      `);
+      stickyBar = container.querySelector('sbb-sticky-bar')!;
+    });
 
-  it('renders', async () => {
-    assert.instanceOf(stickyBar, SbbStickyBarElement);
-  });
+    it('renders', async () => {
+      assert.instanceOf(stickyBar, SbbStickyBarElement);
+    });
 
-  it('stops sticking when scrolling to bottom', async () => {
-    await waitForCondition(async () => getIsSticking());
-    expect(getIsSticking()).to.equal(true);
-    expect(stickyBar).to.have.attribute('data-fade-vertically');
+    it('stops sticking when scrolling to bottom', async () => {
+      expect(getIsSticking()).to.equal(true);
+      expect(stickyBar).to.have.attribute('data-slide-vertically');
 
-    window.scrollTo(0, 400);
+      window.scrollTo(0, 400);
 
-    await waitForCondition(async () => !getIsSticking());
-    await waitForLitRender(container);
+      await waitForCondition(async () => !getIsSticking());
+      await waitForLitRender(container);
 
-    expect(getIsSticking()).to.equal(false);
-    expect(stickyBar).not.to.have.attribute('data-fade-vertically');
+      expect(getIsSticking()).to.equal(false);
+      expect(stickyBar).not.to.have.attribute('data-slide-vertically');
+    });
+
+    it('expands the sticky-bar when container is expanded', async () => {
+      container.expanded = true;
+
+      await waitForLitRender(container);
+
+      expect(stickyBar).to.have.attribute('data-expanded');
+    });
   });
 
   it('is settled when content is not long enough', async () => {
@@ -69,8 +78,6 @@ describe(`sbb-sticky-bar`, () => {
     `);
     stickyBar = container.querySelector('sbb-sticky-bar')!;
 
-    await waitForCondition(async () => !getIsSticking());
-
     expect(getIsSticking()).to.equal(false);
   });
 
@@ -84,14 +91,6 @@ describe(`sbb-sticky-bar`, () => {
       </sbb-container>
     `);
     stickyBar = container.querySelector('sbb-sticky-bar')!;
-
-    expect(stickyBar).to.have.attribute('data-expanded');
-  });
-
-  it('expands the sticky-bar when container is expanded', async () => {
-    container.expanded = true;
-
-    await waitForLitRender(container);
 
     expect(stickyBar).to.have.attribute('data-expanded');
   });

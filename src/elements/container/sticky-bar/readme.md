@@ -14,7 +14,7 @@ It is displayed with sticky positioning at the bottom of the container that cont
 `Opened` in terms of the sticky bar means that the sticky bar has `position: sticky`.
 If closed, the sticky bar has `position: relative` which means that it can't get sticky anymore.
 As the opening and closing are animated, consumers can in certain situations control the state of the sticky bar
-by calling `close()` or `open()` to e.g. fade the sticky bar out and remove it
+by calling `close()` or `open()` to e.g. slide the sticky bar out and remove it
 from DOM afterward by listening to `didClose` event.
 Whenever the sticky bar is not sticky, changing the state doesn't have any visual effect.
 

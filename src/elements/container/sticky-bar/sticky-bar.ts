@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { hostAttributes } from '../../core/decorators.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 
 import style from './sticky-bar.scss?lit&inline';
 
@@ -27,7 +28,7 @@ export
 @hostAttributes({
   slot: 'sticky-bar',
 })
-class SbbStickyBarElement extends SbbOpenCloseBaseElement {
+class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Color of the container, like transparent, white etc. */
@@ -38,12 +39,15 @@ class SbbStickyBarElement extends SbbOpenCloseBaseElement {
     // Although `this` is observed, we have to postpone observing
     // into firstUpdated() to achieve a correct initial state.
     target: null,
-    callback: (entries) => this._toggleShadowVisibility(entries[0]),
+    callback: (entries) => this._detectStickyState(entries[0]),
   });
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this.state = 'opened';
+
+    // Sticky bar needs to be hidden until first observer callback
+    this.startUpdate();
 
     const container = this.closest('sbb-container');
     if (container) {
@@ -52,6 +56,12 @@ class SbbStickyBarElement extends SbbOpenCloseBaseElement {
     if (this._intersector) {
       this._observer.observe(this._intersector);
     }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+
+    this.toggleAttribute('data-initialized', false);
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -64,16 +74,16 @@ class SbbStickyBarElement extends SbbOpenCloseBaseElement {
     this._observer.observe(this);
   }
 
-  private _toggleShadowVisibility(entry: IntersectionObserverEntry): void {
+  private _detectStickyState(entry: IntersectionObserverEntry): void {
+    this.toggleAttribute('data-initialized', true);
+
     const isSticky = !entry.isIntersecting && entry.boundingClientRect.top > 0;
 
-    this.toggleAttribute('data-sticking', isSticky);
-
     // To optimize the visual perception of the sticky bar, we have certain cases (e.g. on page load)
-    // where we want to have it fade in from the bottom.
-    // To decide whether the fade in should happen from bottom up,
-    // we check how far away the sticky bar is from the intersector. When scrolling fast, the
-    // difference can vary slightly. From this perspective we add a height tolerance.
+    // where we want the sticky bar to slide in from the bottom.
+    // To decide whether to slide in from the bottom up,
+    // we check how far away the sticky bar is from the intersector element. When scrolling fast, the
+    // difference can vary slightly. To account for this we add a height tolerance.
     // This value was found by trial and error.
     const intersectorRect = this._intersector?.getBoundingClientRect();
     const stickyBarRect = this.shadowRoot!.querySelector(
@@ -82,11 +92,17 @@ class SbbStickyBarElement extends SbbOpenCloseBaseElement {
     const HEIGHT_TOLERANCE = 30;
 
     this.toggleAttribute(
-      'data-fade-vertically',
+      'data-slide-vertically',
       isSticky &&
         this._intersector &&
         Math.abs(intersectorRect!.bottom - stickyBarRect.bottom) > HEIGHT_TOLERANCE,
     );
+
+    // Toggling data-sticking has to be after data-slide-vertically (prevents background color transition)
+    this.toggleAttribute('data-sticking', isSticky);
+
+    // Sticky bar needs to be hidden until first observer callback
+    this.completeUpdate();
   }
 
   /**
@@ -131,7 +147,7 @@ class SbbStickyBarElement extends SbbOpenCloseBaseElement {
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
-    if (this.state === 'opening' && event.animationName === 'open') {
+    if ((this.state === 'opening' || this.state === 'opened') && event.animationName === 'open') {
       this._openedCallback();
     } else if (this.state === 'closing' && event.animationName === 'close') {
       this._closedCallback();
