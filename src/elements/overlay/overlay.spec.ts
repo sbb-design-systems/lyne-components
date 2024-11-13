@@ -2,8 +2,9 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import type { SbbButtonElement } from '../button.js';
 import { i18nDialog } from '../core/i18n.js';
-import { tabKey } from '../core/testing/private/keys.js';
+import { tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
 import { SbbOverlayElement } from './overlay.js';
@@ -127,6 +128,32 @@ describe('sbb-overlay', () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
+  });
+
+  it('closes the overlay on close button click with linked form', async () => {
+    element = await fixture(html`
+      <div>
+        <form id="formid" method="dialog"></form>
+        <sbb-overlay id="my-overlay-3">
+          <p>Overlay content</p>
+          <sbb-button sbb-overlay-close type="submit" form="formid">Close</sbb-button>
+        </sbb-overlay>
+      </div>
+    `);
+
+    const overlay = element.querySelector('sbb-overlay')!;
+    const closeButton = element.querySelector<SbbButtonElement>('[type="submit"]')!;
+    const form = element.querySelector<HTMLFormElement>('form')!;
+    const willClose = new EventSpy<CustomEvent>(SbbOverlayElement.events.willClose);
+
+    await openOverlay(overlay);
+
+    closeButton.click();
+    await waitForLitRender(element);
+
+    await waitForCondition(() => willClose.events.length === 1);
+
+    expect(willClose.firstEvent?.detail.returnValue).to.be.deep.equal(form);
   });
 
   it('closes the overlay on Esc key press', async () => {

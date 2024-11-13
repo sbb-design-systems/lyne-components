@@ -4,7 +4,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { slotState } from '../core/decorators.js';
+import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
@@ -38,9 +38,10 @@ const DEBOUNCE_TIME = 150;
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
  */
+export
 @customElement('sbb-notification')
 @slotState()
-export class SbbNotificationElement extends LitElement {
+class SbbNotificationElement extends LitElement {
   // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
@@ -51,25 +52,29 @@ export class SbbNotificationElement extends LitElement {
   } as const;
 
   /** The type of the notification. */
-  @property({ reflect: true }) public type: 'info' | 'success' | 'warn' | 'error' = 'info';
+  @property({ reflect: true }) public accessor type: 'info' | 'success' | 'warn' | 'error' = 'info';
 
   /** Content of title. */
-  @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
+  @forceType()
+  @property({ attribute: 'title-content', reflect: true, converter: omitEmptyConverter })
+  public accessor titleContent: string = '';
 
   /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '3';
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
 
   /**
    * Whether the notification is readonly.
    * In readonly mode, there is no dismiss button offered to the user.
    */
-  @property({ reflect: true, type: Boolean }) public readonly = false;
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor readonly: boolean = false;
 
   /** Size variant, either s or m. */
-  @property({ reflect: true }) public size: 'm' | 's' = 'm';
+  @property({ reflect: true }) public accessor size: 'm' | 's' = 'm';
 
   /** The enabled animations. */
-  @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'all';
+  @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
   /** The state of the notification. */
   private set _state(state: SbbOpenedClosedState) {

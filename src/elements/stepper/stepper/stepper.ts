@@ -9,6 +9,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { forceType } from '../../core/decorators.js';
 import { breakpoints, isBreakpoint } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
@@ -24,12 +25,15 @@ const DEBOUNCE_TIME = 150;
  * @slot step-label - Use this slot to provide an `sbb-step-label`.
  * @slot step - Use this slot to provide an `sbb-step`.
  */
+export
 @customElement('sbb-stepper')
-export class SbbStepperElement extends SbbHydrationMixin(LitElement) {
+class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** If set to true, only the current and previous labels can be clicked and selected. */
-  @property({ type: Boolean }) public linear = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor linear: boolean = false;
 
   /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
@@ -46,10 +50,10 @@ export class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   /** Steps orientation, either horizontal or vertical. */
   @property({ reflect: true })
-  public orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: SbbOrientation = 'horizontal';
 
   /** Size variant, either s or m. */
-  @property({ reflect: true }) public size: 's' | 'm' = 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' = 'm';
 
   /** The currently selected step. */
   @property({ attribute: false })

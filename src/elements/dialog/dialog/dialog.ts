@@ -27,12 +27,14 @@ let nextId = 0;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
+export
 @customElement('sbb-dialog')
-export class SbbDialogElement extends SbbOverlayBaseElement {
+class SbbDialogElement extends SbbOverlayBaseElement {
   public static override styles: CSSResultGroup = style;
 
   /** Backdrop click action. */
-  @property({ attribute: 'backdrop-action' }) public backdropAction: 'close' | 'none' = 'close';
+  @property({ attribute: 'backdrop-action' }) public accessor backdropAction: 'close' | 'none' =
+    'close';
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
   // For more details:

@@ -14,6 +14,13 @@ const compat = new FlatCompat({
   baseDirectory: import.meta.resolve('.'),
 });
 
+const ignores = [
+  'dist/**/*',
+  'coverage/**/*',
+  'tools/generate-component/**/*',
+  '**/__snapshots__/**/*',
+];
+
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigFile} */
 export default [
   {
@@ -29,14 +36,12 @@ export default [
     },
   },
   {
-    ignores: [
-      'dist/**/*',
-      'coverage/**/*',
-      'tools/generate-component/**/*',
-      '**/__snapshots__/**/*',
-    ],
+    ignores,
   },
-  eslint.configs.recommended,
+  {
+    rules: eslint.configs.recommended.rules,
+    ignores,
+  },
   ...tseslint.configs.recommended,
   ...eslintPluginYml.configs['flat/standard'],
   ...eslintPluginYml.configs['flat/prettier'],
@@ -45,6 +50,7 @@ export default [
     'plugin:import-x/recommended',
     'plugin:import-x/typescript',
   ),
+  // @ts-expect-error The returned config will exist.
   eslintPluginLyne.default.configs.recommended,
   {
     files: ['src/visual-regression-app/**/*.ts'],
@@ -56,7 +62,7 @@ export default [
   {
     files: ['src/storybook/**/*.ts'],
     rules: {
-      'lyne/test-describe-title': 'off',
+      'lyne/test-describe-title-rule': 'off',
     },
   },
   {

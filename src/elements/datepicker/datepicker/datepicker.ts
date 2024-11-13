@@ -11,6 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { readConfig } from '../../core/config.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
+import { forceType } from '../../core/decorators.js';
 import { findInput, findReferencedElement } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
@@ -177,12 +178,9 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
  * @event {CustomEvent<void>} datePickerUpdated - Notifies that the attributes of the datepicker have changes.
  * @event {CustomEvent<SbbValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
+export
 @customElement('sbb-datepicker')
-export class SbbDatepickerElement<T = Date> extends LitElement {
-  /* eslint-disable @typescript-eslint/member-ordering --
-   * We deactivate member-ordering because of the @property decorated methods dateFilter, dateParser and format.
-   */
-
+class SbbDatepickerElement<T = Date> extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -193,25 +191,28 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
   } as const;
 
   /** If set to true, two months are displayed. */
-  @property({ type: Boolean }) public wide = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor wide: boolean = false;
 
   /** A function used to filter out dates. */
-  @property({ attribute: false }) public dateFilter: (date: T | null) => boolean = () => true;
+  @property({ attribute: false }) public accessor dateFilter: (date: T | null) => boolean = () =>
+    true;
 
   /**
    * A function used to parse string value into dates.
    * @deprecated No longer required.
    */
-  @property({ attribute: false }) public dateParser?: (value: string) => T | undefined;
+  @property({ attribute: false }) public accessor dateParser: ((value: string) => T) | null = null;
 
   /**
    * A function used to format dates into the preferred string format.
    * @deprecated No longer required.
    */
-  @property({ attribute: false }) public format?: (date: T) => string;
+  @property({ attribute: false }) public accessor format: ((date: T) => string) | null = null;
 
   /** Reference of the native input connected to the datepicker. */
-  @property() public input?: string | HTMLElement;
+  @property() public accessor input: string | HTMLElement | null = null;
 
   // TODO: Change undefined to null as a breaking change.
   /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
@@ -276,7 +277,7 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
   );
 
   @state()
-  private _inputElement: HTMLInputElement | null = null;
+  private accessor _inputElement: HTMLInputElement | null = null;
   private _inputElementPlaceholderMutable = false;
 
   private _datePickerController!: AbortController;
@@ -487,7 +488,6 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
   protected override render(): TemplateResult {
     return html`<p id="status-container" role="status"></p>`;
   }
-  /* eslint-enable @typescript-eslint/member-ordering */
 }
 
 declare global {

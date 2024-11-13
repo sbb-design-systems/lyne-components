@@ -1,8 +1,8 @@
-@use '@sbb-esta/lyne-elements/core/styles/index' as sbb;
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
 @include sbb.box-sizing;
 
-sbb-chip {
+sbb-chip-label {
   width: fit-content;
 }
 

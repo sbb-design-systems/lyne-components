@@ -70,25 +70,24 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 
 ## Properties
 
-| Name            | Attribute         | Privacy | Type                   | Default | Description                                                                                                                                    |
-| --------------- | ----------------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled`      | `disabled`        | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                                             |
-| `endIcon`       | `end-icon`        | public  | `string \| undefined`  |         | Name of the icon at component's end, which will be forward to the nested `sbb-icon`.                                                           |
-| `form`          | `form`            | public  | `string \| undefined`  |         | The <form> element to associate the inner HTMLInputElement with.                                                                               |
-| `max`           | `max`             | public  | `string \| undefined`  | `'100'` | Maximum acceptable value for the inner HTMLInputElement.                                                                                       |
-| `min`           | `min`             | public  | `string \| undefined`  | `'0'`   | Minimum acceptable value for the inner HTMLInputElement.                                                                                       |
-| `name`          | `name`            | public  | `string \| undefined`  | `''`    | Name of the inner HTMLInputElement.                                                                                                            |
-| `readonly`      | `readonly`        | public  | `boolean \| undefined` | `false` | Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one. |
-| `startIcon`     | `start-icon`      | public  | `string \| undefined`  |         | Name of the icon at component's start, which will be forward to the nested `sbb-icon`.                                                         |
-| `value`         | `value`           | public  | `string \| undefined`  | `''`    | Value for the inner HTMLInputElement.                                                                                                          |
-| `valueAsNumber` | `value-as-number` | public  | `number \| undefined`  |         | Numeric value for the inner HTMLInputElement.                                                                                                  |
+| Name            | Attribute         | Privacy | Type                      | Default | Description                                                                                                                                    |
+| --------------- | ----------------- | ------- | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`      | `disabled`        | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                                             |
+| `endIcon`       | `end-icon`        | public  | `string`                  | `''`    | Name of the icon at component's end, which will be forward to the nested `sbb-icon`.                                                           |
+| `form`          | -                 | public  | `HTMLFormElement \| null` |         | Returns the form owner of the internals of the target element.                                                                                 |
+| `max`           | `max`             | public  | `string`                  | `'100'` | Maximum acceptable value for the inner HTMLInputElement.                                                                                       |
+| `min`           | `min`             | public  | `string`                  | `'0'`   | Minimum acceptable value for the inner HTMLInputElement.                                                                                       |
+| `name`          | `name`            | public  | `string`                  |         | Name of the form element. Will be read from name attribute.                                                                                    |
+| `readonly`      | `readonly`        | public  | `boolean`                 | `false` | Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one. |
+| `startIcon`     | `start-icon`      | public  | `string`                  | `''`    | Name of the icon at component's start, which will be forward to the nested `sbb-icon`.                                                         |
+| `value`         | `value`           | public  | `string \| null`          | `null`  | Value of the form element. If no value is provided, default is the middle point between min and max.                                           |
+| `valueAsNumber` | `value-as-number` | public  | `number \| null`          |         | Numeric value for the inner HTMLInputElement.                                                                                                  |
 
 ## Events
 
 | Name        | Type                | Description                                                                      | Inherited From |
 | ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
 | `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
-| `input`     | `InputEvent`        |                                                                                  |                |
 
 ## Slots
 

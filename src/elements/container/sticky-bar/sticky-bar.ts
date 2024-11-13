@@ -22,15 +22,16 @@ import style from './sticky-bar.scss?lit&inline';
  * @cssprop [--sbb-sticky-bar-z-index] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable.
  */
+export
 @customElement('sbb-sticky-bar')
 @hostAttributes({
   slot: 'sticky-bar',
 })
-export class SbbStickyBarElement extends SbbOpenCloseBaseElement {
+class SbbStickyBarElement extends SbbOpenCloseBaseElement {
   public static override styles: CSSResultGroup = style;
 
   /** Color of the container, like transparent, white etc. */
-  @property({ reflect: true }) public color?: 'white' | 'milk';
+  @property({ reflect: true }) public accessor color: 'white' | 'milk' | null = null;
 
   private _intersector?: HTMLSpanElement;
   private _observer = new IntersectionController(this, {

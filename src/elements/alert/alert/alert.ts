@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { type LinkTargetType, SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
+import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -27,8 +28,9 @@ import '../../title.js';
  * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
+export
 @customElement('sbb-alert')
-export class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
+class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
   public static override readonly events = {
     willOpen: 'willOpen',
@@ -42,41 +44,57 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
    * Whether the alert is readonly.
    * In readonly mode, there is no dismiss button offered to the user.
    */
-  @property({ reflect: true, type: Boolean }) public readonly = false;
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor readonly: boolean = false;
 
   /** You can choose between `s`, `m` or `l` size. */
-  @property({ reflect: true }) public size: 's' | 'm' | 'l' = 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = 'm';
 
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
    * Choose the icons from https://icons.app.sbb.ch.
    * Styling is optimized for icons of type HIM-CUS.
    */
-  @property({ attribute: 'icon-name' }) public override iconName: string = 'info';
+  @forceType()
+  @property({ attribute: 'icon-name' })
+  public override accessor iconName: string = 'info';
 
   /** Content of title. */
-  @property({ attribute: 'title-content' }) public titleContent?: string;
+  @forceType()
+  @property({ attribute: 'title-content' })
+  public accessor titleContent: string = '';
 
   /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '3';
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
 
   /** Content of the link. */
-  @property({ attribute: 'link-content' }) public linkContent?: string;
+  @forceType()
+  @property({ attribute: 'link-content' })
+  public accessor linkContent: string = '';
 
   /** The href value you want to link to. */
-  @property() public href: string | undefined;
+  @forceType()
+  @property()
+  public accessor href: string = '';
 
   /** Where to display the linked URL. */
-  @property() public target: LinkTargetType | string | undefined;
+  @forceType()
+  @property()
+  public accessor target: LinkTargetType | string = '';
 
   /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel: string | undefined;
+  @forceType()
+  @property()
+  public accessor rel: string = '';
 
   /** This will be forwarded as aria-label to the relevant nested element. */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
+  @forceType()
+  @property({ attribute: 'accessibility-label' })
+  public accessor accessibilityLabel: string = '';
 
   /** The enabled animations. */
-  @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'all';
+  @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
   /**
    * Emits when dismissal of an alert was requested.

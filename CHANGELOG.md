@@ -2,6 +2,75 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.14.0...v1.14.1) (2024-11-07)
+
+
+### Bug Fixes
+
+* **sbb-calendar:** fix disabled month selection on wide view ([#3195](https://github.com/sbb-design-systems/lyne-components/issues/3195)) ([99b9a26](https://github.com/sbb-design-systems/lyne-components/commit/99b9a26e49a4aa6967775702b7d043203d984b09))
+* **sbb-calendar:** fix month selection on wide view ([#3192](https://github.com/sbb-design-systems/lyne-components/issues/3192)) ([#3193](https://github.com/sbb-design-systems/lyne-components/issues/3193)) ([4365e39](https://github.com/sbb-design-systems/lyne-components/commit/4365e39c74c91985d4021f94fb81c77e30517fc8))
+
+## [1.14.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.13.0...v1.14.0) (2024-10-28)
+
+
+### Features
+
+* **sbb-paginator:** add sbb-compact-paginator component variant ([#3142](https://github.com/sbb-design-systems/lyne-components/issues/3142)) ([2f3dc21](https://github.com/sbb-design-systems/lyne-components/commit/2f3dc2122c0c9f43cb2229520a23808dd006e2ad))
+
+
+### Bug Fixes
+
+* switch to standard decorators and tighten property types ([#3121](https://github.com/sbb-design-systems/lyne-components/issues/3121)) ([e61bca5](https://github.com/sbb-design-systems/lyne-components/commit/e61bca5ccb1c1c339a8e989bb0fd9ad33e27df34))
+
+## [1.13.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.12.1...v1.13.0) (2024-10-21)
+
+
+### Features
+
+* **sbb-file-selector:** implement native form support ([#3085](https://github.com/sbb-design-systems/lyne-components/issues/3085)) ([449ee6d](https://github.com/sbb-design-systems/lyne-components/commit/449ee6d27667dcd944a4f17c6b91da0a1d250534))
+* **sbb-header:** introduce active state ([#3154](https://github.com/sbb-design-systems/lyne-components/issues/3154)) ([ffdeec4](https://github.com/sbb-design-systems/lyne-components/commit/ffdeec4e6d844b4af5b521c0af3742df207c0f1d))
+* **sbb-paginator:** add disabled property ([#3130](https://github.com/sbb-design-systems/lyne-components/issues/3130)) ([d43f64c](https://github.com/sbb-design-systems/lyne-components/commit/d43f64c3b306633fd1c663c81e7fc7336dbe1cf3))
+* **sbb-select:** implement native form support ([#3101](https://github.com/sbb-design-systems/lyne-components/issues/3101)) ([b9156ab](https://github.com/sbb-design-systems/lyne-components/commit/b9156ab70ffe14d543606194df305f9e7d4a1375))
+
+
+### Bug Fixes
+
+* **sbb-loading-indicator:** center component into his box ([#3144](https://github.com/sbb-design-systems/lyne-components/issues/3144)) ([22978f6](https://github.com/sbb-design-systems/lyne-components/commit/22978f6776598c7a457adcee4e9665229550caed))
+* **sbb-teaser:** css variable typo ([#3143](https://github.com/sbb-design-systems/lyne-components/issues/3143)) ([d3e4fb3](https://github.com/sbb-design-systems/lyne-components/commit/d3e4fb3c527059574195cf58686ca6bf3a599cdc))
+
+## [1.12.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.12.0...v1.12.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* fix list colors ([#3126](https://github.com/sbb-design-systems/lyne-components/issues/3126)) ([44c2810](https://github.com/sbb-design-systems/lyne-components/commit/44c2810268e29760dbfb5e6cf8b0676ac501a3e3)), closes [#3123](https://github.com/sbb-design-systems/lyne-components/issues/3123)
+* **sbb-image:** fix skipLqip mode ([#3131](https://github.com/sbb-design-systems/lyne-components/issues/3131)) ([4519006](https://github.com/sbb-design-systems/lyne-components/commit/4519006b6513d4c5963675c4a1e0028ae2d27b84))
+* **sbb-image:** introduce css property to configure object-fit ([#3134](https://github.com/sbb-design-systems/lyne-components/issues/3134)) ([5a4ae41](https://github.com/sbb-design-systems/lyne-components/commit/5a4ae416e02b42d47ff35a0887d036b2b6900f0e)), closes [#3133](https://github.com/sbb-design-systems/lyne-components/issues/3133)
+* **sbb-radio-group:** avoid focusing disabled radios ([#3125](https://github.com/sbb-design-systems/lyne-components/issues/3125)) ([e4745c4](https://github.com/sbb-design-systems/lyne-components/commit/e4745c4cf50a2ab2c8c6e3e0090971c0e0626834))
+* **sbb-teaser:** allow teaser usage in flexible layouts ([#3140](https://github.com/sbb-design-systems/lyne-components/issues/3140)) ([a51507b](https://github.com/sbb-design-systems/lyne-components/commit/a51507bf2af94a5cb8b91e9028fcc333da28cbf2)), closes [#3136](https://github.com/sbb-design-systems/lyne-components/issues/3136)
+
+## [1.12.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.3...v1.12.0) (2024-09-26)
+
+
+### Features
+
+* add sbb-icon-list styles ([#3038](https://github.com/sbb-design-systems/lyne-components/issues/3038)) ([d081288](https://github.com/sbb-design-systems/lyne-components/commit/d08128823044eef07722bec574628839e826d599))
+* **sbb-journey-summary:** provide a11y footpath property ([#3104](https://github.com/sbb-design-systems/lyne-components/issues/3104)) ([05c6d1a](https://github.com/sbb-design-systems/lyne-components/commit/05c6d1a7828f4c4aad23f5a9aca5ef5cf047d5b3))
+* **sbb-paginator:** initial implementation ([#2982](https://github.com/sbb-design-systems/lyne-components/issues/2982)) ([8306362](https://github.com/sbb-design-systems/lyne-components/commit/83063628c88a6db6cc01acbaf6d9c04083b9c8a6))
+* **sbb-slider:** implement native form support ([#3071](https://github.com/sbb-design-systems/lyne-components/issues/3071)) ([ad35f2f](https://github.com/sbb-design-systems/lyne-components/commit/ad35f2f8169768fd52ee08fad9aba45d0f5c315b))
+
+
+### Bug Fixes
+
+* **sbb-radio-group:** disable focus when disabling radio ([#3116](https://github.com/sbb-design-systems/lyne-components/issues/3116)) ([6453b6b](https://github.com/sbb-design-systems/lyne-components/commit/6453b6b9c77e8032171e04698f8ed7658e7869d5))
+
+## [1.11.3](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.2...v1.11.3) (2024-09-24)
+
+
+### Bug Fixes
+
+* provide jsdom support for focus trap mechanism ([#3113](https://github.com/sbb-design-systems/lyne-components/issues/3113)) ([57179c1](https://github.com/sbb-design-systems/lyne-components/commit/57179c186aa28cb651ad3386059fbe2a95ee2082))
+
 ## [1.11.2](https://github.com/sbb-design-systems/lyne-components/compare/v1.11.1...v1.11.2) (2024-09-23)
 
 

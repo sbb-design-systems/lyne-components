@@ -5,10 +5,14 @@ import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { SbbConnectedAbortController } from '../core/controllers.js';
-import { hostAttributes } from '../core/decorators.js';
-import { setOrRemoveAttribute } from '../core/dom.js';
+import { forceType, hostAttributes } from '../core/decorators.js';
 import { EventEmitter, forwardEventToHost } from '../core/eventing.js';
-import { SbbDisabledMixin } from '../core/mixins.js';
+import {
+  type FormRestoreReason,
+  type FormRestoreState,
+  SbbDisabledMixin,
+  SbbFormAssociatedMixin,
+} from '../core/mixins.js';
 
 import style from './slider.scss?lit&inline';
 
@@ -21,51 +25,97 @@ import '../icon.js';
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
+export
 @customElement('sbb-slider')
 @hostAttributes({
-  role: 'slider',
+  tabindex: '0',
 })
-export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
+class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
   } as const;
 
-  /** Value for the inner HTMLInputElement. */
-  @property() public value?: string = '';
+  /**
+   * Value of the form element.
+   * If no value is provided, default is the middle point between min and max.
+   */
+  @property()
+  public override set value(value: string | null) {
+    if (this._isValidNumber(value)) {
+      super.value = this._boundBetweenMinMax(value!);
+    } else {
+      super.value = this._getDefaultValue();
+    }
+    this.internals.ariaValueNow = this.value;
+    this._calculateValueFraction();
+  }
+  public override get value(): string {
+    return super.value!;
+  }
 
   /** Numeric value for the inner HTMLInputElement. */
-  @property({ attribute: 'value-as-number', type: Number }) public valueAsNumber?: number;
-
-  /** Name of the inner HTMLInputElement. */
-  @property({ reflect: true }) public name?: string = '';
-
-  /** The <form> element to associate the inner HTMLInputElement with. */
-  @property() public form?: string;
+  @property({ attribute: 'value-as-number', type: Number })
+  public set valueAsNumber(value: number) {
+    this.value = value?.toString();
+  }
+  public get valueAsNumber(): number | null {
+    return Number(this.value);
+  }
 
   /** Minimum acceptable value for the inner HTMLInputElement. */
-  @property() public min?: string = '0';
+  @property()
+  public set min(value: string) {
+    if (!this._isValidNumber(value!)) {
+      return;
+    }
+
+    this._min = value;
+    this.value = this._boundBetweenMinMax(this.value);
+  }
+  public get min(): string {
+    return this._min;
+  }
+  private _min: string = '0';
 
   /** Maximum acceptable value for the inner HTMLInputElement. */
-  @property() public max?: string = '100';
+  @property()
+  public set max(value: string) {
+    if (!this._isValidNumber(value!)) {
+      return;
+    }
+
+    this._max = value;
+    this.value = this._boundBetweenMinMax(this.value);
+  }
+  public get max(): string {
+    return this._max;
+  }
+  private _max: string = '100';
 
   /**
    * Readonly state for the inner HTMLInputElement.
    * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
    */
-  @property({ type: Boolean }) public readonly?: boolean = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor readonly: boolean = false;
 
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
-  @property({ attribute: 'start-icon' }) public startIcon?: string;
+  @forceType()
+  @property({ attribute: 'start-icon' })
+  public accessor startIcon: string = '';
 
   /** Name of the icon at component's end, which will be forward to the nested `sbb-icon`. */
-  @property({ attribute: 'end-icon' }) public endIcon?: string;
+  @forceType()
+  @property({ attribute: 'end-icon' })
+  public accessor endIcon: string = '';
 
   /**
    * The ratio between the absolute value and the validity interval.
    * E.g. given `min=0`, `max=100` and `value=50`, then `_valueFraction=0.5`
    */
-  @state() private _valueFraction = 0;
+  @state() private accessor _valueFraction = 0;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -80,80 +130,84 @@ export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
 
   private _abort = new SbbConnectedAbortController(this);
 
+  public constructor() {
+    super();
+    /** @internal */
+    this.internals.role = 'slider';
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeydown(e), { signal });
-    this._handleChange();
+
+    if (!this.value) {
+      this.value = this._getDefaultValue();
+    }
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('value')) {
-      this._handleChange(Number(this.value));
-    } else if (changedProperties.has('valueAsNumber')) {
-      this._handleChange(Number(this.valueAsNumber));
-    }
-
     if (changedProperties.has('min')) {
-      setOrRemoveAttribute(this, 'aria-valuemin', this.min ?? null);
+      this.internals.ariaValueMin = this.min;
     }
     if (changedProperties.has('max')) {
-      setOrRemoveAttribute(this, 'aria-valuemax', this.max ?? null);
+      this.internals.ariaValueMax = this.max;
     }
     if (changedProperties.has('readonly')) {
-      setOrRemoveAttribute(this, 'aria-readonly', this.readonly ? 'true' : null);
+      this.internals.ariaReadOnly = Boolean(this.readonly).toString();
     }
-
-    if (changedProperties.has('disabled')) {
-      if (this.disabled) {
-        this.setAttribute('aria-disabled', 'true');
-        this.removeAttribute('tabindex');
-      } else {
-        this.removeAttribute('aria-disabled');
-        this.setAttribute('tabindex', '0');
-      }
-    }
-  }
-
-  private _syncValues(newValue: string | number): void {
-    if (newValue == null) {
-      return;
-    } else if (newValue && typeof newValue !== 'number') {
-      newValue = +newValue;
-    }
-
-    this.value = newValue.toString();
-    this.valueAsNumber = newValue as number;
-    setOrRemoveAttribute(this, 'aria-valuenow', this.value || null);
   }
 
   /**
-   * Recalculates the `_valueFraction` on change to correctly display the slider knob and lines.
-   * The first calculation happens in connectedCallback(...), so since `_rangeInput` is not yet available,
-   * the `min` and `max` values are used; if `value` is not provided, the default value is halfway between min and max
-   * (see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#value).
+   * The reset value is the attribute value (the setup value). If not present, calculates the default.
+   * @internal
    */
-  private _handleChange(value: number = this._rangeInput?.valueAsNumber): void {
-    let min: number, max: number;
-    if (this._rangeInput) {
-      min = +this._rangeInput.min;
-      max = +this._rangeInput.max;
-    } else {
-      min = +(this.min as string);
-      max = +(this.max as string);
-      value =
-        this.value && this.value !== ''
-          ? +this.value
-          : this.valueAsNumber
-            ? this.valueAsNumber
-            : +(this.min as string) + (+(this.max as string) - +(this.min as string)) / 2;
-    }
+  public formResetCallback(): void {
+    this.value = this.getAttribute('value') ?? this._getDefaultValue();
+  }
+
+  /**
+   * @internal
+   */
+  public formStateRestoreCallback(
+    state: FormRestoreState | null,
+    _reason: FormRestoreReason,
+  ): void {
+    this.value = state as string | null;
+  }
+
+  protected override updateFormValue(): void {
+    this.internals.setFormValue(this.value);
+  }
+
+  /**
+   *  If no value is provided, default is the middle point between min and max
+   *  (see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#value)
+   */
+  private _getDefaultValue(): string {
+    return (+this.min + (+this.max - +this.min) / 2).toString();
+  }
+
+  private _isValidNumber(value: string | null): boolean {
+    return !!value && !isNaN(Number(value));
+  }
+
+  /**
+   * Restrains the value between the min and max
+   */
+  private _boundBetweenMinMax(value: string): string {
+    return Math.max(+this.min, Math.min(+this.max, +value)).toString();
+  }
+
+  private _calculateValueFraction(): void {
+    const value = this.valueAsNumber!;
+    const min = +this.min;
+    const max = +this.max;
+
     const mathFraction: number = (value - min) / (max - min);
-    this._valueFraction =
-      isNaN(mathFraction) || mathFraction < 0 ? 0 : mathFraction > 1 ? 1 : mathFraction;
-    this._syncValues(value);
+    this._valueFraction = isNaN(mathFraction) ? 0 : Math.max(0, Math.min(1, mathFraction));
   }
 
   private async _handleKeydown(event: KeyboardEvent): Promise<void> {
@@ -161,31 +215,31 @@ export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
       event.preventDefault();
     }
 
-    if (this.disabled || this.readonly) {
+    if (this.readonly) {
       return;
     }
 
     if (event.key === 'Home') {
-      this._rangeInput.value = this._rangeInput.min;
+      this._rangeInput.value = this.min;
     } else if (event.key === 'End') {
-      this._rangeInput.value = this._rangeInput.max;
+      this._rangeInput.value = this.max;
     } else if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
       this._rangeInput.stepDown();
     } else if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
       this._rangeInput.stepUp();
     } else if (event.key === 'PageDown') {
-      this._rangeInput.stepDown((+this._rangeInput.max - +this._rangeInput.min) / 10);
+      this._rangeInput.stepDown((+this.max - +this.min) / 10);
     } else if (event.key === 'PageUp') {
-      this._rangeInput.stepUp((+this._rangeInput.max - +this._rangeInput.min) / 10);
+      this._rangeInput.stepUp((+this.max - +this.min) / 10);
     } else {
       return;
     }
 
-    this._handleChange();
-    this.dispatchEvent(
+    // We have to manually fire events because programmatic changes don't trigger them
+    this._rangeInput.dispatchEvent(
       new InputEvent('input', { bubbles: true, cancelable: true, composed: true }),
     );
-    this._emitChange(new Event('change', { bubbles: true, cancelable: true, composed: true }));
+    this._rangeInput.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   /** Emits the change event. */
@@ -207,16 +261,14 @@ export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
           >
             <input
               tabindex="-1"
-              name=${this.name || nothing}
-              min=${this.min || nothing}
-              max=${this.max || nothing}
-              ?disabled=${this.disabled || this.readonly || nothing}
-              .valueAsNumber=${this.valueAsNumber || nothing}
+              min=${this.min}
+              max=${this.max}
+              ?disabled=${this.disabled || this.formDisabled || this.readonly}
               value=${this.value || nothing}
               class="sbb-slider__range-input"
               type="range"
               @change=${(event: Event) => this._emitChange(event)}
-              @input=${() => this._handleChange()}
+              @input=${() => (this.value = this._rangeInput.value)}
               ${ref((input?: Element) => (this._rangeInput = input as HTMLInputElement))}
             />
             <div class="sbb-slider__line">

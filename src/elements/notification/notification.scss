@@ -30,7 +30,7 @@ $open-anim-height-to: calc(
     var(--sbb-notification-base-radius) var(--sbb-notification-base-radius)
     calc(var(--sbb-notification-base-radius) / 2);
   --sbb-notification-animation-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-4x)
   );
   --sbb-notification-timing-function: ease-in;
@@ -57,7 +57,7 @@ $open-anim-height-to: calc(
   @include sbb.disable-animation;
 }
 
-/* Types */
+// Types
 
 :host([type='info']) {
   --sbb-notification-type-color: var(--sbb-color-smoke);
@@ -157,7 +157,7 @@ $open-anim-height-to: calc(
       fill-mode: forwards;
       duration: var(--sbb-notification-animation-duration);
       timing-function: var(--sbb-notification-timing-function);
-      delay: 0s, var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-2x));
+      delay: 0s, var(--sbb-disable-animation-zero-duration, var(--sbb-animation-duration-2x));
     }
   }
 }

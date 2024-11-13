@@ -99,7 +99,7 @@
     margin-block-start: var(--sbb-radio-button-icon-align);
 
     transition: {
-      duration: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-4x));
+      duration: var(--sbb-disable-animation-zero-duration, var(--sbb-animation-duration-4x));
       timing-function: ease;
       property: background-color, border;
     }

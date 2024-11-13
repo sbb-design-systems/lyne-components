@@ -1,9 +1,9 @@
-@use '../../core/styles/index' as sbb;
+@use '../../core/styles' as sbb;
 
 :host {
   --sbb-teaser-product-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-product-animation-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-4x)
   );
   --sbb-teaser-product-animation-easing: var(--sbb-animation-easing);

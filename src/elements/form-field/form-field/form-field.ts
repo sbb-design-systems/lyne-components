@@ -5,7 +5,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import type { SbbInputModality } from '../../core/a11y.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
-import { slotState } from '../../core/decorators.js';
+import { forceType, slotState } from '../../core/decorators.js';
 import { isFirefox, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
@@ -29,9 +29,10 @@ const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-autocomplete-grid', 'sb
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @slot error - Use this slot to render an error.
  */
+export
 @customElement('sbb-form-field')
 @slotState()
-export class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
+class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   private readonly _supportedNativeInputElements = ['input', 'select', 'textarea'];
@@ -67,40 +68,47 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitE
    * `reserve` does reserve one row for an error message.
    */
   @property({ attribute: 'error-space', reflect: true })
-  public errorSpace?: 'none' | 'reserve' = 'none';
+  public accessor errorSpace: 'none' | 'reserve' = 'none';
 
   /** Indicates whether the input is optional. */
-  @property({ type: Boolean }) public optional?: boolean;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor optional: boolean = false;
 
   /** Size variant, either l or m. */
-  @property({ reflect: true }) public size?: 'l' | 'm' | 's' = 'm';
+  @property({ reflect: true }) public accessor size: 'l' | 'm' | 's' = 'm';
 
   /** Whether to display the form field without a border. */
-  @property({ reflect: true, type: Boolean }) public borderless = false;
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor borderless: boolean = false;
 
   /** Defines the width of the component:
    * - `default`: the component has defined width and min-width;
    * - `collapse`: the component adapts itself to its inner input content. */
-  @property({ reflect: true }) public width: 'default' | 'collapse' = 'default';
+  @property({ reflect: true }) public accessor width: 'default' | 'collapse' = 'default';
 
   /** Whether to visually hide the label. If hidden, screen readers will still read it. */
-  @property({ attribute: 'hidden-label', reflect: true, type: Boolean }) public hiddenLabel = false;
+  @forceType()
+  @property({ attribute: 'hidden-label', reflect: true, type: Boolean })
+  public accessor hiddenLabel: boolean = false;
 
   /** Whether the label should float. If activated, the placeholder of the input is hidden. */
-  @property({ attribute: 'floating-label', reflect: true, type: Boolean }) public floatingLabel =
-    false;
+  @forceType()
+  @property({ attribute: 'floating-label', reflect: true, type: Boolean })
+  public accessor floatingLabel: boolean = false;
 
   /** It is used internally to get the `error` slot. */
-  @state() private _errorElements: Element[] = [];
+  @state() private accessor _errorElements: Element[] = [];
 
   /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string | null;
 
   /** Reference to the slotted input element. */
-  @state() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
+  @state() private accessor _input!: HTMLInputElement | HTMLSelectElement | HTMLElement | undefined;
 
   /** Reference to the slotted label elements. */
-  @state() private _label?: HTMLLabelElement;
+  @state() private accessor _label!: HTMLLabelElement;
 
   /** Returns the input element. */
   public get inputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement | undefined {
@@ -176,7 +184,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitE
       .composedPath()
       .some(
         (el) =>
-          (el instanceof window.HTMLElement && el.getAttribute('role') === 'button') ||
+          (el instanceof window.HTMLElement && el.getAttribute('tabindex') === '0') ||
           this._excludedFocusElements.includes((el as HTMLElement).localName),
       );
   }

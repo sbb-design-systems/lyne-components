@@ -3,8 +3,7 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../../core/dom.js';
-import { tabKey } from '../../core/testing/private/keys.js';
-import { fixture } from '../../core/testing/private.js';
+import { fixture, tabKey } from '../../core/testing/private.js';
 import { describeIf, EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';

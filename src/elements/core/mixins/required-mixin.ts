@@ -5,8 +5,7 @@ import type { AbstractConstructor } from './constructor.js';
 import type { SbbFormAssociatedMixinType } from './form-associated-mixin.js';
 
 export declare class SbbRequiredMixinType {
-  public set required(value: boolean);
-  public get required(): boolean;
+  public accessor required: boolean;
   protected isRequiredExternally(): boolean;
 }
 
@@ -15,7 +14,8 @@ export declare class SbbRequiredMixinType {
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbRequiredMixin = <
-  T extends AbstractConstructor<LitElement & SbbFormAssociatedMixinType>,
+  T extends AbstractConstructor<LitElement & SbbFormAssociatedMixinType<V>>,
+  V,
 >(
   superClass: T,
 ): AbstractConstructor<SbbRequiredMixinType> & T => {

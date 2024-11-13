@@ -21,8 +21,9 @@ const changeEventHandler = (event: Event): void => {
     .prepend(div);
 };
 
-const TemplateSbbSlider = (args: Args): TemplateResult =>
-  html`<sbb-slider ${sbbSpread(args)}></sbb-slider>`;
+const TemplateSbbSlider = (args: Args): TemplateResult => html`
+  <sbb-slider ${sbbSpread(args)} name="slider"></sbb-slider>
+`;
 
 const TemplateSbbSliderChangeEvent = (args: Args): TemplateResult => html`
   <sbb-slider
@@ -49,15 +50,6 @@ const TemplateSbbSliderInFormField = ({ label, optional, ...args }: Args): Templ
 const value: InputType = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Slider attribute',
-  },
-};
-
-const valueAsNumber: InputType = {
-  control: {
-    type: 'number',
   },
   table: {
     category: 'Slider attribute',
@@ -146,12 +138,11 @@ const optional: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
-  max,
+  value,
   min,
+  max,
   disabled,
   readonly,
-  value,
-  'value-as-number': valueAsNumber,
   'start-icon': startIcon,
   'end-icon': endIcon,
   'aria-label': ariaLabel,
@@ -164,12 +155,11 @@ const formFieldBasicArgsTypes: ArgTypes = {
 };
 
 const basicArgs: Args = {
-  max: '100',
+  value: '40',
   min: '0',
+  max: '100',
   disabled: false,
   readonly: false,
-  value: '40',
-  'value-as-number': 40,
   'start-icon': 'walk-slow-small',
   'end-icon': 'walk-fast-small',
   'aria-label': undefined,

@@ -10,7 +10,7 @@ import {
 } from '../../core/mixins.js';
 
 export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixinType {
-  public imageAlignment?: 'after' | 'before';
+  public accessor imageAlignment: 'after' | 'before';
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -29,7 +29,7 @@ export const SbbTeaserProductCommonElementMixin = <
      * Only relevant starting from large breakpoint.
      */
     @property({ attribute: 'image-alignment', reflect: true })
-    public imageAlignment: 'after' | 'before' = 'after';
+    public accessor imageAlignment: 'after' | 'before' = 'after';
 
     protected override renderTemplate(): TemplateResult {
       return html`

@@ -11,6 +11,7 @@ import {
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
+import { forceType } from '../../core/decorators.js';
 import { findReferencedElement } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
@@ -47,33 +48,41 @@ const popoversRef = new Set<SbbPopoverElement>();
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
+export
 @customElement('sbb-popover')
-export class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
+class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
    * The element that will trigger the popover overlay.
    * Accepts both a string (id of an element) or an HTML element.
    */
-  @property() public trigger?: string | HTMLElement;
+  @property() public accessor trigger: string | HTMLElement | null = null;
 
   /** Whether the close button should be hidden. */
-  @property({ attribute: 'hide-close-button', type: Boolean }) public hideCloseButton?: boolean =
-    false;
+  @forceType()
+  @property({ attribute: 'hide-close-button', type: Boolean })
+  public accessor hideCloseButton: boolean = false;
 
   /** Whether the popover should be triggered on hover. */
-  @property({ attribute: 'hover-trigger', type: Boolean }) public hoverTrigger: boolean = false;
+  @forceType()
+  @property({ attribute: 'hover-trigger', type: Boolean })
+  public accessor hoverTrigger: boolean = false;
 
   /** Open the popover after a certain delay. */
-  @property({ attribute: 'open-delay', type: Number }) public openDelay? = 0;
+  @forceType()
+  @property({ attribute: 'open-delay', type: Number })
+  public accessor openDelay: number = 0;
 
   /** Close the popover after a certain delay. */
-  @property({ attribute: 'close-delay', type: Number }) public closeDelay? = 0;
+  @forceType()
+  @property({ attribute: 'close-delay', type: Number })
+  public accessor closeDelay: number = 0;
 
   /** This will be forwarded as aria-label to the close button element. */
-  @property({ attribute: 'accessibility-close-label' }) public accessibilityCloseLabel:
-    | string
-    | undefined;
+  @forceType()
+  @property({ attribute: 'accessibility-close-label' })
+  public accessor accessibilityCloseLabel: string = '';
 
   /** Emits whenever the `sbb-popover` begins the closing transition. */
   protected override willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
@@ -156,18 +165,6 @@ export class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement
     }
   }
 
-  // Removes trigger click listener on trigger change.
-  private _removeTriggerClickListener(
-    newValue?: string | HTMLElement,
-    oldValue?: string | HTMLElement,
-  ): void {
-    if (newValue !== oldValue) {
-      this._popoverController?.abort();
-      this._openStateController?.abort();
-      this._configure();
-    }
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
     if (!this.id) {
@@ -183,8 +180,10 @@ export class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('trigger')) {
-      this._removeTriggerClickListener(this.trigger, changedProperties.get('trigger'));
+    if (changedProperties.has('trigger') && this.trigger !== changedProperties.get('trigger')) {
+      this._popoverController?.abort();
+      this._openStateController?.abort();
+      this._configure();
     }
 
     if (changedProperties.has('hoverTrigger')) {

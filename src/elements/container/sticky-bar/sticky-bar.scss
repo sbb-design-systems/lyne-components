@@ -8,11 +8,11 @@ $intersector-overlapping: 1px;
 :host {
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xs);
   --sbb-sticky-bar-fade-in-animation-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-5x)
   );
   --sbb-sticky-bar-fade-out-animation-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);

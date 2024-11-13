@@ -52,7 +52,13 @@ function updateFieldsTable(
   }
 
   // Create a matrix 'table[row][column]' structure for the fields table
-  const fieldsSection = newDocs.original.substring(startIndex!, endIndex);
+  const fieldsSection = newDocs.original
+    .substring(startIndex!, endIndex)
+    // Remove leading pipes (prettier artifacts in ts files)
+    .replaceAll('`\\| ', '`')
+    // Remove doubled spaces (unwanted artifacts)
+    .replace(/  +/g, ' ');
+
   const tableRows = Array.from(fieldsSection.matchAll(/^\|.*\|$/gm))
     .map((match) => match[0])
     .map((row) => row.split(/(?<!\\)\|/g)); // Split by not escaped '|'
@@ -60,7 +66,7 @@ function updateFieldsTable(
   // Remove the 'Inherited from' column
   tableRows.forEach((row) => row.splice(inheritedFromColumnIndex, 1));
 
-  // Generate the 'attribute' column by copying the property column and transform string to kebab case
+  // Add the 'attribute' column using the attributes collection (read from the manifest)
   const attributeColumn = [
     tableRows[0][propertyColumnIndex].replace('Name', 'Attribute').trim(),
     tableRows[1][propertyColumnIndex],

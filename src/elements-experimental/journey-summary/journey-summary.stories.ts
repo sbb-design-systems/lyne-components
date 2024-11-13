@@ -40,6 +40,12 @@ const headerLevel: InputType = {
   },
 };
 
+const a11yFootpath: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const now: InputType = {
   control: {
     type: 'date',
@@ -68,6 +74,7 @@ const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
   'round-trip': roundTrip,
   'header-level': headerLevel,
+  'a11y-footpath': a11yFootpath,
   now,
   trip,
   tripBack,
@@ -77,6 +84,7 @@ const defaultArgs: Args = {
   'disable-animation': false,
   'round-trip': false,
   'header-level': headerLevel.options![2],
+  'a11y-footpath': false,
   now: new Date('2022-12-05T12:11:00').valueOf(),
   trip: undefined,
   tripBack: undefined,

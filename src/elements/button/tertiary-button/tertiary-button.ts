@@ -11,8 +11,9 @@ import { buttonCommonStyle, buttonTertiaryStyle, SbbButtonCommonElementMixin } f
  * @slot - Use the unnamed slot to add content to the tertiary-button.
  * @slot icon - Slot used to display the icon, if one is set
  */
+export
 @customElement('sbb-tertiary-button')
-export class SbbTertiaryButtonElement extends SbbButtonCommonElementMixin(
+class SbbTertiaryButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
   public static override styles: CSSResultGroup = [buttonCommonStyle, buttonTertiaryStyle];

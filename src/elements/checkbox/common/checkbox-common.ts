@@ -1,6 +1,7 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { forceType } from '../../core/decorators.js';
 import {
   type Constructor,
   type SbbDisabledMixinType,
@@ -16,7 +17,7 @@ export declare class SbbCheckboxCommonElementMixinType
   extends SbbFormAssociatedCheckboxMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
-  public indeterminate: boolean;
+  public accessor indeterminate: boolean;
 
   public get group(): SbbCheckboxGroupElement | null;
 }
@@ -30,7 +31,9 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
     /** Whether the checkbox is indeterminate. */
-    @property({ type: Boolean }) public indeterminate = false;
+    @forceType()
+    @property({ type: Boolean })
+    public accessor indeterminate: boolean = false;
 
     /** Reference to the connected checkbox group. */
     public get group(): SbbCheckboxGroupElement | null {

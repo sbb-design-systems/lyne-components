@@ -9,6 +9,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
+import { forceType, handleDistinctChange, omitEmptyConverter } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import {
   i18nAdditionalWagonInformationHeading,
@@ -34,8 +35,9 @@ import '../../timetable-occupancy-icon.js';
  *
  * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
  */
+export
 @customElement('sbb-train-wagon')
-export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof LitElement>(
+class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof LitElement>(
   LitElement,
 ) {
   public static override styles: CSSResultGroup = style;
@@ -45,35 +47,33 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   protected override readonly listChildLocalNames = ['sbb-icon'];
 
   /** Wagon type. */
-  @property({ reflect: true }) public type: 'locomotive' | 'closed' | 'wagon' = 'wagon';
+  @property({ reflect: true }) public accessor type: 'locomotive' | 'closed' | 'wagon' = 'wagon';
 
   /** Occupancy of a wagon. */
-  @property() public occupancy?: SbbOccupancy = 'none';
+  @property() public accessor occupancy: SbbOccupancy = 'none';
 
   /** Sector in which to wagon stops. */
-  @property({ reflect: true })
-  public set sector(value: string) {
-    this._sector = value;
-    this._sectorChanged();
-  }
-  public get sector(): string | null {
-    return this._sector;
-  }
-  private _sector: string | null = null;
+  @forceType()
+  @handleDistinctChange((e) => e._sectorChanged())
+  @property({ reflect: true, converter: omitEmptyConverter })
+  public accessor sector: string = '';
 
   /** Accessibility text for blocked passages of the wagon. */
   @property({ attribute: 'blocked-passage' })
-  public blockedPassage: 'previous' | 'next' | 'both' | 'none' = 'none';
+  public accessor blockedPassage: 'previous' | 'next' | 'both' | 'none' = 'none';
 
   /** Visible class label of a wagon. */
-  @property({ attribute: 'wagon-class' }) public wagonClass?: '1' | '2';
+  @property({ attribute: 'wagon-class' }) public accessor wagonClass: '1' | '2' | null = null;
 
   /** Visible label for the wagon number. Not used by type locomotive or closed. */
-  @property() public label?: string;
+  @forceType()
+  @property()
+  public accessor label: string = '';
 
   /** Additional accessibility text which will be appended to the end. */
+  @forceType()
   @property({ attribute: 'additional-accessibility-text' })
-  public additionalAccessibilityText?: string;
+  public accessor additionalAccessibilityText: string = '';
 
   private _language = new SbbLanguageController(this);
 

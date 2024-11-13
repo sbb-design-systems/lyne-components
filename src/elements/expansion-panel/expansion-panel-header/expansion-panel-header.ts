@@ -18,11 +18,12 @@ import style from './expansion-panel-header.scss?lit&inline';
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
  * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
+export
 @customElement('sbb-expansion-panel-header')
 @hostAttributes({
   slot: 'header',
 })
-export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
+class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -66,7 +67,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   /**
    * The 'data-icon' is used by the 'sbb-expansion-panel'.
    * It needs to be set before the @slotchange event bubbles to the 'expansion-panel'
-   * but after the 'NamedSlotStateController' has run.
+   * but after the 'SbbSlotStateController' has run.
    */
   private _setDataIconAttribute(): void {
     this.toggleAttribute('data-icon', !!(this.iconName || this._namedSlots.slots.has('icon')));

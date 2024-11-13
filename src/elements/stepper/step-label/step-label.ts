@@ -19,17 +19,15 @@ let nextId = 0;
  * @slot - Use the unnamed slot to provide a label.
  * @slot icon - Use this to display an icon in the label bubble.
  */
+export
 @customElement('sbb-step-label')
 @hostAttributes({
   slot: 'step-label',
   tabindex: '-1',
   role: 'tab',
 })
-export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
+class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
   public static override styles: CSSResultGroup = style;
-
-  /** @internal */
-  private readonly _internals: ElementInternals = this.attachInternals();
 
   /** The step controlled by the label. */
   public get step(): SbbStepElement | null {
@@ -52,7 +50,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
     super.connectedCallback();
     const signal = this._abort.signal;
     this.id = this.id || `sbb-step-label-${nextId++}`;
-    this._internals.ariaSelected = 'false';
+    this.internals.ariaSelected = 'false';
     this._stepper = this.closest('sbb-stepper');
     this._step = this._getStep();
     // The `data-disabled` attribute is used to preserve the initial disabled state of
@@ -82,7 +80,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
    */
   public select(): void {
     this.tabIndex = 0;
-    this._internals.ariaSelected = 'true';
+    this.internals.ariaSelected = 'true';
     this.toggleAttribute('data-selected', true);
   }
 
@@ -92,7 +90,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
    */
   public deselect(): void {
     this.tabIndex = -1;
-    this._internals.ariaSelected = 'false';
+    this.internals.ariaSelected = 'false';
     this.toggleAttribute('data-selected', false);
   }
 
@@ -104,8 +102,8 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
     if (stepperLoaded) {
       this._step = this._getStep();
     }
-    this._internals.ariaPosInSet = `${posInSet}`;
-    this._internals.ariaSetSize = `${setSize}`;
+    this.internals.ariaPosInSet = `${posInSet}`;
+    this.internals.ariaSetSize = `${setSize}`;
   }
 
   protected override render(): TemplateResult {

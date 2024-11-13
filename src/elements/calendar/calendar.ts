@@ -21,6 +21,7 @@ import {
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
 } from '../core/datetime.js';
+import { forceType } from '../core/decorators.js';
 import { isBreakpoint } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
@@ -91,18 +92,21 @@ export type CalendarView = 'day' | 'month' | 'year';
  *
  * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
+export
 @customElement('sbb-calendar')
-export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
+class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     dateSelected: 'dateSelected',
   } as const;
 
   /** If set to true, two months are displayed */
-  @property({ type: Boolean }) public wide = false;
+  @forceType()
+  @property({ type: Boolean })
+  public accessor wide: boolean = false;
 
   /** The initial view of the calendar which should be displayed on opening. */
-  @property() public view: CalendarView = 'day';
+  @property() public accessor view: CalendarView = 'day';
 
   /** The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
   @property()
@@ -154,7 +158,9 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   private _selectedDate?: T | null;
 
   /** A function used to filter out dates. */
-  @property({ attribute: 'date-filter' }) public dateFilter?: (date: T | null) => boolean;
+  @property({ attribute: 'date-filter' }) public accessor dateFilter:
+    | ((date: T | null) => boolean)
+    | null = null;
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
@@ -165,10 +171,10 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   );
 
   /** The currently active date. */
-  @state() private _activeDate: T = this.now;
+  @state() private accessor _activeDate: T = this.now;
 
   /** The selected date as ISOString. */
-  @state() private _selected?: string;
+  @state() private accessor _selected: string | undefined;
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state()
@@ -179,7 +185,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     return this.hasAttribute('data-wide');
   }
 
-  @state() private _calendarView: CalendarView = 'day';
+  @state() private accessor _calendarView: CalendarView = 'day';
 
   private _nextCalendarView: CalendarView = 'day';
 
@@ -221,7 +227,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   private _resetFocus = false;
 
   @state()
-  private _initialized = false;
+  private accessor _initialized = false;
 
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this).withHandler(() => {
@@ -421,51 +427,56 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
 
   /** Checks if date is within the min-max range. */
   private _isDayInRange(date: string): boolean {
-    if (!this._min && !this._max) {
+    if (!this.min && !this.max) {
       return true;
     }
     const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this._min) &&
-      this._dateAdapter.compareDate(this._min!, this._dateAdapter.deserialize(date)!) > 0;
+      this._dateAdapter.isValid(this.min) &&
+      this._dateAdapter.compareDate(this.min!, this._dateAdapter.deserialize(date)!) > 0;
     const isAfterMax: boolean =
-      this._dateAdapter.isValid(this._max) &&
-      this._dateAdapter.compareDate(this._max!, this._dateAdapter.deserialize(date)!) < 0;
+      this._dateAdapter.isValid(this.max) &&
+      this._dateAdapter.compareDate(this.max!, this._dateAdapter.deserialize(date)!) < 0;
     return !(isBeforeMin || isAfterMax);
   }
 
-  private _isMonthInRange(month: number): boolean {
-    if (!this._min && !this._max) {
+  private _isMonthInRange(month: number, year: number): boolean {
+    if (!this.min && !this.max) {
       return true;
     }
+
     const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this._min) &&
-      this._dateAdapter.getYear(this._min!) >= this._chosenYear! &&
-      this._dateAdapter.getMonth(this._min!) > month;
+      this._dateAdapter.isValid(this.min) &&
+      (year < this._dateAdapter.getYear(this.min!) ||
+        (year === this._dateAdapter.getYear(this.min!) &&
+          month < this._dateAdapter.getMonth(this.min!)));
+
     const isAfterMax: boolean =
-      this._dateAdapter.isValid(this._max) &&
-      this._dateAdapter.getYear(this._max!) <= this._chosenYear! &&
-      this._dateAdapter.getMonth(this._max!) < month;
+      this._dateAdapter.isValid(this.max) &&
+      (year > this._dateAdapter.getYear(this.max!) ||
+        (year === this._dateAdapter.getYear(this.max!) &&
+          month > this._dateAdapter.getMonth(this.max!)));
+
     return !(isBeforeMin || isAfterMax);
   }
 
   private _isYearInRange(year: number): boolean {
-    if (!this._min && !this._max) {
+    if (!this.min && !this.max) {
       return true;
     }
     const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this._min) && this._dateAdapter.getYear(this._min!) > year;
+      this._dateAdapter.isValid(this.min) && this._dateAdapter.getYear(this.min!) > year;
     const isAfterMax: boolean =
-      this._dateAdapter.isValid(this._max) && this._dateAdapter.getYear(this._max!) < year;
+      this._dateAdapter.isValid(this.max) && this._dateAdapter.getYear(this.max!) < year;
     return !(isBeforeMin || isAfterMax);
   }
 
   // Implementation adapted from https://github.com/angular/components/blob/main/src/material/datepicker/year-view.ts#L366
-  private _isMonthFilteredOut(month: number): boolean {
+  private _isMonthFilteredOut(month: number, year: number): boolean {
     if (!this.dateFilter) {
       return true;
     }
 
-    const firstOfMonth = this._dateAdapter.createDate(this._chosenYear!, month, 1)!;
+    const firstOfMonth = this._dateAdapter.createDate(year, month, 1)!;
     for (
       let date: T = firstOfMonth;
       this._dateAdapter.getMonth(date) == month;
@@ -520,12 +531,12 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   }
 
   private _assignActiveDate(date: T): void {
-    if (this._min && this._dateAdapter.compareDate(this._min, date) > 0) {
-      this._activeDate = this._min;
+    if (this.min && this._dateAdapter.compareDate(this.min, date) > 0) {
+      this._activeDate = this.min;
       return;
     }
-    if (this._max && this._dateAdapter.compareDate(this._max, date) < 0) {
-      this._activeDate = this._max;
+    if (this.max && this._dateAdapter.compareDate(this.max, date) < 0) {
+      this._activeDate = this.max;
       return;
     }
     this._activeDate = date;
@@ -552,17 +563,17 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   }
 
   private _prevDisabled(prevDate: T): boolean {
-    if (!this._min) {
+    if (!this.min) {
       return false;
     }
-    return this._dateAdapter.compareDate(prevDate, this._min) < 0;
+    return this._dateAdapter.compareDate(prevDate, this.min) < 0;
   }
 
   private _nextDisabled(nextDate: T): boolean {
-    if (!this._max) {
+    if (!this.max) {
       return false;
     }
-    return this._dateAdapter.compareDate(nextDate, this._max) > 0;
+    return this._dateAdapter.compareDate(nextDate, this.max) > 0;
   }
 
   /** Checks if the "previous month" button should be disabled. */
@@ -596,7 +607,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
 
   private _nextYearDisabled(): boolean {
     const nextYear = this._dateAdapter.createDate(
-      this._dateAdapter.getYear(this._activeDate) + 1,
+      this._dateAdapter.getYear(this._activeDate) + (this._wide ? 2 : 1),
       1,
       1,
     );
@@ -609,7 +620,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   }
 
   private _nextYearRangeDisabled(): boolean {
-    const years = isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years;
+    const years = this._wide ? this._nextMonthYears : this._years;
     const lastYearRange = years[years.length - 1];
     const lastYear = lastYearRange[lastYearRange.length - 1];
     const nextYear = this._dateAdapter.createDate(lastYear + 1, 1, 1);
@@ -876,8 +887,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
     return html`
       <button
         type="button"
-        id="sbb-calendar__date-selection"
-        class="sbb-calendar__controls-change-date"
+        class="sbb-calendar__date-selection sbb-calendar__controls-change-date"
         aria-label="${i18nYearMonthSelection[this._language.current]} ${monthLabel}"
         @click=${() => {
           this._resetFocus = true;
@@ -1023,7 +1033,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
       </div>
       <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
         ${this._createMonthTable(this._months, this._chosenYear!)}
-        ${this._wide ? this._createMonthTable(this._months, this._chosenYear! + 1, true) : nothing}
+        ${this._wide ? this._createMonthTable(this._months, this._chosenYear! + 1) : nothing}
       </div>
     `;
   }
@@ -1044,7 +1054,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   }
 
   /** Creates the table for the month selection view. */
-  private _createMonthTable(months: Month[][], year: number, shiftRight = false): TemplateResult {
+  private _createMonthTable(months: Month[][], year: number): TemplateResult {
     return html`
       <table
         class="sbb-calendar__table"
@@ -1062,8 +1072,8 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
             (row: Month[]) => html`
               <tr>
                 ${row.map((month: Month) => {
-                  const isOutOfRange = !this._isMonthInRange(month.monthValue);
-                  const isFilteredOut = !this._isMonthFilteredOut(month.monthValue);
+                  const isOutOfRange = !this._isMonthInRange(month.monthValue, year);
+                  const isFilteredOut = !this._isMonthFilteredOut(month.monthValue, year);
                   const selectedMonth = this._selected
                     ? this._dateAdapter.getMonth(this._dateAdapter.deserialize(this._selected)!)
                     : undefined;
@@ -1091,9 +1101,9 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
                         'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                         'sbb-calendar__selected': selected,
                       })}
-                      @click=${() => this._onMonthSelection(month.monthValue, year, shiftRight)}
+                      @click=${() => this._onMonthSelection(month.monthValue, year)}
                       ?disabled=${isOutOfRange || isFilteredOut}
-                      aria-label=${`${month.longValue} ${this._chosenYear}`}
+                      aria-label=${`${month.longValue} ${year}`}
                       aria-pressed=${selected}
                       aria-disabled=${String(isOutOfRange || isFilteredOut)}
                       tabindex="-1"
@@ -1113,8 +1123,8 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   }
 
   /** Select the month and change the view to day selection. */
-  private _onMonthSelection(month: number, year: number, shiftRight: boolean): void {
-    this._chosenMonth = shiftRight ? month + 1 : month;
+  private _onMonthSelection(month: number, year: number): void {
+    this._chosenMonth = month;
     this._nextCalendarView = 'day';
     this._init(
       this._dateAdapter.createDate(
@@ -1171,9 +1181,7 @@ export class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) 
   /** Creates the label with the year range for the yearly view. */
   private _createLabelForYearView(): TemplateResult {
     const firstYear: number = this._years.flat()[0];
-    const lastYearArray: number[] = (
-      isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years
-    ).flat();
+    const lastYearArray: number[] = (this._wide ? this._nextMonthYears : this._years).flat();
     const lastYear: number = lastYearArray[lastYearArray.length - 1];
     const yearLabel = `${firstYear} - ${lastYear}`;
     return html`
