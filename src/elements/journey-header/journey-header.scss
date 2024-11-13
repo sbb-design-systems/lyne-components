@@ -30,7 +30,7 @@ sbb-icon {
   column-gap: var(--sbb-journey-header-gap);
   width: fit-content;
 
-  &[dir='rtl'] {
+  &:dir(rtl) {
     sbb-icon {
       transform: rotate(-180deg);
     }

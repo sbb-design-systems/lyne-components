@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-card-badge renders DOM"] = 
 `<sbb-card-badge
   color="charcoal"
-  dir="ltr"
   role="text"
   slot="badge"
 >

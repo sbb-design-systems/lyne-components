@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
@@ -9,7 +9,6 @@ import { EventEmitter } from '../core/eventing.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
-import { AgnosticMutationObserver } from '../core/observers.js';
 import type { SbbRadioButtonGroupElement, SbbRadioButtonPanelElement } from '../radio-button.js';
 
 import style from './selection-expansion-panel.scss?lit&inline';
@@ -96,9 +95,11 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
   private _language = new SbbLanguageController(this);
   private _abort = new SbbConnectedAbortController(this);
   private _initialized: boolean = false;
-  private _sizeAttributeObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
-    this._onSizeAttributesChange(mutationsList),
-  );
+  private _sizeAttributeObserver = !isServer
+    ? new MutationObserver((mutationsList: MutationRecord[]) =>
+        this._onSizeAttributesChange(mutationsList),
+      )
+    : null;
 
   /** Whether it has an expandable content */
   private get _hasContent(): boolean {
@@ -124,7 +125,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._sizeAttributeObserver.disconnect();
+    this._sizeAttributeObserver?.disconnect();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -182,9 +183,9 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
 
     this._checked = input.checked;
     this._disabled = input.disabled;
-    this._sizeAttributeObserver.disconnect();
+    this._sizeAttributeObserver?.disconnect();
     // The size of the inner panel can change due direct change on the panel or due to change of the input-group size.
-    this._sizeAttributeObserver.observe(input, { attributeFilter: ['size'] });
+    this._sizeAttributeObserver?.observe(input, { attributeFilter: ['size'] });
     this._updateState();
   }
 
@@ -257,7 +258,7 @@ export class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElem
         </div>
         <div
           class="sbb-selection-expansion-panel__content--wrapper"
-          .inert=${this._state !== 'opened'}
+          ?inert=${this._state !== 'opened'}
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
         >
           <div class="sbb-selection-expansion-panel__content">

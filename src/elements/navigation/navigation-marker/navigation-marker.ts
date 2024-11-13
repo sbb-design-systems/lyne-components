@@ -1,8 +1,8 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
-import { AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
 
@@ -29,11 +29,16 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
    */
   @property({ reflect: true }) public size?: 'l' | 's' = 'l';
 
-  @state() private _currentActiveAction?: SbbNavigationButtonElement | SbbNavigationLinkElement;
+  private _currentActiveAction?: SbbNavigationButtonElement | SbbNavigationLinkElement;
 
-  private _navigationMarkerResizeObserver = new AgnosticResizeObserver(() =>
-    this._setMarkerPosition(),
-  );
+  public constructor() {
+    super();
+
+    new ResizeController(this, {
+      skipInitial: true,
+      callback: () => this._setMarkerPosition(),
+    });
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
@@ -57,7 +62,6 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._navigationMarkerResizeObserver.observe(this);
     this._checkActiveAction();
   }
 
@@ -68,11 +72,6 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
     if (activeAction) {
       this.select(activeAction);
     }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._navigationMarkerResizeObserver.disconnect();
   }
 
   public select(action: SbbNavigationButtonElement | SbbNavigationLinkElement): void {

@@ -1,5 +1,11 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { readConfig } from '../../core/config.js';
@@ -9,7 +15,6 @@ import { findInput, findReferencedElement } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
-import { AgnosticMutationObserver } from '../../core/observers.js';
 import type { SbbDatepickerButton } from '../common.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 
@@ -276,14 +281,16 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
 
   private _datePickerController!: AbortController;
 
-  private _inputObserver = new AgnosticMutationObserver((mutationsList) => {
-    this._emitInputUpdated();
-    // TODO: Decide whether to remove this logic by adding a value property to the datepicker.
-    if (this._inputElement && mutationsList?.some((e) => e.attributeName === 'value')) {
-      const value = this._inputElement.getAttribute('value');
-      this.valueAsDate = this._dateAdapter.parse(value, this.now) ?? value;
-    }
-  });
+  private _inputObserver = !isServer
+    ? new MutationObserver((mutationsList) => {
+        this._emitInputUpdated();
+        // TODO: Decide whether to remove this logic by adding a value property to the datepicker.
+        if (this._inputElement && mutationsList?.some((e) => e.attributeName === 'value')) {
+          const value = this._inputElement.getAttribute('value');
+          this.valueAsDate = this._dateAdapter.parse(value, this.now) ?? value;
+        }
+      })
+    : null;
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
@@ -375,7 +382,7 @@ export class SbbDatepickerElement<T = Date> extends LitElement {
     this._inputElement = input;
     if (input) {
       this._datePickerController = new AbortController();
-      this._inputObserver.observe(input, {
+      this._inputObserver?.observe(input, {
         attributeFilter: ['disabled', 'readonly', 'min', 'max', 'value'],
       });
 

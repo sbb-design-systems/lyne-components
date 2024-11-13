@@ -40,11 +40,18 @@ const disabled: InputType = {
   },
 };
 
+const disabledInteractive: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   negative,
   'aria-label': ariaLabel,
   'icon-name': iconName,
   disabled,
+  'disabled-interactive': disabledInteractive,
 };
 
 const defaultArgs: Args = {
@@ -52,6 +59,7 @@ const defaultArgs: Args = {
   'aria-label': 'Click to open the popover',
   'icon-name': 'circle-information-small',
   disabled: false,
+  'disabled-interactive': false,
 };
 
 const popover = (): TemplateResult => html`

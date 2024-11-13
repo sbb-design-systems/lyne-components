@@ -2,7 +2,7 @@ import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../../core/mixins.js';
 import {
   buttonCommonStyle,
   buttonTransparentStyle,
@@ -17,7 +17,7 @@ import {
  */
 @customElement('sbb-transparent-button-link')
 export class SbbTransparentButtonLinkElement extends SbbButtonCommonElementMixin(
-  SbbDisabledMixin(SbbLinkBaseElement),
+  SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement)),
 ) {
   public static override styles: CSSResultGroup = [buttonCommonStyle, buttonTransparentStyle];
 }

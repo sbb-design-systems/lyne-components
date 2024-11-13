@@ -56,7 +56,7 @@ describe(`sbb-tab-group`, () => {
               </sbb-tab-label>
               <sbb-tab-label
                 amount=${numbersAndIcons ? 16 : nothing}
-                icon-name=${numbersAndIcons ? 'pie-small' : nothing}
+                icon-name=${numbersAndIcons ? 'face-smiling-small' : nothing}
               >
                 Tab title four
               </sbb-tab-label>
@@ -86,7 +86,9 @@ describe(`sbb-tab-group`, () => {
             <sbb-tab-label disabled amount="16" icon-name="train-small">
               Tab title three
             </sbb-tab-label>
-            <sbb-tab-label amount="16" icon-name="pie-small"> Tab title four </sbb-tab-label>
+            <sbb-tab-label amount="16" icon-name="face-smiling-small">
+              Tab title four
+            </sbb-tab-label>
           </sbb-tab-group>
         `);
       }),

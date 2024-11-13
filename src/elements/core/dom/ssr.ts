@@ -9,6 +9,8 @@ const localNameCache = new Map<unknown, string>();
  * https://github.com/lit/lit/blob/main/packages/labs/ssr-dom-shim/src.ts (See CustomElementRegistryShim)
  *
  * Can be removed once https://github.com/lit/lit/pull/4553 is merged/released.
+ *
+ * @deprecated Will be removed with next major version
  */
 export function getLocalName(element: LitElement): string {
   if (localNameCache.has(element.constructor)) {

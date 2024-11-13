@@ -1,3 +1,4 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -12,7 +13,6 @@ import { ref } from 'lit/directives/ref.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
-import { AgnosticResizeObserver } from '../../core/observers.js';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
 import type { SbbTrainWagonElement } from '../train-wagon.js';
 import type { SbbTrainElement } from '../train.js';
@@ -45,8 +45,12 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
   @state() private _sectors: AggregatedSector[] = [];
 
   /** Element that defines the visible content width. */
-  private _formationDiv!: HTMLDivElement;
-  private _contentResizeObserver = new AgnosticResizeObserver(() => this._applyCssWidth());
+  private _formationDiv?: HTMLDivElement;
+  private _contentResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => this._applyCssWidth(),
+  });
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
 
@@ -57,18 +61,13 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
     this.addEventListener('sectorChange', (e) => this._readSectors(e), { signal });
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._contentResizeObserver.disconnect();
-  }
-
   /**
    * Apply width of the scrollable space of the formation as a css variable. This will be used from
    * every slotted sbb-train for the direction-label
    */
   private _applyCssWidth(): void {
-    const contentWidth = this._formationDiv.getBoundingClientRect().width;
-    this._formationDiv.style.setProperty('--sbb-train-direction-width', `${contentWidth}px`);
+    const contentWidth = this._formationDiv!.getBoundingClientRect().width;
+    this._formationDiv!.style.setProperty('--sbb-train-direction-width', `${contentWidth}px`);
   }
 
   private _readSectors(event?: Event): void {
@@ -117,7 +116,9 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
     if (!el) {
       return;
     }
-    this._contentResizeObserver.disconnect();
+    if (this._formationDiv) {
+      this._contentResizeObserver.unobserve(this._formationDiv);
+    }
     this._formationDiv = el as HTMLDivElement;
     this._contentResizeObserver.observe(this._formationDiv);
     // There seems to be a slight difference between browser, in how the

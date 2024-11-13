@@ -50,6 +50,8 @@ function getPTConnectionAttribute(
 function getFirstExtendedLegAttribute(
   leg: PtRideLeg | PtConnectionLeg,
   departureWalk: number,
+  a11yFootpath: boolean | undefined,
+  currentLanguage: string,
 ): IAccessAttribute | null {
   // Extended enter
   const extendedFirstLeg = isRideLeg(leg)
@@ -64,8 +66,10 @@ function getFirstExtendedLegAttribute(
   return extendedFirstLeg
     ? {
         duration: (extractTimeAndString?.duration || 0) + (departureWalk || 0),
-        text: extractTimeAndString?.text || '',
-        icon: `sa-${extendedFirstLeg?.name?.toLowerCase()}`,
+        text: a11yFootpath
+          ? i18nWalkingDistanceDeparture[currentLanguage]
+          : extractTimeAndString?.text || '',
+        icon: a11yFootpath ? 'wheelchair-small' : `sa-${extendedFirstLeg?.name?.toLowerCase()}`,
       }
     : null;
 }
@@ -73,7 +77,12 @@ function getFirstExtendedLegAttribute(
 /**
  * @returns the extended exit attribute of the PTRideLeg
  */
-function getLastExtendedLegAttribute(leg: Leg, arrivalWalk: number): IAccessAttribute | null {
+function getLastExtendedLegAttribute(
+  leg: Leg,
+  arrivalWalk: number,
+  a11yFootpath: boolean | undefined,
+  currentLanguage: string,
+): IAccessAttribute | null {
   // Extended exit
   const extendedLastLeg = isRideLeg(leg)
     ? (leg as PtRideLeg)?.serviceJourney?.notices?.filter((notice) =>
@@ -87,8 +96,10 @@ function getLastExtendedLegAttribute(leg: Leg, arrivalWalk: number): IAccessAttr
   return extendedLastLeg
     ? {
         duration: (extractTimeAndString?.duration || 0) + (arrivalWalk || 0),
-        text: extractTimeAndString?.text || '',
-        icon: `sa-${extendedLastLeg?.name?.toLowerCase()}`,
+        text: a11yFootpath
+          ? i18nWalkingDistanceArrival[currentLanguage]
+          : extractTimeAndString?.text || '',
+        icon: a11yFootpath ? 'wheelchair-small' : `sa-${extendedLastLeg?.name?.toLowerCase()}`,
       }
     : null;
 }
@@ -104,7 +115,7 @@ function renderTransferTime(
   type?: 'departure' | 'arrival',
 ): TemplateResult {
   return html`
-    <span class="sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${type}">
+    <span class="sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${icon}-${type}">
       <sbb-icon name=${icon}></sbb-icon>
       <time datetime=${duration + 'M'}>
         <span class="sbb-screen-reader-only">
@@ -130,10 +141,11 @@ function renderWalkTime(
   duration: number | string,
   label: string,
   variant: 'left' | 'right',
+  icon: string,
 ): TemplateResult {
   return html`
-    <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${variant}">
-      <sbb-icon name="walk-small"></sbb-icon>
+    <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${icon}-${variant}">
+      <sbb-icon name=${icon}></sbb-icon>
       <time datetime=${duration + 'M'}>
         <span class="sbb-screen-reader-only">${label}</span>
         ${duration}
@@ -148,6 +160,7 @@ function renderWalkTime(
  * @param departureWalk: The walking distance in minutes from the departure point to the first leg.
  * @param arrivalWalk: The walking distance in minutes from the last leg to the arrival point.
  * @param currentLanguage: The current language for localization.
+ * @param a11yFootpath: Whether the a11y-icon should be shown.
  * @returns renderDepartureTimeAttribute: A function that renders the element for the departure time attribute.
  * @returns renderArrivalTimeAttribute: A function that renders the element for the arrival time attribute.
  * @returns arrivalTimeAttribute: The access attribute for the arrival time.
@@ -158,6 +171,7 @@ export function getDepartureArrivalTimeAttribute(
   departureWalk: number,
   arrivalWalk: number,
   currentLanguage: string,
+  a11yFootpath?: boolean,
 ): {
   renderDepartureTimeAttribute: () => TemplateResult;
   renderArrivalTimeAttribute: () => TemplateResult;
@@ -173,12 +187,17 @@ export function getDepartureArrivalTimeAttribute(
   const connectionLegNotice = ['YM', 'YB', 'Y', 'YT'];
 
   const connectionFirstLeg = getPTConnectionAttribute(connectionRideLeg, connectionLegNotice);
-  const extendedFirstLeg = getFirstExtendedLegAttribute(connectionRideLeg, departureWalk);
+  const extendedFirstLeg = getFirstExtendedLegAttribute(
+    connectionRideLeg,
+    departureWalk,
+    a11yFootpath,
+    currentLanguage,
+  );
   const departureWalkAttribute = departureWalk
     ? {
         text: i18nWalkingDistanceDeparture[currentLanguage],
         duration: departureWalk,
-        icon: 'walk-small',
+        icon: a11yFootpath ? 'wheelchair-small' : 'walk-small',
       }
     : null;
 
@@ -197,19 +216,36 @@ export function getDepartureArrivalTimeAttribute(
   function renderDepartureTimeAttribute(): TemplateResult {
     return html`
       ${connectionFirstLeg
-        ? renderWalkTime(connectionFirstLeg.duration, connectionFirstLeg.text, 'left')
+        ? renderWalkTime(
+            connectionFirstLeg.duration,
+            connectionFirstLeg.text,
+            'left',
+            connectionFirstLeg.icon,
+          )
         : nothing}
       ${departureWalkAttribute && !extendedFirstLeg && !connectionFirstLeg
-        ? renderWalkTime(departureWalkAttribute.duration, departureWalkAttribute.text, 'left')
+        ? renderWalkTime(
+            departureWalkAttribute.duration,
+            departureWalkAttribute.text,
+            'left',
+            departureWalkAttribute.icon,
+          )
         : nothing}
       ${extendedFirstLeg
-        ? renderTransferTime(
-            extendedFirstLeg.duration,
-            extendedFirstLeg.icon,
-            currentLanguage,
-            extendedFirstLeg.text,
-            'departure',
-          )
+        ? a11yFootpath
+          ? renderWalkTime(
+              extendedFirstLeg.duration,
+              extendedFirstLeg.text,
+              'left',
+              extendedFirstLeg.icon,
+            )
+          : renderTransferTime(
+              extendedFirstLeg.duration,
+              extendedFirstLeg.icon,
+              currentLanguage,
+              extendedFirstLeg.text,
+              'departure',
+            )
         : nothing}
     `;
   }
@@ -221,12 +257,13 @@ export function getDepartureArrivalTimeAttribute(
   const connectionLastLeg =
     lastConnectionRideLeg && getPTConnectionAttribute(lastConnectionRideLeg, connectionLegNotice);
   const extendedLastLeg =
-    lastConnectionRideLeg && getLastExtendedLegAttribute(lastConnectionRideLeg, arrivalWalk);
+    lastConnectionRideLeg &&
+    getLastExtendedLegAttribute(lastConnectionRideLeg, arrivalWalk, a11yFootpath, currentLanguage);
   const arrivalWalkAttribute = arrivalWalk
     ? {
         text: i18nWalkingDistanceArrival[currentLanguage],
         duration: arrivalWalk,
-        icon: 'walk-small',
+        icon: a11yFootpath ? 'wheelchair-small' : 'walk-small',
       }
     : null;
 
@@ -245,19 +282,36 @@ export function getDepartureArrivalTimeAttribute(
   function renderArrivalTimeAttribute(): TemplateResult {
     return html`
       ${connectionLastLeg
-        ? renderWalkTime(connectionLastLeg.duration, connectionLastLeg.text, 'right')
+        ? renderWalkTime(
+            connectionLastLeg.duration,
+            connectionLastLeg.text,
+            'right',
+            connectionLastLeg.icon,
+          )
         : nothing}
       ${arrivalWalkAttribute && !extendedLastLeg && !connectionLastLeg
-        ? renderWalkTime(arrivalWalkAttribute.duration, arrivalWalkAttribute.text, 'right')
+        ? renderWalkTime(
+            arrivalWalkAttribute.duration,
+            arrivalWalkAttribute.text,
+            'right',
+            arrivalWalkAttribute.icon,
+          )
         : nothing}
       ${extendedLastLeg
-        ? renderTransferTime(
-            extendedLastLeg.duration,
-            extendedLastLeg.icon,
-            currentLanguage,
-            extendedLastLeg.text,
-            'arrival',
-          )
+        ? a11yFootpath
+          ? renderWalkTime(
+              extendedLastLeg.duration,
+              extendedLastLeg.text,
+              'right',
+              extendedLastLeg.icon,
+            )
+          : renderTransferTime(
+              extendedLastLeg.duration,
+              extendedLastLeg.icon,
+              currentLanguage,
+              extendedLastLeg.text,
+              'arrival',
+            )
         : nothing}
     `;
   }

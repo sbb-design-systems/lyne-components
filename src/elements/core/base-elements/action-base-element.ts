@@ -1,7 +1,6 @@
 import { html, LitElement, type TemplateResult } from 'lit';
 
 import { hostAttributes } from '../decorators.js';
-import { getDocumentWritingMode, getLocalName } from '../dom.js';
 
 /**
  * Whenever an element can be disabled it has disabled property
@@ -11,16 +10,20 @@ import { getDocumentWritingMode, getLocalName } from '../dom.js';
 type MaybeDisabled = {
   disabled?: boolean;
   formDisabled?: boolean;
+  disabledInteractive?: boolean;
 };
 
 @hostAttributes({
-  dir: getDocumentWritingMode(),
   'data-action': '',
 })
 export abstract class SbbActionBaseElement extends LitElement {
   protected get maybeDisabled(): boolean | undefined {
     const maybeDisabled = this as MaybeDisabled;
     return maybeDisabled.disabled || maybeDisabled.formDisabled;
+  }
+
+  protected get maybeDisabledInteractive(): boolean | undefined {
+    return (this as MaybeDisabled).disabledInteractive;
   }
 
   public override connectedCallback(): void {
@@ -42,7 +45,7 @@ export abstract class SbbActionBaseElement extends LitElement {
     this.addEventListener(
       'click',
       (event) => {
-        if (this.maybeDisabled) {
+        if (this.maybeDisabled && !this.maybeDisabledInteractive) {
           event.preventDefault();
           event.stopImmediatePropagation();
         }
@@ -60,10 +63,6 @@ export abstract class SbbActionBaseElement extends LitElement {
 
   /** Default render method for button-like components. */
   protected override render(): TemplateResult {
-    return html`
-      <span class="sbb-action-base ${this.localName ?? getLocalName(this)}">
-        ${this.renderTemplate()}
-      </span>
-    `;
+    return html` <span class="sbb-action-base ${this.localName}">${this.renderTemplate()}</span> `;
   }
 }

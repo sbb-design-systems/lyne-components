@@ -67,19 +67,33 @@ associate the popover trigger with the popover via `aria-describedby` and an `id
 </sbb-popover>
 ```
 
+### Interactive disabled buttons
+
+Native disabled elements cannot receive focus and do not dispatch any events. This can
+be problematic in some cases because it can prevent the app from telling the user why the button is
+disabled. Consumers can use the `disabledInteractive` property to style the button as disabled but allow for
+it to receive focus and dispatch events. The button will have `aria-disabled="true"` for assistive
+technology. It is the consumers responsibility to provide a reason for the element being disabled.
+This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-describedby` attribute.
+
+**Note:** Using the `disabledInteractive` property can result in buttons that previously prevented
+actions to no longer do so, for example a submit button in a form. When using this input, you should
+guard against such cases in your component.
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                  | Default    | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `disabled`  | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                               |
-| `form`     | `form`      | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                                 |
-| `iconName` | `icon-name` | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `name`     | `name`      | public  | `string`              |            | The name of the button element.                                                                                                  |
-| `negative` | `negative`  | public  | `boolean`             | `false`    | Negative coloring variant flag.                                                                                                  |
-| `type`     | `type`      | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                        |
-| `value`    | `value`     | public  | `string`              |            | The value of the button element.                                                                                                 |
+| Name                  | Attribute              | Privacy | Type                  | Default    | Description                                                                                                                      |
+| --------------------- | ---------------------- | ------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`            | `disabled`             | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                               |
+| `disabledInteractive` | `disabled-interactive` | public  | `boolean`             | `false`    | Whether disabled buttons should be interactive.                                                                                  |
+| `form`                | `form`                 | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                                 |
+| `iconName`            | `icon-name`            | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `name`                | `name`                 | public  | `string`              |            | The name of the button element.                                                                                                  |
+| `negative`            | `negative`             | public  | `boolean`             | `false`    | Negative coloring variant flag.                                                                                                  |
+| `type`                | `type`                 | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                        |
+| `value`               | `value`                | public  | `string`              |            | The value of the button element.                                                                                                 |
 
 ## Slots
 
