@@ -2,7 +2,9 @@
 
 @mixin figure {
   display: grid;
-  grid-row-gap: var(--sbb-spacing-fixed-4x);
+  grid-template-rows: auto;
+  grid-template-columns: 100%;
+  grid-auto-rows: auto;
   margin: 0;
   height: 100%;
 }
@@ -16,6 +18,7 @@
 @mixin figure-caption {
   grid-row: 2;
   grid-column: 1;
+  padding-block-start: var(--sbb-spacing-fixed-4x);
   @include typo.text-xs--regular;
 }
 
