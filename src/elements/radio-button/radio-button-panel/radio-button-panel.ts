@@ -11,7 +11,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { getOverride, slotState } from '../../core/decorators.js';
 import {
   panelCommonStyle,
-  RadioButtonRegistry,
   type SbbFormAssociatedRadioButtonMixinType,
   SbbPanelMixin,
   type SbbPanelSize,
@@ -74,8 +73,7 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
    */
   protected override updateFocusableRadios(): void {
     super.updateFocusableRadios();
-    const radios = (RadioButtonRegistry.getRadios(this.name, this.form) ||
-      []) as SbbRadioButtonPanelElement[];
+    const radios = Array.from(this.associatedRadioButtons ?? []) as SbbRadioButtonPanelElement[];
 
     radios
       .filter((r) => !r.disabled && r._hasSelectionExpansionPanelElement)

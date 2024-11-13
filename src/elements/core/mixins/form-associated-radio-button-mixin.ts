@@ -15,6 +15,18 @@ import {
 } from './form-associated-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
 
+/**
+ * A static registry that holds a collection of grouped `radio-buttons`.
+ * Groups of radio buttons are local to the form they belong (or the `renderRoot` if they're not part of any form)
+ * Multiple groups of radio with the same name can coexist (as long as they belong to a different form / renderRoot)
+ * It is mainly used to support the standalone groups of radios.
+ * @internal
+ */
+const radioButtonRegistry = new WeakMap<
+  Node,
+  Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>
+>();
+
 export declare class SbbFormAssociatedRadioButtonMixinType
   extends SbbFormAssociatedMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
@@ -23,6 +35,7 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   public disabled: boolean;
   public required: boolean;
 
+  protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonMixinType>;
   protected abort: SbbConnectedAbortController;
 
   public formResetCallback(): void;
@@ -35,77 +48,6 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   protected updateFocusableRadios(): void;
   protected emitChangeEvents(): void;
   protected navigateByKeyboard(radio: SbbFormAssociatedRadioButtonMixinType): Promise<void>;
-}
-
-type RadioButtonGroup = {
-  name: string;
-  form: HTMLFormElement | null;
-  radios: SbbFormAssociatedRadioButtonMixinType[];
-};
-
-/**
- * A static registry that holds a collection of `radio-buttons`, grouped by `name + form`.
- * It is mainly used to support the standalone groups of radios.
- * The identifier of a group is composed of the couple 'name + form' because multiple radios with the same name can coexist (as long as they belong to different forms)
- * @internal
- */
-export class RadioButtonRegistry {
-  private static _registry: RadioButtonGroup[] = [];
-
-  private constructor() {}
-
-  /**
-   * Adds @radio to the '@groupName + @form' group. Checks for duplicates
-   */
-  public static addRadioToGroup(
-    radio: SbbFormAssociatedRadioButtonMixinType,
-    groupName: string,
-    form = radio.form,
-  ): void {
-    let group = this._registry.find((g) => g.name === groupName && g.form === form);
-
-    // If it does not exist, initializes it
-    if (!group) {
-      group = { name: groupName, form: form, radios: [] };
-      this._registry.push(group);
-    }
-
-    // Check for duplicates
-    if (group.radios.indexOf(radio) !== -1) {
-      return;
-    }
-    group.radios.push(radio);
-  }
-
-  /**
-   * Removes @radio from the group it belongs.
-   */
-  public static removeRadioFromGroup(radio: SbbFormAssociatedRadioButtonMixinType): void {
-    // Find the group where @radio belongs
-    const groupIndex = this._registry.findIndex((g) => g.radios.find((r) => r === radio));
-    const group = this._registry[groupIndex];
-    if (!group) {
-      return;
-    }
-
-    // Remove @radio from the group
-    group.radios.splice(group.radios.indexOf(radio), 1);
-
-    // If the group is empty, clear it
-    if (group.radios.length === 0) {
-      this._registry.splice(groupIndex, 1);
-    }
-  }
-
-  /**
-   * Return an array of radios that belong to the group '@groupName + @form'
-   */
-  public static getRadios(
-    groupName: string,
-    form: HTMLFormElement | null,
-  ): SbbFormAssociatedRadioButtonMixinType[] {
-    return this._registry.find((g) => g.name === groupName && g.form === form)?.radios ?? [];
-  }
 }
 
 /**
@@ -126,6 +68,11 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     @property({ type: Boolean })
     public accessor checked: boolean = false;
 
+    /**
+     * Set of radio buttons that belongs to the same group of `this`.
+     * Assume them ordered in DOM order
+     */
+    protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonElement>;
     protected abort = new SbbConnectedAbortController(this);
     private _didLoad: boolean = false;
 
@@ -232,14 +179,11 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       if (!this._didLoad) {
         return;
       }
-      const radios = this._orderedGroupedRadios();
-      const checkedIndex = radios.findIndex((r) => r.checked && !r.disabled && !r.formDisabled);
-      const focusableIndex =
-        checkedIndex !== -1
-          ? checkedIndex
-          : radios.findIndex((r) => !r.disabled && !r.formDisabled); // Get the first focusable radio
+      const radios = this._interactableGroupedRadios();
+      const checkedIndex = radios.findIndex((r) => r.checked);
+      const focusableIndex = checkedIndex !== -1 ? checkedIndex : 0;
 
-      if (focusableIndex !== -1) {
+      if (radios[focusableIndex]) {
         radios[focusableIndex].tabIndex = 0;
         radios.splice(focusableIndex, 1);
       }
@@ -267,22 +211,66 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     /**
      * Add `this` to the radioButton registry
      */
-    private _connectToRegistry(name = this.name): void {
-      if (!name) {
+    private _connectToRegistry(): void {
+      if (!this.name) {
         return;
       }
-      RadioButtonRegistry.addRadioToGroup(
-        this as unknown as SbbFormAssociatedRadioButtonMixinType,
-        name,
+
+      const root = this.form ?? this.getRootNode();
+      let nameMap = radioButtonRegistry.get(root);
+
+      // Initialize the 'root' map entry
+      if (!nameMap) {
+        nameMap = new Map();
+        radioButtonRegistry.set(root, nameMap);
+      }
+
+      this.associatedRadioButtons = nameMap.get(
+        this.name,
+      ) as unknown as Set<SbbFormAssociatedRadioButtonElement>;
+
+      // Initialize the group set
+      if (!this.associatedRadioButtons) {
+        this.associatedRadioButtons = new Set();
+        nameMap.set(
+          this.name,
+          this.associatedRadioButtons as unknown as Set<SbbFormAssociatedRadioButtonMixinType>,
+        );
+      }
+
+      // Insert the new radio into the set and sort following the DOM order.
+      // Since the order of a 'Set' is the insert order, we have to empty it and re-insert radios in order
+      const entries = Array.from(this.associatedRadioButtons);
+      this.associatedRadioButtons.clear();
+
+      // Find `this` position and insert it
+      const index = entries.findIndex(
+        (r) => this.compareDocumentPosition(r) & Node.DOCUMENT_POSITION_FOLLOWING,
       );
+      if (index !== -1) {
+        entries.splice(index, 0, this);
+      } else {
+        entries.push(this);
+      }
+
+      // Repopulate the Set
+      entries.forEach((r) => this.associatedRadioButtons!.add(r));
     }
 
     /**
      * Remove `this` from the radioButton registry
      */
     private _disconnectFromRegistry(): void {
-      RadioButtonRegistry.removeRadioFromGroup(
-        this as unknown as SbbFormAssociatedRadioButtonMixinType,
+      this.associatedRadioButtons?.delete(this);
+      this.associatedRadioButtons = undefined;
+    }
+
+    /**
+     * Return a list of 'interactable' grouped radios, ordered in DOM order
+     */
+    private _interactableGroupedRadios(): SbbFormAssociatedRadioButtonElement[] {
+      return Array.from(this.associatedRadioButtons!).filter(
+        (el) => interactivityChecker.isVisible(el) && !el.disabled && !el.formDisabled,
       );
     }
 
@@ -290,20 +278,9 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      * Deselect other radio of the same group
      */
     private _deselectGroupedRadios(): void {
-      RadioButtonRegistry.getRadios(this.name, this.form)
-        .filter((r) => r !== (this as unknown as SbbFormAssociatedRadioButtonMixinType))
+      Array.from(this.associatedRadioButtons!)
+        .filter((r) => r !== this)
         .forEach((r) => (r.checked = false));
-    }
-
-    /**
-     * Return the grouped radios in DOM order
-     */
-    private _orderedGroupedRadios(groupName = this.name): SbbFormAssociatedRadioButtonElement[] {
-      return Array.from(
-        (this.form ?? document).querySelectorAll<SbbFormAssociatedRadioButtonElement>(
-          `:is(sbb-radio-button, sbb-radio-button-panel)[name="${groupName}"]`,
-        ),
-      ).filter((el) => interactivityChecker.isVisible(el));
     }
 
     private async _handleArrowKeyDown(evt: KeyboardEvent): Promise<void> {
@@ -312,9 +289,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       }
       evt.preventDefault();
 
-      const enabledRadios = this._orderedGroupedRadios().filter(
-        (r) => !r.disabled && !r.formDisabled,
-      );
+      const enabledRadios = this._interactableGroupedRadios();
       const current: number = enabledRadios.indexOf(this);
       const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
 
