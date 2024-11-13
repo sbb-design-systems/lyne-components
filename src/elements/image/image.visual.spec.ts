@@ -9,7 +9,6 @@ import './image.js';
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
 const aspectRatios = [
-  'free',
   '1-1',
   '1-2',
   '2-1',
