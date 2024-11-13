@@ -22,7 +22,7 @@ import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js
  * It is mainly used to support the standalone groups of radios.
  * @internal
  */
-const radioButtonRegistry = new WeakMap<
+export const radioButtonRegistry = new WeakMap<
   Node,
   Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>
 >();
@@ -68,12 +68,14 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     @property({ type: Boolean })
     public accessor checked: boolean = false;
 
+    protected abort = new SbbConnectedAbortController(this);
+
     /**
      * Set of radio buttons that belongs to the same group of `this`.
      * Assume them ordered in DOM order
      */
     protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonElement>;
-    protected abort = new SbbConnectedAbortController(this);
+    private _radioButtonGroupsMap?: Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>;
     private _didLoad: boolean = false;
 
     protected constructor() {
@@ -220,22 +222,22 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       }
 
       const root = this.form ?? this.getRootNode();
-      let nameMap = radioButtonRegistry.get(root);
+      this._radioButtonGroupsMap = radioButtonRegistry.get(root);
 
       // Initialize the 'root' map entry
-      if (!nameMap) {
-        nameMap = new Map();
-        radioButtonRegistry.set(root, nameMap);
+      if (!this._radioButtonGroupsMap) {
+        this._radioButtonGroupsMap = new Map();
+        radioButtonRegistry.set(root, this._radioButtonGroupsMap);
       }
 
-      this.associatedRadioButtons = nameMap.get(
+      this.associatedRadioButtons = this._radioButtonGroupsMap.get(
         this.name,
       ) as unknown as Set<SbbFormAssociatedRadioButtonElement>;
 
       // Initialize the group set
       if (!this.associatedRadioButtons) {
         this.associatedRadioButtons = new Set();
-        nameMap.set(
+        this._radioButtonGroupsMap.set(
           this.name,
           this.associatedRadioButtons as unknown as Set<SbbFormAssociatedRadioButtonMixinType>,
         );
@@ -261,11 +263,17 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     }
 
     /**
-     * Remove `this` from the radioButton registry
+     * Remove `this` from the radioButton registry and, if the group is empty, delete the entry from the groups Map
      */
     private _disconnectFromRegistry(): void {
       this.associatedRadioButtons?.delete(this);
+
+      if (this.associatedRadioButtons?.size === 0) {
+        this._radioButtonGroupsMap?.delete(this.name);
+      }
+
       this.associatedRadioButtons = undefined;
+      this._radioButtonGroupsMap = undefined;
     }
 
     /**

@@ -4,6 +4,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import { isChromium, isWebkit } from '../../core/dom.js';
+import { radioButtonRegistry } from '../../core/mixins.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
@@ -532,6 +533,7 @@ describe(`radio-button common behaviors`, () => {
 
         describe('multiple groups with the same name', () => {
           let root: HTMLElement;
+          let form2: HTMLFormElement;
 
           beforeEach(async () => {
             root = await fixture(html`
@@ -550,6 +552,7 @@ describe(`radio-button common behaviors`, () => {
             `);
 
             form = root.querySelector('form#main')!;
+            form2 = root.querySelector('form#secondary')!;
             elements = Array.from(root.querySelectorAll(selector));
             await waitForLitRender(root);
           });
@@ -579,6 +582,50 @@ describe(`radio-button common behaviors`, () => {
             expect(elements[2].checked).to.be.true;
             expect(elements[5].tabIndex).to.be.equal(-1);
             expect(elements[5].checked).to.be.false;
+          });
+
+          describe('radioButtonRegistry', () => {
+            it('should be in the correct state', async () => {
+              const group1Set = radioButtonRegistry.get(form)!.get('sbb-group-1')!;
+              const group2Set = radioButtonRegistry.get(form2)!.get('sbb-group-1')!;
+              const group1Radios = Array.from(form.querySelectorAll(selector));
+              const group2Radios = Array.from(form2.querySelectorAll(selector));
+
+              // Assert the order is the correct
+              expect(group1Set.size).to.be.equal(3);
+              expect(group2Set.size).to.be.equal(3);
+
+              expect(Array.from(group1Set)).contains.members(group1Radios);
+              expect(Array.from(group2Set)).contains.members(group2Radios);
+            });
+
+            it('should be sorted in DOM order', async () => {
+              const group1Set = radioButtonRegistry.get(form)!.get('sbb-group-1')!;
+              let group1Radios = Array.from(form.querySelectorAll(selector));
+
+              // Assert the order is the correct
+              expect(group1Set.size).to.be.equal(3);
+              Array.from(group1Set).forEach((r, i) => expect(group1Radios[i] === r).to.be.true);
+
+              // Move the first radio to the last position
+              form.append(group1Radios[0]);
+              group1Radios = Array.from(form.querySelectorAll(selector));
+
+              // Assert the order is the correct
+              expect(group1Set.size).to.be.equal(3);
+              Array.from(group1Set).forEach((r, i) => expect(group1Radios[i] === r).to.be.true);
+            });
+
+            it('should remove empty entries from the registry', async () => {
+              const group1Set = radioButtonRegistry.get(form)!.get('sbb-group-1')!;
+
+              form.remove();
+              await waitForLitRender(root);
+
+              expect(group1Set.size).to.be.equal(0);
+              expect(radioButtonRegistry.get(form)!.get('sbb-group-1')).to.be.undefined;
+              expect(radioButtonRegistry.get(form2)!.get('sbb-group-1')).to.be.undefined;
+            });
           });
         });
       });
