@@ -617,13 +617,14 @@ describe(`radio-button common behaviors`, () => {
             });
 
             it('should remove empty entries from the registry', async () => {
-              const group1Set = radioButtonRegistry.get(form)!.get('sbb-group-1')!;
+              const group2Set = radioButtonRegistry.get(form2)!.get('sbb-group-1')!;
 
-              form.remove();
+              // Remove the second radio group from the DOM
+              form2.remove();
               await waitForLitRender(root);
 
-              expect(group1Set.size).to.be.equal(0);
-              expect(radioButtonRegistry.get(form)!.get('sbb-group-1')).to.be.undefined;
+              expect(group2Set.size).to.be.equal(0);
+              expect(radioButtonRegistry.get(form)!.get('sbb-group-1')?.size).to.be.equal(3);
               expect(radioButtonRegistry.get(form2)!.get('sbb-group-1')).to.be.undefined;
             });
           });
