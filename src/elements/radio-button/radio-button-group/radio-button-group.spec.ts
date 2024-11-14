@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
 
@@ -88,9 +88,9 @@ import { SbbRadioButtonGroupElement } from './radio-button-group.js';
           const inputSpy = new EventSpy('input');
 
           checkedRadio.click();
-          await waitForCondition(() => changeSpy.events.length === 1);
+          await changeSpy.calledOnce();
           expect(changeSpy.count).to.be.equal(1);
-          await waitForCondition(() => inputSpy.events.length === 1);
+          await inputSpy.calledOnce();
           expect(inputSpy.count).to.be.equal(1);
 
           firstRadio.click();

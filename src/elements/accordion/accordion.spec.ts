@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 import {
   SbbExpansionPanelElement,
   type SbbExpansionPanelHeaderElement,
@@ -139,21 +139,21 @@ describe(`sbb-accordion`, () => {
     }
 
     headerTwo.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerOne.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 2);
+    await willOpenEventSpy.calledTwice();
     expect(willOpenEventSpy.count).to.be.equal(2);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(false);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerThree.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 3);
+    await willOpenEventSpy.calledTrice();
     expect(willOpenEventSpy.count).to.be.equal(3);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(false);
@@ -182,21 +182,21 @@ describe(`sbb-accordion`, () => {
     }
 
     headerTwo.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerOne.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 2);
+    await willOpenEventSpy.calledTwice();
     expect(willOpenEventSpy.count).to.be.equal(2);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerThree.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 3);
+    await willOpenEventSpy.calledTrice();
     expect(willOpenEventSpy.count).to.be.equal(3);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
@@ -224,12 +224,12 @@ describe(`sbb-accordion`, () => {
     const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen);
 
     headerTwo.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     expect(panelTwo.expanded).to.be.equal(true);
 
     headerThree.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 2);
+    await willOpenEventSpy.calledTwice();
     expect(willOpenEventSpy.count).to.be.equal(2);
     expect(panelThree.expanded).to.be.equal(true);
 

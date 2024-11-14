@@ -51,7 +51,7 @@ describe(`checkbox common behaviors`, () => {
           element.focus();
           await sendKeys({ press: 'Space' });
 
-          await waitForCondition(() => changeSpy.count === 1);
+          await changeSpy.calledOnce();
           expect(changeSpy.count).to.be.greaterThan(0);
         });
       });

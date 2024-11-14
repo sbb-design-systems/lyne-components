@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../core/dom.js';
 import { fixture, tabKey } from '../core/testing/private.js';
-import { describeIf, EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+import { describeIf, EventSpy, waitForLitRender } from '../core/testing.js';
 import { SbbFormFieldElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
@@ -70,47 +70,47 @@ describe(`sbb-autocomplete`, () => {
     const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose);
 
     input.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'true');
 
     await sendKeys({ press: 'Escape' });
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
 
     await sendKeys({ press: 'ArrowDown' });
-    await waitForCondition(() => willOpenEventSpy.events.length === 2);
+    await willOpenEventSpy.calledTwice();
     expect(willOpenEventSpy.count).to.be.equal(2);
-    await waitForCondition(() => didOpenEventSpy.events.length === 2);
+    await didOpenEventSpy.calledTwice();
     expect(didOpenEventSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'true');
 
     await sendKeys({ press: tabKey });
-    await waitForCondition(() => willCloseEventSpy.events.length === 2);
+    await willCloseEventSpy.calledTwice();
     expect(willCloseEventSpy.count).to.be.equal(2);
-    await waitForCondition(() => didCloseEventSpy.events.length === 2);
+    await didCloseEventSpy.calledTwice();
     expect(didCloseEventSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'false');
 
     input.click();
-    await waitForCondition(() => willOpenEventSpy.events.length === 3);
+    await willOpenEventSpy.calledTrice();
     expect(willOpenEventSpy.count).to.be.equal(3);
-    await waitForCondition(() => didOpenEventSpy.events.length === 3);
+    await didOpenEventSpy.calledTrice();
     expect(didOpenEventSpy.count).to.be.equal(3);
     expect(input).to.have.attribute('aria-expanded', 'true');
 
     // Simulate backdrop click
     sendMouse({ type: 'click', position: [formField.offsetWidth + 25, 25] });
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 3);
+    await willCloseEventSpy.calledTrice();
     expect(willCloseEventSpy.count).to.be.equal(3);
-    await waitForCondition(() => didCloseEventSpy.events.length === 3);
+    await didCloseEventSpy.calledTrice();
     expect(didCloseEventSpy.count).to.be.equal(3);
     expect(input).to.have.attribute('aria-expanded', 'false');
   });
@@ -121,9 +121,9 @@ describe(`sbb-autocomplete`, () => {
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
 
     input.focus();
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
 
     await sendKeys({ press: 'ArrowDown' });
@@ -143,7 +143,7 @@ describe(`sbb-autocomplete`, () => {
     const optTwo = element.querySelector('#option-2');
     input.focus();
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
 
     await sendKeys({ press: 'ArrowDown' });
@@ -156,7 +156,7 @@ describe(`sbb-autocomplete`, () => {
     expect(input).to.have.attribute('aria-activedescendant', 'option-2');
 
     await sendKeys({ press: 'Enter' });
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
 
     expect(optTwo).not.to.have.attribute('data-active');
@@ -204,7 +204,7 @@ describe(`sbb-autocomplete`, () => {
     element.addEventListener(SbbAutocompleteElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -216,13 +216,13 @@ describe(`sbb-autocomplete`, () => {
     const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose);
 
     element.open();
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     await waitForLitRender(element);
 
     element.addEventListener(SbbAutocompleteElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');

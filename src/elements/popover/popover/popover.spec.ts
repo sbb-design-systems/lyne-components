@@ -44,10 +44,10 @@ describe(`sbb-popover`, () => {
 
       element.open();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -59,10 +59,10 @@ describe(`sbb-popover`, () => {
 
       trigger.click();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -76,19 +76,19 @@ describe(`sbb-popover`, () => {
 
       element.open();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
 
       element.close();
 
-      await waitForCondition(() => willCloseEventSpy.events.length === 1);
+      await willCloseEventSpy.calledOnce();
       expect(willCloseEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      await didCloseEventSpy.calledOnce();
       expect(didCloseEventSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'closed');
     });
@@ -102,19 +102,19 @@ describe(`sbb-popover`, () => {
 
       element.open();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
 
       closeButton!.click();
 
-      await waitForCondition(() => willCloseEventSpy.events.length === 1);
+      await willCloseEventSpy.calledOnce();
       expect(willCloseEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      await didCloseEventSpy.calledOnce();
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'closed');
@@ -131,10 +131,10 @@ describe(`sbb-popover`, () => {
 
       trigger.click();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -142,10 +142,10 @@ describe(`sbb-popover`, () => {
 
       popoverLink.click();
 
-      await waitForCondition(() => willCloseEventSpy.events.length === 1);
+      await willCloseEventSpy.calledOnce();
       expect(willCloseEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      await didCloseEventSpy.calledOnce();
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'closed');
@@ -161,10 +161,10 @@ describe(`sbb-popover`, () => {
 
       trigger.click();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
 
@@ -190,13 +190,13 @@ describe(`sbb-popover`, () => {
 
       element.open();
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
 
       // Simulate backdrop click
       window.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }));
       window.dispatchEvent(new PointerEvent('pointerup'));
 
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      await didCloseEventSpy.calledOnce();
 
       expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
       expect(document.activeElement).to.be.equal(trigger);
@@ -211,7 +211,7 @@ describe(`sbb-popover`, () => {
 
       element.open();
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
 
       const interactiveElementPosition = interactiveBackgroundElement.getBoundingClientRect();
       await sendMouse({
@@ -221,7 +221,7 @@ describe(`sbb-popover`, () => {
           Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2),
         ],
       });
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      await didCloseEventSpy.calledOnce();
 
       expect(document.activeElement).to.be.equal(interactiveBackgroundElement);
     });
@@ -233,7 +233,7 @@ describe(`sbb-popover`, () => {
 
       trigger.click();
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
 
       expect(popoverLink).not.to.be.null;
@@ -241,7 +241,7 @@ describe(`sbb-popover`, () => {
       popoverLink.focus();
       await sendKeys({ press: 'Enter' });
 
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      await didCloseEventSpy.calledOnce();
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
@@ -255,10 +255,10 @@ describe(`sbb-popover`, () => {
       await sendKeys({ press: tabKey });
       await sendKeys({ press: 'Enter' });
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
 
@@ -278,14 +278,14 @@ describe(`sbb-popover`, () => {
 
       element.open();
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       closeButton.focus();
       await sendKeys({ press: 'Enter' });
 
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      await didCloseEventSpy.calledOnce();
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
@@ -300,10 +300,10 @@ describe(`sbb-popover`, () => {
 
       trigger.click();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -311,10 +311,10 @@ describe(`sbb-popover`, () => {
       await sendKeys({ press: tabKey });
       await sendKeys({ press: 'Escape' });
 
-      await waitForCondition(() => willCloseEventSpy.events.length === 1);
+      await willCloseEventSpy.calledOnce();
       expect(willCloseEventSpy.count).to.be.equal(1);
 
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      await didCloseEventSpy.calledOnce();
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'closed');
@@ -328,7 +328,7 @@ describe(`sbb-popover`, () => {
       element.addEventListener(SbbPopoverElement.events.willOpen, (ev) => ev.preventDefault());
       element.open();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
@@ -340,13 +340,13 @@ describe(`sbb-popover`, () => {
       const willCloseEventSpy = new EventSpy(SbbPopoverElement.events.willClose);
 
       element.open();
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       await waitForLitRender(element);
 
       element.addEventListener(SbbPopoverElement.events.willClose, (ev) => ev.preventDefault());
       element.close();
 
-      await waitForCondition(() => willCloseEventSpy.events.length === 1);
+      await willCloseEventSpy.calledOnce();
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -476,10 +476,10 @@ describe(`sbb-popover`, () => {
     trigger.focus();
     await sendKeys({ press: 'Space' });
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
 
     expect(didOpenEventSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'opened');
@@ -491,17 +491,17 @@ describe(`sbb-popover`, () => {
 
     await sendKeys({ press: 'Space' });
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 2);
+    await willOpenEventSpy.calledTwice();
     expect(willOpenEventSpy.count).to.be.equal(2);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 2);
+    await didOpenEventSpy.calledTwice();
     expect(didOpenEventSpy.count).to.be.equal(2);
     expect(secondElement).to.have.attribute('data-state', 'opened');
   });
