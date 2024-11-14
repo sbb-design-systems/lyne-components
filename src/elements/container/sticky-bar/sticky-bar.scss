@@ -24,7 +24,7 @@ $intersector-overlapping: 1px;
     var(--sbb-animation-duration-2x)
   );
   --sbb-sticky-bar-slide-vertically-animation-duration: var(
-    --sbb-disable-animation-zero-time,
+    --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-4x)
   );
   --sbb-sticky-bar-slide-vertically-animation-easing: ease-out;

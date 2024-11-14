@@ -138,7 +138,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   /** Animates from normal content flow position to `position: sticky`. */
   public stick(): void {
-    if (!this._willStick.emit() || this._state !== 'unsticky') {
+    if (this._state !== 'unsticky' || !this._willStick.emit()) {
       return;
     }
 
@@ -150,7 +150,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   /** Animates `position: sticky` to normal content flow position. */
   public unstick(): void {
-    if (!this._willUnstick.emit() || this._state !== 'sticky') {
+    if (this._state !== 'sticky' || !this._willUnstick.emit()) {
       return;
     }
 
