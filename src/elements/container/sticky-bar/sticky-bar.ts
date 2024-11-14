@@ -1,21 +1,29 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { hostAttributes } from '../../core/decorators.js';
+import { EventEmitter } from '../../core/eventing.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 
 import style from './sticky-bar.scss?lit&inline';
+
+type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
 
 /**
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.
  *
  * @slot - Use the unnamed slot to add content to the sticky bar.
- * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
- * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
+ * @event {CustomEvent<void>} willStick - Emits when the animation from normal content flow to `position: sticky` starts. Can be canceled.
+ * @event {CustomEvent<void>} didStick - Emits when the animation from normal content flow to `position: sticky` ends.
+ * @event {CustomEvent<void>} willUnstick - Emits when the animation from `position: sticky` to normal content flow starts. Can be canceled.
+ * @event {CustomEvent<void>} didUnstick - Emits when the animation from `position: sticky` to normal content flow ends.
  * @cssprop [--sbb-sticky-bar-padding-block=var(--sbb-spacing-responsive-xs)] - Block padding of the sticky bar.
  * @cssprop [--sbb-sticky-bar-bottom-overlapping-height=0px] - Define an additional area where
  * the sticky bar overlaps the following content on the bottom.
@@ -28,11 +36,34 @@ export
 @hostAttributes({
   slot: 'sticky-bar',
 })
-class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
+
+  public static readonly events = {
+    willStick: 'willStick',
+    didStick: 'didStick',
+    willUnstick: 'willUnstick',
+    didUnstick: 'didUnstick',
+  } as const;
 
   /** Color of the container, like transparent, white etc. */
   @property({ reflect: true }) public accessor color: 'white' | 'milk' | null = null;
+
+  /** The state of the component. */
+  private set _state(state: StickyState) {
+    this.setAttribute('data-state', state);
+  }
+  private get _state(): StickyState {
+    return this.getAttribute('data-state') as StickyState;
+  }
+
+  private _willStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.willStick);
+  private _didStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.didStick);
+  private _willUnstick: EventEmitter = new EventEmitter(
+    this,
+    SbbStickyBarElement.events.willUnstick,
+  );
+  private _didUnstick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.didUnstick);
 
   private _intersector?: HTMLSpanElement;
   private _observer = new IntersectionController(this, {
@@ -44,7 +75,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElemen
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.state = 'opened';
+    this._state = 'sticky';
 
     // Sticky bar needs to be hidden until first observer callback
     this.startUpdate();
@@ -105,55 +136,49 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElemen
     this.completeUpdate();
   }
 
-  /**
-   * Animates from content flow position to `position: sticky`.
-   */
-  public override open(): void {
-    if (!this.willOpen.emit() || this.state !== 'closed') {
+  /** Animates from normal content flow position to `position: sticky`. */
+  public stick(): void {
+    if (!this._willStick.emit() || this._state !== 'unsticky') {
       return;
     }
 
-    this.willOpen.emit();
-    this.state = 'opening';
+    this._state = 'sticking';
     if (!this.hasAttribute('data-sticking')) {
-      this._openedCallback();
+      this._stickyCallback();
     }
   }
 
-  /**
-   * Animates `position: sticky` to normal content flow position.
-   */
-  public override close(): void {
-    if (!this.willClose.emit() || this.state !== 'opened') {
+  /** Animates `position: sticky` to normal content flow position. */
+  public unstick(): void {
+    if (!this._willUnstick.emit() || this._state !== 'sticky') {
       return;
     }
 
-    this.willClose.emit();
-    this.state = 'closing';
+    this._state = 'unsticking';
 
     if (!this.hasAttribute('data-sticking')) {
-      this._closedCallback();
+      this._unstickyCallback();
     }
   }
 
-  private _openedCallback(): void {
-    this.state = 'opened';
-    this.didOpen.emit();
+  private _stickyCallback(): void {
+    this._state = 'sticky';
+    this._didStick.emit();
   }
 
-  private _closedCallback(): void {
-    this.didClose.emit();
-    this.state = 'closed';
+  private _unstickyCallback(): void {
+    this._didUnstick.emit();
+    this._state = 'unsticky';
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
     if (
-      (this.state === 'opening' || this.state === 'opened') &&
+      (this._state === 'sticking' || this._state === 'sticky') &&
       event.animationName === 'slide-in'
     ) {
-      this._openedCallback();
-    } else if (this.state === 'closing' && event.animationName === 'slide-out') {
-      this._closedCallback();
+      this._stickyCallback();
+    } else if (this._state === 'unsticking' && event.animationName === 'slide-out') {
+      this._unstickyCallback();
     }
   }
 

@@ -9,14 +9,18 @@ It is displayed with sticky positioning at the bottom of the container that cont
 </sbb-container>
 ```
 
-## Opening and closing
+## Animate from sticky to normal content flow and vice versa
 
-`Opened` in terms of the sticky bar means that the sticky bar has `position: sticky`.
-If closed, the sticky bar has `position: relative` which means that it can't get sticky anymore.
-As the opening and closing are animated, consumers can in certain situations control the state of the sticky bar
-by calling `close()` or `open()` to e.g. slide the sticky bar out and remove it
-from DOM afterward by listening to `didClose` event.
-Whenever the sticky bar is not sticky, changing the state doesn't have any visual effect.
+By default, the sticky bar is set to `position: sticky`. In certain cases, the consumer needs
+to control the sliding out (or sliding in) of the sticky bar.
+By calling the `stick()` or `unstick()` methods, the position property is toggled
+between `position: sticky` and `position: relative` by displaying a slide animation. When the sticky bar is `unstick`,
+the `sbb-sticky-bar` will behave like a normal container without any sticky behavior.
+Whenever the sticky bar is currently not sticky (e.g. scrolled down),
+calling `stick()` or `unstick()` won't have any visual effect.
+
+An example use case is to call `unstick()`, which visually slides out the sticky bar, and
+then the consumer can remove it from the DOM by listening to the `didUnstick` event.
 
 ## Slots
 
@@ -31,26 +35,25 @@ Optionally the user can set the `color` property on the `sbb-sticky-bar` in orde
 
 ## Properties
 
-| Name     | Attribute | Privacy | Type                        | Default | Description                                          |
-| -------- | --------- | ------- | --------------------------- | ------- | ---------------------------------------------------- |
-| `color`  | `color`   | public  | `'white' \| 'milk' \| null` | `null`  | Color of the container, like transparent, white etc. |
-| `isOpen` | -         | public  | `boolean`                   |         | Whether the element is open.                         |
+| Name    | Attribute | Privacy | Type                        | Default | Description                                          |
+| ------- | --------- | ------- | --------------------------- | ------- | ---------------------------------------------------- |
+| `color` | `color`   | public  | `'white' \| 'milk' \| null` | `null`  | Color of the container, like transparent, white etc. |
 
 ## Methods
 
-| Name    | Privacy | Description                                                  | Parameters | Return | Inherited From          |
-| ------- | ------- | ------------------------------------------------------------ | ---------- | ------ | ----------------------- |
-| `close` | public  | Animates `position: sticky` to normal content flow position. |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Animates from content flow position to `position: sticky`.   |            | `void` | SbbOpenCloseBaseElement |
+| Name      | Privacy | Description                                                       | Parameters | Return | Inherited From |
+| --------- | ------- | ----------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `stick`   | public  | Animates from normal content flow position to `position: sticky`. |            | `void` |                |
+| `unstick` | public  | Animates `position: sticky` to normal content flow position.      |            | `void` |                |
 
 ## Events
 
-| Name        | Type                | Description                                               | Inherited From          |
-| ----------- | ------------------- | --------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits when the closing animation ends.                    | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits when the opening animation ends.                    | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits when the opening animation starts. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type                | Description                                                                                      | Inherited From |
+| ------------- | ------------------- | ------------------------------------------------------------------------------------------------ | -------------- |
+| `didStick`    | `CustomEvent<void>` | Emits when the animation from normal content flow to `position: sticky` ends.                    |                |
+| `didUnstick`  | `CustomEvent<void>` | Emits when the animation from `position: sticky` to normal content flow ends.                    |                |
+| `willStick`   | `CustomEvent<void>` | Emits when the animation from normal content flow to `position: sticky` starts. Can be canceled. |                |
+| `willUnstick` | `CustomEvent<void>` | Emits when the animation from `position: sticky` to normal content flow starts. Can be canceled. |                |
 
 ## CSS Properties
 

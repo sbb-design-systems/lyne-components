@@ -5,6 +5,11 @@
 
 $intersector-overlapping: 1px;
 
+// `data-sticking` v.s. `data-state='sticky'`:
+// While `data-sticking` is representing whether the sticky bar is currently sticking (due scrolling),
+// the `data-state` holds information whether the `position: sticky` is applied or not
+// but not considering the real sticking state.
+
 :host {
   --sbb-sticky-bar-position: sticky;
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xs);
@@ -35,48 +40,54 @@ $intersector-overlapping: 1px;
   display: contents;
 }
 
-:host([data-sticking]) {
-  --_sbb-sticky-bar-background-animation-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
+:host([data-sticking]:not([data-state='unsticky'])) {
+  --sbb-sticky-bar-sticky-background-color: var(
+    --sbb-container-background-color,
+    var(--sbb-color-white)
+  );
   --_sbb-sticky-bar-intersector-background-color: var(--sbb-sticky-bar-sticky-background-color);
+  --_sbb-sticky-bar-background-animation-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
 
   @include sbb.if-forced-colors {
     --_sbb-sticky-bar-forced-colors-border: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
 
-:host([data-sticking]:not([data-state='closed'])) {
-  --sbb-sticky-bar-sticky-background-color: var(
-    --sbb-container-background-color,
-    var(--sbb-color-white)
-  );
-}
-
-:host([data-sticking][color='white']:not([data-state='closed'])) {
+:host([data-sticking]:not([data-state='unsticky'])[color='white']) {
   --sbb-sticky-bar-sticky-background-color: var(--sbb-color-white);
 }
 
-:host([data-sticking][color='milk']:not([data-state='closed'])) {
+:host([data-sticking]:not([data-state='unsticky'])[color='milk']) {
   --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk);
 }
 
-:host([data-sticking]:is([data-slide-vertically], [data-state='opening'], [data-state='closing'])) {
+:host(
+    :is(
+        [data-sticking]:is(
+            [data-slide-vertically],
+            [data-state='sticking'],
+            [data-state='unsticking']
+          ),
+        [data-state='unsticky']
+      )
+  ) {
   --_sbb-sticky-bar-background-animation-duration: 0s;
 }
 
 :host(
     [data-sticking]:is(
-        [data-slide-vertically]:not([data-state='closed'], [data-state='closing']),
-        [data-state='opening']
+        [data-slide-vertically]:not([data-state='unsticky'], [data-state='unsticking']),
+        [data-state='sticking']
       )
   ) {
   --sbb-sticky-bar-slide-vertically-animation-name: slide-in;
 }
 
-:host([data-sticking][data-state='closing']) {
+:host([data-sticking][data-state='unsticking']) {
   --sbb-sticky-bar-slide-vertically-animation-name: slide-out;
 }
 
-:host(:is(:not([data-initialized]), [data-state='closed'])) {
+:host(:is(:not([data-initialized]), [data-state='unsticky'])) {
   --sbb-sticky-bar-position: relative;
 }
 
@@ -155,7 +166,7 @@ $intersector-overlapping: 1px;
       -50% 50%
     );
 
-    :host([data-sticking]) & {
+    :host([data-sticking]:not([data-state='unsticky'])) & {
       @include sbb.shadow-level-11-soft;
     }
   }

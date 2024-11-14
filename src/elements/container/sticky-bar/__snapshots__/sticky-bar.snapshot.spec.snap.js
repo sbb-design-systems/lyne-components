@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-sticky-bar renders DOM"] = 
 `<sbb-sticky-bar
   data-initialized=""
-  data-state="opened"
+  data-state="sticky"
   slot="sticky-bar"
 >
 </sbb-sticky-bar>
