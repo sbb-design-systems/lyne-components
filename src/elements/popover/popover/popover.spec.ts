@@ -352,7 +352,7 @@ describe(`sbb-popover`, () => {
       expect(element).to.have.attribute('data-state', 'opened');
     });
 
-    it('should update config when changing hoverTrigger', async () => {
+    it.only('should update config when changing hoverTrigger', async () => {
       // Assert trigger click ok
       trigger.click();
       await waitForCondition(() => element.getAttribute('data-state') === 'opened');

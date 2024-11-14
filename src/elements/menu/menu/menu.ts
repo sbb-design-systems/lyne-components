@@ -11,9 +11,14 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbConnectedAbortController, SbbInertController } from '../../core/controllers.js';
+import {
+  SbbMediaQueryBreakpointSmallAndBelow,
+  SbbConnectedAbortController,
+  SbbInertController,
+  SbbMediaMatcherController,
+} from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { findReferencedElement, isBreakpoint, SbbScrollHandler } from '../../core/dom.js';
+import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
@@ -93,6 +98,15 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
+  private _mediaMatcher = new SbbMediaMatcherController(this, {
+    [SbbMediaQueryBreakpointSmallAndBelow]: (matches) => {
+      if (matches && (this.state === 'opening' || this.state === 'opened')) {
+        this._scrollHandler.disableScroll();
+      } else {
+        this._scrollHandler.enableScroll();
+      }
+    },
+  });
 
   /**
    * Opens the menu on trigger click.
@@ -111,7 +125,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._triggerElement?.setAttribute('aria-expanded', 'true');
 
     // Starting from breakpoint medium, disable scroll
-    if (!isBreakpoint('medium')) {
+    if (this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow)) {
       this._scrollHandler.disableScroll();
     }
   }
@@ -338,7 +352,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _setMenuPosition(): void {
     // Starting from breakpoint medium
     if (
-      !isBreakpoint('medium') ||
+      this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow) ||
       !this._menu ||
       !this._triggerElement ||
       this.state === 'closing'
