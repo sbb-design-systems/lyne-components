@@ -147,9 +147,12 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElemen
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
-    if ((this.state === 'opening' || this.state === 'opened') && event.animationName === 'open') {
+    if (
+      (this.state === 'opening' || this.state === 'opened') &&
+      event.animationName === 'slide-in'
+    ) {
       this._openedCallback();
-    } else if (this.state === 'closing' && event.animationName === 'close') {
+    } else if (this.state === 'closing' && event.animationName === 'slide-out') {
       this._closedCallback();
     }
   }
