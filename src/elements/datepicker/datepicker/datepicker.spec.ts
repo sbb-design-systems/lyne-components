@@ -167,7 +167,7 @@ describe(`sbb-datepicker`, () => {
         expect(datePickerUpdatedSpy.count).to.be.equal(1);
         element.dateFilter = () => false;
         await waitForLitRender(element);
-        await datePickerUpdatedSpy.calledTwice();
+        await datePickerUpdatedSpy.calledTimes(2);
         expect(datePickerUpdatedSpy.count).to.be.equal(2);
       });
 

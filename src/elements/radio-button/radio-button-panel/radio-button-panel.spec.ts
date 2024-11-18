@@ -64,7 +64,7 @@ describe(`sbb-radio-button`, () => {
     element.click();
     await waitForLitRender(element);
     expect(element).not.to.have.attribute('checked');
-    await stateChange.calledTwice();
+    await stateChange.calledTimes(2);
     expect(stateChange.count).to.be.equal(2);
   });
 });

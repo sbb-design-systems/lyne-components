@@ -209,7 +209,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledTwice();
+    await didOpenEventSpy.calledTimes(2);
     expect(didOpenEventSpy.count).to.be.equal(2);
     await waitForLitRender(element);
 

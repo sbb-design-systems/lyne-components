@@ -498,10 +498,10 @@ describe(`sbb-popover`, () => {
     expect(didCloseEventSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
 
-    await willOpenEventSpy.calledTwice();
+    await willOpenEventSpy.calledTimes(2);
     expect(willOpenEventSpy.count).to.be.equal(2);
 
-    await didOpenEventSpy.calledTwice();
+    await didOpenEventSpy.calledTimes(2);
     expect(didOpenEventSpy.count).to.be.equal(2);
     expect(secondElement).to.have.attribute('data-state', 'opened');
   });

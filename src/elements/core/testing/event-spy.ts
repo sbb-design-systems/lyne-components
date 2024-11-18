@@ -1,4 +1,5 @@
-type PromiseExecutorHolder<T extends Event> = {
+type PromiseWithExecutor<T extends Event> = {
+  promise: Promise<T>;
   resolve: (value: T) => void;
   reject: (reason?: any) => void;
 };
@@ -26,19 +27,7 @@ export class EventSpy<T extends Event> {
     return this.events.length ? this.events[this.events.length - 1] : null;
   }
 
-  private _calledOnceExecutor!: PromiseExecutorHolder<T>;
-  private _calledTwiceExecutor!: PromiseExecutorHolder<T>;
-  private _calledTriceExecutor!: PromiseExecutorHolder<T>;
-
-  private _calledOnce = new Promise<T>(
-    (resolve, reject) => (this._calledOnceExecutor = { resolve, reject }),
-  );
-  private _calledTwice = new Promise<T>(
-    (resolve, reject) => (this._calledTwiceExecutor = { resolve, reject }),
-  );
-  private _calledTrice = new Promise<T>(
-    (resolve, reject) => (this._calledTriceExecutor = { resolve, reject }),
-  );
+  private _eventMap = new Map<number, PromiseWithExecutor<T>>();
 
   public constructor(
     private _event: string,
@@ -52,57 +41,52 @@ export class EventSpy<T extends Event> {
   }
 
   public calledOnce(timeout = 1000): Promise<T> {
-    return this._wrapPromiseWithTimeout(
-      timeout,
-      'calledOnce',
-      this._calledOnce,
-      this._calledOnceExecutor,
-    );
+    return this.calledTimes(1, timeout);
   }
 
-  public calledTwice(timeout = 1000): Promise<T> {
-    return this._wrapPromiseWithTimeout(
-      timeout,
-      'calledTwice',
-      this._calledTwice,
-      this._calledTwiceExecutor,
-    );
-  }
+  public calledTimes(count: number, timeout = 1000): Promise<T> {
+    if (this.count >= count) {
+      return Promise.resolve(this.events[count - 1]);
+    } else if (this._eventMap.has(count)) {
+      return this._wrapPromiseWithTimeout(this._eventMap.get(count)!, count, timeout);
+    } else {
+      let resolve: (value: T) => void;
+      let reject: (reason?: any) => void;
+      const promise = new Promise<T>((resolveFunction, rejectFunction) => {
+        resolve = resolveFunction;
+        reject = rejectFunction;
+      });
 
-  public calledTrice(timeout = 1000): Promise<T> {
-    return this._wrapPromiseWithTimeout(
-      timeout,
-      'calledTrice',
-      this._calledTrice,
-      this._calledTriceExecutor,
-    );
+      const promiseWithExecutor = {
+        promise,
+        resolve: resolve!,
+        reject: reject!,
+      };
+
+      this._eventMap.set(count, promiseWithExecutor);
+
+      return this._wrapPromiseWithTimeout(promiseWithExecutor, count, timeout);
+    }
   }
 
   private _wrapPromiseWithTimeout(
+    promiseWithExecutor: PromiseWithExecutor<T>,
+    count: number,
     timeout: number,
-    name: string,
-    promise: Promise<T>,
-    executor: PromiseExecutorHolder<T>,
   ): Promise<T> {
-    const clearTimeoutId = setTimeout(() => {
-      console.trace();
-      executor.reject(`awaiting ${name} results in timeout`);
-    }, timeout);
-    promise.then(() => clearTimeout(clearTimeoutId));
-    return promise;
+    const clearTimeoutId = setTimeout(
+      () => promiseWithExecutor.reject(`awaiting calledTimes(${count}) results in timeout`),
+      timeout,
+    );
+    promiseWithExecutor.promise.then(() => clearTimeout(clearTimeoutId));
+    return promiseWithExecutor.promise;
   }
 
   private _listenForEvent(): void {
     this._target?.addEventListener(this._event, (ev) => {
       this._events.push(ev as T);
       this._count++;
-      if (this._count === 1) {
-        this._calledOnceExecutor.resolve(ev as T);
-      } else if (this._count === 2) {
-        this._calledTwiceExecutor.resolve(ev as T);
-      } else if (this._count === 3) {
-        this._calledTriceExecutor.resolve(ev as T);
-      }
+      this._eventMap.get(this.count)?.resolve(ev as T);
     });
   }
 }

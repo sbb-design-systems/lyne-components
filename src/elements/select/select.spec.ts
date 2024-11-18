@@ -262,12 +262,12 @@ describe(`sbb-select`, () => {
 
       focusableElement.focus();
       await sendKeys({ press: 'ArrowDown' });
-      await didOpen.calledTwice();
+      await didOpen.calledTimes(2);
       expect(didOpen.count).to.be.equal(2);
 
       focusableElement.focus();
       await sendKeys({ press: tabKey });
-      await didClose.calledTwice();
+      await didClose.calledTimes(2);
       expect(didClose.count).to.be.equal(2);
 
       focusableElement.focus();
@@ -354,7 +354,7 @@ describe(`sbb-select`, () => {
       element.focus();
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
-      await didOpen.calledTwice();
+      await didOpen.calledTimes(2);
       expect(didOpen.count).to.be.equal(2);
       expect(secondOption).not.to.have.attribute('data-active');
       expect(secondOption).to.have.attribute('selected');

@@ -146,14 +146,14 @@ describe(`sbb-accordion`, () => {
     expect(panelThree.expanded).to.be.equal(false);
 
     headerOne.click();
-    await willOpenEventSpy.calledTwice();
+    await willOpenEventSpy.calledTimes(2);
     expect(willOpenEventSpy.count).to.be.equal(2);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(false);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerThree.click();
-    await willOpenEventSpy.calledTrice();
+    await willOpenEventSpy.calledTimes(3);
     expect(willOpenEventSpy.count).to.be.equal(3);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(false);
@@ -189,14 +189,14 @@ describe(`sbb-accordion`, () => {
     expect(panelThree.expanded).to.be.equal(false);
 
     headerOne.click();
-    await willOpenEventSpy.calledTwice();
+    await willOpenEventSpy.calledTimes(2);
     expect(willOpenEventSpy.count).to.be.equal(2);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerThree.click();
-    await willOpenEventSpy.calledTrice();
+    await willOpenEventSpy.calledTimes(3);
     expect(willOpenEventSpy.count).to.be.equal(3);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
@@ -229,7 +229,7 @@ describe(`sbb-accordion`, () => {
     expect(panelTwo.expanded).to.be.equal(true);
 
     headerThree.click();
-    await willOpenEventSpy.calledTwice();
+    await willOpenEventSpy.calledTimes(2);
     expect(willOpenEventSpy.count).to.be.equal(2);
     expect(panelThree.expanded).to.be.equal(true);
 

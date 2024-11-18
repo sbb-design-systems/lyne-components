@@ -85,7 +85,7 @@ describe(`sbb-expansion-panel`, () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
 
     header.click();
-    await toggleExpandedEventSpy.calledTwice();
+    await toggleExpandedEventSpy.calledTimes(2);
     expect(toggleExpandedEventSpy.count).to.be.equal(2);
     await waitForLitRender(element);
     expect(element.expanded).to.be.equal(false);

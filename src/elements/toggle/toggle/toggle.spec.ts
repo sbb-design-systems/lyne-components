@@ -253,8 +253,8 @@ describe(`sbb-toggle`, () => {
 
       firstOption.click();
       await waitForLitRender(firstOption);
-      await changeSpy.calledTwice();
-      await inputSpy.calledTwice();
+      await changeSpy.calledTimes(2);
+      await inputSpy.calledTimes(2);
 
       expect(firstOption).to.have.attribute('checked');
       expect(valueInEvent).to.equal('Value one');

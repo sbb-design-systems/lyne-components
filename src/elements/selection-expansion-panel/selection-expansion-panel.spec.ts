@@ -386,7 +386,7 @@ describe(`sbb-selection-expansion-panel`, () => {
       // Activate main option 2
       mainRadioButton2.click();
 
-      await didOpenEventSpy.calledTwice();
+      await didOpenEventSpy.calledTimes(2);
       await didCloseEventSpy.calledOnce();
 
       const mainRadioButton1LabelSecondRender = (await a11ySnapshot({
@@ -451,7 +451,7 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       main2.checked = true;
 
-      await didOpenEventSpy.calledTwice();
+      await didOpenEventSpy.calledTimes(2);
       await didCloseEventSpy.calledOnce();
 
       expect(willOpenEventSpy.count).to.be.equal(2);
@@ -570,7 +570,7 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       secondInput.click();
       await waitForLitRender(wrapper);
-      await didOpenEventSpy.calledTwice();
+      await didOpenEventSpy.calledTimes(2);
 
       expect(willOpenEventSpy.count).to.be.equal(2);
       expect(didOpenEventSpy.count).to.be.equal(2);

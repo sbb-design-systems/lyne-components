@@ -115,32 +115,32 @@ describe(`sbb-autocomplete-grid`, () => {
     expect(input).to.have.attribute('aria-expanded', 'false');
 
     await sendKeys({ press: 'ArrowDown' });
-    await willOpenEventSpy.calledTwice();
+    await willOpenEventSpy.calledTimes(2);
     expect(willOpenEventSpy.count).to.be.equal(2);
-    await didOpenEventSpy.calledTwice();
+    await didOpenEventSpy.calledTimes(2);
     expect(didOpenEventSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'true');
 
     await sendKeys({ press: tabKey });
-    await willCloseEventSpy.calledTwice();
+    await willCloseEventSpy.calledTimes(2);
     expect(willCloseEventSpy.count).to.be.equal(2);
-    await didCloseEventSpy.calledTwice();
+    await didCloseEventSpy.calledTimes(2);
     expect(didCloseEventSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'false');
 
     input.click();
-    await willOpenEventSpy.calledTrice();
+    await willOpenEventSpy.calledTimes(3);
     expect(willOpenEventSpy.count).to.be.equal(3);
-    await didOpenEventSpy.calledTrice();
+    await didOpenEventSpy.calledTimes(3);
     expect(didOpenEventSpy.count).to.be.equal(3);
     expect(input).to.have.attribute('aria-expanded', 'true');
 
     // Simulate backdrop click
     sendMouse({ type: 'click', position: [formField.offsetWidth + 25, 25] });
 
-    await willCloseEventSpy.calledTrice();
+    await willCloseEventSpy.calledTimes(3);
     expect(willCloseEventSpy.count).to.be.equal(3);
-    await didCloseEventSpy.calledTrice();
+    await didCloseEventSpy.calledTimes(3);
     expect(didCloseEventSpy.count).to.be.equal(3);
     expect(input).to.have.attribute('aria-expanded', 'false');
   });
@@ -300,7 +300,7 @@ describe(`sbb-autocomplete-grid`, () => {
     expect(buttonTwo).to.have.attribute('data-focus-visible');
     expect(input).to.have.attribute('aria-activedescendant', 'button-2');
     await sendKeys({ press: 'Enter' });
-    await clickSpy.calledTwice();
+    await clickSpy.calledTimes(2);
     expect(clickSpy.count).to.be.equal(2);
   });
 

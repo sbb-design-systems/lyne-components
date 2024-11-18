@@ -202,11 +202,11 @@ describe('sbb-overlay', () => {
     stackedOverlay.open();
     await waitForLitRender(element);
 
-    await willOpen.calledTwice();
+    await willOpen.calledTimes(2);
     expect(willOpen.count).to.be.equal(2);
     await waitForLitRender(element);
 
-    await didOpen.calledTwice();
+    await didOpen.calledTimes(2);
     expect(didOpen.count).to.be.equal(2);
     await waitForLitRender(element);
 
@@ -235,11 +235,11 @@ describe('sbb-overlay', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await willClose.calledTwice();
+    await willClose.calledTimes(2);
     expect(willClose.count).to.be.equal(2);
     await waitForLitRender(element);
 
-    await didClose.calledTwice();
+    await didClose.calledTimes(2);
     expect(didClose.count).to.be.equal(2);
     await waitForLitRender(element);
 

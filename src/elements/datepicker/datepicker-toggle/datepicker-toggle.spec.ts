@@ -258,7 +258,7 @@ describe(`sbb-datepicker-toggle`, () => {
 
     // Open again
     datepickerToggle.open();
-    await didOpenEventSpy.calledTwice();
+    await didOpenEventSpy.calledTimes(2);
 
     // Should open with year view again
     expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-year-view')!).not.to.be.null;
@@ -268,7 +268,7 @@ describe(`sbb-datepicker-toggle`, () => {
 
     // Close again
     await sendKeys({ press: 'Escape' });
-    await didCloseEventSpy.calledTwice();
+    await didCloseEventSpy.calledTimes(2);
 
     // Changing to month view
     datepickerToggle.view = 'month';
@@ -276,7 +276,7 @@ describe(`sbb-datepicker-toggle`, () => {
 
     // Open again
     datepickerToggle.open();
-    await didOpenEventSpy.calledTrice();
+    await didOpenEventSpy.calledTimes(3);
 
     // Month view should be active and correct year preselected
     expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-month-view')!).not.to.be.null;
