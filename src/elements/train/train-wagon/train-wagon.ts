@@ -110,22 +110,22 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
     this._sectorChange.emit();
   }
 
-  protected override render(): TemplateResult {
-    const typeLabel = (): string => {
-      if (this.type === 'closed') {
-        return i18nClosedCompartmentLabel[this._language.current];
-      } else if (this.type === 'locomotive') {
-        return i18nLocomotiveLabel[this._language.current];
-      } else if (this.type === 'couchette') {
-        return i18nCouchetteWagonLabel[this._language.current];
-      } else if (this.type === 'sleeping') {
-        return i18nSleepingWagonLabel[this._language.current];
-      } else if (this.type === 'restaurant') {
-        return i18nRestaurantWagonLabel[this._language.current];
-      }
-      return i18nWagonLabel[this._language.current];
-    };
+  private _typeLabel(): string {
+    if (this.type === 'closed') {
+      return i18nClosedCompartmentLabel[this._language.current];
+    } else if (this.type === 'locomotive') {
+      return i18nLocomotiveLabel[this._language.current];
+    } else if (this.type === 'couchette') {
+      return i18nCouchetteWagonLabel[this._language.current];
+    } else if (this.type === 'sleeping') {
+      return i18nSleepingWagonLabel[this._language.current];
+    } else if (this.type === 'restaurant') {
+      return i18nRestaurantWagonLabel[this._language.current];
+    }
+    return i18nWagonLabel[this._language.current];
+  }
 
+  protected override render(): TemplateResult {
     const blockedPassage =
       this.type === 'wagon-end-left' && this.blockedPassage === 'none'
         ? 'previous'
@@ -172,7 +172,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
         ${when(
           listEntriesCount > 1,
           () =>
-            html`<ul aria-label=${typeLabel()} class="sbb-train-wagon__compartment">
+            html`<ul aria-label=${this._typeLabel()} class="sbb-train-wagon__compartment">
               ${this.sector
                 ? html`<li class="sbb-screen-reader-only">${sectorString}</li>`
                 : nothing}
@@ -199,7 +199,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
           () =>
             html`<div class="sbb-train-wagon__compartment">
               <span class="sbb-screen-reader-only">
-                ${`${typeLabel()}${this.sector ? `, ${sectorString}` : ''}`}
+                ${`${this._typeLabel()}${this.sector ? `, ${sectorString}` : ''}`}
               </span>
               <span class="sbb-train-wagon__label" aria-hidden=${`${!this.label}`}>
                 ${labelContent}

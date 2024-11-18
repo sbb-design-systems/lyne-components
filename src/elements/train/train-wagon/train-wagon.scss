@@ -40,23 +40,23 @@
 }
 
 :host(:is([type='wagon'], [type='restaurant'], [type='sleeping'], [type='couchette'])) {
-  --sbb-train-wagon-shape: var(--sbb-train-formation-wagon-shape);
+  --sbb-train-wagon-shape: var(--sbb-train-wagon-wagon-shape);
 }
 
 :host([type='closed']) {
-  --sbb-train-wagon-shape: var(--sbb-train-formation-wagon-closed-shape);
+  --sbb-train-wagon-shape: var(--sbb-train-wagon-wagon-closed-shape);
 }
 
 :host([type='locomotive']) {
-  --sbb-train-wagon-shape: var(--sbb-train-formation-locomotive-shape);
+  --sbb-train-wagon-shape: var(--sbb-train-wagon-locomotive-shape);
 }
 
 :host([type='wagon-end-left']) {
-  --sbb-train-wagon-shape: var(--sbb-train-formation-wagon-end-left-shape);
+  --sbb-train-wagon-shape: var(--sbb-train-wagon-wagon-end-left-shape);
 }
 
 :host([type='wagon-end-right']) {
-  --sbb-train-wagon-shape: var(--sbb-train-formation-wagon-end-right-shape);
+  --sbb-train-wagon-shape: var(--sbb-train-wagon-wagon-end-right-shape);
 }
 
 .sbb-train-wagon {
