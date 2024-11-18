@@ -352,7 +352,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _setMenuPosition(): void {
     // Starting from breakpoint medium
     if (
-      this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow) ||
+      (this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow) ?? true) ||
       !this._menu ||
       !this._triggerElement ||
       this.state === 'closing'

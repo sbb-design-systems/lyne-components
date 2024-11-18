@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, isServer, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
@@ -50,7 +50,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
     [SbbMediaQueryHover]: (m) => (this._isHover = m),
   });
 
-  private _isHover = isServer ? false : this._mediaMatcher.matches(SbbMediaQueryHover);
+  private _isHover: boolean = this._mediaMatcher.matches(SbbMediaQueryHover) ?? false;
 
   public override connectedCallback(): void {
     super.connectedCallback();

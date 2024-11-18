@@ -45,13 +45,13 @@ export class SbbMediaMatcherController implements ReactiveController {
   }
 
   /**
-   * Returns whether the given query matches. Must not be called during SSR.
+   * Returns whether the given query matches. Returns null with SSR.
    * @param query The query to check against.
-   * @returns Whether the query matches.
+   * @returns Whether the query matches or null with SSR.
    */
-  public matches(query: string): boolean {
+  public matches(query: string): boolean | null {
     if (isServer) {
-      throw new Error(`This method should not be called during SSR!`);
+      return null;
     }
     const mediaQuery = mediaQueryRegistry.get(query);
     if (mediaQuery) {

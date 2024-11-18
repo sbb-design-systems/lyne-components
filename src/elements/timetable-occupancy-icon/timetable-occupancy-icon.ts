@@ -1,4 +1,4 @@
-import { isServer, type CSSResultGroup, type PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
@@ -33,7 +33,7 @@ class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
     },
   });
 
-  private _forcedColors = isServer ? false : this._mediaMatcher.matches(SbbMediaQueryForcedColors);
+  private _forcedColors: boolean = this._mediaMatcher.matches(SbbMediaQueryForcedColors) ?? false;
 
   private async _setNameAndAriaLabel(): Promise<void> {
     if (!this.occupancy) {
