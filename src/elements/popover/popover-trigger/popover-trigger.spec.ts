@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbPopoverElement } from '../popover.js';
 
 import { SbbPopoverTriggerElement } from './popover-trigger.js';
@@ -38,10 +38,10 @@ describe(`sbb-popover-trigger`, () => {
 
     element.click();
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     expect(popover).to.have.attribute('data-state', 'opened');
   });
@@ -62,7 +62,7 @@ describe(`sbb-popover-trigger`, () => {
     const focusSpy = new EventSpy('focus', element);
 
     element.focus();
-    await waitForCondition(() => focusSpy.events.length === 1);
+    await focusSpy.calledOnce();
     expect(focusSpy.count).to.be.equal(1);
 
     await sendKeys({ press: 'Enter' });
@@ -77,7 +77,7 @@ describe(`sbb-popover-trigger`, () => {
     popover.hoverTrigger = true;
     element.focus();
 
-    await waitForCondition(() => changeSpy.events.length === 1);
+    await changeSpy.calledOnce();
     expect(changeSpy.count).to.be.equal(1);
 
     await sendKeys({ press: 'Enter' });

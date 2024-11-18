@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 import type { SbbTabElement } from '../tab.js';
 
@@ -102,7 +102,7 @@ describe(`sbb-tab-group`, () => {
       const changeSpy = new EventSpy(SbbTabGroupElement.events.didChange);
 
       tab.click();
-      await waitForCondition(() => changeSpy.events.length === 1);
+      await changeSpy.calledOnce();
       expect(changeSpy.count).to.be.equal(1);
     });
 

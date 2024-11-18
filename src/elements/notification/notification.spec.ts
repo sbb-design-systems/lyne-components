@@ -1,9 +1,9 @@
-import { aTimeout, assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button.js';
 import { fixture } from '../core/testing/private.js';
-import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
 import { SbbNotificationElement } from './notification.js';
 
@@ -36,11 +36,11 @@ describe(`sbb-notification`, () => {
     element.close();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -65,11 +65,11 @@ describe(`sbb-notification`, () => {
     closeButton.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 

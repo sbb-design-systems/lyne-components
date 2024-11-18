@@ -176,8 +176,8 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       secondInput.click();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
+      await didOpenEventSpy.calledOnce();
       await waitForLitRender(wrapper);
 
       expect(willOpenEventSpy.count).to.be.equal(1);
@@ -375,7 +375,7 @@ describe(`sbb-selection-expansion-panel`, () => {
         .then(() => Promise.reject('accidentally passed'))
         .catch((error) => expect(error).to.include('timeout'));
 
-      await waitForCondition(() => didOpenEventSpy.count === 1);
+      await didOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(mainRadioButton1Label.name.trim()).to.be.equal('Main Option 1 , expanded');
@@ -386,8 +386,8 @@ describe(`sbb-selection-expansion-panel`, () => {
       // Activate main option 2
       mainRadioButton2.click();
 
-      await waitForCondition(() => didOpenEventSpy.count === 2);
-      await waitForCondition(() => didCloseEventSpy.count === 1);
+      await didOpenEventSpy.calledTimes(2);
+      await didCloseEventSpy.calledOnce();
 
       const mainRadioButton1LabelSecondRender = (await a11ySnapshot({
         selector: 'sbb-radio-button-panel[value="main1"]',
@@ -440,7 +440,7 @@ describe(`sbb-selection-expansion-panel`, () => {
         'sbb-radio-button[value="sub1"]',
       )!;
 
-      await waitForCondition(() => didOpenEventSpy.count === 1);
+      await didOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(panel1).to.have.attribute('data-state', 'opened');
@@ -451,8 +451,8 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       main2.checked = true;
 
-      await waitForCondition(() => didOpenEventSpy.count === 2);
-      await waitForCondition(() => didCloseEventSpy.count === 1);
+      await didOpenEventSpy.calledTimes(2);
+      await didCloseEventSpy.calledOnce();
 
       expect(willOpenEventSpy.count).to.be.equal(2);
       expect(didOpenEventSpy.count).to.be.equal(2);
@@ -559,7 +559,7 @@ describe(`sbb-selection-expansion-panel`, () => {
 
     it('selects input on click and shows related content', async () => {
       await waitForLitRender(wrapper);
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
 
       expect(willOpenEventSpy.count).to.be.equal(1);
       expect(didOpenEventSpy.count).to.be.equal(1);
@@ -570,7 +570,7 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       secondInput.click();
       await waitForLitRender(wrapper);
-      await waitForCondition(() => didOpenEventSpy.events.length === 2);
+      await didOpenEventSpy.calledTimes(2);
 
       expect(willOpenEventSpy.count).to.be.equal(2);
       expect(didOpenEventSpy.count).to.be.equal(2);
@@ -587,7 +587,7 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       firstInput.click();
 
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      await didCloseEventSpy.calledOnce();
       expect(willCloseEventSpy.count).to.be.equal(1);
       expect(didCloseEventSpy.count).to.be.equal(1);
       expect(firstInput.checked).to.be.false;
