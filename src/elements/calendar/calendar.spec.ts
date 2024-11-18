@@ -126,7 +126,7 @@ describe(`sbb-calendar`, () => {
       ) as HTMLElement;
       expect(newSelectedDate).not.to.have.class('sbb-calendar__selected');
       newSelectedDate.click();
-      await waitForCondition(() => selectedSpy.events.length === 1);
+      await selectedSpy.calledOnce();
 
       expect(selectedDate).not.to.have.class('sbb-calendar__selected');
       expect(newSelectedDate).to.have.class('sbb-calendar__selected');

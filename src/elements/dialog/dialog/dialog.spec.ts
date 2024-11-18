@@ -20,11 +20,11 @@ async function openDialog(element: SbbDialogElement): Promise<void> {
   element.open();
   await waitForLitRender(element);
 
-  await waitForCondition(() => willOpen.events.length === 1);
+  await willOpen.calledOnce();
   expect(willOpen.count).to.be.equal(1);
   await waitForLitRender(element);
 
-  await waitForCondition(() => didOpen.events.length === 1);
+  await didOpen.calledOnce();
   expect(didOpen.count).to.be.equal(1);
   await waitForLitRender(element);
 
@@ -63,7 +63,7 @@ describe('sbb-dialog', () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpen.events.length === 1);
+    await willOpen.calledOnce();
     expect(willOpen.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -82,11 +82,11 @@ describe('sbb-dialog', () => {
     element.close();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -105,7 +105,7 @@ describe('sbb-dialog', () => {
     element.close();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -124,11 +124,11 @@ describe('sbb-dialog', () => {
     element.dispatchEvent(new CustomEvent('pointerup'));
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -214,11 +214,11 @@ describe('sbb-dialog', () => {
     closeButton.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -237,11 +237,11 @@ describe('sbb-dialog', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -275,11 +275,11 @@ describe('sbb-dialog', () => {
     stackedDialog.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpen.events.length === 2);
+    await willOpen.calledTimes(2);
     expect(willOpen.count).to.be.equal(2);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpen.events.length === 2);
+    await didOpen.calledTimes(2);
     expect(didOpen.count).to.be.equal(2);
     await waitForLitRender(element);
 
@@ -291,11 +291,11 @@ describe('sbb-dialog', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -308,11 +308,11 @@ describe('sbb-dialog', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 2);
+    await willClose.calledTimes(2);
     expect(willClose.count).to.be.equal(2);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 2);
+    await didClose.calledTimes(2);
     expect(didClose.count).to.be.equal(2);
     await waitForLitRender(element);
 
@@ -344,11 +344,11 @@ describe('sbb-dialog', () => {
     innerElement.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpen.events.length === 2);
+    await willOpen.calledTimes(2);
     expect(willOpen.count).to.be.equal(2);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpen.events.length === 2);
+    await didOpen.calledTimes(2);
     expect(didOpen.count).to.be.equal(2);
     await waitForLitRender(element);
 
@@ -359,11 +359,11 @@ describe('sbb-dialog', () => {
     innerElement.dispatchEvent(new CustomEvent('pointerup'));
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
