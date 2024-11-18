@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbButtonElement } from '../../button.js';
 import { pageScrollDisabled } from '../../core/dom.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForEvent, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
@@ -524,8 +524,10 @@ describe(`sbb-navigation`, () => {
   });
 
   it('should re-enable scrolling when removed from the DOM', async () => {
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+
     element.open();
-    await waitForEvent(element, SbbNavigationElement.events.didOpen);
+    await didOpenEventSpy.calledOnce();
 
     expect(pageScrollDisabled()).to.be.true;
 
