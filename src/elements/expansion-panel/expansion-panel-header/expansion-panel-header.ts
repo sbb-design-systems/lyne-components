@@ -2,7 +2,12 @@ import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbConnectedAbortController, SbbSlotStateController } from '../../core/controllers.js';
+import {
+  SbbMediaQueryHover,
+  SbbConnectedAbortController,
+  SbbMediaMatcherController,
+  SbbSlotStateController,
+} from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
@@ -41,6 +46,11 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   );
   private _abort = new SbbConnectedAbortController(this);
   private _namedSlots = new SbbSlotStateController(this, () => this._setDataIconAttribute());
+  private _mediaMatcher = new SbbMediaMatcherController(this, {
+    [SbbMediaQueryHover]: (m) => (this._isHover = m),
+  });
+
+  private _isHover: boolean = this._mediaMatcher.matches(SbbMediaQueryHover) ?? false;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -59,7 +69,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   private _onMouseMovement(toggleDataAttribute: boolean): void {
     const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel')!;
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
-    if (!toggleDataAttribute || (parent && window.matchMedia('(any-hover: hover)').matches)) {
+    if (!toggleDataAttribute || (parent && this._isHover)) {
       parent.toggleAttribute('data-toggle-hover', toggleDataAttribute);
     }
   }
