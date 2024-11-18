@@ -27,7 +27,7 @@ export class EventSpy<T extends Event> {
     return this.events.length ? this.events[this.events.length - 1] : null;
   }
 
-  private _eventMap = new Map<number, PromiseWithExecutor<T>>();
+  private _promiseEventMap = new Map<number, PromiseWithExecutor<T>>();
 
   public constructor(
     private _event: string,
@@ -47,8 +47,8 @@ export class EventSpy<T extends Event> {
   public calledTimes(count: number, timeout = 1000): Promise<T> {
     if (this.count >= count) {
       return Promise.resolve(this.events[count - 1]);
-    } else if (this._eventMap.has(count)) {
-      return this._wrapPromiseWithTimeout(this._eventMap.get(count)!, count, timeout);
+    } else if (this._promiseEventMap.has(count)) {
+      return this._wrapPromiseWithTimeout(this._promiseEventMap.get(count)!, count, timeout);
     } else {
       let resolve: (value: T) => void;
       let reject: (reason?: any) => void;
@@ -63,7 +63,7 @@ export class EventSpy<T extends Event> {
         reject: reject!,
       };
 
-      this._eventMap.set(count, promiseWithExecutor);
+      this._promiseEventMap.set(count, promiseWithExecutor);
 
       return this._wrapPromiseWithTimeout(promiseWithExecutor, count, timeout);
     }
@@ -86,7 +86,7 @@ export class EventSpy<T extends Event> {
     this._target?.addEventListener(this._event, (ev) => {
       this._events.push(ev as T);
       this._count++;
-      this._eventMap.get(this.count)?.resolve(ev as T);
+      this._promiseEventMap.get(this.count)?.resolve(ev as T);
     });
   }
 }
