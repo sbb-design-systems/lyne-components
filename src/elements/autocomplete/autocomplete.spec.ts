@@ -106,7 +106,7 @@ describe(`sbb-autocomplete`, () => {
     expect(input).to.have.attribute('aria-expanded', 'true');
 
     // Simulate backdrop click
-    sendMouse({ type: 'click', position: [formField.offsetWidth + 25, 25] });
+    await sendMouse({ type: 'click', position: [formField.offsetWidth + 25, 25] });
 
     await willCloseEventSpy.calledTimes(3);
     expect(willCloseEventSpy.count).to.be.equal(3);
