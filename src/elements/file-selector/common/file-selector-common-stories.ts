@@ -1,5 +1,5 @@
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes } from '@storybook/web-components';
+import type { Args, ArgTypes, StoryObj } from '@storybook/web-components';
 import { type TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -73,7 +73,17 @@ const accessibilityLabel: InputType = {
   },
 };
 
+const tag: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    disable: true,
+  },
+};
+
 export const fileSelectorDefaultArgTypes: ArgTypes = {
+  tag,
   size,
   disabled,
   multiple,
@@ -83,6 +93,7 @@ export const fileSelectorDefaultArgTypes: ArgTypes = {
 };
 
 export const fileSelectorDefaultArgs: Args = {
+  tag: 'TBD',
   size: size.options![0],
   disabled: false,
   multiple: false,
@@ -95,4 +106,37 @@ export const fileSelectorMultipleDefaultArgs: Args = {
   ...fileSelectorDefaultArgs,
   multiple: true,
   'accessibility-label': 'Select from hard disk - multiple files allowed',
+};
+
+export const defaultFileSelector: StoryObj = {
+  render: FileSelectorTemplate,
+};
+
+export const defaultDisabled: StoryObj = {
+  render: FileSelectorTemplate,
+  args: { disabled: true },
+};
+
+export const defaultMulti: StoryObj = {
+  render: FileSelectorTemplate,
+  args: fileSelectorMultipleDefaultArgs,
+};
+
+export const defaultMultiPersistent: StoryObj = {
+  render: FileSelectorTemplate,
+  args: { ...fileSelectorMultipleDefaultArgs, 'multiple-mode': 'persistent' },
+};
+
+export const defaultWithError: StoryObj = {
+  render: FileSelectorTemplateWithError,
+};
+
+export const defaultOnlyPDF: StoryObj = {
+  render: FileSelectorTemplate,
+  args: { accept: '.pdf' },
+};
+
+export const defaultMultiSizeS: StoryObj = {
+  render: FileSelectorTemplate,
+  args: { ...fileSelectorMultipleDefaultArgs, size: 's' },
 };

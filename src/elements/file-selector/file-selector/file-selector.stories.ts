@@ -1,62 +1,35 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 
 import {
+  defaultDisabled,
+  defaultFileSelector,
+  defaultMulti,
+  defaultMultiPersistent,
+  defaultMultiSizeS,
+  defaultOnlyPDF,
+  defaultWithError,
   fileSelectorDefaultArgs,
   fileSelectorDefaultArgTypes,
-  fileSelectorMultipleDefaultArgs,
-  FileSelectorTemplate,
-  FileSelectorTemplateWithError,
 } from '../common/file-selector-common-stories.js';
 
 import { SbbFileSelectorElement } from './file-selector.js';
 import readme from './readme.md?raw';
 
-const applyComponentTag = (args: Args): Args => ({ ...args, tag: 'sbb-file-selector' });
+const defaultArgTypes: ArgTypes = { ...fileSelectorDefaultArgTypes };
+const defaultArgs: Args = { ...fileSelectorDefaultArgs, tag: 'sbb-file-selector' };
 
-export const Default: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDefaultArgTypes,
-  args: applyComponentTag(fileSelectorDefaultArgs),
-};
-
-export const DefaultDisabled: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDefaultArgTypes,
-  args: applyComponentTag({ ...fileSelectorDefaultArgs, disabled: true }),
-};
-
-export const DefaultMulti: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDefaultArgTypes,
-  args: applyComponentTag(fileSelectorMultipleDefaultArgs),
-};
-
-export const DefaultMultiPersistent: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDefaultArgTypes,
-  args: applyComponentTag({ ...fileSelectorMultipleDefaultArgs, 'multiple-mode': 'persistent' }),
-};
-
-export const DefaultWithError: StoryObj = {
-  render: FileSelectorTemplateWithError,
-  argTypes: fileSelectorDefaultArgTypes,
-  args: applyComponentTag(fileSelectorDefaultArgs),
-};
-
-export const DefaultOnlyPDF: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDefaultArgTypes,
-  args: applyComponentTag({ ...fileSelectorDefaultArgs, accept: '.pdf' }),
-};
-
-export const DefaultMultiSizeS: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDefaultArgTypes,
-  args: applyComponentTag({ ...fileSelectorMultipleDefaultArgs, size: 's' }),
-};
+export const DefaultFileSelector: StoryObj = defaultFileSelector;
+export const DefaultDisabled: StoryObj = defaultDisabled;
+export const DefaultMulti: StoryObj = defaultMulti;
+export const DefaultMultiPersistent: StoryObj = defaultMultiPersistent;
+export const DefaultWithError: StoryObj = defaultWithError;
+export const DefaultOnlyPDF: StoryObj = defaultOnlyPDF;
+export const DefaultMultiSizeS: StoryObj = defaultMultiSizeS;
 
 const meta: Meta = {
+  args: defaultArgs,
+  argTypes: defaultArgTypes,
   decorators: [withActions as Decorator],
   parameters: {
     actions: {

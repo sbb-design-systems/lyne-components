@@ -3,16 +3,19 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 
 import {
+  defaultDisabled,
+  defaultFileSelector,
+  defaultMulti,
+  defaultMultiPersistent,
+  defaultMultiSizeS,
+  defaultOnlyPDF,
+  defaultWithError,
   fileSelectorDefaultArgs,
   fileSelectorDefaultArgTypes,
-  FileSelectorTemplate,
-  FileSelectorTemplateWithError,
 } from '../common/file-selector-common-stories.js';
 
 import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.js';
 import readme from './readme.md?raw';
-
-const applyComponentTag = (args: Args): Args => ({ ...args, tag: 'sbb-file-selector-dropzone' });
 
 const titleContent: InputType = {
   control: {
@@ -26,64 +29,22 @@ const fileSelectorDropzoneArgTypes: ArgTypes = {
 };
 
 const fileSelectorDropzoneArgs: Args = {
-  fileSelectorDefaultArgs,
+  ...fileSelectorDefaultArgs,
   'title-content': 'Title',
+  tag: 'sbb-file-selector-dropzone',
 };
 
-const fileSelectorMultipleDropzoneArgs: Args = {
-  ...fileSelectorDropzoneArgs,
-  multiple: true,
-  'accessibility-label': 'Select from hard disk - multiple files allowed',
-};
-
-const fileSelectorMultipleDropzoneArgsSizeS: Args = {
-  ...fileSelectorMultipleDropzoneArgs,
-  size: 's',
-};
-
-export const Default: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDropzoneArgTypes,
-  args: applyComponentTag(fileSelectorDropzoneArgs),
-};
-
-export const DefaultDisabled: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDropzoneArgTypes,
-  args: applyComponentTag({ ...fileSelectorDropzoneArgs, disabled: true }),
-};
-
-export const DefaultMulti: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDropzoneArgTypes,
-  args: applyComponentTag(fileSelectorMultipleDropzoneArgs),
-};
-
-export const DefaultMultiPersistent: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDropzoneArgTypes,
-  args: applyComponentTag({ ...fileSelectorMultipleDropzoneArgs, 'multiple-mode': 'persistent' }),
-};
-
-export const DefaultWithError: StoryObj = {
-  render: FileSelectorTemplateWithError,
-  argTypes: fileSelectorDropzoneArgTypes,
-  args: applyComponentTag(fileSelectorDropzoneArgs),
-};
-
-export const DefaultOnlyPDF: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDropzoneArgTypes,
-  args: applyComponentTag({ ...fileSelectorDropzoneArgs, accept: '.pdf' }),
-};
-
-export const DefaultMultiSizeS: StoryObj = {
-  render: FileSelectorTemplate,
-  argTypes: fileSelectorDropzoneArgTypes,
-  args: applyComponentTag(fileSelectorMultipleDropzoneArgsSizeS),
-};
+export const DefaultFileSelectorDropzone: StoryObj = defaultFileSelector;
+export const DefaultDisabled: StoryObj = defaultDisabled;
+export const DefaultMulti: StoryObj = defaultMulti;
+export const DefaultMultiPersistent: StoryObj = defaultMultiPersistent;
+export const DefaultWithError: StoryObj = defaultWithError;
+export const DefaultOnlyPDF: StoryObj = defaultOnlyPDF;
+export const DefaultMultiSizeS: StoryObj = defaultMultiSizeS;
 
 const meta: Meta = {
+  args: fileSelectorDropzoneArgs,
+  argTypes: fileSelectorDropzoneArgTypes,
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
