@@ -12,7 +12,7 @@ describe(`sbb-loading-indicator-circle ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-loading-indicator-circle></sbb-loading-indicator-circle>`,
       {
-        modules: ['./loading-indicator.js'],
+        modules: ['./loading-indicator-circle.js'],
       },
     );
   });
