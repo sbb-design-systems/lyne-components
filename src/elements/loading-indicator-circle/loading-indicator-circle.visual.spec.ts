@@ -1,13 +1,13 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './loading-indicator.js';
+import './loading-indicator-circle.js';
 
-describe(`sbb-loading-indicator`, () => {
+describe(`sbb-loading-indicator-circle`, () => {
   const cases = {
     color: ['default', 'smoke', 'white'],
-    size: ['s', 'l', 'xl', 'xxl', 'xxxl'],
+    size: ['s', 'l'],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
@@ -16,7 +16,12 @@ describe(`sbb-loading-indicator`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html` <sbb-loading-indicator color=${color} size=${size}></sbb-loading-indicator> `,
+            html`
+              <sbb-loading-indicator-circle
+                color=${color}
+                style=${size === 'l' ? 'font-size: var(--sbb-font-size-text-xl);' : nothing}
+              ></sbb-loading-indicator-circle>
+            `,
             { backgroundColor: color === 'white' ? 'var(--sbb-color-charcoal)' : undefined },
           );
         }),

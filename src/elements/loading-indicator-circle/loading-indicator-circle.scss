@@ -1,0 +1,104 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-loading-indicator-color: var(--sbb-color-red);
+  --sbb-loading-indicator-padding: var(--sbb-border-width-2x);
+  --sbb-loading-indicator-duration: var(--sbb-disable-animation-zero-duration, 1.5s);
+  --sbb-loading-indicator-background-color: var(--sbb-color-white);
+  --sbb-loading-indicator-circle-background: conic-gradient(
+    from 90deg,
+    var(--sbb-loading-indicator-background-color),
+    var(--sbb-loading-indicator-color)
+  );
+  --sbb-loading-indicator-circle-animated-width: 0.1875em;
+  --sbb-loading-indicator-circle-animated-height: 0.1875em;
+  --sbb-loading-indicator-circle-animated-border-radius: 50%;
+
+  display: inline-block;
+  line-height: 0;
+}
+
+:host([color='smoke']) {
+  --sbb-loading-indicator-color: var(--sbb-color-smoke);
+}
+
+:host([color='white']) {
+  --sbb-loading-indicator-color: var(--sbb-color-white);
+}
+
+:host([color='white']) {
+  --sbb-loading-indicator-background-color: var(--sbb-color-iron);
+}
+
+.sbb-loading-indicator {
+  display: inline-flex;
+  height: auto;
+  width: auto;
+  padding-inline: var(--sbb-loading-indicator-padding);
+  padding-block: var(--sbb-loading-indicator-padding);
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.sbb-loading-indicator__animated-element {
+  width: 1.25em;
+  height: 1.25em;
+  display: inline-block;
+  color: transparent;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--sbb-loading-indicator-circle-background);
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-mask: radial-gradient(
+    circle 0.4375em,
+    #0000 98%,
+    var(--sbb-loading-indicator-background-color)
+  );
+  mask: radial-gradient(circle 0.4375em, #0000 98%, var(--sbb-loading-indicator-background-color));
+  animation: rotation var(--sbb-loading-indicator-duration) infinite linear;
+
+  &::after {
+    content: '';
+    width: var(--sbb-loading-indicator-circle-animated-width);
+    height: var(--sbb-loading-indicator-circle-animated-height);
+    background: var(--sbb-loading-indicator-color);
+    border-radius: var(--sbb-loading-indicator-circle-animated-border-radius);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    overflow: hidden;
+    margin: auto;
+    @include sbb.if-forced-colors {
+      --sbb-loading-indicator-color: CanvasText;
+      --sbb-loading-indicator-circle-animated-width: 50%;
+      --sbb-loading-indicator-circle-animated-height: 100%;
+      --sbb-loading-indicator-circle-animated-border-radius: 0;
+    }
+  }
+
+  @include sbb.if-forced-colors {
+    --sbb-loading-indicator-circle-background: transparent;
+  }
+}
+
+:host([color='white']) .sbb-loading-indicator__animated-element::after {
+  @include sbb.if-forced-colors {
+    --sbb-loading-indicator-color: var(--sbb-color-white);
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
