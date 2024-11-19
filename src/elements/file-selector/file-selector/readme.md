@@ -1,5 +1,5 @@
 The `sbb-file-selector` is a component which allows user to select one or more files from storage devices.
-When files are selected, they appear as a list below the button/dropzone area.
+When files are selected, they appear as a list below the button.
 For each file, the name and the size are displayed and an icon allows for deletion.
 The component mimics the native `<input type="file"/>`; for the drag-and-drop variant, see
 [sbb-file-selector-dropzone](/docs/elements-sbb-file-selector-sbb-file-selector-dropzone--docs)
@@ -13,7 +13,7 @@ The component mimics the native `<input type="file"/>`; for the drag-and-drop va
 The `error` named slot can be used to display an error message using the `sbb-form-error` component.
 
 ```html
-<sbb-file-selector variant="dropzone">
+<sbb-file-selector>
   <sbb-form-error slot="error">An error occurred during file upload.</sbb-form-error>
 </sbb-file-selector>
 ```
@@ -60,7 +60,7 @@ The component has also two different sizes, `m` (default) and `s`, which can be 
 ### Events
 
 Whenever the selection changes, a `fileChanged` event is fired, whose `event.detail` property contains the list
-of currently selected files. The list can also be retrieved using the `getFiles()` method.
+of currently selected files. The list can also be retrieved using the public `files` getter.
 
 ## Accessibility
 
@@ -95,11 +95,10 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Methods
 
-| Name                       | Privacy | Description | Parameters                                                    | Return             | Inherited From                    |
-| -------------------------- | ------- | ----------- | ------------------------------------------------------------- | ------------------ | --------------------------------- |
-| `formResetCallback`        | public  |             |                                                               | `void`             | SbbFileSelectorCommonElementMixin |
-| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void`             | SbbFileSelectorCommonElementMixin |
-| `getFiles`                 | public  |             |                                                               | `Readonly<File>[]` | SbbFileSelectorCommonElementMixin |
+| Name                       | Privacy | Description | Parameters                                                    | Return | Inherited From                    |
+| -------------------------- | ------- | ----------- | ------------------------------------------------------------- | ------ | --------------------------------- |
+| `formResetCallback`        | public  |             |                                                               | `void` | SbbFileSelectorCommonElementMixin |
+| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void` | SbbFileSelectorCommonElementMixin |
 
 ## Events
 

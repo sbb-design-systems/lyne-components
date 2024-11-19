@@ -1,4 +1,4 @@
-import type { CSSResultGroup, LitElement, TemplateResult } from 'lit';
+import type { LitElement, TemplateResult } from 'lit';
 import { nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -23,13 +23,9 @@ import {
   type Constructor,
 } from '../../core/mixins.js';
 
-import style from './file-selector-common.scss?lit&inline';
-
 import '../../button/secondary-button.js';
 import '../../button/secondary-button-static.js';
 import '../../icon.js';
-
-export type DOMEvent = globalThis.Event;
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbFormAssociatedMixinType {
   public accessor size: 's' | 'm';
@@ -47,7 +43,6 @@ export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbF
   protected updateFormValue(): void;
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
-  public getFiles(): Readonly<File>[];
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -58,7 +53,6 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     extends SbbDisabledMixin(SbbFormAssociatedMixin(superclass))
     implements Partial<SbbFileSelectorCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
     public static readonly events = {
       fileChangedEvent: 'fileChanged',
     } as const;
@@ -130,11 +124,6 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
 
     protected abstract renderTemplate(input: TemplateResult): TemplateResult;
 
-    /** @deprecated use the 'files' property instead */
-    public getFiles(): Readonly<File>[] {
-      return this.files;
-    }
-
     public override formResetCallback(): void {
       this.files = [];
     }
@@ -177,7 +166,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       }
     }
 
-    private _readFiles(event: DOMEvent): void {
+    private _readFiles(event: Event): void {
       const fileInput = event.target as HTMLInputElement;
       if (fileInput.files) {
         this.createFileList(fileInput.files);

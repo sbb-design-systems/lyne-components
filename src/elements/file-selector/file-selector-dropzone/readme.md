@@ -61,7 +61,7 @@ The component has also two different sizes, `m` (default) and `s`, which can be 
 ### Events
 
 Whenever the selection changes, a `fileChanged` event is fired, whose `event.detail` property contains the list
-of currently selected files. The list can also be retrieved using the `getFiles()` method (NOTE: deprecated method).
+of currently selected files. The list can also be retrieved using the public `files` getter.
 
 ## Accessibility
 
@@ -99,11 +99,10 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Methods
 
-| Name                       | Privacy | Description | Parameters                                                    | Return             | Inherited From                    |
-| -------------------------- | ------- | ----------- | ------------------------------------------------------------- | ------------------ | --------------------------------- |
-| `formResetCallback`        | public  |             |                                                               | `void`             | SbbFileSelectorCommonElementMixin |
-| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void`             | SbbFileSelectorCommonElementMixin |
-| `getFiles`                 | public  |             |                                                               | `Readonly<File>[]` | SbbFileSelectorCommonElementMixin |
+| Name                       | Privacy | Description | Parameters                                                    | Return | Inherited From                    |
+| -------------------------- | ------- | ----------- | ------------------------------------------------------------- | ------ | --------------------------------- |
+| `formResetCallback`        | public  |             |                                                               | `void` | SbbFileSelectorCommonElementMixin |
+| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void` | SbbFileSelectorCommonElementMixin |
 
 ## Events
 
