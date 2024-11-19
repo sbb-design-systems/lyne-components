@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
 
@@ -134,8 +134,8 @@ import '../radio-button-panel.js';
           radio.click();
           await waitForLitRender(element);
 
-          await waitForCondition(() => changeSpy.events.length === 1);
-          await waitForCondition(() => inputSpy.events.length === 1);
+          await changeSpy.calledOnce();
+          await inputSpy.calledOnce();
 
           const changeEvent = changeSpy.lastEvent!;
           expect(changeSpy.count).to.be.equal(1);

@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, EventSpy } from '../../core/testing.js';
+import { EventSpy } from '../../core/testing.js';
 
 import { SbbAlertElement } from './alert.js';
 
@@ -25,9 +25,9 @@ describe(`sbb-alert`, () => {
       html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`,
     );
 
-    await waitForCondition(() => willOpenSpy.events.length === 1);
+    await willOpenSpy.calledOnce();
     expect(willOpenSpy.count).to.be.equal(1);
-    await waitForCondition(() => didOpenSpy.events.length === 1);
+    await didOpenSpy.calledOnce();
     expect(didOpenSpy.count).to.be.equal(1);
 
     alert.requestDismissal();
@@ -35,7 +35,7 @@ describe(`sbb-alert`, () => {
 
     alert.close();
 
-    await waitForCondition(() => didCloseSpy.events.length === 1);
+    await didCloseSpy.calledOnce();
     expect(willCloseSpy.count).to.be.equal(1);
     expect(didCloseSpy.count).to.be.equal(1);
   });

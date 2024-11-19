@@ -27,6 +27,81 @@ export function createManifestConfig(library = '') {
             classDoc['_ssrslotstate'] = true;
           }
 
+          function replace(typeObj, typeName, typeValue) {
+            if (typeObj && typeObj.text) {
+              typeObj.text = typeObj.text.replace(typeName, typeValue);
+            }
+          }
+
+          /**
+           * Replaces the mixins generics types with the default value.
+           *
+           * It has been created mainly referencing the `SbbFormAssociatedMixin`,
+           * in which it is necessary to replace the generic V type with its default (string).
+           * This allows using the jsDoc `@overrideType` annotation only for cases where the default is actually overridden.
+           */
+          if (ts.isVariableStatement(node)) {
+            node.declarationList?.declarations?.forEach((decl) => {
+              if (decl.initializer?.typeParameters) {
+                const moduleDeclaration = moduleDoc.declarations.find(
+                  (e) => e.name === decl.name?.getText(),
+                );
+                decl.initializer?.typeParameters?.forEach((typeParam) => {
+                  if (typeParam.default) {
+                    const typeName = typeParam.name.getText();
+                    let typeValue;
+                    switch (typeParam.default.kind) {
+                      case ts.SyntaxKind.StringKeyword:
+                      case ts.SyntaxKind.NumberKeyword: {
+                        typeValue = ts.tokenToString(typeParam.default.kind);
+                        break;
+                      }
+                      case ts.SyntaxKind.TypeReference: {
+                        typeValue = typeParam.default.typeName.getText();
+                        break;
+                      }
+                      case ts.SyntaxKind.LiteralType: {
+                        switch (typeParam.default.literal.kind) {
+                          case ts.SyntaxKind.TrueKeyword:
+                          case ts.SyntaxKind.FalseKeyword:
+                          case ts.SyntaxKind.NullKeyword: {
+                            typeValue = typeParam.default.literal.getText();
+                            break;
+                          }
+                          default: {
+                            typeValue = `'${typeParam.default.literal.getText()}'`;
+                            break;
+                          }
+                        }
+                        break;
+                      }
+                      default: {
+                        // missing cases: intersection types, union types,..?
+                        typeValue = typeParam.default.getText();
+                        break;
+                      }
+                    }
+                    moduleDeclaration?.members?.forEach((member) => {
+                      if (member.kind === 'field') {
+                        replace(member.type, typeName, typeValue);
+                      }
+                      if (member.kind === 'method') {
+                        if (member.return) {
+                          replace(member.return.type, typeName, typeValue);
+                        }
+                        if (member.parameters) {
+                          member.parameters.forEach((parameter) => {
+                            replace(parameter.type, typeName, typeValue);
+                          });
+                        }
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+
           if (ts.isNewExpression(node) && node.expression.getText() === 'SbbSlotStateController') {
             let classNode = node;
             while (classNode) {

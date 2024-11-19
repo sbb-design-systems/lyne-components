@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import { SbbStepElement } from '../step/step.js';
 import type { SbbStepLabelElement } from '../step-label.js';
 
@@ -65,7 +65,7 @@ describe('sbb-stepper', () => {
     stepLabelThree.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => validate.events.length === 1);
+    await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
@@ -81,7 +81,7 @@ describe('sbb-stepper', () => {
     element.selected = stepLabelThree.step!;
     await waitForLitRender(element);
 
-    await waitForCondition(() => validate.events.length === 1);
+    await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
@@ -97,7 +97,7 @@ describe('sbb-stepper', () => {
     element.selectedIndex = 2;
     await waitForLitRender(element);
 
-    await waitForCondition(() => validate.events.length === 1);
+    await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
     expect(stepLabelThree).to.have.attribute('data-selected');
     expect(stepLabelThree.step).to.have.attribute('data-selected');
@@ -115,7 +115,7 @@ describe('sbb-stepper', () => {
     stepperNext.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => validate.events.length === 1);
+    await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
@@ -137,7 +137,7 @@ describe('sbb-stepper', () => {
     stepperNext.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => validate.events.length === 1);
+    await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
@@ -181,7 +181,7 @@ describe('sbb-stepper', () => {
     stepperNext.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => validate.events.length === 1);
+    await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
     expect(stepLabelTwo).to.have.attribute('data-selected');
     expect(stepLabelTwo.step).to.have.attribute('data-selected');
@@ -198,7 +198,7 @@ describe('sbb-stepper', () => {
     stepLabelThree.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => validate.events.length === 1);
+    await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
     expect(stepLabelThree).not.to.have.attribute('data-selected');
     expect(stepLabelThree.step).not.to.have.attribute('data-selected');

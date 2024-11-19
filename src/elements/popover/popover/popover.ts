@@ -10,7 +10,7 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbLanguageController } from '../../core/controllers.js';
+import { SbbMediaQueryPointerCoarse, SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { findReferencedElement } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
@@ -34,6 +34,7 @@ const HORIZONTAL_OFFSET = 32;
 let nextId = 0;
 
 const popoversRef = new Set<SbbPopoverElement>();
+const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
 /**
  * It displays contextual information within a popover.
@@ -234,18 +235,13 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
     // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
     // all non-touchscreen devices.
-    this._hoverTrigger = this.hoverTrigger && !window.matchMedia('(pointer: coarse)').matches;
+    this._hoverTrigger = this.hoverTrigger && !pointerCoarse;
 
     this._popoverController?.abort();
-    this._popoverController = new AbortController();
+    const { signal } = (this._popoverController = new AbortController());
     if (this._hoverTrigger) {
-      this._triggerElement.addEventListener('mouseenter', this._onTriggerMouseEnter, {
-        signal: this._popoverController.signal,
-      });
-
-      this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, {
-        signal: this._popoverController.signal,
-      });
+      this._triggerElement.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
+      this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });
 
       this._triggerElement.addEventListener(
         'keydown',
@@ -254,9 +250,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
             this.open();
           }
         },
-        {
-          signal: this._popoverController.signal,
-        },
+        { signal },
       );
     } else {
       this._triggerElement.addEventListener(
@@ -266,9 +260,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
             this.open();
           }
         },
-        {
-          signal: this._popoverController.signal,
-        },
+        { signal },
       );
     }
   }

@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import type { SbbButtonElement } from '../button.js';
 import { i18nDialog } from '../core/i18n.js';
 import { tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
@@ -17,11 +18,11 @@ async function openOverlay(element: SbbOverlayElement): Promise<void> {
   element.open();
   await waitForLitRender(element);
 
-  await waitForCondition(() => willOpen.events.length === 1);
+  await willOpen.calledOnce();
   expect(willOpen.count).to.be.equal(1);
   await waitForLitRender(element);
 
-  await waitForCondition(() => didOpen.events.length === 1);
+  await didOpen.calledOnce();
   expect(didOpen.count).to.be.equal(1);
   await waitForLitRender(element);
 
@@ -58,7 +59,7 @@ describe('sbb-overlay', () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpen.events.length === 1);
+    await willOpen.calledOnce();
     expect(willOpen.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -77,11 +78,11 @@ describe('sbb-overlay', () => {
     element.close();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -100,7 +101,7 @@ describe('sbb-overlay', () => {
     element.close();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -118,15 +119,41 @@ describe('sbb-overlay', () => {
     closeButton.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
+  });
+
+  it('closes the overlay on close button click with linked form', async () => {
+    element = await fixture(html`
+      <div>
+        <form id="formid" method="dialog"></form>
+        <sbb-overlay id="my-overlay-3">
+          <p>Overlay content</p>
+          <sbb-button sbb-overlay-close type="submit" form="formid">Close</sbb-button>
+        </sbb-overlay>
+      </div>
+    `);
+
+    const overlay = element.querySelector('sbb-overlay')!;
+    const closeButton = element.querySelector<SbbButtonElement>('[type="submit"]')!;
+    const form = element.querySelector<HTMLFormElement>('form')!;
+    const willClose = new EventSpy<CustomEvent>(SbbOverlayElement.events.willClose);
+
+    await openOverlay(overlay);
+
+    closeButton.click();
+    await waitForLitRender(element);
+
+    await willClose.calledOnce();
+
+    expect(willClose.firstEvent?.detail.returnValue).to.be.deep.equal(form);
   });
 
   it('closes the overlay on Esc key press', async () => {
@@ -141,11 +168,11 @@ describe('sbb-overlay', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -175,11 +202,11 @@ describe('sbb-overlay', () => {
     stackedOverlay.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpen.events.length === 2);
+    await willOpen.calledTimes(2);
     expect(willOpen.count).to.be.equal(2);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpen.events.length === 2);
+    await didOpen.calledTimes(2);
     expect(didOpen.count).to.be.equal(2);
     await waitForLitRender(element);
 
@@ -191,11 +218,11 @@ describe('sbb-overlay', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 1);
+    await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 1);
+    await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -208,11 +235,11 @@ describe('sbb-overlay', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => willClose.events.length === 2);
+    await willClose.calledTimes(2);
     expect(willClose.count).to.be.equal(2);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didClose.events.length === 2);
+    await didClose.calledTimes(2);
     expect(didClose.count).to.be.equal(2);
     await waitForLitRender(element);
 

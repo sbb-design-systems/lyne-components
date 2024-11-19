@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbChipElement } from '../chip.js';
+import type { SbbChipLabelElement } from '../chip-label.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 import type { SbbImageElement } from '../image.js';
 
 import { SbbTeaserHeroElement } from './teaser-hero.js';
-import '../chip.js';
+import '../chip-label.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
@@ -36,11 +36,11 @@ describe(`sbb-teaser-hero`, () => {
   it('styles slotted components', async () => {
     element = await fixture(
       html`<sbb-teaser-hero href="https://www.sbb.ch" image-src=${imageUrl}>
-        <sbb-chip slot="chip">Label</sbb-chip>
+        <sbb-chip-label slot="chip">Label</sbb-chip-label>
       </sbb-teaser-hero>`,
     );
 
-    const chip = element.querySelector<SbbChipElement>('sbb-chip')!;
+    const chip = element.querySelector<SbbChipLabelElement>('sbb-chip-label')!;
     const image = element.shadowRoot!.querySelector<SbbImageElement>('sbb-image')!;
 
     expect(chip).to.have.attribute('color', 'charcoal');
