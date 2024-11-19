@@ -1,16 +1,19 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { forceType, hostAttributes } from '../../core/decorators.js';
-import { setOrRemoveAttribute } from '../../core/dom.js';
-import { EventEmitter, HandlerRepository, formElementHandlerAspect } from '../../core/eventing.js';
+import { setModalityOnNextFocus } from '../../core/a11y.js';
+import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces.js';
-import type { AbstractConstructor } from '../../core/mixins.js';
+import {
+  type AbstractConstructor,
+  type Constructor,
+  SbbFormAssociatedRadioButtonMixin,
+  type SbbFormAssociatedRadioButtonMixinType,
+} from '../../core/mixins.js';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
@@ -20,32 +23,24 @@ export type SbbRadioButtonStateChange = Extract<
   SbbDisabledStateChange | SbbCheckedStateChange
 >;
 
-export declare class SbbRadioButtonCommonElementMixinType {
+export declare class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixinType {
   public get allowEmptySelection(): boolean;
   public set allowEmptySelection(boolean);
-  public accessor value: string;
-  public get disabled(): boolean;
-  public set disabled(boolean);
-  public get required(): boolean;
-  public set required(boolean);
   public get group(): SbbRadioButtonGroupElement | null;
-  public get checked(): boolean;
-  public set checked(boolean);
   public select(): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbRadioButtonCommonElementMixinType> & T => {
-  @hostAttributes({
-    role: 'radio',
-  })
   abstract class SbbRadioButtonCommonElement
-    extends superClass
+    extends SbbFormAssociatedRadioButtonMixin(superClass)
     implements Partial<SbbRadioButtonCommonElementMixinType>
   {
     public static readonly events = {
+      change: 'change',
+      input: 'input',
       stateChange: 'stateChange',
     } as const;
 
@@ -62,53 +57,12 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
     private _allowEmptySelection = false;
 
     /**
-     * Value of radio button.
-     */
-    @forceType()
-    @property()
-    public accessor value: string = '';
-
-    /**
-     * Whether the radio button is disabled.
-     */
-    @property({ reflect: true, type: Boolean })
-    public set disabled(value: boolean) {
-      this._disabled = Boolean(value);
-    }
-    public get disabled(): boolean {
-      return this._disabled || (this.group?.disabled ?? false);
-    }
-    private _disabled = false;
-
-    /**
-     * Whether the radio button is required.
-     */
-    @property({ reflect: true, type: Boolean })
-    public set required(value: boolean) {
-      this._required = Boolean(value);
-    }
-    public get required(): boolean {
-      return this._required || (this.group?.required ?? false);
-    }
-    private _required = false;
-
-    /**
      * Reference to the connected radio button group.
      */
     public get group(): SbbRadioButtonGroupElement | null {
       return this._group;
     }
     private _group: SbbRadioButtonGroupElement | null = null;
-
-    /**
-     * Whether the radio button is checked.
-     */
-    @forceType()
-    @property({ reflect: true, type: Boolean })
-    public accessor checked: boolean = false;
-
-    private _abort = new SbbConnectedAbortController(this);
-    private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
 
     /**
      * @internal
@@ -121,63 +75,75 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<L
       { bubbles: true },
     );
 
-    public select(): void {
-      if (this.disabled) {
-        return;
-      }
-
-      if (this.allowEmptySelection) {
-        this.checked = !this.checked;
-      } else if (!this.checked) {
-        this.checked = true;
-      }
-    }
-
     public override connectedCallback(): void {
       super.connectedCallback();
       this._group = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
 
-      const signal = this._abort.signal;
+      const signal = this.abort.signal;
       this.addEventListener('click', (e) => this._handleClick(e), { signal });
       this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-      this._handlerRepository.connect();
 
       // We need to call requestUpdate to update the reflected attributes
       ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
     }
 
-    public override disconnectedCallback(): void {
-      super.disconnectedCallback();
-      this._handlerRepository.disconnect();
+    /**
+     * Set the radio-button as 'checked'; if 'allowEmptySelection', toggle the checked property.
+     * In both cases it emits the change events.
+     */
+    public select(): void {
+      if (this.disabled || this.formDisabled) {
+        return;
+      }
+
+      if (this.allowEmptySelection) {
+        this.checked = !this.checked;
+        this.emitChangeEvents();
+      } else if (!this.checked) {
+        this.checked = true;
+        this.emitChangeEvents();
+      }
     }
 
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
       if (changedProperties.has('checked')) {
-        this.setAttribute('aria-checked', `${this.checked}`);
         if (this.checked !== changedProperties.get('checked')!) {
           this._stateChange.emit({ type: 'checked', checked: this.checked });
         }
       }
       if (changedProperties.has('disabled')) {
-        setOrRemoveAttribute(this, 'aria-disabled', this.disabled ? 'true' : null);
         if (this.disabled !== changedProperties.get('disabled')!) {
           this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
         }
       }
-      if (changedProperties.has('required')) {
-        this.setAttribute('aria-required', `${this.required}`);
-      }
     }
 
-    private _handleClick(event: Event): void {
+    protected override isDisabledExternally(): boolean {
+      return this.group?.disabled ?? false;
+    }
+
+    protected override isRequiredExternally(): boolean {
+      return this.group?.required ?? false;
+    }
+
+    private async _handleClick(event: Event): Promise<void> {
       event.preventDefault();
       this.select();
+
+      /**
+       * Since only a single radio of a group is focusable at any time, it is possible that the one clicked does not have 'tabindex=0'.
+       * To cover that, we await the next render (which will make the 'checked' radio focusable) and focus the clicked radio
+       */
+      await this.updateComplete; // Wait for 'tabindex' to be updated
+      setModalityOnNextFocus(this);
+      this.focus();
     }
 
     private _handleKeyDown(evt: KeyboardEvent): void {
       if (evt.code === 'Space') {
+        evt.preventDefault();
         this.select();
       }
     }
