@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
 import { SbbMenuElement } from './menu.js';
 
@@ -48,11 +48,11 @@ describe(`sbb-menu`, () => {
 
     trigger.click();
     await waitForLitRender(element);
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
@@ -68,11 +68,11 @@ describe(`sbb-menu`, () => {
     trigger.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -84,11 +84,11 @@ describe(`sbb-menu`, () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -105,11 +105,11 @@ describe(`sbb-menu`, () => {
     trigger.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -118,11 +118,11 @@ describe(`sbb-menu`, () => {
 
     menuAction.click();
     await waitForLitRender(element);
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
@@ -139,11 +139,11 @@ describe(`sbb-menu`, () => {
     trigger.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -153,11 +153,11 @@ describe(`sbb-menu`, () => {
     menuLink.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -173,11 +173,11 @@ describe(`sbb-menu`, () => {
     trigger.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -208,11 +208,11 @@ describe(`sbb-menu`, () => {
     trigger.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -234,11 +234,11 @@ describe(`sbb-menu`, () => {
     await sendKeys({ press: 'Enter' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -254,7 +254,7 @@ describe(`sbb-menu`, () => {
     element.addEventListener(SbbMenuElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -266,13 +266,13 @@ describe(`sbb-menu`, () => {
     const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose);
 
     element.open();
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     await waitForLitRender(element);
 
     element.addEventListener(SbbMenuElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
