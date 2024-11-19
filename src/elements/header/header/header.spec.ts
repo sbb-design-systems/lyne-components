@@ -3,7 +3,7 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, mockScrollTo, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, mockScrollTo, waitForLitRender } from '../../core/testing.js';
 import { SbbMenuElement } from '../../menu.js';
 import type { SbbHeaderButtonElement } from '../header-button.js';
 
@@ -166,10 +166,10 @@ describe(`sbb-header`, () => {
     const menuTrigger = root.querySelector<SbbHeaderButtonElement>('sbb-header-button')!;
     menuTrigger.click();
     await waitForLitRender(element);
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
     const menuId = menuTrigger.getAttribute('aria-controls');
