@@ -13,7 +13,7 @@ import '../button/button.js';
 import '../title.js';
 import '../card.js';
 
-const createLoadingIndicator = (event: Event, args: Args): void => {
+const createLoadingIndicator = (event: Event): void => {
   const loader: SbbLoadingIndicatorCircleElement = document.createElement(
     'sbb-loading-indicator-circle',
   );
@@ -21,7 +21,6 @@ const createLoadingIndicator = (event: Event, args: Args): void => {
     '.loader-container',
   )!;
   loader.setAttribute('aria-label', 'Loading, please wait');
-  loader.size = args['size'];
   container.append(loader);
   setTimeout(() => {
     const p = document.createElement('p');
@@ -31,14 +30,12 @@ const createLoadingIndicator = (event: Event, args: Args): void => {
   }, 5000);
 };
 
-const TemplateAccessibility = (args: Args): TemplateResult => html`
+const TemplateAccessibility = (): TemplateResult => html`
   <sbb-card color="milk">
     Turn on your screen-reader and click the button to make the loading indicator appear.
   </sbb-card>
   <br />
-  <sbb-button @click=${(event: Event) => createLoadingIndicator(event, args)}>
-    Show loader
-  </sbb-button>
+  <sbb-button @click=${(event: Event) => createLoadingIndicator(event)}> Show loader </sbb-button>
   <div class="loader-container" aria-live="polite"></div>
 `;
 
