@@ -208,7 +208,12 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbAlertElement.events.willOpen, SbbAlertElement.events.didOpen],
+      handles: [
+        SbbAlertElement.events.willOpen,
+        SbbAlertElement.events.didOpen,
+        SbbAlertElement.events.willClose,
+        SbbAlertElement.events.didClose,
+      ],
     },
     docs: {
       extractComponentDescription: () => readme,
