@@ -120,7 +120,7 @@ const TemplateSbbTeaserWithSlots = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-teaser-hero ${sbbSpread(args)}>
-    ${content ? content : nothing}
+    ${content ?? nothing}
     ${linkContent ? html`<span slot="link-content">${linkContent}</span>` : nothing}
 
     <figure class="sbb-figure" slot="image">

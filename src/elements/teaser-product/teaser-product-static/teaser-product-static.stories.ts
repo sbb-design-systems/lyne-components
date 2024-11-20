@@ -98,7 +98,7 @@ const Template = ({ withChip, withFooter, slottedImg, ...args }: Args): Template
   <sbb-teaser-product-static ${sbbSpread(args)}>
     <figure slot="image" class="sbb-figure">
       ${slottedImg
-        ? html`<img src=${sampleImages[4]} alt="" class="TODO" />`
+        ? html`<img src=${sampleImages[4]} alt="" />`
         : html`<sbb-image image-src=${sampleImages[4]}></sbb-image>`}
       ${withChip
         ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">AI generated</sbb-chip-label>`

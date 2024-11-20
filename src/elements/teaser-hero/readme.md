@@ -6,8 +6,8 @@ it should be an eye-catcher and should have an emotional effect on the user with
 It is possible to provide the panel label via an unnamed slot,
 while the link text can be provided using the `link-content` slot or the `linkContent` property;
 
-Use the `image` slot to pass a `figure` containing an `sbb-image | img` that will be used as background.
-Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure`.
+Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.
+Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
 
 ```html
 <sbb-teaser-hero href="https://www.sbb.ch">

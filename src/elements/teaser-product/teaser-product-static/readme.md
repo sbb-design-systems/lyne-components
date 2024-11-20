@@ -17,8 +17,8 @@ otherwise, see [sbb-teaser-product](/docs/elements-sbb-teaser-sbb-teaser-product
 
 ## Slots
 
-Use the `image` slot to pass a `figure` containing an `sbb-image | img` that will be used as background.
-Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure`.
+Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.
+Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
 
 Use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 
