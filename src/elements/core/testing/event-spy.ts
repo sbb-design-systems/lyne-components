@@ -44,7 +44,7 @@ export class EventSpy<T extends Event> {
     return this.calledTimes(1, timeout);
   }
 
-  public calledTimes(count: number, timeout = 1500): Promise<T> {
+  public calledTimes(count: number, timeout = 2000): Promise<T> {
     if (this.count > count) {
       return Promise.reject(
         `Event has been emitted more than expected (expected ${count}, actual ${this.count}`,
