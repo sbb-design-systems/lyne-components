@@ -163,7 +163,7 @@ jobs:
         uses: kitabisa/docker-slim-action@v1
         with:
           target: '${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline'
-          tag: '${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline-slim'
+          tag: baseline-slim
         env:
           DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
