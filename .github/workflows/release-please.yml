@@ -99,7 +99,7 @@ jobs:
         uses: kitabisa/docker-slim-action@v1
         with:
           target: '${{ env.IMAGE_REPO_STORYBOOK }}:${{ steps.release.outputs.version }}'
-          tag: '${{ env.IMAGE_REPO_STORYBOOK }}:${{ steps.release.outputs.version }}-slim'
+          tag: '${{ steps.release.outputs.version }}-slim'
         env:
           DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Build slim image with latest
@@ -107,7 +107,7 @@ jobs:
         uses: kitabisa/docker-slim-action@v1
         with:
           target: '${{ env.IMAGE_REPO_STORYBOOK }}:latest'
-          tag: '${{ env.IMAGE_REPO_STORYBOOK }}:latest-slim'
+          tag: ':latest-slim'
         env:
           DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
@@ -128,7 +128,7 @@ jobs:
         uses: kitabisa/docker-slim-action@v1
         with:
           target: '${{ env.IMAGE_REPO_STORYBOOK }}:dev'
-          tag: '${{ env.IMAGE_REPO_STORYBOOK }}:dev-slim'
+          tag: dev-slim
         env:
           DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
