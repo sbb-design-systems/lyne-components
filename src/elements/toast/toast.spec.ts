@@ -35,11 +35,11 @@ describe(`sbb-toast`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
     expect(element.getAttribute('data-state')).to.be.equal('opened');
@@ -47,11 +47,11 @@ describe(`sbb-toast`, () => {
     // Will wait for timeout and then close itself
 
     await waitForLitRender(element);
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
@@ -68,18 +68,18 @@ describe(`sbb-toast`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
 
     const dismissBtn =
       element.shadowRoot!.querySelector<SbbTransparentButtonElement>('sbb-transparent-button')!;
     dismissBtn.click();
 
     await waitForLitRender(element);
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
@@ -100,16 +100,16 @@ describe(`sbb-toast`, () => {
 
     element.open();
     await waitForLitRender(element);
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
 
     actionBtn.click();
 
     await waitForLitRender(element);
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
@@ -173,7 +173,7 @@ describe(`sbb-toast`, () => {
     element.addEventListener(SbbToastElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -185,13 +185,13 @@ describe(`sbb-toast`, () => {
     const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
 
     element.open();
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     await waitForLitRender(element);
 
     element.addEventListener(SbbToastElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');

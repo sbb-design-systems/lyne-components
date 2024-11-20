@@ -8,7 +8,7 @@ import { NativeDateAdapter } from '../../core/datetime.js';
 import { findInput } from '../../core/dom.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
 import { fixture, tabKey, typeInElement } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbDatepickerNextDayElement } from '../datepicker-next-day.js';
 import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day.js';
@@ -93,7 +93,7 @@ describe(`sbb-datepicker`, () => {
         const changeSpy = new EventSpy('change', element);
         typeInElement(input, '20/01/2023');
         button.focus();
-        await waitForCondition(() => changeSpy.events.length === 1);
+        await changeSpy.calledOnce();
         expect(input.value).to.be.equal('Fr, 20.01.2023');
         expect(changeSpy.count).to.be.equal(1);
       });
@@ -102,7 +102,7 @@ describe(`sbb-datepicker`, () => {
         const changeSpy = new EventSpy('change', element);
         typeInElement(input, '20/01/12');
         button.focus();
-        await waitForCondition(() => changeSpy.events.length === 1);
+        await changeSpy.calledOnce();
         expect(input.value).to.be.equal('Fr, 20.01.2012');
         expect(changeSpy.count).to.be.equal(1);
       });
@@ -111,7 +111,7 @@ describe(`sbb-datepicker`, () => {
         const changeSpy = new EventSpy('change', element);
         typeInElement(input, '20/01/99');
         button.focus();
-        await waitForCondition(() => changeSpy.events.length === 1);
+        await changeSpy.calledOnce();
         expect(input.value).to.be.equal('We, 20.01.1999');
         expect(changeSpy.count).to.be.equal(1);
       });
@@ -120,7 +120,7 @@ describe(`sbb-datepicker`, () => {
         const changeSpy = new EventSpy('change', element);
         typeInElement(input, '20..2012');
         button.focus();
-        await waitForCondition(() => changeSpy.events.length === 1);
+        await changeSpy.calledOnce();
         expect(input).to.have.attribute('data-sbb-invalid');
         expect(changeSpy.count).to.be.equal(1);
       });
@@ -129,7 +129,7 @@ describe(`sbb-datepicker`, () => {
         const changeSpy = new EventSpy('change', element);
         typeInElement(input, '20.05.');
         button.focus();
-        await waitForCondition(() => changeSpy.events.length === 1);
+        await changeSpy.calledOnce();
         expect(input).to.have.attribute('data-sbb-invalid');
         expect(changeSpy.count).to.be.equal(1);
       });
@@ -138,7 +138,7 @@ describe(`sbb-datepicker`, () => {
         const changeSpy = new EventSpy('change', element);
         typeInElement(input, '20.00.2012');
         button.focus();
-        await waitForCondition(() => changeSpy.events.length === 1);
+        await changeSpy.calledOnce();
         expect(input).to.have.attribute('data-sbb-invalid');
         expect(changeSpy.count).to.be.equal(1);
       });
@@ -147,7 +147,7 @@ describe(`sbb-datepicker`, () => {
         const changeSpy = new EventSpy('change', element);
         typeInElement(input, '00.05.2020');
         button.focus();
-        await waitForCondition(() => changeSpy.events.length === 1);
+        await changeSpy.calledOnce();
         expect(input).to.have.attribute('data-sbb-invalid');
         expect(changeSpy.count).to.be.equal(1);
       });
@@ -163,11 +163,11 @@ describe(`sbb-datepicker`, () => {
       it('renders and emits event when input parameter changes', async () => {
         const datePickerUpdatedSpy = new EventSpy('datePickerUpdated');
         element.wide = true;
-        await waitForCondition(() => datePickerUpdatedSpy.events.length === 1);
+        await datePickerUpdatedSpy.calledOnce();
         expect(datePickerUpdatedSpy.count).to.be.equal(1);
         element.dateFilter = () => false;
         await waitForLitRender(element);
-        await waitForCondition(() => datePickerUpdatedSpy.events.length === 2);
+        await datePickerUpdatedSpy.calledTimes(2);
         expect(datePickerUpdatedSpy.count).to.be.equal(2);
       });
 
@@ -192,7 +192,7 @@ describe(`sbb-datepicker`, () => {
         };
         await waitForLitRender(element);
         typeInElement(input, '7.8', { key: 'Enter', keyCode: 13 });
-        await waitForCondition(() => changeSpy.events.length === 1);
+        await changeSpy.calledOnce();
         await waitForLitRender(element);
         expect(input.value).to.be.equal('Mo, 07.08');
         expect(changeSpy.count).to.be.equal(1);
@@ -206,7 +206,7 @@ describe(`sbb-datepicker`, () => {
         await waitForLitRender(element);
 
         // Then validation event should emit with false
-        await waitForCondition(() => validationChangeSpy.events.length === 1);
+        await validationChangeSpy.calledOnce();
         expect((validationChangeSpy.lastEvent as CustomEvent).detail['valid']).to.be.equal(false);
         expect(input).to.have.attribute('data-sbb-invalid');
 
@@ -226,7 +226,7 @@ describe(`sbb-datepicker`, () => {
         input.blur();
 
         // Then validation event should be emitted with true
-        await waitForCondition(() => validationChangeSpy.events.length === 1);
+        await validationChangeSpy.calledOnce();
         expect((validationChangeSpy.lastEvent as CustomEvent).detail['valid']).to.be.equal(true);
         expect(input).not.to.have.attribute('data-sbb-invalid');
       });

@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
@@ -15,6 +15,9 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  * It displays a radio button enhanced with the SBB Design.
  *
  * @slot - Use the unnamed slot to add content to the radio label.
+ * @event {Event} change - Fired on change.
+ * @event {InputEvent} input - Fired on input.
+ * @overrideType value - string | null
  */
 export
 @customElement('sbb-radio-button')
@@ -23,6 +26,8 @@ class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement)
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonStyle];
   public static readonly events = {
     stateChange: 'stateChange',
+    change: 'change',
+    input: 'input',
   } as const;
 
   /** Size variant. */
@@ -33,16 +38,6 @@ class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement)
   protected override render(): TemplateResult {
     return html`
       <label class="sbb-radio-button">
-        <input
-          type="radio"
-          aria-hidden="true"
-          tabindex="-1"
-          ?disabled=${this.disabled}
-          ?required=${this.required}
-          ?checked=${this.checked}
-          value=${this.value || nothing}
-          class="sbb-screen-reader-only"
-        />
         <span class="sbb-radio-button__label-slot">
           <slot></slot>
         </span>

@@ -5,7 +5,7 @@ import { spy } from 'sinon';
 
 import type { SbbMiniButtonElement } from '../../button/mini-button.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbOptionElement } from '../../option.js';
 import { SbbSelectElement } from '../../select.js';
 
@@ -110,9 +110,9 @@ describe('sbb-paginator', () => {
     const willOpen = new EventSpy(SbbSelectElement.events.willOpen);
     const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
     select.click();
-    await waitForCondition(() => willOpen.events.length === 1);
+    await willOpen.calledOnce();
     expect(willOpen.count).to.be.equal(1);
-    await waitForCondition(() => didOpen.events.length === 1);
+    await didOpen.calledOnce();
     expect(didOpen.count).to.be.equal(1);
     await waitForLitRender(element);
 

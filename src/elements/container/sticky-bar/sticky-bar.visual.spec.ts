@@ -10,6 +10,8 @@ import {
 } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
+import type { SbbStickyBarElement } from './sticky-bar.js';
+
 import './sticky-bar.js';
 import '../container.js';
 import '../../action-group.js';
@@ -29,9 +31,9 @@ describe(`sbb-sticky-bar`, () => {
   const containerContent = (): TemplateResult => html`
     <sbb-title level="4">Example title</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
-    <sbb-secondary-button style="margin-block-end: 0.75rem;" size="m"
-      >See more</sbb-secondary-button
-    >
+    <sbb-secondary-button style="margin-block-end: 0.75rem;" size="m">
+      See more
+    </sbb-secondary-button>
   `;
 
   const actionGroup = (): TemplateResult => html`
@@ -83,13 +85,26 @@ describe(`sbb-sticky-bar`, () => {
     `viewport=medium_short content`,
     visualDiffDefault.with(async (setup) => {
       await setup.withFixture(
-        html` <sbb-container>
+        html`<sbb-container>
           ${containerContent()}
           <sbb-sticky-bar color="milk"> ${actionGroup()} </sbb-sticky-bar>
         </sbb-container>`,
         { padding: '0' },
       );
       await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
+    }),
+  );
+
+  it(
+    `unstick`,
+    visualDiffDefault.with((setup) => {
+      setup.withSnapshotElement(root);
+      setup.withPostSetupAction(async () => {
+        root.scrollTop = root.scrollHeight;
+
+        root.querySelector<SbbStickyBarElement>('sbb-sticky-bar')!.unstick();
+        await waitForLitRender(root);
+      });
     }),
   );
 });
