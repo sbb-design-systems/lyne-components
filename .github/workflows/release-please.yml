@@ -107,7 +107,7 @@ jobs:
         uses: kitabisa/docker-slim-action@v1
         with:
           target: '${{ env.IMAGE_REPO_STORYBOOK }}:latest'
-          tag: ':latest-slim'
+          tag: latest-slim
         env:
           DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
