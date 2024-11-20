@@ -1,7 +1,7 @@
 A `sbb-train` is a component used as a container element for a collection of
-[sbb-train-wagon](/docs/timetable-sbb-train-wagon--docs)s
-or [sbb-train-blocked-passage](/docs/timetable-sbb-train-blocked-passage--docs)s,
-and it can be used within the [sbb-train-formation](/docs/timetable-sbb-train-formation--docs) component.
+[sbb-train-wagon](/docs/elements-timetable-sbb-train-wagon--docs)s
+or [sbb-train-blocked-passage](/docs/elements-timetable-sbb-train-blocked-passage--docs)s,
+and it can be used within the [sbb-train-formation](/docs/elements-timetable-sbb-train-formation--docs) component.
 
 ```html
 <sbb-train
