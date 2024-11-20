@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbButtonElement } from '../../button.js';
 import { pageScrollDisabled } from '../../core/dom.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForEvent, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
@@ -50,7 +50,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -87,7 +87,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -133,7 +133,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -175,7 +175,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -200,7 +200,7 @@ describe(`sbb-navigation`, () => {
     element.close();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -209,7 +209,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 2);
+    await didOpenEventSpy.calledTimes(2);
     expect(didOpenEventSpy.count).to.be.equal(2);
     await waitForLitRender(element);
 
@@ -228,7 +228,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -237,7 +237,7 @@ describe(`sbb-navigation`, () => {
     element.close();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -253,7 +253,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -262,7 +262,7 @@ describe(`sbb-navigation`, () => {
     closeButton.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -276,7 +276,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -288,7 +288,7 @@ describe(`sbb-navigation`, () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -312,7 +312,7 @@ describe(`sbb-navigation`, () => {
     action.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -322,7 +322,7 @@ describe(`sbb-navigation`, () => {
     closeEl.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -340,7 +340,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -369,7 +369,7 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -408,7 +408,7 @@ describe(`sbb-navigation`, () => {
     await waitForLitRender(element);
     await nextFrame();
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     await waitForCondition(() => section.getAttribute('data-state') === 'opened');
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
@@ -418,7 +418,7 @@ describe(`sbb-navigation`, () => {
 
     closeButton.click();
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     await waitForCondition(() => section.getAttribute('data-state') === 'closed');
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
@@ -441,7 +441,7 @@ describe(`sbb-navigation`, () => {
     action.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -454,7 +454,7 @@ describe(`sbb-navigation`, () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -478,7 +478,7 @@ describe(`sbb-navigation`, () => {
     action.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -499,7 +499,7 @@ describe(`sbb-navigation`, () => {
     element.addEventListener(SbbNavigationElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -511,21 +511,23 @@ describe(`sbb-navigation`, () => {
     const willCloseEventSpy = new EventSpy(SbbNavigationElement.events.willClose);
 
     element.open();
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await didOpenEventSpy.calledOnce();
     await waitForLitRender(element);
 
     element.addEventListener(SbbNavigationElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await willCloseEventSpy.calledOnce();
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
   });
 
   it('should re-enable scrolling when removed from the DOM', async () => {
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+
     element.open();
-    await waitForEvent(element, SbbNavigationElement.events.didOpen);
+    await didOpenEventSpy.calledOnce();
 
     expect(pageScrollDisabled()).to.be.true;
 

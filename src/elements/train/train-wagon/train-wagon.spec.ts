@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbIconElement } from '../../icon.js';
 
 import { SbbTrainWagonElement } from './train-wagon.js';
@@ -81,7 +81,7 @@ describe(`sbb-train-wagon`, () => {
     const sectorChangeSpy = new EventSpy(SbbTrainWagonElement.events.sectorChange);
     element.sector = 'B';
 
-    await waitForCondition(() => sectorChangeSpy.events.length === 1);
+    await sectorChangeSpy.calledOnce();
     expect(sectorChangeSpy.count).to.be.greaterThan(0);
   });
 

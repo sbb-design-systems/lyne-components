@@ -1,7 +1,11 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import {
+  SbbMediaQueryForcedColors,
+  SbbLanguageController,
+  SbbMediaMatcherController,
+} from '../core/controllers.js';
 import { setOrRemoveAttribute } from '../core/dom.js';
 import { i18nOccupancy } from '../core/i18n.js';
 import type { SbbOccupancy } from '../core/interfaces.js';
@@ -21,8 +25,15 @@ class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
   /** Wagon occupancy. */
   @property() public accessor occupancy: SbbOccupancy = 'none';
 
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
+  private _mediaMatcher = new SbbMediaMatcherController(this, {
+    [SbbMediaQueryForcedColors]: (matches) => {
+      this._forcedColors = matches;
+      this._setNameAndAriaLabel();
+    },
+  });
+
+  private _forcedColors: boolean = this._mediaMatcher.matches(SbbMediaQueryForcedColors) ?? false;
 
   private async _setNameAndAriaLabel(): Promise<void> {
     if (!this.occupancy) {
@@ -30,7 +41,7 @@ class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
     }
 
     let icon = `utilization-${this.occupancy}`;
-    if (globalThis.window?.matchMedia('(forced-colors: active)').matches) {
+    if (this._forcedColors) {
       icon += '-high-contrast';
     } else if (this.negative) {
       icon += '-negative';
@@ -53,11 +64,6 @@ class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    window
-      .matchMedia('(forced-colors: active)')
-      .addEventListener('change', () => this._setNameAndAriaLabel(), {
-        signal: this._abort.signal,
-      });
     this._setNameAndAriaLabel();
   }
 
