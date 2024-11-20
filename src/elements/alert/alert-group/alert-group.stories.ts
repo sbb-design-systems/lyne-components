@@ -78,7 +78,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbAlertGroupElement.events.didDismissAlert, SbbAlertGroupElement.events.empty],
+      handles: [SbbAlertGroupElement.events.empty],
     },
     docs: {
       extractComponentDescription: () => readme,
