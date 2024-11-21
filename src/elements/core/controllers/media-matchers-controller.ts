@@ -1,12 +1,20 @@
-import { SbbBreakpointMediumMin, SbbBreakpointSmallMax } from '@sbb-esta/lyne-design-tokens';
+import {
+  SbbBreakpointMediumMin,
+  SbbBreakpointSmallMax,
+  SbbTypoScaleDefault,
+} from '@sbb-esta/lyne-design-tokens';
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
+
+const pxToRem = (px: number): number => {
+  return px / SbbTypoScaleDefault;
+};
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export const SbbMediaQueryForcedColors = '(forced-colors: active)';
 export const SbbMediaQueryHover = '(any-hover: hover)';
 export const SbbMediaQueryPointerCoarse = '(pointer: coarse)';
-export const SbbMediaQueryBreakpointMediumAndAbove = `(min-width: ${SbbBreakpointMediumMin})`;
-export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${SbbBreakpointSmallMax})`;
+export const SbbMediaQueryBreakpointMediumAndAbove = `(min-width: ${pxToRem(SbbBreakpointMediumMin)}rem)`;
+export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${pxToRem(SbbBreakpointSmallMax)}rem)`;
 /* eslint-enable @typescript-eslint/naming-convention */
 
 /**

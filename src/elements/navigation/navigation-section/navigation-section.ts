@@ -247,7 +247,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   }
 
   private _isZeroToLargeBreakpoint(): boolean {
-    return isBreakpoint('zero', 'large');
+    return isBreakpoint('zero', 'large') ?? false;
   }
 
   // Closes the navigation on "Esc" key pressed.
