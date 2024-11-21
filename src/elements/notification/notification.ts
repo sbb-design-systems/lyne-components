@@ -125,9 +125,8 @@ class SbbNotificationElement extends LitElement {
   }
 
   public close(): void {
-    if (this._state === 'opened') {
+    if (this._state === 'opened' && this._willClose.emit()) {
       this._state = 'closing';
-      this._willClose.emit();
     }
   }
 

@@ -1,8 +1,7 @@
-import { aTimeout, expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { mergeConfig, type SbbIconConfig } from '../core/config.js';
-import { readConfig } from '../core/config.js';
+import { mergeConfig, readConfig, type SbbIconConfig } from '../core/config.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 
@@ -107,11 +106,6 @@ describe(`sbb-icon`, () => {
     `);
 
     icon.setAttribute('name', 'pie-medium');
-    // TODO: Optimize with https://lit.dev/docs/elements/lifecycle/#getUpdateComplete
-    // The update of the internal state happens a tick after the updateComplete down below completes.
-    // We could change this by implementing a getUpdateComplete which starts with a name change
-    // and completes with the new icon loaded.
-    await aTimeout(0);
     await waitForLitRender(icon);
 
     expect(icon).dom.to.be.equal(`

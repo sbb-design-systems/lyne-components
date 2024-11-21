@@ -148,7 +148,6 @@ export function isDateAvailable<T = Date>(
   min: string | number | null | undefined,
   max: string | number | null | undefined,
 ): boolean {
-  // TODO: Get date adapter from config
   const dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   const dateMin = dateAdapter.deserialize(min);
   const dateMax = dateAdapter.deserialize(max);

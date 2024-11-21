@@ -5,11 +5,10 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { SbbAlertElement } from '../alert.js';
 
 import { SbbAlertGroupElement } from './alert-group.js';
 import readme from './readme.md?raw';
-
-import '../alert.js';
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-alert-group ${sbbSpread(args)}>
@@ -78,7 +77,13 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbAlertGroupElement.events.didDismissAlert, SbbAlertGroupElement.events.empty],
+      handles: [
+        SbbAlertGroupElement.events.empty,
+        SbbAlertElement.events.willOpen,
+        SbbAlertElement.events.didOpen,
+        SbbAlertElement.events.willClose,
+        SbbAlertElement.events.didClose,
+      ],
     },
     docs: {
       extractComponentDescription: () => readme,

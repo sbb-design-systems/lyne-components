@@ -1,4 +1,4 @@
-The `sbb-alert-group` manages the dismissal and accessibility of one or multiple
+The `sbb-alert-group` manages the accessibility of one or multiple
 [sbb-alert](/docs/elements-sbb-alert-sbb-alert--docs) and also its visual gap between each other.
 
 ```html
@@ -51,10 +51,9 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 ## Events
 
-| Name              | Type                           | Description                                 | Inherited From |
-| ----------------- | ------------------------------ | ------------------------------------------- | -------------- |
-| `didDismissAlert` | `CustomEvent<SbbAlertElement>` | Emits when an alert was removed from DOM.   |                |
-| `empty`           | `CustomEvent<void>`            | Emits when `sbb-alert-group` becomes empty. |                |
+| Name    | Type                | Description                                 | Inherited From |
+| ------- | ------------------- | ------------------------------------------- | -------------- |
+| `empty` | `CustomEvent<void>` | Emits when `sbb-alert-group` becomes empty. |                |
 
 ## Slots
 
