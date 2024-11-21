@@ -32,7 +32,7 @@ export const SbbRequiredMixin = <
     }
     private _required: boolean = false;
 
-    protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
+    protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
       if (changedProperties.has('required')) {
