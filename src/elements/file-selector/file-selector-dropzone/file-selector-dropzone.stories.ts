@@ -34,13 +34,13 @@ const fileSelectorDropzoneArgs: Args = {
   tag: 'sbb-file-selector-dropzone',
 };
 
-export const DefaultFileSelectorDropzone: StoryObj = defaultFileSelector;
-export const DefaultDisabled: StoryObj = defaultDisabled;
-export const DefaultMulti: StoryObj = defaultMulti;
-export const DefaultMultiPersistent: StoryObj = defaultMultiPersistent;
-export const DefaultWithError: StoryObj = defaultWithError;
-export const DefaultOnlyPDF: StoryObj = defaultOnlyPDF;
-export const DefaultMultiSizeS: StoryObj = defaultMultiSizeS;
+export const FileSelectorDropzone: StoryObj = defaultFileSelector;
+export const Disabled: StoryObj = defaultDisabled;
+export const Multi: StoryObj = defaultMulti;
+export const MultiPersistent: StoryObj = defaultMultiPersistent;
+export const WithError: StoryObj = defaultWithError;
+export const OnlyPDF: StoryObj = defaultOnlyPDF;
+export const MultiSizeS: StoryObj = defaultMultiSizeS;
 
 const meta: Meta = {
   args: fileSelectorDropzoneArgs,

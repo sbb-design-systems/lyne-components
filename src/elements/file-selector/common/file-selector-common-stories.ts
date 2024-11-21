@@ -92,6 +92,11 @@ export const fileSelectorDefaultArgTypes: ArgTypes = {
   'accessibility-label': accessibilityLabel,
 };
 
+/**
+ * NOTE
+ * The tag is the tagName of the component to display in stories,
+ * so it must be overridden before use.
+ */
 export const fileSelectorDefaultArgs: Args = {
   tag: 'TBD',
   size: size.options![0],
