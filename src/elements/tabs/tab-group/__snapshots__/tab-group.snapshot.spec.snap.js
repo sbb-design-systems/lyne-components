@@ -136,6 +136,49 @@ snapshots["sbb-tab-group renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-tab-group renders A11y tree Chrome */
 
+snapshots["sbb-tab-group renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "tab",
+      "name": "Test tab label 1",
+      "roledescription": "Titel",
+      "selected": true
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 2",
+      "roledescription": "Titel"
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 3",
+      "roledescription": "Titel"
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 4",
+      "roledescription": "Titel"
+    },
+    {
+      "role": "tabpanel",
+      "name": "",
+      "children": [
+        {
+          "role": "text",
+          "name": "Test tab content 1"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab-group renders A11y tree Safari */
+
 snapshots["sbb-tab-group renders A11y tree Firefox"] = 
 `<p>
   {

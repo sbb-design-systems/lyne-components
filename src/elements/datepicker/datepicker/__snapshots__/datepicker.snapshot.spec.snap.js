@@ -111,6 +111,41 @@ snapshots["sbb-datepicker renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-datepicker renders A11y tree Chrome */
 
+snapshots["sbb-datepicker renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "button",
+      "name": "Previous day",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Show calendar",
+      "haspopup": "dialog"
+    },
+    {
+      "role": "textbox",
+      "name": "DD.MM.YYYY"
+    },
+    {
+      "role": "button",
+      "name": "Next day",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-datepicker renders A11y tree Safari */
+
 snapshots["sbb-datepicker renders A11y tree Firefox"] = 
 `<p>
   {

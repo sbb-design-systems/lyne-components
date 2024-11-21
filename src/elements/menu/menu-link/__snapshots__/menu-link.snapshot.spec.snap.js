@@ -109,6 +109,40 @@ snapshots["sbb-menu-link renders component with icon and amount A11y tree Chrome
 `;
 /* end snapshot sbb-menu-link renders component with icon and amount A11y tree Chrome */
 
+snapshots["sbb-menu-link renders component with icon and amount A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "a11y label",
+      "children": [
+        {
+          "role": "text",
+          "name": "Action"
+        },
+        {
+          "role": "text",
+          "name": "123456"
+        },
+        {
+          "role": "text",
+          "name": ". "
+        },
+        {
+          "role": "text",
+          "name": "Link target opens in a new window."
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-menu-link renders component with icon and amount A11y tree Safari */
+
 snapshots["sbb-menu-link renders component with icon and amount A11y tree Firefox"] = 
 `<p>
   {

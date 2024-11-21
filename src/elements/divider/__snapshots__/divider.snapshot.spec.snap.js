@@ -17,6 +17,16 @@ snapshots["sbb-divider renders Shadow DOM"] =
 `;
 /* end snapshot sbb-divider renders Shadow DOM */
 
+snapshots["sbb-divider renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-divider renders A11y tree Chrome */
+
 snapshots["sbb-divider renders horizontal DOM"] = 
 `<sbb-divider
   aria-orientation="horizontal"
@@ -49,7 +59,7 @@ snapshots["sbb-divider renders vertical Shadow DOM"] =
 `;
 /* end snapshot sbb-divider renders vertical Shadow DOM */
 
-snapshots["sbb-divider renders A11y tree Chrome"] = 
+snapshots["sbb-divider renders A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -57,7 +67,7 @@ snapshots["sbb-divider renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-divider renders A11y tree Chrome */
+/* end snapshot sbb-divider renders A11y tree Safari */
 
 snapshots["sbb-divider renders A11y tree Firefox"] = 
 `<p>

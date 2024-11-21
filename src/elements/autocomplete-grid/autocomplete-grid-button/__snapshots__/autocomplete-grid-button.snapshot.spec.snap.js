@@ -93,6 +93,22 @@ snapshots["sbb-autocomplete-grid-button A11y tree Chrome"] =
 `;
 /* end snapshot sbb-autocomplete-grid-button A11y tree Chrome */
 
+snapshots["sbb-autocomplete-grid-button A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-button A11y tree Safari */
+
 snapshots["sbb-autocomplete-grid-button A11y tree Firefox"] = 
 `<p>
   {

@@ -59,6 +59,28 @@ snapshots["sbb-toggle renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-toggle renders A11y tree Chrome */
 
+snapshots["sbb-toggle renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "Value one",
+      "checked": true
+    },
+    {
+      "role": "radio",
+      "name": "Value two",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle renders A11y tree Safari */
+
 snapshots["sbb-toggle renders A11y tree Firefox"] = 
 `<p>
   {

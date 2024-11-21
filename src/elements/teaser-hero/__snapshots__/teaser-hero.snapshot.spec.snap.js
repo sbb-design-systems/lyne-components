@@ -72,6 +72,22 @@ snapshots["sbb-teaser-hero renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-hero renders Shadow DOM */
 
+snapshots["sbb-teaser-hero renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "label"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser-hero renders A11y tree Chrome */
+
 snapshots["sbb-teaser-hero renders with slots DOM"] = 
 `<sbb-teaser-hero
   accessibility-label="label"
@@ -137,7 +153,7 @@ snapshots["sbb-teaser-hero renders with slots Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-hero renders with slots Shadow DOM */
 
-snapshots["sbb-teaser-hero renders A11y tree Chrome"] = 
+snapshots["sbb-teaser-hero renders A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -145,13 +161,39 @@ snapshots["sbb-teaser-hero renders A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "label"
+      "name": "label",
+      "children": [
+        {
+          "role": "text",
+          "name": "Label"
+        },
+        {
+          "role": "text",
+          "name": "Break out and explore castles and palaces."
+        },
+        {
+          "role": "text",
+          "name": "Find out more"
+        },
+        {
+          "role": "image",
+          "name": "SBB CFF FFS Employee"
+        },
+        {
+          "role": "text",
+          "name": ". "
+        },
+        {
+          "role": "text",
+          "name": "Link target opens in a new window."
+        }
+      ]
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-teaser-hero renders A11y tree Chrome */
+/* end snapshot sbb-teaser-hero renders A11y tree Safari */
 
 snapshots["sbb-teaser-hero renders A11y tree Firefox"] = 
 `<p>

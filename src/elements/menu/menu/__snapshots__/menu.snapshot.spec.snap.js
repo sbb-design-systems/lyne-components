@@ -171,6 +171,40 @@ snapshots["sbb-menu renders with list A11y tree Chrome"] =
 `;
 /* end snapshot sbb-menu renders with list A11y tree Chrome */
 
+snapshots["sbb-menu renders with list A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Menu trigger",
+      "haspopup": "menu"
+    },
+    {
+      "role": "button",
+      "name": "View"
+    },
+    {
+      "role": "button",
+      "name": "Edit",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Details"
+    },
+    {
+      "role": "button",
+      "name": "Cancel"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-menu renders with list A11y tree Safari */
+
 snapshots["sbb-menu renders with list A11y tree Firefox"] = 
 `<p>
   {

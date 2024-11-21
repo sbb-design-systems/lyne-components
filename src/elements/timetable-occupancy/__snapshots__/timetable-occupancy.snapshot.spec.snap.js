@@ -52,6 +52,26 @@ snapshots["sbb-timetable-occupancy renders Shadow DOM"] =
 `;
 /* end snapshot sbb-timetable-occupancy renders Shadow DOM */
 
+snapshots["sbb-timetable-occupancy renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "First Class."
+    },
+    {
+      "role": "text",
+      "name": "Second Class."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-timetable-occupancy renders A11y tree Chrome */
+
 snapshots["sbb-timetable-occupancy renders negative DOM"] = 
 `<sbb-timetable-occupancy
   first-class-occupancy="low"
@@ -172,7 +192,7 @@ snapshots["sbb-timetable-occupancy renders only second class wagon Shadow DOM"] 
 `;
 /* end snapshot sbb-timetable-occupancy renders only second class wagon Shadow DOM */
 
-snapshots["sbb-timetable-occupancy renders A11y tree Chrome"] = 
+snapshots["sbb-timetable-occupancy renders A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -183,14 +203,22 @@ snapshots["sbb-timetable-occupancy renders A11y tree Chrome"] =
       "name": "First Class."
     },
     {
+      "role": "image",
+      "name": "Very high occupancy expected"
+    },
+    {
       "role": "text",
       "name": "Second Class."
+    },
+    {
+      "role": "image",
+      "name": "Very high occupancy expected"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-timetable-occupancy renders A11y tree Chrome */
+/* end snapshot sbb-timetable-occupancy renders A11y tree Safari */
 
 snapshots["sbb-timetable-occupancy renders A11y tree Firefox"] = 
 `<p>

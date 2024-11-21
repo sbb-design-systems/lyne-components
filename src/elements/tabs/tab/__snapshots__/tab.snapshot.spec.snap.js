@@ -32,6 +32,22 @@ snapshots["sbb-tab renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-tab renders A11y tree Chrome */
 
+snapshots["sbb-tab renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Content"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab renders A11y tree Safari */
+
 snapshots["sbb-tab renders A11y tree Firefox"] = 
 `<p>
   {

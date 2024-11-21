@@ -37,6 +37,22 @@ snapshots["sbb-link-static renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-link-static renders A11y tree Chrome */
 
+snapshots["sbb-link-static renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Travelcards & tickets."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-link-static renders A11y tree Safari */
+
 snapshots["sbb-link-static renders A11y tree Firefox"] = 
 `<p>
   {

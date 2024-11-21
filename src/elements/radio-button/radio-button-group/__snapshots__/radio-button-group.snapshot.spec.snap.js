@@ -78,6 +78,33 @@ snapshots["sbb-radio-button-group renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-radio-button-group renders A11y tree Chrome */
 
+snapshots["sbb-radio-button-group renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "1",
+      "checked": false
+    },
+    {
+      "role": "radio",
+      "name": "2",
+      "checked": true
+    },
+    {
+      "role": "radio",
+      "name": "3",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-radio-button-group renders A11y tree Safari */
+
 snapshots["sbb-radio-button-group renders A11y tree Firefox"] = 
 `<p>
   {

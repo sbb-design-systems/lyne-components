@@ -36,6 +36,22 @@ snapshots["sbb-breadcrumb renders with text Shadow DOM"] =
 `;
 /* end snapshot sbb-breadcrumb renders with text Shadow DOM */
 
+snapshots["sbb-breadcrumb renders with text A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Breadcrumb . Link target opens in a new window."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-breadcrumb renders with text A11y tree Chrome */
+
 snapshots["sbb-breadcrumb renders with icon DOM"] = 
 `<sbb-breadcrumb
   data-action=""
@@ -108,7 +124,7 @@ snapshots["sbb-breadcrumb renders with icon and text Shadow DOM"] =
 `;
 /* end snapshot sbb-breadcrumb renders with icon and text Shadow DOM */
 
-snapshots["sbb-breadcrumb renders with text A11y tree Chrome"] = 
+snapshots["sbb-breadcrumb renders with text A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -116,13 +132,27 @@ snapshots["sbb-breadcrumb renders with text A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "Breadcrumb . Link target opens in a new window."
+      "name": "Breadcrumb . Link target opens in a new window.",
+      "children": [
+        {
+          "role": "text",
+          "name": "Breadcrumb"
+        },
+        {
+          "role": "text",
+          "name": ". "
+        },
+        {
+          "role": "text",
+          "name": "Link target opens in a new window."
+        }
+      ]
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-breadcrumb renders with text A11y tree Chrome */
+/* end snapshot sbb-breadcrumb renders with text A11y tree Safari */
 
 snapshots["sbb-breadcrumb renders with text A11y tree Firefox"] = 
 `<p>

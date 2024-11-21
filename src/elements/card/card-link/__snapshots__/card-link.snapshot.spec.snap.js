@@ -58,6 +58,40 @@ snapshots["sbb-card-link renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-card-link renders A11y tree Chrome */
 
+snapshots["sbb-card-link renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Follow me . Link target opens in a new window.",
+      "children": [
+        {
+          "role": "text",
+          "name": "Follow me"
+        },
+        {
+          "role": "text",
+          "name": ". "
+        },
+        {
+          "role": "text",
+          "name": "Link target opens in a new window."
+        }
+      ]
+    },
+    {
+      "role": "text",
+      "name": "Content text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-card-link renders A11y tree Safari */
+
 snapshots["sbb-card-link renders A11y tree Firefox"] = 
 `<p>
   {

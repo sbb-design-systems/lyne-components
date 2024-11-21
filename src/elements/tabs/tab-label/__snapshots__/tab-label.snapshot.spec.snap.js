@@ -115,6 +115,22 @@ snapshots["sbb-tab-label A11y tree Chrome"] =
 `;
 /* end snapshot sbb-tab-label A11y tree Chrome */
 
+snapshots["sbb-tab-label A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Tab title"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab-label A11y tree Safari */
+
 snapshots["sbb-tab-label A11y tree Firefox"] = 
 `<p>
   {

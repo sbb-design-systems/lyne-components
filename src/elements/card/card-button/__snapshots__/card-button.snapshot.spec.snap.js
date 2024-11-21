@@ -59,6 +59,26 @@ snapshots["sbb-card-button renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-card-button renders A11y tree Chrome */
 
+snapshots["sbb-card-button renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Click me"
+    },
+    {
+      "role": "text",
+      "name": "Content"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-card-button renders A11y tree Safari */
+
 snapshots["sbb-card-button renders A11y tree Firefox"] = 
 `<p>
   {

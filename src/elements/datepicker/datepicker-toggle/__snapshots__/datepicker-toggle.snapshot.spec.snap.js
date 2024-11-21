@@ -146,6 +146,31 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tre
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome */
 
+snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "button",
+      "name": "Show calendar",
+      "haspopup": "dialog"
+    },
+    {
+      "role": "textbox",
+      "name": "DD.MM.YYYY"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-datepicker-toggle in form-field with calendar parameters A11y tree Safari */
+
 snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Firefox"] = 
 `<p>
   {

@@ -109,6 +109,50 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree C
 `;
 /* end snapshot sbb-journey-header renders H1 L-sized round-trip negative A11y tree Chrome */
 
+snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Connection from"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "B"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "to"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "C"
+    },
+    {
+      "role": "text",
+      "name": "and back to B."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-journey-header renders H1 L-sized round-trip negative A11y tree Safari */
+
 snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree Firefox"] = 
 `<p>
   {

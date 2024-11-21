@@ -35,6 +35,22 @@ snapshots["sbb-expansion-panel-content renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-expansion-panel-content renders A11y tree Chrome */
 
+snapshots["sbb-expansion-panel-content renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Content"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-expansion-panel-content renders A11y tree Safari */
+
 snapshots["sbb-expansion-panel-content renders A11y tree Firefox"] = 
 `<p>
   {

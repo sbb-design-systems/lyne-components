@@ -66,6 +66,26 @@ snapshots["sbb-teaser-product-static renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-teaser-product-static renders A11y tree Chrome */
 
+snapshots["sbb-teaser-product-static renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Content"
+    },
+    {
+      "role": "text",
+      "name": "Footnote"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser-product-static renders A11y tree Safari */
+
 snapshots["sbb-teaser-product-static renders A11y tree Firefox"] = 
 `<p>
   {

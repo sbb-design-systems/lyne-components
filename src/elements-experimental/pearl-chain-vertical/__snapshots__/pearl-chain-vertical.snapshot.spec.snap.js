@@ -25,6 +25,16 @@ snapshots["sbb-pearl-chain-vertical renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-pearl-chain-vertical renders A11y tree Chrome */
 
+snapshots["sbb-pearl-chain-vertical renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-pearl-chain-vertical renders A11y tree Safari */
+
 snapshots["sbb-pearl-chain-vertical renders A11y tree Firefox"] = 
 `<p>
   {

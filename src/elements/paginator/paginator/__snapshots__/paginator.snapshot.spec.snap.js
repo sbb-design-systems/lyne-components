@@ -603,6 +603,65 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Chrome-Firefox Shadow DOM */
 
+snapshots["sbb-paginator renders with options A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Previous page",
+      "disabled": true
+    },
+    {
+      "role": "button",
+      "name": "Next page"
+    },
+    {
+      "role": "button",
+      "name": "Page 1"
+    },
+    {
+      "role": "button",
+      "name": "Page 2"
+    },
+    {
+      "role": "button",
+      "name": "Page 3"
+    },
+    {
+      "role": "button",
+      "name": "Page 4"
+    },
+    {
+      "role": "button",
+      "name": "Page 5"
+    },
+    {
+      "role": "text",
+      "name": "Items per page"
+    },
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "combobox",
+      "name": "Items per page",
+      "haspopup": "listbox",
+      "value": "10"
+    },
+    {
+      "role": "text",
+      "name": "Page 1 selected."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-paginator renders with options A11y tree Chrome */
+
 snapshots["sbb-paginator renders with options Safari DOM"] = 
 `<sbb-paginator
   length="50"
@@ -785,7 +844,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders with options Safari Shadow DOM */
 
-snapshots["sbb-paginator renders with options A11y tree Chrome"] = 
+snapshots["sbb-paginator renders with options A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -842,7 +901,7 @@ snapshots["sbb-paginator renders with options A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-paginator renders with options A11y tree Chrome */
+/* end snapshot sbb-paginator renders with options A11y tree Safari */
 
 snapshots["sbb-paginator renders with options A11y tree Firefox"] = 
 `<p>

@@ -50,6 +50,22 @@ snapshots["sbb-block-link-static renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-block-link-static renders A11y tree Chrome */
 
+snapshots["sbb-block-link-static renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Travelcards & tickets."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-block-link-static renders A11y tree Safari */
+
 snapshots["sbb-block-link-static renders A11y tree Firefox"] = 
 `<p>
   {

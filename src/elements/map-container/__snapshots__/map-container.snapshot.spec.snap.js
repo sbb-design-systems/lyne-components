@@ -37,6 +37,16 @@ snapshots["sbb-map-container renders Shadow DOM"] =
 `;
 /* end snapshot sbb-map-container renders Shadow DOM */
 
+snapshots["sbb-map-container renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-map-container renders A11y tree Chrome */
+
 snapshots["sbb-map-container renders without scroll-up button DOM"] = 
 `<sbb-map-container hide-scroll-up-button="">
 </sbb-map-container>
@@ -59,7 +69,7 @@ snapshots["sbb-map-container renders without scroll-up button Shadow DOM"] =
 `;
 /* end snapshot sbb-map-container renders without scroll-up button Shadow DOM */
 
-snapshots["sbb-map-container renders A11y tree Chrome"] = 
+snapshots["sbb-map-container renders A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -67,7 +77,7 @@ snapshots["sbb-map-container renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-map-container renders A11y tree Chrome */
+/* end snapshot sbb-map-container renders A11y tree Safari */
 
 snapshots["sbb-map-container renders A11y tree Firefox"] = 
 `<p>

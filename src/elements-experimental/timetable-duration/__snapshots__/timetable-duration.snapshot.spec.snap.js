@@ -43,6 +43,22 @@ snapshots["sbb-timetable-duration renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-timetable-duration renders A11y tree Chrome */
 
+snapshots["sbb-timetable-duration renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "3 Hours 12 Minutes."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-timetable-duration renders A11y tree Safari */
+
 snapshots["sbb-timetable-duration renders A11y tree Firefox"] = 
 `<p>
   {

@@ -103,6 +103,30 @@ snapshots["sbb-tag-group renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-tag-group renders A11y tree Chrome */
 
+snapshots["sbb-tag-group renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "First tag"
+    },
+    {
+      "role": "button",
+      "name": "Second tag"
+    },
+    {
+      "role": "button",
+      "name": "Third tag"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tag-group renders A11y tree Safari */
+
 snapshots["sbb-tag-group renders A11y tree Firefox"] = 
 `<p>
   {

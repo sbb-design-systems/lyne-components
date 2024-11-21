@@ -183,6 +183,40 @@ snapshots["sbb-checkbox Checked - A11y tree Chrome"] =
 `;
 /* end snapshot sbb-checkbox Checked - A11y tree Chrome */
 
+snapshots["sbb-checkbox Unchecked - A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "checkbox",
+      "name": "​ Label",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-checkbox Unchecked - A11y tree Safari */
+
+snapshots["sbb-checkbox Checked - A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "checkbox",
+      "name": "​ Label",
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-checkbox Checked - A11y tree Safari */
+
 snapshots["sbb-checkbox Unchecked - A11y tree Firefox"] = 
 `<p>
   {

@@ -115,6 +115,65 @@ snapshots["sbb-link-list-anchor renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-link-list-anchor renders A11y tree Chrome */
 
+snapshots["sbb-link-list-anchor renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "title",
+      "level": 2
+    },
+    {
+      "role": "link",
+      "name": "Link 0",
+      "children": [
+        {
+          "role": "text",
+          "name": "Link "
+        },
+        {
+          "role": "text",
+          "name": "0"
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "Link 1",
+      "children": [
+        {
+          "role": "text",
+          "name": "Link "
+        },
+        {
+          "role": "text",
+          "name": "1"
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "Link 2",
+      "children": [
+        {
+          "role": "text",
+          "name": "Link "
+        },
+        {
+          "role": "text",
+          "name": "2"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-link-list-anchor renders A11y tree Safari */
+
 snapshots["sbb-link-list-anchor renders A11y tree Firefox"] = 
 `<p>
   {

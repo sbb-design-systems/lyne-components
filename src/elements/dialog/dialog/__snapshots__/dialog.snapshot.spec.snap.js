@@ -64,6 +64,36 @@ snapshots["sbb-dialog renders an open dialog A11y tree Chrome"] =
 `;
 /* end snapshot sbb-dialog renders an open dialog A11y tree Chrome */
 
+snapshots["sbb-dialog renders an open dialog A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Title",
+      "level": 2
+    },
+    {
+      "role": "text",
+      "name": "Content"
+    },
+    {
+      "role": "button",
+      "name": "Close secondary window",
+      "focused": true
+    },
+    {
+      "role": "text",
+      "name": "Dialog, Title "
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-dialog renders an open dialog A11y tree Safari */
+
 snapshots["sbb-dialog renders an open dialog A11y tree Firefox"] = 
 `<p>
   {

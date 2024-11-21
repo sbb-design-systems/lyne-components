@@ -58,6 +58,26 @@ snapshots["sbb-mini-button-group renders Shadow DOM"] =
 `;
 /* end snapshot sbb-mini-button-group renders Shadow DOM */
 
+snapshots["sbb-mini-button-group renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    },
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-mini-button-group renders A11y tree Chrome */
+
 snapshots["sbb-mini-button-group renders negative DOM"] = 
 `<sbb-mini-button-group
   negative=""
@@ -103,7 +123,7 @@ snapshots["sbb-mini-button-group renders negative Shadow DOM"] =
 `;
 /* end snapshot sbb-mini-button-group renders negative Shadow DOM */
 
-snapshots["sbb-mini-button-group renders A11y tree Chrome"] = 
+snapshots["sbb-mini-button-group renders A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -121,7 +141,7 @@ snapshots["sbb-mini-button-group renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-mini-button-group renders A11y tree Chrome */
+/* end snapshot sbb-mini-button-group renders A11y tree Safari */
 
 snapshots["sbb-mini-button-group renders A11y tree Firefox"] = 
 `<p>

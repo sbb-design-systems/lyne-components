@@ -21,6 +21,16 @@ snapshots["sbb-clock renders Shadow DOM"] =
 `;
 /* end snapshot sbb-clock renders Shadow DOM */
 
+snapshots["sbb-clock renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-clock renders A11y tree Chrome */
+
 snapshots["sbb-clock renders with fixed time DOM"] = 
 `<sbb-clock
   data-initialized=""
@@ -48,7 +58,7 @@ snapshots["sbb-clock renders with fixed time Shadow DOM"] =
 `;
 /* end snapshot sbb-clock renders with fixed time Shadow DOM */
 
-snapshots["sbb-clock renders A11y tree Chrome"] = 
+snapshots["sbb-clock renders A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -56,7 +66,7 @@ snapshots["sbb-clock renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-clock renders A11y tree Chrome */
+/* end snapshot sbb-clock renders A11y tree Safari */
 
 snapshots["sbb-clock renders A11y tree Firefox"] = 
 `<p>

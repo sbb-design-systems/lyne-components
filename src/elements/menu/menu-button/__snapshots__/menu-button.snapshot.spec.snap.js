@@ -91,6 +91,22 @@ snapshots["sbb-menu-button renders component with icon and amount A11y tree Chro
 `;
 /* end snapshot sbb-menu-button renders component with icon and amount A11y tree Chrome */
 
+snapshots["sbb-menu-button renders component with icon and amount A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Action 123456"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-menu-button renders component with icon and amount A11y tree Safari */
+
 snapshots["sbb-menu-button renders component with icon and amount A11y tree Firefox"] = 
 `<p>
   {

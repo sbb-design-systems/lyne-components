@@ -36,6 +36,22 @@ snapshots["sbb-form-error renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-form-error renders A11y tree Chrome */
 
+snapshots["sbb-form-error renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Required"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-form-error renders A11y tree Safari */
+
 snapshots["sbb-form-error renders A11y tree Firefox"] = 
 `<p>
   {

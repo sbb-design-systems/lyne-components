@@ -197,6 +197,41 @@ snapshots["sbb-alert A11y tree Chrome"] =
 `;
 /* end snapshot sbb-alert A11y tree Chrome */
 
+snapshots["sbb-alert A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Interruption",
+      "level": 3
+    },
+    {
+      "role": "text",
+      "name": "Alert content "
+    },
+    {
+      "role": "link",
+      "name": "test-a11y-label",
+      "children": [
+        {
+          "role": "text",
+          "name": "Find out more"
+        }
+      ]
+    },
+    {
+      "role": "button",
+      "name": "Close message"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-alert A11y tree Safari */
+
 snapshots["sbb-alert A11y tree Firefox"] = 
 `<p>
   {

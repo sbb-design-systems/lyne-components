@@ -64,6 +64,36 @@ snapshots["sbb-header-link renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-header-link renders A11y tree Chrome */
 
+snapshots["sbb-header-link renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "a11y label",
+      "children": [
+        {
+          "role": "text",
+          "name": "Action"
+        },
+        {
+          "role": "text",
+          "name": ". "
+        },
+        {
+          "role": "text",
+          "name": "Link target opens in a new window."
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-header-link renders A11y tree Safari */
+
 snapshots["sbb-header-link renders A11y tree Firefox"] = 
 `<p>
   {

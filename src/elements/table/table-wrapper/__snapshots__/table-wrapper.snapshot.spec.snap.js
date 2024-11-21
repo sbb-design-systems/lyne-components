@@ -68,6 +68,58 @@ snapshots["sbb-table-wrapper renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-table-wrapper renders A11y tree Chrome */
 
+snapshots["sbb-table-wrapper renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Col 1"
+    },
+    {
+      "role": "text",
+      "name": "Col 2"
+    },
+    {
+      "role": "text",
+      "name": "Data 1"
+    },
+    {
+      "role": "text",
+      "name": "Data 2"
+    },
+    {
+      "role": "text",
+      "name": "Col 1"
+    },
+    {
+      "role": "text",
+      "name": "Data 1"
+    },
+    {
+      "role": "text",
+      "name": "Col 2"
+    },
+    {
+      "role": "text",
+      "name": "Data 2"
+    },
+    {
+      "role": "text",
+      "name": "Col 1"
+    },
+    {
+      "role": "text",
+      "name": "Col 2"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-table-wrapper renders A11y tree Safari */
+
 snapshots["sbb-table-wrapper renders A11y tree Firefox"] = 
 `<p>
   {

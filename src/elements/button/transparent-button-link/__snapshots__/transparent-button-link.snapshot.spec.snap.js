@@ -39,6 +39,22 @@ snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link wit
 `;
 /* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon Shadow DOM */
 
+snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Label Text . Link target opens in a new window."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome */
+
 snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button-link with slotted icon DOM"] = 
 `<sbb-transparent-button-link
   data-action=""
@@ -79,7 +95,7 @@ snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button
 `;
 /* end snapshot sbb-transparent-button-link renders a disabled sbb-transparent-button-link with slotted icon Shadow DOM */
 
-snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome"] = 
+snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -87,13 +103,27 @@ snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link wit
   "children": [
     {
       "role": "link",
-      "name": "Label Text . Link target opens in a new window."
+      "name": "Label Text . Link target opens in a new window.",
+      "children": [
+        {
+          "role": "text",
+          "name": "Label Text"
+        },
+        {
+          "role": "text",
+          "name": ". "
+        },
+        {
+          "role": "text",
+          "name": "Link target opens in a new window."
+        }
+      ]
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome */
+/* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Safari */
 
 snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Firefox"] = 
 `<p>

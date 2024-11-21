@@ -39,6 +39,22 @@ snapshots["sbb-time-input renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-time-input renders A11y tree Chrome */
 
+snapshots["sbb-time-input renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "textbox",
+      "name": "HH:MM"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-time-input renders A11y tree Safari */
+
 snapshots["sbb-time-input renders A11y tree Firefox"] = 
 `<p>
   {

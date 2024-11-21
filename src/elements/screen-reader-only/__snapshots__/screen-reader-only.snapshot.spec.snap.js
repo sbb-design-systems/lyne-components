@@ -23,6 +23,16 @@ snapshots["sbb-screen-reader-only renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-screen-reader-only renders A11y tree Chrome */
 
+snapshots["sbb-screen-reader-only renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-screen-reader-only renders A11y tree Safari */
+
 snapshots["sbb-screen-reader-only renders A11y tree Firefox"] = 
 `<p>
   {

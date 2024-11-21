@@ -155,6 +155,22 @@ snapshots["sbb-expansion-panel renders with level set A11y tree Chrome"] =
 `;
 /* end snapshot sbb-expansion-panel renders with level set A11y tree Chrome */
 
+snapshots["sbb-expansion-panel renders with level set A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Header"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-expansion-panel renders with level set A11y tree Safari */
+
 snapshots["sbb-expansion-panel renders with level set A11y tree Firefox"] = 
 `<p>
   {

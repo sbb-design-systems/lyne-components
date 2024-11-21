@@ -65,6 +65,27 @@ snapshots["sbb-overlay renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-overlay renders A11y tree Chrome */
 
+snapshots["sbb-overlay renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Close secondary window",
+      "focused": true
+    },
+    {
+      "role": "text",
+      "name": "Dialog "
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-overlay renders A11y tree Safari */
+
 snapshots["sbb-overlay renders A11y tree Firefox"] = 
 `<p>
   {

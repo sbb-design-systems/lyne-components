@@ -55,6 +55,35 @@ snapshots["sbb-message renders Shadow DOM"] =
 `;
 /* end snapshot sbb-message renders Shadow DOM */
 
+snapshots["sbb-message renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Title.",
+      "level": 3
+    },
+    {
+      "role": "text",
+      "name": "Subtitle."
+    },
+    {
+      "role": "text",
+      "name": "Error code: 0001"
+    },
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-message renders A11y tree Chrome */
+
 snapshots["sbb-message renders without optional slots DOM"] = 
 `<sbb-message title-content="Title.">
   <p slot="subtitle">
@@ -89,7 +118,7 @@ snapshots["sbb-message renders without optional slots Shadow DOM"] =
 `;
 /* end snapshot sbb-message renders without optional slots Shadow DOM */
 
-snapshots["sbb-message renders A11y tree Chrome"] = 
+snapshots["sbb-message renders A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -116,7 +145,7 @@ snapshots["sbb-message renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-message renders A11y tree Chrome */
+/* end snapshot sbb-message renders A11y tree Safari */
 
 snapshots["sbb-message renders A11y tree Firefox"] = 
 `<p>

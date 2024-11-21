@@ -51,6 +51,48 @@ snapshots["sbb-teaser-product renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-product renders Shadow DOM */
 
+snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Content Footnote"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser-product renders A11y tree Chrome */
+
+snapshots["sbb-teaser-product renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Content Footnote",
+      "children": [
+        {
+          "role": "text",
+          "name": "Content"
+        },
+        {
+          "role": "text",
+          "name": "Footnote"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser-product renders A11y tree Safari */
+
 snapshots["sbb-teaser-product renders A11y tree Firefox"] = 
 `<p>
   {
@@ -67,20 +109,4 @@ snapshots["sbb-teaser-product renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-teaser-product renders A11y tree Firefox */
-
-snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Content Footnote"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser-product renders A11y tree Chrome */
 

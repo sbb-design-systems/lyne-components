@@ -77,6 +77,23 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-selection-expansion-panel renders A11y tree Chrome */
 
+snapshots["sbb-selection-expansion-panel renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "checkbox",
+      "name": "% ​ Value one Suffix Subtext , collapsed",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-selection-expansion-panel renders A11y tree Safari */
+
 snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] = 
 `<p>
   {

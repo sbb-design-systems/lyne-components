@@ -37,6 +37,22 @@ snapshots["sbb-chip-label renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-chip-label renders A11y tree Chrome */
 
+snapshots["sbb-chip-label renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Label"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-chip-label renders A11y tree Safari */
+
 snapshots["sbb-chip-label renders A11y tree Firefox"] = 
 `<p>
   {

@@ -76,16 +76,6 @@ snapshots["sbb-option selected Chrome"] =
 `;
 /* end snapshot sbb-option selected Chrome */
 
-snapshots["sbb-option selected Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-option selected Firefox */
-
 snapshots["sbb-option disabled Chrome"] = 
 `<p>
   {
@@ -95,6 +85,36 @@ snapshots["sbb-option disabled Chrome"] =
 </p>
 `;
 /* end snapshot sbb-option disabled Chrome */
+
+snapshots["sbb-option selected Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-option selected Safari */
+
+snapshots["sbb-option disabled Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-option disabled Safari */
+
+snapshots["sbb-option selected Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-option selected Firefox */
 
 snapshots["sbb-option disabled Firefox"] = 
 `<p>

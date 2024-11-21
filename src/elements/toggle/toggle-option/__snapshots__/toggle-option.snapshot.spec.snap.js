@@ -36,6 +36,23 @@ snapshots["sbb-toggle-option renders Shadow DOM"] =
 `;
 /* end snapshot sbb-toggle-option renders Shadow DOM */
 
+snapshots["sbb-toggle-option renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders A11y tree Chrome */
+
 snapshots["sbb-toggle-option renders unchecked DOM"] = 
 `<sbb-toggle-option
   aria-checked="false"
@@ -68,6 +85,23 @@ snapshots["sbb-toggle-option renders unchecked Shadow DOM"] =
 </label>
 `;
 /* end snapshot sbb-toggle-option renders unchecked Shadow DOM */
+
+snapshots["sbb-toggle-option renders unchecked A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders unchecked A11y tree Chrome */
 
 snapshots["sbb-toggle-option renders checked disabled DOM"] = 
 `<sbb-toggle-option
@@ -107,6 +141,24 @@ snapshots["sbb-toggle-option renders checked disabled Shadow DOM"] =
 `;
 /* end snapshot sbb-toggle-option renders checked disabled Shadow DOM */
 
+snapshots["sbb-toggle-option renders checked disabled A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "disabled": true,
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders checked disabled A11y tree Chrome */
+
 snapshots["sbb-toggle-option renders unchecked disabled DOM"] = 
 `<sbb-toggle-option
   aria-checked="false"
@@ -143,58 +195,6 @@ snapshots["sbb-toggle-option renders unchecked disabled Shadow DOM"] =
 `;
 /* end snapshot sbb-toggle-option renders unchecked disabled Shadow DOM */
 
-snapshots["sbb-toggle-option renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders A11y tree Chrome */
-
-snapshots["sbb-toggle-option renders unchecked A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "checked": false
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders unchecked A11y tree Chrome */
-
-snapshots["sbb-toggle-option renders checked disabled A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "disabled": true,
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders checked disabled A11y tree Chrome */
-
 snapshots["sbb-toggle-option renders unchecked disabled A11y tree Chrome"] = 
 `<p>
   {
@@ -212,6 +212,76 @@ snapshots["sbb-toggle-option renders unchecked disabled A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-toggle-option renders unchecked disabled A11y tree Chrome */
+
+snapshots["sbb-toggle-option renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders A11y tree Safari */
+
+snapshots["sbb-toggle-option renders unchecked A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders unchecked A11y tree Safari */
+
+snapshots["sbb-toggle-option renders checked disabled A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "disabled": true,
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders checked disabled A11y tree Safari */
+
+snapshots["sbb-toggle-option renders unchecked disabled A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "disabled": true,
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders unchecked disabled A11y tree Safari */
 
 snapshots["sbb-toggle-option renders A11y tree Firefox"] = 
 `<p>

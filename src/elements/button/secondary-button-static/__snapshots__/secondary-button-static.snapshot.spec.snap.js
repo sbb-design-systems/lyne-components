@@ -75,6 +75,22 @@ snapshots["sbb-secondary-button-static renders with slotted icon A11y tree Chrom
 `;
 /* end snapshot sbb-secondary-button-static renders with slotted icon A11y tree Chrome */
 
+snapshots["sbb-secondary-button-static renders with slotted icon A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Label Text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-secondary-button-static renders with slotted icon A11y tree Safari */
+
 snapshots["sbb-secondary-button-static renders with slotted icon A11y tree Firefox"] = 
 `<p>
   {

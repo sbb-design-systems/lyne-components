@@ -111,6 +111,23 @@ snapshots["sbb-step-label A11y tree Chrome"] =
 `;
 /* end snapshot sbb-step-label A11y tree Chrome */
 
+snapshots["sbb-step-label A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "tab",
+      "name": "Label",
+      "roledescription": "Titel"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-step-label A11y tree Safari */
+
 snapshots["sbb-step-label A11y tree Firefox"] = 
 `<p>
   {

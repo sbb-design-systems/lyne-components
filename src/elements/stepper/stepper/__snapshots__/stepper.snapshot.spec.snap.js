@@ -143,6 +143,52 @@ snapshots["sbb-stepper renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-stepper renders A11y tree Chrome */
 
+snapshots["sbb-stepper renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "tabpanel",
+      "name": "3 Test step label 3"
+    },
+    {
+      "role": "tabpanel",
+      "name": "2 Test step label 2"
+    },
+    {
+      "role": "text",
+      "name": "Test step content 1"
+    },
+    {
+      "role": "tab",
+      "name": "1 Test step label 1",
+      "roledescription": "Titel",
+      "selected": true
+    },
+    {
+      "role": "tab",
+      "name": "2 Test step label 2",
+      "roledescription": "Titel"
+    },
+    {
+      "role": "tab",
+      "name": "3 Test step label 3",
+      "roledescription": "Titel",
+      "disabled": true
+    },
+    {
+      "role": "tab",
+      "name": "4 Test step label 4",
+      "roledescription": "Titel"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-stepper renders A11y tree Safari */
+
 snapshots["sbb-stepper renders A11y tree Firefox"] = 
 `<p>
   {

@@ -35,6 +35,16 @@ snapshots["sbb-loading-indicator renders with variant `window` Shadow DOM"] =
 `;
 /* end snapshot sbb-loading-indicator renders with variant `window` Shadow DOM */
 
+snapshots["sbb-loading-indicator renders with variant `window` A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-loading-indicator renders with variant `window` A11y tree Chrome */
+
 snapshots["sbb-loading-indicator renders with variant `circle` DOM"] = 
 `<sbb-loading-indicator
   aria-busy="true"
@@ -55,7 +65,7 @@ snapshots["sbb-loading-indicator renders with variant `circle` Shadow DOM"] =
 `;
 /* end snapshot sbb-loading-indicator renders with variant `circle` Shadow DOM */
 
-snapshots["sbb-loading-indicator renders with variant `window` A11y tree Chrome"] = 
+snapshots["sbb-loading-indicator renders with variant `window` A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -63,7 +73,7 @@ snapshots["sbb-loading-indicator renders with variant `window` A11y tree Chrome"
 }
 </p>
 `;
-/* end snapshot sbb-loading-indicator renders with variant `window` A11y tree Chrome */
+/* end snapshot sbb-loading-indicator renders with variant `window` A11y tree Safari */
 
 snapshots["sbb-loading-indicator renders with variant `window` A11y tree Firefox"] = 
 `<p>

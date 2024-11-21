@@ -82,6 +82,22 @@ snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Chrome"] 
 `;
 /* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Chrome */
 
+snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Label Text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Safari */
+
 snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Firefox"] = 
 `<p>
   {

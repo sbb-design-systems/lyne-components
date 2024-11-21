@@ -1,23 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot A11y tree Chrome */
-
 snapshots["sbb-flip-card-summary DOM"] = 
 `<sbb-flip-card-summary
   image-alignment="below"
@@ -68,6 +51,23 @@ snapshots["sbb-flip-card-summary A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-flip-card-summary A11y tree Chrome */
+
+snapshots["sbb-flip-card-summary A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Summary",
+      "level": 4
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-flip-card-summary A11y tree Safari */
 
 snapshots["sbb-flip-card-summary A11y tree Firefox"] = 
 `<p>

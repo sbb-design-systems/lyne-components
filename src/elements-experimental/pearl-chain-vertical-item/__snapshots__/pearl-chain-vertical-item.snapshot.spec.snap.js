@@ -32,6 +32,16 @@ snapshots["sbb-pearl-chain-vertical-item renders component with charcoal standar
 `;
 /* end snapshot sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet Shadow DOM */
 
+snapshots["sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Chrome */
+
 snapshots["sbb-pearl-chain-vertical-item renders component with red line and bullet DOM"] = 
 `<sbb-pearl-chain-vertical-item>
 </sbb-pearl-chain-vertical-item>
@@ -222,7 +232,7 @@ snapshots["sbb-pearl-chain-vertical-item renders a crossed-bullet Shadow DOM"] =
 `;
 /* end snapshot sbb-pearl-chain-vertical-item renders a crossed-bullet Shadow DOM */
 
-snapshots["sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Chrome"] = 
+snapshots["sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -230,7 +240,7 @@ snapshots["sbb-pearl-chain-vertical-item renders component with charcoal standar
 }
 </p>
 `;
-/* end snapshot sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Chrome */
+/* end snapshot sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Safari */
 
 snapshots["sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Firefox"] = 
 `<p>

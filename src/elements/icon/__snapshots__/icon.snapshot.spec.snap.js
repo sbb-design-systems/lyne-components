@@ -115,6 +115,16 @@ snapshots["sbb-icon A11y tree Chrome"] =
 `;
 /* end snapshot sbb-icon A11y tree Chrome */
 
+snapshots["sbb-icon A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-icon A11y tree Safari */
+
 snapshots["sbb-icon A11y tree Firefox"] = 
 `<p>
   {

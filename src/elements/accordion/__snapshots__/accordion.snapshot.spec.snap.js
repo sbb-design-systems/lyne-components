@@ -73,6 +73,26 @@ snapshots["sbb-accordion renders Shadow DOM"] =
 `;
 /* end snapshot sbb-accordion renders Shadow DOM */
 
+snapshots["sbb-accordion renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Header 1"
+    },
+    {
+      "role": "button",
+      "name": "Header 2"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-accordion renders A11y tree Firefox */
+
 snapshots["sbb-accordion renders A11y tree Chrome"] = 
 `<p>
   {
@@ -93,10 +113,10 @@ snapshots["sbb-accordion renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-accordion renders A11y tree Chrome */
 
-snapshots["sbb-accordion renders A11y tree Firefox"] = 
+snapshots["sbb-accordion renders A11y tree Safari"] = 
 `<p>
   {
-  "role": "document",
+  "role": "WebArea",
   "name": "",
   "children": [
     {
@@ -111,5 +131,5 @@ snapshots["sbb-accordion renders A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-accordion renders A11y tree Firefox */
+/* end snapshot sbb-accordion renders A11y tree Safari */
 

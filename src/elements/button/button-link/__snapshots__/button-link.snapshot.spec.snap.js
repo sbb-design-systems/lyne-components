@@ -39,6 +39,22 @@ snapshots["sbb-button-link renders a sbb-button-link without icon Shadow DOM"] =
 `;
 /* end snapshot sbb-button-link renders a sbb-button-link without icon Shadow DOM */
 
+snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Label Text . Link target opens in a new window."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-button-link renders a sbb-button-link without icon A11y tree Chrome */
+
 snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon DOM"] = 
 `<sbb-button-link
   data-action=""
@@ -79,7 +95,7 @@ snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon 
 `;
 /* end snapshot sbb-button-link renders a disabled sbb-button-link with slotted icon Shadow DOM */
 
-snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Chrome"] = 
+snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -87,13 +103,27 @@ snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Chro
   "children": [
     {
       "role": "link",
-      "name": "Label Text . Link target opens in a new window."
+      "name": "Label Text . Link target opens in a new window.",
+      "children": [
+        {
+          "role": "text",
+          "name": "Label Text"
+        },
+        {
+          "role": "text",
+          "name": ". "
+        },
+        {
+          "role": "text",
+          "name": "Link target opens in a new window."
+        }
+      ]
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-button-link renders a sbb-button-link without icon A11y tree Chrome */
+/* end snapshot sbb-button-link renders a sbb-button-link without icon A11y tree Safari */
 
 snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Firefox"] = 
 `<p>

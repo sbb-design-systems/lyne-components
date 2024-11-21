@@ -97,6 +97,42 @@ snapshots["sbb-breadcrumb-group renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-breadcrumb-group renders A11y tree Chrome */
 
+snapshots["sbb-breadcrumb-group renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "link",
+      "name": "One",
+      "children": [
+        {
+          "role": "text",
+          "name": "One"
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "Two",
+      "children": [
+        {
+          "role": "text",
+          "name": "Two"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-breadcrumb-group renders A11y tree Safari */
+
 snapshots["sbb-breadcrumb-group renders A11y tree Firefox"] = 
 `<p>
   {

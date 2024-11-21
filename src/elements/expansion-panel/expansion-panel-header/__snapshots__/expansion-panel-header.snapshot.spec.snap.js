@@ -38,6 +38,22 @@ snapshots["sbb-expansion-panel-header renders Shadow DOM"] =
 `;
 /* end snapshot sbb-expansion-panel-header renders Shadow DOM */
 
+snapshots["sbb-expansion-panel-header renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Header"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-expansion-panel-header renders A11y tree Chrome */
+
 snapshots["sbb-expansion-panel-header renders with icon DOM"] = 
 `<sbb-expansion-panel-header
   data-action=""
@@ -130,7 +146,7 @@ snapshots["sbb-expansion-panel-header renders with slotted icon Shadow DOM"] =
 `;
 /* end snapshot sbb-expansion-panel-header renders with slotted icon Shadow DOM */
 
-snapshots["sbb-expansion-panel-header renders A11y tree Chrome"] = 
+snapshots["sbb-expansion-panel-header renders A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -144,7 +160,7 @@ snapshots["sbb-expansion-panel-header renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-expansion-panel-header renders A11y tree Chrome */
+/* end snapshot sbb-expansion-panel-header renders A11y tree Safari */
 
 snapshots["sbb-expansion-panel-header renders A11y tree Firefox"] = 
 `<p>

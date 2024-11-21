@@ -63,6 +63,32 @@ snapshots["sbb-action-group renders renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-action-group renders renders A11y tree Chrome */
 
+snapshots["sbb-action-group renders renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Button"
+    },
+    {
+      "role": "link",
+      "name": "Link",
+      "children": [
+        {
+          "role": "text",
+          "name": "Link"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-action-group renders renders A11y tree Safari */
+
 snapshots["sbb-action-group renders renders A11y tree Firefox"] = 
 `<p>
   {

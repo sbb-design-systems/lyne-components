@@ -245,6 +245,53 @@ snapshots["sbb-skiplink-list renders with title A11y tree Chrome"] =
 `;
 /* end snapshot sbb-skiplink-list renders with title A11y tree Chrome */
 
+snapshots["sbb-skiplink-list renders with title A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Skip to",
+      "level": 3
+    },
+    {
+      "role": "link",
+      "name": "Link 1",
+      "children": [
+        {
+          "role": "text",
+          "name": "Link 1"
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "Link 2",
+      "children": [
+        {
+          "role": "text",
+          "name": "Link 2"
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "Link 3",
+      "children": [
+        {
+          "role": "text",
+          "name": "Link 3"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-skiplink-list renders with title A11y tree Safari */
+
 snapshots["sbb-skiplink-list renders with title A11y tree Firefox"] = 
 `<p>
   {

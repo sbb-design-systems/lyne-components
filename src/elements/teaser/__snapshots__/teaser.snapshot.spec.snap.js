@@ -53,6 +53,22 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser renders after centered Shadow DOM */
 
+snapshots["sbb-teaser renders after centered A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "SBB teaser"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser renders after centered A11y tree Chrome */
+
 snapshots["sbb-teaser renders after with title level set DOM"] = 
 `<sbb-teaser
   accessibility-label="SBB teaser"
@@ -171,7 +187,7 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser renders below with projected content Shadow DOM */
 
-snapshots["sbb-teaser renders after centered A11y tree Chrome"] = 
+snapshots["sbb-teaser renders after centered A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -179,13 +195,19 @@ snapshots["sbb-teaser renders after centered A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "SBB teaser"
+      "name": "SBB teaser",
+      "children": [
+        {
+          "role": "text",
+          "name": "​"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-teaser renders after centered A11y tree Chrome */
+/* end snapshot sbb-teaser renders after centered A11y tree Safari */
 
 snapshots["sbb-teaser renders after centered A11y tree Firefox"] = 
 `<p>

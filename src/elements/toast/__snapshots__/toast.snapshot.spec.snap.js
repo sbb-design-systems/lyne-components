@@ -69,6 +69,16 @@ snapshots["sbb-toast renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-toast renders A11y tree Chrome */
 
+snapshots["sbb-toast renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-toast renders A11y tree Safari */
+
 snapshots["sbb-toast renders Firefox DOM"] = 
 `<sbb-toast
   data-slot-names="unnamed"

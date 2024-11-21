@@ -57,6 +57,22 @@ snapshots["sbb-header-button renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-header-button renders A11y tree Chrome */
 
+snapshots["sbb-header-button renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "a11y label"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-header-button renders A11y tree Safari */
+
 snapshots["sbb-header-button renders A11y tree Firefox"] = 
 `<p>
   {

@@ -27,6 +27,23 @@ snapshots["sbb-datepicker-next-day renders Shadow DOM"] =
 `;
 /* end snapshot sbb-datepicker-next-day renders Shadow DOM */
 
+snapshots["sbb-datepicker-next-day renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Next day",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-datepicker-next-day renders A11y tree Chrome */
+
 snapshots["sbb-datepicker-next-day renders with connected datepicker DOM"] = 
 `<sbb-datepicker-next-day
   aria-label="Change to the next day, currently selected December 31, 2022."
@@ -53,23 +70,6 @@ snapshots["sbb-datepicker-next-day renders with connected datepicker Shadow DOM"
 `;
 /* end snapshot sbb-datepicker-next-day renders with connected datepicker Shadow DOM */
 
-snapshots["sbb-datepicker-next-day renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Next day",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-next-day renders A11y tree Chrome */
-
 snapshots["sbb-datepicker-next-day renders with connected datepicker A11y tree Chrome"] = 
 `<p>
   {
@@ -94,6 +94,48 @@ snapshots["sbb-datepicker-next-day renders with connected datepicker A11y tree C
 </p>
 `;
 /* end snapshot sbb-datepicker-next-day renders with connected datepicker A11y tree Chrome */
+
+snapshots["sbb-datepicker-next-day renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Next day",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-datepicker-next-day renders A11y tree Safari */
+
+snapshots["sbb-datepicker-next-day renders with connected datepicker A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "textbox",
+      "name": "DD.MM.YYYY",
+      "value": "Sa, 31.12.2022"
+    },
+    {
+      "role": "text",
+      "name": "Date changed to Saturday, 31.12.2022"
+    },
+    {
+      "role": "button",
+      "name": "Change to the next day, currently selected December 31, 2022."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-datepicker-next-day renders with connected datepicker A11y tree Safari */
 
 snapshots["sbb-datepicker-next-day renders A11y tree Firefox"] = 
 `<p>

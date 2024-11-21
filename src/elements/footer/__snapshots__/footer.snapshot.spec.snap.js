@@ -40,6 +40,23 @@ snapshots["sbb-footer renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-footer renders A11y tree Chrome */
 
+snapshots["sbb-footer renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Footer",
+      "level": 1
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-footer renders A11y tree Safari */
+
 snapshots["sbb-footer renders A11y tree Firefox"] = 
 `<p>
   {

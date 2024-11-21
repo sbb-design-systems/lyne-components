@@ -45,6 +45,22 @@ snapshots["sbb-card-badge renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-card-badge renders A11y tree Chrome */
 
+snapshots["sbb-card-badge renders A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Black Friday Special"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-card-badge renders A11y tree Safari */
+
 snapshots["sbb-card-badge renders A11y tree Firefox"] = 
 `<p>
   {

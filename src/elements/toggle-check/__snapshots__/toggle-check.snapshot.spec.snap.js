@@ -57,6 +57,23 @@ snapshots["sbb-toggle-check A11y tree Chrome"] =
 `;
 /* end snapshot sbb-toggle-check A11y tree Chrome */
 
+snapshots["sbb-toggle-check A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "checkbox",
+      "name": "​",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-check A11y tree Safari */
+
 snapshots["sbb-toggle-check A11y tree Firefox"] = 
 `<p>
   {

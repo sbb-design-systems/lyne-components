@@ -170,6 +170,44 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Chro
 `;
 /* end snapshot sbb-train-formation should render with multiple trains A11y tree Chrome */
 
+snapshots["sbb-train-formation should render with multiple trains A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Train.",
+      "level": 6
+    },
+    {
+      "role": "text",
+      "name": "Coaches of the train"
+    },
+    {
+      "role": "text",
+      "name": "Train coach, Sector, A"
+    },
+    {
+      "role": "heading",
+      "name": "Train.",
+      "level": 6
+    },
+    {
+      "role": "text",
+      "name": "Coaches of the train"
+    },
+    {
+      "role": "text",
+      "name": "Train coach, Sector, B"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-train-formation should render with multiple trains A11y tree Safari */
+
 snapshots["sbb-train-formation should render with multiple trains A11y tree Firefox"] = 
 `<p>
   {
