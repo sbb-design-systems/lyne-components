@@ -5,9 +5,7 @@ import {
 } from '@sbb-esta/lyne-design-tokens';
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-const pxToRem = (px: number): number => {
-  return px / SbbTypoScaleDefault;
-};
+const pxToRem = (px: number): number => px / SbbTypoScaleDefault;
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export const SbbMediaQueryForcedColors = '(forced-colors: active)';
