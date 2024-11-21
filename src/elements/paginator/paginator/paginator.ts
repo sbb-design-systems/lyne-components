@@ -23,8 +23,6 @@ import '../../screen-reader-only.js';
 
 const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 
-let nextId = 0;
-
 /**
  * It displays a paginator component.
  *
@@ -40,14 +38,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
 
   /** The available `pageSize` choices. */
   @property({ attribute: 'page-size-options', type: Array })
-  public set pageSizeOptions(value: number[]) {
-    this._pageSizeOptions = value;
-    this._updateSelectAriaLabelledBy = true;
-  }
-  public get pageSizeOptions(): number[] | undefined {
-    return this._pageSizeOptions;
-  }
-  private _pageSizeOptions?: number[];
+  public accessor pageSizeOptions: number[] = [];
 
   /**
    * Position of the prev/next buttons: if `pageSizeOptions` is set,
@@ -57,9 +48,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
     | 'start'
     | 'end' = 'start';
 
-  private _paginatorOptionsLabel = `sbb-paginator-options-label-${++nextId}`;
   private _markForFocus: number | null = null;
-  private _updateSelectAriaLabelledBy: boolean = false;
 
   protected override updated(changedProperties: PropertyValues<this>): void {
     super.updated(changedProperties);
@@ -74,16 +63,6 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
       }
       // Reset mark for focus
       this._markForFocus = null;
-    }
-
-    /**
-     * TODO: Accessibility fix required to correctly read the label;
-     * can be possibly removed after the merge of https://github.com/sbb-design-systems/lyne-components/issues/3062
-     */
-    const select = this.shadowRoot!.querySelector('sbb-select');
-    if (select && this._updateSelectAriaLabelledBy) {
-      select.setAttribute('aria-labelledby', this._paginatorOptionsLabel);
-      this._updateSelectAriaLabelledBy = false;
     }
   }
 
@@ -159,9 +138,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
           <div class="sbb-paginator__page-size-options">
-            <label id=${this._paginatorOptionsLabel}>
-              ${i18nItemsPerPage[this.language.current]}
-            </label>
+            <label for="select">${i18nItemsPerPage[this.language.current]}</label>
             <sbb-form-field
               borderless
               width="collapse"
@@ -169,6 +146,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
               size=${this.size}
             >
               <sbb-select
+                id="select"
                 ?disabled=${this.disabled}
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}
