@@ -6,7 +6,7 @@ import { forceType, omitEmptyConverter } from '../core/decorators.js';
 import { SbbIconBase } from './icon-base.js';
 
 /**
- * It displays an icon loaded from a registered namespace.
+ * Displays an icon loaded from a registered namespace.
  */
 export
 @customElement('sbb-icon')
