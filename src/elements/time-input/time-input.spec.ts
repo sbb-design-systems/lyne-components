@@ -216,7 +216,7 @@ describe(`sbb-time-input`, () => {
     await waitForLitRender(element);
     expect(input.value).to.be.equal('15:00');
 
-    const dateCalculated = element.valueAsDate.getTime();
+    const dateCalculated = element.valueAsDate!.getTime();
     expect(new Date(dateCalculated).getHours()).to.be.equal(date.getHours());
     expect(new Date(dateCalculated).getMinutes()).to.be.equal(date.getMinutes());
   });

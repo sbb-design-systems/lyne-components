@@ -46,9 +46,11 @@ class SbbTimeInputElement extends LitElement {
   }
   private _input: string | HTMLElement | null = null;
 
+  @state() private accessor _inputElement: HTMLInputElement | null = null;
+
   /** Formats the current input's value as date. */
   @property({ attribute: false })
-  public set valueAsDate(date: SbbDateLike) {
+  public set valueAsDate(date: SbbDateLike | null) {
     if (!date || !this._inputElement) {
       return;
     }
@@ -66,8 +68,6 @@ class SbbTimeInputElement extends LitElement {
   public get valueAsDate(): Date | null {
     return this._formatValueAsDate(this._parseInput(this._inputElement?.value)) ?? null;
   }
-
-  @state() private _inputElement: HTMLInputElement | null;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
