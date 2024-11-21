@@ -3,7 +3,7 @@ import { html, LitElement, nothing, type PropertyValues, type TemplateResult } f
 import { property, state } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
-import { forceType, slotState } from '../../core/decorators.js';
+import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import type { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
@@ -45,16 +45,6 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   public get value(): string {
     return this.getAttribute('value') ?? '';
   }
-
-  /**
-   * Whether the option is currently active.
-   * TODO: remove with next major version.
-   * @deprecated
-   * @internal
-   */
-  @forceType()
-  @property({ reflect: true, type: Boolean })
-  public accessor active: boolean = false;
 
   /** Whether the option is selected. */
   @property({ type: Boolean })
