@@ -66,7 +66,7 @@ describe(`sbb-map-container`, () => {
     it(
       visualDiffDefault.name,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(), { padding: '0' });
+        await setup.withFixture(template(), { padding: '0', minHeight: '500px' });
       }),
     );
   });

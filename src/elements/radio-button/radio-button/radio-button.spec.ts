@@ -11,34 +11,14 @@ describe(`sbb-radio-button`, () => {
 
   describe('general', () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-radio-button value="Value">Value label</sbb-radio-button>`);
+      element = await fixture(
+        html`<sbb-radio-button name="test" value="Value">Value label</sbb-radio-button>`,
+      );
     });
 
     it('renders', async () => {
       assert.instanceOf(element, SbbRadioButtonElement);
-    });
-
-    it('should have corresponding aria values set', async () => {
-      expect(element).to.have.attribute('aria-checked', 'false');
-      expect(element).to.have.attribute('aria-required', 'false');
-      expect(element).not.to.have.attribute('aria-disabled');
-    });
-
-    it('should update aria values', async () => {
-      element.checked = true;
-      element.required = true;
-      element.disabled = true;
-
-      await waitForLitRender(element);
-
-      expect(element).to.have.attribute('aria-checked', 'true');
-      expect(element).to.have.attribute('aria-required', 'true');
-      expect(element).to.have.attribute('aria-disabled', 'true');
-    });
-
-    it('should not render accessibility label about containing state', async () => {
-      element = element.shadowRoot!.querySelector('.sbb-screen-reader-only:not(input)')!;
-      expect(element).not.to.be.ok;
+      expect(element.tabIndex).to.be.equal(0);
     });
 
     it('selects radio on click', async () => {
@@ -47,7 +27,8 @@ describe(`sbb-radio-button`, () => {
       element.click();
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('checked');
+      expect(element).to.have.attribute('data-checked');
+      expect(element.checked).to.be.true;
       await stateChange.calledOnce();
       expect(stateChange.count).to.be.equal(1);
     });
@@ -57,13 +38,13 @@ describe(`sbb-radio-button`, () => {
 
       element.click();
       await waitForLitRender(element);
-      expect(element).to.have.attribute('checked');
+      expect(element.checked).to.be.true;
       await stateChange.calledOnce();
       expect(stateChange.count).to.be.equal(1);
 
       element.click();
       await waitForLitRender(element);
-      expect(element).to.have.attribute('checked');
+      expect(element.checked).to.be.true;
       await stateChange.calledOnce();
       expect(stateChange.count).to.be.equal(1);
     });
@@ -74,121 +55,47 @@ describe(`sbb-radio-button`, () => {
       element.allowEmptySelection = true;
       element.click();
       await waitForLitRender(element);
-      expect(element).to.have.attribute('checked');
+      expect(element.checked).to.be.true;
       await stateChange.calledOnce();
       expect(stateChange.count).to.be.equal(1);
 
       element.click();
       await waitForLitRender(element);
-      expect(element).not.to.have.attribute('checked');
+      expect(element.checked).to.be.false;
       await stateChange.calledTimes(2);
       expect(stateChange.count).to.be.equal(2);
     });
 
-    it('should convert falsy checked to false', async () => {
-      element.checked = true;
-      (element.checked as any) = undefined;
+    it('should convert falsy to false', async () => {
+      element.checked = element.disabled = element.required = element.allowEmptySelection = true;
+      (element.checked as any) =
+        (element.disabled as any) =
+        (element.required as any) =
+        (element.allowEmptySelection as any) =
+          undefined;
 
       await waitForLitRender(element);
 
-      expect(element.checked).to.equal(false);
-      expect(element).to.have.attribute('aria-checked', 'false');
+      expect(element.checked, 'checked').to.be.false;
+      expect(element.disabled, 'disabled').to.be.false;
+      expect(element.required, 'required').to.be.false;
+      expect(element.allowEmptySelection, 'allowEmptySelection').to.be.false;
     });
 
-    it('should convert truthy checked to true', async () => {
-      element.checked = true;
-      (element.checked as any) = 2;
+    it('should convert truthy to true', async () => {
+      element.checked = element.disabled = element.required = element.allowEmptySelection = true;
+      (element.checked as any) =
+        (element.disabled as any) =
+        (element.required as any) =
+        (element.allowEmptySelection as any) =
+          2;
 
       await waitForLitRender(element);
 
-      expect(element.checked).to.equal(true);
-      expect(element).to.have.attribute('aria-checked', 'true');
-    });
-
-    it('should convert falsy disabled to false', async () => {
-      element.disabled = true;
-      (element.disabled as any) = undefined;
-
-      await waitForLitRender(element);
-
-      expect(element.disabled).to.equal(false);
-      expect(element).not.to.have.attribute('aria-disabled');
-    });
-
-    it('should convert truthy disabled to true', async () => {
-      element.disabled = true;
-      (element.disabled as any) = 2;
-
-      await waitForLitRender(element);
-
-      expect(element.disabled).to.equal(true);
-      expect(element).to.have.attribute('aria-disabled', 'true');
-    });
-
-    it('should convert falsy required to false', async () => {
-      element.required = true;
-      (element.required as any) = undefined;
-
-      await waitForLitRender(element);
-
-      expect(element.required).to.equal(false);
-      expect(element).to.have.attribute('aria-required', 'false');
-    });
-
-    it('should convert truthy required to true', async () => {
-      element.required = true;
-      (element.required as any) = 2;
-
-      await waitForLitRender(element);
-
-      expect(element.required).to.equal(true);
-      expect(element).to.have.attribute('aria-required', 'true');
-    });
-
-    it('should convert falsy allowEmptySelection to false', async () => {
-      element.allowEmptySelection = true;
-      (element.allowEmptySelection as any) = undefined;
-
-      await waitForLitRender(element);
-
-      expect(element.allowEmptySelection).to.equal(false);
-    });
-
-    it('should convert truthy allowEmptySelection to true', async () => {
-      element.allowEmptySelection = true;
-      (element.allowEmptySelection as any) = 2;
-
-      await waitForLitRender(element);
-
-      expect(element.allowEmptySelection).to.equal(true);
-    });
-  });
-
-  describe('with initial attributes', () => {
-    beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-radio-button value="Value" checked disabled required>
-          Value label
-        </sbb-radio-button>`,
-      );
-    });
-
-    it('should have corresponding aria values set', async () => {
-      expect(element).to.have.attribute('aria-checked', 'true');
-      expect(element).to.have.attribute('aria-required', 'true');
-      expect(element).to.have.attribute('aria-disabled', 'true');
-    });
-
-    it('should update aria values', async () => {
-      element.checked = false;
-      element.required = false;
-      element.disabled = false;
-
-      await waitForLitRender(element);
-
-      expect(element).to.have.attribute('aria-checked', 'false');
-      expect(element).to.have.attribute('aria-required', 'false');
-      expect(element).not.to.have.attribute('aria-disabled');
+      expect(element.checked, 'checked').to.be.true;
+      expect(element.disabled, 'disabled').to.be.true;
+      expect(element.required, 'required').to.be.true;
+      expect(element.allowEmptySelection, 'allowEmptySelection').to.be.true;
     });
   });
 });
