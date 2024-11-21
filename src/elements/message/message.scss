@@ -1,0 +1,48 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-message-subtitle-color: var(--sbb-color-granite);
+  --sbb-message-image-margin-block: 0 var(--sbb-spacing-responsive-s);
+  --sbb-message-legend-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
+  --sbb-message-action-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
+
+  display: block;
+}
+
+.sbb-message__container {
+  text-align: center;
+}
+
+.sbb-message__title {
+  // Overwrite sbb-title default margin
+  margin: 0;
+}
+
+::slotted([slot='title']) {
+  margin: 0;
+}
+
+::slotted([slot='image']) {
+  margin-block: var(--sbb-message-image-margin-block);
+  width: 100%;
+}
+
+::slotted([slot='subtitle']) {
+  @include sbb.text-s--regular;
+
+  color: var(--sbb-message-subtitle-color);
+  margin: 0;
+}
+
+::slotted([slot='legend']) {
+  @include sbb.legend;
+
+  margin-block: var(--sbb-message-legend-margin-block);
+}
+
+::slotted([slot='action']) {
+  margin-block: var(--sbb-message-action-margin-block);
+}

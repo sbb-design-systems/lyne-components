@@ -1,0 +1,48 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: inline-block;
+
+  --sbb-timetable-occupancy-color: var(--sbb-color-charcoal);
+  --sbb-icon-svg-width: #{sbb.px-to-rem-build(14.25)};
+  --sbb-icon-svg-height: v#{sbb.px-to-rem-build(12)};
+
+  @include sbb.mq($from: medium) {
+    --sbb-icon-svg-width: #{sbb.px-to-rem-build(19)};
+    --sbb-icon-svg-height: v#{sbb.px-to-rem-build(16)};
+  }
+}
+
+:host([negative]) {
+  --sbb-timetable-occupancy-color: var(--sbb-color-white);
+}
+
+.sbb-timetable-occupancy__list {
+  @include sbb.list-reset;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-timetable-occupancy__list-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--sbb-spacing-fixed-1x);
+}
+
+.sbb-timetable-occupancy__list-item-class {
+  @include sbb.text-s--regular;
+
+  line-height: 1;
+  color: var(--sbb-timetable-occupancy-color);
+}
+
+.sbb-timetable-occupancy__list-item-icon {
+  display: flex;
+}

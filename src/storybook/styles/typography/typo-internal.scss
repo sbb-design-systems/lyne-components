@@ -1,9 +1,9 @@
-@use '../../../components/core/styles/index' as sbb;
+@use '../../../elements/core/styles' as sbb;
 
-.sbb-link-inline {
-  @include sbb.link-inline;
+.sbb-link {
+  @include sbb.link;
 }
 
-.sbb-link-inline-negative {
-  @include sbb.link-inline-negative;
+.sbb-link-negative {
+  @include sbb.link-negative;
 }

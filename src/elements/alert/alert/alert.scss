@@ -1,0 +1,210 @@
+@use '../../core/styles' as sbb;
+
+// Open/Close animation vars
+$open-anim-rows-from: 0fr;
+$open-anim-rows-to: 1fr;
+$open-anim-opacity-from: 0;
+$open-anim-opacity-to: 1;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-alert-background-color: var(--sbb-color-midnight);
+  --sbb-alert-border-radius: var(--sbb-border-radius-4x);
+  --sbb-alert-color: var(--sbb-color-aluminium);
+  --sbb-alert-padding: var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xs);
+  --sbb-alert-icon-size: #{sbb.px-to-rem-build(20)};
+  --sbb-alert-close-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
+  --sbb-alert-animation-duration: var(
+    --sbb-disable-animation-zero-duration,
+    var(--sbb-animation-duration-6x)
+  );
+  --sbb-alert-timing-function: ease-in;
+
+  @include sbb.mq($from: medium) {
+    --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
+  }
+
+  @include sbb.if-forced-colors {
+    // Use outline here to not influence content position.
+    // Due to overflow hidden of inner elements it's placed on host.
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+    border-radius: var(--sbb-alert-border-radius);
+  }
+}
+
+// By default, the open animation is disabled
+:host([data-state='opening']:not([animation='open'], [animation='all'])) {
+  @include sbb.disable-animation;
+}
+
+:host([data-state='closing']:not([animation='close'], [animation='all'])) {
+  @include sbb.disable-animation;
+}
+
+:host([size='s']) {
+  --sbb-alert-gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxxs);
+}
+
+:host([size='l']) {
+  --sbb-alert-icon-size: var(--sbb-size-icon-ui-small);
+
+  @include sbb.mq($from: medium) {
+    --sbb-alert-icon-size: #{sbb.px-to-rem-build(34)};
+  }
+}
+
+.sbb-alert__transition-wrapper {
+  display: grid;
+  grid-template-rows: #{$open-anim-rows-from};
+  opacity: #{$open-anim-opacity-from};
+
+  :host(:is([data-state='opened'], [data-state='closing'])) & {
+    grid-template-rows: #{$open-anim-rows-to};
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  :host([data-state='opening']) & {
+    animation-name: open, open-opacity;
+    animation-fill-mode: forwards;
+    animation-duration: var(--sbb-alert-animation-duration);
+    animation-timing-function: var(--sbb-alert-timing-function);
+    animation-delay: 0s, var(--sbb-alert-animation-duration);
+  }
+
+  :host([data-state='closing']) & {
+    animation: {
+      name: close-opacity, close;
+      fill-mode: forwards;
+      duration: var(--sbb-alert-animation-duration);
+      timing-function: var(--sbb-alert-timing-function);
+      delay: 0s, var(--sbb-disable-animation-zero-duration, var(--sbb-animation-duration-2x));
+    }
+  }
+}
+
+.sbb-alert__transition-sub-wrapper {
+  overflow: hidden;
+}
+
+.sbb-alert {
+  @include sbb.text-s--regular;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--sbb-alert-gap);
+  min-width: fit-content;
+  padding: var(--sbb-alert-padding);
+  overflow: hidden;
+  color: var(--sbb-alert-color);
+  background-color: var(--sbb-alert-background-color);
+  border-radius: var(--sbb-alert-border-radius);
+
+  @include sbb.mq($from: small) {
+    grid-template-columns: auto 1fr auto;
+    align-items: flex-start;
+  }
+}
+
+.sbb-alert__icon {
+  display: flex;
+  align-items: start;
+  padding-block: var(--sbb-spacing-fixed-1x);
+  min-width: var(--sbb-alert-icon-size);
+
+  --sbb-icon-svg-width: var(--sbb-alert-icon-size);
+  --sbb-icon-svg-height: var(--sbb-alert-icon-size);
+}
+
+.sbb-alert__content {
+  order: 3;
+  grid-column: 1 / 3;
+
+  @include sbb.mq($from: small) {
+    order: initial;
+    grid-column-start: initial;
+    grid-column-end: initial;
+  }
+}
+
+.sbb-alert__content-slot {
+  // Reset paragraph styles
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.sbb-alert__title {
+  // Overwrite sbb-title default margin
+  margin: 0;
+}
+
+.sbb-alert__close-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+
+.sbb-alert__close-button {
+  @include sbb.mq($from: small) {
+    margin-inline-start: var(--sbb-alert-close-icon-margin);
+  }
+}
+
+.sbb-alert__close-button-divider {
+  display: none;
+
+  @include sbb.mq($from: small) {
+    display: block;
+    height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
+  }
+}
+
+@keyframes open {
+  from {
+    grid-template-rows: #{$open-anim-rows-from};
+  }
+
+  to {
+    grid-template-rows: #{$open-anim-rows-to};
+  }
+}
+
+@keyframes open-opacity {
+  from {
+    opacity: #{$open-anim-opacity-from};
+  }
+
+  to {
+    opacity: #{$open-anim-opacity-to};
+  }
+}
+
+@keyframes close {
+  from {
+    grid-template-rows: #{$open-anim-rows-to};
+  }
+
+  to {
+    grid-template-rows: #{$open-anim-rows-from};
+  }
+}
+
+@keyframes close-opacity {
+  from {
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  to {
+    opacity: #{$open-anim-opacity-from};
+  }
+}

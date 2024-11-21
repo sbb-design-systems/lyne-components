@@ -1,0 +1,158 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-flip-card-toggle-icon-transform: rotate(0);
+  --sbb-flip-card-background-color: var(--sbb-color-cloud);
+  --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
+  --sbb-flip-card-min-height: #{sbb.px-to-rem-build(280)};
+  --sbb-flip-card-summary-transition-duration: var(
+    --sbb-disable-animation-zero-duration,
+    var(--sbb-animation-duration-5x)
+  );
+  --sbb-flip-card-summary-transition-delay: var(
+    --sbb-disable-animation-zero-duration,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-flip-card-details-transition-duration: var(
+    --sbb-disable-animation-zero-duration,
+    var(--sbb-animation-duration-4x)
+  );
+
+  position: relative;
+  display: block;
+
+  @include sbb.mq($from: medium) {
+    --sbb-flip-card-min-height: #{sbb.px-to-rem-build(320)};
+  }
+}
+
+:host(:hover) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
+    --sbb-flip-card-translate-title-y-hover: #{sbb.px-to-rem-build(-1)};
+  }
+}
+
+:host([data-flipped]) {
+  --sbb-flip-card-toggle-icon-transform: rotate(45deg);
+  --sbb-flip-card-details-transition-duration: var(
+    --sbb-disable-animation-zero-duration,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-flip-card-summary-transition-delay: 0s;
+
+  ::slotted(sbb-flip-card-summary) {
+    --sbb-flip-card-summary-opacity: 0;
+    --sbb-flip-card-summary-pointer-events: none;
+  }
+
+  ::slotted(sbb-flip-card-details) {
+    --sbb-flip-card-details-opacity: 1;
+    --sbb-flip-card-details-translate-y: 0;
+  }
+}
+
+:host([data-image-alignment='after']) {
+  @include sbb.mq($from: small, $to: medium) {
+    --sbb-flip-card-min-height: #{sbb.px-to-rem-build(240)};
+  }
+
+  @include sbb.mq($from: wide) {
+    --sbb-flip-card-min-height: #{sbb.px-to-rem-build(400)};
+  }
+}
+
+.sbb-flip-card {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-flow: wrap;
+  flex-direction: column;
+  gap: var(--sbb-spacing-responsive-xs);
+  min-height: var(--sbb-flip-card-min-height);
+  background-color: var(--sbb-flip-card-background-color);
+  border-radius: var(--sbb-flip-card-border-radius);
+  transition: var(--sbb-flip-card-summary-transition-duration) ease-out;
+  transition-delay: var(--sbb-flip-card-summary-transition-delay);
+  cursor: pointer;
+
+  @include sbb.if-forced-colors {
+    &::after {
+      content: '';
+      border: var(--sbb-border-width-2x) solid CanvasText;
+      border-radius: var(--sbb-flip-card-border-radius);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+
+      :host(:hover) & {
+        @include sbb.hover-mq($hover: true) {
+          border-color: Highlight;
+        }
+      }
+    }
+  }
+
+  // Expanding dark background from the button when flipped.
+  &::before {
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    inset-inline-start: var(--sbb-spacing-responsive-s);
+    inset-block-end: var(--sbb-spacing-responsive-s);
+    background-color: var(--sbb-color-midnight);
+    width: var(--sbb-size-element-xs);
+    height: var(--sbb-size-element-xs);
+
+    // Use this large border radius to improve the appearance of the expanding dark background.
+    border-radius: #{sbb.px-to-rem-build(256)};
+    transition: var(--sbb-disable-animation-zero-duration, var(--sbb-animation-duration-3x))
+      ease-out;
+
+    :host([data-flipped]) & {
+      opacity: 1;
+      inset-inline-start: 0;
+      inset-block-end: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--sbb-flip-card-border-radius);
+      transition-duration: var(
+        --sbb-disable-animation-zero-duration,
+        var(--sbb-animation-duration-5x)
+      );
+    }
+  }
+}
+
+.sbb-flip-card--toggle-button {
+  position: absolute;
+  inset-inline-start: var(--sbb-spacing-responsive-s);
+  inset-block-end: var(--sbb-spacing-responsive-s);
+
+  :host([data-flipped]) & {
+    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  }
+}
+
+.sbb-flip-card--toggle-button-icon {
+  transform: var(--sbb-flip-card-toggle-icon-transform);
+  transition: transform var(--sbb-flip-card-summary-transition-duration) ease-out;
+}
+
+.sbb-flip-card-button {
+  @include sbb.button-reset;
+
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border-radius: var(--sbb-flip-card-border-radius);
+  cursor: pointer;
+
+  &:not([data-focus-origin='mouse'], [data-focus-origin='touch']):focus-visible {
+    @include sbb.focus-outline;
+  }
+}

@@ -1,0 +1,15 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+@include sbb.box-sizing;
+
+.app-overview {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.app-compare-link {
+  @include sbb.mq($from: medium) {
+    margin-inline-start: auto;
+  }
+}

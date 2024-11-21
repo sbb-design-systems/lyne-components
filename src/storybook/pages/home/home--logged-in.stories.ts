@@ -1,11 +1,13 @@
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
-import { html, TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 
-import type { SbbDialogElement } from '../../../components/dialog';
-import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data';
+import type { SbbDialogElement } from '../../../elements/dialog.js';
+import {
+  futureLeg,
+  pastLeg,
+} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.js';
 
 import {
   bikeProduct,
@@ -16,12 +18,11 @@ import {
   skiplinkList,
   teaserHero,
   timetableInput,
-  wrapperStyle,
-} from './home.common';
+} from './home.common.js';
 import readme from './readme.md?raw';
-import '../../../components/dialog';
-import '../../../components/journey-header';
-import '../../../components/pearl-chain';
+import '../../../elements/dialog.js';
+import '../../../elements/journey-header.js';
+import '../../../elements-experimental/pearl-chain.js';
 import './home.scss';
 
 const negative: InputType = {
@@ -44,35 +45,35 @@ const Template = (args: Args): TemplateResult => html`
 
     <!-- Header section -->
     <sbb-header hide-on-scroll>
-      <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
-      </sbb-header-action>
+      </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-action icon-name="magnifying-glass-small" href="/"> Search </sbb-header-action>
-      <sbb-header-action
+      <sbb-header-link icon-name="magnifying-glass-small" href="/"> Search </sbb-header-link>
+      <sbb-header-button
         icon-name="user-small"
         id="user-menu-trigger"
         class="sbb-header-shrinkable"
       >
         Christina Müller
-      </sbb-header-action>
+      </sbb-header-button>
       <sbb-menu trigger="user-menu-trigger">
-        <sbb-menu-action icon-name="user-small" href="/"> Account </sbb-menu-action>
-        <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
-        <sbb-menu-action icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
+        <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
+        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
           Shopping cart
-        </sbb-menu-action>
+        </sbb-menu-button>
         <sbb-divider></sbb-divider>
-        <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
+        <sbb-menu-button icon-name="exit-small">Sign out</sbb-menu-button>
       </sbb-menu>
-      <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
         English
-      </sbb-header-action>
+      </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
-        <sbb-menu-action aria-pressed="false">Deutsch</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Français</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Italiano</sbb-menu-action>
-        <sbb-menu-action icon-name="tick-small" aria-pressed="true"> English </sbb-menu-action>
+        <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
+        <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
       </sbb-menu>
       <a href="https://www.sbb.ch" slot="logo">
         <sbb-logo protective-room="none"></sbb-logo>
@@ -103,9 +104,9 @@ const Template = (args: Args): TemplateResult => html`
                   <span> on <time datetime="2021-11-25">Black Friday</time> </span>
                 </sbb-card-badge>
 
-                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                   View Ticket
-                </sbb-card-action>
+                </sbb-card-link>
 
                 <span class="card-product">
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -124,21 +125,20 @@ const Template = (args: Args): TemplateResult => html`
                     </span>
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
-                      data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
-                      ?disable-animation=${isChromatic()}
+                      now="2021-12-08T12:11:00+01:00"
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-button variant="secondary" icon-name="qrcode-small" is-static>
+                  <sbb-secondary-button-static icon-name="qrcode-small">
                     Ticket
-                  </sbb-button>
+                  </sbb-secondary-button-static>
                 </span>
               </sbb-card>
             </li>
             <li>
               <sbb-card>
-                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                   Buy saver ticket
-                </sbb-card-action>
+                </sbb-card-link>
 
                 <span class="card-product">
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -147,17 +147,17 @@ const Template = (args: Args): TemplateResult => html`
                     <sbb-title level="2" visual-level="6"> Libero day ticket: All zones </sbb-title>
                     <span class="sbb-text-s card-description">Today, Valid 24 hours</span>
                   </span>
-                  <sbb-button variant="secondary" icon-name="qrcode-small" is-static>
+                  <sbb-secondary-button-static icon-name="qrcode-small">
                     Ticket
-                  </sbb-button>
+                  </sbb-secondary-button-static>
                 </span>
               </sbb-card>
             </li>
             <li>
               <sbb-card>
-                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                   Check details of the journey
-                </sbb-card-action>
+                </sbb-card-link>
 
                 <span class="card-product">
                   <span class="content">
@@ -172,47 +172,47 @@ const Template = (args: Args): TemplateResult => html`
                     </span>
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
-                      data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
-                      ?disable-animation=${isChromatic()}
+                      now="2021-12-08T12:11:00+01:00"
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-button variant="secondary" is-static> Details </sbb-button>
+                  <sbb-secondary-button-static> Details </sbb-secondary-button-static>
                 </span>
               </sbb-card>
             </li>
           </ul>
-          <sbb-button
-            variant="secondary"
+          <sbb-secondary-button
             class="all-purchased-tickets-button"
             @click=${() => (document.getElementById('my-dialog') as SbbDialogElement).open()}
           >
             All purchased tickets
-          </sbb-button>
+          </sbb-secondary-button>
 
-          <sbb-dialog id="my-dialog" title-content="My Dialog" title-back-button>
-            <p style="margin-top: 0;">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
+          <sbb-dialog id="my-dialog">
+            <sbb-dialog-title back-button>My Dialog</sbb-dialog-title>
 
-            <sbb-button
-              variant="secondary"
-              size="m"
-              @click=${() =>
-                (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
-            >
-              Open stacked dialog
-            </sbb-button>
+            <sbb-dialog-content>
+              <p style="margin-top: 0;">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur.
+              </p>
+              <sbb-secondary-button
+                size="m"
+                @click=${() =>
+                  (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
+              >
+                Open stacked dialog
+              </sbb-secondary-button>
+            </sbb-dialog-content>
 
-            <sbb-action-group
-              slot="action-group"
+            <sbb-dialog-actions
               align-group="stretch"
               orientation="vertical"
               horizontal-from="medium"
             >
-              <sbb-link
+              <sbb-block-link
                 size="s"
                 align-self="start"
                 icon-name="chevron-small-left-small"
@@ -220,15 +220,18 @@ const Template = (args: Args): TemplateResult => html`
                 sbb-dialog-close
               >
                 Link
-              </sbb-link>
-              <sbb-button size="m" variant="secondary" sbb-dialog-close> Cancel </sbb-button>
-              <sbb-button size="m" variant="primary" sbb-dialog-close> Button </sbb-button>
-            </sbb-action-group>
+              </sbb-block-link>
+              <sbb-secondary-button size="m" sbb-dialog-close> Cancel </sbb-secondary-button>
+              <sbb-button size="m" sbb-dialog-close> Button </sbb-button>
+            </sbb-dialog-actions>
           </sbb-dialog>
 
-          <sbb-dialog id="my-stacked-dialog" title-content="Stacked Dialog" title-back-button>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.
+          <sbb-dialog id="my-stacked-dialog">
+            <sbb-dialog-title back-button>Stacked Dialog</sbb-dialog-title>
+            <sbb-dialog-content>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua.
+            </sbb-dialog-content>
           </sbb-dialog>
         </div>
       </div>
@@ -250,9 +253,9 @@ const Template = (args: Args): TemplateResult => html`
               Your subscriptions.
             </sbb-title>
             <sbb-card color="milk" size="s">
-              <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+              <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                 Edit subscription
-              </sbb-card-action>
+              </sbb-card-link>
 
               <span class="card-product-big">
                 <span class="content">
@@ -260,7 +263,7 @@ const Template = (args: Args): TemplateResult => html`
                   <sbb-title level="3" visual-level="6"> Generalabonnement </sbb-title>
                   <span class="sbb-text-s card-description">2nd class, valid until 30.11.2022</span>
                 </span>
-                <sbb-button variant="secondary" is-static> Edit subscription </sbb-button>
+                <sbb-secondary-button-static> Edit subscription </sbb-secondary-button-static>
               </span>
             </sbb-card>
           </div>
@@ -283,11 +286,9 @@ export const homeLoggedIn: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html` <div style=${styleMap(wrapperStyle(context))}>${story()}</div> `,
-  ],
   parameters: {
-    chromatic: { disableSnapshot: false },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

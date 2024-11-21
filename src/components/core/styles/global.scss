@@ -1,9 +1,0 @@
-@use './_index' as sbb;
-@use './normalize';
-@use './typography';
-
-// Core variables, are always needed
-:root {
-  // Core variables for :root context
-  @include sbb.lyne-components-css-vars;
-}

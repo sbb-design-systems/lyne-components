@@ -1,0 +1,14 @@
+@use './mixins/lists';
+
+.sbb-list {
+  @include lists.list;
+  @include lists.description-list;
+}
+
+.sbb-step-list {
+  @include lists.step-list;
+}
+
+.sbb-icon-list {
+  @include lists.icon-list;
+}

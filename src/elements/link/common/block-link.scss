@@ -1,0 +1,50 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  @include sbb.block-link-variables;
+
+  --sbb-link-gap: var(--sbb-spacing-fixed-1x);
+
+  display: block;
+}
+
+:host([negative]) {
+  @include sbb.block-link-variables--negative;
+}
+
+.sbb-action-base {
+  gap: var(--sbb-link-gap);
+
+  :host([size='xs']) & {
+    @include sbb.text-xs--regular;
+  }
+
+  :host([size='s']) & {
+    @include sbb.text-s--regular;
+  }
+
+  :host([size='m']) & {
+    @include sbb.text-m--regular;
+  }
+}
+
+.sbb-link__icon {
+  position: relative;
+  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  width: var(--sbb-size-icon-ui-small);
+  flex: 0 0 auto;
+  align-self: start;
+
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    display: none;
+  }
+
+  :host([icon-placement='end']) & {
+    order: 2;
+  }
+
+  ::slotted([slot='icon']),
+  sbb-icon {
+    @include sbb.absolute-center-y;
+  }
+}

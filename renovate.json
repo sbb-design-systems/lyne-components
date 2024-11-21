@@ -8,6 +8,7 @@
   "nvm": {
     "enabled": false
   },
+  "baseBranches": ["main", "1.x"],
   "lockFileMaintenance": {
     "schedule": ["before 7am on monday"],
     "enabled": true
@@ -25,13 +26,20 @@
       "enabled": false
     },
     {
-      "matchPackageNames": ["jackspeak"],
+      "matchPackageNames": ["jackspeak", "@web/dev-server-core"],
       "enabled": false
     },
     {
       "groupName": "esta",
       "matchPackagePrefixes": ["@sbb-esta/"],
-      "prPriority": 10
+      "prPriority": 10,
+      "automerge": false
+    },
+    {
+      "groupName": "playwright",
+      "matchPackagePrefixes": ["playwright"],
+      "prPriority": 10,
+      "automerge": false
     },
     {
       "groupName": "eslint",
@@ -39,7 +47,7 @@
     },
     {
       "groupName": "commitlint",
-      "matchPackagePrefixes": ["@commitlint/", "standard-version"]
+      "matchPackagePrefixes": ["@commitlint/"]
     },
     {
       "groupName": "stylelint",

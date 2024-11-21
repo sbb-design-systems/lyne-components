@@ -1,0 +1,23 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+}
+
+.sbb-tag-group__list {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-3x);
+}
+
+// Using ... li selector, because the li generation
+// is handled in the component base class.
+.sbb-tag-group__list > :is(li, span) {
+  display: flex;
+  max-width: 100%;
+}

@@ -1,0 +1,43 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-teaser-product-brightness-hover: var(--sbb-hover-image-brightness);
+  --sbb-teaser-product-animation-duration: var(
+    --sbb-disable-animation-zero-duration,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-teaser-product-animation-easing: var(--sbb-animation-easing);
+  --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
+}
+
+:host(:hover) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-teaser-product-brightness: var(--sbb-teaser-product-brightness-hover);
+  }
+}
+
+.sbb-teaser-product {
+  &:focus-visible {
+    :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+      @include sbb.focus-outline;
+
+      border-radius: var(--sbb-teaser-product-border-radius);
+    }
+  }
+
+  @include sbb.if-forced-colors {
+    &::after {
+      :host(:hover) & {
+        border-color: Highlight;
+      }
+    }
+  }
+}
+
+::slotted(:is(img, sbb-image)) {
+  will-change: filter;
+  transition-property: filter;
+  transition-duration: var(--sbb-teaser-product-animation-duration);
+  transition-timing-function: var(--sbb-animation-easing);
+  filter: brightness(var(--sbb-teaser-product-brightness, 1));
+}

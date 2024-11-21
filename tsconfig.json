@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist/out-tsc",
-    "target": "es2021",
+    "target": "es2022",
     "module": "esnext",
-    "lib": ["es2021", "DOM", "DOM.Iterable"],
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -12,16 +12,20 @@
     "allowJs": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "experimentalDecorators": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noUnusedLocals": true,
     "paths": {
-      "@sbb-esta/lyne-components": ["src/components"],
-      "@sbb-esta/lyne-components/*": ["src/components/*"],
-      "@sbb-esta/lyne-components-react": ["src/react"],
-      "@sbb-esta/lyne-components-react/*": ["src/react/*"]
+      "@sbb-esta/lyne-elements": ["src/elements"],
+      "@sbb-esta/lyne-elements/*": ["src/elements/*"],
+      "@sbb-esta/lyne-elements-experimental": ["src/elements-experimental"],
+      "@sbb-esta/lyne-elements-experimental/*": ["src/elements-experimental/*"],
+      "@sbb-esta/lyne-react": ["src/react"],
+      "@sbb-esta/lyne-react/*": ["src/react/*"]
     },
+    "verbatimModuleSyntax": true,
+    "strict": true,
+    "importHelpers": true,
 
     /** linting **/
     "allowSyntheticDefaultImports": true,
@@ -38,14 +42,31 @@
         "rules": {
           // The following rules are broken
           "no-incompatible-type-binding": "off",
-          "no-property-visibility-mismatch": "off",
-          "no-missing-import": "off",
-          "no-unknown-slot": "off",
-
-          // The following rules cannot be used, due to internal constraints
-          // Reason: We use e.g. sbb-tooltip-close as indicators of close origins for overlays
-          "no-unknown-attribute": "off"
-        }
+          // In the calendar we have properties, that support Date/string/number values
+          // TODO: Maybe change the signature to only accept a date object.
+          "no-incompatible-property-type": "off",
+          // In the calendar component it claims about `now` property, although it's correct.
+          // TODO: Maybe reactivate if possible
+          "no-complex-attribute-binding": "off",
+          "no-unknown-tag-name": "error",
+          "no-missing-import": "error",
+          "no-missing-element-type-definition": "error",
+          "no-unknown-attribute": "error",
+          "no-unknown-property": "error",
+          "no-unknown-slot": "error"
+        },
+        "globalAttributes": [
+          "align-self",
+          "inert",
+          "sbb-dialog-close",
+          "sbb-navigation-close",
+          "sbb-navigation-section-close",
+          "sbb-overlay-close",
+          "sbb-popover-close",
+          "sbb-toast-close",
+          "sbb-stepper-next",
+          "sbb-stepper-previous"
+        ]
       }
     ]
   },

@@ -1,0 +1,122 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-train-formation-sector-line-color: var(--sbb-color-cement);
+  --sbb-train-formation-sector-line-width: var(--sbb-border-width-1x);
+  --sbb-train-formation-blocked-passage-width: #{sbb.px-to-rem-build(16)};
+  --sbb-train-formation-text-color: var(--sbb-color-charcoal);
+  --sbb-train-formation-vertical-gap: var(--sbb-spacing-fixed-2x);
+
+  @include sbb.if-forced-colors {
+    --sbb-train-formation-sector-line-color: CanvasText;
+  }
+}
+
+.sbb-train-formation {
+  @include sbb.scrollbar;
+
+  & {
+    display: grid;
+    grid-template:
+      'start sectors end' auto
+      'start trains end' auto / auto 1fr auto;
+    position: relative;
+    overflow-x: auto;
+    row-gap: calc(
+      var(--sbb-train-formation-show-sectors-gap, 0) * var(--sbb-train-formation-vertical-gap)
+    );
+    padding-block-end: var(--sbb-train-formation-vertical-gap);
+    color: var(--sbb-train-formation-text-color);
+  }
+
+  // Enable inline padding
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    width: var(--sbb-train-formation-padding-inline);
+  }
+
+  &::before {
+    grid-area: start;
+  }
+
+  &::after {
+    grid-area: end;
+  }
+}
+
+.sbb-train-formation__sectors {
+  display: flex;
+  grid-area: sectors;
+  gap: var(--sbb-train-formation-wagon-gap);
+}
+
+.sbb-train-formation__sector {
+  --_wagon-sum: var(--sbb-train-formation-wagon-count) * var(--sbb-train-formation-wagon-width);
+  --_blocked-passage-sum: var(--sbb-train-formation-wagon-blocked-passage-count) *
+    var(--sbb-train-formation-blocked-passage-width);
+  --_total-count: calc(
+    var(--sbb-train-formation-wagon-count) + var(--sbb-train-formation-wagon-blocked-passage-count)
+  );
+  --_gap-sum: calc((var(--_total-count) - 1) * var(--sbb-train-formation-wagon-gap));
+  --_sector-width: calc(var(--_wagon-sum) + var(--_blocked-passage-sum) + var(--_gap-sum));
+
+  @include sbb.text-xs--regular;
+
+  flex: 0 0 var(--_sector-width);
+  text-align: center;
+  overflow-x: clip;
+}
+
+.sbb-train-formation__sector-sticky-wrapper {
+  position: sticky;
+  inset: auto 0;
+  padding: 0 var(--sbb-spacing-fixed-1x);
+  margin: 0 var(--sbb-spacing-fixed-2x);
+  overflow: hidden;
+  white-space: nowrap;
+
+  // Lines beside the sector-label
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+
+    // Exactly center the line by subtracting half of the border width
+    inset-block: calc(50% - var(--sbb-train-formation-sector-line-width) / 2);
+    border-block-end: var(--sbb-train-formation-sector-line-width) solid
+      var(--sbb-train-formation-sector-line-color);
+    width: calc(0.5 * var(--_sector-width));
+  }
+
+  &::before {
+    inset-inline-end: 100%;
+  }
+
+  &::after {
+    inset-inline-start: 100%;
+  }
+}
+
+.sbb-train-formation__trains {
+  grid-area: trains;
+}
+
+.sbb-train-formation__train-list {
+  @include sbb.list-reset;
+
+  display: flex;
+  gap: var(--sbb-train-formation-wagon-gap);
+}
+
+// Using ... li selector, because the li generation
+// is handled in the component base class.
+.sbb-train-formation__train-list > :is(li, span) {
+  display: inline-flex;
+}

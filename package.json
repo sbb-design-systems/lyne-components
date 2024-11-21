@@ -1,6 +1,6 @@
 {
-  "name": "@sbb-esta/lyne-components",
-  "version": "0.43.2",
+  "name": "@sbb-esta/lyne-elements",
+  "version": "1.14.0",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -12,154 +12,149 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lyne-design-system/lyne-components.git"
+    "url": "https://github.com/sbb-design-systems/lyne-components.git"
   },
   "bugs": {
-    "url": "https://github.com/lyne-design-system/lyne-components/issues"
+    "url": "https://github.com/sbb-design-systems/lyne-components/issues"
   },
   "type": "module",
   "private": true,
   "scripts": {
     "postinstall": "yarn playwright install",
-    "build:components": "vite build --config src/components/vite.config.ts",
-    "build:react": "vite build --config src/react/vite.config.ts",
-    "build:storybook": "storybook build --quiet --output-dir dist/storybook",
-    "build": "npm-run-all --sequential build:components build:react build:storybook",
+    "build:elements": "npm-run-all --sequential build:elements:* build:elements-experimental:*",
+    "build:elements:production": "vite build --config src/elements/vite.config.ts",
+    "build:elements:development": "NODE_ENV=development vite build --mode development --config src/elements/vite.config.ts",
+    "build:elements-experimental:production": "vite build --config src/elements-experimental/vite.config.ts",
+    "build:elements-experimental:development": "NODE_ENV=development vite build --mode development --config src/elements-experimental/vite.config.ts",
+    "build:react": "npm-run-all --sequential build:react:* build:react-experimental:*",
+    "build:react:production": "vite build --config src/react/vite.config.ts",
+    "build:react:development": "NODE_ENV=development vite build --mode development --config src/react/vite.config.ts",
+    "build:react-experimental:production": "vite build --config src/react-experimental/vite.config.ts",
+    "build:react-experimental:development": "NODE_ENV=development vite build --mode development --config src/react-experimental/vite.config.ts",
+    "build:storybook": "storybook build --quiet --output-dir dist/storybook --stats-json",
+    "build:visual-regression-app": "vite build --config src/visual-regression-app/vite.config.ts",
+    "build": "npm-run-all --sequential build:elements build:react build:storybook",
     "docs": "npm-run-all --sequential docs:manifest docs:to-md",
-    "docs:manifest": "custom-elements-manifest analyze --config config/custom-elements-manifest.config.js",
-    "docs:to-md": "tsx scripts/docs_generate.ts",
+    "docs:manifest": "npm-run-all --sequential docs:manifest:*",
+    "docs:manifest:elements": "custom-elements-manifest analyze --config tools/manifest/elements-custom-elements-manifest.config.js",
+    "docs:manifest:elements-experimental": "custom-elements-manifest analyze --config tools/manifest/elements-experimental-custom-elements-manifest.config.js",
+    "docs:to-md": "yarn -s ts-hooks tools/docs/docs_generate.ts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
-    "generate": "tsx tools/generate-component/index.mts",
-    "generate:chromatic-stories": "tsx scripts/chromatic-stories-generator.ts",
+    "generate": "yarn -s ts-hooks tools/generate-component/index.ts",
     "integrity": "npm-run-all format docs",
     "lint": "npm-run-all --sequential lint:*",
     "lint:ts": "eslint \"**/*.ts\"",
     "lint:js": "eslint \"**/*.js\"",
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
     "lint:styles": "stylelint \"**/*.scss\"",
-    "lint:lit": "yarn lit-analyzer \"src/components/**/*.ts\"",
-    "lint:circular-imports": "madge --circular --extensions ts ./",
+    "lint:lit": "yarn lit-analyzer \"src/**/*.ts\"",
+    "lint:circular-imports": "madge --circular --ts-config ./tsconfig.json --extensions ts ./src",
     "lint:tsc": "npm-run-all --sequential lint:tsc:*",
-    "lint:tsc:components": "tsc --noEmit --project src/components/tsconfig.json",
-    "lint:tsc:components-spec": "tsc --noEmit --project src/components/tsconfig.spec.json",
+    "lint:tsc:components": "tsc --noEmit --project src/elements/tsconfig.json",
+    "lint:tsc:components-spec": "tsc --noEmit --project src/elements/tsconfig.spec.json",
+    "lint:tsc:components-experimental": "tsc --noEmit --project src/elements-experimental/tsconfig.json",
+    "lint:tsc:components-experimental-spec": "tsc --noEmit --project src/elements-experimental/tsconfig.spec.json",
+    "lint:tsc:visual-regression-app": "tsc --noEmit --project src/visual-regression-app/tsconfig.json",
     "start": "storybook dev -p 6006",
-    "test": "wtr --coverage --group default",
-    "test:spec": "wtr --group spec",
-    "test:snapshot": "yarn test --update-snapshots",
-    "test:e2e": "wtr --group e2e",
-    "prepare": "husky install"
+    "start:visual-regression-app": "vite --config src/visual-regression-app/vite.config.ts",
+    "test": "yarn -s wtr --coverage",
+    "test:snapshot": "yarn test:csr --ci --update-snapshots",
+    "test:csr": "yarn -s wtr --group default",
+    "test:ssr": "yarn -s wtr --group ssr",
+    "test:visual-regression": "yarn -s wtr --group visual-regression --all-browsers",
+    "test:playwright-server": "yarn -s ts-hooks tools/web-test-runner/start-playwright-server.ts",
+    "wtr": "yarn -s ts-hooks node_modules/@web/test-runner/dist/bin.js --config=web-test-runner.config.ts",
+    "ts-hooks": "node --no-deprecation --enable-source-maps --import ./tools/node-esm-hook/register-hooks.js",
+    "prepare": "husky"
   },
   "dependencies": {
-    "lit": "3.1.0"
+    "lit": "3.2.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "18.4.3",
-    "@commitlint/config-conventional": "18.4.3",
-    "@custom-elements-manifest/analyzer": "0.9.0",
+    "@commitlint/cli": "19.6.0",
+    "@commitlint/config-conventional": "19.6.0",
+    "@custom-elements-manifest/analyzer": "0.10.3",
     "@custom-elements-manifest/to-markdown": "0.1.0",
-    "@lit/react": "^1.0.1",
-    "@open-wc/lit-helpers": "0.6.0",
+    "@eslint/eslintrc": "3.2.0",
+    "@eslint/js": "9.15.0",
+    "@lit-labs/observers": "2.0.4",
+    "@lit-labs/router": "0.1.3",
+    "@lit-labs/testing": "0.2.5",
+    "@lit/react": "1.0.6",
+    "@open-wc/lit-helpers": "0.7.0",
     "@open-wc/testing": "4.0.0",
-    "@sbb-esta/lyne-design-tokens": "0.3.7",
-    "@storybook/addon-a11y": "7.6.4",
-    "@storybook/addon-actions": "7.6.4",
-    "@storybook/addon-essentials": "7.6.4",
-    "@storybook/addon-interactions": "7.6.4",
-    "@storybook/addon-links": "7.6.4",
-    "@storybook/blocks": "7.6.4",
-    "@storybook/builder-vite": "7.6.4",
-    "@storybook/jest": "0.2.3",
-    "@storybook/testing-library": "0.2.2",
-    "@storybook/web-components": "7.6.4",
-    "@storybook/web-components-vite": "7.6.4",
+    "@sbb-esta/lyne-design-tokens": "1.3.0",
+    "@storybook/addon-a11y": "8.4.5",
+    "@storybook/addon-actions": "8.4.5",
+    "@storybook/addon-essentials": "8.4.5",
+    "@storybook/addon-interactions": "8.4.5",
+    "@storybook/addon-links": "8.4.5",
+    "@storybook/blocks": "8.4.5",
+    "@storybook/manager-api": "8.4.5",
+    "@storybook/preview-api": "8.4.5",
+    "@storybook/test": "8.4.5",
+    "@storybook/theming": "8.4.5",
+    "@storybook/types": "8.4.5",
+    "@storybook/web-components": "8.4.5",
+    "@storybook/web-components-vite": "8.4.5",
     "@types/glob": "8.1.0",
-    "@types/mocha": "^10.0.4",
-    "@types/node": "20.10.4",
-    "@types/react": "18.2.43",
-    "@types/react-dom": "^18.2.15",
-    "@typescript-eslint/eslint-plugin": "6.14.0",
-    "@typescript-eslint/parser": "6.14.0",
-    "@web/test-runner": "0.18.0",
+    "@types/mocha": "10.0.10",
+    "@types/node": "20.17.6",
+    "@types/react": "18.3.12",
+    "@typescript-eslint/eslint-plugin": "8.15.0",
+    "@typescript-eslint/parser": "8.15.0",
+    "@web/test-runner": "0.19.0",
     "@web/test-runner-commands": "0.9.0",
     "@web/test-runner-playwright": "0.11.0",
-    "@web/test-runner-puppeteer": "0.15.0",
-    "chromatic": "10.1.0",
-    "custom-elements-manifest": "^2.0.0",
-    "date-fns": "2.30.0",
-    "eslint": "8.55.0",
+    "@web/test-runner-puppeteer": "0.17.0",
+    "@web/test-runner-visual-regression": "0.9.0",
+    "custom-elements-manifest": "2.1.0",
+    "date-fns": "4.1.0",
+    "esbuild": "0.24.0",
+    "eslint": "9.15.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-import": "npm:eslint-plugin-i@latest",
-    "eslint-plugin-jest": "27.6.0",
-    "eslint-plugin-lit": "1.10.1",
-    "eslint-plugin-lyne": "file:tools/eslint/link/",
-    "eslint-plugin-react": "7.33.2",
-    "eslint-plugin-storybook": "0.6.15",
-    "eslint-plugin-yaml": "0.5.0",
-    "glob": "10.3.10",
-    "husky": "8.0.3",
-    "lint-staged": "15.2.0",
-    "lit-analyzer": "2.0.2",
-    "madge": "6.1.0",
-    "npm-run-all": "4.1.5",
-    "playwright": "1.40.1",
-    "postcss": "8.4.32",
-    "prettier": "3.1.1",
-    "react": "18.2.0",
-    "react-dom": "^18.2.0",
+    "eslint-import-resolver-typescript": "3.6.3",
+    "eslint-plugin-import-x": "4.4.3",
+    "eslint-plugin-lit": "1.15.0",
+    "eslint-plugin-react": "7.37.2",
+    "eslint-plugin-storybook": "0.11.1",
+    "eslint-plugin-yml": "1.15.0",
+    "glob": "11.0.0",
+    "globals": "15.12.0",
+    "husky": "9.1.7",
+    "lint-staged": "15.2.10",
+    "lit-analyzer": "2.0.3",
+    "madge": "8.0.0",
+    "npm-run-all2": "7.0.1",
+    "octokit": "4.0.2",
+    "playwright": "1.47.2",
+    "postcss": "8.4.49",
+    "prettier": "3.3.3",
+    "react": "18.3.1",
     "rollup-plugin-postcss-lit": "2.1.0",
-    "sass": "1.69.5",
-    "sinon": "17.0.1",
-    "standard-version": "^9.5.0",
-    "storybook": "7.6.4",
-    "stylelint": "16.0.2",
+    "sass": "1.81.0",
+    "sinon": "19.0.2",
+    "storybook": "8.4.5",
+    "stylelint": "16.10.0",
     "stylelint-config-prettier-scss": "1.0.0",
-    "stylelint-config-standard-scss": "12.0.0",
-    "stylelint-scss": "6.0.0",
-    "ts-lit-plugin": "2.0.1",
-    "tsx": "4.6.2",
-    "typescript": "5.3.3",
-    "vite": "4.5.1",
-    "vite-plugin-dts": "3.6.4"
+    "stylelint-config-standard-scss": "13.1.0",
+    "stylelint-scss": "6.10.0",
+    "ts-lit-plugin": "2.0.2",
+    "tslib": "2.8.1",
+    "typescript": "5.6.3",
+    "typescript-eslint": "8.15.0",
+    "urlpattern-polyfill": "10.0.0",
+    "vite": "5.4.11",
+    "vite-plugin-dts": "4.3.0"
   },
   "resolutions": {
+    "@types/node": "20.17.6",
+    "@webcomponents/template-shadowroot": "0.2.1",
+    "@web/dev-server-core": "0.7.1",
     "jackspeak": "2.1.1",
-    "lit": "3.1.0"
-  },
-  "standard-version": {
-    "types": [
-      {
-        "type": "feat",
-        "section": "Features"
-      },
-      {
-        "type": "fix",
-        "section": "Bug Fixes"
-      },
-      {
-        "type": "chore",
-        "hidden": true
-      },
-      {
-        "type": "docs",
-        "section": "Documentation"
-      },
-      {
-        "type": "style",
-        "section": "Bug Fixes"
-      },
-      {
-        "type": "refactor",
-        "section": "Refactorings"
-      },
-      {
-        "type": "perf",
-        "hidden": "Performance"
-      },
-      {
-        "type": "test",
-        "hidden": true
-      }
-    ]
+    "lit": "3.2.1",
+    "playwright": "1.47.2",
+    "prettier": "3.3.3"
   },
   "prettier": {
     "singleQuote": true,
@@ -168,7 +163,7 @@
   },
   "lint-staged": {
     "*.{js,ts,yaml,yml}": [
-      "eslint --fix"
+      "eslint --fix --no-ignore"
     ],
     "*.scss": [
       "stylelint --fix"
@@ -176,5 +171,12 @@
     "*.{js,ts,css,scss,json,md,html,yaml,yml}": [
       "prettier --write"
     ]
+  },
+  "madge": {
+    "detectiveOptions": {
+      "ts": {
+        "skipTypeImports": true
+      }
+    }
   }
 }

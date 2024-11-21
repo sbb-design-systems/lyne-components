@@ -1,0 +1,55 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+  display: inline-block;
+}
+
+.sbb-checkbox__label--icon {
+  color: var(--sbb-checkbox-label-icon-color);
+
+  :host([icon-placement='end']) & {
+    margin-inline-start: auto;
+  }
+
+  :host(
+    // No icon
+    :not([icon-name], [data-slot-names~="icon"])) & {
+    display: none;
+  }
+
+  :host(
+    // Icon present and placement start
+    :is([icon-name], [data-slot-names~="icon"]):not([icon-placement='end'])) & {
+    padding-inline-end: var(--sbb-spacing-fixed-2x);
+  }
+
+  :host(
+    // Icon present and placement end
+    :is([icon-name], [data-slot-names~="icon"])[icon-placement='end']) & {
+    padding-inline-start: var(--sbb-spacing-fixed-2x);
+  }
+}
+
+.sbb-checkbox-wrapper {
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+}
+
+.sbb-checkbox__label {
+  :host([icon-placement='start']) & {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  :host([icon-placement='end']) & {
+    justify-content: flex-start;
+    flex-grow: 1;
+  }
+}

@@ -1,0 +1,47 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-skiplink-list-height: 0;
+  --sbb-skiplink-list-overflow: hidden;
+  --sbb-skiplink-list-background: transparent;
+  --sbb-skiplink-list-border: unset;
+
+  display: block;
+}
+
+.sbb-skiplink-list__wrapper {
+  position: fixed;
+  inset-block-start: var(--sbb-spacing-fixed-4x);
+  inset-inline-start: var(--sbb-spacing-fixed-4x);
+  z-index: calc(var(--sbb-skiplink-list-z-index, var(--sbb-overlay-default-z-index)) + 1);
+}
+
+.sbb-skiplink-list {
+  @include sbb.list-reset;
+
+  & > :is(li, span) {
+    @include sbb.shadow-level-5-hard;
+
+    height: var(--sbb-skiplink-list-height);
+    overflow: var(--sbb-skiplink-list-overflow);
+    border-radius: var(--sbb-border-radius-4x);
+    background-color: var(--sbb-skiplink-list-background);
+    border: var(--sbb-skiplink-list-border);
+    width: fit-content;
+
+    &:focus-within {
+      --sbb-skiplink-list-height: auto;
+      --sbb-skiplink-list-overflow: visible;
+      --sbb-skiplink-list-background: var(--sbb-color-black);
+      --sbb-skiplink-list-border: var(--sbb-border-width-2x) solid var(--sbb-color-white);
+    }
+  }
+}
+
+::slotted([data-sbb-link]) {
+  --sbb-focus-outline-color: transparent;
+  --sbb-link-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xxs);
+}

@@ -1,6 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 
 import readme from './readme.md?raw';
 import './scrollbar-internal.scss';
@@ -57,7 +58,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
+  size: size.options![0],
   negative: false,
   trackVisible: false,
 };
@@ -89,19 +90,19 @@ export const ThinNegativeTrackVisible: StoryObj = {
 export const Thick: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1] },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const ThickTrackVisible: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1], trackVisible: true },
+  args: { ...defaultArgs, size: size.options![1], trackVisible: true },
 };
 
 export const ThickNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options[1], negative: true },
+  args: { ...defaultArgs, size: size.options![1], negative: true },
 };
 
 export const ThickNegativeTrackVisible: StoryObj = {
@@ -109,7 +110,7 @@ export const ThickNegativeTrackVisible: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options[1],
+    size: size.options![1],
     negative: true,
     trackVisible: true,
   },
@@ -120,7 +121,6 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: { disableSnapshot: true },
   },
   title: 'styles/scrollbar',
 };

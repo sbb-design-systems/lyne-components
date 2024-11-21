@@ -1,0 +1,66 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+@include sbb.box-sizing;
+
+sbb-chip-label {
+  width: fit-content;
+}
+
+sbb-title {
+  margin: 0;
+}
+
+.app-file-name-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-file-name-ellipsis {
+  display: block;
+  @include sbb.ellipsis;
+}
+
+.app-navigation-block {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.app-image-diffs {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-block: 1rem;
+}
+
+.app-testcase {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.app-progress {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  height: var(--sbb-border-radius-2x);
+  background-color: var(--sbb-color-black);
+  width: calc(var(--app-progress) * 100%);
+}
+
+.app-filter-and-toggle {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @include sbb.mq($from: wide) {
+    align-items: end;
+    flex-direction: row;
+  }
+}
+
+.app-diff-global-toggle {
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}

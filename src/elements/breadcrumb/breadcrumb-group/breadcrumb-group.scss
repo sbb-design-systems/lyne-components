@@ -1,0 +1,84 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-breadcrumb-group-wrap: nowrap;
+  --sbb-breadcrumb-group-visibility: hidden;
+
+  display: block;
+}
+
+:host([data-loaded]) {
+  --sbb-breadcrumb-group-visibility: visible;
+}
+
+:host([data-state]) {
+  --sbb-breadcrumb-group-wrap: wrap;
+}
+
+.sbb-breadcrumb-group {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-wrap: var(--sbb-breadcrumb-group-wrap);
+  column-gap: var(--sbb-spacing-fixed-1x);
+  visibility: var(--sbb-breadcrumb-group-visibility);
+}
+
+.sbb-breadcrumb-group__item {
+  flex: 0 0 auto;
+  display: flex;
+  column-gap: var(--sbb-spacing-fixed-1x);
+}
+
+.sbb-breadcrumb-group__divider-icon {
+  color: var(--sbb-color-granite);
+}
+
+#sbb-breadcrumb-ellipsis {
+  --sbb-breadcrumb-group-ellipsis-color: var(--sbb-color-granite);
+  --sbb-breadcrumb-group-ellipsis-background-color: transparent;
+  --sbb-breadcrumb-group-ellipsis-border-width: var(--sbb-border-width-1x);
+  --sbb-breadcrumb-group-ellipsis-border-color: var(--sbb-color-silver);
+
+  @include sbb.button-reset;
+  @include sbb.text-xxs--regular;
+
+  // line height and letter-spacing needed to match squares drawn in Figma.
+  line-height: 0;
+  letter-spacing: 0.01em;
+  width: var(--sbb-size-icon-ui-small);
+  height: var(--sbb-size-icon-ui-small);
+  border: var(--sbb-breadcrumb-group-ellipsis-border-width) solid
+    var(--sbb-breadcrumb-group-ellipsis-border-color);
+  border-radius: 50%;
+
+  // In order to vertically center ..., we use padding with half the font size.
+  padding-block-end: 0.5em;
+  cursor: pointer;
+  color: var(--sbb-breadcrumb-group-ellipsis-color);
+  background-color: var(--sbb-breadcrumb-group-ellipsis-background-color);
+  overflow: hidden;
+
+  @include sbb.if-forced-colors {
+    --sbb-breadcrumb-group-ellipsis-border-width: var(--sbb-border-width-2x);
+    --sbb-breadcrumb-group-ellipsis-border-color: CanvasText;
+  }
+
+  @include sbb.hover-mq($hover: true) {
+    &:hover {
+      --sbb-breadcrumb-group-ellipsis-color: var(--sbb-color-charcoal);
+      --sbb-breadcrumb-group-ellipsis-background-color: var(--sbb-color-milk);
+
+      @include sbb.if-forced-colors {
+        --sbb-breadcrumb-group-ellipsis-border-color: Highlight;
+      }
+    }
+  }
+
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+    @include sbb.focus-outline;
+  }
+}

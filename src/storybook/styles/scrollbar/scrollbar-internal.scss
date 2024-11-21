@@ -1,4 +1,4 @@
-@use '../../../components/core/styles' as sbb;
+@use '../../../elements/core/styles' as sbb;
 
 .scrollbar {
   @include sbb.scrollbar;
@@ -33,8 +33,8 @@
 }
 
 .negative {
-  background-color: var(--sbb-color-charcoal-default);
-  color: var(--sbb-color-white-default);
+  background-color: var(--sbb-color-charcoal);
+  color: var(--sbb-color-white);
 }
 
 .overflow-container {

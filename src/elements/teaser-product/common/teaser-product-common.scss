@@ -1,0 +1,157 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-teaser-product-background-color: var(--sbb-color-cloud);
+  --sbb-teaser-product-background-gradient-direction: to right;
+  --sbb-teaser-product-background: var(--sbb-teaser-product-background-color);
+  --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
+  --sbb-teaser-product-content-color: var(--sbb-color-iron);
+  --sbb-teaser-product-footer-color: var(--sbb-color-anthracite);
+  --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-teaser-product-min-height: #{sbb.px-to-rem-build(600)};
+  --sbb-teaser-product-background-gradient-start: 25%;
+  --sbb-teaser-product-background-gradient-end: 75%;
+
+  @include sbb.mq($from: large) {
+    --sbb-teaser-product-background: linear-gradient(
+      var(--sbb-teaser-product-background-gradient-direction),
+      var(--sbb-teaser-product-background-color) var(--sbb-teaser-product-background-gradient-start),
+      transparent var(--sbb-teaser-product-background-gradient-end)
+    );
+  }
+}
+
+:host([negative]) {
+  --sbb-teaser-product-background-color: var(--sbb-color-midnight);
+  --sbb-teaser-product-content-color: var(--sbb-color-cloud);
+  --sbb-teaser-product-footer-color: var(--sbb-color-cloud);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-title-text-color-normal-override: var(--sbb-color-milk);
+}
+
+:host([image-alignment='before']) {
+  --sbb-teaser-product-background-gradient-direction: to left;
+}
+
+.sbb-teaser-product__image-container {
+  display: block;
+  overflow: hidden;
+
+  // We have to remove the image bottom border-radius when stacked
+  border-radius: var(--sbb-teaser-product-border-radius) var(--sbb-teaser-product-border-radius) 0 0;
+
+  @include sbb.mq($from: large) {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--sbb-teaser-product-border-radius);
+  }
+}
+
+::slotted(img) {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+}
+
+// Reset sbb-image border radius in order to control it from teaser product.
+::slotted(sbb-image) {
+  --sbb-image-border-radius: 0;
+
+  height: 100%;
+}
+
+::slotted(p.sbb-teaser-product--spacing) {
+  margin: 0;
+}
+
+::slotted(sbb-title.sbb-teaser-product--spacing) {
+  --sbb-title-margin-block-start: 0;
+}
+
+::slotted(:is(sbb-action-group, [data-action]).sbb-teaser-product--spacing) {
+  margin-block-start: var(--sbb-spacing-responsive-xxs);
+}
+
+.sbb-action-base {
+  display: block;
+  position: relative;
+  text-decoration: none;
+
+  @include sbb.if-forced-colors {
+    // Apply a visual border for forced color mode
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: 0;
+      pointer-events: none;
+      border: var(--sbb-border-width-2x) solid CanvasText;
+      border-radius: var(--sbb-teaser-product-border-radius);
+    }
+  }
+}
+
+.sbb-teaser-product__container {
+  display: block;
+  background: var(--sbb-teaser-product-background);
+  border-radius: 0 0 var(--sbb-teaser-product-border-radius) var(--sbb-teaser-product-border-radius);
+  padding: var(--sbb-spacing-responsive-s);
+
+  @include sbb.mq($from: large) {
+    display: grid;
+    grid:
+      'content .' 1fr
+      'footnote .' auto / 1fr 1fr;
+    column-gap: var(--sbb-spacing-responsive-xxl);
+    background: var(--sbb-teaser-product-background);
+    border-radius: var(--sbb-teaser-product-border-radius);
+    padding-block: var(--sbb-teaser-product-container-padding-block) 0;
+    padding-inline: var(--sbb-spacing-responsive-xl);
+    position: relative;
+
+    :host([image-alignment='before']) & {
+      grid-template-areas:
+        '. content'
+        '. footnote';
+    }
+  }
+}
+
+.sbb-teaser-product__content {
+  grid-area: content;
+  align-self: center;
+  margin: 0;
+  color: var(--sbb-teaser-product-content-color);
+
+  @include sbb.mq($from: large) {
+    align-content: center;
+    min-height: calc(
+      var(--sbb-teaser-product-min-height) - 2 * var(--sbb-teaser-product-container-padding-block)
+    );
+  }
+}
+
+.sbb-teaser-product__footnote {
+  grid-area: footnote;
+  display: block;
+  padding-block-start: var(--sbb-spacing-responsive-s);
+  color: var(--sbb-teaser-product-footer-color);
+
+  @include sbb.text-xxs--regular;
+
+  :host(:not([data-slot-names~='footnote'])) & {
+    padding-block-start: 0;
+  }
+
+  @include sbb.mq($from: large) {
+    min-height: var(--sbb-teaser-product-container-padding-block);
+    padding-block: var(--sbb-spacing-responsive-xs);
+  }
+}

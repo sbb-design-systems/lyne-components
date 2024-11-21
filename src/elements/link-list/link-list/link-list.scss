@@ -1,0 +1,36 @@
+@use '../../core/styles' as sbb;
+
+@mixin horizontal-orientation {
+  --sbb-link-list-flex-flow: row wrap;
+
+  .sbb-link-list-title {
+    @include sbb.screen-reader-only;
+  }
+}
+
+$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+
+:host {
+  --sbb-link-list-flex-flow: column nowrap;
+}
+
+:host([orientation='horizontal']) {
+  @include horizontal-orientation;
+}
+
+.sbb-link-list {
+  @include sbb.list-reset;
+
+  display: flex;
+  gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-8x);
+  flex-flow: var(--sbb-link-list-flex-flow);
+}
+
+@each $breakpoint in $breakpoints {
+  @include sbb.mq($from: #{$breakpoint}) {
+    // horizontal-from overrides orientation vertical
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+      @include horizontal-orientation;
+    }
+  }
+}

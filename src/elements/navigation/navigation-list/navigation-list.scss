@@ -1,0 +1,30 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+}
+
+.sbb-navigation-list__content {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sbb-spacing-fixed-2x);
+  margin-block: var(--sbb-spacing-fixed-1x);
+}
+
+.sbb-navigation-list__label {
+  @include sbb.text-xxs--bold;
+
+  display: block;
+  color: var(--sbb-color-storm);
+  padding-block-end: var(--sbb-spacing-fixed-2x);
+
+  :host(:not([data-slot-names~='label'], [label])) & {
+    display: none;
+  }
+}

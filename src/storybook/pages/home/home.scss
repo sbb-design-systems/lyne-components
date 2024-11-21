@@ -1,4 +1,4 @@
-@use '../../../components/core/styles' as sbb;
+@use '../../../elements/core/styles' as sbb;
 
 $timetable-margin-block: 7vh;
 
@@ -11,13 +11,13 @@ section sbb-title {
 }
 
 .timetable-section {
-  background-color: var(--sbb-color-red-default);
+  background-color: var(--sbb-color-red);
 }
 
 .timetable-placeholder {
   @include sbb.shadow-level-5-hard;
 
-  background-color: var(--sbb-color-white-default);
+  background-color: var(--sbb-color-white);
   border-radius: var(--sbb-border-radius-4x);
   height: 21vh;
   width: 100%;
@@ -70,7 +70,7 @@ section sbb-title {
     margin-block-start: var(--sbb-spacing-fixed-2x);
   }
 
-  sbb-button {
+  [data-sbb-button] {
     width: fit-content;
   }
 
@@ -87,7 +87,7 @@ section sbb-title {
   width: 100%;
   column-gap: var(--sbb-spacing-responsive-xxxs);
 
-  sbb-button {
+  [data-sbb-button] {
     align-self: start;
     margin-block-start: 1rem;
   }
@@ -99,7 +99,7 @@ section sbb-title {
       flex-grow: 1;
     }
 
-    sbb-button {
+    [data-sbb-button] {
       align-self: end;
     }
   }
@@ -114,12 +114,12 @@ section sbb-title {
 }
 
 .card-description {
-  color: var(--sbb-color-granite-default);
+  color: var(--sbb-color-granite);
 }
 
 .product-section-logged-in {
   margin-block-end: var(--sbb-spacing-responsive-l);
-  background-color: var(--sbb-color-milk-default);
+  background-color: var(--sbb-color-milk);
 }
 
 .logged-in-overview {
@@ -144,7 +144,7 @@ section sbb-title {
   min-width: 72px;
   width: 72px;
   height: 72px;
-  background-color: var(--sbb-color-cloud-default);
+  background-color: var(--sbb-color-cloud);
   border-radius: 50%;
   display: flex;
 
@@ -209,9 +209,7 @@ section sbb-title {
   margin: 0;
 }
 
-/*
-  Common classes
- */
+// Common classes
 .grid-reduced-width {
   grid-column: 1/-1;
 

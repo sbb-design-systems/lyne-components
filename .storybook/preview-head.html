@@ -37,16 +37,24 @@
     }
   }
 
-  @media screen and (width < 1023px) {
+  @media screen and (width < 1024px) {
     .sbb-header-spacer {
       display: none;
     }
+  }
+
+  .sbdocs-content {
+    max-width: var(--sbb-breakpoint-medium-max) !important;
+  }
+
+  .sb-show-main.sb-main-padded {
+    padding: 2rem;
   }
 </style>
 
 <script>
   const windowRef = typeof window !== 'undefined' && window;
-  if (!inIframe() && !isChromatic() && !isDev()) {
+  if (!inIframe() && !isDev()) {
     setTimeout(() => {
       const div = document.createElement('div');
       div.textContent = 'EXAMPLE / BEISPIEL / EXEMPLE / ESEMPIO ';
@@ -75,6 +83,22 @@
       div.append(button);
       document.body.append(div);
     });
+  } else if (inIframe() && !isDev()) {
+    window.onload = () => {
+      const resizeObserver = new ResizeObserver((entries) => {
+        const rect = entries[0].contentRect;
+        window.parent.postMessage(
+          {
+            key: 'iframeheight',
+            height: rect.height + rect.x + rect.y,
+            url: window.location.href,
+            id: new URLSearchParams(window.location.search).get('id'),
+          },
+          '*',
+        );
+      });
+      resizeObserver.observe(document.body);
+    };
   }
 
   function inIframe() {
@@ -84,13 +108,7 @@
       return true;
     }
   }
-  function isChromatic() {
-    return !!(
-      windowRef &&
-      (windowRef.navigator.userAgent.match(/Chromatic/) ||
-        windowRef.location.href.match(/chromatic=true/))
-    );
-  }
+
   function isDev() {
     return window.location.hostname === 'localhost';
   }

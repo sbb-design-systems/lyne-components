@@ -1,0 +1,247 @@
+@use 'sass:selector';
+@use '../core/functions';
+@use '../core/mediaqueries';
+@use './typo';
+
+@mixin list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+@mixin list {
+  // Support both top level usage (& is empty / falsy)
+  // and applied to a selector usage.
+  #{if(&, '&:where(ol, ul)', ':is(ol, ul)')} {
+    --sbb-list-vertical-gap: 0.75em;
+    --sbb-list-padding-inline-start: 1.5em;
+
+    &,
+    :is(ol, ul) {
+      margin: 0;
+      padding: 0;
+      padding-inline-start: var(--sbb-list-padding-inline-start);
+
+      > li {
+        + li {
+          margin-block-start: var(--sbb-list-vertical-gap);
+        }
+
+        p {
+          margin-block: 0;
+        }
+
+        // P has to be redefined to be more specific
+        > * + p {
+          margin-block-start: var(--sbb-spacing-responsive-xxxs);
+        }
+      }
+    }
+
+    :is(ul, ol),
+    .sbb-step-list & {
+      margin-block-start: var(--sbb-list-vertical-gap);
+    }
+  }
+
+  // Support both top level usage (& is empty / falsy)
+  // and applied to a selector usage.
+  #{if(&, '&:where(ul)', 'ul')} {
+    &,
+    ul {
+      list-style-type: none;
+
+      > li {
+        position: relative;
+
+        // Bullet point
+        &::before {
+          content: '\2022'; // •
+          position: absolute;
+          display: flex;
+          height: 1em;
+          width: 1em;
+          align-items: center;
+          justify-content: center;
+          inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-body-text) * 1em - 1em));
+          inset-inline-start: calc(-1 * (0.5 * var(--sbb-list-padding-inline-start) + 0.5em));
+
+          // Scale 1.3 to match Figma specs.
+          transform: scale(1.3);
+        }
+      }
+    }
+  }
+}
+
+@mixin description-list {
+  // Support both top level usage (& is empty / falsy)
+  // and applied to a selector usage.
+  #{if(&, '&:where(dl)', 'dl')} {
+    @include typo.text-s--regular;
+
+    margin: 0;
+    padding: 0;
+    display: grid;
+
+    // Ensure that description is always attached to the label
+    grid-template-columns: auto minmax(20%, 1fr);
+    gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
+
+    :is(dt, dd) {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+@mixin base-marker-list(
+  $dimensions,
+  $padding-inline,
+  $to-text-gap,
+  $vertical-gap,
+  $text-to-marker-block-offset
+) {
+  & {
+    #{$dimensions}: #{functions.px-to-rem-build(34)};
+    #{$padding-inline}: var(--sbb-spacing-responsive-xxs);
+    #{$to-text-gap}: var(--sbb-spacing-responsive-xxxs);
+
+    // Additional space from overall li padding to the text because text
+    // has to be centered to marker number.
+    #{$text-to-marker-block-offset}: calc(
+      0.5 *
+        (var(#{$dimensions}) - var(--sbb-typo-line-height-body-text) * var(--sbb-text-font-size))
+    );
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &:where(.sbb-text-xl) {
+    @include mediaqueries.mq($from: medium) {
+      #{$dimensions}: #{functions.px-to-rem-build(41)};
+    }
+  }
+
+  // stylelint-disable-next-line no-descending-specificity
+  > li {
+    position: relative;
+    padding-inline: calc(var(#{$padding-inline}) + var(#{$dimensions}) + var(#{$to-text-gap}))
+      var(#{$padding-inline});
+    min-height: var(#{$dimensions});
+
+    &::before {
+      @include typo.text-xxs--bold;
+
+      position: absolute;
+      height: var(#{$dimensions});
+      width: var(#{$dimensions});
+      margin-block-start: calc(-1 * var(#{$text-to-marker-block-offset}));
+      inset-inline-start: var(#{$padding-inline});
+      border-radius: 50%;
+    }
+
+    + li {
+      margin-block-start: var(#{$vertical-gap});
+    }
+
+    p {
+      margin-block: 0;
+    }
+
+    // P has to be redefined to be more specific
+    > * + p {
+      margin-block-start: var(--sbb-spacing-responsive-xxxs);
+    }
+  }
+}
+
+@mixin icon-list {
+  @include base-marker-list(
+    $dimensions: '--sbb-icon-list-dimensions',
+    $padding-inline: '--sbb-icon-list-padding-inline',
+    $to-text-gap: '--sbb-icon-list-to-text-gap',
+    $vertical-gap: '--sbb-icon-list-vertical-gap',
+    $text-to-marker-block-offset: '--sbb-icon-list-text-to-marker-block-offset'
+  );
+
+  & {
+    --sbb-icon-list-marker-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="%23000" fill-rule="evenodd" d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 9 9 9 9 0 0 1-9 9 9 9 0 0 1-9-9m9-10C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2m-1.104 13.305 5-6.5-.792-.61-4.69 6.096-2.102-1.681-.624.78 2.5 2 .398.319z" clip-rule="evenodd"></path></svg>');
+    --sbb-icon-list-marker-icon-color: currentcolor;
+    --sbb-icon-list-vertical-gap: var(--sbb-spacing-fixed-2x);
+    --sbb-icon-list-dimensions: var(--sbb-size-icon-ui-small);
+    --sbb-icon-list-to-text-gap: var(--sbb-spacing-fixed-2x);
+  }
+
+  > li::before {
+    content: '';
+    background-color: var(--sbb-icon-list-marker-icon-color);
+    mask-image: var(--sbb-icon-list-marker-icon);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 100%;
+  }
+}
+
+@mixin step-list {
+  @include base-marker-list(
+    $dimensions: '--sbb-step-list-dimensions',
+    $padding-inline: '--sbb-step-list-padding-inline',
+    $to-text-gap: '--sbb-step-list-to-text-gap',
+    $vertical-gap: '--sbb-step-list-vertical-gap',
+    $text-to-marker-block-offset: '--sbb-step-list-text-to-marker-block-offset'
+  );
+
+  & {
+    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
+    --sbb-step-list-vertical-gap: var(--sbb-spacing-fixed-1x);
+    --sbb-step-list-border-radius: var(--sbb-border-radius-4x);
+
+    counter-reset: steps;
+    color: var(--sbb-color-iron);
+  }
+
+  &:where(.sbb-text-s) {
+    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-4x);
+  }
+
+  &:where(.sbb-text-m, .sbb-text-l, .sbb-text-xl) {
+    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-5x);
+  }
+
+  > li {
+    counter-increment: steps;
+    background-color: var(--sbb-color-milk);
+    padding-block: calc(
+        var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
+      )
+      var(--sbb-step-list-padding-block);
+    padding-inline: calc(
+        var(--sbb-step-list-padding-inline) + var(--sbb-step-list-dimensions) +
+          var(--sbb-step-list-to-text-gap)
+      )
+      var(--sbb-step-list-padding-inline);
+    min-height: calc(var(--sbb-step-list-dimensions) + 2 * var(--sbb-step-list-padding-block));
+
+    &::before {
+      content: counter(steps);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: var(--sbb-border-width-1x) solid var(--sbb-color-cement);
+      color: var(--sbb-color-charcoal);
+    }
+
+    &:first-of-type {
+      border-start-start-radius: var(--sbb-step-list-border-radius);
+      border-start-end-radius: var(--sbb-step-list-border-radius);
+    }
+
+    &:last-of-type {
+      border-end-start-radius: var(--sbb-step-list-border-radius);
+      border-end-end-radius: var(--sbb-step-list-border-radius);
+    }
+  }
+}

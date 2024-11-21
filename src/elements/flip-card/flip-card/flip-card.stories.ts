@@ -1,0 +1,159 @@
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { InputType } from '@storybook/types';
+import type { Args, ArgTypes, Meta, StoryObj, Decorator } from '@storybook/web-components';
+import type { TemplateResult } from 'lit';
+import { html, nothing } from 'lit';
+
+import sampleImages from '../../core/images.js';
+
+import { SbbFlipCardElement } from './flip-card.js';
+import readme from './readme.md?raw';
+
+import '../../image/image.js';
+import '../../link/link/link.js';
+import '../../title/title.js';
+import '../flip-card-details.js';
+import '../flip-card-summary.js';
+
+const imageAlignment: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['after', 'below'],
+  table: {
+    category: 'Summary',
+  },
+};
+
+const label: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Summary',
+  },
+};
+
+const accessibilityLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const defaultArgTypes: ArgTypes = {
+  imageAlignment,
+  label,
+  'accessibility-label': accessibilityLabel,
+};
+
+const defaultArgs: Args = {
+  imageAlignment: imageAlignment.options![0],
+  label: 'Summary',
+  'accessibility-label': undefined,
+};
+
+const cardSummary = (
+  label: string,
+  imageAlignment: any,
+  showImage: boolean,
+): TemplateResult => html`
+  <sbb-flip-card-summary image-alignment=${imageAlignment}>
+    <sbb-title level="4">${label}</sbb-title>
+    ${showImage
+      ? html`<sbb-image
+          slot="image"
+          image-src=${sampleImages[0]}
+          alt="Conductor controlling a ticket"
+        ></sbb-image>`
+      : nothing}
+  </sbb-flip-card-summary>
+`;
+
+const cardDetails = (): TemplateResult => html`
+  <sbb-flip-card-details>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum. Vivamus
+    turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus vitae tortor
+    ullamcorper maximus. In convallis consectetur felis.
+    <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link>
+  </sbb-flip-card-details>
+`;
+
+const DefaultTemplate = (args: Args): TemplateResult =>
+  html`<sbb-flip-card accessibility-label=${args['accessibility-label']}>
+    ${cardSummary(args.label, args.imageAlignment, true)} ${cardDetails()}
+  </sbb-flip-card>`;
+
+const NoImageTemplate = (args: Args): TemplateResult =>
+  html`<sbb-flip-card accessibility-label=${args['accessibility-label']}>
+    ${cardSummary(args.label, args.imageAlignment, false)} ${cardDetails()}
+  </sbb-flip-card>`;
+
+const LongContentTemplate = (args: Args): TemplateResult =>
+  html`<sbb-flip-card accessibility-label=${args['accessibility-label']}>
+    ${cardSummary(args.label, args.imageAlignment, true)}
+    <sbb-flip-card-details>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
+      Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus vitae
+      tortor ullamcorper maximus. In convallis consectetur felis. Lorem ipsum dolor sit amet,
+      consectetur adipiscing elit. Nam luctus ornare condimentum. Vivamus turpis elit, dapibus eget
+      fringilla pellentesque, lobortis in nibh. Duis dapibus vitae tortor ullamcorper maximus. In
+      convallis consectetur felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+      luctus ornare condimentum. Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis
+      in nibh. Duis dapibus vitae tortor ullamcorper maximus. In convallis consectetur felis. Lorem
+      ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum. Vivamus
+      turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus vitae tortor
+      ullamcorper maximus. In convallis consectetur felis.
+      <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link>
+    </sbb-flip-card-details>
+  </sbb-flip-card>`;
+
+export const ImageAfter: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const ImageBelow: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, imageAlignment: imageAlignment.options![1] },
+};
+
+export const NoImage: StoryObj = {
+  render: NoImageTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const LongContent: StoryObj = {
+  render: LongContentTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const LongTitle: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    label: 'This is a very long title that should break into multiple lines',
+  },
+};
+
+const meta: Meta = {
+  decorators: [
+    (story) => html`<div style="max-width: 792px;">${story()}</div>`,
+    withActions as Decorator,
+  ],
+  parameters: {
+    actions: {
+      handles: [SbbFlipCardElement.events.flip],
+    },
+    docs: {
+      extractComponentDescription: () => readme,
+    },
+  },
+  title: 'elements/sbb-flip-card/sbb-flip-card',
+};
+
+export default meta;

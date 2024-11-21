@@ -1,0 +1,58 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-train-direction-label-spacing: var(--sbb-spacing-fixed-1x);
+}
+
+.sbb-train {
+  @include sbb.text-xs--regular;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-train-formation-vertical-gap);
+  position: relative;
+
+  // Placeholder to reserve the height of the direction row
+  &::before {
+    content: '';
+    display: var(--sbb-train-formation-reserve-spacing-display, none);
+    height: calc(max(var(--sbb-size-icon-ui-small), 1em * var(--sbb-typo-line-height-body-text)));
+  }
+}
+
+.sbb-train__wagons {
+  @include sbb.list-reset;
+
+  display: flex;
+  gap: var(--sbb-train-formation-wagon-gap);
+}
+
+.sbb-train__direction-heading {
+  display: flex;
+
+  // We have to position it absolute in order for the ellipsis to work
+  position: absolute;
+  width: 100%;
+}
+
+.sbb-train__direction-sticky-wrapper {
+  position: sticky;
+  inset-inline-start: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sbb-train-direction-label-spacing);
+  max-width: 100%;
+}
+
+.sbb-train__direction-label {
+  @include sbb.ellipsis;
+}
+
+.sbb-train__direction-label-sr {
+  @include sbb.screen-reader-only;
+}

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 
-import '../../../components/title';
+import '../../../elements/title.js';
 
 import readme from './readme.md?raw';
 import './typo-internal.scss';
@@ -42,23 +43,6 @@ const LegendSubSupTemplate = (): TemplateResult => html`
   </span>
 `;
 
-const LinkInlineTemplate = (): TemplateResult => html`
-  <p class="sbb-text-m">
-    A text with a link inside <a href="" class="sbb-link-inline">the text</a>. It should adapt to
-    the text but have an underline and hover colors.
-  </p>
-`;
-
-const LinkInlineNegativeTemplate = (): TemplateResult => html`
-  <p
-    class="sbb-text-m"
-    style="background-color: var(--sbb-color-charcoal-default); color: var(--sbb-color-white-default); padding: 1rem;"
-  >
-    A text with a negative link inside <a href="" class="sbb-link-inline-negative">the text</a>. It
-    should adapt to the text but have an underline and hover colors.
-  </p>
-`;
-
 export const Text: StoryObj = {
   render: TextTemplate,
 };
@@ -68,21 +52,12 @@ export const TextBold: StoryObj = {
 export const LegendSubSup: StoryObj = {
   render: LegendSubSupTemplate,
 };
-export const LinkInline: StoryObj = {
-  render: LinkInlineTemplate,
-};
-export const LinkInlineNegative: StoryObj = {
-  render: LinkInlineNegativeTemplate,
-};
 
 const meta: Meta = {
-  // excludeStories: ['LinkInline', 'LinkInlineNegative'],
-  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'styles/typography',
 };

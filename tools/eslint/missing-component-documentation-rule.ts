@@ -1,19 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/utils';
+import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 import { parse, stringify } from 'comment-parser';
 
-const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://github.com/lyne-design-system/lyne-components/blob/main/tools/eslint/${name}.ts`,
-);
-
-type MessageIds = 'missingJsDoc' | 'malformedJsDoc' | 'missingEventDocs';
-
-export const name = 'missing-component-documentation-rule';
-export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule<
-  never[],
-  MessageIds
->({
+export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     const isComponentClass = (node: TSESTree.ClassDeclaration): boolean =>
       !!node.decorators?.some(
@@ -73,7 +62,12 @@ export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule
     return {
       ClassDeclaration(node) {
         if (isComponentClass(node)) {
-          jsDoc = context.getSourceCode().getCommentsBefore(node.decorators![0])[0];
+          for (const commentNode of [node.decorators![0], node, node.parent]) {
+            jsDoc = context.sourceCode.getCommentsBefore(commentNode)[0];
+            if (jsDoc) {
+              return;
+            }
+          }
         }
       },
       NewExpression(node) {
@@ -82,11 +76,11 @@ export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule
         } else if (node.callee.name === 'EventEmitter') {
           const eventNames = findClassEventNames(node);
           const typeNode =
-            node.typeParameters?.params[0] ??
+            node.typeArguments?.params[0] ??
             (
               (node.parent as TSESTree.PropertyDefinition).typeAnnotation
                 ?.typeAnnotation as TSESTree.TSTypeReference
-            ).typeParameters?.params[0];
+            ).typeArguments?.params[0];
           const type = typeNode ? context.getSourceCode().getText(typeNode) : 'void';
           const eventVariable = (
             (node.arguments[1] as TSESTree.MemberExpression).property as TSESTree.Identifier
@@ -98,7 +92,7 @@ export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule
 
           const doc = context.getSourceCode().getCommentsBefore(node.parent!)?.[0];
           const eventDoc = doc
-            ? parse(`/*${doc.value}*/`)[0] ?? parse(`/**${doc.value}*/`)[0]
+            ? (parse(`/*${doc.value}*/`)[0] ?? parse(`/**${doc.value}*/`)[0])
             : undefined;
           if (eventDoc?.tags.some((t) => t.tag === 'internal')) {
             return;
@@ -212,11 +206,9 @@ export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule
       },
     };
   },
-  name,
   meta: {
     docs: {
       description: 'Components should have jsdoc documentation.',
-      recommended: 'error',
     },
     messages: {
       missingJsDoc: 'jsdoc is missing',

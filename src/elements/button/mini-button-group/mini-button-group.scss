@@ -1,0 +1,66 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-mini-button-group-background: var(--sbb-color-white);
+  --sbb-mini-button-group-border-color: var(--sbb-color-cloud);
+  --sbb-mini-button-group-border-width: var(--sbb-border-width-2x);
+  --sbb-mini-button-group-border: var(--sbb-mini-button-group-border-width) solid
+    var(--sbb-mini-button-group-border-color);
+  --sbb-mini-button-group-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-mini-button-group-min-height: var(--sbb-size-element-s);
+  --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-3x);
+}
+
+:host([negative]) {
+  --sbb-mini-button-group-background: var(--sbb-color-midnight);
+  --sbb-mini-button-group-border-color: var(--sbb-color-anthracite);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+:host([size='s']) {
+  --sbb-mini-button-group-min-height: var(--sbb-size-element-xs);
+  --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-2x);
+}
+
+:host([size='l']) {
+  --sbb-mini-button-group-min-height: var(--sbb-size-element-m);
+}
+
+:host([size='xl']) {
+  --sbb-mini-button-group-min-height: var(--sbb-size-element-l);
+  --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-4x);
+}
+
+::slotted(:is(sbb-mini-button, sbb-divider)) {
+  display: flex;
+}
+
+::slotted(sbb-divider) {
+  --sbb-divider-border-width: var(--sbb-border-width-1x);
+
+  padding-block: var(--sbb-spacing-fixed-1x);
+  padding-inline: var(--sbb-spacing-fixed-1x);
+  height: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-mini-button-group {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--sbb-mini-button-group-gap);
+  width: fit-content;
+  min-height: var(--sbb-mini-button-group-min-height);
+  background-color: var(--sbb-mini-button-group-background);
+  border: var(--sbb-mini-button-group-border);
+  border-radius: var(--sbb-border-radius-infinity);
+  padding-inline: calc(
+    var(--sbb-mini-button-group-padding-inline) - var(--sbb-mini-button-group-border-width)
+  );
+}

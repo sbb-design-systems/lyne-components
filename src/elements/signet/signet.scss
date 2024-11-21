@@ -1,0 +1,69 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+  height: var(--sbb-signet-height);
+
+  --sbb-signet-background-color: var(--sbb-color-red);
+  --sbb-signet-panel-color: var(--sbb-color-red);
+  --sbb-signet-icon-color: var(--sbb-color-white);
+  --sbb-signet-aspect-ratio: 2 / 1;
+  --sbb-signet-svg-container-height: auto;
+
+  @include sbb.if-forced-colors {
+    --sbb-signet-background-color: ButtonText !important;
+    --sbb-signet-panel-color: ButtonText !important;
+    --sbb-signet-icon-color: Canvas !important;
+  }
+}
+
+:host([protective-room='minimal']) {
+  --sbb-signet-aspect-ratio: 108 / 64;
+  --sbb-signet-svg-container-height: calc(44 / 64 * 100%);
+}
+
+:host([protective-room='ideal']) {
+  --sbb-signet-aspect-ratio: 128 / 84;
+  --sbb-signet-svg-container-height: calc(44 / 84 * 100%);
+}
+
+:host([protective-room='panel']) {
+  --sbb-signet-aspect-ratio: 143 / 48;
+  --sbb-signet-background-color: unset;
+
+  @include sbb.if-forced-colors {
+    --sbb-signet-background-color: unset !important;
+  }
+}
+
+.sbb-signet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sbb-signet-background-color);
+  aspect-ratio: var(--sbb-signet-aspect-ratio);
+  width: 100%;
+  height: 100%;
+}
+
+.sbb-signet .sbb-signet__svg-container {
+  display: flex;
+  height: var(--sbb-signet-svg-container-height);
+}
+
+.sbb-signet svg {
+  width: 100%;
+  height: 100%;
+}
+
+#sbb-signet__panel {
+  fill: var(--sbb-signet-panel-color);
+  stroke: var(--sbb-signet-panel-color);
+}
+
+#sbb-signet__icon {
+  fill: var(--sbb-signet-icon-color);
+}

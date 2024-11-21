@@ -1,0 +1,70 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+  height: var(--sbb-logo-height);
+
+  --sbb-logo-panel-color: var(--sbb-color-red);
+  --sbb-logo-signet-color: var(--sbb-color-white);
+  --sbb-logo-word-mark-color: var(--sbb-color-black);
+  --sbb-logo-aspect-ratio: 454 / 48;
+  --sbb-logo-svg-container-width: 100%;
+  --sbb-logo-svg-container-height: auto;
+  --sbb-logo-background-color: none;
+
+  @include sbb.if-forced-colors {
+    --sbb-logo-panel-color: ButtonText !important;
+    --sbb-logo-signet-color: Canvas !important;
+    --sbb-logo-word-mark-color: ButtonText !important;
+  }
+}
+
+:host([negative]) {
+  --sbb-logo-word-mark-color: var(--sbb-color-white);
+}
+
+:host([protective-room='minimal']) {
+  --sbb-logo-aspect-ratio: 502 / 96;
+  --sbb-logo-svg-container-height: 50%; // 48/96 Adapted from Figma
+}
+
+:host([protective-room='ideal']) {
+  --sbb-logo-aspect-ratio: 550 / 144;
+  --sbb-logo-svg-container-height: calc(48 / 144 * 100%);
+}
+
+.sbb-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sbb-logo-background-color);
+  aspect-ratio: var(--sbb-logo-aspect-ratio);
+  height: 100%;
+  width: 100%;
+}
+
+.sbb-logo .sbb-logo__svg-container {
+  display: flex;
+  height: var(--sbb-logo-svg-container-height);
+}
+
+.sbb-logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+#sbb-logo__word-mark {
+  fill: var(--sbb-logo-word-mark-color);
+}
+
+#sbb-logo__panel {
+  fill: var(--sbb-logo-panel-color);
+  stroke: var(--sbb-logo-panel-color);
+}
+
+#sbb-logo__signet {
+  fill: var(--sbb-logo-signet-color);
+}

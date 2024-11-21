@@ -1,0 +1,14 @@
+@use './typo';
+
+@mixin badge {
+  @include typo.text-xxs--bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--sbb-spacing-fixed-1x);
+  border-radius: var(--sbb-border-radius-infinity);
+  background-color: var(--sbb-color-red);
+  color: var(--sbb-color-white);
+  min-width: fit-content;
+}

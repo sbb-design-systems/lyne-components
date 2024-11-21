@@ -1,23 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const allowedExtensions =
-  'css, gitignore, gitkeep, html, ico, jpg, js, mjs, json, png, scss, stackblitzrc, svg, ts, txt, map, woff2'
-    .split(/[, ]+/g)
-    .map((e) => `.${e}`);
+/* eslint-disable @typescript-eslint/no-var-requires */
+const fs = require('fs'),
+  path = require('path'),
+  allowedExtensions =
+    /^\.(s?css|html?|m?js|json|ts|map|ico|jpe?g|png|svg|woff2|txt|gitignore|gitkeep|stackblitzrc)$/,
+  distDir = path.resolve('dist/storybook');
 
 // Removes all files not matching allowed extensions from given directory.
-function clean(dir) {
-  fs.readdirSync(dir, { withFileTypes: true }).forEach((d) => {
-    const pathName = path.join(dir, d.name);
-    if (d.isDirectory()) {
-      clean(pathName);
-    } else if (d.isFile() && !allowedExtensions.includes(path.extname(d.name))) {
-      console.log(`Removing ${pathName}`);
-      fs.unlinkSync(pathName);
-    }
+fs.readdirSync(distDir, { withFileTypes: true, recursive: true })
+  .filter((d) => d.isFile() && !allowedExtensions.test(path.extname(d.name)))
+  .forEach((d) => {
+    console.log(`Removing ${path.join(d.path, d.name)}`);
+    fs.unlinkSync(path.join(d.path, d.name));
   });
-}
-
-if (module === require.main) {
-  clean(path.resolve('dist/storybook'));
-}

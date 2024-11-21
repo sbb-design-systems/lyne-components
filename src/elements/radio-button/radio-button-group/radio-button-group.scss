@@ -1,0 +1,75 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+@mixin horizontal-orientation {
+  --sbb-radio-button-group-orientation: row;
+}
+
+$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+
+:host {
+  @include horizontal-orientation;
+
+  --sbb-radio-button-group-width: max-content;
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
+
+  display: block;
+
+  ::slotted(sbb-radio-button-panel) {
+    flex: auto;
+  }
+}
+
+:host([orientation='vertical']) {
+  --sbb-radio-button-group-orientation: column;
+  --sbb-radio-button-group-width: 100%;
+
+  ::slotted(sbb-radio-button-panel) {
+    width: 100%;
+  }
+}
+
+:host([data-has-panel]) {
+  --sbb-radio-button-group-width: 100%;
+}
+
+:host([data-has-panel][orientation='vertical']) {
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+}
+
+@each $breakpoint in $breakpoints {
+  @include sbb.mq($from: #{$breakpoint}) {
+    // horizontal-from overrides orientation vertical
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+      @include horizontal-orientation;
+
+      // We need to unset the 100% width of the vertical mode if it starts to be horizontal
+      ::slotted(sbb-radio-button-panel) {
+        width: unset;
+      }
+    }
+
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not([data-has-panel])) {
+      --sbb-radio-button-group-width: max-content;
+    }
+  }
+}
+
+.sbb-radio-group {
+  display: flex;
+  flex-direction: var(--sbb-radio-button-group-orientation);
+  gap: var(--sbb-radio-button-group-gap);
+  align-items: flex-start;
+  width: var(--sbb-radio-button-group-width);
+}
+
+.sbb-radio-group__error {
+  display: inline-block;
+  margin-block-start: var(--sbb-spacing-fixed-1x);
+
+  :host(:not([data-slot-names~='error'])) & {
+    display: none;
+  }
+}
