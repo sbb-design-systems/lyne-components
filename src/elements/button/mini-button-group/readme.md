@@ -35,7 +35,7 @@ to ensure that the button list is read by screen readers with the correct size.
 | -------------------- | --------------------- | ------- | ------------------------ | ------- | --------------------------------------------------------------------------- |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                 | `''`    | This will be forwarded as aria-label to the list that contains the buttons. |
 | `negative`           | `negative`            | public  | `boolean`                | `false` | Negative coloring variant flag.                                             |
-| `size`               | `size`                | public  | `SbbMiniButtonGroupSize` | `'m'`   | Size variant, either s, m, l or xl.                                         |
+| `size`               | `size`                | public  | `SbbMiniButtonGroupSize` |         | Size variant, either s, m, l or xl.                                         |
 
 ## Slots
 

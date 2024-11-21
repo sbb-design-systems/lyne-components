@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { forceType, handleDistinctChange } from '../core/decorators.js';
+import { isLean } from '../core/dom.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
 import { SbbExpansionPanelElement } from '../expansion-panel.js';
 import type { SbbTitleLevel } from '../title.js';
@@ -22,7 +23,7 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
 
   /** Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. */
   @property({ reflect: true })
-  public accessor size: 's' | 'l' = 'l';
+  public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
 
   /**
    * The heading level for the sbb-expansion-panel-headers within the component.

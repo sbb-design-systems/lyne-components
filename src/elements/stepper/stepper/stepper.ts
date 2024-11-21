@@ -10,7 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { breakpoints, isBreakpoint } from '../../core/dom.js';
+import { breakpoints, isBreakpoint, isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.js';
@@ -53,7 +53,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   public accessor orientation: SbbOrientation = 'horizontal';
 
   /** Size variant, either s or m. */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
 
   /** The currently selected step. */
   @property({ attribute: false })

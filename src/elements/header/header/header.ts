@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
-import { findReferencedElement } from '../../core/dom.js';
+import { findReferencedElement, isLean } from '../../core/dom.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 
 import style from './header.scss?lit&inline';
@@ -51,7 +51,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   public accessor hideOnScroll: boolean = false;
 
   /** Size of the header. */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = 'm';
+  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
   @state() private accessor _headerOnTop = true;
 

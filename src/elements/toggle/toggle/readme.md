@@ -39,7 +39,7 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 | `disabled` | `disabled` | public  | `boolean`                  | `false` | Whether the toggle is disabled.                                                                                                                  |
 | `even`     | `even`     | public  | `boolean`                  | `false` | If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.                       |
 | `options`  | -          | public  | `SbbToggleOptionElement[]` |         | The child instances of sbb-toggle-option as an array.                                                                                            |
-| `size`     | `size`     | public  | `'s' \| 'm'`               | `'m'`   | Size variant, either m or s.                                                                                                                     |
+| `size`     | `size`     | public  | `'s' \| 'm'`               |         | Size variant, either m or s.                                                                                                                     |
 | `value`    | `value`    | public  | `string`                   | `null`  | The value of the toggle. It needs to be mutable since it is updated whenever a new option is selected (see the `onToggleOptionSelect()` method). |
 
 ## Events

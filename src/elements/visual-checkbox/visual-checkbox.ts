@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbCheckboxSize } from '../checkbox/common.js';
 import { forceType } from '../core/decorators.js';
+import { isLean } from '../core/dom.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.js';
 
 import style from './visual-checkbox.scss?lit&inline';
@@ -27,7 +28,7 @@ class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(LitElem
   public accessor indeterminate: boolean = false;
 
   /** Size of the checkbox. */
-  @property({ reflect: true }) public accessor size: SbbCheckboxSize = 'm';
+  @property({ reflect: true }) public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
 
   protected override render(): TemplateResult {
     return html`

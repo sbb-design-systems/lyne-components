@@ -29,7 +29,7 @@ Possible values are `l` (default) and `s`.
 
 | Name   | Attribute | Privacy | Type         | Default | Description          |
 | ------ | --------- | ------- | ------------ | ------- | -------------------- |
-| `size` | `size`    | public  | `'l' \| 's'` | `'l'`   | Marker size variant. |
+| `size` | `size`    | public  | `'l' \| 's'` |         | Marker size variant. |
 
 ## Methods
 

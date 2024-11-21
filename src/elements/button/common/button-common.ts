@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { hostAttributes, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import type {
   AbstractConstructor,
   SbbDisabledMixinType,
@@ -38,7 +39,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     implements Partial<SbbButtonCommonElementMixinType>
   {
     /** Size variant, either l or m. */
-    @property({ reflect: true }) public accessor size: SbbButtonSize = 'l';
+    @property({ reflect: true }) public accessor size: SbbButtonSize = isLean() ? 's' : 'l';
 
     protected override renderTemplate(): TemplateResult {
       return html`

@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { hostAttributes, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import {
   SbbNegativeMixin,
   type SbbNegativeMixinType,
@@ -34,7 +35,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
      * Text size, the link should get in the non-button variation.
      * With inline variant, the text size adapts to where it is used.
      */
-    @property({ reflect: true }) public accessor size: SbbLinkSize = 's';
+    @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
 
     protected override renderTemplate(): TemplateResult {
       return html`<slot></slot>`;

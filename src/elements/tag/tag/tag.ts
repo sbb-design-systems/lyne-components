@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -48,7 +49,7 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
   /** Tag size. */
   @property({ reflect: true })
   @getOverride((i, v) => i._group?.size ?? v)
-  public accessor size: SbbTagSize = 'm';
+  public accessor size: SbbTagSize = isLean() ? 's' : 'm';
 
   /** Reference to the connected tag group. */
   private _group: SbbTagGroupElement | null = null;

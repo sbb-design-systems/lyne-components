@@ -38,7 +38,7 @@ The component has three different sizes, which can be changed using the `size` p
 | `marker`           | -         | public  | `SbbNavigationMarkerElement \| null`       |            | The navigation marker in which the action is nested.           |
 | `name`             | `name`    | public  | `string`                                   |            | Name of the form element. Will be read from name attribute.    |
 | `section`          | -         | public  | `SbbNavigationSectionElement \| null`      |            | The section in which the action is nested.                     |
-| `size`             | `size`    | public  | `SbbNavigationActionSize`                  | `'l'`      | Action size variant.                                           |
+| `size`             | `size`    | public  | `SbbNavigationActionSize`                  |            | Action size variant.                                           |
 | `type`             | `type`    | public  | `SbbButtonType`                            | `'button'` | The type attribute to use for the button.                      |
 | `value`            | `value`   | public  | `string \| null`                           | `null`     | Value of the form element.                                     |
 

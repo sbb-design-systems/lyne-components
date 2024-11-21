@@ -89,7 +89,7 @@ To improve coloring, it's needed to manually define styles for Window high contr
 | Name    | Attribute | Privacy | Type                                                                           | Default   | Description                                        |
 | ------- | --------- | ------- | ------------------------------------------------------------------------------ | --------- | -------------------------------------------------- |
 | `color` | `color`   | public  | `'white' \| 'milk' \| 'transparent-bordered' \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color.    |
-| `size`  | `size`    | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl'`                         | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
+| `size`  | `size`    | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl'`                         |           | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
 
 ## Slots
 

@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
+import { isLean } from '../../core/dom.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
@@ -36,7 +37,9 @@ export const SbbNavigationActionCommonElementMixin = <
     public static styles: CSSResultGroup = style;
 
     /** Action size variant. */
-    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = 'l';
+    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = isLean()
+      ? 's'
+      : 'l';
 
     /** The section that is beign controlled by the action, if any. */
     public connectedSection?: SbbNavigationSectionElement;

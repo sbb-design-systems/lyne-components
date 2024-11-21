@@ -25,7 +25,7 @@ The component can be displayed in `disabled` state using the self-named property
 | ---------- | ---------- | ------- | ------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
 | `disabled` | `disabled` | public  | `boolean`     | `false` | Whether the component is disabled.                                                                                         |
 | `negative` | `negative` | public  | `boolean`     | `false` | Negative coloring variant flag.                                                                                            |
-| `size`     | `size`     | public  | `SbbLinkSize` | `'s'`   | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
+| `size`     | `size`     | public  | `SbbLinkSize` |         | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
 
 ## Slots
 

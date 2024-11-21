@@ -40,7 +40,7 @@ The component has three different sizes, which can be changed using the `size` p
 | `marker`             | -                     | public  | `SbbNavigationMarkerElement \| null`       |         | The navigation marker in which the action is nested.              |
 | `rel`                | `rel`                 | public  | `string`                                   | `''`    | The relationship of the linked URL as space-separated link types. |
 | `section`            | -                     | public  | `SbbNavigationSectionElement \| null`      |         | The section in which the action is nested.                        |
-| `size`               | `size`                | public  | `SbbNavigationActionSize`                  | `'l'`   | Action size variant.                                              |
+| `size`               | `size`                | public  | `SbbNavigationActionSize`                  |         | Action size variant.                                              |
 | `target`             | `target`              | public  | `LinkTargetType \| string`                 | `''`    | Where to display the linked URL.                                  |
 
 ## Slots

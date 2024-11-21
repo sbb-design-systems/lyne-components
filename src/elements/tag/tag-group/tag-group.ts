@@ -9,7 +9,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.js';
-import { setOrRemoveAttribute } from '../../core/dom.js';
+import { isLean, setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbTagElement, SbbTagSize } from '../tag.js';
 
@@ -47,7 +47,7 @@ class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof Lit
   public accessor multiple: boolean = false;
 
   /** Tag group size. */
-  @property({ reflect: true }) public accessor size: SbbTagSize = 'm';
+  @property({ reflect: true }) public accessor size: SbbTagSize = isLean() ? 's' : 'm';
 
   /**
    * Value of the sbb-tag-group.

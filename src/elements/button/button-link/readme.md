@@ -82,7 +82,7 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `iconName`            | `icon-name`            | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `negative`            | `negative`             | public  | `boolean`                  | `false` | Negative coloring variant flag.                                                                                                  |
 | `rel`                 | `rel`                  | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
-| `size`                | `size`                 | public  | `SbbButtonSize`            | `'l'`   | Size variant, either l or m.                                                                                                     |
+| `size`                | `size`                 | public  | `SbbButtonSize`            |         | Size variant, either l or m.                                                                                                     |
 | `target`              | `target`               | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
 
 ## Slots

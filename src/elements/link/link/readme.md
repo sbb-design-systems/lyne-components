@@ -39,7 +39,7 @@ accepting its associated properties (`href`, `target`, `rel` and `download`).
 | `href`               | `href`                | public  | `string`                   | `''`    | The href value you want to link to.                                                                                        |
 | `negative`           | `negative`            | public  | `boolean`                  | `false` | Negative coloring variant flag.                                                                                            |
 | `rel`                | `rel`                 | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                          |
-| `size`               | `size`                | public  | `SbbLinkSize`              | `'s'`   | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
+| `size`               | `size`                | public  | `SbbLinkSize`              |         | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
 | `target`             | `target`              | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                           |
 
 ## Slots

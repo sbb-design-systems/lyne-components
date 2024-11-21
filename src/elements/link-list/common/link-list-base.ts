@@ -3,6 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { forceType, omitEmptyConverter, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import {
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
@@ -50,7 +51,7 @@ class SbbLinkListBaseElement extends SbbNegativeMixin(
    * Text size of the nested sbb-block-link instances.
    * This will overwrite the size attribute of nested sbb-block-link instances.
    */
-  @property({ reflect: true }) public accessor size: SbbLinkSize = 's';
+  @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);

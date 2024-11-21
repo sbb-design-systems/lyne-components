@@ -3,6 +3,7 @@ import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import {
   SbbRadioButtonCommonElementMixin,
   radioButtonCommonStyle,
@@ -33,7 +34,7 @@ class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement)
   /** Size variant. */
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)
-  public accessor size: SbbRadioButtonSize = 'm';
+  public accessor size: SbbRadioButtonSize = isLean() ? 'xs' : 'm';
 
   protected override render(): TemplateResult {
     return html`

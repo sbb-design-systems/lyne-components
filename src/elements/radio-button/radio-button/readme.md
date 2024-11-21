@@ -67,7 +67,7 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 | `group`               | -                       | public  | `SbbRadioButtonGroupElement \| null` | `null`  | Reference to the connected radio button group.                 |
 | `name`                | `name`                  | public  | `string`                             |         | Name of the form element. Will be read from name attribute.    |
 | `required`            | `required`              | public  | `boolean`                            | `false` | Whether the component is required.                             |
-| `size`                | `size`                  | public  | `SbbRadioButtonSize`                 | `'m'`   | Size variant.                                                  |
+| `size`                | `size`                  | public  | `SbbRadioButtonSize`                 |         | Size variant.                                                  |
 | `value`               | `value`                 | public  | `string \| null`                     | `null`  | Value of the form element.                                     |
 
 ## Methods

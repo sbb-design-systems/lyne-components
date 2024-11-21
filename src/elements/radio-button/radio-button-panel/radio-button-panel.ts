@@ -9,6 +9,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import {
   panelCommonStyle,
   type SbbFormAssociatedRadioButtonMixinType,
@@ -51,7 +52,7 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
   /** Size variant. */
   @property({ reflect: true })
   @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
-  public accessor size: SbbPanelSize = 'm';
+  public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
 
   private _hasSelectionExpansionPanelElement: boolean = false;
 

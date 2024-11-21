@@ -53,7 +53,7 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 | Name         | Attribute     | Privacy | Type                    | Default | Description                                                                             |
 | ------------ | ------------- | ------- | ----------------------- | ------- | --------------------------------------------------------------------------------------- |
 | `multi`      | `multi`       | public  | `boolean`               | `false` | Whether more than one sbb-expansion-panel can be open at the same time.                 |
-| `size`       | `size`        | public  | `'s' \| 'l'`            | `'l'`   | Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. |
+| `size`       | `size`        | public  | `'s' \| 'l'`            |         | Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. |
 | `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null` | `null`  | The heading level for the sbb-expansion-panel-headers within the component.             |
 
 ## Slots

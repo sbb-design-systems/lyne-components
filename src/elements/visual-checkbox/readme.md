@@ -32,4 +32,4 @@ The component has three `size`, named `xs`, `s` and `m` (default).
 | `disabled`      | `disabled`      | public  | `boolean`         | `false` | Whether the component is disabled. |
 | `indeterminate` | `indeterminate` | public  | `boolean`         | `false` | Indeterminate state.               |
 | `negative`      | `negative`      | public  | `boolean`         | `false` | Negative coloring variant flag.    |
-| `size`          | `size`          | public  | `SbbCheckboxSize` | `'m'`   | Size of the checkbox.              |
+| `size`          | `size`          | public  | `SbbCheckboxSize` |         | Size of the checkbox.              |

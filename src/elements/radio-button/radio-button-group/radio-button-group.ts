@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
@@ -79,7 +80,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   /**
    * Size variant.
    */
-  @property() public accessor size: SbbRadioButtonSize = 'm';
+  @property() public accessor size: SbbRadioButtonSize = isLean() ? 'xs' : 'm';
 
   /**
    * Overrides the behaviour of `orientation` property.

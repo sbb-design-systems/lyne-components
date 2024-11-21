@@ -172,7 +172,7 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 | `expanded`     | `expanded`       | public  | `boolean`                           | `false` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. |
 | `hideOnScroll` | `hide-on-scroll` | public  | `boolean`                           | `false` | Whether the header should hide and show on scroll.                                                                   |
 | `scrollOrigin` | `scroll-origin`  | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                            |
-| `size`         | `size`           | public  | `'m' \| 's'`                        | `'m'`   | Size of the header.                                                                                                  |
+| `size`         | `size`           | public  | `'m' \| 's'`                        |         | Size of the header.                                                                                                  |
 
 ## CSS Properties
 

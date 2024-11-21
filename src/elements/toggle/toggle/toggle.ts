@@ -12,6 +12,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange, hostAttributes } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbToggleOptionElement } from '../toggle-option.js';
 
@@ -51,7 +52,7 @@ class SbbToggleElement extends LitElement {
   public accessor even: boolean = false;
 
   /** Size variant, either m or s. */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
 
   /**
    * The value of the toggle. It needs to be mutable since it is updated whenever

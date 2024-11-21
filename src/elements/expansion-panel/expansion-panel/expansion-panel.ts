@@ -5,6 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
@@ -70,7 +71,7 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public accessor borderless: boolean = false;
 
   /** Size variant, either l or s. */
-  @property({ reflect: true }) public accessor size: 's' | 'l' = 'l';
+  @property({ reflect: true }) public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
 
   /**
    * The state of the notification.

@@ -69,7 +69,7 @@ guard against such cases in your component.
 | `iconName`            | `icon-name`            | public  | `string`                  | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `iconPlacement`       | `icon-placement`       | public  | `SbbIconPlacement`        | `'start'`  | Moves the icon to the end of the component if set to true.                                                                       |
 | `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                      |
-| `size`                | `size`                 | public  | `SbbLinkSize`             | `'s'`      | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.       |
+| `size`                | `size`                 | public  | `SbbLinkSize`             |            | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.       |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                        |
 | `value`               | `value`                | public  | `string \| null`          | `null`     | Value of the form element.                                                                                                       |
 

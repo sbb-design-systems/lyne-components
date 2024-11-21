@@ -65,7 +65,7 @@ that describes the content controlled by the paginator.
 | `pageIndex`     | `page-index`     | public  | `number`           | `0`       | Current page index.                |
 | `pagerPosition` | `pager-position` | public  | `'start' \| 'end'` | `'start'` | Position of the prev/next buttons. |
 | `pageSize`      | `page-size`      | public  | `number`           | `10`      | Number of items per page.          |
-| `size`          | `size`           | public  | `'m' \| 's'`       | `'m'`     | Size variant, either m or s.       |
+| `size`          | `size`           | public  | `'m' \| 's'`       |           | Size variant, either m or s.       |
 
 ## Events
 

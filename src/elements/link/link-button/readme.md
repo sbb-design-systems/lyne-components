@@ -54,7 +54,7 @@ guard against such cases in your component.
 | `form`                | `form`                 | public  | `HTMLFormElement \| null` |            | Returns the form owner of the internals of the target element.                                                             |
 | `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                |
 | `negative`            | `negative`             | public  | `boolean`                 | `false`    | Negative coloring variant flag.                                                                                            |
-| `size`                | `size`                 | public  | `SbbLinkSize`             | `'s'`      | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
+| `size`                | `size`                 | public  | `SbbLinkSize`             |            | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                  |
 | `value`               | `value`                | public  | `string \| null`          | `null`     | Value of the form element.                                                                                                 |
 

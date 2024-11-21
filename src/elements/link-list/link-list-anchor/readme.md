@@ -41,7 +41,7 @@ and it will sync its `size` and `negative` property with the inner links.
 | Name           | Attribute       | Privacy | Type            | Default | Description                                                                                                                  |
 | -------------- | --------------- | ------- | --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `negative`     | `negative`      | public  | `boolean`       | `false` | Negative coloring variant flag.                                                                                              |
-| `size`         | `size`          | public  | `SbbLinkSize`   | `'s'`   | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
+| `size`         | `size`          | public  | `SbbLinkSize`   |         | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
 | `titleContent` | `title-content` | public  | `string`        | `''`    | The title text we want to show before the list.                                                                              |
 | `titleLevel`   | `title-level`   | public  | `SbbTitleLevel` | `'2'`   | The semantic level of the title, e.g. 2 = h2.                                                                                |
 

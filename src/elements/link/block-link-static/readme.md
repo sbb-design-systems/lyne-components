@@ -44,7 +44,7 @@ The component has three sizes (`xs`, `s`, which is the default, and `m`).
 | `disabled`      | `disabled`       | public  | `boolean`          | `false`   | Whether the component is disabled.                                                                                               |
 | `iconName`      | `icon-name`      | public  | `string`           | `''`      | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement` | `'start'` | Moves the icon to the end of the component if set to true.                                                                       |
-| `size`          | `size`           | public  | `SbbLinkSize`      | `'s'`     | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.       |
+| `size`          | `size`           | public  | `SbbLinkSize`      |           | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.       |
 
 ## Slots
 

@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
+import { isLean } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
@@ -71,7 +72,7 @@ class SbbNotificationElement extends LitElement {
   public accessor readonly: boolean = false;
 
   /** Size variant, either s or m. */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = 'm';
+  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';

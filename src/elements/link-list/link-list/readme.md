@@ -75,7 +75,7 @@ The title will not be displayed in the horizontal orientation.
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| null` | `null`       | Selected breakpoint from which the list is rendered horizontally.                                                            |
 | `negative`       | `negative`        | public  | `boolean`                   | `false`      | Negative coloring variant flag.                                                                                              |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`            | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                      |
-| `size`           | `size`            | public  | `SbbLinkSize`               | `'s'`        | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
+| `size`           | `size`            | public  | `SbbLinkSize`               |              | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
 | `titleContent`   | `title-content`   | public  | `string`                    | `''`         | The title text we want to show before the list.                                                                              |
 | `titleLevel`     | `title-level`     | public  | `SbbTitleLevel`             | `'2'`        | The semantic level of the title, e.g. 2 = h2.                                                                                |
 

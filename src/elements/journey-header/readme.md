@@ -55,4 +55,4 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 | `negative`    | `negative`    | public  | `boolean`           | `false` | Negative coloring variant flag.                                                   |
 | `origin`      | `origin`      | public  | `string`            | `''`    | Origin location for the journey header.                                           |
 | `roundTrip`   | `round-trip`  | public  | `boolean`           | `false` | Whether the journey is a round trip. If so, the icon changes to a round-trip one. |
-| `size`        | `size`        | public  | `JourneyHeaderSize` | `'m'`   | Journey header size.                                                              |
+| `size`        | `size`        | public  | `JourneyHeaderSize` |         | Journey header size.                                                              |
