@@ -47,7 +47,7 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
   @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
   public accessor size: SbbPanelSize = 'm';
 
-  protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
