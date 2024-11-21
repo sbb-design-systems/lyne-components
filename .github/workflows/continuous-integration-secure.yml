@@ -73,7 +73,7 @@ jobs:
         uses: kitabisa/docker-slim-action@v1
         with:
           target: '${{ env.IMAGE_REPO_PREVIEW }}:pr${{ env.PR_NUMBER }}'
-          tag: '${{ env.IMAGE_REPO_PREVIEW }}:pr${{ env.PR_NUMBER }}-slim'
+          tag: 'pr${{ env.PR_NUMBER }}-slim'
         env:
           DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
@@ -196,12 +196,12 @@ jobs:
         uses: kitabisa/docker-slim-action@v1
         with:
           target: '${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr${{ env.PR_NUMBER }}'
-          tag: '${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr${{ env.PR_NUMBER }}-slim'
+          tag: 'pr${{ env.PR_NUMBER }}-slim'
         env:
           DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
         run: |
-          docker push $IMAGE_REPO_VISUAL_REGRESSION:pr{{ env.PR_NUMBER }}-slim
+          docker push $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER-slim
           docker image list
 
       - name: Apply labels
