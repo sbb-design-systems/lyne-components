@@ -162,11 +162,10 @@ technology will announce errors when they appear.
 
 ## Methods
 
-| Name              | Privacy | Description                                                                           | Parameters | Return                                                              | Inherited From |
-| ----------------- | ------- | ------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------- | -------------- |
-| `clear`           | public  | Manually clears the input value. It only works for inputs, selects are not supported. |            | `void`                                                              |                |
-| `getInputElement` | public  | Returns the input element.                                                            |            | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| undefined` |                |
-| `reset`           | public  | Manually reset the form field. Currently, this only resets the floating label.        |            | `void`                                                              |                |
+| Name    | Privacy | Description                                                                           | Parameters | Return | Inherited From |
+| ------- | ------- | ------------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `clear` | public  | Manually clears the input value. It only works for inputs, selects are not supported. |            | `void` |                |
+| `reset` | public  | Manually reset the form field. Currently, this only resets the floating label.        |            | `void` |                |
 
 ## Slots
 
