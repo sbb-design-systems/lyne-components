@@ -174,7 +174,7 @@ export class ${className} {
                 const endOfBody = classDeclaration.body.range[1] - 1; // Get the position before the closing brace
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
-                  `  #element = inject(ElementRef<${elementClassName}>);\n`
+                  `  #element = inject(ElementRef<${elementClassName}>);\n`,
                 );
               },
             });
@@ -195,7 +195,8 @@ export class ${className} {
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
-                  `  #ngZone = inject(NgZone);\n`);
+                  `  #ngZone = inject(NgZone);\n`,
+                );
               },
             });
           }
@@ -217,14 +218,14 @@ export class ${className} {
 
         for (const member of publicProperties) {
           if (
-            classDeclaration.body.body.every(
-              (n) => {
-                return n.type !== 'MethodDefinition'
-                  || n.kind !== 'set'
-                  || context.sourceCode.getText(n.key) !== member.name.getText()
-                  || !context.sourceCode.getText(n).includes('@Input(')
-              }
-            )
+            classDeclaration.body.body.every((n) => {
+              return (
+                n.type !== 'MethodDefinition' ||
+                n.kind !== 'set' ||
+                context.sourceCode.getText(n.key) !== member.name.getText() ||
+                !context.sourceCode.getText(n).includes('@Input(')
+              );
+            })
           ) {
             context.report({
               node: classDeclaration.body,
@@ -232,27 +233,43 @@ export class ${className} {
               data: { symbol: member.name.getText() },
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
-                // FIXME default parser doesn't recognize jsDoc, even if at compile time the member.jsDoc is available - is jsDoc needed?
-                // FIXME how do resolve imports for custom types?
-                // FIXME are default values needed?
-                // FIXME input converter
-
-                let input = '@Input()';
-                const decorator = ts.getDecorators(member)?.find(e => e.getText().includes('attribute'));
+                let input = '@Input(';
+                const decorator = ts
+                  .getDecorators(member)
+                  ?.find((e) => e.getText().includes('attribute'));
                 if (decorator) {
-                  input =`@Input({ alias: ${decorator.getText().match(/['"]([^'"]*)['"]/g)![0]} })`
+                  input += `{ alias: ${decorator.getText().match(/['"]([^'"]*)['"]/g)![0]} }`;
                 }
-                const value = member.initializer ? `value ?? ${member.initializer.getText()}` : 'value';
+                if (member.type) {
+                  // FIXME add import from esta core/attribute-transform
+                  if (member.type.getText() === 'boolean') {
+                    if (input.includes('alias')) {
+                      input.replace(`}`, `, transform: booleanAttribute }`);
+                    } else {
+                      input += `{ transform: booleanAttribute }`;
+                    }
+                  } else if (member.type.getText() === 'number') {
+                    if (input.includes('alias')) {
+                      input.replace(`}`, `, transform: numberAttribute }`);
+                    } else {
+                      input += `{ transform: numberAttribute }`;
+                    }
+                    expectedAngularImports.add('numberAttribute');
+                  }
+                }
+                input += `)`;
+
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
   ${input}
   public set ${member.name.getText()}(value: ${member.type?.getText() ?? 'any'}) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name.getText()} = ${value}));
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name.getText()} = value));
   }
   public get ${member.name.getText()}(): ${member.type?.getText() ?? 'any'} {
     return this.#element.nativeElement.${member.name.getText()};
-  }\n`);
+  }\n`,
+                );
               },
             });
           }
@@ -286,8 +303,9 @@ export class ${className} {
           const existingImports = angularCoreImport.specifiers.map(
             (s) => ((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
           );
-          const importsToAdd = Array.from(expectedAngularImports)
-            .filter((i) => !existingImports.includes(i));
+          const importsToAdd = Array.from(expectedAngularImports).filter(
+            (i) => !existingImports.includes(i),
+          );
           if (importsToAdd.length > 0) {
             const imports = importsToAdd.sort().join(', ');
             context.report({
