@@ -2,16 +2,15 @@ import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { forceType, omitEmptyConverter } from '../core/decorators.js';
-import { SbbUpdateSchedulerMixin } from '../core/mixins.js';
 
 import { SbbIconBase } from './icon-base.js';
 
 /**
- * It displays an icon loaded from a registered namespace.
+ * Displays an icon loaded from a registered namespace.
  */
 export
 @customElement('sbb-icon')
-class SbbIconElement extends SbbUpdateSchedulerMixin(SbbIconBase) {
+class SbbIconElement extends SbbIconBase {
   /**
    * We need to additionally observe the svgicon attribute
    * for sbb-angular compatibility.
@@ -56,13 +55,11 @@ class SbbIconElement extends SbbUpdateSchedulerMixin(SbbIconBase) {
     return super.fetchSvgIcon(namespace, name);
   }
 
-  protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('name') && this.name) {
-      this.startUpdate();
-      await this.loadSvgIcon(this.name);
-      this.completeUpdate();
+      this.loadSvgIcon(this.name);
     }
   }
 
