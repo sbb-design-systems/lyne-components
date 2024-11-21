@@ -7,9 +7,9 @@ import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController } from '../core/controllers.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
-import { isNextjs, isSafari } from '../core/dom.js';
+import { isNextjs, isSafari, setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
   type FormRestoreReason,
@@ -161,23 +161,43 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     super();
 
     new MutationController(this, {
-      config: { attributeFilter: ['aria-labelledby'] },
-      callback: (mutationsList: MutationRecord[]) => this._onSelectAttributesChange(mutationsList),
+      config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
+      callback: () => this._syncAriaLabels(),
     });
+
+    new SbbLanguageController(this).withHandler(() => setTimeout(() => this._syncAriaLabels()));
   }
 
-  /**
-   * TODO: Accessibility fix required to correctly read the label;
-   * can be possibly removed after the merge of https://github.com/sbb-design-systems/lyne-components/issues/3062
-   */
-  private _onSelectAttributesChange(mutationsList: MutationRecord[]): void {
-    for (const mutation of mutationsList) {
-      if (mutation.attributeName === 'aria-labelledby') {
-        this._triggerElement?.setAttribute(
-          'aria-labelledby',
-          this.getAttribute('aria-labelledby')!,
-        );
-      }
+  private _syncAriaLabels(): void {
+    if (!this._triggerElement) {
+      return;
+    }
+
+    setOrRemoveAttribute(
+      this._triggerElement,
+      'aria-labelledby',
+      this.getAttribute('aria-labelledby'),
+    );
+    setOrRemoveAttribute(this._triggerElement, 'aria-label', this.getAttribute('aria-label'));
+    setOrRemoveAttribute(
+      this._triggerElement,
+      'aria-describedby',
+      this.getAttribute('aria-describedby'),
+    );
+
+    // Using the associated labels is only a fallback.
+    // The drawback is, that it doesn't get updated automatically when the list of label changes.
+    if (
+      !this.getAttribute('aria-label') &&
+      !this.getAttribute('aria-labelledby') &&
+      this.internals.labels.length
+    ) {
+      this._triggerElement?.setAttribute(
+        'aria-label',
+        Array.from(this.internals.labels)
+          .map((label) => label.textContent)
+          .join(', '),
+      );
     }
   }
 
@@ -311,6 +331,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       this.negative = formField.hasAttribute('negative');
     }
     this._syncProperties();
+    this._syncAriaLabels();
 
     if (this._didLoad) {
       this._setupOrigin();

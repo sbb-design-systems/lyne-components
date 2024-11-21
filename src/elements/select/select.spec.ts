@@ -43,7 +43,7 @@ describe(`sbb-select`, () => {
       assert.instanceOf(firstOption, SbbOptionElement);
     });
 
-    it('opens and closes the dialog', async () => {
+    it('opens and closes the select', async () => {
       const willOpen = new EventSpy(SbbSelectElement.events.willOpen);
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
       const willClose = new EventSpy(SbbSelectElement.events.willClose);
@@ -553,6 +553,138 @@ describe(`sbb-select`, () => {
 
       expect(element.value).to.be.equal('2');
       compareToNative();
+    });
+  });
+
+  describe('label handling', () => {
+    it('should sync aria-label initially', async () => {
+      const element = await fixture(html`
+        <sbb-select aria-label="Test">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
+    });
+
+    it('should sync aria-label on change', async () => {
+      const element = await fixture(html`
+        <sbb-select>
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      expect(comboBoxElement).not.to.have.attribute('aria-label');
+
+      element.setAttribute('aria-label', 'Test');
+      await waitForLitRender(element);
+
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
+    });
+
+    it('should prefer aria-label over label element', async () => {
+      const element = await fixture(html`
+        <label for="select">Ignored</label>
+        <sbb-select aria-label="Test" id="select">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
+    });
+
+    it('should sync aria-labelledby initially', async () => {
+      const element = await fixture(html`
+        <sbb-select aria-labelledby="Test">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
+    });
+
+    it('should sync aria-labelledby on change', async () => {
+      const element = await fixture(html`
+        <sbb-select>
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      expect(comboBoxElement).not.to.have.attribute('aria-labelledby');
+
+      element.setAttribute('aria-labelledby', 'Test');
+      await waitForLitRender(element);
+
+      expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
+    });
+
+    it('should prefer aria-labelledby over label element', async () => {
+      const element = await fixture(html`
+        <label for="select">Ignored</label>
+        <sbb-select aria-labelledby="Test" id="select">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
+    });
+
+    it('should combine aria-describedby with label element', async () => {
+      const element = await fixture(html`
+        <label for="select">Label</label>
+        <sbb-select aria-describedby="Test" id="select">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-describedby', 'Test');
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
+    });
+
+    it('should take label elements as aria-label', async () => {
+      const element = await fixture(html`
+        <label for="select">Label</label>
+        <label for="select">Label 2</label>
+        <sbb-select id="select">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Label, Label 2');
+    });
+
+    it('should remove label when disappearing', async () => {
+      const root = await fixture(
+        html`<div>
+          <label for="select">Label</label>
+          <sbb-select id="select">
+            <sbb-option id="option-1" value="1">First</sbb-option>
+          </sbb-select>
+        </div> `,
+      );
+
+      const element = root.querySelector('sbb-select')!;
+      const comboBoxElement = root.querySelector('[role="combobox"]')!;
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
+
+      root.querySelector('label')!.remove();
+
+      // Trigger sync by triggering connectedCallback()
+      element.connectedCallback();
+
+      expect(comboBoxElement).not.to.have.attribute('aria-label');
     });
   });
 });
