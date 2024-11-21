@@ -87,6 +87,15 @@ Consumers can listen to the native `change`/`input` event on the `sbb-select` co
 the current value can be read from `event.target.value`.
 Additionally `sbb-option` will emit `optionSelected` when selected via user interaction.
 
+## Accessibility
+
+The select follows the combobox pattern. As a technical difficulty, we have to copy the combobox element into the light DOM.
+As a consequence, linking labels is not fully supported. While `aria-label`, `aria-labelledby` and `aria-describedby` on the `sbb-select` works,
+using `<label>` together with `sbb-select` is only partially supported.
+As workaround, we copy the text into the aria-label of the combobox element, but this remains not synchronized.
+Whenever a `<label>` gets a change, we won't be able to detect it, and we won't be able to update the `aria-label`.
+The only two exceptions are when `connectedCallback()` gets called and when the document language changes.
+
 ## Keyboard interaction
 
 Closed panel, `sbb-select` has focus:
