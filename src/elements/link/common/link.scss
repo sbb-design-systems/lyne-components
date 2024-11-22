@@ -21,7 +21,6 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   & {
     display: flex;
     align-items: center;
-    word-break: break-word;
     width: 100%;
     cursor: pointer;
     padding: var(--sbb-link-padding, 0);
