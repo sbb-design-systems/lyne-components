@@ -75,7 +75,7 @@ const Template = (args: Args): TemplateResult => html`
         <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
         <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
       </sbb-menu>
-      <a href="https://www.sbb.ch" slot="logo">
+      <a href="https://www.sbb.ch" class="sbb-header-logo">
         <sbb-logo protective-room="none"></sbb-logo>
       </a>
     </sbb-header>
