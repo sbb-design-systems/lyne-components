@@ -8,6 +8,7 @@ import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter, forwardEventToHost } from '../../core/eventing.js';
 import {
   i18nFileSelectorButtonLabel,
@@ -58,7 +59,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     } as const;
 
     /** Size variant, either s or m. */
-    @property({ reflect: true }) public accessor size: 's' | 'm' = 'm';
+    @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
 
     /** Whether more than one file can be selected. */
     @forceType()
