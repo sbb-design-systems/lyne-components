@@ -60,7 +60,9 @@ class SbbCheckboxPanelElement extends SbbPanelMixin(
 
   /** Size variant. */
   @property({ reflect: true })
-  @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
+  @getOverride((i, v) =>
+    i.group?.size ? (isLean() || i.group.size === 'xs' ? 's' : i.group.size) : v,
+  )
   public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
 
   /**

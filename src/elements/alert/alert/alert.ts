@@ -193,7 +193,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
                   ></sbb-divider>
                   <sbb-transparent-button
                     negative
-                    size=${this.size === 'l' ? 'm' : this.size}
+                    size=${isLean() ? 's' : this.size === 'l' ? 'm' : this.size}
                     icon-name="cross-small"
                     @click=${() => this.requestDismissal()}
                     aria-label=${i18nCloseAlert[this._language.current]}

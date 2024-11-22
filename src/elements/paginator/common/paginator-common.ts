@@ -149,7 +149,10 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
 
     protected renderPrevNextButtons(): TemplateResult {
       return html`
-        <sbb-mini-button-group ?negative=${this.negative} size=${this.size === 's' ? 's' : 'l'}>
+        <sbb-mini-button-group
+          ?negative=${this.negative}
+          size=${isLean() || this.size === 's' ? 's' : 'l'}
+        >
           <sbb-mini-button
             id="sbb-paginator-prev-page"
             aria-label=${i18nPreviousPage[this.language.current]}

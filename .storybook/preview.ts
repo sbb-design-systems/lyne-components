@@ -5,6 +5,30 @@ import type { Preview } from '@storybook/web-components';
 
 import '../src/elements/core/styles/standard-theme.scss';
 
+/**
+ * The Lean design is applied by adding the 'sbb-lean' class to the document's body.
+ */
+const withLeanDecorator = makeDecorator({
+  name: 'withLeanStyle',
+  parameterName: 'isLean',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context, { parameters }) => {
+    const isLean = parameters as unknown as boolean;
+
+    const rootElement = (context.canvasElement as unknown as HTMLElement).closest<HTMLElement>(
+      '.docs-story, .sb-show-main',
+    )!;
+
+    if (isLean) {
+      rootElement.classList.add('sbb-lean');
+    } else {
+      rootElement.classList.remove('sbb-lean');
+    }
+
+    return getStory(context);
+  },
+});
+
 const withBackgroundDecorator = makeDecorator({
   name: 'withContextSpecificBackgroundColor',
   parameterName: 'backgroundColor',
@@ -78,7 +102,7 @@ const parameters: Parameters = {
 };
 
 const preview: Preview = {
-  decorators: [withBackgroundDecorator],
+  decorators: [withBackgroundDecorator, withLeanDecorator],
   parameters,
   tags: ['autodocs'],
 };

@@ -193,6 +193,21 @@ and on [storybook](https://lyne-storybook.app.sbb.ch).
 
 ## Styles
 
+### Lean variant
+
+Lean uses a more compact design. To activate it, add the CSS class `sbb-lean` on the document's body tag.
+
+```html
+<html lang="en">
+  <head>
+    <title>Lyne Design System - Lean example</title>
+  </head>
+  <body class="sbb-lean">
+    ...
+  </body>
+</html>
+```
+
 ### CSS files
 
 Basically, all our styles are included in 'standard-theme.css' which should be included in your application.

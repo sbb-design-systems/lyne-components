@@ -8,6 +8,7 @@ import { ref } from 'lit/directives/ref.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter, throttle } from '../../core/eventing.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
@@ -92,7 +93,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   public get size(): InterfaceSbbTabGroupTab['size'] {
     return this._size;
   }
-  private _size: InterfaceSbbTabGroupTab['size'] = 'l';
+  private _size: InterfaceSbbTabGroupTab['size'] = isLean() ? 's' : 'l';
 
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of

@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElement, SbbButtonSize } from '../button.js';
+import { isLean } from '../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.js';
 import type {
   SbbBlockLinkButtonElement,
@@ -46,14 +47,14 @@ class SbbActionGroupElement extends LitElement {
    * sbb-button instances.
    */
   @property({ attribute: 'button-size', reflect: true })
-  public accessor buttonSize: SbbButtonSize = 'l';
+  public accessor buttonSize: SbbButtonSize = isLean() ? 's' : 'l';
 
   /**
    * Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested
    * sbb-block-link instances.
    */
   @property({ attribute: 'link-size', reflect: true })
-  public accessor linkSize: SbbLinkSize = 'm';
+  public accessor linkSize: SbbLinkSize = isLean() ? 'xs' : 'm';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
