@@ -111,8 +111,6 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
     if (formField) {
       this.negative = formField.hasAttribute('negative');
 
-      // We can't use getInputElement of SbbFormFieldElement as async awaiting is not supported in connectedCallback.
-      // We here only have to look for input.
       const inputElement = formField.querySelector('input');
 
       if (inputElement) {

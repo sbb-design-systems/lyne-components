@@ -5,7 +5,6 @@ import { type LinkTargetType, SbbOpenCloseBaseElement } from '../../core/base-el
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
@@ -27,7 +26,6 @@ import '../../title.js';
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
  * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
- * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 export
 @customElement('sbb-alert')
@@ -38,7 +36,6 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     didOpen: 'didOpen',
     willClose: 'willClose',
     didClose: 'didClose',
-    dismissalRequested: 'dismissalRequested',
   } as const;
 
   /**
@@ -97,23 +94,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
-  /**
-   * Emits when dismissal of an alert was requested.
-   * @deprecated
-   */
-  private _dismissalRequested: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbAlertElement.events.dismissalRequested,
-  );
-
   private _language = new SbbLanguageController(this);
-
-  /** Requests dismissal of the alert.
-   * @deprecated in favour of 'willClose' and 'didClose' events
-   */
-  public requestDismissal(): void {
-    this._dismissalRequested.emit();
-  }
 
   /** Open the alert. */
   public open(): void {
@@ -123,7 +104,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
 
   /** Close the alert. */
   public close(): void {
-    if (this.willClose.emit()) {
+    if (this.state === 'opened' && this.willClose.emit()) {
       this.state = 'closing';
     }
   }
@@ -195,7 +176,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
                     negative
                     size=${isLean() ? 's' : this.size === 'l' ? 'm' : this.size}
                     icon-name="cross-small"
-                    @click=${() => this.requestDismissal()}
+                    @click=${() => this.close()}
                     aria-label=${i18nCloseAlert[this._language.current]}
                     class="sbb-alert__close-button"
                   ></sbb-transparent-button>

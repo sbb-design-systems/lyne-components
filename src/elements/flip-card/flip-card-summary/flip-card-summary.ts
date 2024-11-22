@@ -26,10 +26,10 @@ class SbbFlipCardSummaryElement extends LitElement {
   @property({ attribute: 'image-alignment', reflect: true })
   public accessor imageAlignment: SbbFlipCardImageAlignment = 'after';
 
-  protected override willUpdate(_changedProperties: PropertyValues): void {
-    super.willUpdate(_changedProperties);
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
 
-    if (_changedProperties.has('imageAlignment')) {
+    if (changedProperties.has('imageAlignment')) {
       this.closest?.('sbb-flip-card')?.setAttribute('data-image-alignment', this.imageAlignment);
     }
   }

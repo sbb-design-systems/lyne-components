@@ -76,7 +76,7 @@ class SbbCheckboxPanelElement extends SbbPanelMixin(
     { bubbles: true },
   );
 
-  protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {

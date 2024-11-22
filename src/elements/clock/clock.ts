@@ -87,11 +87,11 @@ class SbbClockElement extends LitElement {
   /** Callback function for minutes hand. */
   private _moveMinutesHandFn = (): void => this._moveMinutesHand();
 
-  protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (!isServer && changedProperties.has('now')) {
-      await this._startOrConfigureClock();
+      this._startOrConfigureClock();
     }
   }
 

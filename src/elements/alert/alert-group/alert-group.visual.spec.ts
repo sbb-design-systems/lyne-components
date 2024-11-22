@@ -3,8 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbTransparentButtonElement } from '../../button/transparent-button.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { EventSpy, waitForCondition } from '../../core/testing.js';
+import { SbbAlertElement } from '../alert.js';
 
-import '../alert.js';
 import './alert-group.js';
 
 describe(`sbb-alert-group`, () => {
@@ -32,12 +33,22 @@ describe(`sbb-alert-group`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`<sbb-alert-group>${alert} ${alert}</sbb-alert-group>`);
 
-        const closeButton = setup.snapshotElement
-          .querySelector('sbb-alert')!
-          .shadowRoot!.querySelector<SbbTransparentButtonElement>('.sbb-alert__close-button')!;
+        setup.withPostSetupAction(async () => {
+          const alert = setup.snapshotElement.querySelector('sbb-alert')!;
+          const didCloseEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert);
 
-        closeButton.focus();
-        await sendKeys({ press: 'Enter' });
+          // As registering an eventSpy is too late we have to use waitForCondition().
+          await waitForCondition(() => alert.getAttribute('data-state') === 'opened');
+
+          const closeButton = setup.snapshotElement
+            .querySelector('sbb-alert')!
+            .shadowRoot!.querySelector<SbbTransparentButtonElement>('.sbb-alert__close-button')!;
+
+          closeButton.focus();
+          await sendKeys({ press: 'Enter' });
+
+          await didCloseEventSpy.calledOnce();
+        });
       }),
     );
   });

@@ -12,10 +12,10 @@ import {
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
-  SbbMediaQueryBreakpointSmallAndBelow,
   SbbConnectedAbortController,
   SbbInertController,
   SbbMediaMatcherController,
+  SbbMediaQueryBreakpointSmallAndBelow,
 } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
@@ -124,7 +124,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._setMenuPosition();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
 
-    // Starting from breakpoint medium, disable scroll
+    // From zero to medium, disable scroll
     if (this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow)) {
       this._scrollHandler.disableScroll();
     }

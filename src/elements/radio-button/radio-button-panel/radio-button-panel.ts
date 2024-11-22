@@ -63,7 +63,7 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
     this._hasSelectionExpansionPanelElement = !!this.closest?.('sbb-selection-expansion-panel');
   }
 
-  protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {

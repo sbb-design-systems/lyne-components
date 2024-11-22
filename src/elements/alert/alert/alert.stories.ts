@@ -1,8 +1,8 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -10,11 +10,7 @@ import { SbbAlertElement } from './alert.js';
 import readme from './readme.md?raw';
 
 const Default = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`
-  <sbb-alert
-    ${sbbSpread(args)}
-    @dismissalRequested=${(e: Event) => (e.target! as SbbAlertElement).close()}
-    >${contentSlotText}</sbb-alert
-  >
+  <sbb-alert ${sbbSpread(args)}>${contentSlotText}</sbb-alert>
 `;
 
 const DefaultWithOtherContent = (args: Args): TemplateResult => {
@@ -22,12 +18,6 @@ const DefaultWithOtherContent = (args: Args): TemplateResult => {
     <div>
       ${Default(args)}
       <p>Other Content on the page.</p>
-      ${!args.readonly
-        ? html`<p>
-            Dismissal event of the alert has to be caught by the consumer and the alert has to be
-            manually removed from DOM. See 'sbb-alert-group' for demonstration.
-          </p>`
-        : nothing}
     </div>
   `;
 };
@@ -221,7 +211,8 @@ const meta: Meta = {
       handles: [
         SbbAlertElement.events.willOpen,
         SbbAlertElement.events.didOpen,
-        SbbAlertElement.events.dismissalRequested,
+        SbbAlertElement.events.willClose,
+        SbbAlertElement.events.didClose,
       ],
     },
     docs: {

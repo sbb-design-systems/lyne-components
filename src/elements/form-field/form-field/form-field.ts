@@ -427,14 +427,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     this._checkAndUpdateInputEmpty();
   }
 
-  /**
-   * Returns the input element.
-   * @deprecated Use the 'inputElement' property instead
-   */
-  public getInputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement | undefined {
-    return this._input;
-  }
-
   private _syncNegative(): void {
     this.querySelectorAll?.(
       'sbb-form-error,sbb-mini-button,sbb-popover-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid',
