@@ -67,12 +67,12 @@ const HeaderBasicTemplate = (
     </sbb-menu>
     ${args.size === 's'
       ? html`
-          <a slot="logo" aria-label="Homepage" href="/">
-            <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+          <a aria-label="Homepage" href="/" class="sbb-header-logo">
+            <sbb-signet protective-room="panel"></sbb-signet>
           </a>
         `
       : html`
-          <a slot="logo" aria-label="Homepage" href="/">
+          <a aria-label="Homepage" href="/" class="sbb-header-logo">
             <sbb-logo protective-room="none"></sbb-logo>
           </a>
         `}

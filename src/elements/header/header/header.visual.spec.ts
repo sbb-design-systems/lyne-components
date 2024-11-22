@@ -44,8 +44,12 @@ describe(`sbb-header`, () => {
       </sbb-header-button>
       <sbb-header-button icon-name="globe-small" class="last-element"> English </sbb-header-button>
       ${size === 's'
-        ? html`<a href="#" slot="logo"><sbb-signet protective-room="panel"></sbb-signet></a>`
-        : html`<a href="#" slot="logo"><sbb-logo protective-room="none"></sbb-logo></a>`}
+        ? html`<a href="#" class="sbb-header-logo"
+            ><sbb-signet protective-room="panel"></sbb-signet
+          ></a>`
+        : html`<a href="#" class="sbb-header-logo"
+            ><sbb-logo protective-room="none"></sbb-logo
+          ></a>`}
     </sbb-header>
     <div class=${expanded ? 'sbb-page-spacing-expanded' : 'sbb-page-spacing'}>
       ${loremIpsumTemplate}

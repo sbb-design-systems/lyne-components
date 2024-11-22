@@ -2,12 +2,13 @@ The `sbb-header` component is a container for actions and a logo, and it is disp
 
 ## Slots
 
-It has two slots:
-the first one can contain one or more action ([sbb-header-button](/docs/elements-sbb-header-sbb-header-button--docs) or
-[sbb-header-link](/docs/elements-sbb-header-sbb-header-link--docs))
-or other action items like [sbb-button](/docs/elements-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link--docs),
-and it is displayed at the left end of the component; the second slot is displayed at the right end,
-and it can contain a logo or a signet, which by default is the [sbb-logo](/docs/elements-sbb-logo--docs).
+The slot can contain:
+
+- one or more action ([sbb-header-button](/docs/elements-sbb-header-sbb-header-button--docs) or [sbb-header-link](/docs/elements-sbb-header-sbb-header-link--docs))
+- other action items like [sbb-button](/docs/elements-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link--docs)
+- a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-sbb-logo--docs))
+
+By default, elements are aligned to the left. Use a `<div class="sbb-header-spacer">` to fill the empty space between elements.
 
 ```html
 <sbb-header>
@@ -15,7 +16,8 @@ and it can contain a logo or a signet, which by default is the [sbb-logo](/docs/
     Menu
   </sbb-header-link>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
-  <a slot="logo" aria-label="Homepage" href="/">
+  <div class="sbb-header-spacer"></div>
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
 </sbb-header>
@@ -38,8 +40,9 @@ For the latter, the usage of the `sbb-signet` with `protective-room='panel'` is 
     Menu
   </sbb-header-link>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
-  <a slot="logo" aria-label="Homepage" href="/">
-    <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+  <div class="sbb-header-spacer"></div>
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
+    <sbb-signet protective-room="panel"></sbb-signet>
   </a>
 </sbb-header>
 ```
@@ -61,8 +64,9 @@ From accessibility perspective `aria-current="page"` should be set whenever the 
   >
     Overview
   </sbb-header-link>
-  <a slot="logo" aria-label="Homepage" href="/">
-    <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+  <div class="sbb-header-spacer"></div>
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
+    <sbb-signet protective-room="panel"></sbb-signet>
   </a>
 </sbb-header>
 ```
@@ -79,7 +83,8 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 ```html
 <sbb-header expanded hideOnScroll>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
-  <a slot="logo" aria-label="Homepage" href="/">
+  <div class="sbb-header-spacer"></div>
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
 </sbb-header>
@@ -134,8 +139,10 @@ a helper class named `sbb-header-info` is provided to achieve the correct visual
     <span>V. 1.1</span>
   </span>
 
-  <a slot="logo" aria-label="Homepage" href="/">
-    <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+  <div class="sbb-header-spacer"></div>
+
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
+    <sbb-signet protective-room="panel"></sbb-signet>
   </a>
 </sbb-header>
 ```
@@ -153,7 +160,8 @@ set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-button`/`sb
   <sbb-header-button class="sbb-header-shrinkable">
     Christina Müller has a long name
   </sbb-header-button>
-  <a slot="logo" aria-label="Homepage" href="/">
+  <div class="sbb-header-spacer"></div>
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
 </sbb-header>
@@ -183,7 +191,6 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 
 ## Slots
 
-| Name   | Description                                                           |
-| ------ | --------------------------------------------------------------------- |
-|        | Use the unnamed slot to add actions or content to the header.         |
-| `logo` | Slot used to render the logo on the right side (sbb-logo as default). |
+| Name | Description                                                          |
+| ---- | -------------------------------------------------------------------- |
+|      | Use the unnamed slot to add actions, content and logo to the header. |
