@@ -49,7 +49,7 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>
       ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
     }
 
-    protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
+    protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
       if (changedProperties.has('checked') || changedProperties.has('indeterminate')) {

@@ -107,6 +107,11 @@ export const commonDefaultArgTypes: ArgTypes = {
   'icon-name': iconName,
 };
 
+/**
+ * NOTE
+ * The tag is the tagName of the component to display in stories,
+ * so it must be overridden before use.
+ */
 export const commonDefaultArgs: Args = {
   tag: 'TBD',
   text: 'Button',

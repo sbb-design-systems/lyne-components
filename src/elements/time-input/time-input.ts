@@ -48,6 +48,27 @@ class SbbTimeInputElement extends LitElement {
 
   @state() private accessor _inputElement: HTMLInputElement | null = null;
 
+  /** Formats the current input's value as date. */
+  @property({ attribute: false })
+  public set valueAsDate(date: SbbDateLike | null) {
+    if (!date || !this._inputElement) {
+      return;
+    }
+    const dateObj = date instanceof Date ? date : new Date(date);
+
+    this._inputElement.value = this._formatValue({
+      hours: dateObj.getHours(),
+      minutes: dateObj.getMinutes(),
+    });
+
+    // Emit blur event when value is changed programmatically to notify
+    // frameworks that rely on that event to update form status.
+    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
+  }
+  public get valueAsDate(): Date | null {
+    return this._formatValueAsDate(this._parseInput(this._inputElement?.value)) ?? null;
+  }
+
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
@@ -82,29 +103,6 @@ class SbbTimeInputElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._abortController?.abort();
-  }
-
-  /** Gets the input value with the correct date format. */
-  // TODO: refactor this to be a get/set
-  public getValueAsDate(): Date | null {
-    return this._formatValueAsDate(this._parseInput(this._inputElement?.value));
-  }
-
-  /** Set the input value to the correctly formatted value. */
-  public setValueAsDate(date: SbbDateLike): void {
-    if (!date || !this._inputElement) {
-      return;
-    }
-    const dateObj = date instanceof Date ? date : new Date(date);
-
-    this._inputElement.value = this._formatValue({
-      hours: dateObj.getHours(),
-      minutes: dateObj.getMinutes(),
-    });
-
-    // Emit blur event when value is changed programmatically to notify
-    // frameworks that rely on that event to update form status.
-    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
 
   private _findInputElement(): void {

@@ -126,9 +126,7 @@ const eventListenerOptions = {
   passive: true,
 };
 
-const pxToRem = (px: number): number => {
-  return px / SbbTypoScaleDefault;
-};
+const pxToRem = (px: number): number => px / SbbTypoScaleDefault;
 
 const breakpointMap: Record<string, number> = {
   'sbb-breakpoint-zero-min': pxToRem(SbbBreakpointZeroMin),

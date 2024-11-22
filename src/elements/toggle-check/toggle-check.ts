@@ -38,7 +38,7 @@ class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(SbbIconNameMi
   @property({ attribute: 'label-position', reflect: true })
   public accessor labelPosition: 'before' | 'after' = 'after';
 
-  protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {

@@ -1,54 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-file-selector renders DOM"] = 
-`<sbb-file-selector size="m">
-</sbb-file-selector>
+snapshots["sbb-file-selector-dropzone renders DOM"] = 
+`<sbb-file-selector-dropzone size="m">
+</sbb-file-selector-dropzone>
 `;
-/* end snapshot sbb-file-selector renders DOM */
+/* end snapshot sbb-file-selector-dropzone renders DOM */
 
-snapshots["sbb-file-selector renders Shadow DOM"] = 
-`<div class="sbb-file-selector">
-  <div class="sbb-file-selector__input-container">
-    <label>
-      <sbb-secondary-button-static
-        data-action=""
-        data-sbb-button=""
-        data-slot-names="unnamed"
-        icon-name="folder-open-small"
-        size="m"
-      >
-        Choose a file
-      </sbb-secondary-button-static>
-      <input
-        class="sbb-file-selector__visually-hidden"
-        type="file"
-      >
-    </label>
-  </div>
-  <p
-    class="sbb-file-selector__visually-hidden"
-    role="status"
-  >
-  </p>
-  <div class="sbb-file-selector__error">
-    <slot name="error">
-    </slot>
-  </div>
-</div>
-`;
-/* end snapshot sbb-file-selector renders Shadow DOM */
-
-snapshots["sbb-file-selector renders with dropzone area and size s DOM"] = 
-`<sbb-file-selector
-  size="s"
-  variant="dropzone"
->
-</sbb-file-selector>
-`;
-/* end snapshot sbb-file-selector renders with dropzone area and size s DOM */
-
-snapshots["sbb-file-selector renders with dropzone area and size s Shadow DOM"] = 
+snapshots["sbb-file-selector-dropzone renders Shadow DOM"] = 
 `<div class="sbb-file-selector">
   <div class="sbb-file-selector__input-container">
     <label>
@@ -57,7 +16,7 @@ snapshots["sbb-file-selector renders with dropzone area and size s Shadow DOM"] 
           <sbb-icon
             aria-hidden="true"
             data-namespace="default"
-            name="folder-open-small"
+            name="folder-open-medium"
             role="img"
           >
           </sbb-icon>
@@ -72,7 +31,7 @@ snapshots["sbb-file-selector renders with dropzone area and size s Shadow DOM"] 
             data-action=""
             data-sbb-button=""
             data-slot-names="unnamed"
-            size="s"
+            size="m"
           >
             Choose a file
           </sbb-secondary-button-static>
@@ -95,9 +54,9 @@ snapshots["sbb-file-selector renders with dropzone area and size s Shadow DOM"] 
   </div>
 </div>
 `;
-/* end snapshot sbb-file-selector renders with dropzone area and size s Shadow DOM */
+/* end snapshot sbb-file-selector-dropzone renders Shadow DOM */
 
-snapshots["sbb-file-selector renders with dropzone area and size s A11y tree Chrome"] = 
+snapshots["sbb-file-selector-dropzone renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -120,9 +79,9 @@ snapshots["sbb-file-selector renders with dropzone area and size s A11y tree Chr
 }
 </p>
 `;
-/* end snapshot sbb-file-selector renders with dropzone area and size s A11y tree Chrome */
+/* end snapshot sbb-file-selector-dropzone renders A11y tree Chrome */
 
-snapshots["sbb-file-selector renders with dropzone area and size s A11y tree Firefox"] = 
+snapshots["sbb-file-selector-dropzone renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -144,5 +103,5 @@ snapshots["sbb-file-selector renders with dropzone area and size s A11y tree Fir
 }
 </p>
 `;
-/* end snapshot sbb-file-selector renders with dropzone area and size s A11y tree Firefox */
+/* end snapshot sbb-file-selector-dropzone renders A11y tree Firefox */
 

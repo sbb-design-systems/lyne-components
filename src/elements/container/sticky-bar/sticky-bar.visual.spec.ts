@@ -20,8 +20,6 @@ import '../../link.js';
 import '../../title.js';
 
 describe(`sbb-sticky-bar`, () => {
-  let root: HTMLElement;
-
   const cases = {
     color: [undefined, 'white', 'milk'],
     containerExpanded: [false, true],
@@ -45,8 +43,10 @@ describe(`sbb-sticky-bar`, () => {
     </sbb-action-group>
   `;
 
-  describeViewports(() => {
+  describeViewports({ viewports: ['zero', 'medium', 'ultra'] }, () => {
     describeEach(cases, ({ color, containerExpanded, scrolled }) => {
+      let root: HTMLElement;
+
       beforeEach(async function () {
         const element = await visualRegressionFixture(
           html`
@@ -79,6 +79,24 @@ describe(`sbb-sticky-bar`, () => {
         }),
       );
     });
+
+    it(
+      `unstick`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-container>
+            ${containerContent()}
+            <sbb-sticky-bar color="milk"> ${actionGroup()} </sbb-sticky-bar>
+          </sbb-container>`,
+          { padding: '0' },
+        );
+
+        setup.withPostSetupAction(async () => {
+          setup.snapshotElement.querySelector<SbbStickyBarElement>('sbb-sticky-bar')!.unstick();
+          await waitForLitRender(setup.snapshotElement);
+        });
+      }),
+    );
   });
 
   it(
@@ -92,19 +110,6 @@ describe(`sbb-sticky-bar`, () => {
         { padding: '0' },
       );
       await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
-    }),
-  );
-
-  it(
-    `unstick`,
-    visualDiffDefault.with((setup) => {
-      setup.withSnapshotElement(root);
-      setup.withPostSetupAction(async () => {
-        root.scrollTop = root.scrollHeight;
-
-        root.querySelector<SbbStickyBarElement>('sbb-sticky-bar')!.unstick();
-        await waitForLitRender(root);
-      });
     }),
   );
 });

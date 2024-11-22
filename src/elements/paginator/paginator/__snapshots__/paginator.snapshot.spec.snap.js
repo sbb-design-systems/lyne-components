@@ -528,7 +528,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
     </ul>
   </span>
   <div class="sbb-paginator__page-size-options">
-    <label id="sbb-paginator-options-label-10">
+    <label for="select">
       Items per page
     </label>
     <sbb-form-field
@@ -543,7 +543,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         aria-controls="sbb-select-2"
         aria-expanded="false"
         aria-haspopup="listbox"
-        aria-labelledby="sbb-paginator-options-label-10"
+        aria-label="Items per page"
         aria-owns="sbb-select-2"
         aria-required="false"
         class="sbb-screen-reader-only"
@@ -554,9 +554,9 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         10
       </div>
       <sbb-select
-        aria-labelledby="sbb-paginator-options-label-10"
         data-option-panel-origin-borderless=""
         data-state="closed"
+        id="select"
         value="10"
       >
         <sbb-option
@@ -708,7 +708,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
     </ul>
   </span>
   <div class="sbb-paginator__page-size-options">
-    <label id="sbb-paginator-options-label-10">
+    <label for="select">
       Items per page
     </label>
     <sbb-form-field
@@ -723,7 +723,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         aria-controls="sbb-select-2"
         aria-expanded="false"
         aria-haspopup="listbox"
-        aria-labelledby="sbb-paginator-options-label-10"
+        aria-label="Items per page"
         aria-owns="sbb-select-2"
         aria-required="false"
         class="sbb-screen-reader-only"
@@ -734,10 +734,9 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         10
       </div>
       <sbb-select
-        aria-labelledby="sbb-paginator-options-label-10"
         data-option-panel-origin-borderless=""
         data-state="closed"
-        id="sbb-select-2"
+        id="select"
         role="listbox"
         value="10"
       >

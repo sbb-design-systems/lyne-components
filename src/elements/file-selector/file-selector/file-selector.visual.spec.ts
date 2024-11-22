@@ -6,9 +6,9 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../../core/testing/private.js';
 
-import '../form-error.js';
+import '../../form-error.js';
 import './file-selector.js';
 import type { SbbFileSelectorElement } from './file-selector.js';
 
@@ -31,7 +31,6 @@ describe(`sbb-file-selector`, () => {
   let root: HTMLElement;
 
   const states = {
-    variant: ['default', 'dropzone'],
     state: [
       { disabled: false, error: false },
       { disabled: true, error: false },
@@ -39,22 +38,11 @@ describe(`sbb-file-selector`, () => {
     ],
   };
 
-  const sizes = {
-    variant: ['default', 'dropzone'],
-    size: ['s', 'm'],
-  };
-
   describeViewports({ viewports: ['small', 'medium'] }, () => {
-    describeEach(states, ({ variant, state }) => {
+    describeEach(states, ({ state }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
-          <sbb-file-selector
-            id="fs"
-            title-content="Title"
-            multiple
-            variant=${variant}
-            ?disabled=${state.disabled}
-          ></sbb-file-selector>
+          <sbb-file-selector id="fs" multiple ?disabled=${state.disabled}></sbb-file-selector>
           ${state.error
             ? html`<sbb-form-error slot="error">There has been an error.</sbb-form-error>`
             : nothing}
@@ -72,16 +60,10 @@ describe(`sbb-file-selector`, () => {
       );
     });
 
-    describeEach(sizes, ({ variant, size }) => {
+    describeEach({ size: ['s', 'm'] }, ({ size }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
-          <sbb-file-selector
-            id="fs"
-            title-content="Title"
-            multiple
-            variant=${variant}
-            size=${size}
-          ></sbb-file-selector>
+          <sbb-file-selector id="fs" multiple size=${size}></sbb-file-selector>
         `);
       });
 

@@ -1,4 +1,4 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
@@ -218,5 +218,27 @@ describe('sbb-paginator', () => {
     await sendKeys({ press: 'Space' });
     await waitForLitRender(element);
     expect(pageEventSpy.count).to.be.equal(1);
+  });
+
+  it('should update items per page label on language change', async () => {
+    element = await fixture(
+      html`<sbb-paginator length="50" page-size="5" .pageSizeOptions=${[5, 10]}></sbb-paginator>`,
+    );
+
+    const comboBoxElement = element.shadowRoot!.querySelector('[role="combobox"]')!;
+
+    expect(comboBoxElement).to.have.attribute('aria-label', 'Items per page');
+
+    const lang = document.documentElement.getAttribute('lang')!;
+    document.documentElement.setAttribute('lang', 'de');
+
+    await waitForLitRender(element);
+    // We have to wait a tick until the label sync can happen
+    await aTimeout(0);
+
+    expect(comboBoxElement).to.have.attribute('aria-label', 'Einträge pro Seite');
+
+    // Restore language
+    document.documentElement.setAttribute('lang', lang);
   });
 });

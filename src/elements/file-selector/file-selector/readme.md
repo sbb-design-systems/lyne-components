@@ -1,32 +1,34 @@
 The `sbb-file-selector` is a component which allows user to select one or more files from storage devices.
-When files are selected, they appear as a list below the button/dropzone area.
+When files are selected, they appear as a list below the button.
 For each file, the name and the size are displayed and an icon allows for deletion.
-
-### Variants
-
-It has two different display options based on the value of the `variant` property:
-by default, a `sbb-button` is displayed, which mimics the native `<input type="file"/>`.
+The component mimics the native `<input type="file"/>`; for the drag-and-drop variant, see
+[sbb-file-selector-dropzone](/docs/elements-sbb-file-selector-sbb-file-selector-dropzone--docs)
 
 ```html
 <sbb-file-selector></sbb-file-selector>
 ```
 
-Instead, if the `variant` property is set to `dropzone`, the `sbb-button` is shown within a "drag & drop" area.
-In this case, it's possible to customize the area's title via the `titleContent` property.
+## Slots
+
+The `error` named slot can be used to display an error message using the `sbb-form-error` component.
 
 ```html
-<sbb-file-selector variant="dropzone" title-content="Drop file here."></sbb-file-selector>
+<sbb-file-selector>
+  <sbb-form-error slot="error">An error occurred during file upload.</sbb-form-error>
+</sbb-file-selector>
 ```
 
-The component has also two different sizes, `m` (default) and `s`, which can be changed using the `size` property.
+## States
+
+User interaction can be disabled using the `disabled` property.
 
 ```html
-<sbb-file-selector size="s"></sbb-file-selector>
+<sbb-file-selector disabled></sbb-file-selector>
 ```
 
 ### Multiple and multipleMode
 
-In both variants, a single file can be selected by default; this can be changed setting the `multiple` property to `true`.
+A single file can be selected by default; this can be changed setting the `multiple` property to `true`.
 
 ```html
 <sbb-file-selector multiple></sbb-file-selector>
@@ -47,28 +49,18 @@ in the next example, only images are allowed.
 <sbb-file-selector accept=".png,.jpg,.jpeg"></sbb-file-selector>
 ```
 
-### Disabled
+## Style
 
-User interaction can be disabled using the `disabled` property.
-
-```html
-<sbb-file-selector disabled></sbb-file-selector>
-```
-
-### Error slot
-
-The `error` named slot can be used to display an error message using the `sbb-form-error` component.
+The component has also two different sizes, `m` (default) and `s`, which can be changed using the `size` property.
 
 ```html
-<sbb-file-selector variant="dropzone">
-  <sbb-form-error slot="error">An error occurred during file upload.</sbb-form-error>
-</sbb-file-selector>
+<sbb-file-selector size="s"></sbb-file-selector>
 ```
 
 ### Events
 
 Whenever the selection changes, a `fileChanged` event is fired, whose `event.detail` property contains the list
-of currently selected files. The list can also be retrieved using the `getFiles()` method.
+of currently selected files. The list can also be retrieved using the public `files` getter.
 
 ## Accessibility
 
@@ -93,31 +85,28 @@ It's suggested to have a different value for each variant, e.g.:
 | `accept`             | `accept`              | public  | `string`                    | `''`        | A comma-separated list of allowed unique file type specifiers.                |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                    | `''`        | This will be forwarded as aria-label to the native input element.             |
 | `disabled`           | `disabled`            | public  | `boolean`                   | `false`     | Whether the component is disabled.                                            |
-| `files`              | -                     | public  | `File[]`                    | `[]`        | The list of selected files.                                                   |
+| `files`              | -                     | public  | `Readonly<File>[]`          | `[]`        | The list of selected files.                                                   |
 | `form`               | -                     | public  | `HTMLFormElement \| null`   |             | Returns the form owner of the internals of the target element.                |
 | `multiple`           | `multiple`            | public  | `boolean`                   | `false`     | Whether more than one file can be selected.                                   |
 | `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` | `'default'` | Whether the newly added files should override the previously added ones.      |
 | `name`               | `name`                | public  | `string`                    |             | Name of the form element. Will be read from name attribute.                   |
 | `size`               | `size`                | public  | `'s' \| 'm'`                | `'m'`       | Size variant, either s or m.                                                  |
-| `titleContent`       | `title-content`       | public  | `string`                    | `''`        | The title displayed in `dropzone` variant.                                    |
 | `value`              | `value`               | public  | `string \| null`            | `null`      | The path of the first selected file. Empty string ('') if no file is selected |
-| `variant`            | `variant`             | public  | `'default' \| 'dropzone'`   | `'default'` | Whether the component has a dropzone area or not.                             |
 
 ## Methods
 
-| Name                       | Privacy | Description | Parameters                                                    | Return   | Inherited From |
-| -------------------------- | ------- | ----------- | ------------------------------------------------------------- | -------- | -------------- |
-| `formResetCallback`        | public  |             |                                                               | `void`   |                |
-| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void`   |                |
-| `getFiles`                 | public  |             |                                                               | `File[]` |                |
+| Name                       | Privacy | Description | Parameters                                                    | Return | Inherited From                    |
+| -------------------------- | ------- | ----------- | ------------------------------------------------------------- | ------ | --------------------------------- |
+| `formResetCallback`        | public  |             |                                                               | `void` | SbbFileSelectorCommonElementMixin |
+| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void` | SbbFileSelectorCommonElementMixin |
 
 ## Events
 
-| Name          | Type                  | Description                                                                                                                                                                  | Inherited From |
-| ------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change`      | `Event`               | An event which is emitted each time the user modifies the value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value |                |
-| `fileChanged` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes.                                                                                                                   |                |
-| `input`       | `Event`               | An event which is emitted each time the value changes as a direct result of a user action.                                                                                   |                |
+| Name          | Type                            | Description                                                                                                                                                                  | Inherited From                    |
+| ------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `change`      | `Event`                         | An event which is emitted each time the user modifies the value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value | SbbFileSelectorCommonElementMixin |
+| `fileChanged` | `CustomEvent<Readonly<File>[]>` | An event which is emitted each time the file list changes.                                                                                                                   |                                   |
+| `input`       | `Event`                         | An event which is emitted each time the value changes as a direct result of a user action.                                                                                   | SbbFileSelectorCommonElementMixin |
 
 ## Slots
 
