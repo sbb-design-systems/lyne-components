@@ -80,7 +80,7 @@ describe(`sbb-header`, () => {
               padding: '0',
             });
             setup.withStateElement(
-              setup.snapshotElement.querySelector<HTMLAnchorElement>(`a[slot='logo']`)!,
+              setup.snapshotElement.querySelector<HTMLAnchorElement>('.sbb-header-logo')!,
             );
           }),
         );
