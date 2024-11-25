@@ -68,6 +68,14 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     @property({ type: Boolean })
     public accessor checked: boolean = false;
 
+    /**
+     * Form type of element.
+     * @default 'radio'
+     */
+    public override get type(): string {
+      return 'radio';
+    }
+
     protected abort = new SbbConnectedAbortController(this);
 
     /**

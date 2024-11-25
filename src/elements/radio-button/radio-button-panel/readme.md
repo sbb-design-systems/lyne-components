@@ -77,6 +77,7 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 | `name`                | `name`                  | public  | `string`                             |           | Name of the form element. Will be read from name attribute.    |
 | `required`            | `required`              | public  | `boolean`                            | `false`   | Whether the component is required.                             |
 | `size`                | `size`                  | public  | `SbbPanelSize`                       | `'m'`     | Size variant.                                                  |
+| `type`                | -                       | public  | `string`                             | `'radio'` | Form type of element.                                          |
 | `value`               | `value`                 | public  | `string \| null`                     | `null`    | Value of the form element.                                     |
 
 ## Methods

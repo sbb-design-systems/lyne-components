@@ -460,6 +460,7 @@ describe(`sbb-select`, () => {
       expect(elemInputEvent.count, 'compare to native - input counts').to.be.equal(
         nativeInputEvent.count,
       );
+      expect(element.type, 'compare to native - type').to.be.equal(nativeSelect.type);
     }
 
     it('should set default value', async () => {
