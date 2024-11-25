@@ -158,7 +158,6 @@
   max-height: var(--sbb-dialog-max-height);
   outline: none;
   position: fixed;
-  word-break: break-word;
 
   @include sbb.mq($from: medium) {
     position: sticky;
