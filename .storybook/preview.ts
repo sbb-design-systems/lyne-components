@@ -15,14 +15,10 @@ const withLeanDecorator = makeDecorator({
   wrapper: (getStory, context, { parameters }) => {
     const isLean = parameters as unknown as boolean;
 
-    const rootElement = (context.canvasElement as unknown as HTMLElement).closest<HTMLElement>(
-      '.docs-story, .sb-show-main',
-    )!;
-
     if (isLean) {
-      rootElement.classList.add('sbb-lean');
+      document.documentElement.classList.add('sbb-lean');
     } else {
-      rootElement.classList.remove('sbb-lean');
+      document.documentElement.classList.remove('sbb-lean');
     }
 
     return getStory(context);

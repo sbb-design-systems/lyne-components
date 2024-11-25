@@ -195,14 +195,16 @@ and on [storybook](https://lyne-storybook.app.sbb.ch).
 
 ### Lean variant
 
-Lean uses a more compact design. To activate it, add the CSS class `sbb-lean` on the document's body tag.
+Lean uses a more compact design by defaulting the `size` property to the smallest available value.
+Components that do not have a `size` property remain unchanged.
+To enable lean mode, add the CSS class `sbb-lean` to the `html` tag.
 
 ```html
-<html lang="en">
+<html lang="en" class="sbb-lean">
   <head>
     <title>Lyne Design System - Lean example</title>
   </head>
-  <body class="sbb-lean">
+  <body>
     ...
   </body>
 </html>
