@@ -8,7 +8,7 @@ The slot can contain:
 - other action items like [sbb-button](/docs/elements-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link--docs)
 - a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-sbb-logo--docs))
 
-Slotted elements are aligned to the left. Use `<div class="sbb-header-spacer">` to align elements after it to the right..
+Slotted elements are aligned to the left. Use `<div class="sbb-header-spacer">` to align elements after it to the right.
 
 ```html
 <sbb-header>
