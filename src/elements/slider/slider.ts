@@ -111,7 +111,10 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
   @property({ attribute: 'end-icon' })
   public accessor endIcon: string = '';
 
-  /** @internal */
+  /**
+   * Form type of element.
+   * @default 'range'
+   */
   public override get type(): string {
     return 'range';
   }

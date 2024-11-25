@@ -110,7 +110,10 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     }
     private _files: Readonly<File>[] = [];
 
-    /** @internal */
+    /**
+     * Form type of element.
+     * @default 'file'
+     */
     public override get type(): string {
       return 'file';
     }
