@@ -111,6 +111,14 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     }
     private _files: Readonly<File>[] = [];
 
+    /**
+     * Form type of element.
+     * @default 'file'
+     */
+    public override get type(): string {
+      return 'file';
+    }
+
     /** An event which is emitted each time the file list changes. */
     private _fileChangedEvent: EventEmitter<Readonly<File>[]> = new EventEmitter(
       this,

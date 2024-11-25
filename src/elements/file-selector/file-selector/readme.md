@@ -90,7 +90,8 @@ It's suggested to have a different value for each variant, e.g.:
 | `multiple`           | `multiple`            | public  | `boolean`                   | `false`     | Whether more than one file can be selected.                                   |
 | `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` | `'default'` | Whether the newly added files should override the previously added ones.      |
 | `name`               | `name`                | public  | `string`                    |             | Name of the form element. Will be read from name attribute.                   |
-| `size`               | `size`                | public  | `'s' \| 'm'`                |             | Size variant, either s or m.                                                  |
+| `size`               | `size`                | public  | `'s' \| 'm'`                | `'m'`       | Size variant, either s or m.                                                  |
+| `type`               | -                     | public  | `string`                    | `'file'`    | Form type of element.                                                         |
 | `value`              | `value`               | public  | `string \| null`            | `null`      | The path of the first selected file. Empty string ('') if no file is selected |
 
 ## Methods
