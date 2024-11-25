@@ -90,6 +90,9 @@ describe(`sbb-file-selector`, () => {
       );
     });
 
+    expect(element.role, 'compare to native role').to.be.equal(input.role);
+    expect(element.type, 'compare to native type').to.be.equal(input.type);
+
     // Compare formData
     const formData = new FormData(form);
     const fileSelectorFormData = formData.getAll('fs');

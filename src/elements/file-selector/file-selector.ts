@@ -109,6 +109,14 @@ class SbbFileSelectorElement extends SbbDisabledMixin(SbbFormAssociatedMixin(Lit
   }
   private _files: File[] = [];
 
+  /**
+   * Form type of element.
+   * @default 'file'
+   */
+  public override get type(): string {
+    return 'file';
+  }
+
   /** An event which is emitted each time the file list changes. */
   private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(
     this,
