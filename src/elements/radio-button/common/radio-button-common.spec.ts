@@ -13,7 +13,7 @@ import type { SbbRadioButtonElement } from '../radio-button.js';
 import '../radio-button.js';
 import '../radio-button-panel.js';
 
-interface CheckboxAccessibilitySnapshot {
+interface RadioButtonAccessibilitySnapshot {
   checked: boolean;
   role: string;
   disabled: boolean;
@@ -81,7 +81,7 @@ describe(`radio-button common behaviors`, () => {
       it('should reflect aria-required false', async () => {
         const snapshot = (await a11ySnapshot({
           selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
+        })) as unknown as RadioButtonAccessibilitySnapshot;
 
         expect(snapshot.required).to.be.undefined;
       });
@@ -95,7 +95,7 @@ describe(`radio-button common behaviors`, () => {
 
         const snapshot = (await a11ySnapshot({
           selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
+        })) as unknown as RadioButtonAccessibilitySnapshot;
 
         // TODO: Recheck if it is working in Chromium
         if (!isChromium) {
@@ -115,7 +115,7 @@ describe(`radio-button common behaviors`, () => {
 
         const snapshot = (await a11ySnapshot({
           selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
+        })) as unknown as RadioButtonAccessibilitySnapshot;
 
         expect(snapshot.required).not.to.be.ok;
       });
@@ -129,7 +129,7 @@ describe(`radio-button common behaviors`, () => {
 
         const snapshot = (await a11ySnapshot({
           selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
+        })) as unknown as RadioButtonAccessibilitySnapshot;
 
         // TODO: Recheck if it is working in Chromium
         if (!isChromium) {
@@ -149,7 +149,7 @@ describe(`radio-button common behaviors`, () => {
 
         const snapshot = (await a11ySnapshot({
           selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
+        })) as unknown as RadioButtonAccessibilitySnapshot;
 
         expect(snapshot.required).not.to.be.ok;
       });
@@ -201,6 +201,10 @@ describe(`radio-button common behaviors`, () => {
           nativeElements[i].checked,
         );
       });
+
+      // General form configuration
+      expect(elements[0].type, 'radio type').to.be.equal(nativeElements[0].type);
+      expect(elements[0].role, 'radio role').to.be.equal(nativeElements[0].role);
 
       // Events
       expect(inputSpy.count, `'input' event`).to.be.equal(nativeInputSpy.count);

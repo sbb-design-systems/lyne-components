@@ -111,6 +111,11 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
   @property({ attribute: 'end-icon' })
   public accessor endIcon: string = '';
 
+  /** @internal */
+  public override get type(): string {
+    return 'range';
+  }
+
   /**
    * The ratio between the absolute value and the validity interval.
    * E.g. given `min=0`, `max=100` and `value=50`, then `_valueFraction=0.5`

@@ -102,6 +102,11 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   @property({ type: Boolean })
   public accessor readonly: boolean = false;
 
+  /** @internal */
+  public override get type(): string {
+    return this.multiple ? 'select-multiple' : 'select-one';
+  }
+
   /** The value displayed by the component. */
   @state() private accessor _displayValue: string | null = null;
 
