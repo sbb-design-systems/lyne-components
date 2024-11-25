@@ -28,7 +28,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
     ${skiplinkList()}
 
     <!-- Header section -->
-    <sbb-header hide-on-scroll>
+    <sbb-header hide-on-scroll ?expanded=${args.expanded}>
       <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-button>

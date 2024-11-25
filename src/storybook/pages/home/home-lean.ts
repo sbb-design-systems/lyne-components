@@ -3,25 +3,22 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import '../../../elements/alert.js';
+import '../../../elements/container.js';
 import '../../../elements/action-group.js';
-import {
-  bikeProduct,
-  dailyTicketProduct,
-  footer,
-  liberoProduct,
-  navigation,
-  skiplinkList,
-  teaserHero,
-  timetableInput,
-} from './home.common.js';
+import '../../../elements/checkbox.js';
+import '../../../elements/form-field.js';
+import '../../../elements/icon.js';
+import '../../../elements/paginator.js';
+import '../../../elements/radio-button.js';
+import '../../../elements/table.js';
+import { footer, navigation, skiplinkList } from './home.common.js';
 import './home.scss';
 
 export const homeLeanTemplate = (args: Args): TemplateResult => html`
   <div>
     ${skiplinkList()}
 
-    <!-- Header section -->
-    <sbb-header hide-on-scroll>
+    <sbb-header hide-on-scroll expanded>
       <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-button>
@@ -46,97 +43,101 @@ export const homeLeanTemplate = (args: Args): TemplateResult => html`
 
     ${navigation(true)}
 
-    <!-- Timetable input section -->
-    ${timetableInput()}
-
-    <!-- Alerts section-->
-    <section class="alert-section sbb-grid">
-      <div class="grid-reduced-width">
-        <sbb-alert-group accessibility-title="Disruptions">
-          <sbb-alert
-            title-content="Interruption between Genève and Lausanne"
-            href="https://www.sbb.ch"
-          >
-            The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-          </sbb-alert>
-          <sbb-alert title-content="Interruption between Berne and Olten" href="https://www.sbb.ch">
-            Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00
-            o'clock construction work will take place. You have to expect changed travel times and
-            changed connections.
-          </sbb-alert>
-        </sbb-alert-group>
-      </div>
-    </section>
-
-    <!-- Top products section -->
-    <section class="sbb-page-spacing">
-      <div class="top-products-container">
-        <sbb-title level="2" ?negative=${args.negative}> Top Products. </sbb-title>
-        <div class="top-products-grid">
-          ${dailyTicketProduct(true)} ${bikeProduct(true)} ${liberoProduct(true)}
-          <sbb-card color="milk">
-            <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
-              Buy daily ticket
-            </sbb-card-link>
-            <span class="card-product">
-              <sbb-icon name="ticket-route-medium"></sbb-icon>
-              <span class="content">
-                <sbb-title level="2" visual-level="6"> Route map </sbb-title>
-                <span class="sbb-text-s card-description">For regular trips</span>
-              </span>
-              <sbb-secondary-button-static> Buy </sbb-secondary-button-static>
-            </span>
-          </sbb-card>
-
-          <sbb-card color="milk" class="grid-span-2">
-            <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
-              Show all GAs at a glance
-            </sbb-card-link>
-            <span class="card-product-big">
-              <span class="content">
-                <sbb-title level="2" visual-level="1"> GA </sbb-title>
-                <sbb-title level="3" visual-level="6">
-                  Enjoy unlimited travel with the GA travel card.
-                </sbb-title>
-              </span>
-              <sbb-secondary-button-static> All GAs at a glance </sbb-secondary-button-static>
-            </span>
-          </sbb-card>
-
-          <sbb-card class="grid-span-2" color="milk">
-            <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
-              Buy half price ticket
-            </sbb-card-link>
-
-            <span class="card-product-big">
-              <span class="content">
-                <sbb-title level="2" visual-level="1"> 1/2 </sbb-title>
-                <sbb-title level="3" visual-level="6">
-                  Travel at half price with the half-fare travel card.
-                </sbb-title>
-              </span>
-              <sbb-secondary-button-static> Ride at half price </sbb-secondary-button-static>
-            </span>
-          </sbb-card>
+    <sbb-container expanded>
+      <section class="lean-section sbb-page-spacing-expanded">
+        <div class="lean-container">
+          <sbb-form-field>
+            <label>Departure</label>
+            <sbb-select>
+              <sbb-option value="1" selected>Zug</sbb-option>
+              <sbb-option value="2">Lucerne</sbb-option>
+              <sbb-option value="3">Fribourg</sbb-option>
+            </sbb-select>
+          </sbb-form-field>
+          <sbb-form-field>
+            <label>Arrival</label>
+            <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
+            <input />
+            <sbb-icon slot="suffix" name="circle-question-mark-small"></sbb-icon>
+          </sbb-form-field>
+          <sbb-secondary-button>Clear departure</sbb-secondary-button>
+          <sbb-button>Search</sbb-button>
         </div>
-        <sbb-action-group orientation="vertical" horizontal-from="small">
-          <sbb-button-link
-            href="https://github.com/sbb-design-systems/lyne-components"
-            icon-name="qrcode-small"
-          >
-            My tickets & subscriptions
-          </sbb-button-link>
-          <sbb-secondary-button-link href="https://github.com/sbb-design-systems/lyne-components">
-            All Products
-          </sbb-secondary-button-link>
-        </sbb-action-group>
-      </div>
-    </section>
+      </section>
+      <section class="lean-section sbb-page-spacing-expanded">
+        <div class="lean-container-half">
+          <sbb-table-wrapper>
+            <table class="sbb-table sbb-table-s sbb-table--striped">
+              <thead>
+                <th>Station</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Bern</td>
+                  <td>9:00</td>
+                  <td>10:00</td>
+                </tr>
+                <tr>
+                  <td>Zurich</td>
+                  <td>9:15</td>
+                  <td>10:15</td>
+                </tr>
+                <tr>
+                  <td>Basel</td>
+                  <td>9.45</td>
+                  <td>10.45</td>
+                </tr>
+                <tr>
+                  <td>Geneva</td>
+                  <td>10:00</td>
+                  <td>11:00</td>
+                </tr>
+                <tr>
+                  <td>Lausanne</td>
+                  <td>10:30</td>
+                  <td>11:30</td>
+                </tr>
+                <tr>
+                  <td>Bellinzona</td>
+                  <td>11:00</td>
+                  <td>12:00</td>
+                </tr>
+              </tbody>
+            </table>
+          </sbb-table-wrapper>
+          <sbb-paginator page-size="10" length="100"></sbb-paginator>
+        </div>
+        <div class="lean-container-half">
+          <sbb-radio-button-group orientation="vertical" horizontal-from="small">
+            <sbb-radio-button value="Value one">Value one</sbb-radio-button>
+            <sbb-radio-button value="Value two">Value two</sbb-radio-button>
+            <sbb-radio-button value="Value three" disabled> Value three </sbb-radio-button>
+            <sbb-radio-button value="Value four">Value four</sbb-radio-button>
+          </sbb-radio-button-group>
+          <sbb-checkbox-panel>
+            Label
+            <span slot="subtext">Subtext</span>
+            <span
+              slot="suffix"
+              style="margin-inline-start: auto; display:flex; align-items:center;"
+            >
+              <sbb-icon
+                name="diamond-small"
+                style="margin-inline: var(--sbb-spacing-fixed-2x);"
+                data-namespace="default"
+                role="img"
+                aria-hidden="true"
+              ></sbb-icon>
+              <span class="sbb-text-m sbb-text--bold"> CHF 40.00 </span>
+            </span>
+            <sbb-card-badge>%</sbb-card-badge>
+          </sbb-checkbox-panel>
+        </div>
+      </section>
+    </sbb-container>
 
-    <!-- Hero Teaser section-->
-    ${teaserHero()}
-
-    <!-- Footer section -->
     ${footer(args, true)}
   </div>
 `;

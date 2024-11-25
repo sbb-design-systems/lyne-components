@@ -1,7 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 
-import { homeLeanLoggedInTemplate } from './home-lean-logged-in.js';
 import { homeLeanTemplate } from './home-lean.js';
 import { homeLoggedInTemplate } from './home-logged-in.js';
 import { homeTemplate } from './home.js';
@@ -13,12 +12,20 @@ const negative: InputType = {
   },
 };
 
+const expanded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   negative,
+  expanded,
 };
 
 const defaultArgs: Args = {
   negative: false,
+  expanded: false,
 };
 
 export const home: StoryObj = {
@@ -31,13 +38,6 @@ export const homeLoggedIn: StoryObj = {
 
 export const lean: StoryObj = {
   render: homeLeanTemplate,
-  parameters: {
-    isLean: true,
-  },
-};
-
-export const leanLoggedIn: StoryObj = {
-  render: homeLeanLoggedInTemplate,
   parameters: {
     isLean: true,
   },

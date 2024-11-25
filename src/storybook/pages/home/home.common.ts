@@ -159,8 +159,8 @@ export const navigation = (isLean: boolean = false): TemplateResult => html`
   </sbb-navigation>
 `;
 
-export const dailyTicketProduct = (isLean: boolean = false): TemplateResult => html`
-  <sbb-card color="milk" size=${isLean ? nothing : 's'}>
+export const dailyTicketProduct = (): TemplateResult => html`
+  <sbb-card color="milk" size="s">
     <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
       Buy Daily Ticket
     </sbb-card-link>
@@ -171,15 +171,13 @@ export const dailyTicketProduct = (isLean: boolean = false): TemplateResult => h
         <sbb-title level="2" visual-level="6"> Daily ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-secondary-button-static size=${isLean ? nothing : 'm'}>
-        Buy
-      </sbb-secondary-button-static>
+      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
 
-export const bikeProduct = (isLean: boolean = false): TemplateResult => html`
-  <sbb-card color="milk" size=${isLean ? nothing : 's'}>
+export const bikeProduct = (): TemplateResult => html`
+  <sbb-card color="milk" size="s">
     <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
       Buy Bike daily pass
     </sbb-card-link>
@@ -190,15 +188,13 @@ export const bikeProduct = (isLean: boolean = false): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Bike day pass </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-secondary-button-static size=${isLean ? nothing : 'm'}>
-        Buy
-      </sbb-secondary-button-static>
+      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
 
-export const liberoProduct = (isLean: boolean = false): TemplateResult => html`
-  <sbb-card color="milk" size=${isLean ? nothing : 's'}>
+export const liberoProduct = (): TemplateResult => html`
+  <sbb-card color="milk" size="s">
     <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
       Buy Libero short distance ticket
     </sbb-card-link>
@@ -209,9 +205,7 @@ export const liberoProduct = (isLean: boolean = false): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Libero short distance ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-secondary-button-static size=${isLean ? nothing : 'm'}>
-        Buy
-      </sbb-secondary-button-static>
+      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -230,7 +224,12 @@ export const teaserHero = (): TemplateResult => html`
 `;
 
 export const footer = (args: Args, isLean: boolean = false): TemplateResult => html`
-  <sbb-footer accessibility-title="Footer" variant="clock-columns" ?negative=${args.negative}>
+  <sbb-footer
+    accessibility-title="Footer"
+    variant="clock-columns"
+    ?negative=${args.negative}
+    ?expanded=${args.expanded}
+  >
     <div class="sbb-link-list-button-group">
       <sbb-link-list title-level="2" title-content="Help &amp; Contact." ?negative=${args.negative}>
         <sbb-block-link
