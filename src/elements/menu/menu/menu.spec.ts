@@ -1,8 +1,9 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
+import { isWebkit } from '../../core/dom.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
@@ -168,6 +169,12 @@ describe(`sbb-menu`, () => {
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
     await setViewport({ width: 1200, height: 800 });
+    if (isWebkit) {
+      // Needed to let media queries get applied on Webkit
+      // TODO: Figure out why
+      await aTimeout(50);
+    }
+
     const menu: HTMLDivElement = element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-menu')!;
 
     trigger.click();
