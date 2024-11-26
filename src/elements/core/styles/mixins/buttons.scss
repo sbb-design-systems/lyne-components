@@ -34,11 +34,11 @@
   }
 
   :host(
-      :is(
-          [data-focus-visible],
-          :focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
-        )
-    ) {
+    :is(
+      [data-focus-visible],
+      :focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+    )
+  ) {
     @include icon-button-focus-visible(#{$button-selector});
   }
 

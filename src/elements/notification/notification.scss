@@ -102,7 +102,8 @@ $open-anim-height-to: calc(
           (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
               --sbb-size-icon-ui-small
             )
-        ) / 2
+        ) /
+        2
     );
   }
 

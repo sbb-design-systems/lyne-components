@@ -64,8 +64,8 @@
 }
 
 :host(
-    [data-icon-small]:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
-  ) {
+  [data-icon-small]:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+) {
   @include sbb.icon-button-focus-visible('.sbb-popover-trigger');
 }
 
