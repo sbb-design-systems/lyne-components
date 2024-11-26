@@ -8,8 +8,6 @@ import { SbbHydrationMixin } from '../../core/mixins.js';
 
 import style from './header.scss?lit&inline';
 
-import '../../logo.js';
-
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
 /**

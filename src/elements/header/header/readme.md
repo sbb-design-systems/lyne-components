@@ -97,18 +97,26 @@ by adding classes to `sbb-header-button`/`sbb-header-link` elements and then def
 
 [All the examples in Storybook](/story/elements-sbb-header-sbb-header--basic) have the following requirements:
 
-- four action items (with custom icons);
-- the first item is always left aligned and has `expand-from` set to `small`;
-- the other three items are left aligned in breakpoints zero to medium, and right aligned from large to ultra;
-- the last item is not visible in breakpoints zero to small.
+1. four action items (with custom icons);
+2. the first item is always left aligned and has `expand-from` set to `small`;
+3. the other three items are left aligned in breakpoints zero to medium, and right aligned from large to ultra;
+4. the last item is not visible in breakpoints zero to small;
+5. the logo is always aligned to the right.
 
-To achieve this result, a `div` tag with a CSS class named `sbb-header-spacer` was added between the first
-and the second `sbb-header-button` item, then a class named `last-element` was added to the last one.
+To achieve the alignment requirements, two `div` tags with a CSS class named `sbb-header-spacer` were added:
+
+- one after the first `sbb-header-button` item (that will be hidden on smaller screen sizes);
+- the second, before the logo. Since this spacer will only be shown on small screen sizes, we need a new class to target it (in this example `sbb-header-spacer-logo`);
+
+We also need a class (in this example `last-element`) on the last `sbb-header-button` to achieve requirement n° 4.
+
 Finally, the following custom CSS has been added(\*).
-The result can be seen in the [home](/story/pages-home--home) and [home-logged-in](/story/pages-home--home-logged-in) stories.
+
+The result can also be seen in the [home](/story/pages-home--home) and [home-logged-in](/story/pages-home--home-logged-in) stories.
 
 ```css
-.last-element {
+.last-element,
+.sbb-header-spacer-logo {
   display: none;
 }
 
@@ -122,7 +130,31 @@ The result can be seen in the [home](/story/pages-home--home) and [home-logged-i
   .sbb-header-spacer {
     display: none;
   }
+
+  .sbb-header-spacer-logo {
+    display: block;
+  }
 }
+```
+
+```html
+<sbb-header>
+  <sbb-header-button icon-name="..." expand-from="small"> ... </sbb-header-button>
+
+  <!-- Will be hidden on small screen sizes -->
+  <div class="sbb-header-spacer"></div>
+
+  <sbb-header-button icon-name="..."> ... </sbb-header-button>
+  <sbb-header-button icon-name="..."> ... </sbb-header-button>
+  <sbb-header-button icon-name="..." class="last-element"> ... </sbb-header-button>
+
+  <!-- Will only be shown on small screen sizes -->
+  <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
+
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
+    <sbb-logo protective-room="none"></sbb-logo>
+  </a>
+</sbb-header>
 ```
 
 The `sbb-header` can be also customized by adding the application's name and version:

@@ -12,6 +12,7 @@ import './header.js';
 import '../header-button.js';
 import '../header-link.js';
 import '../../divider.js';
+import '../../logo.js';
 import '../../menu.js';
 import '../../signet.js';
 
@@ -65,6 +66,7 @@ const HeaderBasicTemplate = (
       <sbb-menu-button>Italiano</sbb-menu-button>
       <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
     </sbb-menu>
+    <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
     ${args.size === 's'
       ? html`
           <a aria-label="Homepage" href="/" class="sbb-header-logo">
