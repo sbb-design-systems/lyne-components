@@ -7,8 +7,6 @@ import { SbbDatepickerButton } from '../common.js';
 
 import style from './datepicker-previous-day.scss?lit&inline';
 
-import '../../icon.js';
-
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
  */
