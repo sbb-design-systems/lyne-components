@@ -4,10 +4,10 @@ import { customElement } from 'lit/decorators.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nPreviousDay, i18nSelectPreviousDay } from '../../core/i18n.js';
 import { SbbDatepickerButton } from '../common.js';
-import { findPreviousAvailableDate, type SbbInputUpdateEvent } from '../datepicker.js';
-import '../../icon.js';
 
 import style from './datepicker-previous-day.scss?lit&inline';
+
+import '../../icon.js';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
@@ -23,13 +23,10 @@ class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
   protected iconName: string = 'chevron-small-left-small';
   protected i18nOffBoundaryDay: Record<string, string> = i18nPreviousDay;
   protected i18nSelectOffBoundaryDay = i18nSelectPreviousDay;
-  protected findAvailableDate = findPreviousAvailableDate;
 
-  protected onInputUpdated(event: CustomEvent<SbbInputUpdateEvent>): void {
-    if (this.boundary !== event.detail.min) {
-      this.boundary = event.detail.min!;
-      this.setDisabledState(this.datePickerElement!);
-    }
+  protected findAvailableDate(date: T): T {
+    // When calling findAvailableDate, datepickerElement is always defined.
+    return this.datePickerElement!.findPreviousAvailableDate(date);
   }
 }
 

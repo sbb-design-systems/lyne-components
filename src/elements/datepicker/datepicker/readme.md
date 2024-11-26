@@ -56,43 +56,11 @@ current value (e.g. from `event.target.valueAsDate`) or to set the value program
 When the `valueAsDate` property is programmatically assigned, a `blur` event is fired on the input
 to ensure compatibility with any framework that relies on that event to update the current state.
 
-## Custom date formats
+## Custom current date
 
 To simulate the current date, you can use the `now` property,
 which accepts a `Date` or a timestamp in seconds (as number or string).
 This is helpful if you need a specific state of the component.
-
-Using a combination of the `dateParser` and `format` properties, it's possible to configure the datepicker
-to accept date formats other than the default `EE, dd.mm.yyyy`.
-In the following example the datepicker is set to accept dates in the format `yyyy-mm-dd`.
-In particular, `dateParser` is the function that the component uses internally to decode strings and parse them into `Date` objects,
-while the `format` function is the one that the component uses internally to display a given `Date` object as a string.
-
-```ts
-// datePicker is a SbbDatepickerElement element
-datePicker.dateParser = (value: string) => {
-  // You should implement some kind of input validation
-  if (!value || !isValid(value)) {
-    return undefined;
-  }
-
-  return new Date(value);
-};
-
-datePicker.format = (value: Date) => {
-  if (!value) {
-    return '';
-  }
-
-  const offset = value.getTimezoneOffset();
-  value = new Date(yourDate.getTime() - offset * 60 * 1000);
-  return yourDate.toISOString().split('T')[0];
-};
-```
-
-Usually these functions need to be changed together, although in simple cases where the default `dateParser` might still work properly
-(e.g., in case we wanted to accept the format `dd.mm.yyyy`), it's possible to provide just the `format` function.
-For custom `format` functions is recommended to use the `Intl.DateTimeFormat` API, as it's done in the default implementation.
 
 <!-- TODO: add date adapter configuration documentation -->
 
