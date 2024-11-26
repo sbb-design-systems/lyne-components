@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 import { SbbOptionElement } from '../option.js';
 
 import { SbbSelectElement } from './select.js';
@@ -43,16 +43,16 @@ describe(`sbb-select`, () => {
       assert.instanceOf(firstOption, SbbOptionElement);
     });
 
-    it('opens and closes the dialog', async () => {
+    it('opens and closes the select', async () => {
       const willOpen = new EventSpy(SbbSelectElement.events.willOpen);
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
       const willClose = new EventSpy(SbbSelectElement.events.willClose);
       const didClose = new EventSpy(SbbSelectElement.events.didClose);
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await waitForCondition(() => willOpen.events.length === 1);
+      await willOpen.calledOnce();
       expect(willOpen.count).to.be.equal(1);
-      await waitForCondition(() => didOpen.events.length === 1);
+      await didOpen.calledOnce();
 
       expect(didOpen.count).to.be.equal(1);
       await waitForLitRender(element);
@@ -61,9 +61,9 @@ describe(`sbb-select`, () => {
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await waitForCondition(() => willClose.events.length === 1);
+      await willClose.calledOnce();
       expect(willClose.count).to.be.equal(1);
-      await waitForCondition(() => didClose.events.length === 1);
+      await didClose.calledOnce();
 
       expect(didClose.count).to.be.equal(1);
       await waitForLitRender(element);
@@ -166,9 +166,9 @@ describe(`sbb-select`, () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
       element.click();
 
-      await waitForCondition(() => willOpen.events.length === 1);
+      await willOpen.calledOnce();
       expect(willOpen.count).to.be.equal(1);
-      await waitForCondition(() => didOpen.events.length === 1);
+      await didOpen.calledOnce();
 
       expect(didOpen.count).to.be.equal(1);
       await waitForLitRender(element);
@@ -192,9 +192,9 @@ describe(`sbb-select`, () => {
       expect(selectionChange.count).to.be.equal(1);
       expect(optionSelected.count).to.be.equal(1);
 
-      await waitForCondition(() => willClose.events.length === 1);
+      await willClose.calledOnce();
       expect(willClose.count).to.be.equal(1);
-      await waitForCondition(() => didClose.events.length === 1);
+      await didClose.calledOnce();
       expect(didClose.count).to.be.equal(1);
       await waitForLitRender(element);
 
@@ -210,9 +210,9 @@ describe(`sbb-select`, () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
       element.dispatchEvent(new CustomEvent('click'));
 
-      await waitForCondition(() => willOpen.events.length === 1);
+      await willOpen.calledOnce();
       expect(willOpen.count).to.be.equal(1);
-      await waitForCondition(() => didOpen.events.length === 1);
+      await didOpen.calledOnce();
       expect(didOpen.count).to.be.equal(1);
       await waitForLitRender(element);
       expect(firstOption).not.to.have.attribute('data-active');
@@ -251,23 +251,23 @@ describe(`sbb-select`, () => {
       focusableElement.focus();
       await sendKeys({ press: 'Enter' });
       await waitForLitRender(element);
-      await waitForCondition(() => didOpen.events.length === 1);
+      await didOpen.calledOnce();
       expect(didOpen.count).to.be.equal(1);
 
       focusableElement.focus();
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(element);
-      await waitForCondition(() => didClose.events.length === 1);
+      await didClose.calledOnce();
       expect(didClose.count).to.be.equal(1);
 
       focusableElement.focus();
       await sendKeys({ press: 'ArrowDown' });
-      await waitForCondition(() => didOpen.events.length === 2);
+      await didOpen.calledTimes(2);
       expect(didOpen.count).to.be.equal(2);
 
       focusableElement.focus();
       await sendKeys({ press: tabKey });
-      await waitForCondition(() => didClose.events.length === 2);
+      await didClose.calledTimes(2);
       expect(didClose.count).to.be.equal(2);
 
       focusableElement.focus();
@@ -291,7 +291,7 @@ describe(`sbb-select`, () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
       focusableElement.focus();
       await sendKeys({ press: ' ' });
-      await waitForCondition(() => didOpen.events.length === 1);
+      await didOpen.calledOnce();
       expect(didOpen.count).to.be.equal(1);
       expect(firstOption).not.to.have.attribute('data-active');
       expect(firstOption).not.to.have.attribute('selected');
@@ -333,7 +333,7 @@ describe(`sbb-select`, () => {
       const didClose = new EventSpy(SbbSelectElement.events.didClose);
       focusableElement.focus();
       await sendKeys({ press: 'ArrowUp' });
-      await waitForCondition(() => didOpen.events.length === 1);
+      await didOpen.calledOnce();
       expect(didOpen.count).to.be.equal(1);
 
       expect(secondOption).not.to.have.attribute('data-active');
@@ -348,13 +348,13 @@ describe(`sbb-select`, () => {
       expect(displayValue).to.have.trimmed.text('Second');
 
       await sendKeys({ press: 'Escape' });
-      await waitForCondition(() => didClose.events.length === 1);
+      await didClose.calledOnce();
       expect(didClose.count).to.be.equal(1);
 
       element.focus();
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
-      await waitForCondition(() => didOpen.events.length === 2);
+      await didOpen.calledTimes(2);
       expect(didOpen.count).to.be.equal(2);
       expect(secondOption).not.to.have.attribute('data-active');
       expect(secondOption).to.have.attribute('selected');
@@ -377,7 +377,7 @@ describe(`sbb-select`, () => {
       element.addEventListener(SbbSelectElement.events.willOpen, (ev) => ev.preventDefault());
       element.open();
 
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await willOpenEventSpy.calledOnce();
       expect(willOpenEventSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
@@ -389,13 +389,13 @@ describe(`sbb-select`, () => {
       const willCloseEventSpy = new EventSpy(SbbSelectElement.events.willClose);
 
       element.open();
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      await didOpenEventSpy.calledOnce();
       await waitForLitRender(element);
 
       element.addEventListener(SbbSelectElement.events.willClose, (ev) => ev.preventDefault());
       element.close();
 
-      await waitForCondition(() => willCloseEventSpy.events.length === 1);
+      await willCloseEventSpy.calledOnce();
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -460,6 +460,7 @@ describe(`sbb-select`, () => {
       expect(elemInputEvent.count, 'compare to native - input counts').to.be.equal(
         nativeInputEvent.count,
       );
+      expect(element.type, 'compare to native - type').to.be.equal(nativeSelect.type);
     }
 
     it('should set default value', async () => {
@@ -553,6 +554,138 @@ describe(`sbb-select`, () => {
 
       expect(element.value).to.be.equal('2');
       compareToNative();
+    });
+  });
+
+  describe('label handling', () => {
+    it('should sync aria-label initially', async () => {
+      const element = await fixture(html`
+        <sbb-select aria-label="Test">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
+    });
+
+    it('should sync aria-label on change', async () => {
+      const element = await fixture(html`
+        <sbb-select>
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      expect(comboBoxElement).not.to.have.attribute('aria-label');
+
+      element.setAttribute('aria-label', 'Test');
+      await waitForLitRender(element);
+
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
+    });
+
+    it('should prefer aria-label over label element', async () => {
+      const element = await fixture(html`
+        <label for="select">Ignored</label>
+        <sbb-select aria-label="Test" id="select">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
+    });
+
+    it('should sync aria-labelledby initially', async () => {
+      const element = await fixture(html`
+        <sbb-select aria-labelledby="Test">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
+    });
+
+    it('should sync aria-labelledby on change', async () => {
+      const element = await fixture(html`
+        <sbb-select>
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      expect(comboBoxElement).not.to.have.attribute('aria-labelledby');
+
+      element.setAttribute('aria-labelledby', 'Test');
+      await waitForLitRender(element);
+
+      expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
+    });
+
+    it('should prefer aria-labelledby over label element', async () => {
+      const element = await fixture(html`
+        <label for="select">Ignored</label>
+        <sbb-select aria-labelledby="Test" id="select">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
+    });
+
+    it('should combine aria-describedby with label element', async () => {
+      const element = await fixture(html`
+        <label for="select">Label</label>
+        <sbb-select aria-describedby="Test" id="select">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-describedby', 'Test');
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
+    });
+
+    it('should take label elements as aria-label', async () => {
+      const element = await fixture(html`
+        <label for="select">Label</label>
+        <label for="select">Label 2</label>
+        <sbb-select id="select">
+          <sbb-option id="option-1" value="1">First</sbb-option>
+        </sbb-select>
+      `);
+
+      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Label, Label 2');
+    });
+
+    it('should remove label when disappearing', async () => {
+      const root = await fixture(
+        html`<div>
+          <label for="select">Label</label>
+          <sbb-select id="select">
+            <sbb-option id="option-1" value="1">First</sbb-option>
+          </sbb-select>
+        </div> `,
+      );
+
+      const element = root.querySelector('sbb-select')!;
+      const comboBoxElement = root.querySelector('[role="combobox"]')!;
+      expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
+
+      root.querySelector('label')!.remove();
+
+      // Trigger sync by triggering connectedCallback()
+      element.connectedCallback();
+
+      expect(comboBoxElement).not.to.have.attribute('aria-label');
     });
   });
 });

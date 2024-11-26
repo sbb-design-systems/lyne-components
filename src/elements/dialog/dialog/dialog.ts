@@ -269,7 +269,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     const hideHeader =
       typeof hideOnScroll === 'boolean'
         ? hideOnScroll
-        : isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true });
+        : (isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true }) ?? false);
     this.toggleAttribute('data-hide-header', !hideHeader ? false : value);
     if (this._dialogTitleElement) {
       this._dialogTitleElement.toggleAttribute('data-hide-header', !hideHeader ? false : value);

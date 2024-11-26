@@ -1,4 +1,3 @@
-import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -8,10 +7,8 @@ import {
   type TemplateResult,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
@@ -30,6 +27,7 @@ interface AggregatedSector {
  * It displays a train composition, acting as a container for one or more `sbb-train` component.
  *
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
+ * @cssprop [--sbb-train-formation-padding-inline=0px] - Defines the inline padding inside the horizontal scrolling area.
  */
 export
 @customElement('sbb-train-formation')
@@ -39,20 +37,11 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-train'];
 
-  /** Option to hide all wagon labels. */
-  @forceType()
-  @property({ attribute: 'hide-wagon-label', reflect: true, type: Boolean })
-  public accessor hideWagonLabel: boolean = false;
+  /** Whether the view of the wagons is from side or top perspective. */
+  @property({ reflect: true }) public accessor view: 'side' | 'top' = 'side';
 
   @state() private accessor _sectors: AggregatedSector[] = [];
 
-  /** Element that defines the visible content width. */
-  private _formationDiv?: HTMLDivElement;
-  private _contentResizeObserver = new ResizeController(this, {
-    target: null,
-    skipInitial: true,
-    callback: () => this._applyCssWidth(),
-  });
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
 
@@ -61,15 +50,6 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
     const signal = this._abort.signal;
     this.addEventListener('trainSlotChange', (e) => this._readSectors(e), { signal });
     this.addEventListener('sectorChange', (e) => this._readSectors(e), { signal });
-  }
-
-  /**
-   * Apply width of the scrollable space of the formation as a css variable. This will be used from
-   * every slotted sbb-train for the direction-label
-   */
-  private _applyCssWidth(): void {
-    const contentWidth = this._formationDiv!.getBoundingClientRect().width;
-    this._formationDiv!.style.setProperty('--sbb-train-direction-width', `${contentWidth}px`);
   }
 
   private _readSectors(event?: Event): void {
@@ -114,22 +94,6 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
     );
   }
 
-  private async _updateFormationDiv(el: Element | undefined): Promise<void> {
-    if (!el) {
-      return;
-    }
-    if (this._formationDiv) {
-      this._contentResizeObserver.unobserve(this._formationDiv);
-    }
-    this._formationDiv = el as HTMLDivElement;
-    this._contentResizeObserver.observe(this._formationDiv);
-    // There seems to be a slight difference between browser, in how the
-    // observer is called. In order to be consistent across browsers
-    // we set the width manually once the component update is complete.
-    await this.updateComplete;
-    this._applyCssWidth();
-  }
-
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
 
@@ -140,7 +104,7 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-train-formation" ${ref(this._updateFormationDiv)}>
+      <div class="sbb-train-formation">
         ${this._sectors.length && this._sectors[0].label !== undefined
           ? html`<div class="sbb-train-formation__sectors" aria-hidden="true">
               ${this._sectors.map(

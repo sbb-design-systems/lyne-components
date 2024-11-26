@@ -2,7 +2,7 @@ import { ElementRef, inject, Input, NgZone } from '@angular/core';
 import type {
   SbbDisabledInteractiveMixinType,
   SbbDisabledMixinType,
-  SbbFormAssociatedMixinType
+  SbbFormAssociatedMixinType,
 } from '@sbb-esta/lyne-elements/core/mixins.js';
 
 import type { AbstractConstructor } from './constructor.js';

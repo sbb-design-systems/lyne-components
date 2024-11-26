@@ -14,13 +14,13 @@ snapshots["sbb-teaser-hero renders DOM"] =
   target="_blank"
 >
   Break out and explore castles and palaces.
-  <sbb-chip
+  <sbb-chip-label
     color="charcoal"
     size="xxs"
     slot="chip"
   >
     Label
-  </sbb-chip>
+  </sbb-chip-label>
 </sbb-teaser-hero>
 `;
 /* end snapshot sbb-teaser-hero renders DOM */
@@ -93,13 +93,13 @@ snapshots["sbb-teaser-hero renders with slots DOM"] =
     slot="image"
   >
   </sbb-image>
-  <sbb-chip
+  <sbb-chip-label
     color="charcoal"
     size="xxs"
     slot="chip"
   >
     Label
-  </sbb-chip>
+  </sbb-chip-label>
 </sbb-teaser-hero>
 `;
 /* end snapshot sbb-teaser-hero renders with slots DOM */
