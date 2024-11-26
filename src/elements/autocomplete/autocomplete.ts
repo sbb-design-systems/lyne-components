@@ -82,7 +82,7 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
         break;
 
       case 'Enter':
-        this.selectByKeyboard();
+        this.selectByKeyboard(event);
         break;
 
       case 'ArrowDown':
@@ -92,7 +92,8 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
     }
   }
 
-  protected selectByKeyboard(): void {
+  protected selectByKeyboard(event: KeyboardEvent): void {
+    event.preventDefault();
     const activeOption = this.options[this._activeItemIndex];
 
     if (activeOption) {
