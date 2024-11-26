@@ -171,6 +171,9 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     if (loadedTabs.length) {
       loadedTabs.forEach((tab) => this._configure(tab));
       this._tabs = this._tabs.concat(loadedTabs);
+
+      // If there is an active tab in the new batch, it becomes the new selected
+      loadedTabs.find((tab) => tab.active)?.tabGroupActions?.select();
     }
   };
 
