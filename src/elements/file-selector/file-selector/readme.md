@@ -80,19 +80,19 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                        | Default     | Description                                                                   |
-| -------------------- | --------------------- | ------- | --------------------------- | ----------- | ----------------------------------------------------------------------------- |
-| `accept`             | `accept`              | public  | `string`                    | `''`        | A comma-separated list of allowed unique file type specifiers.                |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                    | `''`        | This will be forwarded as aria-label to the native input element.             |
-| `disabled`           | `disabled`            | public  | `boolean`                   | `false`     | Whether the component is disabled.                                            |
-| `files`              | -                     | public  | `Readonly<File>[]`          | `[]`        | The list of selected files.                                                   |
-| `form`               | -                     | public  | `HTMLFormElement \| null`   |             | Returns the form owner of the internals of the target element.                |
-| `multiple`           | `multiple`            | public  | `boolean`                   | `false`     | Whether more than one file can be selected.                                   |
-| `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` | `'default'` | Whether the newly added files should override the previously added ones.      |
-| `name`               | `name`                | public  | `string`                    |             | Name of the form element. Will be read from name attribute.                   |
-| `size`               | `size`                | public  | `'s' \| 'm'`                |             | Size variant, either s or m.                                                  |
-| `type`               | -                     | public  | `string`                    | `'file'`    | Form type of element.                                                         |
-| `value`              | `value`               | public  | `string \| null`            | `null`      | The path of the first selected file. Empty string ('') if no file is selected |
+| Name                 | Attribute             | Privacy | Type                        | Default            | Description                                                                   |
+| -------------------- | --------------------- | ------- | --------------------------- | ------------------ | ----------------------------------------------------------------------------- |
+| `accept`             | `accept`              | public  | `string`                    | `''`               | A comma-separated list of allowed unique file type specifiers.                |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                    | `''`               | This will be forwarded as aria-label to the native input element.             |
+| `disabled`           | `disabled`            | public  | `boolean`                   | `false`            | Whether the component is disabled.                                            |
+| `files`              | -                     | public  | `Readonly<File>[]`          | `[]`               | The list of selected files.                                                   |
+| `form`               | -                     | public  | `HTMLFormElement \| null`   |                    | Returns the form owner of the internals of the target element.                |
+| `multiple`           | `multiple`            | public  | `boolean`                   | `false`            | Whether more than one file can be selected.                                   |
+| `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` | `'default'`        | Whether the newly added files should override the previously added ones.      |
+| `name`               | `name`                | public  | `string`                    |                    | Name of the form element. Will be read from name attribute.                   |
+| `size`               | `size`                | public  | `'s' \| 'm'`                | `'m' / 's' (lean)` | Size variant, either s or m.                                                  |
+| `type`               | -                     | public  | `string`                    | `'file'`           | Form type of element.                                                         |
+| `value`              | `value`               | public  | `string \| null`            | `null`             | The path of the first selected file. Empty string ('') if no file is selected |
 
 ## Methods
 

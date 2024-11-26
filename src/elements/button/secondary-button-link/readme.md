@@ -77,18 +77,18 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Properties
 
-| Name                  | Attribute              | Privacy | Type                       | Default | Description                                                                                                                      |
-| --------------------- | ---------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityLabel`  | `accessibility-label`  | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
-| `disabled`            | `disabled`             | public  | `boolean`                  | `false` | Whether the component is disabled.                                                                                               |
-| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                  | `false` | Whether the button should be aria-disabled but stay interactive.                                                                 |
-| `download`            | `download`             | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
-| `href`                | `href`                 | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
-| `iconName`            | `icon-name`            | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `negative`            | `negative`             | public  | `boolean`                  | `false` | Negative coloring variant flag.                                                                                                  |
-| `rel`                 | `rel`                  | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
-| `size`                | `size`                 | public  | `SbbButtonSize`            |         | Size variant, either l or m.                                                                                                     |
-| `target`              | `target`               | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
+| Name                  | Attribute              | Privacy | Type                       | Default            | Description                                                                                                                      |
+| --------------------- | ---------------------- | ------- | -------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel`  | `accessibility-label`  | public  | `string`                   | `''`               | This will be forwarded as aria-label to the inner anchor element.                                                                |
+| `disabled`            | `disabled`             | public  | `boolean`                  | `false`            | Whether the component is disabled.                                                                                               |
+| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                  | `false`            | Whether the button should be aria-disabled but stay interactive.                                                                 |
+| `download`            | `download`             | public  | `boolean`                  | `false`            | Whether the browser will show the download dialog on click.                                                                      |
+| `href`                | `href`                 | public  | `string`                   | `''`               | The href value you want to link to.                                                                                              |
+| `iconName`            | `icon-name`            | public  | `string`                   | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `negative`            | `negative`             | public  | `boolean`                  | `false`            | Negative coloring variant flag.                                                                                                  |
+| `rel`                 | `rel`                  | public  | `string`                   | `''`               | The relationship of the linked URL as space-separated link types.                                                                |
+| `size`                | `size`                 | public  | `SbbButtonSize`            | `'l' / 's' (lean)` | Size variant, either l, m or s.                                                                                                  |
+| `target`              | `target`               | public  | `LinkTargetType \| string` | `''`               | Where to display the linked URL.                                                                                                 |
 
 ## Slots
 

@@ -18,7 +18,10 @@ export
 class SbbCardElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** Size variant, either xs, s, m, l, xl, xxl or xxxl. */
+  /**
+   * Size variant, either xs, s, m, l, xl, xxl or xxxl.
+   * @default 'm' / 'xs' (lean)
+   */
   @property({ reflect: true }) public accessor size:
     | 'xs'
     | 's'

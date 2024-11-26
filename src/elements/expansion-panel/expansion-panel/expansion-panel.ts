@@ -70,7 +70,10 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   @property({ reflect: true, type: Boolean })
   public accessor borderless: boolean = false;
 
-  /** Size variant, either l or s. */
+  /**
+   * Size variant, either l or s.
+   * @default 'l' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
 
   /**

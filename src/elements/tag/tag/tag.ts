@@ -46,7 +46,10 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
   @property({ reflect: true, type: Boolean })
   public accessor checked: boolean = false;
 
-  /** Tag size. */
+  /**
+   * Tag size, either s or m
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true })
   @getOverride((i, v) => i._group?.size ?? v)
   public accessor size: SbbTagSize = isLean() ? 's' : 'm';

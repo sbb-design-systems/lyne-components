@@ -31,7 +31,10 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   @property({ reflect: true, type: Boolean })
   public accessor required: boolean = false;
 
-  /** Size variant, either m or s. */
+  /**
+   * Size variant, either m, s or xs.
+   * @default 'm' / 'xs' (lean)
+   */
   @property() public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
 
   /** Overrides the behaviour of `orientation` property. */

@@ -50,6 +50,7 @@ class SbbLinkListBaseElement extends SbbNegativeMixin(
   /**
    * Text size of the nested sbb-block-link instances.
    * This will overwrite the size attribute of nested sbb-block-link instances.
+   * @default 's' / 'xs' (lean)
    */
   @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
 

@@ -79,7 +79,7 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 | `orientation`         | `orientation`           | public  | `SbbOrientation`                                          | `'horizontal'`                             | Radio group's orientation, either horizontal or vertical. |
 | `radioButtons`        | -                       | public  | `(SbbRadioButtonElement \| SbbRadioButtonPanelElement)[]` |                                            | List of contained radio buttons.                          |
 | `required`            | `required`              | public  | `boolean`                                                 | `false`                                    | Whether the radio group is required.                      |
-| `size`                | `size`                  | public  | `SbbRadioButtonSize`                                      |                                            | Size variant.                                             |
+| `size`                | `size`                  | public  | `SbbRadioButtonSize`                                      | `'m' / 'xs' (lean)`                        | Size variant, either xs, s or m.                          |
 | `value`               | `value`                 | public  | `any \| null`                                             |                                            | The value of the radio group.                             |
 
 ## Events

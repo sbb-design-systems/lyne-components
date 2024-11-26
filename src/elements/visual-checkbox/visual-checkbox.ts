@@ -27,7 +27,10 @@ class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(LitElem
   @property({ reflect: true, type: Boolean })
   public accessor indeterminate: boolean = false;
 
-  /** Size of the checkbox. */
+  /**
+   * Size of the checkbox, either xs, s or m.
+   * @default 'm' / 'xs' (lean)
+   */
   @property({ reflect: true }) public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
 
   protected override render(): TemplateResult {

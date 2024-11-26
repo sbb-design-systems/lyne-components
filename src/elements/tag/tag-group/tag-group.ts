@@ -46,7 +46,10 @@ class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof Lit
   @property({ type: Boolean })
   public accessor multiple: boolean = false;
 
-  /** Tag group size. */
+  /**
+   * Tag group size, either s or m.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: SbbTagSize = isLean() ? 's' : 'm';
 
   /**

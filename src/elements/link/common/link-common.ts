@@ -34,6 +34,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
     /**
      * Text size, the link should get in the non-button variation.
      * With inline variant, the text size adapts to where it is used.
+     * @default 's' / 'xs' (lean)
      */
     @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
 

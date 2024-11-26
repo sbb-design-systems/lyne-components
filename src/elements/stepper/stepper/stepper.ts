@@ -52,7 +52,10 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   @property({ reflect: true })
   public accessor orientation: SbbOrientation = 'horizontal';
 
-  /** Size variant, either s or m. */
+  /**
+   * Size variant, either s or m.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
 
   /** The currently selected step. */

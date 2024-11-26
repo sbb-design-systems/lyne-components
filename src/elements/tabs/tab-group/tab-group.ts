@@ -84,7 +84,10 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     callback: (entries) => this._onTabContentElementResize(entries),
   });
 
-  /** Size variant, either s, l or xl. */
+  /**
+   * Size variant, either s, l or xl.
+   * @default 'l' / 's' (lean)
+   */
   @property()
   public set size(value: InterfaceSbbTabGroupTab['size']) {
     this._size = value;

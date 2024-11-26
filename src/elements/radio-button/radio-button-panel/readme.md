@@ -65,20 +65,20 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 
 ## Properties
 
-| Name                  | Attribute               | Privacy | Type                                 | Default   | Description                                                    |
-| --------------------- | ----------------------- | ------- | ------------------------------------ | --------- | -------------------------------------------------------------- |
-| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                            | `false`   | Whether the radio can be deselected.                           |
-| `borderless`          | `borderless`            | public  | `boolean`                            | `false`   | Whether the unselected panel has a border.                     |
-| `checked`             | `checked`               | public  | `boolean`                            | `false`   | Whether the radio button is checked.                           |
-| `color`               | `color`                 | public  | `'white' \| 'milk'`                  | `'white'` | The background color of the panel.                             |
-| `disabled`            | `disabled`              | public  | `boolean`                            | `false`   | Whether the component is disabled.                             |
-| `form`                | -                       | public  | `HTMLFormElement \| null`            |           | Returns the form owner of the internals of the target element. |
-| `group`               | -                       | public  | `SbbRadioButtonGroupElement \| null` | `null`    | Reference to the connected radio button group.                 |
-| `name`                | `name`                  | public  | `string`                             |           | Name of the form element. Will be read from name attribute.    |
-| `required`            | `required`              | public  | `boolean`                            | `false`   | Whether the component is required.                             |
-| `size`                | `size`                  | public  | `SbbPanelSize`                       |           | Size variant.                                                  |
-| `type`                | -                       | public  | `string`                             | `'radio'` | Form type of element.                                          |
-| `value`               | `value`                 | public  | `string \| null`                     | `null`    | Value of the form element.                                     |
+| Name                  | Attribute               | Privacy | Type                                 | Default            | Description                                                    |
+| --------------------- | ----------------------- | ------- | ------------------------------------ | ------------------ | -------------------------------------------------------------- |
+| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                            | `false`            | Whether the radio can be deselected.                           |
+| `borderless`          | `borderless`            | public  | `boolean`                            | `false`            | Whether the unselected panel has a border.                     |
+| `checked`             | `checked`               | public  | `boolean`                            | `false`            | Whether the radio button is checked.                           |
+| `color`               | `color`                 | public  | `'white' \| 'milk'`                  | `'white'`          | The background color of the panel.                             |
+| `disabled`            | `disabled`              | public  | `boolean`                            | `false`            | Whether the component is disabled.                             |
+| `form`                | -                       | public  | `HTMLFormElement \| null`            |                    | Returns the form owner of the internals of the target element. |
+| `group`               | -                       | public  | `SbbRadioButtonGroupElement \| null` | `null`             | Reference to the connected radio button group.                 |
+| `name`                | `name`                  | public  | `string`                             |                    | Name of the form element. Will be read from name attribute.    |
+| `required`            | `required`              | public  | `boolean`                            | `false`            | Whether the component is required.                             |
+| `size`                | `size`                  | public  | `SbbPanelSize`                       | `'m' / 's' (lean)` | Size variant, either s or m.                                   |
+| `type`                | -                       | public  | `string`                             | `'radio'`          | Form type of element.                                          |
+| `value`               | `value`                 | public  | `string \| null`                     | `null`             | Value of the form element.                                     |
 
 ## Methods
 

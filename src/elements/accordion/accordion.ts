@@ -21,7 +21,10 @@ export
 class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  /** Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. */
+  /**
+   * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.
+   * @default 'l' / 's' (lean)
+   */
   @property({ reflect: true })
   public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
 

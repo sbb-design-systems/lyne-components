@@ -31,7 +31,10 @@ class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = '';
 
-  /** Size variant, either s, m, l or xl. */
+  /**
+   * Size variant, either s, m, l or xl.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: SbbMiniButtonGroupSize = isLean() ? 's' : 'm';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

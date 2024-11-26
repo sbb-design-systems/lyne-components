@@ -1,7 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 
-import { homeLeanTemplate } from './home-lean.js';
 import { homeLoggedInTemplate } from './home-logged-in.js';
 import { homeTemplate } from './home.js';
 import readme from './readme.md?raw';
@@ -34,13 +33,6 @@ export const home: StoryObj = {
 
 export const homeLoggedIn: StoryObj = {
   render: homeLoggedInTemplate,
-};
-
-export const lean: StoryObj = {
-  render: homeLeanTemplate,
-  parameters: {
-    isLean: true,
-  },
 };
 
 const meta: Meta = {

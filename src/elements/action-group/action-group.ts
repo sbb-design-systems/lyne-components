@@ -43,8 +43,9 @@ class SbbActionGroupElement extends LitElement {
   public accessor orientation: SbbOrientation = 'horizontal';
 
   /**
-   * Size of the nested sbb-button instances. This will overwrite the size attribute of nested
-   * sbb-button instances.
+   * Size of the nested sbb-button instances.
+   * This will overwrite the size attribute of nested sbb-button instances.
+   * @default 'l' / 's' (lean)
    */
   @property({ attribute: 'button-size', reflect: true })
   public accessor buttonSize: SbbButtonSize = isLean() ? 's' : 'l';

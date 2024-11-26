@@ -84,17 +84,17 @@ guard against such cases in your component.
 
 ## Properties
 
-| Name                  | Attribute              | Privacy | Type                      | Default    | Description                                                                                                                      |
-| --------------------- | ---------------------- | ------- | ------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled`            | `disabled`             | public  | `boolean`                 | `false`    | Whether the component is disabled.                                                                                               |
-| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                 | `false`    | Whether the button should be aria-disabled but stay interactive.                                                                 |
-| `form`                | `form`                 | public  | `HTMLFormElement \| null` |            | Returns the form owner of the internals of the target element.                                                                   |
-| `iconName`            | `icon-name`            | public  | `string`                  | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                      |
-| `negative`            | `negative`             | public  | `boolean`                 | `false`    | Negative coloring variant flag.                                                                                                  |
-| `size`                | `size`                 | public  | `SbbButtonSize`           |            | Size variant, either l or m.                                                                                                     |
-| `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                        |
-| `value`               | `value`                | public  | `string \| null`          | `null`     | Value of the form element.                                                                                                       |
+| Name                  | Attribute              | Privacy | Type                      | Default            | Description                                                                                                                      |
+| --------------------- | ---------------------- | ------- | ------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`            | `disabled`             | public  | `boolean`                 | `false`            | Whether the component is disabled.                                                                                               |
+| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                 | `false`            | Whether the button should be aria-disabled but stay interactive.                                                                 |
+| `form`                | `form`                 | public  | `HTMLFormElement \| null` |                    | Returns the form owner of the internals of the target element.                                                                   |
+| `iconName`            | `icon-name`            | public  | `string`                  | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `name`                | `name`                 | public  | `string`                  |                    | Name of the form element. Will be read from name attribute.                                                                      |
+| `negative`            | `negative`             | public  | `boolean`                 | `false`            | Negative coloring variant flag.                                                                                                  |
+| `size`                | `size`                 | public  | `SbbButtonSize`           | `'l' / 's' (lean)` | Size variant, either l, m or s.                                                                                                  |
+| `type`                | `type`                 | public  | `SbbButtonType`           | `'button'`         | The type attribute to use for the button.                                                                                        |
+| `value`               | `value`                | public  | `string \| null`          | `null`             | Value of the form element.                                                                                                       |
 
 ## Slots
 

@@ -46,7 +46,10 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   @property({ reflect: true, type: Boolean })
   public accessor readonly: boolean = false;
 
-  /** You can choose between `s`, `m` or `l` size. */
+  /**
+   * You can choose between `s`, `m` or `l` size.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = isLean() ? 's' : 'm';
 
   /**

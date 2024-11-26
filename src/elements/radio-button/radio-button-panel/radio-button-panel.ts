@@ -49,11 +49,12 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
     panelConnected: 'panelConnected',
   } as const;
 
-  /** Size variant. */
+  /**
+   * Size variant, either s or m.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true })
-  @getOverride((i, v) =>
-    i.group?.size ? (isLean() || i.group.size === 'xs' ? 's' : i.group.size) : v,
-  )
+  @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
   public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
 
   private _hasSelectionExpansionPanelElement: boolean = false;

@@ -51,7 +51,10 @@ class SbbToggleElement extends LitElement {
   @property({ reflect: true, type: Boolean })
   public accessor even: boolean = false;
 
-  /** Size variant, either m or s. */
+  /**
+   * Size variant, either m or s.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
 
   /**

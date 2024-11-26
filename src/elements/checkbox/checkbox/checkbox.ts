@@ -34,7 +34,10 @@ class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(SbbIconNameMixin(
     didChange: 'didChange',
   } as const;
 
-  /** Size variant. */
+  /**
+   * Size variant, either m, s or xs.
+   * @default 'm' / 'xs' (lean)
+   */
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)
   public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';

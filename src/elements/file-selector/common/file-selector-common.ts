@@ -58,7 +58,10 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       fileChangedEvent: 'fileChanged',
     } as const;
 
-    /** Size variant, either s or m. */
+    /**
+     * Size variant, either s or m.
+     * @default 'm' / 's' (lean)
+     */
     @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
 
     /** Whether more than one file can be selected. */

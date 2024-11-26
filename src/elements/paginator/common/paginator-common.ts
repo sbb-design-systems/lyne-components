@@ -86,7 +86,10 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       | 'start'
       | 'end' = 'start';
 
-    /** Size variant, either m or s. */
+    /**
+     * Size variant, either m or s.
+     * @default 'm' / 's' (lean)
+     */
     @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
     private _page: EventEmitter<SbbPaginatorPageEventDetails> = new EventEmitter(
@@ -149,10 +152,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
 
     protected renderPrevNextButtons(): TemplateResult {
       return html`
-        <sbb-mini-button-group
-          ?negative=${this.negative}
-          size=${isLean() || this.size === 's' ? 's' : 'l'}
-        >
+        <sbb-mini-button-group ?negative=${this.negative} size=${this.size === 's' ? 's' : 'l'}>
           <sbb-mini-button
             id="sbb-paginator-prev-page"
             aria-label=${i18nPreviousPage[this.language.current]}

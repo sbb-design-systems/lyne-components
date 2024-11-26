@@ -75,7 +75,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   @property({ type: Boolean })
   public accessor optional: boolean = false;
 
-  /** Size variant, either l or m. */
+  /**
+   * Size variant, either l, m or s.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: 'l' | 'm' | 's' = isLean() ? 's' : 'm';
 
   /** Whether to display the form field without a border. */

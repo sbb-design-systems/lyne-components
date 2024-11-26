@@ -50,7 +50,10 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   @property({ attribute: 'hide-on-scroll', reflect: true, type: Boolean })
   public accessor hideOnScroll: boolean = false;
 
-  /** Size of the header. */
+  /**
+   * Size of the header, either m or s.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
   @state() private accessor _headerOnTop = true;

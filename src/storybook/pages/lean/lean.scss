@@ -1,0 +1,24 @@
+@use '../../../elements/core/styles' as sbb;
+
+.lean-section {
+  display: flex;
+  flex-wrap: wrap;
+  margin-block: var(--sbb-spacing-fixed-4x);
+}
+
+.lean-container {
+  width: 100%;
+  display: flex;
+  gap: var(--sbb-spacing-fixed-4x);
+  padding: var(--sbb-spacing-fixed-4x);
+  flex-wrap: wrap;
+}
+
+.lean-container-half {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 50%;
+  gap: var(--sbb-spacing-fixed-4x);
+  padding: var(--sbb-spacing-fixed-4x);
+}

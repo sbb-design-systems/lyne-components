@@ -78,7 +78,8 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   private _fallbackValue: any | null = null;
 
   /**
-   * Size variant.
+   * Size variant, either xs, s or m.
+   * @default 'm' / 'xs' (lean)
    */
   @property() public accessor size: SbbRadioButtonSize = isLean() ? 'xs' : 'm';
 

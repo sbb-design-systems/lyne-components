@@ -1,5 +1,5 @@
 import type { Args } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import '../../../elements/button.js';
@@ -33,7 +33,7 @@ export const timetableInput = (): TemplateResult => html`
   </section>
 `;
 
-export const navigation = (isLean: boolean = false): TemplateResult => html`
+export const navigation = (): TemplateResult => html`
   <sbb-navigation trigger="hamburger-menu">
     <sbb-navigation-marker id="nav-marker">
       <sbb-navigation-button aria-current="page" id="nav-1" class="sbb-active">
@@ -46,7 +46,7 @@ export const navigation = (isLean: boolean = false): TemplateResult => html`
       </sbb-navigation-link>
     </sbb-navigation-marker>
 
-    <sbb-navigation-marker size=${isLean ? nothing : 's'}>
+    <sbb-navigation-marker size="s">
       <sbb-navigation-button aria-pressed="false" id="nav-5"> Deutsch </sbb-navigation-button>
       <sbb-navigation-button aria-pressed="false" id="nav-6"> Français </sbb-navigation-button>
       <sbb-navigation-button aria-pressed="false" id="nav-7"> Italiano </sbb-navigation-button>
@@ -92,9 +92,7 @@ export const navigation = (isLean: boolean = false): TemplateResult => html`
         <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
-      <sbb-button size=${isLean ? nothing : 'm'} class="navigation-button">
-        All Tickets & Offers
-      </sbb-button>
+      <sbb-button size="m" class="navigation-button"> All Tickets & Offers </sbb-button>
     </sbb-navigation-section>
 
     <sbb-navigation-section title-content="Title two" trigger="nav-2">
@@ -148,11 +146,7 @@ export const navigation = (isLean: boolean = false): TemplateResult => html`
         <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
-      <sbb-secondary-button
-        size=${isLean ? nothing : 'm'}
-        icon-name="circle-information-small"
-        class="navigation-button"
-      >
+      <sbb-secondary-button size="m" icon-name="circle-information-small" class="navigation-button">
         Travel Information
       </sbb-secondary-button>
     </sbb-navigation-section>
@@ -223,7 +217,7 @@ export const teaserHero = (): TemplateResult => html`
   </section>
 `;
 
-export const footer = (args: Args, isLean: boolean = false): TemplateResult => html`
+export const footer = (args: Args): TemplateResult => html`
   <sbb-footer
     accessibility-title="Footer"
     variant="clock-columns"
@@ -265,7 +259,7 @@ export const footer = (args: Args, isLean: boolean = false): TemplateResult => h
       </sbb-link-list>
       <sbb-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size=${isLean ? nothing : 'm'}
+        size="m"
       >
         All help topics
       </sbb-button-link>
@@ -313,7 +307,7 @@ export const footer = (args: Args, isLean: boolean = false): TemplateResult => h
       </span>
       <sbb-secondary-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size=${isLean ? nothing : 'm'}
+        size="m"
       >
         Subscribe
       </sbb-secondary-button-link>

@@ -49,7 +49,10 @@ class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
   /** Heading level of the journey header element (e.g. h1-h6). */
   @property() public accessor level: SbbTitleLevel = '3';
 
-  /** Journey header size. */
+  /**
+   * Journey header size, either s, m or l.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: JourneyHeaderSize = isLean() ? 's' : 'm';
 
   private _language = new SbbLanguageController(this);

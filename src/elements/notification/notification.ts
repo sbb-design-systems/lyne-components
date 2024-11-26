@@ -71,7 +71,10 @@ class SbbNotificationElement extends LitElement {
   @property({ reflect: true, type: Boolean })
   public accessor readonly: boolean = false;
 
-  /** Size variant, either s or m. */
+  /**
+   * Size variant, either s or m.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
   /** The enabled animations. */

@@ -1,25 +1,28 @@
-import type { Args } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import '../../../elements/alert.js';
 import '../../../elements/container.js';
 import '../../../elements/action-group.js';
+import '../../../elements/button.js';
+import '../../../elements/card.js';
 import '../../../elements/checkbox.js';
 import '../../../elements/form-field.js';
+import '../../../elements/header.js';
 import '../../../elements/icon.js';
+import '../../../elements/menu.js';
 import '../../../elements/paginator.js';
 import '../../../elements/radio-button.js';
+import '../../../elements/signet.js';
 import '../../../elements/table.js';
-import { footer, navigation, skiplinkList } from './home.common.js';
-import './home.scss';
 
-export const homeLeanTemplate = (args: Args): TemplateResult => html`
+import './lean.scss';
+
+const leanExampleTemplate = (): TemplateResult => html`
   <div>
-    ${skiplinkList()}
-
     <sbb-header hide-on-scroll expanded>
-      <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
@@ -36,15 +39,13 @@ export const homeLeanTemplate = (args: Args): TemplateResult => html`
         <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
         <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
       </sbb-menu>
-      <a href="https://www.sbb.ch" slot="logo">
-        <sbb-logo protective-room="none"></sbb-logo>
+      <a slot="logo" aria-label="Homepage" href="/">
+        <sbb-signet protective-room="panel"></sbb-signet>
       </a>
     </sbb-header>
 
-    ${navigation(true)}
-
     <sbb-container expanded>
-      <section class="lean-section sbb-page-spacing-expanded">
+      <section class="lean-section">
         <div class="lean-container">
           <sbb-form-field>
             <label>Departure</label>
@@ -64,10 +65,10 @@ export const homeLeanTemplate = (args: Args): TemplateResult => html`
           <sbb-button>Search</sbb-button>
         </div>
       </section>
-      <section class="lean-section sbb-page-spacing-expanded">
+      <section class="lean-section">
         <div class="lean-container-half">
           <sbb-table-wrapper>
-            <table class="sbb-table sbb-table-s sbb-table--striped">
+            <table class="sbb-table sbb-table-xs sbb-table--striped">
               <thead>
                 <th>Station</th>
                 <th>Departure</th>
@@ -137,7 +138,19 @@ export const homeLeanTemplate = (args: Args): TemplateResult => html`
         </div>
       </section>
     </sbb-container>
-
-    ${footer(args, true)}
   </div>
 `;
+
+export const leanExample: StoryObj = {
+  render: leanExampleTemplate,
+};
+
+const meta: Meta = {
+  parameters: {
+    isLean: true,
+    layout: 'fullscreen',
+  },
+  title: 'pages/lean',
+};
+
+export default meta;

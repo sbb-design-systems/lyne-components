@@ -31,7 +31,10 @@ class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement)
     input: 'input',
   } as const;
 
-  /** Size variant. */
+  /**
+   * Size variant.
+   * @default 'm' / 'xs' (lean)
+   */
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)
   public accessor size: SbbRadioButtonSize = isLean() ? 'xs' : 'm';

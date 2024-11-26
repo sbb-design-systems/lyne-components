@@ -36,7 +36,10 @@ export const SbbNavigationActionCommonElementMixin = <
   {
     public static styles: CSSResultGroup = style;
 
-    /** Action size variant. */
+    /**
+     * Action size variant, either s, m or l.
+     * @default 'l' / 's' (lean)
+     */
     @property({ reflect: true }) public accessor size: SbbNavigationActionSize = isLean()
       ? 's'
       : 'l';
