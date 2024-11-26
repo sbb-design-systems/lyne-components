@@ -62,24 +62,20 @@ $intersector-overlapping: 1px;
 }
 
 :host(
-    :is(
-        [data-sticking]:is(
-            [data-slide-vertically],
-            [data-state='sticking'],
-            [data-state='unsticking']
-          ),
-        [data-state='unsticky']
-      )
-  ) {
+  :is(
+    [data-sticking]:is([data-slide-vertically], [data-state='sticking'], [data-state='unsticking']),
+    [data-state='unsticky']
+  )
+) {
   --_sbb-sticky-bar-background-animation-duration: 0s;
 }
 
 :host(
-    [data-sticking]:is(
-        [data-slide-vertically]:not([data-state='unsticky'], [data-state='unsticking']),
-        [data-state='sticking']
-      )
-  ) {
+  [data-sticking]:is(
+      [data-slide-vertically]:not([data-state='unsticky'], [data-state='unsticking']),
+      [data-state='sticking']
+    )
+) {
   --sbb-sticky-bar-slide-vertically-animation-name: slide-in;
 }
 

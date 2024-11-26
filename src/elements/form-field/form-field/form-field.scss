@@ -37,8 +37,10 @@
     (
         var(--sbb-form-field-min-height) - var(--sbb-form-field-label-size) - var(
             --sbb-form-field-text-line-height
-          ) + var(--sbb-form-field-label-to-input-overlapping)
-      ) / 2
+          ) +
+          var(--sbb-form-field-label-to-input-overlapping)
+      ) /
+      2
   );
   --sbb-form-field-spacer-margin-block-end: calc(
     -1 * var(--sbb-form-field-label-to-input-overlapping)
