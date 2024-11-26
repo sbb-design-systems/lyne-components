@@ -39,7 +39,7 @@ For the latter, the usage of the `sbb-signet` with `protective-room='panel'` is 
   </sbb-header-link>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
   <a slot="logo" aria-label="Homepage" href="/">
-    <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+    <sbb-signet protective-room="panel"></sbb-signet>
   </a>
 </sbb-header>
 ```
