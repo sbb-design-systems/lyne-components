@@ -42,7 +42,14 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ attribute: 'chip-content', reflect: true, converter: omitEmptyConverter })
   public accessor chipContent: string = '';
 
-  protected override renderTemplate(): TemplateResult {
+  protected override render(): TemplateResult {
+    // We render the content outside the anchor tag to allow screen readers to navigate through it
+    return html`
+      <div class="sbb-teaser__wrapper">${this.renderLink()} ${this.renderContent()}</div>
+    `;
+  }
+
+  protected renderContent(): TemplateResult {
     return html`
       <span class="sbb-teaser__container">
         <span class="sbb-teaser__image-wrapper">

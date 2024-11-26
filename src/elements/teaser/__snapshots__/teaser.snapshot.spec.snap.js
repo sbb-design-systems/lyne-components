@@ -14,11 +14,13 @@ snapshots["sbb-teaser renders after centered DOM"] =
 /* end snapshot sbb-teaser renders after centered DOM */
 
 snapshots["sbb-teaser renders after centered Shadow DOM"] = 
-`<a
-  aria-label="SBB teaser"
-  class="sbb-action-base sbb-teaser"
-  href="https://github.com/sbb-design-systems/lyne-components"
->
+`<div class="sbb-teaser__wrapper">
+  <a
+    aria-label="SBB teaser"
+    class="sbb-action-base sbb-teaser"
+    href="https://github.com/sbb-design-systems/lyne-components"
+  >
+  </a>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
       <slot name="image">
@@ -49,7 +51,7 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
       </span>
     </span>
   </span>
-</a>
+</div>
 `;
 /* end snapshot sbb-teaser renders after centered Shadow DOM */
 
@@ -67,11 +69,13 @@ snapshots["sbb-teaser renders after with title level set DOM"] =
 /* end snapshot sbb-teaser renders after with title level set DOM */
 
 snapshots["sbb-teaser renders after with title level set Shadow DOM"] = 
-`<a
-  aria-label="SBB teaser"
-  class="sbb-action-base sbb-teaser"
-  href="https://github.com/sbb-design-systems/lyne-components"
->
+`<div class="sbb-teaser__wrapper">
+  <a
+    aria-label="SBB teaser"
+    class="sbb-action-base sbb-teaser"
+    href="https://github.com/sbb-design-systems/lyne-components"
+  >
+  </a>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
       <slot name="image">
@@ -102,7 +106,7 @@ snapshots["sbb-teaser renders after with title level set Shadow DOM"] =
       </span>
     </span>
   </span>
-</a>
+</div>
 `;
 /* end snapshot sbb-teaser renders after with title level set Shadow DOM */
 
@@ -132,11 +136,13 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
 /* end snapshot sbb-teaser renders below with projected content DOM */
 
 snapshots["sbb-teaser renders below with projected content Shadow DOM"] = 
-`<a
-  aria-label="SBB teaser"
-  class="sbb-action-base sbb-teaser"
-  href="https://github.com/sbb-design-systems/lyne-components"
->
+`<div class="sbb-teaser__wrapper">
+  <a
+    aria-label="SBB teaser"
+    class="sbb-action-base sbb-teaser"
+    href="https://github.com/sbb-design-systems/lyne-components"
+  >
+  </a>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
       <slot name="image">
@@ -167,7 +173,7 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
       </span>
     </span>
   </span>
-</a>
+</div>
 `;
 /* end snapshot sbb-teaser renders below with projected content Shadow DOM */
 
