@@ -1,5 +1,5 @@
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbFormAssociatedCheckboxMixinType } from '@sbb-esta/lyne-elements/core/mixins.js';
+import type { SbbFormAssociatedRadioButtonMixinType } from '@sbb-esta/lyne-elements/core/mixins.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin } from './disabled-mixin.js';
@@ -9,14 +9,14 @@ import { SbbRequiredMixin } from './required-mixin.js';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedCheckboxMixin = <T extends Constructor>(
+export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor>(
   superClass: T,
-): Constructor<SbbFormAssociatedCheckboxMixinType> & T => {
-  abstract class SbbFormAssociatedCheckboxElement
+): Constructor<SbbFormAssociatedRadioButtonMixinType> & T => {
+  abstract class SbbFormAssociatedRadioButtonElement
     extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
-    implements Partial<SbbFormAssociatedCheckboxMixinType>
+    implements Partial<SbbFormAssociatedRadioButtonMixinType>
   {
-    #element = inject(ElementRef<ReturnType<typeof SbbFormAssociatedCheckboxMixin>>);
+    #element = inject(ElementRef<ReturnType<typeof SbbFormAssociatedRadioButtonMixin>>);
     #ngZone = inject(NgZone);
 
     @Input({ transform: booleanAttribute })
@@ -26,8 +26,12 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor>(
     public get checked(): boolean {
       return this.#element.nativeElement.checked;
     }
+
+    public override get type(): string {
+      return this.#element.nativeElement.type;
+    }
   }
 
-  return SbbFormAssociatedCheckboxElement as unknown as Constructor<SbbFormAssociatedCheckboxMixinType> &
+  return SbbFormAssociatedRadioButtonElement as unknown as Constructor<SbbFormAssociatedRadioButtonMixinType> &
     T;
 };

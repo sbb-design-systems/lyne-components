@@ -1,6 +1,6 @@
 /* eslint-disable lyne/angular-generator-rule */
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbIconNameMixinType } from '@sbb-esta/lyne-elements/icon/icon-name-mixin';
+import type { SbbIconNameMixinType } from '@sbb-esta/lyne-elements/icon.js';
 
 import type { AbstractConstructor } from '../core/mixins/constructor';
 
