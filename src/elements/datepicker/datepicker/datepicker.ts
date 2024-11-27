@@ -56,7 +56,6 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
 /**
  * Combined with a native input, it displays the input's value as a formatted date.
  *
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Notifies that the connected input has changes.
  * @event {CustomEvent<SbbInputUpdateEvent>} inputUpdated - Notifies that the attributes of the input connected to the datepicker have changes.
  * @event {CustomEvent<void>} datePickerUpdated - Notifies that the attributes of the datepicker have changes.
@@ -67,7 +66,6 @@ export
 class SbbDatepickerElement<T = Date> extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'didChange',
     change: 'change',
     inputUpdated: 'inputUpdated',
     datePickerUpdated: 'datePickerUpdated',
@@ -110,14 +108,6 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     return this._valueAsDate ?? null;
   }
   private _valueAsDate?: T | null;
-
-  /**
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
-   */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbDatepickerElement.events.didChange, {
-    bubbles: true,
-    cancelable: true,
-  });
 
   /** Notifies that the connected input has changes. */
   private _change: EventEmitter = new EventEmitter(this, SbbDatepickerElement.events.change, {
@@ -269,7 +259,6 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     this._validateDate();
     this._setAriaLiveMessage();
     this._change.emit();
-    this._didChange.emit();
   }
 
   private _tryApplyFormatToInput(): boolean {

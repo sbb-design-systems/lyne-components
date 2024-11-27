@@ -39,13 +39,25 @@ describe(`sbb-time-input`, () => {
   it('should emit form events', async () => {
     const changeSpy = new EventSpy('change', element);
     const inputSpy = new EventSpy('input', element);
+    const nativeInputSpy = new EventSpy('input', input);
+    const nativeChangeSpy = new EventSpy('change', input);
 
-    typeInElement(input, '1');
+    input.focus();
+    await sendKeys({ press: '1' });
     input.blur();
     await waitForLitRender(element);
 
-    expect(changeSpy.count).to.be.greaterThan(0);
-    expect(inputSpy.count).to.be.greaterThan(0);
+    await nativeChangeSpy.calledOnce().then(() => {
+      expect(input.value).to.be.equal('01:00');
+    });
+    await changeSpy.calledOnce().then(() => {
+      expect(input.value).to.be.equal('01:00');
+    });
+
+    expect(inputSpy.count, 'sbb-time-input input event').to.be.equal(2);
+    expect(changeSpy.count, 'sbb-time-input change event').to.be.equal(1);
+    expect(nativeInputSpy.count, 'input input event').to.be.equal(2);
+    expect(nativeChangeSpy.count, 'input change event').to.be.equal(1);
   });
 
   it('should emit validation change event', async () => {

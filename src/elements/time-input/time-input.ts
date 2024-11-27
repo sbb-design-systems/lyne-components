@@ -175,7 +175,12 @@ class SbbTimeInputElement extends LitElement {
     const isTimeValid = !!time && this._isTimeValid(time);
     const isEmptyOrValid = !value || value.trim() === '' || isTimeValid;
     if (isEmptyOrValid && time) {
-      this._inputElement.value = this._formatValue(time);
+      // In order to support React onChange event, we have to get the setter and call it.
+      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
+      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+      setValue.call(this._inputElement, this._formatValue(time));
+
+      this._inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     }
 
     const wasValid = !this._inputElement.hasAttribute('data-sbb-invalid');

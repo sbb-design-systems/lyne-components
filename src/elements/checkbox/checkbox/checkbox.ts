@@ -19,7 +19,6 @@ import '../../visual-checkbox.js';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-checkbox`.
  * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
  */
@@ -28,10 +27,6 @@ export
 @slotState()
 class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxStyle];
-
-  public static readonly events = {
-    didChange: 'didChange',
-  } as const;
 
   /** Size variant. */
   @property({ reflect: true })
