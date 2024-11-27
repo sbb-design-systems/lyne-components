@@ -6,7 +6,7 @@ import type { Preview } from '@storybook/web-components';
 import '../src/elements/core/styles/standard-theme.scss';
 
 /**
- * The Lean design is applied by adding the 'sbb-lean' class to the document's body.
+ * The Lean design is applied by adding the 'sbb-lean' class to the document.
  */
 const withLeanDecorator = makeDecorator({
   name: 'withLeanStyle',
