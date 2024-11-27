@@ -32,7 +32,7 @@ class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement)
   } as const;
 
   /**
-   * Size variant.
+   * Size variant, either xs, s or m.
    * @default 'm' / 'xs' (lean)
    */
   @property({ reflect: true })

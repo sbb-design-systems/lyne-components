@@ -87,7 +87,7 @@ This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-descr
 | `form`                | `form`                 | public  | `HTMLFormElement \| null` |                    | Returns the form owner of the internals of the target element.                                                                   |
 | `iconName`            | `icon-name`            | public  | `string`                  | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `name`                | `name`                 | public  | `string`                  |                    | Name of the form element. Will be read from name attribute.                                                                      |
-| `size`                | `size`                 | public  | `SbbTagSize`              | `'m' / 's' (lean)` | Tag size, either s or m                                                                                                          |
+| `size`                | `size`                 | public  | `SbbTagSize`              | `'m' / 's' (lean)` | Tag size, either s or m.                                                                                                         |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'`         | The type attribute to use for the button.                                                                                        |
 | `value`               | `value`                | public  | `string \| null`          | `null`             | Value of the form element.                                                                                                       |
 

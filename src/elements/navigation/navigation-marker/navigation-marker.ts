@@ -27,7 +27,7 @@ class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   ];
 
   /**
-   * Marker size variant.
+   * Marker size variant, either s or l.
    * @default 'l' / 's' (lean)
    */
   @property({ reflect: true }) public accessor size: 'l' | 's' = isLean() ? 's' : 'l';
