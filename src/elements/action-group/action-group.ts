@@ -51,8 +51,9 @@ class SbbActionGroupElement extends LitElement {
   public accessor buttonSize: SbbButtonSize = isLean() ? 's' : 'l';
 
   /**
-   * Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested
-   * sbb-block-link instances.
+   * Size of the nested sbb-block-link instances.
+   * This will overwrite the size attribute of nested sbb-block-link instances.
+   * @default 'm' / 'xs' (lean)
    */
   @property({ attribute: 'link-size', reflect: true })
   public accessor linkSize: SbbLinkSize = isLean() ? 'xs' : 'm';

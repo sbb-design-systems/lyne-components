@@ -9,8 +9,7 @@
 .lean-container {
   width: 100%;
   display: flex;
-  gap: var(--sbb-spacing-fixed-4x);
-  padding: var(--sbb-spacing-fixed-4x);
+  padding-block: var(--sbb-spacing-fixed-4x);
   flex-wrap: wrap;
 }
 
@@ -19,6 +18,5 @@
   display: flex;
   flex-direction: column;
   flex: 50%;
-  gap: var(--sbb-spacing-fixed-4x);
-  padding: var(--sbb-spacing-fixed-4x);
+  padding-block: var(--sbb-spacing-fixed-4x);
 }
