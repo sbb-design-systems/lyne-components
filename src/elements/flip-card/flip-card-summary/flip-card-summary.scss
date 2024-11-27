@@ -12,7 +12,7 @@
 
 .sbb-flip-card-summary {
   display: grid;
-  position: absolute;
+  min-height: var(--sbb-flip-card-min-height);
   pointer-events: var(--sbb-flip-card-summary-pointer-events);
   opacity: var(--sbb-flip-card-summary-opacity);
   border-radius: var(--sbb-flip-card-border-radius);
