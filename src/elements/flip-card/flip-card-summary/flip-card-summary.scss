@@ -61,7 +61,6 @@
 }
 
 .sbb-flip-card-summary--image-wrapper {
-  max-height: var(--sbb-flip-card-min-height);
   grid-area: 2 / 1 / 3 / 2;
 
   :host([image-alignment='after']) & {
