@@ -18,7 +18,7 @@
   border-radius: var(--sbb-flip-card-border-radius);
   overflow: hidden;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto minmax(0, 1fr);
   width: 100%;
   height: 100%;
   transition: all var(--sbb-flip-card-summary-transition-duration) ease-out;
