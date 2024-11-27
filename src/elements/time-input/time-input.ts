@@ -144,18 +144,22 @@ class SbbTimeInputElement extends LitElement {
     );
     this._inputElement.addEventListener(
       'change',
-      (event: Event) => this._updateValueAndEmitChange(event),
+      (event: Event) => this._updateValue((event.target as HTMLInputElement).value),
+      {
+        signal: this._abortController.signal,
+        capture: true,
+      },
+    );
+    this._inputElement.addEventListener(
+      'change',
+      (event: Event) => {
+        this._emitChange(event);
+        this._updateAccessibilityMessage();
+      },
       {
         signal: this._abortController.signal,
       },
     );
-  }
-
-  /** Applies the correct format to values and triggers event dispatch. */
-  private _updateValueAndEmitChange(event: Event): void {
-    this._updateValue((event.target as HTMLInputElement).value);
-    this._emitChange(event);
-    this._updateAccessibilityMessage();
   }
 
   /**
