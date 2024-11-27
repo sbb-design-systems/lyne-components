@@ -82,11 +82,15 @@ describe(`sbb-datepicker`, () => {
 
       it('renders and emit event on value change', async () => {
         const changeSpy = new EventSpy('change', element);
+        const inputSpy = new EventSpy('input', element);
         typeInElement(input, '20/01/2023');
+        expect(inputSpy.count).to.be.equal(10);
+
         button.focus();
         await changeSpy.calledOnce();
         expect(input.value).to.be.equal('Fr, 20.01.2023');
         expect(changeSpy.count).to.be.equal(1);
+        expect(inputSpy.count).to.be.equal(11);
       });
 
       it('renders and interpret two digit year correctly in 2000s', async () => {
