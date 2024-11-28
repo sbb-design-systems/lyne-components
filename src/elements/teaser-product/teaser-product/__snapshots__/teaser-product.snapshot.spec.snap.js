@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser-product renders DOM"] =
+snapshots["sbb-teaser-product renders DOM"] = 
 `<sbb-teaser-product
   data-action=""
   data-link=""
@@ -28,7 +28,7 @@ snapshots["sbb-teaser-product renders DOM"] =
 `;
 /* end snapshot sbb-teaser-product renders DOM */
 
-snapshots["sbb-teaser-product renders Shadow DOM"] =
+snapshots["sbb-teaser-product renders Shadow DOM"] = 
 `<div class="sbb-teaser-product__wrapper">
   <a
     class="sbb-action-base sbb-teaser-product"
@@ -57,7 +57,7 @@ snapshots["sbb-teaser-product renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-product renders Shadow DOM */
 
-snapshots["sbb-teaser-product renders A11y tree Firefox"] =
+snapshots["sbb-teaser-product renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -82,7 +82,7 @@ snapshots["sbb-teaser-product renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-teaser-product renders A11y tree Firefox */
 
-snapshots["sbb-teaser-product renders A11y tree Chrome"] =
+snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
