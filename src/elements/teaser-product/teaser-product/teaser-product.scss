@@ -8,6 +8,13 @@
   );
   --sbb-teaser-product-animation-easing: var(--sbb-animation-easing);
   --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
+
+  // Simulate link color optically
+  @include sbb.if-forced-colors {
+    --sbb-title-text-color-normal-override: LinkText !important;
+    --sbb-teaser-product-content-color: LinkText !important;
+    --sbb-teaser-product-footer-color: LinkText !important;
+  }
 }
 
 :host(:hover) {
@@ -26,11 +33,6 @@
 
 .sbb-teaser-product__wrapper {
   position: relative;
-
-  // Simulate link color optically
-  @include sbb.if-forced-colors {
-    color: LinkText;
-  }
 }
 
 .sbb-teaser-product__content-wrapper {
