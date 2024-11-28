@@ -1,4 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import {
   describeViewports,
@@ -98,6 +99,39 @@ describe(`sbb-flip-card`, () => {
             html`<sbb-flip-card>
               ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
             </sbb-flip-card>`,
+          );
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        }),
+      );
+    }
+
+    for (const imageAlignment of ['after', 'below']) {
+      it(
+        `grid`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html` <div
+              style=${styleMap({
+                display: 'grid',
+                gridTemplateRows: 'minmax(320px, 1fr)',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gridColumnGap: '1rem',
+                gridRowGap: '1rem',
+              })}
+            >
+              <sbb-flip-card>
+                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
+              </sbb-flip-card>
+              <sbb-flip-card>
+                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
+              </sbb-flip-card>
+              <sbb-flip-card>
+                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
+              </sbb-flip-card>
+              <sbb-flip-card>
+                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
+              </sbb-flip-card>
+            </div>`,
           );
           await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
