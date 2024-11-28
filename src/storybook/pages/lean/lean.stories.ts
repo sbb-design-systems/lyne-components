@@ -45,7 +45,7 @@ const leanExampleTemplate = (): TemplateResult => html`
 
   <sbb-container expanded>
     <section class="lean-section">
-      <div class="sbb-grid-expanded lean-container">
+      <div class="lean-wrapper">
         <sbb-form-field>
           <label>Departure</label>
           <sbb-select>
@@ -67,9 +67,9 @@ const leanExampleTemplate = (): TemplateResult => html`
       </div>
     </section>
     <section class="lean-section">
-      <div class="sbb-grid-expanded lean-container-half">
+      <div class="lean-wrapper-half">
         <sbb-table-wrapper>
-          <table class="sbb-table sbb-table-xs sbb-table--striped">
+          <table class="sbb-table sbb-table--striped">
             <thead>
               <th>Station</th>
               <th>Departure</th>
@@ -111,7 +111,7 @@ const leanExampleTemplate = (): TemplateResult => html`
         </sbb-table-wrapper>
         <sbb-paginator page-size="10" length="100"></sbb-paginator>
       </div>
-      <div class="sbb-grid-expanded lean-container-half">
+      <div class="lean-wrapper-half">
         <sbb-radio-button-group orientation="vertical" horizontal-from="small">
           <sbb-radio-button value="Value one">Value one</sbb-radio-button>
           <sbb-radio-button value="Value two">Value two</sbb-radio-button>
