@@ -5,6 +5,15 @@ or an ongoing activity which require some time to complete.
 <sbb-loading-indicator-circle></sbb-loading-indicator-circle>
 ```
 
+It can be slotted in other components (e.g. `sbb-button`) in the icon slot.
+
+```html
+<sbb-button>
+  <sbb-loading-indicator-circle slot="icon"></sbb-loading-indicator-circle>
+  Button
+</sbb-button>
+```
+
 ## Accessibility
 
 If the `sbb-loading-indicator-circle` should be announced by screen-readers, use an element with the correct aria attributes

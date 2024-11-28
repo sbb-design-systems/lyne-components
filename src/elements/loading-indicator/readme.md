@@ -1,9 +1,10 @@
 The `sbb-loading-indicator` is a component which can be used to indicate progress status
 or an ongoing activity which require some time to complete.
+The component completely covers the parent element, preventing interaction with it.
 
 ### Style
 
-In `window` mode it's possible to define the `size` of the component, choosing between `s` (default), `l`, `xl`, `xxl`, and `xxxl`.
+It's possible to define the `size` of the component, choosing between `s` (default), `l`, `xl`, `xxl`, and `xxxl`.
 
 ```html
 <sbb-loading-indicator size="l"></sbb-loading-indicator>
