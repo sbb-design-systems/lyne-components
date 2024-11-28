@@ -11,6 +11,7 @@ export default defineConfig({
       scss: {
         // https://vitejs.dev/config/shared-options#css-preprocessoroptions
         // TODO: api: 'modern',
+        api: 'legacy',
         silenceDeprecations: ['legacy-js-api'],
       },
     },

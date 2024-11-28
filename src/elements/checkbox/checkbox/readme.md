@@ -98,11 +98,10 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 ## Events
 
-| Name        | Type                | Description                                                                      | Inherited From |
-| ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `change`    | `Event`             | Event fired on change.                                                           |                |
-| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
-| `input`     | `InputEvent`        | Event fired on input.                                                            |                |
+| Name     | Type         | Description            | Inherited From |
+| -------- | ------------ | ---------------------- | -------------- |
+| `change` | `Event`      | Event fired on change. |                |
+| `input`  | `InputEvent` | Event fired on input.  |                |
 
 ## Slots
 

@@ -96,7 +96,7 @@ class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
         break;
 
       case 'Enter':
-        this.selectByKeyboard();
+        this.selectByKeyboard(event);
         break;
 
       case 'ArrowDown':
@@ -118,7 +118,9 @@ class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
    * and greater than zero when a button is 'focused', so asking for `querySelectorAll(...)[this._activeColumnIndex]`
    * would always return a `SbbAutocompleteGridButtonElement`.
    */
-  protected selectByKeyboard(): void {
+  protected selectByKeyboard(event: KeyboardEvent): void {
+    event.preventDefault();
+
     if (this._activeColumnIndex !== 0) {
       (
         this._row[this._activeItemIndex].querySelectorAll(

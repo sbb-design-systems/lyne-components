@@ -179,7 +179,10 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
     if (this.triggerElement) {
       // Set the option value
-      this.triggerElement.value = target.value as string;
+      // In order to support React onChange event, we have to get the setter and call it.
+      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
+      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+      setValue.call(this.triggerElement, target.value);
 
       // Manually trigger the change events
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));

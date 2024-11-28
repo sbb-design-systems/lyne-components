@@ -38,7 +38,8 @@ const leanExampleTemplate = (): TemplateResult => html`
       <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
       <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
     </sbb-menu>
-    <a slot="logo" aria-label="Homepage" href="/">
+    <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
+    <a aria-label="Homepage" href="/" class="sbb-header-logo">
       <sbb-signet protective-room="panel"></sbb-signet>
     </a>
   </sbb-header>

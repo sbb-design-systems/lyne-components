@@ -41,13 +41,7 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
   protected abstract iconName: string;
   protected abstract i18nOffBoundaryDay: Record<string, string>;
   protected abstract i18nSelectOffBoundaryDay: (_currentDate: string) => Record<string, string>;
-  protected abstract findAvailableDate: (
-    _date: T,
-    _dateFilter: ((date: T) => boolean) | null,
-    _dateAdapter: DateAdapter<T>,
-    _boundary: string | number | null,
-  ) => T;
-  protected abstract onInputUpdated(event: CustomEvent<SbbInputUpdateEvent>): void;
+  protected abstract findAvailableDate(_date: T): T;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -71,8 +65,8 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
     this._datePickerController?.abort();
   }
 
-  protected setDisabledState(datepicker: SbbDatepickerElement<T> | null | undefined): void {
-    const pickerValueAsDate = datepicker?.valueAsDate;
+  private _setDisabledState(): void {
+    const pickerValueAsDate = this.datePickerElement?.valueAsDate;
 
     if (!pickerValueAsDate) {
       this._disabled = true;
@@ -80,12 +74,7 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
       return;
     }
 
-    const availableDate: T = this.findAvailableDate(
-      pickerValueAsDate,
-      datepicker?.dateFilter || null,
-      this._dateAdapter,
-      this.boundary,
-    );
+    const availableDate: T = this.findAvailableDate(pickerValueAsDate);
     this._disabled = this._dateAdapter.compareDate(availableDate, pickerValueAsDate) === 0;
     this._setDisabledRenderAttributes();
   }
@@ -95,12 +84,7 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
       return;
     }
     const startingDate: T = this.datePickerElement.valueAsDate ?? this.datePickerElement.now;
-    const date: T = this.findAvailableDate(
-      startingDate,
-      this.datePickerElement.dateFilter,
-      this._dateAdapter,
-      this.boundary,
-    );
+    const date: T = this.findAvailableDate(startingDate);
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
       this.datePickerElement.valueAsDate = date;
     }
@@ -125,7 +109,7 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this.datePickerElement = getDatePicker(this, picker);
-    this.setDisabledState(this.datePickerElement);
+    this._setDisabledState();
     if (!this.datePickerElement) {
       // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
       // assuming that the two components share the same parent element.
@@ -140,16 +124,16 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
 
     this.datePickerElement.addEventListener(
       'change',
-      (event: Event) => {
-        this.setDisabledState(event.target as SbbDatepickerElement<T>);
+      () => {
+        this._setDisabledState();
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
     );
     this.datePickerElement.addEventListener(
       'datePickerUpdated',
-      (event: Event) => {
-        this.setDisabledState(event.target as SbbDatepickerElement<T>);
+      () => {
+        this._setDisabledState();
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
@@ -160,7 +144,7 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
         this._inputDisabled = !!(event.detail.disabled || event.detail.readonly);
         this._setDisabledRenderAttributes();
         this._setAriaLabel();
-        this.onInputUpdated(event);
+        this._setDisabledState();
       },
       { signal: this._datePickerController.signal },
     );
@@ -176,7 +160,6 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
       return;
     }
 
-    // TODO: use toIsoString() instead of toDateString()
     const currentDateString =
       this.datePickerElement &&
       this._dateAdapter.compareDate(this.datePickerElement.now, currentDate) === 0

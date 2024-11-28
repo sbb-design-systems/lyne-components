@@ -22,7 +22,6 @@ import style from './toggle.scss?lit&inline';
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
  *
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
  */
 export
@@ -33,7 +32,6 @@ export
 class SbbToggleElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'didChange',
     change: 'change',
   } as const;
 
@@ -86,15 +84,6 @@ class SbbToggleElement extends LitElement {
     target: null,
     skipInitial: true,
     callback: () => this.updatePillPosition(true),
-  });
-
-  /**
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
-   * Emits whenever the toggle value changes.
-   */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbToggleElement.events.didChange, {
-    bubbles: true,
-    composed: true,
   });
 
   /** Emits whenever the toggle value changes. */
@@ -189,7 +178,6 @@ class SbbToggleElement extends LitElement {
   private _handleInput(): void {
     this.updatePillPosition(false);
     this._change.emit();
-    this._didChange.emit();
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {

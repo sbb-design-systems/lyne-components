@@ -290,10 +290,23 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
         signal: this._inputAbortController.signal,
       });
 
-      inputFocusElement = (this._input as SbbSelectElement).inputElement;
+      const selectInput = this._input as SbbSelectElement;
+      inputFocusElement = selectInput.inputElement;
+
+      // If inputElement is not yet ready, try a second time after updating.
+      if (!inputFocusElement) {
+        const controller = {
+          hostUpdated: () => {
+            selectInput.removeController(controller);
+            this._registerInputListener();
+          },
+        };
+
+        selectInput.addController(controller);
+      }
     }
 
-    inputFocusElement.addEventListener(
+    inputFocusElement?.addEventListener(
       'focusin',
       () => {
         this.toggleAttribute('data-input-focused', true);
@@ -307,7 +320,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       },
     );
 
-    inputFocusElement.addEventListener(
+    inputFocusElement?.addEventListener(
       'focusout',
       () =>
         ['data-focus-origin', 'data-input-focused'].forEach((name) => this.removeAttribute(name)),
