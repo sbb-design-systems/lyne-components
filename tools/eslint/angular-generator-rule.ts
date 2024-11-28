@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 // eslint-disable-next-line import-x/default
 import ts from 'typescript';
 
@@ -45,6 +45,7 @@ const isPublicSetterGetter = (
   m: ts.ClassElement,
 ): m is ts.GetAccessorDeclaration | ts.SetAccessorDeclaration =>
   (ts.isSetAccessor(m) || ts.isGetAccessor(m)) && isPublic(m);
+const isEventEmitter = (m: ts.ClassElement): m is ts.PropertyDeclaration => ts.isPropertyDeclaration(m) && (m.type as unknown as ts.TypeReferenceNode)?.typeName?.getText() === 'EventEmitter';
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
@@ -154,15 +155,17 @@ export class ${className} {
         }
 
         const expectedAngularImports = new Set<string>();
+        const expectedRxJsImports = new Set<string>();
         const publicProperties = originClass.members.filter(isPublicProperty);
         const publicSetterGetter = originClass.members.filter(isPublicSetterGetter);
         const publicMethods = originClass.members.filter(isPublicMethod);
+        const publicOutput = originClass.members.filter(isEventEmitter);
         if (publicProperties.length || publicSetterGetter.length || publicMethods.length) {
           expectedAngularImports.add('ElementRef').add('inject');
           if (
             classDeclaration.body.body.every(
               (n) =>
-                n.type !== 'PropertyDefinition' ||
+                n.type !== AST_NODE_TYPES.PropertyDefinition ||
                 !n.value ||
                 !context.sourceCode.getText(n.value).startsWith('inject(ElementRef'),
             )
@@ -208,6 +211,10 @@ export class ${className} {
         ) {
           expectedAngularImports.add('Input').add('NgZone');
         }
+        if (publicOutput) {
+          expectedAngularImports.add('Output');
+          expectedRxJsImports.add('fromEvent').add('type Observable');
+        }
 
         // Getter: this.#element.getter
         // Setter: this.#ngZone.runOutsideAngular(() => this.#element.value = value)
@@ -220,7 +227,7 @@ export class ${className} {
           if (
             classDeclaration.body.body.every((n) => {
               return (
-                n.type !== 'MethodDefinition' ||
+                n.type !== AST_NODE_TYPES.MethodDefinition ||
                 n.kind !== 'set' ||
                 context.sourceCode.getText(n.key) !== member.name.getText() ||
                 !context.sourceCode.getText(n).includes('@Input(')
@@ -275,6 +282,34 @@ export class ${className} {
           }
         }
 
+        for (const member of publicOutput) {
+          if (
+            classDeclaration.body.body.every((n) => {
+              return (
+                n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                context.sourceCode.getText(n.key) !== member.name.getText().replaceAll('_', '') ||
+                !context.sourceCode.getText(n).includes('@Output(')
+              );
+            })
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingOutput',
+              data: { symbol: member.name.getText() },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                const name = member.name.getText().replaceAll('_', '');
+                const type = (member.type as unknown as ts.TypeReferenceNode)?.typeArguments?.[0].getText();
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  @Output() public ${name}: Observable<${type}> = fromEvent(this.#element.nativeElement, '${name}');\n`,
+                );
+              },
+            });
+          }
+        }
+
         for (const member of publicSetterGetter) {
           // TODO: Add getter or setter
         }
@@ -320,6 +355,40 @@ export class ${className} {
 
         const elementImport = `@sbb-esta/lyne-${relative(srcPath, dirname(originFile))}.js`;
 
+        // Add necessary RxJs imports
+        const rxjsCoreImport = program.body.find(
+          (n): n is TSESTree.ImportDeclaration =>
+            n.type === 'ImportDeclaration' && n.source.value === 'rxjs'
+        );
+        if (!rxjsCoreImport) {
+          const imports = Array.from(expectedRxJsImports).sort().join(', ');
+          context.report({
+            node: program,
+            messageId: 'rxJsMissingImport',
+            data: { symbol: imports },
+            fix: (fixer) =>
+              fixer.insertTextBefore(node, `import { ${imports} } from 'rxjs';\n`)
+          });
+        } else {
+          const existingImports = rxjsCoreImport.specifiers.map(
+            (s) => (s as TSESTree.ImportSpecifier).importKind === 'type'
+              ? `${(s as TSESTree.ImportSpecifier).importKind} ${((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name}`
+              : ((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name
+          );
+          const importsToAdd = Array.from(expectedRxJsImports)
+            .filter((i) => !existingImports.includes(i));
+          if (importsToAdd.length > 0) {
+            const imports = importsToAdd.sort().join(', ');
+            context.report({
+              node: rxjsCoreImport,
+              messageId: 'rxJsMissingImport',
+              data: { symbol: imports },
+              fix: (fixer) =>
+                fixer.insertTextAfter(rxjsCoreImport.specifiers.at(-1)!, `, ${imports}`)
+            });
+          }
+        }
+
         // Add type import for the element class
         if (
           expectedAngularImports.has('ElementRef') &&
@@ -359,7 +428,7 @@ export class ${className} {
             node: lastImport,
             messageId: 'angularMissingImport',
             data: { symbol: 'element side effect' },
-            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
+            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';\n`),
           });
         }
       },
@@ -371,10 +440,12 @@ export class ${className} {
     },
     messages: {
       angularMissingImport: 'Missing import {{ symbol }}',
+      rxJsMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',
       angularMissingElementRef: 'Missing ElementRef property',
       angularMissingNgZone: 'Missing NgZone property',
       angularMissingInput: 'Missing input for property {{ property }}',
+      angularMissingOutput: 'Missing output for property {{ property }}',
     },
     fixable: 'code',
     type: 'suggestion',
