@@ -26,6 +26,11 @@
 
 .sbb-teaser-product__wrapper {
   position: relative;
+
+  // Simulate link color optically
+  @include sbb.if-forced-colors {
+    color: LinkText;
+  }
 }
 
 .sbb-teaser-product__content-wrapper {

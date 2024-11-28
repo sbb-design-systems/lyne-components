@@ -74,6 +74,11 @@
   max-width: 100%;
   width: 100%;
   pointer-events: none;
+
+  // Simulate link color optically
+  @include sbb.if-forced-colors {
+    color: LinkText !important;
+  }
 }
 
 .sbb-teaser__text {
