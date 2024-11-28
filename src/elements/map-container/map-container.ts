@@ -9,7 +9,7 @@ import { i18nMapContainerButtonLabel } from '../core/i18n.js';
 
 import style from './map-container.scss?lit&inline';
 
-import '../button/tertiary-button.js';
+import '../button/accent-button.js';
 
 /**
  * It can be used as a container for maps.
@@ -102,7 +102,7 @@ class SbbMapContainerElement extends LitElement {
           <slot></slot>
 
           ${!this.hideScrollUpButton
-            ? html`<sbb-tertiary-button
+            ? html`<sbb-accent-button
                 class="sbb-map-container__sidebar-button"
                 size="l"
                 icon-name="location-pin-map-small"
@@ -111,7 +111,7 @@ class SbbMapContainerElement extends LitElement {
                 ?inert=${!this._scrollUpButtonVisible}
               >
                 ${i18nMapContainerButtonLabel[this._language.current]}
-              </sbb-tertiary-button>`
+              </sbb-accent-button>`
             : nothing}
         </div>
       </div>

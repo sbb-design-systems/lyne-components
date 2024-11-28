@@ -24,13 +24,13 @@ import {
 } from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
-import './tertiary-button.js';
+import './accent-button.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonDefaultArgTypes };
 
 const defaultArgs: Args = {
   ...buttonDefaultArgs,
-  tag: 'sbb-tertiary-button',
+  tag: 'sbb-accent-button',
 };
 
 export const Default: StoryObj = primary;
@@ -63,7 +63,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-button/sbb-tertiary-button',
+  title: 'elements/sbb-button/sbb-accent-button',
 };
 
 export default meta;

@@ -3,25 +3,25 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
-import { buttonCommonStyle, buttonTertiaryStyle, SbbButtonCommonElementMixin } from '../common.js';
+import { buttonCommonStyle, buttonAccentStyle, SbbButtonCommonElementMixin } from '../common.js';
 
 /**
- * It displays a button enhanced with the SBB Design in the 'tertiary' variant.
+ * It displays a button enhanced with the SBB Design in the 'accent' variant.
  *
- * @slot - Use the unnamed slot to add content to the tertiary-button.
+ * @slot - Use the unnamed slot to add content to the accent-button.
  * @slot icon - Slot used to display the icon, if one is set
  */
 export
-@customElement('sbb-tertiary-button')
-class SbbTertiaryButtonElement extends SbbButtonCommonElementMixin(
+@customElement('sbb-accent-button')
+class SbbAccentButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
-  public static override styles: CSSResultGroup = [buttonCommonStyle, buttonTertiaryStyle];
+  public static override styles: CSSResultGroup = [buttonCommonStyle, buttonAccentStyle];
 }
 
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tertiary-button': SbbTertiaryButtonElement;
+    'sbb-accent-button': SbbAccentButtonElement;
   }
 }

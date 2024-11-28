@@ -1,13 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-map-container renders DOM"] = 
+snapshots["sbb-map-container renders DOM"] =
 `<sbb-map-container>
 </sbb-map-container>
 `;
 /* end snapshot sbb-map-container renders DOM */
 
-snapshots["sbb-map-container renders Shadow DOM"] = 
+snapshots["sbb-map-container renders Shadow DOM"] =
 `<div class="sbb-map-container">
   <div class="sbb-map-container__map">
     <slot name="map">
@@ -18,7 +18,7 @@ snapshots["sbb-map-container renders Shadow DOM"] =
     </span>
     <slot>
     </slot>
-    <sbb-tertiary-button
+    <sbb-accent-button
       class="sbb-map-container__sidebar-button"
       data-action=""
       data-button=""
@@ -31,19 +31,19 @@ snapshots["sbb-map-container renders Shadow DOM"] =
       type="button"
     >
       Show map
-    </sbb-tertiary-button>
+    </sbb-accent-button>
   </div>
 </div>
 `;
 /* end snapshot sbb-map-container renders Shadow DOM */
 
-snapshots["sbb-map-container renders without scroll-up button DOM"] = 
+snapshots["sbb-map-container renders without scroll-up button DOM"] =
 `<sbb-map-container hide-scroll-up-button="">
 </sbb-map-container>
 `;
 /* end snapshot sbb-map-container renders without scroll-up button DOM */
 
-snapshots["sbb-map-container renders without scroll-up button Shadow DOM"] = 
+snapshots["sbb-map-container renders without scroll-up button Shadow DOM"] =
 `<div class="sbb-map-container">
   <div class="sbb-map-container__map">
     <slot name="map">
@@ -59,7 +59,7 @@ snapshots["sbb-map-container renders without scroll-up button Shadow DOM"] =
 `;
 /* end snapshot sbb-map-container renders without scroll-up button Shadow DOM */
 
-snapshots["sbb-map-container renders A11y tree Chrome"] = 
+snapshots["sbb-map-container renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -69,7 +69,7 @@ snapshots["sbb-map-container renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-map-container renders A11y tree Chrome */
 
-snapshots["sbb-map-container renders A11y tree Firefox"] = 
+snapshots["sbb-map-container renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",

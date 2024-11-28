@@ -1,28 +1,28 @@
-The `sbb-tertiary-button-static` component mimics the look of the `<sbb-tertiary-button>`,
+The `sbb-accent-button-static` component mimics the look of the `<sbb-accent-button>`,
 and it's meant to be used whenever is required to nest one button inside another without breaking the HTML functionality.
 
 ```html
-<sbb-tertiary-button-static>Fake button</sbb-tertiary-button-static>
+<sbb-accent-button-static>Fake button</sbb-accent-button-static>
 ```
 
 ## Slots
 
 The button text is provided via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
-At least one is mandatory, so you can have a `sbb-tertiary-button-static` with icon only, text only, or with both.
+At least one is mandatory, so you can have a `sbb-accent-button-static` with icon only, text only, or with both.
 
 ```html
-<sbb-tertiary-button-static icon-name="info"> Button text </sbb-tertiary-button-static>
+<sbb-accent-button-static icon-name="info"> Button text </sbb-accent-button-static>
 
-<sbb-tertiary-button-static>
+<sbb-accent-button-static>
   <sbb-icon slot="icon" name="info"></sbb-icon>
   Button text
-</sbb-tertiary-button-static>
+</sbb-accent-button-static>
 
-<sbb-tertiary-button-static
+<sbb-accent-button-static
   icon-name="info"
   aria-label="Click for more information."
-></sbb-tertiary-button-static>
+></sbb-accent-button-static>
 ```
 
 ## Style
@@ -34,11 +34,11 @@ There are two different sizes (`m` and `l`, which is the default) that can be se
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-tertiary-button-static negative>Button</sbb-tertiary-button-static>
+<sbb-accent-button-static negative>Button</sbb-accent-button-static>
 
-<sbb-tertiary-button-static size="m">Button</sbb-tertiary-button-static>
+<sbb-accent-button-static size="m">Button</sbb-accent-button-static>
 
-<sbb-tertiary-button-static disabled>Button</sbb-tertiary-button-static>
+<sbb-accent-button-static disabled>Button</sbb-accent-button-static>
 ```
 
 ### Focus outline
@@ -47,14 +47,14 @@ Please make sure that the focus outline appears in the correct color if the comp
 You can set it by re-defining the css var on `sbb-button-static` or any parent element:
 
 ```css
-sbb-tertiary-button-static {
+sbb-accent-button-static {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 ```
 
 ## Accessibility
 
-Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-tertiary-button-static` for screen-reader users.
+Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-accent-button-static` for screen-reader users.
 
 <!-- Auto Generated Below -->
 
@@ -69,7 +69,7 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Slots
 
-| Name   | Description                                                        |
-| ------ | ------------------------------------------------------------------ |
-|        | Use the unnamed slot to add content to the tertiary-button-static. |
-| `icon` | Slot used to display the icon, if one is set                       |
+| Name   | Description                                                      |
+| ------ | ---------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the accent-button-static. |
+| `icon` | Slot used to display the icon, if one is set                     |

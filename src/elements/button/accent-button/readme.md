@@ -1,28 +1,25 @@
-The `sbb-tertiary-button` component provides the same functionality as a native `<button>`
-enhanced with the SBB Design in the 'tertiary' variant.
+The `sbb-accent-button` component provides the same functionality as a native `<button>`
+enhanced with the SBB Design in the 'accent' variant.
 
 ```html
-<sbb-tertiary-button>Button text</sbb-tertiary-button>
+<sbb-accent-button>Button text</sbb-accent-button>
 ```
 
 ## Slots
 
 The button text is provided via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
-At least one is mandatory, so you can have a `sbb-tertiary-button` with icon only, text only, or with both.
+At least one is mandatory, so you can have a `sbb-accent-button` with icon only, text only, or with both.
 
 ```html
-<sbb-tertiary-button icon-name="info"> Button text </sbb-tertiary-button>
+<sbb-accent-button icon-name="info"> Button text </sbb-accent-button>
 
-<sbb-tertiary-button>
+<sbb-accent-button>
   <sbb-icon slot="icon" name="info"></sbb-icon>
   Button text
-</sbb-tertiary-button>
+</sbb-accent-button>
 
-<sbb-tertiary-button
-  icon-name="info"
-  aria-label="Click for more information."
-></sbb-tertiary-button>
+<sbb-accent-button icon-name="info" aria-label="Click for more information."></sbb-accent-button>
 ```
 
 ## Button properties
@@ -31,9 +28,9 @@ The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ```html
-<sbb-tertiary-button type="submit" name="tickets" form="buy" value="tickets">
+<sbb-accent-button type="submit" name="tickets" form="buy" value="tickets">
   Buy tickets
-</sbb-tertiary-button>
+</sbb-accent-button>
 ```
 
 ## Style
@@ -45,27 +42,27 @@ There are two different sizes (`m` and `l`, which is the default) that can be se
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-tertiary-button negative>Button</sbb-tertiary-button>
+<sbb-accent-button negative>Button</sbb-accent-button>
 
-<sbb-tertiary-button size="m">Button</sbb-tertiary-button>
+<sbb-accent-button size="m">Button</sbb-accent-button>
 
-<sbb-tertiary-button disabled>Button</sbb-tertiary-button>
+<sbb-accent-button disabled>Button</sbb-accent-button>
 ```
 
 ### Focus outline
 
 Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
-You can set it by re-defining the css var on `sbb-tertiary-button` or any parent element:
+You can set it by re-defining the css var on `sbb-accent-button` or any parent element:
 
 ```css
-sbb-tertiary-button {
+sbb-accent-button {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 ```
 
 ## Accessibility
 
-Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-tertiary-button` for screen-reader users.
+Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-accent-button` for screen-reader users.
 
 ### Interactive disabled buttons
 
@@ -98,7 +95,7 @@ guard against such cases in your component.
 
 ## Slots
 
-| Name   | Description                                                 |
-| ------ | ----------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the tertiary-button. |
-| `icon` | Slot used to display the icon, if one is set                |
+| Name   | Description                                               |
+| ------ | --------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the accent-button. |
+| `icon` | Slot used to display the icon, if one is set              |
