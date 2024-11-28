@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser-product renders DOM"] = 
+snapshots["sbb-teaser-product renders DOM"] =
 `<sbb-teaser-product
   data-action=""
   data-link=""
@@ -28,7 +28,7 @@ snapshots["sbb-teaser-product renders DOM"] =
 `;
 /* end snapshot sbb-teaser-product renders DOM */
 
-snapshots["sbb-teaser-product renders Shadow DOM"] = 
+snapshots["sbb-teaser-product renders Shadow DOM"] =
 `<div class="sbb-teaser-product__wrapper">
   <a
     class="sbb-action-base sbb-teaser-product"
@@ -37,27 +37,27 @@ snapshots["sbb-teaser-product renders Shadow DOM"] =
     <sbb-screen-reader-only>
     </sbb-screen-reader-only>
   </a>
-  <div class="sbb-teaser-product__content-wrapper">
-    <span class="sbb-teaser-product__image-container">
+  <div class="sbb-teaser-product__root">
+    <div class="sbb-teaser-product__image-container">
       <slot name="image">
       </slot>
-    </span>
-    <span class="sbb-teaser-product__container">
+    </div>
+    <div class="sbb-teaser-product__container">
       <span class="sbb-teaser-product__content">
         <slot>
         </slot>
       </span>
-      <span class="sbb-teaser-product__footnote">
+      <div class="sbb-teaser-product__footnote">
         <slot name="footnote">
         </slot>
-      </span>
-    </span>
+      </div>
+    </div>
   </div>
 </div>
 `;
 /* end snapshot sbb-teaser-product renders Shadow DOM */
 
-snapshots["sbb-teaser-product renders A11y tree Firefox"] = 
+snapshots["sbb-teaser-product renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -82,7 +82,7 @@ snapshots["sbb-teaser-product renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-teaser-product renders A11y tree Firefox */
 
-snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
+snapshots["sbb-teaser-product renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

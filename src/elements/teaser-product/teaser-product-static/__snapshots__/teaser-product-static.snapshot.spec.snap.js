@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser-product-static renders DOM"] = 
+snapshots["sbb-teaser-product-static renders DOM"] =
 `<sbb-teaser-product-static
   data-action=""
   data-slot-names="footnote image unnamed"
@@ -26,27 +26,29 @@ snapshots["sbb-teaser-product-static renders DOM"] =
 `;
 /* end snapshot sbb-teaser-product-static renders DOM */
 
-snapshots["sbb-teaser-product-static renders Shadow DOM"] = 
+snapshots["sbb-teaser-product-static renders Shadow DOM"] =
 `<span class="sbb-action-base sbb-teaser-product-static">
-  <span class="sbb-teaser-product__image-container">
-    <slot name="image">
-    </slot>
-  </span>
-  <span class="sbb-teaser-product__container">
-    <span class="sbb-teaser-product__content">
-      <slot>
+  <div class="sbb-teaser-product__root">
+    <div class="sbb-teaser-product__image-container">
+      <slot name="image">
       </slot>
-    </span>
-    <span class="sbb-teaser-product__footnote">
-      <slot name="footnote">
-      </slot>
-    </span>
-  </span>
+    </div>
+    <div class="sbb-teaser-product__container">
+      <span class="sbb-teaser-product__content">
+        <slot>
+        </slot>
+      </span>
+      <div class="sbb-teaser-product__footnote">
+        <slot name="footnote">
+        </slot>
+      </div>
+    </div>
+  </div>
 </span>
 `;
 /* end snapshot sbb-teaser-product-static renders Shadow DOM */
 
-snapshots["sbb-teaser-product-static renders A11y tree Chrome"] = 
+snapshots["sbb-teaser-product-static renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -66,7 +68,7 @@ snapshots["sbb-teaser-product-static renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-teaser-product-static renders A11y tree Chrome */
 
-snapshots["sbb-teaser-product-static renders A11y tree Firefox"] = 
+snapshots["sbb-teaser-product-static renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
