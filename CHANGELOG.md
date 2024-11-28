@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.14.1...v1.15.0) (2024-11-28)
+
+
+### Features
+
+* **sbb-sticky-bar:** introduce controllable slide and out animation ([#3073](https://github.com/sbb-design-systems/lyne-components/issues/3073)) ([ea04e08](https://github.com/sbb-design-systems/lyne-components/commit/ea04e08d687d4c23a1f0c2b96f7afd675527899a)), closes [#3072](https://github.com/sbb-design-systems/lyne-components/issues/3072)
+
+
+### Bug Fixes
+
+* fix type of form associated controls ([#3242](https://github.com/sbb-design-systems/lyne-components/issues/3242)) ([c925c64](https://github.com/sbb-design-systems/lyne-components/commit/c925c6432f605348a01a2be4b0c0a1d15467e9fd))
+* fix width breakpoints of SbbMediaMatcherController ([#3226](https://github.com/sbb-design-systems/lyne-components/issues/3226)) ([edb639b](https://github.com/sbb-design-systems/lyne-components/commit/edb639b97358aca970910887569ffceae8a4df89))
+* **sbb-autocomplete, sbb-autocomplete-grid:** avoid form submission on enter press ([#3243](https://github.com/sbb-design-systems/lyne-components/issues/3243)) ([cbf81ec](https://github.com/sbb-design-systems/lyne-components/commit/cbf81ecdda9756423a395e0a02ef331c1ebaf541)), closes [#3239](https://github.com/sbb-design-systems/lyne-components/issues/3239)
+* **sbb-flip-card:** fix card summary image position ([#3254](https://github.com/sbb-design-systems/lyne-components/issues/3254)) ([214a57e](https://github.com/sbb-design-systems/lyne-components/commit/214a57e3fceb8132fd8862eb1e3a6e00365fb76c))
+* **sbb-map-container:** improve support for tablet devices ([#3214](https://github.com/sbb-design-systems/lyne-components/issues/3214)) ([53711bf](https://github.com/sbb-design-systems/lyne-components/commit/53711bfa2f043165423ea0a15fbdb4e1346428d9)), closes [#3091](https://github.com/sbb-design-systems/lyne-components/issues/3091)
+* **sbb-select:** improve connected label handling ([#3229](https://github.com/sbb-design-systems/lyne-components/issues/3229)) ([4d66d32](https://github.com/sbb-design-systems/lyne-components/commit/4d66d323913e7a4383ce5fc1cb3f02fe4dcd6036))
+
 ## [1.14.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.14.0...v1.14.1) (2024-11-07)
 
 
