@@ -1,5 +1,4 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -19,32 +18,17 @@ import {
   teaserHero,
   timetableInput,
 } from './home.common.js';
-import readme from './readme.md?raw';
 import '../../../elements/dialog.js';
 import '../../../elements/journey-header.js';
 import '../../../elements-experimental/pearl-chain.js';
 import './home.scss';
 
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const defaultArgTypes: ArgTypes = {
-  negative,
-};
-
-const defaultArgs: Args = {
-  negative: false,
-};
-
-const Template = (args: Args): TemplateResult => html`
+export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
   <div>
     ${skiplinkList()}
 
     <!-- Header section -->
-    <sbb-header hide-on-scroll>
+    <sbb-header hide-on-scroll ?expanded=${args.expanded}>
       <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-button>
@@ -279,23 +263,3 @@ const Template = (args: Args): TemplateResult => html`
     ${footer(args)}
   </div>
 `;
-
-export const homeLoggedIn: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-const meta: Meta = {
-  parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-    layout: 'fullscreen',
-  },
-  title: 'pages/home',
-};
-
-export default meta;

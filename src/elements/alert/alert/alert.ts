@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { type LinkTargetType, SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
@@ -45,8 +46,11 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   @property({ reflect: true, type: Boolean })
   public accessor readonly: boolean = false;
 
-  /** You can choose between `s`, `m` or `l` size. */
-  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = 'm';
+  /**
+   * You can choose between `s`, `m` or `l` size.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = isLean() ? 's' : 'm';
 
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.

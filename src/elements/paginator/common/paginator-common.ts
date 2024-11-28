@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nNextPage, i18nPreviousPage, i18nSelectedPage } from '../../core/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
@@ -85,8 +86,11 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       | 'start'
       | 'end' = 'start';
 
-    /** Size variant, either m or s. */
-    @property({ reflect: true }) public accessor size: 'm' | 's' = 'm';
+    /**
+     * Size variant, either m or s.
+     * @default 'm' / 's' (lean)
+     */
+    @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
     private _page: EventEmitter<SbbPaginatorPageEventDetails> = new EventEmitter(
       this,
