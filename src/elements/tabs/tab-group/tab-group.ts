@@ -173,7 +173,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
       this._tabs = this._tabs.concat(loadedTabs);
 
       // If there is an active tab in the new batch, it becomes the new selected
-      loadedTabs.find((tab) => tab.active)?.tabGroupActions?.select();
+      // loadedTabs.find((tab) => tab.active)?.tabGroupActions?.select();
     }
   };
 
@@ -249,10 +249,13 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   }
 
   private _onTabContentElementResize(entries: ResizeObserverEntry[]): void {
+    if (!this._tabContentElement) {
+      return;
+    }
     for (const entry of entries) {
       const contentHeight = Math.floor(entry.contentRect.height);
 
-      (this._tabContentElement as HTMLElement).style.height = `${contentHeight}px`;
+      this._tabContentElement.style.height = `${contentHeight}px`;
     }
   }
 
@@ -322,6 +325,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
         }
       },
     };
+
     if (tabLabel.nextElementSibling?.localName === 'sbb-tab') {
       tabLabel.tab = tabLabel.nextElementSibling as SbbTabElement;
       tabLabel.tab.id = this._assignId();
@@ -340,7 +344,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     tabLabel.disabled = tabLabel.hasAttribute('disabled');
     tabLabel.active = tabLabel.hasAttribute('active') && !tabLabel.disabled;
     tabLabel.setAttribute('role', 'tab');
-    tabLabel.setAttribute('aria-selected', 'false');
+    tabLabel.setAttribute('aria-selected', String(tabLabel.active));
     tabLabel.addEventListener('click', () => {
       tabLabel.tabGroupActions?.select();
     });
