@@ -8,6 +8,19 @@ import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/u
 // eslint-disable-next-line import-x/default
 import ts from 'typescript';
 
+const publicExcludedMethods = [
+  'connectedCallback',
+  'disconnectedCallback',
+  'attributeChangedCallback',
+  'requestUpdate',
+  'performUpdate',
+  'shouldUpdate',
+  'willUpdate',
+  'update',
+  'firstUpdated',
+  'updated',
+];
+
 const srcPath = fileURLToPath(new URL('../../src/', import.meta.url));
 const getAngularPairFile = (filename: string): string | null => {
   const relativePath = relative(srcPath, filename);
@@ -40,12 +53,14 @@ const isPublic = (
 const isPublicProperty = (m: ts.ClassElement): m is ts.PropertyDeclaration =>
   ts.isPropertyDeclaration(m) && isPublic(m);
 const isPublicMethod = (m: ts.ClassElement): m is ts.MethodDeclaration =>
-  ts.isMethodDeclaration(m) && isPublic(m);
-const isPublicSetterGetter = (
-  m: ts.ClassElement,
-): m is ts.GetAccessorDeclaration | ts.SetAccessorDeclaration =>
-  (ts.isSetAccessor(m) || ts.isGetAccessor(m)) && isPublic(m);
-const isEventEmitter = (m: ts.ClassElement): m is ts.PropertyDeclaration => ts.isPropertyDeclaration(m) && (m.type as unknown as ts.TypeReferenceNode)?.typeName?.getText() === 'EventEmitter';
+  ts.isMethodDeclaration(m) && isPublic(m) && !publicExcludedMethods.includes(m.name.getText());
+const isPublicGetter = (m: ts.ClassElement): m is ts.SetAccessorDeclaration =>
+  ts.isGetAccessor(m) && isPublic(m);
+const isPublicSetter = (m: ts.ClassElement): m is ts.GetAccessorDeclaration =>
+  ts.isSetAccessor(m) && isPublic(m);
+const isEventEmitter = (m: ts.ClassElement): m is ts.PropertyDeclaration =>
+  ts.isPropertyDeclaration(m) &&
+  (m.type as unknown as ts.TypeReferenceNode)?.typeName?.getText() === 'EventEmitter';
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
@@ -157,10 +172,16 @@ export class ${className} {
         const expectedAngularImports = new Set<string>();
         const expectedRxJsImports = new Set<string>();
         const publicProperties = originClass.members.filter(isPublicProperty);
-        const publicSetterGetter = originClass.members.filter(isPublicSetterGetter);
+        const publicGetter = originClass.members.filter(isPublicGetter);
+        const publicSetter = originClass.members.filter(isPublicSetter);
         const publicMethods = originClass.members.filter(isPublicMethod);
         const publicOutput = originClass.members.filter(isEventEmitter);
-        if (publicProperties.length || publicSetterGetter.length || publicMethods.length) {
+        if (
+          publicProperties.length ||
+          publicGetter.length ||
+          publicSetter.length ||
+          publicMethods.length
+        ) {
           expectedAngularImports.add('ElementRef').add('inject');
           if (
             classDeclaration.body.body.every(
@@ -183,7 +204,7 @@ export class ${className} {
             });
           }
           if (
-            (publicProperties.length || publicSetterGetter.some((p) => ts.isSetAccessor(p))) &&
+            (publicProperties.length || publicSetter.some((p) => ts.isSetAccessor(p))) &&
             classDeclaration.body.body.every(
               (n) =>
                 n.type !== 'PropertyDefinition' ||
@@ -298,7 +319,9 @@ export class ${className} {
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 const name = member.name.getText().replaceAll('_', '');
-                const type = (member.type as unknown as ts.TypeReferenceNode)?.typeArguments?.[0].getText();
+                const type = (
+                  member.type as unknown as ts.TypeReferenceNode
+                )?.typeArguments?.[0].getText();
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
@@ -309,8 +332,63 @@ export class ${className} {
           }
         }
 
-        for (const member of publicSetterGetter) {
-          // TODO: Add getter or setter
+        for (const member of publicGetter) {
+          if (
+            classDeclaration.body.body.every((n) => {
+              return (
+                n.type !== AST_NODE_TYPES.MethodDefinition ||
+                context.sourceCode.getText(n.key) !== member.name.getText()
+              );
+            })
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingMethod',
+              data: { method: member.name.getText() },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                const name = member.name.getText();
+                const type = member.type?.getText();
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  public get ${name}(): ${type ?? ``} {
+    return this.#element.nativeElement.${name};
+  }\n`,
+                );
+              },
+            });
+          }
+        }
+
+        for (const member of publicSetter) {
+          if (
+            classDeclaration.body.body.every((n) => {
+              return (
+                n.type !== AST_NODE_TYPES.MethodDefinition ||
+                context.sourceCode.getText(n.key) !== member.name.getText()
+              );
+            })
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingMethod',
+              data: { method: member.name.getText() },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                const name = member.name.getText();
+                const methodParam = member.parameters?.map((e) => e.getText()).join(', ');
+                const methodArguments = member.parameters?.map((e) => e.name.getText()).join(', ');
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  public set ${name}(${methodParam}) {
+    return this.#element.nativeElement.${name}(${methodArguments});
+  }\n`,
+                );
+              },
+            });
+          }
         }
 
         for (const member of publicMethods) {
@@ -329,8 +407,8 @@ export class ${className} {
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 const name = member.name.getText();
-                const methodParam = member.parameters?.map(e => e.getText()).join(', ');
-                const methodArguments = member.parameters?.map(e => e.name.getText()).join(', ');
+                const methodParam = member.parameters?.map((e) => e.getText()).join(', ');
+                const methodArguments = member.parameters?.map((e) => e.name.getText()).join(', ');
                 const type = member.type?.getText();
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
@@ -382,36 +460,38 @@ export class ${className} {
         const elementImport = `@sbb-esta/lyne-${relative(srcPath, dirname(originFile))}.js`;
 
         // Add necessary RxJs imports
-        const rxjsCoreImport = program.body.find(
-          (n): n is TSESTree.ImportDeclaration =>
-            n.type === 'ImportDeclaration' && n.source.value === 'rxjs'
-        );
-        if (!rxjsCoreImport) {
-          const imports = Array.from(expectedRxJsImports).sort().join(', ');
-          context.report({
-            node: program,
-            messageId: 'rxJsMissingImport',
-            data: { symbol: imports },
-            fix: (fixer) =>
-              fixer.insertTextBefore(node, `import { ${imports} } from 'rxjs';\n`)
-          });
-        } else {
-          const existingImports = rxjsCoreImport.specifiers.map(
-            (s) => (s as TSESTree.ImportSpecifier).importKind === 'type'
-              ? `${(s as TSESTree.ImportSpecifier).importKind} ${((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name}`
-              : ((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name
+        if (expectedRxJsImports.size > 0) {
+          const rxjsCoreImport = program.body.find(
+            (n): n is TSESTree.ImportDeclaration =>
+              n.type === 'ImportDeclaration' && n.source.value === 'rxjs',
           );
-          const importsToAdd = Array.from(expectedRxJsImports)
-            .filter((i) => !existingImports.includes(i));
-          if (importsToAdd.length > 0) {
-            const imports = importsToAdd.sort().join(', ');
+          if (!rxjsCoreImport) {
+            const imports = Array.from(expectedRxJsImports).sort().join(', ');
             context.report({
-              node: rxjsCoreImport,
+              node: program,
               messageId: 'rxJsMissingImport',
               data: { symbol: imports },
-              fix: (fixer) =>
-                fixer.insertTextAfter(rxjsCoreImport.specifiers.at(-1)!, `, ${imports}`)
+              fix: (fixer) => fixer.insertTextBefore(node, `import { ${imports} } from 'rxjs';\n`),
             });
+          } else {
+            const existingImports = rxjsCoreImport.specifiers.map((s) =>
+              (s as TSESTree.ImportSpecifier).importKind === 'type'
+                ? `${(s as TSESTree.ImportSpecifier).importKind} ${((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name}`
+                : ((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
+            );
+            const importsToAdd = Array.from(expectedRxJsImports).filter(
+              (i) => !existingImports.includes(i),
+            );
+            if (importsToAdd.length > 0) {
+              const imports = importsToAdd.sort().join(', ');
+              context.report({
+                node: rxjsCoreImport,
+                messageId: 'rxJsMissingImport',
+                data: { symbol: imports },
+                fix: (fixer) =>
+                  fixer.insertTextAfter(rxjsCoreImport.specifiers.at(-1)!, `, ${imports}`),
+              });
+            }
           }
         }
 
