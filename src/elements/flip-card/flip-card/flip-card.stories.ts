@@ -112,7 +112,7 @@ const GridTemplate = (args: Args): TemplateResult =>
   html`<div
     style=${styleMap({
       display: 'grid',
-      gridTemplateRows: 'minmax(320px, 1fr)',
+      gridTemplateRows: 'minmax(20rem, 1fr)',
       gridTemplateColumns: 'repeat(2, 1fr)',
       gridColumnGap: '1rem',
       gridRowGap: '1rem',

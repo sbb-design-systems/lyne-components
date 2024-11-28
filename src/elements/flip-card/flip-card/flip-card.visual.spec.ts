@@ -10,6 +10,8 @@ import {
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
 
+import type { SbbFlipCardElement } from './flip-card.js';
+
 import './flip-card.js';
 import '../flip-card-summary.js';
 import '../flip-card-details.js';
@@ -23,13 +25,12 @@ const content = (
   title: string = 'Summary',
   imageAlignment: SbbFlipCardImageAlignment = 'after',
   longContent: boolean = false,
-  flipped = false,
 ): TemplateResult =>
   html`<sbb-flip-card-summary image-alignment=${imageAlignment}>
       <sbb-title level="4">${title}</sbb-title>
       <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
     </sbb-flip-card-summary>
-    <sbb-flip-card-details ?data-flipped=${flipped}>
+    <sbb-flip-card-details>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
       Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh.
       ${longContent
@@ -69,10 +70,13 @@ describe(`sbb-flip-card`, () => {
       'flipped',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-flip-card data-flipped>
-            ${content('Summary', 'after', false, true)}</sbb-flip-card
-          >`,
+          html`<sbb-flip-card> ${content('Summary', 'after', false)}</sbb-flip-card>`,
         );
+        setup.withPostSetupAction(() => {
+          const flipCard =
+            setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
+          flipCard.click();
+        });
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
@@ -113,7 +117,7 @@ describe(`sbb-flip-card`, () => {
             html` <div
               style=${styleMap({
                 display: 'grid',
-                gridTemplateRows: 'minmax(320px, 1fr)',
+                gridTemplateRows: 'minmax(20rem, 1fr)',
                 gridTemplateColumns: 'repeat(2, 1fr)',
                 gridColumnGap: '1rem',
                 gridRowGap: '1rem',
@@ -133,6 +137,11 @@ describe(`sbb-flip-card`, () => {
               </sbb-flip-card>
             </div>`,
           );
+          setup.withPostSetupAction(() => {
+            const flipCard =
+              setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
+            flipCard.click();
+          });
           await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
