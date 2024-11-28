@@ -43,7 +43,6 @@ export interface SelectChange {
  * It displays a panel with selectable options.
  *
  * @slot - Use the unnamed slot to add options.
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
  * @event {CustomEvent<void>} input - Notifies that an option value has been selected.
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-select` starts the opening transition. Can be canceled.
@@ -77,7 +76,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
-    didChange: 'didChange',
     change: 'change',
     input: 'input',
     stateChange: 'stateChange',
@@ -112,11 +110,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** The value displayed by the component. */
   @state() private accessor _displayValue: string | null = null;
-
-  /**
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
-   */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbSelectElement.events.didChange);
 
   /** Notifies that the component's value has changed. */
   private _change: EventEmitter = new EventEmitter(this, SbbSelectElement.events.change);
@@ -519,7 +512,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
     this._input.emit();
     this._change.emit();
-    this._didChange.emit();
   }
 
   /** When an option is unselected in `multiple`, removes it from value and updates displayValue. */
@@ -531,7 +523,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
       this._input.emit();
       this._change.emit();
-      this._didChange.emit();
     }
   }
 
