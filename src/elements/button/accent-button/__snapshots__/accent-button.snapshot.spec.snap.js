@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-accent-button renders a sbb-accent-button without icon DOM"] =
+snapshots["sbb-accent-button renders a sbb-accent-button without icon DOM"] = 
 `<sbb-accent-button
   data-action=""
   data-button=""
@@ -20,7 +20,7 @@ snapshots["sbb-accent-button renders a sbb-accent-button without icon DOM"] =
 `;
 /* end snapshot sbb-accent-button renders a sbb-accent-button without icon DOM */
 
-snapshots["sbb-accent-button renders a sbb-accent-button without icon Shadow DOM"] =
+snapshots["sbb-accent-button renders a sbb-accent-button without icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-accent-button">
   <slot name="icon">
   </slot>
@@ -32,7 +32,7 @@ snapshots["sbb-accent-button renders a sbb-accent-button without icon Shadow DOM
 `;
 /* end snapshot sbb-accent-button renders a sbb-accent-button without icon Shadow DOM */
 
-snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon DOM"] =
+snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon DOM"] = 
 `<sbb-accent-button
   data-action=""
   data-button=""
@@ -54,7 +54,7 @@ snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon DOM"]
 `;
 /* end snapshot sbb-accent-button renders a sbb-accent-button with slotted icon DOM */
 
-snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon Shadow DOM"] =
+snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-accent-button">
   <slot name="icon">
   </slot>
@@ -66,7 +66,7 @@ snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon Shado
 `;
 /* end snapshot sbb-accent-button renders a sbb-accent-button with slotted icon Shadow DOM */
 
-snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Chrome"] =
+snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -82,7 +82,7 @@ snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon A11y 
 `;
 /* end snapshot sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Chrome */
 
-snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Firefox"] =
+snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",

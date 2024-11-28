@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon DOM"] =
+snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon DOM"] = 
 `<sbb-accent-button-link
   data-action=""
   data-link=""
@@ -18,7 +18,7 @@ snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon 
 `;
 /* end snapshot sbb-accent-button-link renders a sbb-accent-button-link without icon DOM */
 
-snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon Shadow DOM"] =
+snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon Shadow DOM"] = 
 `<a
   class="sbb-action-base sbb-accent-button-link"
   download=""
@@ -39,7 +39,7 @@ snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon 
 `;
 /* end snapshot sbb-accent-button-link renders a sbb-accent-button-link without icon Shadow DOM */
 
-snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with slotted icon DOM"] =
+snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with slotted icon DOM"] = 
 `<sbb-accent-button-link
   data-action=""
   data-link=""
@@ -62,7 +62,7 @@ snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with
 `;
 /* end snapshot sbb-accent-button-link renders a disabled sbb-accent-button-link with slotted icon DOM */
 
-snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with slotted icon Shadow DOM"] =
+snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with slotted icon Shadow DOM"] = 
 `<a
   aria-disabled="true"
   class="sbb-action-base sbb-accent-button-link"
@@ -79,7 +79,7 @@ snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with
 `;
 /* end snapshot sbb-accent-button-link renders a disabled sbb-accent-button-link with slotted icon Shadow DOM */
 
-snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Chrome"] =
+snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -95,7 +95,7 @@ snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon 
 `;
 /* end snapshot sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Chrome */
 
-snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Firefox"] =
+snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",

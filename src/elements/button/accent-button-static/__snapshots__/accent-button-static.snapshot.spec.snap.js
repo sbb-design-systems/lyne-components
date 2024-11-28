@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-accent-button-static renders without icon DOM"] =
+snapshots["sbb-accent-button-static renders without icon DOM"] = 
 `<sbb-accent-button-static
   data-action=""
   data-sbb-button=""
@@ -15,7 +15,7 @@ snapshots["sbb-accent-button-static renders without icon DOM"] =
 `;
 /* end snapshot sbb-accent-button-static renders without icon DOM */
 
-snapshots["sbb-accent-button-static renders without icon Shadow DOM"] =
+snapshots["sbb-accent-button-static renders without icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-accent-button-static">
   <slot name="icon">
   </slot>
@@ -27,7 +27,7 @@ snapshots["sbb-accent-button-static renders without icon Shadow DOM"] =
 `;
 /* end snapshot sbb-accent-button-static renders without icon Shadow DOM */
 
-snapshots["sbb-accent-button-static renders with slotted icon DOM"] =
+snapshots["sbb-accent-button-static renders with slotted icon DOM"] = 
 `<sbb-accent-button-static
   data-action=""
   data-sbb-button=""
@@ -47,7 +47,7 @@ snapshots["sbb-accent-button-static renders with slotted icon DOM"] =
 `;
 /* end snapshot sbb-accent-button-static renders with slotted icon DOM */
 
-snapshots["sbb-accent-button-static renders with slotted icon Shadow DOM"] =
+snapshots["sbb-accent-button-static renders with slotted icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-accent-button-static">
   <slot name="icon">
   </slot>
@@ -59,7 +59,7 @@ snapshots["sbb-accent-button-static renders with slotted icon Shadow DOM"] =
 `;
 /* end snapshot sbb-accent-button-static renders with slotted icon Shadow DOM */
 
-snapshots["sbb-accent-button-static renders with slotted icon A11y tree Chrome"] =
+snapshots["sbb-accent-button-static renders with slotted icon A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -75,7 +75,7 @@ snapshots["sbb-accent-button-static renders with slotted icon A11y tree Chrome"]
 `;
 /* end snapshot sbb-accent-button-static renders with slotted icon A11y tree Chrome */
 
-snapshots["sbb-accent-button-static renders with slotted icon A11y tree Firefox"] =
+snapshots["sbb-accent-button-static renders with slotted icon A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
