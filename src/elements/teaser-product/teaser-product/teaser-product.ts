@@ -1,5 +1,6 @@
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.js';
 import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.js';
@@ -19,6 +20,13 @@ export
 @customElement('sbb-teaser-product')
 class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(SbbLinkBaseElement) {
   public static override styles: CSSResultGroup = [teaserProductCommonStyle, style];
+
+  protected override render(): TemplateResult {
+    // We render the content outside the anchor tag to allow screen readers to navigate through it
+    return html`
+      <div class="sbb-teaser-product__wrapper">${this.renderLink()} ${this.renderTemplate()}</div>
+    `;
+  }
 }
 
 declare global {

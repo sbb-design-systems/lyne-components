@@ -16,7 +16,23 @@
   }
 }
 
+::slotted(:is(img, sbb-image)) {
+  will-change: filter;
+  transition-property: filter;
+  transition-duration: var(--sbb-teaser-product-animation-duration);
+  transition-timing-function: var(--sbb-animation-easing);
+  filter: brightness(var(--sbb-teaser-product-brightness, 1));
+}
+
+.sbb-teaser-product__wrapper {
+  position: relative;
+}
+
 .sbb-teaser-product {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
   &:focus-visible {
     :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
       @include sbb.focus-outline;
@@ -32,12 +48,4 @@
       }
     }
   }
-}
-
-::slotted(:is(img, sbb-image)) {
-  will-change: filter;
-  transition-property: filter;
-  transition-duration: var(--sbb-teaser-product-animation-duration);
-  transition-timing-function: var(--sbb-animation-easing);
-  filter: brightness(var(--sbb-teaser-product-brightness, 1));
 }
