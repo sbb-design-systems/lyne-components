@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, slotState } from '../core/decorators.js';
+import { isLean } from '../core/dom.js';
 import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.js';
 import { SbbIconNameMixin } from '../icon.js';
 
@@ -22,8 +23,11 @@ export
 class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
-  /** Size variant, either m, s or xs. */
-  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' = 's';
+  /**
+   * Size variant, either m, s or xs.
+   * @default 's' / 'xs' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' = isLean() ? 'xs' : 's';
 
   /** The svg name for the true state - default -> 'tick-small' */
   @forceType()

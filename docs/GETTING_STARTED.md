@@ -193,6 +193,23 @@ and on [storybook](https://lyne-storybook.app.sbb.ch).
 
 ## Styles
 
+### Lean variant
+
+Lean uses a more compact design by defaulting the `size` property to the smallest available value.
+Components that do not have a `size` property remain unchanged.
+To enable lean mode, add the CSS class `sbb-lean` to the `html` tag.
+
+```html
+<html lang="en" class="sbb-lean">
+  <head>
+    <title>Lyne Design System - Lean example</title>
+  </head>
+  <body>
+    ...
+  </body>
+</html>
+```
+
 ### CSS files
 
 Basically, all our styles are included in 'standard-theme.css' which should be included in your application.

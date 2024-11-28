@@ -8,6 +8,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, omitEmptyConverter, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
@@ -44,7 +45,7 @@ class SbbNavigationListElement extends SbbNamedSlotListMixin<
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('listChildren')) {
-      this.listChildren.forEach((c) => (c.size = 'm'));
+      this.listChildren.forEach((c) => (c.size = isLean() ? 's' : 'm'));
     }
   }
 

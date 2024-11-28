@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
+import { isLean } from '../core/dom.js';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 import type { SbbTitleLevel } from '../title.js';
@@ -48,8 +49,11 @@ class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
   /** Heading level of the journey header element (e.g. h1-h6). */
   @property() public accessor level: SbbTitleLevel = '3';
 
-  /** Journey header size. */
-  @property({ reflect: true }) public accessor size: JourneyHeaderSize = 'm';
+  /**
+   * Journey header size, either s, m or l.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: JourneyHeaderSize = isLean() ? 's' : 'm';
 
   private _language = new SbbLanguageController(this);
 

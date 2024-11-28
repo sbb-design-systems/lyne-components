@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import type { SbbDividerElement } from '../../divider/divider.js';
 import type { SbbMiniButtonElement } from '../mini-button/mini-button.js';
@@ -30,8 +31,11 @@ class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = '';
 
-  /** Size variant, either s, m, l or xl. */
-  @property({ reflect: true }) public accessor size: SbbMiniButtonGroupSize = 'm';
+  /**
+   * Size variant, either s, m, l or xl.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: SbbMiniButtonGroupSize = isLean() ? 's' : 'm';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
