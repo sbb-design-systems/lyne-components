@@ -20,6 +20,9 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
     class="sbb-action-base sbb-teaser"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
+    <sbb-screen-reader-only>
+      SBB teaser
+    </sbb-screen-reader-only>
   </a>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
@@ -75,6 +78,9 @@ snapshots["sbb-teaser renders after with title level set Shadow DOM"] =
     class="sbb-action-base sbb-teaser"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
+    <sbb-screen-reader-only>
+      SBB teaser
+    </sbb-screen-reader-only>
   </a>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
@@ -142,6 +148,9 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
     class="sbb-action-base sbb-teaser"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
+    <sbb-screen-reader-only>
+      SBB teaser
+    </sbb-screen-reader-only>
   </a>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
@@ -184,6 +193,10 @@ snapshots["sbb-teaser renders after centered A11y tree Chrome"] =
   "name": "",
   "children": [
     {
+      "role": "text",
+      "name": "​"
+    },
+    {
       "role": "link",
       "name": "SBB teaser"
     }
@@ -199,6 +212,10 @@ snapshots["sbb-teaser renders after centered A11y tree Firefox"] =
   "role": "document",
   "name": "",
   "children": [
+    {
+      "role": "statictext",
+      "name": "​"
+    },
     {
       "role": "link",
       "name": "SBB teaser",

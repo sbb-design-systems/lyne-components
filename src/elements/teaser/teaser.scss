@@ -36,16 +36,17 @@
 }
 
 .sbb-teaser__wrapper {
+  display: flex;
   position: relative;
+  cursor: pointer;
+
+  @include sbb.zero-width-space;
 }
 
 .sbb-teaser {
   text-decoration: none;
   position: absolute;
   inset: 0;
-  z-index: 1;
-
-  @include sbb.zero-width-space;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
@@ -72,6 +73,7 @@
   gap: var(--sbb-teaser-gap);
   max-width: 100%;
   width: 100%;
+  pointer-events: none;
 }
 
 .sbb-teaser__text {

@@ -7,6 +7,8 @@ import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '..
 
 import style from './teaser-product.scss?lit&inline';
 
+import '../../screen-reader-only.js';
+
 /**
  * Displays a text and a footnote, combined with an image, to tease a product
  *
@@ -24,7 +26,13 @@ class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(SbbLink
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it
     return html`
-      <div class="sbb-teaser-product__wrapper">${this.renderLink()} ${this.renderTemplate()}</div>
+      <div class="sbb-teaser-product__wrapper">
+        ${this.renderLink(
+          // For SEO we add the accessibility hidden as hidden content of the link
+          html`<sbb-screen-reader-only>${this.accessibilityLabel}</sbb-screen-reader-only>`,
+        )}
+        <div class="sbb-teaser-product__content-wrapper">${this.renderTemplate()}</div>
+      </div>
     `;
   }
 }

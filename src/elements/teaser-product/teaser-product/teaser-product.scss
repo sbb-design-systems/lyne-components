@@ -28,10 +28,15 @@
   position: relative;
 }
 
+.sbb-teaser-product__content-wrapper {
+  height: fit-content;
+  width: fit-content;
+  pointer-events: none;
+}
+
 .sbb-teaser-product {
   position: absolute;
   inset: 0;
-  z-index: 1;
 
   &:focus-visible {
     :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {

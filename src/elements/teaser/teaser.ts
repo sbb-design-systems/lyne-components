@@ -9,6 +9,7 @@ import type { SbbTitleLevel } from '../title.js';
 import style from './teaser.scss?lit&inline';
 
 import '../chip-label.js';
+import '../screen-reader-only.js';
 import '../title.js';
 
 /**
@@ -45,7 +46,13 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it
     return html`
-      <div class="sbb-teaser__wrapper">${this.renderLink()} ${this.renderContent()}</div>
+      <div class="sbb-teaser__wrapper">
+        ${this.renderLink(
+          // For SEO we add the accessibility hidden as hidden content of the link
+          html`<sbb-screen-reader-only>${this.accessibilityLabel}</sbb-screen-reader-only>`,
+        )}
+        ${this.renderContent()}
+      </div>
     `;
   }
 
