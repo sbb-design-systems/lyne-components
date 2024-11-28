@@ -189,7 +189,6 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
 
       this.dispatchEvent(new InputEvent('input', { composed: true, bubbles: true }));
       this.dispatchEvent(new Event('change', { bubbles: true }));
-      this.dispatchEvent(new CustomEvent('didChange', { bubbles: true }));
     };
   }
 

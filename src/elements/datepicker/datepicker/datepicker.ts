@@ -13,7 +13,7 @@ import { SbbConnectedAbortController, SbbLanguageController } from '../../core/c
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { forceType } from '../../core/decorators.js';
 import { findInput, findReferencedElement } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
+import { EventEmitter, forwardEventToHost } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
 import type { SbbDatepickerButton } from '../common.js';
@@ -56,8 +56,8 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
 /**
  * Combined with a native input, it displays the input's value as a formatted date.
  *
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Notifies that the connected input has changes.
+ * @event {CustomEvent<void>} input - Notifies that the connected input fired the input event.
  * @event {CustomEvent<SbbInputUpdateEvent>} inputUpdated - Notifies that the attributes of the input connected to the datepicker have changes.
  * @event {CustomEvent<void>} datePickerUpdated - Notifies that the attributes of the datepicker have changes.
  * @event {CustomEvent<SbbValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
@@ -67,7 +67,6 @@ export
 class SbbDatepickerElement<T = Date> extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'didChange',
     change: 'change',
     inputUpdated: 'inputUpdated',
     datePickerUpdated: 'datePickerUpdated',
@@ -110,14 +109,6 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     return this._valueAsDate ?? null;
   }
   private _valueAsDate?: T | null;
-
-  /**
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
-   */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbDatepickerElement.events.didChange, {
-    bubbles: true,
-    cancelable: true,
-  });
 
   /** Notifies that the connected input has changes. */
   private _change: EventEmitter = new EventEmitter(this, SbbDatepickerElement.events.change, {
@@ -249,7 +240,14 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       }
 
       const options: AddEventListenerOptions = { signal: this._datePickerController.signal };
-      input.addEventListener('input', () => this._parseInput(), options);
+      input.addEventListener(
+        'input',
+        (e) => {
+          forwardEventToHost(e, this);
+          this._parseInput();
+        },
+        options,
+      );
       input.addEventListener('change', () => this._handleInputChange(), options);
       this._parseInput(true);
       this._tryApplyFormatToInput();
@@ -269,7 +267,6 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     this._validateDate();
     this._setAriaLiveMessage();
     this._change.emit();
-    this._didChange.emit();
   }
 
   private _tryApplyFormatToInput(): boolean {
@@ -279,7 +276,11 @@ class SbbDatepickerElement<T = Date> extends LitElement {
 
     const formattedDate = this.valueAsDate ? this._dateAdapter.format(this.valueAsDate!) : '';
     if (formattedDate && this._inputElement.value !== formattedDate) {
-      this._inputElement.value = formattedDate;
+      // In order to support React onChange event, we have to get the setter and call it.
+      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
+      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+      setValue.call(this._inputElement, formattedDate);
+
       this._inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
       this._inputElement.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
       return true;

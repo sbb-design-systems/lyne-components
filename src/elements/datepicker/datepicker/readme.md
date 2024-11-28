@@ -93,6 +93,6 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 | ------------------- | --------------------------------------- | ----------------------------------------------------------------------------------- | -------------- |
 | `change`            | `CustomEvent<void>`                     | Notifies that the connected input has changes.                                      |                |
 | `datePickerUpdated` | `CustomEvent<void>`                     | Notifies that the attributes of the datepicker have changes.                        |                |
-| `didChange`         | `CustomEvent<void>`                     | Deprecated. used for React. Will probably be removed once React 19 is available.    |                |
+| `input`             | `CustomEvent<void>`                     | Notifies that the connected input fired the input event.                            |                |
 | `inputUpdated`      | `CustomEvent<SbbInputUpdateEvent>`      | Notifies that the attributes of the input connected to the datepicker have changes. |                |
 | `validationChange`  | `CustomEvent<SbbValidationChangeEvent>` | Emits whenever the internal validation state changes.                               |                |
