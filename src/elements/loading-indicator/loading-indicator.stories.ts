@@ -10,7 +10,6 @@ import readme from './readme.md?raw';
 
 import './loading-indicator.js';
 import '../button/button.js';
-import '../title.js';
 import '../card.js';
 
 const createLoadingIndicator = (event: Event, args: Args): void => {
@@ -72,94 +71,10 @@ const defaultArgs: Args = {
   color: color.options![0],
 };
 
-export const SmallDefault: StoryObj = {
+export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-};
-
-export const SmallSmoke: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![1] },
-};
-
-export const SmallWhite: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![2] },
-};
-
-export const LargeDefault: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1] },
-};
-
-export const LargeSmoke: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![1], size: size.options![1] },
-};
-
-export const LargeWhite: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![2], size: size.options![1] },
-};
-
-export const XLDefault: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![2] },
-};
-
-export const XLSmoke: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![1], size: size.options![2] },
-};
-
-export const XLWhite: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![2], size: size.options![2] },
-};
-
-export const XXLDefault: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![3] },
-};
-
-export const XXLSmoke: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![1], size: size.options![3] },
-};
-
-export const XXLWhite: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![2], size: size.options![3] },
-};
-
-export const XXXLDefault: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![4] },
-};
-
-export const XXXLSmoke: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![1], size: size.options![4] },
-};
-
-export const XXXLWhite: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![2], size: size.options![4] },
 };
 
 export const Accessibility: StoryObj = {

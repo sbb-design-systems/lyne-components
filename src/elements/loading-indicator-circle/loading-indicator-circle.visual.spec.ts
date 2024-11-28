@@ -13,7 +13,7 @@ describe(`sbb-loading-indicator-circle`, () => {
   describeViewports({ viewports: ['zero'] }, () => {
     describeEach(cases, ({ color, size }) => {
       it(
-        visualDiffDefault.name,
+        '',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`
