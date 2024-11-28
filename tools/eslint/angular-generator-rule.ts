@@ -211,7 +211,7 @@ export class ${className} {
         ) {
           expectedAngularImports.add('Input').add('NgZone');
         }
-        if (publicOutput) {
+        if (publicOutput && publicOutput.length > 0) {
           expectedAngularImports.add('Output');
           expectedRxJsImports.add('fromEvent').add('type Observable');
         }
@@ -221,7 +221,6 @@ export class ${className} {
         // Method: this.#element.method(...params)
 
         // TODO: Add @Input() decorators (with alias and maybe converter)
-        // TODO: Events with @Output() eventName = fromEvent(this.#element, 'eventName')
 
         for (const member of publicProperties) {
           if (
@@ -237,7 +236,7 @@ export class ${className} {
             context.report({
               node: classDeclaration.body,
               messageId: 'angularMissingInput',
-              data: { symbol: member.name.getText() },
+              data: { property: member.name.getText() },
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 let input = '@Input(';
@@ -295,7 +294,7 @@ export class ${className} {
             context.report({
               node: classDeclaration.body,
               messageId: 'angularMissingOutput',
-              data: { symbol: member.name.getText() },
+              data: { property: member.name.getText() },
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 const name = member.name.getText().replaceAll('_', '');
@@ -315,7 +314,34 @@ export class ${className} {
         }
 
         for (const member of publicMethods) {
-          // TODO: Add method call
+          if (
+            classDeclaration.body.body.every((n) => {
+              return (
+                n.type !== AST_NODE_TYPES.MethodDefinition ||
+                context.sourceCode.getText(n.key) !== member.name.getText()
+              );
+            })
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingMethod',
+              data: { method: member.name.getText() },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                const name = member.name.getText();
+                const methodParam = member.parameters?.map(e => e.getText()).join(', ');
+                const methodArguments = member.parameters?.map(e => e.name.getText()).join(', ');
+                const type = member.type?.getText();
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  public ${name}(${methodParam ?? ``}): ${type ?? ``} {
+    return this.#element.nativeElement.${name}(${methodArguments ?? ``});
+  }\n`,
+                );
+              },
+            });
+          }
         }
 
         const program = context.sourceCode.ast;
@@ -446,6 +472,7 @@ export class ${className} {
       angularMissingNgZone: 'Missing NgZone property',
       angularMissingInput: 'Missing input for property {{ property }}',
       angularMissingOutput: 'Missing output for property {{ property }}',
+      angularMissingMethod: 'Missing output for method {{ method }}',
     },
     fixable: 'code',
     type: 'suggestion',
