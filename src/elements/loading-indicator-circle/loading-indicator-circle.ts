@@ -7,7 +7,7 @@ import { hostAttributes } from '../core/decorators.js';
 import style from './loading-indicator-circle.scss?lit&inline';
 
 /**
- * It displays a loading indicator.
+ * It displays a circle loading indicator.
  */
 export
 @customElement('sbb-loading-indicator-circle')

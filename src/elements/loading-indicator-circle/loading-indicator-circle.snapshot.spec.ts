@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
 import type { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.js';
+
 import './loading-indicator-circle.js';
 
 describe(`sbb-loading-indicator-circle`, () => {

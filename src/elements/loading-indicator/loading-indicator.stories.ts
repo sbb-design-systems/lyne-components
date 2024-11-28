@@ -1,5 +1,5 @@
 import type { InputType, StoryContext } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -37,7 +37,11 @@ const TemplateAccessibility = (args: Args): TemplateResult => html`
   <sbb-button @click=${(event: Event) => createLoadingIndicator(event, args)}>
     Show loader
   </sbb-button>
-  <div class="loader-container" aria-live="polite"></div>
+  <div
+    class="loader-container"
+    aria-live="polite"
+    style="padding-block: var(--sbb-spacing-fixed-4x)"
+  ></div>
 `;
 
 const Template = (args: Args): TemplateResult => html`

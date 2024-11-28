@@ -1,5 +1,5 @@
 import type { InputType, StoryContext } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -36,7 +36,11 @@ const TemplateAccessibility = (): TemplateResult => html`
   </sbb-card>
   <br />
   <sbb-button @click=${(event: Event) => createLoadingIndicator(event)}> Show loader </sbb-button>
-  <div class="loader-container" aria-live="polite"></div>
+  <div
+    class="loader-container"
+    aria-live="polite"
+    style="padding-block: var(--sbb-spacing-fixed-4x)"
+  ></div>
 `;
 
 const Template = (args: Args): TemplateResult => html`
@@ -50,20 +54,6 @@ const Template = (args: Args): TemplateResult => html`
   </sbb-title>
 `;
 
-const variant: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['window', 'circle'],
-};
-
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['s', 'l'],
-};
-
 const color: InputType = {
   control: {
     type: 'inline-radio',
@@ -72,50 +62,50 @@ const color: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  variant,
-  size,
   color,
 };
 
 const defaultArgs: Args = {
-  variant: variant.options![0],
-  size: size.options![0],
   color: color.options![0],
 };
 
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, variant: variant.options![1] },
+  args: { ...defaultArgs },
 };
 
 export const Smoke: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![1], variant: variant.options![1] },
+  args: { ...defaultArgs, color: color.options![1] },
 };
 
 export const White: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![2], variant: variant.options![1] },
-  decorators: [
-    (story) =>
-      html`<div
-        style="color: var(--sbb-color-white); --sbb-title-text-color-normal-override: var(--sbb-color-white)"
-      >
-        ${story()}
-      </div>`,
-  ],
+  args: { ...defaultArgs, color: color.options![2] },
 };
 
 export const Accessibility: StoryObj = {
   render: TemplateAccessibility,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1] },
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {
+  decorators: [
+    (story, context) => {
+      if (context.args.color === 'white') {
+        return html`<div
+          style="color: var(--sbb-color-white); --sbb-title-text-color-normal-override: var(--sbb-color-white)"
+        >
+          ${story()}
+        </div>`;
+      }
+      return story();
+    },
+  ],
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.color === 'white' ? 'var(--sbb-color-iron)' : 'var(--sbb-color-white)',
