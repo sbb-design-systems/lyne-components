@@ -21,7 +21,7 @@ snapshots["sbb-accent-button renders a sbb-accent-button without icon DOM"] =
 /* end snapshot sbb-accent-button renders a sbb-accent-button without icon DOM */
 
 snapshots["sbb-accent-button renders a sbb-accent-button without icon Shadow DOM"] = 
-`<span class="sbb-action-base sbb-accent-button">
+`<span class="sbb-accent-button sbb-action-base">
   <slot name="icon">
   </slot>
   <span class="sbb-button__label">
@@ -55,7 +55,7 @@ snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon DOM"]
 /* end snapshot sbb-accent-button renders a sbb-accent-button with slotted icon DOM */
 
 snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon Shadow DOM"] = 
-`<span class="sbb-action-base sbb-accent-button">
+`<span class="sbb-accent-button sbb-action-base">
   <slot name="icon">
   </slot>
   <span class="sbb-button__label">
