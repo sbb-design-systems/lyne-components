@@ -40,7 +40,7 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
 ) {
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, panelCommonStyle];
 
-  // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
+  // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
     stateChange: 'stateChange',
     change: 'change',

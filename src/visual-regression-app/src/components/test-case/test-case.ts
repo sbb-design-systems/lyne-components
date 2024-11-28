@@ -110,7 +110,7 @@ class TestCase extends LitElement {
           </sbb-title>
         </div>
         <div class="sbb-header-spacer"></div>
-        <div class="app-navigation-block" slot="logo">
+        <div class="sbb-header-logo app-navigation-block">
           <sbb-header-link href="/" icon-name="house-small">Overview</sbb-header-link>
           <sbb-secondary-button-link
             href="/compare/${this._previous()?.path}"

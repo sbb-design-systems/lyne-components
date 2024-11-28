@@ -38,7 +38,6 @@ export type SbbCheckboxPanelStateChange = Extract<
  * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
  * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
  */
@@ -50,9 +49,8 @@ class SbbCheckboxPanelElement extends SbbPanelMixin(
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
 
-  // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
+  // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
-    didChange: 'didChange',
     stateChange: 'stateChange',
     panelConnected: 'panelConnected',
   } as const;

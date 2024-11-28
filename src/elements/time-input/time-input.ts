@@ -144,18 +144,22 @@ class SbbTimeInputElement extends LitElement {
     );
     this._inputElement.addEventListener(
       'change',
-      (event: Event) => this._updateValueAndEmitChange(event),
+      (event: Event) => this._updateValue((event.target as HTMLInputElement).value),
+      {
+        signal: this._abortController.signal,
+        capture: true,
+      },
+    );
+    this._inputElement.addEventListener(
+      'change',
+      (event: Event) => {
+        this._emitChange(event);
+        this._updateAccessibilityMessage();
+      },
       {
         signal: this._abortController.signal,
       },
     );
-  }
-
-  /** Applies the correct format to values and triggers event dispatch. */
-  private _updateValueAndEmitChange(event: Event): void {
-    this._updateValue((event.target as HTMLInputElement).value);
-    this._emitChange(event);
-    this._updateAccessibilityMessage();
   }
 
   /**
@@ -175,7 +179,12 @@ class SbbTimeInputElement extends LitElement {
     const isTimeValid = !!time && this._isTimeValid(time);
     const isEmptyOrValid = !value || value.trim() === '' || isTimeValid;
     if (isEmptyOrValid && time) {
-      this._inputElement.value = this._formatValue(time);
+      // In order to support React onChange event, we have to get the setter and call it.
+      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
+      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+      setValue.call(this._inputElement, this._formatValue(time));
+
+      this._inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     }
 
     const wasValid = !this._inputElement.hasAttribute('data-sbb-invalid');
