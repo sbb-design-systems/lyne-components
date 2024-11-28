@@ -83,19 +83,19 @@ const defaultArgs: Args = {
   color: color.options![0],
 };
 
-export const CircleDefault: StoryObj = {
+export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, variant: variant.options![1] },
 };
 
-export const CircleSmoke: StoryObj = {
+export const Smoke: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![1], variant: variant.options![1] },
 };
 
-export const CircleWhite: StoryObj = {
+export const White: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![2], variant: variant.options![1] },

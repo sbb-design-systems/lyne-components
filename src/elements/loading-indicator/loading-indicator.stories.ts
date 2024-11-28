@@ -68,40 +68,94 @@ const defaultArgs: Args = {
   color: color.options![0],
 };
 
-export const WindowSmallDefault: StoryObj = {
+export const SmallDefault: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-export const WindowSmallSmoke: StoryObj = {
+export const SmallSmoke: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![1] },
 };
 
-export const WindowSmallWhite: StoryObj = {
+export const SmallWhite: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![2] },
 };
 
-export const WindowLargeDefault: StoryObj = {
+export const LargeDefault: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
 };
 
-export const WindowLargeSmoke: StoryObj = {
+export const LargeSmoke: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![1], size: size.options![1] },
 };
 
-export const WindowLargeWhite: StoryObj = {
+export const LargeWhite: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![2], size: size.options![1] },
+};
+
+export const XLDefault: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![2] },
+};
+
+export const XLSmoke: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![1], size: size.options![2] },
+};
+
+export const XLWhite: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![2], size: size.options![2] },
+};
+
+export const XXLDefault: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![3] },
+};
+
+export const XXLSmoke: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![1], size: size.options![3] },
+};
+
+export const XXLWhite: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![2], size: size.options![3] },
+};
+
+export const XXXLDefault: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![4] },
+};
+
+export const XXXLSmoke: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![1], size: size.options![4] },
+};
+
+export const XXXLWhite: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![2], size: size.options![4] },
 };
 
 export const Accessibility: StoryObj = {
