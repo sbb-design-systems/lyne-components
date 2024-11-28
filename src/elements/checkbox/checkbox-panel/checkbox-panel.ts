@@ -49,7 +49,7 @@ class SbbCheckboxPanelElement extends SbbPanelMixin(
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
 
-  // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
+  // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
     stateChange: 'stateChange',
     panelConnected: 'panelConnected',
