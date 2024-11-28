@@ -22,12 +22,18 @@ export interface SbbConfig {
 
 export function readConfig(): SbbConfig {
   if (!('sbbConfig' in globalThis)) {
-    (globalThis as any).sbbConfig = {}; // TODO: fix any type
+    globalThis.sbbConfig = {};
   }
-  return (globalThis as any).sbbConfig as SbbConfig; // TODO: fix any type
+  return globalThis.sbbConfig as SbbConfig;
 }
 
 export function mergeConfig(config: Partial<SbbConfig>): void {
   const oldConfig = readConfig();
   Object.assign(oldConfig, config);
+}
+
+declare global {
+  // Only `var` is working
+  // eslint-disable-next-line no-var
+  var sbbConfig: SbbConfig;
 }
