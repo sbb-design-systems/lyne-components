@@ -1,3 +1,4 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
@@ -52,6 +53,11 @@ class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
     return this.querySelector?.('sbb-flip-card-details');
   }
 
+  /** Returns the card details content element wrapper. */
+  private get _detailsContentElement(): HTMLElement | null {
+    return this.details!.shadowRoot!.firstElementChild as HTMLElement;
+  }
+
   /** Whether the flip card is flipped. */
   public get isFlipped(): boolean {
     return this._flipped;
@@ -62,6 +68,11 @@ class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
 
   private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
+  private _cardDetailsResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => this._setCardDetailsHeight(),
+  });
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -82,11 +93,22 @@ class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
   /** Toggles the state of the sbb-flip-card. */
   public toggle(): void {
     this._flipped = !this._flipped;
+    if (this._flipped) {
+      this._setCardDetailsHeight();
+      this._cardDetailsResizeObserver.observe(this._detailsContentElement!);
+    } else {
+      this._cardDetailsResizeObserver.unobserve(this._detailsContentElement!);
+    }
     this.toggleAttribute('data-flipped', this._flipped);
     this.details!.toggleAttribute('data-flipped', this._flipped);
     this.summary!.inert = this._flipped;
     this.details!.inert = !this._flipped;
     this.flip.emit();
+  }
+
+  private _setCardDetailsHeight(): any {
+    const contentHeight = Math.floor(this._detailsContentElement!.offsetHeight);
+    this.style?.setProperty('--sbb-flip-card-details-height', `${contentHeight}px`);
   }
 
   private async _accessibilityLabel(): Promise<string> {

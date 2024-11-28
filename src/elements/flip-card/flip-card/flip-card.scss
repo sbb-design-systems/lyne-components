@@ -75,9 +75,15 @@
   min-height: var(--sbb-flip-card-min-height);
   background-color: var(--sbb-flip-card-background-color);
   border-radius: var(--sbb-flip-card-border-radius);
-  transition: var(--sbb-flip-card-summary-transition-duration) ease-out;
+  transition:
+    all var(--sbb-flip-card-summary-transition-duration) ease-out,
+    min-height var(--sbb-flip-card-details-transition-duration);
   transition-delay: var(--sbb-flip-card-summary-transition-delay);
   cursor: pointer;
+
+  :host([data-flipped]) & {
+    min-height: max(var(--sbb-flip-card-min-height), var(--sbb-flip-card-details-height));
+  }
 
   @include sbb.if-forced-colors {
     &::after {
