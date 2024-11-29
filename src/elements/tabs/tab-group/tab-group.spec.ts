@@ -178,6 +178,7 @@ describe(`sbb-tab-group`, () => {
 
   it('recovers if active tabs are added later', async () => {
     element = await fixture(html`<sbb-tab-group></sbb-tab-group>`);
+    const changeSpy = new EventSpy(SbbTabGroupElement.events.didChange);
 
     const newLabel = document.createElement('sbb-tab-label');
     newLabel.textContent = 'Label 1';
@@ -185,25 +186,25 @@ describe(`sbb-tab-group`, () => {
     const newTab = document.createElement('sbb-tab');
     newTab.textContent = 'Tab 1';
 
-    element.appendChild(newLabel);
-    element.appendChild(newTab);
+    element.append(newLabel, newTab);
 
     await waitForLitRender(element);
     // Await throttling
     await aTimeout(200);
 
+    // console.log(element._selectedTab)
     const newLabelActive = document.createElement('sbb-tab-label');
     newLabelActive.textContent = 'Label 2';
     const newTabActive = document.createElement('sbb-tab');
     newTabActive.textContent = 'Tab 2';
 
-    element.appendChild(newLabelActive);
-    element.appendChild(newTabActive);
+    element.append(newLabelActive, newTabActive);
 
     await waitForLitRender(element);
     // Await throttling
     await aTimeout(200);
 
+    expect(changeSpy.count).to.be.equal(1);
     expect(element.querySelector('sbb-tab-label')).to.have.attribute('active');
     expect(element.querySelector('sbb-tab-label')).to.have.attribute('aria-selected', 'true');
     expect(element.querySelector('sbb-tab')).to.have.attribute('active');
@@ -217,6 +218,7 @@ describe(`sbb-tab-group`, () => {
     newLabelActive.click();
     await waitForLitRender(element);
 
+    expect(changeSpy.count).to.be.equal(2);
     expect(element.querySelector('sbb-tab-label')).not.to.have.attribute('active');
     expect(element.querySelector('sbb-tab-label')).to.have.attribute('aria-selected', 'false');
     expect(element.querySelector('sbb-tab')).not.to.have.attribute('active');
