@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
+import { isLean } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
@@ -42,7 +43,7 @@ export
 @customElement('sbb-notification')
 @slotState()
 class SbbNotificationElement extends LitElement {
-  // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
+  // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -70,8 +71,11 @@ class SbbNotificationElement extends LitElement {
   @property({ reflect: true, type: Boolean })
   public accessor readonly: boolean = false;
 
-  /** Size variant, either s or m. */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = 'm';
+  /**
+   * Size variant, either s or m.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';

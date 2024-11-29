@@ -6,7 +6,7 @@ import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } fro
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import { forceType, slotState } from '../core/decorators.js';
-import { isFirefox } from '../core/dom.js';
+import { isFirefox, isLean } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
@@ -170,7 +170,7 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
       ) as (SbbTransparentButtonElement | SbbTransparentButtonLinkElement)[];
     buttons.forEach((btn: SbbTransparentButtonElement | SbbTransparentButtonLinkElement) => {
       btn.negative = true;
-      btn.size = 'm';
+      btn.size = isLean() ? 's' : 'm';
     });
 
     // Force negative on inline slotted links

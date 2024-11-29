@@ -116,21 +116,28 @@ describe(`sbb-autocomplete`, () => {
   });
 
   it('select by mouse', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
+    const inputEventSpy = new EventSpy('input', input);
+    const changeEventSpy = new EventSpy('change', input);
+    const optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
 
     input.focus();
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
     await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
 
-    await sendKeys({ press: 'ArrowDown' });
-    await sendKeys({ press: 'ArrowDown' });
-    await sendKeys({ press: 'Enter' });
+    const positionRect = optTwo.getBoundingClientRect();
+
+    await sendMouse({
+      type: 'click',
+      position: [
+        Math.round(positionRect.x + window.scrollX + positionRect.width / 2),
+        Math.round(positionRect.y + window.scrollY + positionRect.height / 2),
+      ],
+    });
     await waitForLitRender(element);
 
+    expect(inputEventSpy.count).to.be.equal(1);
+    expect(changeEventSpy.count).to.be.equal(1);
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(optionSelectedEventSpy.firstEvent!.target).to.have.property('id', 'option-2');
   });
@@ -139,8 +146,12 @@ describe(`sbb-autocomplete`, () => {
     const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose);
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
+    const inputEventSpy = new EventSpy('input', input);
+    const changeEventSpy = new EventSpy('change', input);
     const optOne = element.querySelector('#option-1');
     const optTwo = element.querySelector('#option-2');
+    const keydownSpy = new EventSpy('keydown', input);
+
     input.focus();
 
     await didOpenEventSpy.calledOnce();
@@ -158,9 +169,12 @@ describe(`sbb-autocomplete`, () => {
     await sendKeys({ press: 'Enter' });
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
+    expect(keydownSpy.lastEvent?.defaultPrevented).to.be.true;
 
     expect(optTwo).not.to.have.attribute('data-active');
     expect(optTwo).to.have.attribute('selected');
+    expect(inputEventSpy.count).to.be.equal(1);
+    expect(changeEventSpy.count).to.be.equal(1);
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
     expect(input).not.to.have.attribute('aria-activedescendant');

@@ -22,9 +22,9 @@ export interface SbbConfig {
 
 export function readConfig(): SbbConfig {
   if (!('sbbConfig' in globalThis)) {
-    (globalThis as any).sbbConfig = {}; // FIXME any type
+    (globalThis as any).sbbConfig = {}; // TODO: fix any type
   }
-  return (globalThis as any).sbbConfig as SbbConfig; // FIXME any type
+  return (globalThis as any).sbbConfig as SbbConfig; // TODO: fix any type
 }
 
 export function mergeConfig(config: Partial<SbbConfig>): void {

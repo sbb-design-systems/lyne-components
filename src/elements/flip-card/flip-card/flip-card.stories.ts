@@ -3,6 +3,7 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryObj, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import sampleImages from '../../core/images.js';
 
@@ -107,6 +108,39 @@ const LongContentTemplate = (args: Args): TemplateResult =>
     </sbb-flip-card-details>
   </sbb-flip-card>`;
 
+const GridTemplate = (args: Args): TemplateResult =>
+  html`<div
+    style=${styleMap({
+      display: 'grid',
+      gridTemplateRows: 'minmax(20rem, 1fr)',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      gridColumnGap: '1rem',
+      gridRowGap: '1rem',
+    })}
+  >
+    <sbb-flip-card accessibility-label=${args['accessibility-label']}>
+      ${cardSummary(args.label, args.imageAlignment, true)} ${cardDetails()}
+    </sbb-flip-card>
+    <sbb-flip-card accessibility-label=${args['accessibility-label']}>
+      ${cardSummary(args.label, args.imageAlignment, true)}
+      <sbb-flip-card-details>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
+        Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus
+        vitae tortor ullamcorper maximus. In convallis consectetur felis. Lorem ipsum dolor sit
+        amet, consectetur adipiscing elit. Nam luctus ornare condimentum. Vivamus turpis elit,
+        dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus vitae tortor ullamcorper
+        maximus. In convallis consectetur felis.
+        <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link>
+      </sbb-flip-card-details>
+    </sbb-flip-card>
+    <sbb-flip-card accessibility-label=${args['accessibility-label']}>
+      ${cardSummary(args.label, args.imageAlignment, true)} ${cardDetails()}
+    </sbb-flip-card>
+    <sbb-flip-card accessibility-label=${args['accessibility-label']}>
+      ${cardSummary(args.label, args.imageAlignment, true)} ${cardDetails()}
+    </sbb-flip-card>
+  </div>`;
+
 export const ImageAfter: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
@@ -138,6 +172,12 @@ export const LongTitle: StoryObj = {
     ...defaultArgs,
     label: 'This is a very long title that should break into multiple lines',
   },
+};
+
+export const Grid: StoryObj = {
+  render: GridTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, imageAlignment: imageAlignment.options![1] },
 };
 
 const meta: Meta = {

@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, slotState } from '../core/decorators.js';
+import { isLean } from '../core/dom.js';
 import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.js';
 import { SbbIconNameMixin } from '../icon.js';
 
@@ -13,7 +14,6 @@ import style from './toggle-check.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the toggle label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
  */
@@ -22,12 +22,12 @@ export
 @slotState()
 class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    didChange: 'didChange',
-  } as const;
 
-  /** Size variant, either m, s or xs. */
-  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' = 's';
+  /**
+   * Size variant, either m, s or xs.
+   * @default 's' / 'xs' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' = isLean() ? 'xs' : 's';
 
   /** The svg name for the true state - default -> 'tick-small' */
   @forceType()

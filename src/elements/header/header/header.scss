@@ -95,12 +95,6 @@
   }
 }
 
-.sbb-header__logo {
-  flex: 0 0 auto;
-  margin-inline-start: auto;
-  padding-inline-start: var(--sbb-spacing-responsive-s);
-}
-
 // Fix left offset if first element of the header is a sbb-header-button/sbb-header-link.
 // The value of the offset is calculated inside sbb-header-button/sbb-header-link styles.
 ::slotted(:is(sbb-header-button, sbb-header-link):first-child) {
@@ -127,8 +121,12 @@
   flex-grow: 1;
 }
 
+::slotted(.sbb-header-logo) {
+  margin-inline-start: var(--sbb-spacing-responsive-s);
+}
+
 // Apply padding and outline to possible slotted link in logo slot
-::slotted(a[slot='logo']) {
+::slotted(a.sbb-header-logo) {
   display: block;
   padding-block: var(--sbb-spacing-fixed-3x);
   position: relative;
@@ -139,7 +137,7 @@
 }
 
 // To show the correct outline, we need to span a hidden element filling the link but without the outline-offset.
-::slotted(a[slot='logo'])::before {
+::slotted(a.sbb-header-logo)::before {
   content: '';
   display: block;
   position: absolute;
@@ -148,7 +146,7 @@
 
 // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
 ::slotted(
-    a[slot='logo']:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+    a.sbb-header-logo:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
   )::before {
   @include sbb.focus-outline;
 

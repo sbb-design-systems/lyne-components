@@ -12,6 +12,7 @@ import './header.js';
 import '../header-button.js';
 import '../header-link.js';
 import '../../divider.js';
+import '../../logo.js';
 import '../../menu.js';
 import '../../signet.js';
 
@@ -65,14 +66,15 @@ const HeaderBasicTemplate = (
       <sbb-menu-button>Italiano</sbb-menu-button>
       <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
     </sbb-menu>
+    <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
     ${args.size === 's'
       ? html`
-          <a slot="logo" aria-label="Homepage" href="/">
-            <sbb-signet slot="logo" protective-room="panel"></sbb-signet>
+          <a aria-label="Homepage" href="/" class="sbb-header-logo">
+            <sbb-signet protective-room="panel"></sbb-signet>
           </a>
         `
       : html`
-          <a slot="logo" aria-label="Homepage" href="/">
+          <a aria-label="Homepage" href="/" class="sbb-header-logo">
             <sbb-logo protective-room="none"></sbb-logo>
           </a>
         `}

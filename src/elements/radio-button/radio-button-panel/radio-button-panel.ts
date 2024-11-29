@@ -9,6 +9,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import {
   panelCommonStyle,
   type SbbFormAssociatedRadioButtonMixinType,
@@ -40,7 +41,7 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
 ) {
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, panelCommonStyle];
 
-  // FIXME using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
+  // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
     stateChange: 'stateChange',
     change: 'change',
@@ -48,10 +49,13 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
     panelConnected: 'panelConnected',
   } as const;
 
-  /** Size variant. */
+  /**
+   * Size variant, either s or m.
+   * @default 'm' / 's' (lean)
+   */
   @property({ reflect: true })
   @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
-  public accessor size: SbbPanelSize = 'm';
+  public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
 
   private _hasSelectionExpansionPanelElement: boolean = false;
 

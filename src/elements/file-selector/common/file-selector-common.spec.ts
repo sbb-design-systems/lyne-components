@@ -99,6 +99,9 @@ describe('sbb-file-selector common', () => {
           expect(e.lastModified, `file - lastModified - ${i}`).to.be.equal(
             Array.from(input.files!)[i].lastModified,
           );
+
+          expect(element.role, 'compare to native role').to.be.equal(input.role);
+          expect(element.type, 'compare to native type').to.be.equal(input.type);
         });
 
         // Compare formData

@@ -4,9 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nNextDay, i18nSelectNextDay } from '../../core/i18n.js';
 import { SbbDatepickerButton } from '../common.js';
-import { findNextAvailableDate, type SbbInputUpdateEvent } from '../datepicker.js';
 
-import '../../icon.js';
 import style from './datepicker-next-day.scss?lit&inline';
 
 /**
@@ -23,13 +21,10 @@ class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
   protected iconName: string = 'chevron-small-right-small';
   protected i18nOffBoundaryDay: Record<string, string> = i18nNextDay;
   protected i18nSelectOffBoundaryDay = i18nSelectNextDay;
-  protected findAvailableDate = findNextAvailableDate;
 
-  protected onInputUpdated(event: CustomEvent<SbbInputUpdateEvent>): void {
-    if (this.boundary !== event.detail.max) {
-      this.boundary = event.detail.max!;
-      this.setDisabledState(this.datePickerElement!);
-    }
+  protected findAvailableDate(date: T): T {
+    // When calling findAvailableDate, datepickerElement is always defined.
+    return this.datePickerElement!.findNextAvailableDate(date);
   }
 }
 

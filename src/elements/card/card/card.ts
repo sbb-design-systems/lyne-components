@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { isLean } from '../../core/dom.js';
+
 import style from './card.scss?lit&inline';
 
 /**
@@ -16,7 +18,10 @@ export
 class SbbCardElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** Size variant, either xs, s, m, l, xl, xxl or xxxl. */
+  /**
+   * Size variant, either xs, s, m, l, xl, xxl or xxxl.
+   * @default 'm' / 'xs' (lean)
+   */
   @property({ reflect: true }) public accessor size:
     | 'xs'
     | 's'
@@ -24,7 +29,7 @@ class SbbCardElement extends LitElement {
     | 'l'
     | 'xl'
     | 'xxl'
-    | 'xxxl' = 'm';
+    | 'xxxl' = isLean() ? 'xs' : 'm';
 
   /** Option to set the component's background color. */
   @property({ reflect: true }) public accessor color:

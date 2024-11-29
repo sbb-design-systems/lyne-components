@@ -57,12 +57,12 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type            | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `disabled`  | public  | `boolean`       | `false` | Whether the component is disabled.                                                                                               |
-| `iconName` | `icon-name` | public  | `string`        | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `negative` | `negative`  | public  | `boolean`       | `false` | Negative coloring variant flag.                                                                                                  |
-| `size`     | `size`      | public  | `SbbButtonSize` | `'l'`   | Size variant, either l or m.                                                                                                     |
+| Name       | Attribute   | Privacy | Type            | Default            | Description                                                                                                                      |
+| ---------- | ----------- | ------- | --------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`       | `false`            | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string`        | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `negative` | `negative`  | public  | `boolean`       | `false`            | Negative coloring variant flag.                                                                                                  |
+| `size`     | `size`      | public  | `SbbButtonSize` | `'l' / 's' (lean)` | Size variant, either l, m or s.                                                                                                  |
 
 ## Slots
 
