@@ -10,6 +10,30 @@
     --sbb-disable-animation-zero-duration,
     var(--sbb-animation-duration-6x)
   );
+  --sbb-loading-indicator-window-element-rotation: 55.24deg;
+  --sbb-loading-indicator-window-element-animation-name: loading-container;
+
+  // Size of the gap between the windows
+  --sbb-loading-indicator-window-unit: calc(
+    var(--sbb-loading-indicator-window-first-span-width) / 5.5
+  );
+  --sbb-loading-indicator-window-element-animation-speed: calc(
+    var(--sbb-loading-indicator-window-unit) * 6.5
+  );
+  --sbb-loading-indicator-window-first-span-width: calc(
+    var(--sbb-loading-indicator-window-height) * 0.58
+  );
+
+  // Defaults to S
+  --sbb-loading-indicator-window-height: #{sbb.px-to-rem-build(18)};
+  --sbb-loading-indicator-window-element-width: #{sbb.px-to-rem-build(55.46666)};
+  --sbb-loading-indicator-window-element-height: #{sbb.px-to-rem-build(5.33333)};
+  --sbb-loading-indicator-window-last-span-margin: var(--sbb-loading-indicator-window-unit);
+  --sbb-loading-indicator-window-last-span-transform: translate3d(
+    #{sbb.px-to-rem-build(-1.6)},
+    0,
+    0
+  );
 
   display: inline-block;
   line-height: 0;
@@ -23,74 +47,28 @@
   --sbb-loading-indicator-color: var(--sbb-color-white);
 }
 
-:host([size='s']) {
-  --sbb-loading-indicator-window-height: #{sbb.px-to-rem-build(18)};
-  --sbb-loading-indicator-window-element-width: #{sbb.px-to-rem-build(55.46666)};
-  --sbb-loading-indicator-window-element-height: #{sbb.px-to-rem-build(5.33333)};
-  --sbb-loading-indicator-window-element-perspective: #{sbb.px-to-rem-build(75)};
-  --sbb-loading-indicator-window-element-rotate-y: 50.125deg;
-  --sbb-loading-indicator-window-element-animation-name: loading-container;
-  --sbb-loading-indicator-window-element-animation-speed: 0.73333em;
-  --sbb-loading-indicator-window-last-span-width: #{sbb.px-to-rem-build(8.53333)};
-  --sbb-loading-indicator-window-last-span-height: #{sbb.px-to-rem-build(5.33333)};
-  --sbb-loading-indicator-window-last-span-margin: #{sbb.px-to-rem-build(3.2)};
-  --sbb-loading-indicator-window-last-span-transform: translate3d(
-    #{sbb.px-to-rem-build(-1.6)},
-    0,
-    0
-  );
-}
-
 :host([size='l']) {
   --sbb-loading-indicator-window-height: #{sbb.px-to-rem-build(32)};
   --sbb-loading-indicator-window-element-width: #{sbb.px-to-rem-build(92.7969)};
   --sbb-loading-indicator-window-element-height: #{sbb.px-to-rem-build(9.59375)};
-  --sbb-loading-indicator-window-element-perspective: #{sbb.px-to-rem-build(119.19)};
-  --sbb-loading-indicator-window-element-rotate-y: 52.642deg;
-  --sbb-loading-indicator-window-element-animation-name: loading-container;
-  --sbb-loading-indicator-window-element-animation-speed: 1.2em;
-  --sbb-loading-indicator-window-last-span-width: #{sbb.px-to-rem-build(16)};
-  --sbb-loading-indicator-window-last-span-height: #{sbb.px-to-rem-build(9.59375)};
-  --sbb-loading-indicator-window-last-span-margin: #{sbb.px-to-rem-build(3.2)};
 }
 
 :host([size='xl']) {
   --sbb-loading-indicator-window-height: #{sbb.px-to-rem-build(51)};
   --sbb-loading-indicator-window-element-width: #{sbb.px-to-rem-build(140.8)};
   --sbb-loading-indicator-window-element-height: #{sbb.px-to-rem-build(16)};
-  --sbb-loading-indicator-window-element-perspective: #{sbb.px-to-rem-build(179.4)};
-  --sbb-loading-indicator-window-element-rotate-y: 53.868deg;
-  --sbb-loading-indicator-window-element-animation-name: loading-container;
-  --sbb-loading-indicator-window-element-animation-speed: 1.8em;
-  --sbb-loading-indicator-window-last-span-width: #{sbb.px-to-rem-build(25.6)};
-  --sbb-loading-indicator-window-last-span-height: #{sbb.px-to-rem-build(16)};
-  --sbb-loading-indicator-window-last-span-margin: #{sbb.px-to-rem-build(3.2)};
 }
 
 :host([size='xxl']) {
   --sbb-loading-indicator-window-height: #{sbb.px-to-rem-build(98)};
   --sbb-loading-indicator-window-element-width: #{sbb.px-to-rem-build(249.6)};
   --sbb-loading-indicator-window-element-height: #{sbb.px-to-rem-build(28)};
-  --sbb-loading-indicator-window-element-perspective: #{sbb.px-to-rem-build(297.248)};
-  --sbb-loading-indicator-window-element-rotate-y: 54.437deg;
-  --sbb-loading-indicator-window-element-animation-name: loading-container;
-  --sbb-loading-indicator-window-element-animation-speed: 3.2em;
-  --sbb-loading-indicator-window-last-span-width: #{sbb.px-to-rem-build(44.8)};
-  --sbb-loading-indicator-window-last-span-height: #{sbb.px-to-rem-build(28)};
-  --sbb-loading-indicator-window-last-span-margin: #{sbb.px-to-rem-build(6.4)};
 }
 
 :host([size='xxxl']) {
   --sbb-loading-indicator-window-height: #{sbb.px-to-rem-build(147)};
   --sbb-loading-indicator-window-element-width: #{sbb.px-to-rem-build(354.4)};
   --sbb-loading-indicator-window-element-height: #{sbb.px-to-rem-build(40)};
-  --sbb-loading-indicator-window-element-perspective: #{sbb.px-to-rem-build(408.85)};
-  --sbb-loading-indicator-window-element-rotate-y: 54.442deg;
-  --sbb-loading-indicator-window-element-animation-name: loading-container;
-  --sbb-loading-indicator-window-element-animation-speed: 4.5375em;
-  --sbb-loading-indicator-window-last-span-width: #{sbb.px-to-rem-build(64)};
-  --sbb-loading-indicator-window-last-span-height: #{sbb.px-to-rem-build(40)};
-  --sbb-loading-indicator-window-last-span-margin: #{sbb.px-to-rem-build(8.6)};
 }
 
 span {
@@ -106,20 +84,23 @@ span {
 }
 
 .sbb-loading-indicator__animated-element {
+  position: relative;
+  justify-content: center;
+  display: flex;
   margin: 0 auto;
   transform-origin: center;
-  transform: translate3d(-2em, 0, 0);
+  transform: translate3d(25%, 0, 0);
   backface-visibility: hidden;
-  transform-style: preserve-3d;
   width: var(--sbb-loading-indicator-window-element-width);
   height: var(--sbb-loading-indicator-window-element-height);
-  perspective: var(--sbb-loading-indicator-window-element-perspective);
+  perspective: var(--sbb-loading-indicator-window-height);
 }
 
 .sbb-loading-indicator__animated-element > span {
   position: relative;
-  transform: rotateY(var(--sbb-loading-indicator-window-element-rotate-y)) translateZ(1em);
-  transform-origin: right;
+  align-self: center;
+  transform: rotateY(var(--sbb-loading-indicator-window-element-rotation));
+  transform-origin: left;
   backface-visibility: hidden;
 }
 
@@ -136,10 +117,9 @@ span {
   background: var(--sbb-loading-indicator-color);
   backface-visibility: hidden;
   outline: var(--sbb-border-width-1x) solid rgb(0 0 0 / 0%);
-  width: var(--sbb-loading-indicator-window-last-span-width);
-  height: var(--sbb-loading-indicator-window-last-span-height);
+  width: var(--sbb-loading-indicator-window-first-span-width);
+  height: var(--sbb-loading-indicator-window-height);
   margin-right: var(--sbb-loading-indicator-window-last-span-margin);
-  transform: var(--sbb-loading-indicator-window-last-span-transform);
 
   &:nth-child(1) {
     animation: loading-rectangle1 var(--sbb-loading-indicator-duration) linear infinite;
