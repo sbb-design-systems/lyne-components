@@ -10,6 +10,7 @@ import sampleImages from '../core/images.js';
 import readme from './readme.md?raw';
 import './teaser-hero.js';
 import '../chip-label.js';
+import '../image.js';
 
 const accessibilityLabel: InputType = {
   control: {
@@ -75,12 +76,6 @@ const imageSrc: InputType = {
   },
 };
 
-const imageAlt: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const chipLabel: InputType = {
   control: {
     type: 'text',
@@ -95,7 +90,6 @@ const defaultArgTypes: ArgTypes = {
   content,
   'link-content': linkContent,
   'image-src': imageSrc,
-  'image-alt': imageAlt,
   'chip-label': chipLabel,
 };
 
@@ -107,7 +101,6 @@ const defaultArgs: Args = {
   content: 'Break out and explore castles and palaces.',
   'link-content': 'Find out more',
   'image-src': sampleImages[1],
-  'image-alt': 'SBB CFF FFS Employee',
   'chip-label': undefined,
 };
 
