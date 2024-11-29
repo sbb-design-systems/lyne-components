@@ -7,7 +7,6 @@ import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js'
 
 import style from './teaser-hero.scss?lit&inline';
 
-import '../image.js';
 import '../link/block-link-static.js';
 
 /**
@@ -28,16 +27,6 @@ class SbbTeaserHeroElement extends SbbLinkBaseElement {
   @forceType()
   @property({ attribute: 'link-content', reflect: true, converter: omitEmptyConverter })
   public accessor linkContent: string = '';
-
-  /** Image src will be passed to `sbb-image`. */
-  @forceType()
-  @property({ attribute: 'image-src' })
-  public accessor imageSrc: string = '';
-
-  /** Image alt text will be passed to `sbb-image`. */
-  @forceType()
-  @property({ attribute: 'image-alt' })
-  public accessor imageAlt: string = '';
 
   private _imageSlotChanged(): void {
     Array.from(this.querySelectorAll('sbb-chip-label')).forEach((c) => (c.color = 'charcoal'));

@@ -590,8 +590,8 @@ class SbbImageElement extends LitElement {
             const imageHeight = config.image.height;
             const imageWidth = config.image.width;
             const mediaQuery = this._createMediaQueryString(config.mediaQueries);
-            return [
-              html` <source
+            return html`
+              <source
                 media=${`${mediaQuery}`}
                 sizes=${`${imageWidth}px`}
                 srcset=${
@@ -600,8 +600,7 @@ class SbbImageElement extends LitElement {
                     this._config.retinaQuality
                   } ${imageWidth * 2}w`
                 }
-              ></source>`,
-            ];
+              ></source>`;
           })}
           <img
             alt=${this.alt || ''}

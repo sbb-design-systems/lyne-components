@@ -22,10 +22,13 @@
   @include typo.text-xs--regular;
 }
 
-@mixin figure-overlap($row-alignment, $column-alignment) {
+@mixin figure-overlap-base {
   z-index: 1;
   grid-row: 1;
   grid-column: 1;
-  place-self: #{$row-alignment} #{$column-alignment};
   margin: var(--sbb-spacing-responsive-xxxs);
+}
+
+@mixin figure-overlap($row-alignment, $column-alignment) {
+  place-self: #{$row-alignment} #{$column-alignment};
 }
