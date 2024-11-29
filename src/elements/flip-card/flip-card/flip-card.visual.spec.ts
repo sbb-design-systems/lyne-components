@@ -111,7 +111,7 @@ describe(`sbb-flip-card`, () => {
 
     for (const imageAlignment of ['after', 'below']) {
       it(
-        `grid`,
+        `image-alignment=${imageAlignment}_grid`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html` <div
