@@ -53,7 +53,10 @@ const isPublic = (
 const isPublicProperty = (m: ts.ClassElement): m is ts.PropertyDeclaration =>
   ts.isPropertyDeclaration(m) && isPublic(m);
 const isPublicMethod = (m: ts.ClassElement): m is ts.MethodDeclaration =>
-  ts.isMethodDeclaration(m) && isPublic(m) && !publicExcludedMethods.includes(m.name.getText());
+  ts.isMethodDeclaration(m) &&
+  isPublic(m) &&
+  !publicExcludedMethods.includes(m.name.getText()) &&
+  !m.getFullText().includes('@internal');
 const isPublicGetter = (m: ts.ClassElement): m is ts.SetAccessorDeclaration =>
   ts.isGetAccessor(m) && isPublic(m);
 const isPublicSetter = (m: ts.ClassElement): m is ts.GetAccessorDeclaration =>
@@ -167,6 +170,33 @@ export class ${className} {
         );
         if (!originClass) {
           return;
+        }
+
+        const heritageClause = originClass.heritageClauses ? originClass.heritageClauses[0] : null;
+        if (heritageClause) {
+          let cleanedHeritageClause = heritageClause
+            .getText()
+            .replaceAll(/(\n)|(\s\s+)/g, '')
+            .replaceAll(/,?\),?/g, ')');
+          cleanedHeritageClause = cleanedHeritageClause.replace('LitElement', 'HTMLElement');
+          ['SbbUpdateSchedulerMixin', 'SbbHydrationMixin', 'SbbNamedSlotListMixin'].forEach((e) => {
+            if (cleanedHeritageClause.indexOf(e) !== -1) {
+              cleanedHeritageClause = cleanedHeritageClause.replace(`${e}(`, '').replace(')', '');
+            }
+          });
+          if (!classDeclaration.superClass) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingInheritance',
+              fix: (fixer) => {
+                const endOfClassName = classDeclaration.id!.range[1];
+                return fixer.insertTextBeforeRange(
+                  [endOfClassName, endOfClassName],
+                  ` ${cleanedHeritageClause}`,
+                );
+              },
+            });
+          }
         }
 
         const expectedAngularImports = new Set<string>();
@@ -553,6 +583,7 @@ export class ${className} {
       angularMissingInput: 'Missing input for property {{ property }}',
       angularMissingOutput: 'Missing output for property {{ property }}',
       angularMissingMethod: 'Missing output for method {{ method }}',
+      angularMissingInheritance: 'Missing superclasses or mixin',
     },
     fixable: 'code',
     type: 'suggestion',
