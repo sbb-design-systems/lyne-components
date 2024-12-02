@@ -110,41 +110,43 @@ describe(`sbb-flip-card`, () => {
     }
 
     for (const imageAlignment of ['after', 'below']) {
-      it(
-        `grid`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html` <div
-              style=${styleMap({
-                display: 'grid',
-                gridTemplateRows: 'minmax(20rem, 1fr)',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gridColumnGap: '1rem',
-                gridRowGap: '1rem',
-              })}
-            >
-              <sbb-flip-card>
-                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
-              </sbb-flip-card>
-              <sbb-flip-card>
-                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
-              </sbb-flip-card>
-              <sbb-flip-card>
-                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
-              </sbb-flip-card>
-              <sbb-flip-card>
-                ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
-              </sbb-flip-card>
-            </div>`,
-          );
-          setup.withPostSetupAction(() => {
-            const flipCard =
-              setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
-            flipCard.click();
-          });
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
-        }),
-      );
+      describe(`imageAlignment=${imageAlignment}`, () => {
+        it(
+          `grid`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html` <div
+                style=${styleMap({
+                  display: 'grid',
+                  gridTemplateRows: 'minmax(20rem, 1fr)',
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                  gridColumnGap: '1rem',
+                  gridRowGap: '1rem',
+                })}
+              >
+                <sbb-flip-card>
+                  ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
+                </sbb-flip-card>
+                <sbb-flip-card>
+                  ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
+                </sbb-flip-card>
+                <sbb-flip-card>
+                  ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
+                </sbb-flip-card>
+                <sbb-flip-card>
+                  ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
+                </sbb-flip-card>
+              </div>`,
+            );
+            setup.withPostSetupAction(() => {
+              const flipCard =
+                setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
+              flipCard.click();
+            });
+            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          }),
+        );
+      });
     }
 
     describe('forcedColors=true', () => {
