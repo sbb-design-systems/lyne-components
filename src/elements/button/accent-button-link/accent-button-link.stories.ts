@@ -24,13 +24,13 @@ import {
 
 import readme from './readme.md?raw';
 import '../../loading-indicator.js';
-import './tertiary-button-link.js';
+import './accent-button-link.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonLinkDefaultArgTypes };
 
 const defaultArgs: Args = {
   ...buttonLinkDefaultArgs,
-  tag: 'sbb-tertiary-button-link',
+  tag: 'sbb-accent-button-link',
 };
 
 export const Default: StoryObj = primary;
@@ -62,7 +62,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-button/sbb-tertiary-button-link',
+  title: 'elements/sbb-button/sbb-accent-button-link',
 };
 
 export default meta;

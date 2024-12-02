@@ -23,7 +23,7 @@ import {
 
 import readme from './readme.md?raw';
 import '../../loading-indicator.js';
-import './tertiary-button-static.js';
+import './accent-button-static.js';
 
 const disabled: InputType = {
   control: {
@@ -41,7 +41,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   ...commonDefaultArgs,
-  tag: 'sbb-tertiary-button-static',
+  tag: 'sbb-accent-button-static',
   disabled: false,
 };
 
@@ -74,7 +74,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-button/sbb-tertiary-button-static',
+  title: 'elements/sbb-button/sbb-accent-button-static',
 };
 
 export default meta;

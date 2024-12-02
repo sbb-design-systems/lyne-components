@@ -3,16 +3,15 @@ import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { buttonSlottedIconTestTemplate, buttonTestTemplate } from '../common/button-test-utils.js';
 
-import type { SbbTertiaryButtonStaticElement } from './tertiary-button-static.js';
+import type { SbbAccentButtonElement } from './accent-button.js';
+import './accent-button.js';
 
-import './tertiary-button-static.js';
+describe(`sbb-accent-button`, () => {
+  let element: SbbAccentButtonElement;
 
-describe(`sbb-tertiary-button-static`, () => {
-  let element: SbbTertiaryButtonStaticElement;
-
-  describe('renders without icon', async () => {
+  describe('renders a sbb-accent-button without icon', async () => {
     beforeEach(async () => {
-      element = await fixture(buttonTestTemplate('sbb-tertiary-button-static', true));
+      element = await fixture(buttonTestTemplate('sbb-accent-button'));
     });
 
     it('DOM', async () => {
@@ -24,9 +23,9 @@ describe(`sbb-tertiary-button-static`, () => {
     });
   });
 
-  describe('renders with slotted icon', async () => {
+  describe('renders a sbb-accent-button with slotted icon', async () => {
     beforeEach(async () => {
-      element = await fixture(buttonSlottedIconTestTemplate('sbb-tertiary-button-static'));
+      element = await fixture(buttonSlottedIconTestTemplate('sbb-accent-button'));
     });
 
     it('DOM', async () => {

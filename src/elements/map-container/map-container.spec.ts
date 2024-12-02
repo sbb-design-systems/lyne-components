@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTertiaryButtonElement } from '../button.js';
+import type { SbbAccentButtonElement } from '../button.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForCondition } from '../core/testing.js';
 
@@ -38,7 +38,7 @@ describe(`sbb-map-container`, () => {
 
     function getInert(): boolean {
       return element
-        .shadowRoot!.querySelector<SbbTertiaryButtonElement>('sbb-tertiary-button')!
+        .shadowRoot!.querySelector<SbbAccentButtonElement>('sbb-accent-button')!
         .hasAttribute('inert');
     }
 
