@@ -1,7 +1,7 @@
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements/button-base-element';
+import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
-import { SbbFormAssociatedMixin } from '@sbb-esta/lyne-angular/core/mixins/form-associated-mixin';
+import { SbbFormAssociatedMixin } from '../mixins/form-associated-mixin.js';
 
 export abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(HTMLElement) {
   #element = inject(ElementRef<SbbButtonBaseElement>);

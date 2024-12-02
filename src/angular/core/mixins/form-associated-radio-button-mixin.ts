@@ -1,12 +1,12 @@
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbFormAssociatedRadioButtonMixinType } from '@sbb-esta/lyne-elements/core/mixins.js';
 
+import { booleanAttribute } from '../attribute-transform.js';
+
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin } from './disabled-mixin.js';
 import { SbbFormAssociatedMixin } from './form-associated-mixin.js';
 import { SbbRequiredMixin } from './required-mixin.js';
-
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor>(

@@ -1,9 +1,9 @@
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbNegativeMixinType } from '@sbb-esta/lyne-elements/core/mixins.js';
 
-import type { AbstractConstructor } from './constructor.js';
+import { booleanAttribute } from '../attribute-transform.js';
 
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import type { AbstractConstructor } from './constructor.js';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbNegativeMixin = <T extends AbstractConstructor>(

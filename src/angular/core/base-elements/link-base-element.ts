@@ -1,7 +1,7 @@
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '../attribute-transform.js';
 
 export abstract class SbbLinkBaseElement {
   #element = inject(ElementRef<SbbLinkBaseElement>);
