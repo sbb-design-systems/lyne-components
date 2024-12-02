@@ -11,23 +11,21 @@
     var(--sbb-animation-duration-6x)
   );
   --sbb-loading-indicator-window-element-rotation: 55.24deg;
-  --sbb-loading-indicator-window-element-animation-name: loading-container;
 
   // Size of the gap between the windows
-  --sbb-loading-indicator-window-unit: calc(
-    var(--sbb-loading-indicator-window-first-span-width) / 5.5
-  );
-  --sbb-loading-indicator-window-element-animation-speed: calc(
-    var(--sbb-loading-indicator-window-unit) * 6.5
-  );
-  --sbb-loading-indicator-window-first-span-width: calc(
+  --_sbb-loading-indicator-window-first-span-width: calc(
     var(--sbb-loading-indicator-window-height) * 0.58
+  );
+  --_sbb-loading-indicator-window-unit: calc(
+    var(--_sbb-loading-indicator-window-first-span-width) / 5.5
+  );
+  --_sbb-loading-indicator-window-element-animation-speed: calc(
+    var(--_sbb-loading-indicator-window-unit) * 6.5
   );
 
   // Defaults to S
   --sbb-loading-indicator-window-height: #{sbb.px-to-rem-build(18)};
   --sbb-loading-indicator-window-element-width: #{sbb.px-to-rem-build(55)};
-  --sbb-loading-indicator-window-span-margin: var(--sbb-loading-indicator-window-unit);
 
   display: inline-block;
   line-height: 0;
@@ -79,7 +77,7 @@ span {
   display: flex;
   margin: 0 auto;
   transform-origin: center;
-  transform: translateX(25%);
+  translate: 25%;
   backface-visibility: hidden;
   width: var(--sbb-loading-indicator-window-element-width);
   perspective: var(--sbb-loading-indicator-window-height);
@@ -88,27 +86,24 @@ span {
 .sbb-loading-indicator__animated-element > span {
   position: relative;
   align-self: center;
-  transform: rotateY(var(--sbb-loading-indicator-window-element-rotation));
   transform-origin: left;
+  rotate: y var(--sbb-loading-indicator-window-element-rotation);
   backface-visibility: hidden;
 }
 
 .sbb-loading-indicator__animated-element > span > span {
   position: relative;
   display: flex;
-  animation-name: var(--sbb-loading-indicator-window-element-animation-name);
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-duration: var(--sbb-loading-indicator-duration);
+  animation: loading-container var(--sbb-loading-indicator-duration) linear infinite;
 }
 
 .sbb-loading-indicator__animated-element > span > span > span {
   background: var(--sbb-loading-indicator-color);
   backface-visibility: hidden;
-  outline: var(--sbb-border-width-1x) solid rgb(0 0 0 / 0%);
-  width: var(--sbb-loading-indicator-window-first-span-width);
+  outline: var(--sbb-border-width-1x) solid transparent;
+  width: var(--_sbb-loading-indicator-window-first-span-width);
   height: var(--sbb-loading-indicator-window-height);
-  margin-right: var(--sbb-loading-indicator-window-span-margin);
+  margin-inline-end: var(--_sbb-loading-indicator-window-unit);
 
   &:nth-child(1) {
     animation: loading-rectangle1 var(--sbb-loading-indicator-duration) linear infinite;
@@ -131,17 +126,17 @@ span {
   }
 
   &:last-child {
-    margin-right: 0;
+    margin-inline-end: 0;
   }
 }
 
 @keyframes loading-container {
   0% {
-    transform: translateX(var(--sbb-loading-indicator-window-element-animation-speed));
+    translate: var(--_sbb-loading-indicator-window-element-animation-speed);
   }
 
   100% {
-    transform: translateX(0);
+    translate: 0;
   }
 }
 
