@@ -5,20 +5,22 @@ import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
-import type { SbbLoadingIndicatorElement } from './loading-indicator.js';
+import type { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.js';
 import readme from './readme.md?raw';
 
-import './loading-indicator.js';
+import './loading-indicator-circle.js';
 import '../button/button.js';
+import '../title.js';
 import '../card.js';
 
-const createLoadingIndicator = (event: Event, args: Args): void => {
-  const loader: SbbLoadingIndicatorElement = document.createElement('sbb-loading-indicator');
+const createLoadingIndicator = (event: Event): void => {
+  const loader: SbbLoadingIndicatorCircleElement = document.createElement(
+    'sbb-loading-indicator-circle',
+  );
   const container = (event.currentTarget as HTMLElement).parentElement!.querySelector(
     '.loader-container',
   )!;
   loader.setAttribute('aria-label', 'Loading, please wait');
-  loader.size = args['size'];
   container.append(loader);
   setTimeout(() => {
     const p = document.createElement('p');
@@ -28,14 +30,12 @@ const createLoadingIndicator = (event: Event, args: Args): void => {
   }, 5000);
 };
 
-const TemplateAccessibility = (args: Args): TemplateResult => html`
+const TemplateAccessibility = (): TemplateResult => html`
   <sbb-card color="milk">
     Turn on your screen-reader and click the button to make the loading indicator appear.
   </sbb-card>
   <br />
-  <sbb-button @click=${(event: Event) => createLoadingIndicator(event, args)}>
-    Show loader
-  </sbb-button>
+  <sbb-button @click=${(event: Event) => createLoadingIndicator(event)}> Show loader </sbb-button>
   <div
     class="loader-container"
     aria-live="polite"
@@ -44,15 +44,15 @@ const TemplateAccessibility = (args: Args): TemplateResult => html`
 `;
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator>
+  <p>
+    <sbb-loading-indicator-circle ${sbbSpread(args)}></sbb-loading-indicator-circle> Inline loading
+    indicator
+  </p>
+  <sbb-title level="4">
+    <sbb-loading-indicator-circle ${sbbSpread(args)}></sbb-loading-indicator-circle> Adaptive to
+    font size
+  </sbb-title>
 `;
-
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['s', 'l', 'xl', 'xxl', 'xxxl'],
-};
 
 const color: InputType = {
   control: {
@@ -62,12 +62,10 @@ const color: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  size,
   color,
 };
 
 const defaultArgs: Args = {
-  size: size.options![0],
   color: color.options![0],
 };
 
@@ -80,10 +78,22 @@ export const Default: StoryObj = {
 export const Accessibility: StoryObj = {
   render: TemplateAccessibility,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1] },
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {
+  decorators: [
+    (story, context) => {
+      if (context.args.color === 'white') {
+        return html`<div
+          style="color: var(--sbb-color-white); --sbb-title-text-color-normal-override: var(--sbb-color-white)"
+        >
+          ${story()}
+        </div>`;
+      }
+      return story();
+    },
+  ],
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.color === 'white' ? 'var(--sbb-color-iron)' : 'var(--sbb-color-white)',
@@ -91,7 +101,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-loading-indicator',
+  title: 'elements/sbb-loading-indicator-circle',
 };
 
 export default meta;

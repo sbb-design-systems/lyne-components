@@ -14,7 +14,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import '../../icon.js';
-import '../../loading-indicator.js';
+import '../../loading-indicator-circle.js';
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
 const Template = ({ tag, text, ...args }: Args): TemplateResult => html`
@@ -38,10 +38,9 @@ const IconSlotTemplate = ({
 
 const LoadingIndicatorTemplate = ({ tag, text, ...args }: Args): TemplateResult => html`
   <${unsafeStatic(tag)} ${sbbSpread(args)}>
-    <sbb-loading-indicator
+    <sbb-loading-indicator-circle
       slot="icon"
-      variant="circle"
-    ></sbb-loading-indicator>
+    ></sbb-loading-indicator-circle>
     ${text}
   </${unsafeStatic(tag)}>
 `;
