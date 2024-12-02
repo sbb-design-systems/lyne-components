@@ -29,25 +29,31 @@ snapshots["sbb-teaser-product renders DOM"] =
 /* end snapshot sbb-teaser-product renders DOM */
 
 snapshots["sbb-teaser-product renders Shadow DOM"] = 
-`<a
-  class="sbb-action-base sbb-teaser-product"
-  href="https://www.sbb.ch"
->
-  <span class="sbb-teaser-product__image-container">
-    <slot name="image">
-    </slot>
-  </span>
-  <span class="sbb-teaser-product__container">
-    <span class="sbb-teaser-product__content">
-      <slot>
+`<div class="sbb-teaser-product__wrapper">
+  <a
+    class="sbb-action-base sbb-teaser-product"
+    href="https://www.sbb.ch"
+  >
+    <sbb-screen-reader-only>
+    </sbb-screen-reader-only>
+  </a>
+  <div class="sbb-teaser-product__root">
+    <div class="sbb-teaser-product__image-container">
+      <slot name="image">
       </slot>
-    </span>
-    <span class="sbb-teaser-product__footnote">
-      <slot name="footnote">
-      </slot>
-    </span>
-  </span>
-</a>
+    </div>
+    <div class="sbb-teaser-product__container">
+      <span class="sbb-teaser-product__content">
+        <slot>
+        </slot>
+      </span>
+      <div class="sbb-teaser-product__footnote">
+        <slot name="footnote">
+        </slot>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 /* end snapshot sbb-teaser-product renders Shadow DOM */
 
@@ -59,8 +65,16 @@ snapshots["sbb-teaser-product renders A11y tree Firefox"] =
   "children": [
     {
       "role": "link",
-      "name": "Content Footnote",
+      "name": "",
       "value": "https://www.sbb.ch/"
+    },
+    {
+      "role": "text leaf",
+      "name": "Content"
+    },
+    {
+      "role": "text leaf",
+      "name": "Footnote"
     }
   ]
 }
@@ -76,7 +90,15 @@ snapshots["sbb-teaser-product renders A11y tree Chrome"] =
   "children": [
     {
       "role": "link",
-      "name": "Content Footnote"
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Content"
+    },
+    {
+      "role": "text",
+      "name": "Footnote"
     }
   ]
 }

@@ -165,6 +165,23 @@ describe(`sbb-teaser`, () => {
           await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
+
+      it(
+        'forcedColors=true',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-teaser title-content="This is a title" href="#" alignment="below">
+                <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+                This is a paragraph
+              </sbb-teaser>
+            `,
+            { forcedColors: true },
+          );
+
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        }),
+      );
     });
   }
 });
