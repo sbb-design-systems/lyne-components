@@ -73,6 +73,10 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
 
   /** Default render method for link-like components. Can be overridden if the LinkRenderVariables are not needed. */
   protected override render(): TemplateResult {
+    return this.renderLink(this.renderTemplate());
+  }
+
+  protected renderLink(renderContent: TemplateResult): TemplateResult {
     return html`
       <a
         class="sbb-action-base ${this.localName}"
@@ -84,7 +88,7 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
         tabindex=${this.maybeDisabled && !this.maybeDisabledInteractive ? '-1' : nothing}
         aria-disabled=${this.maybeDisabled ? 'true' : nothing}
       >
-        ${this.renderTemplate()}
+        ${renderContent}
         ${!!this.href && this.target === '_blank'
           ? html`<sbb-screen-reader-only
               >. ${i18nTargetOpensInNewWindow[this.language.current]}</sbb-screen-reader-only

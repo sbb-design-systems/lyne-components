@@ -8,13 +8,13 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import sampleImages from '../../core/images.js';
 
 import readme from './readme.md?raw';
+
 import './teaser-product.js';
 import '../../button/button-static.js';
 import '../../chip-label.js';
@@ -87,7 +87,7 @@ const defaultArgs: Args = {
   withChip: false,
   slottedImg: false,
   href: 'https://www.sbb.ch',
-  'accessibility-label': undefined,
+  'accessibility-label': 'Benefit from up to 70% discount, Follow the link to benefit.',
 };
 
 const content = (): TemplateResult => html`

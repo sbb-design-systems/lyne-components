@@ -8,6 +8,13 @@
   );
   --sbb-teaser-image-animation-easing: var(--sbb-animation-easing);
   --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
+
+  // Simulate link color optically
+  @include sbb.if-forced-colors {
+    --sbb-title-text-color-normal-override: LinkText !important;
+    --sbb-teaser-product-content-color: LinkText !important;
+    --sbb-teaser-product-footer-color: LinkText !important;
+  }
 }
 
 :host(:hover) {
@@ -16,20 +23,31 @@
   }
 }
 
-.sbb-teaser-product {
-  &:focus-visible {
-    :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-      @include sbb.focus-outline;
+.sbb-teaser-product__wrapper {
+  position: relative;
+}
 
-      border-radius: var(--sbb-teaser-product-border-radius);
-    }
-  }
+.sbb-teaser-product__root {
+  pointer-events: none;
 
   @include sbb.if-forced-colors {
     &::after {
       :host(:hover) & {
         border-color: Highlight;
       }
+    }
+  }
+}
+
+.sbb-teaser-product {
+  position: absolute;
+  inset: 0;
+
+  &:focus-visible {
+    :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+      @include sbb.focus-outline;
+
+      border-radius: var(--sbb-teaser-product-border-radius);
     }
   }
 }

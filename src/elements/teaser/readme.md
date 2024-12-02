@@ -73,8 +73,6 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which desc
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
 
-Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
-
 <!-- Auto Generated Below -->
 
 ## Properties
