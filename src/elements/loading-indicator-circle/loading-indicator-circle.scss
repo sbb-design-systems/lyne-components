@@ -81,7 +81,7 @@
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translateY(-50%);
+    translate: 0 -50%;
     overflow: hidden;
     margin: auto;
   }
@@ -89,10 +89,10 @@
 
 @keyframes rotation {
   from {
-    transform: rotate(0deg);
+    rotate: 0deg;
   }
 
   to {
-    transform: rotate(359deg);
+    rotate: 359deg;
   }
 }

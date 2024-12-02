@@ -11,14 +11,16 @@
     var(--sbb-animation-duration-6x)
   );
   --sbb-loading-indicator-window-element-rotation: 55.24deg;
-
-  // Size of the gap between the windows
   --_sbb-loading-indicator-window-first-span-width: calc(
     var(--sbb-loading-indicator-window-height) * 0.58
   );
+
+  // Size of the gap between the windows
   --_sbb-loading-indicator-window-unit: calc(
     var(--_sbb-loading-indicator-window-first-span-width) / 5.5
   );
+
+  // The spans must move one rectangle plus one gap per animation cycle
   --_sbb-loading-indicator-window-element-animation-speed: calc(
     var(--_sbb-loading-indicator-window-unit) * 6.5
   );
