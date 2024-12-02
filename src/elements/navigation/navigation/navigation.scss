@@ -82,14 +82,8 @@
   --sbb-navigation-content-transform: translateX(-100%);
 
   @include sbb.mq($from: 'large') {
-    --sbb-navigation-expanded-width: 100vw;
+    --sbb-navigation-expanded-width: 100dvw;
     --sbb-navigation-content-transform: translateX(0%);
-
-    // Needed for backwards compatibility
-    // TODO: Remove once not needed
-    @supports (height: 100dvw) {
-      --sbb-navigation-expanded-width: 100dvw;
-    }
   }
 }
 
