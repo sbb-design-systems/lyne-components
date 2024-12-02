@@ -12,13 +12,13 @@
 
 .sbb-flip-card-summary {
   display: grid;
-  position: absolute;
+  min-height: var(--sbb-flip-card-min-height);
   pointer-events: var(--sbb-flip-card-summary-pointer-events);
   opacity: var(--sbb-flip-card-summary-opacity);
   border-radius: var(--sbb-flip-card-border-radius);
   overflow: hidden;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
   width: 100%;
   height: 100%;
   transition: all var(--sbb-flip-card-summary-transition-duration) ease-out;
@@ -26,12 +26,12 @@
 
   :host([image-alignment='after']) & {
     @include sbb.mq($from: small) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       grid-template-rows: 1fr;
     }
 
     @include sbb.mq($from: medium) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-rows: 1fr;
     }
   }
@@ -61,7 +61,6 @@
 }
 
 .sbb-flip-card-summary--image-wrapper {
-  max-height: var(--sbb-flip-card-min-height);
   grid-area: 2 / 1 / 3 / 2;
 
   :host([image-alignment='after']) & {

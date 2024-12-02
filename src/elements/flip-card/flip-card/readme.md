@@ -11,6 +11,32 @@ It's meant to be used together with [sbb-flip-card-summary](/docs/elements-sbb-f
 </sbb-flip-card>
 ```
 
+## Style
+
+The `sbb-flip-card` component has a predefined minimum height that can be customized by specifying the `min-height` property directly in the style of the host element with a custom height. Alternatively, when used within a CSS grid layout alongside other cards, the height can be adjusted using the `grid-template-rows` property. For consistent behavior and flexibility, it is recommended to use the `minmax()` function, for example: `grid-template-rows: minmax(320px, 1fr)`.
+
+```html
+<div
+  style="display: grid; grid-template-rows: minmax(320px, 1fr); grid-template-columns: repeat(2, 1fr);"
+>
+  <sbb-flip-card>
+    <sbb-flip-card-summary>
+      <sbb-title> Card Title </sbb-title>
+      <sbb-image slot="image" image-src="..." alt="..."></sbb-image>
+    </sbb-flip-card-summary>
+    <sbb-flip-card-details> Some additional text. </sbb-flip-card-details>
+  </sbb-flip-card>
+
+  <sbb-flip-card>
+    <sbb-flip-card-summary>
+      <sbb-title> Card Title </sbb-title>
+      <sbb-image slot="image" image-src="..." alt="..."></sbb-image>
+    </sbb-flip-card-summary>
+    <sbb-flip-card-details> Some additional text. </sbb-flip-card-details>
+  </sbb-flip-card>
+</div>
+```
+
 ## Slots
 
 The component will display the content slotted in the `summary` slot in the main view, and the content slotted inside the `details` slot after the card has been flipped.
