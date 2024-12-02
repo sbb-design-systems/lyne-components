@@ -75,18 +75,6 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const Smoke: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![1] },
-};
-
-export const White: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![2] },
-};
-
 export const Accessibility: StoryObj = {
   render: TemplateAccessibility,
   argTypes: defaultArgTypes,

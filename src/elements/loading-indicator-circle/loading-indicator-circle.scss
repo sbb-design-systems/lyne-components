@@ -58,12 +58,6 @@
   overflow: hidden;
   border-radius: 50%;
   background: var(--sbb-loading-indicator-circle-background);
-  // stylelint-disable-next-line property-no-vendor-prefix
-  -webkit-mask: radial-gradient(
-    circle 0.4375em,
-    #0000 98%,
-    var(--sbb-loading-indicator-circle-background-color)
-  );
   mask: radial-gradient(
     circle 0.4375em,
     #0000 98%,

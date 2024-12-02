@@ -1,6 +1,5 @@
 The `sbb-loading-indicator` is a component which can be used to indicate progress status
 or an ongoing activity which require some time to complete.
-The component completely covers the parent element, preventing interaction with it.
 
 ### Style
 
