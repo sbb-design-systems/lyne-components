@@ -8,6 +8,13 @@
   );
   --sbb-teaser-product-animation-easing: var(--sbb-animation-easing);
   --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
+
+  // Simulate link color optically
+  @include sbb.if-forced-colors {
+    --sbb-title-text-color-normal-override: LinkText !important;
+    --sbb-teaser-product-content-color: LinkText !important;
+    --sbb-teaser-product-footer-color: LinkText !important;
+  }
 }
 
 :host(:hover) {
@@ -16,14 +23,20 @@
   }
 }
 
-.sbb-teaser-product {
-  &:focus-visible {
-    :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-      @include sbb.focus-outline;
+::slotted(:is(img, sbb-image)) {
+  will-change: filter;
+  transition-property: filter;
+  transition-duration: var(--sbb-teaser-product-animation-duration);
+  transition-timing-function: var(--sbb-animation-easing);
+  filter: brightness(var(--sbb-teaser-product-brightness, 1));
+}
 
-      border-radius: var(--sbb-teaser-product-border-radius);
-    }
-  }
+.sbb-teaser-product__wrapper {
+  position: relative;
+}
+
+.sbb-teaser-product__root {
+  pointer-events: none;
 
   @include sbb.if-forced-colors {
     &::after {
@@ -34,10 +47,15 @@
   }
 }
 
-::slotted(:is(img, sbb-image)) {
-  will-change: filter;
-  transition-property: filter;
-  transition-duration: var(--sbb-teaser-product-animation-duration);
-  transition-timing-function: var(--sbb-animation-easing);
-  filter: brightness(var(--sbb-teaser-product-brightness, 1));
+.sbb-teaser-product {
+  position: absolute;
+  inset: 0;
+
+  &:focus-visible {
+    :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+      @include sbb.focus-outline;
+
+      border-radius: var(--sbb-teaser-product-border-radius);
+    }
+  }
 }

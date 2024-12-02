@@ -22,6 +22,11 @@
     --sbb-disable-animation-zero-time,
     var(--sbb-animation-duration-4x)
   );
+
+  @include sbb.if-forced-colors {
+    --sbb-teaser-description-color: LinkText;
+    --sbb-title-text-color-normal-override: LinkText !important;
+  }
 }
 
 :host([alignment='after']) {
@@ -35,11 +40,18 @@
   --sbb-teaser-width: 100%;
 }
 
-.sbb-teaser {
+.sbb-teaser__wrapper {
   display: flex;
-  text-decoration: none;
+  position: relative;
+  cursor: pointer;
 
   @include sbb.zero-width-space;
+}
+
+.sbb-teaser {
+  text-decoration: none;
+  position: absolute;
+  inset: 0;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
@@ -66,6 +78,7 @@
   gap: var(--sbb-teaser-gap);
   max-width: 100%;
   width: 100%;
+  pointer-events: none;
 }
 
 .sbb-teaser__text {
@@ -81,7 +94,7 @@
   transition: var(--sbb-teaser-animation-duration) var(--sbb-animation-easing);
 
   @include sbb.hover-mq($hover: true) {
-    .sbb-teaser:hover & {
+    .sbb-teaser__wrapper:hover & {
       transform: scale(var(--sbb-teaser-scale-hover));
 
       --sbb-teaser-brightness: var(--sbb-teaser-brightness-hover);
@@ -105,7 +118,7 @@
   transition: var(--sbb-teaser-animation-duration) var(--sbb-animation-easing);
 
   @include sbb.hover-mq($hover: true) {
-    .sbb-teaser:hover & {
+    .sbb-teaser__wrapper:hover & {
       @include sbb.shadow-level-9-hard;
     }
   }
