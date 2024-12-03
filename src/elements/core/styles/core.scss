@@ -200,6 +200,18 @@ input[data-sbb-time-input] {
   }
 }
 
+// TODO: Move back to the teaser-hero components when the global css refactoring happens
+:is(sbb-teaser-hero) {
+  sbb-image {
+    --sbb-image-aspect-ratio: 1 / 1;
+    --sbb-image-border-radius: 0;
+
+    @include mediaqueries.mq($from: small) {
+      --sbb-image-aspect-ratio: 16 / 9;
+    }
+  }
+}
+
 // TODO: move to train formation after css refactoring
 sbb-train-formation:has(sbb-train[direction-label]) {
   --sbb-train-formation-reserve-spacing-display: block;

@@ -15,16 +15,6 @@
   display: block;
 }
 
-// Variant: Hero Teaser and Paid Teaser
-:host([data-teaser]) {
-  --sbb-image-aspect-ratio: 1 / 1;
-  --sbb-image-border-radius: 0;
-
-  @include sbb.mq($from: small) {
-    --sbb-image-aspect-ratio: 16 / 9;
-  }
-}
-
 .sbb-image__img {
   opacity: 0.000001;
 

@@ -26,7 +26,6 @@ import {
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import { forceType } from '../core/decorators.js';
-import { hostContext } from '../core/dom.js';
 
 import style from './image.scss?lit&inline';
 
@@ -365,12 +364,6 @@ class SbbImageElement extends LitElement {
   /** Whether the image is finished loading or failed to load. */
   public get complete(): boolean {
     return this.shadowRoot?.querySelector?.<HTMLImageElement>('.sbb-image__img')?.complete ?? false;
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    // Check if the current element is nested in an `<sbb-teaser-hero>` element.
-    this.toggleAttribute('data-teaser', !!hostContext('sbb-teaser-hero', this));
   }
 
   protected override updated(changedProperties: PropertyValues<this>): void {
