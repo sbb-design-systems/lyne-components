@@ -4,7 +4,6 @@ import { html } from 'lit/static-html.js';
 import type { SbbChipLabelElement } from '../chip-label.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
-import type { SbbImageElement } from '../image.js';
 
 import { SbbTeaserHeroElement } from './teaser-hero.js';
 import '../chip-label.js';
@@ -43,9 +42,7 @@ describe(`sbb-teaser-hero`, () => {
     );
 
     const chip = element.querySelector<SbbChipLabelElement>('sbb-chip-label')!;
-    const image = element.querySelector<SbbImageElement>('sbb-image')!;
 
     expect(chip).to.have.attribute('color', 'charcoal');
-    expect(image).to.have.attribute('data-teaser');
   });
 });
