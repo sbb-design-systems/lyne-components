@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.15.0...v1.15.1) (2024-12-03)
+
+
+### Bug Fixes
+
+* provide correct react typings ([#3269](https://github.com/sbb-design-systems/lyne-components/issues/3269)) ([9e763bd](https://github.com/sbb-design-systems/lyne-components/commit/9e763bdbf4cfc08da6bf2ac3b13ff12ec4f4e796))
+* **sbb-teaser, sbb-teaser-product:** allow screen readers to navigate the content ([#3250](https://github.com/sbb-design-systems/lyne-components/issues/3250)) ([7ff6552](https://github.com/sbb-design-systems/lyne-components/commit/7ff65524aa9d849ce1a0afd816ff11dc15eadfed))
+
 ## [1.15.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.14.1...v1.15.0) (2024-11-28)
 
 
