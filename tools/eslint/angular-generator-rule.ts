@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 // eslint-disable-next-line import-x/default
-import ts from 'typescript';
+import ts, { type CallExpression } from 'typescript';
 
 const publicExcludedMethods = [
   'connectedCallback',
@@ -20,6 +20,8 @@ const publicExcludedMethods = [
   'firstUpdated',
   'updated',
 ];
+
+const excludedMixin = ['SbbUpdateSchedulerMixin', 'SbbHydrationMixin', 'SbbNamedSlotListMixin'];
 
 const srcPath = fileURLToPath(new URL('../../src/', import.meta.url));
 const getAngularPairFile = (filename: string): string | null => {
@@ -174,12 +176,26 @@ export class ${className} {
 
         const heritageClause = originClass.heritageClauses ? originClass.heritageClauses[0] : null;
         if (heritageClause) {
+          // NOTE: if heritage clause has only one mixin, and it's one of the excluded group, the whole clause can be removed (example: sbb-breadcrumb-group)
+          const firstArguments = (heritageClause.types?.[0].expression as CallExpression)
+            ?.arguments?.[0];
+          if (
+            firstArguments &&
+            !ts.isCallExpression(firstArguments) &&
+            excludedMixin.some(
+              (e) => heritageClause.types[0].expression.getText().indexOf(e) !== -1,
+            )
+          ) {
+            return;
+          }
           let cleanedHeritageClause = heritageClause
             .getText()
             .replaceAll(/(\n)|(\s\s+)/g, '')
             .replaceAll(/,?\),?/g, ')');
-          cleanedHeritageClause = cleanedHeritageClause.replace('LitElement', 'HTMLElement');
-          ['SbbUpdateSchedulerMixin', 'SbbHydrationMixin', 'SbbNamedSlotListMixin'].forEach((e) => {
+          cleanedHeritageClause = cleanedHeritageClause
+            .replaceAll('LitElement', 'HTMLElement')
+            .replaceAll('SbbActionBaseElement', 'HTMLElement');
+          excludedMixin.forEach((e) => {
             if (cleanedHeritageClause.indexOf(e) !== -1) {
               cleanedHeritageClause = cleanedHeritageClause.replace(`${e}(`, '').replace(')', '');
             }
