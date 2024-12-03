@@ -1,4 +1,4 @@
-// TODO check if makes sense or they are just duplicated and possibily remove.
+// TODO: check if the duplication makes sense, otherwise remove this file adapting its import from elements/core.
 
 /** @docs-private */
 export type Constructor<T = object> = new (...args: any[]) => T;

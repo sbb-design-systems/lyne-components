@@ -267,12 +267,6 @@ export class ${className} {
           expectedRxJsImports.add('fromEvent').add('type Observable');
         }
 
-        // Getter: this.#element.getter
-        // Setter: this.#ngZone.runOutsideAngular(() => this.#element.value = value)
-        // Method: this.#element.method(...params)
-
-        // TODO: Add @Input() decorators (with alias and maybe converter)
-
         for (const member of publicProperties) {
           if (
             classDeclaration.body.body.every((n) => {

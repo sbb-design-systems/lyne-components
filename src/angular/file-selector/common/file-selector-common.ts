@@ -60,7 +60,13 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor>(
       return this.#element.nativeElement.accessibilityLabel;
     }
 
-    // TODO: value?
+    @Input()
+    public override set value(value: string | null) {
+      this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
+    }
+    public override get value(): string | null {
+      return this.#element.nativeElement.value;
+    }
 
     @Input()
     public set files(value: Readonly<File>[]) {
