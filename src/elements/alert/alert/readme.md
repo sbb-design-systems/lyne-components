@@ -5,7 +5,9 @@ the [sbb-alert-group](/docs/elements-sbb-alert-sbb-alert-group--docs) component.
 
 ## Slots
 
-The text content is projected using and unnamed slot, while the title uses the slot named `title` or alternatively the `titleContent` property.
+The text content is projected using the unnamed slot which could also contain one or more `sbb-link`.
+The title content uses the slot named `title` or alternatively the `titleContent` property.
+The unnamed slot can also contain one or more sbb-link
 The component can optionally display a `sbb-icon` at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html

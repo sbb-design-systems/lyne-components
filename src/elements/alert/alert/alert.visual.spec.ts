@@ -27,7 +27,7 @@ describe(`sbb-alert`, () => {
     href,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-alert size=${size} ?readonly=${readonly} icon-name=${icon} title-content=${titleContent}>
-      ${contentSlotText}${href ? html`<sbb-link href=${href}>Find out more</sbb-link>` : nothing}
+      ${contentSlotText}${href ? html` <sbb-link href=${href}>Find out more</sbb-link>` : nothing}
     </sbb-alert>
   `;
 
