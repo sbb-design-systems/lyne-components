@@ -47,23 +47,40 @@ const template = ({
   showFooter,
   slottedImg,
   longContent,
-  withChip,
 }: {
   negative?: boolean;
   imageAlignment?: string;
   showFooter?: boolean;
   slottedImg?: boolean;
   longContent?: boolean;
-  withChip?: boolean;
+} = {}): TemplateResult => html`
+  <sbb-teaser-product ?negative=${negative} image-alignment=${imageAlignment || nothing} href="#">
+    ${slottedImg
+      ? html`<img slot="image" src=${imageBase64} alt="" />`
+      : html`<sbb-image slot="image" image-src=${imageUrl} skip-lqip></sbb-image>`}
+    ${content(longContent)} ${showFooter ? footer() : nothing}
+  </sbb-teaser-product>
+`;
+
+const withChipTemplate = ({
+  negative,
+  imageAlignment,
+  showFooter,
+  slottedImg,
+  longContent,
+}: {
+  negative?: boolean;
+  imageAlignment?: string;
+  showFooter?: boolean;
+  slottedImg?: boolean;
+  longContent?: boolean;
 } = {}): TemplateResult => html`
   <sbb-teaser-product ?negative=${negative} image-alignment=${imageAlignment || nothing} href="#">
     <figure class="sbb-figure" slot="image">
       ${slottedImg
         ? html`<img src=${imageBase64} alt="" />`
         : html`<sbb-image image-src=${imageUrl} skip-lqip></sbb-image>`}
-      ${withChip
-        ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>`
-        : nothing}
+      <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
     </figure>
     ${content(longContent)} ${showFooter ? footer() : nothing}
   </sbb-teaser-product>
@@ -92,7 +109,7 @@ describe('sbb-teaser-product', () => {
                 `withChip_${visualState.name}`,
                 visualState.with(async (setup) => {
                   await setup.withFixture(
-                    template({ negative, showFooter: true, slottedImg, withChip: true }),
+                    withChipTemplate({ negative, showFooter: true, slottedImg }),
                     {
                       backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
                     },

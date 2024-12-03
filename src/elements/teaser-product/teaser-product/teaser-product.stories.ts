@@ -40,12 +40,6 @@ const withFooter: InputType = {
   },
 };
 
-const withChip: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const slottedImg: InputType = {
   control: {
     type: 'boolean',
@@ -74,7 +68,6 @@ const defaultArgTypes: ArgTypes = {
   'image-alignment': imageAlignment,
   negative,
   withFooter,
-  withChip,
   slottedImg,
   href,
   'accessibility-label': accessibilityLabel,
@@ -84,7 +77,6 @@ const defaultArgs: Args = {
   'image-alignment': imageAlignment.options![0],
   negative: false,
   withFooter: true,
-  withChip: false,
   slottedImg: false,
   href: 'https://www.sbb.ch',
   'accessibility-label': 'Benefit from up to 70% discount, Follow the link to benefit.',
@@ -111,15 +103,22 @@ const footer = (): TemplateResult => html`
   </p>
 `;
 
-const Template = ({ withChip, withFooter, slottedImg, ...args }: Args): TemplateResult => html`
+const Template = ({ withFooter, slottedImg, ...args }: Args): TemplateResult => html`
+  <sbb-teaser-product ${sbbSpread(args)}>
+    ${slottedImg
+      ? html`<img slot="image" src=${sampleImages[4]} alt="" />`
+      : html`<sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>`}
+    ${content()} ${withFooter ? footer() : nothing}
+  </sbb-teaser-product>
+`;
+
+const WithChipTemplate = ({ withFooter, slottedImg, ...args }: Args): TemplateResult => html`
   <sbb-teaser-product ${sbbSpread(args)}>
     <figure slot="image" class="sbb-figure">
       ${slottedImg
         ? html`<img src=${sampleImages[4]} alt="" />`
         : html`<sbb-image image-src=${sampleImages[4]}></sbb-image>`}
-      ${withChip
-        ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">AI generated</sbb-chip-label>`
-        : nothing}
+      <sbb-chip-label class="sbb-figure-overlap-start-start">AI generated</sbb-chip-label>
     </figure>
     ${content()} ${withFooter ? footer() : nothing}
   </sbb-teaser-product>
@@ -156,9 +155,9 @@ export const SlottedImg: StoryObj = {
 };
 
 export const WithChip: StoryObj = {
-  render: Template,
+  render: WithChipTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, withChip: true },
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {

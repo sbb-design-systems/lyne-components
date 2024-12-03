@@ -6,9 +6,7 @@ If it has to include more than one interactive element, use the [sbb-teaser-prod
 
 ```html
 <sbb-teaser-product href="...">
-  <figure slot="image" class="sbb-figure">
-    <sbb-image image-src="..."></sbb-image>
-  </figure>
+  <sbb-image slot="image" image-src="..."></sbb-image>
 
   <p class="sbb-teaser-product--spacing">Content ...</p>
 
@@ -18,8 +16,8 @@ If it has to include more than one interactive element, use the [sbb-teaser-prod
 
 ## Slots
 
-Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.
-Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+Use the `image` slot to pass an `sbb-image` or an `img` that will be used as background.
+Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
 
 Use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 
@@ -42,9 +40,7 @@ to display the components with the correct spacings.
 
 ```html
 <sbb-teaser-product href="...">
-  <figure slot="image" class="sbb-figure">
-    <sbb-image image-src="..."></sbb-image>
-  </figure>
+  <sbb-image slot="image" image-src="..."></sbb-image>
   <sbb-title level="3" class="sbb-teaser-product--spacing">
     Benefit from up to 70% discount
   </sbb-title>
