@@ -1,5 +1,11 @@
-import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxGroupElement, SbbCheckboxPanelElement } from '../checkbox.js';
@@ -29,7 +35,7 @@ export
 @customElement('sbb-selection-expansion-panel')
 @slotState()
 class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
-  // FIXME inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
+  // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',

@@ -2,6 +2,7 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { isLean } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
@@ -26,9 +27,10 @@ class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   ];
 
   /**
-   * Marker size variant.
+   * Marker size variant, either s or l.
+   * @default 'l' / 's' (lean)
    */
-  @property({ reflect: true }) public accessor size: 'l' | 's' = 'l';
+  @property({ reflect: true }) public accessor size: 'l' | 's' = isLean() ? 's' : 'l';
 
   private _currentActiveAction?: SbbNavigationButtonElement | SbbNavigationLinkElement;
 

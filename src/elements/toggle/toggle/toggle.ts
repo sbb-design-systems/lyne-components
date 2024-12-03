@@ -12,6 +12,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange, hostAttributes } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbToggleOptionElement } from '../toggle-option.js';
 
@@ -21,7 +22,6 @@ import style from './toggle.scss?lit&inline';
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
  *
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
  */
 export
@@ -32,7 +32,6 @@ export
 class SbbToggleElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'didChange',
     change: 'change',
   } as const;
 
@@ -50,8 +49,11 @@ class SbbToggleElement extends LitElement {
   @property({ reflect: true, type: Boolean })
   public accessor even: boolean = false;
 
-  /** Size variant, either m or s. */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = 'm';
+  /**
+   * Size variant, either m or s.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
 
   /**
    * The value of the toggle. It needs to be mutable since it is updated whenever
@@ -82,15 +84,6 @@ class SbbToggleElement extends LitElement {
     target: null,
     skipInitial: true,
     callback: () => this.updatePillPosition(true),
-  });
-
-  /**
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
-   * Emits whenever the toggle value changes.
-   */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbToggleElement.events.didChange, {
-    bubbles: true,
-    composed: true,
   });
 
   /** Emits whenever the toggle value changes. */
@@ -185,7 +178,6 @@ class SbbToggleElement extends LitElement {
   private _handleInput(): void {
     this.updatePillPosition(false);
     this._change.emit();
-    this._didChange.emit();
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {

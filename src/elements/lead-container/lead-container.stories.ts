@@ -4,7 +4,8 @@ import { html, type TemplateResult } from 'lit';
 import '../alert.js';
 import '../breadcrumb.js';
 import '../image.js';
-import '../link/block-link/block-link.js';
+import '../link/block-link.js';
+import '../link/link.js';
 import '../notification.js';
 import '../title.js';
 import './lead-container.js';
@@ -26,12 +27,9 @@ const DefaultTemplate = (): TemplateResult => html`
       alt="Station of Lucerne from outside"
     ></sbb-image>
     <sbb-alert-group class="sbb-lead-container-spacing">
-      <sbb-alert
-        title-content="Interruption between Genève and Lausanne"
-        href="https://www.sbb.ch"
-        size="m"
-      >
+      <sbb-alert title-content="Interruption between Genève and Lausanne" size="m">
         The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+        <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
       </sbb-alert>
     </sbb-alert-group>
     <sbb-breadcrumb-group class="sbb-lead-container-spacing">

@@ -2,6 +2,7 @@ import { LitElement, html, type CSSResultGroup, type TemplateResult } from 'lit'
 import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import {
@@ -19,7 +20,6 @@ import '../../visual-checkbox.js';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-checkbox`.
  * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
  */
@@ -29,14 +29,13 @@ export
 class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxStyle];
 
-  public static readonly events = {
-    didChange: 'didChange',
-  } as const;
-
-  /** Size variant. */
+  /**
+   * Size variant, either m, s or xs.
+   * @default 'm' / 'xs' (lean)
+   */
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)
-  public accessor size: SbbCheckboxSize = 'm';
+  public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
 
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })

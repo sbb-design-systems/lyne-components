@@ -218,7 +218,12 @@ export const teaserHero = (): TemplateResult => html`
 `;
 
 export const footer = (args: Args): TemplateResult => html`
-  <sbb-footer accessibility-title="Footer" variant="clock-columns" ?negative=${args.negative}>
+  <sbb-footer
+    accessibility-title="Footer"
+    variant="clock-columns"
+    ?negative=${args.negative}
+    ?expanded=${args.expanded}
+  >
     <div class="sbb-link-list-button-group">
       <sbb-link-list title-level="2" title-content="Help &amp; Contact." ?negative=${args.negative}>
         <sbb-block-link

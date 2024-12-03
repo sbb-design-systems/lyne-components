@@ -6,7 +6,7 @@ import type { SbbInputModality } from '../../core/a11y.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, slotState } from '../../core/decorators.js';
-import { isFirefox, setOrRemoveAttribute } from '../../core/dom.js';
+import { isFirefox, isLean, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import type { SbbSelectElement } from '../../select.js';
@@ -75,8 +75,11 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   @property({ type: Boolean })
   public accessor optional: boolean = false;
 
-  /** Size variant, either l or m. */
-  @property({ reflect: true }) public accessor size: 'l' | 'm' | 's' = 'm';
+  /**
+   * Size variant, either l, m or s.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'l' | 'm' | 's' = isLean() ? 's' : 'm';
 
   /** Whether to display the form field without a border. */
   @forceType()
@@ -287,10 +290,23 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
         signal: this._inputAbortController.signal,
       });
 
-      inputFocusElement = (this._input as SbbSelectElement).inputElement;
+      const selectInput = this._input as SbbSelectElement;
+      inputFocusElement = selectInput.inputElement;
+
+      // If inputElement is not yet ready, try a second time after updating.
+      if (!inputFocusElement) {
+        const controller = {
+          hostUpdated: () => {
+            selectInput.removeController(controller);
+            this._registerInputListener();
+          },
+        };
+
+        selectInput.addController(controller);
+      }
     }
 
-    inputFocusElement.addEventListener(
+    inputFocusElement?.addEventListener(
       'focusin',
       () => {
         this.toggleAttribute('data-input-focused', true);
@@ -304,7 +320,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       },
     );
 
-    inputFocusElement.addEventListener(
+    inputFocusElement?.addEventListener(
       'focusout',
       () =>
         ['data-focus-origin', 'data-input-focused'].forEach((name) => this.removeAttribute(name)),

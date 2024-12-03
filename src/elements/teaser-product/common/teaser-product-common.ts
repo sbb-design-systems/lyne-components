@@ -4,9 +4,9 @@ import { property } from 'lit/decorators.js';
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { slotState } from '../../core/decorators.js';
 import {
+  type AbstractConstructor,
   SbbNegativeMixin,
   type SbbNegativeMixinType,
-  type AbstractConstructor,
 } from '../../core/mixins.js';
 
 export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixinType {
@@ -33,15 +33,17 @@ export const SbbTeaserProductCommonElementMixin = <
 
     protected override renderTemplate(): TemplateResult {
       return html`
-        <span class="sbb-teaser-product__image-container"><slot name="image"></slot></span>
-        <span class="sbb-teaser-product__container">
-          <span class="sbb-teaser-product__content">
-            <slot></slot>
-          </span>
-          <span class="sbb-teaser-product__footnote">
-            <slot name="footnote"></slot>
-          </span>
-        </span>
+        <div class="sbb-teaser-product__root">
+          <div class="sbb-teaser-product__image-container"><slot name="image"></slot></div>
+          <div class="sbb-teaser-product__container">
+            <span class="sbb-teaser-product__content">
+              <slot></slot>
+            </span>
+            <div class="sbb-teaser-product__footnote">
+              <slot name="footnote"></slot>
+            </div>
+          </div>
+        </div>
       `;
     }
   }

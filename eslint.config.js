@@ -8,6 +8,7 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginYml from 'eslint-plugin-yml';
 import eslint from '@eslint/js';
+
 const eslintPluginLyne = await import('./tools/eslint/index.ts');
 
 const compat = new FlatCompat({
@@ -166,7 +167,7 @@ export default [
           'newlines-between': 'always',
         },
       ],
-      // TODO Discuss this with the team
+      // TODO: Discuss this with the team
       'lit/no-invalid-html': 'off',
       camelcase: 'off',
       '@typescript-eslint/member-ordering': [

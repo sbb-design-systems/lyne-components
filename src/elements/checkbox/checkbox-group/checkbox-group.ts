@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, slotState } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.js';
@@ -30,8 +31,11 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   @property({ reflect: true, type: Boolean })
   public accessor required: boolean = false;
 
-  /** Size variant, either m or s. */
-  @property() public accessor size: SbbCheckboxSize = 'm';
+  /**
+   * Size variant, either m, s or xs.
+   * @default 'm' / 'xs' (lean)
+   */
+  @property() public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
 
   /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })

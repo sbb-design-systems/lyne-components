@@ -1,10 +1,11 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { type LinkTargetType, SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n.js';
+import { isLean } from '../../core/dom.js';
+import { i18nCloseAlert } from '../../core/i18n.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
 
@@ -12,7 +13,6 @@ import style from './alert.scss?lit&inline';
 
 import '../../button/transparent-button.js';
 import '../../divider.js';
-import '../../link.js';
 import '../../title.js';
 
 /**
@@ -45,8 +45,11 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   @property({ reflect: true, type: Boolean })
   public accessor readonly: boolean = false;
 
-  /** You can choose between `s`, `m` or `l` size. */
-  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = 'm';
+  /**
+   * You can choose between `s`, `m` or `l` size.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = isLean() ? 's' : 'm';
 
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
@@ -64,31 +67,6 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
 
   /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
   @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
-
-  /** Content of the link. */
-  @forceType()
-  @property({ attribute: 'link-content' })
-  public accessor linkContent: string = '';
-
-  /** The href value you want to link to. */
-  @forceType()
-  @property()
-  public accessor href: string = '';
-
-  /** Where to display the linked URL. */
-  @forceType()
-  @property()
-  public accessor target: LinkTargetType | string = '';
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @forceType()
-  @property()
-  public accessor rel: string = '';
-
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @forceType()
-  @property({ attribute: 'accessibility-label' })
-  public accessor accessibilityLabel: string = '';
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
@@ -133,6 +111,12 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     setTimeout(() => this.remove());
   }
 
+  private _syncLinks(): void {
+    Array.from(this.querySelectorAll?.('sbb-link') ?? []).forEach((link) =>
+      link.toggleAttribute('negative', true),
+    );
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>
@@ -150,19 +134,8 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
                 <slot name="title">${this.titleContent}</slot>
               </sbb-title>
               <p class="sbb-alert__content-slot">
-                <slot></slot>
+                <slot @slotchange=${this._syncLinks}></slot>
               </p>
-              ${this.href
-                ? html` <sbb-link
-                    accessibility-label=${this.accessibilityLabel ?? nothing}
-                    href=${this.href ?? nothing}
-                    target=${this.target ?? nothing}
-                    rel=${this.rel ?? nothing}
-                    negative
-                  >
-                    ${this.linkContent ? this.linkContent : i18nFindOutMore[this._language.current]}
-                  </sbb-link>`
-                : nothing}
             </span>
             ${!this.readonly
               ? html`<span class="sbb-alert__close-button-wrapper">
