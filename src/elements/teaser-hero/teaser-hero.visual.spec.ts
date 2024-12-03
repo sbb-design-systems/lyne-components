@@ -45,11 +45,7 @@ describe(`sbb-teaser-hero`, () => {
             <sbb-teaser-hero href="#">
               Break out and explore castles and palaces.
               <span slot="link-content">Find out more</span>
-
-              <figure class="sbb-figure" slot="image">
-                <sbb-image image-src=${imageUrl}></sbb-image>
-                <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
-              </figure>
+              <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
             </sbb-teaser-hero>
           `);
 
@@ -62,10 +58,7 @@ describe(`sbb-teaser-hero`, () => {
         state.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-teaser-hero href="#">
-              <figure class="sbb-figure" slot="image">
-                <sbb-image image-src=${imageUrl}></sbb-image>
-                <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
-              </figure>
+              <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
             </sbb-teaser-hero>
           `);
 

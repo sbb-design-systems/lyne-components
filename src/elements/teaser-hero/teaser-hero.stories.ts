@@ -115,14 +115,14 @@ const Template = ({
   <sbb-teaser-hero ${sbbSpread(args)}>
     ${content ?? nothing}
     ${linkContent ? html`<span slot="link-content">${linkContent}</span>` : nothing}
-
-    <figure class="sbb-figure" slot="image">
-      <sbb-image image-src=${imageSrc} alt=${imageAlt}></sbb-image>
-
-      ${chipLabel
-        ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">${chipLabel}</sbb-chip-label>`
-        : nothing}
-    </figure>
+    ${!chipLabel
+      ? html`<sbb-image slot="image" image-src=${imageSrc} alt=${imageAlt}></sbb-image>`
+      : html`
+          <figure class="sbb-figure" slot="image">
+            <sbb-image image-src=${imageSrc} alt=${imageAlt}></sbb-image>
+            <sbb-chip-label class="sbb-figure-overlap-start-start">${chipLabel}</sbb-chip-label>
+          </figure>
+        `}
   </sbb-teaser-hero>
 `;
 
