@@ -12,12 +12,7 @@ import { SbbImageElement } from './image.js';
 import readme from './readme.md?raw';
 import '../chip-label.js';
 
-const imageTemplate = ({
-  aspectRatio,
-  borderRadius,
-  _chipPosition,
-  ...args
-}: Args): TemplateResult => html`
+const ImageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
   <sbb-image
     ${sbbSpread(args)}
     class=${classMap({
@@ -30,7 +25,7 @@ const imageTemplate = ({
 
 const WithCaptionTemplate = (args: Args): TemplateResult => html`
   <figure class="sbb-figure">
-    ${imageTemplate(args)}
+    ${ImageTemplate(args)}
     <figcaption>
       With the
       <a href="https://www.sbb.ch/en/tickets-offers/travelcards/half-fare-travelcard.html"
@@ -43,13 +38,9 @@ const WithCaptionTemplate = (args: Args): TemplateResult => html`
   </figure>
 `;
 
-const Template = (args: Args): TemplateResult => html`
-  <figure class="sbb-figure">${imageTemplate(args)}</figure>
-`;
-
 const WithChipTemplate = ({ chipPosition, ...args }: Args): TemplateResult => html`
   <figure class="sbb-figure">
-    ${imageTemplate(args)}
+    ${ImageTemplate(args)}
     <sbb-chip-label class="sbb-figure-overlap-${chipPosition}">AI generated</sbb-chip-label>
   </figure>
 `;
@@ -192,7 +183,7 @@ export const Default: StoryObj = {
 };
 
 export const TransparentImage: StoryObj = {
-  render: Template,
+  render: ImageTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -201,7 +192,7 @@ export const TransparentImage: StoryObj = {
 };
 
 export const NoCaptionNoRadius: StoryObj = {
-  render: Template,
+  render: ImageTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -210,7 +201,7 @@ export const NoCaptionNoRadius: StoryObj = {
 };
 
 export const RoundBorderRadius: StoryObj = {
-  render: Template,
+  render: ImageTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -220,7 +211,7 @@ export const RoundBorderRadius: StoryObj = {
 };
 
 export const SkipLqip: StoryObj = {
-  render: Template,
+  render: ImageTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,

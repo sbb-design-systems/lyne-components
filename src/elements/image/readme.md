@@ -3,11 +3,14 @@ The `sbb-image` component is used to render an image.
 Mainly from cdn.img.sbb.ch (with `imageSrc`), but we can set an external image too.
 The size can be set with `pictureSizesConfig`.
 
+```html
+<sbb-image image-src="..." alt="..."></sbb-image>
+```
+
 ## Usage
 
-In general, it is strongly recommended to wrap an `sbb-image` and all its related elements in a `figure` tag.
-
-It is possible to add a caption and/or the copyright using the `figcaption`.
+For image related elements, it is strongly recommended to wrap an `sbb-image` and all its related elements in a `figure` tag.
+E.g. `<figcaption>` or `<sbb-chip-label>`.
 
 ```html
 <figure class="sbb-figure">
@@ -15,8 +18,6 @@ It is possible to add a caption and/or the copyright using the `figcaption`.
   <figcaption>Caption / Copyright</figcaption>
 </figure>
 ```
-
-### Utility classes
 
 You can place overlapping content by using the `sbb-figure-overlap-${horizontal-alignment}-${vertical-alignment}` utility classes.
 
@@ -27,24 +28,22 @@ You can place overlapping content by using the `sbb-figure-overlap-${horizontal-
 </figure>
 ```
 
+### Utility classes
+
 Use the `sbb-image-border-radius-${value}` utility classes to set the image border radius. Available values: `default`, `none` and `round`
 
 ```html
-<figure class="sbb-figure">
-  <sbb-image class="sbb-image-border-radius-none"></sbb-image>
-  <!-- or -->
-  <img class="sbb-image-border-radius-round" />
-</figure>
+<sbb-image class="sbb-image-border-radius-none"></sbb-image>
+<!-- or -->
+<img class="sbb-image-border-radius-round" />
 ```
 
 Use the `sbb-image-${value}` utility classes to set the image aspect ratio. Available values: `free`, `1-1`, `2-3`, `3-2` ... `9-16`, `16-9`
 
 ```html
-<figure class="sbb-figure">
-  <sbb-image class="sbb-image-16-9"></sbb-image>
-  <!-- or -->
-  <img class="sbb-image-4-3" />
-</figure>
+<sbb-image class="sbb-image-16-9"></sbb-image>
+<!-- or -->
+<img class="sbb-image-4-3" />
 ```
 
 <!-- Auto Generated Below -->
