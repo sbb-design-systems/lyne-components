@@ -9,10 +9,7 @@ import { SbbAlertElement } from '../alert.js';
 import './alert-group.js';
 
 describe(`sbb-alert-group`, () => {
-  const alert = html`<sbb-alert
-    title-content="Interruption between Berne and Olten"
-    href="https://www.sbb.ch"
-  >
+  const alert = html`<sbb-alert title-content="Interruption between Berne and Olten">
     Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
     construction work will take place. You have to expect changed travel times and changed
     connections.

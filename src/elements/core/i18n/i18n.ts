@@ -458,13 +458,6 @@ export const i18nGoBack: Record<string, string> = {
   it: 'Vai indietro',
 };
 
-export const i18nFindOutMore: Record<string, string> = {
-  de: 'Mehr erfahren',
-  en: 'Find out more',
-  fr: 'En savoir plus',
-  it: 'Per saperne di più',
-};
-
 export const i18nToday: Record<string, string> = {
   de: 'Heute',
   en: 'Today',
