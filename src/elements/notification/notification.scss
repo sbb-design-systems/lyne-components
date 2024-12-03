@@ -30,7 +30,7 @@ $open-anim-height-to: calc(
     var(--sbb-notification-base-radius) var(--sbb-notification-base-radius)
     calc(var(--sbb-notification-base-radius) / 2);
   --sbb-notification-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
   --sbb-notification-timing-function: ease-in;

@@ -27,10 +27,11 @@ describe(`sbb-notification`, () => {
 
   it('closes the notification and removes it from the DOM', async () => {
     const parent = element.parentElement!;
+    const didOpenEventSpy = new EventSpy(SbbNotificationElement.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
 
-    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
+    await didOpenEventSpy.calledOnce();
     expect(element).to.have.attribute('data-state', 'opened');
 
     element.close();
