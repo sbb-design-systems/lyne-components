@@ -17,10 +17,7 @@ snapshots["sbb-teaser-hero renders DOM"] =
     class="sbb-figure"
     slot="image"
   >
-    <sbb-image
-      data-loaded=""
-      data-teaser=""
-    >
+    <sbb-image data-loaded="">
     </sbb-image>
     <sbb-chip-label
       class="sbb-figure-overlap-start-start"

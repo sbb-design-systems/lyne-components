@@ -209,11 +209,10 @@ export const teaserHero = (): TemplateResult => html`
   <section class="sbb-page-spacing">
     <sbb-teaser-hero class="teaser-hero" link-content="Learn more" href="https://www.sbb.ch">
       Considerate with SBB Green Class.
-      <figure class="sbb-figure" slot="image">
-        <sbb-image
-          image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
-        ></sbb-image>
-      </figure>
+      <sbb-image
+        slot="image"
+        image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
+      ></sbb-image>
     </sbb-teaser-hero>
   </section>
 `;
