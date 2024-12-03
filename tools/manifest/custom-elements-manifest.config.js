@@ -20,35 +20,7 @@ export function createManifestConfig(library = '') {
     plugins: [
       {
         analyzePhase({ ts, node, moduleDoc }) {
-          function setSsrSlotState(classNode) {
-            const classDoc = moduleDoc.declarations.find(
-              (declaration) => declaration.name === classNode.name.getText(),
-            );
-            classDoc['_ssrslotstate'] = true;
-          }
-
-          if (ts.isNewExpression(node) && node.expression.getText() === 'SbbSlotStateController') {
-            let classNode = node;
-            while (classNode) {
-              if (ts.isClassDeclaration(classNode)) {
-                setSsrSlotState(classNode);
-              }
-              classNode = classNode.parent;
-            }
-          }
-
           if (ts.isClassDeclaration(node)) {
-            /**
-             * The usage of the `slotState` decorator breaks the logic in the previous block of code,
-             * since the decorated class has no explicit usage of the `SbbSlotStateController` constructor any more.
-             */
-            const decorators = ts.getDecorators(node);
-            if (decorators && decorators.length > 0) {
-              if (decorators.find((e) => e.getText() === '@slotState()')) {
-                setSsrSlotState(node);
-              }
-            }
-
             /**
              * When a generic T type is used in a superclass declaration, it overrides the type defined in derived class
              * during the doc generation (as the `value` property in the `SbbFormAssociatedMixinType`).
