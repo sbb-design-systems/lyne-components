@@ -1,0 +1,41 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "src",
+  "cli": {
+    "cache": {
+      "path": "node_modules/.cache/angular"
+    }
+  },
+  "projects": {
+    "angular": {
+      "projectType": "library",
+      "root": "src/angular",
+      "sourceRoot": "src/angular",
+      "prefix": "sbb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "src/angular/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "src/angular/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "src/angular/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "options": {
+            "tsConfig": "src/angular/tsconfig.spec.json"
+          }
+        }
+      }
+    }
+  }
+}

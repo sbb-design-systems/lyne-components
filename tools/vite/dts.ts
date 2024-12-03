@@ -27,6 +27,8 @@ export function dts(): Plugin {
             '',
           ),
         };
+      } else {
+        return undefined;
       }
     },
   });

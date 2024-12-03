@@ -26,6 +26,7 @@
     "build:elements:development": "NODE_ENV=development vite build --mode development --config src/elements/vite.config.ts",
     "build:elements-experimental:production": "vite build --config src/elements-experimental/vite.config.ts",
     "build:elements-experimental:development": "NODE_ENV=development vite build --mode development --config src/elements-experimental/vite.config.ts",
+    "build:angular": "ng build angular",
     "build:react": "npm-run-all --sequential build:react:* build:react-experimental:*",
     "build:react:production": "vite build --config src/react/vite.config.ts",
     "build:react:development": "NODE_ENV=development vite build --mode development --config src/react/vite.config.ts",
@@ -54,6 +55,7 @@
     "lint:tsc:components-spec": "tsc --noEmit --project src/elements/tsconfig.spec.json",
     "lint:tsc:components-experimental": "tsc --noEmit --project src/elements-experimental/tsconfig.json",
     "lint:tsc:components-experimental-spec": "tsc --noEmit --project src/elements-experimental/tsconfig.spec.json",
+    "lint:tsc:angular": "tsc --noEmit --project src/angular/tsconfig.lib.json",
     "lint:tsc:visual-regression-app": "tsc --noEmit --project src/visual-regression-app/tsconfig.json",
     "start": "storybook dev -p 6006",
     "start:visual-regression-app": "vite --config src/visual-regression-app/vite.config.ts",
@@ -71,6 +73,16 @@
     "lit": "3.2.1"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "19.0.1",
+    "@angular/cdk": "19.0.1",
+    "@angular/cli": "19.0.1",
+    "@angular/common": "19.0.1",
+    "@angular/compiler": "19.0.1",
+    "@angular/compiler-cli": "19.0.1",
+    "@angular/core": "19.0.1",
+    "@angular/forms": "19.0.1",
+    "@angular/platform-browser": "19.0.1",
+    "@angular/router": "19.0.1",
     "@commitlint/cli": "19.6.0",
     "@commitlint/config-conventional": "19.6.0",
     "@custom-elements-manifest/analyzer": "0.10.3",
@@ -125,6 +137,7 @@
     "lint-staged": "15.2.10",
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
+    "ng-packagr": "19.0.1",
     "npm-run-all2": "7.0.1",
     "octokit": "4.0.2",
     "playwright": "1.47.2",
@@ -132,6 +145,7 @@
     "prettier": "3.4.1",
     "react": "18.3.1",
     "rollup-plugin-postcss-lit": "2.1.0",
+    "rxjs": "~7.8.0",
     "sass": "1.81.1",
     "sinon": "19.0.2",
     "storybook": "8.4.6",
@@ -145,7 +159,8 @@
     "typescript-eslint": "8.17.0",
     "urlpattern-polyfill": "10.0.0",
     "vite": "6.0.2",
-    "vite-plugin-dts": "4.3.0"
+    "vite-plugin-dts": "4.3.0",
+    "zone.js": "0.15.0"
   },
   "resolutions": {
     "@types/node": "20.17.9",

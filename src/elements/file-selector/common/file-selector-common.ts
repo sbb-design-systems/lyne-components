@@ -227,17 +227,17 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     }
 
     private _renderFileList(): TemplateResult {
-      const TAG_NAME: Record<string, string> =
+      const TAG_NAME: { wrapper: string; element: string } =
         this.files.length > 1
-          ? { WRAPPER: 'ul', ELEMENT: 'li' }
-          : { WRAPPER: 'div', ELEMENT: 'span' };
+          ? { wrapper: 'ul', element: 'li' }
+          : { wrapper: 'div', element: 'span' };
 
       /* eslint-disable lit/binding-positions */
       return html`
-      <${unsafeStatic(TAG_NAME.WRAPPER)} class='sbb-file-selector__file-list'>
+      <${unsafeStatic(TAG_NAME.wrapper)} class='sbb-file-selector__file-list'>
         ${this.files.map(
           (file: Readonly<File>) => html`
-            <${unsafeStatic(TAG_NAME.ELEMENT)} class='sbb-file-selector__file'>
+            <${unsafeStatic(TAG_NAME.element)} class='sbb-file-selector__file'>
                 <span class='sbb-file-selector__file-details'>
                   <span class='sbb-file-selector__file-name'>${file.name}</span>
                   <span class='sbb-file-selector__file-size'>${this._formatFileSize(file.size)}</span>
@@ -248,9 +248,9 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
                 @click='${() => this._removeFile(file)}'
                 aria-label='${`${i18nFileSelectorDeleteFile[this.language.current]} - ${file.name}`}'
               ></sbb-secondary-button>
-            </${unsafeStatic(TAG_NAME.ELEMENT)}>`,
+            </${unsafeStatic(TAG_NAME.element)}>`,
         )}
-      </${unsafeStatic(TAG_NAME.WRAPPER)}>
+      </${unsafeStatic(TAG_NAME.wrapper)}>
     `;
       /* eslint-enable lit/binding-positions */
     }

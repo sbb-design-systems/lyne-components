@@ -170,6 +170,7 @@ const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
     if (reservationNotice.includes(notice.name)) {
       return { ...notice, name: 'RR' } as Notice;
     }
+    return undefined;
   }, undefined);
 };
 

@@ -77,12 +77,12 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
   private get _role(): 'status' | 'alert' | undefined {
     if (!isFirefox) {
       return;
-    }
-
-    if (this.politeness === 'polite') {
+    } else if (this.politeness === 'polite') {
       return 'status';
     } else if (this.politeness === 'assertive') {
       return 'alert';
+    } else {
+      return undefined;
     }
   }
 
