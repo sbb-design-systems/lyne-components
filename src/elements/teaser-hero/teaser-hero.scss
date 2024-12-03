@@ -10,13 +10,6 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  --sbb-teaser-image-brightness-hover: var(--sbb-hover-image-brightness);
-  --sbb-teaser-image-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
-    var(--sbb-animation-duration-4x)
-  );
-  --sbb-teaser-image-animation-easing: var(--sbb-animation-easing);
-
   @include sbb.panel-variables;
 }
 

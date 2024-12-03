@@ -158,6 +158,13 @@ input[data-sbb-time-input] {
 // Apply the brightness effect on mouse hover
 // TODO: Move back to the teaser components when the global css refactoring happens
 :is(sbb-teaser, sbb-teaser-hero, sbb-teaser-product) {
+  --sbb-teaser-image-brightness-hover: var(--sbb-hover-image-brightness);
+  --sbb-teaser-image-animation-duration: var(
+    --sbb-disable-animation-zero-duration,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-teaser-image-animation-easing: var(--sbb-animation-easing);
+
   & [slot='image']:is(sbb-image, img),
   & [slot='image'] :is(sbb-image, img) {
     will-change: filter;
