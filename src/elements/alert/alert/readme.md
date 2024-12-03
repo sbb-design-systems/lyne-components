@@ -13,6 +13,7 @@ The component can optionally display a `sbb-icon` at the component start using t
   Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
   construction work will take place. You have to expect changed travel times and changed
   connections.
+  <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
 </sbb-alert>
 
 <sbb-alert>
@@ -21,23 +22,7 @@ The component can optionally display a `sbb-icon` at the component start using t
   Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
   construction work will take place. You have to expect changed travel times and changed
   connections.
-</sbb-alert>
-```
-
-## Interactions
-
-It's possible to place an action, which by clicking navigates somewhere to display more information.
-This can be done using the `linkContent` property combined with the `href` one.
-The `target` and `rel` properties are also configurable via the self-named properties.
-
-```html
-<sbb-alert
-  title-content="Interruption"
-  link-content="Show more"
-  href="https://www.sbb.ch"
-  target="_blank"
->
-  ...
+  <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
 </sbb-alert>
 ```
 
@@ -78,20 +63,15 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                                   | Default            | Description                                                                                                                                                      |
-| -------------------- | --------------------- | ------- | -------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                               | `''`               | This will be forwarded as aria-label to the relevant nested element.                                                                                             |
-| `animation`          | `animation`           | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'`            | The enabled animations.                                                                                                                                          |
-| `href`               | `href`                | public  | `string`                               | `''`               | The href value you want to link to.                                                                                                                              |
-| `iconName`           | `icon-name`           | public  | `string`                               | `'info'`           | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
-| `isOpen`             | -                     | public  | `boolean`                              |                    | Whether the element is open.                                                                                                                                     |
-| `linkContent`        | `link-content`        | public  | `string`                               | `''`               | Content of the link.                                                                                                                                             |
-| `readonly`           | `readonly`            | public  | `boolean`                              | `false`            | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                 |
-| `rel`                | `rel`                 | public  | `string`                               | `''`               | The relationship of the linked URL as space-separated link types.                                                                                                |
-| `size`               | `size`                | public  | `'s' \| 'm' \| 'l'`                    | `'m' / 's' (lean)` | You can choose between `s`, `m` or `l` size.                                                                                                                     |
-| `target`             | `target`              | public  | `LinkTargetType \| string`             | `''`               | Where to display the linked URL.                                                                                                                                 |
-| `titleContent`       | `title-content`       | public  | `string`                               | `''`               | Content of title.                                                                                                                                                |
-| `titleLevel`         | `title-level`         | public  | `SbbTitleLevel`                        | `'3'`              | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  |
+| Name           | Attribute       | Privacy | Type                                   | Default            | Description                                                                                                                                                      |
+| -------------- | --------------- | ------- | -------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `animation`    | `animation`     | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'`            | The enabled animations.                                                                                                                                          |
+| `iconName`     | `icon-name`     | public  | `string`                               | `'info'`           | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
+| `isOpen`       | -               | public  | `boolean`                              |                    | Whether the element is open.                                                                                                                                     |
+| `readonly`     | `readonly`      | public  | `boolean`                              | `false`            | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                 |
+| `size`         | `size`          | public  | `'s' \| 'm' \| 'l'`                    | `'m' / 's' (lean)` | You can choose between `s`, `m` or `l` size.                                                                                                                     |
+| `titleContent` | `title-content` | public  | `string`                               | `''`               | Content of title.                                                                                                                                                |
+| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                        | `'3'`              | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  |
 
 ## Methods
 
