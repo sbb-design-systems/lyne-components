@@ -118,7 +118,13 @@ const WithChipTemplate = ({ withFooter, slottedImg, ...args }: Args): TemplateRe
       ${slottedImg
         ? html`<img src=${sampleImages[4]} alt="" />`
         : html`<sbb-image image-src=${sampleImages[4]}></sbb-image>`}
-      <sbb-chip-label class="sbb-figure-overlap-start-start">AI generated</sbb-chip-label>
+      <sbb-chip-label
+        class=${args['image-alignment'] === 'after'
+          ? 'sbb-figure-overlap-start-end'
+          : 'sbb-figure-overlap-start-start'}
+      >
+        AI generated
+      </sbb-chip-label>
     </figure>
     ${content()} ${withFooter ? footer() : nothing}
   </sbb-teaser-product>

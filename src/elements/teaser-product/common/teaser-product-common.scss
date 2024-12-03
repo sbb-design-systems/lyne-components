@@ -63,6 +63,10 @@
   margin-block-start: var(--sbb-spacing-responsive-xxs);
 }
 
+::slotted([slot='image']) {
+  height: 100%;
+}
+
 .sbb-teaser-product__root {
   @include sbb.if-forced-colors {
     // Apply a visual border for forced color mode

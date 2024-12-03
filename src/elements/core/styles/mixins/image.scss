@@ -23,7 +23,8 @@
 }
 
 @mixin figure-overlap-base {
-  z-index: 1;
+  position: relative;
+  order: 1; // Alternative to z-index
   grid-row: 1;
   grid-column: 1;
   margin: var(--sbb-spacing-responsive-xxxs);
