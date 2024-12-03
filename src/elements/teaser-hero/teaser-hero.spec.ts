@@ -41,7 +41,6 @@ describe(`sbb-teaser-hero`, () => {
         </figure>
       </sbb-teaser-hero>`,
     );
-    await waitForLitRender(element);
 
     const chip = element.querySelector<SbbChipLabelElement>('sbb-chip-label')!;
     const image = element.querySelector<SbbImageElement>('sbb-image')!;

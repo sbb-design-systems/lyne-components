@@ -104,7 +104,7 @@ const defaultArgs: Args = {
   'chip-label': undefined,
 };
 
-const TemplateSbbTeaserWithSlots = ({
+const Template = ({
   content,
   'chip-label': chipLabel,
   'link-content': linkContent,
@@ -127,7 +127,7 @@ const TemplateSbbTeaserWithSlots = ({
 `;
 
 export const defaultTeaser: StoryObj = {
-  render: TemplateSbbTeaserWithSlots,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -135,7 +135,7 @@ export const defaultTeaser: StoryObj = {
 };
 
 export const openInNewWindow: StoryObj = {
-  render: TemplateSbbTeaserWithSlots,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -144,7 +144,7 @@ export const openInNewWindow: StoryObj = {
 };
 
 export const withChip: StoryObj = {
-  render: TemplateSbbTeaserWithSlots,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -153,7 +153,7 @@ export const withChip: StoryObj = {
 };
 
 export const chipOnly: StoryObj = {
-  render: TemplateSbbTeaserWithSlots,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -165,7 +165,7 @@ export const chipOnly: StoryObj = {
 };
 
 export const withSlots: StoryObj = {
-  render: TemplateSbbTeaserWithSlots,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,

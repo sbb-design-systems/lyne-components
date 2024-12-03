@@ -161,7 +161,6 @@ const defaultArgTypes: ArgTypes = {
   alt,
   borderRadius,
   aspectRatio,
-  chipPosition,
   'custom-focal-point': customFocalPoint,
   'focal-point-debug': focalPointDebug,
   'focal-point-x': focalPointX,
@@ -176,7 +175,6 @@ const defaultArgs: Args = {
   alt: '',
   borderRadius: borderRadius.options![0],
   aspectRatio: aspectRatio.options![0],
-  chipPosition: chipPosition.options![0],
   'custom-focal-point': false,
   'focal-point-debug': false,
   'focal-point-x': '',
@@ -232,8 +230,8 @@ export const SkipLqip: StoryObj = {
 
 export const WithChip: StoryObj = {
   render: WithChipTemplate,
-  argTypes: defaultArgTypes,
-  args: defaultArgs,
+  argTypes: { ...defaultArgTypes, chipPosition },
+  args: { ...defaultArgs, chipPosition: chipPosition.options![0] },
 };
 
 const meta: Meta = {

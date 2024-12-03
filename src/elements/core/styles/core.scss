@@ -156,7 +156,7 @@ input[data-sbb-time-input] {
 
 // Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
 // Apply the brightness effect on mouse hover
-// TODO Move back to the teaser components when the global css refactoring happens
+// TODO: Move back to the teaser components when the global css refactoring happens
 :is(sbb-teaser, sbb-teaser-hero, sbb-teaser-product) {
   & [slot='image']:is(sbb-image, img),
   & [slot='image'] :is(sbb-image, img) {
@@ -167,7 +167,7 @@ input[data-sbb-time-input] {
   }
 }
 
-// TODO Move back to the teaser components when the global css refactoring happens
+// TODO: Move back to the teaser components when the global css refactoring happens
 :is(sbb-teaser-product, sbb-teaser-product-static) {
   // Reset sbb-image border radius in order to control it from teaser product.
   sbb-image {
@@ -181,13 +181,13 @@ input[data-sbb-time-input] {
   }
 }
 
-// TODO Move back to the teaser components when the global css refactoring happens
+// TODO: Move back to the teaser components when the global css refactoring happens
 :is(sbb-teaser) {
   & [slot='image']:is(sbb-image, img),
   & [slot='image'] :is(sbb-image, img) {
-    transition-property: filter, transform;
-    will-change: filter, transform;
-    transform: scale(var(--sbb-teaser-scale, 1));
+    transition-property: filter, scale;
+    will-change: filter, scale;
+    scale: var(--sbb-teaser-scale, 1);
   }
 
   sbb-image {
