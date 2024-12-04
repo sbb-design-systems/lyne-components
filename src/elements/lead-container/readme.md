@@ -38,12 +38,9 @@ Full example with applied spacings (CSS classes) in content:
     alt="Station of Lucerne from outside"
   ></sbb-image>
   <sbb-alert-group class="sbb-lead-container-spacing">
-    <sbb-alert
-      title-content="Interruption between Genève and Lausanne"
-      href="https://www.sbb.ch"
-      size="m"
-    >
+    <sbb-alert title-content="Interruption between Genève and Lausanne" size="m">
       The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+      <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
     </sbb-alert>
   </sbb-alert-group>
   <sbb-breadcrumb-group class="sbb-lead-container-spacing">

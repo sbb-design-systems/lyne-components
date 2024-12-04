@@ -12,8 +12,8 @@ describe(`sbb-alert-group ssr`, () => {
     root = await ssrHydratedFixture(
       html`
         <sbb-alert-group accessibility-title="Disruptions" accessibility-title-level="3">
-          <sbb-alert title-content="Interruption" href="www.sbb.ch">First</sbb-alert>
-          <sbb-alert title-content="Interruption" href="www.sbb.ch">Second</sbb-alert>
+          <sbb-alert title-content="Interruption">First</sbb-alert>
+          <sbb-alert title-content="Interruption">Second</sbb-alert>
         </sbb-alert-group>
       `,
       { modules: ['./alert-group.js', '../alert.js'] },

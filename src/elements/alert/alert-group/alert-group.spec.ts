@@ -24,8 +24,8 @@ describe(`sbb-alert-group`, () => {
         accessibility-title="${accessibilityTitle}"
         accessibility-title-level="${accessibilityTitleLevel}"
       >
-        <sbb-alert title-content="Interruption" href="www.sbb.ch" id="alert1">First</sbb-alert>
-        <sbb-alert title-content="Interruption" href="www.sbb.ch" id="alert2">Second</sbb-alert>
+        <sbb-alert title-content="Interruption" id="alert1">First</sbb-alert>
+        <sbb-alert title-content="Interruption" id="alert2">Second</sbb-alert>
       </sbb-alert-group>
     `);
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);

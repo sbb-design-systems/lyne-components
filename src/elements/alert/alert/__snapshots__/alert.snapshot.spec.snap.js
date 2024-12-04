@@ -76,19 +76,25 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
 
 snapshots["sbb-alert should render customized properties DOM"] = 
 `<sbb-alert
-  accessibility-label="label"
   animation="all"
   data-state="opening"
-  href="https://www.sbb.ch"
   icon-name="disruption"
-  link-content="Show much more"
-  rel="noopener"
   size="l"
-  target="_blank"
   title-content="Interruption"
   title-level="2"
 >
   Alert content
+  <sbb-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
+    data-slot-names="unnamed"
+    href="https://www.sbb.ch"
+    negative=""
+    size="s"
+  >
+    Find out more
+  </sbb-link>
 </sbb-alert>
 `;
 /* end snapshot sbb-alert should render customized properties DOM */
@@ -125,20 +131,6 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
           <slot>
           </slot>
         </p>
-        <sbb-link
-          accessibility-label="label"
-          data-action=""
-          data-link=""
-          data-sbb-link=""
-          data-slot-names="unnamed"
-          href="https://www.sbb.ch"
-          negative=""
-          rel="noopener"
-          size="s"
-          target="_blank"
-        >
-          Show much more
-        </sbb-link>
       </span>
       <span class="sbb-alert__close-button-wrapper">
         <sbb-divider
@@ -185,7 +177,7 @@ snapshots["sbb-alert A11y tree Chrome"] =
     },
     {
       "role": "link",
-      "name": "test-a11y-label"
+      "name": "Find out more"
     },
     {
       "role": "button",
@@ -214,7 +206,7 @@ snapshots["sbb-alert A11y tree Firefox"] =
     },
     {
       "role": "link",
-      "name": "test-a11y-label",
+      "name": "Find out more",
       "value": "https://www.sbb.ch/"
     },
     {
