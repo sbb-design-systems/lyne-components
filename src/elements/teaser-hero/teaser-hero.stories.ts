@@ -164,14 +164,6 @@ export const chipOnly: StoryObj = {
   },
 };
 
-export const withSlots: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-  },
-};
-
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {

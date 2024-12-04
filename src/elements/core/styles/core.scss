@@ -215,26 +215,22 @@ input[data-sbb-time-input] {
 
 // TODO: Move back to the teaser-hero components when the global css refactoring happens
 :is(sbb-teaser-hero) {
-  sbb-image {
+  :is(sbb-image, img) {
     --sbb-image-aspect-ratio: 1 / 1;
-
-    border-radius: 0;
 
     @include mediaqueries.mq($from: small) {
       --sbb-image-aspect-ratio: 16 / 9;
     }
   }
 
-  img {
-    --sbb-image-aspect-ratio: 1 / 1;
+  sbb-image {
+    border-radius: 0;
+  }
 
+  img {
     width: 100%;
     display: block;
     aspect-ratio: var(--sbb-image-aspect-ratio);
-
-    @include mediaqueries.mq($from: small) {
-      --sbb-image-aspect-ratio: 16 / 9;
-    }
   }
 }
 
