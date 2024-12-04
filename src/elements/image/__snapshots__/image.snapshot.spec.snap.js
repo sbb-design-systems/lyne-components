@@ -13,7 +13,9 @@ snapshots["sbb-image should render Shadow DOM"] =
     alt=""
     class="sbb-image__blurred"
     decoding="auto"
+    height="562"
     loading="eager"
+    width="1000"
   >
   <picture>
     <source
@@ -32,7 +34,9 @@ snapshots["sbb-image should render Shadow DOM"] =
       alt=""
       class="sbb-image__img"
       decoding="auto"
+      height="562"
       loading="eager"
+      width="1000"
     >
   </picture>
 </div>
