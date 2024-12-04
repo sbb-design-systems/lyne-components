@@ -165,6 +165,12 @@ input[data-sbb-time-input] {
   );
   --sbb-teaser-image-animation-easing: var(--sbb-animation-easing);
 
+  &:hover {
+    @include mediaqueries.hover-mq($hover: true) {
+      --sbb-teaser-image-brightness: var(--sbb-teaser-image-brightness-hover);
+    }
+  }
+
   & [slot='image']:is(sbb-image, img),
   & [slot='image'] :is(sbb-image, img) {
     will-change: filter;

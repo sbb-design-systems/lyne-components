@@ -37,7 +37,6 @@
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-teaser-image-brightness: var(--sbb-teaser-image-brightness-hover);
     --sbb-teaser-scale: var(--sbb-teaser-scale-hover);
   }
 }
