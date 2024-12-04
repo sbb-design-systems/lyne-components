@@ -1,5 +1,5 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -166,6 +166,9 @@ class SbbNotificationElement extends LitElement {
   }
 
   private _isZeroAnimationDuration(): boolean {
+    if (isServer) {
+      return true;
+    }
     const animationDuration = getComputedStyle(this).getPropertyValue(
       '--sbb-notification-animation-duration',
     );
