@@ -217,6 +217,18 @@ input[data-sbb-time-input] {
       --sbb-image-aspect-ratio: 16 / 9;
     }
   }
+
+  img {
+    --sbb-image-aspect-ratio: 1 / 1;
+
+    width: 100%;
+    display: block;
+    aspect-ratio: var(--sbb-image-aspect-ratio);
+
+    @include mediaqueries.mq($from: small) {
+      --sbb-image-aspect-ratio: 16 / 9;
+    }
+  }
 }
 
 // TODO: move to train formation after css refactoring

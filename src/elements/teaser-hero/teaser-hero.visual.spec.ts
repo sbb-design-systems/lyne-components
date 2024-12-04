@@ -2,6 +2,7 @@ import { html } from 'lit';
 
 import {
   describeViewports,
+  loadAssetAsBase64,
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
@@ -12,6 +13,7 @@ import '../image.js';
 import '../chip-label.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const imageBase64 = await loadAssetAsBase64(imageUrl);
 
 describe(`sbb-teaser-hero`, () => {
   describeViewports({ viewports: ['zero', 'micro', 'small', 'medium', 'wide'] }, () => {
@@ -46,6 +48,21 @@ describe(`sbb-teaser-hero`, () => {
               Break out and explore castles and palaces.
               <span slot="link-content">Find out more</span>
               <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+            </sbb-teaser-hero>
+          `);
+
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        }),
+      );
+
+      it(
+        `slotted-image ${state.name}`,
+        state.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-teaser-hero href="#">
+              Break out and explore castles and palaces.
+              <span slot="link-content">Find out more</span>
+              <img slot="image" src=${imageBase64} alt="" />
             </sbb-teaser-hero>
           `);
 
