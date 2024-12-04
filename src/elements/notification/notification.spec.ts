@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button.js';
 import { fixture } from '../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 
 import { SbbNotificationElement } from './notification.js';
 
@@ -11,8 +11,10 @@ import '../link/link.js';
 
 describe(`sbb-notification`, () => {
   let element: SbbNotificationElement;
+  let didOpenEventSpy: EventSpy<Event>;
 
   beforeEach(async () => {
+    didOpenEventSpy = new EventSpy(SbbNotificationElement.events.didOpen);
     element = await fixture(html`
       <sbb-notification id="notification">
         The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
@@ -27,7 +29,6 @@ describe(`sbb-notification`, () => {
 
   it('closes the notification and removes it from the DOM', async () => {
     const parent = element.parentElement!;
-    const didOpenEventSpy = new EventSpy(SbbNotificationElement.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
 
@@ -60,7 +61,7 @@ describe(`sbb-notification`, () => {
       '.sbb-notification__close',
     ) as SbbSecondaryButtonElement;
 
-    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
+    await didOpenEventSpy.calledOnce();
     expect(element).to.have.attribute('data-state', 'opened');
 
     closeButton.click();

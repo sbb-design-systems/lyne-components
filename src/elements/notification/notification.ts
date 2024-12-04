@@ -125,12 +125,24 @@ class SbbNotificationElement extends LitElement {
     if (this._state === 'closed') {
       this._state = 'opening';
       this._willOpen.emit();
+
+      // If the animation duration is zero, the animationend event is not always fired reliably.
+      // In this case we directly set the `opened` state.
+      if (this._isZeroAnimationDuration()) {
+        this._handleOpening();
+      }
     }
   }
 
   public close(): void {
     if (this._state === 'opened' && this._willClose.emit()) {
       this._state = 'closing';
+
+      // If the animation duration is zero, the animationend event is not always fired reliably.
+      // In this case we directly set the `closed` state.
+      if (this._isZeroAnimationDuration()) {
+        this._handleClosing();
+      }
     }
   }
 
@@ -151,6 +163,14 @@ class SbbNotificationElement extends LitElement {
     await this.updateComplete;
     this._setNotificationHeight();
     this._open();
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    const animationDuration = getComputedStyle(this).getPropertyValue(
+      '--sbb-notification-animation-duration',
+    );
+
+    return parseFloat(animationDuration) === 0;
   }
 
   private _setNotificationHeight(): void {
