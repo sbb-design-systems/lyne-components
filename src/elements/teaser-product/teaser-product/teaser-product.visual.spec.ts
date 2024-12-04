@@ -80,7 +80,12 @@ const withChipTemplate = ({
       ${slottedImg
         ? html`<img src=${imageBase64} alt="" />`
         : html`<sbb-image image-src=${imageUrl} skip-lqip></sbb-image>`}
-      <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
+      <sbb-chip-label
+        class=${imageAlignment === 'after'
+          ? 'sbb-figure-overlap-start-end'
+          : 'sbb-figure-overlap-start-start'}
+        >Label</sbb-chip-label
+      >
     </figure>
     ${content(longContent)} ${showFooter ? footer() : nothing}
   </sbb-teaser-product>
