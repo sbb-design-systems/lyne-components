@@ -68,15 +68,7 @@ $border-radius: (
   'round': 'var(--sbb-border-radius-infinity)',
 );
 @each $name, $radius in $border-radius {
-  sbb-image {
-    &.sbb-image-border-radius-#{$name} {
-      --sbb-image-border-radius: #{$radius};
-    }
-  }
-
-  img {
-    &.sbb-image-border-radius-#{$name} {
-      border-radius: #{$radius};
-    }
+  :is(img, sbb-image).sbb-image-border-radius-#{$name} {
+    border-radius: #{$radius};
   }
 }

@@ -152,8 +152,6 @@ const breakpointMap: Record<string, number> = {
  * @cssprop [--sbb-image-aspect-ratio=auto] - Can be used to override `aspectRatio` property.
  * This way we can have, for example, an image component with an aspect
  * ratio of 4/3 in smaller viewports and 16/9 in larger viewports.
- * @cssprop [--sbb-image-border-radius=var(--sbb-border-radius-4x)] - Can be used to override the
- * `borderRadius` property in case of different values for different viewports.
  * @cssprop [--sbb-image-object-position] - Can be used to set the object-position css property of the image itself if the image itself is cropped.
  * @cssprop [--sbb-image-object-fit=cover] - Can be used to set the object-fit css property of the image itself if the image itself is cropped.
  */

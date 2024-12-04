@@ -62,15 +62,12 @@
 }
 
 ::slotted([slot='image']) {
-  --sbb-image-border-radius: 0;
-
+  border-radius: 0;
   position: absolute;
   inset: 0;
 
   :host(:not([expanded], [background-expanded])) & {
     @include sbb.mq($from: ultra) {
-      --sbb-image-border-radius: var(--sbb-border-radius-4x);
-
       border-radius: var(--sbb-border-radius-4x);
     }
   }

@@ -184,7 +184,7 @@ input[data-sbb-time-input] {
 :is(sbb-teaser-product, sbb-teaser-product-static) {
   // Reset sbb-image border radius in order to control it from teaser product.
   sbb-image {
-    --sbb-image-border-radius: 0;
+    border-radius: 0;
   }
 
   img {
@@ -217,7 +217,8 @@ input[data-sbb-time-input] {
 :is(sbb-teaser-hero) {
   sbb-image {
     --sbb-image-aspect-ratio: 1 / 1;
-    --sbb-image-border-radius: 0;
+
+    border-radius: 0;
 
     @include mediaqueries.mq($from: small) {
       --sbb-image-aspect-ratio: 16 / 9;

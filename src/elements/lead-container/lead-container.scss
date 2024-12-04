@@ -29,7 +29,8 @@
 
 ::slotted(sbb-image[slot='image']) {
   --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
-  --sbb-image-border-radius: var(--sbb-lead-container-image-border-radius);
+
+  border-radius: var(--sbb-lead-container-image-border-radius);
 }
 
 ::slotted(:is(img[slot='image'], picture[slot='image'])) {
