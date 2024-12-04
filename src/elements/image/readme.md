@@ -21,6 +21,13 @@ E.g. `<figcaption>` or `<sbb-chip-label>`.
 
 You can place overlapping content by using the `sbb-figure-overlap-${horizontal-alignment}-${vertical-alignment}` utility classes.
 
+| Position       | CSS class                        |
+| -------------- | -------------------------------- |
+| `top-left`     | `sbb-figure-overlap-start-start` |
+| `top-right`    | `sbb-figure-overlap-start-end`   |
+| `bottom-left`  | `sbb-figure-overlap-end-start`   |
+| `bottom-right` | `sbb-figure-overlap-end-end`     |
+
 ```html
 <figure class="sbb-figure">
   <sbb-image ...></sbb-image>
@@ -30,7 +37,13 @@ You can place overlapping content by using the `sbb-figure-overlap-${horizontal-
 
 ### Utility classes
 
-Use the `sbb-image-border-radius-${value}` utility classes to set the image border radius. Available values: `default`, `none` and `round`
+Use the `sbb-image-border-radius-${value}` utility classes to set the image border radius.
+
+| Border Radius | CSS class           |
+| ------------- | ------------------- |
+| `default`     | `sbb-image-default` |
+| `none`        | `sbb-image-none`    |
+| `round`       | `sbb-image-round`   |
 
 ```html
 <sbb-image class="sbb-image-border-radius-none"></sbb-image>
@@ -38,7 +51,22 @@ Use the `sbb-image-border-radius-${value}` utility classes to set the image bord
 <img class="sbb-image-border-radius-round" />
 ```
 
-Use the `sbb-image-${value}` utility classes to set the image aspect ratio. Available values: `free`, `1-1`, `2-3`, `3-2` ... `9-16`, `16-9`
+Use the `sbb-image-${ratio}` utility classes to set the image aspect ratio.
+
+| Aspect Ratio | CSS class        |
+| ------------ | ---------------- |
+| `free`       | `sbb-image-free` |
+| `1-1`        | `sbb-image-1-1`  |
+| `1-2`        | `sbb-image-1-2`  |
+| `2-1`        | `sbb-image-2-1`  |
+| `2-3`        | `sbb-image-2-3`  |
+| `3-2`        | `sbb-image-3-2`  |
+| `3-4`        | `sbb-image-3-4`  |
+| `4-3`        | `sbb-image-4-3`  |
+| `4-5`        | `sbb-image-4-5`  |
+| `5-4`        | `sbb-image-5-4`  |
+| `9-16`       | `sbb-image-9-16` |
+| `16-9`       | `sbb-image-16-9` |
 
 ```html
 <sbb-image class="sbb-image-16-9"></sbb-image>
