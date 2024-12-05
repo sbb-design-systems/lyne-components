@@ -20,7 +20,6 @@ let nextFormFieldErrorId = 0;
 
 const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-autocomplete-grid', 'sbb-select'];
 
-// Map of patched inputs
 const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 
 /**
