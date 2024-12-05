@@ -433,14 +433,7 @@ describe(`sbb-form-field`, () => {
       input.value = '';
       await waitForLitRender(element);
 
-      // Then empty state is not updated
-      expect(element).not.to.have.attribute('data-input-empty');
-
-      // When manually calling reset method
-      element.reset();
-      await waitForLitRender(element);
-
-      // Then empty state should be updated
+      // Then the empty state is updated
       expect(element).to.have.attribute('data-input-empty');
     });
   });

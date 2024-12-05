@@ -20,6 +20,44 @@ let nextFormFieldErrorId = 0;
 
 const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-autocomplete-grid', 'sbb-select'];
 
+interface PatchedInputElement extends HTMLInputElement {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  _originalValueDescriptor?: PropertyDescriptor;
+}
+
+function patchInputValue(inputElement: PatchedInputElement, callback: (value: any) => void): void {
+  // Speichern der ursprünglichen Getter und Setter
+  const originalDescriptor = Object.getOwnPropertyDescriptor(
+    Object.getPrototypeOf(inputElement),
+    'value',
+  );
+  const originalGetter = originalDescriptor!.get!;
+  const originalSetter = originalDescriptor!.set!;
+
+  inputElement._originalValueDescriptor = originalDescriptor;
+
+  // Neue Getter und Setter definieren
+  Object.defineProperty(inputElement, 'value', {
+    get() {
+      return originalGetter.call(this);
+    },
+    set(newValue) {
+      originalSetter.call(this, newValue);
+      callback(newValue);
+    },
+    configurable: true,
+    enumerable: true,
+  });
+}
+
+function unpatchInputValue(inputElement: PatchedInputElement): void {
+  const originalDescriptor = inputElement._originalValueDescriptor;
+  if (originalDescriptor) {
+    Object.defineProperty(inputElement, 'value', originalDescriptor);
+    delete inputElement._originalValueDescriptor;
+  }
+}
+
 /**
  * It wraps an input element adding label, errors, icon, etc.
  *
@@ -155,6 +193,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     super.disconnectedCallback();
     this._formFieldAttributeObserver?.disconnect();
     this._inputAbortController.abort();
+    if (this._input?.localName === 'input') {
+      unpatchInputValue(this._input as HTMLInputElement);
+    }
   }
 
   private _onPopupOpen({ target }: CustomEvent<void>): void {
@@ -285,7 +326,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
 
     let inputFocusElement = this._input;
 
-    if (this._input.localName === 'sbb-select') {
+    if (this._input.localName === 'input') {
+      // Patch value of HTMLInputElement in order to update floating label
+      patchInputValue(this._input as HTMLInputElement, () => this.reset());
+    } else if (this._input.localName === 'sbb-select') {
       this._input.addEventListener('stateChange', () => this._checkAndUpdateInputEmpty(), {
         signal: this._inputAbortController.signal,
       });
