@@ -223,7 +223,9 @@ export class ${className} {
                 node: classDeclaration.body,
                 messageId: 'angularMissingInheritance',
                 fix: (fixer) => {
-                  const endOfClassName = classDeclaration.id!.range[1];
+                  const endOfClassName = classDeclaration.typeParameters
+                    ? classDeclaration.typeParameters?.range[1]
+                    : classDeclaration.id!.range[1];
                   return fixer.insertTextBeforeRange(
                     [endOfClassName, endOfClassName],
                     ` ${cleanedHeritageClause}`,
@@ -324,7 +326,11 @@ export class ${className} {
                   .getDecorators(member)
                   ?.find((e) => e.getText().includes('attribute'));
                 if (decorator) {
-                  input += `{ alias: ${decorator.getText().match(/['"]([^'"]*)['"]/g)![0]} }`;
+                  // It's possible to have an attribute property with false value (eg. datepicker)
+                  const alias = decorator.getText().match(/['"]([^'"]*)['"]/g);
+                  if (alias) {
+                    input += `{ alias: ${alias[0]} }`;
+                  }
                 }
                 if (member.type) {
                   // FIXME add import from esta core/attribute-transform
@@ -378,9 +384,9 @@ export class ${className} {
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 const name = member.name.getText().replaceAll('_', '');
-                const type = (
-                  member.type as unknown as ts.TypeReferenceNode
-                )?.typeArguments?.[0].getText();
+                const type =
+                  (member.type as unknown as ts.TypeReferenceNode)?.typeArguments?.[0].getText() ??
+                  'void';
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `

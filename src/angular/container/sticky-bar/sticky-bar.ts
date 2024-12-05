@@ -19,22 +19,19 @@ export class SbbStickyBar {
     return this.#element.nativeElement.color;
   }
 
-  @Output() public willStick: Observable<undefined> = fromEvent(
+  @Output() public willStick: Observable<void> = fromEvent(
     this.#element.nativeElement,
     'willStick',
   );
 
-  @Output() public didStick: Observable<undefined> = fromEvent(
-    this.#element.nativeElement,
-    'didStick',
-  );
+  @Output() public didStick: Observable<void> = fromEvent(this.#element.nativeElement, 'didStick');
 
-  @Output() public willUnstick: Observable<undefined> = fromEvent(
+  @Output() public willUnstick: Observable<void> = fromEvent(
     this.#element.nativeElement,
     'willUnstick',
   );
 
-  @Output() public didUnstick: Observable<undefined> = fromEvent(
+  @Output() public didUnstick: Observable<void> = fromEvent(
     this.#element.nativeElement,
     'didUnstick',
   );

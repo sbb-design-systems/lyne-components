@@ -11,12 +11,12 @@ import { SbbOptionBaseElement } from '@sbb-esta/lyne-angular/option/option/optio
 export class SbbAutocompleteGridOption extends SbbOptionBaseElement {
   #element = inject(ElementRef<SbbAutocompleteGridOption>);
 
-  @Output() public selectionChange: Observable<undefined> = fromEvent(
+  @Output() public selectionChange: Observable<void> = fromEvent(
     this.#element.nativeElement,
     'selectionChange',
   );
 
-  @Output() public optionSelected: Observable<undefined> = fromEvent(
+  @Output() public optionSelected: Observable<void> = fromEvent(
     this.#element.nativeElement,
     'optionSelected',
   );
