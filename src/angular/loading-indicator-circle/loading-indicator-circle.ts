@@ -2,7 +2,6 @@ import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbLoadingIndicatorCircleElement } from '@sbb-esta/lyne-elements/loading-indicator-circle.js';
 import '@sbb-esta/lyne-elements/loading-indicator-circle.js';
 
-
 @Directive({
   selector: 'sbb-loading-indicator-circle',
   standalone: true,

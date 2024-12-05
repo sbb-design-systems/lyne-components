@@ -196,16 +196,33 @@ export class ${className} {
           // NOTE: if heritage clause has only one mixin, and it's one of the excluded group, the whole clause can be removed (example: sbb-breadcrumb-group)
           const firstArguments = (heritageClause.types?.[0].expression as CallExpression)
             ?.arguments?.[0];
+          let cleanedHeritageClause: string;
           if (
-            !(
-              firstArguments &&
-              !ts.isCallExpression(firstArguments) &&
-              excludedMixin.some(
-                (e) => heritageClause.types[0].expression.getText().indexOf(e) !== -1,
-              )
+            firstArguments &&
+            !ts.isCallExpression(firstArguments) &&
+            excludedMixin.some(
+              (e) => heritageClause.types[0].expression.getText().indexOf(e) !== -1,
             )
           ) {
-            let cleanedHeritageClause = heritageClause
+            // If there is a single mixin, but the base class is not LitElement, the inheritance must be preserved
+            if (firstArguments.getText() !== 'LitElement' && !classDeclaration.superClass) {
+              cleanedHeritageClause = `extends ${firstArguments.getText()}`;
+              context.report({
+                node: classDeclaration.body,
+                messageId: 'angularMissingInheritance',
+                fix: (fixer) => {
+                  const endOfClassName = classDeclaration.typeParameters
+                    ? classDeclaration.typeParameters?.range[1]
+                    : classDeclaration.id!.range[1];
+                  return fixer.insertTextBeforeRange(
+                    [endOfClassName, endOfClassName],
+                    ` ${cleanedHeritageClause}`,
+                  );
+                },
+              });
+            }
+          } else {
+            cleanedHeritageClause = heritageClause
               .getText()
               .replaceAll(/(\n)|(\s\s+)/g, '')
               .replaceAll(/,?\),?/g, ')');
