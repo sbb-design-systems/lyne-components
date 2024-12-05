@@ -416,7 +416,7 @@ describe(`sbb-form-field`, () => {
       expect(element).to.have.attribute('data-input-empty');
     });
 
-    it('should reset floating label when calling reset of sbb-form-field', async () => {
+    it('should reset floating label when changing value programmatically', async () => {
       const element: SbbFormFieldElement = await fixture(html`
         <sbb-form-field floating-label>
           <input />
@@ -435,6 +435,56 @@ describe(`sbb-form-field`, () => {
 
       // Then the empty state is updated
       expect(element).to.have.attribute('data-input-empty');
+    });
+
+    it('should unpatch on input removal', async () => {
+      const element: SbbFormFieldElement = await fixture(html`
+        <sbb-form-field floating-label></sbb-form-field>
+      `);
+
+      const newInput = document.createElement('input');
+
+      const originalSetter = Object.getOwnPropertyDescriptor(
+        Object.getPrototypeOf(newInput),
+        'value',
+      )!.set;
+
+      element.appendChild(newInput);
+      await waitForLitRender(element);
+
+      expect(Object.getOwnPropertyDescriptor(newInput, 'value')!.set).not.to.be.equal(
+        originalSetter,
+      );
+
+      newInput.remove();
+      await waitForLitRender(element);
+
+      expect(Object.getOwnPropertyDescriptor(newInput, 'value')!.set).to.be.equal(originalSetter);
+    });
+
+    it('should unpatch on disconnection', async () => {
+      const element: SbbFormFieldElement = await fixture(html`
+        <sbb-form-field floating-label></sbb-form-field>
+      `);
+
+      const newInput = document.createElement('input');
+
+      const originalSetter = Object.getOwnPropertyDescriptor(
+        Object.getPrototypeOf(newInput),
+        'value',
+      )!.set;
+
+      element.appendChild(newInput);
+      await waitForLitRender(element);
+
+      expect(Object.getOwnPropertyDescriptor(newInput, 'value')!.set).not.to.be.equal(
+        originalSetter,
+      );
+
+      element.remove();
+      await waitForLitRender(element);
+
+      expect(Object.getOwnPropertyDescriptor(newInput, 'value')!.set).to.be.equal(originalSetter);
     });
   });
 });

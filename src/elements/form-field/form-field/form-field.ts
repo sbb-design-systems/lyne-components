@@ -20,43 +20,8 @@ let nextFormFieldErrorId = 0;
 
 const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-autocomplete-grid', 'sbb-select'];
 
-interface PatchedInputElement extends HTMLInputElement {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  _originalValueDescriptor?: PropertyDescriptor;
-}
-
-function patchInputValue(inputElement: PatchedInputElement, callback: (value: any) => void): void {
-  // Speichern der ursprünglichen Getter und Setter
-  const originalDescriptor = Object.getOwnPropertyDescriptor(
-    Object.getPrototypeOf(inputElement),
-    'value',
-  );
-  const originalGetter = originalDescriptor!.get!;
-  const originalSetter = originalDescriptor!.set!;
-
-  inputElement._originalValueDescriptor = originalDescriptor;
-
-  // Neue Getter und Setter definieren
-  Object.defineProperty(inputElement, 'value', {
-    get() {
-      return originalGetter.call(this);
-    },
-    set(newValue) {
-      originalSetter.call(this, newValue);
-      callback(newValue);
-    },
-    configurable: true,
-    enumerable: true,
-  });
-}
-
-function unpatchInputValue(inputElement: PatchedInputElement): void {
-  const originalDescriptor = inputElement._originalValueDescriptor;
-  if (originalDescriptor) {
-    Object.defineProperty(inputElement, 'value', originalDescriptor);
-    delete inputElement._originalValueDescriptor;
-  }
-}
+// Map of patched inputs
+const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 
 /**
  * It wraps an input element adding label, errors, icon, etc.
@@ -194,7 +159,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     this._formFieldAttributeObserver?.disconnect();
     this._inputAbortController.abort();
     if (this._input?.localName === 'input') {
-      unpatchInputValue(this._input as HTMLInputElement);
+      this._unpatchInputValue();
     }
   }
 
@@ -248,10 +213,16 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input` and to observe the native readonly and disabled attributes.
    */
   private _onSlotInputChange(event: Event): void {
-    this._input = (event.target as HTMLSlotElement)
+    const newInput = (event.target as HTMLSlotElement)
       .assignedElements()
       .find((e): e is HTMLElement => this._supportedInputElements.includes(e.localName));
     this._assignSlots();
+
+    if (this._input && this._input.localName === 'input' && newInput !== this._input) {
+      this._unpatchInputValue();
+    }
+
+    this._input = newInput;
 
     if (!this._input) {
       return;
@@ -327,8 +298,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     let inputFocusElement = this._input;
 
     if (this._input.localName === 'input') {
-      // Patch value of HTMLInputElement in order to update floating label
-      patchInputValue(this._input as HTMLInputElement, () => this.reset());
+      this._patchInputValue();
     } else if (this._input.localName === 'sbb-select') {
       this._input.addEventListener('stateChange', () => this._checkAndUpdateInputEmpty(), {
         signal: this._inputAbortController.signal,
@@ -379,6 +349,45 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       return this._input.form;
     }
     return this._input?.closest('form');
+  }
+
+  // We need to patch the value property of the HTMLInputElement in order
+  // to be able to reset the floating label in the empty state.
+  private _patchInputValue(): void {
+    const inputElement = this._input as HTMLInputElement;
+    const originalDescriptor = Object.getOwnPropertyDescriptor(
+      Object.getPrototypeOf(inputElement),
+      'value',
+    );
+
+    if (!originalDescriptor || !originalDescriptor.set || !originalDescriptor.get) {
+      return;
+    }
+
+    patchedInputs.set(inputElement, originalDescriptor);
+
+    const { get: getter, set: setter } = originalDescriptor;
+    const checkAndUpdateInputEmpty = (): void => this._checkAndUpdateInputEmpty();
+
+    Object.defineProperty(inputElement, 'value', {
+      ...originalDescriptor,
+      get() {
+        return getter.call(this);
+      },
+      set(newValue) {
+        setter.call(this, newValue);
+        checkAndUpdateInputEmpty();
+      },
+    });
+  }
+
+  private _unpatchInputValue(): void {
+    const inputElement = this._input as HTMLInputElement;
+    const originalDescriptor = patchedInputs.get(inputElement);
+    if (originalDescriptor) {
+      Object.defineProperty(inputElement, 'value', originalDescriptor);
+      patchedInputs.delete(inputElement);
+    }
   }
 
   private _checkAndUpdateInputEmpty(): void {
