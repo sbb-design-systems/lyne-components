@@ -1,5 +1,4 @@
 /* eslint-disable lyne/angular-generator-rule */
-
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
 import type {
   SbbCheckboxGroupElement,

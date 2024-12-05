@@ -6,7 +6,7 @@ import '@sbb-esta/lyne-elements/chip-label.js';
   selector: 'sbb-chip-label',
   standalone: true,
 })
-export class SbbChipLabel {
+export class SbbChipLabel extends HTMLElement {
   #element = inject(ElementRef<SbbChipLabelElement>);
   #ngZone = inject(NgZone);
 

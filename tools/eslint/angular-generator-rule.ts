@@ -174,33 +174,9 @@ export class ${className} {
           return;
         }
 
-        const heritageClause = originClass.heritageClauses ? originClass.heritageClauses[0] : null;
-        if (heritageClause) {
-          // NOTE: if heritage clause has only one mixin, and it's one of the excluded group, the whole clause can be removed (example: sbb-breadcrumb-group)
-          const firstArguments = (heritageClause.types?.[0].expression as CallExpression)
-            ?.arguments?.[0];
-          if (
-            firstArguments &&
-            !ts.isCallExpression(firstArguments) &&
-            excludedMixin.some(
-              (e) => heritageClause.types[0].expression.getText().indexOf(e) !== -1,
-            )
-          ) {
-            return;
-          }
-          let cleanedHeritageClause = heritageClause
-            .getText()
-            .replaceAll(/(\n)|(\s\s+)/g, '')
-            .replaceAll(/,?\),?/g, ')');
-          cleanedHeritageClause = cleanedHeritageClause
-            .replaceAll('LitElement', 'HTMLElement')
-            .replaceAll('SbbActionBaseElement', 'HTMLElement');
-          excludedMixin.forEach((e) => {
-            if (cleanedHeritageClause.indexOf(e) !== -1) {
-              cleanedHeritageClause = cleanedHeritageClause.replace(`${e}(`, '').replace(')', '');
-            }
-          });
-          if (!classDeclaration.superClass) {
+        const hasGenericTypeParam = originClass.typeParameters?.[0].getText();
+        if (hasGenericTypeParam) {
+          if (!classDeclaration.typeParameters) {
             context.report({
               node: classDeclaration.body,
               messageId: 'angularMissingInheritance',
@@ -208,10 +184,53 @@ export class ${className} {
                 const endOfClassName = classDeclaration.id!.range[1];
                 return fixer.insertTextBeforeRange(
                   [endOfClassName, endOfClassName],
-                  ` ${cleanedHeritageClause}`,
+                  `<${hasGenericTypeParam}>`,
                 );
               },
             });
+          }
+        }
+
+        const heritageClause = originClass.heritageClauses ? originClass.heritageClauses[0] : null;
+        if (heritageClause) {
+          // NOTE: if heritage clause has only one mixin, and it's one of the excluded group, the whole clause can be removed (example: sbb-breadcrumb-group)
+          const firstArguments = (heritageClause.types?.[0].expression as CallExpression)
+            ?.arguments?.[0];
+          if (
+            !(
+              firstArguments &&
+              !ts.isCallExpression(firstArguments) &&
+              excludedMixin.some(
+                (e) => heritageClause.types[0].expression.getText().indexOf(e) !== -1,
+              )
+            )
+          ) {
+            let cleanedHeritageClause = heritageClause
+              .getText()
+              .replaceAll(/(\n)|(\s\s+)/g, '')
+              .replaceAll(/,?\),?/g, ')');
+            cleanedHeritageClause = cleanedHeritageClause
+              .replaceAll('LitElement', 'HTMLElement')
+              .replaceAll('SbbActionBaseElement', 'HTMLElement');
+            excludedMixin.forEach((e) => {
+              if (cleanedHeritageClause.indexOf(e) !== -1) {
+                const regex = new RegExp(`${e}(?:<[^>]*>)?\\(`, 'g');
+                cleanedHeritageClause = cleanedHeritageClause.replace(regex, '').replace(')', '');
+              }
+            });
+            if (!classDeclaration.superClass) {
+              context.report({
+                node: classDeclaration.body,
+                messageId: 'angularMissingInheritance',
+                fix: (fixer) => {
+                  const endOfClassName = classDeclaration.id!.range[1];
+                  return fixer.insertTextBeforeRange(
+                    [endOfClassName, endOfClassName],
+                    ` ${cleanedHeritageClause}`,
+                  );
+                },
+              });
+            }
           }
         }
 
