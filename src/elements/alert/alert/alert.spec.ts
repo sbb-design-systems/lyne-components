@@ -36,6 +36,24 @@ describe(`sbb-alert`, () => {
     expect(didCloseSpy.count).to.be.equal(1);
   });
 
+  it('should fire animation events with non-zero animation duration', async () => {
+    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen);
+    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose);
+
+    const alert: SbbAlertElement = await fixture(
+      html`<sbb-alert title-content="disruption" style="--sbb-alert-animation-duration: 1ms">
+        Interruption
+      </sbb-alert>`,
+    );
+
+    await didOpenSpy.calledOnce();
+
+    alert.close();
+
+    await didCloseSpy.calledOnce();
+    expect(didCloseSpy.count).to.be.equal(1);
+  });
+
   it('should respect canceled willClose event', async () => {
     const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen);
     const willCloseSpy = new EventSpy(SbbAlertElement.events.willClose);

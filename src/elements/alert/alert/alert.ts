@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
@@ -75,14 +82,26 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
 
   /** Open the alert. */
   public open(): void {
-    this.willOpen.emit();
     this.state = 'opening';
+    this.willOpen.emit();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleOpening();
+    }
   }
 
   /** Close the alert. */
   public close(): void {
     if (this.state === 'opened' && this.willClose.emit()) {
       this.state = 'closing';
+
+      // If the animation duration is zero, the animationend event is not always fired reliably.
+      // In this case we directly set the `closed` state.
+      if (this._isZeroAnimationDuration()) {
+        this._handleClosing();
+      }
     }
   }
 
@@ -90,6 +109,17 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     super.firstUpdated(changedProperties);
 
     this.open();
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    if (isServer) {
+      return true;
+    }
+    const animationDuration = getComputedStyle(this).getPropertyValue(
+      '--sbb-alert-animation-duration',
+    );
+
+    return parseFloat(animationDuration) === 0;
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
