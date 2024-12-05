@@ -1,5 +1,6 @@
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import type { FormRestoreReason, FormRestoreState } from '@sbb-esta/lyne-elements/core/mixins.js';
 
 import { SbbFormAssociatedMixin } from '../mixins/form-associated-mixin.js';
 
@@ -22,4 +23,13 @@ export abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(HTMLEl
   public override get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;
   }
+
+  public override formResetCallback(): void {}
+
+  public override formStateRestoreCallback(
+    _state: FormRestoreState | null,
+    _reason: FormRestoreReason,
+  ): void {}
+
+  protected updateFormValue(): void {}
 }
