@@ -161,8 +161,8 @@ describe(`sbb-header`, () => {
     expect(element).to.have.attribute('data-visible');
 
     // Open menu
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, null, { capture: true });
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, null, { capture: true });
     const menuTrigger = root.querySelector<SbbHeaderButtonElement>('sbb-header-button')!;
     menuTrigger.click();
     await waitForLitRender(element);

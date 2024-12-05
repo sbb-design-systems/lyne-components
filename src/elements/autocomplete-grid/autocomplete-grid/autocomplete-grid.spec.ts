@@ -94,10 +94,10 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('opens and closes with mouse and keyboard', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didClose, element);
 
     input.click();
     await willOpenEventSpy.calledOnce();
@@ -146,7 +146,7 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('select by mouse', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
     const optionSelectedEventSpy = new EventSpy(
       SbbAutocompleteGridOptionElement.events.optionSelected,
     );
@@ -170,8 +170,8 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('select button and get related option', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
     const clickSpy = new EventSpy('click');
 
     input.focus();
@@ -195,7 +195,7 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('keyboard navigation', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
     const optOne = element.querySelector('#option-1');
     const buttonOne = element.querySelector('#button-1');
     const optTwo = element.querySelector('#option-2');
@@ -239,8 +239,8 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('opens and select with keyboard', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didClose, element);
     const optionSelectedEventSpy = new EventSpy(
       SbbAutocompleteGridOptionElement.events.optionSelected,
     );
@@ -275,7 +275,7 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('opens and select button with keyboard', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
     const clickSpy = new EventSpy('click');
     const optOne = element.querySelector('#option-1');
     const buttonOne = element.querySelector('#button-1');
@@ -342,7 +342,7 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willOpen, element);
 
     element.addEventListener(SbbAutocompleteGridElement.events.willOpen, (ev) =>
       ev.preventDefault(),
@@ -357,8 +357,8 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willClose, element);
 
     element.open();
     await didOpenEventSpy.calledOnce();

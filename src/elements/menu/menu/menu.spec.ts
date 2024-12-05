@@ -44,8 +44,8 @@ describe(`sbb-menu`, () => {
   });
 
   it('opens on trigger click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
 
     trigger.click();
     await waitForLitRender(element);
@@ -61,10 +61,10 @@ describe(`sbb-menu`, () => {
   });
 
   it('closes on Esc keypress', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose, element);
 
     trigger.click();
     await waitForLitRender(element);
@@ -97,10 +97,10 @@ describe(`sbb-menu`, () => {
   });
 
   it('closes on menu action click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose, element);
     const menuAction = element.querySelector(':scope > sbb-menu-button') as HTMLElement;
 
     trigger.click();
@@ -131,10 +131,10 @@ describe(`sbb-menu`, () => {
   });
 
   it('closes on interactive element click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose, element);
     const menuLink = element.querySelector(':scope > sbb-block-link') as HTMLElement;
 
     trigger.click();
@@ -166,8 +166,8 @@ describe(`sbb-menu`, () => {
   });
 
   it('is correctly positioned on desktop', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
     await setViewport({ width: 1200, height: 800 });
     if (isWebkit) {
       // Needed to let media queries get applied on Webkit
@@ -206,8 +206,8 @@ describe(`sbb-menu`, () => {
   });
 
   it('is correctly positioned on mobile', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
 
     await setViewport({ width: 800, height: 600 });
     const menu: HTMLDivElement = element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-menu')!;
@@ -233,8 +233,8 @@ describe(`sbb-menu`, () => {
   });
 
   it('sets the focus to the first focusable element when the menu is opened by keyboard', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
 
     trigger.focus();
 
@@ -256,7 +256,7 @@ describe(`sbb-menu`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
 
     element.addEventListener(SbbMenuElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
@@ -269,8 +269,8 @@ describe(`sbb-menu`, () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose, element);
 
     element.open();
     await didOpenEventSpy.calledOnce();
