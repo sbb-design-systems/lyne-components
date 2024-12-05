@@ -74,7 +74,8 @@
 }
 
 ::slotted(img[slot='image']) {
-  object-fit: cover;
+  --sbb-image-object-fit: cover;
+
   height: 100%;
   width: 100%;
 }

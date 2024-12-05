@@ -48,16 +48,8 @@ $aspects-ratio: (
   '16-9': '16 / 9',
 );
 @each $name, $ratio in $aspects-ratio {
-  sbb-image {
-    &.sbb-image-#{$name} {
-      --sbb-image-aspect-ratio: #{$ratio};
-    }
-  }
-
-  img {
-    &.sbb-image-#{$name} {
-      aspect-ratio: #{$ratio};
-    }
+  :is(sbb-image, img).sbb-image-#{$name} {
+    --sbb-image-aspect-ratio: #{$ratio};
   }
 }
 

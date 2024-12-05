@@ -81,7 +81,7 @@
 }
 
 ::slotted(img) {
-  object-fit: cover;
+  --sbb-image-object-fit: cover;
 }
 
 ::slotted(sbb-image) {
