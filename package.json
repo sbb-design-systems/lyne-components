@@ -100,7 +100,7 @@
     "@types/glob": "8.1.0",
     "@types/mocha": "10.0.10",
     "@types/node": "20.17.9",
-    "@types/react": "18.3.13",
+    "@types/react": "18.3.14",
     "@typescript-eslint/eslint-plugin": "8.17.0",
     "@typescript-eslint/parser": "8.17.0",
     "@web/test-runner": "0.19.0",
