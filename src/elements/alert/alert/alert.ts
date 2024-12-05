@@ -1,17 +1,10 @@
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseAlert } from '../../core/i18n.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
@@ -112,14 +105,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   }
 
   private _isZeroAnimationDuration(): boolean {
-    if (isServer) {
-      return true;
-    }
-    const animationDuration = getComputedStyle(this).getPropertyValue(
-      '--sbb-alert-animation-duration',
-    );
-
-    return parseFloat(animationDuration) === 0;
+    return isZeroAnimationDuration(this, '--sbb-alert-animation-duration');
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {

@@ -1,11 +1,17 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
-import { isLean } from '../core/dom.js';
+import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
@@ -166,14 +172,7 @@ class SbbNotificationElement extends LitElement {
   }
 
   private _isZeroAnimationDuration(): boolean {
-    if (isServer) {
-      return true;
-    }
-    const animationDuration = getComputedStyle(this).getPropertyValue(
-      '--sbb-notification-animation-duration',
-    );
-
-    return parseFloat(animationDuration) === 0;
+    return isZeroAnimationDuration(this, '--sbb-notification-animation-duration');
   }
 
   private _setNotificationHeight(): void {
