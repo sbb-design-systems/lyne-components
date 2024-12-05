@@ -154,7 +154,7 @@
   --sbb-form-field-prefix-color: var(--sbb-color-granite);
 }
 
-:host(:is([data-input-focused], [data-has-popup-open])) {
+:host(:is([data-input-focused])) {
   --sbb-form-field-border-color: var(--sbb-color-charcoal);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal);
   --sbb-form-field-border-width: var(--sbb-border-width-2x);
@@ -165,7 +165,7 @@
   }
 }
 
-:host(:is([data-input-focused], [data-has-popup-open])[negative]) {
+:host(:is([data-input-focused])[negative]) {
   --sbb-form-field-border-color: var(--sbb-color-milk);
   --sbb-form-field-prefix-color: var(--sbb-color-milk);
 }
@@ -251,7 +251,7 @@
       }
     }
 
-    :host(:is([data-input-focused], [data-has-popup-open], [data-disabled])[borderless]) & {
+    :host(:is([data-input-focused], [data-disabled])[borderless]) & {
       &::after {
         content: '';
         position: absolute;
@@ -368,8 +368,7 @@
   }
 
   // If floating-label is activated and there is no focus in it (except for select) and no popup is open
-  // and input is empty
-  // then apply the label transition.
+  // and input is empty then apply the label transition.
   // If it is empty and readonly, always apply transition
   :host(
       [floating-label]:is(
