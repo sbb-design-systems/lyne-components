@@ -27,7 +27,9 @@ describe(`sbb-teaser-hero`, () => {
 
               <figure class="sbb-figure" slot="image">
                 <sbb-image image-src=${imageUrl}></sbb-image>
-                <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
+                <sbb-chip-label class="sbb-figure-overlap-start-start" style="z-index: 1">
+                  Label
+                </sbb-chip-label>
               </figure>
             </sbb-teaser-hero>
           `);

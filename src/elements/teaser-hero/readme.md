@@ -17,6 +17,8 @@ Use the `image` slot to pass an `sbb-image` or an `img` that will be used as bac
 ```
 
 Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+If the `sbb-chip-label` should appear on top of the red panel (e.g. on small screens), you need to set a `z-index` on the `sbb-chip-label`.
+Otherwise, it stays behind the red panel.
 
 ```html
 <sbb-teaser-hero href="https://www.sbb.ch">
@@ -24,7 +26,9 @@ Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-ima
   <span slot="link-content">Find out more</span>
   <figure slot="image" class="sbb-figure">
     <sbb-image image-src="https://path-to-source" alt="SBB CFF FFS Employee"></sbb-image>
-    <sbb-chip-label class="sbb-figure-overlap-start-start">Chip label</sbb-chip-label>
+    <sbb-chip-label class="sbb-figure-overlap-start-start" style="z-index: 1">
+      Chip label
+    </sbb-chip-label>
   </figure>
 </sbb-teaser-hero>
 ```
