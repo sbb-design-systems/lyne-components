@@ -3,7 +3,9 @@ import type { Breakpoint } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog/dialog-title.js';
 import { SbbTitleBase } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/dialog/dialog-title.js';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 @Directive({
   selector: 'sbb-dialog-title',
@@ -13,7 +15,7 @@ export class SbbDialogTitle extends SbbTitleBase {
   #element = inject(ElementRef<SbbDialogTitleElement>);
   #ngZone = inject(NgZone);
 
-  @Input({ alias: 'back-button' })
+  @Input({ alias: 'back-button', transform: booleanAttribute })
   public set backButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backButton = value));
   }

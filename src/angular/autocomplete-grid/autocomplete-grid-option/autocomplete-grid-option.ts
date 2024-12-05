@@ -1,4 +1,5 @@
 import { Directive, ElementRef, inject, Output } from '@angular/core';
+import type { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option/autocomplete-grid-option';
 import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
 import { fromEvent, type Observable } from 'rxjs';
 
@@ -9,7 +10,7 @@ import { SbbOptionBaseElement } from '@sbb-esta/lyne-angular/option/option/optio
   standalone: true,
 })
 export class SbbAutocompleteGridOption extends SbbOptionBaseElement {
-  #element = inject(ElementRef<SbbAutocompleteGridOption>);
+  #element = inject(ElementRef<SbbAutocompleteGridOptionElement>);
 
   @Output() public selectionChange: Observable<void> = fromEvent(
     this.#element.nativeElement,

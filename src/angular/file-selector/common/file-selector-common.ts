@@ -10,7 +10,7 @@ import { SbbFormAssociatedMixin } from '@sbb-esta/lyne-angular/core/mixins/form-
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbFileSelectorCommonElementMixin = <T extends Constructor>(
   superclass: T,
-): Constructor<SbbFileSelectorCommonElementMixinType> & T => {
+): Constructor<Partial<SbbFileSelectorCommonElementMixinType>> & T => {
   abstract class SbbFileSelectorCommonElement
     extends SbbDisabledMixin(SbbFormAssociatedMixin(superclass))
     implements Partial<SbbFileSelectorCommonElementMixinType>

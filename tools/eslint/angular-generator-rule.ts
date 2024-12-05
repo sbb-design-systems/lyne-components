@@ -336,13 +336,13 @@ export class ${className} {
                   // FIXME add import from esta core/attribute-transform
                   if (member.type.getText() === 'boolean') {
                     if (input.includes('alias')) {
-                      input.replace(`}`, `, transform: booleanAttribute }`);
+                      input = input.replace(`}`, `, transform: booleanAttribute }`);
                     } else {
                       input += `{ transform: booleanAttribute }`;
                     }
                   } else if (member.type.getText() === 'number') {
                     if (input.includes('alias')) {
-                      input.replace(`}`, `, transform: numberAttribute }`);
+                      input = input.replace(`}`, `, transform: numberAttribute }`);
                     } else {
                       input += `{ transform: numberAttribute }`;
                     }
