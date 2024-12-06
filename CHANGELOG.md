@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.2](https://github.com/sbb-design-systems/lyne-components/compare/v1.15.1...v1.15.2) (2024-12-06)
+
+
+### Bug Fixes
+
+* **sbb-form-field:** update floating label on programmatic changes ([#3277](https://github.com/sbb-design-systems/lyne-components/issues/3277)) ([922bc3c](https://github.com/sbb-design-systems/lyne-components/commit/922bc3c3d5f92e7cdd4d6b7cf2806a58fce38e2d)), closes [#3274](https://github.com/sbb-design-systems/lyne-components/issues/3274)
+
 ## [1.15.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.15.0...v1.15.1) (2024-12-03)
 
 
