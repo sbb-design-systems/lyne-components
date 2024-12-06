@@ -9,7 +9,10 @@ import { booleanAttribute } from '../attribute-transform.js';
 import type { AbstractConstructor } from './constructor.js';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbRequiredMixin = <T extends AbstractConstructor<SbbFormAssociatedMixinType<V>>, V>(
+export const SbbRequiredMixin = <
+  T extends AbstractConstructor<Partial<SbbFormAssociatedMixinType<V>>>,
+  V,
+>(
   superClass: T,
 ): AbstractConstructor<SbbRequiredMixinType> & T => {
   abstract class SbbRequiredElement extends superClass implements Partial<SbbRequiredMixinType> {

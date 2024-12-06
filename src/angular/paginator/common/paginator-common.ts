@@ -9,7 +9,7 @@ import { SbbNegativeMixin } from '@sbb-esta/lyne-angular/core/mixins/negative-mi
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor>(
   superClass: T,
-): AbstractConstructor<SbbPaginatorCommonElementMixinType> & T => {
+): AbstractConstructor<Partial<SbbPaginatorCommonElementMixinType>> & T => {
   abstract class SbbPaginatorCommonElement
     extends SbbNegativeMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbPaginatorCommonElementMixinType>

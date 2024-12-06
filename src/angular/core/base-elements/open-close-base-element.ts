@@ -2,7 +2,7 @@ import { ElementRef, inject, Output } from '@angular/core';
 import type { Observable } from 'rxjs';
 import { fromEvent } from 'rxjs';
 
-export abstract class SbbOpenCloseBaseElement<T = void> {
+export abstract class SbbOpenCloseBaseElement<T = void> extends HTMLElement {
   #element = inject(ElementRef<SbbOpenCloseBaseElement<T>>);
 
   public get isOpen(): boolean {

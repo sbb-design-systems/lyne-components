@@ -6,7 +6,7 @@ import type { AbstractConstructor } from './constructor.js';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbFormAssociatedMixin = <T extends AbstractConstructor, V = string>(
   superClass: T,
-): AbstractConstructor<SbbFormAssociatedMixinType<V>> & T => {
+): AbstractConstructor<Partial<SbbFormAssociatedMixinType<V>>> & T => {
   abstract class SbbFormAssociatedElement
     extends superClass
     implements Partial<SbbFormAssociatedMixinType<V>>
