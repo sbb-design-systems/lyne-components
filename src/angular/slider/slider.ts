@@ -65,4 +65,16 @@ export class SbbSlider extends SbbDisabledMixin(SbbFormAssociatedMixin(HTMLEleme
   public override get type(): string {
     return this.#element.nativeElement.type;
   }
+
+  public override formResetCallback(): void {
+    return this.#element.nativeElement.formResetCallback();
+  }
+
+  public override formStateRestoreCallback(): void {
+    return this.#element.nativeElement.formStateRestoreCallback();
+  }
+
+  protected override updateFormValue(): void {
+    return this.#element.nativeElement.updateFormValue();
+  }
 }

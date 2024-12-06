@@ -80,4 +80,16 @@ export class SbbSelect extends SbbDisabledMixin(
   public getDisplayValue(): string {
     return this.#element.nativeElement.getDisplayValue();
   }
+
+  public override formResetCallback(): void {
+    return this.#element.nativeElement.formResetCallback();
+  }
+
+  public override formStateRestoreCallback(): void {
+    return this.#element.nativeElement.formStateRestoreCallback();
+  }
+
+  protected override updateFormValue(): void {
+    return this.#element.nativeElement.updateFormValue();
+  }
 }
