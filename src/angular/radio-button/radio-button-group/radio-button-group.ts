@@ -7,8 +7,8 @@ import type {
   SbbRadioButtonPanelElement,
 } from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent, type Observable } from 'rxjs';
-import '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
 
+import '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
 import { booleanAttribute, SbbDisabledMixin } from '@sbb-esta/lyne-angular/core';
 
 @Directive({
@@ -67,14 +67,18 @@ export class SbbRadioButtonGroup extends SbbDisabledMixin(HTMLElement) {
     return this.#element.nativeElement.name;
   }
 
+  @Input()
+  public set value(value: any | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
+  }
+  public get value(): any | null {
+    return this.#element.nativeElement.value;
+  }
+
   @Output() public didChange: Observable<void> = fromEvent(
     this.#element.nativeElement,
     'didChange',
   );
-
-  public get value(): any | null {
-    return this.#element.nativeElement.value;
-  }
 
   public get radioButtons(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] {
     return this.#element.nativeElement.radioButtons;

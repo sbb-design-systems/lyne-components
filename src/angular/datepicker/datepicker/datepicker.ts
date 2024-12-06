@@ -1,12 +1,15 @@
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
-import type { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type {
+  SbbDateLike,
+  SbbValidationChangeEvent,
+} from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type {
   SbbDatepickerElement,
   SbbInputUpdateEvent,
 } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 import { fromEvent, type Observable } from 'rxjs';
-import '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 
+import '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 @Directive({
@@ -41,6 +44,22 @@ export class SbbDatepicker<T = Date> extends HTMLElement {
     return this.#element.nativeElement.input;
   }
 
+  @Input()
+  public set now(value: SbbDateLike<T> | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.now = value));
+  }
+  public get now(): SbbDateLike<T> | null {
+    return this.#element.nativeElement.now;
+  }
+
+  @Input()
+  public set valueAsDate(value: SbbDateLike<T> | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsDate = value));
+  }
+  public get valueAsDate(): SbbDateLike<T> | null {
+    return this.#element.nativeElement.valueAsDate;
+  }
+
   @Output() public change: Observable<void> = fromEvent(this.#element.nativeElement, 'change');
 
   @Output() public inputUpdated: Observable<SbbInputUpdateEvent> = fromEvent(
@@ -57,14 +76,6 @@ export class SbbDatepicker<T = Date> extends HTMLElement {
     this.#element.nativeElement,
     'validationChange',
   );
-
-  public get now(): T {
-    return this.#element.nativeElement.now;
-  }
-
-  public get valueAsDate(): T | null {
-    return this.#element.nativeElement.valueAsDate;
-  }
 
   public findPreviousAvailableDate(date: T): T {
     return this.#element.nativeElement.findPreviousAvailableDate(date);

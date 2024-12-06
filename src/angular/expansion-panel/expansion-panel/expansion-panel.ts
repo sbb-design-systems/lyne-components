@@ -2,8 +2,8 @@ import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/c
 import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, type Observable } from 'rxjs';
-
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
+
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 @Directive({
@@ -46,6 +46,22 @@ export class SbbExpansionPanel {
     return this.#element.nativeElement.size;
   }
 
+  @Input({ transform: booleanAttribute })
+  public set expanded(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.expanded = value));
+  }
+  public get expanded(): boolean {
+    return this.#element.nativeElement.expanded;
+  }
+
+  @Input({ transform: booleanAttribute })
+  public set disabled(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabled = value));
+  }
+  public get disabled(): boolean {
+    return this.#element.nativeElement.disabled;
+  }
+
   @Output() public willOpen: Observable<void> = fromEvent(this.#element.nativeElement, 'willOpen');
 
   @Output() public didOpen: Observable<void> = fromEvent(this.#element.nativeElement, 'didOpen');
@@ -56,12 +72,4 @@ export class SbbExpansionPanel {
   );
 
   @Output() public didClose: Observable<void> = fromEvent(this.#element.nativeElement, 'didClose');
-
-  public get disabled(): boolean {
-    return this.#element.nativeElement.disabled;
-  }
-
-  public get expanded(): boolean {
-    return this.#element.nativeElement.expanded;
-  }
 }

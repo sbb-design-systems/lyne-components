@@ -59,9 +59,9 @@ const isPublicMethod = (m: ts.ClassElement): m is ts.MethodDeclaration =>
   isPublic(m) &&
   !publicExcludedMethods.includes(m.name.getText()) &&
   !m.getFullText().includes('@internal');
-const isPublicGetter = (m: ts.ClassElement): m is ts.SetAccessorDeclaration =>
+const isPublicGetter = (m: ts.ClassElement): m is ts.GetAccessorDeclaration =>
   ts.isGetAccessor(m) && isPublic(m);
-const isPublicSetter = (m: ts.ClassElement): m is ts.GetAccessorDeclaration =>
+const isPublicSetter = (m: ts.ClassElement): m is ts.SetAccessorDeclaration =>
   ts.isSetAccessor(m) && isPublic(m);
 const isEventEmitter = (m: ts.ClassElement): m is ts.PropertyDeclaration =>
   ts.isPropertyDeclaration(m) &&
@@ -255,13 +255,44 @@ export class ${className} {
 
         const expectedAngularImports = new Set<string>();
         const expectedRxJsImports = new Set<string>();
-        const publicProperties = originClass.members.filter(isPublicProperty);
-        const publicGetter = originClass.members.filter(isPublicGetter);
-        const publicSetter = originClass.members.filter(isPublicSetter);
+
         const publicMethods = originClass.members.filter(isPublicMethod);
         const publicOutput = originClass.members.filter(isEventEmitter);
+
+        /**
+         * NOTE: properties can be expressed
+         *   - as ts.PropertyDeclaration, with the `@property` decorator and `accessor` modifier
+         *   - or as a couple of set/get combined with a private property, with the set decorated as `@property`.
+         *
+         * In the latter case, the analyzer considers it not as a PropertyDeclaration (of course),
+         * so we have to create another array (`publicPropertiesAsSetters`) which filters out the get/set,
+         * and it's treated as the `publicProperties` array.
+         */
+        const publicProperties = originClass.members.filter(isPublicProperty);
+        const publicPropertiesAsSetters: ts.SetAccessorDeclaration[] = [];
+        let publicGetter = originClass.members.filter(isPublicGetter);
+        let publicSetter = originClass.members.filter(isPublicSetter);
+        publicSetter.forEach((setter) => {
+          if (
+            setter.modifiers?.find(
+              (modifier) => ts.isDecorator(modifier) && modifier.getText().includes('@property'),
+            )
+          ) {
+            const getter = publicGetter.find(
+              (getter: ts.GetAccessorDeclaration) =>
+                getter.name.getText() === setter.name.getText(),
+            );
+            if (getter) {
+              publicGetter = publicGetter.filter((e) => e !== getter);
+              publicSetter = publicSetter.filter((e) => e !== setter);
+              publicPropertiesAsSetters.push(setter);
+            }
+          }
+        });
+
         if (
           publicProperties.length ||
+          publicPropertiesAsSetters.length ||
           publicGetter.length ||
           publicSetter.length ||
           publicMethods.length
@@ -288,7 +319,9 @@ export class ${className} {
             });
           }
           if (
-            (publicProperties.length || publicSetter.some((p) => ts.isSetAccessor(p))) &&
+            (publicProperties.length ||
+              publicPropertiesAsSetters.length ||
+              publicSetter.some((p) => ts.isSetAccessor(p))) &&
             classDeclaration.body.body.every(
               (n) =>
                 n.type !== 'PropertyDefinition' ||
@@ -310,7 +343,7 @@ export class ${className} {
           }
         }
         if (
-          publicProperties.some((p) =>
+          [...publicProperties, ...publicPropertiesAsSetters].some((p) =>
             p.modifiers?.some((m) => ts.isDecorator(m) && m.getText().includes('@property')),
           )
         ) {
@@ -376,6 +409,72 @@ export class ${className} {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name.getText()} = value));
   }
   public get ${member.name.getText()}(): ${member.type?.getText() ?? 'any'} {
+    return this.#element.nativeElement.${member.name.getText()};
+  }\n`,
+                );
+              },
+            });
+          }
+        }
+
+        for (const member of publicPropertiesAsSetters) {
+          if (
+            classDeclaration.body.body.every((n) => {
+              return (
+                n.type !== AST_NODE_TYPES.MethodDefinition ||
+                n.kind !== 'set' ||
+                context.sourceCode.getText(n.key) !== member.name.getText() ||
+                !context.sourceCode.getText(n).includes('@Input(')
+              );
+            })
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingInput',
+              data: { property: member.name.getText() },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                let input = '@Input(';
+                const decorator = ts
+                  .getDecorators(member)
+                  ?.find((e) => e.getText().includes('attribute'));
+                if (decorator) {
+                  // It's possible to have an attribute property with false value (eg. datepicker)
+                  const alias = decorator.getText().match(/['"]([^'"]*)['"]/g);
+                  if (alias) {
+                    input += `{ alias: ${alias[0]} }`;
+                  }
+                }
+                if (member.parameters && member.parameters.length > 0) {
+                  const paramType = member.parameters[0].type;
+                  // FIXME add import from esta core/attribute-transform
+                  if (paramType) {
+                    if (paramType.getText() === 'boolean') {
+                      if (input.includes('alias')) {
+                        input = input.replace(`}`, `, transform: booleanAttribute }`);
+                      } else {
+                        input += `{ transform: booleanAttribute }`;
+                      }
+                    } else if (paramType.getText() === 'number') {
+                      if (input.includes('alias')) {
+                        input = input.replace(`}`, `, transform: numberAttribute }`);
+                      } else {
+                        input += `{ transform: numberAttribute }`;
+                      }
+                      expectedAngularImports.add('numberAttribute');
+                    }
+                  }
+                }
+                input += `)`;
+
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  ${input}
+  public set ${member.name.getText()}(value: ${member.parameters?.[0].type?.getText() ?? 'any'}) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name.getText()} = value));
+  }
+  public get ${member.name.getText()}(): ${member.parameters?.[0].type?.getText() ?? 'any'} {
     return this.#element.nativeElement.${member.name.getText()};
   }\n`,
                 );

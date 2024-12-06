@@ -1,6 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation/navigation.js';
+
 import '@sbb-esta/lyne-elements/navigation/navigation.js';
+import { SbbOpenCloseBaseElement } from '@sbb-esta/lyne-angular/core';
 
 @Directive({
   selector: 'sbb-navigation',
@@ -20,6 +22,10 @@ export class SbbNavigation extends SbbOpenCloseBaseElement {
     return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
+  @Input()
+  public set trigger(value: string | HTMLElement | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
+  }
   public get trigger(): string | HTMLElement | null {
     return this.#element.nativeElement.trigger;
   }

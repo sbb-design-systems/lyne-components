@@ -36,6 +36,10 @@ export class SbbNavigationSection {
     return this.#element.nativeElement.accessibilityBackLabel;
   }
 
+  @Input()
+  public set trigger(value: string | HTMLElement | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
+  }
   public get trigger(): string | HTMLElement | null {
     return this.#element.nativeElement.trigger;
   }

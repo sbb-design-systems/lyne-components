@@ -1,4 +1,12 @@
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  Output,
+  inject,
+  numberAttribute,
+} from '@angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
 import { fromEvent, type Observable } from 'rxjs';
 
@@ -41,26 +49,42 @@ export class SbbSlider extends SbbDisabledMixin(SbbFormAssociatedMixin(HTMLEleme
     return this.#element.nativeElement.endIcon;
   }
 
-  @Output() public didChange: Observable<void> = fromEvent(
-    this.#element.nativeElement,
-    'didChange',
-  );
-
-  public override get value(): string {
+  @Input()
+  public override set value(value: string | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
+  }
+  public override get value(): string | null {
     return this.#element.nativeElement.value;
   }
 
-  public get valueAsNumber(): number | null {
+  @Input({ alias: 'value-as-number', transform: numberAttribute })
+  public set valueAsNumber(value: number) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsNumber = value));
+  }
+  public get valueAsNumber(): number {
     return this.#element.nativeElement.valueAsNumber;
   }
 
+  @Input()
+  public set min(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.min = value));
+  }
   public get min(): string {
     return this.#element.nativeElement.min;
   }
 
+  @Input()
+  public set max(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.max = value));
+  }
   public get max(): string {
     return this.#element.nativeElement.max;
   }
+
+  @Output() public didChange: Observable<void> = fromEvent(
+    this.#element.nativeElement,
+    'didChange',
+  );
 
   public override get type(): string {
     return this.#element.nativeElement.type;

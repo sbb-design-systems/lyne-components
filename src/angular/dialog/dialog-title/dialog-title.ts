@@ -3,8 +3,8 @@ import type { Breakpoint } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog/dialog-title.js';
 import { SbbTitleBase } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, type Observable } from 'rxjs';
-
 import '@sbb-esta/lyne-elements/dialog/dialog-title.js';
+
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 @Directive({
@@ -43,9 +43,13 @@ export class SbbDialogTitle extends SbbTitleBase {
     return this.#element.nativeElement.accessibilityBackLabel;
   }
 
-  @Output() public backClick: Observable<any> = fromEvent(this.#element.nativeElement, 'backClick');
-
-  public get hideOnScroll(): Breakpoint | boolean {
+  @Input({ alias: 'hide-on-scroll' })
+  public set hideOnScroll(value: '' | Breakpoint | boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideOnScroll = value));
+  }
+  public get hideOnScroll(): '' | Breakpoint | boolean {
     return this.#element.nativeElement.hideOnScroll;
   }
+
+  @Output() public backClick: Observable<any> = fromEvent(this.#element.nativeElement, 'backClick');
 }

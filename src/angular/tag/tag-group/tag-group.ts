@@ -39,7 +39,11 @@ export class SbbTagGroup {
     return this.#element.nativeElement.size;
   }
 
-  public get value(): string | (string | null)[] | null {
+  @Input()
+  public set value(value: string | string[] | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
+  }
+  public get value(): string | string[] | null {
     return this.#element.nativeElement.value;
   }
 

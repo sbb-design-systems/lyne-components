@@ -33,14 +33,18 @@ export class SbbTabGroup {
     return this.#element.nativeElement.initialSelectedIndex;
   }
 
+  @Input()
+  public set size(value: InterfaceSbbTabGroupTab['size']) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
+  }
+  public get size(): InterfaceSbbTabGroupTab['size'] {
+    return this.#element.nativeElement.size;
+  }
+
   @Output() public selectedTabChanged: Observable<SbbTabChangedEventDetails> = fromEvent(
     this.#element.nativeElement,
     'selectedTabChanged',
   );
-
-  public get size(): InterfaceSbbTabGroupTab['size'] {
-    return this.#element.nativeElement.size;
-  }
 
   public disableTab(tabIndex: number): void {
     return this.#element.nativeElement.disableTab(tabIndex);

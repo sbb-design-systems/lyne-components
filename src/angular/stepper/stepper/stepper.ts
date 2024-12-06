@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, inject, numberAttribute } from '@angular/core';
 import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
 import type { SbbStepperElement } from '@sbb-esta/lyne-elements/stepper/stepper.js';
@@ -38,15 +38,27 @@ export class SbbStepper {
     return this.#element.nativeElement.size;
   }
 
-  public get horizontalFrom(): SbbHorizontalFrom | undefined {
+  @Input({ alias: 'horizontal-from' })
+  public set horizontalFrom(value: SbbHorizontalFrom) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
+  }
+  public get horizontalFrom(): SbbHorizontalFrom {
     return this.#element.nativeElement.horizontalFrom;
   }
 
-  public get selected(): SbbStepElement | undefined {
+  @Input()
+  public set selected(value: SbbStepElement) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.selected = value));
+  }
+  public get selected(): SbbStepElement {
     return this.#element.nativeElement.selected;
   }
 
-  public get selectedIndex(): number | undefined {
+  @Input({ alias: 'selected-index', transform: numberAttribute })
+  public set selectedIndex(value: number) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.selectedIndex = value));
+  }
+  public get selectedIndex(): number {
     return this.#element.nativeElement.selectedIndex;
   }
 
