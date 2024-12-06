@@ -125,11 +125,15 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
   data-slot-names="chip image title unnamed"
   href="https://github.com/sbb-design-systems/lyne-components"
 >
-  <img
-    alt="400x300"
+  <figure
+    class="sbb-figure"
     slot="image"
-    src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
   >
+    <img
+      alt="400x300"
+      src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
+    >
+  </figure>
   <span slot="chip">
     Chip
   </span>
