@@ -17,6 +17,8 @@ describe(`sbb-alert-group`, () => {
     const accessibilityTitle = 'Disruptions';
     const accessibilityTitleLevel = '3';
 
+    const alertOpenedEventSpy = new EventSpy(SbbAlertElement.events.didOpen);
+
     // Given sbb-alert-group with two alerts
     element = await fixture(html`
       <sbb-alert-group
@@ -28,14 +30,15 @@ describe(`sbb-alert-group`, () => {
         <sbb-alert title-content="Interruption" id="alert2">Second</sbb-alert>
       </sbb-alert-group>
     `);
+
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
     const alert1 = element.querySelector<SbbAlertElement>('sbb-alert#alert1')!;
     const alert2 = element.querySelector<SbbAlertElement>('sbb-alert#alert2')!;
     const alert1ClosedEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert1);
     const alert2ClosedEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert2);
 
-    await new EventSpy(SbbAlertElement.events.didOpen, alert1).calledOnce();
-    await new EventSpy(SbbAlertElement.events.didOpen, alert2).calledOnce();
+    // Wait until both alerts are opened
+    await alertOpenedEventSpy.calledTimes(2);
 
     // Then two alerts should be rendered and accessibility title should be displayed
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(2);
