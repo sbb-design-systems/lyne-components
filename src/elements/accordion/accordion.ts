@@ -5,8 +5,9 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { forceType, handleDistinctChange } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
+import { isEventPrevented } from '../core/eventing.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
-import { SbbExpansionPanelElement } from '../expansion-panel.js';
+import type { SbbExpansionPanelElement } from '../expansion-panel.js';
 import type { SbbTitleLevel } from '../title.js';
 
 import style from './accordion.scss?lit&inline';
@@ -48,9 +49,16 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener(
-      SbbExpansionPanelElement.events.willOpen,
-      (e: CustomEvent<void>) => this._closePanels(e),
-      { signal },
+      'willOpen',
+      async (e: CustomEvent<void>) => {
+        if (!(await isEventPrevented(e))) {
+          this._closePanels(e);
+        }
+      },
+      {
+        signal,
+        capture: true,
+      },
     );
   }
 

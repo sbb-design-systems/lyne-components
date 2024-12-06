@@ -45,7 +45,7 @@ describe(`sbb-navigation`, () => {
   });
 
   it('opens the navigation', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
 
     element.open();
     await waitForLitRender(element);
@@ -76,7 +76,7 @@ describe(`sbb-navigation`, () => {
       </sbb-navigation>
     `);
 
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
     const action2 = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-active-1',
     )!;
@@ -119,7 +119,7 @@ describe(`sbb-navigation`, () => {
       </sbb-navigation>
     `);
 
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
     const actionActive = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-active',
     )!;
@@ -165,8 +165,8 @@ describe(`sbb-navigation`, () => {
       </sbb-navigation>
     `);
 
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
     const action1 = element.querySelector<SbbNavigationButtonElement>('#first-action')!;
     const action2 = element.querySelector<SbbNavigationButtonElement>('#second-action')!;
     const action3 = element.querySelector<SbbNavigationButtonElement>('#third-action')!;
@@ -222,8 +222,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes the navigation', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
 
     element.open();
     await waitForLitRender(element);
@@ -245,8 +245,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes the navigation on close button click', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
     const closeButton: SbbButtonElement =
       element.shadowRoot!.querySelector<SbbButtonElement>('.sbb-navigation__close')!;
 
@@ -270,8 +270,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes the navigation on Esc key press', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
 
     element.open();
     await waitForLitRender(element);
@@ -296,8 +296,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes navigation with sbb-navigation-close', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       'sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -331,7 +331,7 @@ describe(`sbb-navigation`, () => {
   });
 
   it('opens navigation and opens section', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -356,7 +356,7 @@ describe(`sbb-navigation`, () => {
   });
 
   it('opens navigation and toggles sections', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
     const firstSection = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const secondSection = element.querySelector<SbbNavigationSectionElement>('#second-section')!;
     const firstAction = element.querySelector<SbbNavigationButtonElement>(
@@ -391,8 +391,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes the navigation and the section on close button click', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -428,8 +428,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes the navigation and the section on Esc key press', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -463,7 +463,7 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes section with sbb-navigation-section-close', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -494,7 +494,7 @@ describe(`sbb-navigation`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbNavigationElement.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbNavigationElement.events.willOpen, element);
 
     element.addEventListener(SbbNavigationElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
@@ -507,8 +507,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbNavigationElement.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbNavigationElement.events.willClose, element);
 
     element.open();
     await didOpenEventSpy.calledOnce();
@@ -524,7 +524,7 @@ describe(`sbb-navigation`, () => {
   });
 
   it('should re-enable scrolling when removed from the DOM', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
 
     element.open();
     await didOpenEventSpy.calledOnce();

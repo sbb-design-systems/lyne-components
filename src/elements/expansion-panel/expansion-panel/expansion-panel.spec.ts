@@ -65,10 +65,10 @@ describe(`sbb-expansion-panel`, () => {
     const toggleExpandedEventSpy = new EventSpy(
       SbbExpansionPanelHeaderElement.events.toggleExpanded,
     );
-    const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen);
-    const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose);
-    const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose, element);
+    const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose, element);
 
     await waitForLitRender(element);
 

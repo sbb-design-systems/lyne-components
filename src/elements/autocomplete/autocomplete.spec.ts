@@ -64,10 +64,10 @@ describe(`sbb-autocomplete`, () => {
   });
 
   it('opens and closes with mouse and keyboard', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose, element);
 
     input.click();
     await willOpenEventSpy.calledOnce();
@@ -116,7 +116,7 @@ describe(`sbb-autocomplete`, () => {
   });
 
   it('select by mouse', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
@@ -143,8 +143,8 @@ describe(`sbb-autocomplete`, () => {
   });
 
   it('opens and select with keyboard', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose, element);
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
@@ -213,7 +213,7 @@ describe(`sbb-autocomplete`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen, element);
 
     element.addEventListener(SbbAutocompleteElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
@@ -226,8 +226,8 @@ describe(`sbb-autocomplete`, () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose, element);
 
     element.open();
     await didOpenEventSpy.calledOnce();
