@@ -407,7 +407,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     return html`
       <div class="sbb-menu__container">
         <div
-          @animationend=${(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
+          @animationend=${this._onMenuAnimationEnd}
           class="sbb-menu"
           ${ref((el?: Element) => (this._menu = el as HTMLDivElement))}
         >

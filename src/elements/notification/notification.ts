@@ -228,10 +228,7 @@ class SbbNotificationElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div
-        class="sbb-notification__wrapper"
-        @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
-      >
+      <div class="sbb-notification__wrapper" @animationend=${this._onNotificationAnimationEnd}>
         <div class="sbb-notification">
           <sbb-icon
             class="sbb-notification__icon"
