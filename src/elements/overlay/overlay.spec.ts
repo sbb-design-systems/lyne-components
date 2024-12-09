@@ -12,8 +12,8 @@ import '../button.js';
 import '../icon.js';
 
 async function openOverlay(element: SbbOverlayElement): Promise<void> {
-  const willOpen = new EventSpy(SbbOverlayElement.events.willOpen);
-  const didOpen = new EventSpy(SbbOverlayElement.events.didOpen);
+  const willOpen = new EventSpy(SbbOverlayElement.events.willOpen, element);
+  const didOpen = new EventSpy(SbbOverlayElement.events.didOpen, element);
 
   element.open();
   await waitForLitRender(element);
@@ -51,8 +51,8 @@ describe('sbb-overlay', () => {
   });
 
   it('does not open the overlay if prevented', async () => {
-    const willOpen = new EventSpy(SbbOverlayElement.events.willOpen);
-    const didOpen = new EventSpy(SbbOverlayElement.events.didOpen);
+    const willOpen = new EventSpy(SbbOverlayElement.events.willOpen, element);
+    const didOpen = new EventSpy(SbbOverlayElement.events.didOpen, element);
 
     element.addEventListener(SbbOverlayElement.events.willOpen, (ev) => ev.preventDefault());
 
@@ -68,8 +68,8 @@ describe('sbb-overlay', () => {
   });
 
   it('closes the overlay', async () => {
-    const willClose = new EventSpy(SbbOverlayElement.events.willClose);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose);
+    const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
 
     await openOverlay(element);
 
@@ -91,8 +91,8 @@ describe('sbb-overlay', () => {
   });
 
   it('does not close the overlay if prevented', async () => {
-    const willClose = new EventSpy(SbbOverlayElement.events.willClose);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose);
+    const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
 
     await openOverlay(element);
 
@@ -111,8 +111,8 @@ describe('sbb-overlay', () => {
 
   it('closes the overlay on close button click', async () => {
     const closeButton = element.shadowRoot!.querySelector('[sbb-overlay-close]') as HTMLElement;
-    const willClose = new EventSpy(SbbOverlayElement.events.willClose);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose);
+    const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
 
     await openOverlay(element);
 
@@ -144,7 +144,7 @@ describe('sbb-overlay', () => {
     const overlay = element.querySelector('sbb-overlay')!;
     const closeButton = element.querySelector<SbbButtonElement>('[type="submit"]')!;
     const form = element.querySelector<HTMLFormElement>('form')!;
-    const willClose = new EventSpy<CustomEvent>(SbbOverlayElement.events.willClose);
+    const willClose = new EventSpy<CustomEvent>(SbbOverlayElement.events.willClose, overlay);
 
     await openOverlay(overlay);
 
@@ -157,8 +157,8 @@ describe('sbb-overlay', () => {
   });
 
   it('closes the overlay on Esc key press', async () => {
-    const willClose = new EventSpy(SbbOverlayElement.events.willClose);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose);
+    const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
 
     await openOverlay(element);
 
@@ -190,10 +190,10 @@ describe('sbb-overlay', () => {
       </sbb-overlay>
     `);
 
-    const willOpen = new EventSpy(SbbOverlayElement.events.willOpen);
-    const didOpen = new EventSpy(SbbOverlayElement.events.didOpen);
-    const willClose = new EventSpy(SbbOverlayElement.events.willClose);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose);
+    const willOpen = new EventSpy(SbbOverlayElement.events.willOpen, null, { capture: true });
+    const didOpen = new EventSpy(SbbOverlayElement.events.didOpen, null, { capture: true });
+    const willClose = new EventSpy(SbbOverlayElement.events.willClose, null, { capture: true });
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, null, { capture: true });
 
     await openOverlay(element);
 

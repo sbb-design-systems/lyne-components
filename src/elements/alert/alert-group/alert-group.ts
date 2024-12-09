@@ -5,10 +5,10 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { EventEmitter } from '../../core/eventing.js';
+import { EventEmitter, isEventPrevented } from '../../core/eventing.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTitleLevel } from '../../title.js';
-import { SbbAlertElement } from '../alert.js';
+import type { SbbAlertElement } from '../alert.js';
 
 import style from './alert-group.scss?lit&inline';
 
@@ -56,9 +56,18 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener(SbbAlertElement.events.didClose, (e) => this._alertClosed(e), {
-      signal,
-    });
+    this.addEventListener(
+      'didClose',
+      async (e: CustomEvent<void>) => {
+        if (!(await isEventPrevented(e))) {
+          this._alertClosed(e);
+        }
+      },
+      {
+        signal,
+        capture: true,
+      },
+    );
   }
 
   private _alertClosed(event: Event): void {

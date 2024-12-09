@@ -33,8 +33,8 @@ describe(`sbb-popover-trigger`, () => {
   });
 
   it('shows popover on popover-trigger click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen, popover);
+    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, popover);
 
     element.click();
 
@@ -47,7 +47,7 @@ describe(`sbb-popover-trigger`, () => {
   });
 
   it("doesn't show popover on disabled popover-trigger click", async () => {
-    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen, popover);
     element.disabled = true;
     await waitForLitRender(element);
 

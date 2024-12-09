@@ -15,10 +15,10 @@ describe(`sbb-alert`, () => {
   });
 
   it('should fire animation events', async () => {
-    const willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen);
-    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen);
-    const willCloseSpy = new EventSpy(SbbAlertElement.events.willClose);
-    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose);
+    const willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen, null, { capture: true });
+    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
+    const willCloseSpy = new EventSpy(SbbAlertElement.events.willClose, null, { capture: true });
+    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
 
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`,
@@ -37,9 +37,9 @@ describe(`sbb-alert`, () => {
   });
 
   it('should respect canceled willClose event', async () => {
-    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen);
-    const willCloseSpy = new EventSpy(SbbAlertElement.events.willClose);
-    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose);
+    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
+    const willCloseSpy = new EventSpy(SbbAlertElement.events.willClose, null, { capture: true });
+    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
 
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`,

@@ -89,12 +89,14 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   protected override willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
     SbbPopoverElement.events.willClose,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-popover` is closed. */
   protected override didClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
     SbbPopoverElement.events.didClose,
+    { cancelable: true },
   );
 
   private _overlay!: HTMLDivElement;
