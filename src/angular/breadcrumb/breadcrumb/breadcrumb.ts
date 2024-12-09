@@ -1,8 +1,8 @@
 import { Directive } from '@angular/core';
-
 import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
+
 import { SbbLinkBaseElement } from '@sbb-esta/lyne-angular/core';
-import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin';
+import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin.js';
 
 @Directive({
   selector: 'sbb-breadcrumb',

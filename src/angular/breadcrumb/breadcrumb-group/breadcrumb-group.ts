@@ -5,4 +5,4 @@ import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb-group.js';
   selector: 'sbb-breadcrumb-group',
   standalone: true,
 })
-export class SbbBreadcrumbGroup {}
+export class SbbBreadcrumbGroup extends HTMLElement {}

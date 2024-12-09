@@ -1,9 +1,9 @@
 import { Directive, ElementRef, inject, Output } from '@angular/core';
-import type { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option/autocomplete-grid-option';
-import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
+import type { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements/autocomplete-grid.js';
 import { fromEvent, type Observable } from 'rxjs';
+import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
 
-import { SbbOptionBaseElement } from '@sbb-esta/lyne-angular/option/option/option-base-element';
+import { SbbOptionBaseElement } from '@sbb-esta/lyne-angular/option/option/option-base-element.js';
 
 @Directive({
   selector: 'sbb-autocomplete-grid-option',

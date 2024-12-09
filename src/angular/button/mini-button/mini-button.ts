@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
-
 import '@sbb-esta/lyne-elements/button/mini-button.js';
+
 import {
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,

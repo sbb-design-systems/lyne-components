@@ -1,10 +1,10 @@
 import { Directive, ElementRef, inject } from '@angular/core';
-import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-button.js';
 import type { SbbAutocompleteGridButtonElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-button.js';
 import type { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
+import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-button.js';
 
 import { SbbDisabledMixin, SbbNegativeMixin } from '@sbb-esta/lyne-angular/core';
-import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin';
+import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin.js';
 
 @Directive({
   selector: 'sbb-autocomplete-grid-button',

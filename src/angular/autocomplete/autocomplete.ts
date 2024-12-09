@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
-
 import '@sbb-esta/lyne-elements/autocomplete.js';
-import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-angular/autocomplete/autocomplete-base-element';
+
+import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-angular/autocomplete/autocomplete-base-element.js';
 
 @Directive({
   selector: 'sbb-autocomplete',

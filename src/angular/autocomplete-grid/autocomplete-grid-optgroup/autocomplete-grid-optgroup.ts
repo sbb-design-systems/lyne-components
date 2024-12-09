@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
-
 import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-optgroup.js';
-import { SbbOptgroupBaseElement } from '@sbb-esta/lyne-angular/option/optgroup/optgroup-base-element';
+
+import { SbbOptgroupBaseElement } from '@sbb-esta/lyne-angular/option/optgroup/optgroup-base-element.js';
 
 @Directive({
   selector: 'sbb-autocomplete-grid-optgroup',

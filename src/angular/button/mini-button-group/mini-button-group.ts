@@ -3,9 +3,9 @@ import type {
   SbbMiniButtonGroupElement,
   SbbMiniButtonGroupSize,
 } from '@sbb-esta/lyne-elements/button/mini-button-group.js';
+import '@sbb-esta/lyne-elements/button/mini-button-group.js';
 
 import { SbbNegativeMixin } from '@sbb-esta/lyne-angular/core';
-import '@sbb-esta/lyne-elements/button/mini-button-group.js';
 
 @Directive({
   selector: 'sbb-mini-button-group',

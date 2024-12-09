@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert/alert.js';
-import '@sbb-esta/lyne-elements/alert/alert.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import '@sbb-esta/lyne-elements/alert/alert.js';
 
 import { booleanAttribute, SbbOpenCloseBaseElement } from '@sbb-esta/lyne-angular/core';
 import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin.js';
