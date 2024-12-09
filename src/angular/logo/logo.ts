@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbProtectiveRoom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbLogoElement } from '@sbb-esta/lyne-elements/logo.js';
-
 import '@sbb-esta/lyne-elements/logo.js';
+
 import { SbbNegativeMixin } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

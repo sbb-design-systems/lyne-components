@@ -1,9 +1,9 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbLinkListElement } from '@sbb-esta/lyne-elements/link-list/link-list.js';
-
 import '@sbb-esta/lyne-elements/link-list/link-list.js';
-import { SbbLinkListBaseElement } from '@sbb-esta/lyne-angular/link-list/common/link-list-base';
+
+import { SbbLinkListBaseElement } from '@sbb-esta/lyne-angular/link-list/common/link-list-base.js';
 
 @Directive({
   selector: 'sbb-link-list',

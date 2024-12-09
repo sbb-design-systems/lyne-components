@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbMapContainerElement } from '@sbb-esta/lyne-elements/map-container.js';
-
 import '@sbb-esta/lyne-elements/map-container.js';
+
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

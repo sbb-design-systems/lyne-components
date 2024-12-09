@@ -1,8 +1,8 @@
 import { Directive } from '@angular/core';
-
 import '@sbb-esta/lyne-elements/link/link-static.js';
+
 import { SbbDisabledMixin } from '@sbb-esta/lyne-angular/core';
-import { SbbInlineLinkCommonElementMixin } from '@sbb-esta/lyne-angular/link/common/inline-link-common';
+import { SbbInlineLinkCommonElementMixin } from '@sbb-esta/lyne-angular/link/common/inline-link-common.js';
 
 @Directive({
   selector: 'sbb-link-static',
