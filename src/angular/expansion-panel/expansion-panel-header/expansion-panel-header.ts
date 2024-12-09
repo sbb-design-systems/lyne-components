@@ -3,7 +3,7 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 import { fromEvent, type Observable } from 'rxjs';
 
 import { SbbButtonBaseElement, SbbDisabledTabIndexActionMixin } from '@sbb-esta/lyne-angular/core';
-import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin';
+import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin.js';
 
 @Directive({
   selector: 'sbb-expansion-panel-header',

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbHeaderElement } from '@sbb-esta/lyne-elements/header/header.js';
-
 import '@sbb-esta/lyne-elements/header/header.js';
+
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
-
 import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
-import { SbbFileSelectorCommonElementMixin } from '@sbb-esta/lyne-angular/file-selector/common/file-selector-common';
+
+import { SbbFileSelectorCommonElementMixin } from '@sbb-esta/lyne-angular/file-selector/common/file-selector-common.js';
 
 @Directive({
   selector: 'sbb-file-selector-dropzone',

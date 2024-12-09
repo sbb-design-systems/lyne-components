@@ -4,7 +4,7 @@ import type {
   SbbJourneyHeaderElement,
 } from '@sbb-esta/lyne-elements/journey-header.js';
 import '@sbb-esta/lyne-elements/journey-header.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title/title-base';
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 import { booleanAttribute, SbbNegativeMixin } from '@sbb-esta/lyne-angular/core';
 

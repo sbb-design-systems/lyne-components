@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field/form-field.js';
-
 import '@sbb-esta/lyne-elements/form-field/form-field.js';
+
 import { booleanAttribute, SbbNegativeMixin } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

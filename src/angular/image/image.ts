@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject, numberAttribute } from '@angular/core';
 import type { SbbImageElement } from '@sbb-esta/lyne-elements/image.js';
-
 import '@sbb-esta/lyne-elements/image.js';
+
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 @Directive({
