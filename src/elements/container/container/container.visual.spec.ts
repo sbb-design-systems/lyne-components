@@ -11,6 +11,7 @@ import { waitForImageReady } from '../../core/testing.js';
 
 import '../../button.js';
 import '../../card.js';
+import '../../chip-label.js';
 import '../../image.js';
 import '../../title.js';
 import './container.js';
@@ -34,6 +35,7 @@ describe(`sbb-container`, () => {
       selector: 'sbb-image',
       image: html`<figure slot="image" class="sbb-figure">
         <sbb-image image-src=${imageUrl}></sbb-image>
+        <sbb-chip-label class="sbb-figure-overlap-start-end">AI generated</sbb-chip-label>
       </figure>`,
     },
     {
@@ -50,6 +52,7 @@ describe(`sbb-container`, () => {
       selector: 'img',
       image: html`<figure slot="image" class="sbb-figure">
         <img src=${imageBase64} alt="" />
+        <sbb-chip-label class="sbb-figure-overlap-start-end">AI generated</sbb-chip-label>
       </figure>`,
     },
   ];
