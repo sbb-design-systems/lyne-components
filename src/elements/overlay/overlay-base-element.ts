@@ -43,6 +43,8 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected abstract closeAttribute: string;
   protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
   protected abstract setOverlayFocus(): void;
+  protected abstract handleClosing(): void;
+  protected abstract isZeroAnimationDuration(): boolean;
 
   /** Closes the component. */
   public close(result?: any, target?: HTMLElement): any {
@@ -62,6 +64,12 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     }
     this.state = 'closing';
     this.removeAriaLiveRefContent();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `closed` state.
+    if (this.isZeroAnimationDuration()) {
+      this.handleClosing();
+    }
   }
 
   public override connectedCallback(): void {

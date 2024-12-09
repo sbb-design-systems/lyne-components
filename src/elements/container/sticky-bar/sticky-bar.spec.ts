@@ -141,6 +141,46 @@ describe(`sbb-sticky-bar`, () => {
     });
   });
 
+  it('works with non-zero animation duration', async () => {
+    await setViewport({ width: 320, height: 500 });
+
+    container = await fixture(html`
+      <sbb-container>
+        <div><p>Situation 1</p></div>
+        <div><p>Situation 2</p></div>
+        <div><p>Situation 3</p></div>
+        <div><p>Situation 4</p></div>
+        <div><p>Situation 5</p></div>
+        <div><p>Situation 6</p></div>
+        <div><p>Situation 7</p></div>
+        <div><p>Situation 8</p></div>
+        <div><p>Situation 9</p></div>
+        <div><p>Situation 10</p></div>
+        <div><p>Situation 11</p></div>
+        <div><p>Situation 12</p></div>
+        <sbb-sticky-bar
+          style="--sbb-sticky-bar-slide-vertically-animation-duration: 1ms"
+        ></sbb-sticky-bar>
+      </sbb-container>
+    `);
+    stickyBar = container.querySelector('sbb-sticky-bar')!;
+    willStickSpy = new EventSpy(SbbStickyBarElement.events.willStick, stickyBar);
+    didStickSpy = new EventSpy(SbbStickyBarElement.events.didStick, stickyBar);
+    willUnstickSpy = new EventSpy(SbbStickyBarElement.events.willUnstick, stickyBar);
+    didUnstickSpy = new EventSpy(SbbStickyBarElement.events.didUnstick, stickyBar);
+
+    stickyBar.unstick();
+    await didUnstickSpy.calledOnce();
+
+    stickyBar.stick();
+
+    await willStickSpy.calledOnce();
+    await didStickSpy.calledOnce();
+
+    expect(willStickSpy.count).to.be.equal(1);
+    expect(didStickSpy.count).to.be.equal(1);
+  });
+
   it('is settled when content is not long enough', async () => {
     await setViewport({ width: 320, height: 600 });
     container = await fixture(html`

@@ -248,6 +248,24 @@ describe(`sbb-popover`, () => {
       expect(document.activeElement).to.be.equal(trigger);
     });
 
+    it('opens and closes with non-zero animation duration', async () => {
+      element.style.setProperty('--sbb-popover-animation-duration', '1ms');
+
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
+      const popoverLink = element.querySelector<SbbLinkElement>(':scope > sbb-link')!;
+
+      trigger.click();
+
+      await didOpenEventSpy.calledOnce();
+
+      popoverLink.focus();
+      await sendKeys({ press: 'Enter' });
+
+      await didCloseEventSpy.calledOnce();
+      expect(didCloseEventSpy.count).to.be.equal(1);
+    });
+
     it('sets the focus to the first focusable element when the popover is opened by keyboard', async () => {
       const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
