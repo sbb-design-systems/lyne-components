@@ -11,6 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import type { SbbCheckboxGroupElement, SbbCheckboxPanelElement } from '../checkbox.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import { forceType, slotState } from '../core/decorators.js';
+import { isZeroAnimationDuration } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
@@ -20,7 +21,6 @@ import type { SbbRadioButtonGroupElement, SbbRadioButtonPanelElement } from '../
 import style from './selection-expansion-panel.scss?lit&inline';
 
 import '../divider.js';
-import { isZeroAnimationDuration } from '@sbb-esta/lyne-elements/core/dom/animation';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
