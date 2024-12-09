@@ -16,7 +16,7 @@ import style from './__noPrefixName__.scss?lit&inline';
 @customElement('__name__')
 export class __nameUpperCase__ extends LitElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
+  public static readonly events = {
     myEventName: 'myEventName',
   } as const;
 

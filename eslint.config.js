@@ -67,6 +67,23 @@ export default [
     },
   },
   {
+    files: ['src/angular/**/*.ts', 'src/angular-experimental/**/*.ts'],
+    rules: {
+      'lyne/class-decorator-position-rule': 'off',
+      'lyne/decorator-order-rule': 'off',
+      'lyne/property-decorator-accessor-rule': 'off',
+      'lyne/property-type-rule': 'off',
+      'lyne/import-extension-rule': 'off',
+      'import-x/no-unresolved': 'off',
+    },
+  },
+  {
+    files: ['src/angular/core/**/*.ts', 'src/angular-experimental/core/**/*.ts'],
+    rules: {
+      'lyne/angular-generator-rule': 'off',
+    },
+  },
+  {
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-unused-expressions': 'off',

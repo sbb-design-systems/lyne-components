@@ -31,7 +31,7 @@ export class SbbSlotStateController implements ReactiveController {
 
   public hostConnected(): void {
     // TODO: Check if this is really needed with SSR.
-    this._syncSlots(...this._host.querySelectorAll!('slot'));
+    this._syncSlots(...Array.from(this._host.querySelectorAll!('slot')));
     this._host.shadowRoot?.addEventListener('slotchange', this._slotchangeHandler);
   }
 

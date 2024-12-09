@@ -34,7 +34,7 @@ class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydration
   /** Datepicker reference. */
   @property({ attribute: 'date-picker' }) public accessor datePicker:
     | string
-    | SbbDatepickerElement
+    | SbbDatepickerElement<T>
     | null = null;
 
   /** The initial view of calendar which should be displayed on opening. */
@@ -108,7 +108,7 @@ class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydration
     this._datePickerController?.abort();
   }
 
-  private _init(datePicker?: string | SbbDatepickerElement): void {
+  private _init(datePicker?: string | SbbDatepickerElement<T>): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker<T>(this, datePicker);
@@ -117,7 +117,7 @@ class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydration
       // assuming that the two components share the same parent element.
       this.parentElement?.addEventListener(
         'inputUpdated',
-        (e: Event) => this._init(e.target as SbbDatepickerElement),
+        (e: Event) => this._init(e.target as SbbDatepickerElement<T>),
         { once: true, signal: this._datePickerController.signal },
       );
       return;
