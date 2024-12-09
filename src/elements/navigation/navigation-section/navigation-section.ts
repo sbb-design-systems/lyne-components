@@ -9,7 +9,12 @@ import {
 } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes, omitEmptyConverter, slotState } from '../../core/decorators.js';
-import { findReferencedElement, isBreakpoint, setOrRemoveAttribute } from '../../core/dom.js';
+import {
+  findReferencedElement,
+  isBreakpoint,
+  isZeroAnimationDuration,
+  setOrRemoveAttribute,
+} from '../../core/dom.js';
 import { i18nGoBack } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
@@ -111,6 +116,39 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this.startUpdate();
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleOpening();
+    }
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-navigation-section-animation-duration');
+  }
+
+  private _handleOpening(): void {
+    this._state = 'opened';
+    this.inert = false;
+    this._attachWindowEvents();
+    this._setNavigationInert();
+    this._setNavigationSectionFocus();
+    this._checkActiveAction();
+    this.completeUpdate();
+  }
+
+  private _handleClosing(): void {
+    this._state = 'closed';
+    this._navigationSectionContainerElement.scrollTo(0, 0);
+    this._windowEventsController?.abort();
+    this._resetLists();
+    this._setNavigationInert();
+    if (this._isZeroToLargeBreakpoint() && this._triggerElement) {
+      setModalityOnNextFocus(this._triggerElement);
+      this._triggerElement.focus();
+    }
+    this.completeUpdate();
   }
 
   private _setActiveNavigationAction(): void {
@@ -133,6 +171,12 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this.startUpdate();
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `closed` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleClosing();
+    }
   }
 
   // Removes trigger click listener on trigger change.
@@ -188,24 +232,10 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this._state === 'opening') {
-      this._state = 'opened';
-      this.inert = false;
-      this._attachWindowEvents();
-      this._setNavigationInert();
-      this._setNavigationSectionFocus();
-      this._checkActiveAction();
+      this._handleOpening();
     } else if (event.animationName === 'close' && this._state === 'closing') {
-      this._state = 'closed';
-      this._navigationSectionContainerElement.scrollTo(0, 0);
-      this._windowEventsController?.abort();
-      this._resetLists();
-      this._setNavigationInert();
-      if (this._isZeroToLargeBreakpoint() && this._triggerElement) {
-        setModalityOnNextFocus(this._triggerElement);
-        this._triggerElement.focus();
-      }
+      this._handleClosing();
     }
-    this.completeUpdate();
   }
 
   private _resetLists(): void {
@@ -336,7 +366,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
         ${ref((el?: Element) => (this._navigationSectionContainerElement = el as HTMLElement))}
       >
         <nav
-          @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
+          @animationend=${this._onAnimationEnd}
           class="sbb-navigation-section"
           aria-labelledby=${!this.accessibilityLabel ? 'title' : nothing}
           aria-label=${this.accessibilityLabel ? this.accessibilityLabel : nothing}
