@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbPaginatorElement } from '@sbb-esta/lyne-elements/paginator/paginator.js';
-
 import '@sbb-esta/lyne-elements/paginator/paginator.js';
+
 import { SbbPaginatorCommonElementMixin } from '@sbb-esta/lyne-angular/paginator/common/paginator-common.js';
 
 @Directive({

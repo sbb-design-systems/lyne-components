@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.js';
 import { fromEvent, type Observable } from 'rxjs';
-
 import '@sbb-esta/lyne-elements/popover/popover.js';
+
 import { booleanAttribute, SbbOpenCloseBaseElement } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

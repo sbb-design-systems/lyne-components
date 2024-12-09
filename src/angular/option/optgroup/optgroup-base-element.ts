@@ -1,7 +1,7 @@
 /* eslint-disable lyne/angular-generator-rule */
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
 
-import { SbbDisabledMixin } from '@sbb-esta/lyne-angular/core/mixins/disabled-mixin';
+import { SbbDisabledMixin } from '@sbb-esta/lyne-angular/core/mixins/disabled-mixin.js';
 
 export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(HTMLElement) {
   #element = inject(ElementRef<SbbOptgroupBaseElement>);

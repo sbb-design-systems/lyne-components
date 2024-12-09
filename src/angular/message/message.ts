@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbMessageElement } from '@sbb-esta/lyne-elements/message.js';
-import '@sbb-esta/lyne-elements/message.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import '@sbb-esta/lyne-elements/message.js';
 
 @Directive({
   selector: 'sbb-message',

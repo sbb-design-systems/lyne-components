@@ -1,6 +1,8 @@
 /* eslint-disable lyne/angular-generator-rule */
-import { ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import { ElementRef, inject, Input, NgZone, numberAttribute, Output } from '@angular/core';
+import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbPaginatorCommonElementMixinType } from '@sbb-esta/lyne-elements/paginator.js';
+import { fromEvent, type Observable } from 'rxjs';
 
 import type { AbstractConstructor } from '@sbb-esta/lyne-angular/core/mixins/constructor.js';
 import { SbbDisabledMixin } from '@sbb-esta/lyne-angular/core/mixins/disabled-mixin.js';
@@ -56,6 +58,11 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor>(
     public get size(): 'm' | 's' {
       return this.#element.nativeElement.size;
     }
+
+    @Output() public page: Observable<SbbPaginatorPageEventDetails> = fromEvent(
+      this.#element.nativeElement,
+      'page',
+    );
   }
   return SbbPaginatorCommonElement as unknown as AbstractConstructor<SbbPaginatorCommonElementMixinType> &
     T;

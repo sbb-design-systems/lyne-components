@@ -3,6 +3,9 @@ import type { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/overlay.js';
 
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { SbbOverlayBaseElement } from '@sbb-esta/lyne-angular/overlay/overlay-base-element.js';
+
 @Directive({
   selector: 'sbb-overlay',
   standalone: true,

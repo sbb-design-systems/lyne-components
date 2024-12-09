@@ -295,6 +295,7 @@ export class ${className} {
           publicPropertiesAsSetters.length ||
           publicGetter.length ||
           publicSetter.length ||
+          publicOutput.length ||
           publicMethods.length
         ) {
           expectedAngularImports.add('ElementRef').add('inject');

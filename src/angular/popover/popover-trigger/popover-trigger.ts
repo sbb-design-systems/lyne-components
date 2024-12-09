@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
-
 import '@sbb-esta/lyne-elements/popover/popover-trigger.js';
+
 import {
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,

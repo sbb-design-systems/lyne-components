@@ -24,8 +24,4 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
   public get selected(): boolean {
     return this.#element.nativeElement.selected;
   }
-
-  public highlight(value: string): void {
-    this.#element.nativeElement.highlight(value);
-  }
 }

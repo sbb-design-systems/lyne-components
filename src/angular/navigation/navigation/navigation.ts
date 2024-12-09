@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation/navigation.js';
-
 import '@sbb-esta/lyne-elements/navigation/navigation.js';
+
 import { SbbOpenCloseBaseElement } from '@sbb-esta/lyne-angular/core';
 
 @Directive({
