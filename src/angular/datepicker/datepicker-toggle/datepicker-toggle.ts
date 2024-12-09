@@ -2,8 +2,8 @@ import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { CalendarView } from '@sbb-esta/lyne-elements/calendar.js';
 import type { SbbDatepickerToggleElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.js';
-
 import '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
+
 import { SbbNegativeMixin } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

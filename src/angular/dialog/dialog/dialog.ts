@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
-
 import '@sbb-esta/lyne-elements/dialog/dialog.js';
+
 import { SbbOverlayBaseElement } from '@sbb-esta/lyne-angular/overlay/overlay-base-element.js';
 
 @Directive({

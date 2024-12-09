@@ -5,9 +5,9 @@ import type {
 } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 import type { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
 import { fromEvent, type Observable } from 'rxjs';
-
 import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
-import { SbbCheckboxCommonElementMixin } from '@sbb-esta/lyne-angular/checkbox/common/checkbox-common';
+
+import { SbbCheckboxCommonElementMixin } from '@sbb-esta/lyne-angular/checkbox/common/checkbox-common.js';
 import { SbbPanelMixin } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

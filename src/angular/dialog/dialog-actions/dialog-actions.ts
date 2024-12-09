@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
+import { SbbActionGroupElement } from '@sbb-esta/lyne-elements/action-group/action-group.js';
 import '@sbb-esta/lyne-elements/dialog/dialog-actions.js';
-import { SbbActionGroupElement } from '@sbb-esta/lyne-elements/action-group/action-group';
 
 @Directive({
   selector: 'sbb-dialog-actions',

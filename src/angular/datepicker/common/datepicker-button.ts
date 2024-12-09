@@ -1,6 +1,6 @@
 import { ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbDatepickerButton as SbbDatepickerButtonElement } from '@sbb-esta/lyne-elements/datepicker/common';
-import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker/datepicker';
+import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.js';
 
 import { SbbButtonBaseElement, SbbNegativeMixin } from '@sbb-esta/lyne-angular/core';
 

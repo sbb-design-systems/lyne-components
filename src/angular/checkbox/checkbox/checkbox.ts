@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
+import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox/common/checkbox-common.js';
+import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
-import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox/common/checkbox-common';
-import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces/types';
 
-import { SbbCheckboxCommonElementMixin } from '@sbb-esta/lyne-angular/checkbox/common/checkbox-common';
+import { SbbCheckboxCommonElementMixin } from '@sbb-esta/lyne-angular/checkbox/common/checkbox-common.js';
 import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin.js';
 
 @Directive({

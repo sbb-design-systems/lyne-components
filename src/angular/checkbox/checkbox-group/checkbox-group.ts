@@ -1,5 +1,4 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import type {
   SbbCheckboxPanelElement,
@@ -7,6 +6,7 @@ import type {
   SbbCheckboxElement,
 } from '@sbb-esta/lyne-elements/checkbox.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 
 import { booleanAttribute, SbbDisabledMixin } from '@sbb-esta/lyne-angular/core';
 
