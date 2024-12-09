@@ -5,7 +5,7 @@ import { SbbFocusHandler } from '../core/a11y.js';
 import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbInertController, SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
-import { SbbScrollHandler } from '../core/dom.js';
+import { isZeroAnimationDuration, SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
 import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
@@ -43,6 +43,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected abstract closeAttribute: string;
   protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
   protected abstract setOverlayFocus(): void;
+  protected abstract handleClosing(): void;
 
   /** Closes the component. */
   public close(result?: any, target?: HTMLElement): any {
@@ -62,6 +63,16 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     }
     this.state = 'closing';
     this.removeAriaLiveRefContent();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `closed` state.
+    if (this.isZeroAnimationDuration()) {
+      this.handleClosing();
+    }
+  }
+
+  protected isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-overlay-animation-duration');
   }
 
   public override connectedCallback(): void {

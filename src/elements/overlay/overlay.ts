@@ -96,6 +96,43 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
 
     // Disable scrolling for content below the overlay
     this.scrollHandler.disableScroll();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (this.isZeroAnimationDuration()) {
+      this._handleOpening();
+    }
+  }
+
+  private _handleOpening(): void {
+    this.state = 'opened';
+    this.didOpen.emit();
+    this.inertController.activate();
+    this.attachOpenOverlayEvents();
+    this.setOverlayFocus();
+    // Use timeout to read label after focused element
+    setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
+    this.focusHandler.trap(this);
+  }
+
+  protected override handleClosing(): void {
+    this._overlayContentElement?.scrollTo(0, 0);
+    this.state = 'closed';
+    this.inertController.deactivate();
+    setModalityOnNextFocus(this.lastFocusedElement);
+    // Manually focus last focused element
+    this.lastFocusedElement?.focus();
+    this.openOverlayController?.abort();
+    this.focusHandler.disconnect();
+    this.removeInstanceFromGlobalCollection();
+    // Enable scrolling for content below the overlay if no overlay is open
+    if (!overlayRefs.length) {
+      this.scrollHandler.enableScroll();
+    }
+    this.didClose.emit({
+      returnValue: this.returnValue,
+      closeTarget: this.overlayCloseElement,
+    });
   }
 
   // Wait for overlay transition to complete.
@@ -103,32 +140,9 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   // To avoid entering a corrupt state, exit when state is not expected.
   protected onOverlayAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
-      this.state = 'opened';
-      this.didOpen.emit();
-      this.inertController.activate();
-      this.attachOpenOverlayEvents();
-      this.setOverlayFocus();
-      // Use timeout to read label after focused element
-      setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
-      this.focusHandler.trap(this);
+      this._handleOpening();
     } else if (event.animationName === 'close' && this.state === 'closing') {
-      this._overlayContentElement?.scrollTo(0, 0);
-      this.state = 'closed';
-      this.inertController.deactivate();
-      setModalityOnNextFocus(this.lastFocusedElement);
-      // Manually focus last focused element
-      this.lastFocusedElement?.focus();
-      this.openOverlayController?.abort();
-      this.focusHandler.disconnect();
-      this.removeInstanceFromGlobalCollection();
-      // Enable scrolling for content below the overlay if no overlay is open
-      if (!overlayRefs.length) {
-        this.scrollHandler.enableScroll();
-      }
-      this.didClose.emit({
-        returnValue: this.returnValue,
-        closeTarget: this.overlayCloseElement,
-      });
+      this.handleClosing();
     }
   }
 
@@ -173,10 +187,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     /* eslint-enable lit/binding-positions */
 
     return html`
-      <div
-        class="sbb-overlay__container"
-        @animationend=${(event: AnimationEvent) => this.onOverlayAnimationEnd(event)}
-      >
+      <div class="sbb-overlay__container" @animationend=${this.onOverlayAnimationEnd}>
         <div class="sbb-overlay">
           <div
             @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
