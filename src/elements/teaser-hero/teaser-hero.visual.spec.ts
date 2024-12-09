@@ -2,6 +2,7 @@ import { html } from 'lit';
 
 import {
   describeViewports,
+  loadAssetAsBase64,
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
@@ -12,6 +13,7 @@ import '../image.js';
 import '../chip-label.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const imageBase64 = await loadAssetAsBase64(imageUrl);
 
 describe(`sbb-teaser-hero`, () => {
   describeViewports({ viewports: ['zero', 'micro', 'small', 'medium', 'wide'] }, () => {
@@ -20,17 +22,19 @@ describe(`sbb-teaser-hero`, () => {
         state.name,
         state.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-teaser-hero href="#" link-content="Find out more" image-src=${imageUrl}>
+            <sbb-teaser-hero href="#" link-content="Find out more">
               Break out and explore castles and palaces.
-              <sbb-chip-label slot="chip">Label</sbb-chip-label>
+
+              <figure class="sbb-figure" slot="image">
+                <sbb-image image-src=${imageUrl}></sbb-image>
+                <sbb-chip-label class="sbb-figure-overlap-start-start" style="z-index: 1">
+                  Label
+                </sbb-chip-label>
+              </figure>
             </sbb-teaser-hero>
           `);
 
-          await waitForImageReady(
-            setup.snapshotElement
-              .querySelector('sbb-teaser-hero')!
-              .shadowRoot!.querySelector('sbb-image')!,
-          );
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
 
@@ -42,7 +46,6 @@ describe(`sbb-teaser-hero`, () => {
               Break out and explore castles and palaces.
               <span slot="link-content">Find out more</span>
               <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
-              <sbb-chip-label slot="chip">Label</sbb-chip-label>
             </sbb-teaser-hero>
           `);
 
@@ -51,19 +54,30 @@ describe(`sbb-teaser-hero`, () => {
       );
 
       it(
-        `without content ${state.name}`,
+        `slotted-image ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-teaser-hero href="#" image-src=${imageUrl}>
-              <sbb-chip-label slot="chip">Label</sbb-chip-label>
+            <sbb-teaser-hero href="#">
+              Break out and explore castles and palaces.
+              <span slot="link-content">Find out more</span>
+              <img slot="image" src=${imageBase64} alt="" />
             </sbb-teaser-hero>
           `);
 
-          await waitForImageReady(
-            setup.snapshotElement
-              .querySelector('sbb-teaser-hero')!
-              .shadowRoot!.querySelector('sbb-image')!,
-          );
+          await waitForImageReady(setup.snapshotElement.querySelector('img')!);
+        }),
+      );
+
+      it(
+        `without content ${state.name}`,
+        state.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-teaser-hero href="#">
+              <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+            </sbb-teaser-hero>
+          `);
+
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
     }

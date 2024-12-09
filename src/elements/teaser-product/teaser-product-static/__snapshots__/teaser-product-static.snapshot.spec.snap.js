@@ -7,12 +7,13 @@ snapshots["sbb-teaser-product-static renders DOM"] =
   data-slot-names="footnote image unnamed"
   image-alignment="after"
 >
-  <sbb-image
-    aspect-ratio="16-9"
-    border-radius="default"
+  <figure
+    class="sbb-figure"
     slot="image"
   >
-  </sbb-image>
+    <sbb-image>
+    </sbb-image>
+  </figure>
   <p class="sbb-teaser-product--spacing">
     Content
   </p>

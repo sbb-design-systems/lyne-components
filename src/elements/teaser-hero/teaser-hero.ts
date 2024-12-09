@@ -7,7 +7,6 @@ import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js'
 
 import style from './teaser-hero.scss?lit&inline';
 
-import '../image.js';
 import '../link/block-link-static.js';
 
 /**
@@ -29,23 +28,12 @@ class SbbTeaserHeroElement extends SbbLinkBaseElement {
   @property({ attribute: 'link-content', reflect: true, converter: omitEmptyConverter })
   public accessor linkContent: string = '';
 
-  /** Image src will be passed to `sbb-image`. */
-  @forceType()
-  @property({ attribute: 'image-src' })
-  public accessor imageSrc: string = '';
-
-  /** Image alt text will be passed to `sbb-image`. */
-  @forceType()
-  @property({ attribute: 'image-alt' })
-  public accessor imageAlt: string = '';
-
-  private _chipSlotChanged(): void {
-    this.querySelector('sbb-chip-label')?.setAttribute('color', 'charcoal');
+  private _imageSlotChanged(): void {
+    Array.from(this.querySelectorAll('sbb-chip-label')).forEach((c) => (c.color = 'charcoal'));
   }
 
   protected override renderTemplate(): TemplateResult {
     return html`
-      <slot name="chip" @slotchange=${() => this._chipSlotChanged()}></slot>
       <span class="sbb-teaser-hero__panel">
         <p class="sbb-teaser-hero__panel-text">
           <slot></slot>
@@ -62,11 +50,7 @@ class SbbTeaserHeroElement extends SbbLinkBaseElement {
             </sbb-block-link-static>`
           : nothing}
       </span>
-      <slot name="image">
-        ${this.imageSrc
-          ? html`<sbb-image image-src=${this.imageSrc} alt=${this.imageAlt ?? nothing}></sbb-image>`
-          : nothing}
-      </slot>
+      <slot name="image" @slotchange=${this._imageSlotChanged}></slot>
     `;
   }
 }

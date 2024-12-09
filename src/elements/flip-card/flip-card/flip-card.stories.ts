@@ -10,9 +10,10 @@ import sampleImages from '../../core/images.js';
 import { SbbFlipCardElement } from './flip-card.js';
 import readme from './readme.md?raw';
 
-import '../../image/image.js';
-import '../../link/link/link.js';
-import '../../title/title.js';
+import '../../chip-label.js';
+import '../../image.js';
+import '../../link/link.js';
+import '../../title.js';
 import '../flip-card-details.js';
 import '../flip-card-summary.js';
 
@@ -53,20 +54,30 @@ const defaultArgs: Args = {
   'accessibility-label': undefined,
 };
 
+const imgTemplate = (): TemplateResult => html`
+  <sbb-image
+    slot="image"
+    image-src=${sampleImages[0]}
+    alt="Conductor controlling a ticket"
+  ></sbb-image>
+`;
+
+const imgWithChipTemplate = (): TemplateResult => html`
+  <figure class="sbb-figure" slot="image">
+    <sbb-image image-src=${sampleImages[0]} alt="Conductor controlling a ticket"></sbb-image>
+    <sbb-chip-label class="sbb-figure-overlap-start-end">AI generated</sbb-chip-label>
+  </figure>
+`;
+
 const cardSummary = (
   label: string,
   imageAlignment: any,
   showImage: boolean,
+  showChip?: boolean,
 ): TemplateResult => html`
   <sbb-flip-card-summary image-alignment=${imageAlignment}>
     <sbb-title level="4">${label}</sbb-title>
-    ${showImage
-      ? html`<sbb-image
-          slot="image"
-          image-src=${sampleImages[0]}
-          alt="Conductor controlling a ticket"
-        ></sbb-image>`
-      : nothing}
+    ${showImage ? (showChip ? imgWithChipTemplate() : imgTemplate()) : nothing}
   </sbb-flip-card-summary>
 `;
 
@@ -82,6 +93,11 @@ const cardDetails = (): TemplateResult => html`
 const DefaultTemplate = (args: Args): TemplateResult =>
   html`<sbb-flip-card accessibility-label=${args['accessibility-label']}>
     ${cardSummary(args.label, args.imageAlignment, true)} ${cardDetails()}
+  </sbb-flip-card>`;
+
+const WithChipTemplate = (args: Args): TemplateResult =>
+  html`<sbb-flip-card accessibility-label=${args['accessibility-label']}>
+    ${cardSummary(args.label, args.imageAlignment, true, true)} ${cardDetails()}
   </sbb-flip-card>`;
 
 const NoImageTemplate = (args: Args): TemplateResult =>
@@ -151,6 +167,12 @@ export const ImageBelow: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, imageAlignment: imageAlignment.options![1] },
+};
+
+export const WithChipOnImage: StoryObj = {
+  render: WithChipTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 export const NoImage: StoryObj = {
