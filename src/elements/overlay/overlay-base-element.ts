@@ -5,7 +5,7 @@ import { SbbFocusHandler } from '../core/a11y.js';
 import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbInertController, SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
-import { isZeroAnimationDuration, SbbScrollHandler } from '../core/dom.js';
+import { SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
 import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
@@ -44,6 +44,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
   protected abstract setOverlayFocus(): void;
   protected abstract handleClosing(): void;
+  protected abstract isZeroAnimationDuration(): boolean;
 
   /** Closes the component. */
   public close(result?: any, target?: HTMLElement): any {
@@ -69,10 +70,6 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     if (this.isZeroAnimationDuration()) {
       this.handleClosing();
     }
-  }
-
-  protected isZeroAnimationDuration(): boolean {
-    return isZeroAnimationDuration(this, '--sbb-overlay-animation-duration');
   }
 
   public override connectedCallback(): void {

@@ -5,6 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y.js';
 import { forceType } from '../core/decorators.js';
+import { isZeroAnimationDuration } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseDialog, i18nGoBack } from '../core/i18n.js';
 
@@ -102,6 +103,10 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     if (this.isZeroAnimationDuration()) {
       this._handleOpening();
     }
+  }
+
+  protected isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-overlay-animation-duration');
   }
 
   private _handleOpening(): void {

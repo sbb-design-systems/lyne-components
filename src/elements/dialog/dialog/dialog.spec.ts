@@ -413,7 +413,7 @@ describe('sbb-dialog', () => {
   it('opens and closes the overlay with non-zero animation duration', async () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-1" style="--sbb-overlay-animation-duration: 1ms">
+      <sbb-dialog id="my-dialog-1" style="--sbb-dialog-animation-duration: 1ms">
         <sbb-dialog-title>Title</sbb-dialog-title>
         <sbb-dialog-content>Dialog content</sbb-dialog-content>
         <sbb-dialog-actions>Action group</sbb-dialog-actions>

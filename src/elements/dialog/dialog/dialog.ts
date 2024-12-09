@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y.js';
-import { isBreakpoint } from '../../core/dom.js';
+import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.js';
 import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
 import type { SbbDialogActionsElement } from '../dialog-actions.js';
 import type { SbbDialogTitleElement } from '../dialog-title.js';
@@ -88,6 +88,10 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     if (this.isZeroAnimationDuration()) {
       this._handleOpening();
     }
+  }
+
+  protected isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-dialog-animation-duration');
   }
 
   protected handleClosing(): void {
