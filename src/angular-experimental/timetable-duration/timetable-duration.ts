@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
 
 import type { SbbTimetableDurationElement } from '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
-import '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
 
 @Directive({
   selector: 'sbb-timetable-duration',

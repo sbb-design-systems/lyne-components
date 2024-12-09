@@ -1,4 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import '@sbb-esta/lyne-elements-experimental/journey-summary.js';
 
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -7,7 +8,6 @@ import type {
   InterfaceSbbJourneySummaryAttributes,
   SbbJourneySummaryElement,
 } from '@sbb-esta/lyne-elements-experimental/journey-summary.js';
-import '@sbb-esta/lyne-elements-experimental/journey-summary.js';
 
 @Directive({
   selector: 'sbb-journey-summary',

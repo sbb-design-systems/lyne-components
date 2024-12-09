@@ -1,4 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import '@sbb-esta/lyne-elements-experimental/timetable-row.js';
 
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -8,7 +9,6 @@ import type {
   Price,
   SbbTimetableRowElement,
 } from '@sbb-esta/lyne-elements-experimental/timetable-row.js';
-import '@sbb-esta/lyne-elements-experimental/timetable-row.js';
 
 @Directive({
   selector: 'sbb-timetable-row',

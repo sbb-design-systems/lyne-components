@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import '@sbb-esta/lyne-elements-experimental/pearl-chain.js';
 
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { Leg, PtRideLeg } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
 import type { SbbPearlChainElement } from '@sbb-esta/lyne-elements-experimental/pearl-chain.js';
-import '@sbb-esta/lyne-elements-experimental/pearl-chain.js';
 
 @Directive({
   selector: 'sbb-pearl-chain',
