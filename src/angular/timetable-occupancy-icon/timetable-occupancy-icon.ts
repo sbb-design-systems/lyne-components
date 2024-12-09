@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.ts';
 import type { SbbTimetableOccupancyIconElement } from '@sbb-esta/lyne-elements/timetable-occupancy-icon.js';
-
 import '@sbb-esta/lyne-elements/timetable-occupancy-icon.js';
+
 import { SbbNegativeMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbIconBase } from '@sbb-esta/lyne-angular/icon/icon-base';
 

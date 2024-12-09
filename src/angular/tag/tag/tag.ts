@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 import { fromEvent, type Observable } from 'rxjs';
-
 import '@sbb-esta/lyne-elements/tag/tag.js';
+
 import {
   booleanAttribute,
   SbbButtonBaseElement,

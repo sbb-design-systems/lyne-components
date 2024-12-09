@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbSkiplinkListElement } from '@sbb-esta/lyne-elements/skiplink-list.js';
-import '@sbb-esta/lyne-elements/skiplink-list.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import '@sbb-esta/lyne-elements/skiplink-list.js';
 
 @Directive({
   selector: 'sbb-skiplink-list',

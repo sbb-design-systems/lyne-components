@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import '@sbb-esta/lyne-elements/tabs/tab-label.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title/title-base';
 
 import { booleanAttribute, SbbDisabledMixin } from '@sbb-esta/lyne-angular/core';
-import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin';
+import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin.js';
 
 @Directive({
   selector: 'sbb-tab-label',

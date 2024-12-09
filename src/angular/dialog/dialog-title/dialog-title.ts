@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import type { Breakpoint } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog/dialog-title.js';
-import { SbbTitleBase } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/dialog/dialog-title.js';
 
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { SbbTitleBase } from '@sbb-esta/lyne-angular/title/title-base.js';
 
 @Directive({
   selector: 'sbb-dialog-title',

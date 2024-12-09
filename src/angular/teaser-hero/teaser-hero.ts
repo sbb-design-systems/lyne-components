@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbTeaserHeroElement } from '@sbb-esta/lyne-elements/teaser-hero.js';
-
 import '@sbb-esta/lyne-elements/teaser-hero.js';
+
 import { SbbLinkBaseElement } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

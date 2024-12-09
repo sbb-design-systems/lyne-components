@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import type { SbbVisualCheckboxElement } from '@sbb-esta/lyne-elements/visual-checkbox.js';
-
 import '@sbb-esta/lyne-elements/visual-checkbox.js';
+
 import { booleanAttribute, SbbDisabledMixin, SbbNegativeMixin } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

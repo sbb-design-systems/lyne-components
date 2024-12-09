@@ -1,9 +1,9 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
-
 import '@sbb-esta/lyne-elements/toggle-check.js';
+
 import { SbbFormAssociatedCheckboxMixin } from '@sbb-esta/lyne-angular/core';
-import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin';
+import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin.js';
 
 @Directive({
   selector: 'sbb-toggle-check',

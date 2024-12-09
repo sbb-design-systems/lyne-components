@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
-import type { SbbSelectElement, SelectChange } from '@sbb-esta/lyne-elements/select.js';
+import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
 import { fromEvent, type Observable } from 'rxjs';
-
 import '@sbb-esta/lyne-elements/select.js';
+
 import {
   booleanAttribute,
   SbbDisabledMixin,
@@ -55,11 +55,6 @@ export class SbbSelect extends SbbDisabledMixin(
   @Output() public change: Observable<void> = fromEvent(this.#element.nativeElement, 'change');
 
   @Output() public input: Observable<void> = fromEvent(this.#element.nativeElement, 'input');
-
-  @Output() public stateChange: Observable<SelectChange> = fromEvent(
-    this.#element.nativeElement,
-    'stateChange',
-  );
 
   public override get type(): string {
     return this.#element.nativeElement.type;

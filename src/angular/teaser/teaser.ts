@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbTeaserElement } from '@sbb-esta/lyne-elements/teaser.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-
 import '@sbb-esta/lyne-elements/teaser.js';
+
 import { SbbLinkBaseElement } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

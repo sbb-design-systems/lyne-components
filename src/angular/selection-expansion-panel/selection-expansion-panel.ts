@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import type { SbbSelectionExpansionPanelElement } from '@sbb-esta/lyne-elements/selection-expansion-panel.js';
 import { fromEvent, type Observable } from 'rxjs';
-
 import '@sbb-esta/lyne-elements/selection-expansion-panel.js';
+
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

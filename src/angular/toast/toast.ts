@@ -1,9 +1,9 @@
 import { Directive, ElementRef, Input, NgZone, inject, numberAttribute } from '@angular/core';
 import type { SbbToastElement, SbbToastPosition } from '@sbb-esta/lyne-elements/toast.js';
-
 import '@sbb-esta/lyne-elements/toast.js';
+
 import { booleanAttribute, SbbOpenCloseBaseElement } from '@sbb-esta/lyne-angular/core';
-import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin';
+import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin.js';
 
 @Directive({
   selector: 'sbb-toast',

@@ -65,7 +65,8 @@ const isPublicSetter = (m: ts.ClassElement): m is ts.SetAccessorDeclaration =>
   ts.isSetAccessor(m) && isPublic(m);
 const isEventEmitter = (m: ts.ClassElement): m is ts.PropertyDeclaration =>
   ts.isPropertyDeclaration(m) &&
-  (m.type as unknown as ts.TypeReferenceNode)?.typeName?.getText() === 'EventEmitter';
+  (m.type as unknown as ts.TypeReferenceNode)?.typeName?.getText() === 'EventEmitter' &&
+  !m.getFullText().includes('@internal');
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {

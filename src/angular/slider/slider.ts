@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
 import { fromEvent, type Observable } from 'rxjs';
-
 import '@sbb-esta/lyne-elements/slider.js';
+
 import {
   booleanAttribute,
   SbbDisabledMixin,

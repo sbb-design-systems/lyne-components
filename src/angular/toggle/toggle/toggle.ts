@@ -2,8 +2,8 @@ import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/c
 import type { SbbToggleElement } from '@sbb-esta/lyne-elements/toggle/toggle.js';
 import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle.js';
 import { fromEvent, type Observable } from 'rxjs';
-
 import '@sbb-esta/lyne-elements/toggle/toggle.js';
+
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 
 @Directive({

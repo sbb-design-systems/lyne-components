@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
-
 import '@sbb-esta/lyne-elements/toggle/toggle-option.js';
+
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbIconNameMixin } from '@sbb-esta/lyne-angular/icon/icon-name-mixin.js';
 
