@@ -18,7 +18,11 @@ import {
   SbbMediaQueryBreakpointSmallAndBelow,
 } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { findReferencedElement, SbbScrollHandler } from '../../core/dom.js';
+import {
+  findReferencedElement,
+  isZeroAnimationDuration,
+  SbbScrollHandler,
+} from '../../core/dom.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
@@ -128,6 +132,12 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     if (this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow)) {
       this._scrollHandler.disableScroll();
     }
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleOpening();
+    }
   }
 
   /**
@@ -144,6 +154,45 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     this.state = 'closing';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `closed` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleClosing();
+    }
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-menu-animation-duration');
+  }
+
+  private _handleOpening(): void {
+    this.state = 'opened';
+    this.didOpen.emit();
+    this._inertController.activate();
+    this._setMenuFocus();
+    this._focusHandler.trap(this);
+    this._attachWindowEvents();
+  }
+
+  private _handleClosing(): void {
+    this.state = 'closed';
+    this._menu?.firstElementChild?.scrollTo(0, 0);
+    this._inertController.deactivate();
+    setModalityOnNextFocus(this._triggerElement);
+    // Manually focus last focused element
+    this._triggerElement?.focus({
+      // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
+      preventScroll:
+        this._triggerElement.localName === 'sbb-header-button' ||
+        this._triggerElement.localName === 'sbb-header-link',
+    });
+    this.didClose.emit();
+    this._windowEventsController?.abort();
+    this._focusHandler.disconnect();
+
+    // Starting from breakpoint medium, enable scroll
+    this._scrollHandler.enableScroll();
   }
 
   /**
@@ -314,30 +363,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onMenuAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
-      this.state = 'opened';
-      this.didOpen.emit();
-      this._inertController.activate();
-      this._setMenuFocus();
-      this._focusHandler.trap(this);
-      this._attachWindowEvents();
+      this._handleOpening();
     } else if (event.animationName === 'close' && this.state === 'closing') {
-      this.state = 'closed';
-      this._menu?.firstElementChild?.scrollTo(0, 0);
-      this._inertController.deactivate();
-      setModalityOnNextFocus(this._triggerElement);
-      // Manually focus last focused element
-      this._triggerElement?.focus({
-        // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
-        preventScroll:
-          this._triggerElement.localName === 'sbb-header-button' ||
-          this._triggerElement.localName === 'sbb-header-link',
-      });
-      this.didClose.emit();
-      this._windowEventsController?.abort();
-      this._focusHandler.disconnect();
-
-      // Starting from breakpoint medium, enable scroll
-      this._scrollHandler.enableScroll();
+      this._handleClosing();
     }
   }
 
