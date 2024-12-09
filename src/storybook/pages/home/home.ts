@@ -54,17 +54,15 @@ export const homeTemplate = (args: Args): TemplateResult => html`
     <section class="alert-section sbb-grid">
       <div class="grid-reduced-width">
         <sbb-alert-group accessibility-title="Disruptions">
-          <sbb-alert
-            title-content="Interruption between Genève and Lausanne"
-            href="https://www.sbb.ch"
-            size="l"
-          >
+          <sbb-alert title-content="Interruption between Genève and Lausanne" size="l">
             The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+            <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
           </sbb-alert>
-          <sbb-alert title-content="Interruption between Berne and Olten" href="https://www.sbb.ch">
+          <sbb-alert title-content="Interruption between Berne and Olten">
             Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00
             o'clock construction work will take place. You have to expect changed travel times and
             changed connections.
+            <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
           </sbb-alert>
         </sbb-alert-group>
       </div>
