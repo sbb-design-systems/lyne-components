@@ -76,13 +76,13 @@ const WithChipTemplate = (): TemplateResult => html`
   <sbb-lead-container>
     ${content()};
 
-    <picture class="sbb-figure" slot="image">
+    <figure class="sbb-figure" slot="image">
       <sbb-image image-src=${images[6]} alt="Station of Lucerne from outside"></sbb-image>
 
       <sbb-chip-label color="charcoal" class="sbb-figure-overlap-start-end"
         >AI generated</sbb-chip-label
       >
-    </picture>
+    </figure>
   </sbb-lead-container>
 `;
 
