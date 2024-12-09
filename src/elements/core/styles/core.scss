@@ -154,8 +154,7 @@ input[data-sbb-time-input] {
   }
 }
 
-img,
-picture {
+img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
