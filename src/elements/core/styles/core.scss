@@ -154,7 +154,8 @@ input[data-sbb-time-input] {
   }
 }
 
-img {
+img,
+picture {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
@@ -169,6 +170,17 @@ sbb-container {
     border-radius: var(--sbb-container-background-border-radius);
     height: 100%;
     position: absolute;
+  }
+}
+
+// TODO: Move back to the sbb-lead-container components when the global css refactoring happens
+sbb-lead-container {
+  [slot='image']:is(sbb-image, img, picture),
+  [slot='image'] :is(sbb-image, img, picture) {
+    --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
+    --sbb-image-object-fit: cover;
+
+    border-radius: var(--sbb-lead-container-image-border-radius);
   }
 }
 
