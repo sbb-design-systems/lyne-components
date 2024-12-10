@@ -107,8 +107,14 @@ describe('sbb-paginator', () => {
     const select: SbbSelectElement = element.shadowRoot!.querySelector('sbb-select')!;
     expect(select).not.to.be.null;
 
-    const willOpen = new EventSpy(SbbSelectElement.events.willOpen);
-    const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
+    const willOpen = new EventSpy(
+      SbbSelectElement.events.willOpen,
+      element.shadowRoot!.querySelector('sbb-select'),
+    );
+    const didOpen = new EventSpy(
+      SbbSelectElement.events.didOpen,
+      element.shadowRoot!.querySelector('sbb-select'),
+    );
     select.click();
     await willOpen.calledOnce();
     expect(willOpen.count).to.be.equal(1);

@@ -1,10 +1,17 @@
-import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbInputModality } from '../../core/a11y.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, slotState } from '../../core/decorators.js';
 import { isFirefox, isLean, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
@@ -17,8 +24,6 @@ import '../../icon.js';
 
 let nextId = 0;
 let nextFormFieldErrorId = 0;
-
-const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-autocomplete-grid', 'sbb-select'];
 
 const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 
@@ -120,7 +125,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     return this._input;
   }
 
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
 
   /**
@@ -138,9 +142,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('willOpen', (e: CustomEvent<void>) => this._onPopupOpen(e), { signal });
-    this.addEventListener('didClose', (e: CustomEvent<void>) => this._onPopupClose(e), { signal });
     this._registerInputListener();
     this._syncNegative();
   }
@@ -159,18 +160,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     this._inputAbortController.abort();
     if (this._input?.localName === 'input') {
       this._unpatchInputValue();
-    }
-  }
-
-  private _onPopupOpen({ target }: CustomEvent<void>): void {
-    if (supportedPopupTagNames.includes((target as HTMLElement).localName)) {
-      this.toggleAttribute('data-has-popup-open', true);
-    }
-  }
-
-  private _onPopupClose({ target }: CustomEvent<void>): void {
-    if (supportedPopupTagNames.includes((target as HTMLElement).localName)) {
-      this.removeAttribute('data-has-popup-open');
     }
   }
 
@@ -239,7 +228,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     this._formFieldAttributeObserver?.disconnect();
     this._formFieldAttributeObserver?.observe(this._input, {
       attributes: true,
-      attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid'],
+      attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid', 'data-state'],
     });
     this.setAttribute('data-input-type', this._input.localName);
     this._syncLabelInputReferences();
@@ -436,6 +425,11 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
         this._input.classList.contains('sbb-invalid') ||
         (this._input.classList.contains('ng-touched') &&
           this._input.classList.contains('ng-invalid')),
+    );
+    this.toggleAttribute(
+      'data-has-popup-open',
+      this._input.localName === 'sbb-select' &&
+        ['opening', 'opened'].includes(this._input!.getAttribute('data-state')!),
     );
   }
 

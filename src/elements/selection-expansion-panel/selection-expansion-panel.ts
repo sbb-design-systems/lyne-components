@@ -83,24 +83,28 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionExpansionPanelElement.events.willOpen,
+    { cancelable: true },
   );
 
   /** Emits whenever the content section is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionExpansionPanelElement.events.didOpen,
+    { cancelable: true },
   );
 
   /** Emits whenever the content section begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionExpansionPanelElement.events.willClose,
+    { cancelable: true },
   );
 
   /** Emits whenever the content section is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionExpansionPanelElement.events.didClose,
+    { cancelable: true },
   );
 
   private _language = new SbbLanguageController(this);
