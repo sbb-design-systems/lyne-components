@@ -1,5 +1,5 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../core/testing/private.js';
@@ -783,7 +783,15 @@ describe(`sbb-select`, () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
 
-      element.dispatchEvent(new CustomEvent('click'));
+      const positionRect = element.getBoundingClientRect();
+      await sendMouse({
+        type: 'click',
+        position: [
+          Math.round(positionRect.x + window.scrollX + positionRect.width / 2),
+          Math.round(positionRect.y + window.scrollY + positionRect.height / 2),
+        ],
+      });
+
       await waitForLitRender(element);
       await didOpen.calledOnce();
 
@@ -793,6 +801,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await didClose.calledOnce();
 
+      expect(didOpen.count).to.be.equal(1);
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
       expect(element.value).to.be.equal('1');
     });

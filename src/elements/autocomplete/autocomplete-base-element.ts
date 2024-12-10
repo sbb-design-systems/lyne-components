@@ -293,18 +293,9 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this.triggerElement?.addEventListener('focus', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
-    this.triggerElement?.addEventListener(
-      'click',
-      (e) => {
-        // Avoid bubbling click to form field, where it would trigger this click again
-        e.stopPropagation();
-
-        this.open();
-      },
-      {
-        signal: this._triggerEventsController.signal,
-      },
-    );
+    this.triggerElement?.addEventListener('click', () => this.open(), {
+      signal: this._triggerEventsController.signal,
+    });
     this.triggerElement?.addEventListener(
       'input',
       (event) => {

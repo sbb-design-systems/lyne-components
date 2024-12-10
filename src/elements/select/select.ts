@@ -355,14 +355,12 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this.addEventListener(
       'click',
       (e: MouseEvent) => {
-        // Avoid bubbling click to form field, where it would trigger this click again
-        e.stopPropagation();
-
         const target = e.target as SbbSelectElement | SbbOptionElement;
         if (target.localName === 'sbb-option') {
           // Option click
           if (!this.multiple && !target.disabled) {
             this.close();
+            this.focus();
           }
         } else {
           this._toggleOpening();
