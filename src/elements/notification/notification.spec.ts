@@ -15,8 +15,8 @@ describe(`sbb-notification`, () => {
 
   async function openAndClose(): Promise<void> {
     const parent = element.parentElement!;
-    const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
+    const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose, element);
 
     await didOpenEventSpy.calledOnce();
     expect(element).to.have.attribute('data-state', 'opened');
@@ -41,7 +41,9 @@ describe(`sbb-notification`, () => {
 
   describe('with zero animation duration', () => {
     beforeEach(async () => {
-      didOpenEventSpy = new EventSpy(SbbNotificationElement.events.didOpen);
+      didOpenEventSpy = new EventSpy(SbbNotificationElement.events.didOpen, null, {
+        capture: true,
+      });
       element = await fixture(html`
         <sbb-notification id="notification">
           The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
@@ -60,8 +62,8 @@ describe(`sbb-notification`, () => {
 
     it('closes the notification and removes it from the DOM on close button click', async () => {
       const parent = element.parentElement!;
-      const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
-      const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
+      const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose, element);
+      const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose, element);
       const closeButton = element.shadowRoot!.querySelector(
         '.sbb-notification__close',
       ) as SbbSecondaryButtonElement;
@@ -90,7 +92,9 @@ describe(`sbb-notification`, () => {
 
   describe('with non-zero animation duration', () => {
     it('closes the notification and removes it from the DOM with animationend event', async () => {
-      didOpenEventSpy = new EventSpy(SbbNotificationElement.events.didOpen);
+      didOpenEventSpy = new EventSpy(SbbNotificationElement.events.didOpen, null, {
+        capture: true,
+      });
       element = await fixture(html`
         <sbb-notification id="notification" style="--sbb-notification-animation-duration: 1ms">
           The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.

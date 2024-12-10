@@ -58,13 +58,22 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     return this.getAttribute('data-state') as StickyState;
   }
 
-  private _willStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.willStick);
-  private _didStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.didStick);
+  private _willStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.willStick, {
+    cancelable: true,
+  });
+  private _didStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.didStick, {
+    cancelable: true,
+  });
   private _willUnstick: EventEmitter = new EventEmitter(
     this,
     SbbStickyBarElement.events.willUnstick,
+    { cancelable: true },
   );
-  private _didUnstick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.didUnstick);
+  private _didUnstick: EventEmitter = new EventEmitter(
+    this,
+    SbbStickyBarElement.events.didUnstick,
+    { cancelable: true },
+  );
 
   private _intersector?: HTMLSpanElement;
   private _observer = new IntersectionController(this, {

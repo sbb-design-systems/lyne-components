@@ -52,10 +52,10 @@ describe(`sbb-expansion-panel`, () => {
       const toggleExpandedEventSpy = new EventSpy(
         SbbExpansionPanelHeaderElement.events.toggleExpanded,
       );
-      const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen);
-      const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose);
-      const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen);
-      const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose);
+      const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen, element);
+      const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose, element);
+      const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen, element);
+      const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose, element);
 
       await waitForLitRender(element);
 
@@ -133,21 +133,21 @@ describe(`sbb-expansion-panel`, () => {
   });
 
   it('should fire animation events with non-zero animation duration', async () => {
-    const didOpenSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen);
-    const didCloseSpy = new EventSpy(SbbExpansionPanelElement.events.didClose);
-
-    const expansionPanelElement: SbbExpansionPanelElement = await fixture(
+    const element: SbbExpansionPanelElement = await fixture(
       html`<sbb-expansion-panel style="--sbb-expansion-panel-animation-duration: 1ms">
         <sbb-expansion-panel-header icon-name="dog-medium">Header</sbb-expansion-panel-header>
         <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
       </sbb-expansion-panel>`,
     );
 
-    expansionPanelElement.expanded = true;
+    const didOpenSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen, element);
+    const didCloseSpy = new EventSpy(SbbExpansionPanelElement.events.didClose, element);
+
+    element.expanded = true;
 
     await didOpenSpy.calledOnce();
 
-    expansionPanelElement.expanded = false;
+    element.expanded = false;
 
     await didCloseSpy.calledOnce();
     expect(didCloseSpy.count).to.be.equal(1);

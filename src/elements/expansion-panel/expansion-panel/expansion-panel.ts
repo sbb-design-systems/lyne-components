@@ -90,24 +90,28 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbExpansionPanelElement.events.willOpen,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-expansion-panel` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbExpansionPanelElement.events.didOpen,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-expansion-panel` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbExpansionPanelElement.events.willClose,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-expansion-panel` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbExpansionPanelElement.events.didClose,
+    { cancelable: true },
   );
 
   private _progressiveId = `-${++nextId}`;

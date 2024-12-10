@@ -46,10 +46,10 @@ describe(`sbb-select`, () => {
     });
 
     it('opens and closes the select', async () => {
-      const willOpen = new EventSpy(SbbSelectElement.events.willOpen);
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
-      const willClose = new EventSpy(SbbSelectElement.events.willClose);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const willOpen = new EventSpy(SbbSelectElement.events.willOpen, element);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const willClose = new EventSpy(SbbSelectElement.events.willClose, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
       await willOpen.calledOnce();
@@ -76,8 +76,8 @@ describe(`sbb-select`, () => {
     it('opens and closes the select with non-zero animation duration', async () => {
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
@@ -93,8 +93,8 @@ describe(`sbb-select`, () => {
     });
 
     it('closes the select by option click', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
@@ -113,8 +113,8 @@ describe(`sbb-select`, () => {
     it('closes the select by option click with non-zero animation duration', async () => {
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
@@ -221,8 +221,8 @@ describe(`sbb-select`, () => {
       expect(displayValue).to.have.trimmed.text('First');
       expect(element.value).to.be.equal('1');
 
-      const willOpen = new EventSpy(SbbSelectElement.events.willOpen);
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
+      const willOpen = new EventSpy(SbbSelectElement.events.willOpen, element);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       element.click();
 
       await willOpen.calledOnce();
@@ -241,8 +241,8 @@ describe(`sbb-select`, () => {
 
       const selectionChange = new EventSpy(SbbOptionElement.events.selectionChange);
       const optionSelected = new EventSpy(SbbOptionElement.events.optionSelected);
-      const willClose = new EventSpy(SbbSelectElement.events.willClose);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const willClose = new EventSpy(SbbSelectElement.events.willClose, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
 
       secondOption.click();
       await waitForLitRender(element);
@@ -265,8 +265,8 @@ describe(`sbb-select`, () => {
       element.toggleAttribute('multiple', true);
       await waitForLitRender(element);
 
-      const willOpen = new EventSpy(SbbSelectElement.events.willOpen);
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
+      const willOpen = new EventSpy(SbbSelectElement.events.willOpen, element);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       element.dispatchEvent(new CustomEvent('click'));
 
       await willOpen.calledOnce();
@@ -304,8 +304,8 @@ describe(`sbb-select`, () => {
     });
 
     it('handles keypress on host', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
 
       focusableElement.focus();
       await sendKeys({ press: 'Enter' });
@@ -343,7 +343,7 @@ describe(`sbb-select`, () => {
     });
 
     it('handles keyboard selection', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       focusableElement.focus();
       await sendKeys({ press: ' ' });
       await didOpen.calledOnce();
@@ -378,8 +378,8 @@ describe(`sbb-select`, () => {
     });
 
     it('handles keyboard Enter selection', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
       focusableElement.focus();
       await sendKeys({ press: ' ' });
       await didOpen.calledOnce();
@@ -400,8 +400,8 @@ describe(`sbb-select`, () => {
       element.toggleAttribute('multiple', true);
       await waitForLitRender(element);
 
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
       focusableElement.focus();
       await sendKeys({ press: 'ArrowUp' });
       await didOpen.calledOnce();
@@ -442,7 +442,7 @@ describe(`sbb-select`, () => {
     });
 
     it('does not open if prevented', async () => {
-      const willOpenEventSpy = new EventSpy(SbbSelectElement.events.willOpen);
+      const willOpenEventSpy = new EventSpy(SbbSelectElement.events.willOpen, element);
 
       element.addEventListener(SbbSelectElement.events.willOpen, (ev) => ev.preventDefault());
       element.open();
@@ -455,8 +455,8 @@ describe(`sbb-select`, () => {
     });
 
     it('does not close if prevented', async () => {
-      const didOpenEventSpy = new EventSpy(SbbSelectElement.events.didOpen);
-      const willCloseEventSpy = new EventSpy(SbbSelectElement.events.willClose);
+      const didOpenEventSpy = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const willCloseEventSpy = new EventSpy(SbbSelectElement.events.willClose, element);
 
       element.open();
       await didOpenEventSpy.calledOnce();
@@ -780,8 +780,8 @@ describe(`sbb-select`, () => {
     });
 
     it('closes the select by option click', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
@@ -800,8 +800,8 @@ describe(`sbb-select`, () => {
     it('closes the select by option click with non-zero animation duration', async () => {
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);

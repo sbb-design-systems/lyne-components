@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbAlertGroupElement } from './alert-group.js';
 
+import '../alert/alert.js';
+
 describe(`sbb-alert-group ssr`, () => {
   let root: SbbAlertGroupElement;
 

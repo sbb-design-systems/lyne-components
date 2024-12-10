@@ -107,24 +107,28 @@ class SbbNotificationElement extends LitElement {
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbNotificationElement.events.willOpen,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-notification` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbNotificationElement.events.didOpen,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-notification` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbNotificationElement.events.willClose,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-notification` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbNotificationElement.events.didClose,
+    { cancelable: true },
   );
 
   private _open(): void {

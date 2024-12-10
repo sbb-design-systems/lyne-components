@@ -17,7 +17,9 @@ describe(`sbb-alert-group`, () => {
     const accessibilityTitle = 'Disruptions';
     const accessibilityTitleLevel = '3';
 
-    const alertOpenedEventSpy = new EventSpy(SbbAlertElement.events.didOpen);
+    const alertOpenedEventSpy = new EventSpy(SbbAlertElement.events.didOpen, null, {
+      capture: true,
+    });
 
     // Given sbb-alert-group with two alerts
     element = await fixture(html`
