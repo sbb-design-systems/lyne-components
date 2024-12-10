@@ -42,16 +42,6 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
   }
 
-  protected onOptionClick(event: MouseEvent): void {
-    if (
-      (event.target as Element).localName !== 'sbb-option' ||
-      (event.target as SbbOptionElement).disabled
-    ) {
-      return;
-    }
-    this.close();
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this.abort.signal;
