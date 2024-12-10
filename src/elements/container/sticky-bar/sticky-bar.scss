@@ -16,15 +16,15 @@ $intersector-overlapping: 1px;
   --sbb-sticky-bar-border-radius: var(--sbb-border-radius-8x);
   --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
   --sbb-sticky-bar-fade-in-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-5x)
   );
   --sbb-sticky-bar-fade-out-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-sticky-bar-slide-vertically-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
   --sbb-sticky-bar-slide-vertically-animation-easing: ease-out;

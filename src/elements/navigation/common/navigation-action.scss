@@ -55,8 +55,7 @@ sbb-icon {
   display: flex;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  transition: color var(--sbb-disable-animation-zero-duration, var(--sbb-animation-duration-3x))
-    ease;
+  transition: color var(--sbb-disable-animation-duration, var(--sbb-animation-duration-3x)) ease;
   hyphens: auto;
   text-align: left;
   color: var(--sbb-navigation-action-color);

@@ -361,7 +361,7 @@
     will-change: transform, font-size;
 
     transition: {
-      duration: var(--sbb-disable-animation-zero-duration, var(--sbb-animation-duration-2x));
+      duration: var(--sbb-disable-animation-duration, var(--sbb-animation-duration-2x));
       timing-function: var(--sbb-animation-easing);
       property: transform, font-size;
     }
