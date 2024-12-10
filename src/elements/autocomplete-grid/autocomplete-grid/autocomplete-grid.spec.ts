@@ -57,7 +57,6 @@ describe(`sbb-autocomplete-grid`, () => {
     `);
     input = formField.querySelector<HTMLInputElement>('input')!;
     element = formField.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
-    element = formField.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
   });
 
   describeIf(isSafari, 'Safari', async () => {
