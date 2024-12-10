@@ -30,165 +30,120 @@ async function openOverlay(element: SbbOverlayElement): Promise<void> {
 }
 
 describe('sbb-overlay', () => {
-  let element: SbbOverlayElement;
+  let element: SbbOverlayElement, ariaLiveRef: HTMLElement;
 
-  describe('basic', () => {
-    let ariaLiveRef: HTMLElement;
+  beforeEach(async () => {
+    await setViewport({ width: 900, height: 600 });
+    element = await fixture(html`
+      <sbb-overlay id="my-overlay-1" accessibility-label="Label">
+        <p>Overlay content</p>
+      </sbb-overlay>
+    `);
+    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
+  });
 
-    beforeEach(async () => {
-      await setViewport({ width: 900, height: 600 });
-      element = await fixture(html`
-        <sbb-overlay id="my-overlay-1" accessibility-label="Label">
-          <p>Overlay content</p>
-        </sbb-overlay>
-      `);
-      ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
-    });
+  it('renders', () => {
+    assert.instanceOf(element, SbbOverlayElement);
+  });
 
-    it('renders', () => {
-      assert.instanceOf(element, SbbOverlayElement);
-    });
+  it('opens the overlay', async () => {
+    await openOverlay(element);
+  });
 
-    it('opens the overlay', async () => {
-      await openOverlay(element);
-    });
+  it('does not open the overlay if prevented', async () => {
+    const willOpen = new EventSpy(SbbOverlayElement.events.willOpen, element);
+    const didOpen = new EventSpy(SbbOverlayElement.events.didOpen, element);
 
-    it('does not open the overlay if prevented', async () => {
-      const willOpen = new EventSpy(SbbOverlayElement.events.willOpen, element);
-      const didOpen = new EventSpy(SbbOverlayElement.events.didOpen, element);
+    element.addEventListener(SbbOverlayElement.events.willOpen, (ev) => ev.preventDefault());
 
-      element.addEventListener(SbbOverlayElement.events.willOpen, (ev) => ev.preventDefault());
+    element.open();
+    await waitForLitRender(element);
 
-      element.open();
-      await waitForLitRender(element);
+    await willOpen.calledOnce();
+    expect(willOpen.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-      await willOpen.calledOnce();
-      expect(willOpen.count).to.be.equal(1);
-      await waitForLitRender(element);
+    expect(didOpen.count).to.be.equal(0);
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
 
-      expect(didOpen.count).to.be.equal(0);
-      expect(element).to.have.attribute('data-state', 'closed');
-    });
+  it('closes the overlay', async () => {
+    const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
 
-    it('closes the overlay', async () => {
-      const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
-      const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    await openOverlay(element);
 
-      await openOverlay(element);
+    await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Label`);
 
-      await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Label`);
+    element.close();
+    await waitForLitRender(element);
 
-      element.close();
-      await waitForLitRender(element);
+    await willClose.calledOnce();
+    expect(willClose.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
-      await waitForLitRender(element);
+    await didClose.calledOnce();
+    expect(didClose.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
-      await waitForLitRender(element);
+    expect(element).to.have.attribute('data-state', 'closed');
+    expect(ariaLiveRef.textContent).to.be.equal('');
+  });
 
-      expect(element).to.have.attribute('data-state', 'closed');
-      expect(ariaLiveRef.textContent).to.be.equal('');
-    });
+  it('opens and closes the overlay with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-overlay-animation-duration', '1ms');
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
 
-    it('does not close the overlay if prevented', async () => {
-      const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
-      const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    await openOverlay(element);
 
-      await openOverlay(element);
+    element.close();
+    await waitForLitRender(element);
 
-      element.addEventListener(SbbOverlayElement.events.willClose, (ev) => ev.preventDefault());
+    await didClose.calledOnce();
+    expect(didClose.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-      element.close();
-      await waitForLitRender(element);
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
-      await waitForLitRender(element);
+  it('does not close the overlay if prevented', async () => {
+    const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
 
-      expect(didClose.count).to.be.equal(0);
-      expect(element).to.have.attribute('data-state', 'opened');
-    });
+    await openOverlay(element);
 
-    it('closes the overlay on close button click', async () => {
-      const closeButton = element.shadowRoot!.querySelector('[sbb-overlay-close]') as HTMLElement;
-      const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
-      const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    element.addEventListener(SbbOverlayElement.events.willClose, (ev) => ev.preventDefault());
 
-      await openOverlay(element);
+    element.close();
+    await waitForLitRender(element);
 
-      closeButton.click();
-      await waitForLitRender(element);
+    await willClose.calledOnce();
+    expect(willClose.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
-      await waitForLitRender(element);
+    expect(didClose.count).to.be.equal(0);
+    expect(element).to.have.attribute('data-state', 'opened');
+  });
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
-      await waitForLitRender(element);
+  it('closes the overlay on close button click', async () => {
+    const closeButton = element.shadowRoot!.querySelector('[sbb-overlay-close]') as HTMLElement;
+    const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
-    });
+    await openOverlay(element);
 
-    it('closes the overlay on Esc key press', async () => {
-      const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
-      const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    closeButton.click();
+    await waitForLitRender(element);
 
-      await openOverlay(element);
+    await willClose.calledOnce();
+    expect(willClose.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-      await sendKeys({ press: tabKey });
-      await waitForLitRender(element);
+    await didClose.calledOnce();
+    expect(didClose.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-      await sendKeys({ press: 'Escape' });
-      await waitForLitRender(element);
-
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
-      await waitForLitRender(element);
-
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
-      await waitForLitRender(element);
-
-      expect(element).to.have.attribute('data-state', 'closed');
-    });
-
-    it('should remove ariaLiveRef content on any keyboard interaction', async () => {
-      await openOverlay(element);
-
-      await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Label`);
-
-      await sendKeys({ press: tabKey });
-      await waitForLitRender(element);
-
-      expect(ariaLiveRef.textContent!.trim()).to.be.equal('');
-    });
-
-    it('should remove ariaLiveRef content on any click interaction', async () => {
-      await openOverlay(element);
-
-      await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Label`);
-
-      element.click();
-      await waitForLitRender(element);
-
-      expect(ariaLiveRef.textContent).to.be.equal('');
-    });
-
-    it('should announce accessibility label in ariaLiveRef if explicitly set', async () => {
-      element.accessibilityLabel = 'Special Overlay';
-
-      await openOverlay(element);
-
-      await waitForCondition(
-        () => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Special Overlay`,
-      );
-
-      expect(ariaLiveRef.textContent!.trim()).to.be.equal(`${i18nDialog.en}, Special Overlay`);
-    });
+    expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('closes the overlay on close button click with linked form', async () => {
@@ -215,6 +170,29 @@ describe('sbb-overlay', () => {
     await willClose.calledOnce();
 
     expect(willClose.firstEvent?.detail.returnValue).to.be.deep.equal(form);
+  });
+
+  it('closes the overlay on Esc key press', async () => {
+    const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+
+    await openOverlay(element);
+
+    await sendKeys({ press: tabKey });
+    await waitForLitRender(element);
+
+    await sendKeys({ press: 'Escape' });
+    await waitForLitRender(element);
+
+    await willClose.calledOnce();
+    expect(willClose.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    await didClose.calledOnce();
+    expect(didClose.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('closes stacked overlays one by one on ESC key pressed', async () => {
@@ -285,34 +263,37 @@ describe('sbb-overlay', () => {
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
-  it('opens and closes the overlay with non-zero animation duration', async () => {
-    await setViewport({ width: 900, height: 600 });
-    element = await fixture(html`
-      <sbb-overlay
-        id="my-overlay-1"
-        accessibility-label="Label"
-        style="--sbb-overlay-animation-duration: 1ms"
-      >
-        <p>Overlay content</p>
-      </sbb-overlay>
-    `);
+  it('should remove ariaLiveRef content on any keyboard interaction', async () => {
+    await openOverlay(element);
 
-    const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Label`);
+
+    await sendKeys({ press: tabKey });
+    await waitForLitRender(element);
+
+    expect(ariaLiveRef.textContent!.trim()).to.be.equal('');
+  });
+
+  it('should remove ariaLiveRef content on any click interaction', async () => {
+    await openOverlay(element);
+
+    await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Label`);
+
+    element.click();
+    await waitForLitRender(element);
+
+    expect(ariaLiveRef.textContent).to.be.equal('');
+  });
+
+  it('should announce accessibility label in ariaLiveRef if explicitly set', async () => {
+    element.accessibilityLabel = 'Special Overlay';
 
     await openOverlay(element);
 
-    element.close();
-    await waitForLitRender(element);
+    await waitForCondition(
+      () => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Special Overlay`,
+    );
 
-    await willClose.calledOnce();
-    expect(willClose.count).to.be.equal(1);
-    await waitForLitRender(element);
-
-    await didClose.calledOnce();
-    expect(didClose.count).to.be.equal(1);
-    await waitForLitRender(element);
-
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(ariaLiveRef.textContent!.trim()).to.be.equal(`${i18nDialog.en}, Special Overlay`);
   });
 });
