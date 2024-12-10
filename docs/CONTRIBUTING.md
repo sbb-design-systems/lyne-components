@@ -54,7 +54,7 @@ You can file new issues by providing the above information [here](https://github
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
 
-- Search [GitHub](https://github.com/angular/components/pulls) for an open or closed PR
+- Search [GitHub](https://github.com/sbb-design-systems/lyne-components/pulls) for an open or closed PR
   that relates to your submission. You don't want to duplicate effort.
 - Make your changes in a new git branch:
 
