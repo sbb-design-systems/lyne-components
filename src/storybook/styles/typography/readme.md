@@ -6,7 +6,7 @@ It also includes line-height, letter-spacing and font-family.
 The native browser margins (1em) between paragraph elements `<p>` correctly corresponds
 to the defined paragraph spacing. Due to this there are no additional rules for paragraph spacing.
 
-| css class      | css class bold                | sass mixin          | sass mixin bold  |
+| CSS class      | CSS class bold                | SASS mixin          | SASS mixin bold  |
 | -------------- | ----------------------------- | ------------------- | ---------------- |
 | `sbb-text-xxs` | `sbb-text-xxs sbb-text--bold` | `text-xxs--regular` | `text-xxs--bold` |
 | `sbb-text-xs`  | `sbb-text-xs sbb-text--bold`  | `text-xs--regular`  | `text-xs--bold`  |
@@ -23,7 +23,7 @@ to the defined paragraph spacing. Due to this there are no additional rules for 
 
 ## Legend
 
-| css class    | sass mixin |
+| CSS class    | SASS mixin |
 | ------------ | ---------- |
 | `sbb-legend` | `legend`   |
 
@@ -31,7 +31,7 @@ to the defined paragraph spacing. Due to this there are no additional rules for 
 
 The `<sub>`-tag is also overridden globally as long as you include our global styles.
 
-| sass mixin |
+| SASS mixin |
 | ---------- |
 | `sub`      |
 
@@ -39,6 +39,6 @@ The `<sub>`-tag is also overridden globally as long as you include our global st
 
 The `<sup>`-tag is also overridden globally as long as you include our global styles.
 
-| sass mixin |
+| SASS mixin |
 | ---------- |
 | `sup`      |
