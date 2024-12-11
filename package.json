@@ -127,7 +127,7 @@
     "madge": "8.0.0",
     "npm-run-all2": "7.0.1",
     "octokit": "4.0.2",
-    "playwright": "1.47.2",
+    "playwright": "1.49.1",
     "postcss": "8.4.49",
     "prettier": "3.4.2",
     "react": "19.0.0",
@@ -153,7 +153,7 @@
     "@web/dev-server-core": "0.7.1",
     "jackspeak": "2.1.1",
     "lit": "3.2.1",
-    "playwright": "1.47.2",
+    "playwright": "1.49.1",
     "prettier": "3.4.2"
   },
   "prettier": {
