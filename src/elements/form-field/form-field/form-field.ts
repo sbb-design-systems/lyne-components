@@ -42,7 +42,12 @@ export
 class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
-  private readonly _supportedNativeInputElements = ['input', 'select', 'textarea'];
+  private readonly _supportedNativeInputElements = [
+    'input',
+    'select',
+    'textarea',
+    'sbb-date-input',
+  ];
   // List of supported element selectors in unnamed slot
   private readonly _supportedInputElements = [
     ...this._supportedNativeInputElements,
@@ -55,6 +60,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   private readonly _floatingLabelSupportedInputElements = [
     'input',
     'select',
+    'sbb-date-input',
     'sbb-select',
     'textarea',
   ];

@@ -1,0 +1,13 @@
+:host {
+  display: inline-block;
+  max-width: 100%;
+  cursor: text;
+}
+
+:host([disabled]) {
+  cursor: default;
+}
+
+:host(:focus) {
+  text-overflow: initial !important;
+}
