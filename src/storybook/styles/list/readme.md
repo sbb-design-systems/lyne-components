@@ -1,6 +1,6 @@
 ## sbb-list
 
-| css class  | sass mixin |
+| CSS class  | SASS mixin |
 | ---------- | ---------- |
 | `sbb-list` | `list`     |
 
@@ -10,7 +10,7 @@ The list styling doesn't define any color itself but inherits it.
 
 ### Sass usage
 
-The sass mixin can be included at top level or in a rule.
+The SASS mixin can be included at top level or in a rule.
 If used at top level it will apply rules to the native `<ul>` and `<ol>` elements.
 If used inside a rule it will extend the rule with `<ul>` and `<ol>`
 selectors (e.g. `.sbb-list { @include sbb.list; }` > `.sbb-list:where(ol, ul) {...}`).
@@ -25,7 +25,7 @@ selectors (e.g. `.sbb-list { @include sbb.list; }` > `.sbb-list:where(ol, ul) {.
 
 ## sbb-step-list
 
-| css class       | sass mixin  |
+| CSS class       | SASS mixin  |
 | --------------- | ----------- |
 | `sbb-step-list` | `step-list` |
 
@@ -41,7 +41,7 @@ by using the predefined classes (e.g. `sbb-text-s`).
 
 ## sbb-icon-list
 
-| css class       | sass mixin  |
+| CSS class       | SASS mixin  |
 | --------------- | ----------- |
 | `sbb-icon-list` | `icon-list` |
 
@@ -95,7 +95,7 @@ than the text, the CSS variable `--sbb-icon-list-marker-icon-color` can be used.
 
 ## sbb-description-list
 
-| css class  | sass mixin         |
+| CSS class  | SASS mixin         |
 | ---------- | ------------------ |
 | `sbb-list` | `description-list` |
 
@@ -104,7 +104,7 @@ The description list doesn't define any color itself but inherits it.
 
 ### Sass usage
 
-The sass mixin can be included at top level or in a rule.
+The SASS mixin can be included at top level or in a rule.
 If used at top level it will apply rules to the native `<dl>` element.
 If used inside a rule it will extend the rule with `<dl>`.
 selectors (e.g. `.sbb-list { @include sbb.description-list; }` > `.sbb-list:where(dl) {...}`).
