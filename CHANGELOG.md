@@ -2,6 +2,227 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.0.0...v2.0.0) (2024-12-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* react is now a peer dependency of our react package.
+* **sbb-image:** Removed `caption`, `copyright`, `copyrightHolder` attributes; We removed the caption and the copyright from the component to improve the usage flexibility of the `sbb-image`. The  consumer is now responsible for providing them (see the `sbb-image` readme to know more).
+* **sbb-image:** Removed `borderRadius`, `aspectRatio` attributes. Use the utility classes instead (see the `sbb-image` readme to know more). Removed the `--sbb-image-border-radius` CSS var from the `sbb-image`. Alternatively, use the `border-radius` CSS property.
+* **sbb-teaser-hero:** Removed `image-src`, `image-alt` attributes. Removed `chip` slot. Consumers can slot an `sbb-image` and add overlay elements on top of it (see the `sbb-teaser-hero` readme to know more).
+* `willOpen`, `didOpen`, `willClose`, `didClose`, `willStick`, `didStick`, `willUnstick` and `didUnstick` events no longer bubble.
+* **sbb-alert:** The link properties (`linkContent`, `href`, `target`, `rel`, `accessibilityLabel`) of the `sbb-alert` have been removed. Consumers have to slot a `<sbb-link>` into the unnamed content slot.
+* **sbb-loading-indicator:** The `sbb-loading-indicator` component no longer supports the `circle` variant, to achieve this look use `sbb-loading-indicator-circle` instead. For any other case where it is used in its `window` variant just remove the `variant` property as it is no longer needed.
+* **sbb-tertiary-button:** `sbb-tertiary-button` was renamed to `sbb-accent-button`
+* **sbb-header:** removed the `logo` slot and the default `sbb-logo` from the `sbb-header`. Alternatively, add the `sbb-header-logo` CSS class to the logo or to an `<a>`-element containing the logo and use the default slot. To align the logo to the right, use a spacer element with the `sbb-header-spacer` CSS class applied. For more information, see `sbb-header` docs.
+* remove deprecated `didChange` events from `sbb-checkbox`, `sbb-checkbox-panel`, `sbb-toggle-check`, `sbb-select`, `sbb-toggle` and `sbb-datepicker`. Use `change` event as alternative.
+* **sbb-mini-button:** the `SbbMiniButtonBaseElement` is used only in the `sbb-mini-button-component`, so it can be safely removed to avoid redundant code.
+* **sbb-datepicker:** This refactoring introduces multiple breaking changes to the datepicker:
+    - DateAdapter: return value for invalid dates changed from undefined to
+    null
+    - Datepicker: removed functions `getAvailableDate()` and
+    `isDateAvailable()`
+    - Datepicker: moved functions `findPreviousAvailableDate()` and
+    `findNextAvailableDate()` into `SbbDatepickerElement` and removed all
+    params but `date`
+    - Datepicker: removed properties `dateParser` and `format`, as
+    alternative use custom DateAdapter
+    - Datepicker: `now` property newly accepts `null` instead of `undefined`
+    - Datepicker: removed methods `getValueAsDate()` and `setValueAsDate()`.
+    Use getter/setter `valueAsDate` instead.
+* **sbb-dialog, sbb-link:** Removed the `word-break: break-word;` CSS rule from lyne components. They will follow the default [break rules](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break). Impacted components are: `sbb-dialog-content`, `sbb-link` and variants;
+* **sbb-file-selector:** The `sbb-file-selector` has been split into two components based on the values of the `variant` property. The `files` property has now `Readonly<File>[]` type instead than `File[]` to not allow the direct modification of the inner `File` properties. Changes:
+    - the `variant` property has been removed from the `sbb-file-selector` component;
+    - the `sbb-file-selector` now corresponds to the old `default` variant;
+    - a new component named `sbb-file-selector-dropzone` has been created; it corresponds to the old `dropzone` variant;
+    - the 'titleContent' property has been removed from the `sbb-file-selector` (since it refers only to dropzone case);
+    - the `files` property now returns a `Readonly<File>[]`;
+    - the deprecated `getFiles()` method has been removed.
+* **sbb-time-input:** `getValueAsDate()` and `setValueAsDate()` methods  of the `sbb-time-input` have been replaced by getter/setter `valueAsDate`.
+* **sbb-alert, sbb-alert-group:** The deprecated `dismissalRequested` event and `requestDismissal()` method of `sbb-alert` have been removed. The `sbb-alert` handles its closing and DOM removal on his own. If the closing should be prevented, the `willClose` event can be canceled. The `didDismissAlert` of the `sbb-alert-group` has been removed. As alternative, consumers can listen to the `didClose` event of an `sbb-alert`.
+* **sbb-form-field:** The `getInputElement()` method of the `sbb-form-field` has been removed. Use `inputElement` property as alternative.
+* **sbb-option,sbb-autocomplete-grid-option:** `active` property from `sbb-option` and `sbb-autocomplete-grid-option` has been removed
+* Several deprecated core functionality has been removed.
+    - dom.js `getDocumentWritingMode()` removed
+    - dom.js `getLocalName()` removed
+    - eventing.js `formElementHandlerAspect()` removed
+    - eventing.js `HandlerRepository`, `HandlerAspectParams` and
+    `HandlerAspect` removed
+    - mixins.js `SbbFocusableDisabledActionMixin` removed
+    - observers.js completely removed (containing
+    `NodeIntersectionObserver`, `AgnosticIntersectionObserver`,
+    `NodeMutationObserver`, `AgnosticMutationObserver`, `NodeResizeObserver`
+    and `AgnosticResizeObserver`)
+* **sbb-train-formation:** The `hide-wagen-label` property of the `sbb-train-formation` was removed. Now it automatically doesn't show the label if no label is set on all the wagons. The i18n `i18nClosedCompartmentLabel()` method doesn't take `wagonNumber` as an argument anymore but is a constant now. Additionally, there are some visual changes:
+    - `sbb-train-wagon`: The `ouccpancy` property doesn't default to `none`
+    anymore but to `null`. Please replace the currently undefined occupancy
+    property with the value `none`.
+    - `sbb-train-wagon`: Previously for the locomotive the label was not
+    displayed, but now it would, as soon as there is one provided
+    - `sbb-train-formation`: The inline padding (left / right) was removed
+    but can be set by CSS variable. See documentation.
+* **sbb-radio-button, sbb-radio-button-panel:** Removed `SbbRadioButtonGroupEventDetail` from the `change`, `input` and `didChange` events of the `sbb-radio-button-group`. As an alternative to `event.detail.value` use `radioButtonGroup.value`
+* waitForEvent() method was removed in favor of using EventSpy class
+* **sbb-chip-label:** sbb-chip has been renamed to sbb-chip-label.
+* Previously the `disabledInteractive` property had to be used along with the `disabled` property. With this change, either `disabled` or `disabledInteractive` should be used.
+* **sbb-teaser-hero, sbb-teaser-paid:** `sbb-teaser-paid` was removed and integrated in `sbb-teaser-hero`. Replacing the component / selector should be enough, as the API remains the same. `sbb-teaser-hero` moved from `@sbb-esta/experimental` into `@sbb-esta/elements` package, therefore imports need to be adapted.
+
+### Features
+
+* add sbb-icon-list styles ([#3038](https://github.com/sbb-design-systems/lyne-components/issues/3038)) ([d081288](https://github.com/sbb-design-systems/lyne-components/commit/d08128823044eef07722bec574628839e826d599))
+* **datepicker:** add size s ([#3006](https://github.com/sbb-design-systems/lyne-components/issues/3006)) ([b75c4c5](https://github.com/sbb-design-systems/lyne-components/commit/b75c4c5587897deff318c245029136dd1a3b7f2f))
+* introduce button form support ([#3170](https://github.com/sbb-design-systems/lyne-components/issues/3170)) ([eeb7a0a](https://github.com/sbb-design-systems/lyne-components/commit/eeb7a0a853fcd6b408eba009539932cd528b790a))
+* keep action elements focusable when disabled ([#3040](https://github.com/sbb-design-systems/lyne-components/issues/3040)) ([a9410ba](https://github.com/sbb-design-systems/lyne-components/commit/a9410ba7d36b2ea7d5d9902869db21828337e3f0))
+* provide lean context config ([#3233](https://github.com/sbb-design-systems/lyne-components/issues/3233)) ([0e2a847](https://github.com/sbb-design-systems/lyne-components/commit/0e2a84700d67f5654a428473d0b6fdcbe0c9d171))
+* provide scrollbar and table styles as CSS classes ([#3285](https://github.com/sbb-design-systems/lyne-components/issues/3285)) ([839c84e](https://github.com/sbb-design-systems/lyne-components/commit/839c84e821ab7c51f60217246769b36e0856f4f6)), closes [#3271](https://github.com/sbb-design-systems/lyne-components/issues/3271)
+* **sbb-autocomplete:** introduce size s ([#3020](https://github.com/sbb-design-systems/lyne-components/issues/3020)) ([aa55e7f](https://github.com/sbb-design-systems/lyne-components/commit/aa55e7fc01f44735ff96a04ceace94c34ddf5ed1))
+* **sbb-calendar, sbb-datepicker-toggle:** allow choosing initial calendar view ([#2990](https://github.com/sbb-design-systems/lyne-components/issues/2990)) ([7c8a690](https://github.com/sbb-design-systems/lyne-components/commit/7c8a6900060e3b918f30f98f6da0d7d6b9525287)), closes [#2822](https://github.com/sbb-design-systems/lyne-components/issues/2822)
+* **sbb-container:** support background-expanded for images ([#3004](https://github.com/sbb-design-systems/lyne-components/issues/3004)) ([298b335](https://github.com/sbb-design-systems/lyne-components/commit/298b3352e42966747237d043690a90671987faa0))
+* **sbb-container:** support for background image ([#2999](https://github.com/sbb-design-systems/lyne-components/issues/2999)) ([ff68e28](https://github.com/sbb-design-systems/lyne-components/commit/ff68e28dcb5723f8347517be633989555d100d09))
+* **sbb-file-selector:** implement native form support ([#3085](https://github.com/sbb-design-systems/lyne-components/issues/3085)) ([449ee6d](https://github.com/sbb-design-systems/lyne-components/commit/449ee6d27667dcd944a4f17c6b91da0a1d250534))
+* **sbb-file-selector:** split file-selector variants in separate components ([#3198](https://github.com/sbb-design-systems/lyne-components/issues/3198)) ([7527030](https://github.com/sbb-design-systems/lyne-components/commit/7527030b2d4f19fea604c568b56dbdada4d1dbdd))
+* **sbb-flip-card:** add flip event and isFlipped getter ([#2988](https://github.com/sbb-design-systems/lyne-components/issues/2988)) ([b912dac](https://github.com/sbb-design-systems/lyne-components/commit/b912dac06e4041c5df3628a162ce240d28f78d59))
+* **sbb-form-field:** introduce size s ([#2995](https://github.com/sbb-design-systems/lyne-components/issues/2995)) ([9abb131](https://github.com/sbb-design-systems/lyne-components/commit/9abb1314348e1d06be211c2dbf362ad899d894d0))
+* **sbb-header:** introduce active state ([#3154](https://github.com/sbb-design-systems/lyne-components/issues/3154)) ([ffdeec4](https://github.com/sbb-design-systems/lyne-components/commit/ffdeec4e6d844b4af5b521c0af3742df207c0f1d))
+* **sbb-header:** introduce size s ([#3047](https://github.com/sbb-design-systems/lyne-components/issues/3047)) ([cd60922](https://github.com/sbb-design-systems/lyne-components/commit/cd60922f59af898f5875a3d6e9d378a1cf118080))
+* **sbb-image:** support overlapping `sbb-chip-label` ([#3200](https://github.com/sbb-design-systems/lyne-components/issues/3200)) ([a59064e](https://github.com/sbb-design-systems/lyne-components/commit/a59064e7e0c80951d484cc5d54d0efe9a6265fc0))
+* **sbb-journey-summary:** provide a11y footpath property ([#3104](https://github.com/sbb-design-systems/lyne-components/issues/3104)) ([05c6d1a](https://github.com/sbb-design-systems/lyne-components/commit/05c6d1a7828f4c4aad23f5a9aca5ef5cf047d5b3))
+* **sbb-lead-container:** add spacing class support for notification ([#3019](https://github.com/sbb-design-systems/lyne-components/issues/3019)) ([2f4c817](https://github.com/sbb-design-systems/lyne-components/commit/2f4c8179b5c0f7fc9b807057da16e255ec7890cb)), closes [#2932](https://github.com/sbb-design-systems/lyne-components/issues/2932)
+* **sbb-link-list-anchor:** component implementation ([#2987](https://github.com/sbb-design-systems/lyne-components/issues/2987)) ([d81a565](https://github.com/sbb-design-systems/lyne-components/commit/d81a565d776499472b91d9c82b99511034985d8e))
+* **sbb-map-container:** allow config of sticky offset on mobile ([#3092](https://github.com/sbb-design-systems/lyne-components/issues/3092)) ([520d812](https://github.com/sbb-design-systems/lyne-components/commit/520d8122899ba0281cf60f07f697002dbde407de)), closes [#3091](https://github.com/sbb-design-systems/lyne-components/issues/3091)
+* **sbb-mini-button-group:** component implementation ([#2959](https://github.com/sbb-design-systems/lyne-components/issues/2959)) ([e732593](https://github.com/sbb-design-systems/lyne-components/commit/e73259362859271e04ffb6130375b00d1e2e9674))
+* **sbb-paginator:** add disabled property ([#3130](https://github.com/sbb-design-systems/lyne-components/issues/3130)) ([d43f64c](https://github.com/sbb-design-systems/lyne-components/commit/d43f64c3b306633fd1c663c81e7fc7336dbe1cf3))
+* **sbb-paginator:** add sbb-compact-paginator component variant ([#3142](https://github.com/sbb-design-systems/lyne-components/issues/3142)) ([2f3dc21](https://github.com/sbb-design-systems/lyne-components/commit/2f3dc2122c0c9f43cb2229520a23808dd006e2ad))
+* **sbb-paginator:** initial implementation ([#2982](https://github.com/sbb-design-systems/lyne-components/issues/2982)) ([8306362](https://github.com/sbb-design-systems/lyne-components/commit/83063628c88a6db6cc01acbaf6d9c04083b9c8a6))
+* **sbb-radio-button, sbb-radio-button-panel:** implement native form support ([#3160](https://github.com/sbb-design-systems/lyne-components/issues/3160)) ([e113c6a](https://github.com/sbb-design-systems/lyne-components/commit/e113c6a5405a5caa3b79cdc3aa5e8c889943b63a))
+* **sbb-select:** implement native form support ([#3101](https://github.com/sbb-design-systems/lyne-components/issues/3101)) ([b9156ab](https://github.com/sbb-design-systems/lyne-components/commit/b9156ab70ffe14d543606194df305f9e7d4a1375))
+* **sbb-select:** introduce size s ([#3011](https://github.com/sbb-design-systems/lyne-components/issues/3011)) ([b614923](https://github.com/sbb-design-systems/lyne-components/commit/b614923e994ac406318caf7f6e129bb4a103c681))
+* **sbb-selection-expansion-panel:** introduce size s ([#3030](https://github.com/sbb-design-systems/lyne-components/issues/3030)) ([a04b5b4](https://github.com/sbb-design-systems/lyne-components/commit/a04b5b498e6479992d791cc5292bede7098d1738))
+* **sbb-slider:** implement native form support ([#3071](https://github.com/sbb-design-systems/lyne-components/issues/3071)) ([ad35f2f](https://github.com/sbb-design-systems/lyne-components/commit/ad35f2f8169768fd52ee08fad9aba45d0f5c315b))
+* **sbb-stepper:** add size 's' ([#3026](https://github.com/sbb-design-systems/lyne-components/issues/3026)) ([6c965c5](https://github.com/sbb-design-systems/lyne-components/commit/6c965c503bda51c3f646eb1400fdf4620883870f))
+* **sbb-sticky-bar:** introduce controllable slide in and out animation ([11884da](https://github.com/sbb-design-systems/lyne-components/commit/11884dabc26b9b6047cf43c0e2aa38ebd0818570)), closes [#3072](https://github.com/sbb-design-systems/lyne-components/issues/3072)
+* **sbb-teaser-hero, sbb-teaser-paid:** merge components and move into elements package ([#2984](https://github.com/sbb-design-systems/lyne-components/issues/2984)) ([2b3f13e](https://github.com/sbb-design-systems/lyne-components/commit/2b3f13ed436a675a478767aa7ba4db86da83cb9e))
+* **sbb-teaser-product:** initial implementation ([#2976](https://github.com/sbb-design-systems/lyne-components/issues/2976)) ([79601d2](https://github.com/sbb-design-systems/lyne-components/commit/79601d2f28dbfff571cbe38b33d3c875ab3308a8))
+* **sbb-time-input:** add size 's' ([#3018](https://github.com/sbb-design-systems/lyne-components/issues/3018)) ([375bdad](https://github.com/sbb-design-systems/lyne-components/commit/375bdad9f8413ce00cbc1f50c6a815bb0d6e5016))
+* **sbb-timetable-row:** provide a11y footpaths ([#3048](https://github.com/sbb-design-systems/lyne-components/issues/3048)) ([cf9e70f](https://github.com/sbb-design-systems/lyne-components/commit/cf9e70fb002bc19c79eab87ab195b2549ac9499b))
+* **sbb-train-formation:** introduce new types and refactoring ([#3199](https://github.com/sbb-design-systems/lyne-components/issues/3199)) ([8eb7ae6](https://github.com/sbb-design-systems/lyne-components/commit/8eb7ae6a6b54822b069b6ab0e62b00ed9204ac77))
+* **table:** introduce table size xs ([#3077](https://github.com/sbb-design-systems/lyne-components/issues/3077)) ([9701f84](https://github.com/sbb-design-systems/lyne-components/commit/9701f844022aab1908fa8223d4df227a7f6ab587))
+
+
+### Bug Fixes
+
+* assign correct dependency versions for published packages ([#3102](https://github.com/sbb-design-systems/lyne-components/issues/3102)) ([ed99ce9](https://github.com/sbb-design-systems/lyne-components/commit/ed99ce9d3bea5b49c4919908b5c9680feb5fd2ab)), closes [#3100](https://github.com/sbb-design-systems/lyne-components/issues/3100)
+* cleanup deprecated core functionality ([#3219](https://github.com/sbb-design-systems/lyne-components/issues/3219)) ([4b129c4](https://github.com/sbb-design-systems/lyne-components/commit/4b129c4f2f581d6fa9b9ff7a96a4969f92838f86))
+* fix inert mechanism for overlays ([#2986](https://github.com/sbb-design-systems/lyne-components/issues/2986)) ([92992d2](https://github.com/sbb-design-systems/lyne-components/commit/92992d2e5915a7d44b163240f41f7bd32f254289)), closes [#2969](https://github.com/sbb-design-systems/lyne-components/issues/2969)
+* fix list colors ([#3126](https://github.com/sbb-design-systems/lyne-components/issues/3126)) ([44c2810](https://github.com/sbb-design-systems/lyne-components/commit/44c2810268e29760dbfb5e6cf8b0676ac501a3e3)), closes [#3123](https://github.com/sbb-design-systems/lyne-components/issues/3123)
+* fix type of form associated controls ([#3242](https://github.com/sbb-design-systems/lyne-components/issues/3242)) ([cbf839c](https://github.com/sbb-design-systems/lyne-components/commit/cbf839c3701b33326f576814a376ece46966594e)), closes [#3238](https://github.com/sbb-design-systems/lyne-components/issues/3238)
+* fix width breakpoints of SbbMediaMatcherController ([#3226](https://github.com/sbb-design-systems/lyne-components/issues/3226)) ([f3b192c](https://github.com/sbb-design-systems/lyne-components/commit/f3b192c75bd38dba80d6ded845d7f271f80adf83))
+* improve handling of animation events for zero duration ([#3284](https://github.com/sbb-design-systems/lyne-components/issues/3284)) ([6da37fc](https://github.com/sbb-design-systems/lyne-components/commit/6da37fc78c0864cf802950c519b2a274611acdb9))
+* introduce disabledInteractive property and revert focusing disabled actions in general ([#3096](https://github.com/sbb-design-systems/lyne-components/issues/3096)) ([74b3e6f](https://github.com/sbb-design-systems/lyne-components/commit/74b3e6f880cf22e5868ff6619855fafd73f60b2e))
+* opening and close events no longer bubble ([#3278](https://github.com/sbb-design-systems/lyne-components/issues/3278)) ([eabc4ca](https://github.com/sbb-design-systems/lyne-components/commit/eabc4ca11b7c285de81f716d7f0067418e13a8ff))
+* **option-base:** use data-active instead of active attribute ([#3055](https://github.com/sbb-design-systems/lyne-components/issues/3055)) ([92cf0ca](https://github.com/sbb-design-systems/lyne-components/commit/92cf0caa20da994ffe5738766606b6e020492467))
+* prevent using HTMLElement in SSR context ([#3107](https://github.com/sbb-design-systems/lyne-components/issues/3107)) ([333e90e](https://github.com/sbb-design-systems/lyne-components/commit/333e90e867729bdb73fb2d3b150ce1b96c407be3))
+* provide correct react typings ([#3269](https://github.com/sbb-design-systems/lyne-components/issues/3269)) ([8e0be99](https://github.com/sbb-design-systems/lyne-components/commit/8e0be99268bd52e884ec70c11c81e2e79cbd6eb7))
+* provide jsdom support for focus trap mechanism ([#3113](https://github.com/sbb-design-systems/lyne-components/issues/3113)) ([57179c1](https://github.com/sbb-design-systems/lyne-components/commit/57179c186aa28cb651ad3386059fbe2a95ee2082))
+* remove deprecated `didChange` events where possible ([#3253](https://github.com/sbb-design-systems/lyne-components/issues/3253)) ([da64d5d](https://github.com/sbb-design-systems/lyne-components/commit/da64d5d3affba1e98f57ec702c1651f17d842e35))
+* respect disabled interactive elements in focus trap ([#3108](https://github.com/sbb-design-systems/lyne-components/issues/3108)) ([fb0a1bb](https://github.com/sbb-design-systems/lyne-components/commit/fb0a1bba0aa4b83c8fe91b892af7d5baa6e8adba)), closes [#3109](https://github.com/sbb-design-systems/lyne-components/issues/3109)
+* **sbb-alert, sbb-alert-group:** remove dismissal event and method ([#3216](https://github.com/sbb-design-systems/lyne-components/issues/3216)) ([4acede6](https://github.com/sbb-design-systems/lyne-components/commit/4acede6da4d9a918f298c05f40fd0175dcb0de54))
+* **sbb-autocomplete, sbb-autocomplete-grid:** avoid form submission on enter press ([#3243](https://github.com/sbb-design-systems/lyne-components/issues/3243)) ([fe5b0a9](https://github.com/sbb-design-systems/lyne-components/commit/fe5b0a9a756d272039ebba0a9de8e12205023a46)), closes [#3239](https://github.com/sbb-design-systems/lyne-components/issues/3239)
+* **sbb-calendar:** fix disabled month selection on wide view ([#3195](https://github.com/sbb-design-systems/lyne-components/issues/3195)) ([f7ae7ea](https://github.com/sbb-design-systems/lyne-components/commit/f7ae7ea005ae48edd9a1a56c609775b79952c144))
+* **sbb-calendar:** fix month selection on wide view ([#3192](https://github.com/sbb-design-systems/lyne-components/issues/3192)) ([ecfd50d](https://github.com/sbb-design-systems/lyne-components/commit/ecfd50d0ee0c59c62a3757d6465a12f2b3f4c71b))
+* **sbb-container:** remove relative positioning for non-image case ([#3024](https://github.com/sbb-design-systems/lyne-components/issues/3024)) ([d0d928f](https://github.com/sbb-design-systems/lyne-components/commit/d0d928f8107b3e799185357f675fd2c27498bca4))
+* **sbb-datepicker-toggle:** fix datepicker toggle empty state synchronization ([#3032](https://github.com/sbb-design-systems/lyne-components/issues/3032)) ([cae910b](https://github.com/sbb-design-systems/lyne-components/commit/cae910b1e93b19e680c98967af4646617c1d9f1d))
+* **sbb-datepicker:** remove deprecated methods and properties ([#3247](https://github.com/sbb-design-systems/lyne-components/issues/3247)) ([ad6b19f](https://github.com/sbb-design-systems/lyne-components/commit/ad6b19ff5dc4e824c5f99f83eedf3f208b4492c4))
+* **sbb-dialog:** fix resizing flickering ([#3065](https://github.com/sbb-design-systems/lyne-components/issues/3065)) ([06aa927](https://github.com/sbb-design-systems/lyne-components/commit/06aa92734883e4de4ab5212cee2714f1a4736476)), closes [#3063](https://github.com/sbb-design-systems/lyne-components/issues/3063)
+* **sbb-expansion-panel-header:** fix height if disabled ([#3059](https://github.com/sbb-design-systems/lyne-components/issues/3059)) ([64eca9f](https://github.com/sbb-design-systems/lyne-components/commit/64eca9f3bb43f7cba34312193166196b848e9258))
+* **sbb-flip-card:** fix accessibility issues ([#3000](https://github.com/sbb-design-systems/lyne-components/issues/3000)) ([1f107a0](https://github.com/sbb-design-systems/lyne-components/commit/1f107a0cad33764a4be2c32b84fcceb81342aca5)), closes [#2983](https://github.com/sbb-design-systems/lyne-components/issues/2983)
+* **sbb-flip-card:** fix animation ([#3001](https://github.com/sbb-design-systems/lyne-components/issues/3001)) ([9885dfc](https://github.com/sbb-design-systems/lyne-components/commit/9885dfc31e3c24b7a23353d99877333b4f2021ab))
+* **sbb-flip-card:** fix card summary image position ([#3254](https://github.com/sbb-design-systems/lyne-components/issues/3254)) ([38c4cc5](https://github.com/sbb-design-systems/lyne-components/commit/38c4cc578b8ce9a8e4718d4c6b5f508da768d869))
+* **sbb-flip-card:** support disabled animation ([#2998](https://github.com/sbb-design-systems/lyne-components/issues/2998)) ([fbb6ca6](https://github.com/sbb-design-systems/lyne-components/commit/fbb6ca6d824e1d4d90ad3e1e0c382387ba3b00ad))
+* **sbb-flip-card:** use type button to avoid accidental form submission ([#3002](https://github.com/sbb-design-systems/lyne-components/issues/3002)) ([25dbd78](https://github.com/sbb-design-systems/lyne-components/commit/25dbd7863f37a81dbfd179c37166574a0b0502bb))
+* **sbb-form-field:** fix disabled state for borderless variant ([#2994](https://github.com/sbb-design-systems/lyne-components/issues/2994)) ([c31cc89](https://github.com/sbb-design-systems/lyne-components/commit/c31cc89e212f02579c2bde8997f49b95e6698d1e))
+* **sbb-form-field:** fix textarea bottom padding ([#2997](https://github.com/sbb-design-systems/lyne-components/issues/2997)) ([1540f46](https://github.com/sbb-design-systems/lyne-components/commit/1540f46eac791e985c6262e5ad25fba9dbd01c5c))
+* **sbb-form-field:** remove deprecated `getInputElement()` method ([#3221](https://github.com/sbb-design-systems/lyne-components/issues/3221)) ([23d1fea](https://github.com/sbb-design-systems/lyne-components/commit/23d1fea3882e91bcf75b76a95ce45cf3b5d22f38))
+* **sbb-form-field:** update floating label on programmatic changes ([#3277](https://github.com/sbb-design-systems/lyne-components/issues/3277)) ([7b49f3f](https://github.com/sbb-design-systems/lyne-components/commit/7b49f3f08e66da1b3a5afbe0e9220bc9f0552b11)), closes [#3274](https://github.com/sbb-design-systems/lyne-components/issues/3274)
+* **sbb-icon:** ensure sbb-angular compatibility ([#3081](https://github.com/sbb-design-systems/lyne-components/issues/3081)) ([ef4b587](https://github.com/sbb-design-systems/lyne-components/commit/ef4b587b047642a08a7da660264bc49086782c86))
+* **sbb-image:** fix skipLqip mode ([#3131](https://github.com/sbb-design-systems/lyne-components/issues/3131)) ([4519006](https://github.com/sbb-design-systems/lyne-components/commit/4519006b6513d4c5963675c4a1e0028ae2d27b84))
+* **sbb-image:** improve default image cdn config ([#3060](https://github.com/sbb-design-systems/lyne-components/issues/3060)) ([546cfd8](https://github.com/sbb-design-systems/lyne-components/commit/546cfd83a3427e4e07ffd3816de90370806d8a27))
+* **sbb-image:** introduce css property to configure object-fit ([#3134](https://github.com/sbb-design-systems/lyne-components/issues/3134)) ([5a4ae41](https://github.com/sbb-design-systems/lyne-components/commit/5a4ae416e02b42d47ff35a0887d036b2b6900f0e)), closes [#3133](https://github.com/sbb-design-systems/lyne-components/issues/3133)
+* **sbb-loading-indicator:** center component into his box ([#3144](https://github.com/sbb-design-systems/lyne-components/issues/3144)) ([22978f6](https://github.com/sbb-design-systems/lyne-components/commit/22978f6776598c7a457adcee4e9665229550caed))
+* **sbb-map-container:** improve support for tablet devices ([#3214](https://github.com/sbb-design-systems/lyne-components/issues/3214)) ([b1e75ee](https://github.com/sbb-design-systems/lyne-components/commit/b1e75ee592f2280d8e512bb5615be366dcf573d1)), closes [#3091](https://github.com/sbb-design-systems/lyne-components/issues/3091)
+* **sbb-mini-button:** remove useless base class ([#3257](https://github.com/sbb-design-systems/lyne-components/issues/3257)) ([ce8c318](https://github.com/sbb-design-systems/lyne-components/commit/ce8c31817facb2dbbfcc0214d3e7553b3d8caf1c))
+* **sbb-option,sbb-autocomplete-grid-option:** remove deprecated `active` property ([#3220](https://github.com/sbb-design-systems/lyne-components/issues/3220)) ([bb62e75](https://github.com/sbb-design-systems/lyne-components/commit/bb62e7580886d1c2d041af0ef60abe2478d7e1bb))
+* **sbb-overlay:** fix padding block ([#3028](https://github.com/sbb-design-systems/lyne-components/issues/3028)) ([6b95be6](https://github.com/sbb-design-systems/lyne-components/commit/6b95be6871d5b18f50d1011ac0c9ad5ab608f384))
+* **sbb-pearl-chain:** fix spacing of bullet points ([#3066](https://github.com/sbb-design-systems/lyne-components/issues/3066)) ([0f10796](https://github.com/sbb-design-systems/lyne-components/commit/0f107965aae46fecce38147b70e302a23f877d4d)), closes [#3064](https://github.com/sbb-design-systems/lyne-components/issues/3064)
+* **sbb-popover:** ensure correct trigger connection after hydration ([#3016](https://github.com/sbb-design-systems/lyne-components/issues/3016)) ([5e59b8f](https://github.com/sbb-design-systems/lyne-components/commit/5e59b8ff491029385d7708ea62f39514285c6f5a)), closes [#3012](https://github.com/sbb-design-systems/lyne-components/issues/3012) [#3014](https://github.com/sbb-design-systems/lyne-components/issues/3014)
+* **sbb-radio-group:** avoid focusing disabled radios ([#3125](https://github.com/sbb-design-systems/lyne-components/issues/3125)) ([e4745c4](https://github.com/sbb-design-systems/lyne-components/commit/e4745c4cf50a2ab2c8c6e3e0090971c0e0626834))
+* **sbb-radio-group:** disable focus when disabling radio ([#3116](https://github.com/sbb-design-systems/lyne-components/issues/3116)) ([6453b6b](https://github.com/sbb-design-systems/lyne-components/commit/6453b6b9c77e8032171e04698f8ed7658e7869d5))
+* **sbb-select:** fix display value in SSR context ([#3027](https://github.com/sbb-design-systems/lyne-components/issues/3027)) ([f733b38](https://github.com/sbb-design-systems/lyne-components/commit/f733b38e2aa3f4fe5eef73749d6611f748f3f17e))
+* **sbb-select:** improve connected label handling ([#3229](https://github.com/sbb-design-systems/lyne-components/issues/3229)) ([0c41fb2](https://github.com/sbb-design-systems/lyne-components/commit/0c41fb21ca2bf3db2bb514dad87e9fb11f97e931))
+* **sbb-tab-group:** correctly select a new tab if it is 'active' ([#3251](https://github.com/sbb-design-systems/lyne-components/issues/3251)) ([ed975f7](https://github.com/sbb-design-systems/lyne-components/commit/ed975f7f70f367a2788582c01f287bc34a27268a))
+* **sbb-teaser, sbb-teaser-product:** allow screen readers to navigate the content ([#3250](https://github.com/sbb-design-systems/lyne-components/issues/3250)) ([487faa3](https://github.com/sbb-design-systems/lyne-components/commit/487faa311056773561c9efb0712ff3ae0667b835))
+* **sbb-teaser:** allow teaser usage in flexible layouts ([#3140](https://github.com/sbb-design-systems/lyne-components/issues/3140)) ([a51507b](https://github.com/sbb-design-systems/lyne-components/commit/a51507bf2af94a5cb8b91e9028fcc333da28cbf2)), closes [#3136](https://github.com/sbb-design-systems/lyne-components/issues/3136)
+* **sbb-teaser:** css variable typo ([#3143](https://github.com/sbb-design-systems/lyne-components/issues/3143)) ([d3e4fb3](https://github.com/sbb-design-systems/lyne-components/commit/d3e4fb3c527059574195cf58686ca6bf3a599cdc))
+* **sbb-time-input:** create get/set for valueAsDate ([#2244](https://github.com/sbb-design-systems/lyne-components/issues/2244)) ([7d39928](https://github.com/sbb-design-systems/lyne-components/commit/7d39928320c529f6dffd9ad34c79015b15835832))
+* **sbb-toggle:** avoid console error on checked option click ([#3034](https://github.com/sbb-design-systems/lyne-components/issues/3034)) ([94fa2b6](https://github.com/sbb-design-systems/lyne-components/commit/94fa2b64a2691cea45322dd521da74eb4e29b7e1))
+* **sbb-toggle:** fix pill position on value change and initial rendering ([#3015](https://github.com/sbb-design-systems/lyne-components/issues/3015)) ([bd03798](https://github.com/sbb-design-systems/lyne-components/commit/bd03798f96ba7a1e83266e800ed3d12f971a2612)), closes [#3013](https://github.com/sbb-design-systems/lyne-components/issues/3013)
+* **step-list:** fix border radius of step list elements ([#3036](https://github.com/sbb-design-systems/lyne-components/issues/3036)) ([cf26d07](https://github.com/sbb-design-systems/lyne-components/commit/cf26d0703f15e84cd79da9d8ddac597ac8650b15))
+* switch to standard decorators and tighten property types ([#3121](https://github.com/sbb-design-systems/lyne-components/issues/3121)) ([e61bca5](https://github.com/sbb-design-systems/lyne-components/commit/e61bca5ccb1c1c339a8e989bb0fd9ad33e27df34))
+* warn about nested action elements ([#3058](https://github.com/sbb-design-systems/lyne-components/issues/3058)) ([5b1a823](https://github.com/sbb-design-systems/lyne-components/commit/5b1a8233f543fb4bd0f7cf8e795f2fa6a37e5a3b))
+
+
+### Documentation
+
+* fix link in the contributing guideline ([#3283](https://github.com/sbb-design-systems/lyne-components/issues/3283)) ([16464fb](https://github.com/sbb-design-systems/lyne-components/commit/16464fb49f5f4e54b433d93561f9882d458ac6a9))
+* fix package names ([#3282](https://github.com/sbb-design-systems/lyne-components/issues/3282)) ([2364424](https://github.com/sbb-design-systems/lyne-components/commit/2364424e4c6f05e2d64eea3061f0e017a5a99791))
+* fix SASS link in getting started docs ([#3151](https://github.com/sbb-design-systems/lyne-components/issues/3151)) ([692a72d](https://github.com/sbb-design-systems/lyne-components/commit/692a72df42efbf600869e45896f44488d708d91d))
+* **sbb-autocomplete-grid:** fix urls in readme.md ([#2979](https://github.com/sbb-design-systems/lyne-components/issues/2979)) ([7aa916f](https://github.com/sbb-design-systems/lyne-components/commit/7aa916fb3498b66073239e0e0bea893c7abe5e89))
+* **sbb-card:** cleanup stories and visual tests ([#3225](https://github.com/sbb-design-systems/lyne-components/issues/3225)) ([dd8d644](https://github.com/sbb-design-systems/lyne-components/commit/dd8d644f0e160e7f744bfd22e95498b74f0c4d95))
+* standardize todos in code ([a3d0b51](https://github.com/sbb-design-systems/lyne-components/commit/a3d0b5154b327d45a0a918f99be87cac6afd99c1))
+* **teaser-product:** fixed broken link in documentation ([#3029](https://github.com/sbb-design-systems/lyne-components/issues/3029)) ([f7e9807](https://github.com/sbb-design-systems/lyne-components/commit/f7e98073e3f2724ddb491c625d18422bdb82f64d))
+
+
+### Code Refactoring
+
+* add SbbMediaMatcherController ([#3205](https://github.com/sbb-design-systems/lyne-components/issues/3205)) ([39fa565](https://github.com/sbb-design-systems/lyne-components/commit/39fa5656742dd6f75c9be68994dcd19806142121))
+* change react to a peer dependency ([1e806ed](https://github.com/sbb-design-systems/lyne-components/commit/1e806ed39fdb99a993f578314b275ce2073acaf3))
+* fix scss mixed declarations ([#2947](https://github.com/sbb-design-systems/lyne-components/issues/2947)) ([ca22eda](https://github.com/sbb-design-systems/lyne-components/commit/ca22eda48c9d51ac12cc4efbf7b33c9a213d49b9))
+* remove async modifier from willUpdate ([#3223](https://github.com/sbb-design-systems/lyne-components/issues/3223)) ([30292e9](https://github.com/sbb-design-systems/lyne-components/commit/30292e9986730acbb03604bfd4e710976e76875e))
+* remove dvh/dvw backwards compatibility ([#3228](https://github.com/sbb-design-systems/lyne-components/issues/3228)) ([ef10abb](https://github.com/sbb-design-systems/lyne-components/commit/ef10abb9149f2aa1bacd77119920de2421ba01f6))
+* remove font-smoothing ([#3052](https://github.com/sbb-design-systems/lyne-components/issues/3052)) ([489ef28](https://github.com/sbb-design-systems/lyne-components/commit/489ef28cfc8a5120d360cf4567ffb3582433c4c0))
+* remove obsolete `getLocalName()` ([#3110](https://github.com/sbb-design-systems/lyne-components/issues/3110)) ([f349463](https://github.com/sbb-design-systems/lyne-components/commit/f3494636331ed2b1437816d57ffc94fe5d7a93f1))
+* remove obsolete index.ts files ([#3147](https://github.com/sbb-design-systems/lyne-components/issues/3147)) ([837106d](https://github.com/sbb-design-systems/lyne-components/commit/837106d934897417101e553001c718bd5e6c9783))
+* replace [rtl] and [ltr] selectors with :dir ([#3084](https://github.com/sbb-design-systems/lyne-components/issues/3084)) ([164e3bc](https://github.com/sbb-design-systems/lyne-components/commit/164e3bcdb2dae19c8b63aafb762318f3a2aebab4))
+* **sbb-alert:** remove sbb-link from shadow DOM ([#3270](https://github.com/sbb-design-systems/lyne-components/issues/3270)) ([8197bf1](https://github.com/sbb-design-systems/lyne-components/commit/8197bf1a07d25792795d9990526366dc404176f2))
+* **sbb-chip-label:** rename chip to chip-label ([#3188](https://github.com/sbb-design-systems/lyne-components/issues/3188)) ([4b2123d](https://github.com/sbb-design-systems/lyne-components/commit/4b2123dcb30591a6a158716ea0e8efde99cf309a))
+* **sbb-header:** removed 'logo' slot ([#3230](https://github.com/sbb-design-systems/lyne-components/issues/3230)) ([0f0066d](https://github.com/sbb-design-systems/lyne-components/commit/0f0066d528439263304895f754b55fae85d9f32f))
+* **sbb-image:** add utility classes for border-radius and aspect-ratio ([#3200](https://github.com/sbb-design-systems/lyne-components/issues/3200)) ([a59064e](https://github.com/sbb-design-systems/lyne-components/commit/a59064e7e0c80951d484cc5d54d0efe9a6265fc0))
+* **sbb-image:** extract caption and copyright from the component ([#3200](https://github.com/sbb-design-systems/lyne-components/issues/3200)) ([a59064e](https://github.com/sbb-design-systems/lyne-components/commit/a59064e7e0c80951d484cc5d54d0efe9a6265fc0))
+* **sbb-loading-indicator:** split variants into two components and add missing sizes ([#3211](https://github.com/sbb-design-systems/lyne-components/issues/3211)) ([d450f49](https://github.com/sbb-design-systems/lyne-components/commit/d450f49708ddcb03ff690e3b9bd887a496b0d4cb))
+* **sbb-teaser-hero:** adapt to the new `sbb-image` usage ([#3200](https://github.com/sbb-design-systems/lyne-components/issues/3200)) ([a59064e](https://github.com/sbb-design-systems/lyne-components/commit/a59064e7e0c80951d484cc5d54d0efe9a6265fc0))
+* **sbb-teaser, sbb-teaser-product, sbb-teaser-product-static:** adapt to the new `sbb-image` usage ([#3200](https://github.com/sbb-design-systems/lyne-components/issues/3200)) ([a59064e](https://github.com/sbb-design-systems/lyne-components/commit/a59064e7e0c80951d484cc5d54d0efe9a6265fc0))
+* **sbb-tertiary-button:** rename tertiary to accent button ([#3260](https://github.com/sbb-design-systems/lyne-components/issues/3260)) ([449b04d](https://github.com/sbb-design-systems/lyne-components/commit/449b04db06dc62a9b59c5d158caeabaa61016be8))
+* use --sbb-hover-image-brightness token for images ([#3045](https://github.com/sbb-design-systems/lyne-components/issues/3045)) ([75b44c2](https://github.com/sbb-design-systems/lyne-components/commit/75b44c278cf921cc24d86c82755224e6a27258fb))
+* use inert attribute instead of property hack ([#3099](https://github.com/sbb-design-systems/lyne-components/issues/3099)) ([fdd2862](https://github.com/sbb-design-systems/lyne-components/commit/fdd2862c31e295abaac2e9f315039b8f43bf7456))
+* use lit observers ([#3074](https://github.com/sbb-design-systems/lyne-components/issues/3074)) ([3e554eb](https://github.com/sbb-design-systems/lyne-components/commit/3e554eb00ee53e1cb7e7f622d0f6252706e7433e))
+
+
+### Styles
+
+* **sbb-dialog, sbb-link:** removed `break-word` css rule ([#3231](https://github.com/sbb-design-systems/lyne-components/issues/3231)) ([edcdec1](https://github.com/sbb-design-systems/lyne-components/commit/edcdec16fa02e71b87095f64d606c42d6ec9c176))
+
+
+### Miscellaneous Chores
+
+* release 1.7.0 ([b486bb4](https://github.com/sbb-design-systems/lyne-components/commit/b486bb465af2b6dc0200e6033d51ce6941f8eac1))
+* release 2.0.0 ([5e6087f](https://github.com/sbb-design-systems/lyne-components/commit/5e6087f3b841753b9fa25ba2a5c750ddde5a9f0c))
+
+
+### Tests
+
+* remove obsolete waitForEvent() method ([#3210](https://github.com/sbb-design-systems/lyne-components/issues/3210)) ([dba0322](https://github.com/sbb-design-systems/lyne-components/commit/dba0322d6e9be579d993f4eb138f0deb2c624adc))
+
 ## [2.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.14.0...v2.0.0) (2024-12-11)
 
 
