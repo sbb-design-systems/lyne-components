@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.15.1...v1.16.0) (2024-12-11)
+
+
+### Features
+
+* provide scrollbar and table styles as CSS classes ([#3285](https://github.com/sbb-design-systems/lyne-components/issues/3285)) ([156aa35](https://github.com/sbb-design-systems/lyne-components/commit/156aa35c2deccbb6537de0e27998d9e97a0c5f40)), closes [#3271](https://github.com/sbb-design-systems/lyne-components/issues/3271)
+
+
+### Bug Fixes
+
+* **sbb-form-field:** update floating label on programmatic changes ([#3277](https://github.com/sbb-design-systems/lyne-components/issues/3277)) ([922bc3c](https://github.com/sbb-design-systems/lyne-components/commit/922bc3c3d5f92e7cdd4d6b7cf2806a58fce38e2d)), closes [#3274](https://github.com/sbb-design-systems/lyne-components/issues/3274)
+* **sbb-tab-group:** correctly select a new tab if it is 'active' ([#3251](https://github.com/sbb-design-systems/lyne-components/issues/3251)) ([c2f0f36](https://github.com/sbb-design-systems/lyne-components/commit/c2f0f362e757b88ef0fb84944aade98884682b66))
+
+
+### Documentation
+
+* fix link in the contributing guideline ([#3283](https://github.com/sbb-design-systems/lyne-components/issues/3283)) ([d5aeadf](https://github.com/sbb-design-systems/lyne-components/commit/d5aeadf9582a2fe363a2b3d6eb11148bc1f162d0))
+* fix package names ([#3282](https://github.com/sbb-design-systems/lyne-components/issues/3282)) ([5909f9c](https://github.com/sbb-design-systems/lyne-components/commit/5909f9ceacc1a6196ccc3872a8a032b94be6e9f9))
+
 ## [1.15.1](https://github.com/sbb-design-systems/lyne-components/compare/v1.15.0...v1.15.1) (2024-12-03)
 
 
