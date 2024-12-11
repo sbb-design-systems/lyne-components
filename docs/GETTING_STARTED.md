@@ -211,6 +211,8 @@ However, if you like to more specifically pick what you need, consider the follo
 | `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing).                       |
 | `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                      |
 | `lists.css`                     | Provides CSS classes to style lists.                                                |
+| `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                          |
+| `table.css`                     | Provides CSS classes to style a table.                                              |
 | `typography.css`                | Provides typography related CSS classes.                                            |
 
 ### Full Font
