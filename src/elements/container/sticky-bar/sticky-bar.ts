@@ -9,6 +9,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
+import { isZeroAnimationDuration } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 
@@ -57,13 +58,22 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     return this.getAttribute('data-state') as StickyState;
   }
 
-  private _willStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.willStick);
-  private _didStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.didStick);
+  private _willStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.willStick, {
+    cancelable: true,
+  });
+  private _didStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.didStick, {
+    cancelable: true,
+  });
   private _willUnstick: EventEmitter = new EventEmitter(
     this,
     SbbStickyBarElement.events.willUnstick,
+    { cancelable: true },
   );
-  private _didUnstick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.didUnstick);
+  private _didUnstick: EventEmitter = new EventEmitter(
+    this,
+    SbbStickyBarElement.events.didUnstick,
+    { cancelable: true },
+  );
 
   private _intersector?: HTMLSpanElement;
   private _observer = new IntersectionController(this, {
@@ -105,6 +115,10 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     this._observer.observe(this);
   }
 
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-sticky-bar-slide-vertically-animation-duration');
+  }
+
   private _detectStickyState(entry: IntersectionObserverEntry): void {
     this.toggleAttribute('data-initialized', true);
 
@@ -143,7 +157,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     }
 
     this._state = 'sticking';
-    if (!this.hasAttribute('data-sticking')) {
+    if (!this.hasAttribute('data-sticking') || this._isZeroAnimationDuration()) {
       this._stickyCallback();
     }
   }
@@ -156,7 +170,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
     this._state = 'unsticking';
 
-    if (!this.hasAttribute('data-sticking')) {
+    if (!this.hasAttribute('data-sticking') || this._isZeroAnimationDuration()) {
       this._unstickyCallback();
     }
   }

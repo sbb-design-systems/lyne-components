@@ -5,7 +5,7 @@ snapshots["sbb-notification renders DOM"] =
 `<sbb-notification
   animation="all"
   data-slot-names="unnamed"
-  data-state="opening"
+  data-state="opened"
   size="m"
   type="info"
 >
@@ -68,7 +68,7 @@ snapshots["sbb-notification renders with a title DOM"] =
 `<sbb-notification
   animation="all"
   data-slot-names="unnamed"
-  data-state="opening"
+  data-state="opened"
   size="m"
   title-content="Title"
   type="info"
@@ -133,7 +133,7 @@ snapshots["sbb-notification renders with a slotted title DOM"] =
 `<sbb-notification
   animation="all"
   data-slot-names="title unnamed"
-  data-state="opening"
+  data-state="opened"
   size="m"
   type="info"
 >
@@ -199,7 +199,7 @@ snapshots["sbb-notification renders without the close button DOM"] =
 `<sbb-notification
   animation="all"
   data-slot-names="unnamed"
-  data-state="opening"
+  data-state="opened"
   readonly=""
   size="m"
   title-content="Title"
@@ -245,7 +245,7 @@ snapshots["sbb-notification renders size s DOM"] =
 `<sbb-notification
   animation="all"
   data-slot-names="unnamed"
-  data-state="opening"
+  data-state="opened"
   size="s"
   title-content="Title"
   type="info"

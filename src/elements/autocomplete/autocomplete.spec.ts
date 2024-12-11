@@ -1,4 +1,4 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -40,8 +40,8 @@ describe(`sbb-autocomplete`, () => {
       expect(input).to.have.attribute('role', 'combobox');
       expect(input).to.have.attribute('aria-autocomplete', 'list');
       expect(input).to.have.attribute('aria-haspopup', 'listbox');
-      expect(input).to.have.attribute('aria-controls', 'myAutocomplete');
-      expect(input).to.have.attribute('aria-owns', 'myAutocomplete');
+      expect(input).to.have.attribute('aria-controls', element.id);
+      expect(input).to.have.attribute('aria-owns', element.id);
       expect(input).to.have.attribute('aria-expanded', 'false');
     });
   });
@@ -53,23 +53,26 @@ describe(`sbb-autocomplete`, () => {
 
       expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
+      const id = element.shadowRoot!.querySelector('.sbb-autocomplete__options')!.id;
+
       expect(input).to.have.attribute('autocomplete', 'off');
       expect(input).to.have.attribute('role', 'combobox');
       expect(input).to.have.attribute('aria-autocomplete', 'list');
       expect(input).to.have.attribute('aria-haspopup', 'listbox');
-      expect(input).to.have.attribute('aria-controls', 'sbb-autocomplete-8');
-      expect(input).to.have.attribute('aria-owns', 'sbb-autocomplete-8');
+      expect(input).to.have.attribute('aria-controls', id);
+      expect(input).to.have.attribute('aria-owns', id);
       expect(input).to.have.attribute('aria-expanded', 'false');
     });
   });
 
   it('opens and closes with mouse and keyboard', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose, element);
 
-    input.click();
+    input.focus();
+
     await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
 
@@ -115,8 +118,24 @@ describe(`sbb-autocomplete`, () => {
     expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
+  it('opens and closes with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose, element);
+
+    input.focus();
+
+    await didOpenEventSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+
+    await sendKeys({ press: 'Escape' });
+    await didCloseEventSpy.calledOnce();
+
+    expect(input).to.have.attribute('aria-expanded', 'false');
+  });
+
   it('select by mouse', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
@@ -140,16 +159,17 @@ describe(`sbb-autocomplete`, () => {
     expect(changeEventSpy.count).to.be.equal(1);
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(optionSelectedEventSpy.firstEvent!.target).to.have.property('id', 'option-2');
+    expect(document.activeElement).to.be.equal(input);
   });
 
   it('opens and select with keyboard', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose, element);
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
-    const optOne = element.querySelector('#option-1');
-    const optTwo = element.querySelector('#option-2');
+    const optOne = element.querySelector<SbbOptionElement>('#option-1');
+    const optTwo = element.querySelector<SbbOptionElement>('#option-2');
     const keydownSpy = new EventSpy('keydown', input);
 
     input.focus();
@@ -178,6 +198,20 @@ describe(`sbb-autocomplete`, () => {
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
     expect(input).not.to.have.attribute('aria-activedescendant');
+  });
+
+  it('should not close on disabled option click', async () => {
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const optOne = element.querySelector<SbbOptionElement>('#option-1')!;
+    optOne.disabled = true;
+
+    input.focus();
+    await didOpenEventSpy.calledOnce();
+
+    optOne.click();
+
+    await aTimeout(0);
+    expect(element).to.have.attribute('data-state', 'opened');
   });
 
   it('should stay closed when disabled', async () => {
@@ -213,7 +247,7 @@ describe(`sbb-autocomplete`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen, element);
 
     element.addEventListener(SbbAutocompleteElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
@@ -226,8 +260,8 @@ describe(`sbb-autocomplete`, () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose, element);
 
     element.open();
     await didOpenEventSpy.calledOnce();

@@ -65,10 +65,10 @@ describe(`sbb-expansion-panel`, () => {
     const toggleExpandedEventSpy = new EventSpy(
       SbbExpansionPanelHeaderElement.events.toggleExpanded,
     );
-    const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen);
-    const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose);
-    const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose, element);
+    const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose, element);
 
     await waitForLitRender(element);
 
@@ -128,5 +128,21 @@ describe(`sbb-expansion-panel`, () => {
     await waitForLitRender(element);
     expect(header).to.have.attribute('data-size', 'l');
     expect(content).to.have.attribute('data-size', 'l');
+  });
+
+  it('should fire animation events with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-expansion-panel-animation-duration', '1ms');
+
+    const didOpenSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen, element);
+    const didCloseSpy = new EventSpy(SbbExpansionPanelElement.events.didClose, element);
+
+    element.expanded = true;
+
+    await didOpenSpy.calledOnce();
+
+    element.expanded = false;
+
+    await didCloseSpy.calledOnce();
+    expect(didCloseSpy.count).to.be.equal(1);
   });
 });

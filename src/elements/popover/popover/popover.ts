@@ -10,9 +10,9 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbMediaQueryPointerCoarse, SbbLanguageController } from '../../core/controllers.js';
+import { SbbLanguageController, SbbMediaQueryPointerCoarse } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { findReferencedElement } from '../../core/dom.js';
+import { findReferencedElement, isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
@@ -89,12 +89,14 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   protected override willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
     SbbPopoverElement.events.willClose,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-popover` is closed. */
   protected override didClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
     SbbPopoverElement.events.didClose,
+    { cancelable: true },
   );
 
   private _overlay!: HTMLDivElement;
@@ -136,6 +138,12 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
     this._skipCloseFocus = false;
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleOpening();
+    }
   }
 
   /** Closes the popover. */
@@ -152,6 +160,45 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this.state = 'closing';
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `closed` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleClosing();
+    }
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-popover-animation-duration');
+  }
+
+  private _handleClosing(): void {
+    this.state = 'closed';
+    this._overlay?.firstElementChild?.scrollTo(0, 0);
+    this._overlay?.removeAttribute('tabindex');
+
+    if (!this._skipCloseFocus) {
+      const elementToFocus = this._nextFocusedElement || this._triggerElement;
+
+      setModalityOnNextFocus(elementToFocus);
+      // To enable focusing other element than the trigger, we need to call focus() a second time.
+      elementToFocus?.focus();
+    }
+
+    this.didClose.emit({ closeTarget: this._popoverCloseElement });
+    this._openStateController?.abort();
+    this._focusHandler.disconnect();
+  }
+
+  private _handleOpening(): void {
+    this.state = 'opened';
+    this.didOpen.emit();
+    this.inert = false;
+    this._attachWindowEvents();
+    this._setPopoverFocus();
+    this._focusHandler.trap(this, {
+      postFilter: (el) => el !== this._overlay,
+    });
   }
 
   // Closes the popover on "Esc" key pressed and traps focus within the popover.
@@ -349,30 +396,9 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onPopoverAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
-      this.state = 'opened';
-      this.didOpen.emit();
-      this.inert = false;
-      this._attachWindowEvents();
-      this._setPopoverFocus();
-      this._focusHandler.trap(this, {
-        postFilter: (el) => el !== this._overlay,
-      });
+      this._handleOpening();
     } else if (event.animationName === 'close' && this.state === 'closing') {
-      this.state = 'closed';
-      this._overlay?.firstElementChild?.scrollTo(0, 0);
-      this._overlay?.removeAttribute('tabindex');
-
-      if (!this._skipCloseFocus) {
-        const elementToFocus = this._nextFocusedElement || this._triggerElement;
-
-        setModalityOnNextFocus(elementToFocus);
-        // To enable focusing other element than the trigger, we need to call focus() a second time.
-        elementToFocus?.focus();
-      }
-
-      this.didClose.emit({ closeTarget: this._popoverCloseElement });
-      this._openStateController?.abort();
-      this._focusHandler.disconnect();
+      this._handleClosing();
     }
   }
 
@@ -463,7 +489,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     return html`
       <div class="sbb-popover__container">
         <div
-          @animationend=${(event: AnimationEvent) => this._onPopoverAnimationEnd(event)}
+          @animationend=${this._onPopoverAnimationEnd}
           class="sbb-popover"
           role="tooltip"
           ${ref((el?: Element) => (this._overlay = el as HTMLDivElement))}

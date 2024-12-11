@@ -7,7 +7,7 @@
   --sbb-loading-indicator-color: var(--sbb-color-red);
   --sbb-loading-indicator-padding: 0;
   --sbb-loading-indicator-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
   --sbb-loading-indicator-window-element-rotation: 55.24deg;

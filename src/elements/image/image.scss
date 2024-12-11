@@ -6,7 +6,7 @@
 :host {
   --sbb-image-aspect-ratio: 16 / 9;
   --sbb-image-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
   --sbb-image-object-fit: cover;

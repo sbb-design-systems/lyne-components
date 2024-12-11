@@ -5,7 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
@@ -90,24 +90,28 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbExpansionPanelElement.events.willOpen,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-expansion-panel` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbExpansionPanelElement.events.didOpen,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-expansion-panel` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbExpansionPanelElement.events.willClose,
+    { cancelable: true },
   );
 
   /** Emits whenever the `sbb-expansion-panel` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbExpansionPanelElement.events.didClose,
+    { cancelable: true },
   );
 
   private _progressiveId = `-${++nextId}`;
@@ -152,25 +156,46 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     this._contentRef?.setAttribute('aria-hidden', String(!this.expanded));
 
     if (this.expanded) {
-      this._open(!this._initialized);
+      this._open();
     } else if (this._state === 'opened') {
       this._close();
     }
   }
 
-  private _open(skipAnimation = false): void {
+  private _open(): void {
     this._state = 'opening';
     this._willOpen.emit();
 
-    if (skipAnimation) {
-      this._state = 'opened';
-      this._didOpen.emit();
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (!this._initialized || this._isZeroAnimationDuration()) {
+      this._handleOpening();
     }
   }
 
   private _close(): void {
     this._state = 'closing';
     this._willClose.emit();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `closed` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleClosing();
+    }
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-expansion-panel-animation-duration');
+  }
+
+  private _handleOpening(): void {
+    this._state = 'opened';
+    this._didOpen.emit();
+  }
+
+  private _handleClosing(): void {
+    this._state = 'closed';
+    this._didClose.emit();
   }
 
   private _updateDisabledOnHeader(newDisabledValue: boolean): void {
@@ -216,11 +241,9 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open-opacity' && this._state === 'opening') {
-      this._state = 'opened';
-      this._didOpen.emit();
+      this._handleOpening();
     } else if (event.animationName === 'close' && this._state === 'closing') {
-      this._state = 'closed';
-      this._didClose.emit();
+      this._handleClosing();
     }
   }
 

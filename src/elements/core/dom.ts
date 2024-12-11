@@ -1,3 +1,4 @@
+export * from './dom/animation.js';
 export * from './dom/breakpoint.js';
 export * from './dom/find-referenced-element.js';
 export * from './dom/host-context.js';

@@ -3,11 +3,9 @@
 // ----------------------------------------------------------------------------------------------------
 
 @mixin disable-animation {
-  --sbb-disable-animation-duration: 0.1ms;
-  --sbb-disable-animation-zero-duration: 0s;
+  --sbb-disable-animation-duration: 0s;
 }
 
 @mixin enable-animation {
   --sbb-disable-animation-duration: initial;
-  --sbb-disable-animation-zero-duration: initial;
 }

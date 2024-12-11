@@ -14,7 +14,7 @@ describe(`sbb-toast`, () => {
   let element: SbbToastElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <sbb-toast></sbb-toast> `);
+    element = await fixture(html`<sbb-toast></sbb-toast>`);
   });
 
   it('renders and sets the correct attributes', async () => {
@@ -25,10 +25,10 @@ describe(`sbb-toast`, () => {
   });
 
   it('opens and closes after timeout', async () => {
-    const willOpenEventSpy = new EventSpy(SbbToastElement.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbToastElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose, element);
 
     element.setAttribute('timeout', '50');
     await waitForLitRender(element);
@@ -59,9 +59,9 @@ describe(`sbb-toast`, () => {
   });
 
   it('closes by dismiss button click', async () => {
-    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose, element);
 
     element.toggleAttribute('dismissible', true);
     await waitForLitRender(element);
@@ -94,9 +94,9 @@ describe(`sbb-toast`, () => {
     `);
     const actionBtn = element.querySelector('sbb-transparent-button') as HTMLElement;
 
-    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose, element);
 
     element.open();
     await waitForLitRender(element);
@@ -168,7 +168,7 @@ describe(`sbb-toast`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbToastElement.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbToastElement.events.willOpen, element);
 
     element.addEventListener(SbbToastElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
@@ -181,8 +181,8 @@ describe(`sbb-toast`, () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose, element);
 
     element.open();
     await didOpenEventSpy.calledOnce();
@@ -195,5 +195,27 @@ describe(`sbb-toast`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+  });
+
+  it('closes by dismiss button click with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-toast-animation-duration', '1ms');
+    element.toggleAttribute('dismissible', true);
+    await waitForLitRender(element);
+
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose, element);
+
+    element.open();
+    await waitForLitRender(element);
+
+    await didOpenEventSpy.calledOnce();
+
+    const dismissBtn =
+      element.shadowRoot!.querySelector<SbbTransparentButtonElement>('sbb-transparent-button')!;
+    dismissBtn.click();
+
+    await waitForLitRender(element);
+    await didCloseEventSpy.calledOnce();
+    expect(element.getAttribute('data-state')).to.be.equal('closed');
   });
 });

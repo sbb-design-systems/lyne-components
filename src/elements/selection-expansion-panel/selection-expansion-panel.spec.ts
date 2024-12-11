@@ -138,8 +138,12 @@ describe(`sbb-selection-expansion-panel`, () => {
     let didOpenEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen);
-      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen);
+      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen, null, {
+        capture: true,
+      });
+      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen, null, {
+        capture: true,
+      });
 
       wrapper = await fixture(getPageContent('radio-button'));
       elements = Array.from(wrapper.querySelectorAll('sbb-selection-expansion-panel'));
@@ -163,8 +167,12 @@ describe(`sbb-selection-expansion-panel`, () => {
     });
 
     it('selects input on click and shows related content', async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen);
-      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen);
+      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen, null, {
+        capture: true,
+      });
+      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen, null, {
+        capture: true,
+      });
 
       await waitForLitRender(wrapper);
 
@@ -328,10 +336,18 @@ describe(`sbb-selection-expansion-panel`, () => {
     let didCloseEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen);
-      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen);
-      willCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willClose);
-      didCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didClose);
+      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen, null, {
+        capture: true,
+      });
+      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen, null, {
+        capture: true,
+      });
+      willCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willClose, null, {
+        capture: true,
+      });
+      didCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didClose, null, {
+        capture: true,
+      });
 
       nestedElement = await fixture(html`
         <sbb-radio-button-group orientation="vertical" horizontal-from="large">
@@ -531,10 +547,18 @@ describe(`sbb-selection-expansion-panel`, () => {
     let didCloseEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen);
-      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen);
-      willCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willClose);
-      didCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didClose);
+      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen, null, {
+        capture: true,
+      });
+      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen, null, {
+        capture: true,
+      });
+      willCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willClose, null, {
+        capture: true,
+      });
+      didCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didClose, null, {
+        capture: true,
+      });
 
       wrapper = await fixture(getPageContent('checkbox'));
       elements = Array.from(wrapper.querySelectorAll('sbb-selection-expansion-panel'));
@@ -559,7 +583,6 @@ describe(`sbb-selection-expansion-panel`, () => {
     });
 
     it('selects input on click and shows related content', async () => {
-      await waitForLitRender(wrapper);
       await didOpenEventSpy.calledOnce();
 
       expect(willOpenEventSpy.count).to.be.equal(1);
@@ -578,6 +601,24 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(firstInput.checked).to.be.true;
       expect(firstPanel).to.have.attribute('data-state', 'opened');
       expect(secondInput.checked).to.be.true;
+      expect(secondPanel).to.have.attribute('data-state', 'opened');
+    });
+
+    it('selects input on click with non-zero-animation duration', async () => {
+      elements.forEach((panel) =>
+        panel.style.setProperty('--sbb-selection-expansion-panel-animation-duration', '1ms'),
+      );
+      await didOpenEventSpy.calledOnce();
+      expect(firstPanel).to.have.attribute('data-state', 'opened');
+
+      firstInput.click();
+      secondInput.click();
+
+      await waitForLitRender(wrapper);
+      await didOpenEventSpy.calledTimes(2);
+      await didCloseEventSpy.calledOnce();
+
+      expect(firstPanel).to.have.attribute('data-state', 'closed');
       expect(secondPanel).to.have.attribute('data-state', 'opened');
     });
 

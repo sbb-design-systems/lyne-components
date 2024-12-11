@@ -6,7 +6,7 @@ import { hostAttributes } from '../../core/decorators.js';
 import { isSafari } from '../../core/dom.js';
 import { setAriaComboBoxAttributes } from '../../core/overlay.js';
 import type { SbbDividerElement } from '../../divider.js';
-import type { SbbOptGroupElement, SbbOptionElement } from '../../option.js';
+import type { SbbOptGroupElement } from '../../option.js';
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 import type { SbbAutocompleteGridRowElement } from '../autocomplete-grid-row.js';
@@ -52,16 +52,6 @@ class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
         (row) => !row.hasAttribute('data-disabled'),
       ) ?? []
     );
-  }
-
-  protected onOptionClick(event: MouseEvent): void {
-    if (
-      (event.target as Element).localName !== 'sbb-autocomplete-grid-option' ||
-      (event.target as SbbOptionElement).disabled
-    ) {
-      return;
-    }
-    this.close();
   }
 
   public override connectedCallback(): void {

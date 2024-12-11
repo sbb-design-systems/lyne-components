@@ -9,7 +9,7 @@ import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
-import { isNextjs, isSafari, setOrRemoveAttribute } from '../core/dom.js';
+import { isNextjs, isSafari, isZeroAnimationDuration, setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
   type FormRestoreReason,
@@ -219,6 +219,12 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
     this.state = 'opening';
     this._setOverlayPosition();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleOpening();
+    }
   }
 
   /** Closes the selection panel. */
@@ -232,6 +238,16 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
     this.state = 'closing';
     this._openPanelEventsController.abort();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `closed` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleClosing();
+    }
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-options-panel-animation-duration');
   }
 
   /** Gets the current displayed value. */
@@ -246,17 +262,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       this._onOptionSelected(target);
     } else {
       this._onOptionDeselected(target);
-    }
-  }
-
-  private _onOptionClick(event: MouseEvent): void {
-    const target = event.target as SbbSelectElement | SbbOptionElement;
-    if (target.localName !== 'sbb-option' || target.disabled) {
-      return;
-    }
-
-    if (!this.multiple) {
-      this.close();
     }
   }
 
@@ -350,8 +355,16 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this.addEventListener(
       'click',
       (e: MouseEvent) => {
-        this._onOptionClick(e);
-        this._toggleOpening();
+        const target = e.target as SbbSelectElement | SbbOptionElement;
+        if (target.localName === 'sbb-option') {
+          // Option click
+          if (!this.multiple && !target.disabled) {
+            this.close();
+            this.focus();
+          }
+        } else {
+          this._toggleOpening();
+        }
       },
       { signal },
     );
@@ -473,13 +486,13 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
-      this._onOpenAnimationEnd();
+      this._handleOpening();
     } else if (event.animationName === 'close' && this.state === 'closing') {
-      this._onCloseAnimationEnd();
+      this._handleClosing();
     }
   }
 
-  private _onOpenAnimationEnd(): void {
+  private _handleOpening(): void {
     this.state = 'opened';
     this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
@@ -487,7 +500,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this.didOpen.emit();
   }
 
-  private _onCloseAnimationEnd(): void {
+  private _handleClosing(): void {
     this.state = 'closed';
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
@@ -555,8 +568,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
     if (this.state === 'opened') {
       this._openedPanelKeyboardInteraction(event);
-    }
-    if (this.state === 'closed') {
+    } else if (this.state === 'closed') {
       this._closedPanelKeyboardInteraction(event);
     }
   }

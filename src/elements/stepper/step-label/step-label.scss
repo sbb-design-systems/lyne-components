@@ -6,7 +6,7 @@
 :host {
   --sbb-step-label-color: var(--sbb-color-iron);
   --sbb-step-label-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-step-label-prefix-size: var(--sbb-size-element-xxs);
