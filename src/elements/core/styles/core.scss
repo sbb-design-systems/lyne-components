@@ -202,7 +202,7 @@ sbb-lead-container {
 :is(sbb-teaser, sbb-teaser-hero, sbb-teaser-product) {
   --sbb-teaser-image-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-image-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
   --sbb-teaser-image-animation-easing: var(--sbb-animation-easing);
