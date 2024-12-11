@@ -12,7 +12,6 @@ import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import {
   panelCommonStyle,
-  type SbbFormAssociatedRadioButtonMixinType,
   SbbPanelMixin,
   type SbbPanelSize,
   SbbUpdateSchedulerMixin,
@@ -87,9 +86,7 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
   /**
    * As an exception, radio-panels with an expansion-panel attached are not checked automatically when navigating by keyboard
    */
-  protected override async navigateByKeyboard(
-    next: SbbFormAssociatedRadioButtonMixinType,
-  ): Promise<void> {
+  protected override async navigateByKeyboard(next: SbbRadioButtonPanelElement): Promise<void> {
     if (!this._hasSelectionExpansionPanelElement) {
       await super.navigateByKeyboard(next);
     } else {

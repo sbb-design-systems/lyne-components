@@ -604,7 +604,9 @@ describe(`radio-button common behaviors`, () => {
             });
 
             it('should be sorted in DOM order', async () => {
-              const group1Set = radioButtonRegistry.get(form)!.get('sbb-group-1')!;
+              const group1Set = radioButtonRegistry
+                .get(form)!
+                .get('sbb-group-1')! as unknown as Set<Element>;
               let group1Radios = Array.from(form.querySelectorAll(selector));
 
               // Assert the order is the correct
