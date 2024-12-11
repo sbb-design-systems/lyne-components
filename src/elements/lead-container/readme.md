@@ -67,6 +67,21 @@ Full example with applied spacings (CSS classes) in content:
 </sbb-lead-container>
 ```
 
+Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+
+```html
+<sbb-lead-container>
+  <figure class="sbb-figure" slot="image">
+    <sbb-image
+      image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Bahnhof-Luzern.jpg"
+      alt="Station of Lucerne from outside"
+    ></sbb-image>
+    <sbb-chip-label class="sbb-figure-overlap-start-start">...</sbb-chip-label>
+  </figure>
+  ...
+</sbb-lead-container>
+```
+
 ## Accessibility
 
 Please either define the `alt` attribute of your image or set `aria-hidden="true"` to the image

@@ -52,7 +52,9 @@ describe(`sbb-teaser`, () => {
                 await setup.withFixture(
                   html`
                     <sbb-teaser title-content="This is a title" href="#" alignment=${alignment}>
-                      <img slot="image" src=${imageBase64} />
+                      <figure slot="image" class="sbb-figure">
+                        <img src=${imageBase64} />
+                      </figure>
                       This is a paragraph
                     </sbb-teaser>
                   `,
@@ -75,7 +77,14 @@ describe(`sbb-teaser`, () => {
                       alignment=${alignment}
                       chip-content=${hasChip ? 'This is a chip.' : nothing}
                     >
-                      <img slot="image" src=${imageBase64} />
+                      <figure slot="image" class="sbb-figure">
+                        <img src=${imageBase64} />
+                        ${hasChip
+                          ? html`<sbb-chip-label class="sbb-figure-overlap-start-start"
+                              >AI chip</sbb-chip-label
+                            >`
+                          : nothing}
+                      </figure>
                       ${withLongContent ? loremIpsum : 'This is a paragraph'}
                     </sbb-teaser>
                   `,
@@ -98,7 +107,9 @@ describe(`sbb-teaser`, () => {
                     alignment=${alignment}
                     chip-content=${longChip}
                   >
-                    <img slot="image" src=${imageBase64} />
+                    <figure slot="image" class="sbb-figure">
+                      <img src=${imageBase64} />
+                    </figure>
                     This is a paragraph
                   </sbb-teaser>
                 `,
@@ -123,7 +134,9 @@ describe(`sbb-teaser`, () => {
                           href="#"
                           alignment=${alignment}
                         >
-                          <img slot="image" src=${imageBase64} id=${`img${i}`} />
+                          <figure slot="image" class="sbb-figure">
+                            <img src=${imageBase64} id=${`img${i}`} />
+                          </figure>
                           This is the paragraph n.${i + 1}
                         </sbb-teaser>
                       </li>
@@ -155,7 +168,12 @@ describe(`sbb-teaser`, () => {
                     alignment="below"
                     style="--sbb-teaser-align-items: stretch;"
                   >
-                    <sbb-image slot="image" image-src=${imageUrl} style="width: 100%"></sbb-image>
+                    <figure slot="image" class="sbb-figure" style="width: 100%">
+                      <sbb-image image-src=${imageUrl}></sbb-image>
+                      <sbb-chip-label class="sbb-figure-overlap-start-start"
+                        >AI chip</sbb-chip-label
+                      >
+                    </figure>
                     This is a paragraph
                   </sbb-teaser>
                 `,

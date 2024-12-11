@@ -51,21 +51,6 @@
   }
 }
 
-::slotted(img) {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 16 / 9;
-}
-
-// Reset sbb-image border radius in order to control it from teaser product.
-::slotted(sbb-image) {
-  --sbb-image-border-radius: 0;
-
-  height: 100%;
-}
-
 ::slotted(p.sbb-teaser-product--spacing) {
   margin: 0;
 }
@@ -76,6 +61,12 @@
 
 ::slotted(:is(sbb-action-group, [data-action]).sbb-teaser-product--spacing) {
   margin-block-start: var(--sbb-spacing-responsive-xxs);
+}
+
+::slotted([slot='image']) {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .sbb-teaser-product__root {

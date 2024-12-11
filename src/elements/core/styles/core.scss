@@ -154,6 +154,121 @@ input[data-sbb-time-input] {
   }
 }
 
+img {
+  aspect-ratio: var(--sbb-image-aspect-ratio);
+  object-fit: var(--sbb-image-object-fit);
+  object-position: var(--sbb-image-object-position);
+}
+
+// TODO: Move back to the sbb-container components when the global css refactoring happens
+sbb-container {
+  [slot='image']:is(sbb-image, img),
+  [slot='image'] :is(sbb-image, img) {
+    --sbb-image-object-fit: cover;
+
+    border-radius: var(--sbb-container-background-border-radius);
+    height: 100%;
+    position: absolute;
+  }
+}
+
+// TODO: Move back to the sbb-flip-card-summary components when the global css refactoring happens
+sbb-flip-card-summary {
+  [slot='image']:is(sbb-image, img),
+  [slot='image'] :is(sbb-image, img) {
+    --sbb-image-aspect-ratio: auto;
+    --sbb-image-object-fit: cover;
+
+    border-radius: 0;
+    display: block;
+    height: 100%;
+  }
+}
+
+// TODO: Move back to the sbb-lead-container components when the global css refactoring happens
+sbb-lead-container {
+  [slot='image']:is(sbb-image, img, picture),
+  [slot='image'] :is(sbb-image, img, picture) {
+    --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
+    --sbb-image-object-fit: cover;
+
+    border-radius: var(--sbb-lead-container-image-border-radius);
+  }
+}
+
+// Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
+// Apply the brightness effect on mouse hover
+// TODO: Move back to the teaser components when the global css refactoring happens
+:is(sbb-teaser, sbb-teaser-hero, sbb-teaser-product) {
+  --sbb-teaser-image-brightness-hover: var(--sbb-hover-image-brightness);
+  --sbb-teaser-image-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-teaser-image-animation-easing: var(--sbb-animation-easing);
+
+  &:hover {
+    @include mediaqueries.hover-mq($hover: true) {
+      --sbb-teaser-image-brightness: var(--sbb-teaser-image-brightness-hover);
+    }
+  }
+
+  [slot='image']:is(sbb-image, img),
+  [slot='image'] :is(sbb-image, img) {
+    will-change: filter;
+    filter: brightness(var(--sbb-teaser-image-brightness, 1));
+    transition: filter var(--sbb-teaser-image-animation-duration)
+      var(--sbb-teaser-image-animation-easing);
+  }
+}
+
+// TODO: Move back to the teaser components when the global css refactoring happens
+:is(sbb-teaser-product, sbb-teaser-product-static) {
+  :is(sbb-image, img) {
+    border-radius: 0; // Reset sbb-image border radius in order to control it from teaser product.
+
+    --sbb-image-object-fit: cover;
+    --sbb-image-aspect-ratio: 16 / 9;
+  }
+
+  img {
+    place-self: stretch;
+  }
+}
+
+// TODO: Move back to the teaser components when the global css refactoring happens
+:is(sbb-teaser) {
+  [slot='image']:is(sbb-image, img),
+  [slot='image'] :is(sbb-image, img) {
+    transition-property: filter, scale;
+    will-change: filter, scale;
+    scale: var(--sbb-teaser-scale, 1);
+  }
+
+  :is(sbb-image, img) {
+    --sbb-image-object-fit: cover;
+    --sbb-image-aspect-ratio: 4 / 3;
+  }
+}
+
+// TODO: Move back to the teaser-hero components when the global css refactoring happens
+:is(sbb-teaser-hero) {
+  :is(sbb-image, img) {
+    --sbb-image-aspect-ratio: 1 / 1;
+
+    border-radius: 0;
+
+    @include mediaqueries.mq($from: small) {
+      --sbb-image-aspect-ratio: 16 / 9;
+    }
+  }
+
+  img {
+    width: 100%;
+    display: block;
+  }
+}
+
 // TODO: move to train formation after css refactoring
 sbb-train-formation:has(sbb-train[direction-label]) {
   --sbb-train-formation-reserve-spacing-display: block;

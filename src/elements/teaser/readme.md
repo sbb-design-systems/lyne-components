@@ -9,7 +9,9 @@ Simple teaser example:
   title-content="Title"
   chip-content="Chip label"
 >
-  <img slot="image" src="..." alt="400x300" />
+  <figure slot="image" class="sbb-figure">
+    <img src="..." alt="400x300" />
+  </figure>
   A brief description.
 </sbb-teaser>
 ```
@@ -19,9 +21,15 @@ Simple teaser example:
 The default slot is reserved for the description. The component displays the `image` and the `title` with the self-named slots.
 It's also possible to display a [sbb-chip-label](/docs/elements-sbb-chip-label--docs) using the `chip` slot.
 
+Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.
+Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+
 ```html
 <sbb-teaser href="https://www.sbb.ch" title-level="2">
-  <img slot="image" src="..." alt="400x300" />
+  <figure slot="image" class="sbb-figure">
+    <img src="..." alt="400x300" />
+    <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
+  </figure>
   <span slot="chip">Chip label</span>
   <span slot="title">Title</span>
   A brief description.
