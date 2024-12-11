@@ -296,7 +296,7 @@ describe(`sbb-form-field`, () => {
       label.click();
       await waitForLitRender(element);
 
-      expect(select).to.have.attribute('data-state', 'opening');
+      expect(select).to.have.attribute('data-state', 'opened');
     });
 
     it('should focus select on form field click readonly', async () => {

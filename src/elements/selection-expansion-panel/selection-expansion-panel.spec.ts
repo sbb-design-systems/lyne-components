@@ -583,7 +583,6 @@ describe(`sbb-selection-expansion-panel`, () => {
     });
 
     it('selects input on click and shows related content', async () => {
-      await waitForLitRender(wrapper);
       await didOpenEventSpy.calledOnce();
 
       expect(willOpenEventSpy.count).to.be.equal(1);
@@ -602,6 +601,24 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(firstInput.checked).to.be.true;
       expect(firstPanel).to.have.attribute('data-state', 'opened');
       expect(secondInput.checked).to.be.true;
+      expect(secondPanel).to.have.attribute('data-state', 'opened');
+    });
+
+    it('selects input on click with non-zero-animation duration', async () => {
+      elements.forEach((panel) =>
+        panel.style.setProperty('--sbb-selection-expansion-panel-animation-duration', '1ms'),
+      );
+      await didOpenEventSpy.calledOnce();
+      expect(firstPanel).to.have.attribute('data-state', 'opened');
+
+      firstInput.click();
+      secondInput.click();
+
+      await waitForLitRender(wrapper);
+      await didOpenEventSpy.calledTimes(2);
+      await didCloseEventSpy.calledOnce();
+
+      expect(firstPanel).to.have.attribute('data-state', 'closed');
       expect(secondPanel).to.have.attribute('data-state', 'opened');
     });
 

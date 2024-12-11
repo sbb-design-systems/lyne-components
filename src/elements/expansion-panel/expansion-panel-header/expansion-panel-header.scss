@@ -82,7 +82,7 @@
 }
 
 .sbb-expansion-panel-header__toggle-icon {
-  transition: transform var(--sbb-disable-animation-zero-duration, var(--sbb-animation-duration-4x));
+  transition: transform var(--sbb-disable-animation-duration, var(--sbb-animation-duration-4x));
 
   :host([aria-expanded]:not([aria-expanded='false'])) & {
     transform: rotate(-180deg);

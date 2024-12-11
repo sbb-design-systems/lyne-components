@@ -139,6 +139,21 @@ describe(`sbb-sticky-bar`, () => {
       expect(willStickSpy.count).to.be.equal(1);
       expect(didStickSpy.count).to.be.equal(0);
     });
+
+    it('works with non-zero animation duration', async () => {
+      stickyBar.style.setProperty('--sbb-sticky-bar-slide-vertically-animation-duration', '1ms');
+
+      stickyBar.unstick();
+      await didUnstickSpy.calledOnce();
+
+      stickyBar.stick();
+
+      await willStickSpy.calledOnce();
+      await didStickSpy.calledOnce();
+
+      expect(willStickSpy.count).to.be.equal(1);
+      expect(didStickSpy.count).to.be.equal(1);
+    });
   });
 
   it('is settled when content is not long enough', async () => {

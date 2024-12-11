@@ -7,6 +7,7 @@ import { tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
 import { SbbDialogElement } from './dialog.js';
+
 import '../../button.js';
 import '../../icon.js';
 import '../dialog-title.js';
@@ -317,6 +318,28 @@ describe('sbb-dialog', () => {
     await waitForLitRender(element);
 
     expect(stackedDialog).to.have.attribute('data-state', 'closed');
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
+
+  it('opens and closes the overlay with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-dialog-animation-duration', '1ms');
+
+    const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
+    const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+
+    await openDialog(element);
+
+    element.close();
+    await waitForLitRender(element);
+
+    await willClose.calledOnce();
+    expect(willClose.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    await didClose.calledOnce();
+    expect(didClose.count).to.be.equal(1);
+    await waitForLitRender(element);
+
     expect(element).to.have.attribute('data-state', 'closed');
   });
 

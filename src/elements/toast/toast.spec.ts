@@ -14,7 +14,7 @@ describe(`sbb-toast`, () => {
   let element: SbbToastElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <sbb-toast></sbb-toast> `);
+    element = await fixture(html`<sbb-toast></sbb-toast>`);
   });
 
   it('renders and sets the correct attributes', async () => {
@@ -195,5 +195,27 @@ describe(`sbb-toast`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+  });
+
+  it('closes by dismiss button click with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-toast-animation-duration', '1ms');
+    element.toggleAttribute('dismissible', true);
+    await waitForLitRender(element);
+
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose, element);
+
+    element.open();
+    await waitForLitRender(element);
+
+    await didOpenEventSpy.calledOnce();
+
+    const dismissBtn =
+      element.shadowRoot!.querySelector<SbbTransparentButtonElement>('sbb-transparent-button')!;
+    dismissBtn.click();
+
+    await waitForLitRender(element);
+    await didCloseEventSpy.calledOnce();
+    expect(element.getAttribute('data-state')).to.be.equal('closed');
   });
 });

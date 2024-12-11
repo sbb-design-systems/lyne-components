@@ -1,11 +1,17 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
-import { isLean } from '../core/dom.js';
+import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
@@ -129,12 +135,24 @@ class SbbNotificationElement extends LitElement {
     if (this._state === 'closed') {
       this._state = 'opening';
       this._willOpen.emit();
+
+      // If the animation duration is zero, the animationend event is not always fired reliably.
+      // In this case we directly set the `opened` state.
+      if (this._isZeroAnimationDuration()) {
+        this._handleOpening();
+      }
     }
   }
 
   public close(): void {
     if (this._state === 'opened' && this._willClose.emit()) {
       this._state = 'closing';
+
+      // If the animation duration is zero, the animationend event is not always fired reliably.
+      // In this case we directly set the `closed` state.
+      if (this._isZeroAnimationDuration()) {
+        this._handleClosing();
+      }
     }
   }
 
@@ -155,6 +173,10 @@ class SbbNotificationElement extends LitElement {
     await this.updateComplete;
     this._setNotificationHeight();
     this._open();
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-notification-animation-duration');
   }
 
   private _setNotificationHeight(): void {
@@ -210,10 +232,7 @@ class SbbNotificationElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div
-        class="sbb-notification__wrapper"
-        @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
-      >
+      <div class="sbb-notification__wrapper" @animationend=${this._onNotificationAnimationEnd}>
         <div class="sbb-notification">
           <sbb-icon
             class="sbb-notification__icon"

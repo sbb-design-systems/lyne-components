@@ -129,4 +129,20 @@ describe(`sbb-expansion-panel`, () => {
     expect(header).to.have.attribute('data-size', 'l');
     expect(content).to.have.attribute('data-size', 'l');
   });
+
+  it('should fire animation events with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-expansion-panel-animation-duration', '1ms');
+
+    const didOpenSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen, element);
+    const didCloseSpy = new EventSpy(SbbExpansionPanelElement.events.didClose, element);
+
+    element.expanded = true;
+
+    await didOpenSpy.calledOnce();
+
+    element.expanded = false;
+
+    await didCloseSpy.calledOnce();
+    expect(didCloseSpy.count).to.be.equal(1);
+  });
 });

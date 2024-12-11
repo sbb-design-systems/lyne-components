@@ -9,6 +9,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
+import { isZeroAnimationDuration } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 
@@ -114,6 +115,10 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     this._observer.observe(this);
   }
 
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-sticky-bar-slide-vertically-animation-duration');
+  }
+
   private _detectStickyState(entry: IntersectionObserverEntry): void {
     this.toggleAttribute('data-initialized', true);
 
@@ -152,7 +157,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     }
 
     this._state = 'sticking';
-    if (!this.hasAttribute('data-sticking')) {
+    if (!this.hasAttribute('data-sticking') || this._isZeroAnimationDuration()) {
       this._stickyCallback();
     }
   }
@@ -165,7 +170,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
     this._state = 'unsticking';
 
-    if (!this.hasAttribute('data-sticking')) {
+    if (!this.hasAttribute('data-sticking') || this._isZeroAnimationDuration()) {
       this._unstickyCallback();
     }
   }

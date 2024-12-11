@@ -67,7 +67,7 @@ $active: ':active, [data-active]';
   --sbb-button-border-disabled-style: dashed;
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-transition-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);

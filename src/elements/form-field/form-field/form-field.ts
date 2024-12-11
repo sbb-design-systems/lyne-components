@@ -50,7 +50,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     'sbb-slider',
   ];
   // List of elements that should not focus input on click
-  private readonly _excludedFocusElements = ['button', 'sbb-popover'];
+  private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option'];
 
   private readonly _floatingLabelSupportedInputElements = [
     'input',
@@ -168,7 +168,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       return;
     }
 
-    if (this._input?.localName === 'sbb-select') {
+    if (
+      this._input?.localName === 'sbb-select' &&
+      (event.target as HTMLElement).localName !== 'sbb-select'
+    ) {
       this._input.click();
       this._input.focus();
     } else if ((event.target as Element).localName !== 'label') {

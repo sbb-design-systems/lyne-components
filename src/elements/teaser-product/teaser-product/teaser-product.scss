@@ -3,7 +3,7 @@
 :host {
   --sbb-teaser-product-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-product-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
   --sbb-teaser-product-animation-easing: var(--sbb-animation-easing);

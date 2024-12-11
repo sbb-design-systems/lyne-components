@@ -165,6 +165,25 @@ describe(`sbb-menu`, () => {
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
+  it('opens and closes with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-menu-animation-duration', '1ms');
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose, element);
+    const menuLink = element.querySelector(':scope > sbb-block-link') as HTMLElement;
+
+    trigger.click();
+    await waitForLitRender(element);
+
+    await didOpenEventSpy.calledOnce();
+
+    menuLink.click();
+    await waitForLitRender(element);
+
+    await didCloseEventSpy.calledOnce();
+
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
+
   it('is correctly positioned on desktop', async () => {
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);

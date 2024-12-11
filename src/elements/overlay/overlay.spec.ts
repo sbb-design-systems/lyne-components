@@ -90,6 +90,22 @@ describe('sbb-overlay', () => {
     expect(ariaLiveRef.textContent).to.be.equal('');
   });
 
+  it('opens and closes the overlay with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-overlay-animation-duration', '1ms');
+    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+
+    await openOverlay(element);
+
+    element.close();
+    await waitForLitRender(element);
+
+    await didClose.calledOnce();
+    expect(didClose.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
+
   it('does not close the overlay if prevented', async () => {
     const willClose = new EventSpy(SbbOverlayElement.events.willClose, element);
     const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);

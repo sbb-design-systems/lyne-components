@@ -25,7 +25,7 @@ $active: ':active, [data-active]';
   --sbb-tag-inset: 0;
   --sbb-tag-content-shift: translateY(0);
   --sbb-tag-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-tag-animation-easing: var(--sbb-animation-easing);

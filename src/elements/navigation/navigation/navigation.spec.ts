@@ -330,6 +330,31 @@ describe(`sbb-navigation`, () => {
     expect(section).to.have.attribute('data-state', 'closed');
   });
 
+  it('opens and closes navigation with non-zero animation duration', async () => {
+    element.style.setProperty('--sbb-navigation-animation-duration', '1ms');
+
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
+
+    element.open();
+    await waitForLitRender(element);
+
+    await didOpenEventSpy.calledOnce();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+
+    element.close();
+    await waitForLitRender(element);
+
+    await didCloseEventSpy.calledOnce();
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
+
   it('opens navigation and opens section', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
