@@ -5,7 +5,7 @@
 | `sbb-list` | `list`     |
 
 The list styling can be applied to any ordered or unordered list.
-Nesting lists is also supported without redefining the css class.
+Nesting lists is also supported without redefining the CSS class.
 The list styling doesn't define any color itself but inherits it.
 
 ### Sass usage

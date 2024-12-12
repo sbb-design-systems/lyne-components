@@ -12,7 +12,7 @@
 
 // Core variables, are always needed
 :root {
-  // Grab css vars defined by `@sbb-esta/lyne-design-tokens` package
+  // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.lyne-design-tokens-css-variables;
 
   & {
@@ -160,7 +160,7 @@ img {
   object-position: var(--sbb-image-object-position);
 }
 
-// TODO: Move back to the sbb-container components when the global css refactoring happens
+// TODO: Move back to the sbb-container components when the global CSS refactoring happens
 sbb-container {
   [slot='image']:is(sbb-image, img),
   [slot='image'] :is(sbb-image, img) {
@@ -172,7 +172,7 @@ sbb-container {
   }
 }
 
-// TODO: Move back to the sbb-flip-card-summary components when the global css refactoring happens
+// TODO: Move back to the sbb-flip-card-summary components when the global CSS refactoring happens
 sbb-flip-card-summary {
   [slot='image']:is(sbb-image, img),
   [slot='image'] :is(sbb-image, img) {
@@ -185,7 +185,7 @@ sbb-flip-card-summary {
   }
 }
 
-// TODO: Move back to the sbb-lead-container components when the global css refactoring happens
+// TODO: Move back to the sbb-lead-container components when the global CSS refactoring happens
 sbb-lead-container {
   [slot='image']:is(sbb-image, img, picture),
   [slot='image'] :is(sbb-image, img, picture) {
@@ -198,7 +198,7 @@ sbb-lead-container {
 
 // Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
 // Apply the brightness effect on mouse hover
-// TODO: Move back to the teaser components when the global css refactoring happens
+// TODO: Move back to the teaser components when the global CSS refactoring happens
 :is(sbb-teaser, sbb-teaser-hero, sbb-teaser-product) {
   --sbb-teaser-image-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-image-animation-duration: var(
@@ -222,7 +222,7 @@ sbb-lead-container {
   }
 }
 
-// TODO: Move back to the teaser components when the global css refactoring happens
+// TODO: Move back to the teaser components when the global CSS refactoring happens
 :is(sbb-teaser-product, sbb-teaser-product-static) {
   :is(sbb-image, img) {
     border-radius: 0; // Reset sbb-image border radius in order to control it from teaser product.
@@ -236,7 +236,7 @@ sbb-lead-container {
   }
 }
 
-// TODO: Move back to the teaser components when the global css refactoring happens
+// TODO: Move back to the teaser components when the global CSS refactoring happens
 :is(sbb-teaser) {
   [slot='image']:is(sbb-image, img),
   [slot='image'] :is(sbb-image, img) {
@@ -251,7 +251,7 @@ sbb-lead-container {
   }
 }
 
-// TODO: Move back to the teaser-hero components when the global css refactoring happens
+// TODO: Move back to the teaser-hero components when the global CSS refactoring happens
 :is(sbb-teaser-hero) {
   :is(sbb-image, img) {
     --sbb-image-aspect-ratio: 1 / 1;
@@ -269,17 +269,17 @@ sbb-lead-container {
   }
 }
 
-// TODO: move to train formation after css refactoring
+// TODO: move to train formation after CSS refactoring
 sbb-train-formation:has(sbb-train[direction-label]) {
   --sbb-train-formation-reserve-spacing-display: block;
 }
 
-// TODO: move to train formation after css refactoring
+// TODO: move to train formation after CSS refactoring
 sbb-train-formation:has(sbb-train-wagon[sector]) {
   --sbb-train-formation-show-sectors-gap: 1;
 }
 
-// TODO: move to train formation after css refactoring
+// TODO: move to train formation after CSS refactoring
 sbb-train-formation:not(:has(sbb-train-wagon[label])) {
   --sbb-train-formation-wagon-label-display: none;
 }

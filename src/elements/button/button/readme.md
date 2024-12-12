@@ -50,7 +50,7 @@ The component can be displayed in `disabled` state using the self-named property
 ### Focus outline
 
 Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
-You can set it by re-defining the css var on `sbb-button` or any parent element:
+You can set it by re-defining the CSS var on `sbb-button` or any parent element:
 
 ```css
 sbb-button {

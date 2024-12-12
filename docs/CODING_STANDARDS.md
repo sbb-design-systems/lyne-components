@@ -523,7 +523,7 @@ If a global variable is missing, create an issue or pull request in
 #### Use the lowest specificity possible
 
 Always prioritize lower specificity over other factors. Most style definitions should consist of a
-single element or css selector plus necessary state modifiers. **Avoid Sass nesting for the sake of
+single element or CSS selector plus necessary state modifiers. **Avoid Sass nesting for the sake of
 code organization.** This will allow users to much more easily override styles.
 
 For example, rather than doing this:
