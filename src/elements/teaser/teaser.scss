@@ -89,16 +89,17 @@
 
 ::slotted([slot='image']) {
   width: #{sbb.px-to-rem-build(300)};
+  display: block;
 }
 
 .sbb-teaser__image-wrapper {
   flex-shrink: 0;
   overflow: hidden;
   border-radius: var(--sbb-teaser-border-radius);
-  transition: var(--sbb-teaser-animation-duration) var(--sbb-animation-easing);
+  transition: box-shadow var(--sbb-teaser-image-animation-duration) var(--sbb-animation-easing);
 
   @include sbb.hover-mq($hover: true) {
-    .sbb-teaser__wrapper:hover & {
+    :host(:hover) & {
       @include sbb.shadow-level-9-hard;
     }
   }
