@@ -176,7 +176,7 @@ $open-anim-height-to: calc(
   border-radius: var(--sbb-notification-border-radius);
   overflow: hidden;
 
-  // We apply SASS calculated background color as default/fallback for older browsers.
+  // We apply Sass calculated background color as default/fallback for older browsers.
   background-color: var(--sbb-notification-type-color-sass);
 
   // If supported, try to mix color with CSS
