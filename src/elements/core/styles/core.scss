@@ -196,6 +196,14 @@ sbb-lead-container {
   }
 }
 
+// TODO: Move back to the sbb-message components when the global css refactoring happens
+sbb-message {
+  > [slot='image']:is(sbb-image, img),
+  > [slot='image'] :is(sbb-image, img) {
+    border-radius: var(--sbb-message-image-border-radius);
+  }
+}
+
 // Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
 // Apply the brightness effect on mouse hover
 // TODO: Move back to the teaser components when the global css refactoring happens
