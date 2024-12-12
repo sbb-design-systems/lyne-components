@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.0.0...v2.0.1) (2024-12-12)
+
+
+### Features
+
+* add class generic type param in manifest ([#3292](https://github.com/sbb-design-systems/lyne-components/issues/3292)) ([3d872c1](https://github.com/sbb-design-systems/lyne-components/commit/3d872c11fa6e8bd9be3750cce1a8d42458064d30))
+
+
+### Bug Fixes
+
+* **sbb-message:** support the use of `figure` as image ([#3294](https://github.com/sbb-design-systems/lyne-components/issues/3294)) ([1d64853](https://github.com/sbb-design-systems/lyne-components/commit/1d64853ad20155c07f8c07af76bbe774b519aa58))
+* **sbb-radio-button-panel:** remove extension clause in mixin which cause incorrect manifest generation ([#3288](https://github.com/sbb-design-systems/lyne-components/issues/3288)) ([b5457a7](https://github.com/sbb-design-systems/lyne-components/commit/b5457a77f260d48e3a151c88b6c815c81df241c8))
+* **sbb-teaser:** fix image related issues ([#3293](https://github.com/sbb-design-systems/lyne-components/issues/3293)) ([e6f517b](https://github.com/sbb-design-systems/lyne-components/commit/e6f517bbf8b42b96777193347860c315c457a6be))
+
+
+### Miscellaneous Chores
+
+* release 2.0.1 ([2a43d06](https://github.com/sbb-design-systems/lyne-components/commit/2a43d0688e95c8bbfd87c91025eea59dd66bd769))
+
 ## [2.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v1.14.0...v2.0.0) (2024-12-11)
 
 
