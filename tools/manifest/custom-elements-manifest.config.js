@@ -1,4 +1,5 @@
 const overrideTypeKey = 'overrideType';
+const classGenericsTypeKey = 'classGenerics';
 
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
@@ -96,6 +97,19 @@ export function createManifestConfig(library = '') {
           }
 
           if (ts.isClassDeclaration(node)) {
+            const classDeclaration = moduleDoc.declarations.find(
+              (declaration) => declaration.name === node.name.getText(),
+            );
+
+            /**
+             * If the class uses a generic type parameter, add it to the class declaration.
+             * It will be used in the Angular wrapper to correctly generate classes.
+             * Mainly used for datepicker and calendar components.
+             */
+            if (node.typeParameters && node.typeParameters.length > 0) {
+              classDeclaration[classGenericsTypeKey] = node.typeParameters[0].getText();
+            }
+
             /**
              * When a generic T type is used in a superclass declaration, it overrides the type defined in derived class
              * during the doc generation (as the `value` property in the `SbbFormAssociatedMixinType`).
@@ -109,9 +123,6 @@ export function createManifestConfig(library = '') {
                 // eslint-disable-next-line lyne/local-name-rule
                 if (tag.tagName.getText() === overrideTypeKey) {
                   const [memberName, memberOverrideType] = tag.comment.split(' - ');
-                  const classDeclaration = moduleDoc.declarations.find(
-                    (declaration) => declaration.name === node.name.getText(),
-                  );
                   if (!classDeclaration[overrideTypeKey]) {
                     classDeclaration[overrideTypeKey] = [{ memberName, memberOverrideType }];
                   } else {
