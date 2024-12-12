@@ -2,7 +2,6 @@ import { html } from 'lit';
 
 import {
   describeViewports,
-  loadAssetAsBase64,
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
@@ -13,60 +12,55 @@ import '../image.js';
 import '../chip-label.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
-const imageBase64 = await loadAssetAsBase64(imageUrl);
+
+const imgTestCases = [
+  {
+    title: 'with sbb-image',
+    imgSelector: 'sbb-image',
+    imgTemplate: () => html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`,
+  },
+  {
+    title: 'with img tag',
+    imgSelector: 'img',
+    imgTemplate: () => html`<img slot="image" src=${imageUrl} alt="" />`,
+  },
+  {
+    title: 'with figure_sbb-image',
+    imgSelector: 'sbb-image',
+    imgTemplate: () =>
+      html`<figure class="sbb-figure" slot="image">
+        <sbb-image image-src=${imageUrl}></sbb-image>
+        <sbb-chip-label class="sbb-figure-overlap-start-end">AI generated</sbb-chip-label>
+      </figure>`,
+  },
+  {
+    title: 'with figure_img',
+    imgSelector: 'img',
+    imgTemplate: () =>
+      html`<figure class="sbb-figure" slot="image">
+        <img slot="image" src=${imageUrl} alt="" />
+        <sbb-chip-label class="sbb-figure-overlap-start-end">AI generated</sbb-chip-label>
+      </figure>`,
+  },
+];
 
 describe(`sbb-teaser-hero`, () => {
   describeViewports({ viewports: ['zero', 'micro', 'small', 'medium', 'wide'] }, () => {
     for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
-      it(
-        state.name,
-        state.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-teaser-hero href="#" link-content="Find out more">
-              Break out and explore castles and palaces.
+      for (const testCase of imgTestCases) {
+        it(
+          testCase.title,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              <sbb-teaser-hero href="#" link-content="Find out more">
+                Break out and explore castles and palaces. ${testCase.imgTemplate()}
+              </sbb-teaser-hero>
+            `);
 
-              <figure class="sbb-figure" slot="image">
-                <sbb-image image-src=${imageUrl}></sbb-image>
-                <sbb-chip-label class="sbb-figure-overlap-start-start" style="z-index: 1">
-                  Label
-                </sbb-chip-label>
-              </figure>
-            </sbb-teaser-hero>
-          `);
-
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
-        }),
-      );
-
-      it(
-        `slotted ${state.name}`,
-        state.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-teaser-hero href="#">
-              Break out and explore castles and palaces.
-              <span slot="link-content">Find out more</span>
-              <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
-            </sbb-teaser-hero>
-          `);
-
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
-        }),
-      );
-
-      it(
-        `slotted-image ${state.name}`,
-        state.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-teaser-hero href="#">
-              Break out and explore castles and palaces.
-              <span slot="link-content">Find out more</span>
-              <img slot="image" src=${imageBase64} alt="" />
-            </sbb-teaser-hero>
-          `);
-
-          await waitForImageReady(setup.snapshotElement.querySelector('img')!);
-        }),
-      );
+            await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          }),
+        );
+      }
 
       it(
         `without content ${state.name}`,
@@ -80,6 +74,25 @@ describe(`sbb-teaser-hero`, () => {
           await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         }),
       );
+    }
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    for (const testCase of imgTestCases) {
+      describe(testCase.title, () => {
+        it(
+          `custom width`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              <sbb-teaser-hero href="#" style="width: 700px">
+                ${testCase.imgTemplate()}
+              </sbb-teaser-hero>
+            `);
+
+            await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          }),
+        );
+      });
     }
   });
 });

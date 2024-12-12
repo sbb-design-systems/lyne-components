@@ -19,6 +19,10 @@
   }
 }
 
+::slotted([slot='image']) {
+  width: 100%;
+}
+
 .sbb-teaser-hero {
   position: relative;
   display: flex;
@@ -55,8 +59,4 @@
   display: inline;
   margin: 0;
   padding: 0;
-}
-
-::slotted([slot='image']) {
-  width: 100%;
 }
