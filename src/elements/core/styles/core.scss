@@ -196,7 +196,7 @@ sbb-lead-container {
   }
 }
 
-// TODO: Move back to the sbb-message components when the global css refactoring happens
+// TODO: Move back to the sbb-message components when the global CSS refactoring happens
 sbb-message {
   > [slot='image']:is(sbb-image, img),
   > [slot='image'] :is(sbb-image, img) {
