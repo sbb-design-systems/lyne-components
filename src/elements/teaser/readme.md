@@ -9,9 +9,7 @@ Simple teaser example:
   title-content="Title"
   chip-content="Chip label"
 >
-  <figure slot="image" class="sbb-figure">
-    <img src="..." alt="400x300" />
-  </figure>
+  <img slot="image" src="..." alt="400x300" />
   A brief description.
 </sbb-teaser>
 ```

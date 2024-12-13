@@ -102,9 +102,7 @@ const TemplateDefault = ({ description, ...remainingArgs }: Args): TemplateResul
 const TemplateDefaultFixedWidth = ({ description, ...remainingArgs }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)} style="width:400px">
-      <figure slot="image" class="sbb-figure">
-        <img src=${placeholderImage} alt="400x300" />
-      </figure>
+      <img src=${placeholderImage} alt="400x300" slot="image" />
       ${description}
     </sbb-teaser>
   `;
@@ -113,9 +111,13 @@ const TemplateDefaultFixedWidth = ({ description, ...remainingArgs }: Args): Tem
 const TemplateCustom = ({ description, ...remainingArgs }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
-      <figure slot="image" class="sbb-figure" style="width: 200px;">
-        <img src=${placeholderImage} alt="200x100" class="sbb-image-2-1" />
-      </figure>
+      <img
+        src=${placeholderImage}
+        alt="200x100"
+        class="sbb-image-2-1"
+        style="width: 200px;"
+        slot="image"
+      />
       ${description}
     </sbb-teaser>
   `;
@@ -129,9 +131,7 @@ const TemplateSlots = ({
 }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
-      <figure slot="image" class="sbb-figure">
-        <img src=${placeholderImage} alt="400x300" />
-      </figure>
+      <img src=${placeholderImage} alt="400x300" slot="image" />
       <span slot="chip">${chipContent}</span>
       <span slot="title">${titleContent}</span>
       ${description}

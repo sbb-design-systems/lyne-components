@@ -162,8 +162,8 @@ img {
 
 // TODO: Move back to the sbb-container components when the global CSS refactoring happens
 sbb-container {
-  [slot='image']:is(sbb-image, img),
-  [slot='image'] :is(sbb-image, img) {
+  > [slot='image']:is(sbb-image, img),
+  > [slot='image'] :is(sbb-image, img) {
     --sbb-image-object-fit: cover;
 
     border-radius: var(--sbb-container-background-border-radius);
@@ -174,8 +174,8 @@ sbb-container {
 
 // TODO: Move back to the sbb-flip-card-summary components when the global CSS refactoring happens
 sbb-flip-card-summary {
-  [slot='image']:is(sbb-image, img),
-  [slot='image'] :is(sbb-image, img) {
+  > [slot='image']:is(sbb-image, img),
+  > [slot='image'] :is(sbb-image, img) {
     --sbb-image-aspect-ratio: auto;
     --sbb-image-object-fit: cover;
 
@@ -187,12 +187,20 @@ sbb-flip-card-summary {
 
 // TODO: Move back to the sbb-lead-container components when the global CSS refactoring happens
 sbb-lead-container {
-  [slot='image']:is(sbb-image, img, picture),
-  [slot='image'] :is(sbb-image, img, picture) {
+  > [slot='image']:is(sbb-image, img, picture),
+  > [slot='image'] :is(sbb-image, img, picture) {
     --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
     --sbb-image-object-fit: cover;
 
     border-radius: var(--sbb-lead-container-image-border-radius);
+  }
+}
+
+// TODO: Move back to the sbb-message components when the global CSS refactoring happens
+sbb-message {
+  > [slot='image']:is(sbb-image, img),
+  > [slot='image'] :is(sbb-image, img) {
+    border-radius: var(--sbb-message-image-border-radius);
   }
 }
 
@@ -213,8 +221,7 @@ sbb-lead-container {
     }
   }
 
-  [slot='image']:is(sbb-image, img),
-  [slot='image'] :is(sbb-image, img) {
+  :is(sbb-image, img) {
     will-change: filter;
     filter: brightness(var(--sbb-teaser-image-brightness, 1));
     transition: filter var(--sbb-teaser-image-animation-duration)
@@ -237,18 +244,13 @@ sbb-lead-container {
 }
 
 // TODO: Move back to the teaser components when the global CSS refactoring happens
-:is(sbb-teaser) {
-  [slot='image']:is(sbb-image, img),
-  [slot='image'] :is(sbb-image, img) {
-    transition-property: filter, scale;
-    will-change: filter, scale;
-    scale: var(--sbb-teaser-scale, 1);
-  }
+sbb-teaser :is(sbb-image, img) {
+  --sbb-image-object-fit: cover;
+  --sbb-image-aspect-ratio: 4 / 3;
 
-  :is(sbb-image, img) {
-    --sbb-image-object-fit: cover;
-    --sbb-image-aspect-ratio: 4 / 3;
-  }
+  transition-property: filter, scale;
+  will-change: filter, scale;
+  scale: var(--sbb-teaser-scale, 1);
 }
 
 // TODO: Move back to the teaser-hero components when the global CSS refactoring happens
