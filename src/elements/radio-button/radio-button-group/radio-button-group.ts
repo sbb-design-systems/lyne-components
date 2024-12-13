@@ -55,7 +55,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
    * The value of the radio group.
    */
   @property()
-  public set value(val: any | null) {
+  public set value(val: string | null) {
     this._fallbackValue = val;
     if (!this._didLoad) {
       return;
@@ -69,13 +69,13 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       toCheck.checked = true;
     }
   }
-  public get value(): any | null {
+  public get value(): string | null {
     return this.radioButtons.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue;
   }
   /**
    * Used to preserve the `value` in case the radios are not yet 'loaded'
    */
-  private _fallbackValue: any | null = null;
+  private _fallbackValue: string | null = null;
 
   /**
    * Size variant, either xs, s or m.
