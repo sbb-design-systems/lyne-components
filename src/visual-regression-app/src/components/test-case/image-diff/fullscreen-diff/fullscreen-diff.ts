@@ -11,7 +11,7 @@ import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/radio-button.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group/radio-button-group.js';
 
-type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
+export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
 
 /**
  * Displays two images in fullscreen to overlay them.
