@@ -49,7 +49,7 @@ describe(`sbb-teaser-hero`, () => {
     for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
       for (const testCase of imgTestCases) {
         it(
-          testCase.title,
+          `${testCase.title} ${state.name}`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-teaser-hero href="#" link-content="Find out more">
@@ -79,20 +79,18 @@ describe(`sbb-teaser-hero`, () => {
 
   describeViewports({ viewports: ['large'] }, () => {
     for (const testCase of imgTestCases) {
-      describe(testCase.title, () => {
-        it(
-          `custom width`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(html`
-              <sbb-teaser-hero href="#" style="width: 700px">
-                ${testCase.imgTemplate()}
-              </sbb-teaser-hero>
-            `);
+      it(
+        `custom width ${testCase.title}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-teaser-hero href="#" link-content="Find out more" style="width: 700px">
+              Break out and explore castles and palaces. ${testCase.imgTemplate()}
+            </sbb-teaser-hero>
+          `);
 
-            await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
-          }),
-        );
-      });
+          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+        }),
+      );
     }
   });
 });
