@@ -96,20 +96,16 @@ jobs:
           VERSION: ${{ steps.release.outputs.version }}
       - name: Build slim image with version
         if: ${{ steps.release.outputs.release_created }}
-        uses: kitabisa/docker-slim-action@v1
+        uses: ./.github/actions/docker-slim
         with:
           target: '${{ env.IMAGE_REPO_STORYBOOK }}:${{ steps.release.outputs.version }}'
           tag: '${{ steps.release.outputs.version }}-slim'
-        env:
-          DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Build slim image with latest
         if: ${{ steps.release.outputs.release_created }}
-        uses: kitabisa/docker-slim-action@v1
+        uses: ./.github/actions/docker-slim
         with:
           target: '${{ env.IMAGE_REPO_STORYBOOK }}:latest'
           tag: latest-slim
-        env:
-          DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
         if: ${{ steps.release.outputs.release_created }}
         run: |
@@ -125,12 +121,10 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
       - name: Build slim image with dev
-        uses: kitabisa/docker-slim-action@v1
+        uses: ./.github/actions/docker-slim
         with:
           target: '${{ env.IMAGE_REPO_STORYBOOK }}:dev'
           tag: dev-slim
-        env:
-          DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
         run: |
           docker push $IMAGE_REPO_STORYBOOK:dev-slim
