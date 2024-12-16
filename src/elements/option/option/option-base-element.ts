@@ -263,6 +263,7 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   private _handleSlotChange(): void {
     this.handleHighlightState();
+    /** @internal */
     this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
   }
 
