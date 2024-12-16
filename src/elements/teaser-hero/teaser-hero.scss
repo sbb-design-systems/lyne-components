@@ -19,9 +19,13 @@
   }
 }
 
+::slotted([slot='image']) {
+  width: 100%;
+}
+
 .sbb-teaser-hero {
   position: relative;
-  display: block;
+  display: flex;
   min-height: var(--sbb-panel-height);
   text-decoration: none;
 
