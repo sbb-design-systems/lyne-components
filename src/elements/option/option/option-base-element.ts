@@ -261,13 +261,19 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     return nothing;
   }
 
+  private _handleSlotChange(): void {
+    this.handleHighlightState();
+    /** @internal */
+    this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-option__container">
         <div class="sbb-option">
           ${this.renderIcon()}
           <span class="sbb-option__label">
-            <slot @slotchange=${this.handleHighlightState}></slot>
+            <slot @slotchange=${this._handleSlotChange}></slot>
             ${this.renderLabel()}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html` <sbb-screen-reader-only>

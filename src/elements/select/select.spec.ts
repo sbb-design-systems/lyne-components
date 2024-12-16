@@ -470,6 +470,56 @@ describe(`sbb-select`, () => {
 
       expect(element).to.have.attribute('data-state', 'opened');
     });
+
+    it('updates displayed value on option value change', async () => {
+      expect(displayValue.textContent!.trim()).to.be.equal('Placeholder');
+      firstOption.click();
+      await waitForLitRender(element);
+      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
+
+      expect(displayValue.textContent!.trim()).to.be.equal('First');
+
+      firstOption.textContent = 'First modified';
+      await waitForLitRender(element);
+      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
+
+      expect(displayValue.textContent!.trim()).to.be.equal('First modified');
+
+      // Deselection
+      element.value = '';
+      await waitForLitRender(element);
+      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
+
+      expect(displayValue.textContent!.trim()).to.be.equal('Placeholder');
+    });
+
+    it('updates displayed value on option value change if multiple', async () => {
+      element.multiple = true;
+      await waitForLitRender(element);
+
+      expect(displayValue.textContent!.trim()).to.be.equal('Placeholder');
+
+      firstOption.click();
+      secondOption.click();
+      await waitForLitRender(element);
+      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
+
+      expect(displayValue.textContent!.trim()).to.be.equal('First, Second');
+
+      firstOption.textContent = 'First modified';
+      await waitForLitRender(element);
+      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
+
+      expect(displayValue.textContent!.trim()).to.be.equal('First modified, Second');
+
+      // Deselection
+      firstOption.click();
+      secondOption.click();
+      await waitForLitRender(element);
+      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
+
+      expect(displayValue.textContent!.trim()).to.be.equal('Placeholder');
+    });
   });
 
   describe('form association', () => {
