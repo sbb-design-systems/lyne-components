@@ -11,7 +11,7 @@
 @mixin figure-image {
   grid-row: 1;
   grid-column: 1;
-  place-self: stretch stretch;
+  width: 100%;
 }
 
 @mixin figure-caption {

@@ -266,8 +266,9 @@ sbb-teaser :is(sbb-image, img) {
   }
 
   img {
-    width: 100%;
     display: block;
+    align-self: stretch;
+    width: 100%;
   }
 }
 
