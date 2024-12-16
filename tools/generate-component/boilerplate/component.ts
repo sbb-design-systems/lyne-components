@@ -21,7 +21,7 @@ export class __nameUpperCase__ extends LitElement {
   } as const;
 
   /** myProp documentation */
-  @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
+  @property({ attribute: 'my-prop', reflect: true }) public accessor myProp: string = '';
 
   /** _myState documentation */
   @state() private _myState = false;
