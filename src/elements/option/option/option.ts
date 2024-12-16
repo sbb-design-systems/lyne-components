@@ -31,6 +31,7 @@ class SbbOptionElement extends SbbOptionBaseElement {
   public static readonly events = {
     selectionChange: 'optionSelectionChange',
     optionSelected: 'optionSelected',
+    optionLabelChanged: 'optionLabelChanged',
   } as const;
 
   protected optionId = `sbb-option`;
@@ -45,6 +46,15 @@ class SbbOptionElement extends SbbOptionBaseElement {
   protected optionSelected: EventEmitter = new EventEmitter(
     this,
     SbbOptionElement.events.optionSelected,
+  );
+
+  /**
+   * @internal
+   * Emits when the label changed.
+   */
+  protected optionLabelChanged: EventEmitter = new EventEmitter(
+    this,
+    SbbOptionElement.events.optionLabelChanged,
   );
 
   private set _variant(state: SbbOptionVariant) {

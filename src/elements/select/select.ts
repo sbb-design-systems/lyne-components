@@ -265,18 +265,44 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
   }
 
+  /** Listens to option changes. */
+  private _onOptionLabelChanged(event: Event): void {
+    const target = event.target as SbbOptionElement;
+    const selectedOption = this._getSelectedOption();
+
+    if (
+      (!Array.isArray(selectedOption) && target !== selectedOption) ||
+      (Array.isArray(selectedOption) && !selectedOption.includes(target))
+    ) {
+      return;
+    }
+
+    this._updateDisplayValue(selectedOption);
+  }
+
+  private _updateDisplayValue(selectedOption: SbbOptionElement | SbbOptionElement[] | null): void {
+    if (Array.isArray(selectedOption)) {
+      this._displayValue = selectedOption.map((o) => o.textContent).join(', ') || null;
+    } else if (selectedOption) {
+      this._displayValue = selectedOption?.textContent || null;
+    } else {
+      this._displayValue = null;
+    }
+  }
+
   /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
   private _onValueChanged(newValue: string | string[]): void {
     const options = this._filteredOptions;
     if (!Array.isArray(newValue)) {
-      const optionElement = options.find((o) => (o.value ?? o.getAttribute('value')) === newValue);
+      const optionElement =
+        options.find((o) => (o.value ?? o.getAttribute('value')) === newValue) ?? null;
       if (optionElement) {
         optionElement.selected = true;
       }
       options
         .filter((o) => (o.value ?? o.getAttribute('value')) !== newValue)
         .forEach((o) => (o.selected = false));
-      this._displayValue = optionElement?.textContent || null;
+      this._updateDisplayValue(optionElement);
     } else {
       options
         .filter((o) => !newValue.includes(o.value ?? o.getAttribute('value')))
@@ -285,7 +311,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
         newValue.includes(o.value ?? o.getAttribute('value')),
       );
       selectedOptionElements.forEach((o) => (o.selected = true));
-      this._displayValue = selectedOptionElements.map((o) => o.textContent).join(', ') || null;
+      this._updateDisplayValue(selectedOptionElements);
     }
     this._stateChange.emit({ type: 'value', value: newValue });
   }
@@ -352,6 +378,11 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       (e: CustomEvent<void>) => this._onOptionChanged(e),
       { signal },
     );
+
+    this.addEventListener('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e), {
+      signal,
+    });
+
     this.addEventListener(
       'click',
       (e: MouseEvent) => {
@@ -762,23 +793,29 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   };
 
   private _setValueFromSelectedOption(): void {
-    if (!this.multiple) {
-      const selectedOption = this._filteredOptions.find((option) => option.selected);
-      if (selectedOption) {
-        this._activeItemIndex = this._filteredOptions.findIndex(
-          (option) => option === selectedOption,
-        );
-        this.value = selectedOption.value;
-      }
-    } else {
-      const options = this._filteredOptions.filter((option) => option.selected);
-      if (options && options.length > 0) {
+    const selectedOption = this._getSelectedOption();
+
+    if (Array.isArray(selectedOption)) {
+      if (selectedOption && selectedOption.length > 0) {
         const value: string[] = [];
-        for (const option of options) {
+        for (const option of selectedOption) {
           value.push(option.value!);
         }
         this.value = value;
       }
+    } else if (selectedOption) {
+      this._activeItemIndex = this._filteredOptions.findIndex(
+        (option) => option === selectedOption,
+      );
+      this.value = selectedOption.value;
+    }
+  }
+
+  private _getSelectedOption(): SbbOptionElement | SbbOptionElement[] | null {
+    if (this.multiple) {
+      return this._filteredOptions.filter((option) => option.selected);
+    } else {
+      return this._filteredOptions.find((option) => option.selected) ?? null;
     }
   }
 

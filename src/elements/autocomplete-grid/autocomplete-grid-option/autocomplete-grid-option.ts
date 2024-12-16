@@ -29,6 +29,7 @@ class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
   public static readonly events = {
     selectionChange: 'autocompleteOptionSelectionChange',
     optionSelected: 'autocompleteOptionSelected',
+    optionLabelChanged: 'optionLabelChanged',
   } as const;
 
   protected optionId = autocompleteGridOptionId;
@@ -43,6 +44,15 @@ class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
   protected optionSelected: EventEmitter = new EventEmitter(
     this,
     SbbAutocompleteGridOptionElement.events.optionSelected,
+  );
+
+  /**
+   * @internal
+   * Emits when the label changed.
+   */
+  protected optionLabelChanged: EventEmitter = new EventEmitter(
+    this,
+    SbbAutocompleteGridOptionElement.events.optionLabelChanged,
   );
 
   protected override onOptionAttributesChange(mutationsList: MutationRecord[]): void {

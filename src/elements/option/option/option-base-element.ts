@@ -62,6 +62,9 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   /** Emits when an option was selected by user. */
   protected abstract optionSelected: EventEmitter;
 
+  /** Emits when the label changes. */
+  protected abstract optionLabelChanged: EventEmitter;
+
   /** Whether to apply the negative styling */
   @state() protected accessor negative = false;
 
@@ -261,13 +264,18 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     return nothing;
   }
 
+  private _handleSlotChange(): void {
+    this.handleHighlightState();
+    this.optionLabelChanged.emit();
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-option__container">
         <div class="sbb-option">
           ${this.renderIcon()}
           <span class="sbb-option__label">
-            <slot @slotchange=${this.handleHighlightState}></slot>
+            <slot @slotchange=${this._handleSlotChange}></slot>
             ${this.renderLabel()}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html` <sbb-screen-reader-only>
