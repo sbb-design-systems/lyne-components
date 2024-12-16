@@ -268,23 +268,23 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   /** Listens to option changes. */
   private _onOptionLabelChanged(event: Event): void {
     const target = event.target as SbbOptionElement;
-    const selectedOption = this._getSelectedOption();
+    const selected = this._getSelected();
 
     if (
-      (!Array.isArray(selectedOption) && target !== selectedOption) ||
-      (Array.isArray(selectedOption) && !selectedOption.includes(target))
+      (!Array.isArray(selected) && target !== selected) ||
+      (Array.isArray(selected) && !selected.includes(target))
     ) {
       return;
     }
 
-    this._updateDisplayValue(selectedOption);
+    this._updateDisplayValue(selected);
   }
 
-  private _updateDisplayValue(selectedOption: SbbOptionElement | SbbOptionElement[] | null): void {
-    if (Array.isArray(selectedOption)) {
-      this._displayValue = selectedOption.map((o) => o.textContent).join(', ') || null;
-    } else if (selectedOption) {
-      this._displayValue = selectedOption?.textContent || null;
+  private _updateDisplayValue(selected: SbbOptionElement | SbbOptionElement[] | null): void {
+    if (Array.isArray(selected)) {
+      this._displayValue = selected.map((o) => o.textContent).join(', ') || null;
+    } else if (selected) {
+      this._displayValue = selected?.textContent || null;
     } else {
       this._displayValue = null;
     }
@@ -307,11 +307,11 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       options
         .filter((o) => !newValue.includes(o.value ?? o.getAttribute('value')))
         .forEach((e) => (e.selected = false));
-      const selectedOptionElements = options.filter((o) =>
+      const selectedElements = options.filter((o) =>
         newValue.includes(o.value ?? o.getAttribute('value')),
       );
-      selectedOptionElements.forEach((o) => (o.selected = true));
-      this._updateDisplayValue(selectedOptionElements);
+      selectedElements.forEach((o) => (o.selected = true));
+      this._updateDisplayValue(selectedElements);
     }
     this._stateChange.emit({ type: 'value', value: newValue });
   }
@@ -792,26 +792,24 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
   };
 
-  private _setValueFromSelectedOption(): void {
-    const selectedOption = this._getSelectedOption();
+  private _setValueFromSelected(): void {
+    const selected = this._getSelected();
 
-    if (Array.isArray(selectedOption)) {
-      if (selectedOption && selectedOption.length > 0) {
+    if (Array.isArray(selected)) {
+      if (selected && selected.length > 0) {
         const value: string[] = [];
-        for (const option of selectedOption) {
+        for (const option of selected) {
           value.push(option.value!);
         }
         this.value = value;
       }
-    } else if (selectedOption) {
-      this._activeItemIndex = this._filteredOptions.findIndex(
-        (option) => option === selectedOption,
-      );
-      this.value = selectedOption.value;
+    } else if (selected) {
+      this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selected);
+      this.value = selected.value;
     }
   }
 
-  private _getSelectedOption(): SbbOptionElement | SbbOptionElement[] | null {
+  private _getSelected(): SbbOptionElement | SbbOptionElement[] | null {
     if (this.multiple) {
       return this._filteredOptions.filter((option) => option.selected);
     } else {
@@ -897,7 +895,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
               ?aria-multiselectable=${this.multiple}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot @slotchange=${this._setValueFromSelectedOption}></slot>
+              <slot @slotchange=${this._setValueFromSelected}></slot>
             </div>
           </div>
         </div>

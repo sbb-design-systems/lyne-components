@@ -62,9 +62,6 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   /** Emits when an option was selected by user. */
   protected abstract optionSelected: EventEmitter;
 
-  /** Emits when the label changes. */
-  protected abstract optionLabelChanged: EventEmitter;
-
   /** Whether to apply the negative styling */
   @state() protected accessor negative = false;
 
@@ -266,7 +263,7 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   private _handleSlotChange(): void {
     this.handleHighlightState();
-    this.optionLabelChanged.emit();
+    this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
   }
 
   protected override render(): TemplateResult {
