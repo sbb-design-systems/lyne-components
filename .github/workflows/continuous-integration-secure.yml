@@ -70,12 +70,10 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
       - name: Build slim image
-        uses: kitabisa/docker-slim-action@v1
+        uses: ./.github/actions/docker-slim
         with:
           target: '${{ env.IMAGE_REPO_PREVIEW }}:pr${{ env.PR_NUMBER }}'
           tag: 'pr${{ env.PR_NUMBER }}-slim'
-        env:
-          DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
         run: |
           docker push $IMAGE_REPO_PREVIEW:pr$PR_NUMBER-slim
@@ -193,12 +191,10 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
       - name: Build slim image
-        uses: kitabisa/docker-slim-action@v1
+        uses: ./.github/actions/docker-slim
         with:
           target: '${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr${{ env.PR_NUMBER }}'
           tag: 'pr${{ env.PR_NUMBER }}-slim'
-        env:
-          DSLIM_PRESERVE_PATH: /usr/share/nginx/html
       - name: Push slim image
         run: |
           docker push $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER-slim
