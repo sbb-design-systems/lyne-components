@@ -123,7 +123,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /** The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
   @property()
-  public set max(value: SbbDateLike<T> | undefined) {
+  public set max(value: SbbDateLike<T> | null) {
     this._max = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
   public get max(): T | null {
@@ -133,7 +133,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
   @property()
-  public set now(value: SbbDateLike<T> | undefined) {
+  public set now(value: SbbDateLike<T> | null) {
     this._now = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
   public get now(): T {
@@ -143,7 +143,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /** The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
   @property()
-  public set selected(value: SbbDateLike<T> | undefined) {
+  public set selected(value: SbbDateLike<T> | null) {
     this._selectedDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     if (
       !!this._selectedDate &&

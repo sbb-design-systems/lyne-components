@@ -58,7 +58,7 @@ class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof Lit
    * If set multiple to true, the value is an array.
    */
   @property()
-  public set value(value: string | string[] | null) {
+  public set value(value: string | (string | null)[] | null) {
     const tags = this.tags;
     if (isServer) {
       this._value = value;
@@ -91,7 +91,7 @@ class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof Lit
         ? this.tags.filter((t) => t.checked).map((t) => t.value)
         : (this.tags.find((t) => t.checked)?.value ?? null);
   }
-  private _value: string | string[] | null = null;
+  private _value: string | (string | null)[] | null = null;
 
   /** The child instances of sbb-tag as an array. */
   public get tags(): SbbTagElement[] {

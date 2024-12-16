@@ -37,8 +37,8 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public set horizontalFrom(value: SbbHorizontalFrom) {
-    this._horizontalFrom = breakpoints.includes(value) ? value : undefined;
+  public set horizontalFrom(value: SbbHorizontalFrom | undefined) {
+    this._horizontalFrom = value && breakpoints.includes(value) ? value : undefined;
     if (this._horizontalFrom && this._loaded) {
       this._checkOrientation();
     }
@@ -60,7 +60,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   /** The currently selected step. */
   @property({ attribute: false })
-  public set selected(step: SbbStepElement) {
+  public set selected(step: SbbStepElement | undefined) {
     if (this._loaded) {
       this._select(step);
     }
@@ -71,8 +71,8 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   /** The currently selected step index. */
   @property({ attribute: 'selected-index', type: Number })
-  public set selectedIndex(index: number) {
-    if (this._loaded) {
+  public set selectedIndex(index: number | undefined) {
+    if (this._loaded && index !== undefined) {
       this._select(this.steps[index]);
     }
   }
@@ -122,7 +122,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     }
   }
 
-  private _isValidStep(step: SbbStepElement): boolean {
+  private _isValidStep(step: SbbStepElement | undefined): boolean {
     if (!step || (!this.linear && step.label?.hasAttribute('disabled'))) {
       return false;
     }
@@ -139,7 +139,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     return true;
   }
 
-  private _select(step: SbbStepElement): void {
+  private _select(step: SbbStepElement | undefined): void {
     if (!this._isValidStep(step)) {
       return;
     }
@@ -154,7 +154,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     }
     const current = this.selected;
     current?.deselect();
-    step.select();
+    step!.select();
     this._setMarkerSize();
     this._configureLinearMode();
     // In case the focus is currently inside the stepper, we focus the selected step label.
