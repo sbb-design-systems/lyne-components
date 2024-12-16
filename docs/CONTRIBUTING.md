@@ -179,7 +179,7 @@ This project publishes the following package:
 
 ### Styling
 
-This project uses [SASS](https://sass-lang.com/) for styling the components.
+This project uses [Sass](https://sass-lang.com/) for styling the components.
 
 ## Language
 

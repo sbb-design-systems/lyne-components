@@ -3,7 +3,7 @@
 The page spacing ensures inline margins and controls the max-width of the page.
 The `expanded`-variant has a smaller inline spacing and no max-width.
 
-| CSS class                   | SASS mixin              |
+| CSS class                   | Sass mixin              |
 | --------------------------- | ----------------------- |
 | `sbb-page-spacing`          | `page-spacing`          |
 | `sbb-page-spacing-expanded` | `page-spacing-expanded` |
@@ -22,12 +22,12 @@ Alternatively the [sbb-container](/docs/elements-sbb-container-sbb-container--do
 
 ## Grid
 
-The grid is available as CSS class or SASS mixin.
+The grid is available as CSS class or Sass mixin.
 It provides the grid from the design specifications on which you can place your elements.
 The `expanded`-variant has a smaller inline spacing and no max-width.
 [See CSS grid docs for full documentation of all the possibilities of placing elements on a grid.](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
 
-| CSS class           | SASS mixin      |
+| CSS class           | Sass mixin      |
 | ------------------- | --------------- |
 | `sbb-grid`          | `grid`          |
 | `sbb-grid-expanded` | `grid-expanded` |

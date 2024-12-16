@@ -21,7 +21,7 @@ class SbbFooterElement extends SbbNegativeMixin(LitElement) {
 
   /**
    * Variants to display the footer. The default, displays the content in regular block element
-   * approach. The clock-columns, used a css-grid for displaying the content over different
+   * approach. The clock-columns, used a CSS-grid for displaying the content over different
    * breakpoints.
    */
   @property({ reflect: true }) public accessor variant: 'default' | 'clock-columns' = 'default';
