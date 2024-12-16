@@ -57,7 +57,7 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
   /** Numeric value for the inner HTMLInputElement. */
   @property({ attribute: 'value-as-number', type: Number })
   public set valueAsNumber(value: number | null) {
-    this.value = value?.toString() || null;
+    this.value = value?.toString() ?? null;
   }
   public get valueAsNumber(): number | null {
     return Number(this.value);
