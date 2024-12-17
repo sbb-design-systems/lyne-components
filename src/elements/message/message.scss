@@ -28,6 +28,7 @@
 
 ::slotted([slot='image']) {
   display: block;
+  margin-inline: auto !important; // overrides '.sbb-figure' margin
   margin-block: var(--sbb-message-image-margin-block) !important; // overrides '.sbb-figure' margin
   width: 100%;
 }
