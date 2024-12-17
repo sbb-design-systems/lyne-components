@@ -182,6 +182,29 @@ export function createManifestConfig(library = '') {
                     publicMember.default = member.default;
                   }
                 }
+
+                /**
+                 * If an element extends a base class, and the base class implements a mixin and overrides some of its property,
+                 * the overriding is not considered during the manifest generation because the inheritance chain
+                 * is traversed from the outer to the inner element and not vice versa as expected.
+                 *
+                 * A practical example is the `form` property (get/set) in the button-base-element, which overrides the `form` getter in the form-associated-mixin;
+                 * however, the changes are not reflected in the manifest, which mark the `form` member as `readonly`.
+                 * This behavior is problematic when the Angular classes are generated, so a manual override must be done.
+                 * The corresponding attribute field is not changed, so it can be used as a 'baseline'.
+                 */
+                const matchedAttribute = declaration.attributes?.find(
+                  (e) =>
+                    e.name === member.name &&
+                    member.inheritedFrom &&
+                    e.inheritedFrom &&
+                    e.inheritedFrom?.name !== member.inheritedFrom?.name,
+                );
+                if (matchedAttribute) {
+                  delete member.readonly;
+                  member.description = matchedAttribute.description;
+                  member.inheritedFrom = matchedAttribute.inheritedFrom;
+                }
               }
             }
           }
