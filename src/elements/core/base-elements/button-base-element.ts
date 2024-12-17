@@ -33,7 +33,7 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
     return (this.getAttribute('type') as SbbButtonType) ?? 'button';
   }
 
-  /** The <form> element to associate the button with. */
+  /** The `<form>` element to associate the button with. */
   @property()
   public override set form(value: string) {
     this._formId = value;
