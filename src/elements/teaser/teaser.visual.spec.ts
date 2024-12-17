@@ -142,7 +142,7 @@ describe(`sbb-teaser`, () => {
               <div style="display:grid; gap: 2rem; grid-template-columns: repeat(2, 1fr);">
                 ${repeat(
                   new Array(count),
-                  (_, i) => html`
+                  (_) => html`
                     <sbb-teaser
                       title-content="This is a title"
                       href="#"
@@ -150,7 +150,7 @@ describe(`sbb-teaser`, () => {
                       style="--sbb-teaser-align-items: stretch;"
                     >
                       <figure slot="image" class="sbb-figure" style="width: 100%">
-                        <sbb-image image-src=${imageUrl} id=${`img${i}`}></sbb-image>
+                        <sbb-image image-src=${imageUrl}></sbb-image>
                         <sbb-chip-label class="sbb-figure-overlap-start-start">
                           AI chip
                         </sbb-chip-label>
