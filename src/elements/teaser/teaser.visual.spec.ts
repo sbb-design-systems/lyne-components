@@ -164,8 +164,8 @@ describe(`sbb-teaser`, () => {
           `);
 
           await Promise.all(
-            new Array(count).map((_, i) =>
-              waitForImageReady(setup.snapshotElement.querySelector(`#img${i}`)!),
+            Array.from(setup.snapshotElement.querySelectorAll('sbb-image')).map((el) =>
+              waitForImageReady(el),
             ),
           );
         }),
