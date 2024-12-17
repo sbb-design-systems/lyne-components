@@ -37,16 +37,16 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public set horizontalFrom(value: SbbHorizontalFrom | undefined) {
-    this._horizontalFrom = value && breakpoints.includes(value) ? value : undefined;
+  public set horizontalFrom(value: SbbHorizontalFrom | null) {
+    this._horizontalFrom = value && breakpoints.includes(value) ? value : null;
     if (this._horizontalFrom && this._loaded) {
       this._checkOrientation();
     }
   }
-  public get horizontalFrom(): SbbHorizontalFrom | undefined {
+  public get horizontalFrom(): SbbHorizontalFrom | null {
     return this._horizontalFrom;
   }
-  private _horizontalFrom?: SbbHorizontalFrom | undefined;
+  private _horizontalFrom: SbbHorizontalFrom | null = null;
 
   /** Steps orientation, either horizontal or vertical. */
   @property({ reflect: true })
@@ -60,24 +60,24 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   /** The currently selected step. */
   @property({ attribute: false })
-  public set selected(step: SbbStepElement | undefined) {
+  public set selected(step: SbbStepElement | null) {
     if (this._loaded) {
       this._select(step);
     }
   }
-  public get selected(): SbbStepElement | undefined {
-    return this.querySelector?.<SbbStepElement>('sbb-step[data-selected]') ?? undefined;
+  public get selected(): SbbStepElement | null {
+    return this.querySelector?.<SbbStepElement>('sbb-step[data-selected]') ?? null;
   }
 
   /** The currently selected step index. */
   @property({ attribute: 'selected-index', type: Number })
-  public set selectedIndex(index: number | undefined) {
-    if (this._loaded && index !== undefined) {
+  public set selectedIndex(index: number | null) {
+    if (this._loaded && index !== null) {
       this._select(this.steps[index]);
     }
   }
-  public get selectedIndex(): number | undefined {
-    return this.selected ? this.steps.indexOf(this.selected) : undefined;
+  public get selectedIndex(): number | null {
+    return this.selected ? this.steps.indexOf(this.selected) : null;
   }
 
   /** The steps of the stepper. */
@@ -95,14 +95,14 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   /** Selects the next step. */
   public next(): void {
-    if (this.selectedIndex !== undefined) {
+    if (this.selectedIndex !== null) {
       this._select(this.steps[this.selectedIndex + 1]);
     }
   }
 
   /** Selects the previous step. */
   public previous(): void {
-    if (this.selectedIndex !== undefined) {
+    if (this.selectedIndex !== null) {
       this._select(this.steps[this.selectedIndex - 1]);
     }
   }
@@ -122,7 +122,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     }
   }
 
-  private _isValidStep(step: SbbStepElement | undefined): boolean {
+  private _isValidStep(step: SbbStepElement | null): boolean {
     if (!step || (!this.linear && step.label?.hasAttribute('disabled'))) {
       return false;
     }
@@ -131,7 +131,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
       return step === this.steps[0];
     }
 
-    if (this.linear && this.selectedIndex !== undefined) {
+    if (this.linear && this.selectedIndex !== null) {
       const index = this.steps.indexOf(step);
       return index < this.selectedIndex || index === this.selectedIndex + 1;
     }
@@ -139,15 +139,15 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     return true;
   }
 
-  private _select(step: SbbStepElement | undefined): void {
+  private _select(step: SbbStepElement | null): void {
     if (!this._isValidStep(step)) {
       return;
     }
     const validatePayload: SbbStepValidateEventDetails = {
       currentIndex: this.selectedIndex,
       currentStep: this.selected,
-      nextIndex: this.selectedIndex !== undefined ? this.selectedIndex + 1 : undefined,
-      nextStep: this.selectedIndex !== undefined ? this.steps[this.selectedIndex + 1] : undefined,
+      nextIndex: this.selectedIndex !== null ? this.selectedIndex + 1 : null,
+      nextStep: this.selectedIndex !== null ? this.steps[this.selectedIndex + 1] : null,
     };
     if (this.selected && !this.selected.validate(validatePayload)) {
       return;
@@ -181,7 +181,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   }
 
   private _calculateLabelOffsetTop(): number | undefined {
-    if (this.selectedIndex === undefined) {
+    if (this.selectedIndex === null) {
       return;
     }
     let offset = 0;
