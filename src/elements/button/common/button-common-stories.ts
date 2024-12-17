@@ -9,7 +9,7 @@ import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories.js';
 
 import '../../action-group.js';
 import '../../form-field.js';
-import '../../loading-indicator.js';
+import '../../loading-indicator-circle.js';
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
 const FormTemplate = ({
@@ -79,7 +79,7 @@ const LoadingTemplate = ({
                             }
                           }}>
       Click to submit
-      <sbb-loading-indicator variant="circle" aria-hidden style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display:none"></sbb-loading-indicator>
+      <sbb-loading-indicator-circle aria-hidden style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display:none"></sbb-loading-indicator-circle>
     </${unsafeStatic(tag)}>
    `;
 
@@ -109,7 +109,7 @@ const LoadingTemplate2 = ({
                               }, 5000);
                             }
                           }}>
-      <sbb-loading-indicator variant="circle" aria-hidden style="width:0; overflow-x: clip; transition: width var(--sbb-animation-duration-2x) var(--sbb-animation-easing)"></sbb-loading-indicator>
+      <sbb-loading-indicator-circle aria-hidden style="width:0; overflow-x: clip; transition: width var(--sbb-animation-duration-2x) var(--sbb-animation-easing)"></sbb-loading-indicator-circle>
       Click to submit
     </${unsafeStatic(tag)}>
    `;
