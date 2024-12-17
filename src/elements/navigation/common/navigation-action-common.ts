@@ -21,7 +21,7 @@ export declare class SbbNavigationActionCommonElementMixinType {
   public accessor size: SbbNavigationActionSize;
   public get marker(): SbbNavigationMarkerElement | null;
   public get section(): SbbNavigationSectionElement | null;
-  public connectedSection: SbbNavigationSectionElement | null;
+  public connectedSection: SbbNavigationSectionElement | undefined;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

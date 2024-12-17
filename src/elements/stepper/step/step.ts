@@ -19,10 +19,10 @@ import style from './step.scss?lit&inline';
 let nextId = 0;
 
 export type SbbStepValidateEventDetails = {
-  currentIndex?: number;
-  currentStep?: SbbStepElement;
-  nextIndex?: number;
-  nextStep?: SbbStepElement;
+  currentIndex: number | null;
+  currentStep: SbbStepElement | null;
+  nextIndex: number | null;
+  nextStep: SbbStepElement | null;
 };
 
 /**

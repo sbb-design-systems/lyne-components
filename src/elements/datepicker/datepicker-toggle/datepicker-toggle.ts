@@ -157,14 +157,14 @@ class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydration
       return;
     }
     calendar.wide = datepicker.wide;
-    calendar.now = this._nowOrUndefined();
+    calendar.now = this._nowOrNull();
     calendar.dateFilter = datepicker.dateFilter;
   }
 
   private _datePickerChanged(event: Event): void {
     this._datePickerElement = event.target as SbbDatepickerElement<T>;
     if (this._calendarElement) {
-      this._calendarElement.selected = this._datePickerElement.valueAsDate || undefined;
+      this._calendarElement.selected = this._datePickerElement.valueAsDate ?? null;
     }
   }
 
@@ -179,7 +179,7 @@ class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydration
     ) {
       return;
     }
-    this._calendarElement.selected = this._datePickerElement!.valueAsDate ?? undefined;
+    this._calendarElement.selected = this._datePickerElement!.valueAsDate ?? null;
     this._configureCalendar(this._calendarElement, this._datePickerElement!);
     this._calendarElement.resetPosition();
   }
@@ -190,8 +190,8 @@ class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydration
     this._popoverElement.trigger = this._triggerElement;
   }
 
-  private _nowOrUndefined(): T | undefined {
-    return this._datePickerElement?.hasCustomNow() ? this._datePickerElement.now : undefined;
+  private _nowOrNull(): T | null {
+    return this._datePickerElement?.hasCustomNow() ? this._datePickerElement.now : null;
   }
 
   protected override render(): TemplateResult {
@@ -220,7 +220,7 @@ class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydration
               .view=${this.view}
               .min=${this._min}
               .max=${this._max}
-              .now=${this._nowOrUndefined()}
+              .now=${this._nowOrNull()}
               ?wide=${this._datePickerElement?.wide}
               .dateFilter=${this._datePickerElement?.dateFilter}
               @dateSelected=${(d: CustomEvent<T>) => {
