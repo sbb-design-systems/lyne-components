@@ -3,20 +3,17 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
-import { findReferencedElement } from '../../core/dom.js';
+import { findReferencedElement, isLean } from '../../core/dom.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 
 import style from './header.scss?lit&inline';
-
-import '../../logo.js';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
 /**
  * It displays a header section for the page.
  *
- * @slot - Use the unnamed slot to add actions or content to the header.
- * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
+ * @slot - Use the unnamed slot to add actions, content and logo to the header.
  * @cssprop [--sbb-header-z-index=10] - Can be used to modify the z-index of the header.
  * @cssprop [--sbb-header-height=zero-small:var(--sbb-spacing-fixed-14x);medium-ultra:var(--sbb-spacing-fixed-24x)] - Can be used to modify height of the header.
  */
@@ -50,8 +47,11 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   @property({ attribute: 'hide-on-scroll', reflect: true, type: Boolean })
   public accessor hideOnScroll: boolean = false;
 
-  /** Size of the header. */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = 'm';
+  /**
+   * Size of the header, either m or s.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
   @state() private accessor _headerOnTop = true;
 
@@ -188,11 +188,6 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
       <header class="sbb-header">
         <div class="sbb-header__wrapper">
           <slot></slot>
-          <div class="sbb-header__logo">
-            <slot name="logo">
-              <sbb-logo protective-room="none"></sbb-logo>
-            </slot>
-          </div>
         </div>
       </header>
     `;

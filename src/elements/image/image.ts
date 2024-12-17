@@ -24,10 +24,8 @@ import {
   type TemplateResult,
 } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { forceType } from '../core/decorators.js';
-import { hostContext } from '../core/dom.js';
 
 import style from './image.scss?lit&inline';
 
@@ -127,9 +125,7 @@ const eventListenerOptions = {
   passive: true,
 };
 
-const pxToRem = (px: number): number => {
-  return px / SbbTypoScaleDefault;
-};
+const pxToRem = (px: number): number => px / SbbTypoScaleDefault;
 
 const breakpointMap: Record<string, number> = {
   'sbb-breakpoint-zero-min': pxToRem(SbbBreakpointZeroMin),
@@ -156,10 +152,8 @@ const breakpointMap: Record<string, number> = {
  * @cssprop [--sbb-image-aspect-ratio=auto] - Can be used to override `aspectRatio` property.
  * This way we can have, for example, an image component with an aspect
  * ratio of 4/3 in smaller viewports and 16/9 in larger viewports.
- * @cssprop [--sbb-image-border-radius=var(--sbb-border-radius-4x)] - Can be used to override the
- * `borderRadius` property in case of different values for different viewports.
- * @cssprop [--sbb-image-object-position] - Can be used to set the object-position css property of the image itself if the image itself is cropped.
- * @cssprop [--sbb-image-object-fit=cover] - Can be used to set the object-fit css property of the image itself if the image itself is cropped.
+ * @cssprop [--sbb-image-object-position] - Can be used to set the object-position CSS property of the image itself if the image itself is cropped.
+ * @cssprop [--sbb-image-object-fit=cover] - Can be used to set the object-fit CSS property of the image itself if the image itself is cropped.
  */
 export
 @customElement('sbb-image')
@@ -198,31 +192,6 @@ class SbbImageElement extends LitElement {
   @forceType()
   @property({ attribute: 'skip-lqip', type: Boolean, reflect: true })
   public accessor skipLqip: boolean = false;
-
-  /**
-   * A caption can provide additional context to the image (e.g.
-   * descriptions and the like).
-   * Links will automatically receive tabindex=-1 if hideFromScreenreader
-   * is set to true. That way they will no longer become focusable.
-   */
-  @forceType()
-  @property()
-  public accessor caption: string = '';
-
-  /**
-   * If a copyright text is provided, we will add it to the caption
-   * and create a structured data json-ld block with the copyright
-   * information.
-   */
-  @forceType()
-  @property()
-  public accessor copyright: string = '';
-
-  /**
-   * Copyright holder can either be an Organization or a Person
-   */
-  @property({ attribute: 'copyright-holder' })
-  public accessor copyrightHolder: 'Organization' | 'Person' = 'Organization';
 
   /**
    * Set this to true, if you want to pass a custom focal point
@@ -390,46 +359,9 @@ class SbbImageElement extends LitElement {
   @property({ attribute: 'picture-sizes-config' })
   public accessor pictureSizesConfig: string = '';
 
-  /**
-   * Border radius of the image. Choose between a default radius, no radius and a completely round image.
-   */
-  @property({ attribute: 'border-radius', reflect: true }) public accessor borderRadius:
-    | 'default'
-    | 'none'
-    | 'round' = 'default';
-
-  /**
-   * Set an aspect ratio
-   * default is '16-9' (16/9)
-   * other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
-   */
-  @property({ attribute: 'aspect-ratio', reflect: true })
-  public accessor aspectRatio:
-    | 'free'
-    | '1-1'
-    | '1-2'
-    | '2-1'
-    | '2-3'
-    | '3-2'
-    | '3-4'
-    | '4-3'
-    | '4-5'
-    | '5-4'
-    | '9-16'
-    | '16-9' = '16-9';
-
   /** Whether the image is finished loading or failed to load. */
   public get complete(): boolean {
     return this.shadowRoot?.querySelector?.<HTMLImageElement>('.sbb-image__img')?.complete ?? false;
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    // Check if the current element is nested in an `<sbb-teaser-hero>` element on in an `<sbb-teaser-paid>` element.
-    this.toggleAttribute(
-      'data-teaser',
-      !!hostContext('sbb-teaser-hero', this) || !!this.closest('sbb-teaser-paid'),
-    );
   }
 
   protected override updated(changedProperties: PropertyValues<this>): void {
@@ -613,28 +545,12 @@ class SbbImageElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    let { caption } = this;
-    let schemaData = '';
-
     const imageUrlLQIP = this._prepareImageUrl(this.imageSrc, true);
     const imageUrlWithParams = this._prepareImageUrl(this.imageSrc, false);
 
     if (this.loading === 'lazy') {
       this.decoding = 'async';
       this.importance = 'low';
-    }
-
-    if (this.copyright) {
-      caption = `${this.caption} ©${this.copyright}`;
-      schemaData = `{
-        "@context": "https://schema.org",
-        "@type": "Photograph",
-        "image": "${this.imageSrc}",
-        "copyrightHolder": {
-          "@type": "${this.copyrightHolder}",
-          "name": "${this.copyright}"
-        }
-      }`;
     }
 
     const pictureSizeConfigs = this._preparePictureSizeConfigs();
@@ -646,66 +562,51 @@ class SbbImageElement extends LitElement {
      * they might try to interpret the img element.
      */
     return html`
-      <figure class="sbb-image__figure">
-        <div class="sbb-image__wrapper">
-          ${!this.skipLqip
-            ? html`<img
-                alt=""
-                class="sbb-image__blurred"
-                src=${imageUrlLQIP}
-                width="1000"
-                height="562"
-                loading=${this.loading ?? nothing}
-                decoding=${this.decoding ?? nothing}
-              />`
-            : nothing}
-
-          <picture>
-            <!-- render picture element sources -->
-            ${pictureSizeConfigs.map((config) => {
-              const imageHeight = config.image.height;
-              const imageWidth = config.image.width;
-              const mediaQuery = this._createMediaQueryString(config.mediaQueries);
-              return [
-                html` <source
-                  media=${`${mediaQuery}`}
-                  sizes=${`${imageWidth}px`}
-                  srcset=${
-                    `${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${this._config.nonRetinaQuality} ${imageWidth}w, ` +
-                    `${imageUrlWithParams}&w=${imageWidth * 2}&h=${imageHeight * 2}&q=${
-                      this._config.retinaQuality
-                    } ${imageWidth * 2}w`
-                  }
-                ></source>`,
-              ];
-            })}
-            <img
-              alt=${this.alt || ''}
-              @load=${this._imageLoaded}
-              @error=${() => this.dispatchEvent(new Event('error'))}
-              class="sbb-image__img"
-              src=${this.imageSrc!}
+      <div class="sbb-image__wrapper">
+        ${!this.skipLqip
+          ? html`<img
+              alt=""
+              class="sbb-image__blurred"
+              src=${imageUrlLQIP}
               width="1000"
               height="562"
               loading=${this.loading ?? nothing}
               decoding=${this.decoding ?? nothing}
-              .fetchPriority=${this.importance ?? nothing}
-            />
-          </picture>
-        </div>
-        ${caption
-          ? html`<figcaption
-              class="sbb-image__caption"
-              .innerHTML=${caption}
-              ${ref((el): void => {
-                this._captionElement = el as HTMLElement;
-              })}
-            ></figcaption>`
+            />`
           : nothing}
-        ${schemaData
-          ? html`<script type="application/ld+json" .innerHTML=${schemaData}></script>`
-          : nothing}
-      </figure>
+
+        <picture>
+          <!-- render picture element sources -->
+          ${pictureSizeConfigs.map((config) => {
+            const imageHeight = config.image.height;
+            const imageWidth = config.image.width;
+            const mediaQuery = this._createMediaQueryString(config.mediaQueries);
+            return html`
+              <source
+                media=${`${mediaQuery}`}
+                sizes=${`${imageWidth}px`}
+                srcset=${
+                  `${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${this._config.nonRetinaQuality} ${imageWidth}w, ` +
+                  `${imageUrlWithParams}&w=${imageWidth * 2}&h=${imageHeight * 2}&q=${
+                    this._config.retinaQuality
+                  } ${imageWidth * 2}w`
+                }
+              ></source>`;
+          })}
+          <img
+            alt=${this.alt || ''}
+            @load=${this._imageLoaded}
+            @error=${() => this.dispatchEvent(new Event('error'))}
+            class="sbb-image__img"
+            src=${this.imageSrc!}
+            width="1000"
+            height="562"
+            loading=${this.loading ?? nothing}
+            decoding=${this.decoding ?? nothing}
+            .fetchPriority=${this.importance ?? nothing}
+          />
+        </picture>
+      </div>
     `;
   }
 }

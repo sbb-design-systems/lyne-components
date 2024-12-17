@@ -10,7 +10,7 @@ $active: ':active, [data-active]';
   display: inline-block;
 
   // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
+  // which appears in normalize CSS of several frameworks.
   outline: none !important;
   max-width: 100%;
 
@@ -25,7 +25,7 @@ $active: ':active, [data-active]';
   --sbb-tag-inset: 0;
   --sbb-tag-content-shift: translateY(0);
   --sbb-tag-animation-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-tag-animation-easing: var(--sbb-animation-easing);

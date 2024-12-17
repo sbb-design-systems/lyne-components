@@ -9,6 +9,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
+import { isLean } from '../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins.js';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.js';
 import type { SbbTitleLevel } from '../title.js';
@@ -49,7 +50,7 @@ class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 
     if (changedProperties.has('listChildren')) {
       for (const child of this.listChildren) {
-        child.size = 'm';
+        child.size = isLean() ? 'xs' : 'm';
         child.negative = true;
       }
     }

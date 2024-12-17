@@ -6,7 +6,7 @@ import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } fro
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
 import { forceType, slotState } from '../core/decorators.js';
-import { isFirefox } from '../core/dom.js';
+import { isFirefox, isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
@@ -100,6 +100,16 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
     }
     this.state = 'opening';
     this._closeOtherToasts();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleOpening();
+    }
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-toast-animation-duration');
   }
 
   /**
@@ -115,6 +125,27 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
     }
     clearTimeout(this._closeTimeout);
     this.state = 'closing';
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `closed` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleClosing();
+    }
+  }
+
+  private _handleClosing(): void {
+    this.state = 'closed';
+    this.didClose.emit();
+  }
+
+  private _handleOpening(): void {
+    this.state = 'opened';
+    this.didOpen.emit();
+
+    // Start the countdown to close it
+    if (this.timeout) {
+      this._closeTimeout = setTimeout(() => this.close(), this.timeout);
+    }
   }
 
   // Close the toast on click of any element that has the 'sbb-toast-close' attribute.
@@ -170,7 +201,7 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
       ) as (SbbTransparentButtonElement | SbbTransparentButtonLinkElement)[];
     buttons.forEach((btn: SbbTransparentButtonElement | SbbTransparentButtonLinkElement) => {
       btn.negative = true;
-      btn.size = 'm';
+      btn.size = isLean() ? 's' : 'm';
     });
 
     // Force negative on inline slotted links
@@ -187,19 +218,9 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
   private _onToastAnimationEnd(event: AnimationEvent): void {
     // On toast opened
     if (event.animationName === 'open' && this.state === 'opening') {
-      this.state = 'opened';
-      this.didOpen.emit();
-
-      // Start the countdown to close it
-      if (this.timeout) {
-        this._closeTimeout = setTimeout(() => this.close(), this.timeout);
-      }
-    }
-
-    // On toast closed
-    if (event.animationName === 'close' && this.state === 'closing') {
-      this.state = 'closed';
-      this.didClose.emit();
+      this._handleOpening();
+    } else if (event.animationName === 'close' && this.state === 'closing') {
+      this._handleClosing();
     }
   }
 

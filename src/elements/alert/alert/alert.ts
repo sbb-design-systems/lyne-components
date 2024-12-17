@@ -1,11 +1,11 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { type LinkTargetType, SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { EventEmitter } from '../../core/eventing.js';
-import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n.js';
+import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
+import { i18nCloseAlert } from '../../core/i18n.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
 
@@ -13,7 +13,6 @@ import style from './alert.scss?lit&inline';
 
 import '../../button/transparent-button.js';
 import '../../divider.js';
-import '../../link.js';
 import '../../title.js';
 
 /**
@@ -26,7 +25,6 @@ import '../../title.js';
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
  * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
- * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 export
 @customElement('sbb-alert')
@@ -37,7 +35,6 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     didOpen: 'didOpen',
     willClose: 'willClose',
     didClose: 'didClose',
-    dismissalRequested: 'dismissalRequested',
   } as const;
 
   /**
@@ -48,8 +45,11 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   @property({ reflect: true, type: Boolean })
   public accessor readonly: boolean = false;
 
-  /** You can choose between `s`, `m` or `l` size. */
-  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = 'm';
+  /**
+   * You can choose between `s`, `m` or `l` size.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = isLean() ? 's' : 'm';
 
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
@@ -68,62 +68,33 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
   @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
 
-  /** Content of the link. */
-  @forceType()
-  @property({ attribute: 'link-content' })
-  public accessor linkContent: string = '';
-
-  /** The href value you want to link to. */
-  @forceType()
-  @property()
-  public accessor href: string = '';
-
-  /** Where to display the linked URL. */
-  @forceType()
-  @property()
-  public accessor target: LinkTargetType | string = '';
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @forceType()
-  @property()
-  public accessor rel: string = '';
-
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @forceType()
-  @property({ attribute: 'accessibility-label' })
-  public accessor accessibilityLabel: string = '';
-
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
-  /**
-   * Emits when dismissal of an alert was requested.
-   * @deprecated
-   */
-  private _dismissalRequested: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbAlertElement.events.dismissalRequested,
-  );
-
   private _language = new SbbLanguageController(this);
-
-  /** Requests dismissal of the alert.
-   * @deprecated in favour of 'willClose' and 'didClose' events
-   */
-  public requestDismissal(): void {
-    this._dismissalRequested.emit();
-  }
 
   /** Open the alert. */
   public open(): void {
-    this.willOpen.emit();
     this.state = 'opening';
+    this.willOpen.emit();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleOpening();
+    }
   }
 
   /** Close the alert. */
   public close(): void {
-    if (this.willClose.emit()) {
+    if (this.state === 'opened' && this.willClose.emit()) {
       this.state = 'closing';
+
+      // If the animation duration is zero, the animationend event is not always fired reliably.
+      // In this case we directly set the `closed` state.
+      if (this._isZeroAnimationDuration()) {
+        this._handleClosing();
+      }
     }
   }
 
@@ -131,6 +102,10 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     super.firstUpdated(changedProperties);
 
     this.open();
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-alert-animation-duration');
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
@@ -152,6 +127,12 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     setTimeout(() => this.remove());
   }
 
+  private _syncLinks(): void {
+    Array.from(this.querySelectorAll?.('sbb-link') ?? []).forEach((link) =>
+      link.toggleAttribute('negative', true),
+    );
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>
@@ -169,19 +150,8 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
                 <slot name="title">${this.titleContent}</slot>
               </sbb-title>
               <p class="sbb-alert__content-slot">
-                <slot></slot>
+                <slot @slotchange=${this._syncLinks}></slot>
               </p>
-              ${this.href
-                ? html` <sbb-link
-                    accessibility-label=${this.accessibilityLabel ?? nothing}
-                    href=${this.href ?? nothing}
-                    target=${this.target ?? nothing}
-                    rel=${this.rel ?? nothing}
-                    negative
-                  >
-                    ${this.linkContent ? this.linkContent : i18nFindOutMore[this._language.current]}
-                  </sbb-link>`
-                : nothing}
             </span>
             ${!this.readonly
               ? html`<span class="sbb-alert__close-button-wrapper">
@@ -194,7 +164,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
                     negative
                     size=${this.size === 'l' ? 'm' : this.size}
                     icon-name="cross-small"
-                    @click=${() => this.requestDismissal()}
+                    @click=${() => this.close()}
                     aria-label=${i18nCloseAlert[this._language.current]}
                     class="sbb-alert__close-button"
                   ></sbb-transparent-button>

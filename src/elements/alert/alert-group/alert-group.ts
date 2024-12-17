@@ -5,10 +5,10 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { EventEmitter } from '../../core/eventing.js';
+import { EventEmitter, isEventPrevented } from '../../core/eventing.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTitleLevel } from '../../title.js';
-import { SbbAlertElement } from '../alert.js';
+import type { SbbAlertElement } from '../alert.js';
 
 import style from './alert-group.scss?lit&inline';
 
@@ -17,7 +17,6 @@ import style from './alert-group.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-alert` elements to the `sbb-alert-group`.
  * @slot accessibility-title - title for this `sbb-alert-group` which is only visible for screen reader users.
- * @event {CustomEvent<SbbAlertElement>} didDismissAlert - Emits when an alert was removed from DOM.
  * @event {CustomEvent<void>} empty - Emits when `sbb-alert-group` becomes empty.
  */
 export
@@ -25,7 +24,6 @@ export
 class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didDismissAlert: 'didDismissAlert',
     empty: 'empty',
   } as const;
 
@@ -50,12 +48,6 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
   /** Whether the group currently has any alerts. */
   @state() private accessor _hasAlerts: boolean = false;
 
-  /** Emits when an alert was removed from DOM. */
-  private _didDismissAlert: EventEmitter<SbbAlertElement> = new EventEmitter(
-    this,
-    SbbAlertGroupElement.events.didDismissAlert,
-  );
-
   /** Emits when `sbb-alert-group` becomes empty. */
   private _empty: EventEmitter<void> = new EventEmitter(this, SbbAlertGroupElement.events.empty);
 
@@ -65,21 +57,22 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener(
-      SbbAlertElement.events.dismissalRequested,
-      (e) => (e.target as SbbAlertElement).close(),
+      'didClose',
+      async (e: CustomEvent<void>) => {
+        if (!(await isEventPrevented(e))) {
+          this._alertClosed(e);
+        }
+      },
       {
         signal,
+        capture: true,
       },
     );
-    this.addEventListener(SbbAlertElement.events.didClose, (e) => this._alertClosed(e), {
-      signal,
-    });
   }
 
   private _alertClosed(event: Event): void {
     const target = event.target as SbbAlertElement;
     const hasFocusInsideAlertGroup = document.activeElement === target;
-    this._didDismissAlert.emit(target);
 
     // Restore focus
     if (hasFocusInsideAlertGroup) {

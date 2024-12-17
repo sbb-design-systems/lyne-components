@@ -19,9 +19,15 @@ Simple teaser example:
 The default slot is reserved for the description. The component displays the `image` and the `title` with the self-named slots.
 It's also possible to display a [sbb-chip-label](/docs/elements-sbb-chip-label--docs) using the `chip` slot.
 
+Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.
+Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+
 ```html
 <sbb-teaser href="https://www.sbb.ch" title-level="2">
-  <img slot="image" src="..." alt="400x300" />
+  <figure slot="image" class="sbb-figure">
+    <img src="..." alt="400x300" />
+    <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
+  </figure>
   <span slot="chip">Chip label</span>
   <span slot="title">Title</span>
   A brief description.
@@ -64,8 +70,6 @@ to achieve the image width taking the full available space. On the image itself,
 It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which describes the `sbb-teaser` for screen-reader users.
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
-
-Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
 
 <!-- Auto Generated Below -->
 

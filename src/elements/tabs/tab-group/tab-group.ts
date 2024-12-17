@@ -8,6 +8,7 @@ import { ref } from 'lit/directives/ref.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter, throttle } from '../../core/eventing.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
@@ -83,7 +84,10 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     callback: (entries) => this._onTabContentElementResize(entries),
   });
 
-  /** Size variant, either s, l or xl. */
+  /**
+   * Size variant, either s, l or xl.
+   * @default 'l' / 's' (lean)
+   */
   @property()
   public set size(value: InterfaceSbbTabGroupTab['size']) {
     this._size = value;
@@ -92,7 +96,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   public get size(): InterfaceSbbTabGroupTab['size'] {
     return this._size;
   }
-  private _size: InterfaceSbbTabGroupTab['size'] = 'l';
+  private _size: InterfaceSbbTabGroupTab['size'] = isLean() ? 's' : 'l';
 
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
@@ -171,6 +175,9 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     if (loadedTabs.length) {
       loadedTabs.forEach((tab) => this._configure(tab));
       this._tabs = this._tabs.concat(loadedTabs);
+
+      // If there is an active tab in the new batch, it becomes the new selected
+      loadedTabs.find((tab) => tab.active)?.tabGroupActions?.select();
     }
   };
 
@@ -246,10 +253,13 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   }
 
   private _onTabContentElementResize(entries: ResizeObserverEntry[]): void {
+    if (!this._tabContentElement) {
+      return;
+    }
     for (const entry of entries) {
       const contentHeight = Math.floor(entry.contentRect.height);
 
-      (this._tabContentElement as HTMLElement).style.height = `${contentHeight}px`;
+      this._tabContentElement.style.height = `${contentHeight}px`;
     }
   }
 
@@ -319,6 +329,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
         }
       },
     };
+
     if (tabLabel.nextElementSibling?.localName === 'sbb-tab') {
       tabLabel.tab = tabLabel.nextElementSibling as SbbTabElement;
       tabLabel.tab.id = this._assignId();
@@ -337,7 +348,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     tabLabel.disabled = tabLabel.hasAttribute('disabled');
     tabLabel.active = tabLabel.hasAttribute('active') && !tabLabel.disabled;
     tabLabel.setAttribute('role', 'tab');
-    tabLabel.setAttribute('aria-selected', 'false');
+    tabLabel.setAttribute('aria-selected', String(tabLabel.active));
     tabLabel.addEventListener('click', () => {
       tabLabel.tabGroupActions?.select();
     });

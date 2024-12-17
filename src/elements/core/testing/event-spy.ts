@@ -32,6 +32,7 @@ export class EventSpy<T extends Event> {
   public constructor(
     private _event: string,
     private readonly _target: Node | null = null,
+    private readonly _options: AddEventListenerOptions | null = null,
   ) {
     if (!this._target) {
       this._target = document;
@@ -40,11 +41,11 @@ export class EventSpy<T extends Event> {
     this._listenForEvent();
   }
 
-  public calledOnce(timeout = 1000): Promise<T> {
+  public calledOnce(timeout?: number): Promise<T> {
     return this.calledTimes(1, timeout);
   }
 
-  public calledTimes(count: number, timeout = 1000): Promise<T> {
+  public calledTimes(count: number, timeout = 2000): Promise<T> {
     if (this.count > count) {
       return Promise.reject(
         `Event has been emitted more than expected (expected ${count}, actual ${this.count}`,
@@ -87,10 +88,14 @@ export class EventSpy<T extends Event> {
   }
 
   private _listenForEvent(): void {
-    this._target?.addEventListener(this._event, (ev) => {
-      this._events.push(ev as T);
-      this._count++;
-      this._promiseEventMap.get(this.count)?.resolve(ev as T);
-    });
+    this._target?.addEventListener(
+      this._event,
+      (ev) => {
+        this._events.push(ev as T);
+        this._count++;
+        this._promiseEventMap.get(this.count)?.resolve(ev as T);
+      },
+      this._options ?? undefined,
+    );
   }
 }

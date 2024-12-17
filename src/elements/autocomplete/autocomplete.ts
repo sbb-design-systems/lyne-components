@@ -42,16 +42,6 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
   }
 
-  protected onOptionClick(event: MouseEvent): void {
-    if (
-      (event.target as Element).localName !== 'sbb-option' ||
-      (event.target as SbbOptionElement).disabled
-    ) {
-      return;
-    }
-    this.close();
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this.abort.signal;
@@ -82,7 +72,7 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
         break;
 
       case 'Enter':
-        this.selectByKeyboard();
+        this.selectByKeyboard(event);
         break;
 
       case 'ArrowDown':
@@ -92,7 +82,8 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
     }
   }
 
-  protected selectByKeyboard(): void {
+  protected selectByKeyboard(event: KeyboardEvent): void {
+    event.preventDefault();
     const activeOption = this.options[this._activeItemIndex];
 
     if (activeOption) {

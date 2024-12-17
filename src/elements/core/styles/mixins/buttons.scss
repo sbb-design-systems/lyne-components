@@ -37,11 +37,11 @@ $active: ':active, [data-active]';
   }
 
   :host(
-      :is(
-          [data-focus-visible],
-          :focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
-        )
-    ) {
+    :is(
+      [data-focus-visible],
+      :focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+    )
+  ) {
     @include icon-button-focus-visible(#{$button-selector});
   }
 
@@ -67,7 +67,7 @@ $active: ':active, [data-active]';
   --sbb-button-border-disabled-style: dashed;
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-transition-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);
@@ -101,7 +101,7 @@ $active: ':active, [data-active]';
     height: fit-content;
 
     // Use !important here to not interfere with Firefox focus ring definition
-    // which appears in normalize css of several frameworks.
+    // which appears in normalize CSS of several frameworks.
     outline: none !important;
 
     @include icon-button-variables;

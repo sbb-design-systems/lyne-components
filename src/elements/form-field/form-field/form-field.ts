@@ -1,12 +1,19 @@
-import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbInputModality } from '../../core/a11y.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, slotState } from '../../core/decorators.js';
-import { isFirefox, setOrRemoveAttribute } from '../../core/dom.js';
+import { isFirefox, isLean, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import type { SbbSelectElement } from '../../select.js';
@@ -18,7 +25,7 @@ import '../../icon.js';
 let nextId = 0;
 let nextFormFieldErrorId = 0;
 
-const supportedPopupTagNames = ['sbb-autocomplete', 'sbb-autocomplete-grid', 'sbb-select'];
+const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 
 /**
  * It wraps an input element adding label, errors, icon, etc.
@@ -43,7 +50,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     'sbb-slider',
   ];
   // List of elements that should not focus input on click
-  private readonly _excludedFocusElements = ['button', 'sbb-popover'];
+  private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option'];
 
   private readonly _floatingLabelSupportedInputElements = [
     'input',
@@ -75,8 +82,11 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   @property({ type: Boolean })
   public accessor optional: boolean = false;
 
-  /** Size variant, either l or m. */
-  @property({ reflect: true }) public accessor size: 'l' | 'm' | 's' = 'm';
+  /**
+   * Size variant, either l, m or s.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'l' | 'm' | 's' = isLean() ? 's' : 'm';
 
   /** Whether to display the form field without a border. */
   @forceType()
@@ -115,7 +125,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     return this._input;
   }
 
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
 
   /**
@@ -133,9 +142,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('willOpen', (e: CustomEvent<void>) => this._onPopupOpen(e), { signal });
-    this.addEventListener('didClose', (e: CustomEvent<void>) => this._onPopupClose(e), { signal });
     this._registerInputListener();
     this._syncNegative();
   }
@@ -152,17 +158,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     super.disconnectedCallback();
     this._formFieldAttributeObserver?.disconnect();
     this._inputAbortController.abort();
-  }
-
-  private _onPopupOpen({ target }: CustomEvent<void>): void {
-    if (supportedPopupTagNames.includes((target as HTMLElement).localName)) {
-      this.toggleAttribute('data-has-popup-open', true);
-    }
-  }
-
-  private _onPopupClose({ target }: CustomEvent<void>): void {
-    if (supportedPopupTagNames.includes((target as HTMLElement).localName)) {
-      this.removeAttribute('data-has-popup-open');
+    if (this._input?.localName === 'input') {
+      this._unpatchInputValue();
     }
   }
 
@@ -171,7 +168,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       return;
     }
 
-    if (this._input?.localName === 'sbb-select') {
+    if (
+      this._input?.localName === 'sbb-select' &&
+      (event.target as HTMLElement).localName !== 'sbb-select'
+    ) {
       this._input.click();
       this._input.focus();
     } else if ((event.target as Element).localName !== 'label') {
@@ -204,10 +204,16 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input` and to observe the native readonly and disabled attributes.
    */
   private _onSlotInputChange(event: Event): void {
-    this._input = (event.target as HTMLSlotElement)
+    const newInput = (event.target as HTMLSlotElement)
       .assignedElements()
       .find((e): e is HTMLElement => this._supportedInputElements.includes(e.localName));
     this._assignSlots();
+
+    if (this._input && this._input.localName === 'input' && newInput !== this._input) {
+      this._unpatchInputValue();
+    }
+
+    this._input = newInput;
 
     if (!this._input) {
       return;
@@ -225,7 +231,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     this._formFieldAttributeObserver?.disconnect();
     this._formFieldAttributeObserver?.observe(this._input, {
       attributes: true,
-      attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid'],
+      attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid', 'data-state'],
     });
     this.setAttribute('data-input-type', this._input.localName);
     this._syncLabelInputReferences();
@@ -282,15 +288,30 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
 
     let inputFocusElement = this._input;
 
-    if (this._input.localName === 'sbb-select') {
+    if (this._input.localName === 'input') {
+      this._patchInputValue();
+    } else if (this._input.localName === 'sbb-select') {
       this._input.addEventListener('stateChange', () => this._checkAndUpdateInputEmpty(), {
         signal: this._inputAbortController.signal,
       });
 
-      inputFocusElement = (this._input as SbbSelectElement).inputElement;
+      const selectInput = this._input as SbbSelectElement;
+      inputFocusElement = selectInput.inputElement;
+
+      // If inputElement is not yet ready, try a second time after updating.
+      if (!inputFocusElement) {
+        const controller = {
+          hostUpdated: () => {
+            selectInput.removeController(controller);
+            this._registerInputListener();
+          },
+        };
+
+        selectInput.addController(controller);
+      }
     }
 
-    inputFocusElement.addEventListener(
+    inputFocusElement?.addEventListener(
       'focusin',
       () => {
         this.toggleAttribute('data-input-focused', true);
@@ -304,7 +325,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       },
     );
 
-    inputFocusElement.addEventListener(
+    inputFocusElement?.addEventListener(
       'focusout',
       () =>
         ['data-focus-origin', 'data-input-focused'].forEach((name) => this.removeAttribute(name)),
@@ -319,6 +340,45 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       return this._input.form;
     }
     return this._input?.closest('form');
+  }
+
+  // We need to patch the value property of the HTMLInputElement in order
+  // to be able to reset the floating label in the empty state.
+  private _patchInputValue(): void {
+    const inputElement = this._input as HTMLInputElement;
+    const originalDescriptor = Object.getOwnPropertyDescriptor(
+      Object.getPrototypeOf(inputElement),
+      'value',
+    );
+
+    if (!originalDescriptor || !originalDescriptor.set || !originalDescriptor.get) {
+      return;
+    }
+
+    patchedInputs.set(inputElement, originalDescriptor);
+
+    const { get: getter, set: setter } = originalDescriptor;
+    const checkAndUpdateInputEmpty = (): void => this._checkAndUpdateInputEmpty();
+
+    Object.defineProperty(inputElement, 'value', {
+      ...originalDescriptor,
+      get() {
+        return getter.call(this);
+      },
+      set(newValue) {
+        setter.call(this, newValue);
+        checkAndUpdateInputEmpty();
+      },
+    });
+  }
+
+  private _unpatchInputValue(): void {
+    const inputElement = this._input as HTMLInputElement;
+    const originalDescriptor = patchedInputs.get(inputElement);
+    if (originalDescriptor) {
+      Object.defineProperty(inputElement, 'value', originalDescriptor);
+      patchedInputs.delete(inputElement);
+    }
   }
 
   private _checkAndUpdateInputEmpty(): void {
@@ -368,6 +428,11 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
         this._input.classList.contains('sbb-invalid') ||
         (this._input.classList.contains('ng-touched') &&
           this._input.classList.contains('ng-invalid')),
+    );
+    this.toggleAttribute(
+      'data-has-popup-open',
+      this._input.localName === 'sbb-select' &&
+        ['opening', 'opened'].includes(this._input!.getAttribute('data-state')!),
     );
   }
 
@@ -425,14 +490,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     }
     (this._input as { value: string }).value = '';
     this._checkAndUpdateInputEmpty();
-  }
-
-  /**
-   * Returns the input element.
-   * @deprecated Use the 'inputElement' property instead
-   */
-  public getInputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement | undefined {
-    return this._input;
   }
 
   private _syncNegative(): void {

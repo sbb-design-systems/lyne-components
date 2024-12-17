@@ -94,12 +94,41 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
           VERSION: ${{ steps.release.outputs.version }}
+      - name: Build slim image with version
+        if: ${{ steps.release.outputs.release_created }}
+        uses: ./.github/actions/docker-slim
+        with:
+          target: '${{ env.IMAGE_REPO_STORYBOOK }}:${{ steps.release.outputs.version }}'
+          tag: '${{ env.IMAGE_REPO_STORYBOOK }}:${{ steps.release.outputs.version }}-slim'
+      - name: Build slim image with latest
+        if: ${{ steps.release.outputs.release_created }}
+        uses: ./.github/actions/docker-slim
+        with:
+          target: '${{ env.IMAGE_REPO_STORYBOOK }}:latest'
+          tag: '${{ env.IMAGE_REPO_STORYBOOK }}:latest-slim'
+      - name: Push slim image
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          docker push $IMAGE_REPO_STORYBOOK:$VERSION-slim
+          docker push $IMAGE_REPO_STORYBOOK:latest-slim
+          docker image list
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
       - name: 'Container: Build and publish dev image'
         run: |
           docker build --tag $IMAGE_REPO_STORYBOOK:dev .
           docker push $IMAGE_REPO_STORYBOOK:dev
         env:
           DOCKER_BUILDKIT: 1
+      - name: Build slim image with dev
+        uses: ./.github/actions/docker-slim
+        with:
+          target: '${{ env.IMAGE_REPO_STORYBOOK }}:dev'
+          tag: '${{ env.IMAGE_REPO_STORYBOOK }}:dev-slim'
+      - name: Push slim image
+        run: |
+          docker push $IMAGE_REPO_STORYBOOK:dev-slim
+          docker image list
 
       - name: Cherry-pick CHANGELOG.md into ${{ github.event.repository.default_branch }}
         if: ${{ steps.release.outputs.release_created && github.ref_name != 'main' }}

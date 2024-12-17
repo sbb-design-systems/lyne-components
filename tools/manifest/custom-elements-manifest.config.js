@@ -1,4 +1,5 @@
 const overrideTypeKey = 'overrideType';
+const classGenericsTypeKey = 'classGenerics';
 
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
@@ -20,13 +21,6 @@ export function createManifestConfig(library = '') {
     plugins: [
       {
         analyzePhase({ ts, node, moduleDoc }) {
-          function setSsrSlotState(classNode) {
-            const classDoc = moduleDoc.declarations.find(
-              (declaration) => declaration.name === classNode.name.getText(),
-            );
-            classDoc['_ssrslotstate'] = true;
-          }
-
           function replace(typeObj, typeName, typeValue) {
             if (typeObj && typeObj.text) {
               typeObj.text = typeObj.text.replace(typeName, typeValue);
@@ -102,26 +96,18 @@ export function createManifestConfig(library = '') {
             });
           }
 
-          if (ts.isNewExpression(node) && node.expression.getText() === 'SbbSlotStateController') {
-            let classNode = node;
-            while (classNode) {
-              if (ts.isClassDeclaration(classNode)) {
-                setSsrSlotState(classNode);
-              }
-              classNode = classNode.parent;
-            }
-          }
-
           if (ts.isClassDeclaration(node)) {
+            const classDeclaration = moduleDoc.declarations.find(
+              (declaration) => declaration.name === node.name.getText(),
+            );
+
             /**
-             * The usage of the `slotState` decorator breaks the logic in the previous block of code,
-             * since the decorated class has no explicit usage of the `SbbSlotStateController` constructor any more.
+             * If the class uses a generic type parameter, add it to the class declaration.
+             * It will be used in the Angular wrapper to correctly generate classes.
+             * Mainly used for datepicker and calendar components.
              */
-            const decorators = ts.getDecorators(node);
-            if (decorators && decorators.length > 0) {
-              if (decorators.find((e) => e.getText() === '@slotState()')) {
-                setSsrSlotState(node);
-              }
+            if (node.typeParameters && node.typeParameters.length > 0) {
+              classDeclaration[classGenericsTypeKey] = node.typeParameters[0].getText();
             }
 
             /**
@@ -137,9 +123,6 @@ export function createManifestConfig(library = '') {
                 // eslint-disable-next-line lyne/local-name-rule
                 if (tag.tagName.getText() === overrideTypeKey) {
                   const [memberName, memberOverrideType] = tag.comment.split(' - ');
-                  const classDeclaration = moduleDoc.declarations.find(
-                    (declaration) => declaration.name === node.name.getText(),
-                  );
                   if (!classDeclaration[overrideTypeKey]) {
                     classDeclaration[overrideTypeKey] = [{ memberName, memberOverrideType }];
                   } else {

@@ -12,7 +12,11 @@ import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
 import { readConfig } from '../core/config.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import {
+  SbbLanguageController,
+  SbbMediaMatcherController,
+  SbbMediaQueryBreakpointMediumAndAbove,
+} from '../core/controllers.js';
 import type { DateAdapter } from '../core/datetime.js';
 import {
   DAYS_PER_ROW,
@@ -22,7 +26,6 @@ import {
   YEARS_PER_ROW,
 } from '../core/datetime.js';
 import { forceType } from '../core/decorators.js';
-import { isBreakpoint } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
   i18nCalendarDateSelection,
@@ -229,10 +232,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   @state()
   private accessor _initialized = false;
 
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this).withHandler(() => {
     this._monthNames = this._dateAdapter.getMonthNames('long');
     this._createMonthRows();
+  });
+  private _mediaMatcher = new SbbMediaMatcherController(this, {
+    [SbbMediaQueryBreakpointMediumAndAbove]: () => this._init(),
   });
 
   public constructor() {
@@ -258,10 +263,6 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this._resetFocus = true;
       this._focusCell();
     };
-    globalThis.window?.addEventListener('resize', () => this._init(), {
-      passive: true,
-      signal: this._abort.signal,
-    });
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -297,7 +298,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /** Initializes the component. */
   private _init(activeDate?: T): void {
-    //Due to its complexity, the caledar is only initialized on client side
+    // Due to its complexity, the calendar is only initialized on client side
     if (isServer) {
       return;
     } else if (this.hydrationRequired) {
@@ -308,7 +309,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     if (activeDate) {
       this._assignActiveDate(activeDate);
     }
-    this._wide = isBreakpoint('medium') && this.wide;
+    this._wide =
+      (this._mediaMatcher.matches(SbbMediaQueryBreakpointMediumAndAbove) ?? false) && this.wide;
     this._weeks = this._createWeekRows(this._activeDate);
     this._years = this._createYearRows();
     this._nextMonthWeeks = [[]];

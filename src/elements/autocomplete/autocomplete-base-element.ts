@@ -12,7 +12,7 @@ import { ref } from 'lit/directives/ref.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
-import { findReferencedElement, isSafari } from '../core/dom.js';
+import { findReferencedElement, isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbNegativeMixin, SbbHydrationMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
@@ -85,7 +85,6 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   protected abstract selectByKeyboard(event: KeyboardEvent): void;
   protected abstract setNextActiveOption(event: KeyboardEvent): void;
   protected abstract resetActiveElement(): void;
-  protected abstract onOptionClick(event: MouseEvent): void;
 
   /** Opens the autocomplete. */
   public open(): void {
@@ -103,6 +102,12 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
     this.state = 'opening';
     this._setOverlayPosition();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleOpening();
+    }
   }
 
   /** Closes the autocomplete. */
@@ -116,6 +121,16 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
     this.state = 'closing';
     this._openPanelEventsController.abort();
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `closed` state.
+    if (this._isZeroAnimationDuration()) {
+      this._handleClosing();
+    }
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-options-panel-animation-duration');
   }
 
   public override connectedCallback(): void {
@@ -123,7 +138,6 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     if (ariaRoleOnHost) {
       this.id ||= this.overlayId;
     }
-    const signal = this.abort.signal;
     const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
 
     if (formField) {
@@ -134,8 +148,6 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       this._componentSetup();
     }
     this.syncNegative();
-
-    this.addEventListener('click', (e: MouseEvent) => this.onOptionClick(e), { signal });
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -179,11 +191,15 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
     if (this.triggerElement) {
       // Set the option value
-      this.triggerElement.value = target.value as string;
+      // In order to support React onChange event, we have to get the setter and call it.
+      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
+      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+      setValue.call(this.triggerElement, target.value);
 
       // Manually trigger the change events
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
       this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      this.triggerElement.focus();
     }
 
     this.close();
@@ -306,26 +322,27 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     );
   }
 
-  /** On open/close animation end.
-   *  In rare cases it can be that the animationEnd event is triggered twice.
-   *  To avoid entering a corrupt state, exit when state is not expected.
+  /**
+   * On open/close animation end.
+   * In rare cases it can be that the animationEnd event is triggered twice.
+   * To avoid entering a corrupt state, exit when state is not expected.
    */
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
-      this._onOpenAnimationEnd();
+      this._handleOpening();
     } else if (event.animationName === 'close' && this.state === 'closing') {
-      this._onCloseAnimationEnd();
+      this._handleClosing();
     }
   }
 
-  private _onOpenAnimationEnd(): void {
+  private _handleOpening(): void {
     this.state = 'opened';
     this._attachOpenPanelEvents();
     this.triggerElement?.setAttribute('aria-expanded', 'true');
     this.didOpen.emit();
   }
 
-  private _onCloseAnimationEnd(): void {
+  private _handleClosing(): void {
     this.state = 'closed';
     this.triggerElement?.setAttribute('aria-expanded', 'false');
     this.resetActiveElement();

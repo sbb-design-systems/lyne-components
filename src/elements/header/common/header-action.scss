@@ -7,7 +7,7 @@
   display: inline-block;
 
   // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
+  // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
   --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
@@ -16,7 +16,7 @@
   --sbb-header-action-min-height: var(--sbb-size-element-s);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
   --sbb-header-action-transition-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-header-action-transition-easing: var(--sbb-animation-easing);
@@ -176,7 +176,7 @@
     @include sbb.mq($to: #{$breakpoint}) {
       // The variable is assigned to the property in the sbb-header component if it is
       // the first element in the header and needs left offset correction (see sbb-header.scss).
-      // To avoid duplicated css definitions, the value itself is assigned here in
+      // To avoid duplicated CSS definitions, the value itself is assigned here in
       // sbb-header-button/sbb-header-link instead of sbb-header.
 
       // Move it left by padding of header action to the icon itself.

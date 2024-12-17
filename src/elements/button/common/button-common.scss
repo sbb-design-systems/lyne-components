@@ -11,7 +11,7 @@ $active: ':active, [data-active]';
   display: inline-block;
 
   // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
+  // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
@@ -31,7 +31,7 @@ $active: ':active, [data-active]';
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-min-height: var(--sbb-size-element-m);
   --sbb-button-transition-duration: var(
-    --sbb-disable-animation-zero-duration,
+    --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);
