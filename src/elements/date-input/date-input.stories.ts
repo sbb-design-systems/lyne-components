@@ -114,7 +114,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: ['input', 'change', 'keydown', 'keyup', 'keypressed', 'focus', 'blur'],
+      handles: ['input', 'change', 'keydown', 'keyup', 'keypress', 'focus', 'blur'],
     },
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

@@ -2,7 +2,7 @@ import { html, isServer, type LitElement } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
 import { sbbInputModalityDetector } from '../a11y.js';
-import { isFirefox } from '../dom.js';
+import { isFirefox, isWebkit } from '../dom.js';
 
 import type { Constructor } from './constructor.js';
 import {
@@ -138,6 +138,40 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
             event.preventDefault();
             event.stopImmediatePropagation();
             this._shouldTriggerSubmit = this.dispatchEvent(new KeyboardEvent('keydown', event));
+          } else if (
+            (event.key === 'Backspace' || event.key === 'Delete') &&
+            isWebkit &&
+            event.isTrusted
+          ) {
+            // In Webkit pressing Backspace or Delete completely removes all the content
+            // if contenteditable is set on a web component host.
+            // We have to replicate the normal delete behavior.
+            event.preventDefault();
+
+            if (!this.dispatchEvent(new KeyboardEvent('keydown', event))) {
+              return;
+            }
+
+            const selectedRange = window.getSelection()?.getRangeAt(0);
+
+            if (!selectedRange) {
+              return;
+            }
+
+            if (selectedRange.startOffset !== selectedRange.endOffset) {
+              // If a text range is selected, then delete this range
+              selectedRange.deleteContents();
+            } else if (event.key === 'Backspace' && selectedRange.startOffset > 0) {
+              // When pressing Backspace, we select the previous character from
+              // the current cursor position and delete it.
+              selectedRange.setStart(selectedRange.startContainer, selectedRange.startOffset - 1);
+              selectedRange.deleteContents();
+            } else if (event.key === 'Delete' && selectedRange.endOffset < this.value.length) {
+              // When pressing Delete, we select the next character from
+              // the current cursor position and delete it.
+              selectedRange.setEnd(selectedRange.endContainer, selectedRange.endOffset + 1);
+              selectedRange.deleteContents();
+            }
           }
         },
         { capture: true },
