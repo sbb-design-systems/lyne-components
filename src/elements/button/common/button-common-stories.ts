@@ -56,8 +56,9 @@ const LoadingTemplate = ({
     <${unsafeStatic(tag)} ${sbbSpread(args)} aria-busy="false"
                           @click=${(e: PointerEvent) => {
                             const button = (e.target as HTMLElement)!;
-                            const loadingIndicator =
-                              button.parentElement!.querySelector('sbb-loading-indicator')!;
+                            const loadingIndicator = button.parentElement!.querySelector(
+                              'sbb-loading-indicator-circle',
+                            )!;
 
                             if (button.getAttribute('aria-busy') === 'false') {
                               button.setAttribute('aria-busy', 'true');
@@ -94,8 +95,9 @@ const LoadingTemplate2 = ({
     <${unsafeStatic(tag)} ${sbbSpread(args)} aria-busy="false"
                           @click=${(e: PointerEvent) => {
                             const button = (e.target as HTMLElement)!;
-                            const loadingIndicator =
-                              button.parentElement!.querySelector('sbb-loading-indicator')!;
+                            const loadingIndicator = button.parentElement!.querySelector(
+                              'sbb-loading-indicator-circle',
+                            )!;
 
                             if (button.getAttribute('aria-busy') === 'false') {
                               button.setAttribute('aria-busy', 'true');
