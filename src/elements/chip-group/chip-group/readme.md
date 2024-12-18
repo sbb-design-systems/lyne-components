@@ -51,13 +51,6 @@ The `sbb-chip-group` is a component . . .
 | `name`  | `name`    | public  | `string`                  |         | Name of the form element. Will be read from name attribute.    |
 | `value` | `value`   | public  | `string \| null`          | `null`  | Value of the form element.                                     |
 
-## Methods
-
-| Name                       | Privacy | Description | Parameters                                                   | Return | Inherited From |
-| -------------------------- | ------- | ----------- | ------------------------------------------------------------ | ------ | -------------- |
-| `formResetCallback`        | public  |             |                                                              | `void` |                |
-| `formStateRestoreCallback` | public  |             | `state: FormRestoreState \| null, reason: FormRestoreReason` | `void` |                |
-
 ## Slots
 
 | Name | Description                                      |

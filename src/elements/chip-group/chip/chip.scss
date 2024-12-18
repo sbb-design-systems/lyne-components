@@ -4,11 +4,33 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-chip-some-color-var: var(--color-black);
+  --sbb-chip-border-color: var(--sbb-color-cloud);
+  --sbb-chip-border-radius: var(--sbb-border-radius-2x);
+  --sbb-chip-background-color: var(--sbb-color-milk);
+  --sbb-chip-color: var(--sbb-color-granite);
 
   display: block;
 }
 
 .sbb-chip {
-  color: var(--sbb-chip-some-color-var);
+  background-color: var(--sbb-chip-background-color);
+  border: var(--sbb-border-width-1x) solid var(--sbb-chip-border-color);
+  border-radius: var(--sbb-chip-border-radius);
+  color: var(--sbb-chip-color);
+  display: flex;
+  align-items: center;
+}
+
+.sbb-chip__label {
+  @include sbb.text-xxs--regular;
+
+  padding-inline: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-chip__delete {
+  --sbb-button-border-radius: var(--sbb-chip-border-radius);
+  --sbb-button-color-active-background: var(--sbb-color-white);
+  --sbb-button-color-hover-background: var(--sbb-color-white);
+
+  border-left: var(--sbb-border-width-1x) solid var(--sbb-chip-border-color);
 }

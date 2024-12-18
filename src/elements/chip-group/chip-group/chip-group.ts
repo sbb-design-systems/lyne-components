@@ -7,7 +7,7 @@ import {
   type FormRestoreState,
   SbbFormAssociatedMixin,
 } from '../../core/mixins.js';
-import type { SbbChipElement } from '../chip/chip.js';
+import { SbbChipElement } from '../chip/chip.js';
 
 import style from './chip-group.scss?lit&inline';
 
@@ -29,7 +29,7 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
   @property()
   public override set value(value: string[] | null) {
     value = value ?? [];
-    // super.value = value;
+    super.value = value;
     const oldValue = this.value;
 
     // chip to remove
@@ -49,10 +49,19 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
   private _inputElement: HTMLInputElement | undefined;
   private _inputAbortController: AbortController | undefined;
 
+  public constructor() {
+    super();
+    this.addEventListener(SbbChipElement.events.requestDelete, (ev) =>
+      this._deleteChip(ev.target as SbbChipElement),
+    );
+  }
+
+  /** @internal */
   public formResetCallback(): void {
     this.value = [];
   }
 
+  /** @internal */
   public formStateRestoreCallback(
     _state: FormRestoreState | null,
     _reason: FormRestoreReason,
@@ -62,6 +71,7 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
 
   protected updateFormValue(): void {
     console.log('update form value', this.value);
+    // TODO
   }
 
   private _chipElements(): SbbChipElement[] {
@@ -101,6 +111,11 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
     const newChip = document.createElement('sbb-chip');
     newChip.setAttribute('value', value);
     this.insertBefore(newChip, this._inputElement!);
+  }
+
+  private _deleteChip(chip: SbbChipElement): void {
+    chip.remove();
+    // TODO emit input events
   }
 
   protected override render(): TemplateResult {

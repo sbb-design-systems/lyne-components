@@ -3,6 +3,10 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
+::slotted(input) {
+  flex-grow: 1;
+}
+
 .sbb-chip-group {
   display: flex;
   flex-wrap: wrap;
