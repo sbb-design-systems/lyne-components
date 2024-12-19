@@ -4108,10 +4108,10 @@ eslint-import-resolver-typescript@3.7.0:
     is-glob "^4.0.3"
     stable-hash "^0.0.4"
 
-eslint-plugin-import-x@4.5.1:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.5.1.tgz#07ea3e6053ca027d8c4568c3073f53c77020d6bf"
-  integrity sha512-Wyut9jDeHdfZSebiWRmmOYDBov33M0ZZ3x9J/lD1v4M3nBgMNC02XH6Kq271pMxJWqctVRCjA+X5AQJZ2FezoQ==
+eslint-plugin-import-x@4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.6.0.tgz#ff8f8401f75302875a32e64e1a1911f664a07b75"
+  integrity sha512-hDdeNZWnu5Kv/AUk0rf12Ub1yjLQTPvj38Ar4oipYuPo5gy2gonLcF0mCuOMlMgjT8+8A1KYug/IsxuMi8tSMQ==
   dependencies:
     "@types/doctrine" "^0.0.9"
     "@typescript-eslint/scope-manager" "^8.1.0"
