@@ -13,7 +13,7 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { forceType } from '../../core/decorators.js';
 import { findInput, findReferencedElement } from '../../core/dom.js';
-import { EventEmitter, forwardEventToHost } from '../../core/eventing.js';
+import { EventEmitter, forwardEvent } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
 import type { SbbDatepickerButton } from '../common.js';
@@ -244,7 +244,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       input.addEventListener(
         'input',
         (e) => {
-          forwardEventToHost(e, this);
+          forwardEvent(e, this);
           this._parseInput();
         },
         options,
