@@ -8,7 +8,6 @@ import style from './__noPrefixName__.scss?lit&inline';
  * Describe the purpose of the component with a single short sentence.
  *
  * @slot - Use the unnamed slot to add `sbb-TODO` elements.
- * @event {CustomEvent<any>} myEventName - TODO: Document this event
  */
 @customElement('__name__')
 export class __nameUpperCase__ extends LitElement {
