@@ -127,9 +127,25 @@ import '../radio-button-panel.js';
 
       describe('events', () => {
         it('dispatches event on radio change', async () => {
+          radios[0].checked = true;
           const radio = radios[1];
-          const changeSpy = new EventSpy('change');
-          const inputSpy = new EventSpy('input');
+          const changeSpy = new EventSpy('change', element);
+          const inputSpy = new EventSpy('input', element);
+
+          element.addEventListener(
+            'change',
+            () => {
+              expect(element.value).to.be.equal('Value two');
+              expect(
+                Array.from(
+                  element.querySelectorAll<SbbRadioButtonElement | SbbRadioButtonPanelElement>(
+                    selector,
+                  ),
+                ).filter((radio) => radio.checked).length,
+              ).to.be.equal(1);
+            },
+            { once: true },
+          );
 
           radio.click();
           await waitForLitRender(element);

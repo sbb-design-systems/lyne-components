@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
 import { SbbConnectedAbortController } from '../controllers.js';
-import { forceType } from '../decorators.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
@@ -31,9 +30,9 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   extends SbbFormAssociatedMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
-  public checked: boolean;
-  public disabled: boolean;
-  public required: boolean;
+  public accessor checked: boolean;
+  public accessor disabled: boolean;
+  public accessor required: boolean;
 
   protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonMixinType>;
   /** @deprecated No longer used internally. */
@@ -65,9 +64,30 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     /**
      * Whether the radio button is checked.
      */
-    @forceType()
     @property({ type: Boolean })
-    public accessor checked: boolean = false;
+    public set checked(value: boolean) {
+      this._checked = value;
+
+      this.toggleAttribute('data-checked', this.checked);
+      this.internals.ariaChecked = this.checked.toString();
+      this.updateFormValue();
+      this._synchronizeGroupState();
+    }
+    public get checked(): boolean {
+      return this._checked;
+    }
+    private _checked: boolean = false;
+
+    public override set name(value: string) {
+      super.name = value;
+
+      this._disconnectFromRegistry();
+      this._connectToRegistry();
+      this._synchronizeGroupState();
+    }
+    public override get name(): string {
+      return super.name;
+    }
 
     /**
      * Form type of element.
@@ -98,6 +118,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     public override connectedCallback(): void {
       super.connectedCallback();
       this._connectToRegistry();
+      this._synchronizeGroupState();
     }
 
     public override disconnectedCallback(): void {
@@ -131,26 +152,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
-      // On 'name' change, move 'this' to the new registry
-      if (changedProperties.has('name')) {
-        this._disconnectFromRegistry();
-        this._connectToRegistry();
-        if (this.checked) {
-          this._deselectGroupedRadios();
-        }
-        this.updateFocusableRadios();
-      }
-
-      if (changedProperties.has('checked')) {
-        this.toggleAttribute('data-checked', this.checked);
-        this.internals.ariaChecked = this.checked.toString();
-        this.updateFormValueOnCheckedChange();
-        if (this.checked) {
-          this._deselectGroupedRadios();
-        }
-        this.updateFocusableRadios();
-      }
-
       if (changedProperties.has('disabled')) {
         this.updateFocusableRadios();
       }
@@ -168,16 +169,10 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      */
     protected override updateFormValue(): void {
       if (this.checked) {
-        this.internals.setFormValue(this.value);
+        this.internals.setFormValue(this.value, this.value);
+      } else {
+        this.internals.setFormValue(null);
       }
-    }
-
-    /**
-     * Called on `checked` change
-     * If 'checked', update the value. Otherwise, reset it.
-     */
-    protected updateFormValueOnCheckedChange(): void {
-      this.internals.setFormValue(this.checked ? this.value : null);
     }
 
     /**
@@ -219,6 +214,13 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         new InputEvent('input', { bubbles: true, cancelable: true, composed: true }),
       );
       this.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    private _synchronizeGroupState(): void {
+      if (this.checked) {
+        this._deselectGroupedRadios();
+      }
+      this.updateFocusableRadios();
     }
 
     /**
