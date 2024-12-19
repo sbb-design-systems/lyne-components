@@ -23,6 +23,7 @@ import {
   isZeroAnimationDuration,
   SbbScrollHandler,
 } from '../../core/dom.js';
+import { forwardEvent } from '../../core/eventing.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
@@ -168,11 +169,11 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
     this._inertController.activate();
     this._setMenuFocus();
     this._focusHandler.trap(this);
     this._attachWindowEvents();
+    this.didOpen.emit();
   }
 
   private _handleClosing(): void {
@@ -319,6 +320,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     document.addEventListener('scroll', () => this._setMenuPosition(), {
       passive: true,
       signal: this._windowEventsController.signal,
+      // Without capture, other scroll contexts would not bubble to this event listener.
+      // Capture allows us to react to all scroll contexts in this DOM.
+      capture: true,
     });
     window.addEventListener('resize', () => this._setMenuPosition(), {
       passive: true,
@@ -413,6 +417,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         >
           <div
             @click=${(event: Event) => this._closeOnInteractiveElementClick(event)}
+            @scroll=${(e: Event) => forwardEvent(e, document)}
             class="sbb-menu__content"
           >
             ${this.listChildren.length

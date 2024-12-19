@@ -120,7 +120,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
     this.inertController.activate();
     this.attachOpenOverlayEvents();
     this.setOverlayFocus();
@@ -131,6 +130,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       ),
     );
     this.focusHandler.trap(this);
+    this.didOpen.emit();
   }
 
   public override connectedCallback(): void {

@@ -219,8 +219,8 @@ class SbbNotificationElement extends LitElement {
 
   private _handleOpening(): void {
     this._state = 'opened';
-    this._didOpen.emit();
     this._notificationResizeObserver.observe(this._notificationElement);
+    this._didOpen.emit();
   }
 
   private _handleClosing(): void {
