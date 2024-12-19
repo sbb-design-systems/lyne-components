@@ -1,4 +1,4 @@
-import type { LitElement, PropertyValues } from 'lit';
+import { isServer, type LitElement, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
@@ -66,7 +66,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      */
     @property({ type: Boolean })
     public set checked(value: boolean) {
-      this._checked = value;
+      this._checked = !!value;
 
       this.toggleAttribute('data-checked', this.checked);
       this.internals.ariaChecked = this.checked.toString();
@@ -227,7 +227,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      * Add `this` to the radioButton registry
      */
     private _connectToRegistry(): void {
-      if (!this.name) {
+      if (!this.name || isServer) {
         return;
       }
 
