@@ -9,7 +9,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxGroupElement, SbbCheckboxPanelElement } from '../checkbox.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { SbbLanguageController } from '../core/controllers.js';
 import { forceType, slotState } from '../core/decorators.js';
 import { isZeroAnimationDuration } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
@@ -109,7 +109,6 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   );
 
   private _language = new SbbLanguageController(this);
-  private _abort = new SbbConnectedAbortController(this);
   private _initialized: boolean = false;
   private _sizeAttributeObserver = !isServer
     ? new MutationObserver((mutationsList: MutationRecord[]) =>
@@ -129,12 +128,13 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
       | SbbCheckboxGroupElement;
   }
 
+  public constructor() {
+    super();
+    this.addEventListener?.('panelConnected', (e) => this._initFromInput(e));
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    this.addEventListener('panelConnected', this._initFromInput.bind(this), {
-      signal: this._abort.signal,
-    });
 
     this._state ||= 'closed';
   }

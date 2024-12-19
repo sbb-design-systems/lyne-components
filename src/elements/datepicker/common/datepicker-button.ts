@@ -3,7 +3,7 @@ import { property, state } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { readConfig } from '../../core/config.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { i18nToday } from '../../core/i18n.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
@@ -35,17 +35,21 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
   protected datePickerElement?: SbbDatepickerElement<T> | null = null;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   private _datePickerController!: AbortController;
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
 
   protected abstract iconName: string;
   protected abstract i18nOffBoundaryDay: Record<string, string>;
   protected abstract i18nSelectOffBoundaryDay: (_currentDate: string) => Record<string, string>;
+
+  public constructor() {
+    super();
+    this.addEventListener?.('click', () => this._handleClick());
+  }
+
   protected abstract findAvailableDate(_date: T): T;
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.addEventListener('click', () => this._handleClick(), { signal: this._abort.signal });
     this._syncUpstreamProperties();
     if (!this.datePicker) {
       this._init();

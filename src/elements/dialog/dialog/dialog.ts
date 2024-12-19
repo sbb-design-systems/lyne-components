@@ -56,6 +56,13 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   private _dialogId = `sbb-dialog-${nextId++}`;
   protected closeAttribute: string = 'sbb-dialog-close';
 
+  public constructor() {
+    super();
+    // Close dialog on backdrop click
+    this.addEventListener?.('pointerdown', this._pointerDownListener);
+    this.addEventListener?.('pointerup', this._closeOnBackdropClick);
+  }
+
   /** Opens the component. */
   public open(): void {
     if (this.state !== 'closed') {
@@ -131,18 +138,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       ),
     );
     this.focusHandler.trap(this);
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    // Close dialog on backdrop click
-    this.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this.overlayController.signal,
-    });
-    this.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this.overlayController.signal,
-    });
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {

@@ -7,7 +7,7 @@ import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { SbbLanguageController } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { isNextjs, isSafari, isZeroAnimationDuration, setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
@@ -137,7 +137,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _searchString = '';
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _abort = new SbbConnectedAbortController(this);
 
   /**
    * The 'combobox' input element
@@ -160,6 +159,22 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   public constructor() {
     super();
+    this.addEventListener?.('optionSelectionChange', (e: CustomEvent<void>) =>
+      this._onOptionChanged(e),
+    );
+    this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
+    this.addEventListener?.('click', (e: MouseEvent) => {
+      const target = e.target as SbbSelectElement | SbbOptionElement;
+      if (target.localName === 'sbb-option') {
+        // Option click
+        if (!this.multiple && !target.disabled) {
+          this.close();
+          this.focus();
+        }
+      } else {
+        this._toggleOpening();
+      }
+    });
 
     new MutationController(this, {
       config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
@@ -356,7 +371,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       this.id ||= this._overlayId;
     }
 
-    const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
     if (formField) {
@@ -372,33 +386,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (this.value) {
       this._onValueChanged(this.value);
     }
-
-    this.addEventListener(
-      'optionSelectionChange',
-      (e: CustomEvent<void>) => this._onOptionChanged(e),
-      { signal },
-    );
-
-    this.addEventListener('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e), {
-      signal,
-    });
-
-    this.addEventListener(
-      'click',
-      (e: MouseEvent) => {
-        const target = e.target as SbbSelectElement | SbbOptionElement;
-        if (target.localName === 'sbb-option') {
-          // Option click
-          if (!this.multiple && !target.disabled) {
-            this.close();
-            this.focus();
-          }
-        } else {
-          this._toggleOpening();
-        }
-      },
-      { signal },
-    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

@@ -30,6 +30,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   // The last element which had focus before the component was opened.
   protected lastFocusedElement?: HTMLElement;
   protected overlayCloseElement?: HTMLElement;
+  /** @deprecated */
   protected overlayController!: AbortController;
   protected openOverlayController!: AbortController;
   protected focusHandler = new SbbFocusHandler();

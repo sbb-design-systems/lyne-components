@@ -8,7 +8,6 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbStepLabelElement } from '../step-label.js';
@@ -50,7 +49,6 @@ class SbbStepElement extends LitElement {
   );
 
   private _loaded: boolean = false;
-  private _abort = new SbbConnectedAbortController(this);
   private _stepper: SbbStepperElement | null = null;
   private _label: SbbStepLabelElement | null = null;
   private _stepResizeObserver = new ResizeController(this, {
@@ -62,6 +60,11 @@ class SbbStepElement extends LitElement {
   /** The label of the step. */
   public get label(): SbbStepLabelElement | null {
     return this._label;
+  }
+
+  public constructor() {
+    super();
+    this.addEventListener?.('click', (e) => this._handleClick(e));
   }
 
   /**
@@ -147,9 +150,7 @@ class SbbStepElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
     this.id = this.id || `sbb-step-${nextId++}`;
-    this.addEventListener('click', (e) => this._handleClick(e), { signal });
     this._stepper = this.closest('sbb-stepper');
     this._label = this._getStepLabel();
   }

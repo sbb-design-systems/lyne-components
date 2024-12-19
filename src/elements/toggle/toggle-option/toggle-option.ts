@@ -2,7 +2,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -46,18 +45,18 @@ class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   private _value: string = '';
 
   private _toggle?: SbbToggleElement;
-  private _abort = new SbbConnectedAbortController(this);
+
+  public constructor() {
+    super();
+    // We need to listen input event on host as with keyboard navigation
+    // the Input Event is triggered from sbb-toggle.
+    this.addEventListener?.('input', () => this._handleInput());
+    this.addEventListener?.('click', () => this.shadowRoot!.querySelector('label')?.click());
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
 
-    // We need to listen input event on host as with keyboard navigation
-    // the Input Event is triggered from sbb-toggle.
-    this.addEventListener('input', () => this._handleInput(), { signal });
-    this.addEventListener('click', () => this.shadowRoot!.querySelector('label')?.click(), {
-      signal,
-    });
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
     this._toggle = this.closest?.('sbb-toggle') ?? undefined;
     this._verifyTabindex();

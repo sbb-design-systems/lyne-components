@@ -75,13 +75,15 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       { bubbles: true },
     );
 
+    public constructor() {
+      super();
+      this.addEventListener?.('click', (e) => this._handleClick(e));
+      this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+    }
+
     public override connectedCallback(): void {
       super.connectedCallback();
       this._group = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
-
-      const signal = this.abort.signal;
-      this.addEventListener('click', (e) => this._handleClick(e), { signal });
-      this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
 
       // We need to call requestUpdate to update the reflected attributes
       ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
