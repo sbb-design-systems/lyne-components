@@ -7,11 +7,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import {
-  SbbConnectedAbortController,
-  SbbInertController,
-  SbbLanguageController,
-} from '../../core/controllers.js';
+import { SbbInertController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
   findReferencedElement,
@@ -97,7 +93,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _triggerElement: HTMLElement | null = null;
   private _navigationController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
   private _focusHandler = new SbbFocusHandler();
@@ -111,6 +106,9 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   public constructor() {
     super();
+    this.addEventListener?.('click', (event) => this._handleNavigationClose(event));
+    this.addEventListener?.('pointerup', (event) => this._closeOnBackdropClick(event));
+    this.addEventListener?.('pointerdown', (event) => this._pointerDownListener(event));
 
     new MutationController(this, {
       skipInitial: true,
@@ -363,12 +361,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-navigation-${nextId++}`;
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });
-    // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this.addEventListener('pointerup', (event) => this._closeOnBackdropClick(event), { signal });
-    this.addEventListener('pointerdown', (event) => this._pointerDownListener(event), { signal });
   }
 
   public override disconnectedCallback(): void {

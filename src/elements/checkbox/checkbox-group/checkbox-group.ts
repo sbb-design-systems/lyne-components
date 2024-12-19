@@ -3,7 +3,6 @@ import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
@@ -54,12 +53,13 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
     );
   }
 
-  private _abort: SbbConnectedAbortController = new SbbConnectedAbortController(this);
+  public constructor() {
+    super();
+    this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this.toggleAttribute(
       'data-has-panel',
       !!this.querySelector?.('sbb-selection-expansion-panel, sbb-checkbox-panel'),

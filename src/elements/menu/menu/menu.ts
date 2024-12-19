@@ -12,7 +12,6 @@ import {
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
-  SbbConnectedAbortController,
   SbbInertController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
@@ -98,7 +97,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new SbbConnectedAbortController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
@@ -111,6 +109,12 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       }
     },
   });
+
+  public constructor() {
+    super();
+    this.addEventListener?.('click', (e) => this._onClick(e));
+    this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+  }
 
   /**
    * Opens the menu on trigger click.
@@ -249,18 +253,19 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e) => this._onClick(e), { signal });
-    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    const renderRoot = super.createRenderRoot();
     // Due to the fact that menu can both be a list and just a container, we need to check its
     // state before the SbbNamedSlotListMixin handles the slotchange event, in order to avoid
     // it interpreting the non list case as a list.
     this.shadowRoot?.addEventListener('slotchange', (e) => this._checkListCase(e), {
-      signal,
       capture: true,
     });
+    return renderRoot;
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
   }

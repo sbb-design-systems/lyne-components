@@ -100,22 +100,10 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       super();
       /** @internal */
       this.internals.role = 'checkbox';
-    }
 
-    public override connectedCallback(): void {
-      super.connectedCallback();
-
-      this.addEventListener('click', this._handleUserInteraction);
-      this.addEventListener('keydown', preventScrollOnSpacebarPress);
-      this.addEventListener('keyup', this._handleKeyboardInteraction);
-    }
-
-    public override disconnectedCallback(): void {
-      super.disconnectedCallback();
-
-      this.removeEventListener('click', this._handleUserInteraction);
-      this.removeEventListener('keydown', preventScrollOnSpacebarPress);
-      this.removeEventListener('keyup', this._handleKeyboardInteraction);
+      this.addEventListener?.('click', this._handleUserInteraction);
+      this.addEventListener?.('keydown', preventScrollOnSpacebarPress);
+      this.addEventListener?.('keyup', this._handleKeyboardInteraction);
     }
 
     public override attributeChangedCallback(

@@ -70,6 +70,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   protected abstract overlayId: string;
   protected abstract panelRole: string;
+  /** @deprecated No longer used internally. */
   protected abort = new SbbConnectedAbortController(this);
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;

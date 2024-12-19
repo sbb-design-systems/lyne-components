@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, type TemplateResult, type PropertyValues } f
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -34,9 +33,17 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     return this._step;
   }
 
-  private _abort = new SbbConnectedAbortController(this);
   private _stepper: SbbStepperElement | null = null;
   private _step: SbbStepElement | null = null;
+
+  public constructor() {
+    super();
+    this.addEventListener?.('click', () => {
+      if (this._stepper && this._step) {
+        this._stepper.selected = this._step;
+      }
+    });
+  }
 
   private _getStep(): SbbStepElement | null {
     let nextSibling = this.nextElementSibling;
@@ -48,7 +55,6 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
     this.id = this.id || `sbb-step-label-${nextId++}`;
     this.internals.ariaSelected = 'false';
     this._stepper = this.closest('sbb-stepper');
@@ -56,15 +62,6 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     // The `data-disabled` attribute is used to preserve the initial disabled state of
     // step labels in case of switching from linear to non-linear mode.
     this.toggleAttribute('data-disabled', this.hasAttribute('disabled'));
-    this.addEventListener(
-      'click',
-      () => {
-        if (this._stepper && this._step) {
-          this._stepper.selected = this._step;
-        }
-      },
-      { signal },
-    );
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {

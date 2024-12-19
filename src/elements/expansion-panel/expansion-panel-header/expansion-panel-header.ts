@@ -4,7 +4,6 @@ import { customElement } from 'lit/decorators.js';
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import {
   SbbMediaQueryHover,
-  SbbConnectedAbortController,
   SbbMediaMatcherController,
   SbbSlotStateController,
 } from '../../core/controllers.js';
@@ -44,7 +43,6 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
       bubbles: true,
     },
   );
-  private _abort = new SbbConnectedAbortController(this);
   private _namedSlots = new SbbSlotStateController(this, () => this._setDataIconAttribute());
   private _mediaMatcher = new SbbMediaMatcherController(this, {
     [SbbMediaQueryHover]: (m) => (this._isHover = m),
@@ -52,12 +50,11 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
 
   private _isHover: boolean = this._mediaMatcher.matches(SbbMediaQueryHover) ?? false;
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', () => this._emitExpandedEvent(), { signal });
-    this.addEventListener('mouseenter', () => this._onMouseMovement(true), { signal });
-    this.addEventListener('mouseleave', () => this._onMouseMovement(false), { signal });
+  public constructor() {
+    super();
+    this.addEventListener?.('click', () => this._emitExpandedEvent());
+    this.addEventListener?.('mouseenter', () => this._onMouseMovement(true));
+    this.addEventListener?.('mouseleave', () => this._onMouseMovement(false));
   }
 
   private _emitExpandedEvent(): void {

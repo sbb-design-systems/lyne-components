@@ -6,7 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import type { SbbMiniButtonElement } from '../../button/mini-button.js';
 import type { CalendarView, SbbCalendarElement } from '../../calendar.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
@@ -54,10 +54,14 @@ class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydration
   private _popoverElement!: SbbPopoverElement;
   private _datePickerController!: AbortController;
   private _language = new SbbLanguageController(this);
-  private _abort = new SbbConnectedAbortController(this);
 
   public constructor() {
     super();
+    this.addEventListener?.('click', (event) => {
+      if (event.composedPath()[0] === this) {
+        this.open();
+      }
+    });
     if (!isServer) {
       this.hydrationComplete.then(() => (this._renderCalendar = true));
     }
@@ -83,16 +87,6 @@ class SbbDatepickerToggleElement<T = Date> extends SbbNegativeMixin(SbbHydration
     if (formField) {
       this.negative = formField.hasAttribute('negative');
     }
-
-    this.addEventListener(
-      'click',
-      (event) => {
-        if (event.composedPath()[0] === this) {
-          this.open();
-        }
-      },
-      { signal: this._abort.signal },
-    );
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {

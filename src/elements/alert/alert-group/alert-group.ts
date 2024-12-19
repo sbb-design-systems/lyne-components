@@ -3,7 +3,6 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { EventEmitter, isEventPrevented } from '../../core/eventing.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
@@ -51,12 +50,9 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
   /** Emits when `sbb-alert-group` becomes empty. */
   private _empty: EventEmitter<void> = new EventEmitter(this, SbbAlertGroupElement.events.empty);
 
-  private _abort = new SbbConnectedAbortController(this);
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener(
+  public constructor() {
+    super();
+    this.addEventListener?.(
       'didClose',
       async (e: CustomEvent<void>) => {
         if (!(await isEventPrevented(e))) {
@@ -64,7 +60,7 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
         }
       },
       {
-        signal,
+        // We use capture here, because didClose does not bubble.
         capture: true,
       },
     );

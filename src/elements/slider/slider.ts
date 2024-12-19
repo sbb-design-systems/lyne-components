@@ -4,7 +4,6 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { SbbConnectedAbortController } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { EventEmitter, forwardEventToHost } from '../core/eventing.js';
 import {
@@ -136,18 +135,15 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
   /** Reference to the inner HTMLInputElement with type='range'. */
   private _rangeInput!: HTMLInputElement;
 
-  private _abort = new SbbConnectedAbortController(this);
-
   public constructor() {
     super();
     /** @internal */
     this.internals.role = 'slider';
+    this.addEventListener?.('keydown', (e) => this._handleKeydown(e));
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('keydown', (e) => this._handleKeydown(e), { signal });
 
     if (!this.value) {
       this.value = this._getDefaultValue();
