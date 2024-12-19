@@ -1,8 +1,6 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-
-import { EventEmitter } from '../core/eventing.js';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
 import style from './__noPrefixName__.scss?lit&inline';
 
@@ -16,40 +14,12 @@ import style from './__noPrefixName__.scss?lit&inline';
 export class __nameUpperCase__ extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
-    myEventName: 'myEventName',
+    // Add event names or remove
   } as const;
-
-  /** myProp documentation */
-  @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
-
-  /** _myState documentation */
-  @state() private _myState = false;
-
-  private _myEvent: EventEmitter<any> = new EventEmitter(
-    this,
-    __nameUpperCase__.events.myEventName,
-  );
-
-  private _onClickFn(): void {
-    this._myEvent.emit();
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('myProp')) {
-      // do stuff
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    // do stuff
-  }
 
   protected override render(): TemplateResult {
     return html`
-      <div class="__name__">${this._myState ? html`<slot></slot>` : nothing} ${this.myProp}</div>
+      <div class="__name__"><slot></slot></div>
     `;
   }
 }
