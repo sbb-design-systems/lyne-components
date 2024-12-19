@@ -1,13 +1,7 @@
-import type { LitElement, PropertyValues } from 'lit';
+import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { setModalityOnNextFocus } from '../../core/a11y.js';
-import { EventEmitter } from '../../core/eventing.js';
-import type {
-  SbbCheckedStateChange,
-  SbbDisabledStateChange,
-  SbbStateChange,
-} from '../../core/interfaces.js';
 import {
   type AbstractConstructor,
   type Constructor,
@@ -17,11 +11,6 @@ import {
 import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
-
-export type SbbRadioButtonStateChange = Extract<
-  SbbStateChange,
-  SbbDisabledStateChange | SbbCheckedStateChange
->;
 
 export declare class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixinType {
   public get allowEmptySelection(): boolean;
@@ -41,7 +30,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
     public static readonly events = {
       change: 'change',
       input: 'input',
-      stateChange: 'stateChange',
     } as const;
 
     /**
@@ -63,17 +51,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       return this._group;
     }
     private _group: SbbRadioButtonGroupElement | null = null;
-
-    /**
-     * @internal
-     * Internal event that emits whenever the state of the radio option
-     * in relation to the parent selection panel changes.
-     */
-    private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
-      this,
-      SbbRadioButtonCommonElement.events.stateChange,
-      { bubbles: true },
-    );
 
     public constructor() {
       super();
@@ -104,21 +81,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       } else if (!this.checked) {
         this.checked = true;
         this.emitChangeEvents();
-      }
-    }
-
-    protected override willUpdate(changedProperties: PropertyValues<this>): void {
-      super.willUpdate(changedProperties);
-
-      if (changedProperties.has('checked')) {
-        if (this.checked !== changedProperties.get('checked')!) {
-          this._stateChange.emit({ type: 'checked', checked: this.checked });
-        }
-      }
-      if (changedProperties.has('disabled')) {
-        if (this.disabled !== changedProperties.get('disabled')!) {
-          this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
-        }
       }
     }
 

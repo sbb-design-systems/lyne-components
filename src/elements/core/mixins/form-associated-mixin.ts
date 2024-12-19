@@ -5,11 +5,9 @@ import type { AbstractConstructor } from './constructor.js';
 
 export declare abstract class SbbFormAssociatedMixinType<V = string> {
   public get form(): HTMLFormElement | null;
-  public get name(): string;
-  public set name(value: string);
+  public accessor name: string;
   public get type(): string;
-  public get value(): V | null;
-  public set value(value: V | null);
+  public accessor value: V | null;
 
   public get validity(): ValidityState;
   public get validationMessage(): string;

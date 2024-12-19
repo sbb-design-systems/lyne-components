@@ -22,48 +22,48 @@ describe(`sbb-radio-button`, () => {
     });
 
     it('selects radio on click', async () => {
-      const stateChange = new EventSpy(SbbRadioButtonElement.events.stateChange);
+      const change = new EventSpy(SbbRadioButtonElement.events.change);
 
       element.click();
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-checked');
       expect(element.checked).to.be.true;
-      await stateChange.calledOnce();
-      expect(stateChange.count).to.be.equal(1);
+      await change.calledOnce();
+      expect(change.count).to.be.equal(1);
     });
 
     it('does not deselect radio if already checked', async () => {
-      const stateChange = new EventSpy(SbbRadioButtonElement.events.stateChange);
+      const change = new EventSpy(SbbRadioButtonElement.events.change);
 
       element.click();
       await waitForLitRender(element);
       expect(element.checked).to.be.true;
-      await stateChange.calledOnce();
-      expect(stateChange.count).to.be.equal(1);
+      await change.calledOnce();
+      expect(change.count).to.be.equal(1);
 
       element.click();
       await waitForLitRender(element);
       expect(element.checked).to.be.true;
-      await stateChange.calledOnce();
-      expect(stateChange.count).to.be.equal(1);
+      await change.calledOnce();
+      expect(change.count).to.be.equal(1);
     });
 
     it('allows empty selection', async () => {
-      const stateChange = new EventSpy(SbbRadioButtonElement.events.stateChange);
+      const change = new EventSpy(SbbRadioButtonElement.events.change);
 
       element.allowEmptySelection = true;
       element.click();
       await waitForLitRender(element);
       expect(element.checked).to.be.true;
-      await stateChange.calledOnce();
-      expect(stateChange.count).to.be.equal(1);
+      await change.calledOnce();
+      expect(change.count).to.be.equal(1);
 
       element.click();
       await waitForLitRender(element);
       expect(element.checked).to.be.false;
-      await stateChange.calledTimes(2);
-      expect(stateChange.count).to.be.equal(2);
+      await change.calledTimes(2);
+      expect(change.count).to.be.equal(2);
     });
 
     it('should convert falsy to false', async () => {

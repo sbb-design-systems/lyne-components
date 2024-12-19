@@ -71,13 +71,13 @@ import '../radio-button-panel.js';
         expect(element.value).to.be.equal(radio.value);
       });
 
-      it('should ignore disabled radios', async () => {
+      it('should respect disabled radio in value getter', async () => {
         const radio = radios[0];
         radio.checked = true;
         radio.disabled = true;
         await waitForLitRender(element);
 
-        expect(element.value).to.be.null;
+        expect(element.value).to.be.equal('Value one');
       });
 
       it('should update disabled on children', async () => {
@@ -127,9 +127,25 @@ import '../radio-button-panel.js';
 
       describe('events', () => {
         it('dispatches event on radio change', async () => {
+          radios[0].checked = true;
           const radio = radios[1];
-          const changeSpy = new EventSpy('change');
-          const inputSpy = new EventSpy('input');
+          const changeSpy = new EventSpy('change', element);
+          const inputSpy = new EventSpy('input', element);
+
+          element.addEventListener(
+            'change',
+            () => {
+              expect(element.value).to.be.equal('Value two');
+              expect(
+                Array.from(
+                  element.querySelectorAll<SbbRadioButtonElement | SbbRadioButtonPanelElement>(
+                    selector,
+                  ),
+                ).filter((radio) => radio.checked).length,
+              ).to.be.equal(1);
+            },
+            { once: true },
+          );
 
           radio.click();
           await waitForLitRender(element);
