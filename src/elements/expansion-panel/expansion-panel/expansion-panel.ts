@@ -3,7 +3,6 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -117,13 +116,15 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _progressiveId = `-${++nextId}`;
   private _headerRef?: SbbExpansionPanelHeaderElement;
   private _contentRef?: SbbExpansionPanelContentElement;
-  private _abort = new SbbConnectedAbortController(this);
   private _initialized: boolean = false;
+
+  public constructor() {
+    super();
+    this.addEventListener?.('toggleExpanded', () => this._toggleExpanded());
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('toggleExpanded', () => this._toggleExpanded(), { signal });
     this.toggleAttribute('data-accordion', !!this.closest?.('sbb-accordion'));
   }
 

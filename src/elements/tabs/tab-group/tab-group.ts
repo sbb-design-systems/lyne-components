@@ -6,7 +6,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter, throttle } from '../../core/eventing.js';
@@ -67,7 +66,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   private _selectedTab?: InterfaceSbbTabGroupTab;
   private _tabGroupElement!: HTMLElement;
   private _tabContentElement!: HTMLElement;
-  private _abort = new SbbConnectedAbortController(this);
   private _tabAttributeObserver = new MutationController(this, {
     target: null,
     config: tabObserverConfig,
@@ -112,10 +110,9 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     SbbTabGroupElement.events.didChange,
   );
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+  public constructor() {
+    super();
+    this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {

@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
+import { SbbLanguageController } from '../core/controllers.js';
 import { forceType, slotState } from '../core/decorators.js';
 import { isFirefox, isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
@@ -67,7 +67,6 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
   @property() public accessor politeness: 'polite' | 'assertive' | 'off' = 'polite';
 
   private _closeTimeout?: ReturnType<typeof setTimeout>;
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
 
   /**
@@ -84,6 +83,11 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
     } else if (this.politeness === 'assertive') {
       return 'alert';
     }
+  }
+
+  public constructor() {
+    super();
+    this.addEventListener?.('click', (e) => this._onClick(e));
   }
 
   /**
@@ -159,9 +163,6 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e) => this._onClick(e), { signal });
 
     // Add this toast to the global collection
     toastRefs.add(this);

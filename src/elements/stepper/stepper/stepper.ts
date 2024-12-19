@@ -8,7 +8,6 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { breakpoints, isBreakpoint, isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
@@ -90,8 +89,12 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   }
 
   private _loaded: boolean = false;
-  private _abort = new SbbConnectedAbortController(this);
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  public constructor() {
+    super();
+    this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+  }
 
   /** Selects the next step. */
   public next(): void {
@@ -230,7 +233,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     setTimeout(() => this._setMarkerSize(), 0);
   }
 
-  private _onStepperResize(): void {
+  private _onStepperResize = (): void => {
     this._checkOrientation();
     clearTimeout(this._resizeObserverTimeout!);
     this.toggleAttribute('data-disable-animation', true);
@@ -240,7 +243,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
       () => this.toggleAttribute('data-disable-animation', false),
       DEBOUNCE_TIME,
     );
-  }
+  };
 
   private _configureLinearMode(): void {
     this.steps.forEach((step, index) => {
@@ -254,13 +257,15 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    window.addEventListener('resize', () => this._onStepperResize(), {
-      signal,
+    window.addEventListener('resize', this._onStepperResize, {
       passive: true,
     });
     this.toggleAttribute('data-disable-animation', !this._loaded);
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    window.removeEventListener('resize', this._onStepperResize);
   }
 
   protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {

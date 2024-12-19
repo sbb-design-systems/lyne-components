@@ -36,6 +36,7 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   public required: boolean;
 
   protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonMixinType>;
+  /** @deprecated No longer used internally. */
   protected abort: SbbConnectedAbortController;
 
   public formResetCallback(): void;
@@ -76,6 +77,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       return 'radio';
     }
 
+    /** @deprecated No longer used internally. */
     protected abort = new SbbConnectedAbortController(this);
 
     /**
@@ -90,14 +92,12 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       super();
       /** @internal */
       this.internals.role = 'radio';
+      this.addEventListener?.('keydown', (e) => this._handleArrowKeyDown(e));
     }
 
     public override connectedCallback(): void {
       super.connectedCallback();
       this._connectToRegistry();
-      this.addEventListener('keydown', (e) => this._handleArrowKeyDown(e), {
-        signal: this.abort.signal,
-      });
     }
 
     public override disconnectedCallback(): void {

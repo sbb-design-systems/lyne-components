@@ -2,7 +2,6 @@ import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import type { EventEmitter } from '../../core/eventing.js';
@@ -78,10 +77,11 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   @state() private accessor _inertAriaGroups = false;
 
-  private _abort = new SbbConnectedAbortController(this);
-
   public constructor() {
     super();
+    this.addEventListener?.('click', (e: MouseEvent) => this.selectByClick(e), {
+      passive: true,
+    });
 
     new MutationController(this, {
       config: optionObserverConfig,
@@ -171,11 +171,6 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   protected init(): void {
     this.setAttributeFromParent();
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e: MouseEvent) => this.selectByClick(e), {
-      signal,
-      passive: true,
-    });
   }
 
   protected updateAriaDisabled(): void {

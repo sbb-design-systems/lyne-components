@@ -9,7 +9,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { readConfig } from '../../core/config.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { forceType } from '../../core/decorators.js';
 import { findInput, findReferencedElement } from '../../core/dom.js';
@@ -157,7 +157,6 @@ class SbbDatepickerElement<T = Date> extends LitElement {
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this).withHandler(() => {
     if (this._inputElement) {
       if (this._inputElementPlaceholderMutable) {
@@ -169,11 +168,13 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     }
   });
 
+  public constructor() {
+    super();
+    this.addEventListener?.('datepickerControlRegistered', () => this._emitInputUpdated());
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.addEventListener('datepickerControlRegistered', () => this._emitInputUpdated(), {
-      signal: this._abort.signal,
-    });
     this._attachInput();
     if (this._inputElement) {
       this._emitInputUpdated();

@@ -54,13 +54,10 @@ class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     );
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this.abort.signal;
-    this.addEventListener(
-      'autocompleteOptionSelectionChange',
-      (e: CustomEvent<void>) => this.onOptionSelected(e),
-      { signal },
+  public constructor() {
+    super();
+    this.addEventListener?.('autocompleteOptionSelectionChange', (e: CustomEvent<void>) =>
+      this.onOptionSelected(e),
     );
   }
 
