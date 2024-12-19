@@ -71,13 +71,13 @@ import '../radio-button-panel.js';
         expect(element.value).to.be.equal(radio.value);
       });
 
-      it('should ignore disabled radios', async () => {
+      it('should respect disabled radio in value getter', async () => {
         const radio = radios[0];
         radio.checked = true;
         radio.disabled = true;
         await waitForLitRender(element);
 
-        expect(element.value).to.be.null;
+        expect(element.value).to.be.equal('Value one');
       });
 
       it('should update disabled on children', async () => {
