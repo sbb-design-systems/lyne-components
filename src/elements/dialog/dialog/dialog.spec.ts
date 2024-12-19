@@ -472,18 +472,21 @@ describe('sbb-dialog with long content', () => {
   it('shows/hides the dialog header on scroll', async () => {
     await openDialog(element);
     expect(element).not.to.have.attribute('data-hide-header');
+    const scrollSpy = new EventSpy('scroll', document);
 
     const content = element.querySelector('sbb-dialog-content')!.shadowRoot!.firstElementChild!;
 
     // Scroll down.
     content.scrollTo(0, 50);
     await waitForCondition(() => element.hasAttribute('data-hide-header'));
+    await scrollSpy.calledOnce();
 
     expect(element).to.have.attribute('data-hide-header');
 
     // Scroll up.
     content.scrollTo(0, 0);
     await waitForCondition(() => !element.hasAttribute('data-hide-header'));
+    await scrollSpy.calledTimes(2);
 
     expect(element).not.to.have.attribute('data-hide-header');
   });

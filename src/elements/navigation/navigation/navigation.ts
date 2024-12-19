@@ -204,13 +204,13 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
     this._navigationResizeObserver.observe(this);
     this._inertController.activate();
     this._focusHandler.trap(this, { filter: this._trapFocusFilter });
     this._attachWindowEvents();
     this._setNavigationFocus();
     this.completeUpdate();
+    this.didOpen.emit();
   }
 
   // Removes trigger click listener on trigger change.

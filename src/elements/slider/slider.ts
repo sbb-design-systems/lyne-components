@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
-import { EventEmitter, forwardEventToHost } from '../core/eventing.js';
+import { EventEmitter, forwardEvent } from '../core/eventing.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -248,7 +248,7 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
   /** Emits the change event. */
   private _emitChange(event: Event): void {
-    forwardEventToHost(event, this);
+    forwardEvent(event, this);
     this._didChange.emit();
   }
 
