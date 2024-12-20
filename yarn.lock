@@ -4130,6 +4130,36 @@ esbuild-register@^3.5.0:
   dependencies:
     debug "^4.3.4"
 
+esbuild@0.24.0, "esbuild@^0.18.0 || ^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.24.0.tgz#f2d470596885fcb2e91c21eb3da3b3c89c0b55e7"
+  integrity sha512-FuLPevChGDshgSicjisSooU0cemp/sGXR841D5LHMB7mTVOmsEHcAxaH3irL53+8YDIeVNQEySh4DaYU/iuPqQ==
+  optionalDependencies:
+    "@esbuild/aix-ppc64" "0.24.0"
+    "@esbuild/android-arm" "0.24.0"
+    "@esbuild/android-arm64" "0.24.0"
+    "@esbuild/android-x64" "0.24.0"
+    "@esbuild/darwin-arm64" "0.24.0"
+    "@esbuild/darwin-x64" "0.24.0"
+    "@esbuild/freebsd-arm64" "0.24.0"
+    "@esbuild/freebsd-x64" "0.24.0"
+    "@esbuild/linux-arm" "0.24.0"
+    "@esbuild/linux-arm64" "0.24.0"
+    "@esbuild/linux-ia32" "0.24.0"
+    "@esbuild/linux-loong64" "0.24.0"
+    "@esbuild/linux-mips64el" "0.24.0"
+    "@esbuild/linux-ppc64" "0.24.0"
+    "@esbuild/linux-riscv64" "0.24.0"
+    "@esbuild/linux-s390x" "0.24.0"
+    "@esbuild/linux-x64" "0.24.0"
+    "@esbuild/netbsd-x64" "0.24.0"
+    "@esbuild/openbsd-arm64" "0.24.0"
+    "@esbuild/openbsd-x64" "0.24.0"
+    "@esbuild/sunos-x64" "0.24.0"
+    "@esbuild/win32-arm64" "0.24.0"
+    "@esbuild/win32-ia32" "0.24.0"
+    "@esbuild/win32-x64" "0.24.0"
+
 esbuild@0.24.1:
   version "0.24.1"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.24.1.tgz#ef19d4bc6347a274e2cee099d8e83beb31e41197"
@@ -4160,36 +4190,6 @@ esbuild@0.24.1:
     "@esbuild/win32-arm64" "0.24.1"
     "@esbuild/win32-ia32" "0.24.1"
     "@esbuild/win32-x64" "0.24.1"
-
-"esbuild@^0.18.0 || ^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0", esbuild@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.24.0.tgz#f2d470596885fcb2e91c21eb3da3b3c89c0b55e7"
-  integrity sha512-FuLPevChGDshgSicjisSooU0cemp/sGXR841D5LHMB7mTVOmsEHcAxaH3irL53+8YDIeVNQEySh4DaYU/iuPqQ==
-  optionalDependencies:
-    "@esbuild/aix-ppc64" "0.24.0"
-    "@esbuild/android-arm" "0.24.0"
-    "@esbuild/android-arm64" "0.24.0"
-    "@esbuild/android-x64" "0.24.0"
-    "@esbuild/darwin-arm64" "0.24.0"
-    "@esbuild/darwin-x64" "0.24.0"
-    "@esbuild/freebsd-arm64" "0.24.0"
-    "@esbuild/freebsd-x64" "0.24.0"
-    "@esbuild/linux-arm" "0.24.0"
-    "@esbuild/linux-arm64" "0.24.0"
-    "@esbuild/linux-ia32" "0.24.0"
-    "@esbuild/linux-loong64" "0.24.0"
-    "@esbuild/linux-mips64el" "0.24.0"
-    "@esbuild/linux-ppc64" "0.24.0"
-    "@esbuild/linux-riscv64" "0.24.0"
-    "@esbuild/linux-s390x" "0.24.0"
-    "@esbuild/linux-x64" "0.24.0"
-    "@esbuild/netbsd-x64" "0.24.0"
-    "@esbuild/openbsd-arm64" "0.24.0"
-    "@esbuild/openbsd-x64" "0.24.0"
-    "@esbuild/sunos-x64" "0.24.0"
-    "@esbuild/win32-arm64" "0.24.0"
-    "@esbuild/win32-ia32" "0.24.0"
-    "@esbuild/win32-x64" "0.24.0"
 
 escalade@^3.1.1:
   version "3.2.0"
@@ -8924,12 +8924,12 @@ vite-plugin-dts@4.4.0:
     local-pkg "^0.5.1"
     magic-string "^0.30.17"
 
-vite@6.0.4:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-6.0.4.tgz#fe7cfaedff7c701d5582be5c4ed6a2150538ea9d"
-  integrity sha512-zwlH6ar+6o6b4Wp+ydhtIKLrGM/LoqZzcdVmkGAFun0KHTzIzjh+h0kungEx7KJg/PYnC80I4TII9WkjciSR6Q==
+vite@6.0.5:
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-6.0.5.tgz#1d0fbdb3ffe61e944089abeddb7d2c509420acfd"
+  integrity sha512-akD5IAH/ID5imgue2DYhzsEwCi0/4VKY31uhMLEYJwPP4TiUp8pL5PIK+Wo7H8qT8JY9i+pVfPydcFPYD1EL7g==
   dependencies:
-    esbuild "^0.24.0"
+    esbuild "0.24.0"
     postcss "^8.4.49"
     rollup "^4.23.0"
   optionalDependencies:
