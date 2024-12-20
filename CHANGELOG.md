@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.3](https://github.com/sbb-design-systems/lyne-components/compare/v2.0.2...v2.0.3) (2024-12-20)
+
+
+### Bug Fixes
+
+* **sbb-radio-button-group:** sync radios synchronously ([#3323](https://github.com/sbb-design-systems/lyne-components/issues/3323)) ([26c7b47](https://github.com/sbb-design-systems/lyne-components/commit/26c7b474889255e1e25665703c596f212eef15ad))
+
 ## [2.0.2](https://github.com/sbb-design-systems/lyne-components/compare/v2.0.1...v2.0.2) (2024-12-19)
 
 
