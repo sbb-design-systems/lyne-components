@@ -10,6 +10,12 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
+import { EventEmitter } from '../../core/eventing.js';
+import type {
+  SbbCheckedStateChange,
+  SbbDisabledStateChange,
+  SbbStateChange,
+} from '../../core/interfaces.js';
 import {
   panelCommonStyle,
   SbbPanelMixin,
@@ -19,6 +25,11 @@ import {
 import { radioButtonCommonStyle, SbbRadioButtonCommonElementMixin } from '../common.js';
 
 import '../../screen-reader-only.js';
+
+export type SbbRadioButtonStateChange = Extract<
+  SbbStateChange,
+  SbbDisabledStateChange | SbbCheckedStateChange
+>;
 
 /**
  /**
@@ -42,10 +53,10 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
-    stateChange: 'stateChange',
     change: 'change',
     input: 'input',
     panelConnected: 'panelConnected',
+    stateChange: 'stateChange',
   } as const;
 
   /**
@@ -58,6 +69,17 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
 
   private _hasSelectionExpansionPanelElement: boolean = false;
 
+  /**
+   * @internal
+   * Internal event that emits whenever the state of the radio option
+   * in relation to the parent selection panel changes.
+   */
+  private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
+    this,
+    SbbRadioButtonPanelElement.events.stateChange,
+    { bubbles: true },
+  );
+
   public override connectedCallback(): void {
     super.connectedCallback();
     this._hasSelectionExpansionPanelElement = !!this.closest?.('sbb-selection-expansion-panel');
@@ -68,6 +90,16 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
 
     if (changedProperties.has('checked')) {
       this.toggleAttribute('data-checked', this.checked);
+
+      if (this.checked !== changedProperties.get('checked')!) {
+        this._stateChange.emit({ type: 'checked', checked: this.checked });
+      }
+    }
+
+    if (changedProperties.has('disabled')) {
+      if (this.disabled !== changedProperties.get('disabled')!) {
+        this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
+      }
     }
   }
 
