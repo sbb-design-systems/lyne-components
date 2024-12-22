@@ -7,9 +7,9 @@ const cacheLocation = resolve(
   '../../node_modules/.cache/lyne-cdn-fonts',
 );
 const preloadFontList = [
-  [400, 'https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff2'],
-  [700, 'https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff2'],
-  [300, 'https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Light.woff2'],
+  [400, 'https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-Roman.woff2'],
+  [700, 'https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-Bold.woff2'],
+  [300, 'https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-Light.woff2'],
 ] as const;
 
 export interface PreloadedFont {
