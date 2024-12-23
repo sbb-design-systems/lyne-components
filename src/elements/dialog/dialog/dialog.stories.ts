@@ -84,6 +84,13 @@ const accessibilityBackLabel: InputType = {
   },
 };
 
+const backdrop: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['opaque', 'translucent'],
+};
+
 const backdropAction: InputType = {
   control: {
     type: 'select',
@@ -99,6 +106,7 @@ const basicArgTypes: ArgTypes = {
   accessibilityBackLabel,
   negative,
   'accessibility-label': accessibilityLabel,
+  backdrop: backdrop,
   'backdrop-action': backdropAction,
 };
 
@@ -110,6 +118,7 @@ const basicArgs: Args = {
   accessibilityBackLabel: 'Go back',
   negative: false,
   'accessibility-label': undefined,
+  backdrop: 'opaque',
   'backdrop-action': backdropAction.options![0],
 };
 
@@ -388,6 +397,15 @@ export const Negative: StoryObj = {
   args: {
     ...basicArgs,
     negative: true,
+  },
+};
+
+export const TranslucentBackdrop: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    backdrop: 'translucent',
   },
 };
 
