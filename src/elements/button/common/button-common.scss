@@ -184,7 +184,6 @@ $active: ':active, [data-active]';
     }
 
     :host(:not(#{$disabled}):is(#{$active})) & {
-      color: var(--sbb-button-color-active-text);
       background-color: var(--sbb-button-color-active-background);
       border-color: var(--sbb-button-color-active-border);
     }
@@ -199,6 +198,10 @@ $active: ':active, [data-active]';
     color: var(--sbb-button-color-disabled-text);
     cursor: default;
     pointer-events: none;
+  }
+
+  :host(:not(#{$disabled}):is(#{$active})) & {
+    color: var(--sbb-button-color-active-text);
   }
 
   :host(:not(#{$disabled}, #{$active}):hover) & {
