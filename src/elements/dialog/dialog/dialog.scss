@@ -63,6 +63,10 @@
   }
 }
 
+:host([backdrop='translucent']:is([data-state='opened'], [data-state='opening'])) {
+  --sbb-dialog-backdrop-color: var(--sbb-color-black-alpha-50);
+}
+
 :host([data-hide-header]) {
   // Hide transition
   --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);

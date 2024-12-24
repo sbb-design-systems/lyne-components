@@ -36,6 +36,11 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   @property({ attribute: 'backdrop-action' }) public accessor backdropAction: 'close' | 'none' =
     'close';
 
+  /** Backdrop density. */
+  @property({ attribute: 'backdrop', reflect: true }) public accessor backdrop:
+    | 'opaque'
+    | 'translucent' = 'opaque';
+
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
   // For more details:
   // - https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
