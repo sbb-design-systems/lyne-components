@@ -8,6 +8,8 @@
   --sbb-button-color-hover-background: var(--sbb-color-red125);
   --sbb-button-color-hover-border: var(--sbb-color-red125);
   --sbb-button-color-hover-text: var(--sbb-color-milk);
+  --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-20);
+  --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
 }
 
 :host([negative]) {
