@@ -45,17 +45,19 @@ $active: ':active, [data-active]';
 
   // Calculated and private variables
   --_width: unset;
-  --_inner-border-width: var(--sbb-button-border-width);
-  --_outer-border-width: 0;
   --_border-color: var(--sbb-button-color-default-border);
   --_background-color: var(--sbb-button-color-default-background);
   --_color: var(--sbb-button-color-default-text);
-  --_box-shadow: inset var(--_border-color) 0 0 0 var(--_inner-border-width),
-    var(--_border-color) 0 0 0 var(--_outer-border-width), var(--sbb-button-box-shadow);
   --_sbb-button-inset: 0;
-  --_support-border: none;
   --_outline-width: 0;
-  --_sbb-focus-outline-offset: var(--sbb-focus-outline-offset);
+
+  // The overlap-fix closes a small visual gap between border and background color when hovered.
+  // As long as the border color corresponds to the background color, we slightly increase the border width.
+  // This doesn't interfere with the content, but visually closes the small gap.
+  // The secondary button itself can override it to 0 because it doesn't need the workaround.
+  // We used px unit as it is not relative to anything.
+  --_border: calc(var(--sbb-button-border-width) + var(--sbb-button-border-overlap-fix, 1px)) solid
+    var(--_border-color);
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
@@ -76,7 +78,7 @@ $active: ':active, [data-active]';
     --sbb-button-color-active-text: CanvasText !important;
 
     // Calculated and private variables
-    --_support-border: var(--sbb-button-border-width) solid var(--_border-color);
+    --sbb-button-border-overlap-fix: 0rem;
   }
 }
 
@@ -134,21 +136,14 @@ $active: ':active, [data-active]';
     --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
     --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
     --sbb-button-cursor: pointer;
-
-    // Increasing outline offset is needed because border is set as box-shadow but outline is calculated from original element
-    --_sbb-focus-outline-offset: calc(
-      var(--sbb-focus-outline-offset) + var(--sbb-button-border-width)
-    );
-    --_inner-border-width: 0;
-    --_outer-border-width: var(--sbb-button-border-width);
     --_border-color: var(--sbb-button-color-hover-border);
     --_color: var(--sbb-button-color-hover-text);
     --_background-color: var(--sbb-button-color-hover-background);
+    --_sbb-button-inset: calc(var(--sbb-button-border-width) * -1);
   }
 
   @include sbb.if-forced-colors {
     --sbb-button-color-hover-border: Highlight !important;
-    --_sbb-button-inset: calc(var(--sbb-button-border-width) * -1);
   }
 }
 
@@ -158,8 +153,7 @@ $active: ':active, [data-active]';
   --_color: var(--sbb-button-color-disabled-text);
   --_background-color: var(--sbb-button-color-disabled-background);
   --_border-color: var(--sbb-button-color-disabled-border);
-  --_box-shadow: none;
-  --_support-border: var(--sbb-button-border-disabled-width) var(--sbb-button-border-disabled-style)
+  --_border: var(--sbb-button-border-disabled-width) var(--sbb-button-border-disabled-style)
     var(--_border-color);
 }
 
@@ -188,6 +182,7 @@ $active: ':active, [data-active]';
   justify-content: center;
   text-align: left;
   min-height: var(--sbb-button-min-height);
+  outline: none;
 
   // Width is set in icon-only variant
   width: var(--_width);
@@ -196,14 +191,9 @@ $active: ':active, [data-active]';
   cursor: var(--sbb-button-cursor);
   user-select: none;
   background-color: var(--_background-color);
-
-  // Box shadow is used to display border and shadow
-  box-shadow: var(--_box-shadow);
-  outline: var(--sbb-focus-outline-color) solid var(--_outline-width);
-  outline-offset: var(--_sbb-focus-outline-offset);
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
-  transition-property: color, box-shadow, padding, outline-offset, background-color;
+  transition-property: color, padding, background-color;
 
   // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
   // Positioning of the content is made by flexbox vertical centering.
@@ -217,17 +207,20 @@ $active: ':active, [data-active]';
   // Needed for support border (see below)
   position: relative;
 
-  // Support border for disabled and forced colors cases
+  // Used to display border and shadow
   &::before {
     content: '';
     position: absolute;
     inset: var(--_sbb-button-inset);
-    border: var(--_support-border);
+    border: var(--_border);
     border-radius: var(--sbb-button-border-radius);
+    pointer-events: none;
+    box-shadow: var(--sbb-button-box-shadow);
+    outline: var(--sbb-focus-outline-color) solid var(--_outline-width);
+    outline-offset: var(--sbb-focus-outline-offset);
     transition-duration: var(--sbb-button-transition-duration);
     transition-timing-function: var(--sbb-button-transition-easing-function);
-    transition-property: inset, border;
-    pointer-events: none;
+    transition-property: inset, border, box-shadow;
   }
 }
 
