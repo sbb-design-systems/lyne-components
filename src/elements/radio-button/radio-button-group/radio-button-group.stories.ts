@@ -8,6 +8,7 @@ import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../../form-error.js';
 
+import type { SbbRadioButtonGroupElement } from './radio-button-group.js';
 import readme from './readme.md?raw';
 import './radio-button-group.js';
 import '../radio-button.js';
@@ -145,8 +146,8 @@ const ErrorMessageTemplate = (args: Args): TemplateResult => {
   return html`
     <sbb-radio-button-group
       ${sbbSpread(args)}
-      @change=${(event: CustomEvent) => {
-        if (event.detail.value) {
+      @change=${(event: Event) => {
+        if ((event.currentTarget as SbbRadioButtonGroupElement).value) {
           sbbFormError.remove();
         } else if (args.required) {
           (event.target as HTMLElement).closest('sbb-radio-button-group')?.append(sbbFormError);
