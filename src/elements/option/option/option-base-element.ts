@@ -22,6 +22,10 @@ const inertAriaGroups = isSafari;
 /** Configuration for the attribute to look at if component is nested in an option group */
 const optionObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-disabled', 'data-negative'],
+  attributes: true,
+  childList: true,
+  subtree: true,
+  characterData: true,
 };
 
 export
@@ -193,6 +197,12 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
         this.updateAriaDisabled();
       } else if (mutation.attributeName === 'data-negative') {
         this.negative = this.hasAttribute('data-negative');
+      } else {
+        /** @internal */
+        this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
+
+        // We return because there should be only one event triggered per mutationList
+        return;
       }
     }
   }
@@ -256,19 +266,13 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     return nothing;
   }
 
-  private _handleSlotChange(): void {
-    this.handleHighlightState();
-    /** @internal */
-    this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-option__container">
         <div class="sbb-option">
           ${this.renderIcon()}
           <span class="sbb-option__label">
-            <slot @slotchange=${this._handleSlotChange}></slot>
+            <slot @slotchange=${this.handleHighlightState}></slot>
             ${this.renderLabel()}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html` <sbb-screen-reader-only>
