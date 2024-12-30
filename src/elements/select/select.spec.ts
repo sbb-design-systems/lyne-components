@@ -485,6 +485,19 @@ describe(`sbb-select`, () => {
 
       expect(displayValue.textContent!.trim()).to.be.equal('First modified');
 
+      // To test the updated value, we need to create a modifiable textNode
+      const textNode = document.createTextNode('Initial value');
+      firstOption.innerHTML = '';
+      firstOption.appendChild(textNode);
+      await waitForLitRender(element);
+
+      textNode.data = 'First modified again';
+
+      await waitForLitRender(element);
+      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
+
+      expect(displayValue.textContent!.trim()).to.be.equal('First modified again');
+
       // Deselection
       element.value = '';
       await waitForLitRender(element);
