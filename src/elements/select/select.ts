@@ -8,7 +8,12 @@ import { until } from 'lit/directives/until.js';
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { forceType, handleDistinctChange, hostAttributes } from '../core/decorators.js';
+import {
+  forceType,
+  getOverride,
+  handleDistinctChange,
+  hostAttributes,
+} from '../core/decorators.js';
 import { isNextjs, isSafari, isZeroAnimationDuration, setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
@@ -96,8 +101,19 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   @property({ reflect: true, type: Boolean })
   public accessor multiple: boolean = false;
 
+  @forceType()
+  @handleDistinctChange((e: SbbSelectElement, newValue: boolean) =>
+    e._closeOnDisabledReadonlyChanged(newValue),
+  )
+  @property({ reflect: true, type: Boolean })
+  @getOverride((e: SbbSelectElement, v: boolean): boolean => v || e.isDisabledExternally())
+  public override accessor disabled: boolean = false;
+
   /** Whether the select is readonly. */
   @forceType()
+  @handleDistinctChange((e: SbbSelectElement, newValue: boolean) =>
+    e._closeOnDisabledReadonlyChanged(newValue),
+  )
   @property({ type: Boolean })
   public accessor readonly: boolean = false;
 
@@ -317,6 +333,15 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       } else {
         this.value = (this.value as string[])[0]!;
       }
+    }
+  }
+
+  /**
+   * If the `disabled` or the `readonly` properties are set, and the panel is open, close it.
+   */
+  private _closeOnDisabledReadonlyChanged(newValue: boolean): void {
+    if (this.isOpen && newValue) {
+      this.close();
     }
   }
 
