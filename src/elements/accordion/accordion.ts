@@ -38,7 +38,9 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @forceType()
-  @handleDistinctChange((e, newValue, oldValue) => e._resetExpansionPanels(newValue, !!oldValue))
+  @handleDistinctChange((e: SbbAccordionElement, newValue, oldValue) =>
+    e._resetExpansionPanels(newValue, !!oldValue),
+  )
   @property({ type: Boolean })
   public accessor multi: boolean = false;
 

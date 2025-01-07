@@ -8,7 +8,7 @@ import { until } from 'lit/directives/until.js';
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { forceType, hostAttributes } from '../core/decorators.js';
+import { forceType, handleDistinctChange, hostAttributes } from '../core/decorators.js';
 import { isNextjs, isSafari, isZeroAnimationDuration, setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
@@ -92,6 +92,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Whether the select allows for multiple selection. */
   @forceType()
+  @handleDistinctChange((e: SbbSelectElement, newValue: boolean) => e._onMultipleChanged(newValue))
   @property({ reflect: true, type: Boolean })
   public accessor multiple: boolean = false;
 
@@ -305,6 +306,20 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
   }
 
+  /**
+   * If `multiple` changes, the `value` property should be adapted too:
+   * if the updated value is false, the first available option is set.
+   */
+  private _onMultipleChanged(newValue: boolean): void {
+    if (this.value !== null) {
+      if (newValue) {
+        this.value = [this.value as string];
+      } else {
+        this.value = (this.value as string[])[0]!;
+      }
+    }
+  }
+
   /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
   private _onValueChanged(newValue: string | string[]): void {
     const options = this._filteredOptions;
@@ -453,6 +468,10 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       element.toggleAttribute('data-negative', this.negative);
       element.toggleAttribute('data-multiple', this.multiple);
     });
+
+    this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
+      'sbb-option, sbb-optgroup',
+    ).forEach((e) => e.requestUpdate?.());
   }
 
   private _setupSelect(): void {

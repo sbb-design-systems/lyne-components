@@ -303,6 +303,35 @@ describe(`sbb-select`, () => {
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
     });
 
+    it('update multiple attribute', async () => {
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      element.dispatchEvent(new CustomEvent('click'));
+
+      await didOpen.calledOnce();
+      expect(didOpen.count).to.be.equal(1);
+      await waitForLitRender(element);
+
+      firstOption.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.eql('1');
+
+      element.toggleAttribute('multiple', true);
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.eql(['1']);
+
+      firstOption.dispatchEvent(new CustomEvent('click'));
+      thirdOption.dispatchEvent(new CustomEvent('click'));
+      secondOption.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.eql(['3', '2']);
+      element.removeAttribute('multiple');
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql('3');
+    });
+
     it('handles keypress on host', async () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
