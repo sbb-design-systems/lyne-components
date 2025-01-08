@@ -167,6 +167,15 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     this.didClose.emit();
   }
 
+  /** Toggles the sidebar visibility. */
+  public toggle(): void {
+    if (this.state === 'opened') {
+      this.close();
+    } else if (this.state === 'closed') {
+      this.open();
+    }
+  }
+
   private _updateSidebarWidth(oldPosition?: 'start' | 'end'): void {
     const container = this.container;
     if (!container) {
