@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
+import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
 import type { SbbTitleElement } from '../../title.js';
@@ -33,7 +33,6 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   @property({ reflect: true })
   public accessor mode: 'over' | 'side' = 'side';
 
-  // TODO: Discuss conflicts with data-state, isOpen and whether it should be reflected.
   /**
    * Whether the sidebar is opened or closed.
    * Can be used to initially set the opened state.
@@ -44,21 +43,10 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   public accessor opened: boolean = false;
 
   /** The side that the sidebar is attached to. */
+  @forceType((v) => (v === 'end' ? 'end' : 'start'))
+  @handleDistinctChange((instance, _newValue, oldValue) => instance._updateSidebarWidth(oldValue))
   @property({ reflect: true })
-  public set position(value: 'start' | 'end') {
-    // Make sure we have a valid value.
-    value = value === 'end' ? 'end' : 'start';
-
-    if (value !== this._position) {
-      const oldPosition = this._position!;
-      this._position = value;
-      this._updateContentMargins(oldPosition);
-    }
-  }
-  public get position(): 'start' | 'end' {
-    return this._position!;
-  }
-  private _position?: 'start' | 'end';
+  public accessor position: 'start' | 'end' = 'start';
 
   @property({ reflect: true })
   public accessor color: 'white' | 'milk' = 'white';
@@ -77,16 +65,15 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
 
   public constructor() {
     super();
-    this.position ||= 'start';
     new ResizeController(this, {
       skipInitial: true,
-      callback: () => this._updateContentMargins(),
+      callback: () => this._updateSidebarWidth(),
     });
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._updateContentMargins();
+    this._updateSidebarWidth();
   }
 
   public override disconnectedCallback(): void {
@@ -99,32 +86,38 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
 
     if (changedProperties.has('opened')) {
       if (this.opened && this.state === 'closed') {
-        this.open(true);
+        this.open();
       } else if (!this.opened && this.state === 'opened') {
-        this.close(true);
+        this.close();
       }
     }
   }
 
-  /**
-   * Opens the sidebar.
-   * @param skipAnimation whether to skip the animation
-   */
-  public open(skipAnimation = false): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties);
+
+    this._updateSidebarWidth();
+  }
+
+  /** Opens the sidebar. */
+  public open(): void {
     if (this.state !== 'closed' || !this.willOpen.emit()) {
       return;
     }
 
-    if (skipAnimation || this._isZeroAnimationDuration()) {
+    const isZeroAnimationDuration = this._isZeroAnimationDuration();
+
+    if (!this.hasUpdated || isZeroAnimationDuration) {
       this.toggleAttribute('data-skip-animation', true);
+    } else {
+      this.state = 'opening';
     }
 
-    this.state = 'opening';
     this.opened = true;
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
-    if (skipAnimation || this._isZeroAnimationDuration()) {
+    if (!this.hasUpdated || isZeroAnimationDuration) {
       this._handleOpening();
     }
   }
@@ -141,38 +134,40 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     this.didOpen.emit();
   }
 
-  /**
-   * Closes the sidebar.
-   * @param skipAnimation whether to skip the animation
-   */
-  public close(skipAnimation = false): void {
+  /** Closes the sidebar. */
+  public close(): void {
     if (this.state !== 'opened' || !this.willClose.emit()) {
       return;
     }
 
-    if (skipAnimation || this._isZeroAnimationDuration()) {
+    const isZeroAnimationDuration = this._isZeroAnimationDuration();
+
+    if (!this.hasUpdated || isZeroAnimationDuration) {
       // We have to ensure that removing the animation skip instruction is done a tick later.
       // Otherwise, it's removed too early and it doesn't have any effect.
       this.toggleAttribute('data-skip-animation', true);
+    } else {
+      this.state = 'closing';
     }
 
-    this.state = 'closing';
+    this.opened = false;
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
-    if (skipAnimation || this._isZeroAnimationDuration()) {
+    if (!this.hasUpdated || isZeroAnimationDuration) {
       this._handleClosing();
     }
   }
 
   private _handleClosing(): void {
     this.state = 'closed';
-    this.opened = false;
+    // We have to ensure that removing the animation skip instruction is done a tick later.
+    // Otherwise, it's removed too early and it doesn't have any effect.
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
     this.didClose.emit();
   }
 
-  private _updateContentMargins(oldPosition?: 'start' | 'end'): void {
+  private _updateSidebarWidth(oldPosition?: 'start' | 'end'): void {
     const container = this.container;
     if (!container) {
       return;
