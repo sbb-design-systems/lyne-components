@@ -306,19 +306,23 @@ describe(`sbb-select`, () => {
     it('update multiple attribute', async () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       element.dispatchEvent(new CustomEvent('click'));
-
       await didOpen.calledOnce();
       expect(didOpen.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      firstOption.dispatchEvent(new CustomEvent('click'));
-      await waitForLitRender(element);
-
-      expect(element.value).to.be.eql('1');
-
+      expect(element.value).to.be.equal(null);
       element.toggleAttribute('multiple', true);
       await waitForLitRender(element);
+      expect(element.value).to.be.eql([]);
+      element.toggleAttribute('multiple', false);
+      await waitForLitRender(element);
+      expect(element.value).to.be.equal(null);
 
+      firstOption.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql('1');
+      element.toggleAttribute('multiple', true);
+      await waitForLitRender(element);
       expect(element.value).to.be.eql(['1']);
 
       firstOption.dispatchEvent(new CustomEvent('click'));
@@ -327,7 +331,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(element.value).to.be.eql(['3', '2']);
-      element.removeAttribute('multiple');
+      element.toggleAttribute('multiple', false);
       await waitForLitRender(element);
       expect(element.value).to.be.eql('3');
     });

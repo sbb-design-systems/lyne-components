@@ -323,16 +323,15 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   /**
-   * If `multiple` changes, the `value` property should be adapted too:
-   * if the updated value is false, the first available option is set.
+   * The `value` property should be adapted when the `multiple` property changes:
+   *   - if it changes to true, the 'value' is set to an array;
+   *   - if it changes to false, the first available option is set as 'value' otherwise it's set to null.
    */
   private _onMultipleChanged(newValue: boolean): void {
-    if (this.value !== null) {
-      if (newValue) {
-        this.value = [this.value as string];
-      } else {
-        this.value = (this.value as string[])[0]!;
-      }
+    if (newValue) {
+      this.value = this.value !== null ? [this.value as string] : [];
+    } else {
+      this.value = (this.value as string[]).length ? (this.value as string[])[0] : null;
     }
   }
 
