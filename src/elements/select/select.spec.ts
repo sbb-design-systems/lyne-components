@@ -303,6 +303,69 @@ describe(`sbb-select`, () => {
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
     });
 
+    it('update multiple attribute', async () => {
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      element.dispatchEvent(new CustomEvent('click'));
+      await didOpen.calledOnce();
+      expect(didOpen.count).to.be.equal(1);
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal(null);
+      element.toggleAttribute('multiple', true);
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql([]);
+      element.toggleAttribute('multiple', false);
+      await waitForLitRender(element);
+      expect(element.value).to.be.equal(null);
+
+      firstOption.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql('1');
+      element.toggleAttribute('multiple', true);
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql(['1']);
+
+      firstOption.dispatchEvent(new CustomEvent('click'));
+      thirdOption.dispatchEvent(new CustomEvent('click'));
+      secondOption.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.eql(['3', '2']);
+      element.toggleAttribute('multiple', false);
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql('3');
+    });
+
+    it('close the panel if disabled', async () => {
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      element.dispatchEvent(new CustomEvent('click'));
+      await didOpen.calledOnce();
+      expect(didOpen.count).to.be.equal(1);
+      await waitForLitRender(element);
+
+      element.toggleAttribute('disabled', true);
+      await waitForLitRender(element);
+
+      await didClose.calledOnce();
+      expect(didClose.count).to.be.equal(1);
+    });
+
+    it('close the panel if readonly', async () => {
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      element.dispatchEvent(new CustomEvent('click'));
+      await didOpen.calledOnce();
+      expect(didOpen.count).to.be.equal(1);
+      await waitForLitRender(element);
+
+      element.toggleAttribute('readonly', true);
+      await waitForLitRender(element);
+
+      await didClose.calledOnce();
+      expect(didClose.count).to.be.equal(1);
+    });
+
     it('handles keypress on host', async () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
