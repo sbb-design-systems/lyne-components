@@ -1,0 +1,34 @@
+@use '../../core/styles/index' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: contents;
+
+  --sbb-sidebar-content-margin-inline-start: initial;
+  --sbb-sidebar-content-margin-inline-end: initial;
+  --sbb-sidebar-content-animation-duration: var(--sbb-sidebar-container-animation-duration);
+}
+
+.sbb-sidebar-content {
+  @include sbb.scrollbar;
+
+  & {
+    position: relative;
+    display: block;
+    height: 100%;
+    overflow: auto;
+    margin-inline: var(
+        --sbb-sidebar-content-margin-inline-start,
+        var(--sbb-sidebar-container-start-width, 0)
+      )
+      var(--sbb-sidebar-content-margin-inline-end, var(--sbb-sidebar-container-end-width, 0));
+
+    transition: {
+      duration: var(--sbb-sidebar-content-animation-duration);
+      timing-function: var(--sbb-sidebar-container-animation-easing);
+      property: margin;
+    }
+  }
+}

@@ -1,0 +1,117 @@
+@use '../../core/styles/index' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+  width: 320px;
+
+  --sbb-sidebar-background-color: var(--sbb-color-white);
+  --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-sidebar-title-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-sidebar-title-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-sidebar-border-radius: var(--sbb-border-radius-8x);
+  --sbb-sidebar-margin-block-start: var(--sbb-spacing-fixed-3x);
+  --sbb-sidebar-translate-x: -100%;
+}
+
+:host([color='milk']) {
+  --sbb-sidebar-background-color: var(--sbb-color-milk);
+}
+
+:host(:is(:dir(rtl), [position='end'])) {
+  --sbb-sidebar-translate-x: 100%;
+}
+
+:host(:dir(rtl)[position='end']) {
+  --sbb-sidebar-translate-x: -100%;
+}
+
+.sbb-sidebar {
+  @include sbb.scrollbar;
+
+  & {
+    width: inherit;
+    max-width: 100%;
+    background-color: var(--sbb-sidebar-background-color);
+    display: block;
+    position: absolute;
+    inset-block: 0;
+    z-index: 3; // TODO
+    overflow-y: auto;
+    transition: width var(--sbb-sidebar-container-animation-duration)
+      var(--sbb-sidebar-container-animation-easing);
+    border-start-start-radius: var(--sbb-sidebar-border-radius);
+    border-start-end-radius: var(--sbb-sidebar-border-radius);
+    margin-block-start: var(--sbb-sidebar-margin-block-start);
+    animation-duration: var(--sbb-sidebar-container-animation-duration);
+    animation-timing-function: var(--sbb-sidebar-container-animation-easing);
+  }
+
+  :host([position='end']) & {
+    inset-inline-end: 0;
+  }
+
+  :host([data-state='closed']) & {
+    // Stops the sidenav from poking out (e.g. with the box shadow) while it's off-screen.
+    // We can't use `display` because it interrupts the transition and `transition-behavior`
+    // isn't available in all browsers.
+    // visibility: hidden;
+    display: none;
+  }
+
+  :host([data-state='opening']) & {
+    animation-name: open;
+  }
+
+  :host([data-state='closing']) & {
+    animation-name: close;
+  }
+
+  :host([data-state='opened']) & {
+    translate: none;
+  }
+}
+
+.sbb-sidebar-title-container {
+  padding-block: var(--sbb-sidebar-title-padding-block);
+  padding-inline: var(--sbb-sidebar-title-padding-inline);
+  display: flex;
+  gap: var(--sbb-sidebar-title-gap);
+  align-items: center;
+  min-height: calc(var(--sbb-size-element-xs) + 2 * var(--sbb-sidebar-title-padding-block));
+}
+
+.sbb-sidebar-close-button {
+  align-self: start;
+  margin-inline-start: auto;
+}
+
+::slotted(sbb-title[slot='title']) {
+  margin: 0;
+}
+
+.sbb-sidebar-content {
+  padding-inline: var(--sbb-spacing-responsive-xs);
+}
+
+@keyframes open {
+  from {
+    translate: var(--sbb-sidebar-translate-x) 0;
+  }
+
+  to {
+    translate: none;
+  }
+}
+
+@keyframes close {
+  from {
+    translate: none;
+  }
+
+  to {
+    translate: var(--sbb-sidebar-translate-x) 0;
+  }
+}
