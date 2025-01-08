@@ -32,14 +32,15 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
    * The heading level for the sbb-expansion-panel-headers within the component.
    * @controls SbbExpansionPanelElement.titleLevel
    */
-  @handleDistinctChange((e) => e._setTitleLevelOnChildren())
+  @handleDistinctChange((e: SbbAccordionElement) => e._setTitleLevelOnChildren())
   @property({ attribute: 'title-level' })
   public accessor titleLevel: SbbTitleLevel | null = null;
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @forceType()
-  @handleDistinctChange((e: SbbAccordionElement, newValue, oldValue) =>
-    e._resetExpansionPanels(newValue, !!oldValue),
+  @handleDistinctChange(
+    (e: SbbAccordionElement, newValue: boolean, oldValue: boolean | undefined) =>
+      e._resetExpansionPanels(newValue, !!oldValue),
   )
   @property({ type: Boolean })
   public accessor multi: boolean = false;
