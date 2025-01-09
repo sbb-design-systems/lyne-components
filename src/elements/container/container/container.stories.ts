@@ -13,14 +13,22 @@ import './container.js';
 
 import readme from './readme.md?raw';
 
-const containerContent = (title: string, last = false): TemplateResult => html`
-  <sbb-title level="4">${title}</sbb-title>
+const containerContent = (title: string, isDark: boolean, last = false): TemplateResult => html`
+  <sbb-title level="4" ?negative=${isDark}>${title}</sbb-title>
   <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
   <p class="sbb-text-s">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    ${isDark
+      ? html`
+          In <code>"midnight"</code> and <code>"charcoal"</code> variants the slotted text has
+          <code>"white"</code> color; however, you have to manually set the
+          <code>"negative"</code> property on sbb-components when needed.
+        `
+      : html`
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        `}
   </p>
   <sbb-secondary-button style=${last ? 'margin-block-end: 3rem;' : nothing}>
     See more
@@ -44,7 +52,7 @@ const color: InputType = {
   control: {
     type: 'select',
   },
-  options: ['white', 'transparent', 'milk'],
+  options: ['white', 'transparent', 'milk', 'midnight', 'charcoal'],
 };
 
 const expanded: InputType = {
@@ -79,10 +87,15 @@ const defaultArgs: Args = {
   'image-src': undefined,
 };
 
+function isDark(colorArg: string): boolean {
+  return colorArg === color.options![3] || colorArg === color.options![4];
+}
+
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)}>
-    ${containerContent('Example title')} ${containerContent('Another one')}
-    ${containerContent('And another one', true)}
+    ${containerContent('Example title', isDark(args.color))}
+    ${containerContent('Another one', isDark(args.color))}
+    ${containerContent('And another one', isDark(args.color), true)}
   </sbb-container>
 `;
 
@@ -131,6 +144,18 @@ export const Milk: StoryObj = {
   args: { ...defaultArgs, color: color.options![2] },
 };
 
+export const Midnight: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![3] },
+};
+
+export const Charcoal: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![4] },
+};
+
 export const BackgroundImage: StoryObj = {
   render: BackgroundImageTemplate,
   argTypes: defaultArgTypes,
@@ -150,6 +175,18 @@ export const MilkBackgroundExpanded: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![2], 'background-expanded': true },
+};
+
+export const MidnightBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![3], 'background-expanded': true },
+};
+
+export const CharcoalBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![4], 'background-expanded': true },
 };
 
 const meta: Meta = {

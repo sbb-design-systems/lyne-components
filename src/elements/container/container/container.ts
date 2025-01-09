@@ -23,7 +23,6 @@ export
 @slotState()
 class SbbContainerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-
   /** Whether the container is expanded. */
   @forceType()
   @property({ type: Boolean, reflect: true })
@@ -35,7 +34,12 @@ class SbbContainerElement extends LitElement {
   public accessor backgroundExpanded: boolean = false;
 
   /** Color of the container, like transparent, white etc. */
-  @property({ reflect: true }) public accessor color: 'transparent' | 'white' | 'milk' = 'white';
+  @property({ reflect: true }) public accessor color:
+    | 'transparent'
+    | 'white'
+    | 'milk'
+    | 'midnight'
+    | 'charcoal' = 'white';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

@@ -21,7 +21,7 @@ import '../../title.js';
 
 describe(`sbb-sticky-bar`, () => {
   const cases = {
-    color: [undefined, 'white', 'milk'],
+    color: [undefined, 'white', 'milk', 'midnight', 'charcoal'],
     containerExpanded: [false, true],
     scrolled: [false, true],
   };

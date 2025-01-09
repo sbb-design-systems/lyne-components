@@ -48,7 +48,12 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
   } as const;
 
   /** Color of the container, like transparent, white etc. */
-  @property({ reflect: true }) public accessor color: 'white' | 'milk' | null = null;
+  @property({ reflect: true }) public accessor color:
+    | 'white'
+    | 'milk'
+    | 'midnight'
+    | 'charcoal'
+    | null = null;
 
   /** The state of the component. */
   private set _state(state: StickyState) {

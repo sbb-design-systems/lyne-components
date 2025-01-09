@@ -20,7 +20,7 @@ const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-imag
 const imageBase64 = await loadAssetAsBase64(imageUrl);
 
 describe(`sbb-container`, () => {
-  const colorCases = ['transparent', 'white', 'milk'];
+  const colorCases = ['transparent', 'white', 'milk', 'midnight', 'charcoal'];
 
   const backgroundExpandedCases = [false, true];
 

@@ -5,6 +5,7 @@
 
 :host {
   --sbb-container-background-border-radius: 0;
+  --sbb-container-color: inherit;
 
   display: block;
 }
@@ -15,6 +16,20 @@
 
 :host([color='milk']) {
   --sbb-container-background-color: var(--sbb-color-milk);
+}
+
+:host([color='midnight']),
+:host([color='charcoal']) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-container-color: white;
+}
+
+:host([color='midnight']) {
+  --sbb-container-background-color: var(--sbb-color-midnight);
+}
+
+:host([color='charcoal']) {
+  --sbb-container-background-color: var(--sbb-color-charcoal);
 }
 
 :host([data-slot-names~='image']) {
@@ -37,6 +52,7 @@
 }
 
 .sbb-container {
+  color: var(--sbb-container-color);
   background-color: var(--sbb-container-background-color);
   padding: var(--sbb-container-padding);
 
