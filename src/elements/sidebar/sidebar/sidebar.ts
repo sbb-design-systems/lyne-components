@@ -58,8 +58,9 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
 
   /** Returns the SbbSidebarContainerElement where this sidebar is contained. */
   public get container(): SbbSidebarContainerElement | null {
-    return this.closest?.('sbb-sidebar-container');
+    return this._container;
   }
+  private _container: SbbSidebarContainerElement | null = null;
 
   private _language = new SbbLanguageController(this);
 
@@ -73,12 +74,14 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._container = this.closest?.('sbb-sidebar-container');
     this._updateSidebarWidth();
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.container?.style.removeProperty(`--sbb-sidebar-container-${this.position}-width`);
+    this.container?.style.removeProperty(this._buildCssWidthVar());
+    this._container = null;
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -93,31 +96,38 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     }
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>) {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
     this._updateSidebarWidth();
   }
 
   /** Opens the sidebar. */
-  public open(): void {
+  public async open(): Promise<void> {
     if (this.state !== 'closed' || !this.willOpen.emit()) {
       return;
     }
 
     const isZeroAnimationDuration = this._isZeroAnimationDuration();
+    const isDuringInitialization = !this.hasUpdated;
 
-    if (!this.hasUpdated || isZeroAnimationDuration) {
+    if (isDuringInitialization || isZeroAnimationDuration) {
       this.toggleAttribute('data-skip-animation', true);
     } else {
       this.state = 'opening';
+    }
+
+    if (isDuringInitialization) {
+      // We have to wait for the first update to be completed
+      // in order to have the size of the sidebar ready for the animation.
+      await this.updateComplete;
     }
 
     this.opened = true;
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
-    if (!this.hasUpdated || isZeroAnimationDuration) {
+    if (isDuringInitialization || isZeroAnimationDuration) {
       this._handleOpening();
     }
   }
@@ -183,7 +193,7 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     }
 
     if (oldPosition) {
-      container.style.removeProperty(`--sbb-sidebar-container-${oldPosition}-width`);
+      container.style.removeProperty(this._buildCssWidthVar(oldPosition));
     }
 
     const width = this.offsetWidth ?? 0;
@@ -192,15 +202,17 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     }
 
     const newValue = `${width}px`;
-    const actualValue = getComputedStyle(container).getPropertyValue(
-      `--sbb-sidebar-container-${this.position}-width`,
-    );
+    const actualValue = container.style.getPropertyValue(this._buildCssWidthVar());
 
     if (actualValue === newValue) {
       return;
     }
 
-    container.style.setProperty(`--sbb-sidebar-container-${this.position}-width`, newValue);
+    container.style.setProperty(this._buildCssWidthVar(), newValue);
+  }
+
+  private _buildCssWidthVar(position = this.position): string {
+    return `--sbb-sidebar-container-${position}-width`;
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
