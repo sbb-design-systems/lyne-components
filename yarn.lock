@@ -587,10 +587,10 @@
     "@webcomponents/template-shadowroot" "^0.1.0"
     lit "^2.0.0 || ^3.0.0"
 
-"@lit/react@1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@lit/react/-/react-1.0.6.tgz#9518ba471157becd1a3e6fb7ddc16bcef16be64e"
-  integrity sha512-QIss8MPh6qUoFJmuaF4dSHts3qCsA36S3HcOLiNPShxhgYPr4XJRnCBKPipk85sR9xr6TQrOcDMfexwbNdJHYA==
+"@lit/react@1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@lit/react/-/react-1.0.7.tgz#2ffb7f7b6955a53b7eb53f3557e0dda91d7420ff"
+  integrity sha512-cencnwwLXQKiKxjfFzSgZRngcWJzUDZi/04E0fSaF86wZgchMdvTyu+lE36DrUfvuus3bH8+xLPrhM1cTjwpzw==
 
 "@lit/reactive-element@^1.0.0 || ^2.0.0", "@lit/reactive-element@^2.0.4":
   version "2.0.4"
