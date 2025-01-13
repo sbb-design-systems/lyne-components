@@ -124,6 +124,26 @@ describe(`sbb-menu`, () => {
     await sendKeys({ press: 'ArrowUp' });
     await waitForLitRender(element);
     expect(document.activeElement!.id).to.be.equal('menu-action-4');
+
+    // Move to first
+    await sendKeys({ press: 'PageUp' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move to last
+    await sendKeys({ press: 'PageDown' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-4');
+
+    // Move to first
+    await sendKeys({ press: 'Home' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move to last
+    await sendKeys({ press: 'End' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-4');
   });
 
   it('closes on menu action click', async () => {
