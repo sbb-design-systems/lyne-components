@@ -37,7 +37,8 @@ both standalone or within the `sbb-form-field`, they must have the same parent e
 
 | Name         | Attribute     | Privacy | Type                                        | Default    | Description                                                 |
 | ------------ | ------------- | ------- | ------------------------------------------- | ---------- | ----------------------------------------------------------- |
-| `datePicker` | `date-picker` | public  | `string \| SbbDatepickerElement<T> \| null` | `null`     | Datepicker reference.                                       |
+| `datepicker` | `datepicker`  | public  | `SbbDatepickerElement<T> \| null`           |            | Datepicker reference.                                       |
+| `datePicker` | `date-picker` | public  | `string \| SbbDatepickerElement<T> \| null` |            | Datepicker reference.                                       |
 | `form`       | `form`        | public  | `HTMLFormElement \| null`                   |            | The `<form>` element to associate the button with.          |
 | `name`       | `name`        | public  | `string`                                    |            | Name of the form element. Will be read from name attribute. |
 | `negative`   | `negative`    | public  | `boolean`                                   | `false`    | Negative coloring variant flag.                             |

@@ -16,7 +16,7 @@ import { findInput, findReferencedElement } from '../../core/dom.js';
 import { EventEmitter, forwardEvent } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
-import type { SbbDatepickerButton } from '../common.js';
+import { SbbDatepickerAssociationHostController, type SbbDatepickerButton } from '../common.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 
 import style from './datepicker.scss?lit&inline';
@@ -33,6 +33,7 @@ export interface SbbInputUpdateEvent {
  * it returns the related SbbDatepickerElement reference, if exists.
  * @param element The element potentially connected to the SbbDatepickerElement.
  * @param trigger The id or the reference of the SbbDatePicker.
+ * @deprecated No longer in use.
  */
 export function getDatePicker<T = Date>(
   element: SbbDatepickerButton<T> | SbbDatepickerToggleElement<T>,
@@ -47,11 +48,16 @@ export function getDatePicker<T = Date>(
   return findReferencedElement<SbbDatepickerElement<T>>(trigger);
 }
 
+/**
+ * @deprecated No longer in use.
+ */
 export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
   new CustomEvent('datepickerControlRegistered', {
     bubbles: false,
     composed: true,
   });
+
+let nextId = 0;
 
 /**
  * Combined with a native input, it displays the input's value as a formatted date.
@@ -110,6 +116,12 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   }
   private _valueAsDate?: T | null;
 
+  /** The associated input element. */
+  public get inputElement(): HTMLInputElement | null {
+    return this._inputElement;
+  }
+  @state() private accessor _inputElement: HTMLInputElement | null = null;
+
   /** Notifies that the connected input has changes. */
   private _change: EventEmitter = new EventEmitter(this, SbbDatepickerElement.events.change, {
     bubbles: true,
@@ -138,8 +150,6 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     SbbDatepickerElement.events.validationChange,
   );
 
-  @state()
-  private accessor _inputElement: HTMLInputElement | null = null;
   private _inputElementPlaceholderMutable = false;
 
   private _datePickerController!: AbortController;
@@ -147,6 +157,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   private _inputObserver = !isServer
     ? new MutationObserver((mutationsList) => {
         this._emitInputUpdated();
+        this._associationController?.updateControls();
         // TODO: Decide whether to remove this logic by adding a value property to the datepicker.
         if (this._inputElement && mutationsList?.some((e) => e.attributeName === 'value')) {
           const value = this._inputElement.getAttribute('value');
@@ -167,18 +178,16 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       }
     }
   });
+  private _associationController = new SbbDatepickerAssociationHostController(this);
 
   public constructor() {
     super();
-    this.addEventListener?.('datepickerControlRegistered', () => this._emitInputUpdated());
   }
 
   public override connectedCallback(): void {
+    this.id ||= `sbb-datepicker-${++nextId}`;
     super.connectedCallback();
     this._attachInput();
-    if (this._inputElement) {
-      this._emitInputUpdated();
-    }
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -253,6 +262,8 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       this._parseInput(true);
       this._tryApplyFormatToInput();
       this._validateDate();
+      this._emitInputUpdated();
+      this._associationController?.updateControls();
     }
   }
 
@@ -268,6 +279,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     this._validateDate();
     this._setAriaLiveMessage();
     this._change.emit();
+    this._associationController?.updateControls();
   }
 
   private _tryApplyFormatToInput(): boolean {

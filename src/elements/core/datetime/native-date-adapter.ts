@@ -116,7 +116,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
   }
 
   /** Checks whether the given `date` is a valid Date. */
-  public isValid(date: Date | null | undefined): boolean {
+  public isValid(date: Date | null | undefined): date is Date {
     return !!date && !isNaN(date.valueOf());
   }
 

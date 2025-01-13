@@ -7,21 +7,51 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { i18nToday } from '../../core/i18n.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
+import type { SbbDatepickerElement } from '../datepicker.js';
+
 import {
-  datepickerControlRegisteredEventFactory,
-  getDatePicker,
-  type SbbDatepickerElement,
-  type SbbInputUpdateEvent,
-} from '../datepicker.js';
+  SbbDatepickerAssociationControlController,
+  type SbbDatepickerControl,
+} from './datepicker-association-controllers.js';
 
 import '../../icon.js';
 
-export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(SbbButtonBaseElement) {
+export abstract class SbbDatepickerButton<T = Date>
+  extends SbbNegativeMixin(SbbButtonBaseElement)
+  implements SbbDatepickerControl<T>
+{
+  /**
+   * Datepicker reference.
+   * @deprecated Use property/attribute datepicker instead.
+   */
+  @property({ attribute: 'date-picker' })
+  public set datePicker(value: string | SbbDatepickerElement<T> | null) {
+    if (import.meta.env.DEV) {
+      console.warn(
+        `Property datePicker/Attribute date-picker is deprecated. Use datepicker instead.`,
+      );
+    }
+    this.datepicker = value as unknown as SbbDatepickerElement<T> | null;
+  }
+  public get datePicker(): string | SbbDatepickerElement<T> | null {
+    return this.datepicker;
+  }
+
   /** Datepicker reference. */
-  @property({ attribute: 'date-picker' }) public accessor datePicker:
-    | string
-    | SbbDatepickerElement<T>
-    | null = null;
+  @property({ attribute: 'datepicker' })
+  public set datepicker(value: SbbDatepickerElement<T> | null) {
+    this._datepicker =
+      typeof value === 'string'
+        ? // In case the value is a string, it should be treated as an id reference
+          // and attempt to be resolved.
+          ((this.getRootNode?.() as ParentNode | undefined)?.querySelector?.(`#${value}`) ?? null)
+        : value;
+    this.datePickerElement = this._datepicker;
+  }
+  public get datepicker(): SbbDatepickerElement<T> | null {
+    return this._datepicker ?? null;
+  }
+  private _datepicker?: SbbDatepickerElement<T> | null;
 
   /** The boundary date (min/max) as set in the date-picker's input. */
   @state() protected accessor boundary: string | number | null = null;
@@ -32,10 +62,12 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
   /** Whether the component is disabled due date-picker's input disabled. */
   private _inputDisabled = false;
 
+  /**
+   * @deprecated Use datepicker instead.
+   */
   protected datePickerElement?: SbbDatepickerElement<T> | null = null;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
-  private _datePickerController!: AbortController;
-  private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
+  private _language = new SbbLanguageController(this);
 
   protected abstract iconName: string;
   protected abstract i18nOffBoundaryDay: Record<string, string>;
@@ -43,6 +75,7 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
 
   public constructor() {
     super();
+    this.addController(new SbbDatepickerAssociationControlController(this));
     this.addEventListener?.('click', () => this._handleClick());
   }
 
@@ -50,130 +83,47 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbNegativeMixin(Sbb
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._syncUpstreamProperties();
-    if (!this.datePicker) {
-      this._init();
-    }
-  }
-
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('datePicker')) {
-      this._init(this.datePicker!);
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._datePickerController?.abort();
-  }
-
-  private _setDisabledState(): void {
-    const pickerValueAsDate = this.datePickerElement?.valueAsDate;
-
-    if (!pickerValueAsDate) {
-      this._disabled = true;
-      this._setDisabledRenderAttributes(true);
-      return;
-    }
-
-    const availableDate: T = this.findAvailableDate(pickerValueAsDate);
-    this._disabled = this._dateAdapter.compareDate(availableDate, pickerValueAsDate) === 0;
-    this._setDisabledRenderAttributes();
-  }
-
-  private _handleClick(): void {
-    if (!this.datePickerElement || this.hasAttribute('data-disabled')) {
-      return;
-    }
-    const startingDate: T = this.datePickerElement.valueAsDate ?? this.datePickerElement.now;
-    const date: T = this.findAvailableDate(startingDate);
-    if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
-      this.datePickerElement.valueAsDate = date;
-    }
-  }
-
-  private _syncUpstreamProperties(): void {
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
       this.negative = formField.hasAttribute('negative');
-
-      const inputElement = formField.querySelector('input');
-
-      if (inputElement) {
-        this._inputDisabled =
-          inputElement.hasAttribute('disabled') || inputElement.hasAttribute('readonly');
-        this._setDisabledRenderAttributes();
-      }
     }
   }
 
-  private _init(picker?: string | SbbDatepickerElement<T>): void {
-    this._datePickerController?.abort();
-    this._datePickerController = new AbortController();
-    this.datePickerElement = getDatePicker(this, picker);
-    this._setDisabledState();
-    if (!this.datePickerElement) {
-      // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
-      // assuming that the two components share the same parent element.
-      this.parentElement?.addEventListener(
-        'inputUpdated',
-        (e: CustomEvent<SbbInputUpdateEvent>) => this._init(e.target as SbbDatepickerElement<T>),
-        { once: true, signal: this._datePickerController.signal },
-      );
-      return;
-    }
-    this._setAriaLabel();
-
-    this.datePickerElement.addEventListener(
-      'change',
-      () => {
-        this._setDisabledState();
-        this._setAriaLabel();
-      },
-      { signal: this._datePickerController.signal },
-    );
-    this.datePickerElement.addEventListener(
-      'datePickerUpdated',
-      () => {
-        this._setDisabledState();
-        this._setAriaLabel();
-      },
-      { signal: this._datePickerController.signal },
-    );
-    this.datePickerElement.addEventListener(
-      'inputUpdated',
-      (event: CustomEvent<SbbInputUpdateEvent>) => {
-        this._inputDisabled = !!(event.detail.disabled || event.detail.readonly);
-        this._setDisabledRenderAttributes();
-        this._setAriaLabel();
-        this._setDisabledState();
-      },
-      { signal: this._datePickerController.signal },
-    );
-
-    this.datePickerElement.dispatchEvent(datepickerControlRegisteredEventFactory());
-  }
-
-  private _setAriaLabel(): void {
-    const currentDate = this.datePickerElement?.valueAsDate;
-
-    if (!currentDate || !this._dateAdapter.isValid(currentDate)) {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+    if (!this.datepicker || !this._dateAdapter.isValid(this.datepicker.valueAsDate)) {
+      this._disabled = true;
       this.setAttribute('aria-label', this.i18nOffBoundaryDay[this._language.current]);
+      this._setDisabledRenderAttributes();
       return;
     }
+
+    const availableDate: T = this.findAvailableDate(this.datepicker.valueAsDate);
+    this._disabled =
+      this._dateAdapter.compareDate(availableDate, this.datepicker.valueAsDate) === 0;
+    this._inputDisabled = this.datepicker.inputElement?.disabled ?? true;
+    this._setDisabledRenderAttributes();
 
     const currentDateString =
-      this.datePickerElement &&
-      this._dateAdapter.compareDate(this.datePickerElement.now, currentDate) === 0
+      this._dateAdapter.compareDate(this.datepicker!.now, this.datepicker.valueAsDate) === 0
         ? i18nToday[this._language.current].toLowerCase()
-        : this._dateAdapter.getAccessibilityFormatDate(currentDate);
+        : this._dateAdapter.getAccessibilityFormatDate(this.datepicker.valueAsDate);
 
     this.setAttribute(
       'aria-label',
       this.i18nSelectOffBoundaryDay(currentDateString)[this._language.current],
     );
+  }
+
+  private _handleClick(): void {
+    if (!this.datepicker || this.hasAttribute('data-disabled')) {
+      return;
+    }
+    const startingDate: T = this.datepicker.valueAsDate ?? this.datepicker.now;
+    const date: T = this.findAvailableDate(startingDate);
+    if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
+      this.datepicker.valueAsDate = date;
+    }
   }
 
   private _setDisabledRenderAttributes(

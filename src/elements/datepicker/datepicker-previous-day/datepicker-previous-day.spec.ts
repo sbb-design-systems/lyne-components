@@ -26,7 +26,7 @@ describe(`sbb-datepicker-previous-day`, () => {
       const root = await fixture(html`
         <div>
           <input id="datepicker-input" value="01-01-2023" />
-          <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+          <sbb-datepicker-previous-day datepicker="datepicker"></sbb-datepicker-previous-day>
           <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
         </div>
       `);
@@ -51,7 +51,7 @@ describe(`sbb-datepicker-previous-day`, () => {
       const doc = await fixture(html`
         <div id="parent">
           <input id="datepicker-input" value="01-01-2023" />
-          <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+          <sbb-datepicker-previous-day datepicker="datepicker"></sbb-datepicker-previous-day>
         </div>
       `);
 
@@ -70,8 +70,7 @@ describe(`sbb-datepicker-previous-day`, () => {
       doc.appendChild(picker);
       await waitForLitRender(doc);
 
-      // the datepicker is connected, which triggers a 1st inputUpdated event which calls _init and a 2nd one which sets max/min/disabled
-      expect(inputUpdated.count).to.be.equal(2);
+      expect(inputUpdated.count).to.be.equal(1);
       expect(prevButton).not.to.have.attribute('data-disabled');
     });
 
@@ -80,7 +79,7 @@ describe(`sbb-datepicker-previous-day`, () => {
         <div>
           <div id="parent">
             <input id="datepicker-input" value="01-01-2023" />
-            <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+            <sbb-datepicker-previous-day datepicker="datepicker"></sbb-datepicker-previous-day>
           </div>
           <div id="other"></div>
         </div>
@@ -104,9 +103,8 @@ describe(`sbb-datepicker-previous-day`, () => {
       root.querySelector<HTMLDivElement>('#other')!.appendChild(picker);
       await waitForLitRender(root);
 
-      // the datepicker is connected on a different parent, so no changes are triggered
       expect(inputUpdated.count).to.be.equal(0);
-      expect(prevButton).to.have.attribute('data-disabled');
+      expect(prevButton).not.to.have.attribute('data-disabled');
     });
   });
 
