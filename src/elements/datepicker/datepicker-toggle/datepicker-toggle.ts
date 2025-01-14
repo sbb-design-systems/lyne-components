@@ -48,6 +48,7 @@ class SbbDatepickerToggleElement<T = Date>
     }
     this.datepicker = value as unknown as SbbDatepickerElement<T> | null;
   }
+  /** @internal */
   public get datePicker(): string | SbbDatepickerElement<T> | null {
     return this.datepicker;
   }
