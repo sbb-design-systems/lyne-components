@@ -147,12 +147,13 @@ const testRunnerHtml = (
       globalThis.testRunScript = '${testFramework}';
     </script>
   </head>
-  <body class="sbb-disable-animation">${preloadedIcons
-    .map(
-      (i) => `
+  <body class="sbb-disable-animation">
+    <div hidden>${preloadedIcons
+      .map(
+        (i) => `
     <template id="icon:${i.namespace}:${i.icon}">${i.svg}</template>`,
-    )
-    .join('')}
+      )
+      .join('')}</div>
     <script type="module" src="/src/elements/core/testing/test-setup.ts"></script>
   </body>
 </html>
