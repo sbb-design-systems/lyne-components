@@ -19,6 +19,10 @@ import './container.js';
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);
 
+function isDark(color: string): boolean {
+  return color === 'midnight' || color === 'charcoal';
+}
+
 describe(`sbb-container`, () => {
   const colorCases = ['transparent', 'white', 'milk', 'midnight', 'charcoal'];
 
@@ -57,8 +61,8 @@ describe(`sbb-container`, () => {
     },
   ];
 
-  const containerContent = (): TemplateResult => html`
-    <sbb-title level="4">Example title</sbb-title>
+  const containerContent = (color?: string): TemplateResult => html`
+    <sbb-title level="4" ?negative=${!!color && isDark(color)}>Example title</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
     <p class="sbb-text-s">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -85,7 +89,7 @@ describe(`sbb-container`, () => {
         `color=${color}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-container color=${color}>${containerContent()}</sbb-container>`,
+            html`<sbb-container color=${color}>${containerContent(color)}</sbb-container>`,
             wrapperStyles,
           );
         }),

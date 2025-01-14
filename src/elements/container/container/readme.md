@@ -42,7 +42,7 @@ Spacing options are applied to all the container's content, including the `sbb-s
 
 The component has also five color variants that can be set using the `color` property (default: `white`).
 In `midnight` and `charcoal` variants, the slotted content text color and the focus outline color change to white,
-but it's on the consumers to correctly set the `negative` property on slotted Lyne components, if needed.
+but it's up to the consumer to correctly set the `negative` property on slotted Lyne components, if needed.
 
 ```html
 <sbb-container expanded variant="milk"> ... </sbb-container>

@@ -87,7 +87,7 @@ const actionGroup = (): TemplateResult => html`
 `;
 
 function isDark(colorArg: string): boolean {
-  return colorArg === containerColor.options![3] || colorArg === containerColor.options![4];
+  return colorArg === 'midnight' || colorArg === 'charcoal';
 }
 
 const containerContent = (title: string, isDark: boolean): TemplateResult => html`

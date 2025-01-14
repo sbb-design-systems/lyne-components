@@ -21,7 +21,7 @@
 :host([color='midnight']),
 :host([color='charcoal']) {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-container-color: white;
+  --sbb-container-color: var(--sbb-color-white);
 }
 
 :host([color='midnight']) {

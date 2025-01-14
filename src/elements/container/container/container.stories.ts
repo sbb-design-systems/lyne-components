@@ -88,7 +88,7 @@ const defaultArgs: Args = {
 };
 
 function isDark(colorArg: string): boolean {
-  return colorArg === color.options![3] || colorArg === color.options![4];
+  return colorArg === 'midnight' || colorArg === 'charcoal';
 }
 
 const DefaultTemplate = (args: Args): TemplateResult => html`

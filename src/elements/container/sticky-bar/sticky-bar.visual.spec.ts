@@ -19,6 +19,10 @@ import '../../button.js';
 import '../../link.js';
 import '../../title.js';
 
+function isDark(color: string): boolean {
+  return color === 'midnight' || color === 'charcoal';
+}
+
 describe(`sbb-sticky-bar`, () => {
   const cases = {
     color: [undefined, 'white', 'milk', 'midnight', 'charcoal'],
@@ -26,8 +30,8 @@ describe(`sbb-sticky-bar`, () => {
     scrolled: [false, true],
   };
 
-  const containerContent = (): TemplateResult => html`
-    <sbb-title level="4">Example title</sbb-title>
+  const containerContent = (color?: string): TemplateResult => html`
+    <sbb-title level="4" ?negative=${!!color && isDark(color)}>Example title</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
     <sbb-secondary-button style="margin-block-end: 0.75rem;" size="m">
       See more
@@ -79,6 +83,22 @@ describe(`sbb-sticky-bar`, () => {
         }),
       );
     });
+
+    for (const color of cases.color) {
+      it(
+        `container_color=${color}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html` <sbb-container .color=${color}>
+              ${containerContent(color)}
+              <sbb-sticky-bar> ${actionGroup()}</sbb-sticky-bar>
+            </sbb-container>`,
+            { padding: '0' },
+          );
+          await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
+        }),
+      );
+    }
 
     it(
       `unstick`,

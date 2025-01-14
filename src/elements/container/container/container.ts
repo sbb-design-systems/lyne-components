@@ -23,6 +23,7 @@ export
 @slotState()
 class SbbContainerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+
   /** Whether the container is expanded. */
   @forceType()
   @property({ type: Boolean, reflect: true })
