@@ -1,13 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-datepicker-toggle renders DOM"] = 
+snapshots["sbb-datepicker-toggle renders DOM"] =
 `<sbb-datepicker-toggle slot="prefix">
 </sbb-datepicker-toggle>
 `;
 /* end snapshot sbb-datepicker-toggle renders DOM */
 
-snapshots["sbb-datepicker-toggle renders Shadow DOM"] = 
+snapshots["sbb-datepicker-toggle renders Shadow DOM"] =
 `<sbb-mini-button
   aria-controls="sbb-popover-2"
   aria-expanded="false"
@@ -24,6 +24,7 @@ snapshots["sbb-datepicker-toggle renders Shadow DOM"] =
   data-state="closed"
   hide-close-button=""
   id="sbb-popover-2"
+  popover="manual"
 >
   <sbb-calendar>
   </sbb-calendar>
@@ -31,13 +32,13 @@ snapshots["sbb-datepicker-toggle renders Shadow DOM"] =
 `;
 /* end snapshot sbb-datepicker-toggle renders Shadow DOM */
 
-snapshots["sbb-datepicker-toggle in form-field renders DOM"] = 
+snapshots["sbb-datepicker-toggle in form-field renders DOM"] =
 `<sbb-datepicker-toggle slot="prefix">
 </sbb-datepicker-toggle>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field renders DOM */
 
-snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] = 
+snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] =
 `<sbb-mini-button
   aria-controls="sbb-popover-4"
   aria-expanded="false"
@@ -54,6 +55,7 @@ snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] =
   data-state="closed"
   hide-close-button=""
   id="sbb-popover-4"
+  popover="manual"
 >
   <sbb-calendar>
   </sbb-calendar>
@@ -61,13 +63,13 @@ snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] =
 `;
 /* end snapshot sbb-datepicker-toggle in form-field renders Shadow DOM */
 
-snapshots["sbb-datepicker-toggle in form-field renders disabled DOM"] = 
+snapshots["sbb-datepicker-toggle in form-field renders disabled DOM"] =
 `<sbb-datepicker-toggle slot="prefix">
 </sbb-datepicker-toggle>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field renders disabled DOM */
 
-snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] = 
+snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] =
 `<sbb-mini-button
   aria-controls="sbb-popover-6"
   aria-expanded="false"
@@ -84,6 +86,7 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] =
   data-state="closed"
   hide-close-button=""
   id="sbb-popover-6"
+  popover="manual"
 >
   <sbb-calendar>
   </sbb-calendar>
@@ -91,13 +94,13 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] =
 `;
 /* end snapshot sbb-datepicker-toggle in form-field renders disabled Shadow DOM */
 
-snapshots["sbb-datepicker-toggle in form-field with calendar parameters DOM"] = 
+snapshots["sbb-datepicker-toggle in form-field with calendar parameters DOM"] =
 `<sbb-datepicker-toggle slot="prefix">
 </sbb-datepicker-toggle>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters DOM */
 
-snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM"] = 
+snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM"] =
 `<sbb-mini-button
   aria-controls="sbb-popover-8"
   aria-expanded="false"
@@ -114,6 +117,7 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow D
   data-state="closed"
   hide-close-button=""
   id="sbb-popover-8"
+  popover="manual"
 >
   <sbb-calendar wide="">
   </sbb-calendar>
@@ -121,7 +125,7 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow D
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM */
 
-snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome"] = 
+snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -146,7 +150,7 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tre
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome */
 
-snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Firefox"] = 
+snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Firefox"] =
 `<p>
   {
   "role": "document",

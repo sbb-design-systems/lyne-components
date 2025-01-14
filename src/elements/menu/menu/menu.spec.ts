@@ -56,6 +56,7 @@ describe(`sbb-menu`, () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
 
     expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':popover-open');
   });
 
   it('closes on Esc keypress', async () => {
@@ -87,6 +88,7 @@ describe(`sbb-menu`, () => {
     expect(didCloseEventSpy.count).to.be.equal(1);
 
     expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).not.to.match(':popover-open');
   });
 
   it('keyboard navigation', async () => {

@@ -1,12 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-toast renders Chrome-Safari DOM"] = 
+snapshots["sbb-toast renders Chrome-Safari DOM"] =
 `<sbb-toast
   data-slot-names="unnamed"
   data-state="closed"
   dismissible=""
   icon-name="circle-tick-small"
+  popover="manual"
   position="bottom-center"
 >
   <span>
@@ -16,7 +17,7 @@ snapshots["sbb-toast renders Chrome-Safari DOM"] =
 `;
 /* end snapshot sbb-toast renders Chrome-Safari DOM */
 
-snapshots["sbb-toast renders Chrome-Safari Shadow DOM"] = 
+snapshots["sbb-toast renders Chrome-Safari Shadow DOM"] =
 `<div class="sbb-toast__overlay-container">
   <div class="sbb-toast">
     <div class="sbb-toast__icon">
@@ -59,7 +60,7 @@ snapshots["sbb-toast renders Chrome-Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-toast renders Chrome-Safari Shadow DOM */
 
-snapshots["sbb-toast renders A11y tree Chrome"] = 
+snapshots["sbb-toast renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -69,12 +70,13 @@ snapshots["sbb-toast renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-toast renders A11y tree Chrome */
 
-snapshots["sbb-toast renders Firefox DOM"] = 
+snapshots["sbb-toast renders Firefox DOM"] =
 `<sbb-toast
   data-slot-names="unnamed"
   data-state="closed"
   dismissible=""
   icon-name="circle-tick-small"
+  popover="manual"
   position="bottom-center"
 >
   <span>
@@ -84,7 +86,7 @@ snapshots["sbb-toast renders Firefox DOM"] =
 `;
 /* end snapshot sbb-toast renders Firefox DOM */
 
-snapshots["sbb-toast renders Firefox Shadow DOM"] = 
+snapshots["sbb-toast renders Firefox Shadow DOM"] =
 `<div class="sbb-toast__overlay-container">
   <div
     class="sbb-toast"
@@ -130,7 +132,7 @@ snapshots["sbb-toast renders Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-toast renders Firefox Shadow DOM */
 
-snapshots["sbb-toast renders A11y tree Firefox"] = 
+snapshots["sbb-toast renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",

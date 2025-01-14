@@ -55,6 +55,7 @@ describe(`sbb-navigation`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':popover-open');
   });
 
   it('sets the initial active actions and focuses on the close button', async () => {
@@ -216,6 +217,7 @@ describe(`sbb-navigation`, () => {
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).not.to.match(':popover-open');
   });
 
   it('closes the navigation on close button click', async () => {

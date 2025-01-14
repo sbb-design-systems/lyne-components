@@ -1,11 +1,12 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-autocomplete renders standalone Safari DOM"] = 
+snapshots["sbb-autocomplete renders standalone Safari DOM"] =
 `<sbb-autocomplete
   data-state="closed"
   id="sbb-autocomplete-1"
   origin="origin"
+  popover="manual"
   role="listbox"
   trigger="trigger"
 >
@@ -33,7 +34,7 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
 `;
 /* end snapshot sbb-autocomplete renders standalone Safari DOM */
 
-snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] = 
+snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] =
 `<div class="sbb-autocomplete__gap-fix">
 </div>
 <div class="sbb-autocomplete__container">
@@ -65,7 +66,7 @@ snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete renders standalone Safari Shadow DOM */
 
-snapshots["sbb-autocomplete renders in form field Safari DOM"] = 
+snapshots["sbb-autocomplete renders in form field Safari DOM"] =
 `<sbb-form-field
   data-input-empty=""
   data-input-type="input"
@@ -86,6 +87,7 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
   <sbb-autocomplete
     data-state="closed"
     id="sbb-autocomplete-3"
+    popover="manual"
     role="listbox"
   >
     <sbb-option
@@ -113,7 +115,7 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
 `;
 /* end snapshot sbb-autocomplete renders in form field Safari DOM */
 
-snapshots["sbb-autocomplete renders in form field Safari Shadow DOM"] = 
+snapshots["sbb-autocomplete renders in form field Safari Shadow DOM"] =
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -149,10 +151,11 @@ snapshots["sbb-autocomplete renders in form field Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete renders in form field Safari Shadow DOM */
 
-snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] = 
+snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
 `<sbb-autocomplete
   data-state="closed"
   origin="origin"
+  popover="manual"
   trigger="trigger"
 >
   <sbb-option
@@ -179,7 +182,7 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
 `;
 /* end snapshot sbb-autocomplete renders standalone Chrome-Firefox DOM */
 
-snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] = 
+snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
 `<div class="sbb-autocomplete__gap-fix">
 </div>
 <div class="sbb-autocomplete__container">
@@ -215,7 +218,7 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM */
 
-snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] = 
+snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
 `<sbb-form-field
   data-input-empty=""
   data-input-type="input"
@@ -233,7 +236,10 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
     autocomplete="off"
     role="combobox"
   >
-  <sbb-autocomplete data-state="closed">
+  <sbb-autocomplete
+    data-state="closed"
+    popover="manual"
+  >
     <sbb-option
       aria-selected="false"
       data-slot-names="unnamed"
@@ -259,7 +265,7 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
 `;
 /* end snapshot sbb-autocomplete renders in form field Chrome-Firefox DOM */
 
-snapshots["sbb-autocomplete renders in form field Chrome-Firefox Shadow DOM"] = 
+snapshots["sbb-autocomplete renders in form field Chrome-Firefox Shadow DOM"] =
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -295,7 +301,7 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete renders in form field Chrome-Firefox Shadow DOM */
 
-snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] = 
+snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -317,7 +323,7 @@ snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] =
 `;
 /* end snapshot sbb-autocomplete renders in form field A11y tree Chrome */
 
-snapshots["sbb-autocomplete renders in form field A11y tree Firefox"] = 
+snapshots["sbb-autocomplete renders in form field A11y tree Firefox"] =
 `<p>
   {
   "role": "document",

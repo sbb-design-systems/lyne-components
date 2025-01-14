@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import { SbbFocusHandler } from '../core/a11y.js';
 import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbInertController, SbbLanguageController } from '../core/controllers.js';
-import { forceType } from '../core/decorators.js';
+import { forceType, hostAttributes } from '../core/decorators.js';
 import { SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
@@ -15,7 +15,11 @@ import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
 // A global collection of existing overlays.
 export const overlayRefs: SbbOverlayBaseElement[] = [];
 
-export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
+export
+@hostAttributes({
+  popover: 'manual',
+})
+abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
   /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. */
   @forceType()
   @property({ attribute: 'accessibility-label' })

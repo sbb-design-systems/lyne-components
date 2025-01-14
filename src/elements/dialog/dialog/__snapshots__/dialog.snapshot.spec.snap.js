@@ -1,10 +1,11 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-dialog renders an open dialog DOM"] = 
+snapshots["sbb-dialog renders an open dialog DOM"] =
 `<sbb-dialog
   backdrop="opaque"
   data-state="opened"
+  popover="manual"
 >
   <sbb-dialog-title
     aria-level="2"
@@ -21,7 +22,7 @@ snapshots["sbb-dialog renders an open dialog DOM"] =
 `;
 /* end snapshot sbb-dialog renders an open dialog DOM */
 
-snapshots["sbb-dialog renders an open dialog Shadow DOM"] = 
+snapshots["sbb-dialog renders an open dialog Shadow DOM"] =
 `<div class="sbb-dialog__container">
   <div
     class="sbb-dialog"
@@ -38,7 +39,7 @@ snapshots["sbb-dialog renders an open dialog Shadow DOM"] =
 `;
 /* end snapshot sbb-dialog renders an open dialog Shadow DOM */
 
-snapshots["sbb-dialog renders an open dialog A11y tree Chrome"] = 
+snapshots["sbb-dialog renders an open dialog A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -67,7 +68,7 @@ snapshots["sbb-dialog renders an open dialog A11y tree Chrome"] =
 `;
 /* end snapshot sbb-dialog renders an open dialog A11y tree Chrome */
 
-snapshots["sbb-dialog renders an open dialog A11y tree Firefox"] = 
+snapshots["sbb-dialog renders an open dialog A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
