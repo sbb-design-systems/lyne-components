@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-menu renders DOM"] =
+snapshots["sbb-menu renders DOM"] = 
 `<sbb-menu
   data-state="closed"
   id="sbb-menu-0"
@@ -63,7 +63,7 @@ snapshots["sbb-menu renders DOM"] =
 `;
 /* end snapshot sbb-menu renders DOM */
 
-snapshots["sbb-menu renders Shadow DOM"] =
+snapshots["sbb-menu renders Shadow DOM"] = 
 `<div class="sbb-menu__container">
   <div class="sbb-menu">
     <div class="sbb-menu__content">
@@ -75,7 +75,7 @@ snapshots["sbb-menu renders Shadow DOM"] =
 `;
 /* end snapshot sbb-menu renders Shadow DOM */
 
-snapshots["sbb-menu renders with list DOM"] =
+snapshots["sbb-menu renders with list DOM"] = 
 `<sbb-menu
   data-state="closed"
   id="sbb-menu-2"
@@ -124,7 +124,7 @@ snapshots["sbb-menu renders with list DOM"] =
 `;
 /* end snapshot sbb-menu renders with list DOM */
 
-snapshots["sbb-menu renders with list Shadow DOM"] =
+snapshots["sbb-menu renders with list Shadow DOM"] = 
 `<div class="sbb-menu__container">
   <div class="sbb-menu">
     <div class="sbb-menu__content">
@@ -156,7 +156,7 @@ snapshots["sbb-menu renders with list Shadow DOM"] =
 `;
 /* end snapshot sbb-menu renders with list Shadow DOM */
 
-snapshots["sbb-menu renders with list A11y tree Chrome"] =
+snapshots["sbb-menu renders with list A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -173,7 +173,7 @@ snapshots["sbb-menu renders with list A11y tree Chrome"] =
 `;
 /* end snapshot sbb-menu renders with list A11y tree Chrome */
 
-snapshots["sbb-menu renders with list A11y tree Firefox"] =
+snapshots["sbb-menu renders with list A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",

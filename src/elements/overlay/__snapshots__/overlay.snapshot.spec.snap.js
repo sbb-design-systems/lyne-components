@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-overlay renders DOM"] =
+snapshots["sbb-overlay renders DOM"] = 
 `<sbb-overlay
   data-state="opened"
   popover="manual"
@@ -10,7 +10,7 @@ snapshots["sbb-overlay renders DOM"] =
 `;
 /* end snapshot sbb-overlay renders DOM */
 
-snapshots["sbb-overlay renders Shadow DOM"] =
+snapshots["sbb-overlay renders Shadow DOM"] = 
 `<div class="sbb-overlay__container">
   <div class="sbb-overlay">
     <div class="sbb-overlay__wrapper">
@@ -48,7 +48,7 @@ snapshots["sbb-overlay renders Shadow DOM"] =
 `;
 /* end snapshot sbb-overlay renders Shadow DOM */
 
-snapshots["sbb-overlay renders A11y tree Chrome"] =
+snapshots["sbb-overlay renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -69,7 +69,7 @@ snapshots["sbb-overlay renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-overlay renders A11y tree Chrome */
 
-snapshots["sbb-overlay renders A11y tree Firefox"] =
+snapshots["sbb-overlay renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",

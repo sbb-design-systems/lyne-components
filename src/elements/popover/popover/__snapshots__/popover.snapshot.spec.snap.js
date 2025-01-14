@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-popover renders DOM"] =
+snapshots["sbb-popover renders DOM"] = 
 `<sbb-popover
   data-state="closed"
   id="sbb-popover-1"
@@ -11,7 +11,7 @@ snapshots["sbb-popover renders DOM"] =
 `;
 /* end snapshot sbb-popover renders DOM */
 
-snapshots["sbb-popover renders Shadow DOM"] =
+snapshots["sbb-popover renders Shadow DOM"] = 
 `<div class="sbb-popover__container">
   <div
     class="sbb-popover"
@@ -43,7 +43,7 @@ snapshots["sbb-popover renders Shadow DOM"] =
 `;
 /* end snapshot sbb-popover renders Shadow DOM */
 
-snapshots["sbb-popover renders A11y tree Chrome"] =
+snapshots["sbb-popover renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -53,7 +53,7 @@ snapshots["sbb-popover renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-popover renders A11y tree Chrome */
 
-snapshots["sbb-popover renders A11y tree Firefox"] =
+snapshots["sbb-popover renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
