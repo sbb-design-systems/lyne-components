@@ -22,7 +22,7 @@ describe(`sbb-dialog`, () => {
   const dialogContent = (longContent = false): TemplateResult => html`
     <sbb-dialog-content>
       <p style="margin: 0">
-        “What really knocks me out is a book that, when you're all done reading it, you wish the
+        What really knocks me out is a book that, when you're all done reading it, you wish the
         author that wrote it was a terrific friend of yours and you could call him up on the phone
         whenever you felt like it.
       </p>
@@ -105,6 +105,22 @@ describe(`sbb-dialog`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
           <sbb-dialog> ${dialogTitle()} ${dialogContent(true)} ${dialogFooter()} </sbb-dialog>
+        `);
+        const dialog = setup.snapshotElement.querySelector('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+
+        setup.withPostSetupAction(() => dialog.open());
+      }),
+    );
+
+    it(
+      `backdrop=translucent`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <p>Other content visible in the background</p>
+          <sbb-dialog backdrop="translucent">
+            ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
+          </sbb-dialog>
         `);
         const dialog = setup.snapshotElement.querySelector('sbb-dialog')!;
         setup.withSnapshotElement(dialog);
