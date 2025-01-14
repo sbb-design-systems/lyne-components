@@ -39,7 +39,7 @@ both standalone or within the `sbb-form-field`, they must have the same parent e
 | Name         | Attribute     | Privacy | Type                                        | Default | Description                                                        |
 | ------------ | ------------- | ------- | ------------------------------------------- | ------- | ------------------------------------------------------------------ |
 | `datepicker` | `datepicker`  | public  | `SbbDatepickerElement<T> \| null`           |         | Datepicker reference.                                              |
-| `datePicker` | `date-picker` | public  | `string \| SbbDatepickerElement<T> \| null` |         | Datepicker reference.                                              |
+| `datePicker` | `date-picker` | public  | `string \| SbbDatepickerElement<T> \| null` |         |                                                                    |
 | `negative`   | `negative`    | public  | `boolean`                                   | `false` | Negative coloring variant flag.                                    |
 | `view`       | `view`        | public  | `CalendarView`                              | `'day'` | The initial view of calendar which should be displayed on opening. |
 

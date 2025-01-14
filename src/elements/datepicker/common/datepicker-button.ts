@@ -22,13 +22,14 @@ export abstract class SbbDatepickerButton<T = Date>
 {
   /**
    * Datepicker reference.
-   * @deprecated Use property/attribute datepicker instead.
+   * @internal
+   * @deprecated Use property/attribute `datepicker` instead.
    */
   @property({ attribute: 'date-picker' })
   public set datePicker(value: string | SbbDatepickerElement<T> | null) {
     if (import.meta.env.DEV) {
       console.warn(
-        `Property datePicker/Attribute date-picker is deprecated. Use datepicker instead.`,
+        `Property datePicker/Attribute date-picker is deprecated. Use 'datepicker' instead.`,
       );
     }
     this.datepicker = value as unknown as SbbDatepickerElement<T> | null;
@@ -101,11 +102,12 @@ export abstract class SbbDatepickerButton<T = Date>
     const availableDate: T = this.findAvailableDate(this.datepicker.valueAsDate);
     this._disabled =
       this._dateAdapter.compareDate(availableDate, this.datepicker.valueAsDate) === 0;
-    this._inputDisabled = this.datepicker.inputElement?.disabled ?? true;
+    this._inputDisabled =
+      (this.datepicker.inputElement?.disabled || this.datepicker.inputElement?.readOnly) ?? true;
     this._setDisabledRenderAttributes();
 
     const currentDateString =
-      this._dateAdapter.compareDate(this.datepicker!.now, this.datepicker.valueAsDate) === 0
+      this._dateAdapter.compareDate(this.datepicker.now, this.datepicker.valueAsDate) === 0
         ? i18nToday[this._language.current].toLowerCase()
         : this._dateAdapter.getAccessibilityFormatDate(this.datepicker.valueAsDate);
 
@@ -126,9 +128,8 @@ export abstract class SbbDatepickerButton<T = Date>
     }
   }
 
-  private _setDisabledRenderAttributes(
-    isDisabled: boolean = this._disabled || this._inputDisabled,
-  ): void {
+  private _setDisabledRenderAttributes(): void {
+    const isDisabled = this._disabled || this._inputDisabled;
     this.toggleAttribute('data-disabled', isDisabled);
     if (isDisabled) {
       this.setAttribute('aria-disabled', 'true');

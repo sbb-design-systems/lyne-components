@@ -88,10 +88,18 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   @property({ attribute: false }) public accessor dateFilter: (date: T | null) => boolean = () =>
     true;
 
-  /** Reference of the native input connected to the datepicker. */
+  /**
+   * Reference of the native input connected to the datepicker.
+   * If given a string, it will be treated as an id reference and an attempt is
+   * made to be resolved for the containing document fragment.
+   * If given a HTMLElement instance, it will be used as is.
+   */
   @property() public accessor input: string | HTMLElement | null = null;
 
-  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  /**
+   * A configured date which acts as the current date instead of the real current date.
+   * Recommended for testing purposes.
+   */
   @property()
   public set now(value: SbbDateLike<T> | null) {
     this._now = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
@@ -108,7 +116,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     if (this._tryApplyFormatToInput()) {
       /* Emit blur event when value is changed programmatically to notify
       frameworks that rely on that event to update form status. */
-      this._inputElement!.dispatchEvent(new Event('blur', { composed: true }));
+      this.inputElement!.dispatchEvent(new Event('blur', { composed: true }));
     }
   }
   public get valueAsDate(): T | null {
@@ -116,7 +124,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   }
   private _valueAsDate?: T | null;
 
-  /** The associated input element. */
+  /** The resolved associated input element, as defined by `input`. */
   public get inputElement(): HTMLInputElement | null {
     return this._inputElement;
   }
@@ -159,8 +167,8 @@ class SbbDatepickerElement<T = Date> extends LitElement {
         this._emitInputUpdated();
         this._associationController?.updateControls();
         // TODO: Decide whether to remove this logic by adding a value property to the datepicker.
-        if (this._inputElement && mutationsList?.some((e) => e.attributeName === 'value')) {
-          const value = this._inputElement.getAttribute('value');
+        if (this.inputElement && mutationsList?.some((e) => e.attributeName === 'value')) {
+          const value = this.inputElement.getAttribute('value');
           this.valueAsDate = this._dateAdapter.parse(value, this.now) ?? value;
         }
       })
@@ -169,12 +177,12 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   private _language = new SbbLanguageController(this).withHandler(() => {
-    if (this._inputElement) {
+    if (this.inputElement) {
       if (this._inputElementPlaceholderMutable) {
-        this._inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
+        this.inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
       }
       if (this.valueAsDate) {
-        this._inputElement.value = this._dateAdapter.format(this.valueAsDate);
+        this.inputElement.value = this._dateAdapter.format(this.valueAsDate);
       }
     }
   });
@@ -190,7 +198,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     this._attachInput();
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('input')) {
@@ -229,9 +237,9 @@ class SbbDatepickerElement<T = Date> extends LitElement {
 
   private _attachInput(): void {
     const input = findInput(this, this.input);
-    if (this._inputElement === input) {
+    if (this.inputElement === input) {
       return;
-    } else if (this._inputElement) {
+    } else if (this.inputElement) {
       this._datePickerController?.abort();
       this._inputObserver?.disconnect();
     }
@@ -268,7 +276,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   }
 
   private _emitInputUpdated(): void {
-    const { disabled, readOnly: readonly, min, max } = this._inputElement ?? {};
+    const { disabled, readOnly: readonly, min, max } = this.inputElement ?? {};
     this._inputUpdated.emit({ disabled, readonly, min, max });
   }
 
@@ -283,19 +291,19 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   }
 
   private _tryApplyFormatToInput(): boolean {
-    if (!this._inputElement) {
+    if (!this.inputElement) {
       return false;
     }
 
     const formattedDate = this.valueAsDate ? this._dateAdapter.format(this.valueAsDate!) : '';
-    if (formattedDate && this._inputElement.value !== formattedDate) {
+    if (formattedDate && this.inputElement.value !== formattedDate) {
       // In order to support React onChange event, we have to get the setter and call it.
       // https://github.com/facebook/react/issues/11600#issuecomment-345813130
       const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
-      setValue.call(this._inputElement, formattedDate);
+      setValue.call(this.inputElement, formattedDate);
 
-      this._inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-      this._inputElement.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+      this.inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      this.inputElement.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
       return true;
     }
 
@@ -303,20 +311,20 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   }
 
   private _validateDate(): void {
-    if (!this._inputElement) {
+    if (!this.inputElement) {
       return;
     }
 
-    const isEmptyOrValid = !this._inputElement.value || this._isDateAvailable();
-    const wasValid = !this._inputElement.hasAttribute('data-sbb-invalid');
-    this._inputElement.toggleAttribute('data-sbb-invalid', !isEmptyOrValid);
+    const isEmptyOrValid = !this.inputElement.value || this._isDateAvailable();
+    const wasValid = !this.inputElement.hasAttribute('data-sbb-invalid');
+    this.inputElement.toggleAttribute('data-sbb-invalid', !isEmptyOrValid);
     if (wasValid !== isEmptyOrValid) {
       this._validationChange.emit({ valid: isEmptyOrValid });
     }
   }
 
   private _parseInput(deserializeAsFallback = false): void {
-    const value = this._inputElement!.value;
+    const value = this.inputElement!.value;
     // We are assigning directly to the private backing property of valueAsDate
     // as we don't want to trigger a blur event during this time.
     this._valueAsDate = this._dateAdapter.getValidDateOrNull(
@@ -354,7 +362,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
    */
   public findPreviousAvailableDate(date: T): T {
     const previousDate = this._findAvailableDate(date, -1);
-    const dateMin = this._dateAdapter.deserialize(this._inputElement?.min);
+    const dateMin = this._dateAdapter.deserialize(this.inputElement?.min);
 
     if (
       !dateMin ||
@@ -373,7 +381,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
    */
   public findNextAvailableDate(date: T): T {
     const nextDate = this._findAvailableDate(date, 1);
-    const dateMax = this._dateAdapter.deserialize(this._inputElement?.max);
+    const dateMax = this._dateAdapter.deserialize(this.inputElement?.max);
 
     if (
       !dateMax ||
@@ -410,8 +418,8 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       return false;
     }
 
-    const dateMin = this._dateAdapter.deserialize(this._inputElement?.min);
-    const dateMax = this._dateAdapter.deserialize(this._inputElement?.max);
+    const dateMin = this._dateAdapter.deserialize(this.inputElement?.min);
+    const dateMax = this._dateAdapter.deserialize(this.inputElement?.max);
 
     if (
       (this._dateAdapter.isValid(dateMin) &&

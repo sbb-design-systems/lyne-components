@@ -36,13 +36,14 @@ class SbbDatepickerToggleElement<T = Date>
 
   /**
    * Datepicker reference.
-   * @deprecated Use property/attribute datepicker instead.
+   * @internal
+   * @deprecated Use property/attribute `datepicker` instead.
    */
   @property({ attribute: 'date-picker' })
   public set datePicker(value: string | SbbDatepickerElement<T> | null) {
     if (import.meta.env.DEV) {
       console.warn(
-        `Property datePicker/Attribute date-picker is deprecated. Use datepicker instead.`,
+        `Property datePicker/Attribute date-picker is deprecated. Use 'datepicker' instead.`,
       );
     }
     this.datepicker = value as unknown as SbbDatepickerElement<T> | null;
