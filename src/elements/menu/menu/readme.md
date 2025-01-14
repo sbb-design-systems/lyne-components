@@ -57,6 +57,9 @@ As the menu opens, the focus will automatically be set to the first focusable it
 When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute
 to identify which actions are active and which are not.
 
+It is possible to navigate the slotted `sbb-menu-button`/`sbb-menu-link` via keyboard using arrow keys or page keys
+(<kbd>Home</kbd>, <kbd>PageUp</kbd>, <kbd>End</kbd> and <kbd>PageDown</kbd>).
+
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -6,7 +6,7 @@ import {
   getNextElementIndex,
   interactivityChecker,
   IS_FOCUSABLE_QUERY,
-  isArrowKeyPressed,
+  isArrowKeyOrPageKeysPressed,
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
@@ -211,7 +211,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    if (!isArrowKeyPressed(evt)) {
+    if (!isArrowKeyOrPageKeysPressed(evt)) {
       return;
     }
     evt.preventDefault();
@@ -223,9 +223,31 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     ).filter(
       (el) => (!el.disabled || el.disabledInteractive) && interactivityChecker.isVisible(el),
     );
-
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
-    const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
+
+    let nextIndex;
+    switch (evt.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight':
+        nextIndex = getNextElementIndex(evt, current, enabledActions.length);
+        break;
+
+      case 'PageUp':
+      case 'Home':
+        nextIndex = 0;
+        break;
+
+      case 'End':
+      case 'PageDown':
+        nextIndex = enabledActions.length - 1;
+        break;
+
+      // this should never happen since all the case allowed by `isArrowKeyOrPageKeysPressed` should be covered
+      default:
+        nextIndex = 0;
+    }
 
     (enabledActions[nextIndex] as HTMLElement).focus();
   }

@@ -89,6 +89,63 @@ describe(`sbb-menu`, () => {
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
+  it('keyboard navigation', async () => {
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
+    trigger.click();
+    await waitForLitRender(element);
+    await didOpenEventSpy.calledOnce();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(element).to.have.attribute('data-state', 'opened');
+
+    // First element focused by default.
+    expect(document.activeElement!.id).to.be.equal('menu-link');
+
+    // Pressing an invalid key would not change the focus
+    await sendKeys({ press: 'A' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-link');
+
+    // Move down with down arrow
+    await sendKeys({ press: 'ArrowDown' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move down with right arrow; menu-action-2 is disabled, so the next focusable is menu-action-3
+    await sendKeys({ press: 'ArrowRight' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-3');
+
+    // Move up with left arrow
+    await sendKeys({ press: 'ArrowLeft' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move up with left arrow will go to the last element due wrap
+    await sendKeys({ press: 'ArrowUp' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-4');
+
+    // Move to first
+    await sendKeys({ press: 'PageUp' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move to last
+    await sendKeys({ press: 'PageDown' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-4');
+
+    // Move to first
+    await sendKeys({ press: 'Home' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move to last
+    await sendKeys({ press: 'End' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-4');
+  });
+
   it('closes on menu action click', async () => {
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
