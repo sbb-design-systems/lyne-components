@@ -303,6 +303,69 @@ describe(`sbb-select`, () => {
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
     });
 
+    it('update multiple attribute', async () => {
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      element.dispatchEvent(new CustomEvent('click'));
+      await didOpen.calledOnce();
+      expect(didOpen.count).to.be.equal(1);
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal(null);
+      element.toggleAttribute('multiple', true);
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql([]);
+      element.toggleAttribute('multiple', false);
+      await waitForLitRender(element);
+      expect(element.value).to.be.equal(null);
+
+      firstOption.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql('1');
+      element.toggleAttribute('multiple', true);
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql(['1']);
+
+      firstOption.dispatchEvent(new CustomEvent('click'));
+      thirdOption.dispatchEvent(new CustomEvent('click'));
+      secondOption.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.eql(['3', '2']);
+      element.toggleAttribute('multiple', false);
+      await waitForLitRender(element);
+      expect(element.value).to.be.eql('3');
+    });
+
+    it('close the panel if disabled', async () => {
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      element.dispatchEvent(new CustomEvent('click'));
+      await didOpen.calledOnce();
+      expect(didOpen.count).to.be.equal(1);
+      await waitForLitRender(element);
+
+      element.toggleAttribute('disabled', true);
+      await waitForLitRender(element);
+
+      await didClose.calledOnce();
+      expect(didClose.count).to.be.equal(1);
+    });
+
+    it('close the panel if readonly', async () => {
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      element.dispatchEvent(new CustomEvent('click'));
+      await didOpen.calledOnce();
+      expect(didOpen.count).to.be.equal(1);
+      await waitForLitRender(element);
+
+      element.toggleAttribute('readonly', true);
+      await waitForLitRender(element);
+
+      await didClose.calledOnce();
+      expect(didClose.count).to.be.equal(1);
+    });
+
     it('handles keypress on host', async () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
@@ -484,6 +547,19 @@ describe(`sbb-select`, () => {
       displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
 
       expect(displayValue.textContent!.trim()).to.be.equal('First modified');
+
+      // To test the updated value, we need to create a modifiable textNode
+      const textNode = document.createTextNode('Initial value');
+      firstOption.innerHTML = '';
+      firstOption.appendChild(textNode);
+      await waitForLitRender(element);
+
+      textNode.data = 'First modified again';
+
+      await waitForLitRender(element);
+      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
+
+      expect(displayValue.textContent!.trim()).to.be.equal('First modified again');
 
       // Deselection
       element.value = '';

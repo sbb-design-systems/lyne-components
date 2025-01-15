@@ -45,8 +45,8 @@ class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     SbbAutocompleteGridOptionElement.events.optionSelected,
   );
 
-  protected override onOptionAttributesChange(mutationsList: MutationRecord[]): void {
-    super.onOptionAttributesChange(mutationsList);
+  protected override onExternalMutation(mutationsList: MutationRecord[]): void {
+    super.onExternalMutation(mutationsList);
     this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
       'data-disabled',
       this.disabled || this.disabledFromGroup,

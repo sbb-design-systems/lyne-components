@@ -30,16 +30,17 @@ class FullscreenDiff extends LitElement {
       return html``;
     }
     return html`<div class="app-labels">
-        <sbb-chip-label size="xxs" color="white"
-          >${this.screenshotFiles.browserName}</sbb-chip-label
-        >
+        <sbb-chip-label size="xxs" color="white">
+          ${this.screenshotFiles.browserName}
+        </sbb-chip-label>
         <sbb-chip-label size="xxs" color="white">${this.screenshotFiles.viewport}</sbb-chip-label>
       </div>
       <sbb-radio-button-group
         class="app-radio-button-group"
         value=${this.selectedFile}
         @change=${(event: Event) =>
-          (this.selectedFile = (event.target as SbbRadioButtonGroupElement).value as DiffFileType)}
+          (this.selectedFile = (event.currentTarget as SbbRadioButtonGroupElement)
+            .value as DiffFileType)}
       >
         ${!this.screenshotFiles.isNew
           ? html`<sbb-radio-button value="baselineFile">Baseline</sbb-radio-button>`

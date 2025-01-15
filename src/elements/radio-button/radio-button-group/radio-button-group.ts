@@ -59,7 +59,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     if (!this._didLoad) {
       return;
     }
-    if (!val) {
+    if (val == null) {
       this.radioButtons.forEach((r) => (r.checked = false));
       return;
     }
