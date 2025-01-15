@@ -30,17 +30,7 @@ class SbbDatepickerAssociationContext<T> {
       .forEach((c) => c.requestUpdate());
   }
 
-  public deleteHost(datepicker: SbbDatepickerElement<T>): undefined {
-    this.hosts.delete(datepicker);
-    this._deleteIfEmpty();
-  }
-
-  public deleteControl(control: SbbDatepickerControl<T>): undefined {
-    this.controls.delete(control);
-    this._deleteIfEmpty();
-  }
-
-  private _deleteIfEmpty(): void {
+  public deleteIfEmpty(): void {
     if (!this.controls.size && !this.hosts.size) {
       (this.constructor as typeof SbbDatepickerAssociationContext)._registry.delete(this._host);
     }
@@ -73,7 +63,8 @@ export class SbbDatepickerAssociationHostController<T> implements ReactiveContro
   }
 
   public hostDisconnected(): void {
-    this._context?.deleteHost(this._host);
+    this._context?.hosts.delete(this._host);
+    this._context?.deleteIfEmpty();
   }
 
   public updateControls(): void {
@@ -110,6 +101,7 @@ export class SbbDatepickerAssociationControlController<T> implements ReactiveCon
   }
 
   public hostDisconnected(): void {
-    this._context?.deleteControl(this._host);
+    this._context?.controls.delete(this._host);
+    this._context?.deleteIfEmpty();
   }
 }
