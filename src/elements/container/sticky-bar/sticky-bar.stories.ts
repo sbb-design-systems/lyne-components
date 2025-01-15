@@ -189,6 +189,72 @@ export const Standalone: StoryObj = {
   render: Template,
 };
 
+export const Default: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
+};
+
+export const White: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![1] },
+};
+
+export const WhiteStickyBarWithMilkContainer: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![2], color: color.options![1] },
+};
+
+export const WhiteWithContainerExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![1], containerExpanded: true },
+};
+
+export const Milk: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![2] },
+};
+
+export const MilkStickyBarWithWhiteContainer: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![1], color: color.options![2] },
+};
+
+export const MilkWithContainerBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![2], containerBackgroundExpanded: true },
+};
+
+export const Midnight: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![3] },
+};
+
+export const MidnightWithContainerBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![3], containerBackgroundExpanded: true },
+};
+
+export const Charcoal: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![4] },
+};
+
+export const CharcoalWithContainerBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![4], containerBackgroundExpanded: true },
+};
+
 export const ShortContent: StoryObj = {
   render: ShortTemplate,
   argTypes: defaultArgTypes,
@@ -201,100 +267,10 @@ export const ShortContentMilk: StoryObj = {
   args: { ...defaultArgs, containerColor: containerColor.options![2] },
 };
 
-export const Default: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: defaultArgs,
-};
-
-export const Expanded: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerExpanded: true },
-};
-
-export const White: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![1] },
-};
-
-export const Milk: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![2] },
-};
-
-export const Midnight: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![3] },
-};
-
-export const Charcoal: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![4] },
-};
-
 export const WithContentAfter: StoryObj = {
   render: WithContentAfterTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, containerColor: 'milk', color: 'white' },
-};
-
-export const MilkContainer: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![2] },
-};
-
-export const MilkContainerWhiteStickyBar: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![2], color: color.options![1] },
-};
-
-export const MilkContainerBackgroundExpanded: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![2], containerBackgroundExpanded: true },
-};
-
-export const MidnightContainer: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![3] },
-};
-
-export const MidnightContainerCharcoalStickyBar: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![3], color: color.options![4] },
-};
-
-export const MidnightContainerBackgroundExpanded: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![3], containerBackgroundExpanded: true },
-};
-
-export const CharcoalContainer: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![4] },
-};
-
-export const CharcoalContainerMidnightStickyBar: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![4], color: color.options![3] },
-};
-
-export const CharcoalContainerBackgroundExpanded: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![4], containerBackgroundExpanded: true },
 };
 
 export const ControlStickyState: StoryObj = {
