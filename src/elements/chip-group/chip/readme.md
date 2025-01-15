@@ -50,6 +50,12 @@ The `sbb-chip` is a component . . .
 | `disabled` | `disabled` | public  | `boolean` | `false` | Whether the component is disabled.        |
 | `value`    | `value`    | public  | `string`  | `''`    | The value of chip. Will be used as label. |
 
+## Methods
+
+| Name    | Privacy | Description | Parameters | Return | Inherited From |
+| ------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `focus` | public  |             |            | `void` |                |
+
 ## Slots
 
 | Name | Description                                                                               |

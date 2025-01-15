@@ -34,15 +34,34 @@ const defaultArgs: Args = {
 };
 
 const Template = (args: Args): TemplateResult => html`
+  <form>
+    <sbb-form-field>
+      <label>Label</label>
+      <sbb-chip-group ${sbbSpread(args)} name="chip-group-1">
+        <sbb-chip value="chip 1"></sbb-chip>
+        <sbb-chip value="chip 2"></sbb-chip>
+        <sbb-chip value="chip 3"></sbb-chip>
+        <input />
+      </sbb-chip-group>
+    </sbb-form-field>
+  </form>
+
+  <!--<div style="height: 50px"></div>
   <sbb-form-field>
     <label>Label</label>
-    <sbb-chip-group ${sbbSpread(args)}>
+    <sbb-chip-group>
       <sbb-chip value="chip 1"></sbb-chip>
       <sbb-chip value="chip 2"></sbb-chip>
       <sbb-chip value="chip 3"></sbb-chip>
-      <input />
     </sbb-chip-group>
+    <input />
   </sbb-form-field>
+
+  <div style="height: 50px"></div>
+  <sbb-form-field>
+    <label>Label</label>
+    <input />
+  </sbb-form-field>-->
 `;
 
 export const Default: StoryObj = {

@@ -29,13 +29,18 @@ class SbbChipElement extends SbbDisabledMixin(LitElement) {
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
 
+  public override focus(): void {
+    this.shadowRoot!.querySelector<HTMLElement>('.sbb-chip__label')!.focus();
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-chip">
-        <span class="sbb-chip__label">
+        <span class="sbb-chip__label" tabindex="-1">
           <slot>${this.value}</slot>
         </span>
         <sbb-mini-button
+          tabindex="-1"
           class="sbb-chip__delete"
           icon-name="cross-tiny-medium"
           ?disabled=${this.disabled}

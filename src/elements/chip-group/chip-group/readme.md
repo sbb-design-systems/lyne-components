@@ -51,8 +51,15 @@ The `sbb-chip-group` is a component . . .
 | `name`  | `name`    | public  | `string`                  |         | Name of the form element. Will be read from name attribute.    |
 | `value` | `value`   | public  | `string \| null`          | `null`  | Value of the form element.                                     |
 
+## Events
+
+| Name     | Type                | Description                                      | Inherited From |
+| -------- | ------------------- | ------------------------------------------------ | -------------- |
+| `change` | `CustomEvent<void>` | Notifies that the component's value has changed. |                |
+| `input`  | `CustomEvent<void>` | Notifies that the component's value has changed. |                |
+
 ## Slots
 
 | Name | Description                                      |
 | ---- | ------------------------------------------------ |
-|      | Use the unnamed slot to add `sbb-TODO` elements. |
+|      | Use the unnamed slot to add `sbb-chip` elements. |
