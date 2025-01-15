@@ -120,12 +120,12 @@ describe(`sbb-menu`, () => {
     await waitForLitRender(element);
     expect(document.activeElement!.id).to.be.equal('menu-action-1');
 
-    // Move up with left arrow will go to the last element due wrap
+    // Move up with up arrow will go to the last element due wrap
     await sendKeys({ press: 'ArrowUp' });
     await waitForLitRender(element);
     expect(document.activeElement!.id).to.be.equal('menu-action-4');
 
-    // Move to first
+    // Move to first; the sbb-block-link is not a supported element, so move to the first sbb-menu-button
     await sendKeys({ press: 'PageUp' });
     await waitForLitRender(element);
     expect(document.activeElement!.id).to.be.equal('menu-action-1');
