@@ -112,7 +112,7 @@ sbb-form-field {
 }
 
 // Hide popover artifacts
-:is(
+[popover]:where(
     sbb-autocomplete,
     sbb-autocomplete-grid,
     sbb-dialog,
@@ -121,11 +121,13 @@ sbb-form-field {
     sbb-overlay,
     sbb-popover,
     sbb-toast
-  ):popover-open {
+  ) {
   margin: 0;
   padding: 0;
   border: none;
   width: auto;
+  background-color: transparent;
+  color: inherit;
 }
 
 // Ensure stable breadcrumb height during hydrating
