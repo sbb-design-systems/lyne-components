@@ -166,7 +166,7 @@
       "eslint --fix --no-ignore"
     ],
     "*.scss": [
-      "stylelint --fix"
+      "stylelint --fix=true"
     ],
     "*.{js,ts,css,scss,json,md,html,yaml,yml}": [
       "prettier --write"
