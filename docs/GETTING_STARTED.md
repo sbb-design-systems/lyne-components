@@ -349,8 +349,11 @@ to all contained interactive elements.
 ### Stacking
 
 Our overlay components internally use the Popover API to take advantage of positioning elements on the top layer.
-However, since the Popover API is not fully supported by our list of supported browsers (about 90% as of January 25th),
-stacking the overlay context should still be done manually for older browsers.
+As of January 2025, the browser support for the Popover API is at
+[90%](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover#browser_compatibility)
+and available for all [our supported browsers](https://github.com/sbb-design-systems/lyne-components?tab=readme-ov-file#-browser-and-screen-reader-support).
+If you need to support older browsers, you can either attempt to use a polyfill or
+manually configure the stacking order of the overlays.
 Doing it manually may interfere with the z-index of your components.
 Therefore, each overlay component provides a CSS variable to override its z-index.
 Additionally, there is a global CSS variable `--sbb-overlay-default-z-index` which has a default z-index of 1000.
