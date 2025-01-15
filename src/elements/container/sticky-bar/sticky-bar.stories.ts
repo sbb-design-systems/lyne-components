@@ -54,17 +54,17 @@ const color: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
+  color,
   containerColor,
   containerExpanded,
   containerBackgroundExpanded,
-  color,
 };
 
 const defaultArgs: Args = {
+  color: color.options![0],
   containerColor: containerColor.options![0],
   containerExpanded: false,
   containerBackgroundExpanded: false,
-  color: color.options![0],
 };
 
 const actionGroup = (): TemplateResult => html`
