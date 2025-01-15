@@ -71,7 +71,7 @@ describe(`sbb-sticky-bar`, () => {
       });
 
       it(
-        visualDiffDefault.name,
+        '',
         visualDiffDefault.with((setup) => {
           setup.withSnapshotElement(root);
           setup.withPostSetupAction(async () => {
@@ -95,7 +95,6 @@ describe(`sbb-sticky-bar`, () => {
             </sbb-container>`,
             { padding: '0' },
           );
-          await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
         }),
       );
     }
