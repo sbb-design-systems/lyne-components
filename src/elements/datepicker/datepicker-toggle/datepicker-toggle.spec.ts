@@ -31,7 +31,7 @@ describe(`sbb-datepicker-toggle`, () => {
   it('renders and opens popover with picker', async () => {
     const root = await fixture(html`
       <div>
-        <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+        <sbb-datepicker-toggle datepicker="datepicker"></sbb-datepicker-toggle>
         <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
         <input id="datepicker-input" />
       </div>
@@ -61,7 +61,7 @@ describe(`sbb-datepicker-toggle`, () => {
   it('renders and opens popover programmatically', async () => {
     const root = await fixture(html`
       <div>
-        <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+        <sbb-datepicker-toggle datepicker="datepicker"></sbb-datepicker-toggle>
         <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
         <input id="datepicker-input" />
       </div>
@@ -91,7 +91,7 @@ describe(`sbb-datepicker-toggle`, () => {
   it('renders and opens popover programmatically by click', async () => {
     const root = await fixture(html`
       <div>
-        <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+        <sbb-datepicker-toggle datepicker="datepicker"></sbb-datepicker-toggle>
         <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
         <input id="datepicker-input" />
       </div>
@@ -111,7 +111,7 @@ describe(`sbb-datepicker-toggle`, () => {
   it('datepicker is created after the component', async () => {
     const root = await fixture(html`
       <div id="parent">
-        <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+        <sbb-datepicker-toggle datepicker="datepicker"></sbb-datepicker-toggle>
         <input id="datepicker-input" />
       </div>
     `);
@@ -133,8 +133,7 @@ describe(`sbb-datepicker-toggle`, () => {
     root.appendChild(picker);
     await waitForLitRender(root);
 
-    // the datepicker is connected, which triggers a 1st inputUpdated event which calls _init and a 2nd one which sets max/min/disabled
-    expect(inputUpdated.count).to.be.equal(2);
+    expect(inputUpdated.count).to.be.equal(1);
     expect(trigger).not.to.have.attribute('disabled');
   });
 
@@ -142,7 +141,7 @@ describe(`sbb-datepicker-toggle`, () => {
     const root = await fixture(html`
       <div>
         <div id="parent">
-          <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+          <sbb-datepicker-toggle datepicker="datepicker"></sbb-datepicker-toggle>
           <input id="datepicker-input" />
         </div>
         <div id="other"></div>
@@ -165,9 +164,8 @@ describe(`sbb-datepicker-toggle`, () => {
     root.querySelector<HTMLDivElement>('#other')!.appendChild(picker);
     await waitForLitRender(root);
 
-    // the datepicker is connected on a different parent, so no changes are triggered
     expect(inputUpdated.count).to.be.equal(0);
-    expect(trigger).to.have.attribute('disabled');
+    expect(trigger).not.to.have.attribute('disabled');
   });
 
   it('renders in form field, open calendar and change date', async () => {
@@ -216,6 +214,7 @@ describe(`sbb-datepicker-toggle`, () => {
     input.value = '';
     input.dispatchEvent(new Event('input'));
     input.dispatchEvent(new Event('change'));
+    await waitForLitRender(element);
 
     expect(input.value).to.be.equal('');
     expect(calendar.selected).to.be.null;

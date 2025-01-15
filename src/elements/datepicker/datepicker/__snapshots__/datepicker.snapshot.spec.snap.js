@@ -14,7 +14,7 @@ snapshots["sbb-datepicker renders DOM"] =
     placeholder="DD.MM.YYYY"
     type="text"
   >
-  <sbb-datepicker>
+  <sbb-datepicker id="sbb-datepicker-1">
   </sbb-datepicker>
   <sbb-datepicker-previous-day
     aria-disabled="true"
