@@ -97,10 +97,47 @@ const parameters: Parameters = {
   },
 };
 
-const preview: Preview = {
-  decorators: [withBackgroundDecorator, withLeanDecorator],
-  parameters,
-  tags: ['autodocs'],
+const forwardedEvents = new WeakSet<Event>();
+
+const openCloseEventsForwarder = (event: Event): void => {
+  const root = document && document.getElementById('storybook-root');
+
+  if (root && !forwardedEvents.has(event)) {
+    const eventConstructor = Object.getPrototypeOf(event).constructor;
+    const copiedEvent: Event = new eventConstructor(event.type, event);
+    forwardedEvents.add(copiedEvent);
+    root.dispatchEvent(copiedEvent);
+  }
 };
 
-export default preview;
+export default {
+  decorators: [
+    withBackgroundDecorator,
+    withLeanDecorator,
+    (story) => {
+      const root = document && document.getElementById('storybook-root');
+
+      if (!root) {
+        return story();
+      }
+
+      for (const eventName of [
+        'willOpen',
+        'didOpen',
+        'willClose',
+        'didClose',
+        'willStick',
+        'didStick',
+        'willUnstick',
+        'didUnstick',
+      ]) {
+        root.removeEventListener(eventName, openCloseEventsForwarder, { capture: true });
+        root.addEventListener(eventName, openCloseEventsForwarder, { capture: true });
+      }
+
+      return story();
+    },
+  ],
+  parameters,
+  tags: ['autodocs'],
+} satisfies Preview;
