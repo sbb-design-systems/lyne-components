@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.0.3...v2.1.0) (2025-01-16)
+
+
+### Features
+
+* improve stacking context for overlay components ([#3349](https://github.com/sbb-design-systems/lyne-components/issues/3349)) ([7ea0640](https://github.com/sbb-design-systems/lyne-components/commit/7ea0640a4a494894f61ba47032caa3e6182119d8))
+* **sbb-container, sbb-sticky-bar:** add 'midnight' and 'charcoal' color variants ([#3337](https://github.com/sbb-design-systems/lyne-components/issues/3337)) ([6eee274](https://github.com/sbb-design-systems/lyne-components/commit/6eee274308fe7bd2d8d1146a52b7c699be9c9163))
+* **sbb-dialog:** introduce `backdrop` property to control backdrop density ([#3325](https://github.com/sbb-design-systems/lyne-components/issues/3325)) ([813b141](https://github.com/sbb-design-systems/lyne-components/commit/813b1416f4193c6b370c63276676949f25b1e755)), closes [#2806](https://github.com/sbb-design-systems/lyne-components/issues/2806)
+* **sbb-menu:** improvements on arrow navigation ([#3341](https://github.com/sbb-design-systems/lyne-components/issues/3341)) ([d90364f](https://github.com/sbb-design-systems/lyne-components/commit/d90364f8bb1fb9f09706982d12f6cf3db88c8247))
+
+
+### Bug Fixes
+
+* fix active color of buttons ([#3327](https://github.com/sbb-design-systems/lyne-components/issues/3327)) ([4a13b78](https://github.com/sbb-design-systems/lyne-components/commit/4a13b78c948ae8e47ef2f9dab891309cec416de3))
+* handle datepicker association reliably ([#3339](https://github.com/sbb-design-systems/lyne-components/issues/3339)) ([be060fb](https://github.com/sbb-design-systems/lyne-components/commit/be060fb7cd4e6ba9a8eddd2ee28fc99b0303b6c6)), closes [#3331](https://github.com/sbb-design-systems/lyne-components/issues/3331)
+* **sbb-select:** handle properties change ([#3334](https://github.com/sbb-design-systems/lyne-components/issues/3334)) ([d6b914a](https://github.com/sbb-design-systems/lyne-components/commit/d6b914a39a803bb75ea803fc44bce70451e3e470))
+* **sbb-select:** respect text node mutations for displayed value ([#3329](https://github.com/sbb-design-systems/lyne-components/issues/3329)) ([707366a](https://github.com/sbb-design-systems/lyne-components/commit/707366a101c4193eb6b57f853f9c68b31f96f426)), closes [#3298](https://github.com/sbb-design-systems/lyne-components/issues/3298)
+
+
+### Documentation
+
+* fix radio button group change event usages ([#3330](https://github.com/sbb-design-systems/lyne-components/issues/3330)) ([c5657de](https://github.com/sbb-design-systems/lyne-components/commit/c5657de5ecb956c2e53304275103970fc5b2aa3c))
+
 ## [2.0.3](https://github.com/sbb-design-systems/lyne-components/compare/v2.0.2...v2.0.3) (2024-12-20)
 
 
